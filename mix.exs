@@ -43,7 +43,7 @@ defmodule VoxPublica.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:cloak_ecto, "~> 1.0"},
-      
+
       {:pointers_ulid, "~> 0.2"},
       # {:pointers_ulid, path: "../pointers_ulid", override: true},
 
@@ -57,6 +57,7 @@ defmodule VoxPublica.MixProject do
       # {:cpub_core, path: "../cpub_core"},
       # {:pager, path: "../pager"},
       # {:resolute, path: "../resolute"},
+      {:activity_pub, git: "https://gitlab.com/CommonsPub/activitypub.git", branch: :develop},
 
       {:phoenix_live_reload, "~> 1.2", only: :dev},
 

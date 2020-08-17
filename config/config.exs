@@ -29,4 +29,7 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
+config :activity_pub, :adapter, VoxPublica.ActivityPub.Adapter
+config :activity_pub, :repo, VoxPublica.Repo
+
 import_config "#{Mix.env()}.exs"
