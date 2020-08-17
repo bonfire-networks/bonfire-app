@@ -1,5 +1,6 @@
 defmodule VoxPublica.Web.Router do
   use VoxPublica.Web, :router
+  use ActivityPubWeb.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
