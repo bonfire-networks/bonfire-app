@@ -58,6 +58,7 @@ defmodule VoxPublica.MixProject do
       # {:pager, path: "../pager"},
       # {:resolute, path: "../resolute"},
       {:activity_pub, git: "https://gitlab.com/CommonsPub/activitypub.git", branch: :develop},
+      {:oban, "~> 2.0.0"},
 
       {:phoenix_live_reload, "~> 1.2", only: :dev},
 
