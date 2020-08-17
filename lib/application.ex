@@ -12,6 +12,7 @@ defmodule VoxPublica.Application do
       VoxPublica.Repo,
       {Phoenix.PubSub, name: VoxPublica.PubSub},
       VoxPublica.Web.Endpoint,
+      {Oban, Application.get_env(:vox_publica, Oban)}
     ]
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
