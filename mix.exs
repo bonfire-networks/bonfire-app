@@ -38,7 +38,7 @@ defmodule VoxPublica.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      
+
       {:pointers_ulid, "~> 0.2"},
       # {:pointers_ulid, path: "../pointers_ulid", override: true},
 
@@ -81,6 +81,8 @@ defmodule VoxPublica.MixProject do
 
       # {:pager, path: "../pager"},
       # {:resolute, path: "../resolute"},
+      {:activity_pub, git: "https://gitlab.com/CommonsPub/activitypub.git", branch: :develop},
+      {:oban, "~> 2.0.0"},
 
       {:faker, "~> 0.14"},
 

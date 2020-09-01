@@ -49,4 +49,12 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
+config :activity_pub, :adapter, VoxPublica.ActivityPub.Adapter
+config :activity_pub, :repo, VoxPublica.Repo
+
+config :vox_publica, Oban,
+  repo: VoxPublica.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [federator_incoming: 50, federator_outgoing: 50]
+
 import_config "#{Mix.env()}.exs"
