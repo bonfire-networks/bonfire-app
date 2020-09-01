@@ -5,7 +5,7 @@ defmodule VoxPublica.MixProject do
     [
       app: :vox_publica,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -21,13 +21,9 @@ defmodule VoxPublica.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
   defp deps do
     [
       {:phoenix_live_view, "~> 0.14"},
@@ -42,25 +38,56 @@ defmodule VoxPublica.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:cloak_ecto, "~> 1.0"},
       
       {:pointers_ulid, "~> 0.2"},
       # {:pointers_ulid, path: "../pointers_ulid", override: true},
 
-      {:pointers, "~> 0.3"},
-      # {:pointers, path: "../pointers", override: true},
+      # {:pointers, "~> 0.4.2"},
+      # {:pointers, git: "https://github.com/commonspub/pointers", branch: "main"},
+      {:pointers, path: "../pointers", override: true},
 
       {:flexto, "~> 0.2"},
       # {:flexto, path: "../flexto", override: true},
 
-      # {:cpub_core, "~> 0.1"},
-      # {:cpub_core, path: "../cpub_core"},
+      # {:cpub_accounts, git: "https://github.com/commonspub/cpub_accounts", branch: "main"},
+      {:cpub_accounts, path: "../cpub_accounts", override: true},
+
+      # {:cpub_blocks, git: "https://github.com/commonspub/cpub_blocks", branch: "main"},
+      {:cpub_blocks, path: "../cpub_blocks", override: true},
+
+      # {:cpub_bookmarks, git: "https://github.com/commonspub/cpub_bookmarks", branch: "main"},
+      # # {:cpub_bookmarks, path: "../cpub_bookmarks", override: true},
+
+      # {:cpub_characters, git: "https://github.com/commonspub/cpub_characters", branch: "main"},
+      {:cpub_characters, path: "../cpub_characters", override: true},
+
+      # {:cpub_circles, git: "https://github.com/commonspub/cpub_circles", branch: "main"},
+      # # {:cpub_circles, path: "../cpub_circles", override: true},
+
+      # {:cpub_communities, git: "https://github.com/commonspub/cpub_communities", branch: "main"},
+      {:cpub_communities, path: "../cpub_communities", override: true},
+
+      # {:cpub_emails, git: "https://github.com/commonspub/cpub_emails", branch: "main"},
+      {:cpub_emails, path: "../cpub_emails", override: true},
+
+      # {:cpub_local_auth, git: "https://github.com/commonspub/cpub_local_auth", branch: "main"},
+      {:cpub_local_auth, path: "../cpub_local_auth", override: true},
+
+      # {:cpub_profiles, git: "https://github.com/commonspub/cpub_profiles", branch: "main"},
+      {:cpub_profiles, path: "../cpub_profiles", override: true},
+
+      # {:cpub_users, git: "https://github.com/commonspub/cpub_users", branch: "main"},
+      {:cpub_users, path: "../cpub_users", override: true},
+
       # {:pager, path: "../pager"},
       # {:resolute, path: "../resolute"},
 
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:faker, "~> 0.14"},
 
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:dbg, "~> 1.0", only: [:dev, :test]},
       {:floki, ">= 0.0.0", only: :test},
+
     ]
   end
 

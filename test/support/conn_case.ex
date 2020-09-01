@@ -1,4 +1,4 @@
-defmodule VoxPublicaWeb.ConnCase do
+defmodule VoxPublica.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -22,12 +22,12 @@ defmodule VoxPublicaWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import VoxPublicaWeb.ConnCase
+      import VoxPublica.ConnCase
 
-      alias VoxPublicaWeb.Router.Helpers, as: Routes
+      alias VoxPublica.Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint VoxPublicaWeb.Endpoint
+      @endpoint VoxPublica.Web.Endpoint
     end
   end
 

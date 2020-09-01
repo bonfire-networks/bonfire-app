@@ -1,16 +1,36 @@
 use Mix.Config
 
 config :pointers,
-  search_path: [:cpub_core, :vox_publica]
+  search_path: [
+    :cpub_accounts,
+    :cpub_communities,
+    :cpub_emails,
+    :cpub_local_auth,
+    :cpub_profiles,
+    :cpub_users,
+    :vox_publica,
+  ]
 
-# config :cpub_core, CommonsPub.Core.Pseudonym,
-#   regex: ~r/[a-zA-Z_][a-zA-Z0-9_]{5,29}/, # 6-30 characters
-#   canonicalise: &String.lowercase/1
+alias CommonsPub.Accounts.Account
+alias CommonsPub.Emails.Email
+alias CommonsPub.LocalAuth.LoginCredential
+alias CommonsPub.Profiles.Profile
+alias CommonsPub.Users.User
 
-# config :cpub_core, CommonsPub.Core.User,
-#   has_one: [
-#     pseudonym: {CommonsPub.Core.Pseudonym, foreign_key: :id},
-#   ]
+config :cpub_accounts, Account,
+  has_one: [email:            {Email,           foreign_key: :id}],
+  has_one: [login_credential: {LoginCredential, foreign_key: :id}]
+
+config :cpub_local_auth, LoginCredential,
+  belongs_to: [account: {Account, foreign_key: :id, define_field: false}],
+  rename_attrs: [email: :identity],
+  password: [length: [min: 8, max: 64]]
+
+config :cpub_profiles, Profile,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
+config :cpub_users, User,
+  has_one: [profile: {Profile, foreign_key: :id}]
 
 config :vox_publica,
   ecto_repos: [VoxPublica.Repo]

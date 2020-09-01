@@ -1,4 +1,4 @@
-defmodule VoxPublicaWeb.ChannelCase do
+defmodule VoxPublica.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,10 +21,10 @@ defmodule VoxPublicaWeb.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       import Phoenix.ChannelTest
-      import VoxPublicaWeb.ChannelCase
+      import VoxPublica.ChannelCase
 
       # The default endpoint for testing
-      @endpoint VoxPublicaWeb.Endpoint
+      @endpoint VoxPublica.Web.Endpoint
     end
   end
 

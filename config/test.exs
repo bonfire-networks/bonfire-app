@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :logger, level: :warn
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -18,5 +20,6 @@ config :vox_publica, VoxPublica.Web.Endpoint,
   http: [port: 4002],
   server: false
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+config :argon2_elixir,
+  t_cost: 1,
+  m_cost: 8
