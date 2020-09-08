@@ -1,7 +1,7 @@
 defmodule VoxPublica.AccountsTest do
 
   use VoxPublica.DataCase, async: true
-  alias VoxPublica.{Accounts, Fake, Repo}
+  alias VoxPublica.{Accounts, Fake}
 
   test "creation works" do
     attrs = Fake.account()
