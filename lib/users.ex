@@ -28,4 +28,13 @@ defmodule VoxPublica.Users do
       preload: [accounted: a, character: c]
   end
 
+  def by_username(username), do: Repo.single(by_username_query(username))
+
+  def by_username_query(username) do
+    from u in User,
+      join: p in assoc(u, :profile),
+      join: c in assoc(u, :character),
+      where: c.username == ^username,
+      preload: [profile: p, character: c]
+  end
 end
