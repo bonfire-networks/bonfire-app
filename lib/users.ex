@@ -11,11 +11,14 @@ defmodule VoxPublica.Users do
   def create(%Account{id: id}, attrs),
     do: Repo.put(changeset(Map.put(attrs, :account_id, id)))
 
+  def update(%User{} = user, attrs), do: Repo.update(changeset(user, attrs))
+
   def changeset(user \\ %User{}, attrs) do
     User.changeset(user, attrs)
     |> Changesets.cast_assoc(:accounted, attrs)
     |> Changesets.cast_assoc(:character, attrs)
     |> Changesets.cast_assoc(:profile, attrs)
+    |> Changesets.cast_assoc(:actor, attrs)
   end
 
   def by_account(%Account{}=account), do: Repo.all(by_account_query(account))
@@ -34,7 +37,9 @@ defmodule VoxPublica.Users do
     from u in User,
       join: p in assoc(u, :profile),
       join: c in assoc(u, :character),
+      join: a in assoc(u, :actor),
+      join: ac in assoc(u, :accounted),
       where: c.username == ^username,
-      preload: [profile: p, character: c]
+      preload: [profile: p, character: c, actor: a, accounted: ac]
   end
 end

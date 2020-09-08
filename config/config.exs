@@ -23,6 +23,7 @@ config :pointers,
 
 alias CommonsPub.Accounts.{Account, Accounted}
 alias CommonsPub.{
+  Actors.Actor,
   Blocks.Block,
   Characters.Character,
   Comments.Comment,
@@ -61,10 +62,14 @@ config :cpub_local_auth, LoginCredential,
 config :cpub_profiles, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
+config :cpub_actors, Actor,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
 config :cpub_users, User,
   has_one: [accounted: {Accounted, foreign_key: :id}],
   has_one: [character: {Character, foreign_key: :id}],
-  has_one: [profile:   {Profile,   foreign_key: :id}]
+  has_one: [profile:   {Profile,   foreign_key: :id}],
+  has_one: [actor:     {Actor,     foreign_key: :id}]
 
 config :vox_publica,
   ecto_repos: [VoxPublica.Repo]
