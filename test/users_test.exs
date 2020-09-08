@@ -1,27 +1,25 @@
 defmodule VoxPublica.UsersTest do
 
   use VoxPublica.DataCase, async: true
-  alias VoxPublica.{Accounts, Fake, Repo, Users}
+  alias VoxPublica.{Accounts, Fake, Users}
 
   test "creation works" do
-    attrs = Fake.account()
-    assert {:ok, account} = Accounts.register(attrs)
-    # user = User.
+    assert {:ok, account} = Accounts.register(Fake.account())
+    attrs = Fake.user()
+    assert {:ok, user} = Users.create(account, attrs)
+    assert attrs.name == user.profile.name
+    assert attrs.summary == user.profile.summary
+    assert attrs.username == user.character.username
   end
 
-  # test "emails must be unique" do
-  #   attrs = Fake.account()
-  #   assert {:ok, account} = Accounts.create(attrs)
-  #   assert account.login_credential.identity == attrs[:email]
-  #   assert Argon2.verify_pass(attrs[:password], account.login_credential.password_hash)
-  #   assert {:error, changeset} = Accounts.create(attrs)
-  #   assert %{email: email, login_credential: lc} = changeset.changes
-
-  #   if not email.valid?,
-  #     do: assert([email: {_,_}] = email.errors)
-
-  #   if not lc.valid?,
-  #     do: assert([email: {_,_}] = lc.errors)
-  # end
+  test "usernames must be unique" do
+    assert {:ok, account} = Accounts.register(Fake.account)
+    attrs = Fake.user()
+    assert {:ok, user} = Users.create(account, attrs)
+    assert {:error, changeset} = Users.create(account, attrs)
+    assert %{character: character, profile: profile} = changeset.changes
+    assert profile.valid?
+    assert([username: {_,_}] = character.errors)
+  end
 
 end

@@ -9,7 +9,7 @@ defmodule VoxPublica.Users do
   import Ecto.Query
 
   def create(%Account{id: id}, attrs),
-    do: Repo.insert(changeset(Map.put(attrs, :account_id, id)))
+    do: Repo.put(changeset(Map.put(attrs, :account_id, id)))
 
   def changeset(user \\ %User{}, attrs) do
     User.changeset(user, attrs)
