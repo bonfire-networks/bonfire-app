@@ -1,3 +1,0 @@
-defmodule VoxPublica do
-  
-end
