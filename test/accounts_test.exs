@@ -3,26 +3,54 @@ defmodule VoxPublica.AccountsTest do
   use VoxPublica.DataCase, async: true
   alias VoxPublica.{Accounts, Fake}
 
-  test "registration works" do
-    attrs = Fake.account()
-    assert {:ok, account} = Accounts.register(attrs)
-    assert account.login_credential.identity == attrs[:email]
-    assert Argon2.verify_pass(attrs[:password], account.login_credential.password_hash)
+  describe "[registration]" do
+
+    test "works" do
+      attrs = Fake.account()
+      assert {:ok, account} = Accounts.register(attrs)
+      assert account.login_credential.identity == attrs[:email]
+      assert Argon2.verify_pass(attrs[:password], account.login_credential.password_hash)
+    end
+
+    test "emails must be unique" do
+      attrs = Fake.account()
+      assert {:ok, account} = Accounts.register(attrs)
+      assert account.login_credential.identity == attrs[:email]
+      assert Argon2.verify_pass(attrs[:password], account.login_credential.password_hash)
+      assert {:error, :taken} = Accounts.register(attrs)
+    end
+
   end
 
-  test "emails must be unique" do
-    attrs = Fake.account()
-    assert {:ok, account} = Accounts.register(attrs)
-    assert account.login_credential.identity == attrs[:email]
-    assert Argon2.verify_pass(attrs[:password], account.login_credential.password_hash)
-    assert {:error, changeset} = Accounts.register(attrs)
-    assert %{email: email, login_credential: lc} = changeset.changes
+  describe "[confirm_email]" do
 
-    if not email.valid?,
-      do: assert([email: {_,_}] = email.errors)
+    test "works given an account" do
+      attrs = Fake.account()
+      assert {:ok, account} = Accounts.register(attrs)
+      assert {:ok, account} = Accounts.confirm_email(account)
+      assert account.email.email_confirmed_at
+      assert is_nil(account.email.email_confirm_token)
+    end
 
-    if not lc.valid?,
-      do: assert([email: {_,_}] = lc.errors)
   end
+
+  describe "[login]" do
+
+    test "account must have a confirmed email" do
+      attrs = Fake.account()
+      assert {:ok, account} = Accounts.register(attrs)
+      assert {:error, :email_not_confirmed} == Accounts.login(attrs)
+    end
+
+    test "success" do
+      attrs = Fake.account()
+      assert {:ok, account} = Accounts.register(attrs)
+      {:ok, _} = Accounts.confirm_email(account)
+      assert {:ok, account} = Accounts.login(attrs)
+      assert account.email.email == attrs[:email]
+    end
+
+  end
+
 
 end

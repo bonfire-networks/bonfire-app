@@ -1,13 +1,16 @@
 <%= if @registered do %>
   <div class="info">
-
     <span>
       Now we need you to confirm your email address. We've mailed
       you a link. Please click it to continue.
     </span>
-
   </div>
 <% else %>
+  <%= if @register_error == :taken do %>
+    <div class="error">
+      <span>
+    </div>
+  <% end %>
   <%= f = form_for @changeset, "#", [id: "register-form", phx_submit: :submit] %>
     <%= label f, :email %>
     <%= text_input f, :email %>

@@ -44,12 +44,17 @@ defmodule VoxPublica.Web.RegisterLive.Test do
     assert [] = Floki.find(form, "span.invalid-feedback[phx-feedback-for='register-form_password']")
     assert "can't be blank" == Floki.text(password_error)
     assert [_] = Floki.find(form, "button[type='submit']")
+  end
+
+  test "success", %{conn: conn} do
+    {view, _} = floki_live(conn, "/register")
+    email = Fake.email()
+    password = Fake.password()
     doc = floki_submit(view, :submit, %{"email" => email, "password" => password})
     assert [div] = Floki.find(doc, "div.info")
     assert [span] = Floki.find(div, "span")
     assert Floki.text(span) =~ ~r/mailed.+you a link/s
     assert [] = Floki.find(doc, "#register-form")
   end
-
 
 end
