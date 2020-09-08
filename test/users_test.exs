@@ -22,4 +22,13 @@ defmodule VoxPublica.UsersTest do
     assert([username: {_,_}] = character.errors)
   end
 
+  test "fetching by username" do
+    assert {:ok, account} = Accounts.register(Fake.account)
+    attrs = Fake.user()
+    assert {:ok, user} = Users.create(account, attrs)
+    assert {:ok, user} = Users.by_username(attrs.username)
+    assert user.profile.name == attrs.name
+    assert user.profile.summary == attrs.summary
+    assert user.character.username == attrs.username
+  end
 end
