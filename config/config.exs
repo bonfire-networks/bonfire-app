@@ -36,7 +36,7 @@ alias CommonsPub.{
   Profiles.Profile,
   Threads.Thread,
   Users.User,
-} 
+}
 
 config :cpub_accounts, Account,
   has_one: [email:            {Email,           foreign_key: :id}],
@@ -49,7 +49,7 @@ config :cpub_accounts, Accounted,
 
 config :cpub_characters, Character,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
-  
+
 config :cpub_emails, Email,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
 
@@ -90,5 +90,9 @@ config :vox_publica, Oban,
   repo: VoxPublica.Repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [federator_incoming: 50, federator_outgoing: 50]
+
+config :mime, :types, %{
+  "application/activity+json" => ["activity+json"]
+}
 
 import_config "#{Mix.env()}.exs"
