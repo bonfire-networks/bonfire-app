@@ -3,6 +3,7 @@ defmodule VoxPublica.Repo.Migrations.ImportWorld do
 
   import CommonsPub.Accounts.Account.Migration
   import CommonsPub.Accounts.Accounted.Migration
+  import CommonsPub.Actors.Actor.Migration
   import CommonsPub.Characters.Character.Migration
   # import CommonsPub.Circles.Circle.Migration
   import CommonsPub.Emails.Email.Migration
@@ -21,6 +22,7 @@ defmodule VoxPublica.Repo.Migrations.ImportWorld do
     migrate_user()
     migrate_character()
     migrate_profile()
+    migrate_actor()
   end
 
 end

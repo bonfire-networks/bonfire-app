@@ -44,7 +44,7 @@ defmodule VoxPublica.MixProject do
 
       # {:pointers, "~> 0.5.1"},
       # {:pointers, git: "https://github.com/commonspub/pointers", branch: "main"},
-      {:pointers, path: "../pointers", override: true},
+      {:pointers, "0.5.1", override: true},
 
       {:flexto, "~> 0.2.1", override: true},
       # {:flexto, path: "../flexto", override: true},
@@ -91,6 +91,8 @@ defmodule VoxPublica.MixProject do
       {:cpub_users, "~> 0.1"},
       # {:cpub_users, git: "https://github.com/commonspub/cpub_users", branch: "main"},
       # {:cpub_users, path: "../cpub_users", override: true},
+
+      {:cpub_actors, git: "https://github.com/commonspub/cpub_actors", branch: "main"},
 
       {:activity_pub, git: "https://gitlab.com/CommonsPub/activitypub.git", branch: :develop},
       {:oban, "~> 2.0.0"},
