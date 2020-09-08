@@ -42,9 +42,9 @@ defmodule VoxPublica.MixProject do
       {:pointers_ulid, "~> 0.2"},
       # {:pointers_ulid, path: "../pointers_ulid", override: true},
 
-      {:pointers, "~> 0.5.1"},
+      # {:pointers, "~> 0.5.1"},
       # {:pointers, git: "https://github.com/commonspub/pointers", branch: "main"},
-      # {:pointers, path: "../pointers", override: true},
+      {:pointers, path: "../pointers", override: true},
 
       {:flexto, "~> 0.2.1", override: true},
       # {:flexto, path: "../flexto", override: true},
