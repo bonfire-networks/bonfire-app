@@ -16,7 +16,7 @@ defmodule VoxPublica.Accounts.LoginForm do
   def changeset(form \\ %LoginForm{}, attrs) do
     form
     |> Changeset.cast(attrs, @cast)
-    |> Changeset.validate_required(attrs, @required)
+    |> Changeset.validate_required(@required)
   end
 
 end
