@@ -1,11 +1,22 @@
-<%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :submit] %>
-  <%= label f, :email %>
-  <%= text_input f, :email %>
-  <%= error_tag f, :email %>
+<%= if @registered do %>
+  <div class="info">
 
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+    <span>
+      Now we need you to confirm your email address. We've mailed
+      you a link. Please click it to continue.
+    </span>
 
-  <%= submit "Sign up" %>
-</form>
+  </div>
+<% else %>
+  <%= f = form_for @changeset, "#", [id: "register-form", phx_submit: :submit] %>
+    <%= label f, :email %>
+    <%= text_input f, :email %>
+    <%= error_tag f, :email %>
+  
+    <%= label f, :password %>
+    <%= password_input f, :password %>
+    <%= error_tag f, :password %>
+  
+    <%= submit "Sign up" %>
+  </form>
+<% end %>

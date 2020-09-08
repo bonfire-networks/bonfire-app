@@ -3,13 +3,19 @@ defmodule VoxPublica.Accounts do
   alias CommonsPub.Accounts.Account
   alias Ecto.Changeset
   alias Pointers.Changesets
-  alias VoxPublica.Accounts.LoginForm
+  alias VoxPublica.Accounts.{LoginForm, RegisterForm}
   alias VoxPublica.Repo
   import Ecto.Query
 
-  def register(attrs), do: Repo.put(changeset(attrs))
+  def register(attrs) do
+    changeset = RegisterForm.changeset(attrs)
+    with {:ok, form} <- Changeset.apply_action(changeset, :insert),
+         {:error, changeset2} <- Repo.put(create_changeset(Map.from_struct(form))) do
+      %{ changeset | errors: changeset2.errors }
+    end
+  end
 
-  def changeset(attrs) do
+  defp create_changeset(attrs) do
     %Account{email: nil, login_credential: nil}
     |> Account.changeset(attrs)
     |> Changesets.cast_assoc(:email, attrs)
