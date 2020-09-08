@@ -40,4 +40,10 @@ defmodule VoxPublica.ActivityPub.Adapter do
       _ -> {:error, "not found"}
     end
   end
+
+  # FIXME: make this actually do the update
+  def update_local_actor(actor, params) do
+    actor = Map.put(actor, :keys, params.keys)
+    {:ok, actor}
+  end
 end
