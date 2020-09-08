@@ -3,7 +3,7 @@ defmodule VoxPublica.AccountsTest do
   use VoxPublica.DataCase, async: true
   alias VoxPublica.{Accounts, Fake}
 
-  test "creation works" do
+  test "registration works" do
     attrs = Fake.account()
     assert {:ok, account} = Accounts.register(attrs)
     assert account.login_credential.identity == attrs[:email]

@@ -3,9 +3,9 @@ defmodule VoxPublica.Fake do
   def email, do: Faker.Internet.email()
   # def location, do: Faker.Pokemon.location()
   def name, do: Faker.Person.name()
-  def password, do: Faker.random_bytes(10)
+  def password, do: Base.encode64(Faker.random_bytes(10), pad: false)
   def summary, do: Faker.Lorem.sentence(6..15)
-  def username, do: Faker.Internet.user_name()
+  def username, do: String.replace(Faker.Internet.user_name(), ~r/\./, "_")
 
   def account(base \\ %{}) do
     base

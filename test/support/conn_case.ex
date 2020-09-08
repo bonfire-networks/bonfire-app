@@ -22,8 +22,10 @@ defmodule VoxPublica.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      import Phoenix.LiveViewTest
       import VoxPublica.ConnCase
-
+      import VoxPublica.ConnHelpers
+      alias VoxPublica.Fake
       alias VoxPublica.Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
@@ -40,4 +42,5 @@ defmodule VoxPublica.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
+
 end

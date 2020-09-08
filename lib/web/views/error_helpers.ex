@@ -9,12 +9,19 @@ defmodule VoxPublica.Web.ErrorHelpers do
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do
-    Enum.map(Keyword.get_values(form.errors, field), fn error ->
-      content_tag(:span, translate_error(error),
-        class: "invalid-feedback",
-        phx_feedback_for: input_id(form, field)
-      )
+    Keyword.get_values(form.errors, field)
+    |> Enum.reduce({[], MapSet.new()}, fn error, {errors, seen} ->
+      if MapSet.member?(seen, error) do
+        {errors, seen}
+      else
+        tag = content_tag(:span, translate_error(error),
+          class: "invalid-feedback",
+          phx_feedback_for: input_id(form, field)
+        )
+        {[tag | errors], MapSet.put(seen, error)}
+      end
     end)
+    |> elem(0)
   end
 
   @doc """
