@@ -7,7 +7,7 @@ defmodule VoxPublica.Accounts do
   alias VoxPublica.Repo
   import Ecto.Query
 
-  def register(attrs), do: Repo.insert(changeset(attrs))
+  def register(attrs), do: Repo.put(changeset(attrs))
 
   def changeset(attrs) do
     %Account{email: nil, login_credential: nil}

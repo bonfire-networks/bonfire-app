@@ -5,7 +5,7 @@ defmodule VoxPublica.UsersTest do
 
   test "creation works" do
     attrs = Fake.account()
-    assert {:ok, account} = Accounts.create(attrs)
+    assert {:ok, account} = Accounts.register(attrs)
     # user = User.
   end
 
