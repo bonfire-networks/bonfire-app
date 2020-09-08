@@ -2,24 +2,56 @@ use Mix.Config
 
 config :pointers,
   search_path: [
+    :cpub_activities,
     :cpub_accounts,
+    :cpub_blocks,
+    :cpub_bookmarks,
+    :cpub_characters,
+    :cpub_comments,
     :cpub_communities,
+    :cpub_circles,
     :cpub_emails,
+    :cpub_features,
+    :cpub_follows,
+    :cpub_likes,
     :cpub_local_auth,
     :cpub_profiles,
+    :cpub_threads,
     :cpub_users,
     :vox_publica,
   ]
 
-alias CommonsPub.Accounts.Account
-alias CommonsPub.Emails.Email
-alias CommonsPub.LocalAuth.LoginCredential
-alias CommonsPub.Profiles.Profile
-alias CommonsPub.Users.User
+alias CommonsPub.Accounts.{Account, Accounted}
+alias CommonsPub.{
+  Blocks.Block,
+  Characters.Character,
+  Comments.Comment,
+  Communities.Communities,
+  Circles.Circle,
+  Emails.Email,
+  Features.Feature,
+  Follows.Follow,
+  Likes.Like,
+  LocalAuth.LoginCredential,
+  Profiles.Profile,
+  Threads.Thread,
+  Users.User,
+} 
 
 config :cpub_accounts, Account,
   has_one: [email:            {Email,           foreign_key: :id}],
-  has_one: [login_credential: {LoginCredential, foreign_key: :id}]
+  has_one: [login_credential: {LoginCredential, foreign_key: :id}],
+  has_many: [accounted: Accounted],
+  has_many: [users:     [through: [:accounted, :user]]]
+
+config :cpub_accounts, Accounted,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
+config :cpub_characters, Character,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+  
+config :cpub_emails, Email,
+  belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
 
 config :cpub_local_auth, LoginCredential,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}],
@@ -30,7 +62,9 @@ config :cpub_profiles, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
 config :cpub_users, User,
-  has_one: [profile: {Profile, foreign_key: :id}]
+  has_one: [accounted: {Accounted, foreign_key: :id}],
+  has_one: [character: {Character, foreign_key: :id}],
+  has_one: [profile:   {Profile,   foreign_key: :id}]
 
 config :vox_publica,
   ecto_repos: [VoxPublica.Repo]

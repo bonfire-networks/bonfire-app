@@ -4,7 +4,7 @@ defmodule VoxPublica.Fake do
   # def location, do: Faker.Pokemon.location()
   def name, do: Faker.Person.name()
   def password, do: Faker.random_bytes(10)
-  def summary, do: Faker.Pokemon.name()
+  def summary, do: Faker.Lorem.sentence(6..15)
   def username, do: Faker.Internet.user_name()
 
   def account(base \\ %{}) do
