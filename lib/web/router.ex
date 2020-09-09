@@ -16,6 +16,9 @@ defmodule VoxPublica.Web.Router do
     live "/", IndexLive, :index
     live "/register", SignupLive, :register
     live "/login", LoginLive, :login
+    live "/password/forgot", ResetPasswordLive, :reset_password
+    live "/password/change", ChangePasswordLive, :change_password
+    live "/password/change/:token", ChangePasswordLive, :change_password_confirm
     # get "/confirm-email/:token", ConfirmEmailController, :confirm_email
     # live "/reset-password", ResetPasswordLive, :reset_password
     # live "/reset-password/:token", ResetPasswordLive, :reset_password_confirm
