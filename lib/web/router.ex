@@ -14,7 +14,7 @@ defmodule VoxPublica.Web.Router do
   scope "/", VoxPublica.Web do
     pipe_through :browser
     live "/", IndexLive, :index
-    live "/register", SignupLive, :register
+    live "/signup", SignupLive, :signup
     live "/login", LoginLive, :login
     live "/password/forgot", ResetPasswordLive, :reset_password
     live "/password/change", ChangePasswordLive, :change_password

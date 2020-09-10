@@ -1,8 +1,8 @@
-defmodule VoxPublica.Accounts.RegisterForm do
+defmodule VoxPublica.Accounts.SignupForm do
 
   use Ecto.Schema
   alias Ecto.Changeset
-  alias VoxPublica.Accounts.RegisterForm
+  alias VoxPublica.Accounts.SignupForm
 
   embedded_schema do
     field :form, :string, virtual: true
@@ -13,7 +13,7 @@ defmodule VoxPublica.Accounts.RegisterForm do
   @cast [:email, :password]
   @required @cast
 
-  def changeset(form \\ %RegisterForm{}, attrs) do
+  def changeset(form \\ %SignupForm{}, attrs) do
     form
     |> Changeset.cast(attrs, @cast)
     |> Changeset.validate_required(@required)

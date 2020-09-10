@@ -7,7 +7,7 @@ defmodule VoxPublica.ActivityPub.AdapterTest do
 
   describe "actor fetching" do
     test "by username" do
-      assert {:ok, account} = Accounts.register(Fake.account())
+      assert {:ok, account} = Accounts.signup(Fake.account())
       attrs = Fake.user()
       assert {:ok, user} = Users.create(account, attrs)
       assert {:ok, actor} = Adapter.get_actor_by_username(attrs.username)
