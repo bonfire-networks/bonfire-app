@@ -2,9 +2,11 @@ defmodule VoxPublica.Web.SignupLive do
   use VoxPublica.Web, :live_view
   alias VoxPublica.Accounts
   alias VoxPublica.Accounts.SignupForm
+  import VoxPublica.Web.CommonHelper
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, session, socket) do
+    socket = init_assigns(params, session, socket)
     if socket.assigns[:account] do
       {:ok, push_redirect(socket, to: "/home", replace: true)}
     else

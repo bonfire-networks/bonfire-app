@@ -4,9 +4,11 @@ defmodule VoxPublica.Web.ProfileLive do
   alias VoxPublica.Web.ProfileNavigationLive
   alias VoxPublica.Web.ProfileAboutLive
   alias VoxPublica.Fake
+  import VoxPublica.Web.CommonHelper
 
   @impl true
-  def mount(params, _session, socket) do
+  def mount(params, session, socket) do
+    socket = init_assigns(params, session, socket)
     {:ok,
      socket
      |> assign(
