@@ -4,7 +4,7 @@
 }
 
 @mixin grid-background() {
-    height: 100vh;
+    height: calc(100vh - 60px);
     background: url(https://i.pinimg.com/originals/82/96/9f/82969f3ab96d90482a6354ae4dd8b629.png);
     background-size: cover;
     background-repeat: no-repeat;
@@ -75,6 +75,17 @@
           width: 100%;
           margin-top: var(--m2)
       }
+      textarea {
+        background-color: var(--color-surface);
+        border: var(--border);
+        border-radius: 4px;
+        text-indent: 8px;
+        color: var(--color-text);
+        width: 100%;
+        margin-top: 8px;
+        max-height: 150px;
+        height: 120px;
+      }
       button {
           width: 100%;
           margin-top: var(--m2)
@@ -118,3 +129,71 @@
     }
 }
 
+
+
+.section__preview {
+    display: flex;
+    .preview__form {
+      margin-left: var(--m3);
+      input {
+        border: none;
+        text-indent: 0;
+        font-size: 14px;
+        background: transparent
+      }
+    }
+    .preview__card {
+      flex:1;
+      background: var(--color-background);
+      border-radius: 6px;
+      margin-bottom: var(--m4);
+      .card__upload {
+          cursor: pointer;
+          input {
+              display: none;
+          }
+          &.icon {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            margin-left: -50px;
+          }
+      }
+      .card__bg {
+        height: 150px;
+        border-radius: 6px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .card__bar {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background: var(--color-background);
+        
+        .bar__icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            background-size: cover;
+            border: var(--border);
+            border-width: 2px;
+            box-shadow: 0 4px 20px 4px rgba(0,0,0, .4);
+        }
+        .bar__meta {
+          margin-left: var(--m2);
+          h3 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--color-text);
+          }
+          h4 {
+            font-size: 14px;
+
+          }
+        }
+      }
+    }
+  }
