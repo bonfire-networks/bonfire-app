@@ -43,5 +43,6 @@ defmodule VoxPublica.Fake do
     |> Map.put_new_lazy(:icon_url, &icon_url/0)
     |> Map.put_new_lazy(:image_url, &image_url/0)
     |> Map.put_new(:is_followed, false)
+    |> Map.put_new(:is_instance_admin, true)
   end
 end
