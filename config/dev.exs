@@ -5,7 +5,7 @@ config :vox_publica, VoxPublica.Repo,
   username: "postgres",
   password: "postgres",
   database: "vox_publica_dev",
-  hostname: "localhost",
+  hostname: System.get_env("DATABASE_HOST") || "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
