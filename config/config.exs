@@ -1,5 +1,11 @@
 use Mix.Config
 
+#### Pointers configuration
+
+# This tells `Pointers.Tables` which apps to search for tables to
+# index. If you add another dependency with Pointables, you will want
+# to add it to the search path
+
 config :pointers,
   search_path: [
     :cpub_activities,
@@ -20,6 +26,17 @@ config :pointers,
     :cpub_users,
     :vox_publica,
   ]
+
+#### Flexto Stitching
+
+## WARNING: This is the flaky magic bit. We use configuration to
+## compile extra stuff into modules.  If you add new fields or
+## relations to ecto models in a dependency, you must recompile that
+## dependency for it to show up! You will probably find you need to
+## `rm -Rf _build/*/lib/cpub_*` a lot.
+
+## Note: This does not apply to configuration for
+## `Pointers.Changesets`, which is read at runtime, not compile time
 
 alias CommonsPub.Accounts.{Account, Accounted}
 alias CommonsPub.{
@@ -70,6 +87,18 @@ config :cpub_users, User,
   has_one: [character: {Character, foreign_key: :id}],
   has_one: [profile:   {Profile,   foreign_key: :id}],
   has_one: [actor:     {Actor,     foreign_key: :id}]
+
+alias VoxPublica.Accounts.RegisterForm
+alias VoxPublica.Users.CreateForm
+
+config :vox_publica, RegisterForm,
+  email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
+  password: [length: [min: 10, max: 64]]
+
+config :vox_publica, CreateForm,
+  username: [format: ~r(^[a-z][a-z0-9_]{2,30}$)i],
+  name: [length: [min: 3, max: 50]],
+  summary: [length: [min: 20, max: 500]]
 
 config :vox_publica,
   ecto_repos: [VoxPublica.Repo]

@@ -18,6 +18,7 @@ defmodule VoxPublica.Web.LoginLive.Test do
     assert [email_input] = Floki.find(form, "#login-form_email")
     assert [password_input] = Floki.find(form, "#login-form_password")
     assert [submit] = Floki.find(form, "button[type='submit']")
+    # both missing
     doc = floki_submit(view, :submit, %{})
     assert [form] = Floki.find(doc, "#login-form")
     assert [_] = Floki.find(form, "#login-form_email")
@@ -29,6 +30,7 @@ defmodule VoxPublica.Web.LoginLive.Test do
     assert [_] = Floki.find(form, "button[type='submit']")
     email = Fake.email()
     password = Fake.password()
+    # password missing
     doc = floki_submit(view, :submit, %{"email" => email})
     assert [form] = Floki.find(doc, "#login-form")
     assert [_] = Floki.find(form, "#login-form_email")
@@ -37,6 +39,7 @@ defmodule VoxPublica.Web.LoginLive.Test do
     assert [password_error] = Floki.find(form, "span.invalid-feedback[phx-feedback-for='login-form_password']")
     assert "can't be blank" == Floki.text(password_error)
     assert [_] = Floki.find(form, "button[type='submit']")
+    # email missing
     doc = floki_submit(view, :submit, %{"password" => password})
     assert [form] = Floki.find(doc, "#login-form")
     assert [_] = Floki.find(form, "#login-form_email")
@@ -76,6 +79,5 @@ defmodule VoxPublica.Web.LoginLive.Test do
     params = %{"email" => account.email.email, "password" => account.login_credential.password}
     assert {:error, {:live_redirect, %{kind: :push, to: "/home"}}} == render_submit(view, :submit, params)
   end
-
 
 end

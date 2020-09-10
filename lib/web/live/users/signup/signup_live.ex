@@ -1,8 +1,5 @@
 defmodule VoxPublica.Web.SignupLive do
   use VoxPublica.Web, :live_view
-  import VoxPublica.Web.ErrorHelpers
-  use Phoenix.HTML
-
   alias VoxPublica.Accounts
   alias VoxPublica.Accounts.RegisterForm
 
@@ -18,16 +15,14 @@ defmodule VoxPublica.Web.SignupLive do
 
   @impl true
   def handle_event("submit", params, socket) do
-    IO.inspect(params, label: "test")
-
     case Accounts.register(params) do
-
-        {:ok, account} ->
-          {:noreply, assign(socket, registered: true, register_error: nil)}
-        {:error, :taken} ->
-          {:noreply, assign(socket, register_error: :taken)}
-        {:error, changeset} ->
-          {:noreply, assign(socket, changeset: changeset)}
-      end
+      {:ok, _account} ->
+        {:noreply, assign(socket, registered: true, register_error: nil)}
+      {:error, :taken} ->
+        {:noreply, assign(socket, register_error: :taken)}
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
 end
