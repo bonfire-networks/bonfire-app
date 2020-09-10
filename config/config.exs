@@ -88,10 +88,10 @@ config :cpub_users, User,
   has_one: [profile:   {Profile,   foreign_key: :id}],
   has_one: [actor:     {Actor,     foreign_key: :id}]
 
-alias VoxPublica.Accounts.RegisterForm
+alias VoxPublica.Accounts.SignupForm
 alias VoxPublica.Users.CreateForm
 
-config :vox_publica, RegisterForm,
+config :vox_publica, SignupForm,
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
   password: [length: [min: 10, max: 64]]
 

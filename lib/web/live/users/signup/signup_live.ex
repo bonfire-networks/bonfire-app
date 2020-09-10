@@ -15,7 +15,7 @@ defmodule VoxPublica.Web.SignupLive do
 
   @impl true
   def handle_event("submit", params, socket) do
-    case Accounts.signup(params) do
+    case Accounts.signup(Map.get(params, "signup_form", %{})) do
       {:ok, _account} ->
         {:noreply, assign(socket, registered: true, register_error: nil)}
       {:error, :taken} ->
