@@ -1,14 +1,16 @@
 defmodule VoxPublica.Web.ConfirmEmailLive do
-  use VoxPublica.Web, :live_view
-  import VoxPublica.Web.ErrorHelpers
-  use Phoenix.HTML
 
+  use VoxPublica.Web, :live_view
   alias VoxPublica.Accounts
 
   @impl true
-  def mount(_params, _session, socket) do
-    account = Accounts.changeset(%{})
-    {:ok, assign(socket, changeset: account)}
+  def mount(%{token: token}, _session, socket) do
+    case Accounts.confirm_email(token) do
+      {:ok, account} ->
+        {:ok, push_redirect(socket, to: "/home", replace: true)}
+        
+    end
+    {:ok, socket} #assign(socket, changeset: account)}
   end
 
   @impl true
