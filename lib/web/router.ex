@@ -19,6 +19,7 @@ defmodule VoxPublica.Web.Router do
     live "/password/forgot", ResetPasswordLive, :reset_password
     live "/password/change", ChangePasswordLive, :change_password
     live "/password/change/:token", ChangePasswordLive, :change_password_confirm
+    live "/create-user", CreateUserLive, :create_user
     get "/confirm-email/:token", ConfirmEmailController, :confirm_email
 
     # live "/home", HomeLive, :home
