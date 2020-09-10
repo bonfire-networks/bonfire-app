@@ -24,4 +24,4 @@ RUN apk add cmake make gcc libc-dev
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp
 
-CMD ["sh","-c","mix local.hex --force && mix local.rebar --force && mix deps.get && npm install --prefix assets && mix ecto.create && mix ecto.migrate && iex -S mix phx.server"]
+CMD ["sh","-c","mix local.hex --force && mix local.rebar --force && mix setup && iex -S mix phx.server"]
