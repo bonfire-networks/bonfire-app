@@ -2,13 +2,13 @@
   <div class="page__auth-grid">
     <div class="grid__background"></div>
     <div class="grid__form">
-      <h1>Create a new account</h1>
       <%= if @registered do %>
-        <div class="info">
-          <span>
+        <div class="form__confirmation">
+          <h2>Nice one!</h2>
+          <p>
             Now we need you to confirm your email address. We've mailed
             you a link. Please click it to continue.
-          </span>
+          </p>
         </div>
       <% else %>
         <%= if @register_error == :taken do %>
@@ -16,6 +16,7 @@
             <span>This email is taken. Did you mean to <%= live_redirect to: "/login" do %>log in<% end %>?</span>
           </div>
         <% end %>
+        <h1>Create a new account</h1>
         <div class="form__wrapper">
           <%= f = form_for @changeset, "#", [id: "signup-form", phx_submit: :submit] %>
             <div class="form__container">
