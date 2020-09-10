@@ -58,12 +58,12 @@ defmodule VoxPublica.Web.LoginLive.Test do
     assert [div] = Floki.find(doc, "div.error")
     assert [span] = Floki.find(div, "span")
     assert Floki.text(span) =~ ~r/incorrect/
-    assert [] = Floki.find(doc, "#register-form")
+    assert [_] = Floki.find(doc, "#login-form")
   end
 
   test "not activated", %{conn: conn} do
     {view, _} = floki_live(conn, "/login")
-    {:ok, account} = Accounts.register(Fake.account())
+    {:ok, account} = Accounts.signup(Fake.account())
     params = %{"email" => account.email.email, "password" => account.login_credential.password}
     doc = floki_submit(view, :submit, params)
     assert [div] = Floki.find(doc, "div.error")
@@ -74,7 +74,7 @@ defmodule VoxPublica.Web.LoginLive.Test do
 
   test "success", %{conn: conn} do
     {view, _} = floki_live(conn, "/login")
-    {:ok, account} = Accounts.register(Fake.account())
+    {:ok, account} = Accounts.signup(Fake.account())
     {:ok, account} = Accounts.confirm_email(account)
     params = %{"email" => account.email.email, "password" => account.login_credential.password}
     assert {:error, {:live_redirect, %{kind: :push, to: "/home"}}} == render_submit(view, :submit, params)

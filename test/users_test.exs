@@ -4,7 +4,7 @@ defmodule VoxPublica.UsersTest do
   alias VoxPublica.{Accounts, Fake, Users}
 
   test "creation works" do
-    assert {:ok, account} = Accounts.register(Fake.account())
+    assert {:ok, account} = Accounts.signup(Fake.account())
     attrs = Fake.user()
     assert {:ok, user} = Users.create(account, attrs)
     assert attrs.name == user.profile.name
@@ -13,7 +13,7 @@ defmodule VoxPublica.UsersTest do
   end
 
   test "usernames must be unique" do
-    assert {:ok, account} = Accounts.register(Fake.account)
+    assert {:ok, account} = Accounts.signup(Fake.account)
     attrs = Fake.user()
     assert {:ok, user} = Users.create(account, attrs)
     assert {:error, changeset} = Users.create(account, attrs)
@@ -23,7 +23,7 @@ defmodule VoxPublica.UsersTest do
   end
 
   test "fetching by username" do
-    assert {:ok, account} = Accounts.register(Fake.account)
+    assert {:ok, account} = Accounts.signup(Fake.account)
     attrs = Fake.user()
     assert {:ok, user} = Users.create(account, attrs)
     assert {:ok, user} = Users.by_username(attrs.username)
