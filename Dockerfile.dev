@@ -1,0 +1,27 @@
+FROM elixir:1.10.4-alpine
+
+ENV HOME=/opt/app/ TERM=xterm
+
+WORKDIR $HOME
+
+# dev tools
+RUN apk update && \
+    apk add bash curl inotify-tools 
+
+# various dependencies of dependencies
+RUN apk add git \
+    rust cargo \
+    npm \
+    git build-base \  
+    mailcap \
+    ca-certificates openssh-client openssl-dev \
+    tzdata \
+    gettext 
+
+# dependencies for comeonin
+RUN apk add cmake make gcc libc-dev
+
+EXPOSE 4000/tcp
+EXPOSE 4004/tcp
+
+CMD ["sh","-c","mix local.hex --force && mix local.rebar --force && mix deps.get && npm install --prefix assets && mix ecto.create && mix ecto.migrate && iex -S mix phx.server"]

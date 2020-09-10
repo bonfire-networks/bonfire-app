@@ -6,6 +6,10 @@ defmodule VoxPublica.Fake do
   def password, do: Base.encode64(Faker.random_bytes(10), pad: false)
   def summary, do: Faker.Lorem.sentence(6..15)
   def username, do: String.replace(Faker.Internet.user_name(), ~r/\./, "_")
+  def website, do: Faker.Internet.domain_name()
+  def location, do: Faker.Pokemon.location()
+  def icon_url, do: Faker.Avatar.image_url(140,140)
+  def image_url, do: Faker.Avatar.image_url()
 
   def account(base \\ %{}) do
     base
@@ -30,4 +34,14 @@ defmodule VoxPublica.Fake do
     |> Map.put_new_lazy(:summary, &summary/0)
   end
 
+  def user_live(base \\ %{}) do
+    base
+    |> user()
+    |> Map.put_new_lazy(:location, &location/0)
+    |> Map.put_new_lazy(:id, &username/0)
+    |> Map.put_new_lazy(:website, &website/0)
+    |> Map.put_new_lazy(:icon_url, &icon_url/0)
+    |> Map.put_new_lazy(:image_url, &image_url/0)
+    |> Map.put_new(:is_followed, false)
+  end
 end

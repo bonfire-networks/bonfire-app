@@ -1,0 +1,45 @@
+# A Dockerfile for development/testing
+
+version: "3.5"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: "Dockerfile.dev"
+    ports:
+      - "4002:4000"
+    # env_file:
+    #   - config/dev/public.env
+    #   - config/dev/secrets.env
+    environment:
+      - DATABASE_HOST=db
+    depends_on:
+      - db
+    #   - search
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/app
+    stdin_open: true # like docker run -i
+    tty: true # like docker run -t
+  db:
+    image: postgis/postgis:12-3.0-alpine
+    volumes:
+      - "./data/postgres/dev:/var/lib/postgresql/data"
+    # ports:
+    #   - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    # env_file:
+    #   - config/dev/public.env
+    #   - config/dev/secrets.envs
+#   search:
+#     image: getmeili/meilisearch:latest
+#     ports:
+#       - "7702:7700"
+#     volumes:
+#       - "./data/search/dev:/data.ms"
+#     env_file:
+#       - config/dev/public.env
+#       - config/dev/secrets.env

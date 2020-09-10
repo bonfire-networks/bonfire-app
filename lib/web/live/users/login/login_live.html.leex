@@ -1,0 +1,31 @@
+<div class="guest__container">
+  <div class="page__auth-grid">
+    <div class="grid__background"></div>
+    <div class="grid__form">
+      <h1>Log in</h1>
+      <%= if @login_error do %>
+        <div class="error">
+          <%= case @login_error do %>
+          <% :no_match -> %>
+            <span>Your username and/or password are incorrect.</span>
+          <% :email_not_confirmed -> %>
+            <span>You must confirm your email address before logging in. Check your email.</span>
+          <% end %>
+        </div>
+      <% end %>
+      <%= f = form_for @changeset, "#", [id: "login-form", phx_submit: :submit] %>
+        <%= text_input f, :email, placeholder: "Type your username or email..." %>
+        <%= error_tag f, :email %>
+
+        <%= text_input f, :password, placeholder: "Type your password..." %>
+        <%= error_tag f, :password %>
+
+        <%= submit "Log in" %>
+      </form> 
+      <div class="auth__helpers">  
+        <p><span>👋 </span>Don't have an account yet? <%= live_redirect to: "/register" do %>Create a new one<% end %></p>
+        <p><span>🧐 </span>Trouble logging in? <%= live_redirect to: "/password/forgot" do %>reset your password<% end %>      
+      </div>
+    </div>
+  </div>
+</div>
