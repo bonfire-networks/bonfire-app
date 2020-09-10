@@ -1,8 +1,12 @@
 defmodule VoxPublica.Web.CreateUserLive do
   use VoxPublica.Web, :live_view
+  import VoxPublica.Web.CommonHelper
+  alias VoxPublica.Fake
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, session, socket) do
+    socket = init_assigns(params, session, socket)
+
     {:ok, assign(socket, query: "", results: %{})}
   end
 
