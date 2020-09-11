@@ -51,9 +51,9 @@ defmodule VoxPublica.Web.SignupLive.Test do
     email = Fake.email()
     password = Fake.password()
     doc = floki_submit(view, :submit, %{"signup_form" => %{"email" => email, "password" => password}})
-    assert [div] = Floki.find(doc, "div.info")
-    assert [span] = Floki.find(div, "span")
-    assert Floki.text(span) =~ ~r/mailed.+you a link/s
+    assert [div] = Floki.find(doc, "div.form__confirmation")
+    assert [p] = Floki.find(div, "p")
+    assert Floki.text(p) =~ ~r/mailed.+you a link/s
     assert [] = Floki.find(doc, "#signup-form")
   end
 

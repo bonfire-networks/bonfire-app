@@ -17,8 +17,8 @@ defmodule VoxPublica.Web.LoginLive do
   end
 
   @impl true
-  def handle_event("submit", attrs, socket) do
-    case Accounts.login(attrs) do
+  def handle_event("submit", params, socket) do
+    case Accounts.login(Map.get(params, "login_form", %{})) do
       {:ok, account} ->
         {:noreply, push_redirect(assign(socket, :account, account), to: "/home")}
       {:error, error} when is_atom(error) ->
