@@ -1,5 +1,10 @@
 use Mix.Config
 
+alias VoxPublica.{Mailer, Repo, Web.Endpoint}
+
+config :vox_publica, Mailer,
+  adapter: Bamboo.LocalAdapter
+
 # Configure your database
 config :vox_publica, VoxPublica.Repo,
   username: "postgres",
