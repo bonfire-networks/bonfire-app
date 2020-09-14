@@ -37,7 +37,7 @@ defmodule VoxPublica.ActivityPub.Adapter do
          actor <- format_actor(user) do
       {:ok, actor}
     else
-      _ -> {:error, "not found"}
+      _ -> {:error, :not_found}
     end
   end
 
