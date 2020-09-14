@@ -28,8 +28,8 @@ defmodule VoxPublica.AccountsTest do
       attrs = Fake.account()
       assert {:ok, account} = Accounts.signup(attrs)
       assert {:ok, account} = Accounts.confirm_email(account)
-      assert account.email.email_confirmed_at
-      assert is_nil(account.email.email_confirm_token)
+      assert account.email.confirmed_at
+      assert is_nil(account.email.confirm_token)
     end
 
   end

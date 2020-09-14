@@ -3,9 +3,9 @@
     <div class="grid__background"></div>
     <div class="grid__form">
       <h1>Log in</h1>
-      <%= if @login_error do %>
+      <%= if @error do %>
         <div class="error">
-          <%= case @login_error do %>
+          <%= case @error do %>
           <% :no_match -> %>
             <span>Your username and/or password are incorrect.</span>
           <% :email_not_confirmed -> %>
@@ -13,25 +13,25 @@
           <% end %>
         </div>
       <% end %>
-      <%= f = form_for @changeset, "#", [id: "login-form", phx_submit: :submit] %>
+      <%= f = form_for @form, Routes.login_path(@conn, :create), [method: :post, id: "login-form", phx_submit: :submit] %>
         <%= text_input f, :email, placeholder: "Type your username or email..." %>
         <%= error_tag f, :email %>
 
-        <%= text_input f, :password, placeholder: "Type your password..." %>
+        <%= password_input f, :password, placeholder: "Type your password..." %>
         <%= error_tag f, :password %>
 
         <%= submit "Log in" %>
       </form> 
       <div class="auth__helpers">  
         <p>
-          <span>&#x01f44b; </span>
+          <span>&#x01f44b;</span>
           Don&#39;t have an account yet?
-          <%= live_redirect to: "/signup" do %>Create a new one<% end %>.
+          <%= link "Create a new one.", to: Routes.signup_path(@conn, :index) %>
         </p>
         <p>
-          <span>&#x01f9d0; </span>
+          <span>&#x01f9d0;</span>
           Trouble logging in?
-          <%= live_redirect to: "/password/forgot" do %>Reset your password<% end %>.
+          <%= link "Reset your password.", to: Routes.reset_password_path(@conn, :reset_password) %>.
         </p>      
       </div>
     </div>

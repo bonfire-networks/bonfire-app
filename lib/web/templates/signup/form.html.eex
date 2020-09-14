@@ -12,13 +12,13 @@
         </div>
       <% else %>
         <h1>Create a new account</h1>
-        <%= if @register_error == :taken do %>
+        <%= if @error == :taken do %>
           <div class="box__warning">
-            <span>This email is taken. Did you mean to <%= live_redirect to: "/login" do %>log in<% end %>?</span>
+            <span>This email is taken. Did you mean to <%= link "log in", to: "/login" %>?
           </div>
         <% end %>
         <div class="form__wrapper">
-          <%= f = form_for @changeset, "#", [id: "signup-form", phx_submit: :submit] %>
+          <%= f = form_for @form, "/signup", [id: "signup-form", phx_submit: :submit] %>
             <div class="form__container">
               <%= text_input f, :email, placeholder: "Type your email..." %>
               <%= error_tag f, :email %>
@@ -33,7 +33,7 @@
             <p>
               <span>&#x01f44b; </span>
               Do you already have an account?
-              <%= live_redirect to: "/login" do %>Log in<% end %>.
+              <%= link "Log in", to: "/login" %>.
             </p>
           </div>
         </div>

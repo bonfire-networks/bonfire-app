@@ -13,19 +13,22 @@ defmodule VoxPublica.Web.Router do
 
   scope "/", VoxPublica.Web do
     pipe_through :browser
+    # guest visible pages
     live "/", IndexLive, :index
-    live "/signup", SignupLive, :signup
-    live "/login", LoginLive, :login
+    resources "/signup", SignupController, only: [:index, :create]
+    resources "/confirm-email", ConfirmEmailController, only: [:index, :show, :create]
+    resources "/login", LoginController, only: [:index, :create]
     live "/password/forgot", ResetPasswordLive, :reset_password
     live "/password/change", ChangePasswordLive, :change_password
     live "/password/change/:token", ChangePasswordLive, :change_password_confirm
+    # authenticated pages
     live "/create-user", CreateUserLive, :create_user
-    get "/confirm-email/:token", ConfirmEmailController, :confirm_email
+    get "/switch-user/@:username", SwitchUserController, :change_user
 
-    # live "/home", HomeLive, :home
+    live "/home", HomeLive, :home
+    live "/home/@:username", HomeLive, :home_user
     live "/@:username", ProfileLive
     live "/@:username/:tab", ProfileLive
-    # get "/confirm-email/:token", ConfirmEmailController, :confirm_email
   end
 
   # If your application does not have an admins-only section yet,
