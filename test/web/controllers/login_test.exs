@@ -61,7 +61,7 @@ defmodule VoxPublica.Web.LoginController.Test do
     params = %{"login_form" => %{"email" => email, "password" => password}}
     conn = post(conn, "/login", params)
     doc = floki_response(conn)
-    assert [div] = Floki.find(doc, "div.error")
+    assert [div] = Floki.find(doc, "div.box__warning")
     assert [span] = Floki.find(div, "span")
     assert Floki.text(span) =~ ~r/incorrect/
     assert [_] = Floki.find(doc, "#login-form")
@@ -74,7 +74,7 @@ defmodule VoxPublica.Web.LoginController.Test do
                   "password" => account.login_credential.password}}
     conn = post(conn, "/login", params)
     doc = floki_response(conn)
-    assert [div] = Floki.find(doc, "div.error")
+    assert [div] = Floki.find(doc, "div.box__warning")
     assert [span] = Floki.find(div, "span")
     assert Floki.text(span) =~ ~r/confirm/
     assert [_] = Floki.find(doc, "#login-form")
