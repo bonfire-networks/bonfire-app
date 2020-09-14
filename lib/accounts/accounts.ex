@@ -58,10 +58,10 @@ defmodule VoxPublica.Accounts do
       else: {:error, :no_match}
   end
 
-  defp check_confirmed(%Account{email: %{email_confirmed_at: nil}}),
+  defp check_confirmed(%Account{email: %{confirmed_at: nil}}),
     do: {:error, :email_not_confirmed}
 
-  defp check_confirmed(%Account{email: %{email_confirmed_at: _}}=account),
+  defp check_confirmed(%Account{email: %{confirmed_at: _}}=account),
     do: {:ok, account}
 
   ### request_confirm_email
@@ -70,7 +70,7 @@ defmodule VoxPublica.Accounts do
     do: request_confirm_email(changeset(:confirm_email, params))
 
   def request_confirm_email(%Changeset{data: %ConfirmEmailForm{}}=cs),
-    do: Changeset.apply_action(cs) ~>> request_confirm_email()
+    do: Changeset.apply_action(cs, :insert) ~>> request_confirm_email()
 
   def request_confirm_email(%ConfirmEmailForm{}=form) do
     case Repo.one(find_by_email_query(form.email)) do
@@ -83,13 +83,16 @@ defmodule VoxPublica.Accounts do
     cond do
       not is_nil(email.confirmed_at) -> {:error, :confirmed}
 
+      # why not refresh here? it provides a window of DOS opportunity
+      # against a user completing their activation.
       DateTime.utc_now() < email.confirm_until ->
-        Mailer.send_now(Emails.confirm_email(account), email.email)
+        with {:ok, _} <- Mailer.send_now(Emails.confirm_email(account), email.email),
+          do: {:ok, :resent, account}
 
       true ->
-        refresh_confirm_email_token(account)
-        ~>> Emails.confirm_email()
-        |> send_confirm_email()
+        account = refresh_confirm_email_token(account)
+        with {:ok, _} <- send_confirm_email(Emails.confirm_email(account)),
+          do: {:ok, :refreshed, account}
     end
   end
 
@@ -132,7 +135,7 @@ defmodule VoxPublica.Accounts do
   defp find_for_confirm_email_query(token) when is_binary(token) do
     from a in Account,
       join: e in assoc(a, :email),
-      where: e.email_token == ^token,
+      where: e.confirm_token == ^token,
       preload: [email: e]
   end
 
