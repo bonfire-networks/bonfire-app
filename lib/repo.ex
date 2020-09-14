@@ -52,12 +52,10 @@ defmodule VoxPublica.Repo do
   @doc """
   Like Repo.one, but returns an ok/error tuple.
   """
-  def single(q) do
-    case one(q) do
-      nil -> {:error, "not found"}
-      other -> {:ok, other}
-    end
-  end
+  def single(q), do: single2(one(q))
+
+  defp single2(nil), do: {:error, :not_found}
+  defp single2(other), do: {:ok, other}
 
 
 end
