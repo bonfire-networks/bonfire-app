@@ -1,5 +1,20 @@
 use Mix.Config
 
+#### Email configuration
+
+# You will almost certainly want to change at least some of these
+
+alias VoxPublica.Mailer
+
+config :vox_publica, Mailer,
+  from_address: "noreply@voxpub.local"
+
+alias VoxPublica.Accounts
+
+config :vox_publica, Accounts.Emails,
+  confirm_email: [subject: "Confirm your email - VoxPublica"],
+  reset_password: [subject: "Reset your password - VoxPublica"]
+
 #### Pointers configuration
 
 # This tells `Pointers.Tables` which apps to search for tables to
@@ -88,6 +103,10 @@ config :cpub_users, User,
   has_one: [profile:   {Profile,   foreign_key: :id}],
   has_one: [actor:     {Actor,     foreign_key: :id}]
 
+#### Forms configuration
+
+# You probably will want to leave these
+
 alias VoxPublica.Accounts.SignupForm
 alias VoxPublica.Users.CreateForm
 
@@ -100,10 +119,14 @@ config :vox_publica, CreateForm,
   name: [length: [min: 3, max: 50]],
   summary: [length: [min: 20, max: 500]]
 
+#### Basic configuration
+
+# You probably won't want to touch these. You might override some in
+# other config files.
+
 config :vox_publica,
   ecto_repos: [VoxPublica.Repo]
 
-# Configures the endpoint
 config :vox_publica, VoxPublica.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "g7K250qlSxhNDt5qnV6f4HFnyoD7fGUuZ8tbBF69aJCOvUIF8P0U7wnnzTqklK10",
