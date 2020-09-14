@@ -1,14 +1,14 @@
 // DEFAULT BUTTON MIXIN
-@mixin button($bg: var(--color-primary), $color: var(--color-text)) {
+@mixin button($bg: var(--color-primary), $color: var(--color-background-0)) {
   @include reset;
   font-family: inherit;
   border-radius: 5px;
   background: $bg;
-  border: 1px solid var(--color-primary-dark);
+  border: none;
   color: $color;
   padding: var(--m2) var(--m3);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   min-width: 100px;
   white-space: nowrap;
   vertical-align: middle;
@@ -32,18 +32,13 @@
 }
 
 @mixin button-classic(
-  $bg: var(--color-secondary),
-  $color: var(--color-text)
+  $bg: var(--color-primary),
+  $color: var(--color-background-0)
 ) {
   @include button($bg: $bg, $color:$color);
   background-color: $bg;
-  border: 1px solid  var(--color-secondary-dark);
+  border: none;
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-
-  &:hover {
-    background-color: var(--color-secondary-dark);
-    text-decoration: none;
-  }
 
   &:focus {
     outline: none;
