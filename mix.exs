@@ -23,7 +23,7 @@ defmodule VoxPublica.MixProject do
   def application do
     [
       mod: {VoxPublica.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon]
+      extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
     ]
   end
 
