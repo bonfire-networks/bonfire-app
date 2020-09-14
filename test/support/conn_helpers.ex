@@ -8,7 +8,7 @@ defmodule VoxPublica.ConnHelpers do
   @endpoint VoxPublica.Web.Endpoint
 
   def floki_response(conn, code \\ 200) do
-    assert {:ok, html} = Floki.parse_document(html_response(conn, 200))
+    assert {:ok, html} = Floki.parse_document(html_response(conn, code))
     html
   end
 
