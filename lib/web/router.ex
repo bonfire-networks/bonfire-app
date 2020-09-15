@@ -23,7 +23,8 @@ defmodule VoxPublica.Web.Router do
     live "/password/change/:token", ChangePasswordLive, :change_password_confirm
     # authenticated pages
     live "/create-user", CreateUserLive, :create_user
-    get "/switch-user/@:username", SwitchUserController, :change_user
+    get "/switch-user", SwitchUserController, :index
+    get "/switch-user/@:username", SwitchUserController, :show
 
     live "/home", HomeLive, :home
     live "/home/@:username", HomeLive, :home_user
