@@ -9,40 +9,62 @@ defmodule VoxPublica.Accounts do
   alias VoxPublica.{Mailer, Repo, Utils}
   import Ecto.Query
 
+  # def get_for_session(id) when is_binary(id) do
+  #   Repo.one
+    
+  # end
+
   @spec changeset(:confirm_email | :login | :signup, attrs :: map) :: Changeset.t
-  def changeset(:confirm_email, attrs), do: ConfirmEmailForm.changeset(attrs)
-  def changeset(:login, attrs), do: LoginForm.changeset(attrs)
-  def changeset(:signup, attrs), do: SignupForm.changeset(attrs)
+  def changeset(:confirm_email, attrs) when not is_struct(attrs),
+    do: ConfirmEmailForm.changeset(attrs)
 
-  ### signup
+  def changeset(:login, attrs) when not is_struct(attrs),
+    do: LoginForm.changeset(attrs)
 
-  def signup(attrs) when not is_struct(attrs), do: signup(SignupForm.changeset(attrs))
-  def signup(%Changeset{data: %SignupForm{}}=cs), do: Changeset.apply_action(cs, :insert) ~>> signup()
-  def signup(%SignupForm{}=form), do: signup(signup_changeset(Map.from_struct(form)))
-  def signup(%Changeset{data: %Account{}}=cs) do
-    Repo.transact_with fn ->
-      Repo.put(cs)
-      |> Utils.replace_error(:taken)
-      ~>> send_confirm_email()
-    end
-  end
+  def changeset(:signup, attrs) when not is_struct(attrs),
+    do: SignupForm.changeset(attrs)
 
-  defp signup_changeset(attrs) do
+  @doc false
+  def signup_changeset(%SignupForm{}=form),
+    do: signup_changeset(Map.from_struct(form))
+
+  def signup_changeset(attrs) when not is_struct(attrs) do
     %Account{email: nil, login_credential: nil}
     |> Account.changeset(attrs)
     |> Changesets.cast_assoc(:email, attrs)
     |> Changesets.cast_assoc(:login_credential, attrs)
   end
 
+  ### signup
+
+  def signup(attrs) when not is_struct(attrs),
+    do: signup(SignupForm.changeset(attrs))
+
+  def signup(%Changeset{data: %SignupForm{}}=cs),
+    do: Changeset.apply_action(cs, :insert) ~>> signup()
+
+  def signup(%SignupForm{}=form),
+    do: signup(signup_changeset(form))
+
+  def signup(%Changeset{data: %Account{}}=cs) do
+    Repo.transact_with fn -> # revert if email send fails
+      Repo.put(cs)
+      |> Utils.replace_error(:taken)
+      ~>> send_confirm_email()
+    end
+  end
+
   ### login
 
-  def login(attrs) when not is_struct(attrs), do: login(changeset(:login, attrs))
+  def login(attrs) when not is_struct(attrs),
+    do: login(changeset(:login, attrs))
+
   def login(%Changeset{data: %LoginForm{}}=cs) do
     with {:ok, form} <- Changeset.apply_action(cs, :insert) do
       form
       |> find_by_email_query()
-      |> Repo.one()
-      |> check_password(form)
+      |> Repo.single()
+      ~>> check_password(form)
       ~>> check_confirmed()
     end
   end
@@ -131,6 +153,13 @@ defmodule VoxPublica.Accounts do
   end
 
   ### queries
+
+  # defp get_for_session_query(token) when is_binary(token) do
+  #   from a in Account,
+  #     join: e in assoc(a, :email),
+  #     where: e.confirm_token == ^token,
+  #     preload: [email: e]
+  # end
 
   defp find_for_confirm_email_query(token) when is_binary(token) do
     from a in Account,

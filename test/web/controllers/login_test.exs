@@ -3,7 +3,8 @@ defmodule VoxPublica.Web.LoginController.Test do
   use VoxPublica.ConnCase
   alias VoxPublica.Accounts
 
-  test "form renders", %{conn: conn} do
+  test "form renders" do
+    conn = conn()
     conn = get(conn, "/login")
     doc = floki_response(conn)
     assert [form] = Floki.find(doc, "#login-form")
@@ -14,7 +15,8 @@ defmodule VoxPublica.Web.LoginController.Test do
 
   describe "required fields" do
 
-    test "missing both", %{conn: conn} do
+    test "missing both" do
+      conn = conn()
       conn = post(conn, "/login", %{"login_form" => %{}})
       doc = floki_response(conn)
       assert [form] = Floki.find(doc, "#login-form")
@@ -27,7 +29,8 @@ defmodule VoxPublica.Web.LoginController.Test do
       assert [_] = Floki.find(form, "button[type='submit']")
     end
 
-    test "missing password", %{conn: conn} do
+    test "missing password" do
+      conn = conn()
       email = Fake.email()
       conn = post(conn, "/login", %{"login_form" => %{"email" => email}})
       doc = floki_response(conn)
@@ -40,7 +43,8 @@ defmodule VoxPublica.Web.LoginController.Test do
       assert [_] = Floki.find(form, "button[type='submit']")
     end
 
-    test "missing email", %{conn: conn} do
+    test "missing email" do
+      conn = conn()
       password = Fake.password()
       conn = post(conn, "/login", %{"login_form" => %{"password" => password}})
       doc = floki_response(conn)
@@ -55,7 +59,8 @@ defmodule VoxPublica.Web.LoginController.Test do
 
   end
 
-  test "not found", %{conn: conn} do
+  test "not found" do
+    conn = conn()
     email = Fake.email()
     password = Fake.password()
     params = %{"login_form" => %{"email" => email, "password" => password}}
@@ -67,8 +72,9 @@ defmodule VoxPublica.Web.LoginController.Test do
     assert [_] = Floki.find(doc, "#login-form")
   end
 
-  test "not activated", %{conn: conn} do
-    {:ok, account} = Accounts.signup(Fake.account())
+  test "not activated" do
+    conn = conn()
+    account = fake_account!()
     params = %{"login_form" =>
                 %{"email" => account.email.email,
                   "password" => account.login_credential.password}}
@@ -80,8 +86,9 @@ defmodule VoxPublica.Web.LoginController.Test do
     assert [_] = Floki.find(doc, "#login-form")
   end
 
-  test "success", %{conn: conn} do
-    {:ok, account} = Accounts.signup(Fake.account())
+  test "success" do
+    conn = conn()
+    account = fake_account!()
     {:ok, account} = Accounts.confirm_email(account)
     params = %{"login_form" =>
                 %{"email" => account.email.email,
