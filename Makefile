@@ -1,4 +1,4 @@
-.PHONY: update-deps
+.PHONY: deps clean-deps update-deps
 
 update-deps:
 	mix deps.update pointers \
@@ -9,3 +9,5 @@ clean-deps:
 	mix deps.clean pointers \
 		cpub_accounts cpub_blocks cpub_characters cpub_emails \
 		cpub_local_auth cpub_profiles cpub_users --build
+
+deps: update-deps clean-deps
