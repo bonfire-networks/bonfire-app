@@ -63,6 +63,21 @@ defmodule VoxPublica.Test.ConnHelpers do
   def assert_flash_message(flash, bin) when is_binary(bin),
     do: assert(Floki.text(flash) == bin)
 
+  def find_form_error(doc, name), do: Floki.find(doc, "span.invalid-feedback[phx-feedback-for='#{name}']")
+
+  def assert_field_good(doc, name) do
+    assert [field] = Floki.find(doc, "#" <> name)
+    assert [] == find_form_error(doc, name)
+    field
+  end
+
+  def assert_field_error(doc, name, error) do
+    assert [field] = Floki.find(doc, "#" <> name)
+    assert [err] = find_form_error(doc, name)
+    assert Floki.text(err) =~ error
+    field
+  end
+
   ### floki_attr
 
   def floki_attr(elem, :class),

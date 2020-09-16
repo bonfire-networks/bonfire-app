@@ -11,7 +11,7 @@ defmodule VoxPublica.Test.FakeHelpers do
   end
 
   def fake_user!(%Account{}=account, attrs \\ %{}) do
-    assert {:ok, user} = Users.create(account, Fake.user(attrs))
+    assert {:ok, user} = Users.create(Fake.user(attrs), account)
     user
   end
 
