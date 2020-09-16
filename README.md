@@ -2,6 +2,12 @@
 
 Blogging/Microblogging software.
 
+## Handy commands
+
+* `make update-deps` - updates commonspub dep versions
+* `make clean-deps` - cleans the compiled deps so config is reread
+* `make deps` - both of the above
+
 ## Copyright and License
 
 VoxPublica content publishing platform
