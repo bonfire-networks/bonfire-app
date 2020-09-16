@@ -1,6 +1,8 @@
 defmodule VoxPublica.Web.ResetPasswordController do
   use VoxPublica.Web, :controller
 
+  plug MustBeGuest
+
   def index(conn, %{"token" => token}) do
   end
 

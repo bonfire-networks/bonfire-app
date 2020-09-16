@@ -3,11 +3,9 @@ defmodule VoxPublica.Web.LoginController do
   use VoxPublica.Web, :controller
   alias VoxPublica.Accounts
 
-  def index(conn, _) do
-    if get_session(conn, :account_id),
-      do: redirect(conn, to: "/home"),
-      else: render(conn, "form.html", error: nil, form: form())
-  end
+  plug MustBeGuest
+
+  def index(conn, _), do: render(conn, "form.html", error: nil, form: form())
 
   def create(conn, params) do
     form = Map.get(params, "login_form", %{})

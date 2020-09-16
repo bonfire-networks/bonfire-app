@@ -5,6 +5,9 @@ defmodule VoxPublica.Web.ConfirmEmailController.Test do
 
   describe "request" do
 
+    test "must be a guest" do
+    end
+
     test "form renders" do
       conn = conn()
       conn = get(conn, "/confirm-email")
@@ -55,9 +58,27 @@ defmodule VoxPublica.Web.ConfirmEmailController.Test do
     #   conn = conn()
     # end
 
+    test "success" do
+      conn = conn()
+      account = fake_account!()
+      conn = get(conn, "/confirm-email")
+      doc = floki_response(conn)
+      assert [form] = Floki.find(doc, "#confirm-email-form")
+      assert [_] = Floki.find(form, "#confirm-email-form_email")
+      assert [_] = Floki.find(form, "button[type='submit']")
+      conn = post(recycle(conn), "/confirm-email", %{"confirm_email_form" => %{"email" => account.email.email}})
+      doc = floki_response(conn)
+      assert [] = Floki.find(doc, "#confirm-email-form")
+      assert [conf] = Floki.find(doc, ".form__confirmation")
+      assert Floki.text(conf) =~ ~r/mailed you/
+    end
+
   end
 
   describe "confirmation" do
+
+    test "must be a guest" do
+    end
 
     test "not found" do
       conn = conn()
