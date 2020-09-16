@@ -1,23 +1,32 @@
 defmodule VoxPublica.Users.CreateForm do
 
   use Ecto.Schema
-  require Pointers.Changesets
-  alias Pointers.Changesets
+  alias Ecto.Changeset
+  alias CommonsPub.Accounts.Account
   alias VoxPublica.Users.CreateForm
 
   embedded_schema do
-    field :form, :string, virtual: true
     field :username, :string
     field :name, :string
     field :summary, :string
+    field :account_id, :integer
   end
 
-  @defaults [
-    cast: [:username, :name, :summary],
-    required: [:username, :name, :summary],
-  ]
+  @cast [:username, :name, :summary]
+  @required @cast
+  # @defaults [
+  #   cast: [:username, :name, :summary],
+  #   required: [:username, :name, :summary],
+  # ]
 
-  def changeset(form \\ %CreateForm{}, attrs, opts \\ []),
-    do: Changesets.auto(form, attrs, opts, @defaults)
+  def changeset(form \\ %CreateForm{}, attrs, %Account{id: id}) do
+    form
+    |> Changeset.cast(attrs, @cast)
+    |> Changeset.change(account_id: id)
+    |> Changeset.validate_required(@required)
+    |> Changeset.validate_format(:username, ~r(^[a-z][a-z0-9_]{2,30}$)i)
+    |> Changeset.validate_length(:name, min: 3, max: 50)
+    |> Changeset.validate_length(:summary, min: 20, max: 500)
+  end
 
 end

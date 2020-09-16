@@ -5,16 +5,32 @@ defmodule VoxPublica.Users do
   use OK.Pipe
   alias CommonsPub.Accounts.Account
   alias CommonsPub.Users.User
+  alias VoxPublica.Users.CreateForm
   alias Pointers.Changesets
-  alias VoxPublica.Repo
+  alias VoxPublica.{Repo, Utils}
+  alias Ecto.Changeset
   import Ecto.Query
 
-  def create(%Account{id: id}, attrs),
-    do: Repo.put(changeset(Map.put(attrs, :account_id, id)))
+  @type changeset_name :: :create
 
-  def update(%User{} = user, attrs), do: Repo.update(changeset(user, attrs))
+  @spec changeset(changeset_name, attrs :: map, %Account{}) :: Changeset.t
+  def changeset(:create, attrs, %Account{}=account), do: CreateForm.changeset(attrs, account)
 
-  def changeset(user \\ %User{}, attrs) do
+  def create(attrs, %Account{}=account) when not is_struct(attrs),
+    do: create(changeset(:create, attrs, account))
+
+  defp create(%Changeset{data: %CreateForm{}}=cs),
+    do: Changeset.apply_action(cs, :insert) ~>> create()
+
+  defp create(%CreateForm{}=form) do
+    Map.from_struct(form)
+    |> create_changeset()
+    |> Repo.put()
+  end
+
+  def update(%User{} = user, attrs), do: Repo.update(create_changeset(user, attrs))
+
+  def create_changeset(user \\ %User{}, attrs) do
     User.changeset(user, attrs)
     |> Changesets.cast_assoc(:accounted, attrs)
     |> Changesets.cast_assoc(:character, attrs)

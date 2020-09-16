@@ -5,7 +5,6 @@ defmodule VoxPublica.Accounts.SignupForm do
   alias VoxPublica.Accounts.SignupForm
 
   embedded_schema do
-    field :form, :string, virtual: true
     field :email, :string
     field :password, :string
   end
@@ -18,7 +17,7 @@ defmodule VoxPublica.Accounts.SignupForm do
     |> Changeset.cast(attrs, @cast)
     |> Changeset.validate_required(@required)
     |> Changeset.validate_format(:email, ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$))
-    |> Changeset.validate_length(:password, min: 10)
+    |> Changeset.validate_length(:password, min: 10, max: 64)
   end
 
 end
