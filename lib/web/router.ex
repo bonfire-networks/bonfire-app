@@ -18,18 +18,18 @@ defmodule VoxPublica.Web.Router do
     resources "/signup", SignupController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :show, :create]
     resources "/login", LoginController, only: [:index, :create]
-    live "/password/forgot", ResetPasswordLive, :reset_password
-    live "/password/change", ChangePasswordLive, :change_password
-    live "/password/change/:token", ChangePasswordLive, :change_password_confirm
+    resources "/password/forgot", ForgotPasswordController, only: [:index, :create]
+    resources "/password/reset/:token", ResetPasswordController, only: [:index, :create]
+    resources "/password/change", ChangePasswordController, only: [:index, :create]
     # authenticated pages
-    live "/create-user", CreateUserLive, :create_user
+    resources "/create-user", CreateUserController, only: [:index, :create]
     get "/switch-user", SwitchUserController, :index
     get "/switch-user/@:username", SwitchUserController, :show
 
     live "/home", HomeLive, :home
     live "/home/@:username", HomeLive, :home_user
-    live "/@:username", ProfileLive
-    live "/@:username/:tab", ProfileLive
+    live "/@:username", ProfileLive, :profile
+    live "/@:username/:tab", ProfileLive, :profile_tab
   end
 
   # If your application does not have an admins-only section yet,

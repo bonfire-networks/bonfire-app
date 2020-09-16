@@ -8,6 +8,8 @@ defmodule VoxPublica.Web do
       import Plug.Conn
       import VoxPublica.Web.Gettext
       alias VoxPublica.Web.Router.Helpers, as: Routes
+      alias VoxPublica.Web.Plugs.MustLogIn
+      alias VoxPublica.Web.Plugs.MustBeGuest
     end
   end
 

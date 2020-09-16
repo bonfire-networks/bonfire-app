@@ -3,15 +3,10 @@ defmodule VoxPublica.Web.SwitchUserController do
   use VoxPublica.Web, :controller
   alias VoxPublica.Users
 
-  def index(conn, _) do
-    account_id = get_session(conn, :account_id)
-    if account_id,
-      do: idx(conn, account_id),
-      else: not_logged_in(conn)
-  end
+  plug MustLogIn, load_account: true
 
-  def idx(conn, account_id) do
-    case Users.by_account(account_id) do
+  def index(conn, _) do
+    case Users.by_account(conn.assigns[:account]) do
       [] -> no_users(conn)
       users -> list(conn, users)
     end

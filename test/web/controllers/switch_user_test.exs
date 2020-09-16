@@ -5,6 +5,16 @@ defmodule VoxPublica.Web.SwitchUserController.Test do
 
   describe "index" do
 
+    test "not logged in" do
+      conn = conn()
+      conn = get(conn, "/switch-user")
+      assert redirected_to(conn) == "/login"
+      conn = get(recycle(conn), "/login")
+      doc = floki_response(conn)
+      assert [err] = find_flash(doc)
+      assert_flash(err, :error, ~r/must log in/)
+    end
+
     test "no users" do
       account = fake_account!()
       conn = conn(account: account)

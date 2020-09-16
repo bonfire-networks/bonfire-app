@@ -5,21 +5,33 @@ defmodule VoxPublica.Accounts do
   alias CommonsPub.Emails.Email
   alias Ecto.Changeset
   alias Pointers.Changesets
-  alias VoxPublica.Accounts.{Emails, ConfirmEmailForm, LoginForm, SignupForm}
+  alias VoxPublica.Accounts.{
+    Emails,
+    ChangeEmailForm,
+    ConfirmEmailForm,
+    LoginForm,
+    ResetPasswordForm,
+    SignupForm,
+  }
   alias VoxPublica.{Mailer, Repo, Utils}
   import Ecto.Query
 
-  # def get_for_session(id) when is_binary(id) do
-  #   Repo.one
-    
-  # end
+  def get_for_session(id) when is_binary(id), do: Repo.get(Account, id)
 
-  @spec changeset(:confirm_email | :login | :signup, attrs :: map) :: Changeset.t
+  @type changeset_name :: :change_password | :confirm_email | :login | :reset_password | :signup
+
+  @spec changeset(changeset_name, attrs :: map) :: Changeset.t
+  def changeset(:change_password, attrs) when not is_struct(attrs),
+    do: ChangePassowrdForm.changeset(attrs)
+
   def changeset(:confirm_email, attrs) when not is_struct(attrs),
     do: ConfirmEmailForm.changeset(attrs)
 
   def changeset(:login, attrs) when not is_struct(attrs),
     do: LoginForm.changeset(attrs)
+
+  def changeset(:reset_password, attrs) when not is_struct(attrs),
+    do: ResetPasswordForm.changeset(attrs)
 
   def changeset(:signup, attrs) when not is_struct(attrs),
     do: SignupForm.changeset(attrs)
@@ -38,7 +50,7 @@ defmodule VoxPublica.Accounts do
   ### signup
 
   def signup(attrs) when not is_struct(attrs),
-    do: signup(SignupForm.changeset(attrs))
+    do: signup(changeset(:signup, attrs))
 
   def signup(%Changeset{data: %SignupForm{}}=cs),
     do: Changeset.apply_action(cs, :insert) ~>> signup()
