@@ -2,6 +2,8 @@ defmodule VoxPublica.Web.SignupController do
   use VoxPublica.Web, :controller
   alias VoxPublica.Accounts
 
+  plug MustBeGuest
+
   def index(conn, _) do
     if get_session(conn, :account_id),
       do: redirect(conn, to: "/home"),
