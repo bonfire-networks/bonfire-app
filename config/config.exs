@@ -107,12 +107,46 @@ config :cpub_users, User,
 
 # You probably will want to leave these
 
-alias VoxPublica.Accounts.SignupForm
-alias VoxPublica.Users.CreateForm
+alias VoxPublica.Accounts.{
+  ChangePasswordForm,
+  ConfirmEmailForm,
+  LoginForm,
+  ResetPasswordForm,
+  SignupForm,
+}
 
-config :vox_publica, SignupForm,
+# these are not used yet, but they will be
+
+config :vox_publica, ChangePasswordForm,
+  cast: [:old_password, :password, :password_confirmation],
+  required: [:old_password, :password, :password_confirmation],
+  confirm: :password,
+  new_password: [length: [min: 10, max: 64]]
+
+config :vox_publica, ConfirmEmailForm,
+  cast: [:email],
+  required: [:email],
+  email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)]
+
+config :vox_publica, LoginForm,
+  cast: [:email, :password],
+  required: [:email, :password],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
   password: [length: [min: 10, max: 64]]
+
+config :vox_publica, ResetPasswordForm,
+  cast: [:password, :password_confirmation],
+  required: [:password, :password_confirmation],
+  confirm: :password,
+  password: [length: [min: 10, max: 64]]
+
+config :vox_publica, SignupForm,
+  cast: [:email, :password],
+  required: [:email, :password],
+  email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
+  password: [length: [min: 10, max: 64]]
+
+alias VoxPublica.Users.CreateForm
 
 config :vox_publica, CreateForm,
   username: [format: ~r(^[a-z][a-z0-9_]{2,30}$)i],
