@@ -22,14 +22,7 @@ defmodule VoxPublica.Repo do
   """
   def put(%Changeset{}=changeset) do
     with {:error, changeset} <- insert(changeset) do
-      changes = Enum.reduce(changeset.changes, changeset.changes, fn {k, v}, acc ->
-        case v do
-          %Changeset{valid?: false} ->
-            Map.put(acc, k, Changesets.rewrite_child_errors(v))
-          _ -> acc
-        end
-      end)
-      {:error, %{ changeset | changes: changes }}
+      Changesets.rewrite_constraint_errors(changeset)
     end
   end
 
@@ -52,12 +45,10 @@ defmodule VoxPublica.Repo do
   @doc """
   Like Repo.one, but returns an ok/error tuple.
   """
-  def single(q) do
-    case one(q) do
-      nil -> {:error, "not found"}
-      other -> {:ok, other}
-    end
-  end
+  def single(q), do: single2(one(q))
+
+  defp single2(nil), do: {:error, :not_found}
+  defp single2(other), do: {:ok, other}
 
 
 end
