@@ -1,13 +1,16 @@
-.PHONY: deps clean-deps update-deps
+.PHONY: setup updates db-reset build dev
 
-update-deps:
-	mix deps.update pointers \
-		cpub_accounts cpub_blocks cpub_characters cpub_emails \
-		cpub_local_auth cpub_profiles cpub_users
+mix-%: ## Run a specific mix command in Docker Dev, eg: `make mix-deps.get` or make mix-deps.update args="pointers"
+	docker-compose run web mix $* $(args)
 
-clean-deps:
-	mix deps.clean pointers \
-		cpub_accounts cpub_blocks cpub_characters cpub_emails \
-		cpub_local_auth cpub_profiles cpub_users --build
+setup: build mix-setup ## First run - prepare Docker Dev environment and dependencies
 
-deps: update-deps clean-deps
+updates: build mix-updates ## Update/prepare Docker Dev dependencies
+
+db-reset: mix-ecto.reset ## Reset the DB
+
+build: ## Build the docker image
+	docker-compose build
+
+dev: ## Run the app with Docker
+	docker-compose run --service-ports web

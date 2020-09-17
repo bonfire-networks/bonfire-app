@@ -32,9 +32,15 @@ defmodule VoxPublica.MixProject do
 
   defp aliases do
     [
+      "hex.setup": ["local.hex --force"],
+      "rebar.setup": ["local.rebar --force"],
       "js.deps.get": ["cmd npm install --prefix assets"],
       "ecto.seeds": ["run priv/repo/seeds.exs"],
-      setup: ["deps.get", "ecto.setup", "js.deps.get"],
+      "cpub.deps.update": ["deps.update pointers cpub_accounts cpub_blocks cpub_characters cpub_emails cpub_local_auth cpub_profiles cpub_users"],
+      "cpub.deps.clean": ["deps.clean pointers cpub_accounts cpub_blocks cpub_characters cpub_emails cpub_local_auth cpub_profiles cpub_users --build"],
+      "cpub.deps": ["cpub.deps.update", "cpub.deps.clean"],
+      setup: ["hex.setup", "rebar.setup", "deps.get", "cpub.deps.clean", "ecto.setup", "js.deps.get"],
+      updates: ["deps.get", "cpub.deps.clean", "ecto.migrate", "js.deps.get"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
