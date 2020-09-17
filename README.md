@@ -4,9 +4,11 @@ Blogging/Microblogging software.
 
 ## Handy commands
 
-* `make update-deps` - updates commonspub dep versions
-* `make clean-deps` - cleans the compiled deps so config is reread
-* `make deps` - both of the above
+* `mix cpub.deps.update` - updates commonspub dep versions
+* `mix cpub.deps.clean` - cleans the compiled deps so config is reread
+* `mix cpub.deps` - both of the above
+
+If using Docker, just replace `mix ` with `make mix-` in the above commands, so for example `mix cpub.deps` becomes `make mix-cpub.deps`.
 
 ## Copyright and License
 
