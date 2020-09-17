@@ -24,7 +24,8 @@ defmodule VoxPublica.ConnCase do
       import Phoenix.ConnTest
       import Phoenix.LiveViewTest
       import VoxPublica.ConnCase
-      import VoxPublica.ConnHelpers
+      import VoxPublica.Test.ConnHelpers
+      import VoxPublica.Test.FakeHelpers
       alias VoxPublica.Fake
       alias VoxPublica.Web.Router.Helpers, as: Routes
 
@@ -40,7 +41,7 @@ defmodule VoxPublica.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(VoxPublica.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, []}
   end
 
 end
