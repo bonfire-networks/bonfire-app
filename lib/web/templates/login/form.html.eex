@@ -1,0 +1,70 @@
+<main class="guest__container page__auth-grid">
+  <aside class="auth__info">
+    <div 
+      role="img"
+      aria-label="instance representative image"
+      title="instance representative image"
+      class="grid__background"></div>
+      <h2>About this instance</h2>
+      <p>It has been created for clear, uncluttered and elegant designs following a minimal and flat style pattern. For syntax highlighting it aims to ensure an undisturbed focus on important parts of the code, a good readability and a quick visual distinction between the different syntax elements.
+      </p>
+      <h3>Useful links</h3>
+      <ol>
+        <li><%= link "Code of Conduct", to: "/#" %></li>
+        <li><%= link "Accessibility guidelines", to: "/#" %></li>
+        <li><%= link "Terms and Conditions", to: "/#" %></li>
+      </ol>
+    </aside>
+    <section class="grid__form">
+      <h1>Log in</h1>
+      <%= if @error do %>
+        <div 
+          role="status" 
+          class="box__warning">
+          <%= case @error do %>
+          <% :not_found -> %>
+            <span>Your username and/or password are incorrect.</span>
+          <% :email_not_confirmed -> %>
+            <span>You must confirm your email address before logging in. Check your email.</span>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="form__wrapper">
+        <%= f = form_for @form, Routes.login_path(@conn, :create), [method: :post, id: "login-form"] %>
+          <div class="form__container">
+            <%= label f, :email, "Type your email" %>
+            <%= text_input f, 
+              :email, 
+              [
+                aria_describedby: "required-message",
+                required: true
+              ] %>
+            <%= error_tag f, :email %>
+          </div>
+          <div class="form__container">
+            <%= label f, :password, "Type your password" %>
+            <%= password_input f, 
+              :password, 
+              [
+                aria_describedby: "required-message",
+                required: true
+              ] %>
+            <%= error_tag f, :password %>
+          </div>
+          <%= submit "Log in" %>
+        </form> 
+        <aside class="auth__helpers">  
+          <p>
+            <span>&#x01f44b;</span>
+            Don&#39;t have an account yet?
+            <%= link "Create a new one.", to: Routes.signup_path(@conn, :index) %>
+          </p>
+          <p>
+            <span>&#x01f9d0;</span>
+            Trouble logging in?
+            <%= link "Reset your password.", to: Routes.forgot_password_path(@conn, :index) %>.
+          </p>      
+        </aside>
+      </div>
+    </section>
+</main>

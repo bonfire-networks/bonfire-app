@@ -13,19 +13,23 @@ defmodule VoxPublica.Web.Router do
 
   scope "/", VoxPublica.Web do
     pipe_through :browser
+    # guest visible pages
     live "/", IndexLive, :index
-    live "/register", SignupLive, :register
-    live "/login", LoginLive, :login
-    live "/password/forgot", ResetPasswordLive, :reset_password
-    live "/password/change", ChangePasswordLive, :change_password
-    live "/password/change/:token", ChangePasswordLive, :change_password_confirm
+    resources "/signup", SignupController, only: [:index, :create]
+    resources "/confirm-email", ConfirmEmailController, only: [:index, :show, :create]
+    resources "/login", LoginController, only: [:index, :create]
+    resources "/password/forgot", ForgotPasswordController, only: [:index, :create]
+    resources "/password/reset/:token", ResetPasswordController, only: [:index, :create]
+    resources "/password/change", ChangePasswordController, only: [:index, :create]
+    # authenticated pages
+    resources "/create-user", CreateUserController, only: [:index, :create]
+    get "/switch-user", SwitchUserController, :index
+    get "/switch-user/@:username", SwitchUserController, :show
 
-    live "/@:username", ProfileLive
-    live "/@:username/:tab", ProfileLive
-    # get "/confirm-email/:token", ConfirmEmailController, :confirm_email
-    # live "/reset-password", ResetPasswordLive, :reset_password
-    # live "/reset-password/:token", ResetPasswordLive, :reset_password_confirm
-    # live "/home", HomeLive, :homellow only admins to access it.
+    live "/home", HomeLive, :home
+    live "/home/@:username", HomeLive, :home_user
+    live "/@:username", ProfileLive, :profile
+    live "/@:username/:tab", ProfileLive, :profile_tab
   end
 
   # If your application does not have an admins-only section yet,
