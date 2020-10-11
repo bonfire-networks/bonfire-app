@@ -1,0 +1,55 @@
+<div class="page__fullContent">
+  <div class="page__settings">
+    <div class="settings__hero">
+      <div class="suphero">
+        <div class="suphero__left named-avatar">
+          <img alt="profile pic" src="<%= @current_user.icon_url %>" />
+          <h3><%= @current_user.name %></h3>
+        </div>
+        <div class="suphero__actions">
+            <%= live_redirect to: "/~/profile" do %>View my profile<% end %>
+            <details class="more__dropdown">
+              <summary>
+                <i class="feather-more-horizontal"></i>
+              </summary>
+              <ul class="dropdown__list">
+                <li><button class="button-link" >Download my data</button></li>
+                <li><button class="button-link" >Delete my account</button></li>
+              </ul>
+            </details>
+        </div>
+      </div>
+    </div>
+    <div class="settings__layout">
+      <div class="mainContent__selected">
+        <%= cond do %>
+          <% @selected_tab == "general" ->  %>
+          <div class="selected__area">
+            <%= live_component(
+                  @socket,
+                  SettingsGeneralLive,
+                  assigns
+                )  %>
+          </div>
+          <% true -> %>
+          <div class="selected__area">
+            <%= live_component(
+                  @socket,
+                  SettingsGeneralLive,
+                  assigns
+                )  %>
+          </div>
+        <% end %>
+      </div>
+      <div class="settings__navigation">
+        <%= live_component(
+            @socket,
+            SettingsNavigationLive,
+            selected: @selected_tab,
+            current_user: @current_user
+          )
+        %>
+      </div>
+    </div>
+  </div>
+</div>
