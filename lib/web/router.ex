@@ -30,6 +30,8 @@ defmodule VoxPublica.Web.Router do
     live "/home/@:username", HomeLive, :home_user
     live "/@:username", ProfileLive, :profile
     live "/@:username/:tab", ProfileLive, :profile_tab
+    live "/settings", SettingsLive, :setting
+    live "/settings/:tab", SettingsLive, :setting_tav
   end
 
   # If your application does not have an admins-only section yet,
