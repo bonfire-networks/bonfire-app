@@ -1,7 +1,7 @@
 defmodule VoxPublica.Web.ChangePasswordController.Test do
 
   use VoxPublica.ConnCase
-  # alias VoxPublica.Accounts
+  # alias CommonsPub.Me.Accounts
 
   # test "form renders" do
   #   conn = conn()
@@ -17,7 +17,7 @@ defmodule VoxPublica.Web.ChangePasswordController.Test do
 
   #   test "missing both" do
   #     conn = conn()
-  #     conn = post(conn, "/login", %{"login_form" => %{}})
+  #     conn = post(conn, "/login", %{"login_fields" => %{}})
   #     doc = floki_response(conn)
   #     assert [form] = Floki.find(doc, "#login-form")
   #     assert [_] = Floki.find(form, "#login-form_email")
@@ -32,7 +32,7 @@ defmodule VoxPublica.Web.ChangePasswordController.Test do
   #   test "missing password" do
   #     conn = conn()
   #     email = Fake.email()
-  #     conn = post(conn, "/login", %{"login_form" => %{"email" => email}})
+  #     conn = post(conn, "/login", %{"login_fields" => %{"email" => email}})
   #     doc = floki_response(conn)
   #     assert [form] = Floki.find(doc, "#login-form")
   #     assert [_] = Floki.find(form, "#login-form_email")
@@ -46,7 +46,7 @@ defmodule VoxPublica.Web.ChangePasswordController.Test do
   #   test "missing email" do
   #     conn = conn()
   #     password = Fake.password()
-  #     conn = post(conn, "/login", %{"login_form" => %{"password" => password}})
+  #     conn = post(conn, "/login", %{"login_fields" => %{"password" => password}})
   #     doc = floki_response(conn)
   #     assert [form] = Floki.find(doc, "#login-form")
   #     assert [_] = Floki.find(form, "#login-form_email")
@@ -63,7 +63,7 @@ defmodule VoxPublica.Web.ChangePasswordController.Test do
   #   conn = conn()
   #   email = Fake.email()
   #   password = Fake.password()
-  #   params = %{"login_form" => %{"email" => email, "password" => password}}
+  #   params = %{"login_fields" => %{"email" => email, "password" => password}}
   #   conn = post(conn, "/login", params)
   #   doc = floki_response(conn)
   #   assert [div] = Floki.find(doc, "div.box__warning")
@@ -75,7 +75,7 @@ defmodule VoxPublica.Web.ChangePasswordController.Test do
   # test "not activated" do
   #   conn = conn()
   #   account = fake_account!()
-  #   params = %{"login_form" =>
+  #   params = %{"login_fields" =>
   #               %{"email" => account.email.email,
   #                 "password" => account.login_credential.password}}
   #   conn = post(conn, "/login", params)
@@ -90,7 +90,7 @@ defmodule VoxPublica.Web.ChangePasswordController.Test do
   #   conn = conn()
   #   account = fake_account!()
   #   {:ok, account} = Accounts.confirm_email(account)
-  #   params = %{"login_form" =>
+  #   params = %{"login_fields" =>
   #               %{"email" => account.email.email,
   #                 "password" => account.login_credential.password}}
   #   conn = post(conn, "/login", params)

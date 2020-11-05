@@ -1,7 +1,8 @@
 defmodule VoxPublica.Test.FakeHelpers do
 
   alias CommonsPub.Accounts.Account
-  alias VoxPublica.{Accounts, Fake, Repo, Users}
+  alias VoxPublica.{Fake, Repo}
+  alias CommonsPub.Me.{Accounts, Users}
   import ExUnit.Assertions
 
   def fake_account!(attrs \\ %{}) do

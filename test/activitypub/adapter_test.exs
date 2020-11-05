@@ -1,8 +1,8 @@
 defmodule VoxPublica.ActivityPub.AdapterTest do
   use VoxPublica.DataCase
-  alias VoxPublica.Accounts
+  alias CommonsPub.Me.Accounts
   alias VoxPublica.ActivityPub.Adapter
-  alias VoxPublica.Users
+  alias CommonsPub.Me.Users
   alias VoxPublica.Fake
 
   describe "actor fetching" do

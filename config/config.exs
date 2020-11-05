@@ -9,7 +9,7 @@ alias VoxPublica.Mailer
 config :vox_publica, Mailer,
   from_address: "noreply@voxpub.local"
 
-alias VoxPublica.Accounts
+alias CommonsPub.Me.Accounts
 
 config :vox_publica, Accounts.Emails,
   confirm_email: [subject: "Confirm your email - VoxPublica"],
@@ -107,46 +107,46 @@ config :cpub_users, User,
 
 # You probably will want to leave these
 
-alias VoxPublica.Accounts.{
-  ChangePasswordForm,
-  ConfirmEmailForm,
-  LoginForm,
-  ResetPasswordForm,
-  SignupForm,
+alias CommonsPub.Me.Accounts.{
+  ChangePasswordFields,
+  ConfirmEmailFields,
+  LoginFields,
+  ResetPasswordFields,
+  SignupFields,
 }
 
 # these are not used yet, but they will be
 
-config :vox_publica, ChangePasswordForm,
+config :vox_publica, ChangePasswordFields,
   cast: [:old_password, :password, :password_confirmation],
   required: [:old_password, :password, :password_confirmation],
   confirm: :password,
   new_password: [length: [min: 10, max: 64]]
 
-config :vox_publica, ConfirmEmailForm,
+config :vox_publica, ConfirmEmailFields,
   cast: [:email],
   required: [:email],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)]
 
-config :vox_publica, LoginForm,
+config :vox_publica, LoginFields,
   cast: [:email, :password],
   required: [:email, :password],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
   password: [length: [min: 10, max: 64]]
 
-config :vox_publica, ResetPasswordForm,
+config :vox_publica, ResetPasswordFields,
   cast: [:password, :password_confirmation],
   required: [:password, :password_confirmation],
   confirm: :password,
   password: [length: [min: 10, max: 64]]
 
-config :vox_publica, SignupForm,
+config :vox_publica, SignupFields,
   cast: [:email, :password],
   required: [:email, :password],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
   password: [length: [min: 10, max: 64]]
 
-alias VoxPublica.Users.ValidFields
+alias CommonsPub.Me.Users.ValidFields
 
 config :vox_publica, ValidFields,
   username: [format: ~r(^[a-z][a-z0-9_]{2,30}$)i],
@@ -185,5 +185,10 @@ config :vox_publica, Oban,
 config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
 }
+
+config :cpub_me, :web_module, VoxPublica.Web
+config :cpub_me, :repo_module, VoxPublica.Repo
+config :cpub_me, :mailer_module, VoxPublica.Mailer
+config :cpub_me, :helper_module, VoxPublica.CommonHelper
 
 import_config "#{Mix.env()}.exs"

@@ -16,7 +16,7 @@ defmodule VoxPublica.Web.SignupController.Test do
 
     test "missing both" do
       conn = conn()
-      conn = post(conn, "/signup", %{"signup_form" => %{}})
+      conn = post(conn, "/signup", %{"signup_fields" => %{}})
       doc = floki_response(conn)
       assert [form] = Floki.find(doc, "#signup-form")
       assert [_] = Floki.find(form, "#signup-form_email")
@@ -27,11 +27,11 @@ defmodule VoxPublica.Web.SignupController.Test do
       assert "can't be blank" == Floki.text(password_error)
       assert [_] = Floki.find(form, "button[type='submit']")
     end
-    
+
     test "missing password" do
       conn = conn()
       email = Fake.email()
-      conn = post(conn, "/signup", %{"signup_form" => %{"email" => email}})
+      conn = post(conn, "/signup", %{"signup_fields" => %{"email" => email}})
       doc = floki_response(conn)
       assert [form] = Floki.find(doc, "#signup-form")
       assert [_] = Floki.find(form, "#signup-form_email")
@@ -45,7 +45,7 @@ defmodule VoxPublica.Web.SignupController.Test do
     test "missing email" do
       conn = conn()
       password = Fake.password()
-      conn = post(conn, "/signup", %{"signup_form" => %{"password" => password}})
+      conn = post(conn, "/signup", %{"signup_fields" => %{"password" => password}})
       doc = floki_response(conn)
       assert [form] = Floki.find(doc, "#signup-form")
       assert [_] = Floki.find(form, "#signup-form_email")
@@ -61,7 +61,7 @@ defmodule VoxPublica.Web.SignupController.Test do
     conn = conn()
     email = Fake.email()
     password = Fake.password()
-    conn = post(conn, "/signup", %{"signup_form" => %{"email" => email, "password" => password}})
+    conn = post(conn, "/signup", %{"signup_fields" => %{"email" => email, "password" => password}})
     doc = floki_response(conn)
     assert [div] = Floki.find(doc, "div.form__confirmation")
     assert [p] = Floki.find(div, "p")
