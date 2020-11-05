@@ -1,6 +1,6 @@
 FROM elixir:1.10.4-alpine
 
-ENV HOME=/opt/app/ TERM=xterm
+ENV HOME=/opt/app/ TERM=xterm USER=docker
 
 WORKDIR $HOME
 
@@ -20,6 +20,15 @@ RUN apk add git \
 
 # dependencies for comeonin
 RUN apk add cmake make gcc libc-dev
+
+# dependency manager
+RUN git clone https://github.com/commonspub/messctl.git libs/messctl/origin 2> /dev/null || (cd libs/messctl/origin && git pull)
+# precompile Rust deps
+RUN cd libs/messctl && cargo init && mkdir .cargo && cp origin/Cargo.* . && cargo build
+# compile messctl
+RUN cd libs/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose 
+# install 
+RUN cp /opt/app/.cargo/bin/* /bin/
 
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp
