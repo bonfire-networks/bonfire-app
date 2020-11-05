@@ -11,7 +11,7 @@ config :vox_publica, Mailer,
 
 alias CommonsPub.Me.Accounts
 
-config :vox_publica, Accounts.Emails,
+config :cpub_me, Accounts.Emails,
   confirm_email: [subject: "Confirm your email - VoxPublica"],
   reset_password: [subject: "Reset your password - VoxPublica"]
 
@@ -117,30 +117,30 @@ alias CommonsPub.Me.Accounts.{
 
 # these are not used yet, but they will be
 
-config :vox_publica, ChangePasswordFields,
+config :cpub_me, ChangePasswordFields,
   cast: [:old_password, :password, :password_confirmation],
   required: [:old_password, :password, :password_confirmation],
   confirm: :password,
   new_password: [length: [min: 10, max: 64]]
 
-config :vox_publica, ConfirmEmailFields,
+config :cpub_me, ConfirmEmailFields,
   cast: [:email],
   required: [:email],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)]
 
-config :vox_publica, LoginFields,
+config :cpub_me, LoginFields,
   cast: [:email, :password],
   required: [:email, :password],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
   password: [length: [min: 10, max: 64]]
 
-config :vox_publica, ResetPasswordFields,
+config :cpub_me, ResetPasswordFields,
   cast: [:password, :password_confirmation],
   required: [:password, :password_confirmation],
   confirm: :password,
   password: [length: [min: 10, max: 64]]
 
-config :vox_publica, SignupFields,
+config :cpub_me, SignupFields,
   cast: [:email, :password],
   required: [:email, :password],
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
@@ -148,7 +148,7 @@ config :vox_publica, SignupFields,
 
 alias CommonsPub.Me.Users.ValidFields
 
-config :vox_publica, ValidFields,
+config :cpub_me, ValidFields,
   username: [format: ~r(^[a-z][a-z0-9_]{2,30}$)i],
   name: [length: [min: 3, max: 50]],
   summary: [length: [min: 20, max: 500]]
