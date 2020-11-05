@@ -36,8 +36,8 @@ dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local de
 dep-go-local-path: ## Switch to using a local path, eg: make dep-go-local dep=pointers path=./libs/pointers
 	make dep-local-add dep=$(dep) path=$(path)
 	make dep-local-enable dep=$(dep) path=""
-	make dep-git-disable dep=$(dep) repo="" 
-	make dep-hex-disable dep=$(dep) version=""
+	# make dep-git-disable dep=$(dep) repo="" 
+	# make dep-hex-disable dep=$(dep) version=""
 
 dep-go-git: ## Switch to using a git repo, eg: make dep-go-git dep="pointers" repo=https://github.com/commonspub/pointers (repo is optional if previously specified)
 	make dep-git-add dep=$(dep) $(repo) 2> /dev/null || true
