@@ -24,7 +24,7 @@ RUN apk add cmake make gcc libc-dev
 # dependency manager
 RUN git clone https://github.com/commonspub/messctl.git priv/messctl/origin
 # precompile Rust deps
-RUN cd priv/messctl && cargo init && mkdir .cargo && cp origin/Cargo.* . && cargo vendor > .cargo/config
+RUN cd priv/messctl && cargo init && mkdir .cargo && cp origin/Cargo.* . && cargo build
 # compile messctl
 RUN cd priv/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose 
 # install 
