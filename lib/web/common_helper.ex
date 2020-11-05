@@ -148,7 +148,9 @@ defmodule VoxPublica.Web.CommonHelper do
   def init_assigns(
         _params,
         %{
-          "auth_token" => auth_token,
+          # "auth_token" => auth_token,
+          "account_id" => account_id,
+          "username" => username,
           "current_user" => current_user,
           "_csrf_token" => csrf_token
         } = _session,
@@ -156,34 +158,44 @@ defmodule VoxPublica.Web.CommonHelper do
       ) do
     # Logger.info(session_preloaded: session)
     socket
-    |> assign(:auth_token, fn -> auth_token end)
-    |> assign(:current_user, fn -> current_user end)
-    |> assign(:csrf_token, fn -> csrf_token end)
+    |> assign(:csrf_token, csrf_token)
+    # |> assign(:auth_token, auth_token)
+    |> assign(:account_id, account_id)
+    |> assign(:username, username)
+    |> assign(:current_user, current_user)
     |> assign(:static_changed, static_changed?(socket))
     |> assign(:search, "")
+    |> assign(:toggle_post, false)
   end
 
   def init_assigns(
         _params,
         %{
-          "auth_token" => auth_token,
+          # "auth_token" => auth_token,
+          "account_id" => account_id,
+          "username" => username,
           "_csrf_token" => csrf_token
         } = session,
         %Phoenix.LiveView.Socket{} = socket
-      ) do
+      ) when is_binary(account_id) do
     # Logger.info(session_load: session)
 
-    current_user = Fake.user_live()
+    {:ok, current_user} = if Kernel.function_exported?(VoxPublica.Users, :by_username, 1) do
+      VoxPublica.Users.by_username(username)
+    else
+      Fake.user_live()
+    end
+    # IO.inspect(current_user)
 
     socket
     |> assign(:csrf_token, csrf_token)
-    |> assign(:static_changed, static_changed?(socket))
-    |> assign(:auth_token, auth_token)
-    |> assign(:show_title, false)
-    |> assign(:toggle_post, false)
-    |> assign(:current_context, nil)
+    # |> assign(:auth_token, auth_token)
+    |> assign(:account_id, account_id)
+    |> assign(:username, username)
     |> assign(:current_user, current_user)
+    |> assign(:static_changed, static_changed?(socket))
     |> assign(:search, "")
+    |> assign(:toggle_post, false)
   end
 
   def init_assigns(

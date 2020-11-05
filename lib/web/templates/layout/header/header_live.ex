@@ -1,6 +1,7 @@
 defmodule VoxPublica.Web.Layout.HeaderLive do
   use VoxPublica.Web, :live_component
-  import VoxPublica.Web.CommonHelper
+
+  alias VoxPublica.Web.HeaderMeLive
 
   def update(assigns, socket) do
     {

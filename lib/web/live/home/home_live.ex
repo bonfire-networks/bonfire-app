@@ -1,6 +1,6 @@
 defmodule VoxPublica.Web.HomeLive do
   use VoxPublica.Web, :live_view
-  import VoxPublica.Web.CommonHelper
+
 
 
   def mount(params, session, socket) do
