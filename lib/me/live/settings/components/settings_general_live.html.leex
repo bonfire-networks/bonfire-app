@@ -1,0 +1,64 @@
+<section class="settings__section">
+  <div class="section__main">
+    <h1>Edit profile</h1>
+          <form action="/settings" phx-submit="profile_save" method="post" enctype="multipart/form-data" <%= if @trigger_submit, do: "phx-trigger-action" %>>
+            <div class="section__item">
+              <h4>Edit your name</h4>
+              <input name="profile[name]" type="text" value="<%= e(@current_user, :profile, :name, "Me") %>" placeholder="Type a new name...">
+            </div>
+            <div class="section__item">
+              <h4>Edit your email</h4>
+              <input name="profile[email]" value="<%= e(@current_user, :profile, :email, "") %>" type="text" placeholder="Type a new email...">
+            </div>
+            <div class="section__item">
+              <h4>Edit your summary</h4>
+              <textarea name="profile[summary]" placeholder="Type your summary..."><%= e(@current_user, :profile, :summary, "") %></textarea>
+            </div>
+
+            <div class="section__preview">
+              <div class="preview__card">
+                <div class="card__bg" style="background-image: url(<%= e(@current_user, :image_url, "") %>)"></div>
+                <div class="card__bar">
+                  <div class="bar__icon" style="background-image: url(<%= e(@current_user, :icon_url, "") %>)"></div>
+                  <div class="bar__meta">
+                    <h3><%= e(@current_user, :profile, :name, "") %></h3>
+                    <h4>@<%= e(@current_user, :character, :username, "") %></h4>
+                  </div>
+                </div>
+              </div>
+              <div class="preview__form">
+              <div class="section__item">
+                <h4>Edit your background image</h4>
+                <label class="file">
+                  <input name="image[upload]" type="file" id="image" aria-label="Image file selector" phx-update="ignore">
+                  <span class="file-custom"></span>
+                </label>
+              </div>
+              <div class="section__item">
+                <h4>Edit your avatar</h4>
+                <label class="file">
+                  <input name="icon[upload]" type="file" id="icon" aria-label="Icon file selector" phx-update="ignore">
+                  <span class="file-custom"></span>
+                </label>
+              </div>
+              </div>
+            </div>
+          <div class="section__wrapper">
+            <h3>Profile metadata</h3>
+            <div class="section__item">
+              <h4>Edit your website</h4>
+              <input name="profile[website]" value="<%= e(@current_user, :profile, :website, "") %>" type="text" placeholder="Type a new website...">
+            </div>
+            <div class="section__item">
+              <h4>Edit your location</h4>
+              <input name="profile[location]" type="text" value="<%= e(@current_user, :profile, :location, "") %>" placeholder="Type a new location...">
+            </div>
+          </div>
+
+          <div class="section__actions">
+           <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>"/>
+            <button type="submit" phx-disable-with="Updating...">Update</button>
+          </div>
+        </form>
+        </div>
+      </section>

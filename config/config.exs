@@ -146,9 +146,9 @@ config :vox_publica, SignupForm,
   email: [format: ~r(^[^@]{1,128}@[^@\.]+\.[^@]{2,128}$)],
   password: [length: [min: 10, max: 64]]
 
-alias VoxPublica.Users.CreateForm
+alias VoxPublica.Users.ValidFields
 
-config :vox_publica, CreateForm,
+config :vox_publica, ValidFields,
   username: [format: ~r(^[a-z][a-z0-9_]{2,30}$)i],
   name: [length: [min: 3, max: 50]],
   summary: [length: [min: 20, max: 500]]

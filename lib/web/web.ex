@@ -12,10 +12,10 @@ defmodule VoxPublica.Web do
     end
   end
 
-  def view do
+  def view(root \\ "lib/web/templates") do
     quote do
       use Phoenix.View,
-        root: "lib/web/templates",
+        root: unquote(root),
         namespace: VoxPublica.Web
 
       # Import convenience functions from controllers
@@ -75,6 +75,8 @@ defmodule VoxPublica.Web do
       import VoxPublica.Web.ErrorHelpers
       import VoxPublica.Web.Gettext
       alias VoxPublica.Web.Router.Helpers, as: Routes
+
+      import VoxPublica.Web.CommonHelper
     end
   end
 
@@ -83,5 +85,9 @@ defmodule VoxPublica.Web do
   """
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
+  end
+
+  defmacro __using__([which | args]) do
+    apply(__MODULE__, which, args)
   end
 end
