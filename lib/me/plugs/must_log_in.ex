@@ -1,8 +1,8 @@
-defmodule VoxPublica.Web.Plugs.MustLogIn do
+defmodule CommonsPub.Me.Web.Plugs.MustLogIn do
 
   import Plug.Conn
   import Phoenix.Controller
-  alias VoxPublica.Accounts
+  alias CommonsPub.Me.Accounts
 
   def init(opts), do: opts
 

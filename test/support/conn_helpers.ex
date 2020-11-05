@@ -4,7 +4,7 @@ defmodule VoxPublica.Test.ConnHelpers do
   import Plug.Conn
   import Phoenix.ConnTest
   import Phoenix.LiveViewTest
-  # alias VoxPublica.Accounts
+  # alias CommonsPub.Accounts
   alias CommonsPub.Accounts.Account
   alias CommonsPub.Users.User
 

@@ -8,9 +8,9 @@
     <% end %>
   </div>
   <div class="header__right">
-    <%= live_component(
+    <%= if Kernel.function_exported?(CommonsPub.Me.Web.HeaderMeLive, :render, 1), do: live_component(
           @socket,
-          HeaderMeLive,
+          CommonsPub.Me.Web.HeaderMeLive,
           current_user: @current_user
         ) %>
 

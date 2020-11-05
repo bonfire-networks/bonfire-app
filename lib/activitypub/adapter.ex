@@ -2,7 +2,7 @@ defmodule VoxPublica.ActivityPub.Adapter do
   @behaviour ActivityPub.Adapter
 
   alias ActivityPub.Actor
-  alias VoxPublica.Users
+  alias CommonsPub.Me.Users
 
   defp format_actor(user) do
     ap_base_path = System.get_env("AP_BASE_PATH", "/pub")

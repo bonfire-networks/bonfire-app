@@ -21,7 +21,8 @@ defmodule VoxPublica.Web.Router do
 
   end
 
-  use VoxPublica.Me.Router
+  # include routers from CommonsPub extensions
+  use CommonsPub.Me.Web.Router
 
   # If your application does not have an admins-only section yet,
   # you can use Plug.BasicAuth to set up some basic authentication

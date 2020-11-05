@@ -1,8 +1,8 @@
 defmodule VoxPublica.ActivityPub.IntegrationTest do
   use VoxPublica.ConnCase
 
-  alias VoxPublica.Accounts
-  alias VoxPublica.Users
+  alias CommonsPub.Me.Accounts
+  alias CommonsPub.Me.Users
   alias VoxPublica.Fake
 
   test "fetch users from AP API" do

@@ -8,7 +8,9 @@ defmodule VoxPublica.Web do
       import Plug.Conn
       import VoxPublica.Web.Gettext
       alias VoxPublica.Web.Router.Helpers, as: Routes
-      alias VoxPublica.Web.Plugs.{MustBeGuest, MustLogIn}
+
+      import VoxPublica.CommonHelper
+
     end
   end
 
@@ -16,6 +18,7 @@ defmodule VoxPublica.Web do
     quote do
       use Phoenix.View,
         root: unquote(root),
+        pattern: "**/*",
         namespace: VoxPublica.Web
 
       # Import convenience functions from controllers
@@ -76,7 +79,7 @@ defmodule VoxPublica.Web do
       import VoxPublica.Web.Gettext
       alias VoxPublica.Web.Router.Helpers, as: Routes
 
-      import VoxPublica.Web.CommonHelper
+      import VoxPublica.CommonHelper
     end
   end
 

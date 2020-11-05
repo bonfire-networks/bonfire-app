@@ -33,7 +33,7 @@ defmodule VoxPublica.Web.SwitchUserController.Test do
       conn = conn(account: account)
       conn = get(conn, "/switch-user")
       doc = floki_response(conn)
-      [a, b] = Floki.find(doc,  "ul.user-list li")
+      [a, b] = Floki.find(doc,  "user__list h3")
       assert Floki.text(a) == "@#{alice.character.username}"
       assert Floki.text(b) == "@#{bob.character.username}"
     end
@@ -85,7 +85,7 @@ defmodule VoxPublica.Web.SwitchUserController.Test do
       conn = get(conn, "/switch-user/@#{user.character.username}")
       assert redirected_to(conn) == "/home/@#{user.character.username}"
       conn = get(conn, "/home/@#{user.character.username}")
-      assert get_session(conn, :user_id) == user.id
+      assert get_session(conn, :username) == user.character.username
       doc = floki_response(conn)
       assert [err] = find_flash(doc)
       assert_flash(err, :info, "Welcome back, @#{user.character.username}!")

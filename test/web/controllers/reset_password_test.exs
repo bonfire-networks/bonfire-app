@@ -29,7 +29,7 @@ defmodule VoxPublica.Web.ResetPasswordController.Test do
 
   #   test "format validation" do
   #     conn = conn()
-  #     conn = post(conn, "/confirm-email", %{"confirm_email_form" => %{"email" => Faker.Pokemon.name()}})
+  #     conn = post(conn, "/confirm-email", %{"confirm_email_fields" => %{"email" => Faker.Pokemon.name()}})
   #     doc = floki_response(conn)
   #     assert [form] = Floki.find(doc, "#confirm-email-form")
   #     assert [_] = Floki.find(form, "#confirm-email-form_email")
@@ -41,7 +41,7 @@ defmodule VoxPublica.Web.ResetPasswordController.Test do
 
   #   test "not found" do
   #     conn = conn()
-  #     conn = post(conn, "/confirm-email", %{"confirm_email_form" => %{"email" => Fake.email()}})
+  #     conn = post(conn, "/confirm-email", %{"confirm_email_fields" => %{"email" => Fake.email()}})
   #     doc = floki_response(conn)
   #     assert [form] = Floki.find(doc, "#confirm-email-form")
   #     assert [_] = Floki.find(form, "#confirm-email-form_email")

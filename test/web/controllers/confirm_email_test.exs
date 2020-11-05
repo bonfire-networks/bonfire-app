@@ -32,7 +32,7 @@ defmodule VoxPublica.Web.ConfirmEmailController.Test do
 
     test "format validation" do
       conn = conn()
-      conn = post(conn, "/confirm-email", %{"confirm_email_form" => %{"email" => Faker.Pokemon.name()}})
+      conn = post(conn, "/confirm-email", %{"confirm_email_fields" => %{"email" => Faker.Pokemon.name()}})
       doc = floki_response(conn)
       assert [form] = Floki.find(doc, "#confirm-email-form")
       assert [_] = Floki.find(form, "#confirm-email-form_email")
@@ -44,7 +44,7 @@ defmodule VoxPublica.Web.ConfirmEmailController.Test do
 
     test "not found" do
       conn = conn()
-      conn = post(conn, "/confirm-email", %{"confirm_email_form" => %{"email" => Fake.email()}})
+      conn = post(conn, "/confirm-email", %{"confirm_email_fields" => %{"email" => Fake.email()}})
       doc = floki_response(conn)
       assert [form] = Floki.find(doc, "#confirm-email-form")
       assert [_] = Floki.find(form, "#confirm-email-form_email")
@@ -66,7 +66,7 @@ defmodule VoxPublica.Web.ConfirmEmailController.Test do
       assert [form] = Floki.find(doc, "#confirm-email-form")
       assert [_] = Floki.find(form, "#confirm-email-form_email")
       assert [_] = Floki.find(form, "button[type='submit']")
-      conn = post(recycle(conn), "/confirm-email", %{"confirm_email_form" => %{"email" => account.email.email}})
+      conn = post(recycle(conn), "/confirm-email", %{"confirm_email_fields" => %{"email" => account.email.email}})
       doc = floki_response(conn)
       assert [] = Floki.find(doc, "#confirm-email-form")
       assert [conf] = Floki.find(doc, ".form__confirmation")

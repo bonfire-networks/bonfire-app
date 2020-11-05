@@ -1,9 +1,9 @@
-defmodule VoxPublica.Me.Router do
+defmodule CommonsPub.Me.Web.Router do
   defmacro __using__(_) do
 
     quote do
 
-      scope "/", VoxPublica.Web do
+      scope "/", CommonsPub.Me.Web do
         pipe_through :browser
         # guest visible pages
         resources "/signup", SignupController, only: [:index, :create]
