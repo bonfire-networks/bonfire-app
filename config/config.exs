@@ -189,6 +189,7 @@ config :mime, :types, %{
 config :cpub_me, :web_module, VoxPublica.Web
 config :cpub_me, :repo_module, VoxPublica.Repo
 config :cpub_me, :mailer_module, VoxPublica.Mailer
-config :cpub_me, :helper_module, VoxPublica.CommonHelper
+config :cpub_me, :helper_module, CommonsPub.Core.WebHelpers
+config :cpub_me, :templates_path, "lib/"
 
 import_config "#{Mix.env()}.exs"

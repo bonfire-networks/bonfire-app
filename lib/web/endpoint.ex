@@ -49,5 +49,5 @@ defmodule VoxPublica.Web.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug VoxPublica.Web.Router
+  plug CommonsPub.Core.Web.Router
 end

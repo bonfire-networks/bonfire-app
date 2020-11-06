@@ -1,12 +1,11 @@
-defmodule VoxPublica.Web.Router do
-  use VoxPublica.Web, :router
-  use ActivityPubWeb.Router
+defmodule CommonsPub.Core.Web.Router do
+  use CommonsPub.Core.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {VoxPublica.Web.LayoutView, :root}
+    plug :put_root_layout, {CommonsPub.Core.Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -21,7 +20,10 @@ defmodule VoxPublica.Web.Router do
 
   end
 
-  # include routers from CommonsPub extensions
+  # include federation routes
+    use ActivityPubWeb.Router
+
+  # include routes from CommonsPub extensions
   use CommonsPub.Me.Web.Router
 
   # If your application does not have an admins-only section yet,

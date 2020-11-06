@@ -1,15 +1,16 @@
-defmodule VoxPublica.Web do
+defmodule CommonsPub.Core.Web do
   @moduledoc false
+  # redefines web module from cpub_core li
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: VoxPublica.Web
+      use Phoenix.Controller, namespace: CommonsPub.Core.Web
 
       import Plug.Conn
-      import VoxPublica.Web.Gettext
-      alias VoxPublica.Web.Router.Helpers, as: Routes
+      import CommonsPub.Core.Gettext
+      alias CommonsPub.Core.Web.Router.Helpers, as: Routes
 
-      import VoxPublica.CommonHelper
+      import CommonsPub.Core.WebHelpers
 
     end
   end
@@ -19,7 +20,7 @@ defmodule VoxPublica.Web do
       use Phoenix.View,
         root: unquote(root),
         pattern: "**/*",
-        namespace: VoxPublica.Web
+        namespace: CommonsPub.Core.Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -33,7 +34,7 @@ defmodule VoxPublica.Web do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {VoxPublica.Web.LayoutView, "live.html"}
+        layout: {CommonsPub.Core.Web.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -60,7 +61,7 @@ defmodule VoxPublica.Web do
   def channel do
     quote do
       use Phoenix.Channel
-      import VoxPublica.Web.Gettext
+      import CommonsPub.Core.Gettext
     end
   end
 
@@ -75,11 +76,11 @@ defmodule VoxPublica.Web do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import VoxPublica.Web.ErrorHelpers
-      import VoxPublica.Web.Gettext
-      alias VoxPublica.Web.Router.Helpers, as: Routes
+      import CommonsPub.Core.Web.ErrorHelpers
+      import CommonsPub.Core.Gettext
+      alias CommonsPub.Core.Web.Router.Helpers, as: Routes
 
-      import VoxPublica.CommonHelper
+      import CommonsPub.Core.WebHelpers
     end
   end
 

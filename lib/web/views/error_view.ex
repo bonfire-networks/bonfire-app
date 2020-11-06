@@ -1,5 +1,5 @@
 defmodule VoxPublica.Web.ErrorView do
-  use VoxPublica.Web, :view
+  use CommonsPub.Core.Web, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

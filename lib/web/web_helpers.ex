@@ -1,8 +1,6 @@
-defmodule VoxPublica.CommonHelper do
+defmodule CommonsPub.Core.WebHelpers do
   import Phoenix.LiveView
   require Logger
-
-  alias VoxPublica.Fake
 
   def strlen(x) when is_nil(x), do: 0
   def strlen(%{} = obj) when obj == %{}, do: 0
@@ -189,10 +187,14 @@ defmodule VoxPublica.CommonHelper do
     # Logger.info(session_load: session)
 
     current_user = if is_binary(username) and Kernel.function_exported?(CommonsPub.Me.Users, :by_username, 1) do
-      {:ok, user} = CommonsPub.Me.Users.by_username(username)
-      user
+      with {:ok, user} <- CommonsPub.Me.Users.by_username(username) do
+        user
+      else _ ->
+        socket |> redirect(to: "/logout")
+      end
+
     else
-      Fake.user_live()
+      # Fake.user_live()
     end
     # IO.inspect(current_user)
 
