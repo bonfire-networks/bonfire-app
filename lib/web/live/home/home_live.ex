@@ -1,5 +1,5 @@
 defmodule VoxPublica.Web.HomeLive do
-  use VoxPublica.Web, :live_view
+  use CommonsPub.Core.Web, :live_view
 
 
 

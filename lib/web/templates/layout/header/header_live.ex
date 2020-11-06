@@ -1,5 +1,5 @@
 defmodule VoxPublica.Web.Layout.HeaderLive do
-  use VoxPublica.Web, :live_component
+  use CommonsPub.Core.Web, :live_component
 
   def update(assigns, socket) do
     {

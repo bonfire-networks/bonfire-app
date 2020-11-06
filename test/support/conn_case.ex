@@ -27,7 +27,7 @@ defmodule VoxPublica.ConnCase do
       import VoxPublica.Test.ConnHelpers
       import VoxPublica.Test.FakeHelpers
       alias VoxPublica.Fake
-      alias VoxPublica.Web.Router.Helpers, as: Routes
+      alias CommonsPub.Core.Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint VoxPublica.Web.Endpoint
