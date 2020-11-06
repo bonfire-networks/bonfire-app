@@ -21,7 +21,7 @@ defmodule CommonsPub.Core.Web.Router do
   end
 
   # include federation routes
-    use ActivityPubWeb.Router
+  use ActivityPubWeb.Router
 
   # include routes from CommonsPub extensions
   use CommonsPub.Me.Web.Router

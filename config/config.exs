@@ -9,6 +9,14 @@ alias VoxPublica.Mailer
 config :vox_publica, Mailer,
   from_address: "noreply@voxpub.local"
 
+config :cpub_core, :live_view_module, VoxPublica.Web.PageLive
+
+config :cpub_me, :web_module, VoxPublica.Web
+config :cpub_me, :repo_module, VoxPublica.Repo
+config :cpub_me, :mailer_module, VoxPublica.Mailer
+config :cpub_me, :helper_module, CommonsPub.Core.WebHelpers
+config :cpub_me, :templates_path, "lib/web"
+
 alias CommonsPub.Me.Accounts
 
 config :cpub_me, Accounts.Emails,
@@ -186,10 +194,5 @@ config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
 }
 
-config :cpub_me, :web_module, VoxPublica.Web
-config :cpub_me, :repo_module, VoxPublica.Repo
-config :cpub_me, :mailer_module, VoxPublica.Mailer
-config :cpub_me, :helper_module, CommonsPub.Core.WebHelpers
-config :cpub_me, :templates_path, "lib/"
 
 import_config "#{Mix.env()}.exs"
