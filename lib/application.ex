@@ -8,10 +8,10 @@ defmodule VoxPublica.Application do
   def start(_type, _args) do
     [
       Pointers.Tables,
-      VoxPublica.Web.Telemetry,
+      CommonsPub.WebPhoenix.Telemetry,
       VoxPublica.Repo,
       {Phoenix.PubSub, name: VoxPublica.PubSub},
-      VoxPublica.Web.Endpoint,
+      CommonsPub.WebPhoenix.Endpoint,
       {Oban, Application.get_env(:vox_publica, Oban)}
     ]
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
@@ -20,7 +20,7 @@ defmodule VoxPublica.Application do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    VoxPublica.Web.Endpoint.config_change(changed, removed)
+    CommonsPub.WebPhoenix.Endpoint.config_change(changed, removed)
     :ok
   end
 

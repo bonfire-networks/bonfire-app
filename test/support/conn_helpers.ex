@@ -8,7 +8,7 @@ defmodule VoxPublica.Test.ConnHelpers do
   alias CommonsPub.Accounts.Account
   alias CommonsPub.Users.User
 
-  @endpoint VoxPublica.Web.Endpoint
+  @endpoint CommonsPub.WebPhoenix.Endpoint
 
   ### conn
 

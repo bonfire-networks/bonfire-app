@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.CreateUserController.Test do
+defmodule CommonsPub.WebPhoenix.CreateUserController.Test do
 
   use VoxPublica.ConnCase
 

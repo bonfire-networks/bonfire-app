@@ -24,7 +24,7 @@ defmodule VoxPublica.ChannelCase do
       import VoxPublica.ChannelCase
 
       # The default endpoint for testing
-      @endpoint VoxPublica.Web.Endpoint
+      @endpoint CommonsPub.WebPhoenix.Endpoint
     end
   end
 

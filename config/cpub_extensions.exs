@@ -1,12 +1,10 @@
 use Mix.Config
 
-config :cpub_core, :live_view_module, VoxPublica.Web.PageLive
-
-config :cpub_me, :web_module, VoxPublica.Web
+config :cpub_me, :web_module, CommonsPub.WebPhoenix
 config :cpub_me, :repo_module, VoxPublica.Repo
 config :cpub_me, :mailer_module, VoxPublica.Mailer
-config :cpub_me, :helper_module, CommonsPub.Core.WebHelpers
-config :cpub_me, :templates_path, "lib/web"
+config :cpub_me, :helper_module, CommonsPub.WebPhoenixHelpers
+config :cpub_me, :templates_path, "lib"
 
 alias CommonsPub.Me.Accounts
 

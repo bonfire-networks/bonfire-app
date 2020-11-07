@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.ChangePasswordController.Test do
+defmodule CommonsPub.WebPhoenix.ChangePasswordController.Test do
 
   use VoxPublica.ConnCase
   # alias CommonsPub.Me.Accounts

@@ -23,7 +23,7 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-config :vox_publica, VoxPublica.Web.Endpoint,
+config :cpub_web_phoenix, CommonsPub.WebPhoenix.Endpoint,
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
@@ -35,7 +35,7 @@ config :vox_publica, VoxPublica.Web.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :vox_publica, VoxPublica.Web.Endpoint, server: true
+#     config :vox_publica, CommonsPub.WebPhoenix.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.

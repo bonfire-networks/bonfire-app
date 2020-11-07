@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.SwitchUserController.Test do
+defmodule CommonsPub.WebPhoenix.SwitchUserController.Test do
 
   use VoxPublica.ConnCase
   alias VoxPublica.Fake

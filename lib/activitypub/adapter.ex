@@ -6,7 +6,7 @@ defmodule VoxPublica.ActivityPub.Adapter do
 
   defp format_actor(user) do
     ap_base_path = System.get_env("AP_BASE_PATH", "/pub")
-    id = VoxPublica.Web.Endpoint.url() <> ap_base_path <> "/actors/#{user.character.username}"
+    id = CommonsPub.WebPhoenix.Endpoint.url() <> ap_base_path <> "/actors/#{user.character.username}"
 
     data = %{
       "type" => "Person",

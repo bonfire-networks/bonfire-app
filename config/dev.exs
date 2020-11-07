@@ -20,7 +20,7 @@ config :vox_publica, VoxPublica.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :vox_publica, VoxPublica.Web.Endpoint,
+config :cpub_web_phoenix, CommonsPub.WebPhoenix.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -60,7 +60,7 @@ config :vox_publica, VoxPublica.Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :vox_publica, VoxPublica.Web.Endpoint,
+config :cpub_web_phoenix, CommonsPub.WebPhoenix.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",

@@ -1,6 +1,6 @@
 use Mix.Config
 
-alias VoxPublica.{Mailer, Repo, Web.Endpoint}
+alias VoxPublica.{Mailer, Repo}
 
 config :vox_publica, Mailer,
   adapter: Bamboo.TestAdapter
@@ -21,7 +21,7 @@ config :vox_publica, Repo,
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :vox_publica, Endpoint,
+config :cpub_web_phoenix, CommonsPub.WebPhoenix.Endpoint,
   http: [port: 4002],
   server: false
 

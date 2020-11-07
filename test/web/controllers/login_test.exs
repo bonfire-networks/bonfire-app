@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.LoginController.Test do
+defmodule CommonsPub.WebPhoenix.LoginController.Test do
 
   use VoxPublica.ConnCase
   alias CommonsPub.Me.Accounts
