@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.ConfirmEmailController.Test do
+defmodule CommonsPub.WebPhoenix.ConfirmEmailController.Test do
 
   use VoxPublica.ConnCase
   alias VoxPublica.Fake

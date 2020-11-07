@@ -1,4 +1,4 @@
 defmodule VoxPublica.Web.PageLive do
-  use CommonsPub.Core.Web, :live_component
+  use CommonsPub.WebPhoenix, :live_component
 
 end

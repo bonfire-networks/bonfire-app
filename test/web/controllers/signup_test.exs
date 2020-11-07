@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.SignupController.Test do
+defmodule CommonsPub.WebPhoenix.SignupController.Test do
 
   use VoxPublica.ConnCase
 
