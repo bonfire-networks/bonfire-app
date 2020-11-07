@@ -11,7 +11,7 @@ defmodule Bonfire.Web.HomeLive do
       query: "",
       results: %{},
       selected_tab: "timeline",
-      page_title: "My VoxPub"
+      page_title: "My Bonfire"
     )}
   end
 
