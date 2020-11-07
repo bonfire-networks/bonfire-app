@@ -1,6 +1,11 @@
-# VoxPublica
+## Bonfire:Social
 
-Blogging/Microblogging software.
+An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
+
+- (Bonfire:Web:Phoenix)[https://github.com/commonspub/bonfire_web_phoenix] - scaffolding for Web UI powered by (Phoenix)[https://www.phoenixframework.org/] LiveView
+- (Bonfire:Me)[https://github.com/commonspub/bonfire_me] - user profiles
+- More to come...
+
 
 ## Handy commands
 
@@ -12,9 +17,7 @@ If using Docker, just replace `mix ` with `make mix-` in the above commands, so 
 
 ## Copyright and License
 
-VoxPublica content publishing platform
-
-Copyright (c) 2020 VoxPublica Contributors
+Copyright (c) 2020 Bonfire, VoxPublica, and CommonsPub Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as

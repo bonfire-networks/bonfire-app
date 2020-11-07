@@ -1,7 +1,7 @@
-defmodule CommonsPub.WebPhoenix.ResetPasswordController.Test do
+defmodule Bonfire.WebPhoenix.ResetPasswordController.Test do
 
-  use VoxPublica.ConnCase
-  # alias VoxPublica.Fake
+  use Bonfire.ConnCase
+  # alias Bonfire.Fake
 
   # describe "request" do
 

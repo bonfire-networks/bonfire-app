@@ -1,9 +1,9 @@
-defmodule VoxPublica.ActivityPub.AdapterTest do
-  use VoxPublica.DataCase
-  alias CommonsPub.Me.Accounts
-  alias VoxPublica.ActivityPub.Adapter
-  alias CommonsPub.Me.Users
-  alias VoxPublica.Fake
+defmodule Bonfire.ActivityPub.AdapterTest do
+  use Bonfire.DataCase
+  alias Bonfire.Me.Accounts
+  alias Bonfire.ActivityPub.Adapter
+  alias Bonfire.Me.Users
+  alias Bonfire.Fake
 
   describe "actor fetching" do
     test "by username" do

@@ -1,8 +1,8 @@
-defmodule CommonsPub.Me.AccountsTest do
+defmodule Bonfire.Me.AccountsTest do
 
-  use VoxPublica.DataCase, async: true
-  alias CommonsPub.Me.Accounts
-  alias VoxPublica.Fake
+  use Bonfire.DataCase, async: true
+  alias Bonfire.Me.Accounts
+  alias Bonfire.Fake
 
   describe "[registration]" do
 

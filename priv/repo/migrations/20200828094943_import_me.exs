@@ -1,9 +1,9 @@
-defmodule VoxPublica.Repo.Migrations.ImportMe do
+defmodule Bonfire.Repo.Migrations.ImportMe do
   use Ecto.Migration
 
   def change do
     # accounts & users
-    CommonsPub.Me.Migrations.change()
+    Bonfire.Me.Migrations.change()
 
     # migrate_circle()
 

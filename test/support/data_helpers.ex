@@ -1,6 +1,6 @@
-defmodule VoxPublica.DataHelpers do
+defmodule Bonfire.DataHelpers do
 
   # import ExUnit.Assertions
-  # alias VoxPublica.Fake
+  # alias Bonfire.Fake
 
 end

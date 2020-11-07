@@ -1,4 +1,4 @@
-defmodule VoxPublica.Test.ConnHelpers do
+defmodule Bonfire.Test.ConnHelpers do
 
   import ExUnit.Assertions
   import Plug.Conn
@@ -8,7 +8,7 @@ defmodule VoxPublica.Test.ConnHelpers do
   alias CommonsPub.Accounts.Account
   alias CommonsPub.Users.User
 
-  @endpoint CommonsPub.WebPhoenix.Endpoint
+  @endpoint Bonfire.WebPhoenix.Endpoint
 
   ### conn
 

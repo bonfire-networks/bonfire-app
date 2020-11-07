@@ -1,7 +1,7 @@
-defmodule CommonsPub.WebPhoenix.LoginController.Test do
+defmodule Bonfire.WebPhoenix.LoginController.Test do
 
-  use VoxPublica.ConnCase
-  alias CommonsPub.Me.Accounts
+  use Bonfire.ConnCase
+  alias Bonfire.Me.Accounts
 
   test "form renders" do
     conn = conn()

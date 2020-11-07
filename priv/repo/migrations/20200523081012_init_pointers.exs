@@ -1,8 +1,8 @@
-defmodule VoxPublica.Repo.Migrations.InitPointers do
+defmodule Bonfire.Repo.Migrations.InitPointers do
   use Ecto.Migration
   import Pointers.Migration
   import Pointers.ULID.Migration
-  
+
   def up(), do: init(:up)
   def down(), do: init(:down)
 

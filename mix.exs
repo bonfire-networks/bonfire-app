@@ -1,11 +1,11 @@
 Code.eval_file("mess.exs")
-defmodule VoxPublica.MixProject do
+defmodule Bonfire.MixProject do
 
   use Mix.Project
 
   def project do
     [
-      app: :vox_publica,
+      app: :bonfire,
       version: "0.1.0",
       elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -21,7 +21,7 @@ defmodule VoxPublica.MixProject do
 
   def application do
     [
-      mod: {VoxPublica.Application, []},
+      mod: {Bonfire.Application, []},
       extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
     ]
   end

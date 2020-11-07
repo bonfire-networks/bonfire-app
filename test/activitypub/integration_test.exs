@@ -1,9 +1,9 @@
-defmodule VoxPublica.ActivityPub.IntegrationTest do
-  use VoxPublica.ConnCase
+defmodule Bonfire.ActivityPub.IntegrationTest do
+  use Bonfire.ConnCase
 
-  alias CommonsPub.Me.Accounts
-  alias CommonsPub.Me.Users
-  alias VoxPublica.Fake
+  alias Bonfire.Me.Accounts
+  alias Bonfire.Me.Users
+  alias Bonfire.Fake
 
   test "fetch users from AP API" do
     assert {:ok, account} = Accounts.signup(Fake.account())

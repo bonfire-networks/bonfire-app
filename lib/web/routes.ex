@@ -1,9 +1,9 @@
-defmodule VoxPublica.Web.Routes do
-  use CommonsPub.WebPhoenix, :router
+defmodule Bonfire.Web.Routes do
+  use Bonfire.WebPhoenix, :router
 
-  alias VoxPublica.Web.Routes.Helpers, as: Routes
+  alias Bonfire.Web.Routes.Helpers, as: Routes
 
-  scope "/", VoxPublica.Web do
+  scope "/", Bonfire.Web do
     # guest visible pages
     live "/", HomeLive, :home
 
@@ -17,6 +17,6 @@ defmodule VoxPublica.Web.Routes do
   use ActivityPubWeb.Router
 
   # include routes from CommonsPub extensions
-  use CommonsPub.Me.Web.Router
+  use Bonfire.Me.Web.Router
 
 end

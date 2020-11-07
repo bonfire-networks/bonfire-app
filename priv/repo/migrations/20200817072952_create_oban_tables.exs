@@ -1,4 +1,4 @@
-defmodule VoxPublica.Repo.Migrations.CreateObanTables do
+defmodule Bonfire.Repo.Migrations.CreateObanTables do
   use Ecto.Migration
 
   def up do

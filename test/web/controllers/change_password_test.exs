@@ -1,7 +1,7 @@
-defmodule CommonsPub.WebPhoenix.ChangePasswordController.Test do
+defmodule Bonfire.WebPhoenix.ChangePasswordController.Test do
 
-  use VoxPublica.ConnCase
-  # alias CommonsPub.Me.Accounts
+  use Bonfire.ConnCase
+  # alias Bonfire.Me.Accounts
 
   # test "form renders" do
   #   conn = conn()
