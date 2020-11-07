@@ -1,4 +1,4 @@
-defmodule VoxPublica.ConnCase do
+defmodule Bonfire.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule VoxPublica.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use VoxPublicaWeb.ConnCase, async: true`, although
+  by setting `use Bonfire.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -23,22 +23,22 @@ defmodule VoxPublica.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import Phoenix.LiveViewTest
-      import VoxPublica.ConnCase
-      import VoxPublica.Test.ConnHelpers
-      import VoxPublica.Test.FakeHelpers
-      alias VoxPublica.Fake
-      alias CommonsPub.WebPhoenix.Router.Helpers, as: Routes
+      import Bonfire.ConnCase
+      import Bonfire.Test.ConnHelpers
+      import Bonfire.Test.FakeHelpers
+      alias Bonfire.Fake
+      alias Bonfire.WebPhoenix.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint CommonsPub.WebPhoenix.Endpoint
+      @endpoint Bonfire.WebPhoenix.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(VoxPublica.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bonfire.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(VoxPublica.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Repo, {:shared, self()})
     end
 
     {:ok, []}

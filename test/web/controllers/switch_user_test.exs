@@ -1,7 +1,7 @@
-defmodule CommonsPub.WebPhoenix.SwitchUserController.Test do
+defmodule Bonfire.WebPhoenix.SwitchUserController.Test do
 
-  use VoxPublica.ConnCase
-  alias VoxPublica.Fake
+  use Bonfire.ConnCase
+  alias Bonfire.Fake
 
   describe "index" do
 

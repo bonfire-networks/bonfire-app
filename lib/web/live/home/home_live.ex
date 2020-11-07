@@ -1,5 +1,5 @@
-defmodule VoxPublica.Web.HomeLive do
-  use CommonsPub.WebPhoenix, :live_view
+defmodule Bonfire.Web.HomeLive do
+  use Bonfire.WebPhoenix, :live_view
 
 
 

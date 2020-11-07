@@ -11,7 +11,7 @@ database_url =
     For example: ecto://USER:PASS@HOST/DATABASE
     """
 
-config :vox_publica, VoxPublica.Repo,
+config :bonfire, Bonfire.Repo,
   # ssl: true,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
@@ -23,7 +23,7 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-config :cpub_web_phoenix, CommonsPub.WebPhoenix.Endpoint,
+config :bonfire_web_phoenix, Bonfire.WebPhoenix.Endpoint,
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
@@ -35,7 +35,7 @@ config :cpub_web_phoenix, CommonsPub.WebPhoenix.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :vox_publica, CommonsPub.WebPhoenix.Endpoint, server: true
+#     config :bonfire, Bonfire.WebPhoenix.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.

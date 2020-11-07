@@ -1,6 +1,6 @@
-defmodule CommonsPub.WebPhoenix.SignupController.Test do
+defmodule Bonfire.WebPhoenix.SignupController.Test do
 
-  use VoxPublica.ConnCase
+  use Bonfire.ConnCase
 
   test "form renders" do
     conn = conn()

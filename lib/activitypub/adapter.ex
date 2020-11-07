@@ -1,12 +1,12 @@
-defmodule VoxPublica.ActivityPub.Adapter do
+defmodule Bonfire.ActivityPub.Adapter do
   @behaviour ActivityPub.Adapter
 
   alias ActivityPub.Actor
-  alias CommonsPub.Me.Users
+  alias Bonfire.Me.Users
 
   defp format_actor(user) do
     ap_base_path = System.get_env("AP_BASE_PATH", "/pub")
-    id = CommonsPub.WebPhoenix.Endpoint.url() <> ap_base_path <> "/actors/#{user.character.username}"
+    id = Bonfire.WebPhoenix.Endpoint.url() <> ap_base_path <> "/actors/#{user.character.username}"
 
     data = %{
       "type" => "Person",

@@ -1,6 +1,6 @@
-defmodule CommonsPub.WebPhoenix.CreateUserController.Test do
+defmodule Bonfire.WebPhoenix.CreateUserController.Test do
 
-  use VoxPublica.ConnCase
+  use Bonfire.ConnCase
 
   test "form renders" do
     alice = fake_account!()

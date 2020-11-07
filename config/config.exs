@@ -4,33 +4,38 @@ use Mix.Config
 
 # You will almost certainly want to change at least some of these
 
-alias VoxPublica.Mailer
+alias Bonfire.Mailer
 
-config :vox_publica, Mailer,
+config :bonfire, Mailer,
   from_address: "noreply@voxpub.local"
 
-import_config "cpub_web_phoenix.exs"
-
+# include DB schemas
 import_config "cpub_schemas.exs"
-import_config "cpub_extensions.exs"
+
+# include Phoenix web server boilerplate
+import_config "bonfire_web_phoenix.exs"
+
+# include all used Bonfire extensions
+import_config "bonfire_me.exs"
+
 
 #### Basic configuration
 
 # You probably won't want to touch these. You might override some in
 # other config files.
 
-config :vox_publica,
-  ecto_repos: [VoxPublica.Repo]
+config :bonfire,
+  ecto_repos: [Bonfire.Repo]
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :activity_pub, :adapter, VoxPublica.ActivityPub.Adapter
-config :activity_pub, :repo, VoxPublica.Repo
+config :activity_pub, :adapter, Bonfire.ActivityPub.Adapter
+config :activity_pub, :repo, Bonfire.Repo
 
-config :vox_publica, Oban,
-  repo: VoxPublica.Repo,
+config :bonfire, Oban,
+  repo: Bonfire.Repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [federator_incoming: 50, federator_outgoing: 50]
 

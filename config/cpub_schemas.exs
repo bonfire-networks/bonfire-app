@@ -24,7 +24,7 @@ config :pointers,
     :cpub_profiles,
     :cpub_threads,
     :cpub_users,
-    :vox_publica,
+    :bonfire,
   ]
 
 #### Flexto Stitching

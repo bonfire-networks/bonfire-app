@@ -1,5 +1,5 @@
-defmodule VoxPublica.Web.HeaderLive do
-  use CommonsPub.WebPhoenix, :live_component
+defmodule Bonfire.Web.HeaderLive do
+  use Bonfire.WebPhoenix, :live_component
 
   def update(assigns, socket) do
     {

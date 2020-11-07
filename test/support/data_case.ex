@@ -1,4 +1,4 @@
-defmodule VoxPublica.DataCase do
+defmodule Bonfire.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule VoxPublica.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use VoxPublica.DataCase, async: true`, although
+  by setting `use Bonfire.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -18,20 +18,20 @@ defmodule VoxPublica.DataCase do
 
   using do
     quote do
-      alias VoxPublica.Repo
+      alias Bonfire.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import VoxPublica.DataCase
+      import Bonfire.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(VoxPublica.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bonfire.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(VoxPublica.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Repo, {:shared, self()})
     end
 
     :ok

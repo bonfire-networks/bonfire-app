@@ -1,7 +1,7 @@
-defmodule CommonsPub.WebPhoenix.ConfirmEmailController.Test do
+defmodule Bonfire.WebPhoenix.ConfirmEmailController.Test do
 
-  use VoxPublica.ConnCase
-  alias VoxPublica.Fake
+  use Bonfire.ConnCase
+  alias Bonfire.Fake
 
   describe "request" do
 

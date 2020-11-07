@@ -1,4 +1,4 @@
-defmodule VoxPublica.Repo.Migrations.CreateApTables do
+defmodule Bonfire.Repo.Migrations.CreateApTables do
   use Ecto.Migration
 
   def up do

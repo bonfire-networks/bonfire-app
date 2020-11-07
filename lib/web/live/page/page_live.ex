@@ -1,4 +1,4 @@
-defmodule VoxPublica.Web.PageLive do
-  use CommonsPub.WebPhoenix, :live_component
+defmodule Bonfire.Web.PageLive do
+  use Bonfire.WebPhoenix, :live_component
 
 end
