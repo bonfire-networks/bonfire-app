@@ -7,7 +7,7 @@ use Mix.Config
 alias Bonfire.Mailer
 
 config :bonfire, Mailer,
-  from_address: "noreply@voxpub.local"
+  from_address: "noreply@bonfire.local"
 
 # include DB schemas
 import_config "cpub_schemas.exs"
