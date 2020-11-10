@@ -14,7 +14,8 @@ defmodule Bonfire.MixProject do
       aliases: aliases(),
       deps: Mess.deps [
         {:dbg, "~> 1.0", only: [:dev, :test]},
-        {:floki, ">= 0.0.0", only: [:dev, :test]},
+        {:floki, ">= 0.0.0", only: [:dev, :test]}
+        # {:exsync, "~> 0.2", only: :dev}
       ]
     ]
   end
