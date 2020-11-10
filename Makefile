@@ -53,3 +53,6 @@ dep-go-hex: ## Switch to using a library from hex.pm, eg: make dep-go-hex dep="p
 
 dev: ## Run the app with Docker
 	docker-compose run --service-ports web
+
+%: ## Run a specific mix command, eg: `make messclt` or `make "messctl help"` or make `messctl args="help"`
+	docker-compose run web $* $(args)
