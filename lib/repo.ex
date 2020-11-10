@@ -50,5 +50,4 @@ defmodule Bonfire.Repo do
   defp single2(nil), do: {:error, :not_found}
   defp single2(other), do: {:ok, other}
 
-
 end

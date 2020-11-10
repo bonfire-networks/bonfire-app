@@ -1,5 +1,6 @@
-defmodule Bonfire.Web.HeaderLive do
-  use Bonfire.WebPhoenix, :live_component
+defmodule Bonfire.Web.Layout.HeaderLive do
+  use Bonfire.Web, :live_component
+  import Bonfire.Utils
 
   def update(assigns, socket) do
     {

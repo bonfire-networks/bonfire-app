@@ -8,10 +8,10 @@ defmodule Bonfire.Application do
   def start(_type, _args) do
     [
       Pointers.Tables,
-      Bonfire.WebPhoenix.Telemetry,
+      Bonfire.Web.Telemetry,
       Bonfire.Repo,
       {Phoenix.PubSub, name: Bonfire.PubSub},
-      Bonfire.WebPhoenix.Endpoint,
+      Bonfire.Web.Endpoint,
       {Oban, Application.get_env(:bonfire, Oban)}
     ]
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
@@ -20,7 +20,7 @@ defmodule Bonfire.Application do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    Bonfire.WebPhoenix.Endpoint.config_change(changed, removed)
+    Bonfire.Web.Endpoint.config_change(changed, removed)
     :ok
   end
 
