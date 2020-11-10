@@ -59,6 +59,12 @@ config :bonfire_web_phoenix, Bonfire.WebPhoenix.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
+config :phoenix_live_reload,
+  dirs: [
+    "forks/*/lib",
+    "lib/",
+  ]
+
 # Watch static and templates for browser reloading.
 config :bonfire_web_phoenix, Bonfire.WebPhoenix.Endpoint,
   live_reload: [
@@ -79,3 +85,5 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :exsync, extra_extensions: [".leex", ".js", ".scss", ".css"]
