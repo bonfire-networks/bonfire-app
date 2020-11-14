@@ -1,4 +1,4 @@
-defmodule VoxPublica.Repo.Migrations.ImportWorld do
+defmodule Bonfire.Repo.Migrations.ImportWorld do
   use Ecto.Migration
   import Pointers.Migration
 

@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.LoginController.Test do
+defmodule Bonfire.Web.LoginController.Test do
 
   use Bonfire.ConnCase
   alias Bonfire.Me.Accounts

@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.CreateUserController.Test do
+defmodule Bonfire.Web.CreateUserController.Test do
 
   use Bonfire.ConnCase
 

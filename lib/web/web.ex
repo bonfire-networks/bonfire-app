@@ -6,11 +6,11 @@ defmodule Bonfire.Web do
       use Phoenix.Controller, namespace: Bonfire.Web
 
       import Plug.Conn
-      import Bonfire.Web.Gettext
+      import Bonfire.Common.Web.Gettext
       alias Bonfire.Web.Router.Helpers, as: Routes
       alias Bonfire.Web.Plugs.{MustBeGuest, MustLogIn}
 
-      import Bonfire.Utils
+      import Bonfire.Common.Utils
     end
   end
 
@@ -54,14 +54,14 @@ defmodule Bonfire.Web do
       import Phoenix.Controller
       import Phoenix.LiveView.Router
 
-      import Bonfire.Utils
+      import Bonfire.Common.Utils
     end
   end
 
   def channel do
     quote do
       use Phoenix.Channel
-      import Bonfire.Web.Gettext
+      import Bonfire.Common.Web.Gettext
     end
   end
 
@@ -76,11 +76,11 @@ defmodule Bonfire.Web do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import Bonfire.Web.ErrorHelpers
-      import Bonfire.Web.Gettext
+      import Bonfire.Common.Web.ErrorHelpers
+      import Bonfire.Common.Web.Gettext
       alias Bonfire.Web.Router.Helpers, as: Routes
 
-      import Bonfire.Utils
+      import Bonfire.Common.Utils
     end
   end
 

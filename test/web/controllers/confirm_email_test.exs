@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.ConfirmEmailController.Test do
+defmodule Bonfire.Web.ConfirmEmailController.Test do
 
   use Bonfire.ConnCase
   alias Bonfire.Fake

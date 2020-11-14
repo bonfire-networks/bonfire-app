@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.SignupController.Test do
+defmodule Bonfire.Web.SignupController.Test do
 
   use Bonfire.ConnCase
 

@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.ResetPasswordController.Test do
+defmodule Bonfire.Web.ResetPasswordController.Test do
 
   use Bonfire.ConnCase
   # alias Bonfire.Fake
