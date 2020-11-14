@@ -14,8 +14,11 @@ defmodule Bonfire.MixProject do
       aliases: aliases(),
       deps: Mess.deps [
         {:dbg, "~> 1.0", only: [:dev, :test]},
-        {:floki, ">= 0.0.0", only: [:dev, :test]}
-        # {:exsync, "~> 0.2", only: :dev}
+        {:floki, ">= 0.0.0", only: [:dev, :test]},
+        # reload when a local code file is modified
+        {:phoenix_live_reload, "~> 1.2", only: :dev},
+        # reload when a locally forked dependency is modified
+        {:exsync, "~> 0.2", only: :dev}
       ]
     ]
   end

@@ -1,4 +1,4 @@
-defmodule Bonfire.Web.LivePlugs.StaticChanged do
+defmodule Bonfire.Common.Web.LivePlugs.StaticChanged do
 
   import Phoenix.LiveView
 

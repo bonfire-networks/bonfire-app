@@ -24,7 +24,7 @@ defmodule Bonfire.ChannelCase do
       import Bonfire.ChannelCase
 
       # The default endpoint for testing
-      @endpoint Bonfire.WebPhoenix.Endpoint
+      @endpoint Bonfire.Web.Endpoint
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.ChangePasswordController.Test do
+defmodule Bonfire.Web.ChangePasswordController.Test do
 
   use Bonfire.ConnCase
   # alias Bonfire.Me.Accounts

@@ -2,7 +2,7 @@
 
 An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
 
-- [Bonfire:Web:Phoenix](https://github.com/commonspub/bonfire_web_phoenix) - scaffolding for Web UI powered by [Phoenix](https://www.phoenixframework.org/) LiveView
+- [Bonfire:Common](https://github.com/commonspub/bonfire_common) - common utils
 - [Bonfire:Me](https://github.com/commonspub/bonfire_me) - user profiles
 - More to come...
 

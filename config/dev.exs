@@ -20,7 +20,7 @@ config :bonfire, Bonfire.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :bonfire_web_phoenix, Bonfire.WebPhoenix.Endpoint,
+config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -66,7 +66,7 @@ config :phoenix_live_reload,
   ]
 
 # Watch static and templates for browser reloading.
-config :bonfire_web_phoenix, Bonfire.WebPhoenix.Endpoint,
+config :bonfire, Bonfire.Web.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",

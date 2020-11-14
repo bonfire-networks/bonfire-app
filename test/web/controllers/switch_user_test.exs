@@ -1,4 +1,4 @@
-defmodule Bonfire.WebPhoenix.SwitchUserController.Test do
+defmodule Bonfire.Web.SwitchUserController.Test do
 
   use Bonfire.ConnCase
   alias Bonfire.Fake

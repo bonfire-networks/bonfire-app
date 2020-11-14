@@ -27,10 +27,10 @@ defmodule Bonfire.ConnCase do
       import Bonfire.Test.ConnHelpers
       import Bonfire.Test.FakeHelpers
       alias Bonfire.Fake
-      alias Bonfire.WebPhoenix.Router.Helpers, as: Routes
+      alias Bonfire.Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint Bonfire.WebPhoenix.Endpoint
+      @endpoint Bonfire.Web.Endpoint
     end
   end
 

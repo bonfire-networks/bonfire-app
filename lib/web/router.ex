@@ -15,8 +15,8 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.GuestOnly
   end
 
-  pipeline :authed_only do
-    plug Bonfire.Web.Plugs.AuthedRequired
+  pipeline :auth_required do
+    plug Bonfire.Web.Plugs.AuthRequired
   end
 
   scope "/", Bonfire.Web do

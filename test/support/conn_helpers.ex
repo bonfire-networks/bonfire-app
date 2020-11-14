@@ -8,7 +8,7 @@ defmodule Bonfire.Test.ConnHelpers do
   alias CommonsPub.Accounts.Account
   alias CommonsPub.Users.User
 
-  @endpoint Bonfire.WebPhoenix.Endpoint
+  @endpoint Bonfire.Web.Endpoint
 
   ### conn
 

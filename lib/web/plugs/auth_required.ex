@@ -1,11 +1,11 @@
-defmodule Bonfire.Web.Plugs.AuthedRequired do
+defmodule Bonfire.Web.Plugs.AuthRequired do
 
   import Plug.Conn
   import Phoenix.Controller, only: [redirect: 2, put_flash: 3]
 
   def init(opts), do: opts
 
-  def call(conn, opts) do
+  def call(conn, _opts) do
     if !get_session(conn, :account_id),
       do: not_permitted(conn),
       else: conn

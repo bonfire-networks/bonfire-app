@@ -32,10 +32,10 @@ config :bonfire, :routes_helper_module, Bonfire.Web.Routes.Helpers
 config :bonfire, :live_view_module, Bonfire.Web.PageLive
 config :bonfire, :otp_app, :bonfire
 
-config :bonfire, Bonfire.WebPhoenix.Endpoint,
+config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: secret_key_base,
-  render_errors: [view: Bonfire.WebPhoenix.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: Bonfire.Web.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Bonfire.PubSub,
   live_view: [signing_salt: signing_salt]
 

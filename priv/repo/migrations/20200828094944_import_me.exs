@@ -1,12 +1,14 @@
 defmodule Bonfire.Repo.Migrations.ImportMe do
   use Ecto.Migration
 
-  def change do
-    # accounts & users
-    Bonfire.Me.Migrations.change()
+  # accounts & users
 
-    # migrate_circle()
+  def up do
+    Bonfire.Me.Migrations.up()
+  end
 
+  def down do
+    Bonfire.Me.Migrations.down()
   end
 
 end

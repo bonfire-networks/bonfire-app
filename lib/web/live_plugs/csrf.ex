@@ -1,4 +1,4 @@
-defmodule Bonfire.Web.LivePlugs.Csrf do
+defmodule Bonfire.Common.Web.LivePlugs.Csrf do
 
   import Phoenix.LiveView
 
