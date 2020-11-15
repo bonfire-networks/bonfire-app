@@ -2,8 +2,8 @@
 
 An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
 
-- [Bonfire:Common](https://github.com/commonspub/bonfire_common) - common utils
-- [Bonfire:Me](https://github.com/commonspub/bonfire_me) - user profiles
+- [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
+- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - user profiles
 - More to come...
 
 
