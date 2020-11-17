@@ -7,8 +7,6 @@ mix-%: ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.u
 
 setup: build mix-setup ## First run - prepare environment and dependencies
 
-updates: build mix-updates ## Update/prepare dependencies
-
 db-reset: mix-ecto.reset ## Reset the DB
 
 build: ## Build the docker image
@@ -16,6 +14,8 @@ build: ## Build the docker image
 
 shell: ## Open a shell, in dev mode
 	docker-compose run --service-ports web bash
+
+update: build deps-local-git-pull mix-updates ## Update/prepare dependencies
 
 dep-hex-%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
@@ -29,6 +29,10 @@ dep-local-%: ## add/enable/disable/delete a local dep with messctl command, eg: 
 dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="pointers" repo=https://github.com/commonspub/pointers
 	git clone $(repo) $(LIBS_PATH)$(dep) 2> /dev/null || (cd $(LIBS_PATH)$(dep) ; git pull)
 	make dep-go-local dep=$(dep)
+
+deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls the latest version of all local deps from its git remote
+	sudo chown -R $$USER ./forks
+	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' $* \;
 
 dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local dep=pointers
 	make dep-go-local-path dep=$(dep) path=$(LIBS_PATH)$(dep)

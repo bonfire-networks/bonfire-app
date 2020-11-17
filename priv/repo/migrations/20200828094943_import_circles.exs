@@ -6,6 +6,8 @@ defmodule Bonfire.Repo.Migrations.ImportWorld do
   import CommonsPub.Acls.AclGrant.Migration
   import CommonsPub.Circles.Circle.Migration
   import CommonsPub.Circles.Encircle.Migration
+  import CommonsPub.Access.Access.Migration
+  import CommonsPub.Access.AccessGrant.Migration
 
   alias CommonsPub.Access.Access
 
