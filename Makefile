@@ -15,7 +15,10 @@ build: ## Build the docker image
 shell: ## Open a shell, in dev mode
 	docker-compose run --service-ports web bash
 
-update: build deps-local-git-pull mix-updates ## Update/prepare dependencies
+pull: 
+	git pull
+
+update: pull build deps-local-git-pull mix-updates ## Update/prepare dependencies
 
 dep-hex-%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
