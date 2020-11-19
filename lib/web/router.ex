@@ -1,6 +1,5 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
-  use ActivityPubWeb.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -20,6 +19,7 @@ defmodule Bonfire.Web.Router do
   end
 
   scope "/", Bonfire.Web do
+    pipe_through :browser
     # guest visible pages
     live "/", HomeLive, :home
 
