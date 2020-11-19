@@ -1,12 +1,12 @@
 <div id="template" class="page__container">
   <%= live_component(
     @socket,
-    Bonfire.Web.Layout.HeaderLive,
-    id: :my_header,
+    Bonfire.Web.Components.HeaderLive,
+    id: :app_header,
     current_user: @current_user,
     current_account: @current_account
   ) %>
-  <div  class="page <%= if !@current_user , do: "guest", else: "logged" %>">
+  <div class="bonfire-app page <%= if !@current_user , do: "guest", else: "logged" %>">
     <% info = live_flash(@flash, :info) %>
     <% error = live_flash(@flash, :error) %>
     <%= if info || error do %>
