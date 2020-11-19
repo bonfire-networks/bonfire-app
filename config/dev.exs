@@ -59,11 +59,12 @@ config :bonfire, Bonfire.Web.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
+path_dep_dirs =
+  Mess.deps([path: "deps.path"], [])
+  |> Enum.map(&Keyword.fetch!(elem(&1, 1), :path))
+
 config :phoenix_live_reload,
-  dirs: [
-    "forks/*/lib",
-    "lib/",
-  ]
+  dirs: path_dep_dirs ++ ["lib/"]
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
