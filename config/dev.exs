@@ -61,7 +61,7 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 path_dep_dirs =
   Mess.deps([path: "deps.path"], [])
-  |> Enum.map(&Keyword.fetch!(elem(&1, 1), :path))
+  |> Enum.map(&(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
 
 config :phoenix_live_reload,
   dirs: path_dep_dirs ++ ["lib/"]
