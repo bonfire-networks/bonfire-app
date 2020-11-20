@@ -14,11 +14,12 @@ defmodule Bonfire.Web do
     end
   end
 
-  def view(root \\ "lib/web/templates") do
+  def view(root \\ "lib/web/views") do
     quote do
       use Phoenix.View,
+        namespace: Bonfire.Web,
         root: unquote(root),
-        namespace: Bonfire.Web
+        path: ""
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
