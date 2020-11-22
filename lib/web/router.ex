@@ -32,13 +32,14 @@ defmodule Bonfire.Web.Router do
     resources "/signup", SignupController, only: [:index, :create]
   end
 
-  scope "/", Bonfire.Web do
+  scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :auth_required
     # user-only pages
-    live "/~", HomeLive, :home
+    live "/~", SwitchUserLive, :home
+    live "/~/create-user", CreateUserLive, :home
     live "/~@:username", HomeLive, :home_user
-    resources "/logout", LogoutController, only: [:index, :create]
+    resources "/~/logout", LogoutController, only: [:index, :create]
  end
 
   # include federation routes
