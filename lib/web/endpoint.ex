@@ -10,8 +10,6 @@ defmodule Bonfire.Web.Endpoint do
     signing_salt: "j7QkARUs"
   ]
 
-  socket "/socket", Bonfire.Web.UserSocket, websocket: true, longpoll: false
-
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]]
 
