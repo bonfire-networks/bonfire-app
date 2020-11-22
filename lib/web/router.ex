@@ -26,18 +26,20 @@ defmodule Bonfire.Web.Router do
 
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
+    pipe_through :guest_only
     resources "/login", LoginController, only: [:index, :create]
-    resources "/logout", LogoutController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/signup", SignupController, only: [:index, :create]
   end
 
   scope "/", Bonfire.Web do
     pipe_through :browser
+    pipe_through :auth_required
     # user-only pages
     live "/~", HomeLive, :home
     live "/~@:username", HomeLive, :home_user
-  end
+    resources "/logout", LogoutController, only: [:index, :create]
+ end
 
   # include federation routes
   use ActivityPubWeb.Router
