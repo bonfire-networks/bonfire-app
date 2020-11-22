@@ -27,6 +27,7 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     resources "/login", LoginController, only: [:index, :create]
+    resources "/logout", LogoutController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/signup", SignupController, only: [:index, :create]
   end
