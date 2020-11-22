@@ -1,25 +1,17 @@
-<div class="page__mainContent">
-  <div class="my">
-    <div class="my__hero">
-      <h1><%=@page_title%></h1>
-    </div>
-    <div class="mainContent__navigation home__navigation">
-      <%= live_patch link_body("My Timeline","feather-activity"),
-        to: "/",
-        class: if @selected_tab == "timeline", do: "navigation__item active", else: "navigation__item"
-      %>
-      <%= live_patch link_body("My circles", "feather-share-2"),
-            to: "/circles",
-            class: if @selected_tab == "circles", do: "navigation__item active", else: "navigation__item"
-          %>
-    </div>
-    <div class="mainContent__selected">
-      <%= cond do %>
-        <% @selected_tab == "circles" -> %>
 
-        <% true -> %>
-       timeline
-      <% end %>
+  <%= live_component(@socket, Bonfire.Web.Components.HeroLive, assigns) %>
+  <div class="flex mt-6 -mx-2">
+    <div class="w-3/5 px-2">
+     <%= live_component(@socket, Bonfire.Web.Components.FeedLive, assigns) %>
+    </div>
+    <div class="w-2/5 px-2">
+      
+      <div class="mt-4">
+        <%= live_component(
+          @socket,
+          Bonfire.Web.Components.InstanceAdminsLive,
+          assigns
+        ) %>
+      </div>
     </div>
   </div>
-</div>
