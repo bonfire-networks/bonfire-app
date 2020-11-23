@@ -3,10 +3,9 @@ defmodule Bonfire.Web.HomeLive do
   alias Bonfire.Common.Web.LivePlugs
 
   def mount(params, session, socket) do
-    IO.inspect(params: params)
     LivePlugs.live_plug params, session, socket, [
-      LivePlugs.LoadCurrentAccountFromSession,
-      LivePlugs.LoadCurrentUserFromPath,
+      # LivePlugs.LoadCurrentAccountFromSession,
+      # LivePlugs.LoadCurrentUserFromPath,
       LivePlugs.StaticChanged,
       LivePlugs.Csrf,
       &mounted/3,
@@ -14,28 +13,22 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(_params, _session, socket),
-    do: {:ok, socket
-      |> assign(
-        query: "",
-        results: %{},
-        selected_tab: "timeline",
-        page_title: "My Bonfire"
-       )}
+    do: {:ok, assign(socket, current_user: nil, current_account: nil)}
 
-  def handle_params(%{"tab" => tab}, _url, socket) do
-    {:noreply, assign(socket, selected_tab: tab)}
-  end
+  # # def handle_params(%{"tab" => tab}, _url, socket) do
+  # #   {:noreply, assign(socket, selected_tab: tab)}
+  # # end
 
-  def handle_params(_, _url, socket) do
-    {:noreply, assign(socket, selected_tab: "timeline")}
-  end
+  # def handle_params(_, _url, socket) do
+  #   {:noreply, assign(socket, selected_tab: "timeline")}
+  # end
 
-  defp link_body(name, icon) do
-    assigns = %{name: name, icon: icon}
+  # defp link_body(name, icon) do
+  #   assigns = %{name: name, icon: icon}
 
-    ~L"""
-      <i class="<%= @icon %>"></i>
-      <%= @name %>
-    """
-  end
+  #   ~L"""
+  #     <i class="<%= @icon %>"></i>
+  #     <%= @name %>
+  #   """
+  # end
 end
