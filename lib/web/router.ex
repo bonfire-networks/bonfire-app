@@ -28,6 +28,8 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :guest_only
     resources "/login", LoginController, only: [:index, :create]
+    resources "/forgot-password", ForgotPasswordController, only: [:index, :create]
+    resources "/reset-password", ResetPasswordController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/signup", SignupController, only: [:index, :create]
   end
@@ -36,8 +38,9 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :auth_required
     # user-only pages
-    live "/~", SwitchUserLive, :home
-    live "/~/create-user", CreateUserLive, :home
+    live "/~", SwitchUserLive
+    live "/~/create-user", CreateUserLive
+    live "/~/change-password", ChangePasswordLive
     live "/~@:username", HomeLive, :home_user
     resources "/~/logout", LogoutController, only: [:index, :create]
  end
