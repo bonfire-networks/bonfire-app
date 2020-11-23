@@ -43,14 +43,9 @@ defmodule Bonfire.Web.Router do
     live "/~/create-user", CreateUserLive
     live "/~/change-password", ChangePasswordLive
     resources "/~/logout", LogoutController, only: [:index, :create]
+    live "/~@:as_username", MeHomeLive
  end
 
-  scope "/", Bonfire.Web do
-    pipe_through :browser
-    pipe_through :auth_required
-    # user-only pages
-    live "/~@:as_username", HomeLive
-  end
   # include federation routes
   use ActivityPubWeb.Router
 
