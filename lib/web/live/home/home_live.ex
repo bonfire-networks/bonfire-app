@@ -3,8 +3,10 @@ defmodule Bonfire.Web.HomeLive do
   alias Bonfire.Common.Web.LivePlugs
 
   def mount(params, session, socket) do
+    IO.inspect(params: params)
     LivePlugs.live_plug params, session, socket, [
-      LivePlugs.LoadSessionAuth,
+      LivePlugs.LoadCurrentAccountFromSession,
+      LivePlugs.LoadCurrentUserFromPath,
       LivePlugs.StaticChanged,
       LivePlugs.Csrf,
       &mounted/3,
