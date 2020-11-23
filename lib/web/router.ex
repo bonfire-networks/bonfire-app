@@ -20,18 +20,19 @@ defmodule Bonfire.Web.Router do
 
   scope "/", Bonfire.Web do
     pipe_through :browser
-    # guest visible pages
+    # guest and user visible pages
     live "/", HomeLive, :home
+    # live "/users/@:username"
   end
 
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :guest_only
+    resources "/signup", SignupController, only: [:index, :create]
+    resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/login", LoginController, only: [:index, :create]
     resources "/forgot-password", ForgotPasswordController, only: [:index, :create]
     resources "/reset-password", ResetPasswordController, only: [:index, :create]
-    resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
-    resources "/signup", SignupController, only: [:index, :create]
   end
 
   scope "/", Bonfire.Me.Web do
@@ -41,8 +42,8 @@ defmodule Bonfire.Web.Router do
     live "/~", SwitchUserLive
     live "/~/create-user", CreateUserLive
     live "/~/change-password", ChangePasswordLive
-    live "/~@:username", HomeLive, :home_user
     resources "/~/logout", LogoutController, only: [:index, :create]
+    live "/~@:as_username", HomeLive
  end
 
   # include federation routes
