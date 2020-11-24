@@ -14,17 +14,21 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.GuestOnly
   end
 
-  pipeline :auth_required do
-    plug Bonfire.Web.Plugs.AuthRequired
+  pipeline :account_required do
+    plug Bonfire.Web.Plugs.AccountRequired
   end
 
+  pipeline :admin_required do
+    plug Bonfire.Web.Plugs.AdminRequired
+  end
+
+  # pages anyone can view
   scope "/", Bonfire.Web do
     pipe_through :browser
-    # guest and user visible pages
     live "/", HomeLive, :home
-    # live "/users/@:username"
   end
 
+  # pages only guests can view
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :guest_only
@@ -32,19 +36,41 @@ defmodule Bonfire.Web.Router do
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/login", LoginController, only: [:index, :create]
     resources "/forgot-password", ForgotPasswordController, only: [:index, :create]
-    resources "/reset-password", ResetPasswordController, only: [:index, :create]
+    resources "/reset-password", ResetPasswordController, only: [:show, :update]
   end
 
-  scope "/", Bonfire.Me.Web do
+  # pages you need an account to view
+  scope "/~", Bonfire.Me.Web do
     pipe_through :browser
-    pipe_through :auth_required
-    # user-only pages
-    live "/~", SwitchUserLive
-    live "/~/create-user", CreateUserLive
-    live "/~/change-password", ChangePasswordLive
-    resources "/~/logout", LogoutController, only: [:index, :create]
-    live "/~@:as_username", MeHomeLive
+    pipe_through :account_required
+    live "/", SwitchUserLive
+    live "/create-user", CreateUserLive
+    live "/change-password", ChangePasswordLive
+    live "/settings", AccountSettingsLive
+    resources "/delete", AccountDeleteController, only: [:index, :create]
+    resources "/logout", LogoutController, only: [:index, :create]
  end
+
+  # pages you need to view as a user
+  scope "/~:as_username", Bonfire.Me.Web do
+    pipe_through :browser
+    pipe_through :account_required
+    live "/", MeHomeLive
+    live "/instance", InstanceLive
+    live "/fediverse", FediverseLive
+    live "/user/:username", ProfileLive
+    live "/user/:username/circles", CirclesLive
+    live "/user/:username/post/:post_id", PostLive
+    live "/settings", UserSettingsLive
+    resources "/delete", UserDeleteController, only: [:index, :create]
+  end
+
+  # pages only admins can view
+  scope "/settings" do
+    pipe_through :browser
+    pipe_through :admin_required
+    live "/", InstanceSettingsLive
+  end
 
   # include federation routes
   use ActivityPubWeb.Router
