@@ -56,8 +56,8 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :account_required
     live "/", MeHomeLive
-    live "/instance", InstanceLive
-    live "/fediverse", FediverseLive
+    live "/instance", MeInstanceLive
+    live "/fediverse", MeFediverseLive
     live "/user/:username", ProfileLive
     live "/user/:username/circles", CirclesLive
     live "/user/:username/post/:post_id", PostLive
