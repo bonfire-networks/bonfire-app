@@ -62,6 +62,7 @@ defmodule Bonfire.Web.Router do
     live "/user/:username/circles", CirclesLive
     live "/user/:username/post/:post_id", PostLive
     live "/settings", UserSettingsLive
+    live "/thread", ThreadLive
     resources "/delete", UserDeleteController, only: [:index, :create]
   end
 
