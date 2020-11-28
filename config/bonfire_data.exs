@@ -47,6 +47,16 @@ alias CommonsPub.{
 
 # bonfire_data_access_control
 
+config :bonfire_data_access_control, Access, []
+config :bonfire_data_access_control, Acl, []
+config :bonfire_data_access_control, Controlled, []
+config :bonfire_data_access_control, Grant, []
+
+# bonfire_data_activity_pub
+
+config :bonfire_data_activity_pub, Actor,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
 # bonfire_data_identity
 
 config :bonfire_data_identity, Account,
@@ -73,6 +83,9 @@ config :bonfire_data_identity, User,
 
 # bonfire_data_social
 
+config :bonfire_data_social, Block, []
+config :bonfire_data_social, Bookmark, []
+
 config :bonfire_data_social, Character,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
@@ -84,10 +97,5 @@ config :bonfire_data_social, Like, []
 config :bonfire_data_social, LikeCount, []
 
 config :bonfire_data_social, Profile,
-  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
-
-# misc cpub
-
-config :cpub_actors, Actor,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
