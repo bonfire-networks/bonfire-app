@@ -1,22 +1,13 @@
-defmodule Bonfire.Web.Plugs.LoadSessionAuth do
+defmodule Bonfire.Web.Plugs.LoadSessionAccount do
 
   import Plug.Conn
   # import Phoenix.Controller
-  alias Bonfire.Me.{Accounts, Users}
-  # alias CommonsPub.Accounts.Account
-  alias CommonsPub.Users.User
+  alias Bonfire.Me.Identity.{Accounts, Users}
+  alias Bonfire.Data.Identity.User
 
   def init(opts), do: opts
 
-  def call(conn, _opts), do: try_user(conn, get_session(conn, :user_id))
-
-  defp try_user(conn, nil), do: try_account(conn, get_session(conn, :account_id))
-  defp try_user(conn, username) when is_binary(username), do: try_user(conn, Users.get_for_session(username, get_session(conn, :account_id)))
-  defp try_user(conn, %User{}=user) do
-    conn
-    |> assign(:current_account, user.accounted.account)
-    |> assign(:current_user, user)
-  end
+  def call(conn, _opts), do: try_account(conn, get_session(conn, :account_id))
 
   defp try_account(conn, id) when is_binary(id), do: try_account(conn, Accounts.get_for_session(id))
   defp try_account(conn, account) do

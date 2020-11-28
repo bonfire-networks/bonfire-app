@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 #### Email configuration
 
@@ -10,7 +10,7 @@ config :bonfire, Mailer,
   from_address: "noreply@bonfire.local"
 
 # include DB schemas
-import_config "cpub_schemas.exs"
+import_config "bonfire_data.exs"
 
 # include all used Bonfire extensions
 import_config "bonfire_me.exs"
@@ -60,4 +60,4 @@ config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
 }
 
-import_config "#{Mix.env()}.exs"
+import_config "#{config_env()}.exs"

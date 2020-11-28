@@ -5,6 +5,7 @@ defmodule Bonfire.Web.Plugs.AdminRequired do
   def init(opts), do: opts
 
 
+  # TODO: better
   def call(conn, opts), do: Bonfire.Web.Plugs.AccountRequired.call(conn, opts)
 
   # defp not_permitted(conn) do
