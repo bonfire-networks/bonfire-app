@@ -56,13 +56,14 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :account_required
     live "/", MeHomeLive
-    live "/instance", InstanceLive
-    live "/fediverse", FediverseLive
+    live "/instance", MeInstanceLive
+    live "/fediverse", MeFediverseLive
     live "/user/:username", ProfileLive
     live "/user/:username/circles", CirclesLive
     live "/user/:username/posts", PostsLive
     live "/user/:username/posts/:post_id", PostLive
     live "/settings", UserSettingsLive
+    live "/thread", ThreadLive
     resources "/delete", UserDeleteController, only: [:index, :create]
   end
 
