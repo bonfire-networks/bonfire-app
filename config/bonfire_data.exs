@@ -32,13 +32,13 @@ config :pointers,
 ## `Pointers.Changesets`, which is read at runtime, not compile time
 
 alias Bonfire.Data.AccessControl.{Access, Acl, Controlled, Grant}
+alias Bonfire.Data.ActivityPub.Actor
 alias Bonfire.Data.Identity.{Account, Accounted, Credential, Email, User}
 alias Bonfire.Data.Social.{
-  Character, Circle, Encircle, Follow, FollowCount, Like, LikeCount, Profile,
+  Block, Bookmark, Character, Circle, Encircle, Follow, FollowCount,
+  Like, LikeCount, Profile,
 }
 alias CommonsPub.{
-  Actors.Actor,
-  Blocks.Block,
   Comments.Comment,
   Communities.Communities,
   Features.Feature,

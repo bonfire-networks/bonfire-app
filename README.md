@@ -17,7 +17,7 @@ If using Docker, just replace `mix ` with `make mix-` in the above commands, so 
 
 ## Copyright and License
 
-Copyright (c) 2020 Bonfire, VoxPublica, and CommonsPub Contributors
+Copyright (c) 2020 Bonfire Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
