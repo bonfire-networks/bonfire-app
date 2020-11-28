@@ -1,34 +1,42 @@
 defmodule Bonfire.Web.HomeLive do
-  use Bonfire.Web, :live_view
-  alias Bonfire.Common.Web.LivePlugs
+    use Bonfire.Web, :live_view
+    alias Bonfire.Fake
+    alias Bonfire.Common.Web.LivePlugs
+    alias Bonfire.Me.Users
+    alias Bonfire.Me.Web.{CreateUserLive, MeHomeLive}
 
-  def mount(params, session, socket) do
-    LivePlugs.live_plug params, session, socket, [
-      # LivePlugs.LoadCurrentAccountFromSession,
-      # LivePlugs.LoadCurrentUserFromPath,
-      LivePlugs.StaticChanged,
-      LivePlugs.Csrf,
-      &mounted/3,
-    ]
+    def mount(params, session, socket) do
+      LivePlugs.live_plug params, session, socket, [
+        LivePlugs.LoadCurrentAccountFromSession,
+        LivePlugs.LoadCurrentUserFromPath,
+        LivePlugs.StaticChanged,
+        LivePlugs.Csrf,
+        &mounted/3,
+      ]
+    end
+
+    defp mounted(params, session, socket) do
+      {:ok, socket
+      |> assign(page_title: "Switch User",
+      selected_tab: "about",
+      current_account: socket.assigns.current_account,
+      current_user: socket.assigns.current_user
+      )}
+
+    end
+
+    # def handle_params(%{"tab" => tab} = _params, _url, socket) do
+    #   {:noreply,
+    #    assign(socket,
+    #      selected_tab: tab
+    #    )}
+    # end
+
+    # def handle_params(%{} = _params, _url, socket) do
+    #   {:noreply,
+    #    assign(socket,
+    #      current_user: Fake.user_live()
+    #    )}
+    # end
+
   end
-
-  defp mounted(_params, _session, socket),
-    do: {:ok, assign(socket, current_user: nil, current_account: nil)}
-
-  # # def handle_params(%{"tab" => tab}, _url, socket) do
-  # #   {:noreply, assign(socket, selected_tab: tab)}
-  # # end
-
-  # def handle_params(_, _url, socket) do
-  #   {:noreply, assign(socket, selected_tab: "timeline")}
-  # end
-
-  # defp link_body(name, icon) do
-  #   assigns = %{name: name, icon: icon}
-
-  #   ~L"""
-  #     <i class="<%= @icon %>"></i>
-  #     <%= @name %>
-  #   """
-  # end
-end
