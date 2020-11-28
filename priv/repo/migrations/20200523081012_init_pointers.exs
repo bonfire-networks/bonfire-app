@@ -3,12 +3,16 @@ defmodule Bonfire.Repo.Migrations.InitPointers do
   import Pointers.Migration
   import Pointers.ULID.Migration
 
-  def up(), do: init(:up)
-  def down(), do: init(:down)
+  def up do
+    execute "CREATE EXTENSION IF NOT EXISTS \"citext\""
+    init_pointers_ulid_extra(:up)
+    init_pointers(:up)
+  end
 
-  defp init(dir) do
-    init_pointers_ulid_extra(dir) # this one is optional but recommended
-    init_pointers(dir) # this one is not optional
+  def down do
+    init_pointers_ulid_extra(:down)
+    init_pointers(:down)
+    execute "DROP EXTENSION IF EXISTS \"citext\""
   end
 
 end

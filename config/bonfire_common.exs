@@ -1,4 +1,4 @@
-# use Mix.Config
+# import Config
 
 # alias Bonfire.Web.Components
 

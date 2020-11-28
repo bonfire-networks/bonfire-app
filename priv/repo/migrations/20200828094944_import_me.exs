@@ -4,11 +4,11 @@ defmodule Bonfire.Repo.Migrations.ImportMe do
   # accounts & users
 
   def up do
-    Bonfire.Me.Migrations.up()
+    Bonfire.Me.Migration.up()
   end
 
   def down do
-    Bonfire.Me.Migrations.down()
+    Bonfire.Me.Migration.down()
   end
 
 end
