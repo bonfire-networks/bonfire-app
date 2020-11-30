@@ -12,8 +12,6 @@ config :pointers,
     :bonfire_data_identity,
     :bonfire_data_social,
     :cpub_activities,
-    :cpub_blocks,
-    :cpub_bookmarks,
     :cpub_comments,
     :cpub_communities,
     :cpub_threads,
@@ -26,17 +24,19 @@ config :pointers,
 ## compile extra stuff into modules.  If you add new fields or
 ## relations to ecto models in a dependency, you must recompile that
 ## dependency for it to show up! You will probably find you need to
-## `rm -Rf _build/*/lib/cpub_*` a lot.
+## `rm -Rf _build/*/lib/bonfire_data_*` a lot.
 
 ## Note: This does not apply to configuration for
 ## `Pointers.Changesets`, which is read at runtime, not compile time
 
 alias Bonfire.Data.AccessControl.{Access, Acl, Controlled, Grant}
 alias Bonfire.Data.ActivityPub.Actor
-alias Bonfire.Data.Identity.{Account, Accounted, Credential, Email, User}
+alias Bonfire.Data.Identity.{
+  Account, Accounted, Character, Credential, Email, User
+}
 alias Bonfire.Data.Social.{
-  Block, Bookmark, Character, Circle, Encircle, Follow, FollowCount,
-  Like, LikeCount, Profile,
+  Block, Bookmark, Circle, Encircle, Follow, FollowCount,
+  Like, LikeCount, Mention, Profile,
 }
 alias CommonsPub.{
   Comments.Comment,
@@ -60,8 +60,8 @@ config :bonfire_data_activity_pub, Actor,
 # bonfire_data_identity
 
 config :bonfire_data_identity, Account,
-  has_one: [email:      {Email,      foreign_key: :id}],
   has_one: [credential: {Credential, foreign_key: :id}],
+  has_one: [email:      {Email,      foreign_key: :id}],
   has_many: [accounted: Accounted]
 
 config :bonfire_data_identity, Accounted, []
@@ -76,10 +76,12 @@ config :bonfire_data_identity, Email,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_identity, User,
-  has_one: [accounted: {Accounted, foreign_key: :id}],
-  has_one: [character: {Character, foreign_key: :id}],
-  has_one: [profile:   {Profile,   foreign_key: :id}],
-  has_one: [actor:     {Actor,     foreign_key: :id}]
+  has_one: [actor:        {Actor,     foreign_key: :id}],
+  has_one: [accounted:    {Accounted, foreign_key: :id}],
+  has_one: [character:    {Character, foreign_key: :id}],
+  has_one: [follow_count: {FollowCount, foreign_key: :id}],
+  has_one: [like_count:   {LikeCount, foreign_key: :id}],
+  has_one: [profile:      {Profile,   foreign_key: :id}]
 
 # bonfire_data_social
 
