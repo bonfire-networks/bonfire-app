@@ -5,8 +5,8 @@ defmodule Bonfire.Test.ConnHelpers do
   import Phoenix.ConnTest
   import Phoenix.LiveViewTest
   # alias CommonsPub.Accounts
-  alias CommonsPub.Accounts.Account
-  alias CommonsPub.Users.User
+  alias Bonfire.Data.Identity.Account
+  alias Bonfire.Data.Identity.User
 
   @endpoint Bonfire.Web.Endpoint
 
