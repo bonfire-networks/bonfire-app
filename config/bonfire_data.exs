@@ -29,14 +29,14 @@ config :pointers,
 ## Note: This does not apply to configuration for
 ## `Pointers.Changesets`, which is read at runtime, not compile time
 
-alias Bonfire.Data.AccessControl.{Access, Acl, Controlled, Grant}
+alias Bonfire.Data.AccessControl.{Access, Acl, Controlled, Grant, Interact, Verb}
 alias Bonfire.Data.ActivityPub.Actor
 alias Bonfire.Data.Identity.{
   Account, Accounted, Character, Credential, Email, User
 }
 alias Bonfire.Data.Social.{
-  Block, Bookmark, Circle, Encircle, Follow, FollowCount,
-  Like, LikeCount, Mention, Profile,
+  Article, Block, Bookmark, Circle, Encircle, Follow, FollowCount,
+  Like, LikeCount, Mention, Post, PostContent, Profile,
 }
 alias CommonsPub.{
   Comments.Comment,
@@ -51,6 +51,8 @@ config :bonfire_data_access_control, Access, []
 config :bonfire_data_access_control, Acl, []
 config :bonfire_data_access_control, Controlled, []
 config :bonfire_data_access_control, Grant, []
+config :bonfire_data_access_control, Interact, []
+config :bonfire_data_access_control, Verb, []
 
 # bonfire_data_activity_pub
 
@@ -101,3 +103,5 @@ config :bonfire_data_social, LikeCount, []
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
+config :bonfire_data_social, Post, []
+config :bonfire_data_social, PostContent, []
