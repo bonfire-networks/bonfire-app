@@ -103,5 +103,7 @@ config :bonfire_data_social, LikeCount, []
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
-config :bonfire_data_social, Post, []
+config :bonfire_data_social, Post,
+  has_one: [post_content:    {PostContent, foreign_key: :id}]
+
 config :bonfire_data_social, PostContent, []
