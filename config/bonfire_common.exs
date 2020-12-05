@@ -1,6 +1,6 @@
-# import Config
+import Config
 
-# alias Bonfire.Web.Components
 
-# config :bonfire_common, Components.LoginLive,
-#   login_url: ...
+config :bonfire_common,
+  repo_module: Bonfire.Repo,
+  otp_app: :bonfire
