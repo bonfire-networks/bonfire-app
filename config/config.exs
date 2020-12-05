@@ -9,6 +9,9 @@ alias Bonfire.Mailer
 config :bonfire, Mailer,
   from_address: "noreply@bonfire.local"
 
+# include common modules
+import_config "bonfire_common.exs"
+
 # include DB schemas
 import_config "bonfire_data.exs"
 
@@ -28,9 +31,6 @@ secret_key_base = System.get_env("SECRET_KEY_BASE", "g7K250qlSxhNDt5qnV6f4HFnyoD
 
 config :bonfire, :signing_salt, signing_salt
 config :bonfire, :encryption_salt, encryption_salt
-config :bonfire, :routes_module, Bonfire.Web.Routes
-config :bonfire, :routes_helper_module, Bonfire.Web.Routes.Helpers
-config :bonfire, :live_view_module, Bonfire.Web.PageLive
 config :bonfire, :otp_app, :bonfire
 
 config :bonfire, Bonfire.Web.Endpoint,
