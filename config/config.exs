@@ -14,6 +14,7 @@ import_config "bonfire_data.exs"
 
 # include all used Bonfire extensions
 import_config "bonfire_me.exs"
+# import_config "bonfire_publisher_thesis.exs"
 
 
 #### Basic configuration
