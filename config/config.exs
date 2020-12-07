@@ -52,6 +52,8 @@ config :logger, :console,
 config :activity_pub, :adapter, Bonfire.ActivityPub.Adapter
 config :activity_pub, :repo, Bonfire.Repo
 
+config :nodeinfo, :adapter, Bonfire.NodeinfoAdapter
+
 config :bonfire, Oban,
   repo: Bonfire.Repo,
   plugins: [Oban.Plugins.Pruner],
