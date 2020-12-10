@@ -4,6 +4,6 @@ defmodule Bonfire.Repo.Migrations.ImportMe do
   import Bonfire.Me.Migration
   # accounts & users
 
-  def change, do: migrate_me
+  def change, do: migrate_me()
 
 end
