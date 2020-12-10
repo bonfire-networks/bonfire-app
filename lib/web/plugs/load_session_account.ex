@@ -1,7 +1,6 @@
 defmodule Bonfire.Web.Plugs.LoadSessionAccount do
 
   import Plug.Conn
-  # import Phoenix.Controller
   alias Bonfire.Me.Identity.{Accounts, Users}
   alias Bonfire.Data.Identity.User
 
@@ -9,7 +8,9 @@ defmodule Bonfire.Web.Plugs.LoadSessionAccount do
 
   def call(conn, _opts), do: try_account(conn, get_session(conn, :account_id))
 
-  defp try_account(conn, id) when is_binary(id), do: try_account(conn, Accounts.get_for_session(id))
+  defp try_account(conn, id) when is_binary(id),
+    do: try_account(conn, Accounts.get_current(id))
+
   defp try_account(conn, account) do
     conn
     |> assign(:current_account, account)
