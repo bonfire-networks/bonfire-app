@@ -38,7 +38,13 @@ dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clon
 
 deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls the latest version of all local deps from its git remote
 	sudo chown -R $$USER ./forks
+	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
 	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' $* \;
+
+deps-local-commit-push:
+	make deps-local-git-"add ."
+	make deps-local-git-commit
+	make deps-local-git-push
 
 dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local dep=pointers
 	make dep-go-local-path dep=$(dep) path=$(LIBS_PATH)$(dep)
