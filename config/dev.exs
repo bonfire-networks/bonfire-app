@@ -69,8 +69,10 @@ config :bonfire, Bonfire.Web.Endpoint,
     ]
   ]
 
-# Do not include metadata nor timestamps in development logs
-config :logger, :console, format: "[$level] $message\n"
+
+config :logger, :console,
+  level: :debug,
+  format: "[$level] $message\n" # Do not include metadata or timestamps
 
 config :phoenix, :stacktrace_depth, 30
 

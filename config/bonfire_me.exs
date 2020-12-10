@@ -7,17 +7,24 @@ config :bonfire_me,
   helper_module: Bonfire.Common.Utils,
   templates_path: "lib"
 
-alias Bonfire.Me.Accounts
+alias Bonfire.Me.Identity
 
-config :bonfire_me, Accounts.Emails,
+config :bonfire_me, Identity.Emails,
   confirm_email: [subject: "Confirm your email - Bonfire"],
   reset_password: [subject: "Reset your password - Bonfire"]
+
+#### Pointer class configuration
+
+alias Bonfire.Data.Identity.User
+
+config :bonfire_me, Bonfire.Me.Users.Follows,
+  followable_types: [User]
 
 #### Forms configuration
 
 # You probably will want to leave these
 
-alias Bonfire.Me.Accounts.{
+alias Bonfire.Me.Identity.Accounts.{
   ChangePasswordFields,
   ConfirmEmailFields,
   LoginFields,
