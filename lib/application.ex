@@ -6,13 +6,16 @@ defmodule Bonfire.Application do
   use Application
 
   def start(_type, _args) do
-    [
+    [ Bonfire.Web.Telemetry,                  # Metrics
+      Bonfire.Repo,                           # Database
+      {Phoenix.PubSub, name: Bonfire.PubSub}, # PubSub
+      # Persistent Data Services
       Pointers.Tables,
-      Bonfire.Web.Telemetry,
-      Bonfire.Repo,
-      {Phoenix.PubSub, name: Bonfire.PubSub},
-      Bonfire.Web.Endpoint,
-      {Oban, Application.get_env(:bonfire, Oban)}
+      Bonfire.Data.AccessControl.Accesses,
+      Bonfire.Data.AccessControl.Verbs,
+      # Stuff that uses all the above
+      Bonfire.Web.Endpoint,                       # Webapp
+      {Oban, Application.get_env(:bonfire, Oban)} # Job Queue
     ]
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end

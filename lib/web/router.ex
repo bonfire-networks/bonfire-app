@@ -15,6 +15,7 @@ defmodule Bonfire.Web.Router do
   end
 
   pipeline :account_required do
+    plug Bonfire.Web.Plugs.LoadSessionAccount
     plug Bonfire.Web.Plugs.AccountRequired
   end
 
