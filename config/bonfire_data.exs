@@ -1,14 +1,13 @@
 import Config
 
-#### Pointers configuration
+#### Sentinel Data Services
 
-# This tells `Pointers.Tables` which apps to search for tables to
-# index. If you add another dependency with Pointables, you will want
-# to add it to the search path
+# Search these apps for Pointable schemas to index
 
 config :pointers,
   search_path: [
     :bonfire_data_access_control,
+    :bonfire_data_activity_pub,
     :bonfire_data_identity,
     :bonfire_data_social,
     :cpub_activities,
@@ -17,6 +16,16 @@ config :pointers,
     :cpub_threads,
     :bonfire,
   ]
+
+# Search these apps for Verbs to index
+
+config :bonfire_data_access_control,
+  search_path: [
+    :bonfire_common,
+    :bonfire_me,
+    :bonfire,
+  ]
+
 
 #### Flexto Stitching
 
@@ -29,14 +38,23 @@ config :pointers,
 ## Note: This does not apply to configuration for
 ## `Pointers.Changesets`, which is read at runtime, not compile time
 
+# first up, pointers could have all the mixins we're using. TODO
+
+alias Pointers.{Pointer, Table}
+
+config :pointers, Pointer, []
+config :pointers, Table, []
+
+# now let's weave everything else together for convenience
+
 alias Bonfire.Data.AccessControl.{Access, Acl, Controlled, Grant, Interact, Verb}
 alias Bonfire.Data.ActivityPub.Actor
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Character, Credential, Email, User
+  Account, Accounted, Caretaker, Character, Credential, Email, Self, User
 }
 alias Bonfire.Data.Social.{
   Article, Block, Bookmark, Circle, Encircle, Follow, FollowCount,
-  Like, LikeCount, Mention, Post, PostContent, Profile,
+  Like, LikeCount, Mention, Named, Post, PostContent, Profile,
 }
 alias CommonsPub.{
   Comments.Comment,
@@ -47,8 +65,12 @@ alias CommonsPub.{
 
 # bonfire_data_access_control
 
-config :bonfire_data_access_control, Access, []
-config :bonfire_data_access_control, Acl, []
+config :bonfire_data_access_control, Access,
+  has_one: [named: {Named, foreign_key: :id}]
+
+config :bonfire_data_access_control, Acl,
+  has_one: [named: {Named, foreign_key: :id}]
+
 config :bonfire_data_access_control, Controlled, []
 config :bonfire_data_access_control, Grant, []
 config :bonfire_data_access_control, Interact, []
@@ -59,15 +81,21 @@ config :bonfire_data_access_control, Verb, []
 config :bonfire_data_activity_pub, Actor,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
+config :bonfire_data_activity_pub, Peer, []
+config :bonfire_data_activity_pub, Peered, []
+
 # bonfire_data_identity
 
 config :bonfire_data_identity, Account,
   has_one: [credential: {Credential, foreign_key: :id}],
-  has_one: [email:      {Email,      foreign_key: :id}],
-  has_many: [accounted: Accounted]
+  has_one: [email:      {Email,      foreign_key: :id}]
 
-config :bonfire_data_identity, Accounted, []
-  # belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+config :bonfire_data_identity, Accounted,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
+config :bonfire_data_identity, Caretaker, []
+
+config :bonfire_data_identity, Character, []
 
 config :bonfire_data_identity, Credential,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}],
@@ -78,12 +106,13 @@ config :bonfire_data_identity, Email,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_identity, User,
-  has_one: [actor:        {Actor,     foreign_key: :id}],
-  has_one: [accounted:    {Accounted, foreign_key: :id}],
-  has_one: [character:    {Character, foreign_key: :id}],
+  has_one: [actor:        {Actor,       foreign_key: :id}],
+  has_one: [accounted:    {Accounted,   foreign_key: :id}],
+  has_one: [character:    {Character,   foreign_key: :id}],
   has_one: [follow_count: {FollowCount, foreign_key: :id}],
-  has_one: [like_count:   {LikeCount, foreign_key: :id}],
-  has_one: [profile:      {Profile,   foreign_key: :id}]
+  has_one: [like_count:   {LikeCount,   foreign_key: :id}],
+  has_one: [profile:      {Profile,     foreign_key: :id}],
+  has_one: [self:         {Self,        foreign_key: :id}]
 
 # bonfire_data_social
 
@@ -93,7 +122,10 @@ config :bonfire_data_social, Bookmark, []
 config :bonfire_data_social, Character,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
-config :bonfire_data_social, Circle, []
+config :bonfire_data_social, Circle,
+  has_one: [caretaker: {Caretaker, foreign_key: :id}],
+  has_one: [named:     {Named, foreign_key: :id}]
+
 config :bonfire_data_social, Encircle, []
 config :bonfire_data_social, Follow, []
 config :bonfire_data_social, FollowCount, []
@@ -104,6 +136,6 @@ config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_social, Post,
-  has_one: [post_content:    {PostContent, foreign_key: :id}]
+  has_one: [post_content: {PostContent, foreign_key: :id}]
 
 config :bonfire_data_social, PostContent, []
