@@ -19,26 +19,37 @@ defmodule Bonfire.Web.Telemetry do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
+  @millis {:native, :millisecond}
+
   def metrics do
     [
-      # Phoenix Metrics
-      summary("phoenix.endpoint.stop.duration",
-        unit: {:native, :millisecond}
-      ),
-      summary("phoenix.router_dispatch.stop.duration",
-        tags: [:route],
-        unit: {:native, :millisecond}
-      ),
+      # Phoenix
+      summary("phoenix.endpoint.stop.duration", unit: @millis),
+      summary("phoenix.router_dispatch.stop.duration", tags: [:route], unit: @millis),
+      summary("phoenix.error_rendered.duration", unit: @millis),
+      summary("phoenix.socket_connected.duration", unit: @millis),
+      summary("phoenix.channel_joined.duration", unit: @millis),
+      summary("phoenix.channel_joined.duration", unit: @millis),
+      # Phoenix LiveView
+      summary("phoenix.live_view.mount.stop.duration", unit: @millis),
+      summary("phoenix.live_view.mount.exception.duration", unit: @millis),
+      summary("phoenix.live_view.handle_params.stop.duration", unit: @millis),
+      summary("phoenix.live_view.handle_params.exception.duration", unit: @millis),
+      summary("phoenix.live_view.handle_event.stop.duration", unit: @millis),
+      summary("phoenix.live_view.handle_event.exception.duration", unit: @millis),
+
+      summary("phoenix.live_component.handle_event.stop.duration", unit: @millis),
+      summary("phoenix.live_component.handle_event.exception.duration", unit: @millis),
 
       # Database Metrics
-      summary("bonfire.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("bonfire.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("bonfire.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("bonfire.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("bonfire.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("bonfire.repo.query.total_time", unit: @millis),
+      summary("bonfire.repo.query.decode_time", unit: @millis),
+      summary("bonfire.repo.query.query_time", unit: @millis),
+      summary("bonfire.repo.query.queue_time", unit: @millis),
+      summary("bonfire.repo.query.idle_time", unit: @millis),
 
       # VM Metrics
-      summary("vm.memory.total", unit: {:byte, :kilobyte}),
+      summary("vm.memory.total", unit: {:byte, :megabyte}),
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
       summary("vm.total_run_queue_lengths.io")
