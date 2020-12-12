@@ -19,6 +19,9 @@ import_config "bonfire_data.exs"
 import_config "bonfire_me.exs"
 # import_config "bonfire_publisher_thesis.exs"
 
+import_config "bonfire_quantify.exs"
+import_config "bonfire_geolocate.exs"
+import_config "bonfire_valueflows.exs"
 
 #### Basic configuration
 
