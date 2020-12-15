@@ -4,6 +4,9 @@ An app for [Bonfire](https://bonfire.cafe/) that bundles the following extension
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
 - [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - user profiles
+- [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
+- [Bonfire:Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
+- [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities
 - More to come...
 
 
