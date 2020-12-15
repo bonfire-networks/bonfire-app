@@ -7,6 +7,7 @@ An app for [Bonfire](https://bonfire.cafe/) that bundles the following extension
 - [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
 - [Bonfire:Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
 - [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities
+- [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
 - More to come...
 
 
