@@ -50,7 +50,7 @@ defmodule Bonfire.MixProject do
       "bonfire.deps.clean": ["deps.clean #{@bonfire_deps} --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
-      updates: ["deps.get", "bonfire.deps.clean", "ecto.migrate", "js.deps.get"],
+      updates: ["deps.get", "bonfire.deps", "ecto.migrate", "js.deps.get"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
