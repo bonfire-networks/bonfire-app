@@ -1,4 +1,4 @@
-defmodule Bonfire.Web.Plugs.LoadSessionAccount do
+defmodule Bonfire.Web.Plugs.LoadCurrentAccount do
 
   import Plug.Conn
   alias Bonfire.Me.Identity.{Accounts, Users}
