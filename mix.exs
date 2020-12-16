@@ -48,6 +48,7 @@ defmodule Bonfire.MixProject do
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
       "js.deps.get": ["cmd npm install --prefix assets"],
+      "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": ["run priv/repo/seeds.exs"],
       "bonfire.deps.update": ["deps.update #{@bonfire_deps}"],
       "bonfire.deps.clean": ["deps.clean #{@bonfire_deps} --build"],
