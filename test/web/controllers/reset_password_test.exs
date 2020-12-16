@@ -1,7 +1,7 @@
 defmodule Bonfire.Web.ResetPasswordController.Test do
 
   use Bonfire.ConnCase
-  # alias Bonfire.Fake
+  # alias Bonfire.Me.Fake
 
   # describe "request" do
 
