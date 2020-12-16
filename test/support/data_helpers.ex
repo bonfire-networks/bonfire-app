@@ -1,6 +1,6 @@
 defmodule Bonfire.DataHelpers do
 
   # import ExUnit.Assertions
-  # alias Bonfire.Fake
+  # alias Bonfire.Me.Fake
 
 end
