@@ -55,7 +55,7 @@ alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Self, User
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Circle, Encircle, Feed, FeedPublish,
+  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish,
   Follow, FollowCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile,
 }
 alias CommonsPub.{
@@ -142,9 +142,12 @@ config :bonfire_data_social, Mention, []
 config :bonfire_data_social, Named, []
 
 config :bonfire_data_social, Post,
-  has_one: [post_content: {PostContent, foreign_key: :id}]
+  has_one: [post_content: {PostContent, foreign_key: :id}],
+  has_one: [created: {Created, foreign_key: :id}]
 
 config :bonfire_data_social, PostContent, []
+
+config :bonfire_data_social, Created, []
 
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
