@@ -47,14 +47,16 @@ config :pointers, Table, []
 
 # now let's weave everything else together for convenience
 
-alias Bonfire.Data.AccessControl.{Access, Acl, Controlled, Grant, Interact, Verb}
-alias Bonfire.Data.ActivityPub.Actor
+alias Bonfire.Data.AccessControl.{
+  Access, Acl, Controlled, InstanceAdmin, Grant, Interact, Verb
+}
+alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Self, User
 }
 alias Bonfire.Data.Social.{
-  Article, Block, Bookmark, Circle, Encircle, Follow, FollowCount,
-  Like, LikeCount, Mention, Named, Post, PostContent, Profile,
+  Activity, Article, Block, Bookmark, Circle, Encircle, Feed, FeedPublish,
+  Follow, FollowCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile,
 }
 alias CommonsPub.{
   Comments.Comment,
@@ -87,8 +89,9 @@ config :bonfire_data_activity_pub, Peered, []
 # bonfire_data_identity
 
 config :bonfire_data_identity, Account,
-  has_one: [credential: {Credential, foreign_key: :id}],
-  has_one: [email:      {Email,      foreign_key: :id}]
+  has_one: [credential:     {Credential,    foreign_key: :id}],
+  has_one: [email:          {Email,         foreign_key: :id}],
+  has_one: [instance_admin: {InstanceAdmin, foreign_key: :id}]
 
 config :bonfire_data_identity, Accounted,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
@@ -98,12 +101,13 @@ config :bonfire_data_identity, Caretaker, []
 config :bonfire_data_identity, Character, []
 
 config :bonfire_data_identity, Credential,
-  belongs_to: [account: {Account, foreign_key: :id, define_field: false}],
-  rename_attrs: [email_address: :identity],
-  password: [length: [min: 8, max: 64]]
+  belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_identity, Email,
+  must_confirm: true,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
+
+config :bonfire_data_identity, Self, []
 
 config :bonfire_data_identity, User,
   has_one: [actor:        {Actor,       foreign_key: :id}],
@@ -116,6 +120,7 @@ config :bonfire_data_identity, User,
 
 # bonfire_data_social
 
+config :bonfire_data_social, Activity, []
 config :bonfire_data_social, Block, []
 config :bonfire_data_social, Bookmark, []
 
@@ -127,15 +132,19 @@ config :bonfire_data_social, Circle,
   has_one: [named:     {Named, foreign_key: :id}]
 
 config :bonfire_data_social, Encircle, []
+config :bonfire_data_social, Feed, []
+config :bonfire_data_social, FeedPublish, []
 config :bonfire_data_social, Follow, []
 config :bonfire_data_social, FollowCount, []
 config :bonfire_data_social, Like, []
 config :bonfire_data_social, LikeCount, []
-
-config :bonfire_data_social, Profile,
-  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+config :bonfire_data_social, Mention, []
+config :bonfire_data_social, Named, []
 
 config :bonfire_data_social, Post,
   has_one: [post_content: {PostContent, foreign_key: :id}]
 
 config :bonfire_data_social, PostContent, []
+
+config :bonfire_data_social, Profile,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
