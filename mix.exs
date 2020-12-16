@@ -35,9 +35,12 @@ defmodule Bonfire.MixProject do
 
   @bonfire_deps [
     "pointers",
+    "bonfire_common",
     "bonfire_data_access_control",
     "bonfire_data_identity",
     "bonfire_data_social",
+    "bonfire_data_activity_pub",
+    "bonfire_me",
   ] |> Enum.join(" ")
 
   defp aliases do
