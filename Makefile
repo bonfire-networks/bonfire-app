@@ -34,10 +34,12 @@ bonfire-updates: bonfire-pre-updates
 bonfire-post-updates:
 	mv deps.path.disabled deps.path 
 
-bonfire-push-updates: bonfire-pre-updates
+bonfire-push-updates: 
+	mv deps.path deps.path.disabled
 	docker-compose run web mix bonfire.deps
 	make bonfire-post-updates
 	git pull
+	git add .
 	git commit
 	git push
 
