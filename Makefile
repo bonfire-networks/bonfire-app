@@ -21,6 +21,10 @@ pull:
 update: pull build deps-local-git-pull mix-updates  ## Update/prepare dependencies
 
 bonfire-updates:
+	sudo rm -rf deps/pointers*
+	sudo rm -rf deps/bonfire*
+	sudo rm -rf deps/cpub*
+	sudo rm -rf deps/activity_pu*
 	docker-compose run web mix bonfire.deps
 
 dep-hex-%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
@@ -44,6 +48,7 @@ deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls th
 deps-local-commit-push:
 	make deps-local-git-"add ."
 	make deps-local-git-commit
+	make deps-local-git-pull
 	make deps-local-git-push
 
 dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local dep=pointers
