@@ -9,7 +9,7 @@ defmodule Bonfire.Web.Plugs.AdminRequired do
 
   def call(conn, _opts), do: check(conn.assigns[:current_account], conn)
 
-  defp check(%Account{instance_admin: %{is_instance_admin: true}}, conn) do
+  defp check(%Account{instance_admin: %{is_instance_admin: true}}, conn), do: conn
   defp check(_, conn) do
     conn
     |> clear_session()
