@@ -116,7 +116,8 @@ config :bonfire_data_identity, User,
   has_one: [follow_count: {FollowCount, foreign_key: :id}],
   has_one: [like_count:   {LikeCount,   foreign_key: :id}],
   has_one: [profile:      {Profile,     foreign_key: :id}],
-  has_one: [self:         {Self,        foreign_key: :id}]
+  has_one: [self:         {Self,        foreign_key: :id}],
+  has_many: [encircles: {Encircle, foreign_key: :subject_id}]
 
 # bonfire_data_social
 
