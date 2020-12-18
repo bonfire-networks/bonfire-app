@@ -6,7 +6,7 @@ defmodule Bonfire.Web.Plugs.GuestOnly do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    if conn.assigns()[:current_account],
+    if conn.assigns[:current_account],
       do: not_permitted(conn),
       else: conn
   end
