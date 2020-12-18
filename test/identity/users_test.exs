@@ -18,7 +18,7 @@ defmodule Bonfire.Me.Identity.UsersTest do
   test "usernames must be unique" do
     assert {:ok, account} = Accounts.signup(Fake.signup_form())
     attrs = Fake.create_user_form()
-    assert {:ok, user} = Users.create(attrs, account)
+    assert {:ok, _user} = Users.create(attrs, account)
     assert {:error, changeset} = Users.create(attrs, account)
     assert %{character: character, profile: profile} = changeset.changes
     assert profile.valid?
@@ -28,7 +28,7 @@ defmodule Bonfire.Me.Identity.UsersTest do
   test "fetching by username" do
     assert {:ok, account} = Accounts.signup(Fake.signup_form())
     attrs = Fake.create_user_form()
-    assert {:ok, user} = Users.create(attrs, account)
+    assert {:ok, _user} = Users.create(attrs, account)
     assert {:ok, user} = Users.by_username(attrs.character.username)
     assert user.character.username == attrs.character.username
     assert user.profile.name == attrs.profile.name
