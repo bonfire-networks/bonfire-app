@@ -35,9 +35,12 @@ defmodule Bonfire.MixProject do
 
   @bonfire_deps [
     "pointers",
+    "bonfire_common",
     "bonfire_data_access_control",
     "bonfire_data_identity",
     "bonfire_data_social",
+    "bonfire_data_activity_pub",
+    "bonfire_me",
   ] |> Enum.join(" ")
 
   defp aliases do
@@ -45,12 +48,13 @@ defmodule Bonfire.MixProject do
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
       "js.deps.get": ["cmd npm install --prefix assets"],
+      "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": ["run priv/repo/seeds.exs"],
       "bonfire.deps.update": ["deps.update #{@bonfire_deps}"],
       "bonfire.deps.clean": ["deps.clean #{@bonfire_deps} --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
-      updates: ["deps.get", "bonfire.deps.clean", "ecto.migrate", "js.deps.get"],
+      updates: ["deps.get", "bonfire.deps", "ecto.migrate", "js.deps.get"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]

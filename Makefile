@@ -18,10 +18,30 @@ shell: ## Open a shell, in dev mode
 pull: 
 	git pull
 
-update: pull build deps-local-git-pull bonfire-updates mix-updates ## Update/prepare dependencies
+update: pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
 
-bonfire-updates:
-	docker-compose run web mix bonfire.deps.update
+bonfire-pre-updates:
+	mv deps.path deps.path.disabled
+	sudo rm -rf deps/pointers*
+	sudo rm -rf deps/bonfire*
+	sudo rm -rf deps/cpub*
+	sudo rm -rf deps/activity_pu*
+
+bonfire-updates: bonfire-pre-updates
+	docker-compose run web mix bonfire.deps
+	make bonfire-post-updates
+
+bonfire-post-updates:
+	mv deps.path.disabled deps.path 
+
+bonfire-push-updates: deps-local-commit-push
+	mv deps.path deps.path.disabled
+	docker-compose run web mix bonfire.deps
+	make bonfire-post-updates
+	git pull
+	git add .
+	git commit
+	git push
 
 dep-hex-%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
@@ -44,7 +64,12 @@ deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls th
 deps-local-commit-push:
 	make deps-local-git-"add ."
 	make deps-local-git-commit
+	make deps-local-git-pull
 	make deps-local-git-push
+
+deps-prepare-push:
+	mv deps.path deps.path.disabled
+
 
 dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local dep=pointers
 	make dep-go-local-path dep=$(dep) path=$(LIBS_PATH)$(dep)
