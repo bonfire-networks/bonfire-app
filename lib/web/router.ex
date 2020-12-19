@@ -8,6 +8,7 @@ defmodule Bonfire.Web.Router do
     plug :put_root_layout, {Bonfire.Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Bonfire.Web.Plugs.LoadCurrentAccount
   end
 
   pipeline :guest_only do
@@ -15,7 +16,6 @@ defmodule Bonfire.Web.Router do
   end
 
   pipeline :account_required do
-    plug Bonfire.Web.Plugs.LoadSessionAccount
     plug Bonfire.Web.Plugs.AccountRequired
   end
 

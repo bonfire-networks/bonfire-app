@@ -1,18 +1,21 @@
 defmodule Bonfire.Web.Plugs.AdminRequired do
 
   use Bonfire.Web, :plug
+  alias Bonfire.Data.Identity.Account
+  alias Bonfire.Me.Web.SwitchUserLive
+  alias Bonfire.Me.Web
 
   def init(opts), do: opts
 
+  def call(conn, _opts), do: check(conn.assigns[:current_account], conn)
 
-  # TODO: better
-  def call(conn, opts), do: Bonfire.Web.Plugs.AccountRequired.call(conn, opts)
-
-  # defp not_permitted(conn) do
-  #   conn
-  #   |> put_flash(:error, "That page is only accessible if you log in.")
-  #   |> redirect(to: "/login")
-  #   |> halt()
-  # end
+  defp check(%Account{instance_admin: %{is_instance_admin: true}}, conn), do: conn
+  defp check(_, conn) do
+    conn
+    |> clear_session()
+    |> put_flash(:error, "That page is only accessible to instance administrators.")
+    |> redirect(to: Routes.live_path(conn, SwitchUserLive))
+    |> halt()
+  end
 
 end
