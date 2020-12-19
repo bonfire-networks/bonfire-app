@@ -1,9 +1,6 @@
 defmodule Bonfire.ActivityPub.IntegrationTest do
   use Bonfire.ConnCase
-
-  alias Bonfire.Me.Accounts
-  alias Bonfire.Me.Users
-  alias Bonfire.Fake
+  alias Bonfire.Me.{Accounts, Fake, Users}
 
   test "fetch users from AP API" do
     assert {:ok, account} = Accounts.signup(Fake.account())

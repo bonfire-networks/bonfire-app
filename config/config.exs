@@ -1,13 +1,6 @@
 import Config
 
-#### Email configuration
-
 # You will almost certainly want to change at least some of these
-
-alias Bonfire.Mailer
-
-config :bonfire, Mailer,
-  from_address: "noreply@bonfire.local"
 
 # include common modules
 import_config "bonfire_common.exs"
@@ -16,6 +9,7 @@ import_config "bonfire_common.exs"
 import_config "bonfire_data.exs"
 
 # include all used Bonfire extensions
+import_config "bonfire_mailer.exs"
 import_config "bonfire_me.exs"
 # import_config "bonfire_publisher_thesis.exs"
 

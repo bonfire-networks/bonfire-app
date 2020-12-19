@@ -1,9 +1,7 @@
 defmodule Bonfire.ActivityPub.AdapterTest do
   use Bonfire.DataCase
-  alias Bonfire.Me.Accounts
+  alias Bonfire.Me.{Accounts, Fake, Users}
   alias Bonfire.ActivityPub.Adapter
-  alias Bonfire.Me.Users
-  alias Bonfire.Fake
 
   describe "actor fetching" do
     test "by username" do
