@@ -6,7 +6,7 @@ defmodule Bonfire.Web.Plugs.LoadCurrentAccount do
 
   def init(opts), do: opts
 
-  def call(conn, _opts), do: try_account(conn, get_session(conn, :account_id))
+  def call(conn, _opts), do: try_account(conn, get_session(conn, :account_id)) #|> IO.inspect
 
   defp try_account(conn, id) when is_binary(id),
     do: try_account(conn, Accounts.get_current(id))
