@@ -1,5 +1,14 @@
 import Config
 
+#### Base configuration
+
+# Choose password hashing backend
+# Note that this corresponds with our dependencies in mix.exs
+hasher = if config_env() in [:dev, :test], do: Pbkdf2, else: Argon2
+
+config :bonfire_data_identity, Bonfire.Data.Identity.Credential,
+  hasher_module: hasher
+
 #### Sentinel Data Services
 
 # Search these apps for Pointable schemas to index
