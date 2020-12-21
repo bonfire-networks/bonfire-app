@@ -9,8 +9,7 @@ defmodule Bonfire.Test.FakeHelpers do
   @repo Bonfire.Repo
 
   def fake_account!(attrs \\ %{}) do
-    cs = Accounts.signup_changeset(Fake.account(attrs))
-    assert {:ok, account} = @repo.insert(cs)
+    assert {:ok, account} = Accounts.signup(signup_form(attrs), must_confirm: false)
     account
   end
 
