@@ -7,7 +7,7 @@ defmodule Bonfire.Web.Plugs.AccountRequired do
 
   def call(conn, _opts), do: check(conn.assigns[:current_account], conn)
 
-  defp check(%Account{}, conn), do: conn
+  defp check(%Account{}, conn), do: conn #|> IO.inspect
   defp check(_, conn) do
     conn
     |> clear_session()

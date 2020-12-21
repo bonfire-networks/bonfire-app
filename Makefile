@@ -34,7 +34,7 @@ bonfire-updates: bonfire-pre-updates
 bonfire-post-updates:
 	mv deps.path.disabled deps.path 
 
-bonfire-push-updates: 
+bonfire-push-updates: deps-local-commit-push
 	mv deps.path deps.path.disabled
 	docker-compose run web mix bonfire.deps
 	make bonfire-post-updates
