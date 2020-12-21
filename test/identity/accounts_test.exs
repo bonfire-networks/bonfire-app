@@ -1,6 +1,7 @@
 defmodule Bonfire.Me.Identity.AccountsTest do
 
   use Bonfire.DataCase, async: true
+  alias Bonfire.Data.Identity.Credential
   alias Bonfire.Me.Fake
   alias Bonfire.Me.Identity.Accounts
 
@@ -9,26 +10,37 @@ defmodule Bonfire.Me.Identity.AccountsTest do
     test "email: :valid" do
       attrs = Fake.signup_form()
       assert {:ok, account} = Accounts.signup(attrs)
+      assert Credential.check_password(attrs.credential.password, account.credential.password_hash)
       assert account.email.email_address == attrs.email.email_address
-      assert Argon2.verify_pass(attrs.credential.password, account.credential.password_hash)
+      assert account.email.confirm_token
+      assert account.email.confirm_until
+      assert nil == account.email.confirmed_at
+    end
+
+    test "email: :valid, must_confirm: false" do
+      attrs = Fake.signup_form()
+      assert {:ok, account} = Accounts.signup(attrs, must_confirm: false)
+      assert account.email.email_address == attrs.email.email_address
+      assert account.email.confirmed_at
+      assert nil == account.email.confirm_token
+      assert nil == account.email.confirm_until
+      assert Credential.check_password(attrs.credential.password, account.credential.password_hash)
     end
 
     test "email: :exists" do
       attrs = Fake.signup_form()
       assert {:ok, account} = Accounts.signup(attrs)
       assert account.email.email_address == attrs.email.email_address
-      assert Argon2.verify_pass(attrs.credential.password, account.credential.password_hash)
+      assert Credential.check_password(attrs.credential.password, account.credential.password_hash)
       assert {:error, changeset} = Accounts.signup(attrs)
       assert changeset.changes.email.errors[:email_address]
     end
 
-    test "email: :valid, must_confirm: false" do
-      attrs = Fake.signup_form()
-      assert {:ok, account} = Accounts.signup(attrs, must_confirm: false)
-      assert account.email.confirmed_at
-      assert account.email.email_address == attrs.email.email_address
-      assert Argon2.verify_pass(attrs.credential.password, account.credential.password_hash)
-    end
+  end
+
+  describe "request_confirm_email" do
+
+    # TODO
 
   end
 
@@ -54,10 +66,11 @@ defmodule Bonfire.Me.Identity.AccountsTest do
     test "by: :email, confirmed: false" do
       attrs = Fake.signup_form()
       assert {:ok, _account} = Accounts.signup(attrs)
-      assert {:error, :email_not_confirmed} == Accounts.login %{
+      assert {:error, changeset} = Accounts.login %{
         email_or_username: attrs.email.email_address,
         password: attrs.credential.password,
       }
+      assert changeset.errors[:form] == {"email_not_confirmed", []}
     end
 
     test "by: :email, confirmed: true" do
