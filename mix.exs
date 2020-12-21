@@ -13,12 +13,15 @@ defmodule Bonfire.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: Mess.deps [
+        ## password hashing - builtin vs nif
+        {:pbkdf2_elixir, "~> 1.2.1", only: [:dev, :test]},
+        {:argon2_elixir, "~> 2.3.0", only: [:prod]},
+        ## dev conveniences
         {:dbg, "~> 1.0", only: [:dev, :test]},
-        {:floki, ">= 0.0.0", only: [:dev, :test]},
-        # reload when a local code file is modified
         {:phoenix_live_reload, "~> 1.2", only: :dev},
-        # reload when a locally forked dependency is modified
-        {:exsync, "~> 0.2", only: :dev}
+        {:exsync, "~> 0.2", only: :dev},
+        # tests
+        {:floki, ">= 0.0.0", only: [:dev, :test]},
       ]
     ]
   end
@@ -28,6 +31,9 @@ defmodule Bonfire.MixProject do
       mod: {Bonfire.Application, []},
       extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
     ]
+  end
+
+  defp deps() do
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
