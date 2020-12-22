@@ -21,7 +21,7 @@ pull:
 update: pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
 
 bonfire-pre-updates:
-	mv deps.path deps.path.disabled 2> /dev/null
+	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
 	sudo rm -rf deps/pointers*
 	sudo rm -rf deps/bonfire*
 	sudo rm -rf deps/cpub*
@@ -32,11 +32,13 @@ bonfire-updates: bonfire-pre-updates
 	make bonfire-post-updates
 
 bonfire-post-updates:
-	mv deps.path.disabled deps.path  2> /dev/null
+	mv deps.path.disabled deps.path  2> /dev/null || echo "continue"
 
-bonfire-push-updates: deps-local-commit-push
-	mv deps.path deps.path.disabled 2> /dev/null
-	docker-compose run web mix bonfire.deps
+bonfire-push-all-updates: deps-local-commit-push bonfire-push-app-updates
+
+bonfire-push-app-updates: 
+	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
+	make update 2> /dev/null || echo "continue"
 	make bonfire-post-updates
 	git pull
 	git add .
