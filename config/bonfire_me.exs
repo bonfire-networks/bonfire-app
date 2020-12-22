@@ -9,8 +9,8 @@ config :bonfire_me,
 
 alias Bonfire.Me.Identity
 
-config :bonfire_me, Identity.Emails,
-  confirm_email: [subject: "Confirm your email - Bonfire"],
+config :bonfire_me, Identity.Mails,
+  confirm_email:  [subject: "Confirm your email - Bonfire"],
   reset_password: [subject: "Reset your password - Bonfire"]
 
 #### Pointer class configuration
