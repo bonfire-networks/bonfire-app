@@ -10,6 +10,7 @@ import_config "bonfire_data.exs"
 
 # include all used Bonfire extensions
 import_config "bonfire_mailer.exs"
+import_config "bonfire_fail.exs"
 import_config "bonfire_me.exs"
 # import_config "bonfire_publisher_thesis.exs"
 
@@ -30,6 +31,7 @@ secret_key_base = System.get_env("SECRET_KEY_BASE", "g7K250qlSxhNDt5qnV6f4HFnyoD
 config :bonfire, :signing_salt, signing_salt
 config :bonfire, :encryption_salt, encryption_salt
 config :bonfire, :otp_app, :bonfire
+config :bonfire, :repo_module, Bonfire.Repo
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
