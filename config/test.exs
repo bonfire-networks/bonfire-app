@@ -25,6 +25,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4002],
   server: false
 
-config :argon2_elixir,
-  t_cost: 1,
-  m_cost: 8
+config :bonfire, Oban,
+  crontab: false,
+  plugins: false,
+  queues: false
