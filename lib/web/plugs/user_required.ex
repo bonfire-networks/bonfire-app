@@ -8,6 +8,7 @@ defmodule Bonfire.Web.Plugs.UserRequired do
   def init(opts), do: opts
 
   def call(%{assigns: the}=conn, _opts) do
+    # IO.inspect(user_required_assigns: the)
     check(the[:current_user], the[:current_account], conn)
   end
 
@@ -15,7 +16,7 @@ defmodule Bonfire.Web.Plugs.UserRequired do
 
   defp check(_user, %Account{}, conn) do
     conn
-    |> clear_session()
+    # |> clear_session()
     |> put_flash(:info, "You must choose a user to see that page.")
     |> redirect(to: Routes.switch_user_path(conn, :index) <> Misc.go_query(conn))
     |> halt()
