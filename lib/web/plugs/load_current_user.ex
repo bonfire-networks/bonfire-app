@@ -11,5 +11,6 @@ defmodule Bonfire.Web.Plugs.LoadCurrentUser do
   defp check(conn, id) when is_binary(id),
     do: check(conn, Users.get_current(id, Map.get(conn.assigns, :current_account)))
   defp check(conn, {:ok, me}), do: assign(conn, :current_user, me)
+  defp check(conn, _), do: assign(conn, :current_user, nil)
 
 end
