@@ -47,6 +47,9 @@ defmodule Bonfire.MixProject do
     "bonfire_data_social",
     "bonfire_data_activity_pub",
     "bonfire_me",
+    "bonfire_geolocate",
+    "bonfire_quantify",
+    "bonfire_valueflows",
   ] |> Enum.join(" ")
 
   defp aliases do
