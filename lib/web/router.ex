@@ -50,8 +50,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :account_required
 
-    live "/", MeHomeLive
-
     live "/user/switch", SwitchUserLive
     live "/user/create", CreateUserLive
 
@@ -68,14 +66,25 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :user_required
+
+    live "/", MeHomeLive
+    live "/~/:username", MeHomeLive
+
     live "/instance", MeInstanceLive
+    live "/instance/:username", MeInstanceLive
+
     live "/fediverse", MeFediverseLive
+    live "/fediverse/:username", MeFediverseLive
+
     live "/user/:username", ProfileLive
     live "/user/:username/circles", CirclesLive
     live "/user/:username/posts", PostsLive
     live "/user/:username/posts/:post_id", PostLive
+
     live "/settings", UserSettingsLive
+
     live "/thread", ThreadLive
+
     resources "/delete", UserDeleteController, only: [:index, :create]
   end
 

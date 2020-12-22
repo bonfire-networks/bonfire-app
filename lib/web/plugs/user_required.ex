@@ -7,6 +7,7 @@ defmodule Bonfire.Web.Plugs.UserRequired do
   def init(opts), do: opts
 
   def call(%{assigns: the}=conn, _opts) do
+    # IO.inspect(user_required_assigns: the)
     check(the[:current_user], the[:current_account], conn)
   end
 
@@ -14,7 +15,7 @@ defmodule Bonfire.Web.Plugs.UserRequired do
 
   defp check(_user, %Account{}, conn) do
     conn
-    |> clear_session()
+    # |> clear_session()
     |> put_flash(:info, "You must choose a user to see that page.")
     |> go(Routes.switch_user_path(conn, :index))
     |> halt()
@@ -29,9 +30,12 @@ defmodule Bonfire.Web.Plugs.UserRequired do
   end
 
   # TODO: should we preserve query strings?
-  defp go(conn, path) do
-    path = path <> "?" <> Query.encode(go: conn.requested_path)
+  defp go(%{requested_path: requested_path}=conn, path) do
+    path = path <> "?" <> Query.encode(go: requested_path)
     redirect(conn, to: path)
   end
 
+  defp go(conn, path) do
+    redirect(conn, to: path)
+  end
 end

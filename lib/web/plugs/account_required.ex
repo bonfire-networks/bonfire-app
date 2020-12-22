@@ -17,10 +17,13 @@ defmodule Bonfire.Web.Plugs.AccountRequired do
   end
 
   # TODO: should we preserve query strings?
-  defp go(conn, path) do
-    path = path <> "?" <> Query.encode(go: conn.requested_path)
+  defp go(%{requested_path: requested_path}=conn, path) do
+    path = path <> "?" <> Query.encode(go: requested_path)
     redirect(conn, to: path)
   end
 
+  defp go(conn, path) do
+    redirect(conn, to: path)
+  end
 
 end
