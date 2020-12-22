@@ -49,8 +49,15 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :account_required
+
+    live "/", MeHomeLive
+
+    live "/user/switch", SwitchUserLive
+    live "/user/create", CreateUserLive
+
     resources "/switch-user", SwitchUserController, only: [:index, :show]
     resources "/create-user", CreateUserController, only: [:index, :create]
+
     live "/change-password", ChangePasswordLive
     live "/settings", AccountSettingsLive
     resources "/delete", AccountDeleteController, only: [:index, :create]
