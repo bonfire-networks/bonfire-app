@@ -29,7 +29,7 @@ defmodule Bonfire.Web.Router do
   end
 
   # pages anyone can view
-  scope "/", Bonfire.Web do
+  scope "/", Bonfire.Me.Web do
     pipe_through :browser
     live "/", HomeLive
   end
@@ -49,10 +49,6 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :account_required
-
-    live "/user/switch", SwitchUserLive
-    live "/user/create", CreateUserLive
-
     resources "/switch-user", SwitchUserController, only: [:index, :show]
     resources "/create-user", CreateUserController, only: [:index, :create]
     live "/change-password", ChangePasswordLive
