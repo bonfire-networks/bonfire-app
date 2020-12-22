@@ -9,6 +9,7 @@ defmodule Bonfire.Web.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Bonfire.Web.Plugs.LoadCurrentAccount
+    plug Bonfire.Web.Plugs.LoadCurrentUser
   end
 
   pipeline :guest_only do
@@ -17,6 +18,10 @@ defmodule Bonfire.Web.Router do
 
   pipeline :account_required do
     plug Bonfire.Web.Plugs.AccountRequired
+  end
+
+  pipeline :user_required do
+    plug Bonfire.Web.Plugs.UserRequired
   end
 
   pipeline :admin_required do
@@ -41,11 +46,11 @@ defmodule Bonfire.Web.Router do
   end
 
   # pages you need an account to view
-  scope "/~", Bonfire.Me.Web do
+  scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :account_required
-    live "/", SwitchUserLive
-    live "/create-user", CreateUserLive
+    resources "/switch-user", SwitchUserController, only: [:index, :show]
+    resources "/create-user", CreateUserController, only: [:index, :create]
     live "/change-password", ChangePasswordLive
     live "/settings", AccountSettingsLive
     resources "/delete", AccountDeleteController, only: [:index, :create]
@@ -53,10 +58,9 @@ defmodule Bonfire.Web.Router do
  end
 
   # pages you need to view as a user
-  scope "/~:as_username", Bonfire.Me.Web do
+  scope "/", Bonfire.Me.Web do
     pipe_through :browser
-    pipe_through :account_required
-    live "/", MeHomeLive
+    pipe_through :user_required
     live "/instance", MeInstanceLive
     live "/fediverse", MeFediverseLive
     live "/user/:username", ProfileLive
