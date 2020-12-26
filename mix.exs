@@ -15,7 +15,7 @@ defmodule Bonfire.MixProject do
       deps: Mess.deps [
         ## password hashing - builtin vs nif
         {:pbkdf2_elixir, "~> 1.2.1", only: [:dev, :test]},
-        {:argon2_elixir, "~> 2.3.0", only: [:prod]},
+        {:argon2_elixir, "~> 2.3", only: [:prod]},
         ## dev conveniences
         {:dbg, "~> 1.0", only: [:dev, :test]},
         {:phoenix_live_reload, "~> 1.2", only: :dev},
