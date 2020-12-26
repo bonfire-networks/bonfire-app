@@ -50,9 +50,10 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :account_required
     resources "/switch-user", SwitchUserController, only: [:index, :show]
-    resources "/create-user", CreateUserController, only: [:index, :create]
+    live "/create-user", CreateUserLive
+
     live "/change-password", ChangePasswordLive
-    live "/settings", AccountSettingsLive
+    live "/settings", SettingsLive
     resources "/delete", AccountDeleteController, only: [:index, :create]
     resources "/logout", LogoutController, only: [:index, :create]
  end
@@ -62,7 +63,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :user_required
 
-    live "/", MeHomeLive
+    live "/~", MeHomeLive
     live "/~/:username", MeHomeLive
 
     live "/instance", MeInstanceLive
