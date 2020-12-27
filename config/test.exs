@@ -36,3 +36,5 @@ config :bonfire, Oban,
   crontab: false,
   plugins: false,
   queues: false
+
+config :pbkdf2_elixir, :rounds, 1
