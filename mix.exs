@@ -45,7 +45,7 @@ defmodule Bonfire.MixProject do
       {:floki, ">= 0.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3.0", only: :test},
-      {:zest, "~> 0.1", only: :test},
+      {:zest, "~> 0.1"},
     ])
     # |> IO.inspect()
   end

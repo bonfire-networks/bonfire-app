@@ -23,8 +23,10 @@ pull:
 
 update: pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
 
-bonfire-pre-updates:
+bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
+
+bonfire-pre-updates: bonfire-pre-update
 	sudo rm -rf deps/pointers*
 	sudo rm -rf deps/bonfire*
 	sudo rm -rf deps/cpub*
@@ -100,9 +102,16 @@ dep-go-hex: ## Switch to using a library from hex.pm, eg: make dep-go-hex dep="p
 	make dep-git-disable dep=$(dep) repo=""
 	make dep-local-disable dep=$(dep) path=""
 
-deps.get: bonfire-pre-updates
+deps.get: bonfire-pre-update
 	docker-compose run web mix deps.get
 	make bonfire-post-updates
+
+deps.update.%: bonfire-pre-update
+	docker-compose run web mix deps.update $*
+	make bonfire-post-updates
+
+deps.update.all: 
+	make deps.update --all
 
 dev: ## Run the app with Docker
 	docker-compose run --service-ports web
