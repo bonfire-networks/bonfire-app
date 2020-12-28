@@ -16,6 +16,10 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.GuestOnly
   end
 
+  pipeline :bread_pub do
+    plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
+  end
+
   pipeline :account_required do
     plug Bonfire.Web.Plugs.AccountRequired
   end
@@ -82,6 +86,16 @@ defmodule Bonfire.Web.Router do
     live "/thread", ThreadLive
 
     resources "/delete", UserDeleteController, only: [:index, :create]
+  end
+
+  # pages you need to view as a user
+  scope "/bread", Bonfire.UI.ValueFlows do
+    pipe_through :browser
+    pipe_through :user_required
+    pipe_through :bread_pub
+
+    live "/~", BreadpubHomeLive
+    live "/proposal", ProposalLive
   end
 
   # pages only admins can view
