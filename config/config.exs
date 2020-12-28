@@ -4,6 +4,7 @@ import Config
 
 # include common modules
 import_config "bonfire_common.exs"
+import_config "activity_pub.exs"
 
 # include DB schemas
 import_config "bonfire_data.exs"
@@ -42,6 +43,8 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :phoenix, :json_library, Jason
 
+config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
+
 config :bonfire,
   ecto_repos: [Bonfire.Repo]
 
@@ -49,10 +52,6 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :activity_pub, :adapter, Bonfire.ActivityPub.Adapter
-config :activity_pub, :repo, Bonfire.Repo
-
-config :nodeinfo, :adapter, Bonfire.NodeinfoAdapter
 
 config :bonfire, Oban,
   repo: Bonfire.Repo,
