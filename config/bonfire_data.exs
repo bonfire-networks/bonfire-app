@@ -24,6 +24,10 @@ config :pointers,
     :cpub_communities,
     :cpub_threads,
     :bonfire,
+    :bonfire_quantify,
+    :bonfire_geolocate,
+    :bonfire_valueflows,
+    :bonfire_tag,
   ]
 
 # Search these apps for Verbs to index
