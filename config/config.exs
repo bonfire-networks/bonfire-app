@@ -21,6 +21,7 @@ import_config "bonfire_valueflows.exs"
 import_config "bonfire_api_graphql.exs"
 
 import_config "bonfire_tag.exs"
+import_config "bonfire_classify.exs"
 
 #### Basic configuration
 
