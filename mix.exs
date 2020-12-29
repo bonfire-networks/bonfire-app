@@ -5,7 +5,7 @@ defmodule Bonfire.MixProject do
 
   @bonfire_deps [
     "pointers",
-    "activity_pub",
+    # "activity_pub",
     "bonfire_common",
     "bonfire_data_access_control",
     "bonfire_data_identity",
