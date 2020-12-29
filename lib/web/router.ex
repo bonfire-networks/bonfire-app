@@ -97,6 +97,9 @@ defmodule Bonfire.Web.Router do
   # include nodeinfo routes
   use NodeinfoWeb.Router
 
+  # include GraphQL API
+  # use Bonfire.GraphQL.Router
+
   if Mix.env() in [:dev, :test] do
     scope "/" do
       pipe_through :browser
