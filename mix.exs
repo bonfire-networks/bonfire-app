@@ -90,7 +90,10 @@ defmodule Bonfire.MixProject do
 
   defp dep_path(dep) do
     # use locally cloned repo if path defined and active, otherwise stick to code obtained by mix deps.get
-    deps()[String.to_existing_atom(dep)][:path] || "./deps/"<>dep
+    #
+    # NOTE: to_atom (instead of to_existing_atom) is safe because its used at build time, the code might fail
+    # NOTE: otherwise because of the atom never existing as part of compilation
+    deps()[String.to_atom(dep)][:path] || "./deps/"<>dep
   end
 
   defp existing_dep_paths(list, path) do
