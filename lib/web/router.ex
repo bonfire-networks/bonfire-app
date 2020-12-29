@@ -94,6 +94,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :user_required
     pipe_through :bread_pub
 
+    live "/", BreadpubHomeLive
     live "/~", BreadpubHomeLive
     live "/proposal", ProposalLive
   end
