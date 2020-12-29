@@ -7,6 +7,9 @@ mix-%: ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.u
 
 setup: build mix-setup ## First run - prepare environment and dependencies
 
+db-pre-migrations:
+	touch forks/*/lib/migrations.ex
+
 db-reset: mix-ecto.reset ## Reset the DB
 
 test-db-reset: ## Create or reset the test DB
