@@ -59,7 +59,7 @@ dep-git-%: ## add/enable/disable/delete a git dep with messctl command, eg: `mak
 dep-local-%: ## add/enable/disable/delete a local dep with messctl command, eg: `make dep-hex-enable dep=pointers path=./libs/pointers
 	docker-compose run web messctl $* $(dep) $(path) deps.path
 
-dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="pointers" repo=https://github.com/bonfire-ecosystem/pointers
+dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="bonfire_me" repo=https://github.com/bonfire-ecosystem/bonfire_me
 	git clone $(repo) $(LIBS_PATH)$(dep) 2> /dev/null || (cd $(LIBS_PATH)$(dep) ; git pull)
 	make dep-go-local dep=$(dep)
 

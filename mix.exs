@@ -15,6 +15,8 @@ defmodule Bonfire.MixProject do
     "bonfire_geolocate",
     "bonfire_quantify",
     "bonfire_valueflows",
+    "bonfire_ui_social",
+    "bonfire_ui_valueflows",
   ]
 
   def project do
