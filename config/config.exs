@@ -4,15 +4,21 @@ import Config
 
 # include common modules
 import_config "bonfire_common.exs"
+import_config "activity_pub.exs"
 
 # include DB schemas
 import_config "bonfire_data.exs"
 
 # include all used Bonfire extensions
 import_config "bonfire_mailer.exs"
+# import_config "bonfire_fail.exs"
 import_config "bonfire_me.exs"
 # import_config "bonfire_publisher_thesis.exs"
 
+# import_config "bonfire_quantify.exs"
+# import_config "bonfire_geolocate.exs"
+# import_config "bonfire_valueflows.exs"
+# import_config "bonfire_api_graphql.exs"
 
 #### Basic configuration
 
@@ -26,6 +32,7 @@ secret_key_base = System.get_env("SECRET_KEY_BASE", "g7K250qlSxhNDt5qnV6f4HFnyoD
 config :bonfire, :signing_salt, signing_salt
 config :bonfire, :encryption_salt, encryption_salt
 config :bonfire, :otp_app, :bonfire
+config :bonfire, :repo_module, Bonfire.Repo
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
@@ -36,6 +43,8 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :phoenix, :json_library, Jason
 
+# config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
+
 config :bonfire,
   ecto_repos: [Bonfire.Repo]
 
@@ -43,10 +52,6 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :activity_pub, :adapter, Bonfire.ActivityPub.Adapter
-config :activity_pub, :repo, Bonfire.Repo
-
-config :nodeinfo, :adapter, Bonfire.NodeinfoAdapter
 
 config :bonfire, Oban,
   repo: Bonfire.Repo,

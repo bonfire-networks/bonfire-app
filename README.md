@@ -4,6 +4,7 @@ An app for [Bonfire](https://bonfire.cafe/) that bundles the following extension
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
 - [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - user profiles
+- [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - web components
 - More to come...
 
 
