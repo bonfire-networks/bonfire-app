@@ -8,11 +8,13 @@ mix-%: ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.u
 setup: build mix-setup ## First run - prepare environment and dependencies
 
 db-pre-migrations:
+	sudo touch deps/*/lib/migrations.ex
 	touch forks/*/lib/migrations.ex
+	touch priv/repo/*
 
-db-reset: mix-ecto.reset ## Reset the DB
+db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 
-test-db-reset: ## Create or reset the test DB
+test-db-reset: db-pre-migrations ## Create or reset the test DB
 	docker-compose run -e MIX_ENV=test web mix ecto.reset
 
 build: ## Build the docker image
