@@ -16,6 +16,10 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.GuestOnly
   end
 
+  pipeline :bread_pub do
+    plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
+  end
+
   pipeline :account_required do
     plug Bonfire.Web.Plugs.AccountRequired
   end

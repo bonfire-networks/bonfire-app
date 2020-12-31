@@ -24,6 +24,10 @@ config :pointers,
     :cpub_communities,
     :cpub_threads,
     :bonfire,
+    :bonfire_quantify,
+    :bonfire_geolocate,
+    :bonfire_valueflows,
+    :bonfire_tag,
   ]
 
 # Search these apps for Verbs to index
@@ -161,3 +165,6 @@ config :bonfire_data_social, Created, []
 
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
+# all data types included in federation
+config :bonfire, :all_types, [User, Post]
