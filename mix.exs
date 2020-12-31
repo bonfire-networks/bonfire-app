@@ -5,7 +5,7 @@ defmodule Bonfire.MixProject do
 
   @bonfire_deps [
     "pointers",
-    "activity_pub",
+    # "activity_pub",
     "bonfire_common",
     "bonfire_data_access_control",
     "bonfire_data_identity",
@@ -17,6 +17,9 @@ defmodule Bonfire.MixProject do
     # "bonfire_quantify",
     # "bonfire_valueflows",
     # "bonfire_ui_valueflows",
+    # "bonfire_tag",
+    # "bonfire_classify",
+    # "bonfire_taxonomy_seeder",
   ]
 
   def project do
@@ -37,8 +40,8 @@ defmodule Bonfire.MixProject do
   defp deps() do
     Mess.deps([
       ## password hashing - builtin vs nif
-      {:pbkdf2_elixir, "~> 1.2", only: [:dev, :test]},
-      {:argon2_elixir, "~> 2.3", only: [:prod]},
+      {:pbkdf2_elixir, "~> 1.2.1", only: [:dev, :test]},
+      {:argon2_elixir, "~> 2.3.0", only: [:prod]},
       ## dev conveniences
       {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -87,7 +90,10 @@ defmodule Bonfire.MixProject do
 
   defp dep_path(dep) do
     # use locally cloned repo if path defined and active, otherwise stick to code obtained by mix deps.get
-    deps()[String.to_existing_atom(dep)][:path] || "./deps/"<>dep
+    #
+    # NOTE: to_atom (instead of to_existing_atom) is safe because its used at build time, the code might fail
+    # NOTE: otherwise because of the atom never existing as part of compilation
+    deps()[String.to_atom(dep)][:path] || "./deps/"<>dep
   end
 
   defp existing_dep_paths(list, path) do

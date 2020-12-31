@@ -1,12 +1,12 @@
 import Config
 
-## Import test configs for extensions
+## Import or set test configs for extensions
 
 import_config "activity_pub_test.exs"
 
-
 config :bonfire, Bonfire.Mailer, adapter: Bamboo.TestAdapter
 
+config :bonfire_search, disable_indexing: true
 
 ## Other general test config
 

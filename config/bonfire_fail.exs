@@ -1,7 +1,6 @@
 import Config
 
 config :bonfire_fail,
-  otp_app: :bonfire,
   common_errors: %{
     unauthorized: {403, "You do not have permission to %s."},
     not_found: {404, "%s Not Found."},

@@ -7,7 +7,15 @@ mix-%: ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.u
 
 setup: build mix-setup ## First run - prepare environment and dependencies
 
-db-reset: mix-ecto.reset ## Reset the DB
+db-pre-migrations:
+	sudo touch deps/*/lib/migrations.ex
+	touch forks/*/lib/migrations.ex
+	touch priv/repo/*
+
+db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
+
+test-db-reset: db-pre-migrations ## Create or reset the test DB
+	docker-compose run -e MIX_ENV=test web mix ecto.reset
 
 test-db-reset: ## Create or reset the test DB
 	docker-compose run -e MIX_ENV=test web mix ecto.reset
@@ -76,7 +84,6 @@ deps-local-commit-push:
 
 deps-prepare-push:
 	mv deps.path deps.path.disabled
-
 
 dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local dep=pointers
 	make dep-go-local-path dep=$(dep) path=$(LIBS_PATH)$(dep)
