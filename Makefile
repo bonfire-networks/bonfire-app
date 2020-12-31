@@ -82,7 +82,6 @@ deps-local-commit-push:
 deps-prepare-push:
 	mv deps.path deps.path.disabled
 
-
 dep-go-local: ## Switch to using a standard local path, eg: make dep-go-local dep=pointers
 	make dep-go-local-path dep=$(dep) path=$(LIBS_PATH)$(dep)
 
@@ -120,6 +119,9 @@ deps.update.all:
 
 dev: ## Run the app with Docker
 	docker-compose run --service-ports web
+
+git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
+	git merge --no-ff --no-commit $*
 
 %: ## Run a specific mix command, eg: `make messclt` or `make "messctl help"` or make `messctl args="help"`
 	docker-compose run web $* $(args)

@@ -5,7 +5,7 @@ defmodule Bonfire.ActivityPub.Adapter do
   alias Bonfire.Me.Users
 
   defp format_actor(user) do
-    ap_base_path = System.get_env("AP_BASE_PATH", "/pub")
+    ap_base_path = Bonfire.Common.Config.get(:ap_base_path, "/pub")
     id = Bonfire.Web.Endpoint.url() <> ap_base_path <> "/actors/#{user.character.username}"
 
     data = %{

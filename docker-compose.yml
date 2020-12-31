@@ -10,8 +10,7 @@ services:
     ports:
       - "4003:4000"
     # env_file:
-    #   - config/dev/public.env
-    #   - config/dev/secrets.env
+    #   - config/.env.secrets
     environment:
       - DATABASE_HOST=db
     depends_on:
@@ -29,17 +28,13 @@ services:
       - "./data/postgres/dev:/var/lib/postgresql/data"
     # ports:
     #   - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=postgres
-    # env_file:
-    #   - config/dev/public.env
-    #   - config/dev/secrets.envs
-#   search:
-#     image: getmeili/meilisearch:latest
-#     ports:
-#       - "7702:7700"
-#     volumes:
-#       - "./data/search/dev:/data.ms"
-#     env_file:
-#       - config/dev/public.env
-#       - config/dev/secrets.env
+    env_file:
+      - config/.env.secrets
+  search:
+    image: getmeili/meilisearch:latest
+    ports:
+      - "7703:7700"
+    volumes:
+      - "./data/search/dev:/data.ms"
+    env_file:
+      - config/.env.secrets

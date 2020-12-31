@@ -23,6 +23,8 @@ import_config "bonfire_api_graphql.exs"
 import_config "bonfire_tag.exs"
 import_config "bonfire_classify.exs"
 
+import_config "bonfire_search.exs"
+
 #### Basic configuration
 
 # You probably won't want to touch these. You might override some in
@@ -34,8 +36,19 @@ secret_key_base = System.get_env("SECRET_KEY_BASE", "g7K250qlSxhNDt5qnV6f4HFnyoD
 
 config :bonfire, :signing_salt, signing_salt
 config :bonfire, :encryption_salt, encryption_salt
-config :bonfire, :otp_app, :bonfire
-config :bonfire, :repo_module, Bonfire.Repo
+
+config :bonfire,
+  otp_app: :bonfire,
+  env: config_env(),
+  repo_module: Bonfire.Repo,
+  web_module: Bonfire.Web,
+  endpoint_module: Bonfire.Web.Endpoint,
+  mailer_module: Bonfire.Mailer,
+  default_layout_module: Bonfire.Web.LayoutView,
+  graphql_schema_module: Bonfire.GraphQL.Schema,
+  user_schema: Bonfire.Data.Identity.User,
+  org_schema: Bonfire.Data.Identity.User,
+  ap_base_path: System.get_env("AP_BASE_PATH", "/pub")
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
