@@ -35,7 +35,19 @@ defmodule Bonfire.Web.Router do
   # pages anyone can view
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
+
     live "/", HomeLive
+
+    live "/user/:username", ProfileLive
+    live "/user/:username/circles", CirclesLive
+    live "/user/:username/posts", PostsLive
+    live "/user/:username/posts/:post_id", PostLive
+
+    live "/instance", MeInstanceLive
+    live "/instance/:username", MeInstanceLive
+
+    live "/thread", ThreadLive
+
   end
 
   # pages only guests can view
@@ -70,20 +82,10 @@ defmodule Bonfire.Web.Router do
     live "/~", MeHomeLive
     live "/~/:username", MeHomeLive
 
-    live "/instance", MeInstanceLive
-    live "/instance/:username", MeInstanceLive
-
     live "/fediverse", MeFediverseLive
     live "/fediverse/:username", MeFediverseLive
 
-    live "/user/:username", ProfileLive
-    live "/user/:username/circles", CirclesLive
-    live "/user/:username/posts", PostsLive
-    live "/user/:username/posts/:post_id", PostLive
-
     live "/settings", UserSettingsLive
-
-    live "/thread", ThreadLive
 
     resources "/delete", UserDeleteController, only: [:index, :create]
   end
