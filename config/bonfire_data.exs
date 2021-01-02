@@ -28,6 +28,8 @@ config :pointers,
     :bonfire_geolocate,
     :bonfire_valueflows,
     :bonfire_tag,
+    :bonfire_classify,
+    :bonfire_data_shared_users,
   ]
 
 # Search these apps for Verbs to index
@@ -102,9 +104,11 @@ config :bonfire_data_activity_pub, Peered, []
 # bonfire_data_identity
 
 config :bonfire_data_identity, Account,
-  has_one: [credential:     {Credential,    foreign_key: :id}],
-  has_one: [email:          {Email,         foreign_key: :id}],
-  has_one: [instance_admin: {InstanceAdmin, foreign_key: :id}]
+  has_one:      [credential:     {Credential,    foreign_key: :id}],
+  has_one:      [email:          {Email,         foreign_key: :id}],
+  has_one:      [instance_admin: {InstanceAdmin, foreign_key: :id}],
+  many_to_many: [users:          {User, join_through: "bonfire_data_identity_accounted", join_keys: [account_id: :id, id: :id]}],
+  many_to_many: [shared_users:   {User, join_through: "bonfire_data_shared_user_accounts", join_keys: [account_id: :id, shared_user_id: :id]}]
 
 config :bonfire_data_identity, Accounted,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
@@ -123,14 +127,16 @@ config :bonfire_data_identity, Email,
 config :bonfire_data_identity, Self, []
 
 config :bonfire_data_identity, User,
-  has_one: [actor:        {Actor,       foreign_key: :id}],
-  has_one: [accounted:    {Accounted,   foreign_key: :id}],
-  has_one: [character:    {Character,   foreign_key: :id}],
-  has_one: [follow_count: {FollowCount, foreign_key: :id}],
-  has_one: [like_count:   {LikeCount,   foreign_key: :id}],
-  has_one: [profile:      {Profile,     foreign_key: :id}],
-  has_one: [self:         {Self,        foreign_key: :id}],
-  has_many: [encircles: {Encircle, foreign_key: :subject_id}]
+  has_one:  [actor:        {Actor,       foreign_key: :id}],
+  has_one:  [accounted:    {Accounted,   foreign_key: :id}],
+  has_one:  [character:    {Character,   foreign_key: :id}],
+  has_one:  [follow_count: {FollowCount, foreign_key: :id}],
+  has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
+  has_one:  [profile:      {Profile,     foreign_key: :id}],
+  has_one:  [self:         {Self,        foreign_key: :id}],
+  has_many: [encircles:    {Encircle,    foreign_key: :subject_id}],
+  has_one:  [shared_user:  {Bonfire.Data.SharedUser,     foreign_key: :id}],
+  many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}]
 
 # bonfire_data_social
 
