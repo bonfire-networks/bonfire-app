@@ -17,9 +17,6 @@ db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 test-db-reset: db-pre-migrations ## Create or reset the test DB
 	docker-compose run -e MIX_ENV=test web mix ecto.reset
 
-test-db-reset: ## Create or reset the test DB
-	docker-compose run -e MIX_ENV=test web mix ecto.reset
-
 build: ## Build the docker image
 	docker-compose build
 
