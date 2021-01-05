@@ -102,6 +102,9 @@ defmodule Bonfire.Web.Router do
     live "/intent/:intent_id", ProposalLive
     live "/proposal/:proposal_id", ProposalLive
     live "/proposed_intent/:proposed_intent_id", ProposalLive
+
+    live "/map/", MapLive
+    live "/map/:id", MapLive
   end
 
   # pages only admins can view
