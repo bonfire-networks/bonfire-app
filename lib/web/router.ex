@@ -98,7 +98,10 @@ defmodule Bonfire.Web.Router do
 
     live "/", BreadpubHomeLive
     live "/~", BreadpubHomeLive
-    live "/proposal", ProposalLive
+
+    live "/intent/:intent_id", ProposalLive
+    live "/proposal/:proposal_id", ProposalLive
+    live "/proposed_intent/:proposed_intent_id", ProposalLive
   end
 
   # pages only admins can view
