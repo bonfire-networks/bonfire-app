@@ -22,6 +22,17 @@ jobs:
           # - '23.0.4'
           # - '23.1.5'
           - '23.2.1'
+    # Service containers to run with `container-job`
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
@@ -39,5 +50,11 @@ jobs:
     #     restore-keys: ${{ runner.os }}-mix-
     - name: Install dependencies
       run: mix deps.get
+    - name: Setup database
+      run: mix ecto.setup
+      env:
+        DATABASE_HOST: postgres
     - name: Run tests
       run: mix test
+      env:
+        DATABASE_HOST: postgres
