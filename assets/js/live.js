@@ -1,24 +1,20 @@
-// We may need to import the CSS so that webpack will load it.
-// The MiniCssExtractPlugin is used to separate it out into its own CSS file.
-import "../css/app.scss" // no longer used in favour of Tailwind
+// JS shared with non_live pages
+import "./both"
 
-// webpack automatically bundles all modules in your
-// entry points. Those entry points can be configured
-// in "webpack.config.js".
-//
-// Import deps with the dep name or local files with a relative path, for example:
-//
-//     import {Socket} from "phoenix"
-//     import socket from "./socket"
+// for JS features & extensions to hook into LiveView
+let Hooks = {}; 
 
-import "phoenix_html"
+// Semi-boilerplate Phoenix+LiveView...
+
 import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
 
-
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {
+    params: { _csrf_token: csrfToken },
+    hooks: Hooks
+})
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
@@ -32,3 +28,9 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+
+
+// Extensions...
+
+// import {ExtensionHooks} from "../../deps/bonfire_geolocate/assets/js/map"
+// Object.assign(liveSocket.hooks, ExtensionHooks);
