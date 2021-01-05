@@ -36,6 +36,10 @@ jobs:
     #     path: deps
     #     key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     #     restore-keys: ${{ runner.os }}-mix-
+    - name: Install hex
+      run: mix hex.local --force
+    - name: Install rebar
+      run: mix rebar.local --force
     - name: Install dependencies
       run: mix deps.get
     - name: Compile elixir
