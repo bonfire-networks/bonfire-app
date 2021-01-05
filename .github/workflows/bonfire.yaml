@@ -36,6 +36,8 @@ jobs:
     #     path: deps
     #     key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     #     restore-keys: ${{ runner.os }}-mix-
+    - name: Install git
+      run: apk add git mailcap ca-certificates openssl-dev tzdata gettext
     - name: Install hex
       run: mix local.hex --force
     - name: Install rebar
