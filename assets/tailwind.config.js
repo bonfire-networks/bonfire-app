@@ -1,3 +1,6 @@
+const colors = require('tailwindcss/colors')
+
+
 module.exports = {
   future: {
     // removeDeprecatedGapUtilities: true,
@@ -8,7 +11,16 @@ module.exports = {
     './src/**/*.leex',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        blueGray: colors.blueGray,
+        amber: colors.amber,
+        rose: colors.rose
+      },
+      boxShadow: {
+        tick: '-3px 3px 1px 0 rgba(0,0,0,.1)'
+      }
+    },
   },
   variants: {},
   plugins: [
