@@ -9,10 +9,16 @@ let Hooks = {};
 import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
+import 'alpinejs'
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
     params: { _csrf_token: csrfToken },
+    dom: {
+      onBeforeElUpdated(from, to){
+        if(from.__x){ Alpine.clone(from.__x, to) }
+      }
+    },
     hooks: Hooks
 })
 
@@ -32,5 +38,5 @@ window.liveSocket = liveSocket
 
 // Extensions...
 
-import {ExtensionHooks} from "../../deps/bonfire_geolocate/assets/js/map"
-Object.assign(liveSocket.hooks, ExtensionHooks);
+// import {ExtensionHooks} from "../../deps/bonfire_geolocate/assets/js/map"
+Object.assign(liveSocket.hooks);
