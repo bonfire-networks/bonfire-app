@@ -27,6 +27,7 @@ defmodule Bonfire.ConnCase do
       import Bonfire.Test.ConnHelpers
       import Bonfire.Test.FakeHelpers
       alias Bonfire.Me.Fake
+      import Bonfire.Me.Fake
       alias Bonfire.Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
