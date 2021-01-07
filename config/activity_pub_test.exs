@@ -19,7 +19,7 @@ config :activity_pub, ActivityPubWeb.Endpoint,
   http: [port: 4002],
   server: false
 
-config :activity_pub, :adapter, ActivityPub.TestAdapter
+config :activity_pub, :adapter, Bonfire.ActivityPub.Adapter
 
 config :activity_pub, :repo, ActivityPub.TestRepo
 
