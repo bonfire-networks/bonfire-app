@@ -38,5 +38,5 @@ window.liveSocket = liveSocket
 
 // Extensions...
 
-// import {ExtensionHooks} from "../../deps/bonfire_geolocate/assets/js/map"
-Object.assign(liveSocket.hooks);
+import {ExtensionHooks} from "../../deps/bonfire_geolocate/assets/js/map"
+Object.assign(liveSocket.hooks, ExtensionHooks);
