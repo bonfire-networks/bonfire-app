@@ -28,12 +28,14 @@ jobs:
     #   with:
     #     elixir-version: ${{ matrix.elixir }}
     #     otp-version: ${{ matrix.otp }}
-    # does not handle git deps correctly...
+    # TODO: does not handle git deps correctly...
     # - name: Restore dependencies cache
     #   uses: actions/cache@v2
     #   id: cache
     #   with:
-    #     path: deps
+    #     path: |
+            # deps
+            # _build
     #     key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     #     restore-keys: ${{ runner.os }}-mix-
     - name: Install git
