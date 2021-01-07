@@ -110,12 +110,12 @@ deps.get: bonfire-pre-update
 	docker-compose run web mix deps.get
 	make bonfire-post-updates
 
-deps.update.%: bonfire-pre-update
+deps.update.all: 
+	make deps.update-"--all"
+
+deps.update-%: bonfire-pre-update
 	docker-compose run web mix deps.update $*
 	make bonfire-post-updates
-
-deps.update.all: 
-	make deps.update --all
 
 dev: ## Run the app with Docker
 	docker-compose run --service-ports web
