@@ -5,6 +5,7 @@ defmodule Bonfire.ActivityPub.Adapter do
   alias Bonfire.Me.Users
 
   defp format_actor(user) do
+    user = Bonfire.Repo.preload(user, [:actor])
     ap_base_path = Bonfire.Common.Config.get(:ap_base_path, "/pub")
     id = Bonfire.Web.Endpoint.url() <> ap_base_path <> "/actors/#{user.character.username}"
 
@@ -23,7 +24,7 @@ defmodule Bonfire.ActivityPub.Adapter do
     %Actor{
       id: user.id,
       data: data,
-      keys: user.actor.signing_key,
+      keys: Bonfire.Common.Utils.maybe_get(user.actor, :signing_key),
       local: true,
       ap_id: id,
       pointer_id: user.id,

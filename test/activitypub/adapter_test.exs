@@ -5,14 +5,12 @@ defmodule Bonfire.ActivityPub.AdapterTest do
 
   describe "actor fetching" do
     test "by username" do
-      assert {:ok, account} = Accounts.signup(Fake.account())
-      attrs = Fake.user()
-      assert {:ok, user} = Users.create(attrs, account)
-      assert {:ok, actor} = Adapter.get_actor_by_username(attrs.username)
-      assert actor.data["summary"] == attrs.summary
-      assert actor.data["preferredUsername"] == attrs.username
-      assert actor.data["name"] == attrs.name
-      assert actor.username == attrs.username
+      attrs = fake_user!()
+      assert {:ok, actor} = Adapter.get_actor_by_username(attrs.character.username)
+      assert actor.data["summary"] == attrs.profile.summary
+      assert actor.data["preferredUsername"] == attrs.character.username
+      assert actor.data["name"] == attrs.profile.name
+      assert actor.username == attrs.character.username
     end
   end
 end
