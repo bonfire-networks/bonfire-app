@@ -24,6 +24,10 @@ defmodule Bonfire.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Bonfire.DataCase
+      import Bonfire.Test.FakeHelpers
+      import Bonfire.Me.Fake
+      alias Bonfire.Me.Fake
+
     end
   end
 
