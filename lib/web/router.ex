@@ -66,7 +66,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :account_required
     resources "/switch-user", SwitchUserController, only: [:index, :show]
-    live "/create-user", CreateUserLive
+    resources "/create-user", CreateUserController, only: [:index, :create]
 
     live "/change-password", ChangePasswordLive
     live "/settings", SettingsLive
