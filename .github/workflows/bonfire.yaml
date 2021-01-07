@@ -1,0 +1,58 @@
+name: bonfire
+
+on:
+  push:
+    branches: [ main with-valueflows-api ]
+  pull_request:
+    branches: [ main with-valueflows-api ]
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    container: elixir:alpine
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v2
+    # - name: Set up Elixir
+    #   uses: actions/setup-elixir@v1
+    #   with:
+    #     elixir-version: ${{ matrix.elixir }}
+    #     otp-version: ${{ matrix.otp }}
+    # TODO: does not handle git deps correctly...
+    # - name: Restore dependencies cache
+    #   uses: actions/cache@v2
+    #   id: cache
+    #   with:
+    #     path: |
+            # deps
+            # _build
+    #     key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+    #     restore-keys: ${{ runner.os }}-mix-
+    - name: Install git
+      run: apk add git mailcap ca-certificates openssl-dev tzdata gettext
+    - name: Install hex
+      run: mix local.hex --force
+    - name: Install rebar
+      run: mix local.rebar --force
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Compile elixir
+      run: mix
+    - name: Setup database
+      run: mix ecto.setup
+      env:
+        DATABASE_HOST: postgres
+    - name: Run tests
+      run: mix test
+      env:
+        DATABASE_HOST: postgres
