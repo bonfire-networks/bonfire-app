@@ -1,4 +1,5 @@
 ## Bonfire
+![bonfire](https://github.com/bonfire-ecosystem/bonfire-app/workflows/bonfire/badge.svg)
 
 An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
 
