@@ -2,7 +2,7 @@ defmodule Bonfire.ActivityPub.Adapter do
   @behaviour ActivityPub.Adapter
 
   alias ActivityPub.Actor
-  alias Bonfire.Me.Users
+  alias Bonfire.Me.Identity.Users
 
   defp format_actor(user) do
     user = Bonfire.Repo.preload(user, [:actor])
