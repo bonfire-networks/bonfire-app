@@ -1,14 +1,23 @@
 .PHONY: setup updates db-reset build dev shell
 
 LIBS_PATH=./forks/
+SHELL = /bin/sh
+UID := $(shell id -u)
+GID := $(shell id -g)
 
-mix-%: ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.update args="pointers"
+export UID
+export GID
+
+init:
+	@echo "Light that fire..."
+
+mix-%: init ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.update args="pointers"
 	docker-compose run web mix $* $(args)
 
 setup: build mix-setup ## First run - prepare environment and dependencies
 
 db-pre-migrations:
-	sudo touch deps/*/lib/migrations.ex
+	touch deps/*/lib/migrations.ex
 	touch forks/*/lib/migrations.ex
 	touch priv/repo/*
 
@@ -17,27 +26,27 @@ db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 test-db-reset: db-pre-migrations ## Create or reset the test DB
 	docker-compose run -e MIX_ENV=test web mix ecto.reset
 
-build: ## Build the docker image
+build: init ## Build the docker image
 	docker-compose build
 
-shell: ## Open a shell, in dev mode
+shell: init ## Open a shell, in dev mode
 	docker-compose run --service-ports web bash
 
 pull: 
 	git pull
 
-update: pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
+update: init pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
 
 bonfire-pre-updates: bonfire-pre-update
-	sudo rm -rf deps/pointers*
-	sudo rm -rf deps/bonfire*
-	sudo rm -rf deps/cpub*
-	sudo rm -rf deps/activity_pu*
+	rm -rf deps/pointers*
+	rm -rf deps/bonfire*
+	rm -rf deps/cpub*
+	rm -rf deps/activity_pu*
 
-bonfire-updates: bonfire-pre-updates
+bonfire-updates: init bonfire-pre-updates
 	docker-compose run web mix bonfire.deps
 	make bonfire-post-updates
 
@@ -55,13 +64,13 @@ bonfire-push-app-updates:
 	git commit
 	git push
 
-dep-hex-%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
+dep-hex-%: init ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
 
-dep-git-%: ## add/enable/disable/delete a git dep with messctl command, eg: `make dep-hex-enable dep=pointers repo=https://github.com/bonfire-ecosystem/pointers#main
+dep-git-%: init ## add/enable/disable/delete a git dep with messctl command, eg: `make dep-hex-enable dep=pointers repo=https://github.com/bonfire-ecosystem/pointers#main
 	docker-compose run web messctl $* $(dep) $(repo) deps.git
 
-dep-local-%: ## add/enable/disable/delete a local dep with messctl command, eg: `make dep-hex-enable dep=pointers path=./libs/pointers
+dep-local-%: init ## add/enable/disable/delete a local dep with messctl command, eg: `make dep-hex-enable dep=pointers path=./libs/pointers
 	docker-compose run web messctl $* $(dep) $(path) deps.path
 
 dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="bonfire_me" repo=https://github.com/bonfire-ecosystem/bonfire_me
@@ -69,7 +78,7 @@ dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clon
 	make dep-go-local dep=$(dep)
 
 deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls the latest version of all local deps from its git remote
-	sudo chown -R $$USER ./forks
+	chown -R $$USER ./forks
 	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
 	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' $* \;
 
@@ -106,22 +115,25 @@ dep-go-hex: ## Switch to using a library from hex.pm, eg: make dep-go-hex dep="p
 	make dep-git-disable dep=$(dep) repo=""
 	make dep-local-disable dep=$(dep) path=""
 
-deps.get: bonfire-pre-update
+deps.get: init bonfire-pre-update
 	docker-compose run web mix deps.get
 	make bonfire-post-updates
 
 deps.update.all: 
 	make deps.update-"--all"
 
-deps.update-%: bonfire-pre-update
+deps.update-%: init bonfire-pre-update
 	docker-compose run web mix deps.update $*
 	make bonfire-post-updates
 
-dev: ## Run the app with Docker
+dev: init ## Run the app with Docker
 	docker-compose run --service-ports web
+
+rm-%: 
+	docker-compose rm -s $*
 
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
 
-%: ## Run a specific mix command, eg: `make messclt` or `make "messctl help"` or make `messctl args="help"`
+cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)

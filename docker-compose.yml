@@ -22,6 +22,7 @@ services:
         target: /opt/app
     stdin_open: true # like docker run -i
     tty: true # like docker run -t
+    user: $UID:$GID
   db:
     image: postgis/postgis:12-3.0-alpine
     volumes:
@@ -30,6 +31,7 @@ services:
     #   - "5432:5432"
     env_file:
       - config/.env.secrets
+    user: $UID:$GID
   search:
     image: getmeili/meilisearch:latest
     ports:
@@ -38,3 +40,4 @@ services:
       - "./data/search/dev:/data.ms"
     env_file:
       - config/.env.secrets
+    user: $UID:$GID
