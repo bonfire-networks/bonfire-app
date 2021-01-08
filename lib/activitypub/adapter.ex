@@ -38,16 +38,17 @@ defmodule Bonfire.ActivityPub.Adapter do
          actor <- format_actor(user) do
       {:ok, actor}
     else
-      _ -> {:error, :not_found}
+      _ ->
+        {:error, :not_found}
     end
   end
 
   def update_local_actor(actor, params) do
     with {:ok, user} <- Users.ActivityPub.by_username(actor.username),
-         {:ok, user} <- Users.ActivityPub.update(user, Map.put(params, :signing_key, params.keys)),
+         {:ok, user} <-
+           Users.ActivityPub.update(user, Map.put(params, :actor, %{signing_key: params.keys})),
          actor <- format_actor(user) do
       {:ok, actor}
     end
   end
-
 end
