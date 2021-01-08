@@ -20,6 +20,11 @@ defmodule Bonfire.Web.Router do
     plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
   end
 
+  pipeline :website do
+    plug :put_root_layout, {Bonfire.Website.LayoutView, :root}
+  end
+
+
   pipeline :account_required do
     plug Bonfire.Web.Plugs.AccountRequired
   end
@@ -32,11 +37,13 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.AdminRequired
   end
 
+
+ 
   # pages anyone can view
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
 
-    live "/", HomeLive
+    # live "/", HomeLive
 
     live "/user/:username", ProfileLive
     live "/user/:username/circles", CirclesLive
@@ -48,6 +55,14 @@ defmodule Bonfire.Web.Router do
 
     live "/thread", ThreadLive
 
+  end
+
+  # pages anyone can view 
+  scope "/", Bonfire.Website do
+    pipe_through :browser
+    pipe_through :website
+
+    live "/", HomeGuestLive
   end
 
   # pages only guests can view
@@ -113,6 +128,9 @@ defmodule Bonfire.Web.Router do
     pipe_through :admin_required
     live "/", InstanceSettingsLive
   end
+
+  
+
 
   # include federation routes
   use ActivityPubWeb.Router
