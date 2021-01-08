@@ -1,7 +1,6 @@
 .PHONY: setup updates db-reset build dev shell
 
 LIBS_PATH=./forks/
-SHELL = /bin/sh
 UID := $(shell id -u)
 GID := $(shell id -g)
 

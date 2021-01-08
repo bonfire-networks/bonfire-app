@@ -38,12 +38,12 @@ defmodule Bonfire.Web.Router do
   end
 
 
- 
+
   # pages anyone can view
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
 
-    # live "/", HomeLive
+    live "/home", HomeLive
 
     live "/user/:username", ProfileLive
     live "/user/:username/circles", CirclesLive
@@ -57,7 +57,7 @@ defmodule Bonfire.Web.Router do
 
   end
 
-  # pages anyone can view 
+  # pages anyone can view
   scope "/", Bonfire.Website do
     pipe_through :browser
     pipe_through :website
@@ -129,7 +129,7 @@ defmodule Bonfire.Web.Router do
     live "/", InstanceSettingsLive
   end
 
-  
+
 
 
   # include federation routes
