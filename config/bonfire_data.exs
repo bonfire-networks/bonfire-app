@@ -137,6 +137,8 @@ config :bonfire_data_identity, User,
   has_many: [encircles:    {Encircle,    foreign_key: :subject_id}],
   has_one:  [shared_user:  {Bonfire.Data.SharedUser,     foreign_key: :id}],
   many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}]
+  # has_one:  [geolocation:      {Bonfire.Geolocate.Geolocation}]
+
 
 # bonfire_data_social
 

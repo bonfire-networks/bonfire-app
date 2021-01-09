@@ -1,7 +1,7 @@
 defmodule Bonfire.Web.Plugs.GuestOnly do
 
   use Bonfire.Web, :plug
-  alias Bonfire.Me.Web.HomeLive
+  alias Bonfire.Website.HomeGuestLive
 
   def init(opts), do: opts
 
@@ -14,7 +14,7 @@ defmodule Bonfire.Web.Plugs.GuestOnly do
   defp not_permitted(conn) do
     conn
     |> put_flash(:error, "That page is only accessible to guests.")
-    |> redirect(to: Routes.live_path(conn, HomeLive))
+    |> redirect(to: Routes.live_path(conn, HomeGuestLive))
     |> halt()
   end
 
