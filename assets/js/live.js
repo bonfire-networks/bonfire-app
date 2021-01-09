@@ -38,5 +38,8 @@ window.liveSocket = liveSocket
 
 // Extensions...
 
-import {ExtensionHooks} from "../../deps/bonfire_geolocate/assets/js/map"
+import { ExtensionHooks } from "../../deps/bonfire_geolocate/assets/js/extension" 
+// var context = require.context('../../', false, /[deps|forks]\/[^/]\/assets\/js\/extension\.js/); 
+// var ExtensionHooks = context.resolve('map'); 
+
 Object.assign(liveSocket.hooks, ExtensionHooks);
