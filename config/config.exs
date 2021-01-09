@@ -11,8 +11,8 @@ import_config "bonfire_data.exs"
 
 # include all used Bonfire extensions
 import_config "bonfire_mailer.exs"
-# import_config "bonfire_fail.exs"
 import_config "bonfire_me.exs"
+
 # import_config "bonfire_publisher_thesis.exs"
 
 # import_config "bonfire_quantify.exs"
@@ -23,6 +23,7 @@ import_config "bonfire_me.exs"
 # import_config "bonfire_tag.exs"
 # import_config "bonfire_classify.exs"
 
+# import_config "bonfire_fail.exs"
 # import_config "bonfire_search.exs"
 
 #### Basic configuration
