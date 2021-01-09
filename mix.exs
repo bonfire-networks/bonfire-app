@@ -74,7 +74,7 @@ defmodule Bonfire.MixProject do
     [
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
-      "js.deps.get": ["cmd npm install --prefix assets", "cmd npm install --prefix deps/bonfire_geolocate/assets"],
+      "js.deps.get": ["cmd npm install --prefix assets", "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets"],
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": ["run priv/repo/seeds.exs"],
       "bonfire.deps.update": ["deps.update #{@bonfire_deps_str}"],
