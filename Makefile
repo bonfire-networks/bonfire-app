@@ -56,9 +56,9 @@ bonfire-push-all-updates: deps-local-commit-push bonfire-push-app-updates
 
 bonfire-push-app-updates: 
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
-	make update 2> /dev/null || echo "continue"
+	git pull 
+	make mix-updates 
 	make bonfire-post-updates
-	git pull
 	git add .
 	git commit
 	git push
@@ -76,16 +76,16 @@ dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clon
 	git clone $(repo) $(LIBS_PATH)$(dep) 2> /dev/null || (cd $(LIBS_PATH)$(dep) ; git pull)
 	make dep-go-local dep=$(dep)
 
-deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls the latest version of all local deps from its git remote
-	chown -R $$USER ./forks
-	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
-	find ./forks/ -maxdepth 1 -type d -exec git -C '{}' $* \;
-
 deps-local-commit-push:
-	make deps-local-git-"add ."
+	make deps-local-git-add
 	make deps-local-git-commit
 	make deps-local-git-pull
 	make deps-local-git-push
+
+deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls the latest version of all local deps from its git remote
+	# chown -R $$USER ./forks
+	make git-forks-"config core.fileMode false"
+	make git-forks-$*
 
 deps-prepare-push:
 	mv deps.path deps.path.disabled
@@ -130,6 +130,12 @@ dev: init ## Run the app with Docker
 
 rm-%: 
 	docker-compose rm -s $*
+
+git-forks-add: ## Run a git command on each fork
+	find ./forks/ -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add . \;
+
+git-forks-%: ## Run a git command on each fork
+	find ./forks/ -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
 
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*

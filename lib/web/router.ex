@@ -37,27 +37,26 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.AdminRequired
   end
 
-
-
   # pages anyone can view
-  scope "/", Bonfire.Me.Web do
+  scope "/", Bonfire do
     pipe_through :browser
 
-    live "/home", Logged
+    # a default homepage which you can customise (at path "/")
+    # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
+    live "/home", Web.HomeLive
 
-    live "/user/:username", ProfileLive
-    live "/user/:username/circles", CirclesLive
-    live "/user/:username/posts", PostsLive
-    live "/user/:username/posts/:post_id", PostLive
+    live "/user/:username", Me.Web.ProfileLive
+    live "/user/:username/circles", Me.Web.CirclesLive
+    live "/user/:username/posts", Me.Web.PostsLive
+    live "/user/:username/posts/:post_id", Me.Web.PostLive
 
-    live "/instance", MeInstanceLive
-    live "/instance/:username", MeInstanceLive
+    live "/instance", UI.Social.InstanceLive
 
-    live "/thread", ThreadLive
+    live "/thread", Me.Web.ThreadLive
 
   end
 
-  # pages anyone can view
+  # bonfire_website extension - anyone can view
   scope "/", Bonfire.Website do
     pipe_through :browser
     pipe_through :website
@@ -69,6 +68,7 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :guest_only
+
     resources "/signup", SignupController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/login", LoginController, only: [:index, :create]
@@ -77,17 +77,23 @@ defmodule Bonfire.Web.Router do
   end
 
   # pages you need an account to view
-  scope "/", Bonfire.Me.Web do
+  scope "/", Bonfire do
     pipe_through :browser
     pipe_through :account_required
-    resources "/switch-user", SwitchUserController, only: [:index, :show]
-    resources "/create-user", CreateUserController, only: [:index, :create]
-    
-    live "/dashboard", LoggedDashboardLive
-    live "/change-password", ChangePasswordLive
-    live "/settings", SettingsLive
-    resources "/delete", AccountDeleteController, only: [:index, :create]
-    resources "/logout", LogoutController, only: [:index, :create]
+
+    live "/dashboard", Me.Web.LoggedDashboardLive
+    live "/fediverse", UI.Social.FediverseLive
+
+    resources "/switch-user", Me.Web.SwitchUserController, only: [:index, :show]
+    resources "/create-user", Me.Web.CreateUserController, only: [:index, :create]
+
+    live "/change-password", Me.Web.ChangePasswordLive
+
+    live "/settings", Me.Web.SettingsLive
+
+    resources "/delete", Me.Web.AccountDeleteController, only: [:index, :create]
+
+    resources "/logout", Me.Web.LogoutController, only: [:index, :create]
  end
 
   # pages you need to view as a user
@@ -96,8 +102,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :user_required
 
     live "/feed", UI.Social.FeedPageLive
-
-    live "/fediverse", UI.Social.FediverseLive
 
     live "/settings", Me.Web.UserSettingsLive
 
@@ -110,8 +114,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :user_required
     pipe_through :bread_pub
 
-    live "/", BreadpubLogged
-    live "/~", BreadpubLogged
+    live "/", BreadDashboardLive
 
     live "/intent/:intent_id", ProposalLive
     live "/proposal/:proposal_id", ProposalLive
@@ -127,7 +130,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :admin_required
     live "/", InstanceSettingsLive
   end
-
 
 
 
