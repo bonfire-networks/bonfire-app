@@ -115,7 +115,8 @@ defmodule Bonfire.Web.Router do
     pipe_through :bread_pub
 
     live "/", BreadDashboardLive
-
+    live "/milestones", ProcessesLive
+    live "/milestone/:milestone_id", ProcessLive
     live "/intent/:intent_id", ProposalLive
     live "/proposal/:proposal_id", ProposalLive
     live "/proposed_intent/:proposed_intent_id", ProposalLive
