@@ -108,22 +108,6 @@ defmodule Bonfire.Web.Router do
     resources "/delete", Me.Web.UserDeleteController, only: [:index, :create]
   end
 
-  # pages you need to view as a user
-  scope "/bread", Bonfire.UI.ValueFlows do
-    pipe_through :browser
-    pipe_through :user_required
-    pipe_through :bread_pub
-
-    live "/", BreadDashboardLive
-    live "/milestones", ProcessesLive
-    live "/milestone/:milestone_id", ProcessLive
-    live "/intent/:intent_id", ProposalLive
-    live "/proposal/:proposal_id", ProposalLive
-    live "/proposed_intent/:proposed_intent_id", ProposalLive
-
-    live "/map/", MapLive
-    live "/map/:id", MapLive
-  end
 
   # pages only admins can view
   scope "/settings" do
@@ -141,7 +125,7 @@ defmodule Bonfire.Web.Router do
   use NodeinfoWeb.Router
 
   # include GraphQL API
-  use Bonfire.GraphQL.Router
+  # use Bonfire.GraphQL.Router
 
   if Mix.env() in [:dev, :test] do
     scope "/" do
