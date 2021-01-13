@@ -19,6 +19,7 @@ defmodule Bonfire.MixProject do
     "bonfire_ui_valueflows",
     "bonfire_tag",
     "bonfire_classify",
+    "bonfire_valueflows_observe",
     # "bonfire_taxonomy_seeder",
   ]
 
