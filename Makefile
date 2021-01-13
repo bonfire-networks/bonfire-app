@@ -140,5 +140,8 @@ git-forks-%: ## Run a git command on each fork
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
 
+test: init ## Run tests
+	docker-compose run web mix test $(args)
+
 cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)

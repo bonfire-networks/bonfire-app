@@ -44,6 +44,8 @@ defmodule Bonfire.GraphQL.Schema do
 
   import_types(ValueFlows.Schema)
 
+  import_types(ValueFlows.Observe.GraphQL)
+
 
   query do
     import_fields(:common_queries)
@@ -66,6 +68,8 @@ defmodule Bonfire.GraphQL.Schema do
     # ValueFlows
     import_fields(:value_flows_query)
     # import_fields(:value_flows_extra_queries)
+
+    import_fields(:valueflows_observe_queries)
   end
 
   mutation do
@@ -88,6 +92,7 @@ defmodule Bonfire.GraphQL.Schema do
 
     import_fields(:value_flows_mutation)
 
+    import_fields(:valueflows_observe_mutations)
 
   end
 
@@ -98,7 +103,8 @@ defmodule Bonfire.GraphQL.Schema do
     SchemaUtils.hydrations_merge([
       &Bonfire.Geolocate.GraphQL.Hydration.hydrate/0,
       &Bonfire.Quantify.Hydration.hydrate/0,
-      &ValueFlows.Hydration.hydrate/0
+      &ValueFlows.Hydration.hydrate/0,
+      &ValueFlows.Observe.Hydration.hydrate/0
     ])
   end
 
