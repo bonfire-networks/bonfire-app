@@ -10,4 +10,9 @@ defmodule Bonfire.ActivityPub.Adapter do
     module = Application.get_env(:bonfire, Bonfire.ActivityPub.Adapter)[:users_module]
     apply(module, :update_local_actor, [actor, params])
   end
+
+  def maybe_create_remote_actor(actor) do
+    module = Application.get_env(:bonfire, Bonfire.ActivityPub.Adapter)[:users_module]
+    apply(module, :maybe_create_remote_actor, [actor])
+  end
 end
