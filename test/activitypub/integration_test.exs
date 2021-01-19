@@ -1,19 +1,17 @@
 defmodule Bonfire.ActivityPub.IntegrationTest do
   use Bonfire.ConnCase
-  alias Bonfire.Me.Fake
-  alias Bonfire.Me.Identity.{Accounts, Users}
 
   test "fetch users from AP API" do
-    attrs = fake_user!()
+    user = fake_user!()
 
     conn =
       build_conn()
-      |> get("/pub/actors/#{attrs.character.username}")
+      |> get("/pub/actors/#{user.character.username}")
       |> response(200)
       |> Jason.decode!
 
-    assert conn["preferredUsername"] == attrs.character.username
-    assert conn["name"] == attrs.profile.name
-    assert conn["summary"] == attrs.profile.summary
+    assert conn["preferredUsername"] == user.character.username
+    assert conn["name"] == user.profile.name
+    assert conn["summary"] == user.profile.summary
   end
 end
