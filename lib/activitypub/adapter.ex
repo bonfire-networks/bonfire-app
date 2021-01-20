@@ -15,4 +15,10 @@ defmodule Bonfire.ActivityPub.Adapter do
     module = Application.get_env(:bonfire, Bonfire.ActivityPub.Adapter)[:users_module]
     apply(module, :maybe_create_remote_actor, [actor])
   end
+
+  def base_url() do
+    module = Application.get_env(:bonfire, Bonfire.ActivityPub.Adapter)[:endpoint_module]
+    apply(module, :url, [])
+    end
+  end
 end
