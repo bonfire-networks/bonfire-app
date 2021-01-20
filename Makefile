@@ -15,6 +15,9 @@ mix-%: init ## Run a specific mix command, eg: `make mix-deps.get` or make mix-d
 
 setup: build mix-setup ## First run - prepare environment and dependencies
 
+db:
+	docker-compose run db 
+
 db-pre-migrations:
 	touch deps/*/lib/migrations.ex
 	touch forks/*/lib/migrations.ex
@@ -34,7 +37,7 @@ shell: init ## Open a shell, in dev mode
 pull: 
 	git pull
 
-update: init pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
+update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
