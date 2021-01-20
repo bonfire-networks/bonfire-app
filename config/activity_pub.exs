@@ -7,6 +7,7 @@ config :nodeinfo, :adapter, Bonfire.NodeinfoAdapter
 
 config :bonfire, Bonfire.ActivityPub.Adapter,
   users_module: Bonfire.Me.Identity.Users.ActivityPub
+  endpoint_module: Bonfire.Web.Endpoint
 
 config :activity_pub, :mrf_simple,
   media_removal: [],
