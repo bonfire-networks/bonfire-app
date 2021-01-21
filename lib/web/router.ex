@@ -140,6 +140,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :contribution
 
     live "/", ContributionDashboardLive
+    live "/settings", ContributionSettingsLive
   end
 
   # pages only admins can view
