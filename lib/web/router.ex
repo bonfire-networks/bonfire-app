@@ -108,6 +108,8 @@ defmodule Bonfire.Web.Router do
 
     live "/feed", UI.Social.FeedPageLive
 
+    live "/user", Me.Web.ProfileLive
+
     live "/settings", Me.Web.UserSettingsLive
 
     resources "/delete", Me.Web.UserDeleteController, only: [:index, :create]
