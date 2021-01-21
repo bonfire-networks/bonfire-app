@@ -20,6 +20,11 @@ defmodule Bonfire.Web.Router do
     plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
   end
 
+  pipeline :contribution do
+    plug :put_root_layout, {Bonfire.UI.Contribution.LayoutView, :root}
+  end
+
+
   pipeline :website do
     plug :put_root_layout, {Bonfire.Website.LayoutView, :root}
   end
@@ -123,6 +128,16 @@ defmodule Bonfire.Web.Router do
 
     live "/map/", MapLive
     live "/map/:id", MapLive
+  end
+
+
+  # pages you need to view as a user
+  scope "/contribution", Bonfire.UI.Contribution do
+    pipe_through :browser
+    pipe_through :user_required
+    pipe_through :contribution
+
+    live "/", ContributionDashboardLive
   end
 
   # pages only admins can view
