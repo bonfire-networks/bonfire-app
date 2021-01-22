@@ -19,6 +19,5 @@ defmodule Bonfire.ActivityPub.Adapter do
   def base_url() do
     module = Application.get_env(:bonfire, Bonfire.ActivityPub.Adapter)[:endpoint_module]
     apply(module, :url, [])
-    end
   end
 end
