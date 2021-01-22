@@ -3,23 +3,29 @@ defmodule Bonfire.MixProject do
 
   use Mix.Project
 
-  @bonfire_deps [
+  @bonfire_test_deps [
     "pointers",
-    # "activity_pub",
     "bonfire_common",
-    "bonfire_data_access_control",
-    "bonfire_data_identity",
-    "bonfire_data_social",
-    "bonfire_data_activity_pub",
     "bonfire_me",
     "bonfire_geolocate",
     "bonfire_quantify",
     "bonfire_valueflows",
-    "bonfire_ui_social",
-    "bonfire_ui_valueflows",
     "bonfire_tag",
     "bonfire_classify",
     "bonfire_valueflows_observe",
+  ]
+
+  @bonfire_deps @bonfire_test_deps ++ [
+    "bonfire_data_access_control",
+    "bonfire_data_identity",
+    "bonfire_data_social",
+    "bonfire_data_activity_pub",
+    "bonfire_data_shared_user",
+    "bonfire_search",
+    "bonfire_ui_social",
+    # "bonfire_ui_valueflows",
+    "bonfire_ui_contribution",
+    "bonfire_api_graphql",
     # "bonfire_taxonomy_seeder",
   ]
 
@@ -29,7 +35,7 @@ defmodule Bonfire.MixProject do
       version: "0.1.0",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
-      test_paths: ["test"] ++ existing_dep_paths(@bonfire_deps, "test"),
+      test_paths: ["test"] ++ existing_dep_paths(@bonfire_test_deps, "test"),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -58,7 +64,7 @@ defmodule Bonfire.MixProject do
 
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"] ++ existing_dep_paths(@bonfire_deps, "test/support")
+  defp elixirc_paths(:test), do: ["lib", "test/support"] ++ existing_dep_paths(@bonfire_test_deps, "test/support")
   defp elixirc_paths(_), do: ["lib"]
 
 
@@ -77,7 +83,7 @@ defmodule Bonfire.MixProject do
       "rebar.setup": ["local.rebar --force"],
       "js.deps.get": ["cmd npm install --prefix assets", "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets"],
       "js.deps.update": ["cmd npm update --prefix assets"],
-      "ecto.seeds": ["run priv/repo/seeds.exs"],
+      "ecto.seeds": ["phil_columns.seed", "run priv/repo/seeds.exs"],
       "bonfire.deps.update": ["deps.update #{@bonfire_deps_str}"],
       "bonfire.deps.clean": ["deps.clean #{@bonfire_deps_str} --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
@@ -85,7 +91,7 @@ defmodule Bonfire.MixProject do
       updates: ["deps.get", "bonfire.deps", "ecto.migrate", "js.deps.get"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "ecto.seeds", "test"]
     ]
   end
 
