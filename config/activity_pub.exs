@@ -6,7 +6,7 @@ config :activity_pub, :repo, Bonfire.Repo
 config :nodeinfo, :adapter, Bonfire.NodeinfoAdapter
 
 config :bonfire, Bonfire.ActivityPub.Adapter,
-  users_module: Bonfire.Me.Identity.Users.ActivityPub
+  users_module: Bonfire.Me.Identity.Users.ActivityPub,
   endpoint_module: Bonfire.Web.Endpoint
 
 config :activity_pub, :mrf_simple,
