@@ -129,7 +129,10 @@ deps.update-%: init bonfire-pre-update
 	make bonfire-post-updates
 
 dev: init ## Run the app with Docker
-	docker-compose run --service-ports web
+	docker-compose run --name bonfire_web --service-ports web
+
+dev-bg: init ## Run the app in dev mode, in the background
+	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
 
 rm-%: 
 	docker-compose rm -s $*
