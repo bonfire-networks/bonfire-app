@@ -141,6 +141,7 @@ defmodule Bonfire.Web.Router do
 
     live "/", ContributionDashboardLive
     live "/settings", ContributionSettingsLive
+    live "/success/:reciprocal_id", ContributionSuccessLive
   end
 
   # pages only admins can view
