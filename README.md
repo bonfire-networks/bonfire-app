@@ -1,13 +1,16 @@
-## Bonfire
+## Bonfire + ValueFlows
 
 An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
-- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - user profiles
+- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - user profiles & related logic
+- [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - interface for basic social activities 
 - [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
 - [Bonfire:Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
-- [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities
+- [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities with ValueFlows
+- [Bonfire:ValueFlows:Observe](https://github.com/bonfire-ecosystem/bonfire_valueflows_observe) - observation of economic resources
 - [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
+- [Bonfire:UI:Contribution](https://github.com/bonfire-ecosystem/bonfire_ui_contribution) - interface for ValueFlows-based contributions
 - More to come...
 
 
