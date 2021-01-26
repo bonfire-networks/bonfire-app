@@ -19,9 +19,9 @@ db:
 	docker-compose run db 
 
 db-pre-migrations:
-	touch deps/*/lib/migrations.ex
-	touch forks/*/lib/migrations.ex
-	touch priv/repo/*
+	touch deps/*/lib/migrations.ex 2> /dev/null || echo "continue"
+	touch forks/*/lib/migrations.ex 2> /dev/null || echo "continue"
+	touch priv/repo/* 2> /dev/null || echo "continue"
 
 db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 
