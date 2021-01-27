@@ -3,13 +3,8 @@
 An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
-- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - user profiles
-- [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
-- [Bonfire:Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
-- [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities
-- [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
-- More to come...
-
+- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles & related functionality 
+- [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - frontend for social activities 
 
 ## Handy commands
 
