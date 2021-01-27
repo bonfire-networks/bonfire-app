@@ -48,7 +48,7 @@ defmodule Bonfire.Web.Router do
 
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
-    live "/home", Web.HomeLive
+    live "/", Web.HomeLive
 
     live "/user/:username", Me.Web.ProfileLive
     live "/user/:username/circles", Me.Web.CirclesLive
@@ -73,7 +73,6 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :guest_only
-
     resources "/signup", SignupController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/login", LoginController, only: [:index, :create]
