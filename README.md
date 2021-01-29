@@ -10,7 +10,7 @@ An app for [Bonfire](https://bonfire.cafe/) that bundles the following extension
 - [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities with ValueFlows
 - [Bonfire:ValueFlows:Observe](https://github.com/bonfire-ecosystem/bonfire_valueflows_observe) - observation of economic resources
 - [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
-- [Bonfire:UI:Contribution](https://github.com/bonfire-ecosystem/bonfire_ui_contribution) - interface for ValueFlows-based contributions
+- [Bonfire:Recyclapp](https://github.com/bonfire-ecosystem/bonfire_recyclapp) - interface for ValueFlows-based recyclapps
 - More to come...
 
 
