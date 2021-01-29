@@ -1,5 +1,5 @@
 defmodule Bonfire.Web.HomeLive do
-    use Bonfire.Web, :live_view
+  use Bonfire.Web, {:live_view, [layout: {Bonfire.Web.LayoutView, "without_sidebar.html"}]}
 
     alias Bonfire.Common.Web.LivePlugs
 
