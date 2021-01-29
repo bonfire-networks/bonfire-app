@@ -24,7 +24,7 @@ defmodule Bonfire.MixProject do
     "bonfire_search",
     "bonfire_ui_social",
     # "bonfire_ui_valueflows",
-    "bonfire_ui_contribution",
+    "bonfire_recyclapp",
     "bonfire_api_graphql",
     # "bonfire_taxonomy_seeder",
   ]

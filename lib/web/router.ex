@@ -20,8 +20,8 @@ defmodule Bonfire.Web.Router do
     plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
   end
 
-  pipeline :contribution do
-    plug :put_root_layout, {Bonfire.UI.Contribution.LayoutView, :root}
+  pipeline :recyclapp do
+    plug :put_root_layout, {Bonfire.Recyclapp.LayoutView, :root}
   end
 
 
@@ -133,14 +133,14 @@ defmodule Bonfire.Web.Router do
 
 
   # pages you need to view as a user
-  scope "/contribution", Bonfire.UI.Contribution do
+  scope "/recyclapp", Bonfire.Recyclapp do
     pipe_through :browser
     pipe_through :user_required
-    pipe_through :contribution
+    pipe_through :recyclapp
 
-    live "/", ContributionDashboardLive
-    live "/settings", ContributionSettingsLive
-    live "/success/:reciprocal_id", ContributionSuccessLive
+    live "/", RecyclappDashboardLive
+    live "/settings", RecyclappSettingsLive
+    live "/success/:reciprocal_id", RecyclappSuccessLive
 
     live "/map/", MapLive
     live "/map/:id", MapLive
