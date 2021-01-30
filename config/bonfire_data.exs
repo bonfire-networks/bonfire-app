@@ -142,7 +142,9 @@ config :bonfire_data_identity, User,
 
 # bonfire_data_social
 
-config :bonfire_data_social, Activity, []
+config :bonfire_data_social, Activity,
+    belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}]
+
 config :bonfire_data_social, Block, []
 config :bonfire_data_social, Bookmark, []
 
