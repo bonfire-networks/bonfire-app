@@ -1,10 +1,10 @@
-## Bonfire
+## Bonfire + ValueFlows
 
 An app for [Bonfire](https://bonfire.cafe/) that bundles the following extensions:
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
-- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles & related functionality 
-- [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - frontend for social activities 
+- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles, posts, feeds, activities...
+- [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - frontend components for social activities 
 
 ## Handy commands
 

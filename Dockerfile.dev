@@ -9,22 +9,24 @@ RUN apk update && \
     apk add bash curl inotify-tools 
 
 # various dependencies of dependencies
-RUN apk add git \
-    rust cargo \
+RUN apk add \
     npm \
-    git build-base \  
+    git \  
     mailcap \
     ca-certificates openssh-client openssl-dev \
     tzdata \
     gettext 
 
-# dependencies for comeonin
-RUN apk add cmake make gcc libc-dev
+# rust NIF + messctl deps
+RUN apk add rust cargo
+
+# dependencies for comeonin (not needed for dev)
+#RUN apk add cmake make gcc libc-dev
 
 # dependency manager
 RUN (git clone https://github.com/commonspub/messctl.git $FORKS/messctl/origin 2> /dev/null || (cd $FORKS/messctl/origin && git pull)) && cd $FORKS/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00bf1306
-# precompile Rust deps
-RUN cd $FORKS/messctl && cargo init && mkdir .cargo && cp origin/Cargo.* . && cargo build
+# precompile Rust deps (FIXME - doesn't seem to have an effect)
+#RUN cd $FORKS/messctl && cargo init && mkdir .cargo && cp origin/Cargo.* . && cargo build
 # compile messctl
 RUN cd $FORKS/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose 
 # install 

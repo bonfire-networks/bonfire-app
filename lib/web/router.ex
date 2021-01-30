@@ -68,7 +68,6 @@ defmodule Bonfire.Web.Router do
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :guest_only
-
     resources "/signup", SignupController, only: [:index, :create]
     resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
     resources "/login", LoginController, only: [:index, :create]
@@ -102,6 +101,8 @@ defmodule Bonfire.Web.Router do
     pipe_through :user_required
 
     live "/feed", UI.Social.FeedPageLive
+
+    live "/user", Me.Web.ProfileLive
 
     live "/settings", Me.Web.UserSettingsLive
 
