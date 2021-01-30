@@ -9,10 +9,10 @@ services:
       dockerfile: "Dockerfile.dev"
     ports:
       - "4003:4000"
-    # env_file:
-    #   - config/.env.secrets
     environment:
       - DATABASE_HOST=db
+    env_file:
+      - config/.env.secrets
     depends_on:
       - db
     #   - search
@@ -20,13 +20,15 @@ services:
       - type: bind
         source: .
         target: /opt/app
+      - /etc/passwd:/etc/passwd:ro 
     stdin_open: true # like docker run -i
     tty: true # like docker run -t
     user: $UID:$GID
   db:
     image: postgis/postgis:12-3.0-alpine
     volumes:
-      - "./data/postgres/dev:/var/lib/postgresql/data"
+      - ./data/postgres/dev:/var/lib/postgresql/data:z
+      - /etc/passwd:/etc/passwd:ro 
     # ports:
     #   - "5432:5432"
     env_file:
@@ -38,6 +40,7 @@ services:
       - "7703:7700"
     volumes:
       - "./data/search/dev:/data.ms"
+      - /etc/passwd:/etc/passwd:ro 
     env_file:
       - config/.env.secrets
     user: $UID:$GID

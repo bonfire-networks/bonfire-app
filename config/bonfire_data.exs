@@ -115,7 +115,10 @@ config :bonfire_data_identity, Accounted,
 
 config :bonfire_data_identity, Caretaker, []
 
-config :bonfire_data_identity, Character, []
+config :bonfire_data_identity, Character,
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}],
+  has_one: [feed: {Feed, foreign_key: :id}],
+  has_many: [feed_publishes: {FeedPublish, references: :id, foreign_key: :feed_id}]
 
 config :bonfire_data_identity, Credential,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
@@ -130,6 +133,8 @@ config :bonfire_data_identity, User,
   has_one:  [actor:        {Actor,       foreign_key: :id}],
   has_one:  [accounted:    {Accounted,   foreign_key: :id}],
   has_one:  [character:    {Character,   foreign_key: :id}],
+  has_one:  [feed:         {Feed,        foreign_key: :id}],
+  has_many: [feed_publishes: {FeedPublish, references: :id, foreign_key: :feed_id}],
   has_one:  [follow_count: {FollowCount, foreign_key: :id}],
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_one:  [profile:      {Profile,     foreign_key: :id}],
@@ -142,24 +147,26 @@ config :bonfire_data_identity, User,
 
 # bonfire_data_social
 
-config :bonfire_data_social, Activity, []
-config :bonfire_data_social, Block, []
-config :bonfire_data_social, Bookmark, []
-
-config :bonfire_data_social, Character,
-  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+config :bonfire_data_social, Activity,
+    belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
   has_one: [named:     {Named, foreign_key: :id}]
 
 config :bonfire_data_social, Encircle, []
-config :bonfire_data_social, Feed, []
+
+config :bonfire_data_social, Feed,
+  belongs_to: [character: {Character, foreign_key: :id, define_field: false}],
+  belongs_to: [user: {User, foreign_key: :id, define_field: false}]
+
 config :bonfire_data_social, FeedPublish, []
 config :bonfire_data_social, Follow, []
 config :bonfire_data_social, FollowCount, []
+config :bonfire_data_social, Block, []
 config :bonfire_data_social, Like, []
 config :bonfire_data_social, LikeCount, []
+config :bonfire_data_social, Bookmark, []
 config :bonfire_data_social, Mention, []
 config :bonfire_data_social, Named, []
 

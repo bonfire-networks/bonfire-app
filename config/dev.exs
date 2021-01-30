@@ -7,7 +7,7 @@ config :bonfire, Mailer,
 
 config :bonfire, Bonfire.Repo,
   username: "postgres",
-  password: "postgres",
+  password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   database: "bonfire_dev",
   hostname: System.get_env("DATABASE_HOST") || "localhost",
   show_sensitive_data_on_connection_error: true,

@@ -20,7 +20,7 @@ config :logger, level: :warn
 # Run `mix help test` for more information.
 config :bonfire, Bonfire.Repo,
   username: "postgres",
-  password: "postgres",
+  password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: System.get_env("DATABASE_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,

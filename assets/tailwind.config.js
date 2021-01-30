@@ -22,8 +22,8 @@ module.exports = {
       },
       boxShadow: {
         tick: '-3px 3px 1px 0 rgba(0,0,0,.1)'
-      }
-    },
+      },
+    }
   },
   variants: {
     extend: {

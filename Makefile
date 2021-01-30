@@ -15,10 +15,13 @@ mix-%: init ## Run a specific mix command, eg: `make mix-deps.get` or make mix-d
 
 setup: build mix-setup ## First run - prepare environment and dependencies
 
+db:
+	docker-compose run db 
+
 db-pre-migrations:
-	touch deps/*/lib/migrations.ex
-	touch forks/*/lib/migrations.ex
-	touch priv/repo/*
+	touch deps/*/lib/migrations.ex 2> /dev/null || echo "continue"
+	touch forks/*/lib/migrations.ex 2> /dev/null || echo "continue"
+	touch priv/repo/* 2> /dev/null || echo "continue"
 
 db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 
@@ -34,7 +37,7 @@ shell: init ## Open a shell, in dev mode
 pull: 
 	git pull
 
-update: init pull build deps-local-git-pull bonfire-pre-updates mix-updates bonfire-post-updates ## Update/prepare dependencies
+update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
@@ -126,19 +129,28 @@ deps.update-%: init bonfire-pre-update
 	make bonfire-post-updates
 
 dev: init ## Run the app with Docker
-	docker-compose run --service-ports web
+	docker rm bonfire_web 2> /dev/null || true
+	docker-compose run --name bonfire_web --service-ports web
+
+dev-bg: init ## Run the app in dev mode, in the background
+	docker stop bonfire_web 2> /dev/null || true
+	docker rm bonfire_web 2> /dev/null || true
+	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
 
 rm-%: 
 	docker-compose rm -s $*
 
 git-forks-add: ## Run a git command on each fork
-	find ./forks/ -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add . \;
+	find ./forks/ -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add . \;
 
 git-forks-%: ## Run a git command on each fork
-	find ./forks/ -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
+	find ./forks/ -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
 
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
+
+test: init ## Run tests
+	docker-compose run web mix test $(args)
 
 cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)
