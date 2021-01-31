@@ -40,12 +40,13 @@ defmodule Bonfire.Web.Router do
   # pages anyone can view
   scope "/", Bonfire do
     pipe_through :browser
-
+    live "/", Web.HomeLive
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
     live "/home", Web.HomeLive
 
     live "/user/:username", Me.Web.ProfileLive
+    live "/user/:username/:tab", Me.Web.ProfileLive
     live "/user/:username/circles", Me.Web.CirclesLive
     live "/user/:username/posts", Me.Web.PostsLive
     live "/user/:username/posts/:post_id", Me.Web.PostLive
@@ -57,12 +58,12 @@ defmodule Bonfire.Web.Router do
   end
 
   # bonfire_website extension - anyone can view
-  scope "/", Bonfire.Website do
-    pipe_through :browser
-    pipe_through :website
+  # scope "/", Bonfire.Website do
+  #   pipe_through :browser
+  #   pipe_through :website
 
-    live "/", HomeGuestLive
-  end
+  #   # live "/", HomeGuestLive
+  # end
 
   # pages only guests can view
   scope "/", Bonfire.Me.Web do
