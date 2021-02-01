@@ -48,7 +48,7 @@ config :bonfire,
   graphql_schema_module: Bonfire.GraphQL.Schema,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
-  home_page: Bonfire.Website.HomeGuestLive,
+  home_page: Bonfire.Web.HomeLive,
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub")
 
 config :bonfire, Bonfire.Web.Endpoint,
