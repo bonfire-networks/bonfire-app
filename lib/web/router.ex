@@ -49,11 +49,11 @@ defmodule Bonfire.Web.Router do
     live "/user/:username/:tab", Me.Web.ProfileLive
     live "/user/:username/circles", Me.Web.CirclesLive
     live "/user/:username/posts", Me.Web.PostsLive
-    live "/user/:username/posts/:post_id", Me.Web.PostLive
+    live "/user/:username/posts/:post_id", Me.Web.ThreadLive
 
     live "/instance", UI.Social.InstanceLive
 
-    live "/thread", Me.Web.ThreadLive
+    live "/posts/:post_id", Me.Web.ThreadLive
 
   end
 

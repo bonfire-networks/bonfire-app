@@ -2,7 +2,7 @@ defmodule Bonfire.Web.Plugs.AdminRequired do
 
   use Bonfire.Web, :plug
   alias Bonfire.Data.Identity.Account
-  alias Bonfire.Website.HomeGuestLive
+  alias Bonfire.Web.HomeLive
   alias Bonfire.Me.Web
 
   def init(opts), do: opts
@@ -14,7 +14,7 @@ defmodule Bonfire.Web.Plugs.AdminRequired do
     conn
     |> clear_session()
     |> put_flash(:error, "That page is only accessible to instance administrators.")
-    |> redirect(to: Routes.live_path(conn, HomeGuestLive))
+    |> redirect(to: Routes.live_path(conn, HomeLive))
     |> halt()
   end
 
