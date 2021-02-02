@@ -71,7 +71,7 @@ alias Bonfire.Data.Identity.{
 }
 alias Bonfire.Data.Social.{
   Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish,
-  Follow, FollowCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile,
+  Follow, FollowCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile, Replied
 }
 alias CommonsPub.{
   Comments.Comment,
@@ -172,9 +172,17 @@ config :bonfire_data_social, Named, []
 
 config :bonfire_data_social, Post,
   has_one: [post_content: {PostContent, foreign_key: :id}],
-  has_one: [created: {Created, foreign_key: :id}]
+  has_one: [created: {Created, foreign_key: :id}],
+  has_many: [thread_replies: {Replied, foreign_key: :thread_id}],
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}],
+  has_one: [reply_to: {Replied, foreign_key: :id}]
 
 config :bonfire_data_social, PostContent, []
+
+config :bonfire_data_social, Replied,
+  belongs_to: [post: {Post, foreign_key: :id, define_field: false}],
+  belongs_to: [activity: {Activity, foreign_key: :id, references: :object_id, define_field: false}],
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id, references: :id}]
 
 config :bonfire_data_social, Created, []
 
