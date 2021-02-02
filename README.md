@@ -1,6 +1,6 @@
 ## Bonfire 
 
-This app is part of the [Bonfire](https://bonfire.cafe/) ecosystem is and bundles the following extensions:
+This app is part of the [Bonfire](https://bonfire.cafe/) ecosystem and bundles the following extensions:
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
 - [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles, posts, feeds, activities...
