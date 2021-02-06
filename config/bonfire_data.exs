@@ -173,9 +173,10 @@ config :bonfire_data_social, Named, []
 config :bonfire_data_social, Post,
   has_one: [post_content: {PostContent, foreign_key: :id}],
   has_one: [created: {Created, foreign_key: :id}],
+  has_one: [replied: {Replied, foreign_key: :id}],
+  has_one: [reply_to: {Replied, foreign_key: :id}],
   has_many: [thread_replies: {Replied, foreign_key: :thread_id}],
-  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}],
-  has_one: [reply_to: {Replied, foreign_key: :id}]
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}]
 
 config :bonfire_data_social, PostContent, []
 
