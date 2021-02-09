@@ -53,7 +53,8 @@ defmodule Bonfire.Web.Router do
 
     live "/instance", UI.Social.InstanceLive
 
-    live "/posts/:post_id", Me.Web.ThreadLive
+    live "/post/:post_id", Me.Web.ThreadLive
+    live "/discussion/:post_id", Me.Web.ThreadLive
 
   end
 
