@@ -148,7 +148,8 @@ config :bonfire_data_identity, User,
 # bonfire_data_social
 
 config :bonfire_data_social, Activity,
-    belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}]
+    belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}],
+    belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
