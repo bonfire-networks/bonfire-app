@@ -136,7 +136,7 @@ config :bonfire_data_identity, User,
   has_one:  [feed:         {Feed,        foreign_key: :id}],
   has_many: [feed_publishes: {FeedPublish, references: :id, foreign_key: :feed_id}],
   has_one:  [follow_count: {FollowCount, foreign_key: :id}],
-  has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
+  # has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_one:  [profile:      {Profile,     foreign_key: :id}],
   has_one:  [self:         {Self,        foreign_key: :id}],
   has_many: [encircles:    {Encircle,    foreign_key: :subject_id}],
@@ -149,7 +149,8 @@ config :bonfire_data_identity, User,
 
 config :bonfire_data_social, Activity,
     belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}],
-    belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}]
+    belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}],
+    has_one:  [like_count:   {LikeCount,   foreign_key: :id}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
@@ -177,7 +178,8 @@ config :bonfire_data_social, Post,
   has_one: [replied: {Replied, foreign_key: :id}],
   has_one: [reply_to: {Replied, foreign_key: :id}],
   has_many: [thread_replies: {Replied, foreign_key: :thread_id}],
-  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}]
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}],
+  has_one:  [like_count:   {LikeCount,   foreign_key: :id}]
 
 config :bonfire_data_social, PostContent, []
 

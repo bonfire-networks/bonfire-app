@@ -51,7 +51,7 @@ defmodule Bonfire.Web.Router do
     live "/user/:username/posts", Me.Web.PostsLive
     live "/user/:username/posts/:post_id", Me.Web.ThreadLive
 
-    live "/instance", UI.Social.InstanceLive
+    live "/instance", Me.Web.InstanceLive
 
     live "/post/:post_id", Me.Web.ThreadLive
     live "/discussion/:post_id", Me.Web.ThreadLive
@@ -83,7 +83,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :account_required
 
     live "/dashboard", Me.Web.LoggedDashboardLive
-    live "/fediverse", UI.Social.FediverseLive
+    live "/fediverse", Me.Web.FediverseLive
 
     resources "/switch-user", Me.Web.SwitchUserController, only: [:index, :show]
     resources "/create-user", Me.Web.CreateUserController, only: [:index, :create]
@@ -102,7 +102,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :user_required
 
-    live "/feed", UI.Social.FeedPageLive
+    live "/feed", Me.Web.MyFeedLive
 
     live "/user", Me.Web.ProfileLive
 
