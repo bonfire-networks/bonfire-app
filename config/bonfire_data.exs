@@ -116,9 +116,13 @@ config :bonfire_data_identity, Accounted,
 config :bonfire_data_identity, Caretaker, []
 
 config :bonfire_data_identity, Character,
-  belongs_to: [user: {User, foreign_key: :id, define_field: false}],
-  has_one: [feed: {Feed, foreign_key: :id}],
-  has_many: [feed_publishes: {FeedPublish, references: :id, foreign_key: :feed_id}]
+  has_one:    [actor:           {Actor,         foreign_key: :id}],
+  belongs_to: [user:            {User,          foreign_key: :id, define_field: false}],
+  has_one:    [feed:            {Feed,          foreign_key: :id}],
+  has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}],
+  has_many:   [followers:       {Follow,        foreign_key: :following_id, references: :id}],
+  has_many:   [followings:      {Follow,        foreign_key: :follower_id, references: :id}],
+  has_one:    [follow_count:    {FollowCount,   foreign_key: :id}]
 
 config :bonfire_data_identity, Credential,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
@@ -130,14 +134,11 @@ config :bonfire_data_identity, Email,
 config :bonfire_data_identity, Self, []
 
 config :bonfire_data_identity, User,
-  has_one:  [actor:        {Actor,       foreign_key: :id}],
   has_one:  [accounted:    {Accounted,   foreign_key: :id}],
-  has_one:  [character:    {Character,   foreign_key: :id}],
-  has_one:  [feed:         {Feed,        foreign_key: :id}],
-  has_many: [feed_publishes: {FeedPublish, references: :id, foreign_key: :feed_id}],
-  has_one:  [follow_count: {FollowCount, foreign_key: :id}],
-  # has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_one:  [profile:      {Profile,     foreign_key: :id}],
+  has_one:  [character:    {Character,   foreign_key: :id}],
+  has_one:  [actor:        {Actor,       foreign_key: :id}],
+  has_many: [likes:        {Like,        foreign_key: :liker_id, references: :id}],
   has_one:  [self:         {Self,        foreign_key: :id}],
   has_many: [encircles:    {Encircle,    foreign_key: :subject_id}],
   has_one:  [shared_user:  {Bonfire.Data.SharedUser,     foreign_key: :id}],
@@ -148,10 +149,14 @@ config :bonfire_data_identity, User,
 # bonfire_data_social
 
 config :bonfire_data_social, Activity,
-    belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}],
-    belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}],
-    has_one:  [like_count:   {LikeCount, foreign_key: :id}],
-    has_one: [reply_to: {Replied, foreign_key: :reply_to_id, references: :object_id}]
+  belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [subject_character: {Character, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [subject_profile: {Profile, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}],
+  has_one:  [like_count:   {LikeCount, foreign_key: :id, references: :object_id}],
+  has_many: [likes: {Like, foreign_key: :liked_id, references: :object_id}],
+  has_one: [replied: {Replied, foreign_key: :id, references: :object_id}],
+  has_one: [reply_to: {[through: [:replied, :reply_to]]}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
@@ -176,18 +181,20 @@ config :bonfire_data_social, Named, []
 config :bonfire_data_social, Post,
   has_one: [post_content: {PostContent, foreign_key: :id}],
   has_one: [created: {Created, foreign_key: :id}],
+  has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
+  has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
   has_one: [replied: {Replied, foreign_key: :id}],
-  has_one: [reply_to: {Replied, foreign_key: :reply_to_id}],
-  has_many: [thread_replies: {Replied, foreign_key: :thread_id}],
-  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}],
-  has_one:  [like_count:   {LikeCount,   foreign_key: :id}]
+  has_one: [reply_to: {[through: [:replied, :reply_to]]}],
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}]
 
 config :bonfire_data_social, PostContent, []
 
 config :bonfire_data_social, Replied,
   belongs_to: [post: {Post, foreign_key: :id, define_field: false}],
   belongs_to: [activity: {Activity, foreign_key: :id, references: :object_id, define_field: false}],
-  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id, references: :id}]
+  # has_one: [reply_to: {Replied, foreign_key: :reply_to_id}],
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id, references: :id}],
+  has_many: [thread_replies: {Replied, foreign_key: :thread_id, references: :id}]
 
 config :bonfire_data_social, Created, []
 
