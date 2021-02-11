@@ -37,7 +37,12 @@ shell: init ## Open a shell, in dev mode
 pull: 
 	git pull
 
-update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies
+update: init pull bonfire-pre-updates ## Update/prepare dependencies, without Docker
+	mix updates 
+	make bonfire-post-updates 
+	make deps-local-git-pull 
+
+d-update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies, using Docker
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
