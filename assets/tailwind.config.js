@@ -6,10 +6,13 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: [
-    './src/**/*.eex',
-    './src/**/*.leex',
-  ],
+  purge: {
+    // enabled: true,
+    content: [
+      '../forks/**/**/**/*.leex',
+      './lib/web/**/*.leex',
+    ]
+  },
   theme: {
     extend: {
       colors: {
@@ -20,6 +23,9 @@ module.exports = {
         teal: colors.teal,
         cyan: colors.cyan
       },
+      ringColor: {
+        blueGray: colors.blueGray,
+      },
       boxShadow: {
         tick: '-3px 3px 1px 0 rgba(0,0,0,.1)'
       },
@@ -27,6 +33,8 @@ module.exports = {
   },
   variants: {
     extend: {
+     ringWidth:['hover'],
+     ringColor: ['group-hover', 'hover'],
      borderWidth: ['hover', 'focus'],
     }
   },
