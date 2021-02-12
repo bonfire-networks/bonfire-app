@@ -45,6 +45,8 @@ defmodule Bonfire.Web.Router do
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
     live "/home", Web.HomeLive
 
+    live "/error", Common.Web.ErrorLive
+
     live "/user/:username", Me.Web.ProfileLive
     live "/user/:username/:tab", Me.Web.ProfileLive
     live "/user/:username/circles", Me.Web.CirclesLive
