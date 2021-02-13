@@ -156,7 +156,11 @@ config :bonfire_data_social, Activity,
   has_one:  [like_count:   {LikeCount, foreign_key: :id, references: :object_id}],
   has_many: [likes: {Like, foreign_key: :liked_id, references: :object_id}],
   has_one: [replied: {Replied, foreign_key: :id, references: :object_id}],
-  has_one: [reply_to: {[through: [:replied, :reply_to]]}]
+  has_one: [reply_to: {[through: [:replied, :reply_to]]}],
+  has_one: [object_created: {Created, foreign_key: :id, references: :object_id}],
+  has_one: [object_creator_user: {[through: [:object_created, :creator_user]]}],
+  has_one: [object_creator_character: {[through: [:object_created, :creator_character]]}],
+  has_one: [object_creator_profile: {[through: [:object_created, :creator_profile]]}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
@@ -181,6 +185,7 @@ config :bonfire_data_social, Named, []
 config :bonfire_data_social, Post,
   has_one: [post_content: {PostContent, foreign_key: :id}],
   has_one: [created: {Created, foreign_key: :id}],
+  has_one: [creator_user: {[through: [:created, :creator_user]]}],
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
   has_one: [replied: {Replied, foreign_key: :id}],
@@ -196,7 +201,10 @@ config :bonfire_data_social, Replied,
   has_many: [direct_replies: {Replied, foreign_key: :reply_to_id, references: :id}],
   has_many: [thread_replies: {Replied, foreign_key: :thread_id, references: :id}]
 
-config :bonfire_data_social, Created, []
+config :bonfire_data_social, Created,
+  belongs_to: [creator_user: {User, foreign_key: :creator_id, define_field: false}],
+  belongs_to: [creator_character: {Character, foreign_key: :creator_id, define_field: false}],
+  belongs_to: [creator_profile: {Profile, foreign_key: :creator_id, define_field: false}]
 
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
