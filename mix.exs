@@ -58,6 +58,7 @@ defmodule Bonfire.MixProject do
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3.0", only: :test},
       {:zest, "~> 0.1"},
+      {:licensir, git: "https://github.com/mayel/licensir", branch: "pr", only: :dev, runtime: false}
     ])
     # |> IO.inspect()
   end
