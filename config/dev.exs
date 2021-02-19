@@ -72,11 +72,13 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :logger, :console,
   level: :debug,
-  truncate: :infinity,
+  # truncate: :infinity,
   format: "[$level] $message\n" # Do not include metadata or timestamps
 
 config :phoenix, :stacktrace_depth, 30
 
 config :phoenix, :plug_init_mode, :runtime
 
-config :exsync, extra_extensions: [".leex", ".js", ".css"]
+config :exsync,
+  # src_monitor: false,
+  extra_extensions: [".leex", ".js", ".css"]
