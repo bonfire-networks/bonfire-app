@@ -51,12 +51,12 @@ defmodule Bonfire.Web.Router do
     live "/user/:username/:tab", Me.Web.ProfileLive
     live "/user/:username/circles", Me.Web.CirclesLive
     live "/user/:username/posts", Me.Web.PostsLive
-    live "/user/:username/posts/:post_id", Me.Web.ThreadLive
+    live "/user/:username/posts/:post_id", Me.Web.PostLive
 
     live "/instance", Me.Web.InstanceLive
 
-    live "/post/:post_id", Me.Web.ThreadLive
-    live "/discussion/:post_id", Me.Web.ThreadLive
+    live "/post/:post_id", Me.Web.PostLive
+    live "/discussion/:post_id", Me.Web.PostLive
 
   end
 
@@ -92,7 +92,7 @@ defmodule Bonfire.Web.Router do
 
     live "/change-password", Me.Web.ChangePasswordLive
 
-    live "/settings", Me.Web.SettingsLive
+    live "/settings/:tab", Me.Web.SettingsLive
 
     resources "/delete", Me.Web.AccountDeleteController, only: [:index, :create]
 
@@ -108,7 +108,7 @@ defmodule Bonfire.Web.Router do
 
     live "/user", Me.Web.ProfileLive
 
-    live "/settings", Me.Web.UserSettingsLive
+    live "/settings", Me.Web.SettingsLive
 
     resources "/delete", Me.Web.UserDeleteController, only: [:index, :create]
   end
