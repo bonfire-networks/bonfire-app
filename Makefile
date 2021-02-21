@@ -157,9 +157,8 @@ git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-a
 test: init ## Run tests
 	docker-compose run web mix test $(args)
 
-licenses: bonfire-pre-update
+licenses: init
 	docker-compose run web mix licenses
-	make bonfire-post-updates
 
 cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)
