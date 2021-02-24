@@ -92,6 +92,7 @@ defmodule Bonfire.Web.Router do
 
     live "/change-password", Me.Web.ChangePasswordLive
 
+    live "/settings/extension", Me.Web.SettingsLive.ExtensionDiffLive
     live "/settings/:tab", Me.Web.SettingsLive
 
     resources "/delete", Me.Web.AccountDeleteController, only: [:index, :create]
