@@ -56,27 +56,35 @@ path_dep_dirs =
   Mess.deps([path: "deps.path"], [])
   |> Enum.map(&(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
 
+path_dep_patterns = path_dep_dirs |> Enum.map(&("^"<> String.slice(&1, 2..1000) <>"(?!.git|_build).*ex")) # to include cloned code in patterns
+
 config :phoenix_live_reload,
-  dirs: path_dep_dirs ++ ["lib/"]
+  dirs: path_dep_dirs ++ ["lib/"] # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
+  code_reloader: true,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"web/(live|views)/.*(ex)$",
-    ]
+      # ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      # ~r"^priv/gettext/.*(po)$",
+      # ~r"^web/(live|views)/.*ex$",
+      # ~r"^lib/.*_live\.ex$",
+      # ~r".*leex$",
+      ~r"^lib/(?!.git|_build).*ex$",
+    ] ++ path_dep_patterns
   ]
 
 
 config :logger, :console,
   level: :debug,
-  truncate: :infinity,
+  # truncate: :infinity,
   format: "[$level] $message\n" # Do not include metadata or timestamps
 
 config :phoenix, :stacktrace_depth, 30
 
 config :phoenix, :plug_init_mode, :runtime
 
-config :exsync, extra_extensions: [".leex", ".js", ".css"]
+# config :exsync,
+#   src_monitor: true,
+#   extra_extensions: [".leex", ".js", ".css"]
