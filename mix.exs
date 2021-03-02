@@ -52,7 +52,7 @@ defmodule Bonfire.MixProject do
       ## dev conveniences
       {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      # {:exsync, "~> 0.2", only: :dev},
+      {:exsync, "~> 0.2", only: :dev},
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.4", only: :test},

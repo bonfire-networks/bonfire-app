@@ -43,7 +43,9 @@ defmodule Bonfire.Web.Router do
     pipe_through :website
 
     live "/", HomeGuestLive
+    live "/milestones", Page.MilestonesLive
   end
+
   # pages anyone can view
   scope "/", Bonfire do
     pipe_through :browser
