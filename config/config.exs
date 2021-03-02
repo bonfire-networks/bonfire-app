@@ -30,6 +30,8 @@ import_config "bonfire_me.exs"
 # You probably won't want to touch these. You might override some in
 # other config files.
 
+config :bonfire, :github_token, System.get_env("GITHUB_TOKEN")
+
 signing_salt = System.get_env("SIGNING_SALT", "CqAoopA2")
 encryption_salt = System.get_env("ENCRYPTION_SALT", "g7K25as98msad0qlSxhNDwnnzTqklK10")
 secret_key_base = System.get_env("SECRET_KEY_BASE", "g7K250qlSxhNDt5qnV6f4HFnyoD7fGUuZ8tbBF69aJCOvUIF8P0U7wnnzTqklK10")
