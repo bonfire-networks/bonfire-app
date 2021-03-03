@@ -12,6 +12,9 @@ import_config "bonfire_data.exs"
 # include all used Bonfire extensions
 import_config "bonfire_mailer.exs"
 import_config "bonfire_me.exs"
+
+import_config "bonfire_federate_activitypub.exs"
+
 # import_config "bonfire_publisher_thesis.exs"
 
 # import_config "bonfire_fail.exs"
