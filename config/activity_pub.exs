@@ -1,13 +1,9 @@
 use Mix.Config
 
-config :activity_pub, :adapter, Bonfire.ActivityPub.Adapter
+config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
 config :activity_pub, :repo, Bonfire.Repo
 
-config :nodeinfo, :adapter, Bonfire.NodeinfoAdapter
-
-config :bonfire, Bonfire.ActivityPub.Adapter,
-  users_module: Bonfire.Me.Identity.Users.ActivityPub,
-  endpoint_module: Bonfire.Web.Endpoint
+config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
 config :activity_pub, :mrf_simple,
   media_removal: [],
