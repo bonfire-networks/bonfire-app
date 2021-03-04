@@ -70,7 +70,7 @@ alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Self, User
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish,
+  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish, Inbox,
   Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Flag, FlagCount, Mention, Named, Post, PostContent, Profile, Replied
 }
 
@@ -113,6 +113,7 @@ config :bonfire_data_identity, Character,
   has_one:    [actor:           {Actor,         foreign_key: :id}],
   belongs_to: [user:            {User,          foreign_key: :id, define_field: false}],
   has_one:    [feed:            {Feed,          foreign_key: :id}],
+  has_one:    [inbox:           {Inbox,         foreign_key: :id}],
   has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}],
   has_many:   [followers:       {Follow,        foreign_key: :following_id, references: :id}],
   has_many:   [followings:      {Follow,        foreign_key: :follower_id, references: :id}],
