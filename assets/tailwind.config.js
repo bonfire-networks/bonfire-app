@@ -27,7 +27,7 @@ module.exports = {
         blueGray: colors.blueGray,
       },
       boxShadow: {
-        tick: '-3px 3px 1px 0 rgba(0,0,0,.1)'
+        tick: '-4px 4px 0px 0 rgba(0,0,0,0)'
       },
     }
   },
@@ -35,6 +35,7 @@ module.exports = {
     extend: {
      ringWidth:['hover'],
      ringColor: ['group-hover', 'hover'],
+     fontWeight: ['group-hover'],
      borderWidth: ['hover', 'focus'],
     }
   },
