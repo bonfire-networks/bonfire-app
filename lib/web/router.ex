@@ -43,6 +43,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :website
 
     live "/", HomeGuestLive
+    live "/faq", Page.FaqLive
     live "/milestones", Page.MilestonesLive
   end
 
