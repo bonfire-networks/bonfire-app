@@ -101,6 +101,7 @@ config :bonfire_data_identity, Account,
   has_one:      [credential:     {Credential,    foreign_key: :id}],
   has_one:      [email:          {Email,         foreign_key: :id}],
   has_one:      [instance_admin: {InstanceAdmin, foreign_key: :id}],
+  has_one:      [inbox:          {Inbox,         foreign_key: :id}],
   many_to_many: [users:          {User, join_through: "bonfire_data_identity_accounted", join_keys: [account_id: :id, id: :id]}],
   many_to_many: [shared_users:   {User, join_through: "bonfire_data_shared_user_accounts", join_keys: [account_id: :id, shared_user_id: :id]}]
 

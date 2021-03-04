@@ -5,6 +5,7 @@ defmodule Bonfire.Repo.Migrations.ImportInbox do
 
   def change do
     migrate_inbox()
+    Bonfire.Me.Fixtures.insert()
   end
 
 end
