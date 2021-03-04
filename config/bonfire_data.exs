@@ -71,7 +71,7 @@ alias Bonfire.Data.Identity.{
 }
 alias Bonfire.Data.Social.{
   Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish,
-  Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile, Replied
+  Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Flag, FlagCount, Mention, Named, Post, PostContent, Profile, Replied
 }
 
 # bonfire_data_access_control
@@ -152,6 +152,7 @@ config :bonfire_data_social, Activity,
   has_many:   [likes: {Like, foreign_key: :liked_id, references: :object_id}],
   has_one:    [my_like: {Like, foreign_key: :liked_id, references: :object_id}],
   has_one:    [my_boost: {Boost, foreign_key: :boosted_id, references: :object_id}],
+  has_one:    [my_flag: {Flag, foreign_key: :flagged_id, references: :object_id}],
   has_one:    [replied: {Replied, foreign_key: :id, references: :object_id}],
   has_one:    [reply_to: {[through: [:replied, :reply_to]]}],
   has_one:    [reply_to_post: {[through: [:replied, :reply_to_post]]}],
@@ -192,6 +193,8 @@ config :bonfire_data_social, Post,
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
   has_one:  [my_like: {Like, foreign_key: :liked_id, references: :id}],
+  has_one:  [my_boost: {Boost, foreign_key: :boosted_id, references: :id}],
+  has_one:  [my_flag: {Flag, foreign_key: :flagged_id, references: :id}],
   has_one:  [replied: {Replied, foreign_key: :id}],
   has_one:  [reply_to: {[through: [:replied, :reply_to]]}],
   has_one:  [reply_to_post: {[through: [:replied, :reply_to_post]]}],
