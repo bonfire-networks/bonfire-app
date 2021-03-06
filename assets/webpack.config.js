@@ -37,7 +37,7 @@ module.exports = (env, options) => {
         },
         {
           // fonts
-          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          test: /\.(woff(2)?|ttf|otf|eot)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
               loader: "file-loader",
@@ -56,7 +56,12 @@ module.exports = (env, options) => {
             // 'sass-loader',
             'postcss-loader',
           ],
-        }
+        },
+        {
+          // images assets
+          test: /\.(gif|png|svg|jpg|jpeg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          use: ['file-loader'],
+        },
       ]
     },
     plugins: [
