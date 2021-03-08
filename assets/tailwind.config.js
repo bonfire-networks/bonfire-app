@@ -28,6 +28,9 @@ module.exports = {
       ringColor: {
         blueGray: colors.blueGray,
       },
+      borderColor: {
+        blueGray: colors.blueGray,
+      },
       boxShadow: {
         tick: '-4px 4px 0px 0 rgba(0,0,0,0)'
       },
