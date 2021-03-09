@@ -1,4 +1,4 @@
-import Config
+use Mix.Config
 
 alias Bonfire.Federate.ActivityPub.Adapter
 alias Bonfire.Data.AccessControl.{
@@ -107,7 +107,7 @@ actor_types = Map.keys(actor_modules)
 activity_types = Map.keys(activity_modules) ++ ["Create", "Update", "Accept", "Announce", "Undo"]
 inventory_types = Map.keys(inventory_modules)
 object_types = Map.keys(object_modules)
-all_types = actor_types ++ activity_types ++ inventory_types ++ object_types
+all_types = Enum.dedup(actor_types ++ activity_types ++ inventory_types ++ object_types)
 
 config :bonfire, :all_types, all_types
 
