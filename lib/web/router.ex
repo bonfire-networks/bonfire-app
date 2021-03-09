@@ -43,6 +43,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :website
 
     live "/", HomeGuestLive
+    live "/faq", Page.FaqLive
     live "/milestones", Page.MilestonesLive
   end
 
@@ -87,6 +88,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :account_required
 
     live "/dashboard", Me.Web.LoggedDashboardLive
+    live "/notifications", Me.Web.InboxLive
     live "/fediverse", Me.Web.FediverseLive
 
     resources "/switch-user", Me.Web.SwitchUserController, only: [:index, :show]
