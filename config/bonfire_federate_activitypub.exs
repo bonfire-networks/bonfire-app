@@ -13,6 +13,8 @@ alias Bonfire.Data.Social.{
   Follow, FollowCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile, Replied
 }
 
+alias Bonfire.Me.Identity.{Users, Characters}
+
 types_agents = [
   User,
   # Organisation
@@ -64,7 +66,7 @@ types_all = types_all_contexts ++ types_actions ++ types_others
 # configure which modules will receive which ActivityPub activities/objects
 
 actor_modules = %{
-  "Person" => Users,
+  "Person" => Users.ActivityPub,
   "Group" => Communities,
   "MN:Collection" => Collections,
   "Organization" => Organisations,
