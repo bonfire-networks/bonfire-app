@@ -10,7 +10,7 @@ defmodule Bonfire.MixProject do
     # "bonfire_geolocate",
     # "bonfire_quantify",
     # "bonfire_valueflows",
-    # "bonfire_tag",
+    "bonfire_tag",
     # "bonfire_classify",
     # "bonfire_valueflows_observe",
   ]
