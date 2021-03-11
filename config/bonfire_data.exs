@@ -100,7 +100,6 @@ config :bonfire_data_activity_pub, Peered, []
 config :bonfire_data_identity, Account,
   has_one:      [credential:     {Credential,    foreign_key: :id}],
   has_one:      [email:          {Email,         foreign_key: :id}],
-  has_one:      [instance_admin: {InstanceAdmin, foreign_key: :id}],
   has_one:      [inbox:          {Inbox,         foreign_key: :id}],
   many_to_many: [users:          {User, join_through: "bonfire_data_identity_accounted", join_keys: [account_id: :id, id: :id]}],
   many_to_many: [shared_users:   {User, join_through: "bonfire_data_shared_user_accounts", join_keys: [account_id: :id, shared_user_id: :id]}]
@@ -130,14 +129,15 @@ config :bonfire_data_identity, Email,
 config :bonfire_data_identity, Self, []
 
 config :bonfire_data_identity, User,
-  has_one:  [accounted:    {Accounted,   foreign_key: :id}],
-  has_one:  [profile:      {Profile,     foreign_key: :id}],
-  has_one:  [character:    {Character,   foreign_key: :id}],
-  has_one:  [actor:        {Actor,       foreign_key: :id}],
-  has_many: [likes:        {Like,        foreign_key: :liker_id, references: :id}],
-  has_one:  [self:         {Self,        foreign_key: :id}],
-  has_many: [encircles:    {Encircle,    foreign_key: :subject_id}],
-  has_one:  [shared_user:  {Bonfire.Data.SharedUser,     foreign_key: :id}],
+  has_one:  [accounted:      {Accounted,     foreign_key: :id}],
+  has_one:  [profile:        {Profile,       foreign_key: :id}],
+  has_one:  [character:      {Character,     foreign_key: :id}],
+  has_one:  [actor:          {Actor,         foreign_key: :id}],
+  has_one:  [instance_admin: {InstanceAdmin, foreign_key: :id}],
+  has_many: [likes:          {Like,          foreign_key: :liker_id, references: :id}],
+  has_one:  [self:           {Self,          foreign_key: :id}],
+  has_many: [encircles:      {Encircle,      foreign_key: :subject_id}],
+  has_one:  [shared_user:    {Bonfire.Data.SharedUser,     foreign_key: :id}],
   many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}]
   # has_one:  [geolocation:      {Bonfire.Geolocate.Geolocation}]
 
@@ -169,8 +169,10 @@ config :bonfire_data_social, Activity,
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
   has_one: [named:     {Named, foreign_key: :id}]
+  # has_many: [encircles:      {Encircle,      foreign_key: :circle_id}]
 
-config :bonfire_data_social, Encircle, []
+config :bonfire_data_social, Encircle,
+  belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}]
 
 config :bonfire_data_social, Feed,
   belongs_to: [character: {Character, foreign_key: :id, define_field: false}],
