@@ -146,10 +146,10 @@ rm-%:
 	docker-compose rm -s $*
 
 git-forks-add: ## Run a git command on each fork
-	find ./forks/ -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add . \;
+	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add . \;
 
 git-forks-%: ## Run a git command on each fork
-	find ./forks/ -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
+	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
 
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
