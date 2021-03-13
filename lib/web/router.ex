@@ -16,15 +16,6 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.GuestOnly
   end
 
-  pipeline :bread_pub do
-    plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
-  end
-
-  pipeline :website do
-    plug :put_root_layout, {Bonfire.Website.LayoutView, :root}
-  end
-
-
   pipeline :account_required do
     plug Bonfire.Web.Plugs.AccountRequired
   end
@@ -37,15 +28,6 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.AdminRequired
   end
 
-  # bonfire_website extension - anyone can view
-  scope "/", Bonfire.Website do
-    pipe_through :browser
-    pipe_through :website
-
-    live "/", HomeGuestLive
-    live "/faq", Page.FaqLive
-    live "/milestones", Page.MilestonesLive
-  end
 
   # pages anyone can view
   scope "/", Bonfire do
@@ -57,29 +39,13 @@ defmodule Bonfire.Web.Router do
 
     live "/error", Common.Web.ErrorLive
 
-    live "/user/:username", Me.Web.ProfileLive
-    live "/user/:username/:tab", Me.Web.ProfileLive
-    live "/user/:username/circles", Me.Web.CirclesLive
-    live "/user/:username/posts", Me.Web.PostsLive
-    live "/user/:username/posts/:post_id", Me.Web.PostLive
-
-    live "/instance", Me.Web.InstanceLive
-
-    live "/post/:post_id", Me.Web.PostLive
-    live "/discussion/:post_id", Me.Web.PostLive
-
   end
-
 
   # pages only guests can view
   scope "/", Bonfire.Me.Web do
     pipe_through :browser
     pipe_through :guest_only
-    resources "/signup", SignupController, only: [:index, :create]
-    resources "/confirm-email", ConfirmEmailController, only: [:index, :create, :show]
-    resources "/login", LoginController, only: [:index, :create]
-    resources "/forgot-password", ForgotPasswordController, only: [:index, :create]
-    resources "/reset-password", ResetPasswordController, only: [:show, :update]
+
   end
 
   # pages you need an account to view
@@ -87,21 +53,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :account_required
 
-    live "/dashboard", Me.Web.LoggedDashboardLive
-    live "/notifications", Me.Web.InboxLive
-    live "/fediverse", Me.Web.FediverseLive
-
-    resources "/switch-user", Me.Web.SwitchUserController, only: [:index, :show]
-    resources "/create-user", Me.Web.CreateUserController, only: [:index, :create]
-
-    live "/change-password", Me.Web.ChangePasswordLive
-
-    live "/settings/extension", Me.Web.SettingsLive.ExtensionDiffLive
-    live "/settings/:tab", Me.Web.SettingsLive
-
-    resources "/delete", Me.Web.AccountDeleteController, only: [:index, :create]
-
-    resources "/logout", Me.Web.LogoutController, only: [:index, :create]
  end
 
   # pages you need to view as a user
@@ -109,24 +60,19 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :user_required
 
-    live "/feed", Me.Web.MyFeedLive
-
-    live "/user", Me.Web.ProfileLive
-
-    live "/settings", Me.Web.SettingsLive
-
-    resources "/delete", Me.Web.UserDeleteController, only: [:index, :create]
   end
-
 
   # pages only admins can view
-  scope "/settings" do
+  scope "/settings/admin" do
     pipe_through :browser
     pipe_through :admin_required
-    live "/", InstanceSettingsLive
+
   end
 
 
+  # include routes for active Bonfire extensions
+  use Bonfire.Me.Web.Routes
+  use Bonfire.Social.Web.Routes
 
   # include federation routes
   use ActivityPubWeb.Router
