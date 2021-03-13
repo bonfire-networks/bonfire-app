@@ -29,6 +29,19 @@ defmodule Bonfire.Web.Router do
   end
 
 
+  # include routes for active Bonfire extensions
+  use Bonfire.Me.Web.Routes
+  use Bonfire.Social.Web.Routes
+  use Bonfire.Website.Web.Routes
+
+  # include federation routes
+  use ActivityPubWeb.Router
+
+  # include nodeinfo routes
+  use NodeinfoWeb.Router
+
+  ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
+
   # pages anyone can view
   scope "/", Bonfire do
     pipe_through :browser
@@ -68,17 +81,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :admin_required
 
   end
-
-
-  # include routes for active Bonfire extensions
-  use Bonfire.Me.Web.Routes
-  use Bonfire.Social.Web.Routes
-
-  # include federation routes
-  use ActivityPubWeb.Router
-
-  # include nodeinfo routes
-  use NodeinfoWeb.Router
 
   # include GraphQL API
   # use Bonfire.GraphQL.Router
