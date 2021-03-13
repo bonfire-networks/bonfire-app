@@ -8,6 +8,7 @@ defmodule Bonfire.MixProject do
     "bonfire_common",
     "bonfire_me",
     "bonfire_social",
+    "bonfire_boundaries",
     "bonfire_ui_social",
     "bonfire_website",
     "bonfire_tag",

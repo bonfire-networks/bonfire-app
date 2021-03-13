@@ -48,10 +48,10 @@ bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
 
 bonfire-pre-updates: bonfire-pre-update
-	rm -rf deps/pointers*
-	rm -rf deps/bonfire*
-	rm -rf deps/cpub*
-	rm -rf deps/activity_pu*
+	# rm -rf deps/pointers*
+	# rm -rf deps/bonfire*
+	# rm -rf deps/cpub*
+	# rm -rf deps/activity_pu*
 
 bonfire-updates: init bonfire-pre-updates
 	docker-compose run web mix bonfire.deps
