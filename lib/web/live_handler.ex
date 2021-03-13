@@ -1,15 +1,19 @@
 defmodule Bonfire.Web.LiveHandler do
+  require Logger
 
   # start handler pattern matching
 
   alias Bonfire.Me.Web.LiveHandlers.{Profiles}
   alias Bonfire.Social.Web.LiveHandlers.{Flags, Boosts, Likes, Posts, Feeds, Follows}
 
+  # TODO: put in config
   @like_events ["like"]
   @boost_events ["boost", "boost_undo"]
   @flag_events ["flag", "flag_undo"]
   @post_events ["post", "post_reply", "post_load_replies"]
+  @post_infos [:thread_new_reply]
   @feed_events ["feed_load_more"]
+  @feed_infos [:feed_new_activity]
   @follow_events ["follow", "unfollow"]
   @profile_events ["profile_save"]
 
@@ -24,11 +28,12 @@ defmodule Bonfire.Web.LiveHandler do
 
   # Posts
   defp do_handle_event(event, attrs, socket) when event in @post_events or binary_part(event, 0, 4) == "post", do: Posts.handle_event(event, attrs, socket)
+  defp do_handle_info({info, data}, socket) when info in @post_infos, do: Posts.handle_info({info, data}, socket)
 
   # uri
   defp do_handle_params(%{"feed" => params}, uri, socket), do: Feeds.handle_params(params, uri, socket)
   defp do_handle_event(event, attrs, socket) when event in @feed_events or binary_part(event, 0, 4) == "feed", do: Feeds.handle_event(event, attrs, socket)
-  defp do_handle_info(%Bonfire.Data.Social.FeedPublish{} = info, socket), do: Feeds.handle_info(info, socket)
+  defp do_handle_info({info, data}, socket) when info in @feed_infos, do: Feeds.handle_info({info, data}, socket)
 
   # Follows
   defp do_handle_event(event, attrs, socket) when event in @follow_events or binary_part(event, 0, 6) == "follow", do: Follows.handle_event(event, attrs, socket)
@@ -57,6 +62,7 @@ defmodule Bonfire.Web.LiveHandler do
   end
 
   def handle_info(info, socket) do
+    Logger.info("handle_info...")
     undead(socket, fn ->
       do_handle_info(info, socket)
     end)
