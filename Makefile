@@ -25,6 +25,9 @@ db-pre-migrations:
 
 db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 
+db-rollback: ## Rollback ALL DB migrations
+	make mix-"ecto.rollback --all" 
+
 test-db-reset: db-pre-migrations ## Create or reset the test DB
 	docker-compose run -e MIX_ENV=test web mix ecto.reset
 
