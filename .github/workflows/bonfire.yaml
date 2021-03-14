@@ -50,7 +50,7 @@ jobs:
       run: mix local.rebar --force
     - name: Install dependencies
       run: mix deps.get
-    - name: Compile elixir
+    - name: Compile 
       run: mix
     - name: Setup database
       run: mix ecto.setup
@@ -58,5 +58,9 @@ jobs:
         DATABASE_HOST: postgres
     - name: Run tests
       run: mix test
+      env:
+        DATABASE_HOST: postgres
+    - name: Rollback database migrations
+      run: mix ecto.rollback --all
       env:
         DATABASE_HOST: postgres
