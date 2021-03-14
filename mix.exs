@@ -4,6 +4,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @bonfire_test_deps [
+    "activity_pub",
     "pointers",
     "bonfire_common",
     "bonfire_me",
@@ -12,6 +13,7 @@ defmodule Bonfire.MixProject do
     "bonfire_ui_social",
     "bonfire_website",
     "bonfire_tag",
+    "bonfire_federate_activitypub",
     # "bonfire_geolocate",
     # "bonfire_quantify",
     # "bonfire_valueflows",

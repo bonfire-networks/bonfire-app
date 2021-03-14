@@ -4,6 +4,7 @@ defmodule Bonfire.Federate.ActivityPub.Repo.Migrations.ImportMe do
   import Bonfire.Federate.ActivityPub.Migrations
   # accounts & users
 
-  def change, do: migrate_activity_pub
+  def up, do: migrate_activity_pub
+  def down, do: migrate_activity_pub
 
 end

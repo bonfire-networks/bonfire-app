@@ -3,9 +3,7 @@ defmodule Bonfire.Repo.Migrations.ImportInbox do
 
   import Bonfire.Data.Social.Inbox.Migration
 
-  def change do
-    migrate_inbox()
-    Bonfire.Me.Fixtures.insert()
-  end
+  def up, do: migrate_inbox()
+  def down, do: migrate_inbox()
 
 end

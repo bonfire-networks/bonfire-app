@@ -5,6 +5,7 @@ This app is part of the [Bonfire](https://bonfire.cafe/) ecosystem and bundles t
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
 - [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles, posts, feeds, activities...
 - [Bonfire:Social](https://github.com/bonfire-ecosystem/bonfire_social) - posts, feeds, boosting, flagging, etc...
+- [Bonfire:Boundaries](https://github.com/bonfire-ecosystem/bonfire_boundaries) - WIP to define circles and privacy or permission levels
 - [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - reusable frontend components for social activities 
 
 ## Handy commands

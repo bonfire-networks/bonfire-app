@@ -4,7 +4,12 @@ defmodule Bonfire.Repo.Migrations.ImportFlag do
   import Bonfire.Data.Social.Flag.Migration
   import Bonfire.Data.Social.FlagCount.Migration
 
-  def change do
+  def up do
+    migrate_flag()
+    migrate_flag_count()
+  end
+
+  def down do
     migrate_flag()
     migrate_flag_count()
   end
