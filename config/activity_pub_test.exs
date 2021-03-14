@@ -1,13 +1,14 @@
 use Mix.Config
 
-# Configure your database
-#
-# The MIX_TEST_PARTITION environment variable can be used
-# to provide built-in test partitioning in CI environment.
-# Run `mix help test` for more information.
+config :activity_pub, ActivityPub.TestRepo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: System.get_env("POSTGRES_PASSWORD", "postgres"),
+  database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}",
+  hostname: System.get_env("DATABASE_HOST") || "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox,
+  pool_size: 30
 
-# We don't run a server during test. If one is required,
-# you can enable the server option below.
 config :activity_pub, ActivityPubWeb.Endpoint,
   http: [port: 4002],
   server: false
