@@ -14,6 +14,7 @@ defmodule Bonfire.MixProject do
     "bonfire_website",
     "bonfire_tag",
     "bonfire_federate_activitypub",
+
     # "bonfire_geolocate",
     # "bonfire_quantify",
     # "bonfire_valueflows",
