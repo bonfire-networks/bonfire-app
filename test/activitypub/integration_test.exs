@@ -80,5 +80,7 @@ defmodule Bonfire.ActivityPub.IntegrationTest do
   test "remote actor creation" do
     {:ok, actor} = ActivityPub.Actor.get_or_fetch_by_ap_id("https://kawen.space/users/karen")
     assert {:ok, user} = Bonfire.Me.Users.ActivityPub.by_username(actor.username)
+    assert actor.data["summary"] == user.profile.summary
+    assert actor.data["name"] == user.profile.name
   end
 end
