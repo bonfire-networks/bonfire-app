@@ -136,6 +136,7 @@ config :bonfire_data_identity, User,
   has_one:  [instance_admin: {InstanceAdmin, foreign_key: :id}],
   has_many: [likes:          {Like,          foreign_key: :liker_id, references: :id}],
   has_one:  [self:           {Self,          foreign_key: :id}],
+  has_one:  [peered:         {Peered,        foreign_key: :id}],
   has_many: [encircles:      {Encircle,      foreign_key: :subject_id}],
   has_one:  [shared_user:    {Bonfire.Data.SharedUser,     foreign_key: :id}],
   many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}]

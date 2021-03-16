@@ -13,7 +13,7 @@ alias Bonfire.Data.Social.{
   Follow, FollowCount, Like, LikeCount, Mention, Named, Post, PostContent, Profile, Replied
 }
 
-alias Bonfire.Me.Identity.{Users, Characters}
+alias Bonfire.Me.{Users, Characters}
 
 types_agents = [
   User,
