@@ -36,8 +36,9 @@ config :pointers,
 
 config :bonfire_data_access_control,
   search_path: [
-    :bonfire_common,
     :bonfire_me,
+    :bonfire_boundaries,
+    :bonfire_social,
     :bonfire,
   ]
 
@@ -80,7 +81,8 @@ config :bonfire_data_access_control, Access,
   has_one: [named: {Named, foreign_key: :id}]
 
 config :bonfire_data_access_control, Acl,
-  has_one: [named: {Named, foreign_key: :id}]
+  has_one: [named: {Named, foreign_key: :id}],
+  has_one: [caretaker: {Caretaker, foreign_key: :id}]
 
 config :bonfire_data_access_control, Controlled, []
 config :bonfire_data_access_control, Grant, []
