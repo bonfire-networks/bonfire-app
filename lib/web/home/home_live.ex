@@ -1,6 +1,6 @@
 defmodule Bonfire.Web.HomeLive do
   use Bonfire.Web, {:live_view, [layout: {Bonfire.Web.LayoutView, "without_sidebar.html"}]}
-
+    alias Bonfire.Me.Accounts
     alias Bonfire.Web.LivePlugs
 
     def mount(params, session, socket) do
@@ -15,9 +15,14 @@ defmodule Bonfire.Web.HomeLive do
 
     defp mounted(params, session, socket) do
       {:ok, socket
-      |> assign(page_title: "A Bonfire Instance",
+      |> assign_new(:form, fn -> form(params) end)
+      |> assign(page_title: "A Bonfire Instance"
       )}
     end
+
+    defp form(params), do: Accounts.changeset(:login, params)
+
+
 
     # def handle_params(%{"tab" => tab} = _params, _url, socket) do
     #   {:noreply,
