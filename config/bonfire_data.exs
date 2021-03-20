@@ -86,7 +86,12 @@ config :bonfire_data_access_control, Acl,
   has_one: [caretaker: {Caretaker, foreign_key: :id}]
 
 config :bonfire_data_access_control, Controlled, []
-config :bonfire_data_access_control, Grant, []
+config :bonfire_data_access_control, Grant,
+  belongs_to: [subject_character: {Character, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [subject_profile: {Profile, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [subject_circle: {Circle, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [subject_named: {Named, foreign_key: :subject_id, define_field: false}]
+
 config :bonfire_data_access_control, Interact, []
 config :bonfire_data_access_control, Verb, []
 
@@ -171,7 +176,7 @@ config :bonfire_data_social, Activity,
   has_one:    [object_creator_user: {[through: [:object_created, :creator_user]]}],
   has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
   has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
-  has_one:    [controlled:     {Controlled, foreign_key: :id}]
+  has_one:    [controlled:     {Controlled, foreign_key: :object_id}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
