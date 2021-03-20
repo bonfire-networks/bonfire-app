@@ -20,10 +20,12 @@ config :bonfire,
   default_circles: %{
     guest:        "RAND0MSTRANGERS0FF1NTERNET",
     local:        "VSERSFR0MY0VR10CA11NSTANCE",
-    activity_pub: "FEDERATEDW1THANACT1V1TYPVB"
+    activity_pub: "FEDERATEDW1THANACT1V1TYPVB",
+    admin:        "ADM1NRESP0NS1B1E0F1NSTANCE"
   },
   circle_names: %{
     guest:        "Guests",
     local:        "Local Users",
-    activity_pub: "Remote Users (ActivityPub)"
+    activity_pub: "Remote Users (ActivityPub)",
+    admin:        "Instance Admins"
   }

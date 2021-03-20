@@ -78,7 +78,8 @@ alias Bonfire.Data.Social.{
 # bonfire_data_access_control
 
 config :bonfire_data_access_control, Access,
-  has_one: [named: {Named, foreign_key: :id}]
+  has_one: [named: {Named, foreign_key: :id}],
+  has_one: [caretaker: {Caretaker, foreign_key: :id}]
 
 config :bonfire_data_access_control, Acl,
   has_one: [named: {Named, foreign_key: :id}],
@@ -184,7 +185,12 @@ config :bonfire_data_social, Feed,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_social, FeedPublish, []
-config :bonfire_data_social, Follow, []
+config :bonfire_data_social, Follow,
+  belongs_to: [follower_character: {Character, foreign_key: :follower_id, define_field: false}],
+  belongs_to: [follower_profile: {Profile, foreign_key: :follower_id, define_field: false}],
+  belongs_to: [followed_character: {Character, foreign_key: :followed_id, define_field: false}],
+  belongs_to: [followed_profile: {Profile, foreign_key: :followed_id, define_field: false}]
+
 config :bonfire_data_social, FollowCount, []
 config :bonfire_data_social, Block, []
 config :bonfire_data_social, Like, []
