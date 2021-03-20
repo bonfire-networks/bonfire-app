@@ -5,7 +5,7 @@ config :bonfire_boundaries,
 
 config :bonfire,
   verbs: %{
-    read:    "READ1NGSVTTER1YFVNDAMENTA1",
+    read:    "0EAD1NGSVTTER1YFVNDAMENTA1",
     see:     "0BSERV1NG11ST1NGSEX1STENCE",
     create:  "CREATE0RP0STBRANDNEW0BJECT",
     edit:    "CHANG1NGVA1VES0FPR0PERT1ES",
@@ -18,10 +18,10 @@ config :bonfire,
     tag:     "CATEG0R1S1NGNGR0VP1NGSTVFF",
   },
   default_circles: %{
-    guest:        "RAND0MSTRANGERS0FF1NTERNET",
-    local:        "VSERSFR0MY0VR10CA11NSTANCE",
-    activity_pub: "FEDERATEDW1THANACT1V1TYPVB",
-    admin:        "ADM1NRESP0NS1B1E0F1NSTANCE"
+    guest:        "0AND0MSTRANGERS0FF1NTERNET",
+    local:        "3SERSFR0MY0VR10CA11NSTANCE",
+    activity_pub: "7EDERATEDW1THANACT1V1TYPVB",
+    admin:        "2DM1NRESP0NS1B1E0F1NSTANCE"
   },
   circle_names: %{
     guest:        "Guests",
