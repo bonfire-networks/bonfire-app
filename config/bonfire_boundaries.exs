@@ -24,8 +24,8 @@ config :bonfire,
     admin:        "2DM1NRESP0NS1B1E0F1NSTANCE"
   },
   circle_names: %{
-    guest:        "Guests",
+    guest:        "Public",
     local:        "Local Users",
-    activity_pub: "Remote Users (ActivityPub)",
+    activity_pub: "Federate for Remote Users",
     admin:        "Instance Admins"
   }
