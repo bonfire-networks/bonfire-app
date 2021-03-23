@@ -41,7 +41,7 @@ defmodule Bonfire.MixProject do
       version: "0.1.0",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
-      test_paths: ["test"] ++ existing_dep_paths(@bonfire_test_deps, "test"),
+      test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -78,7 +78,7 @@ defmodule Bonfire.MixProject do
 
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"] ++ existing_dep_paths(@bonfire_test_deps, "test/support")
+  defp elixirc_paths(:test), do: ["lib", "test/support"] ++ existing_deps_paths(@bonfire_test_deps, "test/support")
   defp elixirc_paths(_), do: ["lib"]
 
 
@@ -97,7 +97,7 @@ defmodule Bonfire.MixProject do
       "rebar.setup": ["local.rebar --force"],
       "js.deps.get": [
         "cmd npm install --prefix assets",
-        "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets"
+        # "cmd npm install --prefix "<>existing_dep_path("bonfire_geolocate")<>"/assets"
       ],
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [
@@ -123,7 +123,13 @@ defmodule Bonfire.MixProject do
     deps()[String.to_atom(dep)][:path] || "./deps/"<>dep
   end
 
-  defp existing_dep_paths(list, path) do
+  defp existing_dep_path(dep) do
+    dep = dep_path(dep)
+
+    if File.exists?(dep), do: dep, else: "."
+  end
+
+  defp existing_deps_paths(list, path) do
     Enum.map(list, fn dep -> dep_path(dep) <>"/"<>path end)
     |> existing_paths()
     # |> IO.inspect()
