@@ -1,36 +1,57 @@
 
-<div class="mt-16 max-w-screen-lg	mx-auto">
+<div class="my-6 mx-auto">
   <div class="flex flex-wrap items-center  justify-between sm:flex-no-wrap">
-    <div class="text-center">
-      <h1 class="mb-8 text-5xl font-bold text-gray-800">
-        Welcome to Bonfire
-      </h1>
-      <p class="max-w-screen-md mx-auto container prose-xl">For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens. And to be sure, that is the exciting area of astronomy that accounts for it’s huge popularity.</p>
-      <div class="grid grid-flow-col grid-cols-3 mt-16 gap-4">
-        <div class="text-center p-4 bg-white border rounded-lg">
-          <span class="text-2xl w-full">📜</span>
-          <div class="mt-4 text-center">
-            <h3 class="text-lg font-bold text-gray-700">Instances guidelines</h3>
-            <p class="mt-2 prose-md">For most of us, the idea of astronomy is For most of us, the idea </p>
-          </div>
-        </div>
-        <div class="text-center p-4 bg-white border rounded-lg">
-          <span class="text-2xl w-full">🐮</span>
-          <div class="mt-4 text-center">
-            <h3 class="text-lg font-bold text-gray-700">Users directory</h3>
-            <p class="mt-2 prose-md">For most of us, the idea of astronomy is For most of us, the idea </p>
-          </div>
-        </div>
-        <div class="text-center p-4 bg-white border rounded-lg">
-          <span class="text-2xl w-full">💬</span>
-          <div class="mt-4 text-center">
-            <h3 class="text-lg font-bold text-gray-700">Public feed</h3>
-            <p class="mt-2 prose-md">For most of us, the idea of astronomy is For most of us, the idea </p>
+      <div class="lg:flex space-x-4 w-full">
+        <div class="w-1/2 mx-auto text-left">
+          <div class="bg-white rounded-lg shadow">
+            <div class="p-3 border-b">
+              <div class="flex flex-wrap items-center justify-between sm:flex-no-wrap">
+                <h3 class="text-base font-bold text-gray-700">
+                  <%= @feed_title %>
+                </h3>
+              </div>
+            </div>
+            <%= live_component(@socket, Bonfire.UI.Social.FeedLive, assigns) %>
           </div>
         </div>
 
+        <div class="hidden w-1/2 lg:block md:flex-shrink-0">
+
+          <div class="bg-white rounded-lg border">
+            <div class="">
+              <img class="rounded-t-lg" src="https://assets.bigcartel.com/product_images/287626257/Cracks+web.jpg?auto=format&fit=max&w=1300" />
+            </div>
+            <div class="text-left p-3">
+              <p class="max-w-screen-md mx-auto container prose">For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens. And to be sure, that is the exciting area of astronomy that accounts for it’s huge popularity.</p>
+            </div>
+          </div>
+
+
+          <div class="mt-4">
+            <div class="h-full bg-blueGray-100 w-full">
+
+              <div class="flex flex-col space-y-3">
+                <a href="#">
+                  <div class="text-center p-4 bg-white border flex rounded-lg">
+                    <span class="text-2xl mr-3">📜</span>
+                    <div class="flex-1 text-left">
+                      <h3 class="text-base font-bold text-gray-700">Instances guidelines</h3>
+                      <p class="mt-0 text-sm text-gray-600">For most of us, the idea of astronomy is For most of us, the idea </p>
+                    </div>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="text-center p-4 bg-white border flex rounded-lg">
+                    <span class="text-2xl mr-3">🐮</span>
+                    <div class="flex-1 text-left">
+                      <h3 class="text-base font-bold text-gray-700">Users directory</h3>
+                      <p class="mt-0 text-sm text-gray-600">For most of us, the idea of astronomy is For most of us, the idea </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
 </div>

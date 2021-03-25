@@ -1,8 +1,7 @@
 defmodule Bonfire.Web.HomeLive do
   use Bonfire.Web, {:live_view, [layout: {Bonfire.Web.LayoutView, "without_sidebar.html"}]}
-    alias Bonfire.Me.Accounts
     alias Bonfire.Web.LivePlugs
-
+    alias Bonfire.Me.Users
     def mount(params, session, socket) do
       LivePlugs.live_plug params, session, socket, [
         LivePlugs.LoadCurrentAccount,
@@ -14,28 +13,24 @@ defmodule Bonfire.Web.HomeLive do
     end
 
     defp mounted(params, session, socket) do
+      feed_id = Bonfire.Social.Feeds.instance_feed_id()
+
+      feed = Bonfire.Social.FeedActivities.feed(feed_id, e(socket.assigns, :current_user, nil))
+
+      title = "Instance recent activities"
       {:ok, socket
-      |> assign_new(:form, fn -> form(params) end)
-      |> assign(page_title: "A Bonfire Instance"
+      |> assign(
+        page_title: "A Bonfire Instance",
+        feed_title: title,
+        feed_id: feed_id,
+        feed: e(feed, :entries, []),
+        page_info: e(feed, :metadata, [])
       )}
     end
 
-    defp form(params), do: Accounts.changeset(:login, params)
 
-
-
-    # def handle_params(%{"tab" => tab} = _params, _url, socket) do
-    #   {:noreply,
-    #    assign(socket,
-    #      selected_tab: tab
-    #    )}
-    # end
-
-    # def handle_params(%{} = _params, _url, socket) do
-    #   {:noreply,
-    #    assign(socket,
-    #      current_user: Fake.user_live()
-    #    )}
-    # end
+    defdelegate handle_params(params, attrs, socket), to: Bonfire.Web.LiveHandler
+    defdelegate handle_event(action, attrs, socket), to: Bonfire.Web.LiveHandler
+    defdelegate handle_info(info, socket), to: Bonfire.Web.LiveHandler
 
   end
