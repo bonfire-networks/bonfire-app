@@ -184,7 +184,9 @@ config :bonfire_data_social, Circle,
   # has_many: [encircles:      {Encircle,      foreign_key: :circle_id}]
 
 config :bonfire_data_social, Encircle,
-  belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}]
+  belongs_to: [subject_user: {User, foreign_key: :id, define_field: false}],
+  belongs_to: [subject_character: {Character, foreign_key: :id, define_field: false}],
+  belongs_to: [subject_profile: {Profile, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_social, Feed,
   belongs_to: [character: {Character, foreign_key: :id, define_field: false}],
