@@ -3,10 +3,13 @@ defmodule Bonfire.Web.LiveHandler do
 
   # start handler pattern matching
 
-  alias Bonfire.Me.Web.LiveHandlers.{Profiles}
+  alias Bonfire.Me.Web.LiveHandlers.{Profiles, Circles}
   alias Bonfire.Social.Web.LiveHandlers.{Flags, Boosts, Likes, Posts, Feeds, Follows}
 
   # TODO: put in config
+  @profile_events ["profile_save"]
+  @circle_events ["circle_save"]
+
   @like_events ["like"]
   @boost_events ["boost", "boost_undo"]
   @flag_events ["flag", "flag_undo"]
@@ -15,7 +18,14 @@ defmodule Bonfire.Web.LiveHandler do
   @feed_events ["feed_load_more"]
   @feed_infos [:feed_new_activity]
   @follow_events ["follow", "unfollow"]
-  @profile_events ["profile_save"]
+
+
+  # Profiles
+  defp do_handle_event(event, attrs, socket) when event in @profile_events or binary_part(event, 0, 7) == "profile", do: Profiles.handle_event(event, attrs, socket)
+
+  # Circles
+  defp do_handle_event(event, attrs, socket) when event in @circle_events or binary_part(event, 0, 6) == "circle", do: Circles.handle_event(event, attrs, socket)
+
 
   # Likes
   defp do_handle_event(event, attrs, socket) when event in @like_events or binary_part(event, 0, 4) == "like", do: Likes.handle_event(event, attrs, socket)
@@ -39,9 +49,6 @@ defmodule Bonfire.Web.LiveHandler do
   # Follows
   defp do_handle_event(event, attrs, socket) when event in @follow_events or binary_part(event, 0, 6) == "follow", do: Follows.handle_event(event, attrs, socket)
 
-  # Profiles
-  defp do_handle_event(event, attrs, socket) when event in @profile_events or binary_part(event, 0, 7) == "profile", do: Profiles.handle_event(event, attrs, socket)
-
   # end of handler pattern matching
   defp do_handle_params(_, _, socket), do: {:noreply, socket}
   defp do_handle_event(_, _, socket), do: {:noreply, socket}
@@ -59,16 +66,16 @@ defmodule Bonfire.Web.LiveHandler do
   end
 
   def handle_event(action, attrs, socket, source_module \\ nil) do
-    Logger.info("handle_event in #{source_module}: #{action}...")
     undead(socket, fn ->
+      Logger.info("handle_event in #{inspect source_module}: #{action}...")
       do_handle_event(action, attrs, socket)
     end)
   end
 
   def handle_info({info, data} = blob, socket, source_module \\ nil) do
     # IO.inspect(socket)
-    Logger.info("handle_info in #{source_module}: #{info}...")
     undead(socket, fn ->
+      Logger.info("handle_info in #{source_module}: #{info}...")
       do_handle_info(blob, socket)
     end)
   end
