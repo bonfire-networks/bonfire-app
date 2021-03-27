@@ -25,7 +25,10 @@ db-pre-migrations:
 
 db-reset: db-pre-migrations mix-ecto.reset ## Reset the DB
 
-db-rollback: ## Rollback ALL DB migrations
+db-rollback: ## Rollback last DB migration
+	make mix-"ecto.rollback" 
+
+db-rollback-all: ## Rollback ALL DB migrations
 	make mix-"ecto.rollback --all" 
 
 test-db-reset: db-pre-migrations ## Create or reset the test DB
@@ -73,6 +76,7 @@ bonfire-push-app-updates:
 	git add .
 	git commit
 	git push
+	make dev
 
 dep-hex-%: init ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
