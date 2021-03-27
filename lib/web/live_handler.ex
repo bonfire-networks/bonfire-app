@@ -11,7 +11,7 @@ defmodule Bonfire.Web.LiveHandler do
   @boost_events ["boost", "boost_undo"]
   @flag_events ["flag", "flag_undo"]
   @post_events ["post", "post_reply", "post_load_replies"]
-  @post_infos [:thread_new_reply]
+  @post_infos [:post_new_reply]
   @feed_events ["feed_load_more"]
   @feed_infos [:feed_new_activity]
   @follow_events ["follow", "unfollow"]
@@ -44,29 +44,38 @@ defmodule Bonfire.Web.LiveHandler do
 
   # end of handler pattern matching
   defp do_handle_params(_, _, socket), do: {:noreply, socket}
+  defp do_handle_event(_, _, socket), do: {:noreply, socket}
+  defp do_handle_info(_, socket), do: {:noreply, socket}
 
 
   alias Bonfire.Common.Utils
   import Utils
 
-  def handle_params(params, uri, socket) do
+  def handle_params(params, uri, socket, _source_module \\ nil) do
     undead(socket, fn ->
-      # IO.inspect(params: params)
+      #IO.inspect(params: params)
       do_handle_params(params, uri, socket)
     end)
   end
 
-  def handle_event(event, attrs, socket) do
+  def handle_event(action, attrs, socket, source_module \\ nil) do
+    Logger.info("handle_event in #{source_module}: #{action}...")
     undead(socket, fn ->
-      do_handle_event(event, attrs, socket)
+      do_handle_event(action, attrs, socket)
     end)
   end
 
-  def handle_info(info, socket) do
+  def handle_info({info, data} = blob, socket, source_module \\ nil) do
+    # IO.inspect(socket)
+    Logger.info("handle_info in #{source_module}: #{info}...")
+    undead(socket, fn ->
+      do_handle_info(blob, socket)
+    end)
+  end
+  def handle_info(info, socket, _) do
     Logger.info("handle_info...")
     undead(socket, fn ->
       do_handle_info(info, socket)
     end)
   end
-
 end

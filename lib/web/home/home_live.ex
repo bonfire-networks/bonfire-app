@@ -17,7 +17,7 @@ defmodule Bonfire.Web.HomeLive do
 
       feed = Bonfire.Social.FeedActivities.feed(feed_id, e(socket.assigns, :current_user, nil))
 
-      title = "Instance recent activities"
+      title = "Recent activity on this instance"
       {:ok, socket
       |> assign(
         page_title: "A Bonfire Instance",
@@ -30,7 +30,7 @@ defmodule Bonfire.Web.HomeLive do
 
 
     defdelegate handle_params(params, attrs, socket), to: Bonfire.Web.LiveHandler
-    defdelegate handle_event(action, attrs, socket), to: Bonfire.Web.LiveHandler
-    defdelegate handle_info(info, socket), to: Bonfire.Web.LiveHandler
+    def handle_event(action, attrs, socket), do: Bonfire.Web.LiveHandler.handle_event(action, attrs, socket, __MODULE__)
+    def handle_info(info, socket), do: Bonfire.Web.LiveHandler.handle_info(info, socket, __MODULE__)
 
   end
