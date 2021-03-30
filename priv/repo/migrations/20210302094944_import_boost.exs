@@ -9,8 +9,8 @@ defmodule Bonfire.Repo.Migrations.ImportBoost do
     migrate_boost_count()
   end
   def down do
-    migrate_boost()
     migrate_boost_count()
+    migrate_boost()
   end
 
 end
