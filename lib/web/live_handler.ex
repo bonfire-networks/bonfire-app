@@ -72,7 +72,9 @@ defmodule Bonfire.Web.LiveHandler do
     end)
   end
 
-  def handle_info({info, data} = blob, socket, source_module \\ nil) do
+  def handle_info(blob, socket, source_module \\ nil)
+
+  def handle_info({info, _data} = blob, socket, source_module) do
     # IO.inspect(socket)
     undead(socket, fn ->
       Logger.info("handle_info in #{source_module}: #{info}...")

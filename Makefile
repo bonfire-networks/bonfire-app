@@ -44,11 +44,11 @@ pull:
 	git pull
 
 update: init pull bonfire-pre-updates ## Update/prepare dependencies, without Docker
-	mix updates 
+	mix upgrade
 	make bonfire-post-updates 
 	make deps-local-git-pull 
 
-d-update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies, using Docker
+d-update: init pull build bonfire-pre-updates mix-upgrade bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies, using Docker
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
@@ -68,8 +68,7 @@ bonfire-post-updates:
 
 bonfire-push-all-updates: deps-local-commit-push bonfire-push-app-updates
 
-bonfire-push-app-updates: 
-	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
+bonfire-push-app-updates: bonfire-pre-updates
 	git pull 
 	make mix-updates 
 	make bonfire-post-updates

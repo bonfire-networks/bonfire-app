@@ -24,7 +24,7 @@ config :bonfire, Bonfire.Repo,
   database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: System.get_env("DATABASE_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 30
+  pool_size: 60
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

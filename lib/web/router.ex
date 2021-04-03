@@ -90,7 +90,7 @@ defmodule Bonfire.Web.Router do
       pipe_through :browser
       if Code.ensure_loaded?(Phoenix.LiveDashboard.Router) do
         import Phoenix.LiveDashboard.Router
-        live_dashboard "/dashboard", metrics: Bonfire.Web.Telemetry
+        live_dashboard "/settings/admin/dashboard", metrics: Bonfire.Web.Telemetry
       end
       if Code.ensure_loaded?(Bamboo.SentEmailViewerPlug) do
         forward "/emails", Bamboo.SentEmailViewerPlug
