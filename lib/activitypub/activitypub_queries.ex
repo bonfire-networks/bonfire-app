@@ -4,5 +4,6 @@ defmodule Bonfire.ActivityPub.Queries do
       schema: ActivityPub.Object,
       searchable_fields: [:id, :data, :local, :public, :pointer_id],
       sortable_fields: [:id, :pointer_id]
+  # TODO: test querying AP table
 
 end

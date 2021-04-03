@@ -7,7 +7,7 @@ config :activity_pub, ActivityPub.TestRepo,
   database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: System.get_env("DATABASE_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 30
+  pool_size: 60
 
 config :activity_pub, ActivityPubWeb.Endpoint,
   http: [port: 4002],
@@ -17,8 +17,7 @@ config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
 
 config :activity_pub, :repo, Bonfire.Repo
 
-config :activity_pub,
-  ecto_repos: [Bonfire.Repo]
+config :activity_pub, ecto_repos: [Bonfire.Repo]
 
 config :activity_pub, Oban,
   repo: Bonfire.Repo,

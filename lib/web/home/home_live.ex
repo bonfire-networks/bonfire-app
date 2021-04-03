@@ -1,7 +1,6 @@
 defmodule Bonfire.Web.HomeLive do
   use Bonfire.Web, {:live_view, [layout: {Bonfire.Web.LayoutView, "without_sidebar.html"}]}
     alias Bonfire.Web.LivePlugs
-    alias Bonfire.Me.Users
     def mount(params, session, socket) do
       LivePlugs.live_plug params, session, socket, [
         LivePlugs.LoadCurrentAccount,
@@ -12,7 +11,7 @@ defmodule Bonfire.Web.HomeLive do
       ]
     end
 
-    defp mounted(params, session, socket) do
+    defp mounted(_params, _session, socket) do
       feed_id = Bonfire.Social.Feeds.instance_feed_id()
 
       feed = Bonfire.Social.FeedActivities.feed(feed_id, e(socket.assigns, :current_user, nil))

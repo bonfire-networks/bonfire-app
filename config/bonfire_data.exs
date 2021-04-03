@@ -119,7 +119,8 @@ config :bonfire_data_identity, Caretaker, []
 
 config :bonfire_data_identity, Character,
   has_one:    [actor:           {Actor,         foreign_key: :id}],
-  belongs_to: [user:            {User,          foreign_key: :id, define_field: false}],
+  has_one:    [profile:         {Profile,       foreign_key: :id}],
+  has_one:    [user:            {User,          foreign_key: :id}],
   has_one:    [feed:            {Feed,          foreign_key: :id}],
   has_one:    [inbox:           {Inbox,         foreign_key: :id}],
   has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}],

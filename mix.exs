@@ -4,7 +4,6 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @bonfire_test_deps [
-    "activity_pub",
     "pointers",
     "bonfire_common",
     "bonfire_me",
@@ -14,7 +13,6 @@ defmodule Bonfire.MixProject do
     "bonfire_website",
     "bonfire_tag",
     "bonfire_federate_activitypub",
-    "query_elf",
 
     # "bonfire_geolocate",
     # "bonfire_quantify",
@@ -25,6 +23,9 @@ defmodule Bonfire.MixProject do
   ]
 
   @bonfire_deps @bonfire_test_deps ++ [
+    "activity_pub",
+    "query_elf",
+
     "bonfire_data_access_control",
     "bonfire_data_identity",
     "bonfire_data_social",
@@ -109,7 +110,8 @@ defmodule Bonfire.MixProject do
       "bonfire.deps.clean": ["deps.clean #{@bonfire_deps_str} --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
-      updates: ["deps.get", "bonfire.deps", "ecto.migrate", "js.deps.get"],
+      updates: ["deps.get", "bonfire.deps", "js.deps.get"],
+      upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "ecto.seeds", "test"]
@@ -124,11 +126,11 @@ defmodule Bonfire.MixProject do
     deps()[String.to_atom(dep)][:path] || "./deps/"<>dep
   end
 
-  defp existing_dep_path(dep) do
-    dep = dep_path(dep)
+  # defp existing_dep_path(dep) do
+  #   dep = dep_path(dep)
 
-    if File.exists?(dep), do: dep, else: "."
-  end
+  #   if File.exists?(dep), do: dep, else: "."
+  # end
 
   defp existing_deps_paths(list, path) do
     Enum.map(list, fn dep -> dep_path(dep) <>"/"<>path end)
