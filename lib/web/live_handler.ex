@@ -57,6 +57,7 @@ defmodule Bonfire.Web.LiveHandler do
 
   alias Bonfire.Common.Utils
   import Utils
+  import Bonfire.Common.Hooks
 
   def handle_params(params, uri, socket, _source_module \\ nil) do
     undead(socket, fn ->
@@ -66,7 +67,7 @@ defmodule Bonfire.Web.LiveHandler do
   end
 
   def handle_event(action, attrs, socket, source_module \\ nil) do
-    undead(socket, fn ->
+    hook_undead(socket, action, attrs, fn ->
       Logger.info("handle_event in #{inspect source_module}: #{action}...")
       do_handle_event(action, attrs, socket)
     end)
