@@ -9,6 +9,9 @@ import_config "activity_pub.exs"
 # include DB schemas
 import_config "bonfire_data.exs"
 
+# include hooks (for extensions to hook into each other)
+import_config "bonfire_hooks.exs"
+
 # include all used Bonfire extensions
 import_config "bonfire_boundaries.exs"
 import_config "bonfire_mailer.exs"
