@@ -3,18 +3,17 @@
 This app is part of the [Bonfire](https://bonfire.cafe/) ecosystem and bundles the following extensions:
 
 - [Bonfire:Common](https://github.com/bonfire-ecosystem/bonfire_common) - common utils
-- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles, posts, feeds, activities...
-- [Bonfire:Social](https://github.com/bonfire-ecosystem/bonfire_social) - posts, feeds, boosting, flagging, etc...
-- [Bonfire:Boundaries](https://github.com/bonfire-ecosystem/bonfire_boundaries) - WIP to define circles and privacy or permission levels
+- [Bonfire:Me](https://github.com/bonfire-ecosystem/bonfire_me) - accounts, user profiles...
+- [Bonfire:Social](https://github.com/bonfire-ecosystem/bonfire_social) - feeds, activities, posts, boosting, flagging, etc...
+- [Bonfire:Boundaries](https://github.com/bonfire-ecosystem/bonfire_boundaries) - define circles and associated privacy or permissions
 - [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - reusable frontend components for social activities 
+- [Bonfire:Federate:ActivityPub](https://github.com/bonfire-ecosystem/bonfire_federate_activitypub) - federates activities with ActivityPub to participate in the fediverse
 
 ## Handy commands
 
-* `mix cpub.deps.update` - updates commonspub dep versions
-* `mix cpub.deps.clean` - cleans the compiled deps so config is reread
-* `mix cpub.deps` - both of the above
+* `make update` - updates the app + extensions (use `make d-update` if using docker)
+* `mix bonfire.deps.clean` - cleans Bonfire extensions so they get recompiled (necessary after changing config such as in `config/bonfire_data.exs`)
 
-If using Docker, just replace `mix ` with `make mix-` in the above commands, so for example `mix cpub.deps` becomes `make mix-cpub.deps`.
 
 ## Copyright and License
 
