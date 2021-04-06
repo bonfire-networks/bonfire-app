@@ -70,6 +70,16 @@ bonfire-push-all-updates: deps-local-commit-push bonfire-push-app-updates
 
 bonfire-push-app-updates: bonfire-pre-updates
 	git pull 
+	mix updates 
+	make bonfire-post-updates
+	git add .
+	git commit
+	git push
+
+d-bonfire-push-all-updates: deps-local-commit-push d-bonfire-push-app-updates
+
+d-bonfire-push-app-updates: bonfire-pre-updates
+	git pull 
 	make mix-updates 
 	make bonfire-post-updates
 	git add .
