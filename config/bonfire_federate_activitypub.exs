@@ -15,6 +15,8 @@ alias Bonfire.Data.Social.{
 
 alias Bonfire.Me.{Users, Characters}
 
+alias Bonfire.Social.Follows
+
 types_agents = [
   User,
   # Organisation
