@@ -10,6 +10,9 @@ export GID
 init:
 	@echo "Light that fire..."
 
+help: init
+	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	
 mix-%: init ## Run a specific mix command, eg: `make mix-deps.get` or make mix-deps.update args="pointers"
 	docker-compose run web mix $* $(args)
 
