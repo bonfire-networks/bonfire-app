@@ -265,3 +265,7 @@ config :bonfire_data_social, Profile,
 
 # all data types included in federation
 config :bonfire, :all_types, [User, Post]
+
+# Model - Context module mappings
+config :bonfire_data_social, :context_modules,
+  follow: Bonfire.Social.Follows
