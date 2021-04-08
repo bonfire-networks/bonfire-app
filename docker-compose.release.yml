@@ -1,0 +1,56 @@
+version: "3.5"
+
+services:
+  backend:
+    # You can build your own image from the source running:
+    # $ make rel-build
+    # $ make rel-tag-latest
+    image: "bonfirenetworks/bonfire-main:latest"
+    container_name: "bonfire_web"
+    restart: always
+    ports:
+      - "4000:4000" # you may want to comment this in production
+    env_file:
+      - config/prod/public.env
+      - config/prod/secrets.env
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: ./data/uploads
+        target: /var/www/uploads
+  frontend:
+    image: "caddy:alpine"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - config/prod/public.env
+    volumes:
+      - type: bind
+        source: ./config/deploy/Caddyfile2
+        target: /etc/caddy/Caddyfile
+        read_only: true
+      - type: bind
+        source: ./data/uploads
+        target: /frontend/uploads
+  db:
+    image: postgis/postgis:12-3.0-alpine
+    restart: always
+    volumes:
+      - "./data/postgres/prod:/var/lib/postgresql/data"
+    # ports:
+    #   - "5432:5432"
+    env_file:
+      - config/prod/public.env
+      - config/prod/secrets.env
+  search:
+    image: getmeili/meilisearch:latest
+    # ports:
+      # - "7700:7700"
+    volumes:
+      - "./data/search/prod:/data.ms"
+    env_file:
+      - config/prod/public.env
+      - config/prod/secrets.env

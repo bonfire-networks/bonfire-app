@@ -7,10 +7,15 @@ module.exports = {
     // purgeLayersByDefault: true,
   },
   purge: {
-    // enabled: true,
+    enabled: true,
     content: [
-      '../forks/**/**/**/*.leex',
-      './lib/web/**/*.leex',
+      '../forks/**/lib/**/*.leex',
+      '../forks/**/lib/**/**/*.leex',
+      '../forks/**/lib/**/**/**/*.leex',
+      '../deps/bonfire_**/lib/**/*.leex',
+      '../deps/bonfire_**/lib/**/**/*.leex',
+      '../deps/bonfire_**/lib/**/**/**/*.leex',
+      '../lib/web/**/*.leex',
     ]
   },
   darkMode: 'class',

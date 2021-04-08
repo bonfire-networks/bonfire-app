@@ -1,17 +1,15 @@
 import Config
 
-alias Bonfire.{Mailer, Repo, Web.Endpoint}
-
-config :bonfire, Mailer,
+config :bonfire, Bonfire.Mailer,
   adapter: Bamboo.LocalAdapter
 
 config :bonfire, Bonfire.Repo,
-  username: "postgres",
+  username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-  database: "bonfire_dev",
-  hostname: System.get_env("DATABASE_HOST") || "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  database: System.get_env("POSTGRES_DB", "bonfire_dev"),
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  # show_sensitive_data_on_connection_error: true,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4000],

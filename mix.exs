@@ -58,7 +58,7 @@ defmodule Bonfire.MixProject do
       {:pbkdf2_elixir, "~> 1.2.1", only: [:dev, :test]},
       {:argon2_elixir, "~> 2.3.0", only: [:prod]},
       ## dev conveniences
-      {:dbg, "~> 1.0", only: [:dev, :test]},
+      # {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
       # tests
@@ -124,6 +124,8 @@ defmodule Bonfire.MixProject do
     # NOTE: to_atom (instead of to_existing_atom) is safe because its used at build time, the code might fail
     # NOTE: otherwise because of the atom never existing as part of compilation
     deps()[String.to_atom(dep)][:path] || "./deps/"<>dep
+  rescue
+    CaseClauseError -> "./deps/"<>dep # FIXME
   end
 
   # defp existing_dep_path(dep) do

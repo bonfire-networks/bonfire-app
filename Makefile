@@ -1,14 +1,29 @@
 .PHONY: setup updates db-reset build dev shell
 
 LIBS_PATH=./forks/
+ORG_NAME=bonfirenetworks
+APP_FLAVOUR ?= `git branch --show-current`
+APP_NAME=bonfire-$(APP_FLAVOUR)
 UID := $(shell id -u)
 GID := $(shell id -g)
+APP_REL_CONTAINER="$(ORG_NAME)_$(APP_NAME)_release"
+APP_REL_DOCKERFILE=Dockerfile.release
+APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
+APP_VSN ?= `grep 'version:' mix.exs | cut -d '"' -f2`
+APP_BUILD ?= `git rev-parse --short HEAD`
+APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)"
 
 export UID
 export GID
 
 init:
-	@echo "Light that fire..."
+	@echo "Light that fire... $(APP_NAME):$(APP_VSN)-$(APP_BUILD)"
+	@mkdir -p config/prod
+	@mkdir -p config/dev
+	@cp -n config/templates/public.env config/dev/ | true
+	@cp -n config/templates/public.env config/prod/ | true
+	@cp -n config/templates/not_secret.env config/dev/secrets.env | true
+	@cp -n config/templates/not_secret.env config/prod/secrets.env | true
 
 help: init
 	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -152,17 +167,15 @@ deps.update-%: init bonfire-pre-update
 	docker-compose run web mix deps.update $*
 	make bonfire-post-updates
 
-dev: init ## Run the app with Docker
-	docker rm bonfire_web 2> /dev/null || true
+dev: init docker-stop-web ## Run the app with Docker
 	docker-compose run --name bonfire_web --service-ports web
 
-dev-bg: init ## Run the app in dev mode, in the background
-	docker stop bonfire_web 2> /dev/null || true
-	docker rm bonfire_web 2> /dev/null || true
+dev-bg: init docker-stop-web ## Run the app in dev mode, in the background
 	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
 
-rm-%: 
-	docker-compose rm -s $*
+docker-stop-web: 
+	@docker stop bonfire_web 2> /dev/null || true
+	@docker rm bonfire_web 2> /dev/null || true
 
 git-forks-add: ## Run a git command on each fork
 	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add . \;
@@ -181,3 +194,45 @@ licenses: init
 
 cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)
+
+
+assets-prepare:
+	cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
+
+rel-build-no-cache: init assets-prepare ## Build the Docker image
+	docker build \
+		--no-cache \
+		--build-arg APP_NAME=$(APP_NAME) \
+		--build-arg APP_VSN=$(APP_VSN) \
+		--build-arg APP_BUILD=$(APP_BUILD) \
+		-t $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) \
+		-f $(APP_REL_DOCKERFILE) .
+	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD)
+
+rel-build: init assets-prepare ## Build the Docker image using previous cache
+	docker build \
+		--build-arg APP_NAME=$(APP_NAME) \
+		--build-arg APP_VSN=$(APP_VSN) \
+		--build-arg APP_BUILD=$(APP_BUILD) \
+		-t $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) \
+		-f $(APP_REL_DOCKERFILE) .
+	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) 
+	@echo "Remember to run make rel-tag-latest or make rel-push"
+
+rel-tag-latest: init ## Add latest tag to last build
+	@docker tag $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) $(APP_DOCKER_REPO):latest
+
+rel-push: init ## Add latest tag to last build and push to Docker Hub
+	@docker push $(APP_DOCKER_REPO):latest
+
+rel-run: init docker-stop-web ## Run the app in Docker & starts a new `iex` console
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm backend bin/bonfire start_iex
+
+rel-run-bg: init docker-stop-web ## Run the app in Docker, and keep running in the background
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d
+
+rel-stop: ## Run the app in Docker, and keep running in the background
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
+
+rel-shell: docker-stop-web ## Runs a simple shell inside of the container, useful to explore the image
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm backend /bin/bash
