@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 alias Bonfire.Federate.ActivityPub.Adapter
 alias Bonfire.Data.AccessControl.{

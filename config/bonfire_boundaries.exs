@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :bonfire_boundaries,
   enabled: true

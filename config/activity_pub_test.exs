@@ -1,11 +1,11 @@
-use Mix.Config
+import Config
 
 config :activity_pub, ActivityPub.TestRepo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}",
-  hostname: System.get_env("DATABASE_HOST") || "localhost",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 60
 

@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
 config :activity_pub, :repo, Bonfire.Repo
