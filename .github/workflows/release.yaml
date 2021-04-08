@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - 
         name: Prepare the env
-        run: make init
+        run: 	mkdir forks/ && touch deps.path && mkdir -p data/uploads/
       -
         name: Build and push
         id: docker_build
@@ -32,7 +32,7 @@ jobs:
           push: true
           tags: bonfirenetworks/bonfire-main/app:latest
           file: Dockerfile.release
-          platforms: linux/amd64,linux/arm64,linux/arm/v7,darwin
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/riscv64
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
