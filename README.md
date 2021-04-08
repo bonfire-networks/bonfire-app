@@ -15,6 +15,7 @@ This app is part of the [Bonfire](https://bonfire.cafe/) ecosystem and bundles t
 * Wipe clean Bonfire extensions builds so they get recompiled: `mix bonfire.deps.clean` (necessary after changing config such as in `config/bonfire_data.exs`)
 * Clone a git dep and use the local version, eg: `make dep-clone-local dep="bonfire_me" repo=https://github.com/bonfire-ecosystem/bonfire_me` 
 * Automatically commit and push all your changes to local forks (caution, here be dragons!): `make bonfire-push-all-update` 
+* Migrate DB when the app is running: `Bonfire.Repo.ReleaseTasks.migrate`
 * More handy commands: `make help` and `mix help`
 
 
