@@ -6,19 +6,6 @@
 #  on_demand
 # }
 
-# define paths that should be proxied to Elixir backend
-@backend {
-  path / /api* /pub* /oauth* /.well-known/webfinger* /.well-known/nodeinfo* /phoenix* /live* /instance* /~* /!* /@* /&* /+* /css/* /js/* /fonts/* /images/* 
-}
-
-
-route @backend {
-  
-  # backend proxying
-  reverse_proxy backend:4000 
-
-}
-
 route /uploads/* {
   
   root * /frontend/
@@ -30,17 +17,12 @@ route /uploads/* {
   file_server 
 }
 
-route /frontend/* {
+route * {
+  
+  # backend proxying
+  reverse_proxy backend:4000 
 
-  root /frontend /frontend
-
-  # fallback to React FE 
-  try_files {path} /frontend/index.html
-
-  # serve static frontend
-  file_server 
 }
-
 
 # options
 encode gzip
