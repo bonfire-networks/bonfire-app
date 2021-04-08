@@ -31,14 +31,14 @@ RUN apk add --no-cache curl git rust cargo npm
 # dependencies for comeonin
 RUN apk add --no-cache make gcc libc-dev
 
-# cache JS deps
-COPY assets/package* ./assets/
-RUN npm install --prefix assets
-
 # Cache elixir deps
 COPY mix.exs mess.exs deps.hex mix.lock ./
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
+
+# cache JS deps
+COPY assets/package* ./assets/
+RUN npm install --prefix assets
 
 # Compile elixir deps (warning this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
 # RUN MIX_ENV=prod mix do deps.compile
