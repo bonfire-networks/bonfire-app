@@ -2,7 +2,7 @@
 
 LIBS_PATH=./forks/
 ORG_NAME=bonfirenetworks
-APP_FLAVOUR ?= `git branch --show-current`
+APP_FLAVOUR ?= `git name-rev --name-only HEAD`
 APP_NAME=bonfire-$(APP_FLAVOUR)
 UID := $(shell id -u)
 GID := $(shell id -g)
