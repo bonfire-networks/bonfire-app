@@ -30,6 +30,7 @@ defmodule Bonfire.MixProject do
     "bonfire_data_identity",
     "bonfire_data_social",
     "bonfire_data_activity_pub",
+    "bonfire_mailer"
     # "bonfire_data_shared_user",
     # "bonfire_search",
     # "bonfire_recyclapp",
