@@ -111,15 +111,18 @@ d-bonfire-push-app-updates: bonfire-pre-updates
 dep-hex-%: init ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
 
-dep-git-%: init ## add/enable/disable/delete a git dep with messctl command, eg: `make dep-hex-enable dep=pointers repo=https://github.com/bonfire-ecosystem/pointers#main
+dep-git-%: init ## add/enable/disable/delete a git dep with messctl command, eg: `make dep-hex-enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
 	docker-compose run web messctl $* $(dep) $(repo) deps.git
 
 dep-local-%: init ## add/enable/disable/delete a local dep with messctl command, eg: `make dep-hex-enable dep=pointers path=./libs/pointers
 	docker-compose run web messctl $* $(dep) $(path) deps.path
 
-dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="bonfire_me" repo=https://github.com/bonfire-ecosystem/bonfire_me
+dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="bonfire_me" repo=https://github.com/bonfire-networks/bonfire_me
 	git clone $(repo) $(LIBS_PATH)$(dep) 2> /dev/null || (cd $(LIBS_PATH)$(dep) ; git pull)
 	make dep-go-local dep=$(dep)
+
+dep-clone-local-all: ## Clone all bonfire deps / extensions
+	@curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[make dep-clone-local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
 deps-local-commit-push:
 	make deps-local-git-add
@@ -147,7 +150,7 @@ dep-go-local-path: ## Switch to using a local path, eg: make dep-go-local dep=po
 	# make dep-git-disable dep=$(dep) repo="" 
 	# make dep-hex-disable dep=$(dep) version=""
 
-dep-go-git: ## Switch to using a git repo, eg: make dep-go-git dep="pointers" repo=https://github.com/bonfire-ecosystem/pointers (repo is optional if previously specified)
+dep-go-git: ## Switch to using a git repo, eg: make dep-go-git dep="pointers" repo=https://github.com/bonfire-networks/pointers (repo is optional if previously specified)
 	make dep-git-add dep=$(dep) $(repo) 2> /dev/null || true
 	make dep-git-enable dep=$(dep) repo=""
 	make dep-hex-disable dep=$(dep) version=""
@@ -192,8 +195,9 @@ git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-a
 test: init ## Run tests
 	docker-compose run web mix test $(args)
 
-licenses: init
+licenses: init bonfire-pre-update
 	docker-compose run web mix licenses
+	make bonfire-post-updates
 
 cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)
