@@ -32,6 +32,7 @@ module.exports = {
       },
       ringColor: {
         blueGray: colors.blueGray,
+        pink: colors.pink,
       },
       borderColor: {
         blueGray: colors.blueGray,
