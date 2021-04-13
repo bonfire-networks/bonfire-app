@@ -68,12 +68,10 @@ alias Bonfire.Data.AccessControl.{
 }
 alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, Character, Credential, Email, Self, User
+  Account, Accounted, Caretaker, Character, Credential, Email, Self, User, Named
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish, Inbox, Message,
-  Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Flag, FlagCount, Mention, Named,
-  Post, PostContent, Profile, Replied
+  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish, Inbox, Message, Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Flag, FlagCount, Mention, Post, PostContent, Profile, Replied
 }
 
 # bonfire_data_access_control
@@ -181,7 +179,7 @@ config :bonfire_data_social, Activity,
   # has_one:    [object_creator_user: {[through: [:object_created, :creator_user]]}],
   # has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
   # has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
-  has_one:    [controlled:     {Controlled, foreign_key: :object_id}]
+  has_one:    [controlled:     {Controlled, foreign_key: :id, references: :object_id}]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
@@ -278,6 +276,60 @@ config :bonfire_data_social, Created,
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}],
   has_one:    [controlled:     {Controlled, foreign_key: :id, references: :id}]
+
+######### other extensions
+
+# optional mixin relations for tags that are characters (eg Category) or any other type of objects
+config :bonfire_tag, Bonfire.Tag,
+  # for objects that are follow-able and can federate activities
+  has_one: [character:    {Bonfire.Data.Identity.Character,    references: :id, foreign_key: :id}],
+  # has_one: [actor:        {Bonfire.Data.ActivityPub.Actor,     references: :id, foreign_key: :id}],
+  has_one: [follow_count: {Bonfire.Data.Social.FollowCount,    references: :id, foreign_key: :id}],
+  # for likeable objects
+  has_one: [like_count:   {Bonfire.Data.Social.LikeCount,      references: :id, foreign_key: :id}],
+  # name/description
+  has_one: [profile:      {Bonfire.Data.Social.Profile,        references: :id, foreign_key: :id}],
+  # for taxonomy categories/topics
+  has_one: [category:     {Bonfire.Classify.Category,          references: :id, foreign_key: :id}],
+  # for locations
+  has_one: [geolocation:  {Bonfire.Geolocate.Geolocation,      references: :id, foreign_key: :id}]
+
+# add references of tags to any tagged Pointer
+config :pointers, Pointers.Pointer,
+  many_to_many: [
+    tags: {
+      Bonfire.Tag,
+      join_through: "bonfire_tagged",
+      unique: true,
+      join_keys: [pointer_id: :id, tag_id: :id],
+      on_replace: :delete
+    }
+  ]
+
+# add references of tagged objects to any Category
+# config :bonfire_classify, Bonfire.Classify.Category,
+#   many_to_many: [
+#     tags: {
+#       Bonfire.Tag,
+#       join_through: "bonfire_tagged",
+#       unique: true,
+#       join_keys: [tag_id: :id, pointer_id: :id],
+#       on_replace: :delete
+#     }
+#   ]
+
+# add references of tagged objects to any Geolocation
+# config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
+#   many_to_many: [
+#     tags: {
+#       Bonfire.Tag,
+#       join_through: "bonfire_tagged",
+#       unique: true,
+#       join_keys: [tag_id: :id, pointer_id: :id],
+#       on_replace: :delete
+#     }
+#   ]
+
 
 # all data types included in federation
 config :bonfire, :all_types, [User, Post]
