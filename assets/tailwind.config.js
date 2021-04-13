@@ -7,7 +7,7 @@ module.exports = {
     // purgeLayersByDefault: true,
   },
   purge: {
-    // enabled: true,
+    enabled: true,
     content: [
       '../forks/**/lib/**/*.leex',
       '../forks/**/lib/**/**/*.leex',
