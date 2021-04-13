@@ -19,7 +19,7 @@ defmodule Bonfire.Web.HomeLive do
     {:ok, socket
     |> assign(
       page_title: "A Bonfire Instance",
-      feed_title: title,
+      feed_title: title
     )}
   end
 
