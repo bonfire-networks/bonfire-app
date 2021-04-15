@@ -5,7 +5,48 @@ on:
     branches: 
       - main 
 jobs:
-  push_to_registry:
+  release:
+    runs-on: ${{ matrix.os }}
+    name: OTP ${{ matrix.otp }} | Elixir ${{ matrix.elixir }} | Node ${{ matrix.node }} | OS ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        otp: [23.x]
+        elixir: [1.11.x]
+        node: [15.x]
+    steps:
+      - uses: actions/checkout@v1.0.0
+      - uses: actions/setup-elixir@v1.0.0
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get --only prod
+          npm install --prefix assets
+
+      - name: Prepare release
+        run: |
+          mix compile
+          npm run deploy --prefix ./assets
+          mix phx.digest
+          mix release
+        env:
+          MIX_ENV: prod
+
+      - name: Publish release
+        uses: moomerman/actions/bin/ghr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_PATH: _build/prod/rel
+          RELEASING: 1
+  docker_release_build_push:
     name: Build release and push Docker image to DockerHub & Github Packages
     runs-on: ubuntu-latest
     steps:
