@@ -67,9 +67,9 @@ pull:
 update: init pull bonfire-pre-updates ## Update/prepare dependencies, without Docker
 	mix upgrade
 	make bonfire-post-updates 
-	make deps-local-git-pull 
+	make deps-all-git-pull 
 
-d-update: init pull build bonfire-pre-updates mix-upgrade bonfire-post-updates deps-local-git-pull ## Update/prepare dependencies, using Docker
+d-update: init pull build bonfire-pre-updates mix-upgrade bonfire-post-updates deps-all-git-pull ## Update/prepare dependencies, using Docker
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
@@ -87,26 +87,29 @@ bonfire-updates: init bonfire-pre-updates
 bonfire-post-updates:
 	mv deps.path.disabled deps.path  2> /dev/null || echo "continue"
 
-bonfire-push-all-updates: deps-local-commit-push bonfire-push-app-updates
+bonfire-push-all-updates: deps-all-git-commit-push bonfire-push-app-updates
 
 bonfire-push-app-updates: bonfire-pre-updates
-	git pull 
+	git add .
+	git commit -a
+	git pull --rebase
 	mix updates 
 	make bonfire-post-updates
-	git add .
-	git commit
-	git push
+	make git-publish
 
-d-bonfire-push-all-updates: deps-local-commit-push d-bonfire-push-app-updates
+d-bonfire-push-all-updates: deps-all-git-commit-push d-bonfire-push-app-updates
 
 d-bonfire-push-app-updates: bonfire-pre-updates
-	git pull 
+	git add .
+	git commit -a
+	git pull --rebase
 	make mix-updates 
 	make bonfire-post-updates
-	git add .
-	git commit
-	git push
+	make git-publish
 	make dev
+
+git-publish:
+	./git-publish.sh
 
 dep-hex-%: init ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
 	docker-compose run web messctl $* $(dep) $(version) deps.hex
@@ -124,13 +127,14 @@ dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clon
 dep-clone-local-all: ## Clone all bonfire deps / extensions
 	@curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[make dep-clone-local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
-deps-local-commit-push:
-	make deps-local-git-add
-	make deps-local-git-commit
-	make deps-local-git-pull
-	make deps-local-git-push
+deps-all-git-commit-push:
+	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} \;
+	# make deps-all-git-add
+	# make deps-all-git-commit
+	# make deps-all-git-pull
+	# make deps-all-git-push
 
-deps-local-git-%: ## runs a git command (eg. `make deps-local-git-pull` pulls the latest version of all local deps from its git remote
+deps-all-git-%: ## runs a git command (eg. `make deps-all-git-pull` pulls the latest version of all local deps from its git remote
 	# chown -R $$USER ./forks
 	make git-forks-"config core.fileMode false"
 	make git-forks-$*
