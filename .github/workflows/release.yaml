@@ -6,9 +6,27 @@ on:
       - main 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Build release and push Docker image to DockerHub & Github Packages
     runs-on: ubuntu-latest
     steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Generate version tags
+        id: meta
+        uses: crazy-max/ghaction-docker-meta@v2
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            bonfirenetworks/bonfire-main
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -22,7 +40,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
-        name: Prepare the env
+        name: Pre-build prep 
         run: 	mkdir forks/ && touch deps.path && mkdir -p data/uploads/
       -
         name: Build and push
@@ -30,10 +48,11 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: true
-          tags: bonfirenetworks/bonfire-main:latest
           file: Dockerfile.release
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
