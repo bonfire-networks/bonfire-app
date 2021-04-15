@@ -28,8 +28,8 @@ jobs:
           mix release
         env:
           MIX_ENV: prod
-      - name: Publish release
-        uses: moomerman/actions/bin/ghr@master
+      - name: Publish release 
+        uses: mayel/actions/bin/ghr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PATH: _build/prod/rel
@@ -78,7 +78,7 @@ jobs:
         with:
           context: .
           file: Dockerfile.release
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64 #,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
