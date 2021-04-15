@@ -72,6 +72,9 @@ defmodule Bonfire.MixProject do
         git: "https://github.com/mayel/licensir", branch: "pr",
         # path: "./forks/licensir"
       },
+      # Testing a component library for liveview
+      # {:surface_catalogue, "~> 0.0.7", only: :dev},
+
       # security auditing
       # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
       {:sobelow, "~> 0.8", only: :dev}
