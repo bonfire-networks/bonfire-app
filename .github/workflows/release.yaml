@@ -19,8 +19,8 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: Prepare the env
         run: 	mkdir forks/ && touch deps.path && mkdir -p data/uploads/
@@ -29,8 +29,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
-          tags: latest
+          tags: bonfirenetworks/bonfire-main:latest
           file: Dockerfile.release
           platforms: linux/amd64,linux/arm64,linux/arm/v7
       -
