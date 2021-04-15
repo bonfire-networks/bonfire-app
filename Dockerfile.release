@@ -63,6 +63,9 @@ RUN MIX_ENV=prod mix do deps.compile
 # COPY lib/ assets/ priv/ rel/ ./ # causes a webpack error
 COPY . .
 
+# In case some lockfile what's a different version
+RUN mix do deps.get --only prod
+
 # prepare static assets
 RUN npm run deploy --prefix ./assets
 RUN MIX_ENV=prod RELEASING=1 mix phx.digest
