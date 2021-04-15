@@ -109,6 +109,7 @@ d-bonfire-push-app-updates: bonfire-pre-updates
 	make dev
 
 git-publish:
+	chmod +x git-publish.sh
 	./git-publish.sh
 
 dep-hex-%: init ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
