@@ -175,9 +175,10 @@ deps.update.all:
 
 deps.update-%: init bonfire-pre-update
 	docker-compose run web mix deps.update $*
-	make bonfire-post-updates
+	make bonfire-post-updates  	
 
 dev: init docker-stop-web ## Run the app with Docker
+	# docker-compose --verbose run --name bonfire_web --service-ports web
 	docker-compose run --name bonfire_web --service-ports web
 
 dev-bg: init docker-stop-web ## Run the app in dev mode, in the background
