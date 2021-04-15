@@ -6,31 +6,20 @@ on:
       - main 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
-    name: OTP ${{ matrix.otp }} | Elixir ${{ matrix.elixir }} | Node ${{ matrix.node }} | OS ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-18.04]
-        otp: [23.x]
-        elixir: [1.11.x]
-        node: [15.x]
+    runs-on: ubuntu-latest
+    container: elixir:alpine
     steps:
-      - uses: actions/checkout@v1.0.0
-      - uses: actions/setup-elixir@v1.0.0
-        with:
-          otp-version: ${{ matrix.otp }}
-          elixir-version: ${{ matrix.elixir }}
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Install dependencies
-        run: |
-          mix local.rebar --force
-          mix local.hex --force
-          mix deps.get --only prod
-          npm install --prefix assets
-
+      - uses: actions/checkout@v2
+      - name: Install system deps
+        run: apk add git npm mailcap ca-certificates openssl-dev tzdata gettext
+      - name: Install hex
+        run: mix local.hex --force
+      - name: Install rebar
+        run: mix local.rebar --force
+      - name: Install Elixir dependencies
+        run: mix deps.get --only prod
+      - name: Install JS dependencies
+        run: npm install --prefix ./assets 
       - name: Prepare release
         run: |
           mix compile
@@ -39,7 +28,6 @@ jobs:
           mix release
         env:
           MIX_ENV: prod
-
       - name: Publish release
         uses: moomerman/actions/bin/ghr@master
         env:
