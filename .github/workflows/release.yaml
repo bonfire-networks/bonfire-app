@@ -5,35 +5,35 @@ on:
     branches: 
       - main 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    container: elixir:alpine
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install system deps
-        run: apk add git npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo make gcc libc-dev
-      - name: Install hex
-        run: mix local.hex --force
-      - name: Install rebar
-        run: mix local.rebar --force
-      - name: Install Elixir dependencies
-        run: mix deps.get --only prod
-      - name: Install JS dependencies
-        run: npm install --prefix ./assets 
-      - name: Prepare release
-        run: |
-          mix compile
-          npm run deploy --prefix ./assets
-          mix phx.digest
-          mix release
-        env:
-          MIX_ENV: prod
-      - name: Publish release 
-        uses: mayel/actions/bin/ghr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_PATH: _build/prod/rel
-          RELEASING: 1
+  # release:
+  #   runs-on: ubuntu-latest
+  #   container: elixir:alpine
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install system deps
+  #       run: apk add git npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo make gcc libc-dev
+  #     - name: Install hex
+  #       run: mix local.hex --force
+  #     - name: Install rebar
+  #       run: mix local.rebar --force
+  #     - name: Install Elixir dependencies
+  #       run: mix deps.get --only prod
+  #     - name: Install JS dependencies
+  #       run: npm install --prefix ./assets 
+  #     - name: Prepare release
+  #       run: |
+  #         mix compile
+  #         npm run deploy --prefix ./assets
+  #         mix phx.digest
+  #         mix release
+  #       env:
+  #         MIX_ENV: prod
+  #     - name: Publish release 
+  #       uses: mayel/actions/bin/ghr@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         RELEASE_PATH: _build/prod/rel
+  #         RELEASING: 1
   docker_release_build_push:
     name: Build release and push Docker image to DockerHub & Github Packages
     runs-on: ubuntu-latest
