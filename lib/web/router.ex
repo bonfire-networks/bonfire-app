@@ -1,5 +1,6 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
+  # import Surface.Catalogue.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -95,6 +96,7 @@ defmodule Bonfire.Web.Router do
       if Code.ensure_loaded?(Bamboo.SentEmailViewerPlug) do
         forward "/emails", Bamboo.SentEmailViewerPlug
       end
+      # surface_catalogue "/catalogue" <-- testing a component library for liveview
     end
   end
 end
