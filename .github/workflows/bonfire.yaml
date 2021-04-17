@@ -55,8 +55,8 @@ jobs:
       run: mix local.rebar --force
     - name: Install dependencies
       run: mix deps.get
-    - name: Update Bonfire extensions
-      run: mix bonfire.deps
+    # - name: Update Bonfire extensions # disabled because it could cause a pass/fail that would differ from the release (which uses the lockfile)
+    #   run: mix bonfire.deps
     - name: Compile deps & app
       run: MIX_ENV=test mix
     - name: Set up database
