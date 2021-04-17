@@ -1,4 +1,4 @@
-ExUnit.start()
+ExUnit.start(exclude: [:skip])
 
 Mix.Task.run("ecto.create")
 Mix.Task.run("ecto.migrate")
