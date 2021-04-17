@@ -179,7 +179,16 @@ config :bonfire_data_social, Activity,
   # has_one:    [object_creator_user: {[through: [:object_created, :creator_user]]}],
   # has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
   # has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
-  has_one:    [controlled:     {Controlled, foreign_key: :id, references: :object_id}]
+  has_one:    [controlled:     {Controlled, foreign_key: :id, references: :object_id}],
+  many_to_many: [
+    tags: {
+      Bonfire.Tag,
+      join_through: "bonfire_tagged",
+      unique: true,
+      join_keys: [pointer_id: :object_id, tag_id: :id],
+      on_replace: :delete
+    }
+  ]
 
 config :bonfire_data_social, Circle,
   has_one: [caretaker: {Caretaker, foreign_key: :id}],
