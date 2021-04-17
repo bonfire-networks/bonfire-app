@@ -7,7 +7,7 @@ module.exports = {
     // purgeLayersByDefault: true,
   },
   purge: {
-    enabled: true,
+    // enabled: true,
     content: [
       '../forks/**/lib/**/*.leex',
       '../forks/**/lib/**/**/*.leex',
@@ -118,6 +118,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('tailwindcss-debug-screens')
+    // require('tailwindcss-debug-screens')
   ],
 }
