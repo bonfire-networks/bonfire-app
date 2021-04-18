@@ -16,6 +16,7 @@ import_config "bonfire_hooks.exs"
 import_config "bonfire_boundaries.exs"
 import_config "bonfire_mailer.exs"
 import_config "bonfire_federate_activitypub.exs"
+import_config "bonfire_files.exs"
 
 import_config "bonfire_me.exs"
 import_config "bonfire_social.exs"
