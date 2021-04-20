@@ -28,7 +28,7 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows]
 
 ## Copyright and License
 
-Copyright (c) 2020 Bonfire Contributors
+Copyright (c) 2021 Bonfire Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
