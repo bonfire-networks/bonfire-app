@@ -170,6 +170,7 @@ dep-go-hex: ## Switch to using a library from hex.pm, eg: make dep-go-hex dep="p
 deps.get: init bonfire-pre-update
 	docker-compose run web mix deps.get
 	make bonfire-post-updates
+	make mix-"deps.get"
 
 deps.update.all: 
 	make deps.update-"--all"
