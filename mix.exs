@@ -25,7 +25,7 @@ defmodule Bonfire.MixProject do
   @bonfire_deps @bonfire_test_deps ++ [
     "activity_pub",
     "query_elf",
-
+git rebase
     "bonfire_data_access_control",
     "bonfire_data_identity",
     "bonfire_data_social",
