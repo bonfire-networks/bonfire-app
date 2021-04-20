@@ -13,10 +13,10 @@ defmodule Bonfire.Web.Endpoint do
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]]
 
-  plug Plug.Static,
-    at: "/data/uploads",
-    from: {:bonfire, "data/uploads"},
-    gzip: true
+  # plug Plug.Static,
+  #   at: "/data/uploads",
+  #   from: {:bonfire, "data/uploads"},
+  #   gzip: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -26,7 +26,7 @@ defmodule Bonfire.Web.Endpoint do
     at: "/",
     from: :bonfire,
     gzip: true,
-    only: ~w(uploads css fonts images js favicon.ico robots.txt)
+    only: ~w(data css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
