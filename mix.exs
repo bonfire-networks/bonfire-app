@@ -10,7 +10,7 @@ defmodule Bonfire.MixProject do
     "bonfire_social",
     "bonfire_boundaries",
     "bonfire_ui_social",
-    # "bonfire_website",
+    "bonfire_website",
     "bonfire_tag",
     "bonfire_federate_activitypub",
 
@@ -42,7 +42,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.27",
+      version: "0.1.0-alpha.28",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
