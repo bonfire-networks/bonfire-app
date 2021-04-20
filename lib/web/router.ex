@@ -17,15 +17,6 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.Web.Plugs.GuestOnly
   end
 
-  pipeline :bread_pub do
-    plug :put_root_layout, {Bonfire.UI.ValueFlows.LayoutView, :root}
-  end
-
-  pipeline :recyclapp do
-    plug :put_root_layout, {Bonfire.Recyclapp.LayoutView, :root}
-  end
-
-
   pipeline :account_required do
     plug Bonfire.Web.Plugs.AccountRequired
   end
@@ -43,6 +34,8 @@ defmodule Bonfire.Web.Router do
   use Bonfire.Me.Web.Routes
   use Bonfire.Social.Web.Routes
   # use Bonfire.Website.Web.Routes
+  use Bonfire.UI.ValueFlows.Routes
+  use Bonfire.Recyclapp.Routes
 
   # include federation routes
   use ActivityPubWeb.Router
@@ -90,38 +83,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
     pipe_through :admin_required
 
-  end
-
-  # VF pages you need to view as a user
-  scope "/bread", Bonfire.UI.ValueFlows do
-    pipe_through :browser
-    pipe_through :user_required
-    pipe_through :bread_pub
-
-    live "/", BreadDashboardLive
-    live "/milestones", ProcessesLive
-    live "/milestone/:milestone_id", ProcessLive
-    live "/intent/:intent_id", ProposalLive
-    live "/proposal/:proposal_id", ProposalLive
-    live "/proposed_intent/:proposed_intent_id", ProposalLive
-
-    live "/map/", MapLive
-    live "/map/:id", MapLive
-  end
-
-
-  # VF pages you need to view as a user
-  scope "/recyclapp", Bonfire.Recyclapp do
-    pipe_through :browser
-    pipe_through :user_required
-    pipe_through :recyclapp
-
-    live "/", RecyclappDashboardLive
-    live "/settings", RecyclappSettingsLive
-    live "/success/:reciprocal_id", RecyclappSuccessLive
-
-    live "/map/", MapLive
-    live "/map/:id", MapLive
   end
 
   # include GraphQL API
