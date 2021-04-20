@@ -2,9 +2,13 @@ name: bonfire
 
 on:
   push:
-    branches: [ main with-valueflows-api ]
+    branches: 
+      - main 
+      - with-valueflows-api
   pull_request:
-    branches: [ main with-valueflows-api ]
+    branches: 
+      - main 
+      - with-valueflows-api
 
 jobs:
   build:
@@ -22,7 +26,12 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - uses: actions/checkout@v2
+    - name: Install git (needed for checkout)
+      run: apk add git 
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
     # - name: Set up Elixir
     #   uses: actions/setup-elixir@v1
     #   with:
@@ -38,21 +47,32 @@ jobs:
             # _build
     #     key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     #     restore-keys: ${{ runner.os }}-mix-
-    - name: Install git
-      run: apk add git mailcap ca-certificates openssl-dev tzdata gettext
+    - name: Install system deps
+      run: apk add mailcap ca-certificates openssl-dev tzdata gettext rust cargo make 
     - name: Install hex
       run: mix local.hex --force
     - name: Install rebar
       run: mix local.rebar --force
     - name: Install dependencies
       run: mix deps.get
-    - name: Compile elixir
-      run: mix
-    - name: Setup database
-      run: mix ecto.setup
+    # - name: Update Bonfire extensions # disabled because it could cause a pass/fail that would differ from the release (which uses the lockfile)
+    #   run: mix bonfire.deps
+    - name: Compile deps & app
+      run: MIX_ENV=test mix
+    - name: Set up database
+      run: MIX_ENV=test mix ecto.setup
       env:
-        DATABASE_HOST: postgres
+        POSTGRES_HOST: postgres
     - name: Run tests
       run: mix test
       env:
-        DATABASE_HOST: postgres
+        POSTGRES_HOST: postgres
+    - name: Check that database migrations can rollback
+      run: MIX_ENV=test mix ecto.rollback --all # && mix ecto.reset
+      env:
+        POSTGRES_HOST: postgres
+    - name: Maybe tag/release new version
+      uses: salsify/action-detect-and-tag-new-version@v2
+      with:
+        version-command: |
+          grep 'version:' mix.exs | cut -d '"' -f2

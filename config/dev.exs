@@ -1,17 +1,15 @@
 import Config
 
-alias Bonfire.{Mailer, Repo, Web.Endpoint}
-
-config :bonfire, Mailer,
+config :bonfire, Bonfire.Mailer,
   adapter: Bamboo.LocalAdapter
 
 config :bonfire, Bonfire.Repo,
-  username: "postgres",
+  username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-  database: "bonfire_dev",
-  hostname: System.get_env("DATABASE_HOST") || "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  database: System.get_env("POSTGRES_DB", "bonfire_dev"),
+  hostname: System.get_env("POSTGRES_HOST", "localhost"),
+  # show_sensitive_data_on_connection_error: true,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4000],
@@ -57,25 +55,34 @@ path_dep_dirs =
   |> Enum.map(&(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
 
 config :phoenix_live_reload,
-  dirs: path_dep_dirs ++ ["lib/"]
+  dirs: path_dep_dirs ++ ["lib/"] # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
+
+path_dep_patterns = path_dep_dirs |> Enum.map(&(String.slice(&1, 2..1000) <>".*ex")) # to include cloned code in patterns
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
+  code_reloader: true,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"web/(live|views)/.*(ex)$",
-    ]
+      # ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      # ~r"^priv/gettext/.*(po)$",
+      # ~r"^web/(live|views)/.*ex$",
+      # ~r"^lib/.*_live\.ex$",
+      # ~r".*leex$",
+      ~r"lib/.*ex$",
+    ] ++ path_dep_patterns
   ]
 
 
 config :logger, :console,
   level: :debug,
+  # truncate: :infinity,
   format: "[$level] $message\n" # Do not include metadata or timestamps
 
 config :phoenix, :stacktrace_depth, 30
 
 config :phoenix, :plug_init_mode, :runtime
 
-config :exsync, extra_extensions: [".leex", ".js", ".css"]
+config :exsync,
+  src_monitor: true,
+  extra_extensions: [".leex", ".js", ".css"]

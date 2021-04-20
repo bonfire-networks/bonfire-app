@@ -1,0 +1,87 @@
+name: Build release and publish Docker image
+on:
+  release:
+    types: [published]
+    branches: 
+      - main 
+jobs:
+  # release:
+  #   runs-on: ubuntu-latest
+  #   container: elixir:alpine
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install system deps
+  #       run: apk add git npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo make gcc libc-dev
+  #     - name: Install hex
+  #       run: mix local.hex --force
+  #     - name: Install rebar
+  #       run: mix local.rebar --force
+  #     - name: Install Elixir dependencies
+  #       run: mix deps.get --only prod
+  #     - name: Install JS dependencies
+  #       run: npm install --prefix ./assets 
+  #     - name: Prepare release
+  #       run: |
+  #         mix compile
+  #         npm run deploy --prefix ./assets
+  #         mix phx.digest
+  #         mix release
+  #       env:
+  #         MIX_ENV: prod
+  #     - name: Publish release 
+  #       uses: mayel/actions/bin/ghr@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         RELEASE_PATH: _build/prod/rel
+  #         RELEASING: 1
+  docker_release_build_push:
+    name: Build release and push Docker image to DockerHub & Github Packages
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Generate version tags
+        id: meta
+        uses: crazy-max/ghaction-docker-meta@v2
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            bonfirenetworks/bonfire-main
+          # # generate Docker tags based on the following events/attributes
+          # tags: |
+          #   type=ref,event=branch
+          #   type=ref,event=pr
+          #   type=semver,pattern={{version}}
+          #   type=semver,pattern={{major}}.{{minor}}
+          #   type=semver,pattern={{major}}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: Pre-build prep 
+        run: 	mkdir forks/ && touch deps.path && mkdir -p data/uploads/
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.release
+          platforms: linux/amd64 #,linux/arm64,linux/arm/v7
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

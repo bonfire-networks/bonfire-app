@@ -9,18 +9,27 @@ import_config "activity_pub.exs"
 # include DB schemas
 import_config "bonfire_data.exs"
 
+# include hooks (for extensions to hook into each other)
+import_config "bonfire_hooks.exs"
+
 # include all used Bonfire extensions
+import_config "bonfire_boundaries.exs"
 import_config "bonfire_mailer.exs"
-import_config "bonfire_fail.exs"
+import_config "bonfire_federate_activitypub.exs"
+import_config "bonfire_files.exs"
+
 import_config "bonfire_me.exs"
+import_config "bonfire_social.exs"
+import_config "bonfire_tag.exs"
+
 # import_config "bonfire_publisher_thesis.exs"
 
+import_config "bonfire_fail.exs"
 import_config "bonfire_quantify.exs"
 import_config "bonfire_geolocate.exs"
 import_config "bonfire_valueflows.exs"
 import_config "bonfire_api_graphql.exs"
 
-import_config "bonfire_tag.exs"
 import_config "bonfire_classify.exs"
 
 import_config "bonfire_search.exs"
@@ -29,6 +38,8 @@ import_config "bonfire_search.exs"
 
 # You probably won't want to touch these. You might override some in
 # other config files.
+
+config :bonfire, :github_token, System.get_env("GITHUB_TOKEN")
 
 signing_salt = System.get_env("SIGNING_SALT", "CqAoopA2")
 encryption_salt = System.get_env("ENCRYPTION_SALT", "g7K25as98msad0qlSxhNDwnnzTqklK10")
@@ -48,7 +59,7 @@ config :bonfire,
   graphql_schema_module: Bonfire.GraphQL.Schema,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
-  home_page: Bonfire.Website.HomeGuestLive,
+  home_page: Bonfire.Web.HomeLive,
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub")
 
 config :bonfire, Bonfire.Web.Endpoint,
@@ -60,10 +71,13 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :phoenix, :json_library, Jason
 
-config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
+# config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
 
 config :bonfire,
   ecto_repos: [Bonfire.Repo]
+
+# ecto query filtering
+config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

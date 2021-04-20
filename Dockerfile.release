@@ -1,0 +1,107 @@
+# The version of Elixir to use
+# ATTENTION: when changing Elixir version, make sure to update the `ALPINE_VERSION` arg
+# as well as the Elixir version in mix.exs and .gitlab-ci.yml and Dockerfile.dev and .tool-versions
+ARG ELIXIR_VERSION=1.11
+
+# The version of Alpine to use for the final image
+# This should match the version of Alpine that the current elixir & erlang images (in Step 1) use.
+# To find this you need to:
+# 1. Locate the dockerfile for the elixir image to get the erlang image version
+#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.11/Dockerfile
+# 2. Locate the corresponding erlang dockerfile and copy the alpine version indicated there below:
+#    e.g. https://github.com/erlang/docker-erlang-otp/blob/master/23/alpine/Dockerfile
+ARG ALPINE_VERSION=3.13
+
+# The following are build arguments used to change variable parts of the image, they should be set as env variables.
+# The name of your application/release (required)
+ARG APP_NAME
+# The version of the application we are building (required)
+ARG APP_VSN
+
+# Step 1 - Build our app
+FROM elixir:${ELIXIR_VERSION}-alpine as builder 
+
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod
+
+WORKDIR $HOME
+
+# useful deps
+RUN apk add --no-cache curl git rust cargo npm
+
+# dependencies for comeonin
+RUN apk add --no-cache make gcc libc-dev
+
+# Cache elixir deps
+COPY mix.exs mess.exs deps.hex mix.lock ./
+RUN mix do local.hex --force, local.rebar --force
+RUN mix do deps.get --only prod
+
+# cache JS deps
+COPY assets/package* ./assets/
+RUN npm install --prefix assets
+
+# Compile elixir deps (warning this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
+# RUN MIX_ENV=prod mix do deps.compile
+
+# git deps (i.e. Bonfire extensions)
+COPY deps.git ./
+RUN mix do deps.get --only prod
+
+# Uncomment these two lines only if you want to include locally-forked deps in the release
+# COPY forks/ deps.path ./ 
+# RUN mix do deps.get --only prod
+
+# we need config before compiling Bonfire extensions
+COPY config/ ./config 
+
+# Compile Bonfire extensions
+RUN MIX_ENV=prod mix do deps.compile
+
+# COPY lib/ assets/ priv/ rel/ ./ # causes a webpack error
+COPY . .
+
+# In case some lockfile what's a different version
+RUN mix do deps.get --only prod
+
+# prepare static assets
+RUN npm run deploy --prefix ./assets
+RUN MIX_ENV=prod RELEASING=1 mix phx.digest
+
+# build final OTP release
+RUN MIX_ENV=prod RELEASING=1 mix release
+
+# Step 2 - Prepare the server image
+# From this line onwards, we're in a new image, which will be the image used in production
+FROM alpine:${ALPINE_VERSION}
+
+# The name of your application/release (required)
+ARG APP_NAME
+ARG APP_VSN
+ARG APP_BUILD
+ARG PROXY_FRONTEND_URL
+
+ENV APP_NAME=${APP_NAME} APP_VSN=${APP_VSN} APP_REVISION=${APP_VSN}-${APP_BUILD}
+
+# Essentials
+RUN apk add --update --no-cache \
+  mailcap \
+  ca-certificates \
+  openssh-client \
+  openssl-dev \
+  # ^ for HTTPS
+  git \ 
+  build-base \ 
+  # ^ required by tree_magic 
+  tzdata \
+  gettext \
+  # ^ localisation
+  bash \
+  curl
+
+WORKDIR /opt/app
+
+# install app 
+COPY --from=builder /opt/app/_build/prod/rel/bonfire /opt/app
+
+# start
+CMD ["./bin/bonfire", "start"]

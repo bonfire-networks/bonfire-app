@@ -3,20 +3,46 @@
 /* This file is for your main application css. */
 @import "../node_modules/nprogress/nprogress.css";
 
-body {
-  @apply bg-blueGray-100
-}
+/* TODO: switch to `deps` instead of `forks`, also find a better way to include css from deps */
+@import "../../deps/bonfire_website/assets/css/app.scss";
 
 .h-90vh {
   height: 90vh;
 }
 
-  details > summary { 
-    list-style: none;
-    cursor: pointer;
+[x-cloak] {
+  display: none !important;
+}
+
+.w-center {
+  width: 100%;
+}
+@media (min-width: 640px) { 
+  .w-center {width: 100% !important}
+}
+@media (min-width: 768px) { 
+  .w-center {width: 100% !important}
+}
+@media (min-width: 1024px) { 
+  .w-center {width: 600px !important} 
+}
+
+@media (min-width: 1280px) { 
+  .w-center {
+    width: 640px !important
   }
-  details > summary::before { display: none; }
-  details > summary::-webkit-details-marker { display: none; }
+
+}
+*[x-cloak] {
+  display: none
+}
+
+details > summary { 
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::before { display: none; }
+details > summary::marker { display: none; }
 
 
 .dropdown.open:before {
@@ -165,6 +191,30 @@ body {
   margin: -1rem 0 2rem;
 }
 
+iframe {
+  display: contents
+}
+
 
 @tailwind components;
 @tailwind utilities;
+
+
+.btn-primary {
+  @apply inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-100 transition duration-150 ease-in-out bg-pink-500 rounded-md hover:bg-pink-700 hover:text-gray-100 focus:outline-none focus:ring-2 focus:bg-pink-600 focus:ring-opacity-50;
+}
+
+.btn-secondary {
+  background: #fff;
+  @apply inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.comment_lined:before {
+  position: absolute;
+  content: "";
+  top: 46px;
+  bottom: 0px;
+  width: 2px;
+  left: 26px;
+  @apply bg-blueGray-200;
+}

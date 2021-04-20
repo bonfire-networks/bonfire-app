@@ -1,5 +1,9 @@
 import Config
 
+config :bonfire, Bonfire.Mailer,
+  # set what service you want to use to send emails, from these: https://github.com/thoughtbot/bamboo#available-adapters
+  adapter: Bamboo.LocalAdapter
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,7 +14,7 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :bonfire, Bonfire.Web.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [host: "localhost", port: 4000],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -52,4 +56,4 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"

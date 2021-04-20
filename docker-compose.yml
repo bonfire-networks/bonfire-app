@@ -4,15 +4,15 @@ version: "3.5"
 
 services:
   web:
+    container_name: "bonfire_web"
     build:
       context: .
       dockerfile: "Dockerfile.dev"
     ports:
-      - "4003:4000"
-    environment:
-      - DATABASE_HOST=db
+      - "4000:4000"
     env_file:
-      - config/.env.secrets
+      - config/dev/public.env
+      - config/dev/secrets.env
     depends_on:
       - db
     #   - search
@@ -32,15 +32,17 @@ services:
     # ports:
     #   - "5432:5432"
     env_file:
-      - config/.env.secrets
+      - config/dev/public.env
+      - config/dev/secrets.env
     user: $UID:$GID
   search:
     image: getmeili/meilisearch:latest
     ports:
-      - "7703:7700"
+      - "7700:7700"
     volumes:
       - "./data/search/dev:/data.ms"
       - /etc/passwd:/etc/passwd:ro 
     env_file:
-      - config/.env.secrets
+      - config/dev/public.env
+      - config/dev/secrets.env 
     user: $UID:$GID
