@@ -97,6 +97,12 @@ bonfire-push-app-updates: bonfire-pre-updates
 	make bonfire-post-updates
 	make git-publish
 
+bonfire-deps-updates: bonfire-pre-updates
+	git pull --rebase
+	mix updates 
+	make bonfire-post-updates
+	make git-publish
+
 d-bonfire-push-all-updates: deps-all-git-commit-push d-bonfire-push-app-updates
 
 d-bonfire-push-app-updates: bonfire-pre-updates
