@@ -10,7 +10,7 @@ defmodule Bonfire.MixProject do
     "bonfire_social",
     "bonfire_boundaries",
     "bonfire_ui_social",
-    "bonfire_website",
+    # "bonfire_website",
     "bonfire_tag",
     "bonfire_federate_activitypub",
 
