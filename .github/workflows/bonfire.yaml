@@ -26,7 +26,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - name: Install system deps (i.e. git)
+    - name: Install git (needed for checkout)
       run: apk add git 
     - name: Checkout repo
       uses: actions/checkout@v2
@@ -48,7 +48,7 @@ jobs:
     #     key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     #     restore-keys: ${{ runner.os }}-mix-
     - name: Install system deps
-      run: apk add git mailcap ca-certificates openssl-dev tzdata gettext
+      run: apk add mailcap ca-certificates openssl-dev tzdata gettext rust cargo make 
     - name: Install hex
       run: mix local.hex --force
     - name: Install rebar

@@ -4,7 +4,7 @@ use Mix.Config
 # see https://hexdocs.pm/waffle/Waffle.html#module-setup-a-storage-provider
 config :waffle,
   storage: Waffle.Storage.Local,
-  asset_host: "" # or {:system, "ASSET_HOST"}
+  asset_host: "/" # or {:system, "ASSET_HOST"}
 
 image_media_types = ["image/png", "image/jpeg", "image/gif", "image/svg+xml", "image/tiff"]
 
