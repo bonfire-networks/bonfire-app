@@ -1,0 +1,31 @@
+# config for Caddy v2
+
+:80 # comment this line and uncomment the next 4 to enable HTTPS/SSL 
+# :4443
+# tls {
+#  on_demand
+# }
+
+route /data/uploads/* {
+  
+  root * /frontend/
+
+  # fallback to index (for single page site)
+  try_files {path} 
+
+  # serve static files
+  file_server 
+}
+
+route * {
+  
+  # backend proxying
+  reverse_proxy backend:4000 
+
+}
+
+# options
+encode gzip
+handle_errors
+log
+

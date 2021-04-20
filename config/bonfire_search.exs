@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :bonfire_search,
   disable_indexing: System.get_env("SEARCH_INDEXING_DISABLED", "false"),

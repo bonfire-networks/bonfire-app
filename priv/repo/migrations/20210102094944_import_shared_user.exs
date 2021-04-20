@@ -4,6 +4,7 @@ defmodule Bonfire.Repo.Migrations.ImportSharedUser do
   import Bonfire.Data.SharedUser.Migration
   # accounts & users
 
-  def change, do: migrate_shared_user()
+  def up, do: migrate_shared_user()
+  def down, do: migrate_shared_user()
 
 end
