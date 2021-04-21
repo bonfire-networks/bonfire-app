@@ -16,6 +16,7 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows]
 - [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
 - [Bonfire:RecyclApp](https://github.com/bonfire-ecosystem/bonfire_recyclapp) - interface for ValueFlows-based recycling apps
 
+
 ## Handy commands
 
 * Upgrade the app + extensions: `make update`  (or `make d-update` if using docker)
