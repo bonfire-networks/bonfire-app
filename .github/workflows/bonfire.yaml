@@ -71,8 +71,15 @@ jobs:
       run: MIX_ENV=test mix ecto.rollback --all # && mix ecto.reset
       env:
         POSTGRES_HOST: postgres
-    - name: Maybe tag/release new version
+    - name: Maybe tag new version
       uses: salsify/action-detect-and-tag-new-version@v2
       with:
         version-command: |
           grep 'version:' mix.exs | cut -d '"' -f2
+    - name: Maybe release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        prerelease: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
