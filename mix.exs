@@ -34,7 +34,7 @@ defmodule Bonfire.MixProject do
     "bonfire_fail",
     "bonfire_data_shared_user",
     "bonfire_search",
-    "bonfire_recyclapp",
+    # "bonfire_recyclapp",
     "bonfire_api_graphql",
     # "bonfire_taxonomy_seeder",
   ]
