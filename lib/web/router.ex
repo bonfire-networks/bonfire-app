@@ -31,11 +31,11 @@ defmodule Bonfire.Web.Router do
 
 
   # include routes for active Bonfire extensions
+  use Bonfire.UI.Reflow.Routes
   use Bonfire.Me.Web.Routes
   use Bonfire.Social.Web.Routes
   # use Bonfire.Website.Web.Routes
-  use Bonfire.UI.ValueFlows.Routes
-  use Bonfire.Recyclapp.Routes
+  # use Bonfire.Recyclapp.Routes
 
   # include federation routes
   use ActivityPubWeb.Router
