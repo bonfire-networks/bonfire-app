@@ -59,6 +59,8 @@ defmodule Bonfire.Web.LiveHandler do
   # Follows
   defp do_handle_event(event, attrs, socket) when event in @follow_events or binary_part(event, 0, 6) == "follow", do: Follows.handle_event(event, attrs, socket)
 
+  defp do_handle_event(event, attrs, socket) when binary_part(event, 0, 6) == "search", do: Bonfire.Search.LiveHandler.handle_event(event, attrs, socket)
+
   # end of handler pattern matching
   defp do_handle_params(_, _, socket), do: {:noreply, socket}
   defp do_handle_event(_, _, socket), do: {:noreply, socket}
