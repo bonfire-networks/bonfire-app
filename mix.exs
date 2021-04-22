@@ -18,6 +18,8 @@ defmodule Bonfire.MixProject do
     "bonfire_quantify",
     "bonfire_valueflows",
     "bonfire_ui_valueflows",
+    "bonfire_ui_reflow",
+    "bonfire_breadpub",
     "bonfire_classify",
     "bonfire_valueflows_observe",
   ]
