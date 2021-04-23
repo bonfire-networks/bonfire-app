@@ -70,6 +70,7 @@ config :bonfire, Bonfire.Web.Endpoint,
       # ~r"^lib/.*_live\.ex$",
       # ~r".*leex$",
       ~r"lib/.*ex$",
+      ~r"lib/my_app_web/live/.*(sface)$",
     ] ++ path_dep_patterns
   ]
 
