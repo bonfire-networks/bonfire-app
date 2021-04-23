@@ -20,4 +20,14 @@ config :bonfire, :ui,
    ],
    profile_widgets: [
       Bonfire.UI.Social.SearchWidgetLive
+   ],
+   resource_navigation: [
+      timeline: "timeline",
+      material_passport: "material passport",
+   ],
+   resource_widgets: [
+      Bonfire.UI.Social.SearchWidgetLive,
+     # Bonfire.UI.Social.SubscribeWidgetLive,
+      Bonfire.UI.ValueFlows.LocationWidgetLive,
+      Bonfire.UI.Social.HashtagsWidgetLive,
    ]
