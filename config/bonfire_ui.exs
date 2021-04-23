@@ -16,4 +16,13 @@ config :bonfire, :ui,
       boosts: Bonfire.UI.Social.ProfileBoostsLive,
       followers: Bonfire.UI.Social.ProfileFollowersLive,
       followed: Bonfire.UI.Social.ProfileFollowersLive
+   ],
+   profile_widgets: [
+      Bonfire.UI.Social.SearchWidgetLive
+   ],
+   smart_input_activities: [
+      post: true,
+   ],
+   smart_input_forms: [
+      post: Bonfire.UI.Social.CreateActivityLive,
    ]
