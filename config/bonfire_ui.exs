@@ -5,15 +5,9 @@ config :bonfire, :ui,
       Bonfire.UI.Social.SidebarNavigationLive,
       Bonfire.UI.Reflow.SidebarNavigationLive
    ],
-   profile_navigation: [
-      timeline: "timeline",
-      posts: "posts",
-      boosts: "boosts",
-      inventory: "inventory"
-   ],
    profile_sections: [
-      private: Bonfire.UI.Social.PrivateLive,
       timeline: Bonfire.UI.Social.ProfileTimelineLive,
+      private: Bonfire.UI.Social.PrivateLive,
       posts: Bonfire.UI.Social.ProfilePostsLive,
       boosts: Bonfire.UI.Social.ProfileBoostsLive,
       followers: Bonfire.UI.Social.ProfileFollowersLive,

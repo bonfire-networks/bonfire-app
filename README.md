@@ -11,10 +11,12 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows]
 - [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
 - [Bonfire:Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
 - [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities with ValueFlows
-- [Bonfire:UI:ValueFlows](https://github.com/bonfire-networks/bonfire_ui_social) - reusable frontend components for economic activities 
 - [Bonfire:ValueFlows:Observe](https://github.com/bonfire-ecosystem/bonfire_valueflows_observe) - observation of economic resources
 - [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
-- [Bonfire:RecyclApp](https://github.com/bonfire-ecosystem/bonfire_recyclapp) - interface for ValueFlows-based recycling apps
+- [Bonfire:UI:ValueFlows](https://github.com/bonfire-networks/bonfire_ui_social) - reusable frontend components for economic activities 
+- [Bonfire:UI:Reflow](https://github.com/bonfire-networks/bonfire_ui_social) - frontend for the Reflow project
+- [Bonfire:BreadPub](https://github.com/bonfire-ecosystem/bonfire_breadpub) - mutual aid, offers/needs, etc
+- [Bonfire:RecyclApp](https://github.com/bonfire-ecosystem/bonfire_recyclapp) - ValueFlows-based recycling app
 
 
 ## Handy commands
