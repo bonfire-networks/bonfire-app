@@ -19,6 +19,21 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) ecosystem and bu
 * Migrate DB when the app is running: `Bonfire.Repo.ReleaseTasks.migrate`
 * More handy commands: `make help` and `mix help`
 
+## Dev environment with Nix
+
+If you use direnv, just cd in the directory and you will have all the dependencies. If you just have nix, running `nix-shell` will set you up with a shell.
+
+You will need to create and init the db directory (keeping all your Postgres data inside this directory).
+create the db directory `initdb ./db`
+create the postgres user `createuser postgres -ds`
+create the db `createdb bonfire_dev`
+start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
+
+`mix deps.get` to get elixir dependencies
+`cd assets && npm install` to get the frontend dependencies
+`mix ecto.migrate` to get an up to date database
+`iex -S phx.server` to start the server
+check out the app on `localhost:4000` in your browser
 
 ## Copyright and License
 
