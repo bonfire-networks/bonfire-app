@@ -30,4 +30,20 @@ config :bonfire, :ui,
      # Bonfire.UI.Social.SubscribeWidgetLive,
       Bonfire.UI.ValueFlows.LocationWidgetLive,
       Bonfire.UI.Social.HashtagsWidgetLive,
+   ],
+   smart_input_activities: [
+      post: true,
+      #offer: "Publish an offer",
+      # need: "Publish a need",
+      transfer_resource: "Transfer a resource",
+      produce_resource: "Add a resource",
+      process: "Create a process"
+   ],
+   smart_input_forms: [
+      post: Bonfire.UI.Social.CreateActivityLive,
+      #offer: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
+      # need:
+      transfer_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive,
+      produce_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive,
+      process: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
    ]
