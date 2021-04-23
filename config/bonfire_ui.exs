@@ -13,4 +13,11 @@ config :bonfire, :ui,
       followers: Bonfire.UI.Social.ProfileFollowersLive,
       followed: Bonfire.UI.Social.ProfileFollowersLive,
       inventory: Bonfire.UI.Reflow.ProfileInventoryLive,
+   ],
+   profile_navigation: [
+      timeline: "timeline",
+      inventory: "inventory",
+   ],
+   profile_widgets: [
+      Bonfire.UI.Social.SearchWidgetLive
    ]
