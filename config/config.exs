@@ -74,7 +74,7 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :phoenix, :json_library, Jason
 
-# config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
+config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
 
 config :bonfire,
   ecto_repos: [Bonfire.Repo]
