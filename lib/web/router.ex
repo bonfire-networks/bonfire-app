@@ -43,6 +43,7 @@ defmodule Bonfire.Web.Router do
   Utils.use_if_enabled Bonfire.Me.Web.Routes
   Utils.use_if_enabled Bonfire.Social.Web.Routes
 
+  Utils.use_if_enabled Bonfire.Search.Web.Routes
 
   # include GraphQL API
   Utils.use_if_enabled Bonfire.GraphQL.Router
