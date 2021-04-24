@@ -123,15 +123,14 @@ defmodule Bonfire.GraphQL.Schema do
     types([
       # :community,
       # :collection,
-      # :resource,
       # :comment,
       # :flag,
       # :follow,
       # :like,
       # :user,
       # :organisation,
-      # :category,
-      # :taggable,
+      :category,
+      :tag,
       :spatial_thing,
       :intent
     ])
@@ -145,9 +144,6 @@ defmodule Bonfire.GraphQL.Schema do
 
       # %CommonsPub.Collections.Collection{}, _ ->
       #   :collection
-
-      # %CommonsPub.Resources.Resource{}, _ ->
-      #   :resource
 
       # %CommonsPub.Threads.Thread{}, _ ->
       #   :thread
@@ -173,11 +169,11 @@ defmodule Bonfire.GraphQL.Schema do
       %Bonfire.Geolocate.Geolocation{}, _ ->
         :spatial_thing
 
-      # %CommonsPub.Tag.Category{}, _ ->
-      #   :category
+      %Bonfire.Classify.Category{}, _ ->
+        :category
 
-      # %CommonsPub.Tag.Taggable{}, _ ->
-      #   :taggable
+      %Bonfire.Tag{}, _ ->
+        :tag
 
       %ValueFlows.Planning.Intent{}, _ ->
         :intent
