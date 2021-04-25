@@ -58,6 +58,7 @@ config :phoenix_live_reload,
   dirs: path_dep_dirs ++ ["lib/"] # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
 
 path_dep_patterns = path_dep_dirs |> Enum.map(&(String.slice(&1, 2..1000) <>".*ex")) # to include cloned code in patterns
+path_dep_patterns = path_dep_patterns ++ path_dep_dirs |> Enum.map(&(String.slice(&1, 2..1000) <>".*sface")) # Surface views
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
@@ -70,6 +71,7 @@ config :bonfire, Bonfire.Web.Endpoint,
       # ~r"^lib/.*_live\.ex$",
       # ~r".*leex$",
       ~r"lib/.*ex$",
+      ~r".*sface$",
     ] ++ path_dep_patterns
   ]
 
@@ -85,4 +87,4 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :exsync,
   src_monitor: true,
-  extra_extensions: [".leex", ".js", ".css"]
+  extra_extensions: [".leex", ".js", ".css", ".sface"]

@@ -1,6 +1,8 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
   # import Surface.Catalogue.Router
+  alias Bonfire.Common.Utils
+  require Utils
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -30,16 +32,29 @@ defmodule Bonfire.Web.Router do
   end
 
 
-  # include routes for active Bonfire extensions
-  use Bonfire.Me.Web.Routes
-  use Bonfire.Social.Web.Routes
-  use Bonfire.Website.Web.Routes
+  # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
+
+  Utils.use_if_enabled Bonfire.Website.Web.Routes
+
+  Utils.use_if_enabled Bonfire.UI.Reflow.Routes
+  Utils.use_if_enabled Bonfire.Breadpub.Routes
+  Utils.use_if_enabled Bonfire.Recyclapp.Routes
+
+  Utils.use_if_enabled Bonfire.Me.Web.Routes
+  Utils.use_if_enabled Bonfire.Social.Web.Routes
+
+  Utils.use_if_enabled Bonfire.Search.Web.Routes
+  Utils.use_if_enabled Bonfire.Classify.Web.Routes
+
+  # include GraphQL API
+  Utils.use_if_enabled Bonfire.GraphQL.Router
 
   # include federation routes
-  use ActivityPubWeb.Router
+  Utils.use_if_enabled ActivityPubWeb.Router
 
   # include nodeinfo routes
-  use NodeinfoWeb.Router
+  Utils.use_if_enabled NodeinfoWeb.Router
+
 
   ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
 
@@ -82,9 +97,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :admin_required
 
   end
-
-  # include GraphQL API
-  # use Bonfire.GraphQL.Router
 
   if Mix.env() in [:dev, :test] do
     scope "/" do
