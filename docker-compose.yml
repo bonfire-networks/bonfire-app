@@ -15,7 +15,7 @@ services:
       - config/dev/secrets.env
     depends_on:
       - db
-    #   - search
+      - search
     volumes:
       - type: bind
         source: .
@@ -41,8 +41,8 @@ services:
       - "7700:7700"
     volumes:
       - "./data/search/dev:/data.ms"
-      - /etc/passwd:/etc/passwd:ro 
+      # - /etc/passwd:/etc/passwd:ro 
     env_file:
       - config/dev/public.env
       - config/dev/secrets.env 
-    user: $UID:$GID
+    # user: $UID:$GID

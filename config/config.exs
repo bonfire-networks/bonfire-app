@@ -2,16 +2,6 @@ import Config
 
 # You will almost certainly want to change at least some of these
 
-# include common modules
-import_config "bonfire_common.exs"
-import_config "activity_pub.exs"
-
-# include DB schemas
-import_config "bonfire_data.exs"
-
-# include hooks (for extensions to hook into each other)
-import_config "bonfire_hooks.exs"
-
 # include all used Bonfire extensions
 import_config "bonfire_boundaries.exs"
 import_config "bonfire_mailer.exs"
@@ -29,9 +19,22 @@ import_config "bonfire_tag.exs"
 # import_config "bonfire_valueflows.exs"
 # import_config "bonfire_api_graphql.exs"
 
-# import_config "bonfire_classify.exs"
+import_config "bonfire_classify.exs"
 
-# import_config "bonfire_search.exs"
+import_config "bonfire_search.exs"
+
+# include common modules
+import_config "bonfire_common.exs"
+import_config "activity_pub.exs"
+
+# include DB schemas
+import_config "bonfire_data.exs"
+
+# include hooks (for extensions to hook into each other)
+import_config "bonfire_hooks.exs"
+
+# include UI settings
+import_config "bonfire_ui.exs"
 
 #### Basic configuration
 

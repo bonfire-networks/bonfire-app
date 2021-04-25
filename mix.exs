@@ -18,7 +18,9 @@ defmodule Bonfire.MixProject do
     # "bonfire_quantify",
     # "bonfire_valueflows",
     # "bonfire_ui_valueflows",
-    # "bonfire_classify",
+    # "bonfire_ui_reflow",
+    # "bonfire_breadpub",
+    "bonfire_classify",
     # "bonfire_valueflows_observe",
   ]
 
@@ -33,8 +35,8 @@ defmodule Bonfire.MixProject do
     "bonfire_mailer",
     # "bonfire_fail",
     # "bonfire_data_shared_user",
-    # "bonfire_search",
-    # "bonfire_recyclapp",
+    "bonfire_search",
+    # "bonfire_recyclapp",
     # "bonfire_api_graphql",
     # "bonfire_taxonomy_seeder",
   ]
@@ -42,7 +44,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.33",
+      version: "0.1.0-alpha.34",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
@@ -73,6 +75,7 @@ defmodule Bonfire.MixProject do
         git: "https://github.com/mayel/licensir", branch: "pr",
         # path: "./forks/licensir"
       },
+      {:surface, "~> 0.3.0"},
       # Testing a component library for liveview
       # {:surface_catalogue, "~> 0.0.7", only: :dev},
 

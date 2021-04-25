@@ -9,6 +9,7 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) ecosystem and bu
 - [Bonfire:Boundaries](https://github.com/bonfire-networks/bonfire_boundaries) - define circles and associated privacy or permissions
 - [Bonfire:Federate:ActivityPub](https://github.com/bonfire-networks/bonfire_federate_activitypub) - federates activities with ActivityPub to participate in the fediverse
 
+
 ## Handy commands
 
 * Upgrade the app + extensions: `make update`  (or `make d-update` if using docker)
