@@ -12,8 +12,6 @@ import_config "bonfire_me.exs"
 import_config "bonfire_social.exs"
 import_config "bonfire_tag.exs"
 
-
-import_config "bonfire_ui.exs"
 # import_config "bonfire_publisher_thesis.exs"
 # import_config "bonfire_fail.exs"
 # import_config "bonfire_quantify.exs"
