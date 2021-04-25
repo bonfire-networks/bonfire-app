@@ -44,7 +44,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.26",
+      version: "0.1.0-alpha.27",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
