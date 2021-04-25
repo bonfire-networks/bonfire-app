@@ -16,6 +16,8 @@ config :bonfire, :ui,
    ],
    profile_navigation: [
       timeline: "timeline",
+      posts: "posts",
+      boosts: "boosts",
       # inventory: "inventory",
    ],
    profile_widgets: [
@@ -31,8 +33,8 @@ config :bonfire, :ui,
       # Bonfire.UI.ValueFlows.LocationWidgetLive,
       Bonfire.UI.Social.HashtagsWidgetLive,
    ],
+   smart_input_post: true,
    smart_input_activities: [
-      post: true,
       #offer: "Publish an offer",
       # need: "Publish a need",
       # transfer_resource: "Transfer a resource",
