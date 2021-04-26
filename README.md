@@ -35,6 +35,12 @@ start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
 `iex -S phx.server` to start the server
 check out the app on `localhost:4000` in your browser
 
+## Additional information
+
+- messctl is a little utility for programmatically updating the .deps files from which the final elixir dependencies list is compiled by the mess script. The only use of it is in the dep-* tasks of the Makefile. It is used by some of the project developers and the build does not rely on it.
+
+- FORKS is used by the same developer tasks to determine where to find local forks of dependencies.
+
 ## Copyright and License
 
 Copyright (c) 2021 Bonfire Contributors
