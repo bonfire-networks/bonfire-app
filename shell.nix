@@ -50,6 +50,7 @@ let
 
     # elixir
     export MIX_ENV=dev
+    export FORK=./forks
   '';
 
 in
