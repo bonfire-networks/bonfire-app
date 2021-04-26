@@ -33,7 +33,11 @@ config :bonfire, :ui,
       # Bonfire.UI.ValueFlows.LocationWidgetLive,
       Bonfire.UI.Social.HashtagsWidgetLive,
    ],
-   smart_input_post: true,
+   smart_input: [
+      post: true,
+      cw: true,
+      summary: true
+   ],
    smart_input_activities: [
       #offer: "Publish an offer",
       # need: "Publish a need",

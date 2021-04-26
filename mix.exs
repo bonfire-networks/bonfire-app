@@ -77,7 +77,7 @@ defmodule Bonfire.MixProject do
       },
       {:surface, "~> 0.3.0"},
       # Testing a component library for liveview
-      # {:surface_catalogue, "~> 0.0.7", only: :dev},
+      {:surface_catalogue, "~> 0.0.7", only: :dev},
 
       # security auditing
       # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
