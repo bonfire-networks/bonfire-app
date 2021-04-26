@@ -316,28 +316,28 @@ config :pointers, Pointers.Pointer,
   ]
 
 # add references of tagged objects to any Category
-# config :bonfire_classify, Bonfire.Classify.Category,
-#   many_to_many: [
-#     tags: {
-#       Bonfire.Tag,
-#       join_through: "bonfire_tagged",
-#       unique: true,
-#       join_keys: [tag_id: :id, pointer_id: :id],
-#       on_replace: :delete
-#     }
-#   ]
+config :bonfire_classify, Bonfire.Classify.Category,
+  many_to_many: [
+    tags: {
+      Bonfire.Tag,
+      join_through: "bonfire_tagged",
+      unique: true,
+      join_keys: [tag_id: :id, pointer_id: :id],
+      on_replace: :delete
+    }
+  ]
 
 # add references of tagged objects to any Geolocation
-# config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
-#   many_to_many: [
-#     tags: {
-#       Bonfire.Tag,
-#       join_through: "bonfire_tagged",
-#       unique: true,
-#       join_keys: [tag_id: :id, pointer_id: :id],
-#       on_replace: :delete
-#     }
-#   ]
+config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
+  many_to_many: [
+    tags: {
+      Bonfire.Tag,
+      join_through: "bonfire_tagged",
+      unique: true,
+      join_keys: [tag_id: :id, pointer_id: :id],
+      on_replace: :delete
+    }
+  ]
 
 
 # all data types included in federation
