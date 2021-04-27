@@ -47,6 +47,9 @@ RUN npm install --prefix assets
 COPY deps.git ./
 RUN mix do deps.get --only prod
 
+# Update Bonfire extensions to latest git verion
+RUN mix do bonfire.deps.update
+
 # Uncomment these two lines only if you want to include locally-forked deps in the release
 # COPY forks/ deps.path ./ 
 # RUN mix do deps.get --only prod
