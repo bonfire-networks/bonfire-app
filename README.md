@@ -8,6 +8,8 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows]
 - [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - interface for basic social activities 
 - [Bonfire:Boundaries](https://github.com/bonfire-networks/bonfire_boundaries) - define circles and associated privacy or permissions
 - [Bonfire:Federate:ActivityPub](https://github.com/bonfire-networks/bonfire_federate_activitypub) - federates activities with ActivityPub to participate in the fediverse
+- [Bonfire:Tag](https://github.com/bonfire-ecosystem/bonfire_tag) - @ mentions, hashtags, and tagging using topics/categories from Bonfire:Classify
+- [Bonfire:Classify](https://github.com/bonfire-ecosystem/bonfire_classify) - categories & classifications in taxonomies
 - [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
 - [Bonfire:Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
 - [Bonfire:ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities with ValueFlows
