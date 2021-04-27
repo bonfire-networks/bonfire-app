@@ -1,6 +1,5 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
-  import Surface.Catalogue.Router
   alias Bonfire.Common.Utils
   require Utils
 
@@ -101,14 +100,20 @@ defmodule Bonfire.Web.Router do
   if Mix.env() in [:dev, :test] do
     scope "/" do
       pipe_through :browser
-      if Code.ensure_loaded?(Phoenix.LiveDashboard.Router) do
+
+      if Utils.module_enabled?(Phoenix.LiveDashboard.Router) do
         import Phoenix.LiveDashboard.Router
         live_dashboard "/settings/admin/dashboard", metrics: Bonfire.Web.Telemetry
       end
-      if Code.ensure_loaded?(Bamboo.SentEmailViewerPlug) do
+
+      if Utils.module_enabled?(Bamboo.SentEmailViewerPlug) do
         forward "/emails", Bamboo.SentEmailViewerPlug
       end
-      surface_catalogue "/catalogue"
+
+      if Utils.module_enabled?(Surface.Catalogue.Router) do
+        Utils.import_if_enabled Surface.Catalogue.Router
+        Surface.Catalogue.Router.surface_catalogue "/catalogue"
+      end
     end
   end
 end
