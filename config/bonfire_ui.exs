@@ -31,8 +31,27 @@ config :bonfire, :ui,
       Bonfire.UI.ValueFlows.LocationWidgetLive,
       Bonfire.UI.Social.HashtagsWidgetLive,
    ],
-   smart_input_activities: [
+   process_navigation: [
+      events: "Economic events",
+      intents: "Intents",
+      # material_passport: "material passport",
+   ],
+   process_sections: [
+      events: Bonfire.UI.ValueFlows.EconomicEventsLive,
+      intents: Bonfire.UI.ValueFlows.IntentsLive,
+   ],
+   process_widgets: [
+      Bonfire.UI.Social.SearchWidgetLive,
+     # Bonfire.UI.Social.SubscribeWidgetLive,
+     # Bonfire.UI.ValueFlows.LocationWidgetLive,
+     # Bonfire.UI.Social.HashtagsWidgetLive,
+   ],
+   smart_input: [
       post: true,
+      cw: true,
+      summary: true
+   ],
+   smart_input_activities: [
       #offer: "Publish an offer",
       # need: "Publish a need",
       transfer_resource: "Transfer a resource",
