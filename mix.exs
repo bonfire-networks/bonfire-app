@@ -65,19 +65,19 @@ defmodule Bonfire.MixProject do
       # {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
+
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3.0", only: :test},
       {:zest, "~> 0.1"},
+      {:grumble, "~> 0.1.3", only: [:test]}
+
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
         git: "https://github.com/mayel/licensir", branch: "pr",
         # path: "./forks/licensir"
       },
-      {:surface, "~> 0.3.0"},
-      # Testing a component library for liveview
-      {:surface_catalogue, "~> 0.0.7", only: :dev},
 
       # security auditing
       # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
