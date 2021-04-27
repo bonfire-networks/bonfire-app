@@ -14,7 +14,7 @@ defmodule Bonfire.MixProject do
     "bonfire_tag",
     "bonfire_federate_activitypub",
 
-    # "bonfire_geolocate",
+    "bonfire_geolocate",
     # "bonfire_quantify",
     # "bonfire_valueflows",
     # "bonfire_ui_valueflows",
@@ -44,7 +44,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.34",
+      version: "0.1.0-alpha.35",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
