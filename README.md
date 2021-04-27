@@ -8,6 +8,9 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) ecosystem and bu
 - [Bonfire:UI:Social](https://github.com/bonfire-ecosystem/bonfire_ui_social) - interface for basic social activities 
 - [Bonfire:Boundaries](https://github.com/bonfire-networks/bonfire_boundaries) - define circles and associated privacy or permissions
 - [Bonfire:Federate:ActivityPub](https://github.com/bonfire-networks/bonfire_federate_activitypub) - federates activities with ActivityPub to participate in the fediverse
+- [Bonfire:Tag](https://github.com/bonfire-ecosystem/bonfire_tag) - @ mentions, hashtags, and tagging using topics/categories from Bonfire:Classify
+- [Bonfire:Classify](https://github.com/bonfire-ecosystem/bonfire_classify) - categories & classifications in taxonomies
+- [Bonfire:Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
 
 
 ## Handy commands
