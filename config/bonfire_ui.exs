@@ -3,7 +3,7 @@ import Config
 config :bonfire, :ui,
    sidebar_components: [
       Bonfire.UI.Social.SidebarNavigationLive,
-      Bonfire.UI.Reflow.SidebarNavigationLive
+      Bonfire.UI.ValueFlows.ProcessesListLive
    ],
    profile_sections: [
       timeline: Bonfire.UI.Social.ProfileTimelineLive,
@@ -54,9 +54,9 @@ config :bonfire, :ui,
    smart_input_activities: [
       #offer: "Publish an offer",
       # need: "Publish a need",
-      transfer_resource: "Transfer a resource",
-      produce_resource: "Add a resource",
-      process: "Create a process"
+      # transfer_resource: "Transfer a resource",
+      # produce_resource: "Add a resource",
+      # process: "Create a process"
    ],
    smart_input_forms: [
       post: Bonfire.UI.Social.CreateActivityLive,
