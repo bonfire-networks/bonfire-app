@@ -37,6 +37,7 @@ defmodule Bonfire.Web.Router do
   Utils.use_if_enabled Bonfire.Website.Web.Routes
 
   Utils.use_if_enabled Bonfire.UI.Reflow.Routes
+  Utils.use_if_enabled Bonfire.UI.Coordination.Routes
   Utils.use_if_enabled Bonfire.Breadpub.Routes
   Utils.use_if_enabled Bonfire.Recyclapp.Routes
 
