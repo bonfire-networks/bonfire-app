@@ -66,11 +66,12 @@ pull:
 	git pull
 
 update: init pull bonfire-pre-updates ## Update/prepare dependencies, without Docker
-	mix upgrade
+	mix updates
 	make bonfire-post-updates 
 	make deps-all-git-pull 
+	mix ecto.migrate
 
-d-update: init pull build bonfire-pre-updates mix-upgrade bonfire-post-updates deps-all-git-pull ## Update/prepare dependencies, using Docker
+d-update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-all-git-pull mix-ecto.migrate ## Update/prepare dependencies, using Docker
 
 bonfire-pre-update:
 	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"

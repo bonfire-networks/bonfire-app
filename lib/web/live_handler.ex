@@ -3,6 +3,7 @@ defmodule Bonfire.Web.LiveHandler do
 
   # start handler pattern matching
 
+  alias Bonfire.Common.Utils
   alias Bonfire.Me.Web.LiveHandlers.{Profiles, Circles}
   alias Bonfire.Social.Web.LiveHandlers.{Flags, Boosts, Likes, Posts, Feeds, Follows}
 
@@ -88,7 +89,20 @@ defmodule Bonfire.Web.LiveHandler do
 
   def handle_info(blob, socket, source_module \\ nil)
 
-  def handle_info({info, _data} = blob, socket, source_module) do
+  # global handler to set a view's assigns from a component
+  def handle_info({:assign, {assign, value}}, socket, _) do
+    undead(socket, fn ->
+      IO.inspect(assigns_to_set: assign)
+      {:noreply,
+        socket
+        |> Utils.assign_global(assign, value)
+        # |> Phoenix.LiveView.assign(:global_assigns, [assign] ++ Map.get(socket.assigns, :global_assigns, []))
+        # |> IO.inspect(limit: :infinity)
+      }
+  end)
+  end
+
+  def handle_info({info, _data} = blob, socket, source_module) when is_atom(source_module) do
     # IO.inspect(socket)
     Logger.info("handle_info in #{source_module}: #{info}...")
     undead(socket, fn ->
