@@ -72,6 +72,7 @@ defmodule Bonfire.MixProject do
       {:mock, "~> 0.3.0", only: :test},
       {:zest, "~> 0.1"},
       {:grumble, "~> 0.1.3", only: [:test]},
+      {:bonfire_api_graphql, only: :test, runtime: false, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main"},
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
