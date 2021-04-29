@@ -54,12 +54,12 @@ jobs:
       run: mix local.hex --force
     - name: Install rebar
       run: mix local.rebar --force
-    - name: Install dependencies
-      run: mix deps.get
+    - name: Update Bonfire extensions to latest git versions
+      run: mix bonfire.deps.update
     - name: Clean-build Bonfire extensions
       run: mix bonfire.deps.clean
-    - name: Update Bonfire extensions to latest git verion
-      run: mix bonfire.deps.update
+    - name: Install other dependencies
+      run: mix deps.get
     - name: Compile deps & app
       run: MIX_ENV=test mix
     - name: Set up database
