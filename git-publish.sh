@@ -8,6 +8,7 @@ cd $DIR
 git add .
 
 set +e  # Grep succeeds with nonzero exit codes to show results.
+
 if git status | grep -q -E 'modified|ahead'
 then
     set -e
