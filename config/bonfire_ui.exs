@@ -2,8 +2,9 @@ import Config
 
 config :bonfire, :ui,
    sidebar_components: [
-      Bonfire.UI.Social.SidebarNavigationLive,
-      Bonfire.UI.ValueFlows.ProcessesListLive
+      {Bonfire.UI.Social.SidebarNavigationLive, []},
+      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Materials", process_url: "/process/"]},
+      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
    ],
    smart_input: [
       post: true,
@@ -27,7 +28,26 @@ config :bonfire, :ui,
       widgets: [
          Bonfire.UI.Social.SearchWidgetLive
       ],
-   ]
+   ],
+   smart_input_activities: [
+      # offer: "Publish an offer",
+      # need: "Publish a need",
+      # transfer_resource: "Transfer a resource",
+      # produce_resource: "Add a resource",
+      # intent: "Indicate an itent",
+      # economic_event: "Record an economic event",
+      # process: "Define a process"
+   ],
+   smart_input_forms: [
+      post: Bonfire.UI.Social.CreateActivityLive,
+      economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
+      intent: Bonfire.UI.ValueFlows.CreateIntentLive,
+      process: Bonfire.UI.ValueFlows.CreateProcessLive,
+      #offer: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
+      # need:
+      transfer_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive,
+      produce_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
+   ],
    resource: [
       navigation: [
          timeline: "timeline",
@@ -39,7 +59,7 @@ config :bonfire, :ui,
          Bonfire.UI.ValueFlows.LocationWidgetLive,
          Bonfire.UI.Social.HashtagsWidgetLive,
       ],
-   ],
+   ]
    # process: [
    #    navigation: [
    #       events: "Economic events",
