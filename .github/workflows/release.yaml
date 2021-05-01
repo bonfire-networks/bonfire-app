@@ -47,6 +47,7 @@ jobs:
           version-command: |
             grep 'version:' mix.exs | cut -d '"' -f2
       - if: steps.version.outputs.tag
+        run: echo "This is a new version, let's build a release..."
       - name: Get branch names
         id: branch-name
         uses: tj-actions/branch-names@v4
