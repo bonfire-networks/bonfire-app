@@ -63,20 +63,6 @@ jobs:
         name: Get branch names
         id: branch-name
         uses: tj-actions/branch-names@v4
-      - 
-        name: Generate version tags
-        id: meta
-        uses: crazy-max/ghaction-docker-meta@v2
-        with:
-          # list of Docker images to use as base name for tags
-          images: bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}
-          # # generate Docker tags based on the following events/attributes
-          # tags: |
-          #   type=ref,event=branch
-          #   type=ref,event=pr
-          #   type=semver,pattern={{version}}
-          #   type=semver,pattern={{major}}.{{minor}}
-          #   type=semver,pattern={{major}}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -101,9 +87,9 @@ jobs:
           file: Dockerfile.release
           platforms: linux/amd64 #,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          # labels: bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}
+          tags: |
+            bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}:latest
+            bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}:${{steps.version.outputs.tag}}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
