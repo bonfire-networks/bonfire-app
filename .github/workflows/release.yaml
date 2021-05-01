@@ -41,10 +41,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v4
       # -
       #   name: Generate version tags
       #   id: meta
@@ -86,8 +85,8 @@ jobs:
           push: true
           # tags: ${{ steps.meta.outputs.tags }}
           # labels: ${{ steps.meta.outputs.labels }}
-          tags: bonfirenetworks/bonfire-${{ steps.extract_branch.outputs.branch }}
-          labels: bonfirenetworks/bonfire-${{ steps.extract_branch.outputs.branch }}
+          tags: bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}
+          labels: bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

@@ -24,6 +24,7 @@ config :bonfire, :ui,
       navigation: [
          timeline: "timeline",
          inventory: "inventory",
+         posts: "posts",
       ],
       widgets: [
          Bonfire.UI.Social.SearchWidgetLive
