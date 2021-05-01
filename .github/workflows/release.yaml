@@ -1,7 +1,6 @@
 name: Build release and publish Docker image
 on:
-  release:
-    types: [published]
+  push:
     branches: 
       - main 
       - with-valueflows-api
@@ -41,6 +40,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Maybe tag/release new version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          version-command: |
+            grep 'version:' mix.exs | cut -d '"' -f2
+      - if: steps.version.outputs.tag
       - name: Get branch names
         id: branch-name
         uses: tj-actions/branch-names@v4
