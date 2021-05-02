@@ -45,7 +45,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha-valueflows.51",
+      version: "0.1.0-alpha-valueflows.52",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
