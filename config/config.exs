@@ -88,7 +88,12 @@ config :logger, :console,
 config :bonfire, Oban,
   repo: Bonfire.Repo,
   plugins: [Oban.Plugins.Pruner],
-  queues: [federator_incoming: 50, federator_outgoing: 50]
+  queues: [
+    federator_incoming: 50,
+    federator_outgoing: 50,
+    ap_incoming: 15,
+    ap_publish: 15
+  ]
 
 config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
