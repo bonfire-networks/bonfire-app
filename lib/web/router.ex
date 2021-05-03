@@ -116,4 +116,17 @@ defmodule Bonfire.Web.Router do
       end
     end
   end
+
+  defdelegate path(conn_or_socket_or_endpoint, arg), to: Bonfire.Web.Router.Reverse
+  defdelegate path(conn_or_socket_or_endpoint, arg, arg2), to: Bonfire.Web.Router.Reverse
+  defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3), to: Bonfire.Web.Router.Reverse
+  defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4), to: Bonfire.Web.Router.Reverse
+  defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4, arg5), to: Bonfire.Web.Router.Reverse
+  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4, arg5, arg6), to: Bonfire.Web.Router.Reverse
+  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4, arg5, arg6, arg7), to: Bonfire.Web.Router.Reverse
+
+end
+defmodule Bonfire.Web.Router.Reverse do
+  import Voodoo, only: [def_reverse_router: 2]
+  def_reverse_router :path, for: Bonfire.Web.Router
 end
