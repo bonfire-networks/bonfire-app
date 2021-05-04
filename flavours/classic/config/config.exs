@@ -37,6 +37,8 @@ import_config "bonfire_ui.exs"
 
 #### Basic configuration
 
+config :bonfire, Bonfire.Repo, priv: ".."
+
 # You probably won't want to touch these. You might override some in
 # other config files.
 
