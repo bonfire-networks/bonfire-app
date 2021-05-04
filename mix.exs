@@ -55,7 +55,7 @@ defmodule Bonfire.MixProject do
     ]
   end
 
-  defp config_path(), do: System.get_env("BONFIRE_CONFIG_PATH",".")
+  defp config_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
 
   defp mess_sources(config_path \\ config_path()) do
     Enum.map(
