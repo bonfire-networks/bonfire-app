@@ -313,7 +313,8 @@ config :pointers, Pointers.Pointer,
       join_keys: [pointer_id: :id, tag_id: :id],
       on_replace: :delete
     }
-  ]
+  ],
+  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}]
 
 # add references of tagged objects to any Category
 config :bonfire_classify, Bonfire.Classify.Category,

@@ -27,7 +27,6 @@ config :bonfire, :ui,
          posts: "posts",
       ],
       widgets: [
-         Bonfire.UI.Social.SearchWidgetLive
       ],
    ],
    smart_input_activities: [
@@ -55,7 +54,6 @@ config :bonfire, :ui,
          material_passport: "material passport",
       ],
       widgets: [
-         Bonfire.UI.Social.SearchWidgetLive,
         # Bonfire.UI.Social.SubscribeWidgetLive,
          Bonfire.UI.ValueFlows.LocationWidgetLive,
          Bonfire.UI.Social.HashtagsWidgetLive,
@@ -72,7 +70,6 @@ config :bonfire, :ui,
    #       intents: Bonfire.UI.ValueFlows.IntentsLive,
    #    ],
    #    widgets: [
-   #       Bonfire.UI.Social.SearchWidgetLive,
    #      # Bonfire.UI.Social.SubscribeWidgetLive,
    #      # Bonfire.UI.ValueFlows.LocationWidgetLive,
    #      # Bonfire.UI.Social.HashtagsWidgetLive,

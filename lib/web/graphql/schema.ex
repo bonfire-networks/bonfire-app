@@ -1,3 +1,4 @@
+if Code.ensure_loaded?(Bonfire.GraphQL) do
 # SPDX-License-Identifier: AGPL-3.0-only
 defmodule Bonfire.GraphQL.Schema do
   @moduledoc "Root GraphQL Schema"
@@ -182,4 +183,5 @@ defmodule Bonfire.GraphQL.Schema do
         Logger.warn("Any context resolved to an unknown type: #{inspect(o, pretty: true)}")
     end)
   end
+end
 end
