@@ -52,13 +52,20 @@ defmodule Bonfire.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      config_path: config_path("config.exs"),
+      releases: [
+        bonfire: [runtime_config_path: config_path("releases.exs")],
+      ]
     ]
   end
 
-  defp config_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
+  defp flavour_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
 
-  defp mess_sources(config_path \\ config_path()) do
+  defp config_path(flavour_path \\ flavour_path(), filename),
+    do: Path.join([flavour_path, "config", filename])
+
+  defp mess_sources(flavour_path \\ flavour_path()) do
     sources =if System.get_env("WITH_FORKS","true") !="false" do
       [path: "deps.path", git: "deps.git", hex: "deps.hex"]
     else
@@ -67,7 +74,7 @@ defmodule Bonfire.MixProject do
 
     Enum.map(
       sources,
-      fn {k,v} -> {k, config_path <> "/" <> v} end
+      fn {k,v} -> {k, flavour_path <> "/" <> v} end
     )
   end
 
