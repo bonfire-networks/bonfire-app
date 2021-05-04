@@ -55,9 +55,17 @@ defmodule Bonfire.MixProject do
     ]
   end
 
+  defp config_path(), do: System.get_env("BONFIRE_CONFIG_PATH",".")
+
+  defp mess_sources(config_path \\ config_path()) do
+    Enum.map(
+      [path: "deps.path", git: "deps.git", hex: "deps.hex"],
+      fn {k,v} -> {k, config_path <> "/" <> v} end
+    )
+  end
 
   defp deps() do
-    Mess.deps([
+    Mess.deps(mess_sources(), [
       ## password hashing - builtin vs nif
       {:pbkdf2_elixir, "~> 1.2.1", only: [:dev, :test]},
       {:argon2_elixir, "~> 2.3.0", only: [:prod]},
