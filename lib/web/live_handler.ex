@@ -1,5 +1,8 @@
 defmodule Bonfire.Web.LiveHandler do
   require Logger
+  alias Bonfire.Common.Utils
+  import Utils
+  import Bonfire.Common.Hooks
 
   # start handler pattern matching
 
@@ -52,7 +55,7 @@ defmodule Bonfire.Web.LiveHandler do
   defp do_handle_event(event, attrs, socket) when event in @post_events or binary_part(event, 0, 4) == "post", do: Posts.handle_event(event, attrs, socket)
   defp do_handle_info({info, data}, socket) when info in @post_infos, do: Posts.handle_info({info, data}, socket)
 
-  # uri
+  # Feeds
   defp do_handle_params(%{"feed" => params}, uri, socket), do: Feeds.handle_params(params, uri, socket)
   defp do_handle_event(event, attrs, socket) when event in @feed_events or binary_part(event, 0, 4) == "feed", do: Feeds.handle_event(event, attrs, socket)
   defp do_handle_info({info, data}, socket) when info in @feed_infos, do: Feeds.handle_info({info, data}, socket)
@@ -60,17 +63,31 @@ defmodule Bonfire.Web.LiveHandler do
   # Follows
   defp do_handle_event(event, attrs, socket) when event in @follow_events or binary_part(event, 0, 6) == "follow", do: Follows.handle_event(event, attrs, socket)
 
-  defp do_handle_event(event, attrs, socket) when binary_part(event, 0, 6) == "search", do: Bonfire.Search.LiveHandler.handle_event(event, attrs, socket)
+  # Search
+  # defp do_handle_event(event, attrs, socket) when binary_part(event, 0, 6) == "search", do: Bonfire.Search.LiveHandler.handle_event(event, attrs, socket)
 
-  # end of handler pattern matching
-  defp do_handle_params(_, _, socket), do: {:noreply, socket}
-  defp do_handle_event(_, _, socket), do: {:noreply, socket}
-  defp do_handle_info(_, socket), do: {:noreply, socket}
+  # ValueFlows
+  # defp do_handle_event(event, attrs, socket) when binary_part(event, 0, 10) == "valueflows", do: ValueFlows.Web.LiveHandler.handle_event(event, attrs, socket)
 
+  defp do_handle_event(event, attrs, socket) do
+    [mod, action] = String.split(event, ":")
+    IO.inspect(mod)
+    IO.inspect(action)
+    case Utils.maybe_str_to_module(mod<>".LiveHandler") || Utils.maybe_str_to_module(mod) do
+      module when is_atom(module) ->
+        IO.inspect(module)
+        if Utils.module_enabled?(module), do: apply(module, :handle_event, [action, attrs, socket]),
+        else: empty(socket)
+      _ -> empty(socket)
+    end
+  end
 
-  alias Bonfire.Common.Utils
-  import Utils
-  import Bonfire.Common.Hooks
+  # end of handler pattern matching - fallback with empty replies
+  defp do_handle_params(_, _, socket), do: empty(socket)
+  defp do_handle_event(_, _, socket), do: empty(socket)
+  defp do_handle_info(_, socket), do: empty(socket)
+
+  defp empty(socket), do: {:noreply, socket}
 
   def handle_params(params, uri, socket, _source_module \\ nil) do
     undead(socket, fn ->

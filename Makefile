@@ -137,6 +137,7 @@ dep-clone-local-all: ## Clone all bonfire deps / extensions
 	@curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[make dep-clone-local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
 deps-all-git-commit-push:
+	chmod +x git-publish.sh
 	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} \;
 	# make deps-all-git-add
 	# make deps-all-git-commit
