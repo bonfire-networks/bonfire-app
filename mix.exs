@@ -19,6 +19,7 @@ defmodule Bonfire.MixProject do
     # "bonfire_valueflows",
     # "bonfire_ui_valueflows",
     # "bonfire_ui_reflow",
+    # "bonfire_ui_coordination",
     # "bonfire_breadpub",
     "bonfire_classify",
     # "bonfire_valueflows_observe",
@@ -58,8 +59,14 @@ defmodule Bonfire.MixProject do
   defp config_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
 
   defp mess_sources(config_path \\ config_path()) do
+    sources =if System.get_env("WITH_FORKS","true") !="false" do
+      [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+    else
+      [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+    end
+
     Enum.map(
-      [path: "deps.path", git: "deps.git", hex: "deps.hex"],
+      sources,
       fn {k,v} -> {k, config_path <> "/" <> v} end
     )
   end
@@ -87,8 +94,10 @@ defmodule Bonfire.MixProject do
         git: "https://github.com/mayel/licensir", branch: "pr",
         # path: "./forks/licensir"
       },
-      # component library
-      {:surface_catalogue, "~> 0.0.7", only: [:dev]},
+
+      # Testing a component library for liveview
+      # {:surface_catalogue, "~> 0.0.7", only: :dev},
+
       # security auditing
       # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
       {:sobelow, "~> 0.8", only: :dev}
