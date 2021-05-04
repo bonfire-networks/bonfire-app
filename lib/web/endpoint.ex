@@ -7,7 +7,8 @@ defmodule Bonfire.Web.Endpoint do
   @session_options [
     store: :cookie,
     key: "_bonfire_key",
-    signing_salt: "j7QkARUs"
+    signing_salt: Bonfire.Common.Config.get!(:signing_salt),
+    encryption_salt: Bonfire.Common.Config.get!(:encryption_salt)
   ]
 
   socket "/live", Phoenix.LiveView.Socket,
