@@ -55,7 +55,7 @@ defmodule Bonfire.MixProject do
       deps: deps(),
       config_path: config_path("config.exs"),
       releases: [
-        bonfire: [runtime_config_path: config_path("releases.exs")],
+        bonfire: [runtime_config_path: config_path("runtime.exs")],
       ]
     ]
   end
