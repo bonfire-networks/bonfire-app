@@ -35,7 +35,8 @@ RUN apk add --no-cache make gcc libc-dev
 # Cache elixir deps
 COPY mix.exs mess.exs mix.lock ./
 COPY data/config/deps.hex ./config/ 
-# RUN mkdir -p ./flavours/classic/config/&& touch ./flavours/classic/config/config.exs
+# sometimes mix tries to read the config
+RUN mkdir -p ./config && touch ./config/config.exs
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
