@@ -76,7 +76,7 @@ defmodule Bonfire.MixProject do
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [
         # "phil_columns.seed",
-        "run priv/repo/seeds.exs"
+        "run #{flavour_path()}/repo/seeds.exs"
         ],
       "bonfire.deps.update": ["deps.update #{dep_names_str(:update)}"],
       "bonfire.deps.clean": ["deps.clean #{dep_names_str(:clean)} --build"],
