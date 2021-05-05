@@ -6,7 +6,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.64",
+      version: "0.1.0-alpha.65",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
@@ -104,7 +104,7 @@ defmodule Bonfire.MixProject do
   defp dep_path(dep) do
     spec = elem(dep, 1)
     if is_list(spec) && spec[:path],
-      do: Path.expand(spec[:path]), 
+      do: Path.expand(spec[:path]),
       else: Mix.Project.deps_path() <> "/" <> dep_name(dep)
   end
 
@@ -118,7 +118,7 @@ defmodule Bonfire.MixProject do
   defp test_lib_paths(), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
 
   @test_deps [:pointers]
-  
+
   defp dep?(:test, dep),   do: elem(dep, 0) in @test_deps || String.starts_with?(dep_name(dep), "bonfire_")
 
   defp dep_name(dep), do: Atom.to_string(elem(dep, 0))
