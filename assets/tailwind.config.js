@@ -16,6 +16,13 @@ module.exports = {
       '../deps/bonfire_**/lib/**/**/*.leex',
       '../deps/bonfire_**/lib/**/**/**/*.leex',
       '../lib/web/**/*.leex',
+      '../forks/**/lib/**/*.sface',
+      '../forks/**/lib/**/**/*.sface',
+      '../forks/**/lib/**/**/**/*.sface',
+      '../deps/bonfire_**/lib/**/*.sface',
+      '../deps/bonfire_**/lib/**/**/*.sface',
+      '../deps/bonfire_**/lib/**/**/**/*.sface',
+      '../lib/web/**/*.sface',
     ]
   },
   darkMode: 'class',
