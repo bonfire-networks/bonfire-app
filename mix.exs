@@ -35,7 +35,7 @@ defmodule Bonfire.MixProject do
     "bonfire_fail",
     "bonfire_data_shared_user",
     "bonfire_search",
-    "bonfire_recyclapp",
+    # "bonfire_recyclapp",
     "bonfire_api_graphql",
     # "bonfire_taxonomy_seeder",
   ]
@@ -43,7 +43,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.63",
+      version: "0.1.0-alpha.64",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
