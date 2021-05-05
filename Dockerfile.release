@@ -32,7 +32,8 @@ RUN apk add --no-cache curl git rust cargo npm
 RUN apk add --no-cache make gcc libc-dev
 
 # Cache elixir deps
-COPY mix.exs mess.exs deps.hex mix.lock ./
+COPY mix.exs mess.exs mix.lock ./
+COPY config/deps.hex ./config 
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
@@ -44,14 +45,15 @@ RUN npm install --prefix assets
 # RUN MIX_ENV=prod mix do deps.compile
 
 # git deps (i.e. Bonfire extensions)
-COPY deps.git ./
+COPY config/deps.git ./config 
 RUN mix do deps.get --only prod
 
 # Update Bonfire extensions to latest git verion
 RUN mix do bonfire.deps.update
 
 # Uncomment these two lines only if you want to include locally-forked deps in the release
-# COPY forks/ deps.path ./ 
+# COPY config/deps.path ./config 
+# COPY forks/ ./ 
 # RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
