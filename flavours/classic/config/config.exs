@@ -1,5 +1,7 @@
 import Config
 
+flavour = System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
+
 # You will almost certainly want to change at least some of these
 
 # include all used Bonfire extensions
@@ -42,7 +44,7 @@ end
 
 #### Basic configuration
 
-config :bonfire, Bonfire.Repo, priv: ".."
+config :bonfire, Bonfire.Repo, priv: flavour <> "/repo"
 
 # You probably won't want to touch these. You might override some in
 # other config files.
