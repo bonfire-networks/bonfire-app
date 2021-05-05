@@ -51,16 +51,18 @@ RUN npm install --prefix assets
 COPY data/config/deps.git ./config 
 RUN mix do deps.get --only prod
 
+# we need config before compiling Bonfire extensions
+COPY data/config/ ./config 
+# Comment this line only if you want to include locally-forked deps in the release
+RUN rm config/deps.path
+
 # Update Bonfire extensions to latest git verion
 RUN mix do bonfire.deps.update
 
-# Uncomment these two lines only if you want to include locally-forked deps in the release
-# COPY config/deps.path ./config 
+# Uncomment these lines only if you want to include locally-forked deps in the release
+# COPY data/config/deps.path ./config 
 # COPY forks/ ./ 
 # RUN mix do deps.get --only prod
-
-# we need config before compiling Bonfire extensions
-COPY data/config/ ./config 
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
