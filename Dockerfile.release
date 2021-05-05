@@ -55,6 +55,8 @@ RUN mix do deps.get --only prod
 COPY data/config/ ./config 
 # Comment this line only if you want to include locally-forked deps in the release
 RUN rm config/deps.path
+RUN ls -la ./config
+# RUN MIX_ENV=prod mix do deps.compile
 
 # Update Bonfire extensions to latest git verion
 RUN mix do bonfire.deps.update
