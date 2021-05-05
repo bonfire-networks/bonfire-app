@@ -1,9 +1,10 @@
 .PHONY: setup updates db-reset build dev shell
 
-LIBS_PATH=./forks/
-ORG_NAME=bonfirenetworks
-APP_FLAVOUR ?= `git name-rev --name-only HEAD`
-APP_NAME=bonfire-$(APP_FLAVOUR)
+FLAVOUR ?= classic
+BONFIRE_FLAVOUR ?= flavours/$(FLAVOUR)
+LIBS_PATH ?= ./forks/
+ORG_NAME ?= bonfirenetworks
+APP_NAME ?= bonfire-$(FLAVOUR)
 UID := $(shell id -u)
 GID := $(shell id -g)
 APP_REL_CONTAINER="$(ORG_NAME)_$(APP_NAME)_release"
@@ -17,7 +18,8 @@ export UID
 export GID
 
 init:
-	@echo "Light that fire... $(APP_NAME):$(APP_VSN)-$(APP_BUILD)"
+	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour $(APP_VSN) - $(APP_BUILD)"
+	@ln -sfn $(BONFIRE_FLAVOUR)/config ./config
 	@mkdir -p config/prod
 	@mkdir -p config/dev
 	@cp -n config/templates/public.env config/dev/ | true
@@ -25,7 +27,7 @@ init:
 	@cp -n config/templates/not_secret.env config/dev/secrets.env | true
 	@cp -n config/templates/not_secret.env config/prod/secrets.env | true
 	@mkdir -p forks/
-	@touch deps.path
+	@touch config/deps.path
 	@mkdir -p data/uploads/
 	@mkdir -p data/search/dev
 
@@ -65,54 +67,46 @@ shell: init ## Open a shell, in dev mode
 pull: 
 	git pull
 
-update: init pull bonfire-pre-updates ## Update/prepare dependencies, without Docker
-	mix updates
-	make bonfire-post-updates 
+update: init pull  ## Update/prepare dependencies, without Docker
+	WITH_FORKS=0 mix updates
+	 
 	make deps-all-git-pull 
 	mix ecto.migrate
 
-d-update: init pull build bonfire-pre-updates mix-updates bonfire-post-updates deps-all-git-pull mix-ecto.migrate ## Update/prepare dependencies, using Docker
+d-update: init pull build  ## Update/prepare dependencies, using Docker
+	docker-compose run -e WITH_FORKS=0 web mix updates 
+	make deps-all-git-pull 
+	make mix-ecto.migrate 
 
-bonfire-pre-update:
-	mv deps.path deps.path.disabled 2> /dev/null || echo "continue"
 
-bonfire-pre-updates: bonfire-pre-update
-	# rm -rf deps/pointers*
-	# rm -rf deps/bonfire*
-	# rm -rf deps/cpub*
-	# rm -rf deps/activity_pu*
-
-bonfire-updates: init bonfire-pre-updates
-	docker-compose run web mix bonfire.deps
-	make bonfire-post-updates
-
-bonfire-post-updates:
-	mv deps.path.disabled deps.path  2> /dev/null || echo "continue"
+bonfire-updates: init 
+	docker-compose run -e WITH_FORKS=0 web mix bonfire.deps
+	
 
 bonfire-push-all-updates: deps-all-git-commit-push bonfire-push-app-updates
 
-bonfire-push-app-updates: bonfire-pre-updates
+bonfire-push-app-updates: 
 	git add .
 	git commit -a
 	git pull --rebase
-	mix updates 
-	make bonfire-post-updates
+	WITH_FORKS=0 mix updates 
+	
 	make git-publish
 
-bonfire-deps-updates: bonfire-pre-updates
+bonfire-deps-updates: 
 	git pull --rebase
-	mix updates 
-	make bonfire-post-updates
+	WITH_FORKS=0 mix updates 
+	
 	make git-publish
 
 d-bonfire-push-all-updates: deps-all-git-commit-push d-bonfire-push-app-updates
 
-d-bonfire-push-app-updates: bonfire-pre-updates
+d-bonfire-push-app-updates: 
 	git add .
 	git commit -a
 	git pull --rebase
-	make mix-updates 
-	make bonfire-post-updates
+	docker-compose run -e WITH_FORKS=0 web mix updates 
+	
 	make git-publish
 	make dev
 
@@ -121,13 +115,13 @@ git-publish:
 	./git-publish.sh
 
 dep-hex-%: init ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep-hex-enable dep=pointers version="~> 0.2"
-	docker-compose run web messctl $* $(dep) $(version) deps.hex
+	docker-compose run web messctl $* $(dep) $(version) config/deps.hex
 
 dep-git-%: init ## add/enable/disable/delete a git dep with messctl command, eg: `make dep-hex-enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
-	docker-compose run web messctl $* $(dep) $(repo) deps.git
+	docker-compose run web messctl $* $(dep) $(repo) config/deps.git
 
 dep-local-%: init ## add/enable/disable/delete a local dep with messctl command, eg: `make dep-hex-enable dep=pointers path=./libs/pointers
-	docker-compose run web messctl $* $(dep) $(path) deps.path
+	docker-compose run web messctl $* $(dep) $(path) config/deps.path
 
 dep-clone-local: ## Clone a git dep and use the local version, eg: make dep-clone-local dep="bonfire_me" repo=https://github.com/bonfire-networks/bonfire_me
 	git clone $(repo) $(LIBS_PATH)$(dep) 2> /dev/null || (cd $(LIBS_PATH)$(dep) ; git pull)
@@ -176,17 +170,15 @@ dep-go-hex: ## Switch to using a library from hex.pm, eg: make dep-go-hex dep="p
 	make dep-git-disable dep=$(dep) repo=""
 	make dep-local-disable dep=$(dep) path=""
 
-deps.get: init bonfire-pre-update
-	docker-compose run web mix deps.get
-	make bonfire-post-updates
+deps.get: init 
+	docker-compose run -e WITH_FORKS=0 web mix deps.get
 	make mix-"deps.get"
 
 deps.update.all: 
 	make deps.update-"--all"
 
 deps.update-%: init bonfire-pre-update
-	docker-compose run web mix deps.update $*
-	make bonfire-post-updates  	
+	docker-compose run -e WITH_FORKS=0 web mix deps.update $*
 
 dev: init docker-stop-web ## Run the app with Docker
 	# docker-compose --verbose run --name bonfire_web --service-ports web
@@ -212,8 +204,8 @@ test: init ## Run tests
 	docker-compose run web mix test $(args)
 
 licenses: init bonfire-pre-update
-	docker-compose run web mix licenses
-	make bonfire-post-updates
+	docker-compose run -e WITH_FORKS=0 web mix licenses
+	
 
 cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd-"messctl help"` or `make cmd-messctl args="help"`
 	docker-compose run web $* $(args)

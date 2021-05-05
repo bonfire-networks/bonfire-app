@@ -65,16 +65,16 @@ defmodule Bonfire.MixProject do
   defp config_path(flavour_path \\ flavour_path(), filename),
     do: Path.join([flavour_path, "config", filename])
 
-  defp mess_sources(flavour_path \\ flavour_path()) do
-    sources =if System.get_env("WITH_FORKS","true") !="false" do
-      [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+  defp mess_sources() do
+    sources =if System.get_env("WITH_FORKS","1")=="0" do
+      [git: "deps.git", hex: "deps.hex"]
     else
       [path: "deps.path", git: "deps.git", hex: "deps.hex"]
     end
 
     Enum.map(
       sources,
-      fn {k,v} -> {k, flavour_path <> "/" <> v} end
+      fn {k,v} -> {k, config_path(v)} end
     )
   end
 
