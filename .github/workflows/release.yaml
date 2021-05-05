@@ -81,7 +81,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: Pre-build prep 
-        run: 	mkdir forks/ && touch deps.path && mkdir -p data/uploads/
+        run: 	mkdir forks/ && touch deps.path && mkdir -p data/uploads/ && 	ln -sfn ${{ env.BONFIRE_FLAVOUR }}/config ./config
       -
         name: Build and push
         id: docker_build
