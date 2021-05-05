@@ -3,7 +3,7 @@ on:
   push:
     branches: 
       - main 
-      - with-valueflows-api
+      # - with-valueflows-api
 jobs:
   # release:
   #   runs-on: ubuntu-latest
@@ -37,6 +37,10 @@ jobs:
   docker_release_build_push:
     name: Maybe tag version & release Docker image
     runs-on: ubuntu-latest
+    env:
+      FLAVOUR: valueflows
+      BONFIRE_FLAVOUR: flavours/valueflows
+      DOCKER_REPO: bonfire-with-valueflows-api
     steps:
       - 
         name: Cancel Previous Runs
@@ -59,10 +63,10 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
-      - 
-        name: Get branch names
-        id: branch-name
-        uses: tj-actions/branch-names@v4
+      # - 
+      #   name: Get branch names
+      #   id: branch-name
+      #   uses: tj-actions/branch-names@v4
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -88,8 +92,8 @@ jobs:
           platforms: linux/amd64 #,linux/arm64,linux/arm/v7
           push: true
           tags: |
-            bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}:latest
-            bonfirenetworks/bonfire-${{ steps.branch-name.outputs.current_branch }}:${{steps.version.outputs.tag}}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:latest
+            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.tag}}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
