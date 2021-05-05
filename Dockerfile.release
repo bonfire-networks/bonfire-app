@@ -33,7 +33,7 @@ RUN apk add --no-cache make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mess.exs mix.lock ./
-COPY config/deps.hex ./config 
+COPY config/deps.hex config/config.exs ./config 
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
