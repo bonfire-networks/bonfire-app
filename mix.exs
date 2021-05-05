@@ -3,50 +3,13 @@ defmodule Bonfire.MixProject do
 
   use Mix.Project
 
-  @bonfire_test_deps [
-    "pointers",
-    "bonfire_common",
-    "bonfire_me",
-    "bonfire_social",
-    "bonfire_boundaries",
-    "bonfire_ui_social",
-    "bonfire_website",
-    "bonfire_tag",
-    "bonfire_federate_activitypub",
-    "bonfire_geolocate",
-    "bonfire_quantify",
-    "bonfire_valueflows",
-    "bonfire_ui_valueflows",
-    "bonfire_ui_reflow",
-    "bonfire_ui_coordination",
-    "bonfire_breadpub",
-    "bonfire_classify",
-    "bonfire_valueflows_observe",
-  ]
-
-  @bonfire_deps @bonfire_test_deps ++ [
-    "activity_pub",
-    "query_elf",
-    "bonfire_data_access_control",
-    "bonfire_data_identity",
-    "bonfire_data_social",
-    "bonfire_data_activity_pub",
-    "bonfire_mailer",
-    "bonfire_fail",
-    "bonfire_data_shared_user",
-    "bonfire_search",
-    "bonfire_recyclapp",
-    "bonfire_api_graphql",
-    # "bonfire_taxonomy_seeder",
-  ]
-
   def project do
     [
       app: :bonfire,
       version: "0.1.0-alpha.62",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
-      test_paths: ["test"] ++ existing_deps_paths(@bonfire_test_deps, "test"),
+      test_paths: test_paths(),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -58,22 +21,11 @@ defmodule Bonfire.MixProject do
     ]
   end
 
-  defp flavour_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
-
-  defp config_path(flavour_path \\ flavour_path(), filename),
-    do: Path.join([flavour_path, "config", filename])
-
-  defp mess_sources() do
-    sources =if System.get_env("WITH_FORKS","1")=="0" do
-      [git: "deps.git", hex: "deps.hex"]
-    else
-      [path: "deps.path", git: "deps.git", hex: "deps.hex"]
-    end
-
-    Enum.map(
-      sources,
-      fn {k,v} -> {k, config_path(v)} end
-    )
+  def application do
+    [
+      mod: {Bonfire.Application, []},
+      extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
+    ]
   end
 
   defp deps() do
@@ -110,20 +62,8 @@ defmodule Bonfire.MixProject do
     # |> IO.inspect()
   end
 
-
-  # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"] ++ existing_deps_paths(@bonfire_test_deps, "test/support")
-  defp elixirc_paths(_), do: ["lib"]
-
-
-  def application do
-    [
-      mod: {Bonfire.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
-    ]
-  end
-
-  @bonfire_deps_str @bonfire_deps |> Enum.join(" ")
+  defp deps(test) when is_atom(test), do: deps(&dep?(test, &1))
+  defp deps(test) when is_function(test, 1), do: Enum.filter(deps(), test)
 
   defp aliases do
     [
@@ -138,8 +78,8 @@ defmodule Bonfire.MixProject do
         # "phil_columns.seed",
         "run priv/repo/seeds.exs"
         ],
-      "bonfire.deps.update": ["deps.update #{@bonfire_deps_str}"],
-      "bonfire.deps.clean": ["deps.clean #{@bonfire_deps_str} --build"],
+      "bonfire.deps.update": ["deps.update #{dep_names_str(:update)}"],
+      "bonfire.deps.clean": ["deps.clean #{dep_names_str(:clean)} --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
       updates: ["deps.get", "bonfire.deps", "js.deps.get"],
@@ -150,30 +90,64 @@ defmodule Bonfire.MixProject do
     ]
   end
 
+  defp flavour_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
+
+  defp config_path(flavour_path \\ flavour_path(), filename),
+    do: Path.expand(Path.join([flavour_path, "config", filename]))
+
+  defp mess_sources() do
+    mess_sources(System.get_env("WITH_FORKS","1"))
+    |> Enum.map(fn {k,v} -> {k, config_path(v)} end)
+  end
+
+  defp mess_sources("0"), do: [git: "deps.git", hex: "deps.hex"]
+  defp mess_sources(_),   do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+
   defp dep_path(dep) do
-    # use locally cloned repo if path defined and active, otherwise stick to code obtained by mix deps.get
-    #
-    # NOTE: to_atom (instead of to_existing_atom) is safe because its used at build time, the code might fail
-    # NOTE: otherwise because of the atom never existing as part of compilation
-    deps()[String.to_atom(dep)][:path] || "./deps/"<>dep
-  rescue
-    CaseClauseError -> "./deps/"<>dep # FIXME
+    spec = elem(dep, 1)
+    if is_list(spec) && spec[:path],
+      do: Path.expand(spec[:path]), 
+      else: Mix.Project.deps_path() <> "/" <> dep_name(dep)
   end
 
-  # defp existing_dep_path(dep) do
-  #   dep = dep_path(dep)
-
-  #   if File.exists?(dep), do: dep, else: "."
-  # end
-
-  defp existing_deps_paths(list, path) do
-    Enum.map(list, fn dep -> dep_path(dep) <>"/"<>path end)
-    |> existing_paths()
-    # |> IO.inspect()
+  defp dep_paths(dep, extra) when is_list(extra), do: Enum.flat_map(extra, &dep_paths(dep, &1))
+  defp dep_paths(dep, extra) when is_binary(extra) do
+    path = Path.join(dep_path(dep), extra)
+    if File.exists?(path), do: [path], else: []
   end
 
-  defp existing_paths(list) do
-    Enum.filter(list, &File.exists?(&1))
-  end
+  defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
+  defp test_lib_paths(), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
+
+  @test_deps [:pointers]
+  
+  @update_deps [
+    :activity_pub,
+    :query_elf,
+    :bonfire_mailer,
+    :bonfire_fail,
+    :bonfire_search,
+    :bonfire_recyclapp,
+    :bonfire_api_graphql,
+  ]
+
+  defp dep?(:test, dep),   do: elem(dep, 0) in @test_deps || String.starts_with?(dep_name(dep), "bonfire_")
+  defp dep?(:clean, dep),  do: String.starts_with?(dep_name(dep), "bonfire_data_")
+  defp dep?(:update, dep), do: elem(dep, 0) in @update_deps or (git_dep?(dep) && !pinned_git_dep?(dep))
+
+  defp git_dep?(dep) when is_list(elem(dep, 1)), do: elem(dep, 1)[:git]
+  defp git_dep?(_), do: false
+  defp pinned_git_dep?(dep) when is_list(elem(dep, 1)), do: elem(dep, 1)[:commit]
+  defp pinned_git_dep?(_), do: false
+
+  defp dep_name(dep), do: Atom.to_string(elem(dep, 0))
+
+  defp dep_names(test), do: deps(test) |> Enum.map(&dep_name/1)
+
+  defp dep_names_str(test),  do: dep_names(test) |> Enum.join("  ")
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: test_lib_paths()
+  defp elixirc_paths(_), do: ["lib"]
 
 end
