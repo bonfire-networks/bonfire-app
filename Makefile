@@ -177,7 +177,7 @@ deps.get: init
 deps.update.all: 
 	make deps.update-"--all"
 
-deps.update-%: init bonfire-pre-update
+deps.update-%: init 
 	docker-compose run -e WITH_FORKS=0 web mix deps.update $*
 
 dev: init docker-stop-web ## Run the app with Docker
@@ -203,7 +203,7 @@ git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-a
 test: init ## Run tests
 	docker-compose run web mix test $(args)
 
-licenses: init bonfire-pre-update
+licenses: init 
 	docker-compose run -e WITH_FORKS=0 web mix licenses
 	
 
