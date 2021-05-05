@@ -78,8 +78,6 @@ defmodule Bonfire.MixProject do
         # "phil_columns.seed",
         "run #{flavour_path()}/repo/seeds.exs"
         ],
-      "bonfire.deps.update": ["deps.update #{dep_names_str(:update)}"],
-      "bonfire.deps.clean": ["deps.clean #{dep_names_str(:clean)} --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
       updates: ["deps.get", "bonfire.deps", "js.deps.get"],
@@ -121,30 +119,9 @@ defmodule Bonfire.MixProject do
 
   @test_deps [:pointers]
   
-  @update_deps [
-    :activity_pub,
-    :query_elf,
-    :bonfire_mailer,
-    :bonfire_fail,
-    :bonfire_search,
-    :bonfire_recyclapp,
-    :bonfire_api_graphql,
-  ]
-
   defp dep?(:test, dep),   do: elem(dep, 0) in @test_deps || String.starts_with?(dep_name(dep), "bonfire_")
-  defp dep?(:clean, dep),  do: String.starts_with?(dep_name(dep), "bonfire_data_")
-  defp dep?(:update, dep), do: elem(dep, 0) in @update_deps or (git_dep?(dep) && !pinned_git_dep?(dep))
-
-  defp git_dep?(dep) when is_list(elem(dep, 1)), do: elem(dep, 1)[:git]
-  defp git_dep?(_), do: false
-  defp pinned_git_dep?(dep) when is_list(elem(dep, 1)), do: elem(dep, 1)[:commit]
-  defp pinned_git_dep?(_), do: false
 
   defp dep_name(dep), do: Atom.to_string(elem(dep, 0))
-
-  defp dep_names(test), do: deps(test) |> Enum.map(&dep_name/1)
-
-  defp dep_names_str(test),  do: dep_names(test) |> Enum.join("  ")
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: test_lib_paths()
