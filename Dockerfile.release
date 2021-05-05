@@ -17,6 +17,7 @@ ARG ALPINE_VERSION=3.13
 ARG APP_NAME
 # The version of the application we are building (required)
 ARG APP_VSN
+ARG BONFIRE_FLAVOUR
 
 # Step 1 - Build our app
 FROM elixir:${ELIXIR_VERSION}-alpine as builder 
@@ -33,7 +34,8 @@ RUN apk add --no-cache make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mess.exs mix.lock ./
-COPY config/deps.hex config/config.exs ./config 
+COPY ${BONFIRE_FLAVOUR}/config/deps.hex ${BONFIRE_FLAVOUR}/config/config.exs ./config 
+COPY ${BONFIRE_FLAVOUR}/config/deps.hex ${BONFIRE_FLAVOUR}/config/config.exs ./${BONFIRE_FLAVOUR}/config 
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
@@ -45,7 +47,8 @@ RUN npm install --prefix assets
 # RUN MIX_ENV=prod mix do deps.compile
 
 # git deps (i.e. Bonfire extensions)
-COPY config/deps.git ./config 
+COPY ${BONFIRE_FLAVOUR}/config/deps.git ./config 
+COPY ${BONFIRE_FLAVOUR}/config/deps.git ./${BONFIRE_FLAVOUR}/config 
 RUN mix do deps.get --only prod
 
 # Update Bonfire extensions to latest git verion
@@ -57,7 +60,8 @@ RUN mix do bonfire.deps.update
 # RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
-COPY config/ ./config 
+COPY ${BONFIRE_FLAVOUR}/config/ ./config 
+COPY ${BONFIRE_FLAVOUR} ./${BONFIRE_FLAVOUR}
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
