@@ -3,37 +3,42 @@ import Config
 # You will almost certainly want to change at least some of these
 
 # include all used Bonfire extensions
-import_config "bonfire_boundaries.exs"
-import_config "bonfire_mailer.exs"
-import_config "bonfire_federate_activitypub.exs"
-import_config "bonfire_files.exs"
+for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
+  # IO.inspect(include_config: config)
+  import_config config
+end
 
-import_config "bonfire_me.exs"
-import_config "bonfire_social.exs"
-import_config "bonfire_tag.exs"
-import_config "bonfire_classify.exs"
+# import_config "bonfire_boundaries.exs"
+# import_config "bonfire_mailer.exs"
+# import_config "bonfire_federate_activitypub.exs"
+# import_config "bonfire_files.exs"
 
-# import_config "bonfire_publisher_thesis.exs"
-import_config "bonfire_fail.exs"
-# import_config "bonfire_quantify.exs"
-import_config "bonfire_geolocate.exs"
-# import_config "bonfire_valueflows.exs"
-import_config "bonfire_api_graphql.exs"
+# import_config "bonfire_me.exs"
+# import_config "bonfire_social.exs"
+# import_config "bonfire_tag.exs"
+# import_config "bonfire_classify.exs"
 
-import_config "bonfire_search.exs"
+# # import_config "bonfire_publisher_thesis.exs"
+# import_config "bonfire_fail.exs"
+# # import_config "bonfire_quantify.exs"
+# import_config "bonfire_geolocate.exs"
+# # import_config "bonfire_valueflows.exs"
+# import_config "bonfire_api_graphql.exs"
 
-# include common modules
-import_config "bonfire_common.exs"
-import_config "activity_pub.exs"
+# import_config "bonfire_search.exs"
 
-# include DB schemas
-import_config "bonfire_data.exs"
+# # include common modules
+# import_config "bonfire_common.exs"
+# import_config "activity_pub.exs"
 
-# include hooks (for extensions to hook into each other)
-import_config "bonfire_hooks.exs"
+# # include DB schemas
+# import_config "bonfire_data.exs"
 
-# include UI settings
-import_config "bonfire_ui.exs"
+# # include hooks (for extensions to hook into each other)
+# import_config "bonfire_hooks.exs"
+
+# # include UI settings
+# import_config "bonfire_ui.exs"
 
 #### Basic configuration
 
