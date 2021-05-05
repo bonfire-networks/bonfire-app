@@ -13,32 +13,30 @@ defmodule Bonfire.MixProject do
     "bonfire_website",
     "bonfire_tag",
     "bonfire_federate_activitypub",
-
     "bonfire_geolocate",
-    # "bonfire_quantify",
-    # "bonfire_valueflows",
-    # "bonfire_ui_valueflows",
-    # "bonfire_ui_reflow",
-    # "bonfire_ui_coordination",
-    # "bonfire_breadpub",
+    "bonfire_quantify",
+    "bonfire_valueflows",
+    "bonfire_ui_valueflows",
+    "bonfire_ui_reflow",
+    "bonfire_ui_coordination",
+    "bonfire_breadpub",
     "bonfire_classify",
-    # "bonfire_valueflows_observe",
+    "bonfire_valueflows_observe",
   ]
 
   @bonfire_deps @bonfire_test_deps ++ [
     "activity_pub",
     "query_elf",
-
     "bonfire_data_access_control",
     "bonfire_data_identity",
     "bonfire_data_social",
     "bonfire_data_activity_pub",
     "bonfire_mailer",
-    # "bonfire_fail",
-    # "bonfire_data_shared_user",
+    "bonfire_fail",
+    "bonfire_data_shared_user",
     "bonfire_search",
-    # "bonfire_recyclapp",
-    # "bonfire_api_graphql",
+    "bonfire_recyclapp",
+    "bonfire_api_graphql",
     # "bonfire_taxonomy_seeder",
   ]
 
