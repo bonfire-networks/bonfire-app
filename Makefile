@@ -214,9 +214,13 @@ cmd-%: init ## Run a specific command in the container, eg: `make cmd-messclt` o
 assets-prepare:
 	cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
 
-rel-build-no-cache: init assets-prepare ## Build the Docker image
+config-prepare: # copy current flavour's config, without using symlinks
+	cp -rfL $(BONFIRE_FLAVOUR)/config ./data/config
+
+rel-build-no-cache: init config-prepare assets-prepare ## Build the Docker image
 	docker build \
 		--no-cache \
+		--build-arg BONFIRE_FLAVOUR=config \
 		--build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
 		--build-arg APP_BUILD=$(APP_BUILD) \
@@ -224,8 +228,9 @@ rel-build-no-cache: init assets-prepare ## Build the Docker image
 		-f $(APP_REL_DOCKERFILE) .
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD)
 
-rel-build: init assets-prepare ## Build the Docker image using previous cache
+rel-build: init config-prepare assets-prepare ## Build the Docker image using previous cache
 	docker build \
+		--build-arg BONFIRE_FLAVOUR=config \
 		--build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
 		--build-arg APP_BUILD=$(APP_BUILD) \
