@@ -6,7 +6,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.69",
+      version: "0.1.0-alpha.70",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
@@ -87,7 +87,7 @@ defmodule Bonfire.MixProject do
     ]
   end
 
-  defp flavour_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
+  defp flavour_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/"<>System.get_env("FLAVOUR", "classic"))
 
   defp config_path(flavour_path \\ flavour_path(), filename),
     do: Path.expand(Path.join([flavour_path, "config", filename]))
