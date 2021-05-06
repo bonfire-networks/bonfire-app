@@ -90,13 +90,11 @@ bonfire-push-app-updates:
 	git commit -a
 	git pull --rebase
 	WITH_FORKS=0 mix updates 
-	
 	make git-publish
 
 bonfire-deps-updates: 
 	git pull --rebase
 	WITH_FORKS=0 mix updates 
-	
 	make git-publish
 
 d-bonfire-push-all-updates: deps-all-git-commit-push d-bonfire-push-app-updates
