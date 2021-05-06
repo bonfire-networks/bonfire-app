@@ -43,11 +43,6 @@ jobs:
       DOCKER_REPO: bonfire-with-valueflows-api
     steps:
       - 
-        name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
-      - 
         name: Checkout
         uses: actions/checkout@v2
         with:
@@ -79,6 +74,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: Cancel any already running releases workflows
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
       - 
         name: Pre-build prep 
         run: 	mkdir forks/ && mkdir -p data/uploads/ && make config-prepare && touch data/config/deps.path
