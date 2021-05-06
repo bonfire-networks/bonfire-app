@@ -6,7 +6,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.65",
+      version: "0.1.0-alpha.66",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
@@ -43,8 +43,7 @@ defmodule Bonfire.MixProject do
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3.0", only: :test},
       {:zest, "~> 0.1"},
-      {:grumble, "~> 0.1.3", only: [:test]},
-      {:bonfire_api_graphql, only: :test, runtime: false, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main"},
+      # {:grumble, "~> 0.1.3", only: [:test]},
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
