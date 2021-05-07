@@ -1,5 +1,5 @@
 ## Bonfire 
-[Bonfire](https://bonfirenetworks.org/)  - your plug and play federated network. 
+[Bonfire](https://bonfirenetworks.org/) - your plug and play federated network. 
 
 ### Flavours
 This repo includes configurations to run different flavours of Bonfire, currently that is:
