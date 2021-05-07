@@ -45,7 +45,7 @@ module.exports = {
         blueGray: colors.blueGray,
       },
       boxShadow: {
-        tick: '-4px 4px 0px 0 rgba(0,0,0,0)'
+        tick: '0px 1px 2px rgba(0,0,0,2)'
       },
       typography: (theme) => ({
         light: {
