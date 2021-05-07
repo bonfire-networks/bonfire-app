@@ -33,7 +33,7 @@ defmodule Bonfire.Web.Router do
 
   # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
 
-  Utils.use_if_enabled Bonfire.Website.Web.Routes
+  # Utils.use_if_enabled Bonfire.Website.Web.Routes
 
   Utils.use_if_enabled Bonfire.UI.Reflow.Routes
   Utils.use_if_enabled Bonfire.UI.Coordination.Routes
@@ -61,7 +61,7 @@ defmodule Bonfire.Web.Router do
   # pages anyone can view
   scope "/", Bonfire do
     pipe_through :browser
-    # live "/", Web.HomeLive
+    live "/", Web.HomeLive
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
     live "/home", Web.HomeLive
