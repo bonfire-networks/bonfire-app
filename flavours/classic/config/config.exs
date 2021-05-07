@@ -6,7 +6,7 @@ flavour = System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
 
 # include all used Bonfire extensions
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
-  IO.inspect(include_config: config)
+  # IO.inspect(include_config: config)
   import_config config
 end
 
