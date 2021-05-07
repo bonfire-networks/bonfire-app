@@ -90,13 +90,11 @@ bonfire-push-app-updates:
 	git commit -a
 	git pull --rebase
 	WITH_FORKS=0 mix updates 
-	
 	make git-publish
 
 bonfire-deps-updates: 
 	git pull --rebase
 	WITH_FORKS=0 mix updates 
-	
 	make git-publish
 
 d-bonfire-push-all-updates: deps-all-git-commit-push d-bonfire-push-app-updates
@@ -106,7 +104,6 @@ d-bonfire-push-app-updates:
 	git commit -a
 	git pull --rebase
 	docker-compose run -e WITH_FORKS=0 web mix updates 
-	
 	make git-publish
 	make dev
 
@@ -199,6 +196,9 @@ git-forks-%: ## Run a git command on each fork
 
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
+
+git-conflicts:
+	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
 test: init ## Run tests
 	docker-compose run web mix test $(args)
