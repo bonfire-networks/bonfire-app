@@ -1,7 +1,5 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
-  alias Bonfire.Common.Utils
-  require Utils
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -33,27 +31,27 @@ defmodule Bonfire.Web.Router do
 
   # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
 
-  # Utils.use_if_enabled Bonfire.Website.Web.Routes
+  # use_if_enabled Bonfire.Website.Web.Routes
 
-  Utils.use_if_enabled Bonfire.UI.Reflow.Routes
-  Utils.use_if_enabled Bonfire.UI.Coordination.Routes
-  Utils.use_if_enabled Bonfire.Breadpub.Routes
-  Utils.use_if_enabled Bonfire.Recyclapp.Routes
+  use_if_enabled Bonfire.UI.Reflow.Routes
+  use_if_enabled Bonfire.UI.Coordination.Routes
+  use_if_enabled Bonfire.Breadpub.Routes
+  use_if_enabled Bonfire.Recyclapp.Routes
 
-  Utils.use_if_enabled Bonfire.Me.Web.Routes
-  Utils.use_if_enabled Bonfire.Social.Web.Routes
+  use_if_enabled Bonfire.Me.Web.Routes
+  use_if_enabled Bonfire.Social.Web.Routes
 
-  Utils.use_if_enabled Bonfire.Search.Web.Routes
-  Utils.use_if_enabled Bonfire.Classify.Web.Routes
+  use_if_enabled Bonfire.Search.Web.Routes
+  use_if_enabled Bonfire.Classify.Web.Routes
 
   # include GraphQL API
-  Utils.use_if_enabled Bonfire.GraphQL.Router
+  use_if_enabled Bonfire.GraphQL.Router
 
   # include federation routes
-  Utils.use_if_enabled ActivityPubWeb.Router
+  use_if_enabled ActivityPubWeb.Router
 
   # include nodeinfo routes
-  Utils.use_if_enabled NodeinfoWeb.Router
+  use_if_enabled NodeinfoWeb.Router
 
 
   ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
@@ -102,17 +100,17 @@ defmodule Bonfire.Web.Router do
     scope "/" do
       pipe_through :browser
 
-      if Utils.module_enabled?(Phoenix.LiveDashboard.Router) do
+      if module_enabled?(Phoenix.LiveDashboard.Router) do
         import Phoenix.LiveDashboard.Router
         live_dashboard "/settings/admin/dashboard", metrics: Bonfire.Web.Telemetry
       end
 
-      if Utils.module_enabled?(Bamboo.SentEmailViewerPlug) do
+      if module_enabled?(Bamboo.SentEmailViewerPlug) do
         forward "/emails", Bamboo.SentEmailViewerPlug
       end
 
-      if Utils.module_enabled?(Surface.Catalogue.Router) do
-        Utils.import_if_enabled Surface.Catalogue.Router
+      if module_enabled?(Surface.Catalogue.Router) do
+        import_if_enabled Surface.Catalogue.Router
         Surface.Catalogue.Router.surface_catalogue "/catalogue"
       end
     end

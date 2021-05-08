@@ -8,7 +8,7 @@ defmodule Bonfire.MixProject do
       app: :bonfire,
       version: "0.1.0-alpha.73",
       elixir: "~> 1.11",
-      elixirc_paths: elixirc_paths(Mix.env()),
+      elixirc_paths: elixirc_paths(Mix.env()) |> IO.inspect,
       test_paths: test_paths(),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -103,13 +103,15 @@ defmodule Bonfire.MixProject do
   defp dep_path(dep) do
     spec = elem(dep, 1)
     if is_list(spec) && spec[:path],
-      do: Path.expand(spec[:path]),
+      do: spec[:path],
       else: Mix.Project.deps_path() <> "/" <> dep_name(dep)
   end
 
   defp dep_paths(dep, extra) when is_list(extra), do: Enum.flat_map(extra, &dep_paths(dep, &1))
   defp dep_paths(dep, extra) when is_binary(extra) do
     path = Path.join(dep_path(dep), extra)
+    # IO.inspect(path)
+    # IO.inspect(File.ls(path))
     if File.exists?(path), do: [path], else: []
   end
 
@@ -118,7 +120,7 @@ defmodule Bonfire.MixProject do
 
   @test_deps [:pointers]
 
-  defp dep?(:test, dep),   do: elem(dep, 0) in @test_deps || String.starts_with?(dep_name(dep), "bonfire_")
+  defp dep?(:test, dep), do: elem(dep, 0) in @test_deps || String.starts_with?(dep_name(dep), "bonfire_")
 
   defp dep_name(dep), do: Atom.to_string(elem(dep, 0))
 
