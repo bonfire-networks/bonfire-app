@@ -1,5 +1,5 @@
 [
   import_deps: [:ecto, :phoenix, :ecto_sql, :surface],
-  inputs: ["*.{ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{ex,exs}"],
+  inputs: ["*.{ex,exs,sface}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{ex,exs,sface}", "forks/*/{config,lib,test}/**/*.{ex,exs,sface}"],
   subdirectories: ["priv/*/migrations"]
 ]

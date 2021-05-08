@@ -61,6 +61,7 @@ config :bonfire, :encryption_salt, encryption_salt
 config :bonfire,
   otp_app: :bonfire,
   env: config_env(),
+  app_name: System.get_env("APP_NAME", "Bonfire"),
   repo_module: Bonfire.Repo,
   web_module: Bonfire.Web,
   endpoint_module: Bonfire.Web.Endpoint,
@@ -81,7 +82,7 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :phoenix, :json_library, Jason
 
-# config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
+config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
 
 config :bonfire,
   ecto_repos: [Bonfire.Repo]
