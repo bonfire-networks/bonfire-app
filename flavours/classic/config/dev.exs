@@ -22,7 +22,7 @@ config :bonfire, Bonfire.Web.Endpoint,
       "--mode",
       "development",
       "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
+      cd: Path.expand("assets", File.cwd!())
     ]
   ]
 
