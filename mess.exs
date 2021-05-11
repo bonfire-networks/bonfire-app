@@ -14,7 +14,7 @@ if not Code.ensure_loaded?(Mess) do
 
     def deps(sources \\ @sources, deps), do: deps(Enum.flat_map(sources, fn {k,v} -> read(v, k) end), deps, :deps)
     defp deps(packages, deps, :deps), do: deps(Enum.flat_map(packages, &dep_spec/1), deps, :uniq)
-    defp deps(packages, deps, :uniq), do: Enum.uniq_by(deps ++ packages, &elem(&1, 0))
+    defp deps(packages, deps, :uniq), do: Enum.uniq_by(packages ++ deps, &elem(&1, 0))
 
     defp read(path, kind) when is_binary(path), do: read(File.read(path), kind)
     defp read({:error, :enoent}, _kind), do: []
