@@ -43,7 +43,7 @@ defmodule Bonfire.MixProject do
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3.0", only: :test},
       {:zest, "~> 0.1"},
-      # {:grumble, "~> 0.1.3", only: [:test]},
+      {:grumble, "~> 0.1.3", only: [:test]},
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
