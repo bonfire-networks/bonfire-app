@@ -104,7 +104,7 @@ defmodule Bonfire.MixProject do
     spec = elem(dep, 1)
     if is_list(spec) && spec[:path],
       do: spec[:path],
-      else: Mix.Project.deps_path() <> "/" <> dep_name(dep)
+      else: Mix.Project.deps_path() <> "/" <> dep_name(dep) |> Path.relative_to(File.cwd!)
   end
 
   defp dep_paths(dep, extra) when is_list(extra), do: Enum.flat_map(extra, &dep_paths(dep, &1))
