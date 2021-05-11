@@ -210,6 +210,9 @@ git-conflicts:
 test: init ## Run tests
 	docker-compose run web mix test $(args)
 
+test-remote: init ## Run tests (ignoring local forks)
+	docker-compose run -e WITH_FORKS=0 web mix test $(args)
+
 licenses: init 
 	docker-compose run -e WITH_FORKS=0 web mix licenses
 	
