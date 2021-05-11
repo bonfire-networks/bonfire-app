@@ -38,6 +38,11 @@ check out the app on `localhost:4000` in your browser
 
 - FORKS is used by the same developer tasks to determine where to find local forks of dependencies.
 
+### Usage under Windows (MSYS or CYGWIN)
+
+If you plan on using the `Makefile` (its rather handy), you must have symlinks enabled. 
+You must enable developer mode, and set `core.symlink = true`, [see link.](https://stackoverflow.com/a/59761201)
+
 ## Copyright and License
 
 Copyright (c) 2021 Bonfire Contributors
