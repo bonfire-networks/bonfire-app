@@ -5,7 +5,8 @@ echo Checking for changes in $DIR
 
 cd $DIR
 
-git add .
+# add all changes (including untracked files)
+git add --all .
 
 set +e  # Grep succeeds with nonzero exit codes to show results.
 
@@ -15,8 +16,8 @@ then
 
     git config core.fileMode false
 
-    # have to add/commit before being able to rebase
-    git commit -a
+    # if there are changes, commit them (needed before being able to rebase)
+    git diff-index --quiet HEAD || git commit --all
 
     # fetch and rebase remote changes
     git pull --rebase
