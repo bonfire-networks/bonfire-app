@@ -6,7 +6,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.78",
+      version: "0.1.0-alpha.79",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()) |> IO.inspect,
       test_paths: test_paths(),
@@ -60,7 +60,7 @@ defmodule Bonfire.MixProject do
       {:sobelow, "~> 0.8", only: :dev}
       ]
     )
-    |> IO.inspect()
+    # |> IO.inspect()
   end
 
   defp deps(test) when is_atom(test), do: deps(&dep?(test, &1))
