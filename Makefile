@@ -82,14 +82,21 @@ d-update: init pull build  ## Update/prepare dependencies, using Docker
 bonfire-updates: init 
 	docker-compose run -e WITH_FORKS=0 web mix bonfire.deps
 	
-
 bonfire-push-all-updates: deps-all-git-commit-push bonfire-push-app-updates
 
-bonfire-push-app-updates: 
-	git add .
-	git commit -a
+bonfire-push-release: deps-all-git-commit-push bonfire-push-app-release
+
+bonfire-app-updates: 
+	git add --all .
+	git diff-index --quiet HEAD || git commit --all
 	git pull --rebase
-	WITH_FORKS=0 mix updates 
+	WITH_FORKS=0 mix updates
+
+bonfire-push-app-updates: bonfire-app-updates
+	make git-publish
+
+bonfire-push-app-release: bonfire-app-updates
+	mix bonfire.release
 	make git-publish
 
 bonfire-deps-updates: 
