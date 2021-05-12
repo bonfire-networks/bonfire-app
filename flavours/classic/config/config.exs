@@ -10,6 +10,8 @@ for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   import_config config
 end
 
+import_config "activity_pub.exs"
+
 # import_config "bonfire_boundaries.exs"
 # import_config "bonfire_mailer.exs"
 # import_config "bonfire_federate_activitypub.exs"
@@ -31,7 +33,6 @@ end
 
 # # include common modules
 # import_config "bonfire_common.exs"
-# import_config "activity_pub.exs"
 
 # # include DB schemas
 # import_config "bonfire_data.exs"
