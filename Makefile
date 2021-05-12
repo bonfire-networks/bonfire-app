@@ -183,8 +183,8 @@ deps.update-%: init
 	docker-compose run -e WITH_FORKS=0 web mix deps.update $*
 
 dev: init docker-stop-web ## Run the app with Docker
-	# docker-compose --verbose run --name bonfire_web --service-ports web
-	docker-compose run --name bonfire_web --service-ports web
+	docker-compose --verbose run --name bonfire_web --service-ports web
+	#docker-compose run --name bonfire_web --service-ports web
 
 dev-bg: init docker-stop-web ## Run the app in dev mode, in the background
 	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
