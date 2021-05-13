@@ -1,7 +1,11 @@
 .PHONY: setup updates db-reset build dev shell
 
+BASH := $(shell which bash)
+
+# what flavour do we want?
 FLAVOUR ?= classic
 BONFIRE_FLAVOUR ?= flavours/$(FLAVOUR)
+
 LIBS_PATH ?= ./forks/
 ORG_NAME ?= bonfirenetworks
 APP_NAME ?= bonfire-$(FLAVOUR)
@@ -17,8 +21,22 @@ APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)"
 export UID
 export GID
 
+define setup_env
+	$(eval ENV_DIR := $(BONFIRE_FLAVOUR)/config/$(1))
+	@echo "Loading environment variables from $(ENV_DIR)"
+	@$(call load_env,$(ENV_DIR)/public.env)
+	@$(call load_env,$(ENV_DIR)/secrets.env)
+endef
+define load_env
+	$(eval ENV_FILE := $(1))
+	# @echo "Loading env vars from $(ENV_FILE)"
+	$(eval include $(ENV_FILE)) # import env into make
+	$(eval export) # export env from make
+endef
+	
 init:
 	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour $(APP_VSN) - $(APP_BUILD)"
+	@$(call setup_env,dev)
 	@ln -sfn $(BONFIRE_FLAVOUR)/config ./config
 	@mkdir -p config/prod
 	@mkdir -p config/dev
@@ -40,7 +58,7 @@ mix-%: init ## Run a specific mix command, eg: `make mix-deps.get` or make mix-d
 setup: build mix-setup ## First run - prepare environment and dependencies
 
 db:
-	docker-compose run db 
+	docker-compose up -d db search 
 
 db-pre-migrations:
 	touch deps/*/lib/migrations.ex 2> /dev/null || echo "continue"
@@ -266,3 +284,6 @@ rel-stop: ## Run the app in Docker, and keep running in the background
 
 rel-shell: docker-stop-web ## Runs a simple shell inside of the container, useful to explore the image
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm backend /bin/bash
+
+fire: init db
+	iex -S mix phx.server

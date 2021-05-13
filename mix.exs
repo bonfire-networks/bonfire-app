@@ -1,6 +1,5 @@
 Code.eval_file("mess.exs")
 defmodule Bonfire.MixProject do
-
   use Mix.Project
 
   def project do
@@ -31,7 +30,7 @@ defmodule Bonfire.MixProject do
   defp deps() do
     Mess.deps(mess_sources(), [
       ## password hashing - builtin vs nif
-      {:pbkdf2_elixir, "~> 1.2.1", only: [:dev, :test]},
+      {:pbkdf2_elixir, "~> 1.4", only: [:dev, :test]},
       {:argon2_elixir, "~> 2.3.0", only: [:prod]},
       ## dev conveniences
       # {:dbg, "~> 1.0", only: [:dev, :test]},

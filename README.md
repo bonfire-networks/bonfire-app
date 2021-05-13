@@ -28,8 +28,8 @@ You will need to create and init the db directory (keeping all your Postgres dat
 - start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
 - `mix deps.get` to get elixir dependencies
 - `pushd assets && npm install && popd` to get the frontend dependencies
-- `mix ecto.migrate` to get an up to date database
-- `iex -S phx.server` to start the server
+- `mix ecto.migrate` to compile & get an up to date database
+- `iex -S mix phx.server` to start the server
 - check out the app on `localhost:4000` in your browser
 
 ## Additional information

@@ -17,6 +17,7 @@ services:
       - POSTGRES_HOST=db
     depends_on:
       - db
+        # - condition: service_healthy
       - search
     volumes:
       # - /etc/passwd:/etc/passwd:ro 
@@ -32,7 +33,7 @@ services:
     tty: true # like docker run -t
     # user: $UID:$GID
   db:
-    image: postgis/postgis:12-3.0-alpine
+    image: postgis/postgis:12-3.1-alpine
     volumes:
       - ./data/postgres/dev:/var/lib/postgresql/data:z
       - /etc/passwd:/etc/passwd:ro 
@@ -42,6 +43,11 @@ services:
       - config/dev/public.env
       - config/dev/secrets.env
     user: $UID:$GID
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   search:
     image: getmeili/meilisearch:latest
     ports:
