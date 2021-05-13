@@ -2,7 +2,7 @@ defmodule Bonfire.Web.LiveHandler do
   require Logger
   alias Bonfire.Common.Utils
   import Utils
-  import Bonfire.Common.Hooks
+  # import Bonfire.Common.Hooks
 
   # start handler pattern matching
 

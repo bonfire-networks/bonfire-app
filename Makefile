@@ -70,11 +70,13 @@ pull:
 update: init pull  ## Update/prepare dependencies, without Docker
 	WITH_FORKS=0 mix updates
 	make deps-all-git-pull 
+	mix deps.get
 	mix ecto.migrate
 
 d-update: init pull build  ## Update/prepare dependencies, using Docker
 	docker-compose run -e WITH_FORKS=0 web mix updates 
 	make deps-all-git-pull 
+	make mix-deps.get
 	make mix-ecto.migrate 
 
 bonfire-updates: init 
