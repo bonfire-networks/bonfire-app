@@ -18,7 +18,8 @@ This repo includes configurations to run different flavours of Bonfire, currentl
 
 ## Dev environment with Nix
 
-If you use direnv, just cd in the directory and you will have all the dependencies. If you just have nix, running `nix-shell` will set you up with a shell.
+If you use direnv, just cd in the directory and you will have all the dependencies. 
+If you just have nix, running `nix-shell` will set you up with a shell.
 
 You will need to create and init the db directory (keeping all your Postgres data inside this directory).
 - create the db directory `initdb ./db`
@@ -29,7 +30,7 @@ You will need to create and init the db directory (keeping all your Postgres dat
 - `pushd assets && npm install && popd` to get the frontend dependencies
 - `mix ecto.migrate` to get an up to date database
 - `iex -S phx.server` to start the server
-check out the app on `localhost:4000` in your browser
+- check out the app on `localhost:4000` in your browser
 
 ## Additional information
 
