@@ -116,7 +116,7 @@ defmodule Bonfire.MixProject do
     |> Enum.filter(&should_update_dep?/1)
     |> Enum.map(&elem(&1, 0))
     |> Enum.join(" ")
-    |> IO.inspect(label: "You can run `mix bonfire.deps.update` to update these extensions and dependencies")
+    |> IO.inspect(label: "Running Bonfire with configuration from #{flavour_path()} in #{Mix.env()} environment. You can run `mix bonfire.deps.update` to update these extensions and dependencies")
   end
 
   defp should_update_dep?(dep), do: unpinned_git_dep?(dep)

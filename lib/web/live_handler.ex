@@ -1,11 +1,9 @@
 defmodule Bonfire.Web.LiveHandler do
+  use Bonfire.Web, :live_handler
   require Logger
-  alias Bonfire.Common.Utils
-  import Utils
 
   # start handler pattern matching
 
-  alias Bonfire.Common.Utils
   alias Bonfire.Me.Web.LiveHandlers.{Profiles, Circles}
   alias Bonfire.Social.Web.LiveHandlers.{Flags, Boosts, Likes, Posts, Feeds, Follows}
 
@@ -91,7 +89,7 @@ defmodule Bonfire.Web.LiveHandler do
   def handle_params(params, uri, socket, _source_module \\ nil) do
     undead(socket, fn ->
       #IO.inspect(params: params)
-      do_handle_params(params, uri, socket)
+      do_handle_params(params, uri, socket |> assign(current_url: URI.parse(uri).path))
     end)
   end
 
