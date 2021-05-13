@@ -13,24 +13,31 @@ services:
     env_file:
       - config/dev/public.env
       - config/dev/secrets.env
+    environment:
+      - POSTGRES_HOST=db
     depends_on:
       - db
       - search
     volumes:
+      # - /etc/passwd:/etc/passwd:ro 
       - type: bind
         source: .
         target: /opt/app
-      - /etc/passwd:/etc/passwd:ro 
+      # do not mount the following:
+      - /opt/app/_build
+      - /opt/app/assets/node_modules
+      - /opt/app/data/postgres 
+      - /opt/app/data/search
     stdin_open: true # like docker run -i
     tty: true # like docker run -t
-    user: $UID:$GID
+    # user: $UID:$GID
   db:
     image: postgis/postgis:12-3.0-alpine
     volumes:
       - ./data/postgres/dev:/var/lib/postgresql/data:z
       - /etc/passwd:/etc/passwd:ro 
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - "5432:5432"
     env_file:
       - config/dev/public.env
       - config/dev/secrets.env
