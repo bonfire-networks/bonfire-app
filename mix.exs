@@ -5,7 +5,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.83",
+      version: "0.1.0-alpha.84",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()) |> IO.inspect,
       test_paths: test_paths(),
