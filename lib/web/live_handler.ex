@@ -2,7 +2,6 @@ defmodule Bonfire.Web.LiveHandler do
   require Logger
   alias Bonfire.Common.Utils
   import Utils
-  # import Bonfire.Common.Hooks
 
   # start handler pattern matching
 
@@ -97,7 +96,6 @@ defmodule Bonfire.Web.LiveHandler do
   end
 
   def handle_event(action, attrs, socket, source_module \\ nil) do
-    # hook_undead(socket, action, attrs, fn ->
     undead(socket, fn ->
       Logger.info("handle_event in #{inspect source_module}: #{action}...")
       do_handle_event(action, attrs, socket)
