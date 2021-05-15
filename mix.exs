@@ -5,9 +5,9 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.95",
+      version: "0.1.0-alpha.96",
       elixir: "~> 1.11",
-      elixirc_paths: elixirc_paths(Mix.env()) |> IO.inspect,
+      elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -126,7 +126,7 @@ defmodule Bonfire.MixProject do
   end
 
   defp dep_path(dep) when is_binary(dep) do
-    path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!))
+    path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!) |> IO.inspect)
       || path_if_exists(System.get_env("LIBS_PATH", "./forks/")<>dep)
       || "."
   end
