@@ -5,7 +5,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.96",
+      version: "0.1.0-alpha.97",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
@@ -72,6 +72,9 @@ defmodule Bonfire.MixProject do
       "js.deps.get": [
         "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets",
         "cmd npm install --prefix ./assets ./assets",
+      ],
+      "js.release": [
+        "cmd npm run deploy --prefix ./assets",
       ],
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [
