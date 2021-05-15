@@ -5,7 +5,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.92",
+      version: "0.1.0-alpha.93",
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()) |> IO.inspect,
       test_paths: test_paths(),
@@ -143,8 +143,8 @@ defmodule Bonfire.MixProject do
 
   defp dep_paths(dep, extra) when is_list(extra), do: Enum.flat_map(extra, &dep_paths(dep, &1))
   defp dep_paths(dep, extra) when is_binary(extra) do
-    path = Path.join(dep_path(dep), extra)
-    if path, do: [path], else: []
+    dep_path = dep_path(dep)
+    if dep_path, do: [Path.join(dep_path, extra)], else: []
   end
 
   defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
