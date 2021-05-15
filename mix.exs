@@ -71,7 +71,7 @@ defmodule Bonfire.MixProject do
       "rebar.setup": ["local.rebar --force"],
       "js.deps.get": [
         "cmd npm install --prefix ./assets ./assets",
-        # "cmd npm install --prefix "<>existing_dep_path("bonfire_geolocate")<>"/assets"
+        "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets"
       ],
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [
@@ -125,19 +125,26 @@ defmodule Bonfire.MixProject do
     is_list(spec) && spec[:git] && !spec[:commit]
   end
 
+  defp dep_path(dep) when is_binary(dep) do
+    path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!)) || path_if_exists(System.get_env("LIBS_PATH", "./forks/")<>dep)
+  end
+
   defp dep_path(dep) do
     spec = elem(dep, 1)
-    if is_list(spec) && spec[:path],
+
+    path = if is_list(spec) && spec[:path],
       do: spec[:path],
       else: Mix.Project.deps_path() <> "/" <> dep_name(dep) |> Path.relative_to(File.cwd!)
+
+    path_if_exists(path)
   end
+
+  defp path_if_exists(path), do: if File.exists?(path), do: path
 
   defp dep_paths(dep, extra) when is_list(extra), do: Enum.flat_map(extra, &dep_paths(dep, &1))
   defp dep_paths(dep, extra) when is_binary(extra) do
     path = Path.join(dep_path(dep), extra)
-    # IO.inspect(path)
-    # IO.inspect(File.ls(path))
-    if File.exists?(path), do: [path], else: []
+    if path, do: [path], else: []
   end
 
   defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]

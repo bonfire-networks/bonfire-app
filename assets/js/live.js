@@ -35,7 +35,7 @@ liveSocket.connect()
 window.liveSocket = liveSocket
 
 
-// Extensions...
+// Extensions... # TODO: make this more modular/configurable
 
-// import { ExtensionHooks } from "../../deps/bonfire_geolocate/assets/js/extension" 
-// Object.assign(liveSocket.hooks, ExtensionHooks);
+import { ExtensionHooks } from "../../deps/bonfire_geolocate/assets/js/extension" 
+Object.assign(liveSocket.hooks, ExtensionHooks);
