@@ -36,13 +36,18 @@ defmodule Releaser.VersionUtils do
     "#{major}.#{minor}.#{patch}"
   end
 
-  def get_version() do
-    version = Mix.Project.config()[:version]
+  def get_version(mix_path \\ ".") do
+    version = if Code.ensure_loaded?(Mix.Project) do
+      Mix.Project.config()[:version]
+    else
+      contents = File.read!(mix_path<>"/mix.exs")
+      Regex.run(@version_line_regex, contents) |> Enum.fetch!(2)
+    end |> IO.inspect
     Version.parse!(version)
   end
 
-  def set_version(version) do
-    contents = File.read!("mix.exs")
+  def set_version(version, mix_path \\ ".") do
+    contents = File.read!(mix_path<>"/mix.exs")
     version_string = version_to_string(version)
 
     replaced =
@@ -50,7 +55,7 @@ defmodule Releaser.VersionUtils do
         "#{pre}#{version_string}#{post}"
       end)
 
-    File.write!("mix.exs", replaced)
+    File.write!(mix_path<>"/mix.exs", replaced)
   end
 
   def update_version(%Version{} = version, "major"), do: bump_major(version)
@@ -106,8 +111,16 @@ defmodule Mix.Tasks.Bonfire.Release do
   alias Releaser.Tests
   alias Releaser.Publish
 
-  def run(args) do
-    release_type = if is_list(args) and length(args)>0, do: List.last(args), else: "alpha" # TODO make the default configurable
+  def main(args) do # for running as escript
+    run(args)
+  end
+
+  def run(args) do # when running as Mix task
+
+    mix_path = if is_list(args) and length(args)>0, do: List.first(args), else: "."
+
+    release_type = if is_list(args) and length(args)>1, do: List.last(args), else: "alpha" # TODO make the default configurable
+
     IO.inspect(release_type: release_type)
 
     # Run the tests before generating the release.
@@ -115,14 +128,14 @@ defmodule Mix.Tasks.Bonfire.Release do
     # Tests.run_tests!()
 
     # Get the current version from the mix.exs file.
-    old_version = VersionUtils.get_version()
+    old_version = VersionUtils.get_version(mix_path)
     IO.inspect(old_version: old_version)
 
     new_version = VersionUtils.update_version(old_version, release_type)
     IO.inspect(new_version: new_version |> VersionUtils.version_to_string())
 
     # Set a new version on the mix.exs file
-    VersionUtils.set_version(new_version)
+    VersionUtils.set_version(new_version, mix_path)
 
     # Commit the changes and ad a new 'v*.*.*' tag
     # Git.add_commit_and_tag(new_version)

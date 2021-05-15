@@ -114,7 +114,7 @@ bonfire-push-app-updates: bonfire-app-updates
 	make git-publish
 
 bonfire-push-app-release: bonfire-app-updates
-	mix bonfire.release
+	cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ alpha
 	make git-publish
 
 bonfire-deps-updates: 
