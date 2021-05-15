@@ -40,10 +40,6 @@ RUN mkdir -p ./config && touch ./config/config.exs
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
-# cache JS deps
-COPY assets/package* ./assets/
-RUN npm install --prefix assets
-
 # Compile elixir deps (warning this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
 # RUN MIX_ENV=prod mix do deps.compile
 
@@ -66,17 +62,22 @@ RUN mix do bonfire.deps.update
 # COPY forks/ ./ 
 # RUN mix do deps.get --only prod
 
+# cache assets
+COPY assets/package* ./assets/
+# install JS deps
+RUN mix js.deps.get
+
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
 
 # COPY lib/ assets/ priv/ rel/ ./ # causes a webpack error
 COPY . .
 
-# In case some lockfile what's a different version
+# In case some dep lockfile has a different version
 RUN mix do deps.get --only prod
 
 # prepare static assets
-RUN npm run deploy --prefix ./assets
+RUN mix js.release
 RUN MIX_ENV=prod RELEASING=1 mix phx.digest
 
 # build final OTP release
