@@ -2,11 +2,26 @@ Code.eval_file("mess.exs")
 defmodule Bonfire.MixProject do
   use Mix.Project
 
+  @config [
+      version: "0.1.0-alpha.100", # note that the flavour will automatically be added
+      elixir: "~> 1.11",
+      default_flavour: "classic",
+      test_deps_prefixes: ["bonfire_", "pointers"],
+      data_deps_prefixes: ["bonfire_data_"]
+    ]
+
+  def version do
+    @config[:version]
+      |> String.split("-", parts: 2)
+      |> List.insert_at(1, flavour())
+      |> Enum.join("-")
+  end
+
   def project do
     [
       app: :bonfire,
-      version: "0.1.0-alpha.99",
-      elixir: "~> 1.11",
+      version: version(),
+      elixir: @config[:elixir],
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -18,6 +33,7 @@ defmodule Bonfire.MixProject do
         bonfire: [runtime_config_path: config_path("runtime.exs")],
       ]
     ]
+
   end
 
   def application do
@@ -25,6 +41,35 @@ defmodule Bonfire.MixProject do
       mod: {Bonfire.Application, []},
       extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
     ]
+  end
+
+  defp aliases do
+    [
+      "hex.setup": ["local.hex --force"],
+      "rebar.setup": ["local.rebar --force"],
+      "js.deps.get": [
+        "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets", # FIXME: make generic to apply to all extensions that bundle JS
+        "cmd npm install --prefix ./assets ./assets",
+      ],
+      "js.release": [
+        "cmd npm run deploy --prefix ./assets",
+      ],
+      "js.deps.update": ["cmd npm update --prefix assets"],
+      "ecto.seeds": [
+        # "phil_columns.seed",
+        "run #{flavour_path()}/repo/seeds.exs"
+        ],
+      "bonfire.deps.update": ["deps.update " <>deps_to_update()],
+      "bonfire.deps.clean": ["deps.clean " <>deps_to_clean()<>" --build"],
+      "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
+      setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
+      updates: ["deps.get", "bonfire.deps", "js.deps.get"],
+      upgrade: ["updates", "ecto.migrate"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "ecto.seeds", "test"]
+    ]
+
   end
 
   defp deps() do
@@ -59,78 +104,73 @@ defmodule Bonfire.MixProject do
       {:sobelow, "~> 0.8", only: :dev}
       ]
     )
-    # |> IO.inspect()
+
   end
 
-  defp deps(test) when is_atom(test), do: deps(&dep?(test, &1))
-  defp deps(test) when is_function(test, 1), do: Enum.filter(deps(), test)
+  defp deps(deps \\ deps(), deps_subtype) when is_atom(deps_subtype), do:
+    Enum.filter(deps, &include_dep?(deps_subtype, &1))
 
-  defp aliases do
-    [
-      "hex.setup": ["local.hex --force"],
-      "rebar.setup": ["local.rebar --force"],
-      "js.deps.get": [
-        "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets",
-        "cmd npm install --prefix ./assets ./assets",
-      ],
-      "js.release": [
-        "cmd npm run deploy --prefix ./assets",
-      ],
-      "js.deps.update": ["cmd npm update --prefix assets"],
-      "ecto.seeds": [
-        # "phil_columns.seed",
-        "run #{flavour_path()}/repo/seeds.exs"
-        ],
-      "bonfire.deps.update": ["deps.update " <>deps_to_update()],
-      "bonfire.deps.clean": ["deps.clean " <>deps_to_clean()<>" --build"],
-      "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
-      setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
-      updates: ["deps.get", "bonfire.deps", "js.deps.get"],
-      upgrade: ["updates", "ecto.migrate"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "ecto.seeds", "test"]
-    ]
-  end
+  def flavour_path(), do:
+    System.get_env("BONFIRE_FLAVOUR", "flavours/"<>System.get_env("FLAVOUR", @config[:default_flavour]))
 
-  def flavour_path(), do: System.get_env("BONFIRE_FLAVOUR", "flavours/"<>System.get_env("FLAVOUR", "classic"))
+  def flavour(), do:
+    System.get_env("FLAVOUR", flavour_path() |> String.split("/") |> List.last())
 
   def config_path(flavour_path \\ flavour_path(), filename),
     do: Path.expand(Path.join([flavour_path, "config", filename]))
+
+  def forks_path(), do: System.get_env("LIBS_PATH", "./forks/")
 
   defp mess_sources() do
     mess_sources(System.get_env("WITH_FORKS","1"))
     |> Enum.map(fn {k,v} -> {k, config_path(v)} end)
   end
 
-  defp mess_sources("0"), do: [git: "deps.git", hex: "deps.hex"]
-  defp mess_sources(_),   do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+  defp mess_sources("0"),  do: [git: "deps.git", hex: "deps.hex"]
+  defp mess_sources(_),    do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
 
   def deps_to_clean() do
-      deps()
-      |> Enum.map(&dep_name/1)
-      |> Enum.filter(&data_dep?/1)
-      |> Enum.join(" ")
+    deps(:data)
+    |> deps_names()
   end
 
   def deps_to_update() do
-    deps()
-    |> Enum.filter(&should_update_dep?/1)
-    |> Enum.map(&elem(&1, 0))
-    |> Enum.join(" ")
-    |> IO.inspect(label: "Running Bonfire with configuration from #{flavour_path()} in #{Mix.env()} environment. You can run `mix bonfire.deps.update` to update these extensions and dependencies")
+    deps(:update)
+    |> deps_names()
+    |> IO.inspect(label: "Running Bonfire #{version()} with configuration from #{flavour_path()} in #{Mix.env()} environment. You can run `mix bonfire.deps.update` to update these extensions and dependencies")
   end
 
-  defp should_update_dep?(dep), do: unpinned_git_dep?(dep)
+  # Specifies which paths to include when running tests
+  defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
+
+  # Specifies which paths to compile per environment
+  defp elixirc_paths(:test), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp include_dep?(:test, dep), do: String.starts_with?(dep_name(dep), @config[:test_deps_prefixes])
+
+  defp include_dep?(:data, dep), do: String.starts_with?(dep_name(dep), @config[:data_deps_prefixes])
+
+  defp include_dep?(:update, dep) when is_tuple(dep), do: unpinned_git_dep?(dep)
 
   defp unpinned_git_dep?(dep) do
     spec = elem(dep, 1)
     is_list(spec) && spec[:git] && !spec[:commit]
   end
 
+  defp dep_name(dep) when is_tuple(dep), do: elem(dep, 0) |> dep_name()
+  defp dep_name(dep) when is_atom(dep), do: Atom.to_string(dep)
+  defp dep_name(dep) when is_binary(dep), do: dep
+
+  def deps_names(deps) do
+      deps
+      |> Enum.map(&dep_name/1)
+      |> Enum.join(" ")
+  end
+
   defp dep_path(dep) when is_binary(dep) do
     path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!))
-      || path_if_exists(System.get_env("LIBS_PATH", "./forks/")<>dep)
+      || path_if_exists(forks_path()<>dep)
       || "."
   end
 
@@ -151,20 +191,5 @@ defmodule Bonfire.MixProject do
     dep_path = dep_path(dep)
     if dep_path, do: [Path.join(dep_path, extra)], else: []
   end
-
-  defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
-  defp test_lib_paths(), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
-
-  @test_deps [:pointers]
-
-  defp dep?(:test, dep), do: elem(dep, 0) in @test_deps || String.starts_with?(dep_name(dep), "bonfire_")
-
-  defp dep_name(dep), do: Atom.to_string(elem(dep, 0))
-
-  def data_dep?(dep), do: String.starts_with?(dep, "bonfire_data_")
-
-  # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: test_lib_paths()
-  defp elixirc_paths(_), do: ["lib"]
 
 end
