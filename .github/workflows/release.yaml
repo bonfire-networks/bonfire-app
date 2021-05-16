@@ -53,7 +53,7 @@ jobs:
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
           version-command: |
-            grep 'version:' mix.exs | cut -d '"' -f2
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - 
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
