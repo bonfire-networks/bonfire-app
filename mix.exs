@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-alpha.101", # note that the flavour will automatically be added
+      version: "0.1.0-alpha.102", # note that the flavour will automatically be added
       elixir: "~> 1.11",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers"],
