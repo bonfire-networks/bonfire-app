@@ -219,6 +219,9 @@ git-forks-add: ## Run a git command on each fork
 git-forks-%: ## Run a git command on each fork
 	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
 
+deps-git-fix: ## Run a git command on each dep, to ignore chmod changes
+	find ./deps -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
+
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
 
