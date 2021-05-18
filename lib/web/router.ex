@@ -33,16 +33,16 @@ defmodule Bonfire.Web.Router do
 
   # use_if_enabled Bonfire.Website.Web.Routes
 
-  use_if_enabled Bonfire.UI.Reflow.Routes
-  use_if_enabled Bonfire.UI.Coordination.Routes
-  use_if_enabled Bonfire.Breadpub.Routes
-  use_if_enabled Bonfire.Recyclapp.Routes
-
   use_if_enabled Bonfire.Me.Web.Routes
   use_if_enabled Bonfire.Social.Web.Routes
 
   use_if_enabled Bonfire.Search.Web.Routes
   use_if_enabled Bonfire.Classify.Web.Routes
+
+  use_if_enabled Bonfire.UI.Reflow.Routes
+  use_if_enabled Bonfire.UI.Coordination.Routes
+  use_if_enabled Bonfire.Breadpub.Routes
+  use_if_enabled Bonfire.Recyclapp.Routes
 
   # include GraphQL API
   use_if_enabled Bonfire.GraphQL.Router
@@ -59,10 +59,10 @@ defmodule Bonfire.Web.Router do
   # pages anyone can view
   scope "/", Bonfire do
     pipe_through :browser
-    live "/", Web.HomeLive
+    live "/", Web.HomeLive, as: :home
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
-    live "/home", Web.HomeLive
+    live "/home", Web.HomeLive, as: :home
 
     live "/error", Common.Web.ErrorLive
 
@@ -102,7 +102,7 @@ defmodule Bonfire.Web.Router do
 
       if module_enabled?(Phoenix.LiveDashboard.Router) do
         import Phoenix.LiveDashboard.Router
-        live_dashboard "/settings/admin/dashboard", metrics: Bonfire.Web.Telemetry
+        live_dashboard "/settings/admin/system", metrics: Bonfire.Web.Telemetry
       end
 
       if module_enabled?(Bamboo.SentEmailViewerPlug) do
@@ -111,7 +111,7 @@ defmodule Bonfire.Web.Router do
 
       if module_enabled?(Surface.Catalogue.Router) do
         import_if_enabled Surface.Catalogue.Router
-        Surface.Catalogue.Router.surface_catalogue "/catalogue"
+        Surface.Catalogue.Router.surface_catalogue "/ui/components"
       end
     end
   end
