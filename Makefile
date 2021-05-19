@@ -14,7 +14,7 @@ GID := $(shell id -g)
 APP_REL_CONTAINER="$(ORG_NAME)_$(APP_NAME)_release"
 APP_REL_DOCKERFILE=Dockerfile.release
 APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
-APP_VSN ?= `grep 'version:' mix.exs | cut -d '"' -f2`
+APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD ?= `git rev-parse --short HEAD`
 APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)"
 
@@ -219,6 +219,9 @@ git-forks-add: ## Run a git command on each fork
 git-forks-%: ## Run a git command on each fork
 	find $(LIBS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
 
+deps-git-fix: ## Run a git command on each dep, to ignore chmod changes
+	find ./deps -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
+
 git-merge-%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 	git merge --no-ff --no-commit $*
 
@@ -287,3 +290,6 @@ rel-shell: docker-stop-web ## Runs a simple shell inside of the container, usefu
 
 fire: init db
 	iex -S mix phx.server
+
+sparks: init db
+	mix test $(only)
