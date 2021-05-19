@@ -290,3 +290,6 @@ rel-shell: docker-stop-web ## Runs a simple shell inside of the container, usefu
 
 fire: init db
 	iex -S mix phx.server
+
+sparks: init db
+	mix test $(only)
