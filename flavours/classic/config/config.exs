@@ -89,7 +89,7 @@ config :bonfire,
   ecto_repos: [Bonfire.Repo]
 
 # ecto query filtering
-config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
+# config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

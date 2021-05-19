@@ -5,7 +5,7 @@ defmodule Releaser.VersionUtils do
   Maybe the `bump_*` functions should be in the standard library?
   This script doesn't support pre-release versions or versions with build information.
   """
-  @version_line_regex ~r/(\n\s*version:\s+")([^\n]+)(",)/
+  @version_line_regex ~r/(\n\s*version:\s+")([^\n]+)(")/
 
   def bump_major(%Version{} = version) do
     %{version | major: version.major + 1, minor: 0, patch: 0}
