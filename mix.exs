@@ -3,19 +3,12 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-alpha.102", # note that the flavour will automatically be added
+      version: "0.1.0-alpha.103", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.11",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers"],
       data_deps_prefixes: ["bonfire_data_"]
     ]
-
-  def version do
-    @config[:version]
-      |> String.split("-", parts: 2)
-      |> List.insert_at(1, flavour())
-      |> Enum.join("-")
-  end
 
   def project do
     [
@@ -195,6 +188,13 @@ defmodule Bonfire.MixProject do
     else
       []
     end
+  end
+
+  def version do
+    @config[:version]
+      |> String.split("-", parts: 2)
+      |> List.insert_at(1, flavour())
+      |> Enum.join("-")
   end
 
 end
