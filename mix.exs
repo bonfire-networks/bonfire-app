@@ -189,7 +189,12 @@ defmodule Bonfire.MixProject do
   defp dep_paths(dep, extra) when is_list(extra), do: Enum.flat_map(extra, &dep_paths(dep, &1))
   defp dep_paths(dep, extra) when is_binary(extra) do
     dep_path = dep_path(dep)
-    if dep_path, do: [Path.join(dep_path, extra)], else: []
+    if dep_path do
+      path = Path.join(dep_path, extra) |> path_if_exists()
+      if path, do: [path], else: []
+    else
+      []
+    end
   end
 
 end
