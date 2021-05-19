@@ -3,12 +3,12 @@ import Config
 
 config :bonfire, :ui,
    sidebar_components: [
-      {Bonfire.UI.Social.SidebarNavigationLive, []},
-      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Materials", process_url: "/process/"]},
-      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
+      {Bonfire.UI.Reflow.SidebarNavigationLive, []},
+      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
+      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
    ],
    smart_input: [
-      post: true,
+      post: false,
       cw: true,
       summary: true
    ],
