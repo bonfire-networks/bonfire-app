@@ -106,7 +106,7 @@ bonfire-push-release: deps-all-git-commit-push bonfire-push-app-release
 
 bonfire-app-updates: 
 	git add --all .
-	git diff-index --quiet HEAD || git commit --all
+	git diff-index --quiet HEAD || git commit --all --verbose
 	git pull --rebase
 	WITH_FORKS=0 mix updates
 
