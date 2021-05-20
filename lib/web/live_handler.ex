@@ -88,7 +88,7 @@ defmodule Bonfire.Web.LiveHandler do
 
   def handle_params(params, uri, socket, _source_module \\ nil) do
     undead(socket, fn ->
-      #IO.inspect(params: params)
+      ## IO.inspect(params: params)
       do_handle_params(params, uri, socket |> assign(current_url: URI.parse(uri).path))
     end)
   end
