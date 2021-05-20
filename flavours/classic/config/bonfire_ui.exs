@@ -3,12 +3,10 @@ import Config
 
 config :bonfire, :ui,
    sidebar_components: [
-      {Bonfire.UI.Reflow.SidebarNavigationLive, []},
-      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
+      {Bonfire.UI.Social.SidebarNavigationLive, []},
    ],
    smart_input: [
-      post: false,
+      post: true,
       cw: true,
       summary: true
    ],
@@ -20,12 +18,12 @@ config :bonfire, :ui,
          boosts: Bonfire.UI.Social.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowersLive,
          followed: Bonfire.UI.Social.ProfileFollowersLive,
-         inventory: Bonfire.UI.Reflow.ProfileInventoryLive,
       ],
       navigation: [
          timeline: "timeline",
-         inventory: "inventory",
          posts: "posts",
+         boosts: "boosts",
+         # private: "private",
       ],
       widgets: [
       ],
@@ -41,38 +39,4 @@ config :bonfire, :ui,
    ],
    smart_input_forms: [
       post: Bonfire.UI.Social.CreateActivityLive,
-      economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
-      intent: Bonfire.UI.ValueFlows.CreateIntentLive,
-      process: Bonfire.UI.ValueFlows.CreateProcessLive,
-      #offer: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
-      # need:
-      transfer_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive,
-      produce_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
-   ],
-   resource: [
-      navigation: [
-         timeline: "timeline",
-         material_passport: "material passport",
-      ],
-      widgets: [
-        # Bonfire.UI.Social.SubscribeWidgetLive,
-         Bonfire.UI.ValueFlows.LocationWidgetLive,
-         Bonfire.UI.Social.HashtagsWidgetLive,
-      ],
    ]
-   # process: [
-   #    navigation: [
-   #       events: "Economic events",
-   #       intents: "Intents",
-   #       # material_passport: "material passport",
-   #    ],
-   #    sections: [
-   #       events: Bonfire.UI.ValueFlows.EconomicEventsLive,
-   #       intents: Bonfire.UI.ValueFlows.IntentsLive,
-   #    ],
-   #    widgets: [
-   #      # Bonfire.UI.Social.SubscribeWidgetLive,
-   #      # Bonfire.UI.ValueFlows.LocationWidgetLive,
-   #      # Bonfire.UI.Social.HashtagsWidgetLive,
-   #    ],
-   # ]

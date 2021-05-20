@@ -1,10 +1,11 @@
 ## Bonfire 
-[Bonfire](https://bonfirenetworks.org/) - your plug and play federated network. 
+[Bonfire](https://bonfirenetworks.org/) - a federated social network for individuals and communities to design, operate and control their own digital lives.
 
 ### Flavours
-This repo includes configurations to run different flavours of Bonfire, currently that is:
+This repo includes configurations to run different [flavours of Bonfire](https://bonfirenetworks.org/apps.html), currently that is:
 * [Classic](flavours/classic) 
-* [ValueFlows](flavours/valueflows) 
+* [Coordination](flavours/coordination) 
+* [Reflow](flavours/reflow) 
 
 
 ## Handy commands

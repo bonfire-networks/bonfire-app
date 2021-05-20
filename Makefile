@@ -35,17 +35,17 @@ define load_env
 endef
 	
 init:
-	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour $(APP_VSN) - $(APP_BUILD)"
-	@$(call setup_env,dev)
 	@ln -sfn $(BONFIRE_FLAVOUR)/config ./config
 	@mkdir -p config/prod
 	@mkdir -p config/dev
+	@touch config/deps.path
 	@cp -n config/templates/public.env config/dev/ | true
 	@cp -n config/templates/public.env config/prod/ | true
 	@cp -n config/templates/not_secret.env config/dev/secrets.env | true
 	@cp -n config/templates/not_secret.env config/prod/secrets.env | true
+	@$(call setup_env,dev)
+	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour $(APP_VSN) - $(APP_BUILD)"
 	@mkdir -p forks/
-	@touch config/deps.path
 	@mkdir -p data/uploads/
 	@mkdir -p data/search/dev
 

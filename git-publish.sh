@@ -17,7 +17,7 @@ then
     git config core.fileMode false
 
     # if there are changes, commit them (needed before being able to rebase)
-    git diff-index --quiet HEAD || git commit --all
+    git diff-index --quiet HEAD || git commit --verbose --all
 
     # fetch and rebase remote changes
     git pull --rebase
