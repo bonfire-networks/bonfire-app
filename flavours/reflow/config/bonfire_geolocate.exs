@@ -1,0 +1,1 @@
+../../classic/config/bonfire_geolocate.exs
