@@ -105,6 +105,7 @@ You can first set the env variable DOCKER to control which mode these commands w
  - `WITH_DOCKER=easy` : use docker for services like the DB & compiled utilities like messctl 
  - `WITH_DOCKER=no` : please no
 
+```
 make help                           Makefile commands help **(run this to get more up-to-date commands and help information than available in this document)**
 make env.exports                    Display the vars from dotenv files that you need to load in your environment
  
@@ -164,7 +165,7 @@ make mix.remote~%                   Run a specific mix command, while ignoring a
 make deps.git.fix                   Run a git command on each dep, to ignore chmod changes
 make git.merge~%                    Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
 make git.conflicts                  Find any git conflicts in ./forks
-
+```
 
 ## What happens when I get this error?
 
