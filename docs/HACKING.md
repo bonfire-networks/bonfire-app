@@ -64,6 +64,23 @@ You first need to set set some configuration regardless of which option you choo
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
 
 
+## Option D - the experimental one (dev environment with Nix)
+
+If you use direnv, just cd in the directory and you will have all the dependencies. 
+If you just have nix, running `nix-shell` will set you up with a shell.
+
+You will need to create and init the db directory (keeping all your Postgres data inside this directory).
+- create the db directory `initdb ./db`
+- create the postgres user `createuser postgres -ds`
+- create the db `createdb bonfire_dev`
+- start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
+- `mix deps.get` to get elixir dependencies
+- `pushd assets && npm install && popd` to get the frontend dependencies
+- `mix ecto.migrate` to compile & get an up to date database
+- `iex -S mix phx.server` to start the server
+- check out the app on `localhost:4000` in your browser
+
+
 ## Hello world!
 
 - From a fresh checkout of this repository, this command will fetch the app's dependencies and setup the database (the same commands apply for all three options above):
@@ -78,7 +95,7 @@ make setup
 make dev
 ```
 
-- See the `make` commands bellow for more things you may want to do.
+- See the `make` commands below for more things you may want to do.
 
 
 ## Onboarding
@@ -95,6 +112,20 @@ Note that the first account to be registered is automatically an instance admin.
 The code is somewhat documented inline. You can generate HTML docs (using `Exdoc`) by running `mix docs`.
 
 
+## Additional information
+
+- messctl is a little utility for programmatically updating the .deps files from which the final elixir dependencies list is compiled by the mess script. The only use of it is in the dep-* tasks of the Makefile. It is used by some of the project developers and the build does not rely on it.
+
+- `./forks/` is used to hack on local copies of dependencies. You can clone a dependency from its git repo (like a bonfire extension) and use the local version during development, eg: `make dep.clone.local dep=bonfire_me repo=https://github.com/bonfire-networks/bonfire_me` 
+
+- You can migrate the DB when the app is running (useful in a release): `Bonfire.Repo.ReleaseTasks.migrate`
+
+### Usage under Windows (MSYS or CYGWIN)
+
+If you plan on using the `Makefile` (its rather handy), you must have symlinks enabled. 
+You must enable developer mode, and set `core.symlink = true`, [see link.](https://stackoverflow.com/a/59761201)
+
+
 ## Make commands
 
 Run `make` followed by any of these commands when appropriate rather than directly using the equivalent commands like `mix`, `docker`, `docker-compose`, etc. For example, `make setup` will get you started, and `make dev` will run the app.
@@ -107,6 +138,7 @@ You can first set an env variable to control which mode these commands will assu
 
 ```
 make help                           Makefile commands help **(run this to get more up-to-date commands and help information than available in this document)**
+make mix-help                       Help info for elixir's mix commands
 make env.exports                    Display the vars from dotenv files that you need to load in your environment
  
 make setup                          First run - prepare environment and dependencies
@@ -124,12 +156,12 @@ make update.dep~%                   Update a specify dep (eg. `make update.dep~p
 make update.forks                   Pull the latest commits from all ./forks
  
 make deps.get                       Fetch locked version of non-forked deps
-make dep.clone.local                Clone a git dep and use the local version, eg: `make dep.clone.local dep="bonfire_me" repo=https://github.com/bonfire-networks/bonfire_me`
+make dep.clone.local                Clone a git dep and use the local version, eg: `make dep.clone.local dep=bonfire_me repo=https://github.com/bonfire-networks/bonfire_me`
 make deps.clone.local.all           Clone all bonfire deps / extensions
 make dep.go.local~%                 Switch to using a local path, eg: make dep.go.local~pointers
 make dep.go.local.path              Switch to using a local path, specifying the path, eg: make dep.go.local dep=pointers path=./libs/pointers
-make dep.go.git                     Switch to using a git repo, eg: make dep.go.git dep="pointers" repo=https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
-make dep.go.hex                     Switch to using a library from hex.pm, eg: make dep.go.hex dep="pointers" version="~> 0.2" (specifying the version is optional if previously specified)
+make dep.go.git                     Switch to using a git repo, eg: make dep.go.git dep=pointers repo=https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
+make dep.go.hex                     Switch to using a library from hex.pm, eg: make dep.go.hex dep=pointers version="~> 0.2" (specifying the version is optional if previously specified)
 make dep.hex~%                      add/enable/disable/delete a hex dep with messctl command, eg: `make dep.hex.enable dep=pointers version="~> 0.2"
 make dep.git~%                      add/enable/disable/delete a git dep with messctl command, eg: `make dep.hex.enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
 make dep.local~%                    add/enable/disable/delete a local dep with messctl command, eg: `make dep.hex.enable dep=pointers path=./libs/pointers
