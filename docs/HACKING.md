@@ -1,0 +1,206 @@
+# Development guide
+
+_These instructions are for hacking on Bonfire. If you wish to deploy in production, please refer to our [Deployment Guide](./DEPLOY.md)!_
+
+Hello, potential contributor! :-)
+
+This is a work in progress guide to getting up and running as a developer. Please ask questions in the issue tracker if something is not clear.
+
+Happy hacking!
+
+
+## Getting set up
+
+There are three main options depending on your needs and preferences. 
+
+You first need to set set some configuration regardless of which option you choose.
+
+### Configuration
+
+- Run this command to initialise some default config (.env files which won't be checked into git):
+
+`make pre-config`
+
+- Edit the config (especially the secrets) in these files:
+  - `config/dev/secrets.env`
+  - `config/dev/public.env`
+
+
+### Option A - the entry way (fully managed via docker-compose, recommended when you're first exploring)
+
+- Dependencies:
+  - `make`
+  - Docker
+  - Docker Compose (recent version)
+
+- Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
+
+
+### Option B - the easy way (with docker-managed database & search index, recommended for active development)
+
+- Dependencies:
+  - `make` 
+  - Recent versions of elixir (1.11+) and OTP/erlang (23+)
+  - Docker
+  - Docker Compose (recent version)
+
+- Set an environment variable to indicate your choice: `export WITH_DOCKER=partial`
+
+- Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
+
+
+### Option C - the bare metal (if you don't use docker)
+
+- Dependencies:
+  - `make` 
+  - Recent versions of elixir (1.11+) and OTP/erlang (23+)
+  - Postgres 12+ (or Postgis if using the bonfire_geolocate extension)
+  - Meili Search (optional)
+
+- You will need to set the relevant environment variables in the .env files (see above) to match your local install of Postgres.
+
+- If you want search capabilities, you'll also need to setup a Meili server and set the relevant env variables as well.
+
+- Set an environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
+
+
+## Hello world!
+
+- From a fresh checkout of this repository, this command will fetch the app's dependencies and setup the database (the same commands apply for all three options above):
+
+```
+make setup
+```
+
+- You should then be able to run the app with:
+
+```
+make dev
+```
+
+- See the `make` commands bellow for more things you may want to do.
+
+
+## Onboarding
+
+By default, the back-end listens on port 4000 (TCP), so you can access it on http://localhost:4000/
+
+If you haven't set up transactional emails, while in development, you will see a signup confirmation path appear in the iex console.
+
+Note that the first account to be registered is automatically an instance admin.
+
+
+## Documentation
+
+The code is somewhat documented inline. You can generate HTML docs (using `Exdoc`) by running `mix docs`.
+
+
+## Make commands
+
+Run `make` followed by any of these commands when appropriate rather than directly using the equivalent commands like `mix`, `docker`, `docker-compose`, etc. For example, `make setup` will get you started, and `make dev` will run the app.
+
+You can first set the env variable DOCKER to control which mode these commands will assume you're using. Here are your options:
+ - `WITH_DOCKER=total` : use docker for everything (default)
+ - `WITH_DOCKER=partial` : use docker for services like the DB 
+ - `WITH_DOCKER=easy` : use docker for services like the DB & compiled utilities like messctl 
+ - `WITH_DOCKER=no` : please no
+
+make help                           Makefile commands help **(run this to get more up-to-date commands and help information than available in this document)**
+make env.exports                    Display the vars from dotenv files that you need to load in your environment
+ 
+make setup                          First run - prepare environment and dependencies
+make dev                            Run the app in development
+make dev.bg                         Run the app in dev mode, as a background service
+make db.reset                       Reset the DB (caution: this means DATA LOSS)
+make db.rollback                    Rollback previous DB migration (caution: this means DATA LOSS)
+make db.rollback.all                Rollback ALL DB migrations (caution: this means DATA LOSS)
+make update                         Update the app and all dependencies/extensions/forks, and run migrations
+ 
+make update.app                     Update the app and Bonfire extensions in ./deps
+make update.deps.bonfire            Update to the latest Bonfire extensions in ./deps 
+make update.deps.all                Update evey single dependency (use with caution)
+make update.dep~%                   Update a specify dep (eg. `make update.dep~pointers`)
+make update.forks                   Pull the latest commits from all ./forks
+ 
+make deps.get                       Fetch locked version of non-forked deps
+make dep.clone.local                Clone a git dep and use the local version, eg: `make dep.clone.local dep="bonfire_me" repo=https://github.com/bonfire-networks/bonfire_me`
+make deps.clone.local.all           Clone all bonfire deps / extensions
+make dep.go.local~%                 Switch to using a local path, eg: make dep.go.local~pointers
+make dep.go.local.path              Switch to using a local path, specifying the path, eg: make dep.go.local dep=pointers path=./libs/pointers
+make dep.go.git                     Switch to using a git repo, eg: make dep.go.git dep="pointers" repo=https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
+make dep.go.hex                     Switch to using a library from hex.pm, eg: make dep.go.hex dep="pointers" version="~> 0.2" (specifying the version is optional if previously specified)
+make dep.hex~%                      add/enable/disable/delete a hex dep with messctl command, eg: `make dep.hex.enable dep=pointers version="~> 0.2"
+make dep.git~%                      add/enable/disable/delete a git dep with messctl command, eg: `make dep.hex.enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
+make dep.local~%                    add/enable/disable/delete a local dep with messctl command, eg: `make dep.hex.enable dep=pointers path=./libs/pointers
+make messctl~%                      Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `make messctl~help`)
+ 
+make contrib.forks                  Push all changes to the app and extensions in ./forks
+make contrib.release                Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
+make contrib.app.up                 Update ./deps and push all changes to the app
+make contrib.app.release            Update ./deps, increment the app version number and push
+make git.forks.add                  Run the git add command on each fork
+make git.forks~%                    Run a git command on each fork (eg. `make git.forks~pull` pulls the latest version of all local deps from its git remote
+ 
+make test                           Run tests. You can also run only specific tests, eg: `make test only=forks/bonfire_social/test`
+make test.stale                     Run only stale tests
+make test.remote                    Run tests (ignoring changes in local forks)
+make test.watch                     Run stale tests, and wait for changes to any module's code, and re-run affected tests
+make test.db.reset                  Create or reset the test DB
+ 
+make rel.build                      Build the Docker image using previous cache
+make rel.tag.latest                 Add latest tag to last build
+make rel.push                       Add latest tag to last build and push to Docker Hub
+make rel.run                        Run the app in Docker & starts a new `iex` console
+make rel.run.bg                     Run the app in Docker, and keep running in the background
+make rel.stop                       Run the app in Docker, and keep running in the background
+make rel.shell                      Runs a simple shell inside of the container, useful to explore the image
+ 
+make services                       Start background docker services (eg. db and search backends). This is automatically done for you if using Docker.
+make build                          Build the docker image
+make cmd~%                          Run a specific command in the container, eg: `make cmd-messclt` or `make cmd~time` or `make cmd~echo args=hello`
+make shell                          Open the shell of the Docker web container, in dev mode
+make mix~%                          Run a specific mix command, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
+make mix.remote~%                   Run a specific mix command, while ignoring any deps cloned into ./forks, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
+make deps.git.fix                   Run a git command on each dep, to ignore chmod changes
+make git.merge~%                    Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
+make git.conflicts                  Find any git conflicts in ./forks
+
+
+## What happens when I get this error?
+
+### (Mix) Package fetch failed
+
+Example:
+
+```
+** (Mix) Package fetch failed and no cached copy available (https://repo.hex.pm/tarballs/distillery-2.0.12.tar)
+```
+
+In this case, distillery (as an example of a dependency) made a new release and retired the old release from hex. The new version (`2.0.14`) is quite close to the version we were depending on (`2.0.12`), so we chose to upgrade:
+
+```shell
+mix deps.update distillery
+```
+
+This respects the version bounds in `mix.exs` (`~> 2.0`), so increment that if required.
+
+
+### `(DBConnection.ConnectionError) tcp recv: closed`
+
+Example:
+
+```
+** (DBConnection.ConnectionError) tcp recv: closed (the connection was closed by the pool, possibly due to a timeout or because the pool has been terminated)
+```
+
+In this case, the seeds were unable to complete because a query took too long to execute on your machine. You can configure the timeout to be larger in the `dev` environment:
+
+1. Open `config/dev.exs` in your editor.
+2. Find the database configuration (search for `Bonfire.Repo`).
+3. Add `timeout: 60_000` to the list of options:
+
+```
+config :bonfire, Bonfire.Repo,
+  timeout: 60_000,
+  [...]
+```
