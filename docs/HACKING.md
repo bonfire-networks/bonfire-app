@@ -17,11 +17,17 @@ You first need to set set some configuration regardless of which option you choo
 
 ### Configuration
 
-- Run this command to initialise some default config (.env files which won't be checked into git):
+- The first thing to do is choosing what flavour of Bonfire you want to hack on (the default is `classic`), as each flavour has its own config. 
+
+For example if you want to run the `coordination` flavour:
+
+`export FLAVOUR=coordination`
+
+- Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
 
 `make pre-config`
 
-- Edit the config (especially the secrets) in these files:
+- Edit the config (especially the secrets) for the current flavour in these files:
   - `config/dev/secrets.env`
   - `config/dev/public.env`
 
