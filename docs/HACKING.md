@@ -64,7 +64,7 @@ You first need to set set some configuration regardless of which option you choo
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
 
 
-## Option D - the experimental one (dev environment with Nix)
+### Option D - the experimental one (dev environment with Nix)
 
 If you use direnv, just cd in the directory and you will have all the dependencies. 
 If you just have nix, running `nix-shell` will set you up with a shell.
@@ -138,7 +138,7 @@ You can first set an env variable to control which mode these commands will assu
 
 ```
 make help                           Makefile commands help **(run this to get more up-to-date commands and help information than available in this document)**
-make mix-help                       Help info for elixir's mix commands
+make mix~help                       Help info for elixir's mix commands
 make env.exports                    Display the vars from dotenv files that you need to load in your environment
  
 make setup                          First run - prepare environment and dependencies
