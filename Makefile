@@ -345,7 +345,7 @@ db.pre-migrations: ## Workaround for some issues running migrations
 	touch forks/*/lib/migrations.ex 2> /dev/null || echo "continue"
 	touch priv/repo/* 2> /dev/null || echo "continue"
 
-git-publish:
+git.publish:
 	chmod +x git-publish.sh
 	./git-publish.sh
 
