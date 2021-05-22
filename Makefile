@@ -281,7 +281,7 @@ rel.run: init docker.stop.web ## Run the app in Docker & starts a new `iex` cons
 rel.run.bg: init docker.stop.web ## Run the app in Docker, and keep running in the background
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d
 
-rel.stop: init ## Run the app in Docker, and keep running in the background
+rel.stop: init ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
 
 rel.shell: init docker.stop.web ## Runs a simple shell inside of the container, useful to explore the image

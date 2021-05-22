@@ -58,7 +58,31 @@ config :bonfire_data_access_control,
 
 alias Pointers.{Pointer, Table}
 
-config :pointers, Pointer, []
+config :pointers, Pointer,
+  has_one:  [controlled:     {Controlled, foreign_key: :id}],
+  has_one:  [created: {Created, foreign_key: :id}],
+  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # needs ON clause
+  has_one:  [post_content: {PostContent, foreign_key: :id}],
+  has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
+  has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
+  has_one:  [my_like: {Like, foreign_key: :liked_id, references: :id}],
+  has_one:  [my_flag: {Flag, foreign_key: :flagged_id, references: :id}],
+  has_one:  [replied: {Replied, foreign_key: :id}],
+  has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}],
+  has_one:  [profile:        {Profile,       foreign_key: :id}],
+  has_one:  [character:      {Character,     foreign_key: :id}],
+  has_one:  [actor:          {Actor,         foreign_key: :id}],
+  # add references of tags to any tagged Pointer
+  many_to_many: [
+    tags: {
+      Bonfire.Tag,
+      join_through: "bonfire_tagged",
+      unique: true,
+      join_keys: [pointer_id: :id, tag_id: :id],
+      on_replace: :delete
+    }
+  ]
+
 config :pointers, Table, []
 
 # now let's weave everything else together for convenience
@@ -303,17 +327,7 @@ config :bonfire_tag, Bonfire.Tag,
   # for locations
   has_one: [geolocation:  {Bonfire.Geolocate.Geolocation,      references: :id, foreign_key: :id}]
 
-# add references of tags to any tagged Pointer
-config :pointers, Pointers.Pointer,
-  many_to_many: [
-    tags: {
-      Bonfire.Tag,
-      join_through: "bonfire_tagged",
-      unique: true,
-      join_keys: [pointer_id: :id, tag_id: :id],
-      on_replace: :delete
-    }
-  ]
+
 
 # add references of tagged objects to any Category
 config :bonfire_classify, Bonfire.Classify.Category,
