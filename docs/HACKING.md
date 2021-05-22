@@ -99,7 +99,7 @@ The code is somewhat documented inline. You can generate HTML docs (using `Exdoc
 
 Run `make` followed by any of these commands when appropriate rather than directly using the equivalent commands like `mix`, `docker`, `docker-compose`, etc. For example, `make setup` will get you started, and `make dev` will run the app.
 
-You can first set the env variable DOCKER to control which mode these commands will assume you're using. Here are your options:
+You can first set an env variable to control which mode these commands will assume you're using. Here are your options:
  - `WITH_DOCKER=total` : use docker for everything (default)
  - `WITH_DOCKER=partial` : use docker for services like the DB 
  - `WITH_DOCKER=easy` : use docker for services like the DB & compiled utilities like messctl 
