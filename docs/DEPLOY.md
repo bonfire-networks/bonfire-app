@@ -8,7 +8,7 @@ _These instructions are for setting up Bonfire in production. If you want to run
 
 ## Step 0 - Configure your database
 
-You must provide a postgresql database for data storage. We require postgres 9.4 or above.
+You must provide a postgresql database for data storage. We require postgres 12 or above (or Postgis).
 
 If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database:
 
@@ -18,16 +18,16 @@ CREATE EXTENSION IF NOT EXISTS citext;
 
 ## Step 1 - Configure the backend
 
-The app needs some environment variables to be configured in order to work (a list of which can be found in the file `config/docker.env` in this same repository).
+The app needs some environment variables to be configured in order to work.
 
-In the `${FLAVOUR}/config/` directory, there are following default config files:
+In the `flavours/${FLAVOUR}/config/` directory of the codebase, there are following default config files:
 
 - `config.exs`: default base configuration, which itself loads many other config files, such as one for each installed Bonfire extension.
 - `dev.exs`: default extra configuration for `MIX_ENV=dev`
 - `prod.exs`: default extra configuration for `MIX_ENV=prod`
 - `runtime.exs`: extra configuration which is loaded at runtime (vs the others which are only loaded once at compile time, i.e. when you build a release)
 
-You should NOT have to modify the files above. Instead, overload any settings from the above files using env variables (a list of which can be found in the file `${FLAVOUR}/config/prod/public.env` and `${FLAVOUR}/config/prod/secrets.env`  in this same repository).
+You should NOT have to modify the files above. Instead, overload any settings from the above files using env variables (a list of which can be found in the file `${FLAVOUR}/config/prod/public.env` and `flavours/${FLAVOUR}/config/prod/secrets.env` in this same repository, both in the `main` and `release` branches).
 
 `MAIL_DOMAIN` and `MAIL_KEY` are needed to configure transactional email, you can for example sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key.
 
@@ -58,41 +58,48 @@ GNU Make 4.2.1
 ...
 ```
 
-2. Clone this repository and change into the directory:
+2. Clone the `release` branch of repository and change into the directory:
 
 ```sh
-$ git clone git@gitlab.com:Bonfire/Server.git bonfire-backend
-$ cd bonfire-backend
+$ git clone --branch release https://github.com/bonfire-networks/bonfire-app.git bonfire
+$ cd bonfire
 ```
 
-3. Build the docker image.
+3. The first thing to do is choosing what flavour of Bonfire you want to deploy (the default is `classic`), as each flavour has its own Docker image and config. 
 
-```
-$ make rel-build
+For example if you want to run the `coordination` flavour:
 
-$ make rel-tag-latest
-```
+`export FLAVOUR=coordination` and edit the `image` entry in `docker-compose.yml` to reflect the corresponding image on Docker Hub.
 
-4. Start the docker containers with docker-compose:
+4. Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
+
+`make pre-config`
+
+5. Edit the config (especially the secrets) for the current flavour in these files:
+  - `config/dev/secrets.env`
+  - `config/dev/public.env`
+
+6. Start the docker containers with docker-compose:
 
 ```sh
-$ make rel-run
+$ make rel.run
 ```
 
-5. The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
+7. The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
 
-6. If that worked, start the app as a daemon next time:
+8. If that worked, start the app as a daemon next time:
 
 ```sh
-$ make rel-run-bg
+$ make rel.run.bg
 ```
 
 #### Docker commands
 
-- `docker-compose run --rm backend bin/bonfire` returns all the possible commands
-- `docker-compose run --rm backend /bin/sh` runs a simple shell inside of the container, useful to explore the image
-- `docker-compose run --rm backend bin/bonfire start_iex` starts a new `iex` console
-- `docker-compose run backend bin/bonfire remote` runs an `iex` console when the service is already running.
+- `docker-compose pull` to update to the latest release of Bonfire and other services (Postgres & Meili)
+- `docker-compose run --rm web bin/bonfire` returns all the possible commands
+- `docker-compose run --rm web /bin/sh` runs a simple shell inside of the container, useful to explore the image
+- `docker-compose run --rm web bin/bonfire start_iex` starts a new `iex` console
+- `docker-compose run web bin/bonfire remote` runs an `iex` console when the service is already running.
 
 There are some useful database-related release tasks under `Bonfire.Repo.ReleaseTasks.` that can be run in an `iex` console:
 
@@ -108,10 +115,12 @@ For example:
 
 The Dockerfile uses the [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature to make the image as small as possible. It is a very common release using OTP releases. It generates the release which is later copied into the final image.
 
-There is a `Makefile` with two relavant commands:
+There is a `Makefile` with relevant commands:
 
-- `make rel-build` which builds the docker image in `bonfire/bonfire:latest` and `bonfire/bonfire:$VERSION-$BUILD`
-- `make rel-run` which can be used to run the docker built docker image instead of using `docker-compose`
+- `make rel.build` which builds the docker image in `bonfire/bonfire:latest` and `bonfire/bonfire:$VERSION-$BUILD`
+- `make rel.tag.latest` adds the "latest" tag to your last build, so that it will be used when running
+- `make rel.run` which can be used to run the "latest" tagged image instead of using `docker-compose`
+- `make rel.run.bg` which runs it as a background service
 
 ---
 
@@ -119,58 +128,44 @@ There is a `Makefile` with two relavant commands:
 
 #### Dependencies
 
-- Postgres version 9.6 or newer
+- Postgres (or Postgis) version 12 or newer
 - Build tools
-- Elixir version 1.9.0 with OTP 22 (or possibly newer). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [asdf](https://github.com/asdf-vm/asdf) (run `asdf install` in this directory).
-
-#### Quickstart
-
-The quick way to get started with building a release, assuming that elixir and erlang are already installed.
-
-```bash
-$ export MIX_ENV=prod
-$ mix deps.get
-$ mix release
-# TODO: load required env variables
-$ _build/prod/rel/bonfire/bin/bonfire eval 'Bonfire.Repo.ReleaseTasks.migrate()'
-# DB migrated
-$ _build/prod/rel/bonfire/bin/bonfire start
-# App started in foreground
-```
-
-See the section on [Runtime Configuration](#runtime-configuration) for information on exporting environment variables.
+- Elixir version 1.11.0 with OTP 23 (or newer). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [asdf](https://github.com/asdf-vm/asdf) (run `asdf install` in this directory).
 
 #### B-1. Building the release
 
-- Clone this repo.
+- Clone the `main` branch of this repo.
+
+- Set your environment: `export MIX_ENV=prod && export FLAVOUR=classic`
+
+- You will need to load the required environment variables for the release to run properly. See`flavours/$(FLAVOUR)/config/runtime.exs`](config/runtime.exs) and `flavours/$(FLAVOUR)/config/prod/*.env` for all env variables which you can set. 
+
 - Make sure you have erlang and elixir installed (check `Dockerfile` for what version we're currently using)
-- Run `mix deps.get` to install elixir dependencies.
+
 - From here on out, you may want to consider what your `MIX_ENV` is set to. For production, ensure that you either export `MIX_ENV=prod` or use it for each command. Continuing, we are assuming `MIX_ENV=prod`.
+
+- Run `mix deps.get --only prod` to install elixir dependencies.
+
+- Prepare assets with `mix js.deps.get`, `mix js.release` and `mix phx.digest`
+
 - Run `mix release` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
 
 #### B-2. Running the release
 
-- Export all required environment variables. See [Runtime Configuration](#runtime-configuration) section.
+- `cd _build/prod/rel/bonfire/`
 
-- Create a database, if one is not created already with `bin/bonfire eval 'Bonfire.ReleaseTasks.create_db()'`.
-- You will likely also want to run the migrations. This is done similarly with `bin/bonfire eval 'Bonfire.Repo.ReleaseTasks.migrate()'`.
+- Create a database and run the migrations with `bin/bonfire eval 'Bonfire.Repo.ReleaseTasks.migrate()'`.
 - If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
 
-* You can check if your instance is configured correctly by running it with `bonfire start`
+* You can check if your instance is configured correctly by running it with `bin/bonfire start`
 
-* To run the instance as a daemon, use `bin/bonfire daemon`.
+* To run the instance as a daemon, use `bin/bonfire start daemon`.
 
 #### B-3. Adding HTTPS
 
 The common and convenient way for adding HTTPS is by using Nginx or Caddyserver as a reverse proxy.
 
-Caddyserver handles generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
-
-#### Runtime configuration
-
-You will need to load the required environment variables for the release to run properly.
-
-See [`config/releases.exs`](config/releases.exs) for all used variables. Consider also viewing there [`config/docker.env`](config/docker.env) file for some examples of values.
+Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
 
 ---
 
