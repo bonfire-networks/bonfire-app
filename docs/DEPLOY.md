@@ -8,7 +8,7 @@ _These instructions are for setting up Bonfire in production. If you want to run
 
 ## Step 0 - Configure your database
 
-You must provide a postgresql database for data storage. We require postgres 9.4 or above.
+You must provide a postgresql database for data storage. We require postgres 12 or above (or Postgis).
 
 If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database:
 
