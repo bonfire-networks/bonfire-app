@@ -16,6 +16,7 @@ WITH_DOCKER ?= total
 
 # other configs
 FORKS_PATH ?= ./forks/
+MIX_ENV ?= dev
 ORG_NAME ?= bonfirenetworks
 APP_NAME ?= bonfire-$(FLAVOUR)
 UID := $(shell id -u)
@@ -64,8 +65,8 @@ pre-run:
 	@mkdir -p data/search/dev
 
 init: pre-init pre-run
-	@$(call setup_env,dev)
-	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour $(APP_VSN) - $(APP_BUILD)"
+	@$(call setup_env,$(MIX_ENV))
+	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD)"
 	@make --no-print-directory pre-init
 	@make --no-print-directory services
 
