@@ -59,6 +59,7 @@ config :bonfire, :ui,
       widgets: [
         # Bonfire.UI.Social.SubscribeWidgetLive,
          Bonfire.UI.ValueFlows.LocationWidgetLive,
+         Bonfire.UI.ValueFlows.PrimaryAccountableWidgetLive,
          Bonfire.UI.Social.HashtagsWidgetLive,
       ],
    ]
