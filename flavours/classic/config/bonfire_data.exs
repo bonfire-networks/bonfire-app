@@ -365,3 +365,6 @@ config :bonfire_files, Bonfire.Files.Media,
   field: [
     url: {:string, virtual: true}
   ]
+
+config :bonfire_valueflows, ValueFlows.Planning.Intent,
+  has_one:  [like_count:   {LikeCount,   foreign_key: :id}]
