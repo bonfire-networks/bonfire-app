@@ -67,12 +67,13 @@ defmodule Bonfire.Web.LiveHandler do
   # defp do_handle_event(event, attrs, socket) when binary_part(event, 0, 10) == "valueflows", do: ValueFlows.Web.LiveHandler.handle_event(event, attrs, socket)
 
   defp do_handle_event(event, attrs, socket) do
+    # IO.inspect(handle_event: event)
     [mod, action] = String.split(event, ":", parts: 2)
-    IO.inspect(mod)
-    IO.inspect(action)
+    # IO.inspect(mod)
+    # IO.inspect(action)
     case Utils.maybe_str_to_module(mod<>".LiveHandler") || Utils.maybe_str_to_module(mod) do
       module when is_atom(module) ->
-        IO.inspect(module)
+        # IO.inspect(module)
         if Utils.module_enabled?(module), do: apply(module, :handle_event, [action, attrs, socket]),
         else: empty(socket)
       _ -> empty(socket)
