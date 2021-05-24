@@ -3,7 +3,7 @@ import Config
 
 config :bonfire, :ui,
    sidebar_components: [
-      {Bonfire.UI.Social.SidebarNavigationLive, []},
+      {Bonfire.UI.Coordination.SidebarNavigationLive, []},
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
       {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
    ],
