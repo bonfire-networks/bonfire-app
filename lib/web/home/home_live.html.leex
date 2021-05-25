@@ -1,26 +1,21 @@
-
-<div class="my-3 lg:my-6 mx-auto">
-  <div class="flex flex-wrap items-center justify-between sm:flex-no-wrap">
-    <div class="lg:flex items-start space-x-4 w-full">
-      <div class="lg:w-1/2 md:w-2/3 w-full mx-auto text-left bg-white rounded-lg">
-        <div class="bg-cover bg-no-repeat bg-bottom rounded-t-lg" style="height: 300px; background-image: url(https://images.unsplash.com/photo-1470549584009-d347338fc0ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9uZmlyZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60)"></div>
-        <div class="p-3">
-          <h2 class="text-xl font-extrabold text-gray-800"><%= Bonfire.Application.name() || "Bonfire" %></h2>
-          <span class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800">
-            <%= Bonfire.Application.named_version() %>
-          </span>
-          <p class="mt-2 text-base text-gray-700">
-          This is a temporary Bonfire instance for testing and development purposes.
-          </p>
-        </div>
-      </div>
-
-      <div class="hidden w-1/2 lg:block md:flex-shrink-0">
-        <div style="box-shadow: 0 1px 2px rgb(0 0 0 / 20%);" class="mx-4 lg:mx-0 bg-white rounded-lg">
-          <%= live_component(@socket, Bonfire.UI.Social.FeedHeaderLive, assigns) %>
-          <%= live_component(@socket, Bonfire.UI.Social.FeedLive, assigns) %>
-        </div>
-      </div>
-    </div>
+<div class="flex-col hidden lg:flex md:flex-shrink-0 w-96">
+<div class="fixed flex flex-col overflow-y-auto bg-white rounded-lg w-96 shadow-tick">
+  <div class="bg-bottom bg-no-repeat bg-cover rounded-t-lg" style="height: 300px; background-image: url(https://images.unsplash.com/photo-1470549584009-d347338fc0ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9uZmlyZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60)"></div>
+  <div class="p-3 rounded-b-lg">
+    <h2 class="text-xl font-extrabold text-gray-800"><%= Bonfire.Application.name() || "Bonfire" %></h2>
+    <span class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800">
+      <%= Bonfire.Application.named_version() %>
+    </span>
+    <p class="mt-2 text-base text-gray-700">
+    This is a temporary Bonfire instance for testing and development purposes.
+    </p>
   </div>
 </div>
+</div>
+
+<section class="min-h-screen bg-white w-center shadow-tick">
+  <%= live_component(@socket, Bonfire.UI.Social.FeedHeaderLive, assigns) %>
+  <%= live_component(@socket, Bonfire.UI.Social.FeedLive, assigns) %>
+</section>
+
+

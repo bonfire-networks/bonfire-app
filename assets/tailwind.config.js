@@ -47,6 +47,11 @@ module.exports = {
       boxShadow: {
         tick: '0px 1px 2px rgba(0,0,0,2)'
       },
+      spacing: {
+        '72': '18rem',
+        '84': '21rem',
+        '96': '26rem',
+      },
       typography: (theme) => ({
         light: {
           css: [
