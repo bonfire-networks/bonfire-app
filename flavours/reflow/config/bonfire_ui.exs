@@ -53,8 +53,8 @@ config :bonfire, :ui,
    ],
    resource: [
       navigation: [
-         timeline: "timeline",
-         material_passport: "material passport",
+         trace: "material passport",
+         track: "next events",
       ],
       widgets: [
         # Bonfire.UI.Social.SubscribeWidgetLive,
