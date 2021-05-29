@@ -11,18 +11,13 @@ config :bonfire_data_identity, Bonfire.Data.Identity.Credential,
 
 #### Sentinel Data Services
 
-# Search these apps for Pointable schemas to index
-
+# Search these apps/extensions for Pointable schemas to index
 config :pointers,
   search_path: [
     :bonfire_data_access_control,
     :bonfire_data_activity_pub,
     :bonfire_data_identity,
     :bonfire_data_social,
-    :cpub_activities,
-    :cpub_comments,
-    :cpub_communities,
-    :cpub_threads,
     :bonfire,
     :bonfire_quantify,
     :bonfire_geolocate,
@@ -30,10 +25,10 @@ config :pointers,
     :bonfire_tag,
     :bonfire_classify,
     :bonfire_data_shared_users,
+    :bonfire_files
   ]
 
-# Search these apps for Verbs to index
-
+# Search these apps/extensions for Verbs to index
 config :bonfire_data_access_control,
   search_path: [
     :bonfire_me,
