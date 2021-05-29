@@ -5,17 +5,17 @@
 import Config
 
 if config_env() == :prod do
-
   host = System.get_env("HOSTNAME", "localhost")
   port = String.to_integer(System.get_env("PORT", "4000"))
 
-  System.get_env("RELEASING") || System.get_env("DATABASE_URL") || (System.get_env("POSTGRES_DB") && System.get_env("POSTGRES_PASSWORD")) ||
-      raise """
-      Environment variables for database are missing.
-      For example: DATABASE_URL=ecto://USER:PASS@HOST/DATABASE
-      You can also set POSTGRES_DB and POSTGRES_PASSWORD (required),
-      and POSTGRES_USER (default: postgres) and POSTGRES_HOST (default: localhost)
-      """
+  System.get_env("RELEASING") || System.get_env("DATABASE_URL") ||
+    (System.get_env("POSTGRES_DB") && System.get_env("POSTGRES_PASSWORD")) ||
+    raise """
+    Environment variables for database are missing.
+    For example: DATABASE_URL=ecto://USER:PASS@HOST/DATABASE
+    You can also set POSTGRES_DB and POSTGRES_PASSWORD (required),
+    and POSTGRES_USER (default: postgres) and POSTGRES_HOST (default: localhost)
+    """
 
   if System.get_env("DATABASE_URL") do
     config :bonfire, Bonfire.Repo,
@@ -28,6 +28,7 @@ if config_env() == :prod do
       password: System.get_env("POSTGRES_PASSWORD", "postgres"),
       database: System.get_env("POSTGRES_DB", "bonfire"),
       hostname: System.get_env("POSTGRES_HOST", "localhost"),
+      socket_dir: System.get_env("POSTGRES_SOCKET_DIR"),
       pool_size: String.to_integer(System.get_env("POOL_SIZE", "10"))
   end
 
@@ -38,12 +39,14 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  signing_salt = System.get_env("RELEASING") || System.get_env("SIGNING_SALT") ||
+  signing_salt =
+    System.get_env("RELEASING") || System.get_env("SIGNING_SALT") ||
       raise """
       environment variable SIGNING_SALT is missing.
       """
 
-  encryption_salt = System.get_env("RELEASING") || System.get_env("ENCRYPTION_SALT") ||
+  encryption_salt =
+    System.get_env("RELEASING") || System.get_env("ENCRYPTION_SALT") ||
       raise """
       environment variable ENCRYPTION_SALT is missing.
       """
@@ -73,5 +76,6 @@ if config_env() == :prod do
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
+end
 
-end # end prod-only config
+# end prod-only config
