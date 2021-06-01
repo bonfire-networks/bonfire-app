@@ -14,7 +14,6 @@ config :bonfire, Bonfire.Mailer,
 # which you should run after static files are built and
 # before starting your production server.
 config :bonfire, Bonfire.Web.Endpoint,
-  url: [host: "localhost", port: 4000],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
