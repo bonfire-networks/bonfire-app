@@ -7,7 +7,8 @@ import Config
 if config_env() == :prod do
 
   host = System.get_env("HOSTNAME", "localhost")
-  port = String.to_integer(System.get_env("PORT", "4000"))
+  serve_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
+  public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 
   System.get_env("RELEASING") || System.get_env("DATABASE_URL") || (System.get_env("POSTGRES_DB") && System.get_env("POSTGRES_PASSWORD")) ||
       raise """
@@ -54,10 +55,10 @@ if config_env() == :prod do
   config :bonfire, Bonfire.Web.Endpoint,
     url: [
       host: host,
-      port: port
+      port: public_port
     ],
     http: [
-      port: port
+      port: serve_port
     ],
     secret_key_base: secret_key_base,
     live_view: [signing_salt: signing_salt]

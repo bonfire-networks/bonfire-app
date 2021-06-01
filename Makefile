@@ -124,6 +124,8 @@ update.deps.all: ## Update evey single dependency (use with caution)
 
 update.dep~%: ## Update a specify dep (eg. `make update.dep~pointers`)
 	@make --no-print-directory mix.remote~"deps.update $*"
+	@chmod +x git-publish.sh
+	./git-publish.sh $(FORKS_PATH)/$*
 
 update.forks: git.forks~pull ## Pull the latest commits from all ./forks
 
@@ -131,6 +133,8 @@ deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
+dep.clean~%:
+	@make mix~"deps.clean $* --build"
 
 dep.clone.local: ## Clone a git dep and use the local version, eg: `make dep.clone.local dep="bonfire_me" repo=https://github.com/bonfire-networks/bonfire_me`
 	git clone $(repo) $(FORKS_PATH)$(dep) 2> /dev/null || (cd $(FORKS_PATH)$(dep) ; git pull)
