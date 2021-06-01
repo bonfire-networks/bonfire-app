@@ -37,6 +37,18 @@ config :bonfire_data_access_control,
     :bonfire,
   ]
 
+#### Alias modules for readability
+alias Pointers.{Pointer, Table}
+alias Bonfire.Data.AccessControl.{
+  Access, Acl, Controlled, InstanceAdmin, Grant, Interact, Verb
+}
+alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
+alias Bonfire.Data.Identity.{
+  Account, Accounted, Caretaker, Character, Credential, Email, Self, User, Named
+}
+alias Bonfire.Data.Social.{
+  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish, Inbox, Message, Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Flag, FlagCount, Mention, Post, PostContent, Profile, Replied
+}
 
 #### Flexto Stitching
 
@@ -51,7 +63,6 @@ config :bonfire_data_access_control,
 
 # first up, pointers could have all the mixins we're using. TODO
 
-alias Pointers.{Pointer, Table}
 
 config :pointers, Pointer,
   has_one:  [controlled:     {Controlled, foreign_key: :id}],
@@ -81,17 +92,6 @@ config :pointers, Pointer,
 config :pointers, Table, []
 
 # now let's weave everything else together for convenience
-
-alias Bonfire.Data.AccessControl.{
-  Access, Acl, Controlled, InstanceAdmin, Grant, Interact, Verb
-}
-alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
-alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, Character, Credential, Email, Self, User, Named
-}
-alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed, FeedPublish, Inbox, Message, Follow, FollowCount, Boost, BoostCount, Like, LikeCount, Flag, FlagCount, Mention, Post, PostContent, Profile, Replied
-}
 
 # bonfire_data_access_control
 
@@ -177,7 +177,7 @@ config :bonfire_data_social, Activity,
   belongs_to: [subject_character: {Character, foreign_key: :subject_id, define_field: false}],
   belongs_to: [subject_profile: {Profile, foreign_key: :subject_id, define_field: false}],
   belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}],
-  belongs_to: [object_post_content: {PostContent, foreign_key: :object_id, define_field: false}],
+  # belongs_to: [object_post_content: {PostContent, foreign_key: :object_id, define_field: false}],
   belongs_to: [object_message: {Message, foreign_key: :object_id, define_field: false}],
   has_one:    [boost_count:   {BoostCount, foreign_key: :id, references: :object_id}],
   has_one:    [like_count:   {LikeCount, foreign_key: :id, references: :object_id}],
