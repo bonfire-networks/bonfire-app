@@ -76,6 +76,7 @@ config :bonfire,
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
+  http: [port: String.to_integer(System.get_env("SERVER_PORT", "4000"))],
   secret_key_base: secret_key_base,
   render_errors: [view: Bonfire.Web.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Bonfire.PubSub,
