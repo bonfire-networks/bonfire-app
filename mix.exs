@@ -7,7 +7,7 @@ defmodule Bonfire.MixProject do
       elixir: "~> 1.11",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers"],
-      data_deps_prefixes: ["bonfire_data_"]
+      data_deps_prefixes: ["bonfire_data_", "pointers"]
     ]
 
   def project do
