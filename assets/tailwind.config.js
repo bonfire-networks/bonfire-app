@@ -119,6 +119,7 @@ module.exports = {
   },
   variants: {
     extend: {
+     divideColor: ['dark'],
      ringWidth:['hover'],
      divideColor: ['dark'],
      ringColor: ['group-hover', 'hover'],

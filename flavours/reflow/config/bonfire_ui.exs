@@ -2,6 +2,12 @@ import Config
 
 
 config :bonfire, :ui,
+   theme: [
+      instance_name: "Amsterdam pilot",
+      instance_logo: "https://reflowproject.eu/wp-content/themes/reflow/images/logoBlue.svg",
+      instance_image: "https://reflowproject.eu/wp-content/uploads/2020/06/reflow-blog-1600x900.jpg",
+      instance_description: "This is a Reflow demo instance of the Amsterdam pilot"
+   ],
    sidebar_components: [
       {Bonfire.UI.Reflow.SidebarNavigationLive, []},
       {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
@@ -53,14 +59,13 @@ config :bonfire, :ui,
    ],
    resource: [
       navigation: [
-         trace: "material passport",
-         track: "next events",
+         trace: "trace",
+         track: "track",
       ],
       widgets: [
-        # Bonfire.UI.Social.SubscribeWidgetLive,
+         # Bonfire.UI.Social.SubscribeWidgetLive
          Bonfire.UI.ValueFlows.LocationWidgetLive,
          Bonfire.UI.ValueFlows.PrimaryAccountableWidgetLive,
-         Bonfire.UI.Social.HashtagsWidgetLive,
       ],
    ]
    # process: [
