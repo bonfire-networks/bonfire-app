@@ -51,6 +51,7 @@ defmodule Bonfire.Web.LiveHandler do
   defp do_handle_params(%{"post" => params}, uri, socket), do: Posts.handle_params(params, uri, socket)
   defp do_handle_event(event, attrs, socket) when event in @post_events or binary_part(event, 0, 4) == "post", do: Posts.handle_event(event, attrs, socket)
   defp do_handle_info({info, data}, socket) when info in @post_infos, do: Posts.handle_info({info, data}, socket)
+  defp do_handle_info({info, id, data}, socket) when info in @post_infos, do: Posts.handle_info({info, id, data}, socket)
 
   # Feeds
   defp do_handle_params(%{"feed" => params}, uri, socket), do: Feeds.handle_params(params, uri, socket)
