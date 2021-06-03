@@ -215,24 +215,28 @@ git.forks~%: ## Run a git command on each fork (eg. `make git.forks~pull` pulls 
 
 #### TESTING RELATED COMMANDS ####
 
-test: init ## Run tests. You can also run only specific tests, eg: `make test only=forks/bonfire_social/test`
+test.env:
+	$(eval export MIX_ENV=test)
+	$(eval export)
+
+test: init test.env ## Run tests. You can also run only specific tests, eg: `make test only=forks/bonfire_social/test`
 ifeq ($(WITH_DOCKER), total)
 	docker-compose run web mix test $(only)
 else
 	mix test $(only)
 endif
 
-test.stale: init ## Run only stale tests
+test.stale: init test.env ## Run only stale tests
 ifeq ($(WITH_DOCKER), total)
 	docker-compose run web mix test $(only) --stale
 else
 	mix test $(only) --stale
 endif
 
-test.remote: ## Run tests (ignoring changes in local forks)
+test.remote: test.env ## Run tests (ignoring changes in local forks)
 	@make --no-print-directory mix.remote~"test $(only)"
 
-test.watch: init  ## Run stale tests, and wait for changes to any module's code, and re-run affected tests
+test.watch: init test.env ## Run stale tests, and wait for changes to any module's code, and re-run affected tests
 ifeq ($(WITH_DOCKER), total)
 	docker-compose run web mix test.watch --stale $(only)
 else
