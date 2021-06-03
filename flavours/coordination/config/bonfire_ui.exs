@@ -4,8 +4,8 @@ import Config
 config :bonfire, :ui,
    theme: [
       instance_name: "Bonfire",
-      instance_logo: "https://reflowproject.eu/wp-content/themes/reflow/images/logoBlue.svg",
-      instance_image: "https://reflowproject.eu/wp-content/uploads/2020/06/reflow-blog-1600x900.jpg",
+      instance_logo: "https://bonfirenetworks.org/img/bonfire.png",
+      instance_image: "https://bonfirenetworks.org/img/brand2.png",
       instance_description: "This is a bonfire demo instance for testing purpose"
    ],
    sidebar_components: [
