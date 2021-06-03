@@ -27,7 +27,7 @@ defmodule Bonfire.Web.Endpoint do
     at: "/",
     from: :bonfire,
     gzip: true,
-    only: ~w(data css fonts images js favicon.ico robots.txt)
+    only: ~w(data css fonts images js favicon.ico robots.txt cache_manifest.json)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -54,4 +54,18 @@ defmodule Bonfire.Web.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Bonfire.Web.Router
+
+  def include_assets(conn) do
+    js = if Bonfire.Common.Utils.e(conn, :assigns, :current_account, nil) do
+      static_path("/js/live.js")
+    else
+      static_path("/js/non_live.js")
+    end
+
+    if Bonfire.Common.Config.get!(:env) == :dev do
+      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/app.css") <>"'/> <script defer phx-track-static src='"<> js <>"'></script>"
+    else
+      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/app.css") <>"'/> <script defer phx-track-static src='"<> js <>"'></script> "
+    end
+  end
 end
