@@ -1,6 +1,17 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
 
+  pipeline :basic do
+    # plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {Bonfire.Web.LayoutView, :root}
+    # plug :protect_from_forgery
+    # plug :put_secure_browser_headers
+    # plug Bonfire.Web.Plugs.LoadCurrentAccount
+    plug Bonfire.Web.Plugs.LoadCurrentUser
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -97,22 +108,28 @@ defmodule Bonfire.Web.Router do
 
   end
 
+  scope "/" do
+    pipe_through :browser
+
+    if module_enabled?(Surface.Catalogue.Router) do
+      import_if_enabled Surface.Catalogue.Router
+      Surface.Catalogue.Router.surface_catalogue "/ui/components"
+    end
+
+    if module_enabled?(Phoenix.LiveDashboard.Router) do
+      import Phoenix.LiveDashboard.Router
+      pipe_through :admin_required
+      live_dashboard "/admin/system", metrics: Bonfire.Web.Telemetry, ecto_repos: [Bonfire.Repo]
+    end
+
+  end
+
   if Mix.env() in [:dev, :test] do
     scope "/" do
       pipe_through :browser
 
-      if module_enabled?(Phoenix.LiveDashboard.Router) do
-        import Phoenix.LiveDashboard.Router
-        live_dashboard "/settings/admin/system", metrics: Bonfire.Web.Telemetry
-      end
-
       if module_enabled?(Bamboo.SentEmailViewerPlug) do
-        forward "/emails", Bamboo.SentEmailViewerPlug
-      end
-
-      if module_enabled?(Surface.Catalogue.Router) do
-        import_if_enabled Surface.Catalogue.Router
-        Surface.Catalogue.Router.surface_catalogue "/ui/components"
+        forward "/admin/emails", Bamboo.SentEmailViewerPlug
       end
     end
   end
