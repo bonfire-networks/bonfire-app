@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-alpha.132", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-alpha.133", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.11",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers"],
@@ -32,7 +32,7 @@ defmodule Bonfire.MixProject do
   def application do
     [
       mod: {Bonfire.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ssl, :bamboo, :bamboo_smtp]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :ssl, :bamboo, :bamboo_smtp]
     ]
   end
 
