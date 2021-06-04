@@ -10,6 +10,7 @@ defmodule Bonfire.Web.Router do
     plug :put_secure_browser_headers
     plug Bonfire.Web.Plugs.LoadCurrentAccount
     plug Bonfire.Web.Plugs.LoadCurrentUser
+    plug Bonfire.Web.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
   end
 
   pipeline :guest_only do

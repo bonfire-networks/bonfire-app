@@ -349,6 +349,9 @@ endif
 licenses: init 
 	@make --no-print-directory mix.remote~licenses
 
+localise.extract: init 
+	@make --no-print-directory mix~"gettext.extract --merge"
+
 assets.prepare:
 	cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
 
@@ -359,6 +362,7 @@ db.pre-migrations: ## Workaround for some issues running migrations
 
 secrets:
 	@cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
+
 
 git.publish:
 	chmod +x git-publish.sh
