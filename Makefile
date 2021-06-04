@@ -357,6 +357,9 @@ db.pre-migrations: ## Workaround for some issues running migrations
 	touch forks/*/lib/migrations.ex 2> /dev/null || echo "continue"
 	touch priv/repo/* 2> /dev/null || echo "continue"
 
+secrets:
+	@cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
+
 git.publish:
 	chmod +x git-publish.sh
 	./git-publish.sh
