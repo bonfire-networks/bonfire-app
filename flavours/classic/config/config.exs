@@ -1,10 +1,10 @@
 import Config
 
-flavour = System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
+default_flavour = "classic"
+flavour_path = System.get_env("BONFIRE_FLAVOUR", "flavours/"<>System.get_env("FLAVOUR", default_flavour))
+flavour = System.get_env("FLAVOUR", flavour_path |> String.split("/") |> List.last())
 
 #### Basic configuration
-
-config :bonfire, Bonfire.Repo, priv: flavour <> "/repo"
 
 # You probably won't want to touch these. You might override some in
 # other config files.
@@ -12,6 +12,7 @@ config :bonfire, Bonfire.Repo, priv: flavour <> "/repo"
 config :bonfire,
   otp_app: :bonfire,
   env: config_env(),
+  flavour: flavour,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   repo_module: Bonfire.Repo,
   web_module: Bonfire.Web,
@@ -39,7 +40,9 @@ config :bonfire, Bonfire.Web.Endpoint,
 config :phoenix, :json_library, Jason
 
 config :bonfire, :ecto_repos, [Bonfire.Repo]
-config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
+config :bonfire, Bonfire.Repo,
+  types: Bonfire.PostgresTypes,
+  priv: flavour_path <> "/repo"
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]

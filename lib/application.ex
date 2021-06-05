@@ -9,6 +9,17 @@ defmodule Bonfire.Application do
   use Application
 
   def start(_type, _args) do
+    applications(Application.fetch_env!(:bonfire, :flavour)) #|> IO.inspect
+    |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
+  end
+
+  def applications(flavour) when flavour in ["coordination", "reflow"] do
+    [
+      {Absinthe.Schema, Bonfire.GraphQL.Schema} # use persistent_term backend for Absinthe
+    ] ++ applications(nil)
+  end
+
+  def applications(_) do
     [ Bonfire.Web.Telemetry,                  # Metrics
       Bonfire.Repo,                           # Database
       {Phoenix.PubSub, name: Bonfire.PubSub}, # PubSub
@@ -17,10 +28,9 @@ defmodule Bonfire.Application do
       Bonfire.Data.AccessControl.Accesses,
       Bonfire.Data.AccessControl.Verbs,
       # Stuff that uses all the above
-      Bonfire.Web.Endpoint,                       # Webapp
-      {Oban, Application.get_env(:bonfire, Oban)} # Job Queue
+      Bonfire.Web.Endpoint,                       # Web app
+      {Oban, Application.fetch_env!(:bonfire, Oban)} # Job Queue
     ]
-    |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
   # Tell Phoenix to update the endpoint configuration

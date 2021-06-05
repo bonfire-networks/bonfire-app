@@ -3,6 +3,7 @@ if Bonfire.Common.Utils.module_enabled?(Bonfire.GraphQL) and Bonfire.Common.Util
 defmodule Bonfire.GraphQL.Schema do
   @moduledoc "Root GraphQL Schema"
   use Absinthe.Schema
+  @schema_provider Absinthe.Schema.PersistentTerm
 
   # import Bonfire.GraphQL.SchemaUtils
 
