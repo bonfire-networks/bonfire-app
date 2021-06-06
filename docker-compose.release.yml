@@ -13,6 +13,9 @@ services:
     env_file:
       - config/prod/public.env
       - config/prod/secrets.env
+    environment:
+      - POSTGRES_HOST=db
+      - SEARCH_MEILI_INSTANCE=http://search:7700
     depends_on:
       - db
     volumes:
