@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-alpha.137", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-alpha.138", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.11",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers"],
@@ -45,7 +45,7 @@ defmodule Bonfire.MixProject do
         "cmd cd ./assets && pnpm install",
       ],
       "assets.release": [
-        "cd ./assets && pnpm build",
+        "cmd cd ./assets && pnpm build",
       ],
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [
