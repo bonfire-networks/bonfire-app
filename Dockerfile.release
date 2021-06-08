@@ -62,6 +62,9 @@ RUN mix do bonfire.deps.update
 # COPY forks/ ./ 
 # RUN mix do deps.get --only prod
 
+# JS package manager
+RUN curl -L https://unpkg.com/@pnpm/self-installer | node
+
 # install JS deps
 COPY assets/package* ./assets/
 RUN mix js.deps.get
@@ -76,7 +79,7 @@ COPY . .
 RUN mix do deps.get --only prod
 
 # prepare static assets
-RUN mix js.release
+RUN mix assets.release
 RUN MIX_ENV=prod RELEASING=1 mix phx.digest
 
 # build final OTP release

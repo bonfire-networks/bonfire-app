@@ -32,6 +32,9 @@ RUN cd $FORKS/messctl && cp -r origin/* . && cargo build --release && cargo inst
 # install 
 RUN cp /opt/app/.cargo/bin/* /bin/
 
+# JS package manager
+RUN curl -L https://unpkg.com/@pnpm/self-installer | node
+
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp
 
