@@ -28,5 +28,5 @@ then
 else
     set -e
     #echo No local changes since last run 
-    git pull
+    #git pull
 fi
