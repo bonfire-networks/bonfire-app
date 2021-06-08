@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FLAVOUR: coordination
-      BONFIRE_FLAVOUR: flavours/coordination
+      FLAVOUR_PATH: flavours/coordination
       DOCKER_REPO: bonfire-with-valueflows-api
     steps:
       - 
@@ -87,7 +87,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         env:
-          BONFIRE_FLAVOUR: config
+          FLAVOUR: coordination
+          FLAVOUR_PATH: config
         with:
           context: .
           file: Dockerfile.release

@@ -105,10 +105,10 @@ defmodule Bonfire.MixProject do
     Enum.filter(deps, &include_dep?(deps_subtype, &1))
 
   def flavour_path(), do:
-    System.get_env("BONFIRE_FLAVOUR", "flavours/"<>System.get_env("FLAVOUR", @config[:default_flavour]))
+    System.get_env("FLAVOUR_PATH", "flavours/"<>flavour())
 
   def flavour(), do:
-    System.get_env("FLAVOUR", flavour_path() |> String.split("/") |> List.last())
+    System.get_env("FLAVOUR", @config[:default_flavour])
 
   def config_path(flavour_path \\ flavour_path(), filename),
     do: Path.expand(Path.join([flavour_path, "config", filename]))
