@@ -9,14 +9,16 @@ defmodule Bonfire.Application do
   use Application
 
   def start(_type, _args) do
-    applications(Application.fetch_env!(:bonfire, :flavour)) #|> IO.inspect
+    applications() #|> IO.inspect
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
-  def applications(flavour) when flavour in ["coordination", "reflow"] do
+  def applications(with_graphql \\ Code.ensure_loaded?(Bonfire.GraphQL)) # TODO better
+
+  def applications(true) do
     [
       {Absinthe.Schema, Bonfire.GraphQL.Schema} # use persistent_term backend for Absinthe
-    ] ++ applications(nil)
+    ] ++ applications(false)
   end
 
   def applications(_) do
