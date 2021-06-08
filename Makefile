@@ -210,7 +210,7 @@ contrib.forks.publish:
 git.forks.add: deps.git.fix ## Run the git add command on each fork
 	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
-git.forks.status: ## Run a git command on each fork (eg. `make git.forks~pull` pulls the latest version of all local deps from its git remote
+git.forks.status: ## Run a git status on each fork
 	@find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status -s \;
 
 git.forks~%: ## Run a git command on each fork (eg. `make git.forks~pull` pulls the latest version of all local deps from its git remote
