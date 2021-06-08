@@ -41,11 +41,11 @@ defmodule Bonfire.MixProject do
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
       "js.deps.get": [
-        "cmd npm install --prefix "<>dep_path("bonfire_geolocate")<>"/assets", # FIXME: make generic to apply to all extensions that bundle JS
-        "cmd npm install --prefix ./assets ./assets",
+        "cmd cd "<>dep_path("bonfire_geolocate")<>"/assets && pnpm install", # FIXME: make generic to apply to all extensions that bundle JS
+        "cmd cd ./assets && pnpm install",
       ],
-      "js.release": [
-        "cmd npm run deploy --prefix ./assets",
+      "assets.release": [
+        "cd ./assets && pnpm build",
       ],
       "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [

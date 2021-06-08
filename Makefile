@@ -133,6 +133,9 @@ deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
+js.deps.get:
+	@make --no-print-directory mix~js.deps.get
+
 dep.clean~%:
 	@make mix~"deps.clean $* --build"
 
