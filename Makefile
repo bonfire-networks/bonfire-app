@@ -5,7 +5,7 @@ BASH := $(shell which bash)
 
 # what flavour do we want?
 FLAVOUR ?= classic
-BONFIRE_FLAVOUR ?= flavours/$(FLAVOUR)
+FLAVOUR_PATH ?= flavours/$(FLAVOUR)
 
 # do we want to use Docker? set as env var:
 # - WITH_DOCKER=total : use docker for everything (default)
@@ -34,7 +34,7 @@ export UID
 export GID
 
 define setup_env
-	$(eval ENV_DIR := $(BONFIRE_FLAVOUR)/config/$(1))
+	$(eval ENV_DIR := $(FLAVOUR_PATH)/config/$(1))
 	@echo "Loading environment variables from $(ENV_DIR)"
 	@$(call load_env,$(ENV_DIR)/public.env)
 	@$(call load_env,$(ENV_DIR)/secrets.env)
@@ -50,7 +50,7 @@ pre-config: pre-init ## Initialise env files, and create some required folders, 
 	@echo "You can now edit your config for flavour '$(FLAVOUR)' in config/dev/secrets.env, config/dev/public.env and ./config/ more generally."
 
 pre-init:
-	@ln -sfn $(BONFIRE_FLAVOUR)/config ./config
+	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p config/prod
 	@mkdir -p config/dev
 	@touch config/deps.path
@@ -74,7 +74,7 @@ help: init ## Makefile commands help
 	@perl -nle'print $& if m{^[a-zA-Z_-~.%]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 env.exports: ## Display the vars from dotenv files that you need to load in your environment
-	@awk 'NF { if( $$1 != "#" ){ print "export " $$0 }}' $(BONFIRE_FLAVOUR)/config/dev/*.env
+	@awk 'NF { if( $$1 != "#" ){ print "export " $$0 }}' $(FLAVOUR_PATH)/config/dev/*.env
 
 
 #### COMMON COMMANDS ####
@@ -125,7 +125,7 @@ update.deps.all: ## Update evey single dependency (use with caution)
 update.dep~%: ## Update a specify dep (eg. `make update.dep~pointers`)
 	@make --no-print-directory mix.remote~"deps.update $*"
 	@chmod +x git-publish.sh
-	./git-publish.sh $(FORKS_PATH)/$*
+	./git-publish.sh $(FORKS_PATH)/$* pull
 
 update.forks: git.forks~pull ## Pull the latest commits from all ./forks
 
@@ -260,12 +260,12 @@ endif
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
 
 rel.config.prepare: # copy current flavour's config, without using symlinks
-	cp -rfL $(BONFIRE_FLAVOUR)/config ./data/config
+	cp -rfL $(FLAVOUR_PATH)/config ./data/config
 
 rel.build.no-cache: init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
 		--no-cache \
-		--build-arg BONFIRE_FLAVOUR=config \
+		--build-arg FLAVOUR_PATH=config \
 		--build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
 		--build-arg APP_BUILD=$(APP_BUILD) \
@@ -275,7 +275,7 @@ rel.build.no-cache: init rel.config.prepare assets.prepare ## Build the Docker i
 
 rel.build: init rel.config.prepare assets.prepare ## Build the Docker image using previous cache
 	docker build \
-		--build-arg BONFIRE_FLAVOUR=config \
+		--build-arg FLAVOUR_PATH=config \
 		--build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
 		--build-arg APP_BUILD=$(APP_BUILD) \

@@ -28,5 +28,8 @@ then
 else
     set -e
     #echo No local changes since last run 
-    #git pull
+    if [ $2 == 'pull' ]
+    then
+        git pull
+    fi
 fi

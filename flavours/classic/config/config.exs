@@ -1,8 +1,8 @@
 import Config
 
 default_flavour = "classic"
-flavour_path = System.get_env("BONFIRE_FLAVOUR", "flavours/"<>System.get_env("FLAVOUR", default_flavour))
-flavour = System.get_env("FLAVOUR", flavour_path |> String.split("/") |> List.last())
+flavour = System.get_env("FLAVOUR", default_flavour)
+flavour_path = System.get_env("FLAVOUR_PATH", "flavours/"<>flavour)
 
 #### Basic configuration
 
