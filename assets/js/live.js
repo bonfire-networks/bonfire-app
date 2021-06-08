@@ -1,5 +1,5 @@
 // JS shared with non_live pages
-import "./both"
+import "./common"
 
 // for JS features & extensions to hook into LiveView
 let Hooks = {}; 
