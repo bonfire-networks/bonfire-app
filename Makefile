@@ -355,8 +355,8 @@ endif
 licenses: init 
 	@make --no-print-directory mix.remote~licenses
 
-localise.extract: init 
-	@make --no-print-directory mix~"gettext.extract --merge"
+localise.extract: 
+	@make --no-print-directory mix~"bonfire.localise.extract --merge"
 
 assets.prepare:
 	cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true

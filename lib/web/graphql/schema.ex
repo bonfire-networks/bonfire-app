@@ -4,16 +4,13 @@ defmodule Bonfire.GraphQL.Schema do
   @moduledoc "Root GraphQL Schema"
   use Absinthe.Schema
   @schema_provider Absinthe.Schema.PersistentTerm
-
-  # import Bonfire.GraphQL.SchemaUtils
+  # @pipeline_modifier Bonfire.GraphQL.SchemaPipelines
 
   require Logger
-
   alias Bonfire.GraphQL.SchemaUtils
   alias Bonfire.GraphQL.Middleware.CollapseErrors
   alias Absinthe.Middleware.{Async, Batch}
 
-  # @pipeline_modifier OverridePhase
 
   def plugins, do: [Async, Batch]
 
