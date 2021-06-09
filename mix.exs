@@ -101,7 +101,7 @@ defmodule Bonfire.MixProject do
 
   end
 
-  defp deps(deps \\ deps(), deps_subtype) when is_atom(deps_subtype), do:
+  def deps(deps \\ deps(), deps_subtype) when is_atom(deps_subtype), do:
     Enum.filter(deps, &include_dep?(deps_subtype, &1))
 
   def flavour_path(), do:
@@ -132,6 +132,11 @@ defmodule Bonfire.MixProject do
     deps(:update)
     |> deps_names()
     |> IO.inspect(label: "Running Bonfire #{version()} with configuration from #{flavour_path()} in #{Mix.env()} environment. You can run `mix bonfire.deps.update` to update these extensions and dependencies")
+  end
+
+  def deps_to_localise() do
+    deps(:test)
+    |> Enum.map(&dep_name/1)
   end
 
   # Specifies which paths to include when running tests
