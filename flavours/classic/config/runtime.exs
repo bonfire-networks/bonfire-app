@@ -8,7 +8,7 @@ host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 
-System.get_env("RELEASING") || System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") ||
+System.get_env("CI") || System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") ||
     raise """
     Environment variables for database are missing.
     For example: DATABASE_URL=ecto://USER:PASS@HOST/DATABASE
@@ -28,18 +28,18 @@ else
 end
 
 secret_key_base =
-  System.get_env("RELEASING") || System.get_env("SECRET_KEY_BASE") ||
+  System.get_env("CI") || System.get_env("SECRET_KEY_BASE") ||
     raise """
     environment variable SECRET_KEY_BASE is missing.
     You can generate one by calling: mix phx.gen.secret
     """
 
-signing_salt = System.get_env("RELEASING") || System.get_env("SIGNING_SALT") ||
+signing_salt = System.get_env("CI") || System.get_env("SIGNING_SALT") ||
     raise """
     environment variable SIGNING_SALT is missing.
     """
 
-encryption_salt = System.get_env("RELEASING") || System.get_env("ENCRYPTION_SALT") ||
+encryption_salt = System.get_env("CI") || System.get_env("ENCRYPTION_SALT") ||
     raise """
     environment variable ENCRYPTION_SALT is missing.
     """

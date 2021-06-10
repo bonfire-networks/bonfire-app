@@ -80,10 +80,10 @@ RUN mix do deps.get --only prod
 
 # prepare static assets
 RUN mix assets.release
-RUN MIX_ENV=prod RELEASING=1 mix phx.digest
+RUN MIX_ENV=prod CI=1 mix phx.digest
 
 # build final OTP release
-RUN MIX_ENV=prod RELEASING=1 mix release
+RUN MIX_ENV=prod CI=1 mix release
 
 # Step 2 - Prepare the server image
 # From this line onwards, we're in a new image, which will be the image used in production
