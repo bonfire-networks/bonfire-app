@@ -1,10 +1,1 @@
-defmodule Bonfire.Repo.Migrations.ImportSharedUser do
-  use Ecto.Migration
-
-  import Bonfire.Data.SharedUser.Migration
-  # accounts & users
-
-  def up, do: migrate_shared_user()
-  def down, do: migrate_shared_user()
-
-end
+../../../coordination/repo/migrations/20210102094944_import_shared_user.exs
