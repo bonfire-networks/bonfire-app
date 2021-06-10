@@ -242,14 +242,14 @@ endif
 test.remote: test.env ## Run tests (ignoring changes in local forks)
 	@make --no-print-directory mix.remote~"test $(only)"
 
-test.watch: init ## Run stale tests, and wait for changes to any module's code, and re-run affected tests
+test.watch: init test.env ## Run stale tests, and wait for changes to any module's code, and re-run affected tests
 ifeq ($(WITH_DOCKER), total)
 	docker-compose run web mix test.watch --stale $(only)
 else
 	mix test.watch --stale $(only)
 endif
 
-test.interactive: init ## Run stale tests, and wait for changes to any module's code, and re-run affected tests, and interactively choose which tests to run
+test.interactive: init test.env ## Run stale tests, and wait for changes to any module's code, and re-run affected tests, and interactively choose which tests to run
 ifeq ($(WITH_DOCKER), total)
 	docker-compose run web mix test.interactive --stale $(only)
 else
