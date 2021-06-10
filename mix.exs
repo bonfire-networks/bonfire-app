@@ -83,6 +83,7 @@ defmodule Bonfire.MixProject do
       {:grumble, "~> 0.1.3", only: [:test], override: true},
       {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main", only: [:test]},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:mix_test_interactive, "~> 1.0", only: :dev, runtime: false},
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
