@@ -6,7 +6,9 @@ import_config "activity_pub_test.exs"
 
 config :bonfire, Bonfire.Mailer, adapter: Bamboo.TestAdapter
 
-config :bonfire_search, disable_indexing: true
+config :bonfire_search,
+  disabled: true,
+  disable_indexing: true
 
 ## Other general test config
 
@@ -36,3 +38,6 @@ config :bonfire, Oban,
   queues: false
 
 config :pbkdf2_elixir, :rounds, 1
+
+config :mix_test_interactive,
+  clear: true

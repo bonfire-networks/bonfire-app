@@ -13,7 +13,7 @@ defmodule Bonfire.Application do
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
-  def applications(with_graphql \\ Code.ensure_loaded?(Bonfire.GraphQL)) # TODO better
+  def applications(with_graphql \\ Code.ensure_loaded?(Bonfire.GraphQL.Schema)) # TODO better
 
   def applications(true) do
     [

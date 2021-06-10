@@ -1,3 +1,4 @@
+ExUnit.configure formatters: [ExUnit.CLIFormatter, ExUnitNotifier]
 ExUnit.start(exclude: [:skip])
 
 Mix.Task.run("ecto.create")
