@@ -18,10 +18,13 @@ jobs:
       CI: true
     services:
       postgres:
-        image: postgres
-        # image: postgis/postgis:12-3.0-alpine
+        # image: postgres
+        image: postgis/postgis:12-3.0-alpine
         env:
+          POSTGRES_DB: bonfire_test
           POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
