@@ -50,6 +50,7 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled Bonfire.Search.Web.Routes
   use_if_enabled Bonfire.Classify.Web.Routes
+  use_if_enabled Bonfire.Geolocate.Web.Routes
 
   use_if_enabled Bonfire.UI.Reflow.Routes
   use_if_enabled Bonfire.UI.Coordination.Routes

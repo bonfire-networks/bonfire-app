@@ -9,6 +9,7 @@ config :bonfire, :ui,
       instance_description: "This is a bonfire demo instance for testing purpose"
    ],
    sidebar_components: [
+      {Bonfire.UI.Social.SidebarNavigationLive, []},
       {Bonfire.UI.Coordination.SidebarNavigationLive, []},
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
       {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
