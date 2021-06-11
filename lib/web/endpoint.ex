@@ -63,9 +63,9 @@ defmodule Bonfire.Web.Endpoint do
     end
 
     if Bonfire.Common.Config.get!(:env) == :dev do
-      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/app.css") <>"'/> <script defer phx-track-static src='"<> js <>"'></script>"
+      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/app.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script>"
     else
-      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/app.css") <>"'/> <script defer phx-track-static src='"<> js <>"'></script> "
+      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/app.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script> "
     end
   end
 end
