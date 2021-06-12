@@ -232,15 +232,17 @@ config :bonfire_data_social, Follow,
 
 config :bonfire_data_social, FollowCount, []
 config :bonfire_data_social, Block, []
-config :bonfire_data_social, Like, []
-config :bonfire_data_social, LikeCount, []
+config :bonfire_data_social, Like,
+  has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause
+
+  config :bonfire_data_social, LikeCount, []
 config :bonfire_data_social, Bookmark, []
 
 config :bonfire_data_social, Message,
   has_one:  [post_content: {PostContent, foreign_key: :id}],
   has_one:  [created: {Created, foreign_key: :id}],
   has_many: [activities: {Activity, foreign_key: :object_id, references: :id}],
-  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # needs on clause
+  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # requires an ON clause
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
   has_one:  [my_like: {Like, foreign_key: :liked_id, references: :id}],
@@ -259,7 +261,7 @@ config :bonfire_data_social, Post,
   # has_one:  [creator_character: {[through: [:created, :creator_character]]}],
   # has_one:  [creator_profile: {[through: [:created, :creator_profile]]}],
   has_many: [activities: {Activity, foreign_key: :object_id, references: :id}],
-  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # needs on clause
+  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # requires an ON clause
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
   has_one:  [my_like: {Like, foreign_key: :liked_id, references: :id}],
