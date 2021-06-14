@@ -76,8 +76,8 @@ For example if you want to run the `coordination` flavour:
 `make pre-config`
 
 5. Edit the config (especially the secrets) for the current flavour in these files:
-  - `config/dev/secrets.env`
-  - `config/dev/public.env`
+  - `config/prod/secrets.env`
+  - `config/prod/public.env`
 
 6. Start the docker containers with docker-compose:
 
