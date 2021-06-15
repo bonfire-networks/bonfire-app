@@ -65,7 +65,7 @@ You should *not* have to modify the files above. Instead, overload any settings 
 ### Option A - Install using Docker containers (recommended)
 
 The easiest way to launch the docker image is using the make commands.
-The `docker-compose.release.yml` uses `config/prod/public.env` and `config/prod/secrets.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container. You may want to add a webserver / reverse proxy yourself.
+The `docker-compose.release.yml` uses `config/prod/public.env` and `config/prod/secrets.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container, along with a reverse proxy (Caddy server, which you may want to replace with nginx or whatever you prefer).
 
 #### Install with docker-compose
 
@@ -174,11 +174,6 @@ There is a `Makefile` with relevant commands:
 
 * To run the instance as a daemon, use `bin/bonfire start daemon`.
 
-#### B-3. Adding HTTPS
-
-The common and convenient way for adding HTTPS is by using Nginx or Caddyserver as a reverse proxy.
-
-Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
 
 ---
 
@@ -187,3 +182,11 @@ Caddyserver and other servers can handle generating and setting up HTTPS certifi
 By default, the backend listens on port 4000 (TCP), so you can access it on http://localhost:4000/ (if you are on the same machine). In case of an error it will restart automatically.
 
 Once you've signed up, you will automatically be an instance admin if you were the first to register.
+
+---
+
+#### Step 4 - Adding HTTPS
+
+The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker-compose setup).
+
+Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
