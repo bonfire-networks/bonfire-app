@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  backend:
+  web:
     # You can build your own image from the source running:
     # $ make rel-build
     # $ make rel-tag-latest
@@ -22,7 +22,7 @@ services:
       - type: bind
         source: ./data/uploads
         target: /opt/app/data/uploads
-  frontend:
+  proxy:
     image: "caddy:alpine"
     restart: always
     ports:
