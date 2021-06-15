@@ -36,8 +36,8 @@ For example if you want to run the `coordination` flavour (you may want to use d
 `make pre-config`
 
 4. Edit the config (especially the secrets) for the current flavour in these files:
-  - `config/prod/secrets.env`
-  - `config/prod/public.env`
+- `config/prod/secrets.env`
+- `config/prod/public.env`
 
 
 ### Further information on config
@@ -111,17 +111,17 @@ Once in the shell, you can run `bin/bonfire` with the following commands:
 Usage: `bonfire COMMAND [ARGS]`
 
 The known commands are:
-  `start`          Starts the system
-  `start_iex`      Starts the system with IEx attached
-  `daemon`         Starts the system as a daemon
-  `daemon_iex`     Starts the system as a daemon with IEx attached
-  `eval "EXPR"`    Executes the given expression on a new, non-booted system
-  `rpc "EXPR"`     Executes the given expression remotely on the running system
-  `remote`         Connects to the running system via a IEx remote shell
-  `restart`        Restarts the running system via a remote command
-  `stop`           Stops the running system via a remote command
-  `pid`            Prints the operating system PID of the running system via a remote command
-  `version`        Prints the release name and version to be booted
+- `start`          Starts the system
+- `start_iex`      Starts the system with IEx attached
+- `daemon`         Starts the system as a daemon
+- `daemon_iex`     Starts the system as a daemon with IEx attached
+- `eval "EXPR"`    Executes the given expression on a new, non-booted system
+- `rpc "EXPR"`     Executes the given expression remotely on the running system
+- `remote`         Connects to the running system via a IEx remote shell
+- `restart`        Restarts the running system via a remote command
+- `stop`           Stops the running system via a remote command
+- `pid`            Prints the operating system PID of the running system via a remote command
+- `version`        Prints the release name and version to be booted
 
 There are some useful database-related release tasks under `Bonfire.Repo.ReleaseTasks.` that can be run in an `iex` console (which you get to with `make rel.shell` followed by `bin/bonfire remote`, assuming the app is already running):
 
