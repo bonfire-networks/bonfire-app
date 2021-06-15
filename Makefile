@@ -109,7 +109,7 @@ db.rollback.all: mix~"ecto.rollback --all" ## Rollback ALL DB migrations (cautio
 
 #### UPDATE COMMANDS ####
 
-update: init update.app build update.forks mix~deps.get mix~ecto.migrate  ## Update the app and all dependencies/extensions/forks, and run migrations
+update: init update.app build update.forks mix~deps.get mix~ecto.migrate  ## Update the dev app and all dependencies/extensions/forks, and run migrations
 
 update.app: ## Update the app and Bonfire extensions in ./deps
 	git add --all .

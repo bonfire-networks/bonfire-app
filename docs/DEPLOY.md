@@ -16,18 +16,43 @@ If you are running in a restricted environment such as Amazon RDS, you will need
 CREATE EXTENSION IF NOT EXISTS citext;
 ```
 
-## Step 1 - Configure the backend
+## Step 1 - Download and configure the app
 
-The app needs some environment variables to be configured in order to work.
+1. Clone this repository and change into the directory:
 
-In the `flavours/${FLAVOUR}/config/` directory of the codebase, there are following default config files:
+```sh
+$ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
+$ cd bonfire
+```
+
+2. The first thing to do is choosing what flavour of Bonfire you want to deploy (the default is `classic`), as each flavour has its own Docker image and config. 
+
+For example if you want to run the `coordination` flavour (you may want to use direnv or something similar to persist this):
+
+`export FLAVOUR=coordination`
+
+3. Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
+
+`make pre-config`
+
+4. Edit the config (especially the secrets) for the current flavour in these files:
+  - `config/prod/secrets.env`
+  - `config/prod/public.env`
+
+
+### Further information on config
+
+The app needs some environment variables to be configured in order to work. The easy way to manage that is whit the `make` commands which take care of loading the environment for you.
+
+In the `${FLAVOUR_PATH}/config/` (depending on which flavour you choose to run) directory of the codebase, there are following default config files:
 
 - `config.exs`: default base configuration, which itself loads many other config files, such as one for each installed Bonfire extension.
 - `dev.exs`: default extra configuration for `MIX_ENV=dev`
 - `prod.exs`: default extra configuration for `MIX_ENV=prod`
 - `runtime.exs`: extra configuration which is loaded at runtime (vs the others which are only loaded once at compile time, i.e. when you build a release)
+- `bonfire_*.exs`: configs specific to different extensions, which are automatically imported by `config.exs`
 
-You should NOT have to modify the files above. Instead, overload any settings from the above files using env variables (a list of which can be found in the file `${FLAVOUR}/config/prod/public.env` and `flavours/${FLAVOUR}/config/prod/secrets.env` in this same repository, both in the `main` and `release` branches).
+You should *not* have to modify the files above. Instead, overload any settings from the above files using env variables (a list of which can be found in the file `${FLAVOUR_PATH}/config/templates/public.env` and `${FLAVOUR_PATH}/config/templates/secrets.env` in this same repository, both in the `main` and `release` branches). 
 
 `MAIL_DOMAIN` and `MAIL_KEY` are needed to configure transactional email, you can for example sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key.
 
@@ -44,7 +69,7 @@ The `docker-compose.release.yml` uses `config/prod/public.env` and `config/prod/
 
 #### Install with docker-compose
 
-1. Make sure you have [Docker](https://www.docker.com/), a recent [docker-compose](https://docs.docker.com/compose/install/#install-compose) (which supports v3 configs), and [make](https://www.gnu.org/software/make/) installed:
+A-1. Make sure you have [Docker](https://www.docker.com/), a recent [docker-compose](https://docs.docker.com/compose/install/#install-compose) (which supports v3 configs), and [make](https://www.gnu.org/software/make/) installed:
 
 ```sh
 $ docker version
@@ -58,50 +83,47 @@ GNU Make 4.2.1
 ...
 ```
 
-2. Clone the `release` branch of repository and change into the directory:
+A-2. Edit the `image` entry in `docker-compose.release.yml` to reflect the image on Docker Hub which corresponds to your chosen flavour. (If your flavour does not have a prebuilt image on Docker Hub you can build one yourself, see the section on Building a Docker image below, or set up a CI workflow.)
 
-```sh
-$ git clone --branch release https://github.com/bonfire-networks/bonfire-app.git bonfire
-$ cd bonfire
+A-3. Start the docker containers with docker-compose:
+
+```
+make rel.run
 ```
 
-3. The first thing to do is choosing what flavour of Bonfire you want to deploy (the default is `classic`), as each flavour has its own Docker image and config. 
+The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
 
-For example if you want to run the `coordination` flavour:
+A-4. If that worked, start the app as a daemon next time:
 
-`export FLAVOUR=coordination` and edit the `image` entry in `docker-compose.yml` to reflect the corresponding image on Docker Hub.
-
-4. Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
-
-`make pre-config`
-
-5. Edit the config (especially the secrets) for the current flavour in these files:
-  - `config/prod/secrets.env`
-  - `config/prod/public.env`
-
-6. Start the docker containers with docker-compose:
-
-```sh
-$ make rel.run
+```
+make rel.run.bg
 ```
 
-7. The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
+#### Docker-related handy commands
 
-8. If that worked, start the app as a daemon next time:
+- `docker-compose pull` to update to the latest release of Bonfire (only if using a Docker Hub image) and other services (Postgres & Meili)
+- `rel.run`                        Run the app in Docker, in the foreground
+- `rel.run.bg`                     Run the app in Docker, and keep running in the background
+- `rel.stop`                       Stop the running release
+- `rel.shell`                      Runs a simple shell inside of the container, useful to explore the image 
 
-```sh
-$ make rel.run.bg
-```
+Once in the shell, you can run `bin/bonfire` with the following commands:
+Usage: `bonfire COMMAND [ARGS]`
 
-#### Docker commands
+The known commands are:
+  `start`          Starts the system
+  `start_iex`      Starts the system with IEx attached
+  `daemon`         Starts the system as a daemon
+  `daemon_iex`     Starts the system as a daemon with IEx attached
+  `eval "EXPR"`    Executes the given expression on a new, non-booted system
+  `rpc "EXPR"`     Executes the given expression remotely on the running system
+  `remote`         Connects to the running system via a IEx remote shell
+  `restart`        Restarts the running system via a remote command
+  `stop`           Stops the running system via a remote command
+  `pid`            Prints the operating system PID of the running system via a remote command
+  `version`        Prints the release name and version to be booted
 
-- `docker-compose pull` to update to the latest release of Bonfire and other services (Postgres & Meili)
-- `docker-compose run --rm web bin/bonfire` returns all the possible commands
-- `docker-compose run --rm web /bin/sh` runs a simple shell inside of the container, useful to explore the image
-- `docker-compose run --rm web bin/bonfire start_iex` starts a new `iex` console
-- `docker-compose run web bin/bonfire remote` runs an `iex` console when the service is already running.
-
-There are some useful database-related release tasks under `Bonfire.Repo.ReleaseTasks.` that can be run in an `iex` console:
+There are some useful database-related release tasks under `Bonfire.Repo.ReleaseTasks.` that can be run in an `iex` console (which you get to with `make rel.shell` followed by `bin/bonfire remote`, assuming the app is already running):
 
 - `migrate` runs all up migrations
 - `rollback(step)` roll back to step X
@@ -117,10 +139,9 @@ The Dockerfile uses the [multistage build](https://docs.docker.com/develop/devel
 
 There is a `Makefile` with relevant commands:
 
-- `make rel.build` which builds the docker image in `bonfire/bonfire:latest` and `bonfire/bonfire:$VERSION-$BUILD`
+- `make rel.build` which builds the docker image 
 - `make rel.tag.latest` adds the "latest" tag to your last build, so that it will be used when running
-- `make rel.run` which can be used to run the "latest" tagged image instead of using `docker-compose`
-- `make rel.run.bg` which runs it as a background service
+- `make rel.push`                     Add latest tag to last build and push to Docker Hub
 
 ---
 
@@ -134,19 +155,11 @@ There is a `Makefile` with relevant commands:
 
 #### B-1. Building the release
 
-- Clone the `main` branch of this repo.
-
-- Set your environment: `export MIX_ENV=prod && export FLAVOUR=classic`
-
-- You will need to load the required environment variables for the release to run properly. See`flavours/$(FLAVOUR)/config/runtime.exs`](config/runtime.exs) and `flavours/$(FLAVOUR)/config/prod/*.env` for all env variables which you can set. 
-
 - Make sure you have erlang and elixir installed (check `Dockerfile` for what version we're currently using)
-
-- From here on out, you may want to consider what your `MIX_ENV` is set to. For production, ensure that you either export `MIX_ENV=prod` or use it for each command. Continuing, we are assuming `MIX_ENV=prod`.
 
 - Run `mix deps.get --only prod` to install elixir dependencies.
 
-- Prepare assets with `mix js.deps.get`, `mix assets.release` and `mix phx.digest`
+- Prepare assets with `make js.deps.get`, `make assets.release` and `mix phx.digest`
 
 - Run `mix release` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
 
