@@ -11,9 +11,8 @@ config :bonfire_data_identity, Bonfire.Data.Identity.Credential,
 
 #### Sentinel Data Services
 
-# Search these apps/extensions for Pointable schemas to index
-config :pointers,
-  search_path: [
+# Search these apps/extensions for Pointable ecto schema definitions to index
+pointable_schema_extensions = [
     :bonfire_data_access_control,
     :bonfire_data_activity_pub,
     :bonfire_data_identity,
@@ -27,14 +26,25 @@ config :pointers,
     :bonfire_data_shared_users,
     :bonfire_files
   ]
+config :pointers, :search_path, pointable_schema_extensions
 
-# Search these apps/extensions for Verbs to index
+# Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a queries_module/0 or context_modules/0 function)
+context_and_queries_extensions = pointable_schema_extensions ++ [
+    :bonfire_common,
+    :bonfire_me,
+    :bonfire_social,
+    :bonfire_valueflows
+  ]
+config :bonfire, :query_modules_search_path, context_and_queries_extensions
+config :bonfire, :context_modules_search_path, context_and_queries_extensions
+
+# Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
   search_path: [
-    :bonfire_me,
+    # :bonfire_me,
     :bonfire_boundaries,
-    :bonfire_social,
-    :bonfire,
+    # :bonfire_social,
+    # :bonfire,
   ]
 
 #### Alias modules for readability
@@ -354,9 +364,6 @@ config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
 # all data types included in federation
 config :bonfire, :all_types, [User, Post]
 
-# Model - Context module mappings
-config :bonfire_data_social, :context_modules,
-  follow: Bonfire.Social.Follows
 
 config :bonfire_files, Bonfire.Files.Media,
   field: [
