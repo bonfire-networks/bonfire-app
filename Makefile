@@ -47,7 +47,7 @@ define load_env
 endef
 
 pre-config: pre-init ## Initialise env files, and create some required folders, files and softlinks
-	@echo "You can now edit your config for flavour '$(FLAVOUR)' in config/dev/secrets.env, config/dev/public.env and ./config/ more generally."
+	@echo "You can now edit your config for flavour '$(FLAVOUR)' in config/$(MIX_ENV)/secrets.env, config/$(MIX_ENV)/public.env and ./config/ more generally."
 
 pre-init:
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
@@ -171,7 +171,7 @@ dep.go.hex: ## Switch to using a library from hex.pm, eg: make dep.go.hex dep="p
 	@make --no-print-directory dep.local~disable dep=$(dep) path=""
 
 dep.hex~%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep.hex.enable dep=pointers version="~> 0.2"
-	@make --no-print-directory messctl args="$* $(dep) $(version) config/deps.hex"
+	@make --no-print-directory messctl args="$* $(dep) $(version) 
 
 dep.git~%: ## add/enable/disable/delete a git dep with messctl command, eg: `make dep.hex.enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
 	@make --no-print-directory messctl args="$* $(dep) $(repo) config/deps.git"
@@ -270,7 +270,7 @@ endif
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
 
 rel.config.prepare: # copy current flavour's config, without using symlinks
-	cp -rfL $(FLAVOUR_PATH)/config ./data/config
+	@cp -rfL $(FLAVOUR_PATH)/config ./data/config
 
 rel.build.no-cache: init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
@@ -284,6 +284,7 @@ rel.build.no-cache: init rel.config.prepare assets.prepare ## Build the Docker i
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD)
 
 rel.build: init rel.config.prepare assets.prepare ## Build the Docker image using previous cache
+	@echo "Building $(APP_NAME) with flavour $(FLAVOUR)"
 	docker build \
 		--build-arg FLAVOUR_PATH=config \
 		--build-arg APP_NAME=$(APP_NAME) \
@@ -366,7 +367,7 @@ localise.extract:
 	@make --no-print-directory mix~"bonfire.localise.extract --merge"
 
 assets.prepare:
-	cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
+	@cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
 
 db.pre-migrations: ## Workaround for some issues running migrations
 	touch deps/*/lib/migrations.ex 2> /dev/null || echo "continue"

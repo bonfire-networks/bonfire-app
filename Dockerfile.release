@@ -17,12 +17,13 @@ ARG ALPINE_VERSION=3.13
 ARG APP_NAME
 # The version of the application we are building (required)
 ARG APP_VSN
+ARG FLAVOUR
 ARG FLAVOUR_PATH
 
 # Step 1 - Build our app
 FROM elixir:${ELIXIR_VERSION}-alpine as builder 
 
-ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=$FLAVOUR_PATH APP_NAME=$APP_NAME
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=$FLAVOUR_PATH 
 
 WORKDIR $HOME
 
