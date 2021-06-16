@@ -29,7 +29,7 @@ $ cd bonfire
 
 For example if you want to run the `coordination` flavour (you may want to use direnv or something similar to persist this):
 
-`export FLAVOUR=coordination`
+`export FLAVOUR=coordination MIX_ENV=prod`
 
 3. Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
 
@@ -102,10 +102,10 @@ make rel.run.bg
 #### Docker-related handy commands
 
 - `docker-compose pull` to update to the latest release of Bonfire (only if using a Docker Hub image) and other services (Postgres & Meili)
-- `rel.run`                        Run the app in Docker, in the foreground
-- `rel.run.bg`                     Run the app in Docker, and keep running in the background
-- `rel.stop`                       Stop the running release
-- `rel.shell`                      Runs a simple shell inside of the container, useful to explore the image 
+- `make rel.run`                        Run the app in Docker, in the foreground
+- `make rel.run.bg`                     Run the app in Docker, and keep running in the background
+- `make rel.stop`                       Stop the running release
+- `make rel.shell`                      Runs a simple shell inside of the container, useful to explore the image 
 
 Once in the shell, you can run `bin/bonfire` with the following commands:
 Usage: `bonfire COMMAND [ARGS]`
@@ -137,11 +137,11 @@ For example:
 
 The Dockerfile uses the [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature to make the image as small as possible. It is a very common release using OTP releases. It generates the release which is later copied into the final image.
 
-There is a `Makefile` with relevant commands:
+There is a `Makefile` with relevant commands (make sure you set the `MIX_ENV=prod` env first):
 
 - `make rel.build` which builds the docker image 
 - `make rel.tag.latest` adds the "latest" tag to your last build, so that it will be used when running
-- `make rel.push`                     Add latest tag to last build and push to Docker Hub
+- `make rel.push` add latest tag to last build and push to Docker Hub
 
 ---
 
