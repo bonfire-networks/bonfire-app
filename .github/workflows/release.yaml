@@ -34,7 +34,7 @@ jobs:
   #         RELEASE_PATH: _build/prod/rel
   #         CI: 1
   coordination_flavour_docker_release_build_push:
-    name: Maybe tag version & release Docker image
+    name: Coordination flavour - Maybe tag version & release Docker image
     runs-on: ubuntu-latest
     env:
       FLAVOUR: coordination
@@ -100,7 +100,7 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   reflow_flavour_docker_release_build_push:
-    name: Maybe tag version & release Docker image
+    name: Reflow flavour - Maybe release Docker image
     runs-on: ubuntu-latest
     env:
       FLAVOUR: reflow
@@ -118,6 +118,7 @@ jobs:
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
+          create-tag: false # tag already created in first job
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - 
