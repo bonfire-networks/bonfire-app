@@ -95,7 +95,7 @@ jobs:
           push: true
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.tag}}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -154,7 +154,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         env:
-          FLAVOUR: coordination
+          FLAVOUR: reflow
           FLAVOUR_PATH: config
         with:
           context: .
@@ -163,7 +163,7 @@ jobs:
           push: true
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.tag}}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
