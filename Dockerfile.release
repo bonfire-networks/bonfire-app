@@ -46,7 +46,7 @@ RUN mix do deps.get --only prod
 # RUN MIX_ENV=prod mix do deps.compile
 
 # git deps (i.e. Bonfire extensions)
-COPY data/current_flavour/config/deps.git ./config 
+COPY data/current_flavour/config/deps.git ./config/
 RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
@@ -69,20 +69,21 @@ RUN mix do bonfire.deps.update
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 
 # install JS deps
-COPY assets/package* ./assets/
+COPY assets/package.json assets/pnpm-lock.yaml ./assets/
 RUN mix js.deps.get
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
 
 # migrations
-COPY data/current_flavour/repo priv/
+COPY data/current_flavour/repo priv/repo
 
 # bonfire-app code & assets 
-COPY lib ./ 
-COPY assets ./ 
+COPY lib lib
+COPY assets assets
 RUN ls -la .
 RUN ls -la assets/
+RUN ls -la repo/
 # COPY . .
 
 # In case some dep lockfile has a different version
