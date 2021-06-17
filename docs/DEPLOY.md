@@ -39,6 +39,18 @@ For example if you want to run the `coordination` flavour (you may want to use d
 - `config/prod/secrets.env`
 - `config/prod/public.env`
 
+These are the config keys you should especially pay attention to, in secrets.env:
+- SECRET_KEY_BASE
+- SIGNING_SALT
+- ENCRYPTION_SALT
+- POSTGRES_PASSWORD
+- MEILI_MASTER_KEY
+
+You can use `make secrets` to generate some secrets keys to use.
+
+And in public.env:
+- HOSTNAME
+- PUBLIC_PORT
 
 ### Further information on config
 
