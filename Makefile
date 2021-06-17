@@ -302,7 +302,7 @@ rel.push: init ## Add latest tag to last build and push to Docker Hub
 	@docker push $(APP_DOCKER_REPO):latest
 
 rel.run: init docker.stop.web ## Run the app in Docker & starts a new `iex` console
-	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm backend bin/bonfire start_iex
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web bin/bonfire start_iex
 
 rel.run.bg: init docker.stop.web ## Run the app in Docker, and keep running in the background
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d
@@ -311,7 +311,7 @@ rel.stop: init ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
 
 rel.shell: init docker.stop.web ## Runs a simple shell inside of the container, useful to explore the image
-	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm backend /bin/bash
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web /bin/bash
 
 
 #### DOCKER-SPECIFIC COMMANDS ####
