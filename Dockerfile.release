@@ -79,7 +79,10 @@ RUN MIX_ENV=prod mix do deps.compile
 COPY data/current_flavour/repo priv/
 
 # bonfire-app code & assets 
-COPY lib/ assets/ ./ 
+COPY lib ./ 
+COPY assets ./ 
+RUN ls -la .
+RUN ls -la assets/
 # COPY . .
 
 # In case some dep lockfile has a different version
