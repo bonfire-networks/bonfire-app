@@ -68,7 +68,11 @@ init: pre-init pre-run
 	@$(call setup_env,$(MIX_ENV))
 	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD)"
 	@make --no-print-directory pre-init
+ifeq ($(MIX_ENV), prod)
+	@echo ...
+else
 	@make --no-print-directory services
+endif
 
 help: init ## Makefile commands help
 	@perl -nle'print $& if m{^[a-zA-Z_-~.%]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -321,6 +325,14 @@ ifeq ($(WITH_DOCKER), no)
 	@echo ....
 else
 	docker-compose up -d db search 
+endif
+ifeq ($(MIX_ENV), dev)
+	@make --no-print-directory docker.stop.web
+	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
+else
+	elixir --erl "-detached" -S mix phx.server
+	echo Running in background...
+	ps au | grep beam
 endif
 
 build: init ## Build the docker image
