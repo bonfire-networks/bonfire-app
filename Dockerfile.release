@@ -35,7 +35,7 @@ RUN apk add --no-cache make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mess.exs mix.lock ./
-COPY data/config/deps.hex ./config/ 
+COPY data/current_flavour/config/deps.hex ./config/ 
 # sometimes mix tries to read the config
 RUN mkdir -p ./config && touch ./config/config.exs
 RUN mix do local.hex --force, local.rebar --force
@@ -45,7 +45,7 @@ RUN mix do deps.get --only prod
 # RUN MIX_ENV=prod mix do deps.compile
 
 # git deps (i.e. Bonfire extensions)
-COPY data/config/deps.git ./config 
+COPY data/current_flavour/config/deps.git ./config 
 RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
@@ -59,7 +59,7 @@ RUN rm config/deps.path
 RUN mix do bonfire.deps.update
 
 # Uncomment these lines only if you want to include locally-forked deps in the release
-# COPY data/config/deps.path ./config 
+# COPY data/current_flavour/config/deps.path ./config 
 # COPY forks/ ./ 
 # RUN mix do deps.get --only prod
 
