@@ -43,9 +43,7 @@ config :bonfire, :ecto_repos, [Bonfire.Repo]
 config :bonfire, Bonfire.Repo,
   types: Bonfire.PostgresTypes
 
-if config_env() != :prod do
-  config :bonfire, Bonfire.Repo, :priv, flavour_path <> "/repo"
-end
+config :bonfire, Bonfire.Repo, :priv, flavour_path <> "/repo"
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
