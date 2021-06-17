@@ -41,8 +41,11 @@ config :phoenix, :json_library, Jason
 
 config :bonfire, :ecto_repos, [Bonfire.Repo]
 config :bonfire, Bonfire.Repo,
-  types: Bonfire.PostgresTypes,
-  priv: flavour_path <> "/repo"
+  types: Bonfire.PostgresTypes
+
+if config_env() != :prod do
+  config :bonfire, Bonfire.Repo, :priv, flavour_path <> "/repo"
+end
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]

@@ -277,12 +277,12 @@ rel.env:
 	$(eval export)
 
 rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
-	@cp -rfL $(FLAVOUR_PATH)/config ./data/config
+	@cp -rfL $(FLAVOUR_PATH) ./data/current_flavour
 
 rel.build.no-cache: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
 		--no-cache \
-		--build-arg FLAVOUR_PATH=config \
+		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
 		--build-arg APP_BUILD=$(APP_BUILD) \
@@ -293,14 +293,14 @@ rel.build.no-cache: rel.env init rel.config.prepare assets.prepare ## Build the 
 rel.build: rel.env init rel.config.prepare assets.prepare ## Build the Docker image using previous cache
 	@echo "Building $(APP_NAME) with flavour $(FLAVOUR)"
 	docker build \
-		--build-arg FLAVOUR_PATH=config \
+		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
 		--build-arg APP_BUILD=$(APP_BUILD) \
 		-t $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) \
 		-f $(APP_REL_DOCKERFILE) .
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) 
-	@echo "Remember to run make rel-tag-latest or make rel-push"
+	@echo "Remember to run make rel.tag.latest or make rel.push"
 
 rel.tag.latest: rel.env init ## Add latest tag to last build
 	@docker tag $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) $(APP_DOCKER_REPO):latest
