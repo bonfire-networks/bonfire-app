@@ -29,6 +29,7 @@ defmodule Bonfire.Application do
       Pointers.Tables,
       Bonfire.Common.ContextModules,
       Bonfire.Common.QueryModules,
+      Bonfire.Federate.ActivityPub.FederationModules,
       Bonfire.Data.AccessControl.Verbs,
       Bonfire.Data.AccessControl.Accesses,
       # Stuff that uses all the above
