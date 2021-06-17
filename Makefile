@@ -272,11 +272,14 @@ endif
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
+rel.env:
+	$(eval export MIX_ENV=prod)
+	$(eval export)
 
-rel.config.prepare: # copy current flavour's config, without using symlinks
+rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
 	@cp -rfL $(FLAVOUR_PATH)/config ./data/config
 
-rel.build.no-cache: init rel.config.prepare assets.prepare ## Build the Docker image
+rel.build.no-cache: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
 		--no-cache \
 		--build-arg FLAVOUR_PATH=config \
@@ -287,7 +290,7 @@ rel.build.no-cache: init rel.config.prepare assets.prepare ## Build the Docker i
 		-f $(APP_REL_DOCKERFILE) .
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD)
 
-rel.build: init rel.config.prepare assets.prepare ## Build the Docker image using previous cache
+rel.build: rel.env init rel.config.prepare assets.prepare ## Build the Docker image using previous cache
 	@echo "Building $(APP_NAME) with flavour $(FLAVOUR)"
 	docker build \
 		--build-arg FLAVOUR_PATH=config \
@@ -299,22 +302,25 @@ rel.build: init rel.config.prepare assets.prepare ## Build the Docker image usin
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) 
 	@echo "Remember to run make rel-tag-latest or make rel-push"
 
-rel.tag.latest: init ## Add latest tag to last build
+rel.tag.latest: rel.env init ## Add latest tag to last build
 	@docker tag $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) $(APP_DOCKER_REPO):latest
 
-rel.push: init ## Add latest tag to last build and push to Docker Hub
+rel.push: rel.env init ## Add latest tag to last build and push to Docker Hub
 	@docker push $(APP_DOCKER_REPO):latest
 
-rel.run: init docker.stop.web ## Run the app in Docker & starts a new `iex` console
+rel.run: rel.env init docker.stop.web ## Run the app in Docker & starts a new `iex` console
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web bin/bonfire start_iex
 
-rel.run.bg: init docker.stop.web ## Run the app in Docker, and keep running in the background
+rel.run.bg: rel.env init docker.stop.web ## Run the app in Docker, and keep running in the background
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d
 
-rel.stop: init ## Stop the running release
+rel.stop: rel.env init ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
 
-rel.shell: init docker.stop.web ## Runs a simple shell inside of the container, useful to explore the image
+rel.down: rel.env init ## Stop the running release
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) down
+
+rel.shell: rel.env init docker.stop.web ## Runs a simple shell inside of the container, useful to explore the image
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web /bin/bash
 
 
