@@ -302,10 +302,10 @@ rel.build: rel.env init rel.config.prepare assets.prepare ## Build the Docker im
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) 
 	@echo "Remember to run make rel.tag.latest or make rel.push"
 
-rel.tag.latest: rel.env init ## Add latest tag to last build
+rel.tag.latest: rel.env ## Add latest tag to last build
 	@docker tag $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD) $(APP_DOCKER_REPO):latest
 
-rel.push: rel.env init ## Add latest tag to last build and push to Docker Hub
+rel.push: rel.env ## Add latest tag to last build and push to Docker Hub
 	@docker push $(APP_DOCKER_REPO):latest
 
 rel.run: rel.env init docker.stop.web ## Run the app in Docker & starts a new `iex` console
@@ -314,10 +314,10 @@ rel.run: rel.env init docker.stop.web ## Run the app in Docker & starts a new `i
 rel.run.bg: rel.env init docker.stop.web ## Run the app in Docker, and keep running in the background
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d
 
-rel.stop: rel.env init ## Stop the running release
+rel.stop: rel.env ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
 
-rel.down: rel.env init ## Stop the running release
+rel.down: rel.env ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) down
 
 rel.shell: rel.env init docker.stop.web ## Runs a simple shell inside of the container, useful to explore the image
