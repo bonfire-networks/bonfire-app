@@ -2,8 +2,8 @@ import Config
 
 config :bonfire, Bonfire.Mailer,
   # set what service you want to use to send emails, from these: https://github.com/thoughtbot/bamboo#available-adapters
+  # LocalAdapter is just a fallback which won't actually send emails
   adapter: Bamboo.LocalAdapter
-
 
 # We include the path to a cache manifest
 # containing the digested version of static files. This
@@ -17,3 +17,6 @@ config :bonfire, Bonfire.Web.Endpoint,
 config :logger, level: :info
 
 config :bonfire, Bonfire.Web.Endpoint, server: true
+
+config :bonfire, Bonfire.Repo,
+  priv: "priv/repo" # in releases migrations are not in a flavour-specific directory
