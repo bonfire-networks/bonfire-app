@@ -13,6 +13,7 @@ config :bonfire,
   otp_app: :bonfire,
   env: config_env(),
   flavour: flavour,
+  flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   repo_module: Bonfire.Repo,
   web_module: Bonfire.Web,
@@ -64,6 +65,7 @@ config :bonfire, Oban,
 config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
 }
+
 
 # append/override config based on env
 import_config "#{config_env()}.exs"
