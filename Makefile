@@ -70,7 +70,8 @@ init: pre-init pre-run
 	@make --no-print-directory pre-init
 	@make --no-print-directory services
 
-help: init ## Makefile commands help
+
+help: ## Makefile commands help
 	@perl -nle'print $& if m{^[a-zA-Z_-~.%]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 env.exports: ## Display the vars from dotenv files that you need to load in your environment
@@ -322,19 +323,15 @@ rel.shell: rel.env init docker.stop.web ## Runs a simple shell inside of the con
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
-services: ## Start background docker services (eg. db and search backends). This is automatically done for you if using Docker.
+services: ## Start background docker services (eg. db and search backends).
+ifeq ($(MIX_ENV), prod)
+	docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d db search 
+else
 ifeq ($(WITH_DOCKER), no)
 	@echo ....
 else
 	docker-compose up -d db search 
 endif
-ifeq ($(MIX_ENV), dev)
-	@make --no-print-directory docker.stop.web
-	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
-else
-	elixir --erl "-detached" -S mix phx.server
-	echo Running in background...
-	ps au | grep beam
 endif
 
 build: init ## Build the docker image
