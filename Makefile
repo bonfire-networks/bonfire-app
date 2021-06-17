@@ -68,11 +68,7 @@ init: pre-init pre-run
 	@$(call setup_env,$(MIX_ENV))
 	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD)"
 	@make --no-print-directory pre-init
-ifeq ($(MIX_ENV), prod)
-	@echo ...
-else
 	@make --no-print-directory services
-endif
 
 help: init ## Makefile commands help
 	@perl -nle'print $& if m{^[a-zA-Z_-~.%]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
