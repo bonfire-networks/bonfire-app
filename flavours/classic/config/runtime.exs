@@ -64,6 +64,11 @@ config :bonfire, Bonfire.Web.Endpoint,
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
+# start test-only config
+if config_env() == :test do
+  config :bonfire,
+    invite_only: false
+end
 
 # start prod-only config
 if config_env() == :prod do
