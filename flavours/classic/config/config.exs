@@ -67,9 +67,6 @@ config :mime, :types, %{
 }
 
 
-# append/override config based on env
-import_config "#{config_env()}.exs"
-
 
 # include config for all used Bonfire extensions
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
@@ -79,33 +76,6 @@ end
 
 import_config "activity_pub.exs"
 
-# import_config "bonfire_boundaries.exs"
-# import_config "bonfire_mailer.exs"
-# import_config "bonfire_federate_activitypub.exs"
-# import_config "bonfire_files.exs"
 
-# import_config "bonfire_me.exs"
-# import_config "bonfire_social.exs"
-# import_config "bonfire_tag.exs"
-# import_config "bonfire_classify.exs"
-
-# # import_config "bonfire_publisher_thesis.exs"
-# import_config "bonfire_fail.exs"
-# import_config "bonfire_quantify.exs"
-# import_config "bonfire_geolocate.exs"
-# # import_config "bonfire_valueflows.exs"
-# import_config "bonfire_api_graphql.exs"
-
-# import_config "bonfire_search.exs"
-
-# # include common modules
-# import_config "bonfire_common.exs"
-
-# # include DB schemas
-# import_config "bonfire_data.exs"
-
-# # include hooks (for extensions to hook into each other)
-# import_config "bonfire_hooks.exs"
-
-# # include UI settings
-# import_config "bonfire_ui.exs"
+# finally, append/override config based on env, which will override any config set above (including from imported files)
+import_config "#{config_env()}.exs"

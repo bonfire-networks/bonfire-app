@@ -66,7 +66,7 @@ pre-run:
 
 init: pre-init pre-run
 	@$(call setup_env,$(MIX_ENV))
-	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD)"
+	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD) - $(FLAVOUR_PATH)"
 	@make --no-print-directory pre-init
 	@make --no-print-directory services
 

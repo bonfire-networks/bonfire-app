@@ -1,13 +1,9 @@
 import Config
 
-config :bonfire, Bonfire.Mailer,
-  adapter: Bamboo.LocalAdapter
-
 config :bonfire, Bonfire.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
-
 
 path_dep_dirs =
   Mess.deps([path: "deps.path"], [])
