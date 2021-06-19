@@ -50,7 +50,8 @@ config :bonfire,
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   github_token: System.get_env("GITHUB_TOKEN"),
   encryption_salt: encryption_salt,
-  signing_salt: signing_salt
+  signing_salt: signing_salt,
+  invite_only: System.get_env("INVITE_ONLY", "true") # enable signups?
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [

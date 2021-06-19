@@ -19,8 +19,8 @@ then
     # if there are changes, commit them (needed before being able to rebase)
     git diff-index --quiet HEAD || git commit --verbose --all || echo Skipped...
 
-    # fetch and rebase remote changes
-    git pull --rebase
+    # fetch and rebase remote changes, or fallback to regular pulling if we skipped commiting
+    git pull --rebase || git pull
 
     echo Publishing changes! 
     
