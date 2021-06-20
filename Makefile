@@ -321,16 +321,16 @@ rel.shell: rel.env init docker.stop.web ## Runs a the app container and opens a 
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web /bin/bash
 
 rel.shell.bg: rel.env ## Runs a simple shell inside of the running app container, useful to explore the image
-      @docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec web /bin/bash
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec web /bin/bash
 
 rel.db.shell.bg: rel.env ## Runs a simple shell inside of the DB container, useful to explore the image
-      @docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash
 
 rel.db.dump: rel.env
-      @docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) pg_dump --username $(POSTGRES_USER) $(POSTGRES_DB)" > data/db_dump.sql
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) pg_dump --username $(POSTGRES_USER) $(POSTGRES_DB)" > data/db_dump.sql
 
 rel.db.restore: rel.env
-      @docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) psql --username $(POSTGRES_USER) $(POSTGRES_DB)" < $(file)
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) psql --username $(POSTGRES_USER) $(POSTGRES_DB)" < $(file)
 
 
 #### DOCKER-SPECIFIC COMMANDS ####
