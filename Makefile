@@ -112,11 +112,13 @@ db.rollback.all: mix~"ecto.rollback --all" ## Rollback ALL DB migrations (cautio
 
 update: init update.app build update.forks mix~deps.get mix~ecto.migrate  ## Update the dev app and all dependencies/extensions/forks, and run migrations
 
-update.app: ## Update the app and Bonfire extensions in ./deps
+update.app: update.repo ## Update the app and Bonfire extensions in ./deps
+	@make --no-print-directory mix.remote~updates 
+
+update.repo:
 	git add --all .
 	git diff-index --quiet HEAD || git commit --all --verbose
 	git pull --rebase
-	@make --no-print-directory mix.remote~updates 
 
 update.deps.bonfire: init mix.remote~bonfire.deps ## Update to the latest Bonfire extensions in ./deps 
 	
@@ -313,6 +315,10 @@ rel.run.bg: rel.env init docker.stop.web ## Run the app in Docker, and keep runn
 
 rel.stop: rel.env ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
+
+rel.update: rel.env update.repo
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) pull
+	@echo Remember to run migrations on your DB...
 
 rel.down: rel.env rel.stop ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) down
