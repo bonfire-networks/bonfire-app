@@ -39,7 +39,7 @@ jobs:
     env:
       FLAVOUR: coordination
       FLAVOUR_PATH: flavours/coordination
-      DOCKER_REPO: bonfire-with-valueflows-api
+      DOCKER_REPO: bonfire
     steps:
       - 
         name: Checkout
@@ -94,8 +94,8 @@ jobs:
           platforms: linux/amd64 #,linux/arm64,linux/arm/v7
           push: true
           tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

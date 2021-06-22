@@ -18,15 +18,15 @@ WITH_DOCKER ?= total
 FORKS_PATH ?= ./forks/
 MIX_ENV ?= dev
 ORG_NAME ?= bonfirenetworks
-APP_NAME ?= bonfire-$(FLAVOUR)
+APP_NAME ?= bonfire
 UID := $(shell id -u)
 GID := $(shell id -g)
-APP_REL_CONTAINER="$(ORG_NAME)_$(APP_NAME)_release"
+APP_REL_CONTAINER="$(APP_NAME)_release"
 APP_REL_DOCKERFILE=Dockerfile.release
 APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
 APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD ?= `git rev-parse --short HEAD`
-APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)"
+APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)-$(FLAVOUR)"
 
 #### GENERAL SETUP RELATED COMMANDS ####
 
@@ -320,18 +320,17 @@ rel.down: rel.env rel.stop ## Stop the running release
 rel.shell: rel.env init docker.stop.web ## Runs a the app container and opens a simple shell inside of the container, useful to explore the image
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web /bin/bash
 
-rel.shell.bg: rel.env ## Runs a simple shell inside of the running app container, useful to explore the image
+rel.shell.bg: rel.env init ## Runs a simple shell inside of the running app container, useful to explore the image
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec web /bin/bash
 
-rel.db.shell.bg: rel.env ## Runs a simple shell inside of the DB container, useful to explore the image
+rel.db.shell.bg: rel.env init ## Runs a simple shell inside of the DB container, useful to explore the image
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash
 
-rel.db.dump: rel.env
-	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) pg_dump --username $(POSTGRES_USER) $(POSTGRES_DB)" > data/db_dump.sql
+rel.db.dump: rel.env init
+	docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) pg_dump --username $(POSTGRES_USER) $(POSTGRES_DB)" > data/db_dump.sql
 
-rel.db.restore: rel.env
-	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec db /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) psql --username $(POSTGRES_USER) $(POSTGRES_DB)" < $(file)
-
+rel.db.restore: rel.env init
+	cat $(file) | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) psql -U $(POSTGRES_USER) $(POSTGRES_DB)"
 
 #### DOCKER-SPECIFIC COMMANDS ####
 

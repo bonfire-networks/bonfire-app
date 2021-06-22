@@ -82,9 +82,14 @@ if config_env() == :prod do
 end # prod only config
 
 
-# transactional emails
-
+# start prod and dev only config
 if config_env() != :test do
+
+  config :bonfire, Bonfire.Repo,
+    slow_query_ms: String.to_integer(System.get_env("SLOW_QUERY_MS", "100"))
+
+
+# transactional emails
 
   mail_blackhole = fn var ->
     IO.puts(
