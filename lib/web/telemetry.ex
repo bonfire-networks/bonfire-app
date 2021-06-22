@@ -30,6 +30,7 @@ defmodule Bonfire.Web.Telemetry do
       summary("phoenix.socket_connected.duration", unit: @millis),
       summary("phoenix.channel_joined.duration", unit: @millis),
       summary("phoenix.channel_joined.duration", unit: @millis),
+
       # Phoenix LiveView
       summary("phoenix.live_view.mount.stop.duration", unit: @millis),
       summary("phoenix.live_view.mount.exception.duration", unit: @millis),
@@ -37,7 +38,6 @@ defmodule Bonfire.Web.Telemetry do
       summary("phoenix.live_view.handle_params.exception.duration", unit: @millis),
       summary("phoenix.live_view.handle_event.stop.duration", unit: @millis),
       summary("phoenix.live_view.handle_event.exception.duration", unit: @millis),
-
       summary("phoenix.live_component.handle_event.stop.duration", unit: @millis),
       summary("phoenix.live_component.handle_event.exception.duration", unit: @millis),
 
