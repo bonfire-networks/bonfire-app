@@ -126,6 +126,8 @@ config :bonfire_data_access_control, Verb, []
 # bonfire_data_activity_pub
 
 config :bonfire_data_activity_pub, Actor,
+  belongs_to:    [character:      {Character,     foreign_key: :id, define_field: false}],
+  has_one:    [peered:          {Peered,        references: :id, foreign_key: :id}],
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
 
 config :bonfire_data_activity_pub, Peer, []
@@ -146,6 +148,7 @@ config :bonfire_data_identity, Accounted,
 config :bonfire_data_identity, Caretaker, []
 
 config :bonfire_data_identity, Character,
+  has_one:    [peered:          {Peered,        references: :id, foreign_key: :id}],
   has_one:    [actor:           {Actor,         foreign_key: :id}],
   has_one:    [profile:         {Profile,       foreign_key: :id}],
   has_one:    [user:            {User,          foreign_key: :id}],
@@ -173,7 +176,7 @@ config :bonfire_data_identity, User,
   has_one:  [instance_admin: {InstanceAdmin, foreign_key: :id}],
   has_many: [likes:          {Like,          foreign_key: :liker_id, references: :id}],
   has_one:  [self:           {Self,          foreign_key: :id}],
-  has_one:  [peered:         {Peered,        foreign_key: :id}],
+  has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   has_many: [encircles:      {Encircle,      foreign_key: :subject_id}],
   has_one:  [shared_user:    {Bonfire.Data.SharedUser,     foreign_key: :id}],
   many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}]
@@ -186,6 +189,7 @@ config :bonfire_data_social, Activity,
   belongs_to: [subject_user: {User, foreign_key: :subject_id, define_field: false}],
   belongs_to: [subject_character: {Character, foreign_key: :subject_id, define_field: false}],
   belongs_to: [subject_profile: {Profile, foreign_key: :subject_id, define_field: false}],
+  belongs_to: [object_peered:    {Peered,   foreign_key: :object_id, define_field: false}],
   belongs_to: [object_post: {Post, foreign_key: :object_id, define_field: false}],
   # belongs_to: [object_post_content: {PostContent, foreign_key: :object_id, define_field: false}],
   belongs_to: [object_message: {Message, foreign_key: :object_id, define_field: false}],
@@ -251,6 +255,7 @@ config :bonfire_data_social, Bookmark, []
 config :bonfire_data_social, Message,
   has_one:  [post_content: {PostContent, foreign_key: :id}],
   has_one:  [created: {Created, foreign_key: :id}],
+  has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   has_many: [activities: {Activity, foreign_key: :object_id, references: :id}],
   has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # requires an ON clause
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
@@ -267,6 +272,7 @@ config :bonfire_data_social, Named, []
 config :bonfire_data_social, Post,
   has_one:  [post_content: {PostContent, foreign_key: :id}],
   has_one:  [created: {Created, foreign_key: :id}],
+  has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   # has_one:  [creator_user: {[through: [:created, :creator_user]]}],
   # has_one:  [creator_character: {[through: [:created, :creator_character]]}],
   # has_one:  [creator_profile: {[through: [:created, :creator_profile]]}],
@@ -309,6 +315,7 @@ config :bonfire_data_social, Replied,
   has_one: [controlled:     {Controlled, foreign_key: :id, references: :id}]
 
 config :bonfire_data_social, Created,
+  has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   belongs_to: [creator_user: {User, foreign_key: :creator_id, define_field: false}],
   belongs_to: [creator_character: {Character, foreign_key: :creator_id, define_field: false}],
   belongs_to: [creator_profile: {Profile, foreign_key: :creator_id, define_field: false}]
@@ -323,6 +330,7 @@ config :bonfire_data_social, Profile,
 config :bonfire_tag, Bonfire.Tag,
   # for objects that are follow-able and can federate activities
   has_one: [character:    {Bonfire.Data.Identity.Character,    references: :id, foreign_key: :id}],
+  has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   # has_one: [actor:        {Bonfire.Data.ActivityPub.Actor,     references: :id, foreign_key: :id}],
   has_one: [follow_count: {Bonfire.Data.Social.FollowCount,    references: :id, foreign_key: :id}],
   # for likeable objects
