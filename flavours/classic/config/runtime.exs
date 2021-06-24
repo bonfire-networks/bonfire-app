@@ -163,7 +163,7 @@ if config_env() != :test do
                           adapter: Bamboo.SMTPAdapter,
                           server: server,
                           hostname: domain,
-                          port: System.get_env("MAIL_PORT", 587),
+                          port: String.to_integer(System.get_env("MAIL_PORT", "587")),
                           username: user,
                           password: password,
                           tls: :always,
