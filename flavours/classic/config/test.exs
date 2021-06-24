@@ -15,6 +15,7 @@ config :bonfire_search,
 config :logger, level: :warn
 # config :logger, level: :notice
 
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -24,7 +25,8 @@ config :bonfire, Bonfire.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 60,
   # show_sensitive_data_on_connection_error: true,
-  database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
+  database: "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}",
+    slow_query_ms: 500
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
