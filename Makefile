@@ -82,7 +82,9 @@ env.exports: ## Display the vars from dotenv files that you need to load in your
 
 setup: build mix~setup ## First run - prepare environment and dependencies
 
-dev: init ## Run the app in development
+dev: init dev.run ## Run the app in development
+
+dev.run:
 ifeq ($(WITH_DOCKER), total)
 	@make --no-print-directory docker.stop.web 
 	docker-compose run --name bonfire_web --service-ports web
@@ -90,6 +92,8 @@ ifeq ($(WITH_DOCKER), total)
 else
 	iex -S mix phx.server
 endif
+
+dev.test: init test.env dev.run
 
 dev.bg: init  ## Run the app in dev mode, as a background service
 ifeq ($(WITH_DOCKER), total)
