@@ -36,13 +36,12 @@ export GID
 define setup_env
 	$(eval ENV_DIR := config/$(1))
 	@echo "Loading environment variables from $(ENV_DIR)"
-	@$(call load_env,$(ENV_DIR)/public.env)
-	@$(call load_env,$(ENV_DIR)/secrets.env)
+	@$(call load_env, "$(ENV_DIR)/public.env")
+	@$(call load_env, "$(ENV_DIR)/secrets.env")
 endef
 define load_env
-	$(eval ENV_FILE := $(1))
-	@echo "Loading env vars from $(ENV_FILE)"
-	$(eval include $(ENV_FILE)) # import env into make
+	@echo "Loading env vars from $(1)"
+	$(eval include $(1)) # import env into make
 	$(eval export) # export env from make
 endef
 
