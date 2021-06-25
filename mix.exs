@@ -40,14 +40,11 @@ defmodule Bonfire.MixProject do
     [
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
-      "js.deps.get": [
-        "cmd cd "<>dep_path("bonfire_geolocate")<>"/assets && pnpm install", # FIXME: make generic to apply to all extensions that bundle JS
-        "cmd cd ./assets && pnpm install",
-      ],
+      "js.deps.get": ["cmd make js.deps.get"],
+      "js.deps.update": ["cmd cd assets && pnpm update"],
       "assets.release": [
         "cmd cd ./assets && pnpm build",
       ],
-      "js.deps.update": ["cmd npm update --prefix assets"],
       "ecto.seeds": [
         # "phil_columns.seed",
         "run #{flavour_path()}/repo/seeds.exs"
@@ -55,8 +52,8 @@ defmodule Bonfire.MixProject do
       "bonfire.deps.update": ["deps.update " <>deps_to_update()],
       "bonfire.deps.clean": ["deps.clean " <>deps_to_clean()<>" --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
-      setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup", "js.deps.get"],
-      updates: ["deps.get", "bonfire.deps", "js.deps.get"],
+      setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
+      updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
