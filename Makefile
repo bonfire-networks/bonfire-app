@@ -80,7 +80,7 @@ env.exports: ## Display the vars from dotenv files that you need to load in your
 
 #### COMMON COMMANDS ####
 
-setup: build mix~setup ## First run - prepare environment and dependencies
+setup: build mix~setup js.deps.get ## First run - prepare environment and dependencies
 
 dev: init dev.run ## Run the app in development
 
@@ -114,7 +114,7 @@ db.rollback.all: mix~"ecto.rollback --all" ## Rollback ALL DB migrations (cautio
 
 #### UPDATE COMMANDS ####
 
-update: init update.app build update.forks mix~deps.get mix~ecto.migrate  ## Update the dev app and all dependencies/extensions/forks, and run migrations
+update: init update.app build update.forks mix~deps.get mix~ecto.migrate js.deps.get ## Update the dev app and all dependencies/extensions/forks, and run migrations
 
 update.app: update.repo ## Update the app and Bonfire extensions in ./deps
 	@make --no-print-directory mix.remote~updates 
@@ -144,7 +144,9 @@ deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js.deps.get:
-	@make --no-print-directory mix~js.deps.get
+	# FIXME: make generic to apply to all extensions that bundle JS
+	(cd forks/bonfire_geolocate/assets && pnpm install) || (cd deps/bonfire_geolocate/assets && pnpm install) 
+	cd ./assets && pnpm install
 
 dep.clean~%:
 	@make mix~"deps.clean $* --build"
