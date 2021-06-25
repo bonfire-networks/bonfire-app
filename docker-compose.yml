@@ -35,15 +35,15 @@ services:
     # user: $UID:$GID
   db:
     image: postgis/postgis:12-3.1-alpine
-    volumes:
-      - ./data/postgres/dev:/var/lib/postgresql/data:z
-      - /etc/passwd:/etc/passwd:ro 
+    # volumes:
+      # - ./data/postgres/dev:/var/lib/postgresql/data:z
+      # - /etc/passwd:/etc/passwd:ro 
     ports:
       - "5432:5432"
     env_file:
       - config/dev/public.env
       - config/dev/secrets.env
-    user: $UID:$GID
+    # user: $UID:$GID
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -53,8 +53,8 @@ services:
     image: getmeili/meilisearch:latest
     ports:
       - "7700:7700"
-    volumes:
-      - "./data/search/dev:/data.ms"
+    # volumes:
+      # - "./data/search/dev:/data.ms"
       # - /etc/passwd:/etc/passwd:ro 
     env_file:
       - config/dev/public.env
