@@ -34,14 +34,14 @@ export UID
 export GID
 
 define setup_env
-	$(eval ENV_DIR := $(FLAVOUR_PATH)/config/$(1))
+	$(eval ENV_DIR := config/$(1))
 	@echo "Loading environment variables from $(ENV_DIR)"
 	@$(call load_env,$(ENV_DIR)/public.env)
 	@$(call load_env,$(ENV_DIR)/secrets.env)
 endef
 define load_env
 	$(eval ENV_FILE := $(1))
-	# @echo "Loading env vars from $(ENV_FILE)"
+	@echo "Loading env vars from $(ENV_FILE)"
 	$(eval include $(ENV_FILE)) # import env into make
 	$(eval export) # export env from make
 endef
