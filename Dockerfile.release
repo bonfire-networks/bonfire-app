@@ -69,6 +69,7 @@ RUN mix do bonfire.deps.update
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 # install JS deps
 COPY assets/package.json assets/pnpm-lock.yaml ./assets/
+COPY Makefile ./
 RUN make js.deps.get
 
 # Compile Bonfire extensions
@@ -80,10 +81,10 @@ COPY data/current_flavour/repo priv/repo
 # bonfire-app code & assets 
 COPY lib lib
 COPY assets assets
-RUN ls -la .
-RUN ls -la assets/
-RUN ls -la priv/
-RUN ls -la priv/repo/
+# RUN ls -la .
+# RUN ls -la assets/
+# RUN ls -la priv/
+# RUN ls -la priv/repo/
 # COPY . .
 
 # In case some dep lockfile has a different version
