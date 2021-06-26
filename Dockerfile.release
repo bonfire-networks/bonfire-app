@@ -67,10 +67,9 @@ RUN mix do bonfire.deps.update
 
 # JS package manager
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
-
 # install JS deps
 COPY assets/package.json assets/pnpm-lock.yaml ./assets/
-RUN mix js.deps.get
+RUN make js.deps.get
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
