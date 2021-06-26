@@ -38,15 +38,16 @@ module.exports = {
       spacing: {
         '72': '18rem',
         '84': '21rem',
+        '90': '22rem',
         '96': '26rem',
       },
       typography: (theme) => ({
         light: {
           css: [
             {
-              color: theme('colors.gray.200'),
+              color: theme('colors.gray.100'),
               '[class~="lead"]': {
-                color: theme('colors.gray.200'),
+                color: theme('colors.gray.100'),
               },
               a: {
                 color: theme('colors.white'),
