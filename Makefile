@@ -34,7 +34,7 @@ export UID
 export GID
 
 define setup_env
-	$(eval ENV_DIR := config/dev)
+	$(eval ENV_DIR := config/$(1))
 	@echo "Loading environment variables from $(ENV_DIR)"
 	@$(call load_env,$(ENV_DIR)/public.env)
 	@$(call load_env,$(ENV_DIR)/secrets.env)
