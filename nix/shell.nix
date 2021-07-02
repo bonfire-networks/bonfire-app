@@ -1,4 +1,4 @@
-{ pkgs, flavour ? "reflow" }:
+{ pkgs, flavour ? "coordination" }:
 
 with pkgs;
 
@@ -51,7 +51,7 @@ let
 
     # elixir
     export MIX_ENV=dev
-    export FORK=./forks
+    export FORKS_PATH=./forks
 
     # bonfire
     export FLAVOUR=${flavour}
