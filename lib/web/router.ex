@@ -66,6 +66,9 @@ defmodule Bonfire.Web.Router do
   # include nodeinfo routes
   use_if_enabled NodeinfoWeb.Router
 
+  # optionally include Livebook for developers
+  use_if_enabled Bonfire.Livebook.Web.Routes
+
 
   ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
 
