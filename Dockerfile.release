@@ -17,13 +17,13 @@ ARG ALPINE_VERSION=3.13
 ARG APP_NAME
 # The version of the application we are building (required)
 ARG APP_VSN
-ARG BONFIRE_FLAVOUR
+ARG FLAVOUR
+ARG FLAVOUR_PATH
 
 # Step 1 - Build our app
 FROM elixir:${ELIXIR_VERSION}-alpine as builder 
 
-ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod BONFIRE_FLAVOUR=$BONFIRE_FLAVOUR APP_NAME=$APP_NAME
-
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
 
 # useful deps
@@ -34,9 +34,11 @@ RUN apk add --no-cache make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mess.exs mix.lock ./
-COPY data/config/deps.hex ./config/ 
 # sometimes mix tries to read the config
 RUN mkdir -p ./config && touch ./config/config.exs
+
+# get deps from hex.pm
+COPY data/current_flavour/config/deps.hex ./config/ 
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
@@ -44,13 +46,14 @@ RUN mix do deps.get --only prod
 # RUN MIX_ENV=prod mix do deps.compile
 
 # git deps (i.e. Bonfire extensions)
-COPY data/config/deps.git ./config 
+COPY data/current_flavour/config/deps.git ./config/
 RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
-COPY data/config/ ./config 
-# Comment this line only if you want to include locally-forked deps in the release
-RUN rm config/deps.path
+COPY data/current_flavour/config/* ./config/
+
+RUN rm ./config/deps.path
+# Comment the line above and uncomment the ones below only if you want to include locally-forked deps in the release
 # RUN ls -la ./config
 # RUN MIX_ENV=prod mix do deps.compile
 
@@ -58,29 +61,41 @@ RUN rm config/deps.path
 RUN mix do bonfire.deps.update
 
 # Uncomment these lines only if you want to include locally-forked deps in the release
-# COPY data/config/deps.path ./config 
+# COPY data/current_flavour/config/deps.path ./config 
 # COPY forks/ ./ 
 # RUN mix do deps.get --only prod
 
+# JS package manager
+RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 # install JS deps
-COPY assets/package* ./assets/
-RUN mix js.deps.get
+COPY assets/package.json assets/pnpm-lock.yaml ./assets/
+COPY Makefile ./
+RUN make js.deps.get
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
 
-# COPY lib/ assets/ priv/ rel/ ./ # causes a webpack error
-COPY . .
+# migrations
+COPY data/current_flavour/repo priv/repo
+
+# bonfire-app code & assets 
+COPY lib lib
+COPY assets assets
+# RUN ls -la .
+# RUN ls -la assets/
+# RUN ls -la priv/
+# RUN ls -la priv/repo/
+# COPY . .
 
 # In case some dep lockfile has a different version
 RUN mix do deps.get --only prod
 
 # prepare static assets
-RUN mix js.release
-RUN MIX_ENV=prod RELEASING=1 mix phx.digest
+RUN mix assets.release
+RUN MIX_ENV=prod CI=1 mix phx.digest
 
 # build final OTP release
-RUN MIX_ENV=prod RELEASING=1 mix release
+RUN MIX_ENV=prod CI=1 mix release
 
 # Step 2 - Prepare the server image
 # From this line onwards, we're in a new image, which will be the image used in production

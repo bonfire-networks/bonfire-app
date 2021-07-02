@@ -2,6 +2,12 @@ import Config
 
 
 config :bonfire, :ui,
+   theme: [
+      instance_name: "Bonfire",
+      instance_logo: "https://bonfirenetworks.org/img/bonfire.png",
+      instance_image: "https://bonfirenetworks.org/img/logo.png",
+      instance_description: "This is a bonfire demo instance for testing purpose"
+   ],
    sidebar_components: [
       {Bonfire.UI.Social.SidebarNavigationLive, []},
    ],
@@ -16,8 +22,8 @@ config :bonfire, :ui,
          private: Bonfire.UI.Social.PrivateLive,
          posts: Bonfire.UI.Social.ProfilePostsLive,
          boosts: Bonfire.UI.Social.ProfileBoostsLive,
-         followers: Bonfire.UI.Social.ProfileFollowersLive,
-         followed: Bonfire.UI.Social.ProfileFollowersLive,
+         followers: Bonfire.UI.Social.ProfileFollowsLive,
+         followed: Bonfire.UI.Social.ProfileFollowsLive,
       ],
       navigation: [
          timeline: "timeline",

@@ -1,1 +1,1 @@
-../../../classic/repo/migrations/20200828094944_import_me.exs
+../../../coordination/repo/migrations/20200828094944_import_me.exs

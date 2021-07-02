@@ -9,18 +9,35 @@ defmodule Bonfire.Application do
   use Application
 
   def start(_type, _args) do
+    Bonfire.Repo.LogSlow.setup()
+
+    applications() #|> IO.inspect
+    |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
+  end
+
+  def applications(with_graphql \\ Code.ensure_loaded?(Bonfire.GraphQL.Schema)) # TODO better
+
+  def applications(true) do
+    [
+      {Absinthe.Schema, Bonfire.GraphQL.Schema} # use persistent_term backend for Absinthe
+    ] ++ applications(false)
+  end
+
+  def applications(_) do
     [ Bonfire.Web.Telemetry,                  # Metrics
       Bonfire.Repo,                           # Database
       {Phoenix.PubSub, name: Bonfire.PubSub}, # PubSub
       # Persistent Data Services
       Pointers.Tables,
-      Bonfire.Data.AccessControl.Accesses,
+      Bonfire.Common.ContextModules,
+      Bonfire.Common.QueryModules,
+      Bonfire.Federate.ActivityPub.FederationModules,
       Bonfire.Data.AccessControl.Verbs,
+      Bonfire.Data.AccessControl.Accesses,
       # Stuff that uses all the above
-      Bonfire.Web.Endpoint,                       # Webapp
-      {Oban, Application.get_env(:bonfire, Oban)} # Job Queue
+      Bonfire.Web.Endpoint,                       # Web app
+      {Oban, Application.fetch_env!(:bonfire, Oban)} # Job Queue
     ]
-    |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
   # Tell Phoenix to update the endpoint configuration

@@ -2,6 +2,7 @@ const colors = require('tailwindcss/colors')
 
 
 module.exports = {
+  mode: 'jit',
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
@@ -9,20 +10,7 @@ module.exports = {
   purge: {
     enabled: true,
     content: [
-      '../forks/**/lib/**/*.leex',
-      '../forks/**/lib/**/**/*.leex',
-      '../forks/**/lib/**/**/**/*.leex',
-      '../deps/bonfire_**/lib/**/*.leex',
-      '../deps/bonfire_**/lib/**/**/*.leex',
-      '../deps/bonfire_**/lib/**/**/**/*.leex',
-      '../lib/web/**/*.leex',
-      '../forks/**/lib/**/*.sface',
-      '../forks/**/lib/**/**/*.sface',
-      '../forks/**/lib/**/**/**/*.sface',
-      '../deps/bonfire_**/lib/**/*.sface',
-      '../deps/bonfire_**/lib/**/**/*.sface',
-      '../deps/bonfire_**/lib/**/**/**/*.sface',
-      '../lib/web/**/*.sface',
+      '../{lib,forks,deps}/**/*{.leex,.sface,_live.ex}'
     ]
   },
   darkMode: 'class',
@@ -50,15 +38,16 @@ module.exports = {
       spacing: {
         '72': '18rem',
         '84': '21rem',
+        '90': '22rem',
         '96': '26rem',
       },
       typography: (theme) => ({
         light: {
           css: [
             {
-              color: theme('colors.gray.400'),
+              color: theme('colors.gray.100'),
               '[class~="lead"]': {
-                color: theme('colors.gray.300'),
+                color: theme('colors.gray.100'),
               },
               a: {
                 color: theme('colors.white'),
@@ -119,6 +108,7 @@ module.exports = {
   },
   variants: {
     extend: {
+     divideColor: ['dark'],
      ringWidth:['hover'],
      divideColor: ['dark'],
      ringColor: ['group-hover', 'hover'],

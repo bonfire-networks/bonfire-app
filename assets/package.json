@@ -1,42 +1,38 @@
 {
-  "repository": {},
-  "description": " ",
-  "license": "MIT",
+  "version": "0.0.0",
   "scripts": {
-    "deploy": "webpack --mode production",
-    "watch": "webpack --mode development --watch"
+    "preinstall": "npx -y only-allow pnpm",
+    "watch.js": "esbuild ./js/live.js ./js/non_live.js --target=es2015 --bundle --sourcemap --outdir=../priv/static/js --watch",
+    "build.js": "esbuild ./js/live.js ./js/non_live.js --target=es2015 --bundle --sourcemap --outdir=../priv/static/js",
+    "watch.postcss": "TAILWIND_MODE=watch NODE_ENV=development postcss ./css/app.scss -o ../priv/static/css/app.css -w",
+    "build.postcss": "TAILWIND_MODE=build NODE_ENV=production postcss ./css/app.scss -o ../priv/static/css/app.css",
+    "watch.tw": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss@canary -i ./css/app.scss -o ../priv/static/css/app.css --files ../{lib,forks,deps}/**/*{.leex,.sface} --jit -w",
+    "build.tw": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss@canary -i ./css/app.scss -o ../priv/static/css/app.css --files ../{lib,forks,deps}/**/*{.leex,.sface} --jit",
+    "watch.assets": "cpx 'static/**/*' ../priv/static --watch",
+    "build": "pnpm build.postcss && pnpm build.js"
   },
   "dependencies": {
     "@github/details-dialog-element": "^3.1.2",
     "@github/details-menu-element": "^1.0.9",
-    "@tailwindcss/forms": "^0.1.4",
-    "@tailwindcss/line-clamp": "^0.2.0",
-    "@tailwindcss/typography": "^0.4.0",
-    "alpinejs": "^2.8.1",
-    "leaflet": "^1.7.1",
+    "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.1",
+    "alpinejs": "^2.8.2",
     "nprogress": "^0.2.0",
-    "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html",
-    "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "tailwindcss": "^2.1"
+    "phoenix": "link:../deps/phoenix",
+    "phoenix_html": "link:../deps/phoenix_html",
+    "phoenix_live_view": "link:../deps/phoenix_live_view",
+    "tailwindcss": "~2.1.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "autoprefixer": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "copy-webpack-plugin": "^5.1.1",
-    "css-loader": "^3.4.2",
-    "file-loader": "^6.2.0",
-    "hard-source-webpack-plugin": "^0.13.1",
-    "mini-css-extract-plugin": "^0.9.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "postcss": "^8.2.1",
+    "@tailwindcss/jit": "^0.1.18",
+    "autoprefixer": "^10.2.6",
+    "cpx": "^1.5.0",
+    "esbuild": "^0.12.8",
+    "only-allow": "^1.0.0",
+    "pnpm": "^6.7.6",
+    "postcss": "^8.3.2",
     "postcss-cli": "^8.3.1",
-    "postcss-loader": "^4.1.0",
-    "tailwindcss-debug-screens": "^2.0.0",
-    "terser-webpack-plugin": "^2.3.2",
-    "webpack": "4.41.5",
-    "webpack-cli": "^3.3.2"
+    "tailwindcss-debug-screens": "^2.0.0"
   }
 }

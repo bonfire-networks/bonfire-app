@@ -1,5 +1,5 @@
 // JS shared with non_live pages
-import "./both"
+import "./common"
 
 // for JS features & extensions to hook into LiveView
 let Hooks = {}; 
@@ -32,10 +32,10 @@ liveSocket.connect()
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
+ 
 window.liveSocket = liveSocket
 
 
 // Extensions... # TODO: make this more modular/configurable
-
 import { ExtensionHooks } from "../../deps/bonfire_geolocate/assets/js/extension" 
 Object.assign(liveSocket.hooks, ExtensionHooks);

@@ -1,1 +1,1 @@
-import "./both"
+import "./common"

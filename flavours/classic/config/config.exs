@@ -1,67 +1,19 @@
 import Config
 
-flavour = System.get_env("BONFIRE_FLAVOUR", "flavours/classic")
-
-# You will almost certainly want to change at least some of these
-
-# include all used Bonfire extensions
-for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
-  # IO.inspect(include_config: config)
-  import_config config
-end
-
-import_config "activity_pub.exs"
-
-# import_config "bonfire_boundaries.exs"
-# import_config "bonfire_mailer.exs"
-# import_config "bonfire_federate_activitypub.exs"
-# import_config "bonfire_files.exs"
-
-# import_config "bonfire_me.exs"
-# import_config "bonfire_social.exs"
-# import_config "bonfire_tag.exs"
-# import_config "bonfire_classify.exs"
-
-# # import_config "bonfire_publisher_thesis.exs"
-# import_config "bonfire_fail.exs"
-# import_config "bonfire_quantify.exs"
-# import_config "bonfire_geolocate.exs"
-# # import_config "bonfire_valueflows.exs"
-# import_config "bonfire_api_graphql.exs"
-
-# import_config "bonfire_search.exs"
-
-# # include common modules
-# import_config "bonfire_common.exs"
-
-# # include DB schemas
-# import_config "bonfire_data.exs"
-
-# # include hooks (for extensions to hook into each other)
-# import_config "bonfire_hooks.exs"
-
-# # include UI settings
-# import_config "bonfire_ui.exs"
+default_flavour = "classic"
+flavour = System.get_env("FLAVOUR", default_flavour)
+flavour_path = System.get_env("FLAVOUR_PATH", "flavours/"<>flavour)
 
 #### Basic configuration
-
-config :bonfire, Bonfire.Repo, priv: flavour <> "/repo"
 
 # You probably won't want to touch these. You might override some in
 # other config files.
 
-config :bonfire, :github_token, System.get_env("GITHUB_TOKEN")
-
-signing_salt = System.get_env("SIGNING_SALT", "CqAoopA2")
-encryption_salt = System.get_env("ENCRYPTION_SALT", "g7K25as98msad0qlSxhNDwnnzTqklK10")
-secret_key_base = System.get_env("SECRET_KEY_BASE", "g7K250qlSxhNDt5qnV6f4HFnyoD7fGUuZ8tbBF69aJCOvUIF8P0U7wnnzTqklK10")
-
-config :bonfire, :signing_salt, signing_salt
-config :bonfire, :encryption_salt, encryption_salt
-
 config :bonfire,
   otp_app: :bonfire,
   env: config_env(),
+  flavour: flavour,
+  flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   repo_module: Bonfire.Repo,
   web_module: Bonfire.Web,
@@ -72,21 +24,26 @@ config :bonfire,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
-  ap_base_path: System.get_env("AP_BASE_PATH", "/pub")
+  localisation_path: "priv/localisation",
+  ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
+  signing_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
+  encryption_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs"
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: secret_key_base,
+  http: [
+    port: String.to_integer(System.get_env("SERVER_PORT", "4000")), # this gets overriden in runtime.exs
+    transport_options: [socket_opts: [:inet6]]
+  ],
   render_errors: [view: Bonfire.Web.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Bonfire.PubSub,
-  live_view: [signing_salt: signing_salt]
+  pubsub_server: Bonfire.PubSub
 
 config :phoenix, :json_library, Jason
 
-config :bonfire, Bonfire.Repo, types: Bonfire.PostgresTypes
-
-config :bonfire,
-  ecto_repos: [Bonfire.Repo]
+config :bonfire, :ecto_repos, [Bonfire.Repo]
+config :bonfire, Bonfire.Repo,
+  types: Bonfire.PostgresTypes,
+  priv: flavour_path <> "/repo"
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
@@ -94,7 +51,6 @@ config :bonfire,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
-
 
 config :bonfire, Oban,
   repo: Bonfire.Repo,
@@ -110,4 +66,16 @@ config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
 }
 
+
+
+# include config for all used Bonfire extensions
+for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
+  # IO.inspect(include_config: config)
+  import_config config
+end
+
+import_config "activity_pub.exs"
+
+
+# finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{config_env()}.exs"
