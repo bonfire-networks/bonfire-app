@@ -3,8 +3,8 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-alpha.187", # note that the flavour will automatically be added where the dash appears
-      elixir: "~> 1.11",
+      version: "0.1.0-alpha.188", # note that the flavour will automatically be added where the dash appears
+      elixir: "~> 1.12",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers"],
       data_deps_prefixes: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate"]
