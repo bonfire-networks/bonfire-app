@@ -1,4 +1,4 @@
-{ pkgs, flavour ? "reflow" }:
+{ pkgs, flavour ? "coordination" }:
 
 with pkgs;
 

@@ -1,4 +1,4 @@
-{ pkgs, self, flavour ? "reflow" }:
+{ pkgs, self, flavour ? "coordination" }:
 let
   beamPackages = with pkgs; beam.packagesWith beam.interpreters.erlang;
 in
