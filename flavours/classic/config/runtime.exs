@@ -187,9 +187,31 @@ if config_env() != :test do
 
 end
 
-# copy-paste Bonfire extension configs that need to read env at runtime
+### copy-paste Bonfire extension configs that need to read env at runtime
 
+## bonfire_search
 config :bonfire_search,
   disable_indexing: System.get_env("SEARCH_INDEXING_DISABLED", "false"),
   instance: System.get_env("SEARCH_MEILI_INSTANCE", "http://localhost:7700"), # protocol, hostname and port
   api_key: System.get_env("MEILI_MASTER_KEY", "make-sure-to-change-me") # secret key
+
+## bonfire_livebook
+if Code.ensure_loaded?(Livebook) do
+  config :livebook, :root_path, Livebook.Config.root_path!("LIVEBOOK_ROOT_PATH")
+
+  if password = Livebook.Config.password!("LIVEBOOK_PASSWORD") do
+    config :livebook, authentication_mode: :password, password: password
+  else
+    config :livebook, authentication_mode: :token
+    config :livebook, token: System.get_env("LIVEBOOK_TOKEN", Livebook.Utils.random_id())
+  end
+
+  config :livebook,
+        :cookie,
+        Livebook.Config.cookie!("LIVEBOOK_COOKIE") || Livebook.Utils.random_cookie()
+
+  config :livebook,
+        :default_runtime,
+        Livebook.Config.default_runtime!("LIVEBOOK_DEFAULT_RUNTIME") ||
+          {Livebook.Runtime.Embedded, []}
+end
