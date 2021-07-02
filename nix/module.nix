@@ -8,7 +8,7 @@ in
     port = mkOption {
       type = types.port;
       default = 4000;
-      description = "port to run the instance on";
+      description = "port to run the instance backend on";
     };
     package = mkOption {
       type = types.package;
@@ -96,8 +96,8 @@ in
         POSTGRES_SOCKET_DIR = lib.mkIf (dbSocketDir != null) dbSocketDir;
         HOSTNAME = hostname;
         WITH_DOCKER = "no";
-        FLAVOUR = "reflow";
-        BONFIRE_FLAVOUR = "flavours/reflow";
+        FLAVOUR = "coordination";
+        BONFIRE_FLAVOUR = "flavours/coordination";
       };
     };
   };
