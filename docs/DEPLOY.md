@@ -191,14 +191,18 @@ There is a `Makefile` with relevant commands (make sure you set the `MIX_ENV=pro
 
 ### Option C with nixos
 
-this repo is a flake and includes a nixos module.
-Here are the detailed steps to deploy it.
+This repo is a Flake and includes a NixOS module.
 
+Here are the detailed steps to deploy it:
+
+- run a recent version of Nix or NixOS: https://nixos.wiki
+- enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
+- fetch and build the app and dependencies: `nix shell github:bonfire-networks/bonfire-app --command bonfire --version`
 - add it as an input to your system flake.
 - add an overlay to make the package available
 - add the required configuration in your system
 
-Your flake.nix file would look like the following. Remember to replace myHostName with your actual hostname or however your deployed system is called.
+Your `flake.nix` file would look like the following. Remember to replace `myHostName` with your actual hostname or however your deployed system is called.
 
 ```nix
 {
@@ -223,16 +227,16 @@ Your flake.nix file would look like the following. Remember to replace myHostNam
 }
 ```
 
-then in myHostName.nix would look like the following
+Then your `myHostName.nix` would look like the following:
 
-TODO: add the caddy config
+TODO: add caddy reverse proxy config
 
 ```nix
 { config, lib, pkgs, ... }:
 
 {
   services.bonfire = {
-    # you will need to expose bonfire with a reverse proxy, for example caddy
+    # you will additionally need to expose bonfire with a reverse proxy, for example caddy
     port = 4000;
     package = pkgs.elixirBonfire;
     dbName = "bonfire";

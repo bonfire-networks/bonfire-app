@@ -96,8 +96,8 @@ in
         POSTGRES_SOCKET_DIR = lib.mkIf (dbSocketDir != null) dbSocketDir;
         HOSTNAME = hostname;
         WITH_DOCKER = "no";
-        FLAVOUR = "reflow";
-        BONFIRE_FLAVOUR = "flavours/reflow";
+        FLAVOUR = "coordination";
+        BONFIRE_FLAVOUR = "flavours/coordination";
       };
     };
   };
