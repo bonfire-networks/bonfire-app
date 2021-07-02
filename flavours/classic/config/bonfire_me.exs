@@ -5,9 +5,9 @@ config :bonfire_me,
 
 config :bonfire_me, Bonfire.Me.Identity.Mails,
   confirm_email:  [subject: "Confirm your email - Bonfire"],
-  reset_password: [subject: "Reset your password - Bonfire"]
+  forgot_password: [subject: "Reset your password - Bonfire"]
 
 #### Pointer class configuration
 
-config :bonfire_me, Bonfire.Me.Users.Follows,
+config :bonfire_me, Bonfire.Me.Follows,
   followable_types: [Bonfire.Data.Identity.User]

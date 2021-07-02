@@ -2,7 +2,7 @@
 [Bonfire](https://bonfirenetworks.org/) - a federated social network for individuals and communities to design, operate and control their own digital lives.
 
 ### Flavours
-This repo includes configurations to run different [flavours of Bonfire](https://bonfirenetworks.org/apps.html), currently that is:
+This repo includes configurations to run different [flavours of Bonfire](https://bonfirenetworks.org/apps), currently that is:
 * [Classic](flavours/classic) 
 * [Coordination](flavours/coordination) 
 * [Reflow](flavours/reflow) 

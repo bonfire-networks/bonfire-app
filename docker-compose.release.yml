@@ -1,11 +1,11 @@
 version: "3.5"
 
 services:
-  backend:
+  web:
     # You can build your own image from the source running:
     # $ make rel-build
     # $ make rel-tag-latest
-    image: "bonfirenetworks/bonfire-main:latest"
+    image: "bonfirenetworks/bonfire:latest-${FLAVOUR}"
     container_name: "bonfire_web"
     restart: always
     ports:
@@ -13,13 +13,16 @@ services:
     env_file:
       - config/prod/public.env
       - config/prod/secrets.env
+    environment:
+      - POSTGRES_HOST=db
+      - SEARCH_MEILI_INSTANCE=http://search:7700
     depends_on:
       - db
     volumes:
       - type: bind
         source: ./data/uploads
         target: /opt/app/data/uploads
-  frontend:
+  proxy:
     image: "caddy:alpine"
     restart: always
     ports:

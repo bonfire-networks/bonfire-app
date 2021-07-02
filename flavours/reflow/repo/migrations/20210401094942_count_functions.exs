@@ -1,1 +1,1 @@
-../../../classic/repo/migrations/20210401094942_count_functions.exs
+../../../coordination/repo/migrations/20210401094942_count_functions.exs

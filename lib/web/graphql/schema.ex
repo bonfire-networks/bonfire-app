@@ -3,16 +3,14 @@ if Bonfire.Common.Utils.module_enabled?(Bonfire.GraphQL) and Bonfire.Common.Util
 defmodule Bonfire.GraphQL.Schema do
   @moduledoc "Root GraphQL Schema"
   use Absinthe.Schema
-
-  # import Bonfire.GraphQL.SchemaUtils
+  @schema_provider Absinthe.Schema.PersistentTerm
+  # @pipeline_modifier Bonfire.GraphQL.SchemaPipelines
 
   require Logger
-
   alias Bonfire.GraphQL.SchemaUtils
   alias Bonfire.GraphQL.Middleware.CollapseErrors
   alias Absinthe.Middleware.{Async, Batch}
 
-  # @pipeline_modifier OverridePhase
 
   def plugins, do: [Async, Batch]
 

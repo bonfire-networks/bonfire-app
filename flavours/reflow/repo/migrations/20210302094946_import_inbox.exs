@@ -1,1 +1,1 @@
-../../../classic/repo/migrations/20210302094946_import_inbox.exs
+../../../coordination/repo/migrations/20210302094946_import_inbox.exs

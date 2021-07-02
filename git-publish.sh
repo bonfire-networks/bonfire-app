@@ -17,16 +17,20 @@ then
     git config core.fileMode false
 
     # if there are changes, commit them (needed before being able to rebase)
-    git diff-index --quiet HEAD || git commit --verbose --all
+    git diff-index --quiet HEAD || git commit --verbose --all || echo Skipped...
 
-    # fetch and rebase remote changes
-    git pull --rebase
+    # fetch and rebase remote changes, or fallback to regular pulling if we skipped commiting
+    git pull --rebase || git pull
 
     echo Publishing changes! 
+    
     git push
 
 else
     set -e
     #echo No local changes since last run 
-    git pull
+    if [[ $2 == 'pull' ]]
+    then
+        git pull
+    fi
 fi
