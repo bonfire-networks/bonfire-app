@@ -5,6 +5,7 @@
 This repo includes configurations to run different [flavours of Bonfire](https://bonfirenetworks.org/apps), currently that is:
 * [Classic](flavours/classic) 
 * [Coordination](flavours/coordination) 
+* [Breadpub](flavours/breadpub) 
 * [Reflow](flavours/reflow) 
 
 
