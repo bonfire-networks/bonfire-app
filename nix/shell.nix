@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs, flavour ? "reflow" }:
 
 with pkgs;
 
@@ -13,14 +13,15 @@ let
       rev = "8421d5ee91b120f1fe78fe8b123fc0fdf59609ff";
       sha256 = "sha256-MniXkng8v30xzSC+cIZ+K6DWeJLCFDieXZioAQFU4/s=";
     };
-    cargoSha256 = "sha256-z8SdQKME9/6O6ZRkNRI+vYZSf6fxAG4lz0Muv7876fY=";
+    cargoSha256 = "sha256-K4Wq949DK3STwKo0MgaGNsu3r+qg8OqqXK3O4g4FpR0=";
   };
 
   # define packages to install with special handling for OSX
   shellBasePackages = [
     git
-    beam.packages.erlang.elixir_1_11
-    nodejs-15_x
+    beam.packages.erlang.elixir_1_12
+    nodejs-16_x
+    nodePackages.pnpm
     postgresql_13
     messctl
     # for NIFs
@@ -51,6 +52,11 @@ let
     # elixir
     export MIX_ENV=dev
     export FORK=./forks
+
+    # bonfire
+    export FLAVOUR=${flavour}
+    export BONFIRE_FLAVOUR=flavours/${flavour}
+    export WITH_DOCKER=no
   '';
 
 in

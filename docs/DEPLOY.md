@@ -189,6 +189,77 @@ There is a `Makefile` with relevant commands (make sure you set the `MIX_ENV=pro
 
 ---
 
+### Option C with nixos
+
+this repo is a flake and includes a nixos module.
+Here are the detailed steps to deploy it.
+
+- add it as an input to your system flake.
+- add an overlay to make the package available
+- add the required configuration in your system
+
+Your flake.nix file would look like the following. Remember to replace myHostName with your actual hostname or however your deployed system is called.
+
+```nix
+{
+  inputs.bonfire.url = "github:happysalada/bonfire-app/main";
+  outputs = { self, nixpkgs, bonfire }: {
+    overlay = final: prev: with final;{
+      # a package named bonfire already exists on nixpkgs so we put it under a different name
+      elixirBonfire = bonfire.defaultPackage.x86_64-linux;
+    };
+    nixosConfigurations.myHostName = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        {
+          environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
+          nixpkgs.overlays = [ self.overlay ];
+        }
+        ./myHostName.nix
+        bonfire.nixosModules.bonfire
+      ];
+    };
+  };
+}
+```
+
+then in myHostName.nix would look like the following
+
+TODO: add the caddy config
+
+```nix
+{ config, lib, pkgs, ... }:
+
+{
+  services.bonfire = {
+    # you will need to expose bonfire with a reverse proxy, for example caddy
+    port = 4000;
+    package = pkgs.elixirBonfire;
+    dbName = "bonfire";
+    # the environment should contain a minimum of
+    #   SECRET_KEY_BASE
+    #   SIGNING_SALT
+    #   ENCRYPTION_SALT
+    #   RELEASE_COOKIE
+    # have a look into nix/module.nix for more details
+    # the way to deploy secrets is beyond this readme, but I would recommend agenix
+    environmentFile = "/run/secrets/bonfireEnv";
+    dbSocketDir = "/var/run/postgresql";
+  };
+
+  # this is uniquely for database backup purposes
+  # replace myBackupUserName with the user name that will do the backups
+  # if you want to do backups differently, feel free to remove this part of the config
+  services.postgresql = {
+    ensureDatabases = [ "bonfire" ];
+    ensureUsers = [{
+      name = "myBackupUserName";
+      ensurePermissions = { "DATABASE bonfire" = "ALL PRIVILEGES"; };
+    }];
+  };
+}
+```
+
 ## Step 3 - Run
 
 By default, the backend listens on port 4000 (TCP), so you can access it on http://localhost:4000/ (if you are on the same machine). In case of an error it will restart automatically.
