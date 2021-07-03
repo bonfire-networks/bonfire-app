@@ -1,4 +1,4 @@
-## Bonfire Coordination 
+## Bonfire Breadpub 
 
 This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows](http://valueflo.ws/) ecosystems and bundles the following extensions:
 
@@ -16,7 +16,7 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows]
 - [Bonfire:ValueFlows:Observe](https://github.com/bonfire-ecosystem/bonfire_valueflows_observe) - observation of economic resources
 - [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
 - [Bonfire:UI:ValueFlows](https://github.com/bonfire-networks/bonfire_ui_valueflows) - reusable frontend components for economic activities 
-- [Bonfire:UI:Coordination](https://github.com/bonfire-networks/bonfire_ui_coordination) - frontend for the coordination app
+- [Bonfire:Breadpub](https://github.com/bonfire-networks/bonfire_ui_coordination) - functionality for breadpub
 
 
 ## More information
