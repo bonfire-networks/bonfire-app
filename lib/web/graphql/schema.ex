@@ -100,10 +100,10 @@ defmodule Bonfire.GraphQL.Schema do
   """
   def hydrate(%Absinthe.Blueprint{}, _) do
     SchemaUtils.hydrations_merge([
-      &Bonfire.Geolocate.GraphQL.Hydration.hydrate/0,
-      &Bonfire.Quantify.Hydration.hydrate/0,
-      &ValueFlows.Hydration.hydrate/0,
-      &ValueFlows.Observe.Hydration.hydrate/0
+      Bonfire.Geolocate.GraphQL.Hydration,
+      Bonfire.Quantify.Hydration,
+      ValueFlows.Hydration,
+      ValueFlows.Observe.Hydration
     ])
   end
 
