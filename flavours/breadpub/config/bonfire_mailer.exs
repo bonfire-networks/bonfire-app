@@ -1,0 +1,1 @@
+../../classic/config/bonfire_mailer.exs
