@@ -189,15 +189,16 @@ There is a `Makefile` with relevant commands (make sure you set the `MIX_ENV=pro
 
 ---
 
-### Option C with nixos
+### Option C - with Nix
 
-This repo is a Flake and includes a NixOS module.
+This repo is a Flake and includes a Nix module.
 
 Here are the detailed steps to deploy it:
 
 - run a recent version of Nix or NixOS: https://nixos.wiki
 - enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
-- fetch and build the app and dependencies: `nix shell github:bonfire-networks/bonfire-app --command bonfire --version`
+- add `sandbox = false` in your nix.conf
+- fetch and build the app and dependencies: `nix run github:bonfire-networks/bonfire-app start_iex`
 - add it as an input to your system flake.
 - add an overlay to make the package available
 - add the required configuration in your system
