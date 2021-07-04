@@ -70,11 +70,14 @@ For example if you want to run the `coordination` flavour:
 
 ### Option D - the experimental one (dev environment with Nix)
 
+- run a recent version of Nix or NixOS: https://nixos.wiki
+- enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
+- add `sandbox = false` in your nix.conf
+
 If you use direnv, just cd in the directory and you will have all the dependencies.
 If you just have nix, running `nix shell .` (inside the repository) will set you up with a shell.
 
-You will need to create and init the db directory (keeping all your Postgres data inside this directory).
-
+You will need to create and init the db directory (keeping all your Postgres data inside this directory):
 - create the db directory `initdb ./db`
 - create the postgres user `createuser postgres -ds`
 - create the db `createdb bonfire_dev`
