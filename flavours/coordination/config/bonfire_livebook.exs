@@ -14,3 +14,5 @@ config :livebook, :authentication_mode, :token
 # a synchronous `init` function that takes the
 # configured arguments.
 config :livebook, :default_runtime, {Livebook.Runtime.Embedded, []}
+
+config :livebook, router_helpers_module: Bonfire.Web.Router.Helpers

@@ -196,7 +196,7 @@ config :bonfire_search,
   api_key: System.get_env("MEILI_MASTER_KEY", "make-sure-to-change-me") # secret key
 
 ## bonfire_livebook
-if Code.ensure_loaded?(Livebook) do
+if Code.ensure_loaded?(Livebook.Config) do
   config :livebook, :root_path, Livebook.Config.root_path!("LIVEBOOK_ROOT_PATH")
 
   if password = Livebook.Config.password!("LIVEBOOK_PASSWORD") do
@@ -214,4 +214,5 @@ if Code.ensure_loaded?(Livebook) do
         :default_runtime,
         Livebook.Config.default_runtime!("LIVEBOOK_DEFAULT_RUNTIME") ||
           {Livebook.Runtime.Embedded, []}
+
 end
