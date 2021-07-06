@@ -10,8 +10,6 @@ defmodule Bonfire.Application do
 
   def start(_type, _args) do
 
-    Code.put_compiler_option(:ignore_module_conflict, true)
-
     Bonfire.Repo.LogSlow.setup()
 
     applications() #|> IO.inspect
