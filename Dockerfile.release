@@ -20,7 +20,7 @@ ARG APP_VSN
 ARG FLAVOUR
 ARG FLAVOUR_PATH
 
-# Step 1 - Build our app
+#### STEP 1 - Build our app
 FROM elixir:${ELIXIR_VERSION}-alpine as builder 
 
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
@@ -66,7 +66,7 @@ RUN mix do bonfire.deps.update
 # RUN mix do deps.get --only prod
 
 # JS package manager
-RUN curl -L https://unpkg.com/@pnpm/self-installer | node
+RUN npm install -g pnpm
 # install JS deps
 COPY assets/package.json assets/pnpm-lock.yaml ./assets/
 COPY Makefile ./
@@ -97,7 +97,7 @@ RUN MIX_ENV=prod CI=1 mix phx.digest
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
 
-# Step 2 - Prepare the server image
+##### STEP 2 - Prepare the server image
 # From this line onwards, we're in a new image, which will be the image used in production
 FROM alpine:${ALPINE_VERSION}
 
