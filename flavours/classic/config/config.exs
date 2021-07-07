@@ -19,7 +19,7 @@ config :bonfire,
   web_module: Bonfire.Web,
   endpoint_module: Bonfire.Web.Endpoint,
   mailer_module: Bonfire.Mailer,
-  default_layout_module: Bonfire.Web.LayoutView,
+  default_layout_module: Bonfire.UI.Social.Web.LayoutView,
   graphql_schema_module: Bonfire.GraphQL.Schema,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
@@ -35,7 +35,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: String.to_integer(System.get_env("SERVER_PORT", "4000")), # this gets overriden in runtime.exs
     transport_options: [socket_opts: [:inet6]]
   ],
-  render_errors: [view: Bonfire.Web.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: Bonfire.UI.Social.Web.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Bonfire.PubSub
 
 config :phoenix, :json_library, Jason

@@ -1,5 +1,7 @@
 defmodule Bonfire.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :bonfire
+  alias Bonfire.Common.Utils
+  alias Bonfire.Common.Config
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -7,8 +9,8 @@ defmodule Bonfire.Web.Endpoint do
   @session_options [
     store: :cookie,
     key: "_bonfire_key",
-    signing_salt: Bonfire.Common.Config.get!(:signing_salt),
-    encryption_salt: Bonfire.Common.Config.get!(:encryption_salt)
+    signing_salt: Config.get!(:signing_salt),
+    encryption_salt: Config.get!(:encryption_salt)
   ]
 
   socket "/live", Phoenix.LiveView.Socket,
@@ -65,16 +67,17 @@ defmodule Bonfire.Web.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
   plug Bonfire.Web.Router
 
   def include_assets(conn) do
-    js = if Bonfire.Common.Utils.e(conn, :assigns, :current_account, nil) do
+    js = if Utils.e(conn, :assigns, :current_account, nil) || Utils.e(conn, :assigns, :current_user, nil) do
       static_path("/js/bonfire_live.js")
     else
       static_path("/js/bonfire_basic.js")
     end
 
-    if Bonfire.Common.Config.get!(:env) == :dev do
+    if Config.get!(:env) == :dev do
       "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/bonfire.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script>"
     else
       "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/bonfire.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script> "

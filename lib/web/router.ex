@@ -1,11 +1,12 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.Web, :router
+  # use Plug.ErrorHandler
 
   pipeline :basic do
     # plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {Bonfire.Web.LayoutView, :root}
+    plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
     # plug :protect_from_forgery
     # plug :put_secure_browser_headers
     # plug Bonfire.Web.Plugs.LoadCurrentAccount
@@ -16,7 +17,7 @@ defmodule Bonfire.Web.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {Bonfire.Web.LayoutView, :root}
+    plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Bonfire.Web.Plugs.LoadCurrentAccount
@@ -137,14 +138,6 @@ defmodule Bonfire.Web.Router do
       end
     end
   end
-
-  # defdelegate path(conn_or_socket_or_endpoint, arg), to: Bonfire.Web.Router.Reverse
-  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2), to: Bonfire.Web.Router.Reverse
-  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3), to: Bonfire.Web.Router.Reverse
-  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4), to: Bonfire.Web.Router.Reverse
-  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4, arg5), to: Bonfire.Web.Router.Reverse
-  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4, arg5, arg6), to: Bonfire.Web.Router.Reverse
-  # defdelegate path(conn_or_socket_or_endpoint, arg, arg2, arg3, arg4, arg5, arg6, arg7), to: Bonfire.Web.Router.Reverse
 
 end
 defmodule Bonfire.Web.Router.Reverse do
