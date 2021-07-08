@@ -4,7 +4,7 @@ import Config
 config :bonfire, :ui,
    theme: [
       instance_name: "Amsterdam pilot",
-      instance_logo: "https://reflowproject.eu/wp-content/themes/reflow/images/logoBlue.svg",
+      instance_logo: "https://reflowproject.eu/wp-content/themes/reflow/images/logoWhite.svg",
       instance_image: "https://reflowproject.eu/wp-content/uploads/2020/06/reflow-blog-1600x900.jpg",
       instance_description: "This is a Reflow demo instance of the Amsterdam pilot"
    ],
@@ -67,6 +67,9 @@ config :bonfire, :ui,
          Bonfire.UI.ValueFlows.LocationWidgetLive,
          Bonfire.UI.ValueFlows.PrimaryAccountableWidgetLive,
       ],
+   ],
+   default_instance_feed_previews: [
+      process: Bonfire.UI.Social.Activity.ProcessReflowLive
    ]
    # process: [
    #    navigation: [
