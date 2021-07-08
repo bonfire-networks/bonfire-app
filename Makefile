@@ -139,6 +139,10 @@ update.forks: ## Pull the latest commits from all ./forks
 	@chmod +x git-publish.sh
 	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} pull \;
 
+update.fork~%: ## Pull the latest commits from all ./forks
+	@chmod +x git-publish.sh
+	find $(FORKS_PATH)/$* -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
+
 deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked deps
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
