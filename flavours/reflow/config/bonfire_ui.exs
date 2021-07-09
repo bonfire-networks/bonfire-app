@@ -40,7 +40,6 @@ config :bonfire, :ui,
       ],
    ],
    smart_input_activities: [
-
       # offer: "Publish an offer",
       # need: "Publish a need",
       transfer_resource: "Transfer a resource",
