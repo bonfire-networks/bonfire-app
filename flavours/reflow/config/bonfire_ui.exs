@@ -18,6 +18,7 @@ config :bonfire, :ui,
       cw: true,
       summary: true
    ],
+   default_smart_input: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
    profile: [
       sections: [
          timeline: Bonfire.UI.Social.ProfileTimelineLive,
@@ -39,13 +40,14 @@ config :bonfire, :ui,
       ],
    ],
    smart_input_activities: [
+
       # offer: "Publish an offer",
       # need: "Publish a need",
-      # transfer_resource: "Transfer a resource",
-      # produce_resource: "Add a resource",
+      transfer_resource: "Transfer a resource",
+      produce_resource: "Add a resource",
       # intent: "Indicate an itent",
       # economic_event: "Record an economic event",
-      # process: "Define a process"
+      process: "Create a process"
    ],
    smart_input_forms: [
       post: Bonfire.UI.Social.CreateActivityLive,
