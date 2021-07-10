@@ -1,3 +1,13 @@
+# stage to build the dependency manager
+FROM rust:1.52 AS messctl_build
+
+ENV FORKS=./forks
+
+RUN (git clone https://github.com/commonspub/messctl.git $FORKS/messctl/origin 2> /dev/null || (cd $FORKS/messctl/origin && git pull)) && cd $FORKS/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00bf1306
+
+RUN cd $FORKS/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose
+
+
 FROM elixir:1.11-alpine
 
 ENV HOME=/opt/app/ TERM=xterm USER=docker FORKS=./forks
@@ -6,31 +16,22 @@ WORKDIR $HOME
 
 # dev tools
 RUN apk update && \
-    apk add bash curl inotify-tools 
+    apk add bash curl inotify-tools
 
 # various dependencies of dependencies
 RUN apk add \
     npm \
-    git \  
+    git \
     mailcap \
     ca-certificates openssh-client openssl-dev \
     tzdata \
-    gettext 
-
-# rust NIF + messctl deps
-RUN apk add rust cargo
+    gettext
 
 # dependencies for comeonin (not needed for dev)
 #RUN apk add cmake make gcc libc-dev
 
-# dependency manager
-RUN (git clone https://github.com/commonspub/messctl.git $FORKS/messctl/origin 2> /dev/null || (cd $FORKS/messctl/origin && git pull)) && cd $FORKS/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00bf1306
-# precompile Rust deps (FIXME - doesn't seem to have an effect)
-#RUN cd $FORKS/messctl && cargo init && mkdir .cargo && cp origin/Cargo.* . && cargo build
-# compile messctl
-RUN cd $FORKS/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose 
-# install 
-RUN cp /opt/app/.cargo/bin/* /bin/
+# install the dependency manager
+COPY --from=messctl_build $FORKS/messctl/target/release/messctl /bin/
 
 # JS package manager
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
