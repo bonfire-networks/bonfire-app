@@ -367,10 +367,11 @@ endif
 endif
 
 build: init ## Build the docker image
-ifeq ($(WITH_DOCKER), total)
-	docker-compose build
-else
+ifeq ($(WITH_DOCKER), no)
 	@echo Skip building container...
+else
+	@mkdir -p deps
+	docker-compose build
 endif
 
 cmd~%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd~time` or `make cmd~echo args=hello`

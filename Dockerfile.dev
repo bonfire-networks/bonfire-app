@@ -1,17 +1,27 @@
 # stage to build the dependency manager
 FROM rust:1.52 AS messctl_build
+# FROM elixir:1.12-alpine AS messctl_build
 
-ENV FORKS=./forks
+ARG FLAVOUR
+ARG FLAVOUR_PATH
 
-RUN (git clone https://github.com/commonspub/messctl.git $FORKS/messctl/origin 2> /dev/null || (cd $FORKS/messctl/origin && git pull)) && cd $FORKS/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00bf1306
+ENV FORKS=./forks 
 
+# build deps
+# RUN apk update && apk add git rust cargo
+
+# fetch messctl
+RUN git clone https://github.com/bonfire-networks/messctl $FORKS/messctl/origin 2> /dev/null || (cd $FORKS/messctl/origin && git pull)
+RUN cd $FORKS/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00bf1306
+# FIXME: try using latest version of messctl
+
+# compile messctl
 RUN cd $FORKS/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose
 
 
-FROM elixir:1.11-alpine
+FROM elixir:1.12-alpine
 
 ENV HOME=/opt/app/ TERM=xterm USER=docker FORKS=./forks
-
 WORKDIR $HOME
 
 # dev tools
@@ -27,6 +37,9 @@ RUN apk add \
     tzdata \
     gettext
 
+# deps to compile NIF deps (eg. tree_magic)
+RUN apk add git rust cargo
+
 # dependencies for comeonin (not needed for dev)
 #RUN apk add cmake make gcc libc-dev
 
@@ -34,7 +47,7 @@ RUN apk add \
 COPY --from=messctl_build $FORKS/messctl/target/release/messctl /bin/
 
 # JS package manager
-RUN curl -L https://unpkg.com/@pnpm/self-installer | node
+RUN npm install -g pnpm
 
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp
