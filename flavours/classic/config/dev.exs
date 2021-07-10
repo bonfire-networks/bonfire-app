@@ -22,13 +22,6 @@ config :bonfire, Bonfire.Web.Endpoint,
   check_origin: false,
   code_reloader: true,
   watchers: [
-    # node: [
-    #   "node_modules/webpack/bin/webpack.js",
-    #   "--mode",
-    #   "development",
-    #   "--watch-stdin",
-    #   cd: Path.expand("assets", File.cwd!())
-    # ]
     pnpm: [
       "watch.js",
       cd: Path.expand("assets", File.cwd!())
@@ -36,7 +29,11 @@ config :bonfire, Bonfire.Web.Endpoint,
     pnpm: [
       "watch.postcss",
       cd: Path.expand("assets", File.cwd!())
-    ]
+    ],
+    # pnpm: [
+    #   "watch.assets",
+    #   cd: Path.expand("assets", File.cwd!())
+    # ]
   ],
   live_reload: [
     patterns: [
