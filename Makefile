@@ -62,6 +62,8 @@ pre-init:
 pre-run:
 	@mkdir -p forks/
 	@mkdir -p data/uploads/
+	@mkdir -p priv/static/data
+	@ln -s data/uploads priv/static/data/ | true
 	@mkdir -p data/search/dev
 
 init: pre-init pre-run
