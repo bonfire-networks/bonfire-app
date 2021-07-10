@@ -105,7 +105,10 @@ else
 	ps au | grep beam
 endif
 
-db.reset: db.pre-migrations mix~ecto.reset ## Reset the DB (caution: this means DATA LOSS)
+db.reset: db.pre-migrations mix~ecto.reset dev.search.reset ## Reset the DB (caution: this means DATA LOSS)
+
+dev.search.reset:
+	@docker-compose rm -s -v search
 
 db.rollback: mix~ecto.rollback ## Rollback previous DB migration (caution: this means DATA LOSS)
 
