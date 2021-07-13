@@ -5,6 +5,7 @@ defmodule Bonfire.Application do
   @name Mix.Project.config()[:name]
   @version Mix.Project.config()[:version]
   @repository Mix.Project.config()[:source_url]
+  @deps Bonfire.Common.Extend.loaded_deps()
 
   use Application
 
@@ -52,5 +53,6 @@ defmodule Bonfire.Application do
   def version, do: @version
   def named_version, do: name() <> " " <> @version
   def repository, do: @repository
+  def deps, do: @deps
 
 end
