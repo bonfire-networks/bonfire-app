@@ -161,7 +161,7 @@ js.deps.install:
 	@make --no-print-directory cmd cmd="cd $(dir) && pnpm install"
 
 js.deps.get.dep~%:
-	@make --no-print-directory js.deps.install dir="forks/$*/assets" || make --no-print-directory js.deps.install dir="deps/$*/assets"
+	@make --no-print-directory js.deps.install dir="forks/$*/assets" || make --no-print-directory js.deps.install dir="deps/$*/assets" || echo "Extension not present, you can ignore the errors above."
 
 dep.clean~%:
 	@make mix~"deps.clean $* --build"
