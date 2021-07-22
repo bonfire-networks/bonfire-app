@@ -153,9 +153,15 @@ deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js.deps.get:
+	@make --no-print-directory js.deps.install dir=assets
 	# FIXME: make generic to apply to all extensions that bundle JS
-	(cd forks/bonfire_geolocate/assets && pnpm install) || (cd deps/bonfire_geolocate/assets && pnpm install) 
-	cd ./assets && pnpm install
+	@make --no-print-directory js.deps.get.dep~bonfire_geolocate
+
+js.deps.install:	
+	@make --no-print-directory cmd cmd="cd $(dir) && pnpm install"
+
+js.deps.get.dep~%:
+	@make --no-print-directory js.deps.install dir="forks/$*/assets" || make --no-print-directory js.deps.install dir="deps/$*/assets"
 
 dep.clean~%:
 	@make mix~"deps.clean $* --build"
@@ -390,12 +396,18 @@ docker.stop.web:
 
 #### MISC COMMANDS ####
 
-mix~%: init ## Run a specific mix command, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
+cmd: init 
 ifeq ($(WITH_DOCKER), total)
-	docker-compose run web mix $* $(args)
+	docker-compose run web bash -c "$(cmd) $(args)"
 else
-	mix $* $(args)
+	$(cmd) $(args)
 endif
+
+cmd~%: init ## Run a specific command, eg: `make cmd~"mix deps.get"` or `make cmd~deps.update args=pointers`
+	@make --no-print-directory cmd cmd="mix $*" $(args)
+
+mix~%: init ## Run a specific mix command, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
+	@make --no-print-directory cmd cmd="mix $*" $(args)
 
 mix.remote~%: init ## Run a specific mix command, while ignoring any deps cloned into ./forks, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
 ifeq ($(WITH_DOCKER), total)
