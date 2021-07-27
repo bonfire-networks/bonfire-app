@@ -53,10 +53,6 @@ config :bonfire, :ui,
       economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
       intent: Bonfire.UI.ValueFlows.CreateIntentLive,
       process: Bonfire.UI.ValueFlows.CreateProcessLive,
-      #offer: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
-      # need:
-      transfer_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive,
-      produce_resource: Bonfire.UI.ValueFlows.CreateOfferWidgetLive
    ],
    resource: [
       navigation: [
