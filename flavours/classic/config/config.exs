@@ -67,6 +67,10 @@ config :mime, :types, %{
   "application/activity+json" => ["activity+json"]
 }
 
+config :sentry,
+  dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
+  environment_name: Mix.env,
+  included_environments: [:prod]
 
 
 # include config for all used Bonfire extensions
