@@ -70,8 +70,8 @@ RUN mix do bonfire.deps.update
 RUN npm install -g pnpm
 # install JS deps
 COPY assets/package.json assets/pnpm-lock.yaml assets/install.sh ./assets/
-RUN chmod +x ./assets/install.sh && ./assets/install.sh
-RUN chmod +x ./config/deps.js.sh && ./config/deps.js.sh
+RUN ls -la assets && chmod +x ./assets/install.sh && ./assets/install.sh
+RUN ls -la config && chmod +x ./config/deps.js.sh && ./config/deps.js.sh
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
