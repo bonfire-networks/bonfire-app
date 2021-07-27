@@ -153,15 +153,8 @@ deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js.deps.get:
-	@make --no-print-directory js.deps.install dir=assets
-	# FIXME: make generic to apply to all extensions that bundle JS
-	@make --no-print-directory js.deps.get.dep~bonfire_geolocate
-
-js.deps.install:	
-	@make --no-print-directory cmd cmd="cd $(dir) && pnpm install"
-
-js.deps.get.dep~%:
-	@make --no-print-directory js.deps.install dir="forks/$*/assets" || make --no-print-directory js.deps.install dir="deps/$*/assets" || echo "Extension not present, you can ignore the errors above."
+	./assets/install.sh
+	./config/deps.js.sh
 
 dep.clean~%:
 	@make mix~"deps.clean $* --build"
