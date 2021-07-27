@@ -26,8 +26,8 @@ FROM elixir:${ELIXIR_VERSION}-alpine as builder
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
 
-# useful deps
-RUN apk add --no-cache curl git rust cargo npm coreutils
+# necessary utils
+RUN apk add --no-cache curl git rust cargo npm bash
 
 # dependencies for comeonin
 RUN apk add --no-cache make gcc libc-dev
