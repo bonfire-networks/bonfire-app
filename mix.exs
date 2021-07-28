@@ -90,7 +90,7 @@ defmodule Bonfire.MixProject do
       },
 
       # Testing a component library for liveview
-      # {:surface_catalogue, "~> 0.0.7", only: :dev},
+      {:surface_catalogue, "~> 0.1.0"},
 
       # security auditing
       # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
@@ -99,6 +99,14 @@ defmodule Bonfire.MixProject do
     )
 
   end
+
+  def catalogues do
+    [
+      "deps/surface/priv/catalogue",
+      "forks/bonfire_ui_social/priv/catalogue"
+    ]
+  end
+
 
   def deps(deps \\ deps(), deps_subtype) when is_atom(deps_subtype), do:
     Enum.filter(deps, &include_dep?(deps_subtype, &1))
@@ -143,7 +151,7 @@ defmodule Bonfire.MixProject do
 
   # Specifies which paths to compile per environment
   defp elixirc_paths(:test), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
-  defp elixirc_paths(_), do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"] ++ catalogues()
 
   defp include_dep?(:test, dep), do: String.starts_with?(dep_name(dep), @config[:test_deps_prefixes])
 

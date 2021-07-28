@@ -44,9 +44,11 @@ config :bonfire, Bonfire.Web.Endpoint,
       # ~r".*leex$",
       ~r"lib/.*ex$",
       ~r".*sface$",
+      ~r"priv/catalogue/.*(ex)$",
     ] ++ path_dep_patterns
   ]
 
+# defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
 
 config :logger, :console,
   level: :debug,
