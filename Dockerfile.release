@@ -26,8 +26,8 @@ FROM elixir:${ELIXIR_VERSION}-alpine as builder
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
 
-# useful deps
-RUN apk add --no-cache curl git rust cargo npm
+# necessary utils
+RUN apk add --no-cache curl git rust cargo npm bash
 
 # dependencies for comeonin
 RUN apk add --no-cache make gcc libc-dev
@@ -69,9 +69,9 @@ RUN mix do bonfire.deps.update
 # JS package manager
 RUN npm install -g pnpm
 # install JS deps
-COPY assets/package.json assets/pnpm-lock.yaml ./assets/
-COPY Makefile ./
-RUN make js.deps.get
+COPY assets/package.json assets/pnpm-lock.yaml assets/install.sh ./assets/
+RUN chmod +x assets/install.sh && bash assets/install.sh
+RUN chmod +x config/deps.js.sh && bash config/deps.js.sh
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
