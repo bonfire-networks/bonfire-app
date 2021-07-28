@@ -79,6 +79,8 @@ if config_env() == :prod do
     pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
     log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
 
+  config :sentry,
+    dsn: System.get_env("SENTRY_DSN")
 end # prod only config
 
 

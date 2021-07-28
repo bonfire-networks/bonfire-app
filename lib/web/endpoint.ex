@@ -1,4 +1,5 @@
 defmodule Bonfire.Web.Endpoint do
+  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :bonfire
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Config
@@ -68,6 +69,7 @@ defmodule Bonfire.Web.Endpoint do
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
+  plug Sentry.PlugContext
 
   plug Plug.MethodOverride
   plug Plug.Head
