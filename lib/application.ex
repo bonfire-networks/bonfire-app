@@ -13,6 +13,8 @@ defmodule Bonfire.Application do
 
     Bonfire.Repo.LogSlow.setup()
 
+    :telemetry.attach("oban-errors", [:oban, :job, :exception], &Bonfire.ObanLogger.handle_event/4, [])
+
     applications() #|> IO.inspect
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
