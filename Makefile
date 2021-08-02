@@ -153,6 +153,8 @@ deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js.deps.get:
+	@chmod +x ./assets/install.sh
+	@chmod +x ./config/deps.js.sh
 	./assets/install.sh
 	./config/deps.js.sh
 
