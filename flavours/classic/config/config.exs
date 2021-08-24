@@ -64,7 +64,8 @@ config :bonfire, Oban,
   ]
 
 config :mime, :types, %{
-  "application/activity+json" => ["activity+json"]
+  "application/activity+json" => ["activity+json"],
+  "application/jrd+json" => ["jrd+json"]
 }
 
 config :sentry,
