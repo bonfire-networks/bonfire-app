@@ -81,6 +81,10 @@ if config_env() == :prod do
 
   config :sentry,
     dsn: System.get_env("SENTRY_DSN")
+
+  if System.get_env("SENTRY_NAME") do
+    config :sentry, server_name: System.get_env("SENTRY_NAME")
+  end
 end # prod only config
 
 
