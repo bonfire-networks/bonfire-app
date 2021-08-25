@@ -32,10 +32,10 @@ defmodule Bonfire.Web.Endpoint do
     gzip: true,
     only: ~w(css fonts images js favicon.ico robots.txt cache_manifest.json)
 
-  # plug Plug.Static,
-  #   at: "/data/uploads/",
-  #   from: {:bonfire, "data/uploads/"},
-  #   gzip: true
+  plug Plug.Static,
+    at: "/data/uploads/",
+    from: {:bonfire, "data/uploads"},
+    gzip: true
 
   plug Plug.Static,
     at: "/",
