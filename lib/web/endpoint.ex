@@ -34,7 +34,7 @@ defmodule Bonfire.Web.Endpoint do
 
   plug Plug.Static,
     at: "/data/uploads/",
-    from: {:bonfire, "data/uploads"},
+    from: "data/uploads",
     gzip: true
 
   plug Plug.Static,
