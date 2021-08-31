@@ -5,6 +5,10 @@ defmodule Bonfire.ObanLogger do
       |> Map.take([:id, :args, :queue, :worker])
       |> Map.merge(measure)
 
-    Sentry.capture_message(meta.error, stacktrace: meta.stacktrace, extra: extra)
+    if is_binary(meta.error) do
+      Sentry.capture_message(meta.error, stacktrace: meta.stacktrace, extra: extra)
+    else
+      Sentry.capture_exception(meta.error, stacktrace: meta.stacktrace, extra: extra)
+    end
   end
 end
