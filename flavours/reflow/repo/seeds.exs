@@ -1,14 +1,13 @@
 import Bonfire.Me.Fake
 
+System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
 
-_admin =
-  %{
-    preferred_username: System.get_env("SEEDS_USER", "root"),
-    name: System.get_env("SEEDS_USER", "Seed User"),
-    is_instance_admin: true
-  }
-  |> fake_user!(%{confirm_email: true})
+%{
+  preferred_username: System.get_env("SEEDS_USER", "root"),
+  name: System.get_env("SEEDS_USER", "Seed User")
+}
+|> fake_user!(%{confirm_email: true})
 
 # create some users
 users = for _ <- 1..2, do: fake_user!()
