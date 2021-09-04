@@ -1,1 +1,1 @@
-../../classic/repo/seeds.exs
+../../coordination/repo/seeds.exs
