@@ -50,8 +50,7 @@ config :bonfire,
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   github_token: System.get_env("GITHUB_TOKEN"),
   encryption_salt: encryption_salt,
-  signing_salt: signing_salt,
-  invite_only: System.get_env("INVITE_ONLY", "true") # enable signups?
+  signing_salt: signing_salt
 
 config :bonfire, Bonfire.Web.Endpoint,
   url: [
@@ -64,11 +63,6 @@ config :bonfire, Bonfire.Web.Endpoint,
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
-# start test-only config
-if config_env() == :test do
-  config :bonfire,
-    invite_only: false
-end
 
 # start prod-only config
 if config_env() == :prod do
