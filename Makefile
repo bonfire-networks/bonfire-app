@@ -110,7 +110,9 @@ endif
 db.reset: dev.search.reset db.pre-migrations mix~ecto.reset  ## Reset the DB (caution: this means DATA LOSS)
 
 dev.search.reset:
+ifeq ($(WITH_DOCKER), total)
 	@docker-compose rm -s -v search
+endif
 
 db.rollback: mix~ecto.rollback ## Rollback previous DB migration (caution: this means DATA LOSS)
 
