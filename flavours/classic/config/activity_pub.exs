@@ -18,7 +18,8 @@ config :activity_pub, :instance,
   federation_publisher_modules: [ActivityPubWeb.Publisher],
   federation_reachability_timeout_days: 7,
   federating: true,
-  rewrite_policy: []
+  rewrite_policy: [],
+  handle_unknown_activities: true
 
 config :activity_pub, :http,
   proxy_url: nil,
