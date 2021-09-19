@@ -65,6 +65,7 @@ pre-run:
 	@mkdir -p priv/static/data
 	@ln -s data/uploads priv/static/data/ | true
 	@mkdir -p data/search/dev
+	@chmod 700 .erlang.cookie
 
 init: pre-init pre-run
 	@$(call setup_env,$(MIX_ENV))
