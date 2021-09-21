@@ -5,6 +5,8 @@ echo Checking for changes in $DIR
 
 cd $DIR
 
+git config core.fileMode false
+
 # add all changes (including untracked files)
 git add --all .
 
@@ -13,8 +15,6 @@ set +e  # Grep succeeds with nonzero exit codes to show results.
 if git status | grep -q -E 'Changes|modified|ahead'
 then
     set -e
-
-    git config core.fileMode false
 
     # if there are changes, commit them (needed before being able to rebase)
     git diff-index --quiet HEAD || git commit --verbose --all || echo Skipped...
