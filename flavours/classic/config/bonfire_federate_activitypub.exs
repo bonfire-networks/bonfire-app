@@ -11,7 +11,8 @@ config :bonfire,
     :bonfire_social,
     :bonfire_valueflows
     ],
-  log_federation: true # enable/disable logging of federation logic
+  log_federation: true, # enable/disable logging of federation logic
+  federation_fallback_module: Bonfire.Social.APActivities
 
 config :bonfire, Adapter,
   actor_types: actor_types
