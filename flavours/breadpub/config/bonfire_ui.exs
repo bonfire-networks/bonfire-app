@@ -9,10 +9,10 @@ config :bonfire, :ui,
       instance_description: "This is a bonfire demo instance for testing purpose"
    ],
    sidebar_components: [
-      {Bonfire.UI.Social.SidebarNavigationLive, []},
+      # {Bonfire.UI.Social.SidebarNavigationLive, []},
       {Bonfire.Breadpub.SidebarNavigationLive, []},
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Lists", process_url: "/bread/list/"]}
+      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Lists", process_url: "/bread/list/"]}
    ],
    smart_input: [
       post: true,
