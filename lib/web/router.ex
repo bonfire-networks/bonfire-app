@@ -79,7 +79,7 @@ defmodule Bonfire.Web.Router do
     live "/", Web.HomeLive, as: :home
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
-    live "/home", Web.HomeLive, as: :home
+    # live "/home", Web.HomeLive, as: :home
 
     live "/error", Common.Web.ErrorLive
 
