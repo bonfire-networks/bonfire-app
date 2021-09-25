@@ -66,16 +66,16 @@ defmodule Bonfire.MixProject do
     Mess.deps(mess_sources(), [
       ## password hashing - builtin vs nif
       {:pbkdf2_elixir, "~> 1.4", only: [:dev, :test]},
-      {:argon2_elixir, "~> 2.3.0", only: [:prod]},
+      {:argon2_elixir, "~> 2.4", only: [:prod]},
       ## dev conveniences
       # {:dbg, "~> 1.0", only: [:dev, :test]},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.4", only: :test},
-      {:mock, "~> 0.3.0", only: :test},
+      {:mock, "~> 0.3", only: :test},
       {:zest, "~> 0.1"},
       {:grumble, "~> 0.1.3", only: [:test], override: true},
       {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main", only: [:test]},
@@ -88,9 +88,6 @@ defmodule Bonfire.MixProject do
         git: "https://github.com/mayel/licensir", branch: "pr",
         # path: "./forks/licensir"
       },
-
-      # Testing a component library for liveview
-      {:surface_catalogue, "~> 0.1.0"},
 
       # security auditing
       # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
