@@ -76,9 +76,11 @@ defmodule Bonfire.Web.Router do
   # pages anyone can view
   scope "/", Bonfire do
     pipe_through :browser
+
     live "/", Web.HomeLive, as: :home
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
+    # live "/", Website.HomeGuestLive, as: :landing
     # live "/home", Web.HomeLive, as: :home
 
     live "/error", Common.Web.ErrorLive
@@ -118,12 +120,14 @@ defmodule Bonfire.Web.Router do
 
     if module_enabled?(Surface.Catalogue.Router) do
       import_if_enabled Surface.Catalogue.Router
+
       Surface.Catalogue.Router.surface_catalogue "/ui/components"
     end
 
     if module_enabled?(Phoenix.LiveDashboard.Router) do
       import Phoenix.LiveDashboard.Router
       pipe_through :admin_required
+
       live_dashboard "/admin/system", metrics: Bonfire.Web.Telemetry, ecto_repos: [Bonfire.Repo]
     end
 

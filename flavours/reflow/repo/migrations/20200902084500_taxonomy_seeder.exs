@@ -1,1 +1,0 @@
-../../../coordination/repo/migrations/20200902084500_taxonomy_seeder.exs
