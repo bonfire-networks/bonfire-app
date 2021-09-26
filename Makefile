@@ -22,6 +22,7 @@ APP_NAME ?= bonfire
 UID := $(shell id -u)
 GID := $(shell id -g)
 APP_REL_CONTAINER="$(APP_NAME)_release"
+WEB_CONTAINER ?= $(APP_NAME)_web
 APP_REL_DOCKERFILE=Dockerfile.release
 APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
 APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
@@ -90,8 +91,8 @@ dev: init dev.run ## Run the app in development
 dev.run:
 ifeq ($(WITH_DOCKER), total)
 	@make --no-print-directory docker.stop.web 
-	docker-compose run --name bonfire_web --service-ports web
-	# docker-compose --verbose run --name bonfire_web --service-ports web
+	docker-compose run --name $(WEB_CONTAINER) --service-ports web
+	# docker-compose --verbose run --name $(WEB_CONTAINER) --service-ports web
 else
 	iex -S mix phx.server
 endif
@@ -101,19 +102,26 @@ dev.test: init test.env dev.run
 dev.bg: init  ## Run the app in dev mode, as a background service
 ifeq ($(WITH_DOCKER), total)
 	@make --no-print-directory docker.stop.web
-	docker-compose run --detach --name bonfire_web --service-ports web elixir -S mix phx.server
+	docker-compose run --detach --name $(WEB_CONTAINER) --service-ports web elixir -S mix phx.server
 else
 	elixir --erl "-detached" -S mix phx.server
 	echo Running in background...
 	ps au | grep beam
 endif
 
+db.migrate: mix~ecto.migrate ## Run latest database migrations (eg. after adding/upgrading an app/extension)
+
+db.seeds: mix~ecto.migrate mix~ecto.seeds ## Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
+
 db.reset: dev.search.reset db.pre-migrations mix~ecto.reset  ## Reset the DB (caution: this means DATA LOSS)
 
 dev.search.reset:
-ifeq ($(WITH_DOCKER), total)
+ifeq ($(WITH_DOCKER), no)
+	echo ...
+else
 	@docker-compose rm -s -v search
 endif
+	rm -rf data/search/dev
 
 db.rollback: mix~ecto.rollback ## Rollback previous DB migration (caution: this means DATA LOSS)
 
@@ -327,7 +335,7 @@ rel.push: rel.env ## Add latest tag to last build and push to Docker Hub
 	@docker push $(APP_DOCKER_REPO):latest
 
 rel.run: rel.env init docker.stop.web ## Run the app in Docker & starts a new `iex` console
-	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web bin/bonfire start_iex
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name $(WEB_CONTAINER) --service-ports --rm web bin/bonfire start_iex
 
 rel.run.bg: rel.env init docker.stop.web ## Run the app in Docker, and keep running in the background
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) up -d
@@ -343,7 +351,7 @@ rel.down: rel.env rel.stop ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) down
 
 rel.shell: rel.env init docker.stop.web ## Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name bonfire_web --service-ports --rm web /bin/bash
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) run --name $(WEB_CONTAINER) --service-ports --rm web /bin/bash
 
 rel.shell.bg: rel.env init ## Runs a simple shell inside of the running app container, useful to explore the image
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) exec web /bin/bash
@@ -389,8 +397,8 @@ shell: init ## Open the shell of the Docker web container, in dev mode
 	@make cmd~bash
 
 docker.stop.web: 
-	@docker stop bonfire_web 2> /dev/null || true
-	@docker rm bonfire_web 2> /dev/null || true
+	@docker stop $(WEB_CONTAINER) 2> /dev/null || true
+	@docker rm $(WEB_CONTAINER) 2> /dev/null || true
 
 #### MISC COMMANDS ####
 
