@@ -6,7 +6,6 @@ BASH := $(shell which bash)
 # what flavour do we want?
 FLAVOUR ?= classic
 FLAVOUR_PATH ?= flavours/$(FLAVOUR)
-WEB_CONTAINER ?= $(FLAVOUR)_web
 
 # do we want to use Docker? set as env var:
 # - WITH_DOCKER=total : use docker for everything (default)
@@ -23,6 +22,7 @@ APP_NAME ?= bonfire
 UID := $(shell id -u)
 GID := $(shell id -g)
 APP_REL_CONTAINER="$(APP_NAME)_release"
+WEB_CONTAINER ?= $(APP_NAME)_web
 APP_REL_DOCKERFILE=Dockerfile.release
 APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
 APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
