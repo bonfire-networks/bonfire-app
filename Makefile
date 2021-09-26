@@ -108,12 +108,19 @@ else
 	ps au | grep beam
 endif
 
+db.migrate: mix~ecto.migrate ## Run latest database migrations (eg. after adding/upgrading an app/extension)
+
+db.seeds: mix~ecto.migrate mix~ecto.seeds ## Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
+
 db.reset: dev.search.reset db.pre-migrations mix~ecto.reset  ## Reset the DB (caution: this means DATA LOSS)
 
 dev.search.reset:
-ifeq ($(WITH_DOCKER), total)
+ifeq ($(WITH_DOCKER), no)
+	echo ...
+else
 	@docker-compose rm -s -v search
 endif
+	rm -rf data/search/dev
 
 db.rollback: mix~ecto.rollback ## Rollback previous DB migration (caution: this means DATA LOSS)
 
