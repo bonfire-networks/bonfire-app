@@ -6,7 +6,7 @@ config :bonfire, :ui,
       instance_name: "Bonfire",
       instance_logo: "https://bonfirenetworks.org/img/bonfire.png",
       instance_image: "https://bonfirenetworks.org/img/brand2.png",
-      instance_description: "This is a bonfire demo instance for testing purpose"
+      instance_description: "This is a bonfire demo instance for testing purposes"
    ],
    sidebar_components: [
       {Bonfire.UI.Social.SidebarNavigationLive, []},
