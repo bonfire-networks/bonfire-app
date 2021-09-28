@@ -55,7 +55,7 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled Bonfire.UI.Reflow.Routes
   use_if_enabled Bonfire.UI.Coordination.Routes
-  use_if_enabled Bonfire.Breadpub.Routes
+  use_if_enabled Bonfire.Breadpub.Web.Routes
   use_if_enabled Bonfire.Recyclapp.Routes
 
   # include GraphQL API
