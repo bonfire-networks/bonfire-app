@@ -1,1 +1,11 @@
-../../../classic/repo/migrations/20201205094942_import_classify.exs
+defmodule Bonfire.Repo.Migrations.ImportClassify do
+  use Ecto.Migration
+
+  def up do
+    Bonfire.Classify.Migrations.up
+  end
+
+  def down do
+    Bonfire.Classify.Migrations.down
+  end
+end
