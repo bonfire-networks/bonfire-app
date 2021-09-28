@@ -1,1 +1,0 @@
-../../../classic/repo/migrations/20201205094942_import_classify.exs
