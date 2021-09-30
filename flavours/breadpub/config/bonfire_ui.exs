@@ -10,7 +10,8 @@ config :bonfire, :ui,
    ],
    app_menu_extension_paths: %{ # TODO: make dynamic based on active extensions
       "Social" => Bonfire.Social.Web.HomeLive,
-      "BreadPub" => Bonfire.Breadpub.Web.HomeLive
+      "BreadPub" => Bonfire.Breadpub.Web.HomeLive,
+      "Kanban" => Bonfire.Kanban.Web.HomeLive
    },
    sidebar_components: [ # TODO: make dynamic based on active extensions
       {Bonfire.UI.Social.SidebarNavigationLive, []},
