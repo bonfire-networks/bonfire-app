@@ -3,5 +3,5 @@ defmodule Bonfire.Repo.Seeds.TaxonomySeeds do
 
   envs [:dev, :prod, :test]
 
-  def up(repo), do: Bonfire.TaxonomySeeder.IndexingBatch.batch(repo)
+  def up(repo), do: Bonfire.TaxonomySeeder.ImportBatch.batch(repo)
 end
