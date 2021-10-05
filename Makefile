@@ -305,7 +305,7 @@ rel.env:
 rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
 	@cp -rfL $(FLAVOUR_PATH) ./data/current_flavour
 
-rel.build.no-cache: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
+rel.rebuild: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
 		--no-cache \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
@@ -384,6 +384,14 @@ ifeq ($(WITH_DOCKER), no)
 else
 	@mkdir -p deps
 	docker-compose build
+endif
+
+rebuild: init ## Build the docker image
+ifeq ($(WITH_DOCKER), no)
+	@echo Skip building container...
+else
+	@mkdir -p deps
+	docker-compose build --no-cache
 endif
 
 cmd~%: init ## Run a specific command in the container, eg: `make cmd-messclt` or `make cmd~time` or `make cmd~echo args=hello`
