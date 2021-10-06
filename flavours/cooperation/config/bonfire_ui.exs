@@ -8,11 +8,17 @@ config :bonfire, :ui,
       instance_image: "https://bonfirenetworks.org/img/brand2.png",
       instance_description: "This is a bonfire demo instance for testing purposes"
    ],
-   sidebar_components: [
+   app_menu_extension_paths: %{ # TODO: make dynamic based on active extensions
+      "Social" => Bonfire.Social.Web.HomeLive,
+      "BreadPub" => Bonfire.Breadpub.Web.HomeLive,
+      "Kanban" => Bonfire.Kanban.Web.HomeLive
+   },
+   sidebar_components: [ # TODO: make dynamic based on active extensions
       {Bonfire.UI.Social.SidebarNavigationLive, []},
       {Bonfire.UI.Coordination.SidebarNavigationLive, []},
+      #{Bonfire.Breadpub.SidebarNavigationLive, []},
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
+      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Lists", process_url: "/breadpub/list/"]}
    ],
    smart_input: [
       post: true,
@@ -20,7 +26,7 @@ config :bonfire, :ui,
       summary: true
    ],
    profile: [
-      sections: [
+      sections: [ # TODO: make dynamic based on active extensions
          timeline: Bonfire.UI.Social.ProfileTimelineLive,
          private: Bonfire.UI.Social.PrivateLive,
          posts: Bonfire.UI.Social.ProfilePostsLive,

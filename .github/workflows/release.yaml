@@ -33,12 +33,12 @@ jobs:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         RELEASE_PATH: _build/prod/rel
   #         CI: 1
-  coordination_flavour_docker_release_build_push:
-    name: Coordination flavour - Maybe tag version & release Docker image
+  cooperation_flavour_docker_release_build_push:
+    name: Cooperation flavour - Maybe tag version & release Docker image
     runs-on: ubuntu-latest
     env:
-      FLAVOUR: coordination
-      FLAVOUR_PATH: flavours/coordination
+      FLAVOUR: cooperation
+      FLAVOUR_PATH: flavours/cooperation
       DOCKER_REPO: bonfire
     steps:
       - 
@@ -86,7 +86,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         env:
-          FLAVOUR: coordination
+          FLAVOUR: cooperation
           FLAVOUR_PATH: data/current_flavour
         with:
           context: .

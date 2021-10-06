@@ -1,1 +1,0 @@
-../../../classic/repo/migrations/20200805090401_create_ap_tables.exs

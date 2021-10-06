@@ -1,1 +1,0 @@
-../../classic/config/prod.exs

@@ -1,1 +1,0 @@
-../../classic/repo/seeds.exs

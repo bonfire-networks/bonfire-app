@@ -1,12 +1,14 @@
 ## Bonfire 
-[Bonfire](https://bonfirenetworks.org/) - a federated social network for individuals and communities to design, operate and control their own digital lives.
+[Bonfire](https://bonfirenetworks.org/) - a federated network for individuals and communities to design, operate and control their own digital lives.
 
 ### Flavours
-This repo includes configurations to run different [flavours of Bonfire](https://bonfirenetworks.org/apps), currently that is:
-* [Classic](flavours/classic) 
-* [Coordination](flavours/coordination) 
-* [Breadpub](flavours/breadpub) 
-* [Reflow](flavours/reflow) 
+This repo includes configurations to run two different main [flavours of Bonfire](https://bonfirenetworks.org/apps):
+* [Classic](flavours/classic) for basic social networking
+* [Cooperation](flavours/cooperation) with a bunch more extensions and features 
+
+As well as app flavours being built by others, including: 
+* [Haha Academy](flavours/haha) by haha.academy 
+* [Reflow](flavours/reflow) by reflowproject.eu and dyne.org
 
 
 ## Documentation
