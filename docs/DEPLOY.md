@@ -1,6 +1,6 @@
 # Backend Configuration and Deployment
 
-# WARNING: Bonfire is still under heavy development and is not ready to be deployed or used other than for development and testing purposes. 
+### WARNING: Bonfire is still under development and deploying is only recommended for development and testing purposes.  
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Developer Guide](./HACKING.md)!_
 
