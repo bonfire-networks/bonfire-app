@@ -1,1 +1,1 @@
-../../coordination/config/config_basics.exs
+../../classic/config/config_basics.exs
