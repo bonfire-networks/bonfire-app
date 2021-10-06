@@ -1,0 +1,1 @@
+../../classic/config/hooks.js

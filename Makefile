@@ -159,14 +159,18 @@ update.fork~%: ## Pull the latest commits from all ./forks
 	@chmod +x git-publish.sh
 	find $(FORKS_PATH)/$* -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
 
-deps.get: mix.remote~deps.get mix~deps.get ## Fetch locked version of non-forked deps
+deps.get: mix.remote~deps.get mix~deps.get js.ext.deps.get ## Fetch locked version of non-forked deps
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js.deps.get:
+js.deps.get: js.assets.deps.get js.ext.deps.get
+
+js.assets.deps.get:
 	@chmod +x ./assets/install.sh
-	@chmod +x ./config/deps.js.sh
 	@make --no-print-directory cmd cmd=./assets/install.sh
+
+js.ext.deps.get:
+	@chmod +x ./config/deps.js.sh
 	@make --no-print-directory cmd cmd=./config/deps.js.sh
 
 dep.clean~%:
@@ -304,6 +308,7 @@ rel.env:
 
 rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
 	@cp -rfL $(FLAVOUR_PATH) ./data/current_flavour
+# @cp -rfL ./data/current_flavour/config ./config
 
 rel.rebuild: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
