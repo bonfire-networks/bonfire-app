@@ -39,5 +39,5 @@ window.liveSocket = liveSocket
 // Extensions... 
 // TODO: make this more modular/configurable
 // import { ExtensionHooks } from "../../deps/bonfire_geolocate/assets/js/extension" 
-import { KanbanHooks } from "../../forks/bonfire_kanban/assets/js/extension" 
+import { KanbanHooks } from "../../forks/bonfire_ui_kanban/assets/js/extension" 
 Object.assign(liveSocket.hooks, KanbanHooks);
