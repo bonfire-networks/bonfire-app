@@ -52,6 +52,7 @@ pre-config: pre-init ## Initialise env files, and create some required folders, 
 
 pre-init:
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
+	@ln -sfr $(FLAVOUR_PATH) ./data/current_flavour
 	@mkdir -p config/prod
 	@mkdir -p config/dev
 	@touch config/deps.path
