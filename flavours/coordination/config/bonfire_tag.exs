@@ -1,1 +1,0 @@
-../../classic/config/bonfire_tag.exs

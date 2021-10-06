@@ -1,6 +1,6 @@
-## Bonfire Breadpub 
+## Bonfire Cooperation 
 
-This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows](http://valueflo.ws/) ecosystems and bundles the following extensions:
+This app is a flavour of [Bonfire](https://bonfirenetworks.org/) and bundles the following extensions:
 
 - [Bonfire:Common](https://github.com/bonfire-networks/bonfire_common) - common utils
 - [Bonfire:Me](https://github.com/bonfire-networks/bonfire_me) - accounts, user profiles...
@@ -16,7 +16,9 @@ This app is part of the [Bonfire](https://bonfirenetworks.org/) and [ValueFlows]
 - [Bonfire:ValueFlows:Observe](https://github.com/bonfire-ecosystem/bonfire_valueflows_observe) - observation of economic resources
 - [Bonfire:API:GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
 - [Bonfire:UI:ValueFlows](https://github.com/bonfire-networks/bonfire_ui_valueflows) - reusable frontend components for economic activities 
-- [Bonfire:Breadpub](https://github.com/bonfire-networks/bonfire_ui_coordination) - functionality for breadpub
+- [Bonfire:UI:Coordination](https://github.com/bonfire-networks/bonfire_ui_valueflows) - basic coordination UI for projects and communities
+- [Bonfire:Kanban](https://github.com/bonfire-networks/bonfire_breadpub) - coordination tools with drag-and-drop card UI
+- [Bonfire:Breadpub](https://github.com/bonfire-networks/bonfire_breadpub) - needs & offers for mutual aid
 
 
 ## More information
