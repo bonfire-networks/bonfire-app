@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 # any extensions/deps with a package.json in their /assets directory
-DEPS="bonfire_geolocate bonfire_kanban"
+DEPS="bonfire_geolocate bonfire_ui_kanban"
 
 for dep in $DEPS 
 do
