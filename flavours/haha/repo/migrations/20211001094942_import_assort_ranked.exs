@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20211001094942_import_assort_ranked.exs
+../../../cooperation/repo/migrations/20211001094942_import_assort_ranked.exs
