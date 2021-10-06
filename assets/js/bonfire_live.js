@@ -35,6 +35,7 @@ liveSocket.connect()
  
 window.liveSocket = liveSocket
 
+import { ExtensionHooks } from "../../config/hooks.js"
 
 // Add Extensions' Hooks... 
 Object.assign(liveSocket.hooks, ExtensionHooks);
