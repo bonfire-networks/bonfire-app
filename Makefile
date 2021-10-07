@@ -239,7 +239,7 @@ contrib.app.up: update.app git.publish ## Update ./deps and push all changes to 
 contrib.app.release: update.app contrib.app.release.increment git.publish ## Update ./deps, increment the app version number and push
 
 contrib.app.release.increment: 
-	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ alpha
+	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ beta
 
 contrib.forks.publish:
 	@chmod +x git-publish.sh
