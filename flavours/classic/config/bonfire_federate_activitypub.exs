@@ -9,7 +9,8 @@ config :bonfire,
     :bonfire_common,
     :bonfire_me,
     :bonfire_social,
-    :bonfire_valueflows
+    :bonfire_valueflows,
+    :bonfire_classify
     ],
   log_federation: true, # enable/disable logging of federation logic
   federation_fallback_module: Bonfire.Social.APActivities
