@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-beta.16", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-beta.17", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       test_deps_prefixes: ["bonfire_", "pointers", "paginator"],
