@@ -46,18 +46,20 @@ defmodule Bonfire.MixProject do
         "cmd cd ./assets && pnpm build",
       ],
       "ecto.seeds": [
-        # "phil_columns.seed",
         "run #{flavour_path()}/repo/seeds.exs"
         ],
+      "bonfire.seeds": [
+        # "phil_columns.seed",
+      ],
       "bonfire.deps.update": ["deps.update " <>deps_to_update()],
       "bonfire.deps.clean": ["deps.clean " <>deps_to_clean()<>" --build"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seeds"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "bonfire.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "ecto.seeds", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
 
   end
