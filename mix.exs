@@ -99,13 +99,12 @@ defmodule Bonfire.MixProject do
 
   end
 
-  def catalogues do
+  def catalogues(_env) do
     [
       "deps/surface/priv/catalogue",
-      "forks/bonfire_ui_social/priv/catalogue"
+      dep_path("bonfire_ui_social")<>"/priv/catalogue"
     ]
   end
-
 
   def deps(deps \\ deps(), deps_subtype) when is_atom(deps_subtype), do:
     Enum.filter(deps, &include_dep?(deps_subtype, &1))
@@ -150,7 +149,7 @@ defmodule Bonfire.MixProject do
 
   # Specifies which paths to compile per environment
   defp elixirc_paths(:test), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
-  defp elixirc_paths(_), do: ["lib"] ++ catalogues()
+  defp elixirc_paths(env), do: ["lib"] ++ catalogues(env)
 
   defp include_dep?(:test, dep), do: String.starts_with?(dep_name(dep), @config[:test_deps_prefixes])
 
@@ -174,9 +173,9 @@ defmodule Bonfire.MixProject do
   end
 
   defp dep_path(dep) when is_binary(dep) do
-    path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!))
-      || path_if_exists(forks_path()<>dep)
-      || "."
+    path_if_exists(forks_path()<>dep)
+    || path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!))
+    || "."
   end
 
   defp dep_path(dep) do

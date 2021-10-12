@@ -88,3 +88,7 @@ config :bonfire, :ui,
    #      # Bonfire.UI.Social.HashtagsWidgetLive,
    #    ],
    # ]
+
+config :surface_catalogue,
+   title: "Bonfire UI",
+   subtitle: "Surface Components Documentation & Examples"
