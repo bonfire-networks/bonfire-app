@@ -32,7 +32,7 @@
 | earmark                      | Apache 2.0                         | 1.4.15    | https://hex.pm/packages/earmark                                  |
 | earmark_parser               | Apache 2.0                         | 1.4.13    | https://hex.pm/packages/earmark_parser                           |
 | ecto                         | Apache 2.0                         | 3.6.1     | https://hex.pm/packages/ecto                                     |
-| ecto_materialized_path       | Apache 2.0                         | 0.3.0     | https://github.com/mayel/ecto_materialized_path                  |
+| ecto_materialized_path       | Apache 2.0                         | 0.3.0     | https://github.com/bonfire-networks/ecto_materialized_path                  |
 | ecto_sql                     | Apache 2.0                         | 3.6.1     | https://hex.pm/packages/ecto_sql                                 |
 | elixir_make                  | Apache 2.0                         | ~> 0.6    | https://hex.pm/packages/elixir_make                              |
 | email_checker                | MIT                                | 0.1.4     | https://hex.pm/packages/email_checker                            |
