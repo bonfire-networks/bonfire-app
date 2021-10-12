@@ -122,7 +122,7 @@ defmodule Bonfire.Web.Router do
     if module_enabled?(Surface.Catalogue.Router) do
       import_if_enabled Surface.Catalogue.Router
 
-      Surface.Catalogue.Router.surface_catalogue "/ui/components"
+      Surface.Catalogue.Router.surface_catalogue "/ui/"
     end
 
     if module_enabled?(Phoenix.LiveDashboard.Router) do
