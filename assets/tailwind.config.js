@@ -13,7 +13,6 @@ module.exports = {
       '../{lib,forks,deps}/**/*{.leex,.sface,_live.ex}'
     ]
   },
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -120,6 +119,7 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
+    require('daisyui')
     // require('tailwindcss-debug-screens')
   ],
 }
