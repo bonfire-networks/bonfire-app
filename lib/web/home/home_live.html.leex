@@ -1,12 +1,12 @@
 <div class="flex-col hidden lg:flex md:flex-shrink-0 w-96">
-<div class="fixed flex flex-col overflow-y-auto bg-white rounded-lg shadow-lg dark:bg-gray-700 w-96">
+<div class="fixed flex flex-col overflow-y-auto bg-base-200 rounded-lg shadow-lg dark:bg-gray-700 w-96">
   <div class="bg-bottom bg-no-repeat bg-cover rounded-t-lg" style="height: 250px;background-image: url(<%= Bonfire.Common.Config.get([:ui, :theme, :instance_image], '') %>)"></div>
   <div class="p-3 rounded-b-lg">
-    <h2 class="text-xl font-extrabold text-gray-800 dark:text-gray-200"><%= Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire") %></h2>
+    <h2 class="text-xl font-extrabold text-base-800"><%= Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire") %></h2>
     <span class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800">
       <%= Bonfire.Application.named_version() %>
     </span>
-    <p class="mt-2 text-base text-gray-700 dark:text-gray-300">
+    <p class="mt-2 text-base text-base-700">
       <%= Bonfire.Common.Config.get([:ui, :theme, :instance_description], l "Yet another bonfire instance") %>
     </p>
 
@@ -15,7 +15,7 @@
 </div>
 </div>
 
-<section class="mb-6 ml-4 bg-white rounded-lg shadow dark:bg-gray-700 w-center">
+<section class="mb-6 ml-4 bg-base-200 rounded-lg shadow w-center">
   <%= live_component(@socket, Bonfire.UI.Social.FeedHeaderLive, feed_title: @feed_title) %>
   <%= live_component(@socket, Bonfire.UI.Social.FeedLive, assigns_merge(assigns, id: "feed")) %>
 </section>
