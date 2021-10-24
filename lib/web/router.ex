@@ -3,27 +3,25 @@ defmodule Bonfire.Web.Router do
   # use Plug.ErrorHandler
 
   pipeline :basic do
-    # plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
-    # plug :protect_from_forgery
-    # plug :put_secure_browser_headers
-    # plug Bonfire.Web.Plugs.LoadCurrentAccount
     plug Bonfire.Web.Plugs.LoadCurrentUser
   end
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "activity+json"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Bonfire.Web.Plugs.ActivityPub
     plug Bonfire.Web.Plugs.LoadCurrentAccount
     plug Bonfire.Web.Plugs.LoadCurrentUser
     plug Bonfire.Web.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
   end
+
 
   pipeline :guest_only do
     plug Bonfire.Web.Plugs.GuestOnly
@@ -115,6 +113,9 @@ defmodule Bonfire.Web.Router do
     pipe_through :admin_required
 
   end
+
+
+
 
   scope "/" do
     pipe_through :browser
