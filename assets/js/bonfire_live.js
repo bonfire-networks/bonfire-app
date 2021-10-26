@@ -1,6 +1,6 @@
 // JS shared with non_live pages
 import "./common"
-import {themeChange} from "theme-change"
+// import {themeChange} from "theme-change"
 
 // for JS features & extensions to hook into LiveView
 let Hooks = {}; 
@@ -28,7 +28,7 @@ window.addEventListener("phx:page-loading-stop", info => NProgress.done())
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
-themeChange()
+// themeChange()
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
