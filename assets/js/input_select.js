@@ -4,7 +4,6 @@ import Tagify from '@yaireo/tagify'
 
 InputSelectHooks.InputOrSelectOne = {
 
-
     initInputOrSelectOne() {
         let hook = this,
             $input = hook.el.querySelector("input"),
