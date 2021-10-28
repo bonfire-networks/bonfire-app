@@ -12,7 +12,7 @@ config :bonfire_search,
 
 ## Other general test config
 
-config :logger, level: :warn
+config :logger, level: :info
 # config :logger, level: :notice
 
 

@@ -32,3 +32,6 @@ config :activity_pub, :http,
       versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"]
     ]
   ]
+
+config :activity_pub, ActivityPubWeb.Endpoint,
+  render_errors: [view: ActivityPubWeb.ErrorView, accepts: ~w(json), layout: false]
