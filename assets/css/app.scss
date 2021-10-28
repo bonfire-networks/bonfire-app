@@ -205,12 +205,46 @@ iframe {
 @tailwind utilities;
 
 
+/* Import with  */
+/* @import './scrollbar-color.css';  */
+
+:root {
+  --scrollbarTrack: hsla(var(--b1));
+  --scrollbarThumb: hsla(var(--b3));
+  --scrollbarThumbHover: hsla(var(--p));
+}
+/* Scrollbar colors*/
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--scrollbarTrack);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbarThumb);
+  border-radius: 3px
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbarThumbHover);
+}
+
 .menu .menu-title>a, .menu .menu-title>span {
   font-weight: normal
 }
 
 .feed_activity_action {
   @apply flex items-center py-1 space-x-1 rounded cursor-pointer;
+}
+
+.feed_activity .dropdown-content {
+  transform: none
 }
 
 .feed_activity_text_active {
@@ -222,7 +256,7 @@ iframe {
 }
 
 .feed_activity_action:hover .feed_activity_text {
-  @apply font-medium;
+  @apply text-opacity-100;
 }
 
 .feed_activity_action:hover .feed_activity_icon svg {
@@ -259,6 +293,11 @@ iframe {
   width: 2px;
   left: 19px;
   @apply bg-base-200;
+}
+
+
+.profile_item:hover {
+  background-color: hsla(var(--bc)/var(--tw-bg-opacity,1));
 }
 
 .shadow-tick {
