@@ -17,7 +17,7 @@ defmodule Bonfire.MixProject do
       elixir: @config[:elixir],
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: compilers(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -73,6 +73,7 @@ defmodule Bonfire.MixProject do
       # {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
+      {:mix_unused, "~> 0.3.0", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
@@ -97,6 +98,13 @@ defmodule Bonfire.MixProject do
       ]
     )
 
+  end
+
+  defp compilers(:dev) do
+    [:unused] ++ compilers(nil)
+  end
+  defp compilers(_) do
+    [:phoenix, :gettext] ++ Mix.compilers()
   end
 
   def catalogues(_env) do
