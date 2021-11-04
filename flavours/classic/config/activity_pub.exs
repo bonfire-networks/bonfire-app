@@ -35,3 +35,9 @@ config :activity_pub, :http,
 
 config :activity_pub, ActivityPubWeb.Endpoint,
   render_errors: [view: ActivityPubWeb.ErrorView, accepts: ~w(json), layout: false]
+
+config :activity_pub, :json_contexts, %{
+    "Hashtag"=> "as:Hashtag",
+    "ValueFlows" => "https://w3id.org/valueflows#",
+    "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+  }

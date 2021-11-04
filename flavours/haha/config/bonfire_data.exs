@@ -369,10 +369,6 @@ config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
   ]
 
 
-# all data types included in federation
-config :bonfire, :all_types, [User, Post]
-
-
 config :bonfire_files, Bonfire.Files.Media,
   field: [
     url: {:string, virtual: true}
