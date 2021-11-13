@@ -53,7 +53,7 @@ pre-config: pre-init ## Initialise env files, and create some required folders, 
 pre-init:
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
-	@ln -sf $(FLAVOUR_PATH) ./data/current_flavour
+	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
 	@mkdir -p config/prod
 	@mkdir -p config/dev
 	@touch config/deps.path
@@ -168,6 +168,7 @@ deps.get: mix.remote~deps.get mix~deps.get js.ext.deps.get ## Fetch locked versi
 js.deps.get: js.assets.deps.get js.ext.deps.get
 
 js.assets.deps.get:
+	@pnpm -v || npm -g install pnpm
 	@chmod +x ./assets/install.sh
 	@make --no-print-directory cmd cmd=./assets/install.sh
 
@@ -310,7 +311,6 @@ rel.env:
 
 rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
 	@cp -rfL $(FLAVOUR_PATH) ./data/current_flavour
-# @cp -rfL ./data/current_flavour/config ./config
 
 rel.rebuild: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
 	docker build \
