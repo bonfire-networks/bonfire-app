@@ -1,1 +1,4 @@
-../../classic/config/bonfire_common.exs
+import Config
+
+config :bonfire_common,
+  otp_app: :bonfire

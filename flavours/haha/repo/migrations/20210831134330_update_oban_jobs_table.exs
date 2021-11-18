@@ -1,1 +1,7 @@
-../../../classic/repo/migrations/20210831134330_update_oban_jobs_table.exs
+defmodule Bonfire.Repo.Migrations.UpdateObanJobsTable do
+  use Ecto.Migration
+
+  def up, do: Oban.Migrations.up()
+
+  def down, do: nil
+end

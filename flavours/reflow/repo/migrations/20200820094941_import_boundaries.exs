@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20200820094941_import_boundaries.exs
+../../../cooperation/repo/migrations/20200820094941_import_boundaries.exs

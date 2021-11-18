@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20210302094944_import_boost.exs
+../../../cooperation/repo/migrations/20210302094944_import_boost.exs

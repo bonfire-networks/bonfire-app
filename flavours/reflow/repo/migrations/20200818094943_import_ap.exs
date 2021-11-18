@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20200818094943_import_ap.exs
+../../../cooperation/repo/migrations/20200818094943_import_ap.exs
