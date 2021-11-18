@@ -35,8 +35,7 @@ For example if you want to run the `coordination` flavour:
 - Dependencies:
 
   - `make`
-  - Docker
-  - Docker Compose (recent version)
+  - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
 - Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
 
@@ -45,9 +44,10 @@ For example if you want to run the `coordination` flavour:
 - Dependencies:
 
   - `make`
-  - Recent versions of elixir (1.11+) and OTP/erlang (23+)
-  - Docker
-  - Docker Compose (recent version)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.12+) and OTP/erlang (24+)
+  - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
+  - [pnpm](https://pnpm.io)
+  - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=partial`
 
@@ -58,9 +58,11 @@ For example if you want to run the `coordination` flavour:
 - Dependencies:
 
   - `make`
-  - Recent versions of elixir (1.11+) and OTP/erlang (23+)
-  - Postgres 12+ (or Postgis if using the bonfire_geolocate extension)
-  - Meili Search (optional)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.12+) and OTP/erlang (24+)
+  - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
+  - [pnpm](https://pnpm.io)
+  - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)
+  - [Meili Search](https://docs.meilisearch.com/learn/getting_started/installation.html) (optional)
 
 - You will need to set the relevant environment variables in the .env files (see above) to match your local install of Postgres.
 
