@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20200829004946_boundaries_fixtures.exs
+../../../cooperation/repo/migrations/20200829004946_boundaries_fixtures.exs

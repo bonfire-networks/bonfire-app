@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20210407094946_message.exs
+../../../cooperation/repo/migrations/20210407094946_message.exs

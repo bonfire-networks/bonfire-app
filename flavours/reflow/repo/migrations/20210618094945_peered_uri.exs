@@ -1,1 +1,1 @@
-../../../classic/repo/migrations/20210618094945_peered_uri.exs
+../../../cooperation/repo/migrations/20210618094945_peered_uri.exs

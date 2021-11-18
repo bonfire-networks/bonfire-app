@@ -1,1 +1,1 @@
-../../../classic/repo/migrations/20210923093415_import_ap_activity.exs
+../../../cooperation/repo/migrations/20210923093415_import_ap_activity.exs

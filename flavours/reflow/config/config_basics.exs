@@ -1,1 +1,3 @@
-../../classic/config/config_basics.exs
+import Config
+
+config :phoenix, :json_library, Jason

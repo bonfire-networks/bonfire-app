@@ -1,1 +1,16 @@
-../../../classic/repo/migrations/20210302094944_import_boost.exs
+defmodule Bonfire.Repo.Migrations.ImportBoost do
+  use Ecto.Migration
+
+  import Bonfire.Data.Social.Boost.Migration
+  import Bonfire.Data.Social.BoostCount.Migration
+
+  def up do
+    migrate_boost()
+    migrate_boost_count()
+  end
+  def down do
+    migrate_boost_count()
+    migrate_boost()
+  end
+
+end
