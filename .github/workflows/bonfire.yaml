@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     container: elixir:alpine
     env:
+      FLAVOUR=cooperation
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
       CI: true
@@ -74,12 +75,19 @@ jobs:
       run: mix bonfire.deps.update
     - name: Fetch any differences in dep version
       run: mix deps.get
-    - name: Clean-build Bonfire extensions
+    - name: Clean-build Bonfire data extensions
       run: mix bonfire.deps.clean
     - name: Compile deps & app
       run: MIX_ENV=test mix
     - name: Set up database
       run: MIX_ENV=test mix ecto.setup
+    - name: Generate docs
+      run: MIX_ENV=test mix docs
+    - name: Deploy docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/exdoc
     - name: Run tests
       run: mix test
     - name: Check that database migrations can rollback
