@@ -192,7 +192,14 @@ defmodule Bonfire.MixProject do
 
   defp include_dep?(:update, dep) when is_tuple(dep), do: unpinned_git_dep?(dep)
 
+  defp include_dep?(:docs = type, dep), do: String.starts_with?(dep_name(dep), @config[:deps_prefixes][type]) || git_dep?(dep)
+
   defp include_dep?(type, dep), do: String.starts_with?(dep_name(dep), @config[:deps_prefixes][type])
+
+  defp git_dep?(dep) do
+    spec = elem(dep, 1)
+    is_list(spec) && spec[:git]
+  end
 
   defp unpinned_git_dep?(dep) do
     spec = elem(dep, 1)
