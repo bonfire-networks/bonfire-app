@@ -75,15 +75,16 @@ alias Bonfire.Data.Social.{
 
 
 config :pointers, Pointer,
-  has_one:  [controlled:     {Controlled, foreign_key: :id}],
-  has_one:  [created: {Created, foreign_key: :id}],
-  has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # needs ON clause
+  has_one:  [controlled:   {Controlled, foreign_key: :id}],
+  has_one:  [created:      {Created, foreign_key: :id}],
+  has_one:  [peered:       {Peered,        references: :id, foreign_key: :id}],
+  has_one:  [activity:     {Activity, foreign_key: :object_id, references: :id}], # needs ON clause
   has_one:  [post_content: {PostContent, foreign_key: :id}],
   has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
-  has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
-  has_one:  [my_like: {Like, foreign_key: :liked_id, references: :id}],
-  has_one:  [my_flag: {Flag, foreign_key: :flagged_id, references: :id}],
-  has_one:  [replied: {Replied, foreign_key: :id}],
+  has_many: [likes:        {Like, foreign_key: :liked_id, references: :id}],
+  has_one:  [my_like:      {Like, foreign_key: :liked_id, references: :id}],
+  has_one:  [my_flag:      {Flag, foreign_key: :flagged_id, references: :id}],
+  has_one:  [replied:      {Replied, foreign_key: :id}],
   has_many: [direct_replies: {Replied, foreign_key: :reply_to_id}],
   has_one:  [profile:        {Profile,       foreign_key: :id}],
   has_one:  [character:      {Character,     foreign_key: :id}],
