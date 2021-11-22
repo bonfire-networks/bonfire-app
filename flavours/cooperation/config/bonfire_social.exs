@@ -1,1 +1,4 @@
-../../classic/config/bonfire_social.exs
+import Config
+
+config :bonfire_social,
+  enabled: true

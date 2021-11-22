@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20200805090401_create_ap_tables.exs
+../../../cooperation/repo/migrations/20200805090401_create_ap_tables.exs

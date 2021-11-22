@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20210302094945_import_flag.exs
+../../../cooperation/repo/migrations/20210302094945_import_flag.exs

@@ -3,11 +3,14 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-beta.37", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-beta.43", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
-      test_deps_prefixes: ["bonfire_", "pointers", "paginator"],
-      data_deps_prefixes: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate"]
+      deps_prefixes: [
+        docs: ["bonfire_"],
+        test: ["bonfire_", "pointers", "paginator"],
+        data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate"]
+      ]
     ]
 
   def project do
@@ -24,7 +27,24 @@ defmodule Bonfire.MixProject do
       config_path: config_path("config.exs"),
       releases: [
         bonfire: [runtime_config_path: config_path("runtime.exs")],
-      ]
+      ],
+      docs: [
+        # The first page to display from the docs
+        main: "readme",
+        logo: "assets/static/images/bonfire-icon.png",
+        # extra pages to include
+        extras: [
+          "README.md",
+          "docs/HACKING.md",
+          "docs/DEPLOY.md",
+          "docs/ARCHITECTURE.md",
+          # "docs/DEPENDENCIES.md",
+          "docs/GRAPHQL.md",
+          "docs/MRF.md"
+        ],
+        output: "docs/exdoc",
+        source_beam: docs_paths()
+      ],
     ]
 
   end
@@ -74,6 +94,7 @@ defmodule Bonfire.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
       {:mix_unused, "~> 0.3.0", only: :dev},
+      {:ex_doc, "~> 0.24", only: [:dev, :test], runtime: false},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
@@ -152,6 +173,16 @@ defmodule Bonfire.MixProject do
     |> Enum.map(&dep_name/1)
   end
 
+  # Specifies which paths to include in docs
+
+  def docs_paths() do
+    build = Mix.Project.build_path()
+    docs_apps()
+    |> Enum.map(&docs_path(&1, build))
+  end
+  defp docs_apps(), do: [:bonfire] ++ deps(:docs)
+  defp docs_path(app, build \\ Mix.Project.build_path()), do: Path.join([build, "lib", dep_name(app), "ebin"])
+
   # Specifies which paths to include when running tests
   defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
 
@@ -159,11 +190,16 @@ defmodule Bonfire.MixProject do
   defp elixirc_paths(:test), do: ["lib", "test/support" | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))]
   defp elixirc_paths(env), do: ["lib"] ++ catalogues(env)
 
-  defp include_dep?(:test, dep), do: String.starts_with?(dep_name(dep), @config[:test_deps_prefixes])
-
-  defp include_dep?(:data, dep), do: String.starts_with?(dep_name(dep), @config[:data_deps_prefixes])
-
   defp include_dep?(:update, dep) when is_tuple(dep), do: unpinned_git_dep?(dep)
+
+  defp include_dep?(:docs = type, dep), do: String.starts_with?(dep_name(dep), @config[:deps_prefixes][type]) || git_dep?(dep)
+
+  defp include_dep?(type, dep), do: String.starts_with?(dep_name(dep), @config[:deps_prefixes][type])
+
+  defp git_dep?(dep) do
+    spec = elem(dep, 1)
+    is_list(spec) && spec[:git]
+  end
 
   defp unpinned_git_dep?(dep) do
     spec = elem(dep, 1)

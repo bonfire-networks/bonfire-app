@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20200828094943_add_files.exs
+../../../cooperation/repo/migrations/20200828094943_add_files.exs

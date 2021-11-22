@@ -1,1 +1,12 @@
-../../../classic/repo/migrations/20200523081010_hello_world.exs
+defmodule Bonfire.Repo.Migrations.HelloWorld do
+  use Ecto.Migration
+
+  def up do
+    execute "CREATE EXTENSION IF NOT EXISTS \"citext\""
+  end
+
+  def down do
+    execute "DROP EXTENSION IF EXISTS \"citext\""
+  end
+
+end
