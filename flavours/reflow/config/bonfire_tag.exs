@@ -1,1 +1,4 @@
-../../classic/config/bonfire_tag.exs
+import Config
+
+config :bonfire_tag,
+  templates_path: "lib"

@@ -2,8 +2,8 @@
   "version": "0.0.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "watch.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2015 --bundle --sourcemap --outdir=../priv/static/js --watch",
-    "build.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2015 --bundle --sourcemap --outdir=../priv/static/js",
+    "watch.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2015 --bundle --sourcemap --loader:.svg=text --outdir=../priv/static/js --watch",
+    "build.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2015 --bundle --sourcemap --loader:.svg=text --bundle --outdir=../priv/static/js",
     "watch.postcss": "TAILWIND_MODE=watch NODE_ENV=development postcss ./css/app.scss -o ../priv/static/css/bonfire.css -w",
     "build.postcss": "TAILWIND_MODE=build NODE_ENV=production postcss ./css/app.scss -o ../priv/static/css/bonfire.css",
     "watch.tw": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss@canary -i ./css/app.scss -o ../priv/static/css/bonfire.css --files ../{lib,forks,deps}/**/*{.leex,.sface} --jit -w",
@@ -19,25 +19,29 @@
     "@tailwindcss/typography": "^0.4.1",
     "@yaireo/tagify": "^4.8.1",
     "alpinejs": "^2.8.2",
+    "daisyui": "^1.16.0",
     "nprogress": "^0.2.0",
     "phoenix": "link:../deps/phoenix",
     "phoenix_html": "link:../deps/phoenix_html",
     "phoenix_live_view": "link:../deps/phoenix_live_view",
     "sortablejs": "^1.14.0",
     "tailwindcss": "~2.1.4",
-    "daisyui": "^1.16.0",
     "theme-change": "^2.0.2"
   },
   "devDependencies": {
+    "@es-pack/esbuild-sass-plugin": "^2.0.0",
     "@tailwindcss/jit": "^0.1.18",
     "autoprefixer": "^10.2.6",
     "cpx": "^1.5.0",
     "esbuild": "^0.12.8",
+    "esbuild-sass-plugin": "^1.7.0",
     "only-allow": "^1.0.0",
     "pnpm": "^6.7.6",
     "postcss": "^8.3.2",
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.2",
+    "sass": "^1.43.4",
+    "sass-extended-importer": "^0.4.2",
     "tailwindcss-debug-screens": "^2.0.0"
   }
 }

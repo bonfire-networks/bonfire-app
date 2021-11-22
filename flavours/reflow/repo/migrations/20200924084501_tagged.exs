@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20200924084501_tagged.exs
+../../../cooperation/repo/migrations/20200924084501_tagged.exs

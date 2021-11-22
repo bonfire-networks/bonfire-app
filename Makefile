@@ -35,7 +35,7 @@ export UID
 export GID
 
 define setup_env
-	$(eval ENV_DIR := config/$(1))
+	$(eval ENV_DIR := config/$(MIX_ENV))
 	@echo "Loading environment variables from $(ENV_DIR)"
 	@$(call load_env,$(ENV_DIR)/public.env)
 	@$(call load_env,$(ENV_DIR)/secrets.env)
@@ -51,6 +51,7 @@ pre-config: pre-init ## Initialise env files, and create some required folders, 
 	@echo "You can now edit your config for flavour '$(FLAVOUR)' in config/$(MIX_ENV)/secrets.env, config/$(MIX_ENV)/public.env and ./config/ more generally."
 
 pre-init:
+	@echo "Setting flavour to $(FLAVOUR_PATH)"
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
 	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
@@ -71,7 +72,7 @@ pre-run:
 	@chmod 700 .erlang.cookie
 
 init: pre-init pre-run
-	@$(call setup_env,$(MIX_ENV))
+	@$(call setup_env)
 	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD) - $(FLAVOUR_PATH)"
 	@make --no-print-directory pre-init
 	@make --no-print-directory services

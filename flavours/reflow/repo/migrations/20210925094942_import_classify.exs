@@ -1,11 +1,1 @@
-defmodule Bonfire.Repo.Migrations.ImportClassify do
-  use Ecto.Migration
-
-  def up do
-    Bonfire.Classify.Migrations.up
-  end
-
-  def down do
-    Bonfire.Classify.Migrations.down
-  end
-end
+../../../cooperation/repo/migrations/20210925094942_import_classify.exs

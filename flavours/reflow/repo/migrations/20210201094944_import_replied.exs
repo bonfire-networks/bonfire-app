@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20210201094944_import_replied.exs
+../../../cooperation/repo/migrations/20210201094944_import_replied.exs

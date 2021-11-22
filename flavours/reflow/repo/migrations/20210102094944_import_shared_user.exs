@@ -1,1 +1,1 @@
-../../../coordination/repo/migrations/20210102094944_import_shared_user.exs
+../../../cooperation/repo/migrations/20210102094944_import_shared_user.exs
