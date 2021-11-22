@@ -6,7 +6,6 @@ DEPS="bonfire_geolocate bonfire_ui_kanban"
 for dep in $DEPS 
 do
  echo "Install JS deps from $dep"
- cd "deps/$dep/assets" && pnpm install || echo "Extension $dep not available in deps"
- cd "forks/$dep/assets" && pnpm install || echo "Extension $dep not available in forks"
- cd ../../../
+ cd "deps/$dep/assets" && pnpm install && cd ../../../ || echo "Extension $dep not available in deps"
+ cd "forks/$dep/assets" && pnpm install && cd ../../../ || echo "Extension $dep not available in forks"
 done
