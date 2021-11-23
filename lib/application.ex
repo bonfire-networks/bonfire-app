@@ -25,13 +25,18 @@ defmodule Bonfire.Application do
   def applications(true) do
     [
       {Absinthe.Schema, Bonfire.GraphQL.Schema} # use persistent_term backend for Absinthe
-    ] ++ applications(false)
+    ]
+    ++ applications(false)
+    ++
+    [
+      {Absinthe.Subscription, Bonfire.Web.Endpoint}
+    ]
   end
 
   def applications(_) do
     [ Bonfire.Web.Telemetry,                  # Metrics
       Bonfire.Repo,                           # Database
-      {Phoenix.PubSub, name: Bonfire.PubSub}, # PubSub
+      {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]}, # PubSub
       # Persistent Data Services
       Pointers.Tables,
       Bonfire.Common.ContextModules,
