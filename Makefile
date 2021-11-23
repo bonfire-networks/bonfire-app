@@ -391,6 +391,7 @@ ifeq ($(WITH_DOCKER), no)
 	@echo Skip building container...
 else
 	@mkdir -p deps
+	docker-compose pull
 	docker-compose build
 endif
 
