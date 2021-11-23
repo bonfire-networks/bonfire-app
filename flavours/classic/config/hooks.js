@@ -4,6 +4,7 @@ let ExtensionHooks = {};
 
 // import { MyHooks } from "../../../deps/some_extension/assets/js/extension"
 import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
+import { NotificationsHooks } from "./../../../assets/js/notifications"
 
-Object.assign(ExtensionHooks, EditorCkHooks)
+Object.assign(ExtensionHooks, EditorCkHooks, NotificationsHooks)
 export { ExtensionHooks }
