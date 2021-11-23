@@ -355,6 +355,9 @@ rel.update: rel.env update.repo
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) pull
 	@echo Remember to run migrations on your DB...
 
+rel.logs:
+	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) logs
+
 rel.down: rel.env rel.stop ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) down
 
