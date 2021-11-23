@@ -3,6 +3,9 @@ defmodule Bonfire.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :bonfire
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Config
+  import Bonfire.Common.Extend
+
+  use_if_enabled Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -16,6 +19,12 @@ defmodule Bonfire.Web.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]]
+
+  if module_enabled?(Bonfire.GraphQL.UserSocket) do
+    socket "/api/socket", Bonfire.GraphQL.UserSocket,
+      websocket: true,
+      longpoll: false
+  end
 
   # plug Plug.Static,
   #   at: "/data/uploads",
