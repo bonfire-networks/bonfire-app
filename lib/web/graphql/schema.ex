@@ -42,6 +42,7 @@ defmodule Bonfire.GraphQL.Schema do
   import_types(Bonfire.Geolocate.GraphQL)
 
   import_types(ValueFlows.Schema)
+  import_types(ValueFlows.GraphQL.Subscriptions)
 
   import_types(ValueFlows.Observe.GraphQL)
 
@@ -94,6 +95,13 @@ defmodule Bonfire.GraphQL.Schema do
     import_fields(:valueflows_observe_mutations)
 
   end
+
+  subscription do
+
+    import_fields(:valueflows_subscriptions)
+
+  end
+
 
   @doc """
   hydrate SDL schema with resolvers
