@@ -164,6 +164,8 @@ update.fork~%: ## Pull the latest commits from all ./forks
 
 deps.get: mix.remote~deps.get mix~deps.get js.ext.deps.get ## Fetch locked version of non-forked deps
 
+deps.data.clean: mix~bonfire.deps.clean
+
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js.deps.get: js.assets.deps.get js.ext.deps.get
