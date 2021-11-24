@@ -9,10 +9,29 @@ defmodule Bonfire.GraphQL.Schema do
   require Logger
   alias Bonfire.GraphQL.SchemaUtils
   alias Bonfire.GraphQL.Middleware.CollapseErrors
-  alias Absinthe.Middleware.{Async, Batch}
 
+  @doc """
+  Define dataloaders
+  see https://hexdocs.pm/absinthe/1.4.6/ecto.html#dataloader
+  """
+  def context(ctx) do
+    loader =
+      Dataloader.new
+      |> Dataloader.add_source(Bonfire.Data.Identity.User, Bonfire.Common.Pointers.dataloader())
+      |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Pointers.dataloader())
+      # |> Dataloader.add_source(Foo, Foo.data())
 
-  def plugins, do: [Async, Batch]
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins do
+    [
+      Absinthe.Middleware.Async,
+      Absinthe.Middleware.Batch,
+      Absinthe.Middleware.Dataloader
+    ]
+    ++ Absinthe.Plugin.defaults()
+  end
 
   def middleware(middleware, _field, _object) do
     # [{Bonfire.GraphQL.Middleware.Debug, :start}] ++
@@ -24,14 +43,11 @@ defmodule Bonfire.GraphQL.Schema do
 
   import_types(Bonfire.GraphQL.CommonSchema)
 
-  # import_types(CommonsPub.Web.GraphQL.MiscSchema)
 
 
   # Extension Modules
-  # import_types(CommonsPub.Profiles.GraphQL.Schema)
-  # import_types(CommonsPub.Characters.GraphQL.Schema)
-
-  # import_types(Organisation.GraphQL.Schema)
+  import_types(Bonfire.Me.API.GraphQL)
+  import_types(Bonfire.Social.API.GraphQL)
 
   # import_types(CommonsPub.Locales.GraphQL.Schema)
 
@@ -51,6 +67,8 @@ defmodule Bonfire.GraphQL.Schema do
     import_fields(:common_queries)
 
     # Extension Modules
+    import_fields(:me_queries)
+    import_fields(:social_queries)
     # import_fields(:profile_queries)
     # import_fields(:character_queries)
 

@@ -171,6 +171,7 @@ config :bonfire_data_identity, Self, []
 
 config :bonfire_data_identity, User,
   has_one:  [accounted:      {Accounted,     foreign_key: :id}],
+  # has_many: [account:        {[through: [:accounted, :account]]}], # this is private info, do not expose
   has_one:  [profile:        {Profile,       foreign_key: :id}],
   has_one:  [character:      {Character,     foreign_key: :id}],
   has_one:  [actor:          {Actor,         foreign_key: :id}],
@@ -180,8 +181,11 @@ config :bonfire_data_identity, User,
   has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   has_many: [encircles:      {Encircle,      foreign_key: :subject_id}],
   has_one:  [shared_user:    {Bonfire.Data.SharedUser,     foreign_key: :id}],
-  many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}]
+  many_to_many: [caretaker_accounts:   {Account, join_through: "bonfire_data_shared_user_accounts", join_keys: [shared_user_id: :id, account_id: :id]}],
   # has_one:  [geolocation:      {Bonfire.Geolocate.Geolocation}]
+  has_many: [created: {Created, foreign_key: :creator_id}],
+  has_many: [creations: {[through: [:created, :pointer]]}],
+  has_many: [posts: {[through: [:created, :post]]}]
 
 
 # bonfire_data_social
@@ -319,7 +323,8 @@ config :bonfire_data_social, Created,
   has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   belongs_to: [creator_user: {User, foreign_key: :creator_id, define_field: false}],
   belongs_to: [creator_character: {Character, foreign_key: :creator_id, define_field: false}],
-  belongs_to: [creator_profile: {Profile, foreign_key: :creator_id, define_field: false}]
+  belongs_to: [creator_profile: {Profile, foreign_key: :creator_id, define_field: false}],
+  has_one:  [post:         {Post,        references: :id, foreign_key: :id}]
 
 config :bonfire_data_social, Profile,
   belongs_to: [user: {User, foreign_key: :id, define_field: false}],
