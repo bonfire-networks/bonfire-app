@@ -8,12 +8,13 @@ on:
       - main 
 
 jobs:
-  test:
-    name: Build and test
+  test_classic_flavour:
+    name: Test classic flavour
     runs-on: ubuntu-latest
     container: elixir:alpine
     env:
-      FLAVOUR: cooperation
+      FLAVOUR: classic
+      MIX_ENV: test
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
       CI: true
@@ -78,23 +79,92 @@ jobs:
     - name: Clean-build Bonfire data extensions
       run: mix bonfire.deps.clean
     - name: Compile deps & app
-      run: MIX_ENV=test mix
+      run: mix
     - name: Set up database
-      run: MIX_ENV=test mix ecto.setup
+      run: mix ecto.setup
+    - name: Check that database migrations can rollback
+      run: mix ecto.rollback --all && mix ecto.migrate
+    - name: Run tests
+      run: mix test
+
+  test_cooperation_flavour:
+    name: Test coordination flavour
+    runs-on: ubuntu-latest
+    container: elixir:alpine
+    env:
+      FLAVOUR: cooperation
+      MIX_ENV: test
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: postgres
+      CI: true
+      SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
+      SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
+      ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
+    services:
+      postgres:
+        # image: postgres
+        image: postgis/postgis:12-3.0-alpine
+        env:
+          POSTGRES_DB: bonfire_test
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - 
+      name: Install git (needed for checkout), tar (needed for cache), file (needed for bonfire_files)
+      run: apk add git tar file
+    - 
+      name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+    # - name: Set up Elixir
+    #   uses: actions/setup-elixir@v1
+    #   with:
+    #     elixir-version: ${{ matrix.elixir }}
+    #     otp-version: ${{ matrix.otp }}
+    # TODO: does not handle git deps correctly...
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: |
+            deps
+            _build
+        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install system deps
+      run: apk add mailcap ca-certificates openssl-dev tzdata gettext rust cargo make 
+    - name: Install hex
+      run: mix local.hex --force
+    - name: Install rebar
+      run: mix local.rebar --force
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Update Bonfire extensions to latest git versions
+      run: mix bonfire.deps.update
+    - name: Fetch any differences in dep version
+      run: mix deps.get
+    - name: Clean-build Bonfire data extensions
+      run: mix bonfire.deps.clean
+    - name: Compile deps & app
+      run: mix
+    - name: Set up database
+      run: mix ecto.setup
     - name: Generate docs
-      run: MIX_ENV=test mix docs
+      run: mix docs
     - name: Deploy docs
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/exdoc
+        cname: doc.bonfirenetworks.org
+    - name: Check that database migrations can rollback
+      run: mix ecto.rollback --all && mix ecto.migrate
     - name: Run tests
       run: mix test
-    - name: Check that database migrations can rollback
-      run: MIX_ENV=test mix ecto.rollback --all # && mix ecto.reset
-
-    # - name: Maybe tag/release new version
-    #   uses: salsify/action-detect-and-tag-new-version@v2
-    #   with:
-    #     version-command: |
-    #       grep 'version:' mix.exs | cut -d '"' -f2
