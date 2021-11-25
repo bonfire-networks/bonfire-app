@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [
-      version: "0.1.0-beta.52", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-beta.53", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       deps_prefixes: [
@@ -77,7 +77,8 @@ defmodule Bonfire.MixProject do
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "bonfire.seeds"],
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.migrate": ["ecto.migrate", "bonfire.seeds"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
