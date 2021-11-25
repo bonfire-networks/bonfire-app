@@ -1,5 +1,5 @@
 defmodule Bonfire.Web.HomeLive do
-  use Bonfire.Web, {:live_view, [layout: {Bonfire.UI.Social.Web.LayoutView, "without_sidebar.html"}]}
+  use Bonfire.Web, {:surface_view, [layout: {Bonfire.UI.Social.Web.LayoutView, "without_sidebar.html"}]}
 
   alias Bonfire.Web.LivePlugs
   import Bonfire.Web.Gettext
