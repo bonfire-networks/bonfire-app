@@ -14,6 +14,7 @@ jobs:
     container: elixir:alpine
     env:
       FLAVOUR: classic
+      MIX_ENV: test
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
       CI: true
@@ -78,11 +79,11 @@ jobs:
     - name: Clean-build Bonfire data extensions
       run: mix bonfire.deps.clean
     - name: Compile deps & app
-      run: MIX_ENV=test mix
+      run: mix
     - name: Set up database
-      run: MIX_ENV=test mix ecto.setup
+      run: mix ecto.setup
     - name: Check that database migrations can rollback
-      run: MIX_ENV=test mix ecto.rollback --all && mix ecto.reset
+      run: mix ecto.rollback --all && mix ecto.migrate
     - name: Run tests
       run: mix test
 
@@ -92,6 +93,7 @@ jobs:
     container: elixir:alpine
     env:
       FLAVOUR: cooperation
+      MIX_ENV: test
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
       CI: true
@@ -151,11 +153,11 @@ jobs:
     - name: Clean-build Bonfire data extensions
       run: mix bonfire.deps.clean
     - name: Compile deps & app
-      run: MIX_ENV=test mix
+      run: mix
     - name: Set up database
-      run: MIX_ENV=test mix ecto.setup
+      run: mix ecto.setup
     - name: Generate docs
-      run: MIX_ENV=test mix docs
+      run: mix docs
     - name: Deploy docs
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -163,6 +165,6 @@ jobs:
         publish_dir: ./docs/exdoc
         cname: doc.bonfirenetworks.org
     - name: Check that database migrations can rollback
-      run: MIX_ENV=test mix ecto.rollback --all && mix ecto.reset
+      run: mix ecto.rollback --all && mix ecto.migrate
     - name: Run tests
       run: mix test
