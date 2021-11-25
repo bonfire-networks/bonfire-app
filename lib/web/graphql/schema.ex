@@ -15,10 +15,11 @@ defmodule Bonfire.GraphQL.Schema do
   see https://hexdocs.pm/absinthe/1.4.6/ecto.html#dataloader
   """
   def context(ctx) do
+    # IO.inspect(ctx: ctx)
     loader =
       Dataloader.new
-      |> Dataloader.add_source(Bonfire.Data.Identity.User, Bonfire.Common.Pointers.dataloader())
-      |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Pointers.dataloader())
+      |> Dataloader.add_source(Bonfire.Data.Identity.User, Bonfire.Common.Pointers.dataloader(ctx))
+      |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Pointers.dataloader(ctx))
       # |> Dataloader.add_source(Foo, Foo.data())
 
     Map.put(ctx, :loader, loader)
