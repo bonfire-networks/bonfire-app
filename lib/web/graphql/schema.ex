@@ -159,32 +159,52 @@ defmodule Bonfire.GraphQL.Schema do
       :category,
       :tag,
       :spatial_thing,
-      :intent
+      :intent,
+      :process,
+      :economic_event
     ])
 
-    resolve_type(fn
+    resolve_type(&schema_to_api_type/2)
+  end
 
-      %Bonfire.Data.Identity.User{}, _ ->
-        :user
+  def schema_to_api_type(object, recursing) do
+    case object do
+      %Bonfire.Data.Identity.User{} -> :user
 
-      # %Bonfire.Data.SharedUser{}, _ ->
-      #   :organisation
+      %Bonfire.Data.Social.Post{} -> :post
 
-      %Bonfire.Geolocate.Geolocation{}, _ ->
-        :spatial_thing
+      %Bonfire.Data.Social.Activity{} -> :activity
 
-      %Bonfire.Classify.Category{}, _ ->
-        :category
+        # %Bonfire.Data.SharedUser{} ->
+        #   :organisation
 
-      %Bonfire.Tag{}, _ ->
-        :tag
+      %Bonfire.Geolocate.Geolocation{} -> :spatial_thing
 
-      %ValueFlows.Planning.Intent{}, _ ->
-        :intent
+      %Bonfire.Classify.Category{} -> :category
 
-      o, _ ->
-        Logger.warn("Any context resolved to an unknown type: #{inspect(o, pretty: true)}")
-    end)
+      %Bonfire.Tag{} -> :tag
+
+      %ValueFlows.Planning.Intent{} -> :intent
+
+      %ValueFlows.Process{} -> :process
+
+      %ValueFlows.EconomicEvent{} -> :economic_event
+
+      object ->
+
+        case Bonfire.Common.Types.object_type(object) do
+          type when is_atom(type) ->
+            Logger.debug("API any_context: object_type recognised: #{type}")
+            if recursing != true do
+              schema_to_api_type(struct(type), true)
+            else
+              Logger.warn("API any_context: no API type is defined for schema #{type}")
+            end
+
+          _ ->
+          Logger.warn("API any_context: resolved to an unknown type: #{inspect(object, pretty: true)}")
+        end
+    end
   end
 end
 end
