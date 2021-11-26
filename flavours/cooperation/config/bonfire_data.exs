@@ -176,7 +176,6 @@ config :bonfire_data_identity, User,
   has_one:  [character:      {Character,     foreign_key: :id}],
   has_one:  [actor:          {Actor,         foreign_key: :id}],
   has_one:  [instance_admin: {InstanceAdmin, foreign_key: :id}],
-  has_many: [likes:          {Like,          foreign_key: :liker_id, references: :id}],
   has_one:  [self:           {Self,          foreign_key: :id}],
   has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   has_many: [encircles:      {Encircle,      foreign_key: :subject_id}],
@@ -185,7 +184,14 @@ config :bonfire_data_identity, User,
   # has_one:  [geolocation:      {Bonfire.Geolocate.Geolocation}]
   has_many: [created: {Created, foreign_key: :creator_id}],
   has_many: [creations: {[through: [:created, :pointer]]}],
-  has_many: [posts: {[through: [:created, :post]]}]
+  has_many: [posts: {[through: [:created, :post]]}],
+  has_many: [activities: {Activity, foreign_key: :subject_id, references: :id}],
+  has_many: [boosted: {Boost, foreign_key: :booster_id, references: :id}],
+  has_many: [boost_activities: {[through: [:boosted, :activity]]}],
+  has_many: [liked: {Like, foreign_key: :liker_id, references: :id}],
+  has_many: [like_activities: {[through: [:liked, :activity]]}],
+  has_many: [followers: {Follow, foreign_key: :followed_id, references: :id}],
+  has_many: [followed: {Follow, foreign_key: :follower_id, references: :id}]
 
 
 # bonfire_data_social
@@ -218,6 +224,7 @@ config :bonfire_data_social, Activity,
   # has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
   # has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
   has_one:    [controlled:     {Controlled, foreign_key: :id, references: :object_id}],
+  has_one:    [activity:     {Activity, foreign_key: :id, references: :id}], # ugly workaround needed for querying
   many_to_many: [
     tags: {
       Bonfire.Tag,
@@ -251,10 +258,14 @@ config :bonfire_data_social, Follow,
 
 config :bonfire_data_social, FollowCount, []
 config :bonfire_data_social, Block, []
+
+config :bonfire_data_social, Boost,
+  has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
+
 config :bonfire_data_social, Like,
   has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause
 
-  config :bonfire_data_social, LikeCount, []
+config :bonfire_data_social, LikeCount, []
 config :bonfire_data_social, Bookmark, []
 
 config :bonfire_data_social, Message,
