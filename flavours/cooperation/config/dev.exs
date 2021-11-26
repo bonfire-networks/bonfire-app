@@ -61,4 +61,4 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :exsync,
   src_monitor: true,
-  extra_extensions: [".leex", ".js", ".css", ".sface"]
+  extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
