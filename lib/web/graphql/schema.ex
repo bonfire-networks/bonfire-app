@@ -142,7 +142,7 @@ defmodule Bonfire.GraphQL.Schema do
   union :any_context do
     description("Any type of known object")
 
-    # TODO: autogenerate
+    # TODO: autogenerate from extensions
 
     # types(SchemaUtils.context_types)
 
@@ -152,8 +152,9 @@ defmodule Bonfire.GraphQL.Schema do
       # :comment,
       # :flag,
       # :follow,
-      # :like,
-      # :user,
+      :activity,
+      :post,
+      :user,
       # :organisation,
       :category,
       :tag,
@@ -162,34 +163,11 @@ defmodule Bonfire.GraphQL.Schema do
     ])
 
     resolve_type(fn
-      # %CommonsPub.Users.User{}, _ ->
-      #   :user
 
-      # %CommonsPub.Communities.Community{}, _ ->
-      #   :community
+      %Bonfire.Data.Identity.User{}, _ ->
+        :user
 
-      # %CommonsPub.Collections.Collection{}, _ ->
-      #   :collection
-
-      # %CommonsPub.Threads.Thread{}, _ ->
-      #   :thread
-
-      # %CommonsPub.Threads.Comment{}, _ ->
-      #   :comment
-
-      # %CommonsPub.Follows.Follow{}, _ ->
-      #   :follow
-
-      # %CommonsPub.Likes.Like{}, _ ->
-      #   :like
-
-      # %CommonsPub.Flags.Flag{}, _ ->
-      #   :flag
-
-      # %CommonsPub.Features.Feature{}, _ ->
-      #   :feature
-
-      # %Organisation{}, _ ->
+      # %Bonfire.Data.SharedUser{}, _ ->
       #   :organisation
 
       %Bonfire.Geolocate.Geolocation{}, _ ->
