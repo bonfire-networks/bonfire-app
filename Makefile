@@ -100,6 +100,9 @@ else
 	iex -S mix phx.server
 endif
 
+recompile: ## Force the app to recompile
+	@make --no-print-directory cmd cmd="mix compile --force"
+
 dev.test: init test.env dev.run
 
 dev.bg: init  ## Run the app in dev mode, as a background service
