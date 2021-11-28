@@ -182,6 +182,9 @@ js.ext.deps.get:
 	@chmod +x ./config/deps.js.sh
 	@make --no-print-directory cmd cmd=./config/deps.js.sh
 
+deps.outdated:
+	@make mix.remote~"hex.outdated --all"
+
 dep.clean~%:
 	@make mix~"deps.clean $* --build"
 
