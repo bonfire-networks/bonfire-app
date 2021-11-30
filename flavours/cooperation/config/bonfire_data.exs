@@ -191,7 +191,7 @@ config :bonfire_data_identity, User,
   has_many: [liked: {Like, foreign_key: :liker_id, references: :id}],
   has_many: [like_activities: {[through: [:liked, :activity]]}],
   has_many: [followers: {Follow, foreign_key: :followed_id, references: :id}],
-  has_many: [followed: {Follow, foreign_key: :follower_id, references: :id}]
+  has_many: [followings: {Follow, foreign_key: :follower_id, references: :id}]
 
 
 # bonfire_data_social
