@@ -157,7 +157,7 @@ config :bonfire_data_identity, Character,
   has_one:    [inbox:           {Inbox,         foreign_key: :id}],
   has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}],
   has_many:   [followers:       {Follow,        foreign_key: :following_id, references: :id}],
-  has_many:   [followings:      {Follow,        foreign_key: :follower_id, references: :id}],
+  has_many:   [followed:      {Follow,        foreign_key: :follower_id, references: :id}],
   has_one:    [follow_count:    {FollowCount,   foreign_key: :id}]
 
 config :bonfire_data_identity, Credential,
@@ -185,13 +185,14 @@ config :bonfire_data_identity, User,
   has_many: [created: {Created, foreign_key: :creator_id}],
   has_many: [creations: {[through: [:created, :pointer]]}],
   has_many: [posts: {[through: [:created, :post]]}],
-  has_many: [activities: {Activity, foreign_key: :subject_id, references: :id}],
+  has_many: [user_activities: {Activity, foreign_key: :subject_id, references: :id}],
+  has_many: [user_feed: Activity], # requires custom filtering
   has_many: [boosted: {Boost, foreign_key: :booster_id, references: :id}],
   has_many: [boost_activities: {[through: [:boosted, :activity]]}],
   has_many: [liked: {Like, foreign_key: :liker_id, references: :id}],
   has_many: [like_activities: {[through: [:liked, :activity]]}],
   has_many: [followers: {Follow, foreign_key: :followed_id, references: :id}],
-  has_many: [followings: {Follow, foreign_key: :follower_id, references: :id}]
+  has_many: [followed: {Follow, foreign_key: :follower_id, references: :id}]
 
 
 # bonfire_data_social

@@ -185,8 +185,8 @@ js.ext.deps.get:
 deps.outdated:
 	@make mix.remote~"hex.outdated --all"
 
-dep.clean~%:
-	@make mix~"deps.clean $* --build"
+dep.clean:
+	make --no-print-directory cmd cmd="mix deps.clean $(dep) --build" 
 
 dep.clone.local: ## Clone a git dep and use the local version, eg: `make dep.clone.local dep="bonfire_me" repo=https://github.com/bonfire-networks/bonfire_me`
 	git clone $(repo) $(FORKS_PATH)$(dep) 2> /dev/null || (cd $(FORKS_PATH)$(dep) ; git pull)
