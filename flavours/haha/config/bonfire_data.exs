@@ -156,7 +156,7 @@ config :bonfire_data_identity, Character,
   has_one:    [inbox:           {Inbox,         foreign_key: :id}],
   has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}],
   has_many:   [followers:       {Follow,        foreign_key: :following_id, references: :id}],
-  has_many:   [followings:      {Follow,        foreign_key: :follower_id, references: :id}],
+  has_many:   [followed:      {Follow,        foreign_key: :follower_id, references: :id}],
   has_one:    [follow_count:    {FollowCount,   foreign_key: :id}]
 
 config :bonfire_data_identity, Credential,

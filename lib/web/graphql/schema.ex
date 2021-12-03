@@ -139,11 +139,28 @@ defmodule Bonfire.GraphQL.Schema do
     []
   end
 
+  union :any_character do
+    description("Any type of character (eg. Category, Thread, Geolocation, etc), actor (eg. User/Person), or agent (eg. Organisation)")
+
+    # TODO: autogenerate from extensions
+    # types(SchemaUtils.context_types)
+
+    types([
+      # :community,
+      # :collection,
+      :user,
+      # :organisation,
+      :category,
+      :spatial_thing
+    ])
+
+    resolve_type(&schema_to_api_type/2)
+  end
+
   union :any_context do
     description("Any type of known object")
 
-    # TODO: autogenerate from extensions
-
+    # TODO: autogenerate from extensions or pointers
     # types(SchemaUtils.context_types)
 
     types([
@@ -151,7 +168,7 @@ defmodule Bonfire.GraphQL.Schema do
       # :collection,
       # :comment,
       # :flag,
-      # :follow,
+      :follow,
       :activity,
       :post,
       :user,
@@ -175,7 +192,9 @@ defmodule Bonfire.GraphQL.Schema do
 
       %Bonfire.Data.Social.Activity{} -> :activity
 
-        # %Bonfire.Data.SharedUser{} ->
+      %Bonfire.Data.Social.Follow{} -> :follow
+
+      # %Bonfire.Data.SharedUser{} ->
         #   :organisation
 
       %Bonfire.Geolocate.Geolocation{} -> :spatial_thing
@@ -198,7 +217,7 @@ defmodule Bonfire.GraphQL.Schema do
             if recursing != true do
               schema_to_api_type(struct(type), true)
             else
-              Logger.warn("API any_context: no API type is defined for schema #{type}")
+              Logger.error("API any_context: no API type is defined for schema #{type}")
             end
 
           _ ->
