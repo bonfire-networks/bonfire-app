@@ -18,7 +18,7 @@ As well as app flavours being built by others, including:
 
 ## Documentation
 
-* [Website](https://doc.bonfirenetworks.org) 
+* [Website](https://bonfirenetworks.org) 
 * [Set up an instance](docs/DEPLOY.md) 
 * [Hacking on Bonfire](docs/HACKING.md) 
 * [Code reference](https://doc.bonfirenetworks.org/api-reference.html#content) 
