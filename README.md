@@ -1,8 +1,13 @@
 ## Bonfire 
-[Bonfire](https://bonfirenetworks.org/) - a federated network for individuals and communities to design, operate and control their own digital lives.
+[Bonfire](https://bonfirenetworks.org/) - a place your community is happy to call home.
+
+Self-host your online community and shape your experience at the most granular level: add and remove features, change behaviours and appearance, tune, swap or turn off algorithms. You are in total control.
+
+Empower your community with tools to perform social, economic and political activities. Create safe and private spaces, and connect with the fediverse on your own terms.
+
 
 ### Flavours
-This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/apps) you can choose from:
+This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
 * [Classic](flavours/classic) for basic social networking
 * [Cooperation](flavours/cooperation) with a bunch more extensions and features 
 
@@ -13,7 +18,11 @@ As well as app flavours being built by others, including:
 
 ## Documentation
 
-* [Development guide](docs/HACKING.md) 
+* [Website](https://doc.bonfirenetworks.org) 
+* [Set up an instance](docs/DEPLOY.md) 
+* [Hacking on Bonfire](docs/HACKING.md) 
+* [Code reference](https://doc.bonfirenetworks.org/api-reference.html#content) 
+* [Community chat](https://matrix.to/#/%23bonfire-networks:matrix.org) 
 
 
 ## Copyright and License
