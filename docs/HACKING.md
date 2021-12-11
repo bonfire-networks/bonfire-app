@@ -12,7 +12,12 @@ Happy hacking!
 
 There are three main options depending on your needs and preferences.
 
-You first need to set set some configuration regardless of which option you choose.
+Either way, you need to first clone this repository and change into the directory and then do some configuration:
+
+```sh
+$ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
+$ cd bonfire
+```
 
 ### Configuration
 
