@@ -73,6 +73,7 @@ defmodule Bonfire.MixProject do
       ],
       "bonfire.deps.update": ["deps.update " <>deps_to_update()],
       "bonfire.deps.clean": ["deps.clean " <>deps_to_clean()<>" --build"],
+      "bonfire.deps.recompile": ["deps.compile " <>deps_to_update()<>" --force"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
