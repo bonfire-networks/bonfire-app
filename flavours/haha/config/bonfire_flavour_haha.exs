@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :bonfire_me,
   validate_name_min: 1,

@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # where do you want to store files? supports local storage, s3-compatible services, and more
 # see https://hexdocs.pm/waffle/Waffle.html#module-setup-a-storage-provider
