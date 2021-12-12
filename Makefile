@@ -51,18 +51,19 @@ endef
 pre-config: pre-init ## Initialise env files, and create some required folders, files and softlinks
 	@echo "You can now edit your config for flavour '$(FLAVOUR)' in config/$(MIX_ENV)/secrets.env, config/$(MIX_ENV)/public.env and ./config/ more generally."
 
+CONFIG_PATH=$(FLAVOUR_PATH)/config
 pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
-	@ln -sfn $(FLAVOUR_PATH)/config ./config
+	@ln -sf $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
 	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
-	@mkdir -p config/prod
-	@mkdir -p config/dev
-	@touch config/deps.path
-	@cp -n config/templates/public.env config/dev/ | true
-	@cp -n config/templates/public.env config/prod/ | true
-	@cp -n config/templates/not_secret.env config/dev/secrets.env | true
-	@cp -n config/templates/not_secret.env config/prod/secrets.env | true
+	@mkdir -p $(CONFIG_PATH)/prod
+	@mkdir -p $(CONFIG_PATH)/dev
+	@touch $(CONFIG_PATH)/deps.path
+	@cp -n $(CONFIG_PATH)/templates/public.env $(CONFIG_PATH)/dev/ | true
+	@cp -n $(CONFIG_PATH)/templates/public.env $(CONFIG_PATH)/prod/ | true
+	@cp -n $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/dev/secrets.env | true
+	@cp -n $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/prod/secrets.env | true
 
 pre-run:
 	@mkdir -p forks/
