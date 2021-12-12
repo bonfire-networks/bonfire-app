@@ -28,6 +28,7 @@ APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
 APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD ?= `git rev-parse --short HEAD`
 APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)-$(FLAVOUR)"
+DB_DOCKER_IMAGE ?= postgis/postgis:12-3.1-alpine
 
 #### GENERAL SETUP RELATED COMMANDS ####
 
