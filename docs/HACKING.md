@@ -210,7 +210,25 @@ make git.merge~%                    Draft-merge another branch, eg `make git-mer
 make git.conflicts                  Find any git conflicts in ./forks
 ```
 
-## What happens when I get this error?
+## Troubleshooting
+
+### EACCES Permissions Error
+
+If you get a permissions error when following any of the steps, run the following command and it should be fixed:
+
+```shell
+cd ~/bonfire && sudo chown -R yourusername:yourusername .
+```
+
+### Unable to access Postgres database
+
+If you are getting any `:nxdomain` errors, check if you have any firewalls that may be blocking the port on your system.
+
+For example, if you are running UFW (a lot of Linux distros do), run the following command to allow access to port 4000:
+
+```shell
+sudo ufw allow 4000
+```
 
 ### (Mix) Package fetch failed
 
