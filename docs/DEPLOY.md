@@ -99,7 +99,8 @@ Now that your tooling is set up, you have the choice of using pre-built images o
 
 #### Option A1 - Using pre-built Docker images (recommend to start with)
 
-- Edit the `image` entry in `docker-compose.release.yml` to reflect the image on Docker Hub which corresponds to your chosen flavour. 
+- The `image` entry in `docker-compose.release.yml` will by default use the image on Docker Hub which corresponds to your chosen flavour (see step 1 above for choosing your flavour).
+
 You can see the images available per flavour, version (we currently recommend using the `latest` tag), and architecture at https://hub.docker.com/r/bonfirenetworks/bonfire/tags 
 
 - Start the docker containers with docker-compose:
@@ -160,7 +161,7 @@ There is a `Makefile` with relevant commands (make sure you set the `MIX_ENV=pro
 - `make rel.tag.latest` adds the "latest" tag to your last build, so that it will be used when running
 - `make rel.push` if you want to push your latest build to Docker Hub
 
-Once you've built and tagged your image, you can update the `image` name in `docker-compose.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.
+Once you've built and tagged your image, you may need to update the `image` name in `docker-compose.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.
 
 For production, we recommend to set up a CI workflow to automate this, for an example you can look at the one [we currently use](../github/workflows/release.yaml).
 

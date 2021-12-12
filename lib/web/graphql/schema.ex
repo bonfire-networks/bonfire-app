@@ -93,9 +93,9 @@ defmodule Bonfire.GraphQL.Schema do
   mutation do
     import_fields(:common_mutations)
 
-
     # Extension Modules
     import_fields(:me_mutations)
+    import_fields(:social_mutations)
 
     import_fields(:tag_mutations)
     import_fields(:classify_mutations)
