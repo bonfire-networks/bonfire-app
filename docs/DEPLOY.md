@@ -74,14 +74,14 @@ You should *not* have to modify the files above. Instead, overload any settings 
 
 ---
 
-### Option A - Install using Docker containers (recommended)
+### Option A - Install using Docker comtainers (recommended)
 
 The easiest way to launch the docker image is using the make commands.
 The `docker-compose.release.yml` uses `config/prod/public.env` and `config/prod/secrets.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container, along with a reverse proxy (Caddy server, which you may want to replace with nginx or whatever you prefer).
 
 #### Install with docker-compose
 
-A-1. Make sure you have [Docker](https://www.docker.com/), a recent [docker-compose](https://docs.docker.com/compose/install/#install-compose) (which supports v3 configs), and [make](https://www.gnu.org/software/make/) installed:
+Make sure you have [Docker](https://www.docker.com/), a recent [docker-compose](https://docs.docker.com/compose/install/#install-compose) (which supports v3 configs), and [make](https://www.gnu.org/software/make/) installed:
 
 ```sh
 $ docker version
@@ -95,9 +95,14 @@ GNU Make 4.2.1
 ...
 ```
 
-A-2. Edit the `image` entry in `docker-compose.release.yml` to reflect the image on Docker Hub which corresponds to your chosen flavour. (If your flavour does not have a prebuilt image on Docker Hub you can build one yourself, see the section on Building a Docker image below, or set up a CI workflow.)
+Now that your tooling is set up, you have the choice of using pre-built images or building your own. For example if your flavour does not have a prebuilt image on Docker Hub, or if you want to customise any of the extensions, you can build one yourself - see option A2 below. 
 
-A-3. Start the docker containers with docker-compose:
+#### Option A1 - Using pre-built Docker images (recommend to start with)
+
+- Edit the `image` entry in `docker-compose.release.yml` to reflect the image on Docker Hub which corresponds to your chosen flavour. 
+You can see the images available per flavour, version (we currently recommend using the `latest` tag), and architecture at https://hub.docker.com/r/bonfirenetworks/bonfire/tags 
+
+- Start the docker containers with docker-compose:
 
 ```
 make rel.run
@@ -105,7 +110,7 @@ make rel.run
 
 The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
 
-A-4. If that worked, start the app as a daemon next time:
+- If that worked, start the app as a daemon next time:
 
 ```
 make rel.run.bg
@@ -145,19 +150,23 @@ There are some useful database-related release tasks under `Bonfire.Repo.Release
 For example:
 `iex> Bonfire.Repo.ReleaseTasks.migrate` to create your database if it doesn't already exist.
 
-#### Building a Docker image
+#### Option A2 - Building your own Docker image
 
-The Dockerfile uses the [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature to make the image as small as possible. It is a very common release using OTP releases. It generates the release which is later copied into the final image.
+`Dockerfile.release` uses the [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature to make the image as small as possible. It generates the OTP release which is later copied into the final image packaged in an Alpine linux container.
 
 There is a `Makefile` with relevant commands (make sure you set the `MIX_ENV=prod` env first):
 
 - `make rel.build` which builds the docker image 
 - `make rel.tag.latest` adds the "latest" tag to your last build, so that it will be used when running
-- `make rel.push` add latest tag to last build and push to Docker Hub
+- `make rel.push` if you want to push your latest build to Docker Hub
+
+Once you've built and tagged your image, you can update the `image` name in `docker-compose.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.
+
+For production, we recommend to set up a CI workflow to automate this, for an example you can look at the one [we currently use](../github/workflows/release.yaml).
 
 ---
 
-### Option B - Manual installation without Docker
+### Option B - Manual installation (without Docker)
 
 #### Dependencies
 
