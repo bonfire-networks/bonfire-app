@@ -217,8 +217,10 @@ make git.conflicts                  Find any git conflicts in ./forks
 If you get a permissions error when following any of the steps, run the following command and it should be fixed:
 
 ```shell
-cd ~/bonfire && sudo chown -R yourusername:yourusername .
+cd bonfire && sudo chown -R yourusername:yourusername .
 ```
+
+Note that the command should be modified so your shell is pointing to wherever you have bonfire installed. If you are already in the bonfire directory then you only need to worry about running the `chown` portion of the command.
 
 ### Unable to access Postgres database
 
