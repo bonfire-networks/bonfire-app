@@ -27,9 +27,9 @@ $ cd bonfire
 
 2. The first thing to do is choosing what flavour of Bonfire you want to deploy (the default is `classic`), as each flavour has its own Docker image and config. 
 
-For example if you want to run the `coordination` flavour (you may want to use direnv or something similar to persist this):
+For example if you want to run the `cooperation` flavour (you may want to use direnv or something similar to persist this):
 
-`export FLAVOUR=coordination MIX_ENV=prod`
+`export FLAVOUR=cooperation MIX_ENV=prod`
 
 3. Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
 

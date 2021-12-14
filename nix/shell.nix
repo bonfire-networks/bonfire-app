@@ -1,4 +1,4 @@
-{ pkgs, flavour ? "coordination" }:
+{ pkgs, flavour ? "cooperation" }:
 
 with pkgs;
 
