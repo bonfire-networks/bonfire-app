@@ -23,9 +23,9 @@ $ cd bonfire
 
 - The first thing to do is choosing what flavour of Bonfire you want to hack on (the default is `classic`), as each flavour has its own config.
 
-For example if you want to run the `coordination` flavour:
+For example if you want to run the `cooperation` flavour:
 
-`export FLAVOUR=coordination`
+`export FLAVOUR=cooperation`
 
 - Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
 

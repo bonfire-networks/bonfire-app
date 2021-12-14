@@ -1,4 +1,4 @@
-{ pkgs, self, flavour ? "coordination" }:
+{ pkgs, self, flavour ? "cooperation" }:
 let
   beamPackages = with pkgs; beam.packagesWith beam.interpreters.erlang;
 in
