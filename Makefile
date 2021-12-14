@@ -54,7 +54,7 @@ pre-config: pre-init ## Initialise env files, and create some required folders, 
 CONFIG_PATH=$(FLAVOUR_PATH)/config
 pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
-	@ln -sf $(FLAVOUR_PATH)/config ./config
+	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
 	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
 	@mkdir -p $(CONFIG_PATH)/prod
