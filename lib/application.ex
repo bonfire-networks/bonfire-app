@@ -1,5 +1,4 @@
 defmodule Bonfire.Application do
-  @moduledoc false
 
   @sup_name Bonfire.Supervisor
   @name Mix.Project.config()[:name]

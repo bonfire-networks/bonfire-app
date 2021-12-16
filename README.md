@@ -1,4 +1,5 @@
-## Bonfire 
+# Bonfire 
+
 [Bonfire](https://bonfirenetworks.org/) - a place your community is happy to call home.
 
 Self-host your online community and shape your experience at the most granular level: add and remove features, change behaviours and appearance, tune, swap or turn off algorithms. You are in total control.
@@ -8,12 +9,12 @@ Empower your community with tools to perform social, economic and political acti
 
 ### Flavours
 This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
-* [Classic](flavours/classic) for basic social networking
-* [Cooperation](flavours/cooperation) with a bunch more extensions and features 
+* [Classic](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/classic) for basic social networking
+* [Cooperation](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/cooperation) with a bunch more extensions and features 
 
 As well as app flavours being built by others, including: 
-* [Haha Academy](flavours/haha) by haha.academy 
-* [Reflow](flavours/reflow) by reflowproject.eu and dyne.org
+* [Haha Academy](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/haha) by haha.academy 
+* [Reflow](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/reflow) by reflowproject.eu and dyne.org
 
 
 ## Documentation

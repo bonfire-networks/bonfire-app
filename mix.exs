@@ -2,10 +2,20 @@ Code.eval_file("mess.exs")
 defmodule Bonfire.MixProject do
   use Mix.Project
 
-  @config [
+  @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
       version: "0.1.0-beta.74", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
+      logo: "assets/static/images/bonfire-icon.png",
+      docs: [
+        "README.md",
+        "docs/HACKING.md",
+        "docs/DEPLOY.md",
+        "docs/ARCHITECTURE.md",
+        # "docs/DEPENDENCIES.md",
+        "docs/GRAPHQL.md",
+        "docs/MRF.md"
+      ],
       deps_prefixes: [
         docs: ["bonfire_"],
         test: ["bonfire_", "pointers", "paginator"],
@@ -31,19 +41,13 @@ defmodule Bonfire.MixProject do
       docs: [
         # The first page to display from the docs
         main: "readme",
-        logo: "assets/static/images/bonfire-icon.png",
-        # extra pages to include
-        extras: [
-          "README.md",
-          "docs/HACKING.md",
-          "docs/DEPLOY.md",
-          "docs/ARCHITECTURE.md",
-          # "docs/DEPENDENCIES.md",
-          "docs/GRAPHQL.md",
-          "docs/MRF.md"
-        ],
+        logo: @config[:logo],
         output: "docs/exdoc",
-        source_beam: docs_paths()
+        # extra pages to include
+        extras: readme_paths(),
+        # extra apps to include
+        source_beam: docs_paths(),
+        deps: doc_deps()
       ],
     ]
 
@@ -179,11 +183,17 @@ defmodule Bonfire.MixProject do
 
   def docs_paths() do
     build = Mix.Project.build_path()
-    docs_apps()
+    ([:bonfire] ++ deps(:docs))
     |> Enum.map(&docs_path(&1, build))
   end
-  defp docs_apps(), do: [:bonfire] ++ deps(:docs)
-  defp docs_path(app, build \\ Mix.Project.build_path()), do: Path.join([build, "lib", dep_name(app), "ebin"])
+  defp docs_path(app, build), do: Path.join([build, "lib", dep_name(app), "ebin"])
+
+  def readme_paths(), do: (@config[:docs] ++ Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++ Enum.map(deps(:docs), &readme_path/1))
+  defp readme_path(dep), do: {dep_paths(dep, "README.md") |> List.first |> String.to_atom, [filename: dep_name(dep)]}
+  def flavour_readme(path), do: {path |> String.to_atom, [filename: path |> String.split("/") |> Enum.at(1)]}
+
+  defp doc_deps(), do: deps(:docs) |> Enum.map(&doc_dep/1) #[plug: "https://myserver/plug/"]
+  defp doc_dep(dep), do: {elem(dep, 0), "./"}
 
   # Specifies which paths to include when running tests
   defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]

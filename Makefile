@@ -102,6 +102,9 @@ else
 	iex -S mix phx.server
 endif
 
+doc: ## Generate docs from code & readmes
+	@make --no-print-directory cmd cmd="mix docs"
+
 recompile: ## Force the app to recompile
 	@make --no-print-directory cmd cmd="mix compile --force"
 
