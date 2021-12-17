@@ -29,6 +29,7 @@ APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD ?= `git rev-parse --short HEAD`
 APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)-$(FLAVOUR)"
 DB_DOCKER_IMAGE ?= postgis/postgis:12-3.1-alpine
+CONFIG_PATH=$(FLAVOUR_PATH)/config
 
 #### GENERAL SETUP RELATED COMMANDS ####
 
@@ -36,14 +37,14 @@ export UID
 export GID
 
 define setup_env
-	$(eval ENV_DIR := config/$(MIX_ENV))
+	$(eval ENV_DIR := $(CONFIG_PATH)/$(MIX_ENV))
 	@echo "Loading environment variables from $(ENV_DIR)"
 	@$(call load_env,$(ENV_DIR)/public.env)
 	@$(call load_env,$(ENV_DIR)/secrets.env)
 endef
 define load_env
 	$(eval ENV_FILE := $(1))
-	@echo "Loading env vars from $(ENV_FILE)"
+	# @echo "Loading env vars from $(ENV_FILE)"
 	$(eval include $(ENV_FILE)) # import env into make
 	$(eval export) # export env from make
 endef
@@ -51,7 +52,6 @@ endef
 pre-config: pre-init ## Initialise env files, and create some required folders, files and softlinks
 	@echo "You can now edit your config for flavour '$(FLAVOUR)' in config/$(MIX_ENV)/secrets.env, config/$(MIX_ENV)/public.env and ./config/ more generally."
 
-CONFIG_PATH=$(FLAVOUR_PATH)/config
 pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
