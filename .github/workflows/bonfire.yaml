@@ -153,8 +153,6 @@ jobs:
       run: mix bonfire.deps.clean
     - name: Compile deps & app
       run: mix
-    - name: Set up database
-      run: mix ecto.setup
     - name: Generate docs
       run: make doc
     - name: Deploy docs
@@ -163,6 +161,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/exdoc
         cname: doc.bonfirenetworks.org
+    - name: Set up database
+      run: mix ecto.setup
     - name: Check that database migrations can rollback
       run: mix ecto.rollback --all && mix ecto.migrate
     - name: Run tests
