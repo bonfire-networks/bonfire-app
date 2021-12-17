@@ -188,9 +188,11 @@ defmodule Bonfire.MixProject do
   end
   defp docs_path(app, build), do: Path.join([build, "lib", dep_name(app), "ebin"])
 
-  def readme_paths(), do: (@config[:docs] ++ Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++ Enum.flat_map(deps(:docs) |> IO.inspect, &readme_path/1))
-  defp readme_path(dep) when not is_nil(dep), do: [{dep_paths(dep, "README.md") |> List.first |> String.to_atom, [filename: dep_name(dep)]}]
-  defp readme_path(_), do: []
+  def readme_paths(), do: (@config[:docs] ++ Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++ Enum.flat_map(deps(:docs), &readme_path/1))
+  defp readme_path(dep) when not is_nil(dep), do: dep_paths(dep, "README.md") |> List.first |> readme_path(dep)
+  defp readme_path(path, dep) when not is_nil(dep), do: [{path |> String.to_atom, [filename: dep_name(dep)]}]
+  defp readme_path(_, _), do: []
+
   def flavour_readme(path), do: {path |> String.to_atom, [filename: path |> String.split("/") |> Enum.at(1)]}
 
   defp doc_deps(), do: deps(:docs) |> Enum.map(&doc_dep/1) #[plug: "https://myserver/plug/"]
