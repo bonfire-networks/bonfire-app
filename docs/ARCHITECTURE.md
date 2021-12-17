@@ -30,6 +30,8 @@ Our main implementation language is [Elixir](https://www.elixir-lang.org/), whic
 
 We use the [Phoenix](https://www.phoenixframework.org/) web framework with [LiveView](https://hexdocs.pm/phoenix_live_view/) and [Surface](https://surface-ui.org/documentation) for UI components and views.
 
+Surface is a different syntax for LiveView that is designed to be more convenient and understandable to frontend developers, with extra compile time checks. Surface views and components are compiled into LiveView code (so once you hit runtime, Surface in effect doesn't exist any more). 
+
 Some extensions use the [Absinthe](https://absinthe-graphql.org/) GraphQL library to expose an API.
 
 

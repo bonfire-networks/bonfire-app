@@ -70,6 +70,9 @@ defmodule Bonfire.Web.Router do
   # optionally include Livebook for developers
   use_if_enabled Bonfire.Livebook.Web.Routes
 
+  # optionally include Surface Catalogue for the stylebook
+  require_if_enabled Surface.Catalogue.Router
+
 
   ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
 
@@ -121,11 +124,9 @@ defmodule Bonfire.Web.Router do
   scope "/" do
     pipe_through :browser
 
-    if module_enabled?(Surface.Catalogue.Router) do
-      import_if_enabled Surface.Catalogue.Router
-
-      Surface.Catalogue.Router.surface_catalogue "/ui/"
-    end
+    # if module_enabled?(Surface.Catalogue.Router) do # FIXME - getting function surface_catalogue/1 is undefined or private
+    #   Surface.Catalogue.Router.surface_catalogue "/ui/"
+    # end
 
     if module_enabled?(Phoenix.LiveDashboard.Router) do
       import Phoenix.LiveDashboard.Router
