@@ -67,7 +67,7 @@ EconomicResources.many(deleted: true) # List any deleted resources
 Context modules also have functions for creating, updating and deleting objects, as well as hooks for federating or indexing in the search engine.
 
 
-Here is a sampling some of current extensions and modules:
+Here is an incomplete sample of some of current extensions and modules:
 
 - `Bonfire.Me.Accounts` (for managing and querying local user accounts)
 - `Bonfire.Me.Users` (for managing and querying both local and remote user identities and profiles)
@@ -98,20 +98,6 @@ Here is a sampling some of current extensions and modules:
 - `Flexto` (to extend DB schemas in config, especially useful for adding associations)
 - `AbsintheClient` (for querying the API from within the server)
 
-## Naming
-
-It is said that naming is one of the four hard problems of computer science (along with cache management and off-by-one errors). We don't claim our scheme is the best, but we do strive for consistency.
-
-### Naming guidelines
-
-- Module names mostly begin with `Bonfire.` unless they belong to a more generic library (eg `Pointers` or `ValueFlows`)
-- Everything within an extension begins with the context name and a `.` (eg `Bonfire.Social.Migrations`)
-- Database schemas should be named in the singular (eg `Bonfire.Data.Social.Post`)
-- Context modules are named in plural where possible (eg `Bonfire.Social.Posts`)
-- Other modules within a context begins with the context name and a `.` (eg `Bonfire.Social.Posts.LiveHandler`)
-- Modules use UpperCamelCase while functions use snake_case
-- Acronyms in module names should be all uppercase (eg `Bonfire.Social.APActivities`)
-
 
 ### General structure
 
@@ -141,6 +127,23 @@ It is said that naming is one of the four hard problems of computer science (alo
       - Other extensions or libraries (eg `Pointers` or `Bonfire.Common` which are used by most other extensions)
           
 
+## Naming
+
+It is said that naming is one of the four hard problems of computer science (along with cache management and off-by-one errors). We don't claim our scheme is the best, but we do strive for consistency.
+
+### Naming guidelines
+
+- Module names mostly begin with `Bonfire.` unless they belong to a more generic library (eg `Pointers` or `ValueFlows`)
+- Everything within an extension begins with the context name and a `.` (eg `Bonfire.Social.Migrations`)
+- Database schemas should be named in the singular (eg `Bonfire.Data.Social.Post`)
+- Context modules are named in plural where possible (eg `Bonfire.Social.Posts`)
+- Other modules within a context begins with the context name and a `.` (eg `Bonfire.Social.Posts.LiveHandler`)
+- Modules use UpperCamelCase while functions use snake_case
+- Acronyms in module names should be all uppercase (eg `Bonfire.Social.APActivities`)
+
+
+## Federation libraries
+
 ### `ActivityPub`
 
 This namespace handles the ActivityPub logic and stores AP activities. It is largely adapted Pleroma code with some modifications, for example merging of the activity and object tables and new actor object abstraction.
@@ -158,7 +161,6 @@ Also refer to [MRF documentation](./MRF.md) to learn how to rewrite or discard m
 - `ActivityPub.WebFinger` - Implementation of the WebFinger protocol
 - `ActivityPub.HTTP` - Module for making HTTP requests (wrapper around tesla)
 - `ActivityPub.Instances` - Module for storing reachability information about remote instances
-
 
 
 ### `ActivityPubWeb`
