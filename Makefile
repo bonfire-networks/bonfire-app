@@ -60,10 +60,10 @@ pre-init:
 	@mkdir -p $(CONFIG_PATH)/prod
 	@mkdir -p $(CONFIG_PATH)/dev
 	@touch $(CONFIG_PATH)/deps.path
-	@cp $(CONFIG_PATH)/templates/public.env $(CONFIG_PATH)/dev/ | true
-	@cp $(CONFIG_PATH)/templates/public.env $(CONFIG_PATH)/prod/ | true
-	@cp $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/dev/secrets.env | true
-	@cp $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/prod/secrets.env | true
+	@cp -n $(CONFIG_PATH)/templates/public.env $(CONFIG_PATH)/dev/ | true
+	@cp -n $(CONFIG_PATH)/templates/public.env $(CONFIG_PATH)/prod/ | true
+	@cp -n $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/dev/secrets.env | true
+	@cp -n $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/prod/secrets.env | true
 
 pre-run:
 	@mkdir -p forks/
