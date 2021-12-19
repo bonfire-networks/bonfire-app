@@ -7,7 +7,7 @@ Self-host your online community and shape your experience at the most granular l
 Empower your community with tools to perform social, economic and political activities. Create safe and private spaces, and connect with the fediverse on your own terms.
 
 ### ⚠️ Warning
-This project is in the Alpha stage, All API's might change without warning and no guarantees are given about stability. Do not use it in production. Keep track of our progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones)
+This project is in the alpha stage. All APIs may change without warning and no guarantees are given about stability. Do not use it in production. You can keep track of progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones)
 
 ### 🔥 Flavours
 This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
