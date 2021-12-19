@@ -2,6 +2,7 @@ defmodule Bonfire.Application do
 
   @sup_name Bonfire.Supervisor
   @name Mix.Project.config()[:name]
+  @otp_app Bonfire.Common.Config.get!(:otp_app)
   @version Mix.Project.config()[:version]
   @repository Mix.Project.config()[:source_url]
   @deps Bonfire.Common.Extend.loaded_deps()
@@ -10,7 +11,7 @@ defmodule Bonfire.Application do
 
   def start(_type, _args) do
 
-    Bonfire.Repo.LogSlow.setup()
+    EctoSparkles.LogSlow.setup(@otp_app)
 
     :telemetry.attach("oban-errors", [:oban, :job, :exception], &Bonfire.ObanLogger.handle_event/4, [])
     Oban.Telemetry.attach_default_logger()
