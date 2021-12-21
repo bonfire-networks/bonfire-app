@@ -1,10 +1,6 @@
-#!/bin/bash 
+#!/bin/sh
 
-# DEPS="bonfire_geolocate" 
+# any extensions/deps with a package.json in their /assets directory
+DEPS=''
 
-# for dep in $DEPS 
-# do
-#  echo "Install JS deps from $dep"
-#  cd "forks/$dep/assets" && pnpm install || cd "deps/$dep/assets" && pnpm install || echo "Extension $dep not available"
-#  cd ../../../
-# done
+./priv/deps.js.sh "$DEPS"
