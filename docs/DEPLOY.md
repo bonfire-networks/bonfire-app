@@ -52,6 +52,9 @@ And in public.env:
 - HOSTNAME
 - PUBLIC_PORT
 
+You can make registrations on your instance invite-only by setting `INVITE_ONLY=true` in public.env and setting an `INVITE_KEY` in secrets.env. You can then invite people by sending them to https://yourinstance.tld/signup/invitation/your_INVITE_KEY_here
+
+
 ### Further information on config
 
 The app needs some environment variables to be configured in order to work. The easy way to manage that is whit the `make` commands which take care of loading the environment for you.
