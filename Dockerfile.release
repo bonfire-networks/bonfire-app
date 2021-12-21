@@ -71,8 +71,8 @@ RUN npm install -g pnpm
 # install JS deps
 COPY assets/package.json assets/pnpm-lock.yaml assets/*.sh ./assets/
 COPY priv/*.sh ./priv/
-RUN chmod +x assets/install.sh && sh assets/install.sh
-RUN chmod +x config/deps.js.sh && sh config/deps.js.sh
+RUN chmod +x assets/*.sh && sh assets/install.sh
+RUN chmod +x config/*.sh && chmod +x priv/*.sh && sh config/deps.js.sh
 
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
