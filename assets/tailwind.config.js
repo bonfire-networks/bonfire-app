@@ -15,6 +15,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      maxWidth: {
+        '600': '600px'
+      },
       colors: {
         gray: colors.coolGray,
         blueGray: colors.blueGray,
