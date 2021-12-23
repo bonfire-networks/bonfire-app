@@ -19,7 +19,7 @@ defmodule Bonfire.GraphQL.Schema do
     loader =
       Dataloader.new
       |> Dataloader.add_source(Pointers.Pointer, Bonfire.Common.Pointers.dataloader(ctx))
-      # |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Pointers.dataloader(ctx))
+      # |> Dataloader.add_source(Bonfire.Data.Social.Posts, Bonfire.Common.Pointers.dataloader(ctx) )
 
     Map.put(ctx, :loader, loader)
   end
