@@ -15,8 +15,8 @@ let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("
 let liveSocket = new LiveSocket("/live", Socket, {
     params: { _csrf_token: csrfToken }, 
     dom: {
-      onBeforeElUpdated(from, to){ 
-        if(from.__x){ Alpine.clone(from.__x, to) }
+      onBeforeElUpdated(from, to) {
+        if (from._x_dataStack) { window.Alpine.clone(from, to) }
       }
     },
     hooks: Hooks
