@@ -27,7 +27,7 @@ config :bonfire, Bonfire.Web.Endpoint,
       cd: Path.expand("assets", File.cwd!())
     ],
     pnpm: [
-      "watch.postcss",
+      "watch.css",
       cd: Path.expand("assets", File.cwd!())
     ],
     # pnpm: [
