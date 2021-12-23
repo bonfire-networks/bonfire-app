@@ -1,8 +1,8 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: 'Bug Report: '
-labels: New Issue
+title: 'Bug: '
+labels: Bug, New Issue
 assignees: ''
 
 ---
@@ -23,16 +23,18 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+**Bonfire environment (please complete the following information):**
+- Running with Docker? (see WITH_DOCKER env variable): [e.g. none, easy, full]
+- Running env: [e.g: dev, prod with mix, prod with OTP release, prod with docker image]
+- Running flavour: [e.g: classic, cooperation]
+- Running version: [e.g: 0.1.1-beta]
+- Running any extra/forked extensions: [e.g: https://github.com/my_forks/bonfire_ui_social]
 
-**Smartphone (please complete the following information):**
+**Device (please complete the following information):**
  - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+ - OS: [e.g. Ubuntu Linux 20.4, iOS 10, Windows 7]
+ - Browser [e.g. firefox, safari]
+ - Browser Version [e.g. 22]
 
 **Additional context**
 Add any other context about the problem here.
