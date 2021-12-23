@@ -5,12 +5,17 @@
     <h2 class="text-xl font-extrabold text-base-content">
     
     {Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire")}</h2>
-    <span class="badge badge-ghost">
-      {Bonfire.Application.named_version()}
-    </span>
+
     <p class="mt-2 text-base text-base-content text-opacity-70">
       { Bonfire.Common.Config.get([:ui, :theme, :instance_description], l "Yet another bonfire instance")}
     </p>
+
+    <div class="badge badge-ghost">
+      {Bonfire.Application.named_version()} 
+      <div x-data="{msg: '-with-JS'}">
+        <span x-text="msg">-without-JS</span>
+      </div>
+    </div>
 
 
   </div>
