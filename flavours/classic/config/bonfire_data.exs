@@ -82,7 +82,7 @@ config :pointers, Pointer,
   has_one:  [peered:       {Peered,        references: :id, foreign_key: :id}],
   has_one:  [activity:     {Activity, foreign_key: :object_id, references: :id}], # needs ON clause
   has_one:  [post_content: {PostContent, foreign_key: :id}],
-  has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
+  # has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   # has_many: [likes:        {Like, foreign_key: :liked_id, references: :id}],
   # has_one:  [my_like:      {Like, foreign_key: :liked_id, references: :id}],
   # has_one:  [my_flag:      {Flag, foreign_key: :flagged_id, references: :id}],
@@ -157,10 +157,10 @@ config :bonfire_data_identity, Character,
   has_one:    [user:            {User,          foreign_key: :id}],
   has_one:    [feed:            {Feed,          foreign_key: :id}],
   has_one:    [inbox:           {Inbox,         foreign_key: :id}],
-  has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}],
-  has_many:   [followers:       {Follow,        foreign_key: :following_id, references: :id}],
-  has_many:   [followed:      {Follow,        foreign_key: :follower_id, references: :id}],
-  has_one:    [follow_count:    {FollowCount,   foreign_key: :id}]
+  has_many:   [feed_publishes:  {FeedPublish,   references: :id, foreign_key: :feed_id}]
+  # has_many:   [followers:       {Follow,        foreign_key: :following_id, references: :id}],
+  # has_many:   [followed:      {Follow,        foreign_key: :follower_id, references: :id}],
+  # has_one:    [follow_count:    {FollowCount,   foreign_key: :id}]
 
 config :bonfire_data_identity, Credential,
   belongs_to: [account: {Account, foreign_key: :id, define_field: false}]
@@ -206,8 +206,8 @@ config :bonfire_data_social, Activity,
   belongs_to: [object_post:       {Post,      foreign_key: :id, define_field: false}],
   # belongs_to: [object_post_content: {PostContent, foreign_key: :id, define_field: false}],
   belongs_to: [object_message:    {Message, foreign_key: :id, define_field: false}],
-  has_one:    [boost_count:       {BoostCount, foreign_key: :id}],
-  has_one:    [like_count:        {LikeCount, foreign_key: :id}],
+  # has_one:    [boost_count:       {BoostCount, foreign_key: :id}],
+  # has_one:    [like_count:        {LikeCount, foreign_key: :id}],
   # has_many:   [boosts: {Boost, foreign_key: :boosted_id, references: :id}],
   # has_many:   [likes: {Like, foreign_key: :liked_id, references: :id}],
   # has_one:    [my_like: {Like, foreign_key: :liked_id, references: :id}],
@@ -252,7 +252,7 @@ config :bonfire_data_social, Edge,
   belongs_to: [subject_profile:   {Profile,   foreign_key: :subject_id, define_field: false}],
   belongs_to: [object_character:  {Character, foreign_key: :object_id,  define_field: false}],
   belongs_to: [object_profile:    {Profile,   foreign_key: :object_id,  define_field: false}]
-  
+
 config :bonfire_data_social, Feed,
   belongs_to: [character: {Character, foreign_key: :id, define_field: false}],
   belongs_to: [user: {User, foreign_key: :id, define_field: false}]
@@ -305,7 +305,7 @@ config :bonfire_data_social, Post,
   # has_one:  [creator_profile: {[through: [:created, :creator_profile]]}],
   has_many: [activities: {Activity, foreign_key: :object_id, references: :id}],
   has_one:  [activity: {Activity, foreign_key: :object_id, references: :id}], # requires an ON clause
-  has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
+  # has_one:  [like_count:   {LikeCount,   foreign_key: :id}],
   # has_many: [likes: {Like, foreign_key: :liked_id, references: :id}],
   # has_one:  [my_like: {Like, foreign_key: :liked_id, references: :id}],
   # has_one:  [my_boost: {Boost, foreign_key: :boosted_id, references: :id}],
@@ -360,9 +360,9 @@ config :bonfire_tag, Bonfire.Tag,
   has_one: [character:    {Bonfire.Data.Identity.Character,    references: :id, foreign_key: :id}],
   has_one:  [peered:         {Peered,        references: :id, foreign_key: :id}],
   # has_one: [actor:        {Bonfire.Data.ActivityPub.Actor,     references: :id, foreign_key: :id}],
-  has_one: [follow_count: {Bonfire.Data.Social.FollowCount,    references: :id, foreign_key: :id}],
+  # has_one: [follow_count: {Bonfire.Data.Social.FollowCount,    references: :id, foreign_key: :id}],
   # for likeable objects
-  has_one: [like_count:   {Bonfire.Data.Social.LikeCount,      references: :id, foreign_key: :id}],
+  # has_one: [like_count:   {Bonfire.Data.Social.LikeCount,      references: :id, foreign_key: :id}],
   # name/description
   has_one: [profile:      {Bonfire.Data.Social.Profile,        references: :id, foreign_key: :id}],
   # for taxonomy categories/topics
@@ -384,23 +384,7 @@ config :bonfire_classify, Bonfire.Classify.Category,
     }
   ]
 
-# add references of tagged objects to any Geolocation
-config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
-  many_to_many: [
-    tags: {
-      Bonfire.Tag,
-      join_through: "bonfire_tagged",
-      unique: true,
-      join_keys: [tag_id: :id, pointer_id: :id],
-      on_replace: :delete
-    }
-  ]
-
-
 config :bonfire_files, Bonfire.Files.Media,
   field: [
     url: {:string, virtual: true}
   ]
-
-config :bonfire_valueflows, ValueFlows.Planning.Intent,
-  has_one:  [like_count:   {LikeCount,   foreign_key: :id}]
