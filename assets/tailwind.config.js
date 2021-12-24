@@ -7,20 +7,18 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: {
-    enabled: true,
-    content: [
-      '../{lib,forks,deps}/**/*{.leex,.sface,_live.ex}'
-    ]
-  },
+  content: [
+    '../{lib,forks,deps}/**/*{.leex,.heex,.sface,_live.ex,.js}',
+    './js/*.js'
+  ],
   theme: {
     extend: {
       maxWidth: {
         '600': '600px'
       },
       colors: {
-        gray: colors.coolGray,
-        blueGray: colors.blueGray,
+        gray: colors.gray,
+        blueGray: colors.slate,
         amber: colors.amber,
         rose: colors.rose,
         orange: colors.orange,
@@ -28,11 +26,11 @@ module.exports = {
         cyan: colors.cyan
       },
       ringColor: {
-        blueGray: colors.blueGray,
+        blueGray: colors.slate,
         pink: colors.pink,
       },
       borderColor: {
-        blueGray: colors.blueGray,
+        blueGray: colors.slate,
       },
       boxShadow: {
         tick: '0px 1px 2px rgba(0,0,0,2)'
