@@ -9,8 +9,6 @@ defmodule Bonfire.Repo.Migrations.InitPointersULID do
 
   def change do
     init_pointers_ulid_extra()
-    Edge.migrate_edge()
-    EdgeTotal.migrate_edge_total()
   end
 
 end
