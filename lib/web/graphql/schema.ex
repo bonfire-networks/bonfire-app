@@ -1,7 +1,11 @@
-if Bonfire.Common.Utils.module_enabled?(Bonfire.GraphQL) and Bonfire.Common.Utils.module_enabled?(ValueFlows.Schema) do
+if Code.ensure_loaded?(Bonfire.GraphQL) and Bonfire.Common.Utils.module_enabled?(Bonfire.GraphQL) and Bonfire.Common.Utils.module_enabled?(ValueFlows.Schema) do
 # SPDX-License-Identifier: AGPL-3.0-only
 defmodule Bonfire.GraphQL.Schema do
-  @moduledoc "Root GraphQL Schema. Only active if the `Bonfire.GraphQL` extension is present. "
+  @moduledoc """
+  Root GraphQL Schema.
+  Only active if the `Bonfire.GraphQL` extension is present.
+  """
+
   use Absinthe.Schema
   @schema_provider Absinthe.Schema.PersistentTerm
   # @pipeline_modifier Bonfire.GraphQL.SchemaPipelines
