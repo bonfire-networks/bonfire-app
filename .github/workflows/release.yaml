@@ -102,7 +102,7 @@ jobs:
 
 
   cooperation_flavour_docker_release_build_push:
-    name: Cooperation flavour - Maybe tag version & release Docker image
+    name: Cooperation flavour - Maybe release Docker image
     runs-on: ubuntu-latest
     env:
       FLAVOUR: cooperation
@@ -115,7 +115,7 @@ jobs:
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Maybe tag/release new version
+        name: Detect if new version
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
@@ -185,7 +185,7 @@ jobs:
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Maybe tag/release new version
+        name: Detect if new version
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:

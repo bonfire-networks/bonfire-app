@@ -124,7 +124,7 @@ db.migrate: mix~ecto.migrate ## Run latest database migrations (eg. after adding
 
 db.seeds: mix~ecto.migrate mix~ecto.seeds ## Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
 
-db.reset: dev.search.reset db.pre-migrations mix~ecto.reset  ## Reset the DB (caution: this means DATA LOSS)
+db.reset: init dev.search.reset db.pre-migrations mix~ecto.reset  ## Reset the DB (caution: this means DATA LOSS)
 
 dev.search.reset:
 ifeq ($(WITH_DOCKER), no)

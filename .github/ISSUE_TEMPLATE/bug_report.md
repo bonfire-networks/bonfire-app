@@ -26,8 +26,8 @@ If applicable, add screenshots to help explain your problem.
 **Bonfire environment (please complete the following information):**
 - Running with Docker? (see WITH_DOCKER env variable): [e.g. none, easy, full]
 - Running env: [e.g: dev, prod with mix, prod with OTP release, prod with docker image]
+- Running version (check on your instance's homepage): [e.g: 0.1.1-beta.42-with-JS]
 - Running flavour: [e.g: classic, cooperation]
-- Running version: [e.g: 0.1.1-beta]
 - Running any extra/forked extensions: [e.g: https://github.com/my_forks/bonfire_ui_social]
 
 **Device (please complete the following information):**
