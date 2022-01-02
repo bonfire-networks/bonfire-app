@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.1.0-beta.93", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-beta.95", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -18,7 +18,7 @@ defmodule Bonfire.MixProject do
       ],
       deps_prefixes: [
         docs: ["bonfire_"],
-        test: ["bonfire_", "pointers", "paginator"],
+        test: ["bonfire_", "pointers", "paginator", "ecto_sparkles"],
         data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate"]
       ]
     ]
