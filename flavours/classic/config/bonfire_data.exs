@@ -58,7 +58,7 @@ alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Self, User, Named
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Created, Feed,
+  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed,
   FeedPublish, Inbox, Message, Follow, Boost, Like, Flag, Mention,
   Post, PostContent, Profile, Replied
 }
