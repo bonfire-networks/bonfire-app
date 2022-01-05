@@ -44,6 +44,6 @@ else
     if [[ $2 == 'maybe-pull' ]] 
     then
         # if jungle is available and we assume fetches were already done
-        jungle || git pull --rebase || fail "Please resolve conflicts before continuing." 
+        command -v jungle || git pull --rebase || fail "Please resolve conflicts before continuing." 
     fi
 fi
