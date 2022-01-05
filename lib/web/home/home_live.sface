@@ -1,31 +1,40 @@
-<div class="flex-col hidden lg:flex md:flex-shrink-0 w-96">
-<div class="fixed flex flex-col overflow-y-auto rounded-lg shadow-lg bg-base-100 w-96">
-  <div class="bg-bottom bg-no-repeat bg-cover rounded-t-lg" style={"height: 250px; background-image: url(" <> Bonfire.Common.Config.get([:ui, :theme, :instance_image], '') <> ")"}></div>
-  <div class="p-3 rounded-b-lg">
-    <h2 class="text-xl font-extrabold text-base-content">
-    
-    {Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire")}</h2>
 
-    <p class="mt-2 text-base text-base-content text-opacity-70">
-      { Bonfire.Common.Config.get([:ui, :theme, :instance_description], l "Yet another bonfire instance")}
-    </p>
+<div class="justify-center w-full h-full max-w-screen-xl mx-auto md:flex ">
 
-    <div class="badge badge-ghost">
-      {Bonfire.Application.named_version()} 
-      <div x-data="{msg: '-with-JS'}">
-        <span x-text="msg">-without-JS</span>
+  <div class="flex-col hidden lg:flex md:flex-shrink-0 w-80">
+    <div class="fixed flex flex-col overflow-y-auto rounded-lg shadow-lg bg-base-100 w-80">
+      <div class="bg-bottom bg-no-repeat bg-cover rounded-t-lg" style={"height: 200px; background-image: url(" <> Bonfire.Common.Config.get([:ui, :theme, :instance_image], '') <> ")"}></div>
+      <div class="p-3 rounded-b-lg">
+        <h2 class="text-xl font-extrabold text-base-content">
+        
+        {Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire")}</h2>
+
+        <p class="mt-1 text-sm text-base-content text-opacity-70">
+          { Bonfire.Common.Config.get([:ui, :theme, :instance_description], l "Yet another bonfire instance")}
+        </p>
+
+        <div class="badge badge-ghost">
+          {Bonfire.Application.named_version()} 
+          <div x-data="{msg: '-with-JS'}">
+            <span x-text="msg">-without-JS</span>
+          </div>
+        </div>
+
+
       </div>
     </div>
-
-
   </div>
-</div>
-</div>
 
-<section class="mb-6 ml-4 shadow bg-base-100 rounded-box w-center">
+ <div class="flex-grow mx-3 max-w-600 bg-base-100">
   <Bonfire.UI.Social.FeedHeaderLive feed_title={@feed_title} />
   <Bonfire.UI.Social.FeedLive 
     page_info={e(assigns, :page_info, %{})}
     showing_within={e(assigns, :showing_within, nil)}
     id="feed:home"  />
-</section>
+  </div>
+  
+  <div style="min-width: 285px" class="flex justify-start h-full overflow-hidden pointer-events-none">
+    <div style="width: 285px; top: 80px; bottom: 16px;" class="fixed h-full pointer-events-auto"></div>
+  </div>
+
+</div>
