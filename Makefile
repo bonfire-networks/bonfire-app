@@ -147,9 +147,7 @@ update.app: update.repo ## Update the app and Bonfire extensions in ./deps
 	@make --no-print-directory mix.remote~updates 
 
 update.repo:
-	git add --all .
-	git diff-index --quiet HEAD || git commit --all --verbose
-	git pull --rebase
+	@chmod +x git-publish.sh && ./git-publish.sh pull
 
 update.deps.bonfire: init mix.remote~bonfire.deps ## Update to the latest Bonfire extensions in ./deps 
 	
@@ -158,17 +156,14 @@ update.deps.all: ## Update evey single dependency (use with caution)
 
 update.dep~%: ## Update a specify dep (eg. `make update.dep~pointers`)
 	@make --no-print-directory mix.remote~"deps.update $*"
-	@chmod +x git-publish.sh
-	./git-publish.sh $(FORKS_PATH)/$* pull
+	@chmod +x git-publish.sh && ./git-publish.sh $(FORKS_PATH)/$* pull
 
-#update.forks: git.forks~pull ## Pull the latest commits from all ./forks
 update.forks: ## Pull the latest commits from all ./forks
-	@chmod +x git-publish.sh
-	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} pull \;
+	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
+	@chmod +x git-publish.sh && find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} maybe-pull \;
 
 update.fork~%: ## Pull the latest commits from all ./forks
-	@chmod +x git-publish.sh
-	find $(FORKS_PATH)/$* -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
+	@chmod +x git-publish.sh && find $(FORKS_PATH)/$* -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
 
 deps.get: mix.remote~deps.get mix~deps.get js.ext.deps.get ## Fetch locked version of non-forked deps
 
@@ -487,5 +482,3 @@ git.merge~%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-a
 git.conflicts: ## Find any git conflicts in ./forks
 	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
-pull: 
-	git pull
