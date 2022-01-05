@@ -147,7 +147,7 @@ update.app: update.repo ## Update the app and Bonfire extensions in ./deps
 	@make --no-print-directory mix.remote~updates 
 
 update.repo:
-	@chmod +x git-publish.sh && ./git-publish.sh pull
+	@chmod +x git-publish.sh && ./git-publish.sh . pull
 
 update.deps.bonfire: init mix.remote~bonfire.deps ## Update to the latest Bonfire extensions in ./deps 
 	
