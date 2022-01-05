@@ -26,6 +26,7 @@ WEB_CONTAINER ?= $(APP_NAME)_web
 APP_REL_DOCKERFILE=Dockerfile.release
 APP_REL_DOCKERCOMPOSE=docker-compose.release.yml
 APP_VSN ?= `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
+APP_VSN_EXTRA ?= beta
 APP_BUILD ?= `git rev-parse --short HEAD`
 APP_DOCKER_REPO="$(ORG_NAME)/$(APP_NAME)-$(FLAVOUR)"
 DB_DOCKER_IMAGE ?= postgis/postgis:12-3.1-alpine
@@ -161,6 +162,7 @@ update.dep~%: ## Update a specify dep (eg. `make update.dep~pointers`)
 update.forks: ## Pull the latest commits from all ./forks
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
 	@chmod +x git-publish.sh && find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} maybe-pull \;
+# TODO: run in parallel? find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
 
 update.fork~%: ## Pull the latest commits from all ./forks
 	@chmod +x git-publish.sh && find $(FORKS_PATH)/$* -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
@@ -250,17 +252,18 @@ contrib.app.up: update.app git.publish ## Update ./deps and push all changes to 
 contrib.app.release: update.app contrib.app.release.increment git.publish ## Update ./deps, increment the app version number and push
 
 contrib.app.release.increment: 
-	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ beta
+	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $(APP_VSN_EXTRA)
 
 contrib.forks.publish:
-	@chmod +x git-publish.sh
-	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} \;
+	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
+	@chmod +x git-publish.sh && find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} \;
+# TODO: run in parallel? 
 
 git.forks.add: deps.git.fix ## Run the git add command on each fork
 	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
 git.forks.status: ## Run a git status on each fork
-	@find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status -s \;
+	@jungle git status || find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
 
 git.forks~%: ## Run a git command on each fork (eg. `make git.forks~pull` pulls the latest version of all local deps from its git remote
 	@find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
