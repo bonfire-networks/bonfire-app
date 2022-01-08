@@ -90,6 +90,14 @@ config :pointers, Pointer,
     has_one :post, unquote(Post), foreign_key: :id
     # mixins
     has_one :message, unquote(Message), foreign_key: :id
+    has_one :named, unquote(Named), foreign_key: :id
+    has_one :caretaker, unquote(Caretaker), foreign_key: :id
+    has_one :controlled, unquote(Controlled), foreign_key: :id
+    has_one :created, unquote(Created), foreign_key: :id
+    has_one :peered, unquote(Peered), foreign_key: :id, references: :id
+    has_one :activity, unquote(Activity), foreign_key: :object_id, references: :id
+    has_one :post_content, unquote(PostContent), foreign_key: :id
+    has_one :replied, unquote(Replied), foreign_key: :id
     has_one :profile, unquote(Profile), foreign_key: :id
     has_one :character, unquote(Character), foreign_key: :id
     has_one :actor, unquote(Actor), foreign_key: :id
