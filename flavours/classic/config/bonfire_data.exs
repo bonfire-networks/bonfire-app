@@ -50,17 +50,17 @@ config :bonfire_data_access_control,
 #### Alias modules for readability
 alias Pointers.{Pointer, Table}
 alias Bonfire.Data.AccessControl.{
-  Access, Acl, Controlled, InstanceAdmin, Grant, Interact, Verb, Circle, Encircle
+  Acl, Controlled, InstanceAdmin, Grant, Interact, Verb, Circle, Encircle
 }
 alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, Character, Credential, Email, Self, User, Named
+  Account, Accounted, Caretaker, Character, Credential, Email, Named, Self, User,
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed,
-  FeedPublish, Inbox, Message, Follow, Boost, Like, Flag, Mention,
-  Post, PostContent, Profile, Replied
+  Activity, Article, Block, Bookmark, Created, Feed, FeedPublish,
+  Inbox, Message, Follow, Boost, Like, Flag, Mention, Post,
+  PostContent, Profile, Replied,
 }
 alias Bonfire.Classify.Category
 alias Bonfire.Geolocate.Geolocation
@@ -84,6 +84,12 @@ config :pointers, Pointer,
     @like_ulid   "11KES11KET0BE11KEDY0VKN0WS"
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
+    # pointables
+    has_one :circle, unquote(Circle), foreign_key: :id
+    has_one :user, unquote(User), foreign_key: :id
+    has_one :post, unquote(Post), foreign_key: :id
+    # mixins
+    has_one :message, unquote(Message), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_one :controlled, unquote(Controlled), foreign_key: :id
@@ -92,13 +98,14 @@ config :pointers, Pointer,
     has_one :activity, unquote(Activity), foreign_key: :object_id, references: :id
     has_one :post_content, unquote(PostContent), foreign_key: :id
     has_one :replied, unquote(Replied), foreign_key: :id
-    has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
     has_one :profile, unquote(Profile), foreign_key: :id
     has_one :character, unquote(Character), foreign_key: :id
     has_one :actor, unquote(Actor), foreign_key: :id
+    has_one :edge, unquote(Edge), foreign_key: :id
     has_one :like_count, unquote(EdgeTotal), foreign_key: :id, references: :id, where: [table_id: @like_ulid]
     has_one :boost_count, unquote(EdgeTotal), foreign_key: :id, references: :id, where: [table_id: @boost_ulid]
     has_one :follow_count, unquote(EdgeTotal), foreign_key: :id, references: :id, where: [table_id: @follow_ulid]
+    has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
     # add references of tags to any tagged Pointer
     many_to_many :tags, unquote(Bonfire.Tag),
       join_through: "bonfire_tagged",
@@ -125,15 +132,15 @@ config :bonfire_data_access_control, Acl,
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
   end]
 
-config :bonfire_data_access_control, Controlled, []
-config :bonfire_data_access_control, Grant,
+config :bonfire_data_access_control, Circle,
   [code: quote do
-    belongs_to :subject_character, unquote(Character), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_profile, unquote(Profile), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_circle, unquote(Circle), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_named, unquote(Named), foreign_key: :subject_id, define_field: false
+    has_one :caretaker, unquote(Caretaker), foreign_key: :id
+    has_one :named, unquote(Named), foreign_key: :id
   end]
 
+config :bonfire_data_access_control, Controlled, []
+config :bonfire_data_access_control, Encircle, []
+config :bonfire_data_access_control, Grant, []
 config :bonfire_data_access_control, Interact, []
 config :bonfire_data_access_control, Verb, []
 
@@ -145,7 +152,6 @@ config :bonfire_data_activity_pub, Actor,
     has_one :peered, unquote(Peered), references: :id, foreign_key: :id
     belongs_to :user, unquote(User), foreign_key: :id, define_field: false
   end]
-
 
 config :bonfire_data_activity_pub, Peer, []
 config :bonfire_data_activity_pub, Peered, []
@@ -224,13 +230,10 @@ config :bonfire_data_social, Activity,
     @like_ulid   "11KES11KET0BE11KEDY0VKN0WS"
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
-    belongs_to :subject_user, unquote(User), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_character, unquote(Character), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_profile, unquote(Profile), foreign_key: :subject_id, define_field: false
-    belongs_to :object_peered, unquote(Peered), foreign_key: :id, define_field: false
-    belongs_to :object_post, unquote(Post), foreign_key: :id, define_field: false
+    # belongs_to :object_peered, unquote(Peered), foreign_key: :id, define_field: false
+    # belongs_to :object_post, unquote(Post), foreign_key: :id, define_field: false
     # belongs_to: [object_post_content: {PostContent, foreign_key: :id, define_field: false}],
-    belongs_to :object_message, unquote(Message), foreign_key: :id, define_field: false
+    # belongs_to :object_message, unquote(Message), foreign_key: :id, define_field: false
     has_one :replied, unquote(Replied), foreign_key: :id
     # has_one:    [reply_to: {[through: [:replied, :reply_to]]}],
     # has_one:    [reply_to_post: {[through: [:replied, :reply_to_post]]}],
@@ -239,7 +242,7 @@ config :bonfire_data_social, Activity,
     # has_one:    [reply_to_creator_profile: {[through: [:replied, :reply_to_creator_profile]]}],
     # has_one:    [thread_post: {[through: [:replied, :thread_post]]}],
     # has_one:    [thread_post_content: {[through: [:replied, :thread_post_content]]}],
-    has_one :object_created, unquote(Created), foreign_key: :id
+    # has_one :object_created, unquote(Created), foreign_key: :id
     # has_one:    [object_creator_user: {[through: [:object_created, :creator_user]]}],
     # has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
     # has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
@@ -255,26 +258,7 @@ config :bonfire_data_social, Activity,
       join_keys: [pointer_id: :id, tag_id: :id], on_replace: :delete
   end]
 
-config :bonfire_data_social, Circle,
-  [code: quote do
-    has_one :caretaker, unquote(Caretaker), foreign_key: :id
-    has_one :named, unquote(Named), foreign_key: :id
-  end]
-
-config :bonfire_data_social, Encircle,
-  [code: quote do
-    belongs_to :subject_user, unquote(User), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_character, unquote(Character), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_profile, unquote(Profile), foreign_key: :subject_id, define_field: false
-  end]
-
-config :bonfire_data_social, Edge,
-  [code: quote do
-    belongs_to :subject_character, unquote(Character), foreign_key: :subject_id, define_field: false
-    belongs_to :subject_profile, unquote(Profile), foreign_key: :subject_id, define_field: false
-    belongs_to :object_character, unquote(Character), foreign_key: :object_id,  define_field: false
-    belongs_to :object_profile, unquote(Profile), foreign_key: :object_id,  define_field: false
-  end]
+config :bonfire_data_social, Edge, []
 
 config :bonfire_data_social, Feed,
   [code: quote do
