@@ -4,30 +4,61 @@ _These instructions are for hacking on Bonfire. If you wish to deploy in product
 
 Hello, potential contributor! :-)
 
-This is a work in progress guide to getting up and running as a developer. Please ask questions in the issue tracker if something is not clear.
+This is a work in progress guide to getting up and running as a
+developer. Please ask questions in the issue tracker if something is
+not clear and we'll try to improve it.
 
 Happy hacking!
 
-## Getting set up
+## Status: alpha - have fun but don't run in production.
 
-There are three main options depending on your needs and preferences.
+Bonfire is currently alpha software. While it's fun to play with it,
+we would *absolutely not* recommend running any production instances
+yet because it's just not ready for that today.
 
+<<<<<<< Updated upstream
 Either way, you need to first clone this repository and change into the directory and then do some configuration:
 
 ```sh
 $ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
 $ cd bonfire
 ```
+=======
+The team is working hard on a beta release of bonfire social which
+should be ready in Q1 2022. Other flavours/apps will probably lag
+behind for a while and may not always build cleanly. We recommend
+sticking with bonfire social (aka the 'classic' flavour) for now.
+>>>>>>> Stashed changes
 
-### Configuration
+<!-- ## Picking a flavour -->
 
-- The first thing to do is choosing what flavour of Bonfire you want to hack on (the default is `classic`), as each flavour has its own config.
+<!-- Bonfire is a flexible platform that powers a variety of social -->
+<!-- networks. The first thing you have to choose is which app (or -->
+<!-- "flavour") you want to hack on: -->
 
+<<<<<<< Updated upstream
 For example if you want to run the `cooperation` flavour:
 
 `export FLAVOUR=cooperation`
+=======
+<!-- * Classic ("Bonfire Social", a toot-based social network that interoperates with the fediverse) -->
+<!-- * Cooperation (for building cooperative communities) -->
+<!-- * Reflow (for community economic activities) -->
+<!-- * Haha (for learning new things) -->
 
-- Once you've picked a flavour, run this command to initialise some default config (.env files which won't be checked into git):
+<!-- Note that at the current time, the core team are focusing most of -->
+<!-- their efforts on the classic flavour and this is where we recommend you start. -->
+>>>>>>> Stashed changes
+
+## Configuration
+
+<!-- If you want to hack on another flavour than 'classic' (not recommended -->
+<!-- right now), you must export it in the environment. For example if you -->
+<!-- want to run the `cooperation` flavour: -->
+
+<!-- `export FLAVOUR=cooperation` -->
+
+- Run this command to initialise some default config (.env files which won't be checked into git):
 
 `make pre-config`
 

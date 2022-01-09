@@ -75,16 +75,16 @@ defmodule Bonfire.MixProject do
       "bonfire.seeds": [
         # "phil_columns.seed",
       ],
-      "bonfire.deps.update": ["deps.update " <>deps_to_update()],
-      "bonfire.deps.clean": ["deps.clean " <>deps_to_clean()<>" --build"],
-      "bonfire.deps.recompile": ["deps.compile " <>deps_to_update()<>" --force"],
+      "bonfire.deps.update": ["deps.update " <> deps_to_update()],
+      "bonfire.deps.clean": ["deps.clean " <> deps_to_clean() <> " --build"],
+      "bonfire.deps.recompile": ["deps.compile " <> deps_to_update() <> " --force"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.migrate": ["ecto.migrate", "bonfire.seeds"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.reset": ["ecto.drop --force", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
 

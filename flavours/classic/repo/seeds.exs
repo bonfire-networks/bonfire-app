@@ -6,16 +6,18 @@ import Bonfire.Me.Fake
 System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
 
-%{
-  preferred_username: System.get_env("SEEDS_USER", "root"),
-  name: System.get_env("SEEDS_USER", "Seed User")
-}
-|> fake_user!(%{confirm_email: true})
+# if the user has configured an admin user for the seeds, insert it.
+case {System.get_env("ADMIN_USER", "root"), System.get_env("ADMIN_PASSWORD", "")} do
+  {u,p} when p != "" ->
+    fake_account!(%{credential: %{password: p}})
+    |> fake_user!(%{character: %{username: u}, profile: %{name: u}})
+    |> Bonfire.Me.Users.make_admin()
+  _ -> nil
+end
 
 # create some users
 users = for _ <- 1..3, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
-
 
 # start fake threads
 #for _ <- 1..3 do

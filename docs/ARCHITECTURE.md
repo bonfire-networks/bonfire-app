@@ -35,6 +35,44 @@ Surface is a different syntax for LiveView that is designed to be more convenien
 Some extensions use the [Absinthe](https://absinthe-graphql.org/) GraphQL library to expose an API.
 
 
+## Core Concepts
+
+There are a few things we take for granted in the bonfire ecosystem. Knowing a little about them will make understanding
+the code a lot simpler:
+
+* The pointers system.
+* Our access control system.
+
+## The pointers system
+
+Social networks are essentially graphs. The most important part of them is not any particular piece of content, but how
+that content links to everything else. In reality, social networks are messy heavy interrelated graphs where more or
+less anything can link to more or less anything else. Our database is structured to support the messy realities of the
+social network.
+
+In particular, we need to be able to permit "anything" to link to "anything". We impose a 'universal primary key'
+concept on the database as follows:
+
+* We need a uuid-like universal identifier (we choose the [ulid](https://github.com/ulid/spec) format).
+* We choose which tables will participate in the scheme ("pointables") and record them in the "tables" table.
+* When a record is inserted in a participating table, a "pointer" record is also automatically inserted (by trigger)
+  linking the ID ("pointer id") to the ID of the triggering table ("table id").
+* Any foreign key columns can reference the "pointers" table if they don't know which table it is in.
+
+While this indeed solved the stated problem, it introduced a new one: how do we effectively work with objects if we
+don't know what type they are? Our solution for this comes in two parts:
+
+* Mixin tables.
+* Helper libraries.
+
+Where a pointable table represents an object, a mixin table represents data about an object. It is a collection of
+related fields that may be common to multiple pointables. In essence, they allow you to work with data regardless of
+which pointable you are working with. Mixins have a pointer ID as a primary key, thus each object may only 'use' a mixin once.
+
+A good example of this is our access control mixin, `controlled`, which contains a foreign key to an `acl`. Thus
+`controlled` represents "mixing in" access control to a pointable.
+
+
 ## Code Structure
 
 The code is broadly composed of these namespaces:
