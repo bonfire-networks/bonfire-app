@@ -30,7 +30,7 @@ then
     fi
 
     # merge/rebase local changes
-    git rebase && echo "Publishing changes!" && git push || fail "Please resolve conflicts before continuing." 
+    git rebase origin && echo "Publishing changes!" && git push || fail "Please resolve conflicts before continuing." 
 
 else
     set -e
