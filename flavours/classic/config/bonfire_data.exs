@@ -50,7 +50,7 @@ config :bonfire_data_access_control,
 #### Alias modules for readability
 alias Pointers.{Pointer, Table}
 alias Bonfire.Data.AccessControl.{
-  Access, Acl, Controlled, InstanceAdmin, Grant, Interact, Verb
+  Access, Acl, Controlled, InstanceAdmin, Grant, Interact, Verb, Circle, Encircle
 }
 alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
@@ -58,7 +58,7 @@ alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Self, User, Named
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Circle, Created, Encircle, Feed,
+  Activity, Article, Block, Bookmark, Created, Feed,
   FeedPublish, Inbox, Message, Follow, Boost, Like, Flag, Mention,
   Post, PostContent, Profile, Replied
 }
