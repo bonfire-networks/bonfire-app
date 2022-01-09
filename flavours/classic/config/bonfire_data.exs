@@ -88,8 +88,8 @@ config :pointers, Pointer,
     has_one :circle, unquote(Circle), foreign_key: :id
     has_one :user, unquote(User), foreign_key: :id
     has_one :post, unquote(Post), foreign_key: :id
-    # mixins
     has_one :message, unquote(Message), foreign_key: :id
+    # mixins
     has_one :named, unquote(Named), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_one :controlled, unquote(Controlled), foreign_key: :id
@@ -293,6 +293,11 @@ config :bonfire_data_social, Like,
     has_one :edge, unquote(Edge), foreign_key: :id
   end]
   # has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause
+
+config :bonfire_data_social, Flag,
+  [code: quote do
+    has_one :edge, unquote(Edge), foreign_key: :id
+  end]
 
 config :bonfire_data_social, Bookmark, []
 
