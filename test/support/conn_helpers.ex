@@ -49,7 +49,7 @@ defmodule Bonfire.Test.ConnHelpers do
   def assert_flash_kind(flash, :error) do
     classes = floki_attr(flash, :class)
     assert "alert" in classes
-    assert "alert-danger" in classes
+    assert "alert-error" in classes
   end
 
   def assert_flash_kind(flash, :info) do
