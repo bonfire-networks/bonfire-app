@@ -1,7 +1,7 @@
 import Config
 
 config :bonfire_boundaries,
-  enabled: true
+  disabled: false
 
 config :bonfire,
   verbs: %{

@@ -212,7 +212,7 @@ config :bonfire_data_identity, User,
     has_one  :self, unquote(Self), foreign_key: :id
     has_one  :peered, unquote(Peered), references: :id
     has_many :encircles, unquote(Encircle), foreign_key: :subject_id
-    has_one  :shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id
+    # has_one  :shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id
     has_many :created, unquote(Created), foreign_key: :creator_id
     has_many :creations, through: [:created, :pointer]
     has_many :posts, through: [:created, :post]
@@ -230,9 +230,10 @@ config :bonfire_data_social, Activity,
     @like_ulid   "11KES11KET0BE11KEDY0VKN0WS"
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
+    # has_one :object_created, unquote(Created), foreign_key: :id
     # belongs_to :object_peered, unquote(Peered), foreign_key: :id, define_field: false
     # belongs_to :object_post, unquote(Post), foreign_key: :id, define_field: false
-    # belongs_to: [object_post_content: {PostContent, foreign_key: :id, define_field: false}],
+    # belongs_to :object_post_content, unquote(PostContent), foreign_key: :id, define_field: false
     # belongs_to :object_message, unquote(Message), foreign_key: :id, define_field: false
     has_one :replied, unquote(Replied), foreign_key: :id
     # has_one:    [reply_to: {[through: [:replied, :reply_to]]}],
@@ -242,7 +243,6 @@ config :bonfire_data_social, Activity,
     # has_one:    [reply_to_creator_profile: {[through: [:replied, :reply_to_creator_profile]]}],
     # has_one:    [thread_post: {[through: [:replied, :thread_post]]}],
     # has_one:    [thread_post_content: {[through: [:replied, :thread_post_content]]}],
-    # has_one :object_created, unquote(Created), foreign_key: :id
     # has_one:    [object_creator_user: {[through: [:object_created, :creator_user]]}],
     # has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
     # has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
