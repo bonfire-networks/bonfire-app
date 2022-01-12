@@ -5,7 +5,7 @@ config :bonfire, :ui,
    theme: [
       instance_name: "Bonfire",
       instance_logo: "https://bonfirenetworks.org/img/bonfire.png",
-      instance_image: "https://bonfirenetworks.org/img/logo.png",
+      instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purpose"
    ],
    sidebar_components: [
