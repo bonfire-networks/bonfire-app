@@ -25,6 +25,7 @@ config :bonfire,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
+  default_pagination_limit: 40, # high limit for prod
   localisation_path: "priv/localisation",
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   signing_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
