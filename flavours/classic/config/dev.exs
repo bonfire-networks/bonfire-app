@@ -1,5 +1,8 @@
 import Config
 
+config :bonfire,
+  default_pagination_limit: 5 # low limit so it is easier to test
+
 config :bonfire, Bonfire.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
