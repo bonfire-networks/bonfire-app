@@ -57,7 +57,7 @@ pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
-	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
+	@rm ./data/current_flavour && ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
 	@mkdir -p $(CONFIG_PATH)/prod
 	@mkdir -p $(CONFIG_PATH)/dev
 	@touch $(CONFIG_PATH)/deps.path
@@ -142,7 +142,7 @@ db.rollback.all: mix~"ecto.rollback --all" ## Rollback ALL DB migrations (cautio
 
 #### UPDATE COMMANDS ####
 
-update: init update.app build update.forks mix~deps.get mix~ecto.migrate js.deps.get ## Update the dev app and all dependencies/extensions/forks, and run migrations
+update: init update.repo build update.forks mix.remote~updates mix~deps.get mix~ecto.migrate js.deps.get ## Update the dev app and all dependencies/extensions/forks, and run migrations
 
 update.app: update.repo ## Update the app and Bonfire extensions in ./deps
 	@make --no-print-directory mix.remote~updates 
