@@ -93,10 +93,11 @@ defmodule Bonfire.Web.Endpoint do
       static_path("/js/bonfire_basic.js")
     end
 
-    if Config.get!(:env) == :dev do
-      "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/bonfire.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script>"
-    else
+    # if Config.get!(:env) == :dev do
+    #   "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/bonfire.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script>"
+    # else
+      (PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string) <>
       "<link phx-track-static rel='stylesheet' href='"<> static_path("/css/bonfire.css") <>"'/> <script defer phx-track-static crossorigin='anonymous' src='"<> js <>"'></script> "
-    end
+    # end
   end
 end
