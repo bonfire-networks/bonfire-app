@@ -40,6 +40,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   pubsub_server: Bonfire.PubSub
 
 config :phoenix, :json_library, Jason
+config :phoenix_gon, :json_library, Jason
 
 config :bonfire, :ecto_repos, [Bonfire.Repo]
 config :bonfire, Bonfire.Repo,
