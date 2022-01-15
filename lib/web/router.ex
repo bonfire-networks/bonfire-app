@@ -14,7 +14,7 @@ defmodule Bonfire.Web.Router do
     plug :accepts, ["html", "activity+json"]
     plug :fetch_session
     plug PhoenixGon.Pipeline,
-      assets: Map.new(Config.get!(:js_config))
+      assets: Map.new(Config.get(:js_config, []))
     plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
     plug Cldr.Plug.SetLocale,
       default: Bonfire.Web.Localise.default_locale,
