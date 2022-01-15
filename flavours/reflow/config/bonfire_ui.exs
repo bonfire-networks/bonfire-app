@@ -10,8 +10,7 @@ config :bonfire, :ui,
    ],
    sidebar_components: [
       {Bonfire.UI.Reflow.SidebarNavigationLive, []},
-      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
+      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
    ],
    smart_input: [
       post: false,
