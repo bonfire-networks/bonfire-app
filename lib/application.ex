@@ -42,8 +42,6 @@ defmodule Bonfire.Application do
       Bonfire.Common.ContextModules,
       Bonfire.Common.QueryModules,
       Bonfire.Federate.ActivityPub.FederationModules,
-      Bonfire.Data.AccessControl.Verbs,
-      Bonfire.Data.AccessControl.Accesses,
       # Stuff that uses all the above
       Bonfire.Web.Endpoint,                       # Web app
       {Oban, Application.fetch_env!(:bonfire, Oban)} # Job Queue
