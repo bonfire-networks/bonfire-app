@@ -44,7 +44,7 @@ config :bonfire,
   grants: %{
     guests_may_see:      %{guest: [:read, :see]},
     locals_may_interact: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow]},
-    locals_may_interact: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
+    locals_may_reply: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
   }
 
 
@@ -56,7 +56,7 @@ config :bonfire,
 # * public and interactable, but only replyable by people on my instance
 # * public read only, interactions and replies from people on my instance
 # * public read only, interactions and replies from people on my instance and my followers
-# * friends only: 
+# * friends only:
 
 alias Bonfire.Me.Users
 
@@ -87,4 +87,3 @@ config :bonfire_me, Users,
     },
     always: [:blocked],
   }
-
