@@ -33,7 +33,7 @@ then
     # git rebase origin
     git pull --rebase && echo "Publishing changes!" || fail "Please resolve conflicts before continuing." 
 
-    if [[ $2 != 'pull' && $2 == 'maybe-pull' ]] 
+    if [[ $3 != 'only' ]] 
     then
         git push
     fi
