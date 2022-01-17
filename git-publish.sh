@@ -31,7 +31,12 @@ then
 
     # merge/rebase local changes
     # git rebase origin
-    git pull --rebase && echo "Publishing changes!" && git push || fail "Please resolve conflicts before continuing." 
+    git pull --rebase && echo "Publishing changes!" || fail "Please resolve conflicts before continuing." 
+
+    if [[ $3 != 'only' ]] 
+    then
+        git push
+    fi
 
 else
     set -e

@@ -216,3 +216,7 @@ if Code.ensure_loaded?(Livebook.Config) do
           {Livebook.Runtime.Embedded, []}
 
 end
+
+# copy pasted config from extensions that needs to load at runtime
+config :bonfire, :js_config,
+  mapbox_api_key: System.get_env("MAPBOX_API_KEY", "pk.eyJ1IjoibWF5ZWwiLCJhIjoiY2tlMmxzNXF5MGFpaDJ0bzR2M29id2EzOCJ9.QsmjD-zypsE0_wonLGCYlA")

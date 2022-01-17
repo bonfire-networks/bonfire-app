@@ -3,15 +3,15 @@ import Config
 
 config :bonfire, :ui,
    theme: [
-      instance_name: "Amsterdam pilot",
+      instance_name: "Reflow Demo",
       instance_logo: "https://reflowproject.eu/wp-content/themes/reflow/images/logoWhite.svg",
       instance_image: "https://reflowproject.eu/wp-content/uploads/2020/06/reflow-blog-1600x900.jpg",
-      instance_description: "This is a Reflow demo instance of the Amsterdam pilot"
+      instance_description: "This is a Reflow demo instance"
    ],
    sidebar_components: [
+      {Bonfire.UI.Social.SidebarNavigationLive, []},
       {Bonfire.UI.Reflow.SidebarNavigationLive, []},
-      {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Task Lists", process_url: "/list/"]}
+      # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
    ],
    smart_input: [
       post: false,
@@ -53,7 +53,7 @@ config :bonfire, :ui,
       economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
       intent: Bonfire.UI.ValueFlows.CreateIntentLive,
       process: Bonfire.UI.ValueFlows.CreateProcessLive,
- 
+
    ],
    resource: [
       navigation: [

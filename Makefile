@@ -150,6 +150,9 @@ update.app: update.repo ## Update the app and Bonfire extensions in ./deps
 update.repo:
 	@chmod +x git-publish.sh && ./git-publish.sh . pull
 
+update.repo.pull:
+	@chmod +x git-publish.sh && ./git-publish.sh . pull only
+
 update.deps.bonfire: init mix.remote~bonfire.deps ## Update to the latest Bonfire extensions in ./deps 
 
 update.deps.all: ## Update evey single dependency (use with caution)
@@ -362,7 +365,7 @@ rel.run.bg: rel.env init docker.stop.web ## Run the app in Docker, and keep runn
 rel.stop: rel.env ## Stop the running release
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) stop
 
-rel.update: rel.env update.repo
+rel.update: rel.env update.repo.pull
 	@docker-compose -p $(APP_REL_CONTAINER) -f $(APP_REL_DOCKERCOMPOSE) pull
 	@echo Remember to run migrations on your DB...
 

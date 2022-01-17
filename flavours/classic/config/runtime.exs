@@ -49,6 +49,7 @@ config :bonfire,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   github_token: System.get_env("GITHUB_TOKEN"),
+  show_debug_errors_in_dev: System.get_env("SHOW_DEBUG_IN_DEV"),
   encryption_salt: encryption_salt,
   signing_salt: signing_salt
 
