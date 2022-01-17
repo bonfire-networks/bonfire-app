@@ -57,7 +57,7 @@ pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
-	@rm ./data/current_flavour && ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
+	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
 	@mkdir -p $(CONFIG_PATH)/prod
 	@mkdir -p $(CONFIG_PATH)/dev
 	@touch $(CONFIG_PATH)/deps.path
@@ -98,7 +98,7 @@ dev.run:
 ifeq ($(WITH_DOCKER), total)
 	@make --no-print-directory docker.stop.web 
 	docker-compose run --name $(WEB_CONTAINER) --service-ports web
-	# docker-compose --verbose run --name $(WEB_CONTAINER) --service-ports web
+#	docker-compose --verbose run --name $(WEB_CONTAINER) --service-ports web
 else
 	iex -S mix phx.server
 endif
@@ -142,7 +142,7 @@ db.rollback.all: mix~"ecto.rollback --all" ## Rollback ALL DB migrations (cautio
 
 #### UPDATE COMMANDS ####
 
-update: init update.repo build update.forks mix.remote~updates mix~deps.get mix~ecto.migrate js.deps.get ## Update the dev app and all dependencies/extensions/forks, and run migrations
+update: init update.app build update.forks mix~deps.get mix~ecto.migrate js.deps.get ## Update the dev app and all dependencies/extensions/forks, and run migrations
 
 update.app: update.repo ## Update the app and Bonfire extensions in ./deps
 	@make --no-print-directory mix.remote~updates 
@@ -151,7 +151,7 @@ update.repo:
 	@chmod +x git-publish.sh && ./git-publish.sh . pull
 
 update.deps.bonfire: init mix.remote~bonfire.deps ## Update to the latest Bonfire extensions in ./deps 
-	
+
 update.deps.all: ## Update evey single dependency (use with caution)
 	@make --no-print-directory update.dep~"--all"
 
@@ -219,7 +219,7 @@ dep.go.hex: ## Switch to using a library from hex.pm, eg: make dep.go.hex dep="p
 	@make --no-print-directory dep.local~disable dep=$(dep) path=""
 
 dep.hex~%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep.hex.enable dep=pointers version="~> 0.2"
-	@make --no-print-directory messctl args="$* $(dep) $(version) 
+	@make --no-print-directory messctl args="$* $(dep) $(version)"
 
 dep.git~%: ## add/enable/disable/delete a git dep with messctl command, eg: `make dep.hex.enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
 	@make --no-print-directory messctl args="$* $(dep) $(repo) config/deps.git"
