@@ -24,13 +24,19 @@ then
     # if there are changes, commit them (needed before being able to rebase)
     git diff-index --quiet HEAD || git commit --verbose --all || echo Skipped...
 
-    if [[ $2 == 'pull' ]] 
-    then
-        git fetch
-    fi
+    # if [[ $2 == 'pull' ]] 
+    # then
+    #     git fetch
+    # fi
 
     # merge/rebase local changes
-    git rebase origin && echo "Publishing changes!" && git push || fail "Please resolve conflicts before continuing." 
+    # git rebase origin
+    git pull --rebase && echo "Publishing changes!" || fail "Please resolve conflicts before continuing." 
+
+    if [[ $2 != 'pull' && $2 == 'maybe-pull' ]] 
+    then
+        git push
+    fi
 
 else
     set -e
@@ -44,6 +50,7 @@ else
     if [[ $2 == 'maybe-pull' ]] 
     then
         # if jungle is available and we assume fetches were already done
-        command -v jungle || git pull --rebase || fail "Please resolve conflicts before continuing." 
+        # command -v jungle || 
+        git pull --rebase || fail "Please resolve conflicts before continuing." 
     fi
 fi
