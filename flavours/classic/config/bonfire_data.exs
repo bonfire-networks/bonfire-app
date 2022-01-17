@@ -245,7 +245,7 @@ config :bonfire_data_social, Activity,
     # belongs_to :object_post, unquote(Post), foreign_key: :id, define_field: false
     # belongs_to :object_post_content, unquote(PostContent), foreign_key: :id, define_field: false
     # belongs_to :object_message, unquote(Message), foreign_key: :id, define_field: false
-    has_one :replied, unquote(Replied), foreign_key: :id
+    has_one :replied, unquote(Replied), foreign_key: :id, references: :object_id
     # has_one:    [reply_to: {[through: [:replied, :reply_to]]}],
     # has_one:    [reply_to_post: {[through: [:replied, :reply_to_post]]}],
     # has_one:    [reply_to_post_content: {[through: [:replied, :reply_to_post_content]]}],
@@ -267,7 +267,7 @@ config :bonfire_data_social, Activity,
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     many_to_many :tags, Bonfire.Tag,
       join_through: "bonfire_tagged", unique: true,
-      join_keys: [pointer_id: :id, tag_id: :id], on_replace: :delete
+      join_keys: [pointer_id: :object_id, tag_id: :id], on_replace: :delete
   end]
 
 config :bonfire_data_social, Edge, []
