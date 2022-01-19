@@ -39,6 +39,7 @@ defmodule Bonfire.Application do
       {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]}, # PubSub
       # Persistent Data Services
       Pointers.Tables,
+      # Bonfire.Data.AccessControl.Accesses,
       Bonfire.Common.ContextModules,
       Bonfire.Common.QueryModules,
       Bonfire.Federate.ActivityPub.FederationModules,
