@@ -376,8 +376,8 @@ config :bonfire_data_social, Post,
 
 config :bonfire_data_social, PostContent,
   [code: quote do
-    field :hashtags, :array, virtual: true
-    field :mentions, :array, virtual: true
+    field :hashtags, {:array, :any}, virtual: true
+    field :mentions, {:array, :any}, virtual: true
   end]
 
 config :bonfire_data_social, Replied,
