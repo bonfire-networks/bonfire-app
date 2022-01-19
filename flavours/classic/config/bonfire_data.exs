@@ -266,7 +266,12 @@ config :bonfire_data_social, Activity,
       join_keys: [pointer_id: :object_id, tag_id: :id], on_replace: :delete
   end]
 
-config :bonfire_data_social, Edge, []
+config :bonfire_data_social, Edge,
+  [code: quote do
+    # TODO: requires composite foreign keys
+    # has_one :activity, unquote(Activity),
+    #   foreign_key: [:table_id, :object_id], references: [:table_id, :object_id]
+  end]
 
 config :bonfire_data_social, Feed,
   [code: quote do
