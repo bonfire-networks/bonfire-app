@@ -35,16 +35,16 @@ config :bonfire,
     locals_may_interact: %{id: "710CA1SMY1NTERACTN0TREP1YY", name: "Locals may interact"},
     locals_may_reply:    %{id: "710CA1SMY1NTERACTANDREP1YY", name: "Locals may Interact and Reply"},
     ### stereotypes - access levels
-    i_may_see:        %{id: "71MAYSEEANDREADMY0WNSTVFFS"},
-    i_may_interact:   %{id: "71MAY1NTERACTW1MY0WNSTVFFS"},
-    i_may_administer: %{id: "71MAYADM1N1STERMY0WNSTVFFS"},
+    i_may_see:           %{id: "71MAYSEEANDREADMY0WNSTVFFS"},
+    i_may_interact:      %{id: "71MAY1NTERACTW1MY0WNSTVFFS"},
+    i_may_administer:    %{id: "71MAYADM1N1STERMY0WNSTVFFS"},
     ### stereotypes - always mix in
-    blocked:          %{id: "7AC0MPVTERBESAY1NGN0THANKS"},
+    blocked:             %{id: "7AC0MPVTERBESAY1NGN0THANKS"},
   },
   grants: %{
     guests_may_see:      %{guest: [:read, :see]},
     locals_may_interact: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow]},
-    locals_may_reply: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
+    locals_may_reply:    %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
   }
 
 
@@ -72,7 +72,7 @@ config :bonfire_me, Users,
       i_may_see:        %{stereotype: :i_may_see},
       i_may_interact:   %{stereotype: :i_may_interact},
       i_may_administer: %{stereotype: :i_may_administer},
-      blocked:          %{name: "Blocked", stereotype: :blocked},
+      blocked:          %{stereotype: :blocked, name: "Blocked"},
     },
     grants: %{
       i_may_see:        %{SELF:  [:read, :see]},
