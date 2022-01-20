@@ -371,6 +371,11 @@ config :bonfire_data_social, Post,
       references: :id, where: [table_id: @like_ulid]
     has_one :boost_count, unquote(EdgeTotal), foreign_key: :id,
       references: :id, where: [table_id: @boost_ulid]
+    many_to_many :tags, unquote(Bonfire.Tag),
+      join_through: "bonfire_tagged",
+      unique: true,
+      join_keys: [pointer_id: :id, tag_id: :id],
+      on_replace: :delete
   end]
 
 
