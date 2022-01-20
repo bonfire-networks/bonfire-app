@@ -64,6 +64,7 @@ alias Bonfire.Data.Social.{
 alias Bonfire.Classify.Category
 alias Bonfire.Geolocate.Geolocation
 alias Bonfire.Files.Media
+alias Bonfire.{Tag, Tag.Tagged}
 
 #### Flexto Stitching
 
@@ -110,10 +111,11 @@ config :pointers, Pointer,
     has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     # add references of tags to any tagged Pointer
-    many_to_many :tags, unquote(Bonfire.Tag),
+    has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
+    many_to_many :tags, unquote(Tag),
       join_through: "bonfire_tagged",
       unique: true,
-      join_keys: [pointer_id: :id, tag_id: :id],
+      join_keys: [id: :id, tag_id: :id],
       on_replace: :delete
   end]
 
@@ -267,7 +269,7 @@ config :bonfire_data_social, Activity,
     has_one :follow_count, unquote(EdgeTotal), foreign_key: :id, references: :object_id, where: [table_id: @follow_ulid]
     many_to_many :tags, Bonfire.Tag,
       join_through: "bonfire_tagged", unique: true,
-      join_keys: [pointer_id: :object_id, tag_id: :id], on_replace: :delete
+      join_keys: [id: :object_id, tag_id: :id], on_replace: :delete
   end]
 
 config :bonfire_data_social, Edge,
@@ -374,7 +376,7 @@ config :bonfire_data_social, Post,
     many_to_many :tags, unquote(Bonfire.Tag),
       join_through: "bonfire_tagged",
       unique: true,
-      join_keys: [pointer_id: :id, tag_id: :id],
+      join_keys: [id: :id, tag_id: :id],
       on_replace: :delete
   end]
 
@@ -452,7 +454,7 @@ config :bonfire_classify, Category,
     many_to_many :tags, unquote(Bonfire.Tag),
       join_through: "bonfire_tagged",
       unique: true,
-      join_keys: [tag_id: :id, pointer_id: :id],
+      join_keys: [tag_id: :id, id: :id],
       on_replace: :delete
   end]
 
