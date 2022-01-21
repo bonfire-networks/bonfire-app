@@ -58,7 +58,7 @@ alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Named, Self, Stereotype, User,
 }
 alias Bonfire.Data.Social.{
-  Activity, Article, Block, Bookmark, Created, Feed, FeedPublish, Inbox, Message, Follow,
+  Activity, Article, Block, Bookmark, Created, Feed, FeedPublish, Message, Follow,
   Boost, Like, Flag, Mention, Post, PostContent, Profile, Replied,
 }
 alias Bonfire.Classify.Category
@@ -173,7 +173,6 @@ config :bonfire_data_identity, Account,
   [code: quote do
     has_one :credential, unquote(Credential),foreign_key: :id
     has_one :email, unquote(Email), foreign_key: :id
-    has_one :inbox, unquote(Inbox), foreign_key: :id
     many_to_many :users, unquote(User),
       join_through: "bonfire_data_identity_accounted",
       join_keys: [account_id: :id, id: :id]
@@ -197,7 +196,6 @@ config :bonfire_data_identity, Character,
     has_one :profile, unquote(Profile), foreign_key: :id
     has_one :user, unquote(User), foreign_key: :id
     has_one :feed, unquote(Feed), foreign_key: :id
-    has_one :inbox, unquote(Inbox), foreign_key: :id
     has_many :followers, unquote(Follow), foreign_key: :following_id, references: :id
     has_many :followed, unquote(Follow), foreign_key: :follower_id, references: :id
     has_one :follow_count, unquote(EdgeTotal),
