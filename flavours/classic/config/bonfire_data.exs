@@ -113,7 +113,7 @@ config :pointers, Pointer,
     # add references of tags to any tagged Pointer
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
     many_to_many :tags, unquote(Tag),
-      join_through: "bonfire_tagged",
+      join_through: unquote(Tagged),
       unique: true,
       join_keys: [id: :id, tag_id: :id],
       on_replace: :delete
@@ -373,8 +373,9 @@ config :bonfire_data_social, Post,
       references: :id, where: [table_id: @like_ulid]
     has_one :boost_count, unquote(EdgeTotal), foreign_key: :id,
       references: :id, where: [table_id: @boost_ulid]
-    many_to_many :tags, unquote(Bonfire.Tag),
-      join_through: "bonfire_tagged",
+    has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
+    many_to_many :tags, unquote(Tag),
+      join_through: unquote(Tagged),
       unique: true,
       join_keys: [id: :id, tag_id: :id],
       on_replace: :delete
@@ -383,8 +384,8 @@ config :bonfire_data_social, Post,
 
 config :bonfire_data_social, PostContent,
   [code: quote do
-    field :hashtags, {:array, :any}, virtual: true
-    field :mentions, {:array, :any}, virtual: true
+    field :hashtags, {:array, :any}, virtual: true # used in changesets
+    field :mentions, {:array, :any}, virtual: true # used in changesets
   end]
 
 config :bonfire_data_social, Replied,
@@ -395,6 +396,7 @@ config :bonfire_data_social, Replied,
     belongs_to :post_content,unquote(PostContent), foreign_key: :id, define_field: false
     has_many :activities, unquote(Activity), foreign_key: :object_id, references: :id
     has_one :activity, unquote(Activity), foreign_key: :object_id, references: :id
+    field :replying_to, :map, virtual: true # used in changesets
     has_one :reply_to_post, unquote(Post), foreign_key: :id, references: :reply_to_id
     has_one :reply_to_post_content, unquote(PostContent), foreign_key: :id, references: :reply_to_id
     has_one :reply_to_created, unquote(Created), foreign_key: :id, references: :reply_to_id
