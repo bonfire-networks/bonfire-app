@@ -85,5 +85,6 @@ config :bonfire_me, Users,
       # may add more depending on whether the user is local or remote.
       SELF: [:i_may_administer]
     },
+    # these are acls that we should always mix in. which we don't yet.
     always: [:blocked],
   }
