@@ -198,7 +198,6 @@ config :bonfire_data_identity, Character,
     has_one :user, unquote(User), foreign_key: :id
     has_one :feed, unquote(Feed), foreign_key: :id
     has_one :inbox, unquote(Inbox), foreign_key: :id
-    has_many :feed_publishes, unquote(FeedPublish), references: :id, foreign_key: :feed_id
     has_many :followers, unquote(Follow), foreign_key: :following_id, references: :id
     has_many :followed, unquote(Follow), foreign_key: :follower_id, references: :id
     has_one :follow_count, unquote(EdgeTotal),
@@ -282,6 +281,7 @@ config :bonfire_data_social, Activity,
       references: :id, where: [table_id: @follow_ulid]
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
+    has_many :feed_publishes, unquote(FeedPublish), references: :id, foreign_key: :feed_id
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
