@@ -89,6 +89,8 @@ config :pointers, Pointer,
     has_one :user, unquote(User), foreign_key: :id
     has_one :post, unquote(Post), foreign_key: :id
     has_one :message, unquote(Message), foreign_key: :id
+    has_one :category, unquote(Category), references: :id, foreign_key: :id
+    has_one :geolocation, unquote(Geolocation), references: :id, foreign_key: :id
     # mixins
     has_one :stereotype, unquote(Stereotype), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
@@ -112,7 +114,7 @@ config :pointers, Pointer,
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     # add references of tags to any tagged Pointer
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
-    many_to_many :tags, unquote(Tag),
+    many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
       join_keys: [id: :id, tag_id: :id],
@@ -272,7 +274,7 @@ config :bonfire_data_social, Activity,
       references: :id, where: [table_id: @follow_ulid]
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
-    many_to_many :tags, unquote(Tag),
+    many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
       join_keys: [id: :object_id, tag_id: :id],
@@ -381,7 +383,7 @@ config :bonfire_data_social, Post,
     has_one :boost_count, unquote(EdgeTotal), foreign_key: :id,
       references: :id, where: [table_id: @boost_ulid]
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
-    many_to_many :tags, unquote(Tag),
+    many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
       join_keys: [id: :id, tag_id: :id],
@@ -438,30 +440,12 @@ config :bonfire_data_social, Profile,
 
 ######### other extensions
 
-# optional mixin relations for tags that are characters (eg Category) or any other type of objects
-config :bonfire_tag, Bonfire.Tag,
-  [code: quote do
-    @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-    # for objects that are follow-able and can federate activities
-    has_one :character, unquote(Character), references: :id, foreign_key: :id
-    has_one :peered, unquote(Peered), references: :id, foreign_key: :id
-    # has_one: [actor:        {Bonfire.Data.ActivityPub.Actor,     references: :id, foreign_key: :id}],
-    # name/description
-    has_one :profile, unquote(Profile), references: :id, foreign_key: :id
-    # for taxonomy categories/topics
-    has_one :category, unquote(Category), references: :id, foreign_key: :id
-    # for locations
-    has_one :geolocation, unquote(Geolocation), references: :id, foreign_key: :id
-    has_one :like_count, unquote(EdgeTotal), foreign_key: :id, references: :id, where: [table_id: @like_ulid]
-    # has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-  end]
-
 # add references of tagged objects to any Category
 config :bonfire_classify, Category,
   [code: quote do
     # has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-    many_to_many :tags, unquote(Bonfire.Tag),
-      join_through: "bonfire_tagged",
+    many_to_many :tags, unquote(Pointer),
+      join_through: unquote(Tagged),
       unique: true,
       join_keys: [tag_id: :id, id: :id],
       on_replace: :delete
