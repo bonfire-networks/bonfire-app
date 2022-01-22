@@ -80,7 +80,7 @@ config :bonfire_me, Users,
       i_may_administer: %{SELF:  [:read, :see, :edit, :delete]},
       blocked:          %{blocked: blocked},
     },
-    encircles: %{
+    controlleds: %{
       # by default, we may administer ourselves. within contexts, we
       # may add more depending on whether the user is local or remote.
       SELF: [:i_may_administer]
