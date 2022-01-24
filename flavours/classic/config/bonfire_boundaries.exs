@@ -83,7 +83,7 @@ config :bonfire_me, Users,
     controlleds: %{
       # by default, we may administer ourselves. within contexts, we
       # may add more depending on whether the user is local or remote.
-      SELF: [:i_may_administer]
+      SELF: [:guests_may_see, :locals_may_interact, :i_may_administer]
     },
     # these are acls that we should always mix in. which we don't yet.
     always: [:blocked],
