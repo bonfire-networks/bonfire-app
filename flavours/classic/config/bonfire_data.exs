@@ -285,16 +285,14 @@ config :bonfire_data_social, Edge,
 
 config :bonfire_data_social, Feed,
   [code: quote do
-    belongs_to :character, unquote(Character), foreign_key: :id, define_field: false
-    belongs_to :user, unquote(User), foreign_key: :id, define_field: false
+    # belongs_to :character, unquote(Character), foreign_key: :id, define_field: false
+    # belongs_to :user, unquote(User), foreign_key: :id, define_field: false
   end]
 
 config :bonfire_data_social, FeedPublish, []
 
 config :bonfire_data_social, Follow,
   [code: quote do
-    has_one :edge, unquote(Edge), foreign_key: :id
-    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
   end]
   # belongs_to: [follower_character: {Character, foreign_key: :follower_id, define_field: false}],
   # belongs_to: [follower_profile: {Profile, foreign_key: :follower_id, define_field: false}],
