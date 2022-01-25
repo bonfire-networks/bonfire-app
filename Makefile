@@ -246,7 +246,7 @@ endif
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
-contrib.forks: contrib.forks.publish contrib.app.up ## Push all changes to the app and extensions in ./forks
+contrib.forks: contrib.forks.publish git.publish ## Push all changes to the app and extensions in ./forks
 
 contrib.release: contrib.forks.publish contrib.app.release ## Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
 
