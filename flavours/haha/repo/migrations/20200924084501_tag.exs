@@ -6,6 +6,6 @@ defmodule Bonfire.Repo.Migrations.Tag do
   end
 
   def down do
-    Bonfire.Tag.Migrations.up()
+    Bonfire.Tag.Migrations.down()
   end
 end
