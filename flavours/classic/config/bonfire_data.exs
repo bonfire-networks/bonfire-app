@@ -280,7 +280,8 @@ config :bonfire_data_social, Activity,
     has_one :boost_count, unquote(EdgeTotal), foreign_key: :id, references: :object_id, where: [table_id: @boost_ulid]
     has_one :follow_count, unquote(EdgeTotal), foreign_key: :id, references: :object_id, where: [table_id: @follow_ulid]
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-    has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
+    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :object_id
+    has_many :tagged, unquote(Tagged), foreign_key: :id, references: :object_id
     has_many :feed_publishes, unquote(FeedPublish), references: :id, foreign_key: :activity_id
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
@@ -352,10 +353,10 @@ config :bonfire_data_social, Message,
     has_one  :activity, unquote(Activity), foreign_key: :object_id,
       references: :id # requires an ON clause
     has_one  :replied, unquote(Replied), foreign_key: :id
-    has_one :like_count, unquote(EdgeTotal), foreign_key: :id,
-      references: :id, where: [table_id: @like_ulid]
-    has_one :boost_count, unquote(EdgeTotal), foreign_key: :id,
-      references: :id, where: [table_id: @boost_ulid]
+    has_one :like_count, unquote(EdgeTotal),
+      foreign_key: :id, references: :id, where: [table_id: @like_ulid]
+    has_one :boost_count, unquote(EdgeTotal),
+      foreign_key: :id, references: :id, where: [table_id: @boost_ulid]
     has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
@@ -387,10 +388,10 @@ config :bonfire_data_social, Post,
     # has_one:  [thread_post: {[through: [:replied, :thread_post]]}],
     # has_one:  [thread_post_content: {[through: [:replied, :thread_post_content]]}],
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-    has_one :like_count, unquote(EdgeTotal), foreign_key: :id,
-      references: :id, where: [table_id: @like_ulid]
-    has_one :boost_count, unquote(EdgeTotal), foreign_key: :id,
-      references: :id, where: [table_id: @boost_ulid]
+    has_one :like_count, unquote(EdgeTotal),
+      foreign_key: :id, references: :id, where: [table_id: @like_ulid]
+    has_one :boost_count, unquote(EdgeTotal),
+      foreign_key: :id, references: :id, where: [table_id: @boost_ulid]
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
@@ -426,10 +427,10 @@ config :bonfire_data_social, Replied,
     has_one :thread_post, unquote(Post), foreign_key: :id, references: :thread_id
     has_one :thread_post_content, unquote(PostContent), foreign_key: :id, references: :thread_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-    has_one :like_count, unquote(EdgeTotal), foreign_key: :id,
-      references: :id, where: [table_id: @like_ulid]
-    has_one :boost_count, unquote(EdgeTotal), foreign_key: :id,
-      references: :id, where: [table_id: @boost_ulid]
+    has_one :like_count, unquote(EdgeTotal),
+      foreign_key: :id, references: :id, where: [table_id: @like_ulid]
+    has_one :boost_count, unquote(EdgeTotal),
+      foreign_key: :id, references: :id, where: [table_id: @boost_ulid]
   end]
 
 config :bonfire_data_social, Created,
