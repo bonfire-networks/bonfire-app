@@ -85,21 +85,21 @@ defmodule Bonfire.Web.Router do
   ## Below you can define routes specific to your flavour of Bonfire (which aren't handled by extensions)
 
   # pages anyone can view
-  scope "/", Bonfire do
+  scope "/" do
     pipe_through :browser
 
-    live "/", Web.HomeLive, as: :home
+    live "/", Bonfire.Web.HomeLive, as: :home
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
     # live "/", Website.HomeGuestLive, as: :landing
     # live "/home", Web.HomeLive, as: :home
 
-    live "/error", Common.Web.ErrorLive
+    live "/error", Bonfire.Common.Web.ErrorLive
 
   end
 
   # pages only guests can view
-  scope "/", Bonfire.Me.Web do
+  scope "/", Bonfire do
     pipe_through :browser
     pipe_through :guest_only
   end

@@ -2,7 +2,6 @@ defmodule Bonfire.Web.HomeLive do
   use Bonfire.Web, {:surface_view, [layout: {Bonfire.UI.Social.Web.LayoutView, "without_sidebar.html"}]}
 
   alias Bonfire.Web.LivePlugs
-  import Bonfire.Web.Gettext
 
   def mount(params, session, socket) do
     LivePlugs.live_plug params, session, socket, [

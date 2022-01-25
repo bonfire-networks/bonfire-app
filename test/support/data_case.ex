@@ -27,6 +27,7 @@ defmodule Bonfire.DataCase do
       import Bonfire.Test.FakeHelpers
       import Bonfire.Me.Fake
       alias Bonfire.Me.Fake
+      use Bonfire.Common.Utils
 
     end
   end

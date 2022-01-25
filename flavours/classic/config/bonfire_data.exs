@@ -77,6 +77,16 @@ alias Bonfire.{Tag, Tag.Tagged}
 ## Note: This does not apply to configuration for
 ## `Pointers.Changesets`, which is read at runtime, not compile time
 
+edge = quote do
+  has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+  has_many :activities, unquote(Activity), foreign_key: :object_id, references: :id
+end
+edges = quote do
+  unquote(edge)
+  # has_one :edge, unquote(Edge), foreign_key: :id
+  has_one  :activity, unquote(Activity), foreign_key: :object_id, references: :id # requires an ON clause
+end
+
 # first up, pointers could have all the mixins we're using. TODO
 
 config :pointers, Pointer,
@@ -95,6 +105,7 @@ config :pointers, Pointer,
     has_one :stereotype, unquote(Stereotype), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
+    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_one :created, unquote(Created), foreign_key: :id
     has_one :peered, unquote(Peered), foreign_key: :id, references: :id
     has_one :activity, unquote(Activity), foreign_key: :object_id, references: :id
@@ -104,14 +115,16 @@ config :pointers, Pointer,
     has_one :character, unquote(Character), foreign_key: :id
     has_one :actor, unquote(Actor), foreign_key: :id
     has_one :edge, unquote(Edge), foreign_key: :id
+
     has_one :like_count, unquote(EdgeTotal),
       foreign_key: :id, references: :id, where: [table_id: @like_ulid]
     has_one :boost_count, unquote(EdgeTotal),
       foreign_key: :id, references: :id, where: [table_id: @boost_ulid]
     has_one :follow_count, unquote(EdgeTotal),
       foreign_key: :id, references: :id, where: [table_id: @follow_ulid]
+
     has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
-    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+
     # add references of tags to any tagged Pointer
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
     many_to_many :tags, unquote(Pointer),
@@ -278,7 +291,8 @@ config :bonfire_data_social, Activity,
 
 config :bonfire_data_social, Edge,
   [code: quote do
-    # TODO: requires composite foreign keys
+    unquote(edge)
+    # TODO: requires composite foreign keys:
     # has_one :activity, unquote(Activity),
     #   foreign_key: [:table_id, :object_id], references: [:table_id, :object_id]
   end]
@@ -293,6 +307,7 @@ config :bonfire_data_social, FeedPublish, []
 
 config :bonfire_data_social, Follow,
   [code: quote do
+    unquote(edges)
   end]
   # belongs_to: [follower_character: {Character, foreign_key: :follower_id, define_field: false}],
   # belongs_to: [follower_profile: {Profile, foreign_key: :follower_id, define_field: false}],
@@ -301,31 +316,30 @@ config :bonfire_data_social, Follow,
 
 config :bonfire_data_social, Block,
   [code: quote do
-    has_one :edge, unquote(Edge), foreign_key: :id
-    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    unquote(edges)
   end]
 
 config :bonfire_data_social, Boost,
   [code: quote do
-    has_one :edge, unquote(Edge), foreign_key: :id
-    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    unquote(edges)
   end]
   # has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
 
 config :bonfire_data_social, Like,
   [code: quote do
-    has_one :edge, unquote(Edge), foreign_key: :id
-    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    unquote(edges)
   end]
   # has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause
 
 config :bonfire_data_social, Flag,
   [code: quote do
-    has_one :edge, unquote(Edge), foreign_key: :id
-    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    unquote(edges)
   end]
 
-config :bonfire_data_social, Bookmark, []
+config :bonfire_data_social, Bookmark,
+  [code: quote do
+    unquote(edges)
+  end]
 
 config :bonfire_data_social, Message,
   [code: quote do
@@ -344,6 +358,7 @@ config :bonfire_data_social, Message,
       references: :id, where: [table_id: @boost_ulid]
     has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    has_one :caretaker, unquote(Caretaker), foreign_key: :id
   end]
 
 config :bonfire_data_social, Mention, []
