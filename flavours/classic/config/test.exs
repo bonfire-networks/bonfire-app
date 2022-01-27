@@ -6,6 +6,7 @@ import_config "activity_pub_test.exs"
 
 config :bonfire,
   default_pagination_limit: 10, # should match limit hardcoded in tests
+  thread_default_pagination_limit: 10, # should match limit hardcoded in tests
   skip_all_boundary_checks: false
 
 config :bonfire, Bonfire.Mailer, adapter: Bamboo.TestAdapter
