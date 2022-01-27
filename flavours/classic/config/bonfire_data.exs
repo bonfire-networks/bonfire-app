@@ -368,6 +368,12 @@ config :bonfire_data_social, Message,
     has_many :direct_replies, unquote(Replied), foreign_key: :reply_to_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
+    has_many :tagged, unquote(Tagged), foreign_key: :id, references: :id
+    many_to_many :tags, unquote(Pointer),
+      join_through: unquote(Tagged),
+      unique: true,
+      join_keys: [id: :id, tag_id: :id],
+      on_replace: :delete
   end]
 
 config :bonfire_data_social, Mention, []
