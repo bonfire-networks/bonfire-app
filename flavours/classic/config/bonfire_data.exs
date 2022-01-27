@@ -237,7 +237,7 @@ config :bonfire_data_identity, User,
     has_one  :actor, unquote(Actor), foreign_key: :id
     has_one  :instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update
     has_one  :self, unquote(Self), foreign_key: :id
-    has_one  :peered, unquote(Peered), references: :id
+    has_one  :peered, unquote(Peered), references: :id, foreign_key: :id
     has_many :encircles, unquote(Encircle), foreign_key: :subject_id
     # has_one  :shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id
     has_many :created, unquote(Created), foreign_key: :creator_id
