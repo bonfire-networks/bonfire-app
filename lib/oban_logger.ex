@@ -7,8 +7,6 @@ defmodule Bonfire.ObanLogger do
       |> Map.take([:id, :args, :meta, :queue, :worker])
       |> Map.merge(measure)
 
-    Logger.error(meta.error)
-
-    Sentry.capture_exception(meta.error, stacktrace: meta.stacktrace, extra: extra)
+    Bonfire.Common.Utils.debug_log(extra, meta.error, meta.stacktrace, :error)
   end
 end
