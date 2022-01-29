@@ -70,6 +70,7 @@ config :bonfire, Oban,
 
 config :mime, :types, %{
   "application/activity+json" => ["activity+json"],
+  "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"" => ["ld+json"],
   "application/jrd+json" => ["jrd+json"]
 }
 
