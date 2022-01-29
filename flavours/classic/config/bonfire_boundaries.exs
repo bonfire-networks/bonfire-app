@@ -31,9 +31,9 @@ config :bonfire,
   acls: %{
     # read_only:           %{id: "AC10N1YACCESS1SREADACCESS1", name: "Read Only"},
     # local:               %{id: "711M1TEDT010CA1VSERSS01E1Y", name: "Locally Public"},
-    guests_may_see:      %{id: "7W1DE1YAVA11AB1ET0SEENREAD", name: "Publically Visible"},
-    locals_may_interact: %{id: "710CA1SMY1NTERACTN0TREP1YY", name: "Locals may interact"},
-    locals_may_reply:    %{id: "710CA1SMY1NTERACTANDREP1YY", name: "Locals may Interact and Reply"},
+    guests_may_see:      %{id: "7W1DE1YAVA11AB1ET0SEENREAD", name: "Publicly visible"},
+    locals_may_interact: %{id: "710CA1SMY1NTERACTN0TREP1YY", name: "Local users may read, interact"},
+    locals_may_reply:    %{id: "710CA1SMY1NTERACTANDREP1YY", name: "Local users may read, interact and reply"},
     ### stereotypes - access levels
     i_may_see:           %{id: "71MAYSEEANDREADMY0WNSTVFFS"},
     i_may_interact:      %{id: "71MAY1NTERACTW1MY0WNSTVFFS"},
