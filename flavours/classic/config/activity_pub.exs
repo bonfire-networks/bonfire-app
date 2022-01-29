@@ -41,3 +41,9 @@ config :activity_pub, :json_contexts, %{
     "ValueFlows" => "https://w3id.org/valueflows#",
     "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/"
   }
+
+config :mime, :types, %{
+  "application/activity+json" => ["activity+json"],
+  "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"" => ["ld+json"],
+  "application/jrd+json" => ["jrd+json"]
+}
