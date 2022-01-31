@@ -66,8 +66,10 @@ config :bonfire, Oban,
 
 config :mime, :types, %{
   "application/activity+json" => ["activity+json"],
+  "application/ld+json" => ["ld+json"],
   "application/jrd+json" => ["jrd+json"]
 }
+
 
 config :sentry,
   dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
