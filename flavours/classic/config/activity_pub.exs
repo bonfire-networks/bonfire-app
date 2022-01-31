@@ -44,6 +44,6 @@ config :activity_pub, :json_contexts, %{
 
 config :mime, :types, %{
   "application/activity+json" => ["activity+json"],
-  "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"" => ["ld+json"],
+  "application/ld+json" => ["ld+json"],
   "application/jrd+json" => ["jrd+json"]
 }
