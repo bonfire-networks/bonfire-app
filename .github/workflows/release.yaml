@@ -101,74 +101,74 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-
-  classic_flavour_arm_docker_release_build_push:
-    name: Classic flavour for ARM archs - Maybe tag version & release Docker image
-    runs-on: ubuntu-latest
-    env:
-      FLAVOUR: classic
-      FLAVOUR_PATH: flavours/classic
-      DOCKER_REPO: bonfire
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # needed for action-detect-and-tag-new-version
-      - 
-        name: Detect new version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # tag already created in first job
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Cancel workflow if the version has not changed
-        uses: andymckay/cancel-action@0.2
-      # - 
-      #   name: Get branch names
-      #   id: branch-name
-      #   uses: tj-actions/branch-names@v4
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: Cancel any already running releases workflows
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
-      - 
-        name: Pre-build prep 
-        run: 	mkdir forks/ && mkdir -p data/uploads/ && make rel.config.prepare && touch data/current_flavour/config/deps.path
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        env:
-          FLAVOUR: classic
-          FLAVOUR_PATH: data/current_flavour
-        with:
-          context: .
-          file: Dockerfile.release
-          platforms: linux/arm64,linux/arm/v7
-          push: true
-          tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+# FIXME: putting this as a separate task overrides the image pushed to docker hub by the other one
+  # classic_flavour_arm_docker_release_build_push:
+  #   name: Classic flavour for ARM archs - Maybe tag version & release Docker image
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     FLAVOUR: classic
+  #     FLAVOUR_PATH: flavours/classic
+  #     DOCKER_REPO: bonfire
+  #   steps:
+  #     - 
+  #       name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 2 # needed for action-detect-and-tag-new-version
+  #     - 
+  #       name: Detect new version
+  #       id: version
+  #       uses: salsify/action-detect-and-tag-new-version@v2
+  #       with:
+  #         create-tag: false # tag already created in first job
+  #         version-command: |
+  #           grep -m 1 'version:' mix.exs | cut -d '"' -f2
+  #     - 
+  #       if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+  #       name: Cancel workflow if the version has not changed
+  #       uses: andymckay/cancel-action@0.2
+  #     # - 
+  #     #   name: Get branch names
+  #     #   id: branch-name
+  #     #   uses: tj-actions/branch-names@v4
+  #     -
+  #       name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v1
+  #     -
+  #       name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v1
+  #     -
+  #       name: Login to DockerHub
+  #       uses: docker/login-action@v1 
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #     - 
+  #       name: Cancel any already running releases workflows
+  #       uses: styfle/cancel-workflow-action@0.9.0
+  #       with:
+  #         access_token: ${{ github.token }}
+  #     - 
+  #       name: Pre-build prep 
+  #       run: 	mkdir forks/ && mkdir -p data/uploads/ && make rel.config.prepare && touch data/current_flavour/config/deps.path
+  #     -
+  #       name: Build and push
+  #       id: docker_build
+  #       uses: docker/build-push-action@v2
+  #       env:
+  #         FLAVOUR: classic
+  #         FLAVOUR_PATH: data/current_flavour
+  #       with:
+  #         context: .
+  #         file: Dockerfile.release
+  #         platforms: linux/arm64,linux/arm/v7
+  #         push: true
+  #         tags: |
+  #           bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
+  #           bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}
+  #     -
+  #       name: Image digest
+  #       run: echo ${{ steps.docker_build.outputs.digest }}
 
 
   cooperation_flavour_docker_release_build_push:
