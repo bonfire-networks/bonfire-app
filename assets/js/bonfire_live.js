@@ -1,6 +1,6 @@
 // JS shared with non_live pages
 import "./common"
-// import {themeChange} from "theme-change"
+import {ThemeHooks} from './theme'
 
 // for JS features & extensions to hook into LiveView
 let Hooks = {}; 
@@ -39,4 +39,4 @@ window.liveSocket = liveSocket
 
 import { ExtensionHooks } from "../../data/current_flavour/config/hooks.js"
 // Add Extensions' Hooks... 
-Object.assign(liveSocket.hooks, ExtensionHooks);
+Object.assign(liveSocket.hooks, ExtensionHooks, ThemeHooks);
