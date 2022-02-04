@@ -26,7 +26,6 @@ defmodule Mix.Tasks.Bonfire.Account.New do
   def run(args) do
     options = options(args, %{})
     Mix.Task.run("app.start")
-    # Bonfire.Application.start(:temporary, [])
     email = get("Enter an email address: ", :email, options, true)
     password = password("Enter a password:")
     IO.inspect(password: password)
