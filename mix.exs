@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.1.0-beta.122", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-beta.123", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
