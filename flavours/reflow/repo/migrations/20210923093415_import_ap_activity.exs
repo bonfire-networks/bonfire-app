@@ -1,1 +1,7 @@
-../../../cooperation/repo/migrations/20210923093415_import_ap_activity.exs
+defmodule Bonfire.Repo.Migrations.ImportApActivity do
+  use Ecto.Migration
+  import Bonfire.Data.Social.APActivity.Migration
+
+  def up(), do: migrate_apactivity()
+  def down(), do: migrate_apactivity()
+end

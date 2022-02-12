@@ -201,7 +201,7 @@ defmodule Bonfire.GraphQL.Schema do
 
       %Bonfire.Classify.Category{} -> :category
 
-      %Bonfire.Tag{} -> :tag
+      # %Bonfire.Tag{} -> :tag
 
       %ValueFlows.Planning.Intent{} -> :intent
 
