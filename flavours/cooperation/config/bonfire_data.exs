@@ -239,7 +239,7 @@ config :bonfire_data_identity, User,
     has_one  :self, unquote(Self), foreign_key: :id
     has_one  :peered, unquote(Peered), references: :id, foreign_key: :id
     has_many :encircles, unquote(Encircle), foreign_key: :subject_id
-    # has_one  :shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id
+    has_one  :shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id
     has_many :created, unquote(Created), foreign_key: :creator_id
     has_many :creations, through: [:created, :pointer] # todo: stop through
     has_many :posts, through: [:created, :post] # todo: stop through
@@ -488,6 +488,6 @@ config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
-      join_keys: [tag_id: :id, id: :id],
+      join_keys: [id: :id, tag_id: :id],
       on_replace: :delete
   end]
