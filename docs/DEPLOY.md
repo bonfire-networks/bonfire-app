@@ -156,6 +156,10 @@ There are some useful database-related release tasks under `EctoSparkles.Release
 - `rollback_to(version)` roll back to a specific version
 - `rollback_all` rolls back all migrations back to zero (caution: this means loosing all data)
 
+You can also directly call some functions in the code from the command line, for example:
+- to migrate: `docker exec bonfire_web bin/bonfire rpc 'EctoSparkles.ReleaseTasks.migrate'`
+- to make yourself an admin: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Me.Users.make_admin("my_username")'`
+
 #### Option A2 - Building your own Docker image
 
 `Dockerfile.release` uses the [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature to make the image as small as possible. It generates the OTP release which is later copied into the final image packaged in an Alpine linux container.
