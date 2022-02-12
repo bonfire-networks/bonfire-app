@@ -62,9 +62,10 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled Bonfire.UI.Reflow.Routes
   use_if_enabled Bonfire.UI.Coordination.Routes
+  use_if_enabled Bonfire.UI.Kanban.Routes
   use_if_enabled Bonfire.Breadpub.Web.Routes
   use_if_enabled Bonfire.Recyclapp.Routes
-  use_if_enabled Bonfire.UI.Kanban.Routes
+  use_if_enabled Bonfire.Upcycle.Web.Routes
 
   # include GraphQL API
   use_if_enabled Bonfire.GraphQL.Router
