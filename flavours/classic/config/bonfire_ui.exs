@@ -45,4 +45,5 @@ config :bonfire, :ui,
    ],
    smart_input_forms: [
       post: Bonfire.UI.Social.CreateActivityLive,
-   ]
+   ],
+  invites_component: Bonfire.Invite.Links.Web.InvitesLive
