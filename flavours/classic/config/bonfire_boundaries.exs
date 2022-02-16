@@ -26,7 +26,8 @@ config :bonfire,
     activity_pub:     %{id: "7EDERATEDW1THANACT1V1TYPVB", name: "ActivityPub Peers"},
     # stereotypes
     followers:        %{id: "7DAPE0P1E1PERM1TT0F0110WME", name: "My Followers"},
-    blocked:          %{id: "7N010NGERC0NSENTT0Y0VN0WTY"},
+    block:          %{id: "7N010NGERC0NSENTT0Y0VN0WTY", name: "Block"},
+    silence:          %{id: "7N010NGERWANTT011STENT0Y0V", name: "Silence"},
   },
   acls: %{
     # read_only:           %{id: "AC10N1YACCESS1SREADACCESS1", name: "Read Only"},
@@ -39,7 +40,7 @@ config :bonfire,
     i_may_interact:      %{id: "71MAY1NTERACTW1MY0WNSTVFFS"},
     i_may_administer:    %{id: "71MAYADM1N1STERMY0WNSTVFFS"},
     ### stereotypes - always mix in
-    blocked:             %{id: "7AC0MPVTERBESAY1NGN0THANKS"},
+    negative:             %{id: "7AC0MPVTERBESAY1NGN0THANKS"},
   },
   grants: %{
     guests_may_see:      %{guest: [:read, :see]},
@@ -60,25 +61,27 @@ config :bonfire,
 
 alias Bonfire.Me.Users
 
-blocked = Enum.reduce(verbs, %{}, &Map.put(&2, elem(&1, 0), false))
+block_verbs = verbs |> Enum.reduce(%{}, &Map.put(&2, elem(&1, 0), false)) # stops them from seeing you, or anything else
+silence_verbs = [:mention] |> Enum.reduce(%{}, &Map.put(&2, &1, false)) # stops you from hearing them
 
 config :bonfire_me, Users,
-  default_boundaries: %{
+  default_boundaries: %{ # default boundaries created for new users
     circles: %{
-      followers: %{name: "Followers", stereotype: :followers},
-      blocked:   %{name: "Blocked",   stereotype: :blocked},
+      followers: %{stereotype: :followers},
+      block:     %{stereotype: :block},
+      silence:   %{stereotype: :silence},
     },
     acls: %{
       i_may_see:        %{stereotype: :i_may_see},
       i_may_interact:   %{stereotype: :i_may_interact},
       i_may_administer: %{stereotype: :i_may_administer},
-      blocked:          %{stereotype: :blocked, name: "Blocked"},
+      negative:         %{stereotype: :negative, name: "Blocked"},
     },
     grants: %{
       i_may_see:        %{SELF:  [:read, :see]},
       i_may_interact:   %{SELF:  [:read, :see, :create, :mention, :tag, :boost, :flag, :like, :follow]},
       i_may_administer: %{SELF:  [:read, :see, :edit, :delete]},
-      blocked:          %{blocked: blocked},
+      negative:         %{block: block_verbs, silence: silence_verbs},
     },
     controlleds: %{
       # by default, we may administer ourselves. within contexts, we
@@ -86,5 +89,5 @@ config :bonfire_me, Users,
       SELF: [:guests_may_see, :locals_may_interact, :i_may_administer]
     },
     # these are acls that we should always mix in. which we don't yet.
-    always: [:blocked],
+    always: [:negative],
   }

@@ -156,6 +156,7 @@ config :bonfire_data_access_control, Circle,
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    has_one :stereotype, unquote(Stereotype), foreign_key: :id
   end]
 
 config :bonfire_data_access_control, Controlled, []
@@ -167,6 +168,11 @@ config :bonfire_data_access_control, Grant,
   end]
 
 config :bonfire_data_access_control, Verb, []
+
+config :bonfire_boundaries, Stereotype,
+  [code: quote do
+    has_one :named, unquote(Named), foreign_key: :id, references: :id
+  end]
 
 # bonfire_data_activity_pub
 
