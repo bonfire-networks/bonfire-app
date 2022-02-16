@@ -39,17 +39,17 @@ Servers should be configured as lists.
 
 ### Example
 
-This example will enable `SimplePolicy`, block media from `illegalporn.biz`, mark media as NSFW from `porn.biz` and `porn.business`, reject messages from `spam.com`and block reports (flags) from `whiny.whiner`:
+This example will enable `SimplePolicy`, block media from `illegalporn.biz`, mark media as NSFW from `porn.biz` and `porn.business`, reject messages from `spam.com` and block reports (flags) from `troll.mob`:
 
 ```
-config :bonfire, :instance,
+config :activity_pub, :instance,
   rewrite_policy: [ActivityPub.MRF.SimplePolicy]
 
-config :bonfire, :mrf_simple,
+config :activity_pub, :mrf_simple,
   media_removal: ["illegalporn.biz"],
   media_nsfw: ["porn.biz", "porn.business"],
   reject: ["spam.com"],
-  report_removal: ["whiny.whiner"]
+  report_removal: ["troll.mob"]
 
 ```
 
@@ -71,15 +71,15 @@ defmodule Site.RewritePolicy do
 
   # Catch messages which contain Note objects with actual data to filter.
   # Capture the object as `object`, the message content as `content` and the
-  # message itself as `message`.
+  # entire activity itself as `activity`.
   @impl true
-  def filter(%{"type" => Create", "object" => {"type" => "Note", "content" => content} = object} = message)
+  def filter(%{"type" => "Create", "object" => %{"type" => "Note", "content" => content} = object} = message)
       when is_binary(content) do
     # Subject / CW is stored as summary instead of `name` like other AS2 objects
     # because of Mastodon doing it that way.
     summary = object["summary"]
 
-    # Message edits go here.
+    # edits go here.
     content = "new message content"
 
     # Assemble the mutated object.
@@ -88,9 +88,8 @@ defmodule Site.RewritePolicy do
       |> Map.put("content", content)
       |> Map.put("summary", summary)
 
-    # Assemble the mutated message.
-    message = Map.put(message, "object", object)
-    {:ok, message}
+    # Assemble the mutated activity.
+    {:ok, Map.put(activity, "object", object)}
   end
 
   # Let all other messages through without modifying them.
@@ -102,7 +101,7 @@ end
 If you save this file as `lib/site/mrf/rewrite_policy.ex`, it will be included when you next rebuild Bonfire. You can enable it in the configuration like so:
 
 ```
-config :bonfire, :instance,
+config :activity_pub, :instance,
   rewrite_policy: [
     ActivityPub.MRF.SimplePolicy,
     Site.RewritePolicy

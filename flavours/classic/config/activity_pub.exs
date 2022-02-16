@@ -5,21 +5,28 @@ config :activity_pub, :repo, Bonfire.Repo
 
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
-config :activity_pub, :mrf_simple,
-  media_removal: [],
-  media_nsfw: [],
-  report_removal: [],
-  accept: [],
-  avatar_removal: [],
-  banner_removal: []
 
 config :activity_pub, :instance,
   hostname: "localhost",
   federation_publisher_modules: [ActivityPubWeb.Publisher],
   federation_reachability_timeout_days: 7,
   federating: true,
-  rewrite_policy: [],
+  rewrite_policy: [Bonfire.Federate.ActivityPub.BoundariesMRF],
   handle_unknown_activities: true
+
+config :activity_pub, :boundaries,
+  block: [],
+  mute: [],
+  deafen: []
+
+config :activity_pub, :mrf_simple,
+  reject: [],
+  accept: [],
+  media_removal: [],
+  media_nsfw: [],
+  report_removal: [],
+  avatar_removal: [],
+  banner_removal: []
 
 config :activity_pub, :http,
   proxy_url: nil,
