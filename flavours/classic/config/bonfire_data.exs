@@ -423,6 +423,8 @@ config :bonfire_data_social, Post,
 
 config :bonfire_data_social, PostContent,
   [code: quote do
+    has_one :created, unquote(Created), foreign_key: :id, references: :id
+    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     field :hashtags, {:array, :any}, virtual: true # used in changesets
     field :mentions, {:array, :any}, virtual: true # used in changesets
   end]
