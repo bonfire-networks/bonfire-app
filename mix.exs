@@ -19,7 +19,7 @@ defmodule Bonfire.MixProject do
       deps_prefixes: [
         docs: ["bonfire_"],
         test: ["bonfire_", "pointers", "paginator", "ecto_sparkles"],
-        data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate"]
+        data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_boundaries"]
       ]
     ]
 
