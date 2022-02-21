@@ -156,6 +156,7 @@ config :bonfire_data_access_control, Circle,
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
+    has_one :stereotype, unquote(Stereotype), foreign_key: :id
   end]
 
 config :bonfire_data_access_control, Controlled, []
@@ -167,6 +168,11 @@ config :bonfire_data_access_control, Grant,
   end]
 
 config :bonfire_data_access_control, Verb, []
+
+config :bonfire_boundaries, Stereotype,
+  [code: quote do
+    has_one :named, unquote(Named), foreign_key: :id, references: :id
+  end]
 
 # bonfire_data_activity_pub
 
@@ -417,6 +423,8 @@ config :bonfire_data_social, Post,
 
 config :bonfire_data_social, PostContent,
   [code: quote do
+    has_one :created, unquote(Created), foreign_key: :id, references: :id
+    has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     field :hashtags, {:array, :any}, virtual: true # used in changesets
     field :mentions, {:array, :any}, virtual: true # used in changesets
   end]
@@ -479,15 +487,4 @@ config :bonfire_files, Media,
   [code: quote do
     field :url, :string, virtual: true
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-  end]
-
-# add references of tagged objects to any Geolocation
-config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
-  [code: quote do
-    # has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-    many_to_many :tags, unquote(Pointer),
-      join_through: unquote(Tagged),
-      unique: true,
-      join_keys: [id: :id, tag_id: :id],
-      on_replace: :delete
   end]
