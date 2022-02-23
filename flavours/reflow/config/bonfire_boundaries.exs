@@ -31,7 +31,7 @@ config :bonfire,
   acls: %{
     # read_only:           %{id: "AC10N1YACCESS1SREADACCESS1", name: "Read Only"},
     # local:               %{id: "711M1TEDT010CA1VSERSS01E1Y", name: "Locally Public"},
-    guests_may_see:      %{id: "7W1DE1YAVA11AB1ET0SEENREAD", name: "Publicly visible"},
+    guests_may_read:      %{id: "7W1DE1YAVA11AB1ET0SEENREAD", name: "Publicly visible"},
     locals_may_interact: %{id: "710CA1SMY1NTERACTN0TREP1YY", name: "Local users may read, interact"},
     locals_may_reply:    %{id: "710CA1SMY1NTERACTANDREP1YY", name: "Local users may read, interact and reply"},
     ### stereotypes - access levels
@@ -42,7 +42,7 @@ config :bonfire,
     blocked:             %{id: "7AC0MPVTERBESAY1NGN0THANKS"},
   },
   grants: %{
-    guests_may_see:      %{guest: [:read, :see]},
+    guests_may_read:      %{guest: [:read, :see]},
     locals_may_interact: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow]},
     locals_may_reply:    %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
   }
@@ -83,7 +83,7 @@ config :bonfire_me, Users,
     controlleds: %{
       # by default, we may administer ourselves. within contexts, we
       # may add more depending on whether the user is local or remote.
-      SELF: [:guests_may_see, :locals_may_interact, :i_may_administer]
+      SELF: [:guests_may_read, :locals_may_interact, :i_may_administer]
     },
     # these are acls that we should always mix in. which we don't yet.
     always: [:blocked],
