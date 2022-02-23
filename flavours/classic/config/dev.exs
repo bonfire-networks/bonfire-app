@@ -55,7 +55,7 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :logger, :console,
   level: :debug,
-  # truncate: :infinity,
+  truncate: :infinity,
   format: "[$level] $message\n" # Do not include metadata or timestamps
 
 config :phoenix, :stacktrace_depth, 30
