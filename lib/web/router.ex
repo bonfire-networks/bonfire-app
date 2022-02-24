@@ -137,7 +137,14 @@ defmodule Bonfire.Web.Router do
       import Phoenix.LiveDashboard.Router
       pipe_through :admin_required
 
-      live_dashboard "/admin/system", metrics: Bonfire.Web.Telemetry, ecto_repos: [Bonfire.Repo]
+      live_dashboard "/admin/system",
+        ecto_repos: [Bonfire.Repo],
+        ecto_psql_extras_options: [long_running_queries: [threshold: "400 milliseconds"]],
+        metrics: Bonfire.Web.Telemetry,
+        # metrics: FlamegraphsWeb.Telemetry,
+        additional_pages: [
+          flame_on: FlameOn.DashboardPage
+        ]
     end
 
   end

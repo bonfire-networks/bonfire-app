@@ -12,9 +12,9 @@ defmodule Bonfire.MixProject do
         "docs/HACKING.md",
         "docs/DEPLOY.md",
         "docs/ARCHITECTURE.md",
-        # "docs/DEPENDENCIES.md",
         "docs/GRAPHQL.md",
-        "docs/MRF.md"
+        "docs/MRF.md",
+        "docs/DEPENDENCIES/classic.md",
       ],
       deps_prefixes: [
         docs: ["bonfire_"],
@@ -102,6 +102,7 @@ defmodule Bonfire.MixProject do
       {:mix_unused, "~> 0.3.0", only: :dev},
       {:ex_doc, "~> 0.28.0", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
+      {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
@@ -116,8 +117,8 @@ defmodule Bonfire.MixProject do
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
-        git: "https://github.com/mayel/licensir", branch: "pr",
-        # path: "./forks/licensir"
+        # git: "https://github.com/bonfire-networks/licensir", branch: "main",
+        path: "./forks/licensir"
       },
 
       # security auditing

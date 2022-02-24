@@ -459,7 +459,8 @@ else
 endif
 
 licenses: init 
-	@make --no-print-directory mix.remote~licenses
+	@mkdir -p docs/DEPENDENCIES/
+	@make --no-print-directory mix.remote~licenses && mv DEPENDENCIES.md docs/DEPENDENCIES/$(FLAVOUR).md
 
 localise.extract: 
 	@make --no-print-directory mix~"bonfire.localise.extract --merge"

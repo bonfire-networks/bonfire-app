@@ -18,10 +18,13 @@ verbs = %{
   reply:   %{id: "71TCREAT1NGA11NKEDRESP0NSE", verb: "Reply"},
 }
 
+ghost_verbs = verbs |> Enum.reduce(%{}, &Map.put(&2, elem(&1, 0), false)) # stops them from seeing you, or anything else
+silence_verbs = [:mention] |> Enum.reduce(%{}, &Map.put(&2, &1, false)) # stops you from hearing them
+
 config :bonfire,
   verbs: verbs,
   create_verbs: [
-    block:  Bonfire.Data.Social.Block,
+    # block:  Bonfire.Data.Social.Block,
     boost:  Bonfire.Data.Social.Boost,
     follow: Bonfire.Data.Social.Follow,
     flag:   Bonfire.Data.Social.Flag,
@@ -33,7 +36,7 @@ config :bonfire,
     activity_pub: %{id: "7EDERATEDW1THANACT1V1TYPVB", name: "ActivityPub Peers"},
     # stereotypes
     followers:    %{id: "7DAPE0P1E1PERM1TT0F0110WME", name: "My Followers"},
-    block:        %{id: "7N010NGERC0NSENTT0Y0VN0WTY", name: "Block"},
+    ghost:        %{id: "7N010NGERC0NSENTT0Y0VN0WTY", name: "Ghost"},
     silence:      %{id: "7N010NGERWANTT011STENT0Y0V", name: "Silence"},
   },
   acls: %{
@@ -57,18 +60,11 @@ config :bonfire,
     guests_may_read:     %{guest: [:read, :see]},
     locals_may_interact: %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow]},
     locals_may_reply:    %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
-  }
-
-alias Bonfire.Me.Users
-
-block_verbs = verbs |> Enum.reduce(%{}, &Map.put(&2, elem(&1, 0), false)) # stops them from seeing you, or anything else
-silence_verbs = [:mention] |> Enum.reduce(%{}, &Map.put(&2, &1, false)) # stops you from hearing them
-
-config :bonfire_me, Users,
-  default_boundaries: %{ # default boundaries created for new users
+  },
+  user_default_boundaries: %{ # default boundaries created for new users
     circles: %{
       followers: %{stereotype: :followers},
-      block:     %{stereotype: :block},
+      ghost:     %{stereotype: :ghost},
       silence:   %{stereotype: :silence},
     },
     acls: %{
@@ -81,7 +77,7 @@ config :bonfire_me, Users,
       i_may_read:       %{SELF:  [:read, :see]},
       i_may_reply:      %{SELF:  [:read, :see, :create, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
       i_may_administer: %{SELF:  [:read, :see, :edit, :delete]},
-      negative:         %{block: block_verbs, silence: silence_verbs},
+      negative:         %{ghost: ghost_verbs, silence: silence_verbs},
     },
     controlleds: %{
       # by default, we may administer ourselves. within contexts, we
