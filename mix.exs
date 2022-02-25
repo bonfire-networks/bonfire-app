@@ -117,8 +117,8 @@ defmodule Bonfire.MixProject do
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
-        # git: "https://github.com/bonfire-networks/licensir", branch: "main",
-        path: "./forks/licensir"
+        git: "https://github.com/bonfire-networks/licensir", branch: "main",
+        # path: "./forks/licensir"
       },
 
       # security auditing
