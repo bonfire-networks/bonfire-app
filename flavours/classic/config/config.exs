@@ -50,6 +50,7 @@ config :bonfire, Bonfire.Repo,
   types: Bonfire.PostgresTypes,
   priv: flavour_path <> "/repo"
 config :ecto_sparkles, :otp_app, :bonfire
+config :ecto_shorts, repo: Bonfire.Repo, error_module: EctoShorts.Actions.Error
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
