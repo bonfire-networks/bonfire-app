@@ -11,3 +11,9 @@ config :bonfire_me, Bonfire.Me.Identity.Mails,
 
 config :bonfire_me, Bonfire.Me.Follows,
   followable_types: [Bonfire.Data.Identity.User]
+
+config :bonfire_me, Bonfire.Me.Accounts,
+  epics: [
+    delete: [
+    ],
+  ]

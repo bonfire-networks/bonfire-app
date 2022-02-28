@@ -71,7 +71,7 @@ config :bonfire,
       i_may_read:       %{stereotype: :i_may_read,       name: "I may read"},
       i_may_reply:      %{stereotype: :i_may_interact,   name: "I may read, interact and reply"},
       i_may_administer: %{stereotype: :i_may_administer, name: "I may administer"},
-      negative:         %{stereotype: :negative,         name: "Blocked"},
+      negative:         %{stereotype: :negative,         name: "Blocked users may not"},
     },
     grants: %{
       i_may_read:       %{SELF:  [:read, :see]},

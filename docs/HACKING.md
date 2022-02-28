@@ -16,10 +16,12 @@ Bonfire is currently alpha software. While it's fun to play with it,
 we would *absolutely not* recommend running any production instances
 yet because it's just not ready for that today.
 
-The team is working hard on a beta release of bonfire social (classic flavour) 
-which should be ready in Q1 2022. Other flavours/apps will probably lag
-behind for a while and may not always build cleanly. We recommend
-sticking with bonfire social (aka the 'classic' flavour) for now.
+Either way, you need to first clone this repository and change into the directory and then do some configuration:
+
+```sh
+$ git clone https://github.com/bonfire-networks/bonfire-app bonfire
+$ cd bonfire
+```
 
 ## Configuration
 
@@ -27,7 +29,15 @@ sticking with bonfire social (aka the 'classic' flavour) for now.
 
 Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on: 
 
-For example if you want to run the `classic` flavour:
+* Classic ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
+* Cooperation (for building cooperative communities)
+* Reflow (for community economic activities)
+* Haha (for learning new things)
+
+Note that at the current time, the core team are focusing most of
+their efforts on the classic flavour and this is where we recommend you start.
+
+For example if you want to run the `classic` flavour (the default)
 
 `export FLAVOUR=classic`
 
@@ -128,9 +138,43 @@ make dev
 
 By default, the back-end listens on port 4000 (TCP), so you can access it on http://localhost:4000/
 
-If you haven't set up transactional emails, while in development, you will see a signup confirmation path appear in the iex console.
+Your first step will be to create an account to log in with. The
+easiest way to do this is with our mix task:
 
-Note that the first account to be registered is automatically an instance admin.
+```
+$ make mix~bonfire.account.new
+Enter an email address: root@localhost
+Enter a password:
+```
+
+Your password must be at least 10 characters long and the output could be more helpful if you don't do that. This task seems to work most reliably if you open a second terminal window with the devserver running. We're not sure why.
+
+You should then be able to log in and create a user through the web interface.
+
+If you would like to become an administrator, there is a mix task for
+that too:
+
+```shell
+make mix~"bonfire.user.admin.promote root" # for username `root`
+```
+
+<!-- ## The Bonfire Environment -->
+
+<!-- We like to think of bonfire as a comfortable way of developing software - there are a lot of -->
+<!-- conveniences built in once you know how they all work. The gotcha is that while you don't know them, -->
+<!-- it can be a bit overwhelming. Don't worry, we've got your back. -->
+
+<!-- * [Elixir from 10,000 ft.](./ELIXIR.md) - some notes to consider when learning elixir. -->
+<!-- * [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way we code. -->
+<!-- * [Bonfire's Database](./DATABASE.md) - an introduction to how we model, store and query data. -->
+<!-- * [Boundaries](./BOUNDARIES.md) - an introduction to our access control system -->
+<!-- * [Epics](./EPICS.md) -->
+<!-- * []() -->
+<!-- * []() -->
+<!-- * []() -->
+<!-- * []() -->
+
+<!-- Note: these are still at the early draft stage, we expect to gradually improve documentation over time. -->
 
 ## Documentation
 
