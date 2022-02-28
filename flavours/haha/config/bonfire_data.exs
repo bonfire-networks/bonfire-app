@@ -53,7 +53,7 @@ alias Bonfire.Data.AccessControl.{
   Acl, Circle, Encircle, Controlled, InstanceAdmin, Grant, Verb,
 }
 alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
-alias Bonfire.Boundaries.Stereotype
+alias Bonfire.Boundaries.Stereotyped
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
 alias Bonfire.Data.Identity.{
   Account, Accounted, Caretaker, Character, Credential, Email, Named, Self, User,
