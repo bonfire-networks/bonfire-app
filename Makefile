@@ -273,6 +273,23 @@ git.forks.status: ## Run a git status on each fork
 git.forks~%: ## Run a git command on each fork (eg. `make git.forks~pull` pulls the latest version of all local deps from its git remote
 	@find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo $* {} \; -exec git -C '{}' $* \;
 
+git.diff: ## List all diffs in forks
+	@find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
+
+deps.git.fix: ## Run a git command on each dep, to ignore chmod changes
+	find ./deps -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
+	find ./forks -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
+
+git.merge~%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
+	git merge --no-ff --no-commit $*
+
+git.conflicts: ## Find any git conflicts in ./forks
+	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
+
+git.publish:
+	chmod +x git-publish.sh
+	./git-publish.sh
+
 #### TESTING RELATED COMMANDS ####
 
 test.env:
@@ -475,19 +492,4 @@ db.pre-migrations: ## Workaround for some issues running migrations
 
 secrets:
 	@cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
-
-
-git.publish:
-	chmod +x git-publish.sh
-	./git-publish.sh
-
-deps.git.fix: ## Run a git command on each dep, to ignore chmod changes
-	find ./deps -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
-	find ./forks -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
-
-git.merge~%: ## Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
-	git merge --no-ff --no-commit $*
-
-git.conflicts: ## Find any git conflicts in ./forks
-	find $(FORKS_PATH) -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 

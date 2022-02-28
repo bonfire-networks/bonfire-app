@@ -16,8 +16,8 @@ config :activity_pub, :instance,
 
 config :activity_pub, :boundaries,
   block: [],
-  silence: [],
-  ghost: []
+  silence_them: [],
+  ghost_them: []
 
 config :activity_pub, :mrf_simple,
   reject: [],
