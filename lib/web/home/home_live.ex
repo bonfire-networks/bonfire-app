@@ -1,7 +1,7 @@
 defmodule Bonfire.Web.HomeLive do
   use Bonfire.Web, {:surface_view, [layout: {Bonfire.UI.Social.Web.LayoutView, "without_sidebar.html"}]}
-
   alias Bonfire.Web.LivePlugs
+  alias Bonfire.Common.Utils
 
   def mount(params, session, socket) do
     LivePlugs.live_plug params, session, socket, [
@@ -14,12 +14,16 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(_params, _session, socket) do
-
+    welcome = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_description], "Login or register to play around")
+      |> Utils.md
+    welcome_title = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_title], "Welcome to the #{Bonfire.Common.Config.get([:ui, :theme, :instance_name], '')} instance")
     title = "Recent activity on this instance"
     {:ok, socket
     |> assign(
       page_title: "A Bonfire Instance",
-      feed_title: title
+      feed_title: title,
+      welcome_title: welcome_title,
+      welcome: welcome
     )}
   end
 
