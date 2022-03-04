@@ -103,7 +103,7 @@ config :pointers, Pointer,
     has_one :category, unquote(Category), references: :id, foreign_key: :id
     has_one :geolocation, unquote(Geolocation), references: :id, foreign_key: :id
     # mixins
-    has_one :stereotype, unquote(Stereotype), foreign_key: :id
+    has_one :stereotyped, unquote(Stereotyped), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
@@ -145,7 +145,7 @@ config :bonfire_data_access_control, Acl,
   [code: quote do
     # this allows us to identify acls for the user which have special
     # meaning to the system, such as "public" or "private"
-    has_one :stereotype, unquote(Stereotype), foreign_key: :id
+    has_one :stereotyped, unquote(Stereotyped), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     # has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
@@ -156,7 +156,7 @@ config :bonfire_data_access_control, Circle,
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
-    has_one :stereotype, unquote(Stereotype), foreign_key: :id
+    has_one :stereotyped, unquote(Stereotyped), foreign_key: :id
   end]
 
 config :bonfire_data_access_control, Controlled, []
@@ -169,9 +169,9 @@ config :bonfire_data_access_control, Grant,
 
 config :bonfire_data_access_control, Verb, []
 
-config :bonfire_boundaries, Stereotype,
+config :bonfire_boundaries, Stereotyped,
   [code: quote do
-    has_one :named, unquote(Named), foreign_key: :id, references: :id
+    has_one :named, unquote(Named), foreign_key: :id, references: :stereotype_id
   end]
 
 # bonfire_data_activity_pub
