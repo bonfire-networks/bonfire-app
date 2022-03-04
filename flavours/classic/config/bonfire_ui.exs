@@ -7,8 +7,12 @@ config :bonfire, :ui,
       instance_logo: "https://bonfirenetworks.org/img/bonfire.png",
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
-      instance_welcome_title: "👋 Welcome to our Bonfire test instance",
-      instance_welcome_description: "Bonfire is a federated social networking toolkit for communities and individuals to design, operate and control their digital lives, by assembling their own social networks like lego blocks in order to cultivate safe and private spaces while being interconnected with the rest of the 'fediverse' and the internet at wide on their own terms.
+      instance_welcome_title: "About",
+      instance_welcome_description: "## 👋 Welcome to the bonfire testing instance 
+<div class='shadow-lg alert alert-warning'>
+      <span>Beware.. The Bonfire framework is still on alpha</span>
+</div>
+Bonfire is a federated social networking toolkit for communities and individuals to design, operate and control their digital lives, by assembling their own social networks like lego blocks in order to cultivate safe and private spaces while being interconnected with the rest of the 'fediverse' and the internet at wide on their own terms.
 The bonfire ecosystem will include:
    1. Bonfire apps/flavours: Open source federated networks that are ready to be installed and used for different purposes. Made up of a set of pre-configured extensions.
    2. Bonfire extensions: Forkable/customisable modules providing different features or UX, ready to be used within bonfire apps.
