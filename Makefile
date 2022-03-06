@@ -15,7 +15,7 @@ FLAVOUR_PATH ?= flavours/$(FLAVOUR)
 WITH_DOCKER ?= total
 
 # other configs
-FORKS_PATH ?= ./forks/
+FORKS_PATH ?= forks/
 MIX_ENV ?= dev
 ORG_NAME ?= bonfirenetworks
 APP_NAME ?= bonfire
@@ -76,7 +76,7 @@ pre-run:
 
 init: pre-init pre-run
 	@$(call setup_env)
-	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - $(APP_VSN) - $(APP_BUILD) - $(FLAVOUR_PATH)"
+	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - docker:$(WITH_DOCKER) - $(APP_VSN) - $(APP_BUILD) - $(FLAVOUR_PATH)"
 	@make --no-print-directory pre-init
 	@make --no-print-directory services
 

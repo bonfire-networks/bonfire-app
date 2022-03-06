@@ -2,6 +2,7 @@
 | Package                      | License                            | Version  | Link                                                             |
 |------------------------------|------------------------------------|----------|------------------------------------------------------------------|
 | absinthe                     | MIT                                | 1.7.0    | https://hex.pm/packages/absinthe                                 |
+| absinthe_client              | MIT                                | 2.0.0    | https://github.com/bonfire-networks/absinthe_client.git          |
 | absinthe_error_payload       | BSD-3; Unrecognized license        | 1.1.4    | https://hex.pm/packages/absinthe_error_payload                   |
 | absinthe_phoenix             | MIT                                | 2.0.2    | https://hex.pm/packages/absinthe_phoenix                         |
 | absinthe_plug                | MIT                                | 1.5.8    | https://hex.pm/packages/absinthe_plug                            |
@@ -10,28 +11,37 @@
 | arrows                       | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/arrows                       |
 | bamboo                       | MIT                                | 2.2.0    | https://hex.pm/packages/bamboo                                   |
 | bamboo_smtp                  | MIT                                | 4.1.0    | https://hex.pm/packages/bamboo_smtp                              |
-| bonfire_api_graphql          | MPL 2.0                            |          | https://github.com/bonfire-networks/bonfire_api_graphql          |
+| bonfire_api_graphql          | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_api_graphql          |
 | bonfire_boundaries           | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_boundaries           |
+| bonfire_breadpub             | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_breadpub             |
 | bonfire_classify             | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_classify             |
 | bonfire_common               | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_common               |
 | bonfire_data_access_control  | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_access_control  |
 | bonfire_data_activity_pub    | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_activity_pub    |
+| bonfire_data_assort          | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_assort          |
 | bonfire_data_edges           | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_edges           |
 | bonfire_data_identity        | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_identity        |
+| bonfire_data_shared_user     | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_shared_user     |
 | bonfire_data_social          | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_data_social          |
-| bonfire_ecto                 | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/bonfire_ecto                 |
 | bonfire_editor_ck            | MIT                                | 0.1.0    | https://github.com/bonfire-networks/bonfire_editor_ck            |
 | bonfire_epics                | Apache 2.0                         | 0.1.0    | https://github.com/bonfire-networks/bonfire_epics                |
-| bonfire_fail                 | MPL 2.0                            |          | https://github.com/bonfire-networks/bonfire_fail                 |
+| bonfire_fail                 | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_fail                 |
 | bonfire_federate_activitypub | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_federate_activitypub |
 | bonfire_files                | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_files                |
+| bonfire_geolocate            | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_geolocate            |
 | bonfire_invite_links         | AGPL v3                            | 0.0.1    | https://github.com/bonfire-networks/bonfire_invite_links         |
 | bonfire_mailer               | MPL 2.0                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_mailer               |
 | bonfire_me                   | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_me                   |
+| bonfire_quantify             | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_quantify             |
 | bonfire_search               | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_search               |
 | bonfire_social               | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_social               |
 | bonfire_tag                  | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_tag                  |
+| bonfire_ui_coordination      | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_ui_coordination      |
+| bonfire_ui_kanban            | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_ui_kanban            |
 | bonfire_ui_social            | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_ui_social            |
+| bonfire_ui_valueflows        | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_ui_valueflows        |
+| bonfire_valueflows           | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_valueflows           |
+| bonfire_valueflows_observe   | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_valueflows_observe   |
 | bonfire_website              | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/bonfire_website              |
 | cachex                       | MIT                                | 3.4.0    | https://hex.pm/packages/cachex                                   |
 | certifi                      | BSD                                | 2.9.0    | https://hex.pm/packages/certifi                                  |
@@ -51,6 +61,7 @@
 | ecto_erd                     | Apache 2.0                         | 0.4.1    | https://hex.pm/packages/ecto_erd                                 |
 | ecto_materialized_path       | Apache 2.0                         | 0.3.0    | https://github.com/bonfire-networks/ecto_materialized_path       |
 | ecto_psql_extras             | MIT                                | 0.7.4    | https://hex.pm/packages/ecto_psql_extras                         |
+| ecto_ranked                  | MIT                                | 0.5.0    | https://hex.pm/packages/ecto_ranked                              |
 | ecto_shorts                  | MIT                                | 1.1.1    | https://github.com/bonfire-networks/ecto_shorts                  |
 | ecto_sparkles                | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/ecto_sparkles                |
 | ecto_sql                     | Apache 2.0                         | 3.7.2    | https://hex.pm/packages/ecto_sql                                 |
@@ -60,7 +71,7 @@
 | emote                        | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/emote                        |
 | eternal                      | MIT                                | 1.2.2    | https://hex.pm/packages/eternal                                  |
 | ex_cldr                      | Apache 2.0                         | 2.26.1   | https://hex.pm/packages/ex_cldr                                  |
-| ex_doc                       | Apache 2.0                         | 0.28.2   | https://github.com/mayel/ex_doc                                  |
+| ex_doc                       | Apache 2.0                         | 0.28.1   | https://hex.pm/packages/ex_doc                                   |
 | ex_machina                   | MIT                                | ~> 2.4   | https://hex.pm/packages/ex_machina                               |
 | ex_unit_notifier             | MIT                                | ~> 1.0   | https://hex.pm/packages/ex_unit_notifier                         |
 | exsync                       | BSD 3-Clause; Unrecognized license | 0.2.4    | https://hex.pm/packages/exsync                                   |
@@ -74,6 +85,8 @@
 | gen_smtp                     | BSD 2-clause; Unrecognized license | 1.1.1    | https://hex.pm/packages/gen_smtp                                 |
 | geo                          | MIT                                | 3.4.3    | https://hex.pm/packages/geo                                      |
 | geo_postgis                  | MIT                                | 3.4.1    | https://hex.pm/packages/geo_postgis                              |
+| geocoder                     | MIT                                | 1.1.4    | https://hex.pm/packages/geocoder                                 |
+| geohash                      | Apache 2.0                         | 1.2.2    | https://hex.pm/packages/geohash                                  |
 | gettext                      | Apache 2.0                         | 0.19.1   | https://hex.pm/packages/gettext                                  |
 | git_diff                     | MIT                                | 0.6.3    | https://hex.pm/packages/git_diff                                 |
 | grumble                      | Apache 2.0                         | ~> 0.1.3 | https://hex.pm/packages/grumble                                  |
@@ -104,7 +117,7 @@
 | mochiweb                     | MIT                                | 2.22.0   | https://hex.pm/packages/mochiweb                                 |
 | mock                         | MIT                                | ~> 0.3   | https://hex.pm/packages/mock                                     |
 | neuron                       | ISC                                | 5.0.0    | https://hex.pm/packages/neuron                                   |
-| nimble_parsec                | Apache 2.0                         | 1.2.3    | https://hex.pm/packages/nimble_parsec                            |
+| nimble_parsec                | Apache 2.0                         | 1.2.2    | https://hex.pm/packages/nimble_parsec                            |
 | nodeinfo                     | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/nodeinfo                     |
 | oban                         | Apache 2.0                         | 2.8.0    | https://hex.pm/packages/oban                                     |
 | ok                           | Apache 2.0                         | 2.3.0    | https://hex.pm/packages/ok                                       |
@@ -112,6 +125,7 @@
 | pane                         | MIT                                | 0.4.1    | https://hex.pm/packages/pane                                     |
 | parse_trans                  | Apache 2.0                         | 3.3.1    | https://hex.pm/packages/parse_trans                              |
 | pbkdf2_elixir                | BSD-3-Clause; Unrecognized license | 1.4.2    | https://hex.pm/packages/pbkdf2_elixir                            |
+| phil_columns                 | MIT                                | 3.1.0    | https://hex.pm/packages/phil_columns                             |
 | phoenix                      | MIT                                | 1.6.6    | https://hex.pm/packages/phoenix                                  |
 | phoenix_ecto                 | MIT                                | 4.4.0    | https://hex.pm/packages/phoenix_ecto                             |
 | phoenix_gon                  | MIT                                | 0.4.1    | https://github.com/bonfire-networks/phoenix_gon                  |
@@ -126,6 +140,7 @@
 | plug_crypto                  | Apache 2.0                         | 1.2.2    | https://hex.pm/packages/plug_crypto                              |
 | pointers                     | Apache 2.0                         | 0.6.0    | https://github.com/bonfire-networks/pointers                     |
 | pointers_ulid                | MIT                                | 0.2.2    | https://github.com/bonfire-networks/pointers_ulid                |
+| poolboy                      | Unlicense; Apache 2.0; ISC         | 1.5.2    | https://hex.pm/packages/poolboy                                  |
 | postgrex                     | Apache 2.0                         | 0.16.2   | https://hex.pm/packages/postgrex                                 |
 | ranch                        | ISC                                | 1.8.0    | https://hex.pm/packages/ranch                                    |
 | recase                       | MIT                                | 0.7.0    | https://hex.pm/packages/recase                                   |
@@ -136,6 +151,7 @@
 | sobelow                      | Apache 2.0                         | 0.11.1   | https://hex.pm/packages/sobelow                                  |
 | sourceror                    | Apache 2.0                         | 0.10.0   | https://hex.pm/packages/sourceror                                |
 | ssl_verify_fun               | MIT                                | 1.1.6    | https://hex.pm/packages/ssl_verify_fun                           |
+| stream_data                  | Apache 2.0                         | 0.5.0    | https://hex.pm/packages/stream_data                              |
 | surface                      | MIT                                | 0.7.1    | https://hex.pm/packages/surface                                  |
 | surface_heroicons            | Undefined                          | 0.5.3    | https://github.com/rocketinsights/surface_heroicons              |
 | table_rex                    | MIT                                | 3.1.1    | https://hex.pm/packages/table_rex                                |
@@ -144,6 +160,7 @@
 | telemetry_poller             | Apache 2.0                         | 1.0.0    | https://hex.pm/packages/telemetry_poller                         |
 | tesla                        | MIT                                | 1.4.4    | https://hex.pm/packages/tesla                                    |
 | timex                        | MIT                                | 3.7.6    | https://hex.pm/packages/timex                                    |
+| towel                        | MIT                                | 0.2.1    | https://hex.pm/packages/towel                                    |
 | twinkle_star                 | GPL v3                             | 0.1.0    | https://github.com/bonfire-networks/twinkle_star                 |
 | typed_struct                 | MIT                                | ~> 0.2.1 | https://hex.pm/packages/typed_struct                             |
 | tzdata                       | MIT                                | 1.1.1    | https://hex.pm/packages/tzdata                                   |

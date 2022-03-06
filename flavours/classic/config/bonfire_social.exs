@@ -24,7 +24,7 @@ config :bonfire_social, Bonfire.Social.Posts,
     publish: [
       # Prep: a little bit of querying and a lot of preparing changesets
       Posts.Publish,           # Create a changeset for insertion
-      Posts.Body,              # with a sanitised body and tags extracted,
+      PostContents,              # with a sanitised body and tags extracted,
       {Caretaker,  on: :post}, # a caretaker,
       {Creator,    on: :post}, # and a creator,
       {Threaded,   on: :post}, # either in reply to something or else starting a new thread,
@@ -33,39 +33,42 @@ config :bonfire_social, Bonfire.Social.Posts,
       {Activity,   on: :post}, # summarised by an activity,
       {Feeds,      on: :post}, # appearing in feeds.
 
-      Posts.MeiliSearch, # Prepare for search indexing
+      MeiliSearch.Prepare, # Prepare for search indexing or undexing
 
       # Now we have a short critical section
       Ecto.Begin,
       Ecto.Work,         # Run our inserts
       Ecto.Commit,
 
-      # Oban would rather we put these here than in the transaction
-      # above because it knows better than us, obviously.
-      Posts.ActivityPub, # Prepare for federation and do the queue insert (oban).
-      MeiliSearch,       # Enqueue meilisearch index.
-
       # These things are free to happen casually in the background.
       {LivePush, on: :post}, # Publish live feed updates via (in-memory) pubsub.
+
+      {MeiliSearch.Queue, on: :post},       # Enqueue for indexing by meilisearch
+
+      # Oban would rather we put these here than in the transaction
+      # above because it knows better than us, obviously.
+      {ActivityPub, on: :post}, # Prepare for federation and do the queue insert (oban).
     ],
     delete: [
       {Delete,     on: :post}, # create a deletion changeset
       {Boundaries, on: :post}, # clean up any boundaries specific to this post
       {Feeds,      on: :post}, # remove any activities related to us from feeds.
 
-      Posts.MeiliSearch, # Prepare request to unindex
+      MeiliSearch.Prepare, # Prepare request to unindex
 
       # Now we have a short critical section
       Ecto.Begin,
       Ecto.Work,         # Run our deletes
       Ecto.Commit,
 
-      # Oban would rather we put these here than in the transaction
-      # above because it knows better than us, obviously.
-      Posts.ActivityPub, # Prepare for federation
-      MeiliSearch,       # Enqueue meilisearch unindex   (really an insert, because oban)
-
       # These things are free to happen casually in the background.
       {LivePush, on: :post}, # Publish live feed updates via (in-memory) pubsub.
+
+      {MeiliSearch.Queue, on: :post},       # Enqueue meilisearch unindex   (really an insert, because oban)
+
+      # Oban would rather we put these here than in the transaction
+      # above because it knows better than us, obviously.
+      {ActivityPub, on: :post}, # Prepare for federation
+
     ],
   ]
