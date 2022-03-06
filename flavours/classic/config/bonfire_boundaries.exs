@@ -56,8 +56,8 @@ config :bonfire,
   acls: %{
     ### Public ACLs that allow basic control over visibility and interactions.
     guests_may_see_read: %{id: "7W1DE1YAVA11AB1ET0SEENREAD", name: "Publicly discoverable and readable"},
-    guests_may_see:      %{id: "Y0VCANF1NDMEBVTCAN0T0PENME", name: "Publicly discoverable, but contents may be hidden"},
-    guests_may_read:     %{id: "Y0VCANREAD1FY0VHAVETHE11NK", name: "Publicly readable, but not necessarily discoverable"},
+    guests_may_see:      %{id: "50VCANF1NDMEBVTCAN0T0PENME", name: "Publicly discoverable, but contents may be hidden"},
+    guests_may_read:     %{id: "50VCANREAD1FY0VHAVETHE11NK", name: "Publicly readable, but not necessarily discoverable"},
     locals_may_read:     %{id: "10CA1SMAYSEEANDREAD0N1YN0W", name: "Visible to local users"},
     locals_may_interact: %{id: "710CA1SMY1NTERACTN0TREP1YY", name: "Local users may read and interact"},
     locals_may_reply:    %{id: "710CA1SMY1NTERACTANDREP1YY", name: "Local users may read, interact and reply"},
