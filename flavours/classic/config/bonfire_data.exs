@@ -106,6 +106,7 @@ config :pointers, Pointer,
     has_one :stereotyped, unquote(Stereotyped), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
+    has_many :caretaken, unquote(Caretaker), foreign_key: :caretaker_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_one :created, unquote(Created), foreign_key: :id
     has_one :peered, unquote(Peered), foreign_key: :id, references: :id
