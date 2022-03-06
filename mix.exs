@@ -44,7 +44,7 @@ defmodule Bonfire.MixProject do
         main: "readme",
         logo: @config[:logo],
         output: "docs/exdoc",
-        # source_url_pattern: &source_url_pattern/2,
+        source_url_pattern: &source_url_pattern/2,
         # extra pages to include
         extras: readme_paths(),
         # extra apps to include in module docs
@@ -67,12 +67,12 @@ defmodule Bonfire.MixProject do
           "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
           "Utilities": ~r/.?/,
         ],
-        # nest_modules_by_prefix: [
-        #   Bonfire.Data,
-        #   # Bonfire.UI,
-        #   Bonfire,
-        #   ValueFlows
-        # ]
+        nest_modules_by_prefix: [
+          Bonfire.Data,
+          # Bonfire.UI,
+          Bonfire,
+          ValueFlows
+        ]
       ],
     ]
 
