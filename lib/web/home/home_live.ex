@@ -16,7 +16,7 @@ defmodule Bonfire.Web.HomeLive do
   defp mounted(_params, _session, socket) do
     welcome = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_description], "Login or register to play around")
       |> Utils.md
-    welcome_title = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_title], "Welcome to the #{Bonfire.Common.Config.get([:ui, :theme, :instance_name], '')} instance")
+    welcome_title = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_title], "About")
     title = "Recent activity on this instance"
     {:ok, socket
     |> assign(

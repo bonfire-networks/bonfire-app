@@ -56,7 +56,7 @@ alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Boundaries.Stereotyped
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, Character, Credential, Email, Named, Self, User,
+  Account, Accounted, Caretaker, CareClosure, Character, Credential, Email, Named, Self, User,
 }
 alias Bonfire.Data.Social.{
   Activity, Article, Block, Bookmark, Created, Feed, FeedPublish, Message, Follow,
@@ -106,7 +106,7 @@ config :pointers, Pointer,
     has_one :stereotyped, unquote(Stereotyped), foreign_key: :id
     has_one :named, unquote(Named), foreign_key: :id
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
-    has_many :caretaken, unquote(Caretaker), foreign_key: :caretaker_id
+    has_many :care_closure, unquote(CareClosure), foreign_key: :branch_id
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :id
     has_one :created, unquote(Created), foreign_key: :id
     has_one :peered, unquote(Peered), foreign_key: :id, references: :id
@@ -213,10 +213,10 @@ config :bonfire_data_identity, Character,
   [code: quote do
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
     has_one :peered, unquote(Peered), references: :id, foreign_key: :id
-    has_one :actor, unquote(Actor), foreign_key: :id
-    has_one :profile, unquote(Profile), foreign_key: :id
-    has_one :user, unquote(User), foreign_key: :id
-    has_one :feed, unquote(Feed), foreign_key: :id
+    has_one :actor, unquote(Actor), foreign_key: :id, references: :id
+    has_one :profile, unquote(Profile), foreign_key: :id, references: :id
+    has_one :user, unquote(User), foreign_key: :id, references: :id
+    has_one :feed, unquote(Feed), foreign_key: :id, references: :id
     has_many :followers, unquote(Follow), foreign_key: :following_id, references: :id
     has_many :followed, unquote(Follow), foreign_key: :follower_id, references: :id
     has_one :follow_count, unquote(EdgeTotal),
