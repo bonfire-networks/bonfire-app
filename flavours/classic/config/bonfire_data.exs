@@ -207,7 +207,12 @@ config :bonfire_data_identity, Accounted,
     belongs_to :user, unquote(User), foreign_key: :id, define_field: false
   end]
 
-config :bonfire_data_identity, Caretaker, []
+config :bonfire_data_identity, Caretaker,
+  [code: quote do
+    has_one :user, unquote(User), foreign_key: :id, references: :caretaker_id
+    has_one :profile, unquote(Profile), foreign_key: :id, references: :caretaker_id
+    has_one :character, unquote(Character), foreign_key: :id, references: :caretaker_id
+  end]
 
 config :bonfire_data_identity, Character,
   [code: quote do
