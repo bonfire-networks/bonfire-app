@@ -15,7 +15,7 @@ FLAVOUR_PATH ?= flavours/$(FLAVOUR)
 WITH_DOCKER ?= total
 
 # other configs
-FORKS_PATH ?= ./forks/
+FORKS_PATH ?= forks/
 MIX_ENV ?= dev
 ORG_NAME ?= bonfirenetworks
 APP_NAME ?= bonfire
