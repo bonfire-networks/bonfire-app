@@ -20,7 +20,7 @@ config :bonfire_social, Posts,
       Repo.Commit,
 
       # # We want to return an activity, so we must rearrange it so we get a post under an activity.
-      {Activities.UnderObjects, objects: [activity: :post], debug: true},
+      {Activity.UnderObject, objects: [activity: :post], debug: true},
 
       {LivePush.Activity, activity: :activity, debug: true}, # Publish live feed updates via pubsub.
       {ActivityPub.Push, activity: :activity}, # Publish to activitypub via a message queue
