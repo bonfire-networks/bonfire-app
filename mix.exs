@@ -14,11 +14,10 @@ defmodule Bonfire.MixProject do
         "docs/ARCHITECTURE.md",
         "docs/GRAPHQL.md",
         "docs/MRF.md",
-        "docs/DEPENDENCIES/classic.md",
       ],
       deps_prefixes: [
-        docs: ["bonfire_"],
-        test: ["bonfire_", "pointers", "paginator", "ecto_sparkles"],
+        docs: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "absinthe_client", "activity_pub", "arrows", "ecto_materialized_path", "flexto", "grumble", "linkify", "verbs", "voodoo", "waffle", "zest"],
+        test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles"],
         data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_boundaries"]
       ]
     ]
@@ -38,16 +37,42 @@ defmodule Bonfire.MixProject do
       releases: [
         bonfire: [runtime_config_path: config_path("runtime.exs")],
       ],
+      source_url: "https://github.com/bonfire-networks/bonfire-app",
+      homepage_url: "https://bonfirenetworks.org",
       docs: [
         # The first page to display from the docs
         main: "readme",
         logo: @config[:logo],
         output: "docs/exdoc",
+        source_url_pattern: &source_url_pattern/2,
         # extra pages to include
         extras: readme_paths(),
-        # extra apps to include
+        # extra apps to include in module docs
         source_beam: docs_paths(),
-        deps: doc_deps()
+        deps: doc_deps(),
+        groups_for_extras: [ # Note: first match wins
+          "Guides": Path.wildcard("docs/*"),
+          "Flavours of Bonfire": Path.wildcard("flavours/*/*"),
+          "Data schemas": Path.wildcard("{deps,forks}/bonfire_data_*/*"),
+          "UI extensions": Path.wildcard("{deps,forks}/bonfire_ui_*/*"),
+          "Bonfire utilities": ["bonfire_api_graphql", "bonfire_boundaries", "bonfire_common", "bonfire_ecto", "bonfire_epics", "bonfire_fail", "bonfire_files", "bonfire_mailer"] |> Enum.flat_map(&Path.wildcard("*/#{&1}/*")),
+          "Feature extensions": Path.wildcard("{deps,forks}/bonfire_*/*"),
+          "Generic utilities": Path.wildcard("{deps,forks}/*/*"),
+          "Dependencies": Path.wildcard("docs/DEPENDENCIES/*"),
+        ],
+        groups_for_modules: [
+          "Data schemas": ~r/^Bonfire.Data.?/,
+          "UI extensions": ~r/^Bonfire.UI.?/,
+          "Bonfire utilities": [~r/^Bonfire.API?/, ~r/^Bonfire.GraphQL?/, ~r/^Bonfire.Repo?/, ~r/^Bonfire.Web?/, ~r/^Bonfire.Boundaries?/, ~r/^Bonfire.Common?/, ~r/^Bonfire.Ecto?/, ~r/^Bonfire.Epics?/, ~r/^Bonfire.Fail?/, ~r/^Bonfire.Files?/, ~r/^Bonfire.Mailer?/],
+          "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
+          "Utilities": ~r/.?/,
+        ],
+        nest_modules_by_prefix: [
+          Bonfire.Data,
+          # Bonfire.UI,
+          Bonfire,
+          ValueFlows
+        ]
       ],
     ]
 
@@ -64,14 +89,9 @@ defmodule Bonfire.MixProject do
     [
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
-      "js.deps.get": ["cmd make js.deps.get"],
-      "js.deps.update": ["cmd cd assets && pnpm update"],
       "assets.release": [
         "cmd cd ./assets && pnpm build",
       ],
-      "ecto.seeds": [
-        "run #{flavour_path()}/repo/seeds.exs"
-        ],
       "bonfire.seeds": [
         # "phil_columns.seed",
       ],
@@ -79,13 +99,18 @@ defmodule Bonfire.MixProject do
       "bonfire.deps.clean": ["deps.clean " <> deps_to_clean() <> " --build"],
       "bonfire.deps.recompile": ["deps.compile " <> deps_to_update() <> " --force"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
+      "ecto.seeds": [
+        "run #{flavour_path()}/repo/seeds.exs"
+        ],
+      "js.deps.get": ["cmd make js.deps.get"],
+      "js.deps.update": ["cmd cd assets && pnpm update"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.migrate": ["ecto.migrate", "bonfire.seeds"],
       "ecto.reset": ["ecto.drop --force", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
     ]
 
   end
@@ -100,7 +125,7 @@ defmodule Bonfire.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
       {:mix_unused, "~> 0.3.0", only: :dev},
-      {:ex_doc, "~> 0.28.0", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.28.2", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
       {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
 
@@ -155,7 +180,7 @@ defmodule Bonfire.MixProject do
   def config_path(flavour_path \\ flavour_path(), filename),
     do: Path.expand(Path.join([flavour_path, "config", filename]))
 
-  def forks_path(), do: System.get_env("LIBS_PATH", "./forks/")
+  def forks_path(), do: System.get_env("FORKS_PATH", "forks/")
 
   defp mess_sources() do
     mess_sources(System.get_env("WITH_FORKS","1"))
@@ -190,15 +215,31 @@ defmodule Bonfire.MixProject do
   end
   defp docs_path(app, build), do: Path.join([build, "lib", dep_name(app), "ebin"])
 
-  def readme_paths(), do: (@config[:docs] ++ Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++ Enum.flat_map(deps(:docs), &readme_path/1))
+  def readme_paths(), do: @config[:docs]
+                          ++ Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1)
+                          ++ Enum.map(Path.wildcard("docs/DEPENDENCIES/*.md"), &flavour_deps_doc/1)
+                          ++ Enum.flat_map(deps(:docs), &readme_path/1)
+
   defp readme_path(dep) when not is_nil(dep), do: dep_paths(dep, "README.md") |> List.first |> readme_path(dep)
-  defp readme_path(path, dep) when not is_nil(path), do: [{path |> String.to_atom, [filename: dep_name(dep)]}]
+  defp readme_path(path, dep) when not is_nil(path), do: [{path |> String.to_atom, [filename: "extension-"<>dep_name(dep)]}]
   defp readme_path(_, _), do: []
 
   def flavour_readme(path), do: {path |> String.to_atom, [filename: path |> String.split("/") |> Enum.at(1)]}
+  def flavour_deps_doc(path), do: {path |> String.to_atom, [title: path |> String.split("/") |> Enum.at(2) |> String.slice(0..-4) |> String.capitalize(), filename: path |> String.split("/") |> Enum.at(2) |> String.slice(0..-4) |> then(&"deps-#{&1}")]}
 
   defp doc_deps(), do: deps(:docs) |> Enum.map(&doc_dep/1) #[plug: "https://myserver/plug/"]
   defp doc_dep(dep), do: {elem(dep, 0), "./"}
+
+  def source_url_pattern("deps/"<>_=path, line), do: bonfire_ext_pattern(path, line)
+  def source_url_pattern("forks/"<>_=path, line), do: bonfire_ext_pattern(path, line)
+  def source_url_pattern(path, line), do: bonfire_app_pattern(path, line)
+
+  defp bonfire_ext_pattern(path, line), do: bonfire_ext_pattern(path |> String.split("/") |> Enum.at(1), path |> String.split("/") |> Enum.slice(2..1000) |> Enum.join("/"), line)
+  defp bonfire_ext_pattern(dep, path, line), do: bonfire_app_pattern("https://github.com/bonfire-networks/#{dep}/blob/main/%{path}#L%{line}", path, line)
+
+  defp bonfire_app_pattern(path, line), do: bonfire_app_pattern("https://github.com/bonfire-networks/bonfire-app/blob/main/%{path}#L%{line}", path, line)
+
+  defp bonfire_app_pattern(pattern, path, line), do: pattern |> String.replace("%{path}", path) |> String.replace("%{line}", line)
 
   # Specifies which paths to include when running tests
   defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
