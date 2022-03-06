@@ -15,6 +15,7 @@ alias Bonfire.Social.Acts.{
   LivePush,
   MeiliSearch,
   Posts,
+  PostContents,
   Tags,
   Threaded,
 }
@@ -24,7 +25,7 @@ config :bonfire_social, Bonfire.Social.Posts,
     publish: [
       # Prep: a little bit of querying and a lot of preparing changesets
       Posts.Publish,           # Create a changeset for insertion
-      PostContents,              # with a sanitised body and tags extracted,
+      PostContents,            # with a sanitised body and tags extracted,
       {Caretaker,  on: :post}, # a caretaker,
       {Creator,    on: :post}, # and a creator,
       {Threaded,   on: :post}, # either in reply to something or else starting a new thread,
