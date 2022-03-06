@@ -51,6 +51,7 @@
 | ecto_erd                     | Apache 2.0                         | 0.4.1    | https://hex.pm/packages/ecto_erd                                 |
 | ecto_materialized_path       | Apache 2.0                         | 0.3.0    | https://github.com/bonfire-networks/ecto_materialized_path       |
 | ecto_psql_extras             | MIT                                | 0.7.4    | https://hex.pm/packages/ecto_psql_extras                         |
+| ecto_shorts                  | MIT                                | 1.1.1    | https://github.com/bonfire-networks/ecto_shorts                  |
 | ecto_sparkles                | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/ecto_sparkles                |
 | ecto_sql                     | Apache 2.0                         | 3.7.2    | https://hex.pm/packages/ecto_sql                                 |
 | eflambe                      | Apache 2.0                         | 0.2.2    | https://hex.pm/packages/eflambe                                  |
@@ -59,7 +60,7 @@
 | emote                        | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/emote                        |
 | eternal                      | MIT                                | 1.2.2    | https://hex.pm/packages/eternal                                  |
 | ex_cldr                      | Apache 2.0                         | 2.26.1   | https://hex.pm/packages/ex_cldr                                  |
-| ex_doc                       | Apache 2.0                         | 0.28.1   | https://hex.pm/packages/ex_doc                                   |
+| ex_doc                       | Apache 2.0                         | 0.28.2   | https://github.com/mayel/ex_doc                                  |
 | ex_machina                   | MIT                                | ~> 2.4   | https://hex.pm/packages/ex_machina                               |
 | ex_unit_notifier             | MIT                                | ~> 1.0   | https://hex.pm/packages/ex_unit_notifier                         |
 | exsync                       | BSD 3-Clause; Unrecognized license | 0.2.4    | https://hex.pm/packages/exsync                                   |
@@ -86,7 +87,7 @@
 | inflex                       | Apache 2.0                         | 2.1.0    | https://hex.pm/packages/inflex                                   |
 | jason                        | Apache 2.0                         | 1.3.0    | https://hex.pm/packages/jason                                    |
 | jumper                       | MIT                                | 1.0.1    | https://hex.pm/packages/jumper                                   |
-| licensir                     | MIT                                | 0.7.0    | https://github.com/mayel/licensir                                |
+| licensir                     | MIT                                | 0.7.0    | https://github.com/bonfire-networks/licensir                     |
 | linkify                      | MIT                                | 0.2.0    | https://github.com/bonfire-networks/linkify                      |
 | makeup                       | BSD; Unrecognized license          | 1.0.5    | https://hex.pm/packages/makeup                                   |
 | makeup_elixir                | BSD; Unrecognized license          | 0.15.2   | https://hex.pm/packages/makeup_elixir                            |
@@ -103,7 +104,7 @@
 | mochiweb                     | MIT                                | 2.22.0   | https://hex.pm/packages/mochiweb                                 |
 | mock                         | MIT                                | ~> 0.3   | https://hex.pm/packages/mock                                     |
 | neuron                       | ISC                                | 5.0.0    | https://hex.pm/packages/neuron                                   |
-| nimble_parsec                | Apache 2.0                         | 1.2.2    | https://hex.pm/packages/nimble_parsec                            |
+| nimble_parsec                | Apache 2.0                         | 1.2.3    | https://hex.pm/packages/nimble_parsec                            |
 | nodeinfo                     | AGPL v3                            | 0.1.0    | https://github.com/bonfire-networks/nodeinfo                     |
 | oban                         | Apache 2.0                         | 2.8.0    | https://hex.pm/packages/oban                                     |
 | ok                           | Apache 2.0                         | 2.3.0    | https://hex.pm/packages/ok                                       |
