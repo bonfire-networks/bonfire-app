@@ -44,13 +44,13 @@ RUN apk add git rust cargo
 #RUN apk add cmake make gcc libc-dev
 
 # dependencies for encryption (experimental)
-RUN apk add olm
+# RUN apk add olm
 
 # install the dependency manager
 COPY --from=messctl_build $FORKS/messctl/target/release/messctl /bin/
 
-# JS package manager
-RUN npm install -g pnpm
+# JS package manager & builders
+RUN npm install -g pnpm esbuild postcss
 
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp
