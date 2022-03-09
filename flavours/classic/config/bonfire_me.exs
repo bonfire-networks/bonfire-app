@@ -17,3 +17,7 @@ config :bonfire_me, Bonfire.Me.Accounts,
     delete: [
     ],
   ]
+
+config :bonfire_me, Bonfire.Me.Users,
+  # TODO: not hooked up yet
+  max_per_account: 5 # Maximum number of users that an account may create
