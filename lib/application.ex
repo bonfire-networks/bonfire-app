@@ -36,6 +36,7 @@ defmodule Bonfire.Application do
   def applications(_) do
     [ Bonfire.Web.Telemetry,                  # Metrics
       Bonfire.Repo,                           # Database
+      EctoSparkles.AutoMigrator,
       {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]}, # PubSub
       # Persistent Data Services
       Pointers.Tables,
