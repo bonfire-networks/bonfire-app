@@ -35,7 +35,7 @@ jobs:
   #         CI: 1
 
   classic_flavour_common_docker_release_build_push:
-    name: Classic flavour for common archs - Maybe tag version & release Docker image
+    name: Classic flavour for x86 - Maybe tag version & release Docker image
     runs-on: ubuntu-latest
     env:
       FLAVOUR: classic
@@ -92,7 +92,9 @@ jobs:
         with:
           context: .
           file: Dockerfile.release
-          platforms: linux/amd64
+          # platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
+          # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
@@ -101,7 +103,7 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-# FIXME: putting this as a separate task overrides the image pushed to docker hub by the other one
+# FIXME: tried running this separately to not slow down the release (it takes several hours doing them in parallel when including armv7), but putting this as a separate task overrides the image pushed to docker hub by the other one
   # classic_flavour_arm_docker_release_build_push:
   #   name: Classic flavour for ARM archs - Maybe tag version & release Docker image
   #   runs-on: ubuntu-latest
