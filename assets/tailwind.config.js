@@ -42,6 +42,26 @@ module.exports = {
         '96': '26rem',
       },
       typography: (theme) => ({
+        sm: {
+          css: {
+            h1: {
+              margin: 0
+            },
+            h2: {
+              margin: 0
+            },
+            h3: {
+              margin: 0
+            },
+            p: {
+              margin: 0,
+              lineHeight: '20px' 
+            },
+            li: {
+              lineHeight: '20px'
+            }
+          }
+        },
         light: {
           css: [
             {
