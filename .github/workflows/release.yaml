@@ -35,7 +35,7 @@ jobs:
   #         CI: 1
 
   classic_flavour_common_docker_release_build_push:
-    name: Classic flavour for x86 - Maybe tag version & release Docker image
+    name: Classic flavour - Maybe tag version & release Docker image
     runs-on: ubuntu-latest
     env:
       FLAVOUR: classic
@@ -103,7 +103,7 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-# FIXME: tried running this separately to not slow down the release (it takes several hours doing them in parallel when including armv7), but putting this as a separate task overrides the image pushed to docker hub by the other one
+# FIXME: tried running this separately to not slow down the release (currently about 10 min for x86, 40 min for x86+arm64, and several hours if you add armv7), but putting this as a separate task overwrites the image pushed to docker hub by the first one
   # classic_flavour_arm_docker_release_build_push:
   #   name: Classic flavour for ARM archs - Maybe tag version & release Docker image
   #   runs-on: ubuntu-latest
