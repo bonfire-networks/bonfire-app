@@ -140,6 +140,10 @@ defmodule Bonfire.MixProject do
       {:mix_test_interactive, "~> 1.0", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
 
+      # Benchmarking utilities
+      {:benchee, "~> 1.1", only: :dev},
+      {:benchee_html, "~> 1.0", only: :dev},
+
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
         git: "https://github.com/bonfire-networks/licensir", branch: "main",
