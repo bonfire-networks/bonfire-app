@@ -50,6 +50,7 @@ config :activity_pub, :json_contexts, %{
   }
 
 config :mime, :types, %{
+  "application/json" => ["activity+json"],
   "application/activity+json" => ["activity+json"],
   "application/ld+json" => ["ld+json"],
   "application/jrd+json" => ["jrd+json"]
