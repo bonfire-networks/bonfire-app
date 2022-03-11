@@ -28,7 +28,7 @@ else
 end
 
 secret_key_base =
-  System.get_env("SECRET_KEY_BASE") ||System.get_env("CI") ||
+  System.get_env("SECRET_KEY_BASE") || System.get_env("CI") ||
     raise """
     environment variable SECRET_KEY_BASE is missing.
     You can generate one by calling: mix phx.gen.secret
