@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'tablet': '920px'
+      },
       maxWidth: {
         '600': '600px'
       },
