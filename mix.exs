@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.1.0-beta.157", # note that the flavour will automatically be added where the dash appears
+      version: "0.1.0-beta.162", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -17,7 +17,7 @@ defmodule Bonfire.MixProject do
       ],
       deps_prefixes: [
         docs: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "absinthe_client", "activity_pub", "arrows", "ecto_materialized_path", "flexto", "grumble", "linkify", "verbs", "voodoo", "waffle", "zest"],
-        test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles"],
+        test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "activity_pub"],
         data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_boundaries"]
       ]
     ]
@@ -139,6 +139,10 @@ defmodule Bonfire.MixProject do
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
       {:mix_test_interactive, "~> 1.0", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
+
+      # Benchmarking utilities
+      {:benchee, "~> 1.1", only: :dev},
+      {:benchee_html, "~> 1.0", only: :dev},
 
       # list dependencies & licenses
       {:licensir, only: :dev, runtime: false,
