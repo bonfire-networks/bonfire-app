@@ -8,7 +8,7 @@ config :bonfire, :ui,
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
       instance_welcome_title: "About",
-      instance_welcome_description: "## 👋 Welcome to the bonfire testing instance 
+      instance_welcome_description: "## 👋 Welcome to the bonfire testing instance
 <div class='shadow-lg alert alert-warning'>
       <span>Beware.. The Bonfire framework is still on alpha</span>
 </div>
@@ -37,6 +37,7 @@ More details at https://bonfirenetworks.org"
          boosts: Bonfire.UI.Social.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowsLive,
          followed: Bonfire.UI.Social.ProfileFollowsLive,
+         follow: Bonfire.UI.Social.ProfileRemoteFollowLive,
       ],
       navigation: [
          timeline: "timeline",
