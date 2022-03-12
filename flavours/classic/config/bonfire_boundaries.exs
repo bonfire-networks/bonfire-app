@@ -18,6 +18,7 @@ verbs = %{
   mention: %{id: "0EFERENC1NGTH1NGSE1SEWHERE", verb: "Mention"}, # mention a user or object.
   tag:     %{id: "4ATEG0R1S1NGNGR0VP1NGSTVFF", verb: "Tag"},     # tag a user or object in an object.
   message: %{id: "40NTACTW1THAPR1VATEMESSAGE", verb: "Message"}, # send a direct message to the user.
+  request: %{id: "1NEEDPERM1SS10NT0D0TH1SN0W", verb: "Request"}, # request to do another verb (eg. request to follow)
 }
 
 all_verb_names = Enum.map(verbs, &elem(&1, 0))
@@ -89,16 +90,17 @@ config :bonfire,
   ###   (where values are assumed to be true).
   grants: %{
     ### Public ACLs need their permissions filling out
-    guests_may_see_read:  %{guest: [:read, :see]},
-    guests_may_see:       %{guest: [:read]},
-    guests_may_read:      %{guest: [:read]},
-    locals_may_interact:  %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow]},
-    locals_may_reply:     %{local: [:read, :see, :mention, :tag, :boost, :flag, :like, :follow, :reply]},
+    guests_may_see_read:  %{guest: [:read, :see, :request]},
+    guests_may_see:       %{guest: [:read, :request]},
+    guests_may_read:      %{guest: [:read, :request]},
+    locals_may_interact:  %{local: [:read, :see, :mention, :tag, :boost, :like, :follow, :request]}, # interact but not reply
+    locals_may_reply:     %{local: [:read, :see, :mention, :tag, :boost, :like, :follow, :reply, :request]}, # interact and reply
     # TODO: are we doing this because of instance-wide blocking?
     nobody_can_anything: %{ghost_them:   verbs_negative.(all_verb_names)},
     nobody_can_reach:    %{silence_them: verbs_negative.([:mention, :message, :reply])},
     nobody_can_see:      %{silence_me: verbs_negative.([:see])},
   }
+# end of global boundaries
 
 negative_grants = [
   :nobody_can_anything, :nobody_can_reach, :nobody_can_see,   # instance-wide negative permissions
