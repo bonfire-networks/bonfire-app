@@ -14,7 +14,8 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'tablet': '920px'
+        'tablet': '920px',
+        'tablet-lg': '1200px'
       },
       maxWidth: {
         '600': '600px'
@@ -46,6 +47,26 @@ module.exports = {
       },
       typography: (theme) => ({
         sm: {
+          css: {
+            h1: {
+              margin: 0
+            },
+            h2: {
+              margin: 0
+            },
+            h3: {
+              margin: 0
+            },
+            p: {
+              margin: 0,
+              lineHeight: '20px' 
+            },
+            li: {
+              lineHeight: '20px'
+            }
+          }
+        },
+        lg: {
           css: {
             h1: {
               margin: 0
