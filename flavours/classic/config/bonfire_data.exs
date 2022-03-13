@@ -163,7 +163,11 @@ config :bonfire_data_access_control, Circle,
   end]
 
 config :bonfire_data_access_control, Controlled, []
-config :bonfire_data_access_control, Encircle, []
+config :bonfire_data_access_control, Encircle,
+  [code: quote do
+    has_one :peer, unquote(Peer), foreign_key: :id, references: :subject_id
+  end]
+
 config :bonfire_data_access_control, Grant,
   [code: quote do
     has_one :caretaker, unquote(Caretaker), foreign_key: :id
