@@ -33,11 +33,7 @@ defmodule Bonfire.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bonfire.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Repo, {:shared, self()})
-    end
+    Bonfire.Common.Test.Interactive.setup_test_repo(tags)
 
     :ok
   end
