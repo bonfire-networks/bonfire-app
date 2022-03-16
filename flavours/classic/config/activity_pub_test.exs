@@ -22,5 +22,5 @@ config :tesla, adapter: Tesla.Mock
 config :logger, level: :warn
 
 config :activity_pub, ActivityPubWeb.Endpoint,
-  http: [port: 4002],
+  http: [port: 4000],
   server: false

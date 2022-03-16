@@ -7,5 +7,26 @@ alias Bonfire.Data
 alias Bonfire.Me
 alias Bonfire.Social
 alias Bonfire.Common
-import Common.Utils
-import Common.URIs
+use Common.Utils
+import Bonfire.Me.Fake
+require Logger
+
+if module_enabled?(IExWatchTests) do
+  # to run tests from iex
+
+  # Code.compiler_options(ignore_module_conflict: true)
+  # Code.compile_file("~/.iex/iex_watch_tests.exs", File.cwd!())
+
+  unless GenServer.whereis(IExWatchTests) do
+    {:ok, pid} = IExWatchTests.start_link()
+
+    # Process will not exit when the iex goes out
+    Process.unlink(pid)
+  end
+
+  IExWatchTests.Helpers.ready
+
+else
+  Logger.info("IExWatchTests is not available")
+end
+import_if_enabled IExWatchTests.Helpers

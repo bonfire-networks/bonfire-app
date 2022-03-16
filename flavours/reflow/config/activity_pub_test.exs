@@ -10,7 +10,7 @@ config :activity_pub, ActivityPub.TestRepo,
   pool_size: 60
 
 config :activity_pub, ActivityPubWeb.Endpoint,
-  http: [port: 4002],
+  http: [port: 4000],
   server: false
 
 config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
