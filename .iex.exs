@@ -11,22 +11,22 @@ use Common.Utils
 import Bonfire.Me.Fake
 require Logger
 
-if module_enabled?(IExWatchTests) do
+if module_enabled?(Bonfire.Common.Test.Interactive) do
   # to run tests from iex
 
   # Code.compiler_options(ignore_module_conflict: true)
   # Code.compile_file("~/.iex/iex_watch_tests.exs", File.cwd!())
 
-  unless GenServer.whereis(IExWatchTests) do
-    {:ok, pid} = IExWatchTests.start_link()
+  unless GenServer.whereis(Bonfire.Common.Test.Interactive) do
+    {:ok, pid} = Bonfire.Common.Test.Interactive.start_link()
 
     # Process will not exit when the iex goes out
     Process.unlink(pid)
   end
 
-  IExWatchTests.Helpers.ready
+  Bonfire.Common.Test.Interactive.Helpers.ready
 
 else
   Logger.info("IExWatchTests is not available")
 end
-import_if_enabled IExWatchTests.Helpers
+import_if_enabled Bonfire.Common.Test.Interactive.Helpers
