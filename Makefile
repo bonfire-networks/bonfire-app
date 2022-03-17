@@ -57,6 +57,7 @@ pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
 	@mkdir -p data/
+	@rm -rf ./data/current_flavour
 	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
 	@mkdir -p $(CONFIG_PATH)/prod
 	@mkdir -p $(CONFIG_PATH)/dev
@@ -109,7 +110,7 @@ doc: ## Generate docs from code & readmes
 recompile: ## Force the app to recompile
 	@make --no-print-directory cmd cmd="mix compile --force"
 
-dev.test: init test.env dev.run
+dev.test: init test.env.server dev.run
 
 dev.bg: init  ## Run the app in dev mode, as a background service
 ifeq ($(WITH_DOCKER), total)
@@ -294,7 +295,9 @@ git.publish:
 
 test.env:
 	$(eval export MIX_ENV=test)
-	$(eval export)
+
+test.env.server: test.env
+	$(eval export START_SERVER=true)
 
 test: init test.env ## Run tests. You can also run only specific tests, eg: `make test only=forks/bonfire_social/test`
 ifeq ($(WITH_DOCKER), total)

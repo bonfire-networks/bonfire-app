@@ -1,6 +1,6 @@
 import Config
 
-schema = Bonfire.GraphQL.Schema
+schema = Bonfire.API.GraphQL.Schema
 
 config :bonfire_api_graphql,
   graphql_schema_module: schema

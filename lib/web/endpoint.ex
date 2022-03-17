@@ -20,8 +20,8 @@ defmodule Bonfire.Web.Endpoint do
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]]
 
-  if module_enabled?(Bonfire.GraphQL.UserSocket) do
-    socket "/api/socket", Bonfire.GraphQL.UserSocket,
+  if module_enabled?(Bonfire.API.GraphQL.UserSocket) do
+    socket "/api/socket", Bonfire.API.GraphQL.UserSocket,
       websocket: true,
       longpoll: false
   end

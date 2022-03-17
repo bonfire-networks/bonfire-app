@@ -53,7 +53,10 @@ config :bonfire,
   encryption_salt: encryption_salt,
   signing_salt: signing_salt
 
+start_server? = if config_env() == :test, do: System.get_env("START_SERVER", "false"), else: System.get_env("START_SERVER", "true")
+
 config :bonfire, Bonfire.Web.Endpoint,
+  server: String.to_existing_atom(start_server?),
   url: [
     host: host,
     port: public_port
