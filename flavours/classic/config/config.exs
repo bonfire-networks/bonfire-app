@@ -21,10 +21,11 @@ config :bonfire,
   mailer_module: Bonfire.Mailer,
   default_web_namespace: Bonfire.UI.Social.Web,
   default_layout_module: Bonfire.UI.Social.Web.LayoutView,
-  graphql_schema_module: Bonfire.GraphQL.Schema,
+  graphql_schema_module: Bonfire.API.GraphQL.Schema,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
+  user_home_page: Bonfire.Social.Web.HomeLive,
   default_pagination_limit: 40, # high limit for prod
   thread_default_pagination_limit: 500, # very high limit for prod
   thread_default_max_depth: 3, # how many nested replies to show
@@ -45,6 +46,7 @@ config :bonfire, Bonfire.Web.Endpoint,
 config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
 
+config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Repo]
 config :bonfire, Bonfire.Repo,
   types: Bonfire.PostgresTypes,

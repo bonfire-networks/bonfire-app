@@ -35,11 +35,8 @@ config :bonfire, Bonfire.Repo,
   database: db,
   slow_query_ms: 500
 
-# We don't run a server during test. If one is required,
-# you can enable the server option below.
 config :bonfire, Bonfire.Web.Endpoint,
-  http: [port: 4002],
-  server: false
+  http: [port: 4000]
 
 config :bonfire, Oban,
   crontab: false,
@@ -58,3 +55,7 @@ config :paginator, Paginator.Repo,
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   hostname: System.get_env("POSTGRES_HOST", "localhost"),
   database: db
+
+config :exsync,
+  src_monitor: false,
+  extra_extensions: [".leex", ".js", ".css", ".sface"]

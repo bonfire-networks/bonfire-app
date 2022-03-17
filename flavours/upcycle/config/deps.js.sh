@@ -1,12 +1,7 @@
 #!/bin/bash 
 
 # any extensions/deps with a package.json in their /assets directory
-DEPS="bonfire_geolocate bonfire_ui_kanban"
+DEPS='bonfire_common bonfire_ui_social bonfire_editor_ck bonfire_geolocate'
 
-for dep in $DEPS 
-do
- echo "Install JS deps from $dep"
- cd "deps/$dep/assets" && pnpm install || echo "Extension $dep not available in deps"
- cd "forks/$dep/assets" && pnpm install || echo "Extension $dep not available in forks"
- cd ../../../
-done
+chmod +x ./priv/deps.js.sh
+./priv/deps.js.sh "$DEPS"

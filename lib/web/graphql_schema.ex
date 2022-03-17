@@ -1,18 +1,18 @@
-if Bonfire.Common.Utils.module_enabled?(Bonfire.GraphQL) and Bonfire.Common.Utils.module_enabled?(ValueFlows.Schema) and Bonfire.Common.Utils.module_enabled?(Absinthe.Schema.Notation) do
+if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(ValueFlows.Schema) and Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
 # SPDX-License-Identifier: AGPL-3.0-only
-defmodule Bonfire.GraphQL.Schema do
+defmodule Bonfire.API.GraphQL.Schema do
   @moduledoc """
   Root GraphQL Schema.
-  Only active if the `Bonfire.GraphQL` extension is present.
+  Only active if the `Bonfire.API.GraphQL` extension is present.
   """
 
   use Absinthe.Schema
   @schema_provider Absinthe.Schema.PersistentTerm
-  # @pipeline_modifier Bonfire.GraphQL.SchemaPipelines
+  # @pipeline_modifier Bonfire.API.GraphQL.SchemaPipelines
 
   require Logger
-  alias Bonfire.GraphQL.SchemaUtils
-  alias Bonfire.GraphQL.Middleware.CollapseErrors
+  alias Bonfire.API.GraphQL.SchemaUtils
+  alias Bonfire.API.GraphQL.Middleware.CollapseErrors
 
   @doc """
   Define dataloaders
@@ -38,14 +38,14 @@ defmodule Bonfire.GraphQL.Schema do
   end
 
   def middleware(middleware, _field, _object) do
-    # [{Bonfire.GraphQL.Middleware.Debug, :start}] ++
+    # [{Bonfire.API.GraphQL.Middleware.Debug, :start}] ++
     middleware ++ [CollapseErrors]
   end
 
-  import_types(Bonfire.GraphQL.JSON)
-  import_types(Bonfire.GraphQL.Cursor)
+  import_types(Bonfire.API.GraphQL.JSON)
+  import_types(Bonfire.API.GraphQL.Cursor)
 
-  import_types(Bonfire.GraphQL.CommonSchema)
+  import_types(Bonfire.API.GraphQL.CommonSchema)
 
 
 

@@ -20,11 +20,11 @@ defmodule Bonfire.Application do
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
-  def applications(with_graphql \\ Code.ensure_loaded?(Bonfire.GraphQL.Schema)) # TODO better
+  def applications(with_graphql \\ Code.ensure_loaded?(Bonfire.API.GraphQL.Schema)) # TODO better
 
   def applications(true) do
     [
-      {Absinthe.Schema, Bonfire.GraphQL.Schema} # use persistent_term backend for Absinthe
+      {Absinthe.Schema, Bonfire.API.GraphQL.Schema} # use persistent_term backend for Absinthe
     ]
     ++ applications(false)
     ++
