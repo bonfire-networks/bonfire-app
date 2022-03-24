@@ -8,7 +8,6 @@ It originally started with requests by Moodle users to be able to share and coll
 Hacking on it is actually pretty fun. The codebase has a unique feeling to work with and we've relentlessly refactored to manage the ever-growing complexity that a distributed social networking toolkit implies. 
 That said, it is not easy to understand without context, which is what this document is here to provide.
 
-
 ## Design Decisions
 
 Feature goals:
@@ -23,55 +22,38 @@ Operational goals:
 - Light on resources for small deployments.
 - Scalable for large deployments.
 
-
 ## Stack
 
-Our main implementation language is [Elixir](https://www.elixir-lang.org/), which is designed for building reliable systems. 
+Our main implementation language is [Elixir](https://www.elixir-lang.org/), which is designed for
+building reliable systems. We have almost [our own dialect](./BONFIRE-FLAVOURED-ELIXIR.md).
 
-We use the [Phoenix](https://www.phoenixframework.org/) web framework with [LiveView](https://hexdocs.pm/phoenix_live_view/) and [Surface](https://surface-ui.org/documentation) for UI components and views.
+We use the [Phoenix](https://www.phoenixframework.org/) web framework with
+[LiveView](https://hexdocs.pm/phoenix_live_view/) and [Surface](https://surface-ui.org/documentation)
+for UI components and views.
 
-Surface is a different syntax for LiveView that is designed to be more convenient and understandable to frontend developers, with extra compile time checks. Surface views and components are compiled into LiveView code (so once you hit runtime, Surface in effect doesn't exist any more). 
+Surface is a different syntax for LiveView that is designed to be more convenient and understandable
+to frontend developers, with extra compile time checks. Surface views and components are compiled
+into LiveView code (so once you hit runtime, Surface in effect doesn't exist any more).
 
 Some extensions use the [Absinthe](https://absinthe-graphql.org/) GraphQL library to expose an API.
 
+## The Bonfire Environment
 
-## Core Concepts
+We like to think of bonfire as a comfortable way of developing software - there are a lot of
+conveniences built in once you know how they all work. The gotcha is that while you don't know them,
+it can be a bit overwhelming. Don't worry, we've got your back.
 
-There are a few things we take for granted in the bonfire ecosystem. Knowing a little about them will make understanding
-the code a lot simpler:
+<!-- * [Elixir from 10,000 ft.](./ELIXIR.md) - some notes to consider when learning elixir. -->
+* [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
+* [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
+* [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
+<!-- * [Epics](./EPICS.md) -->
+<!-- * []() -->
+<!-- * []() -->
+<!-- * []() -->
+<!-- * []() -->
 
-* The pointers system.
-* Our access control system.
-
-## The pointers system
-
-Social networks are essentially graphs. The most important part of them is not any particular piece of content, but how
-that content links to everything else. In reality, social networks are messy heavy interrelated graphs where more or
-less anything can link to more or less anything else. Our database is structured to support the messy realities of the
-social network.
-
-In particular, we need to be able to permit "anything" to link to "anything". We impose a 'universal primary key'
-concept on the database as follows:
-
-* We need a uuid-like universal identifier (we choose the [ulid](https://github.com/ulid/spec) format).
-* We choose which tables will participate in the scheme ("pointables") and record them in the "tables" table.
-* When a record is inserted in a participating table, a "pointer" record is also automatically inserted (by trigger)
-  linking the ID ("pointer id") to the ID of the triggering table ("table id").
-* Any foreign key columns can reference the "pointers" table if they don't know which table it is in.
-
-While this indeed solved the stated problem, it introduced a new one: how do we effectively work with objects if we
-don't know what type they are? Our solution for this comes in two parts:
-
-* Mixin tables.
-* Helper libraries.
-
-Where a pointable table represents an object, a mixin table represents data about an object. It is a collection of
-related fields that may be common to multiple pointables. In essence, they allow you to work with data regardless of
-which pointable you are working with. Mixins have a pointer ID as a primary key, thus each object may only 'use' a mixin once.
-
-A good example of this is our access control mixin, `controlled`, which contains a foreign key to an `acl`. Thus
-`controlled` represents "mixing in" access control to a pointable.
-
+Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
 ## Code Structure
 

@@ -158,23 +158,23 @@ that too:
 make mix~"bonfire.user.admin.promote root" # for username `root`
 ```
 
-<!-- ## The Bonfire Environment -->
+## The Bonfire Environment
 
-<!-- We like to think of bonfire as a comfortable way of developing software - there are a lot of -->
-<!-- conveniences built in once you know how they all work. The gotcha is that while you don't know them, -->
-<!-- it can be a bit overwhelming. Don't worry, we've got your back. -->
+We like to think of bonfire as a comfortable way of developing software - there are a lot of
+conveniences built in once you know how they all work. The gotcha is that while you don't know them,
+it can be a bit overwhelming. Don't worry, we've got your back.
 
 <!-- * [Elixir from 10,000 ft.](./ELIXIR.md) - some notes to consider when learning elixir. -->
-<!-- * [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way we code. -->
-<!-- * [Bonfire's Database](./DATABASE.md) - an introduction to how we model, store and query data. -->
-<!-- * [Boundaries](./BOUNDARIES.md) - an introduction to our access control system -->
+* [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
+* [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
+* [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
 <!-- * [Epics](./EPICS.md) -->
 <!-- * []() -->
 <!-- * []() -->
 <!-- * []() -->
 <!-- * []() -->
 
-<!-- Note: these are still at the early draft stage, we expect to gradually improve documentation over time. -->
+Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
 ## Documentation
 
@@ -188,10 +188,11 @@ The code is somewhat documented inline. You can generate HTML docs (using `Exdoc
 
 - You can migrate the DB when the app is running (useful in a release): `EctoSparkles.ReleaseTasks.migrate`
 
-### Usage under Windows (MSYS or CYGWIN)
+### Usage under Windows (WSL, MSYS or CYGWIN)
 
-If you plan on using the `Makefile` (its rather handy), you must have symlinks enabled.
-You must enable developer mode, and set `core.symlink = true`, [see link.](https://stackoverflow.com/a/59761201)
+By default, the `Makefile` requires symlinks, which can be enabled with the help of [this link](https://stackoverflow.com/a/59761201).
+
+See the [pull request adding WSL support](https://github.com/bonfire-networks/bonfire-app/pull/111) for details about usage without symlinks.
 
 ## Make commands
 
