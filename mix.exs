@@ -125,7 +125,7 @@ defmodule Bonfire.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
       {:mix_unused, "~> 0.3.0", only: :dev},
-      {:ex_doc, "~> 0.28.2", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
       {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
 
