@@ -1,14 +1,22 @@
 # Backend Configuration and Deployment
 
-### WARNING: Bonfire is still under development and deploying is only recommended for development and testing purposes.  
+### WARNING: Bonfire is still under active development and deployment is only recommended for development and testing purposes!
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Developer Guide](./HACKING.md)!_
+
+
+## Security Warning
+
+We recommend only granting an account to people you trust to minimise the attack surface.
+
+Accordingly, Bonfire ships with public registration disabled, please
+keep it that way. The admin panel has an `invite` facility.
 
 ---
 
 ## Step 0 - Configure your database
 
-You must provide a postgresql database for data storage. We require postgres 12 or above (or Postgis).
+You must provide a postgresql database for data storage. We require postgres 12 or above.
 
 If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database:
 

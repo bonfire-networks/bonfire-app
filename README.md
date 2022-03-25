@@ -22,15 +22,15 @@ As well as app flavours being built by others, including:
 ## 📖 Documentation
 
 * [Website](https://bonfirenetworks.org) 
-* [Set up an instance](docs/DEPLOY.md) 
+* [Set up an instance](docs/DEPLOY.md) - for testing and evaluation only!
 * [Hacking on Bonfire](docs/HACKING.md) 
-* [Code reference](https://doc.bonfirenetworks.org/api-reference.html#content) 
+* [Code documentation](https://doc.bonfirenetworks.org/api-reference.html#content) 
 * [Community chat](https://matrix.to/#/%23bonfire-networks:matrix.org) 
 
 
 ## Copyright and License
 
-Copyright (c) 2021 Bonfire Contributors
+Copyright (c) 2020-2022 Bonfire Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
