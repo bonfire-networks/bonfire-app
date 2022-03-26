@@ -11,6 +11,7 @@ alias Bonfire.Social.Acts.{
   Boundaries,
   Caretaker,
   Creator,
+  Edges,
   Feeds,
   LivePush,
   MeiliSearch,
@@ -20,6 +21,8 @@ alias Bonfire.Social.Acts.{
   Threaded,
 }
 
+config :bonfire_social, Bonfire.Social.Follows, []
+
 config :bonfire_social, Bonfire.Social.Posts,
   epics: [
     publish: [
@@ -28,9 +31,9 @@ config :bonfire_social, Bonfire.Social.Posts,
       PostContents,            # with a sanitised body and tags extracted,
       {Caretaker,  on: :post}, # a caretaker,
       {Creator,    on: :post}, # and a creator,
-      {Threaded,   on: :post}, # either in reply to something or else starting a new thread,
+      {Threaded,   on: :post}, # possibly occurring in a thread,
       {Tags,       on: :post}, # with extracted tags fully hooked up,
-      {Boundaries, on: :post}, # and the appropriate boundaries established
+      {Boundaries, on: :post}, # and the appropriate boundaries established,
       {Activity,   on: :post}, # summarised by an activity,
       {Feeds,      on: :post}, # appearing in feeds.
 
@@ -49,27 +52,5 @@ config :bonfire_social, Bonfire.Social.Posts,
       # Oban would rather we put these here than in the transaction
       # above because it knows better than us, obviously.
       {ActivityPub, on: :post}, # Prepare for federation and do the queue insert (oban).
-    ],
-    delete: [
-      {Delete,     on: :post}, # create a deletion changeset
-      {Boundaries, on: :post}, # clean up any boundaries specific to this post
-      {Feeds,      on: :post}, # remove any activities related to us from feeds.
-
-      MeiliSearch.Prepare, # Prepare request to unindex
-
-      # Now we have a short critical section
-      Ecto.Begin,
-      Ecto.Work,         # Run our deletes
-      Ecto.Commit,
-
-      # These things are free to happen casually in the background.
-      {LivePush, on: :post}, # Publish live feed updates via (in-memory) pubsub.
-
-      {MeiliSearch.Queue, on: :post},       # Enqueue meilisearch unindex   (really an insert, because oban)
-
-      # Oban would rather we put these here than in the transaction
-      # above because it knows better than us, obviously.
-      {ActivityPub, on: :post}, # Prepare for federation
-
     ],
   ]
