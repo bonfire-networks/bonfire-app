@@ -243,7 +243,7 @@ defmodule Bonfire.MixProject do
 
   defp bonfire_app_pattern(path, line), do: bonfire_app_pattern("https://github.com/bonfire-networks/bonfire-app/blob/main/%{path}#L%{line}", path, line)
 
-  defp bonfire_app_pattern(pattern, path, line), do: pattern |> String.replace("%{path}", path) |> String.replace("%{line}", line)
+  defp bonfire_app_pattern(pattern, path, line), do: pattern |> String.replace("%{path}", "#{path}") |> String.replace("%{line}", "#{line}")
 
   # Specifies which paths to include when running tests
   defp test_paths(), do: ["test" | Enum.flat_map(deps(:test), &dep_paths(&1, "test"))]
