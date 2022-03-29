@@ -1,19 +1,21 @@
 # Bonfire-flavoured Elixir
 
-Bonfire has a few libraries that are widely used internally and make writing elixir feel a little
+Bonfire has a few libraries that are widely used in the codebase and make writing Elixir feel a little
 bit different. To help you get less confused by this, I've put together this handy guide on what I'm
 calling "bonfire-flavoured elixir"!
+
+Please note this guide assumes you already know [Elixir](https://elixir-lang.org/getting-started/introduction.html).
 
 ## Arrows
 
 The elixir [|> ("pipe") operator](https://hexdocs.pm/elixir/Kernel.html#%7C%3E/2) is one of the
 things that seems to get people excited about elixir. I suspect it's because they're lazy about
-coming up with names, which I can appreciate. Unfortunately it's kind of limiting. The moment you
-need to pipe a parameter into a position that isn't the first one, it breaks down and you have to
-drop out of the pipeline format or write a secondary function to handle it.
+coming up with function names, which I can appreciate. Unfortunately it's kind of limiting. 
+The moment you need to pipe a parameter into a position that isn't the first one, it breaks down 
+and you have to drop out of the pipeline format or write a secondary function to handle it.
 
 Not any more! By simply inserting `...` where you would like the value to be inserted, it will
-override where it is placed! This allows you to keep on piping while accommodating that function
+override where it is placed. This allows you to keep on piping while accommodating that function
 with the annoying argument order.
 
 I stole the idea from [an existing library](https://hexdocs.pm/magritte/Magritte.html) and removed a
@@ -62,19 +64,19 @@ We also have an `ok-pipe` operator, `~>`, which only pipes into the next functio
 the last one was considered a success. It's inspired by [OK](https://hexdocs.pm/ok/readme.html), but
 we have chosen to do things slightly differently so it better fits with our regular pipe.
 
-input                      | result          |
-:------------------------- | :-------------- |
-`{:ok, x}`               | `fun.(x)`      |
-`{:error, e}`            | `{:error, e}` |
-`nil`                     | `nil`          |
-`x when not is_nil(x)` | `fun.(x)`      |
+input                    | result          |
+:----------------------- | :-------------- |
+`{:ok, x}`               | `fun.(x)`       |
+`{:error, e}`            | `{:error, e}`   |
+`nil`                    | `nil`           |
+`x when not is_nil(x)`   | `fun.(x)`       |
 
 In the case of a function returning an ok/error tuple being on the left hand side, this is
 straightforward to determine. In the event of `{:ok, x}`, x will be passed into the right hand side
 to call. In the event of `{:error, x}`, the result will be `{:error, x}`.
 
 We also deal with a lot of functions that indicate failure by returning nil. `~>` tries to 'do what
-i mean' for both of these so you can have one pipe operator to rule them all. If `nil` is a valid
+I mean' for both of these so you can have one pipe operator to rule them all. If `nil` is a valid
 result, you must thus be sure to wrap it in an `ok` tuple when it occurs on the left hand side of `~>`.
 
 `|>` and `~>` compose in the way you'd expect; i.e. a `~>` receiving an error tuple or nil will stop
@@ -82,8 +84,8 @@ executing the rest of the chain of (mixed) pipes.
 
 ## Where
 
-`Where` provides replacements for the macros in `Logger` and the `IO.inspect` function with versions
-that output code location information. The first argument will be `inspect`ed and the second (where
+`Where` provides replacements for the macros in Elixir's `Logger` and the `IO.inspect` function to 
+output code location information. The first argument will be `inspect`ed and the second (where
 provided) will be used as a label:
 
 ```
@@ -92,7 +94,7 @@ Where
 iex(2)> debug(:no, "the answer is") # log at debug
 11:19:09.915 [debug] [iex:2] the answer is: :no
 :no
-iex(3)> Where.dump(%{a: :map}, "it") # inspect something on stdout
+iex(3)> dump(%{a: :map}, "it") # inspect something on stdout
 [iex:3] it: %{a: :map}
 %{a: :map}
 ```
@@ -111,7 +113,7 @@ do_something()
 |> debug("output of do_something/0")
 ```
 
-When you no longer need to debug this, the location of the debug statement is already in the output
+When you are done debugging something, the location of the debug statement is already in the output
 so you know where to remove it or comment it out! Bliss!
 
 You will find the codebase uses this a lot and the debugs are frequently commented out. Just

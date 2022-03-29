@@ -1,4 +1,4 @@
-# Backend Configuration and Deployment
+# Deployment guide
 
 ### WARNING: Bonfire is still under active development and deployment is only recommended for development and testing purposes!
 
