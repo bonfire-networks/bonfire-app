@@ -1,4 +1,4 @@
-# Bonfire GraphQL Guide
+# GraphQL API
 
 ## GraphQL Introduction
 

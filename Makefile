@@ -105,7 +105,7 @@ else
 endif
 
 doc: ## Generate docs from code & readmes
-	@make --no-print-directory cmd cmd="mix docs"
+	@make --no-print-directory mix.remote~docs
 
 recompile: ## Force the app to recompile
 	@make --no-print-directory cmd cmd="mix compile --force"

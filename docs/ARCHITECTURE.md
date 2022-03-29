@@ -170,26 +170,26 @@ It is said that naming is one of the four hard problems of computer science (alo
 
 This namespace handles the ActivityPub logic and stores AP activities. It is largely adapted Pleroma code with some modifications, for example merging of the activity and object tables and new actor object abstraction.
 
-Also refer to [MRF documentation](./MRF.md) to learn how to rewrite or discard messages.
+- `ActivityPub` contains the main API and is documented there. 
+- `ActivityPub.Adapter` defines callback functions for the AP library.
 
-`ActivityPub` contains the main API and is documented there. 
-
-`ActivityPub.Adapter` defines callback functions for the AP library.
-
-`ActivityPub` also contains some functionality that isn't part of the AP spec but is required for federation:
-
+It also contains some functionality that isn't part of the AP spec but is required for federation:
 - `ActivityPub.Keys` - Generating and handling RSA keys for messagage signing
 - `ActivityPub.Signature` - Adapter for the HTTPSignature library
 - `ActivityPub.WebFinger` - Implementation of the WebFinger protocol
 - `ActivityPub.HTTP` - Module for making HTTP requests (wrapper around tesla)
 - `ActivityPub.Instances` - Module for storing reachability information about remote instances
 
+Also refer to [MRF documentation](./MRF.md) to learn how to rewrite or discard messages.
 
 ### `ActivityPubWeb`
 
-This namespace contains the AP S2S REST API, the activity ingestion pipeline (`ActivityPubWeb.Transmogrifier`) and the push federation facilities (`ActivityPubWeb.Federator`, `ActivityPubWeb.Publisher` and others). The outgoing federation module is designed in a modular way allowing federating through different protocols in the future.
+This namespace contains the ActivityPub Server-to-Server REST API, the activity ingestion pipeline (`ActivityPubWeb.Transmogrifier`) and the push federation facilities (`ActivityPubWeb.Federator`, `ActivityPubWeb.Publisher` and others). The outgoing federation module is designed in a modular way allowing federating through different protocols in the future. 
 
-### `ActivityPub` interaction in our application logic
+### ActivityPub integration with Bonfire's application logic
 
-The callback functions defined in `ActivityPub.Adapter` are implemented in `Bonfire.ActivityPub.Adapter`. Facilities for calling the ActivityPub API are implemented in `Bonfire.ActivityPub.Publisher`. When implementing federation for a new object type it needs to be implemented both ways: both for outgoing federation in `Bonfire.ActivityPub.Publisher` and for incoming federation in `Bonfire.ActivityPub.Adapter`.
+The callback functions defined in `ActivityPub.Adapter` are implemented in `Bonfire.Federate.ActivityPub.Adapter`. 
+
+When implementing federation for a new object type it needs to be implemented for both directions: 
+for outgoing federation using the hooks in `Bonfire.Federate.ActivityPub.Publisher` and for incoming federation using the hooks in `Bonfire.Federate.ActivityPub.Receiver`.
 

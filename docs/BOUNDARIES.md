@@ -1,4 +1,4 @@
-# Bonfire Boundaries
+# Boundaries & Access Control
 
 Boundaries is Bonfire's flexible framework for full
 per-user/per-object/per-action access control. It makes it easy to
@@ -13,15 +13,16 @@ of circles that they can add to and categorise other users in as they
 please.
 
 Circles allow a user to categorise work colleagues differently from
-friends. They can choose to allow different interactions from users in
-the two circles or limit which content each sees on a per-item basis.
+friends, for example. They can choose to allow different interactions 
+from users in the two circles or limit which content each sees on a 
+per-item basis.
 
 ## Verbs
 
 Verbs represent actions that the user could perform, such as reading a
 post or replying to a message.
 
-Each verb has a unique ID, like the table IDs from `pointers` which
+Each verb has a unique ID, like the table IDs from `pointers`, which
 must be known to the system through configuration.
 
 ## Permissions
@@ -34,7 +35,7 @@ Permissions can take one of three values:
 
 `true` and `false` are easy enough to understand as yes and no, but what is `nil`?
 
-`nil` represents `no answer`. in isolation, it is the same as `false`.
+`nil` represents `no answer` - in isolation, it is the same as `false`.
 
 Because a user could be in more than one circle and each circle may
 have a different permission, we need a way of combining permissions to
@@ -53,7 +54,7 @@ left    | right   | result
 `false` | `false` | `false`
 
 To be considered granted, the result of combining the permissions must
-be `true` - `nil` is as good as `false` again here.
+be `true` (`nil` is as good as `false` again here).
 
 `nil` can thus be seen as a sort of `weak false`, being easily
 overridden by a true, but also not by itself granting anything.
