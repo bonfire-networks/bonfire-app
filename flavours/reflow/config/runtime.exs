@@ -67,7 +67,7 @@ config :bonfire, Bonfire.Web.Endpoint,
 # start prod-only config
 if config_env() == :prod do
 
-  config :logger, level: System.get_env("LOG_LEVEL", "info")
+  config :logger, level: String.to_atom(System.get_env("LOG_LEVEL", "info"))
 
   config :bonfire, Bonfire.Repo,
     # ssl: true,
