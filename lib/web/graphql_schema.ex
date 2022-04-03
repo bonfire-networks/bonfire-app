@@ -1,5 +1,5 @@
-if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(ValueFlows.Schema) and Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
 # SPDX-License-Identifier: AGPL-3.0-only
+if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(ValueFlows.Schema) and Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
 defmodule Bonfire.API.GraphQL.Schema do
   @moduledoc """
   Root GraphQL Schema.
