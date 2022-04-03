@@ -84,8 +84,7 @@ common_assocs = %{
   activity:     quote(do: has_one(:activity,     unquote(Activity),    unquote(mixin))),
   # ActivityPub actor information
   actor:        quote(do: has_one(:actor,        unquote(Actor),       unquote(mixin))),
-  # Indicates the entity responsible for an activity. Sort of like creator, but transferrable. Used
-  # during deletion - when the caretaker is deleted, all their stuff will be too.
+  # caretaker indicates the entity responsible for an activity. Sort of like creator, but transferrable. Used during deletion - when the caretaker is deleted, all their stuff will be too.
   caretaker:    quote(do: has_one(:caretaker,    unquote(Caretaker),   unquote(mixin))),
   # A Character has a unique username and some feeds.
   character:    quote(do: has_one(:character,    unquote(Character),   unquote(mixin))),
