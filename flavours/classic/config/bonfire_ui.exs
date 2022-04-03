@@ -10,7 +10,7 @@ config :bonfire, :ui,
       instance_welcome_title: "About",
       instance_welcome_description: "## 👋 Welcome to the bonfire testing instance
 <div class='shadow-lg alert alert-warning'>
-      <span>Beware.. The Bonfire framework is still on alpha</span>
+      <span>Warning: Bonfire is in alpha and some things may not work as expected.</span>
 </div>
 Bonfire is a federated social networking toolkit for communities and individuals to design, operate and control their digital lives, by assembling their own social networks like lego blocks in order to cultivate safe and private spaces while being interconnected with the rest of the 'fediverse' and the internet at wide on their own terms.
 The bonfire ecosystem will include:
