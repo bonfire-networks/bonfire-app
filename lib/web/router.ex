@@ -162,5 +162,11 @@ defmodule Bonfire.Web.Router do
 end
 defmodule Bonfire.Web.Router.Reverse do
   import Voodoo, only: [def_reverse_router: 2]
+  import Where
   def_reverse_router :path, for: Bonfire.Web.Router
+
+  def path(conn_or_socket_or_endpoint, name, _arg1) do
+    error(name, "no path defined for type")
+    nil
+  end
 end
