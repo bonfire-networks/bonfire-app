@@ -39,7 +39,7 @@ defmodule Bonfire.Web.Endpoint do
     at: "/",
     from: :bonfire,
     gzip: true,
-    only: ~w(css fonts images js favicon.ico robots.txt cache_manifest.json)
+    only: ~w(css fonts images js favicon.ico robots.txt cache_manifest.json favicon.ico)
 
   plug Plug.Static,
     at: "/data/uploads/",
