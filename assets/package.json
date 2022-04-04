@@ -3,7 +3,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "watch.assets": "cpx 'static/**/*' ../priv/static --watch",
-    "build": "cp -r static/*.ico ../priv/static/ && cp -r static/images ../priv/static/ && pnpm build.css && pnpm build.js",
+    "build": "mkdir -p ../priv/static/ && cp -r static/*.ico ../priv/static/ && cp -r static/images ../priv/static/ && pnpm build.css && pnpm build.js",
     "watch.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2017 --bundle --sourcemap --loader:.svg=text --outdir=../priv/static/js --watch",
     "build.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2017 --bundle --sourcemap --loader:.svg=text --bundle --outdir=../priv/static/js",
     "watch.css.tw": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss -i ./css/app.scss -o ../priv/static/css/bonfire.css --files ../{lib,forks,deps}/**/*{.leex,.heex,.sface} --jit --watch",
