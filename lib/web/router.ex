@@ -165,8 +165,8 @@ defmodule Bonfire.Web.Router.Reverse do
   import Where
   def_reverse_router :path, for: Bonfire.Web.Router
 
-  def path(conn_or_socket_or_endpoint, name, _arg1) do
-    error(name, "no path defined for type")
-    nil
-  end
+  # def path(_conn_or_socket_or_endpoint, name, _arg1) do
+  #   error(name, "no path defined for type")
+  #   nil
+  # end
 end

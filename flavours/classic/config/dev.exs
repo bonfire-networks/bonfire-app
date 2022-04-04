@@ -33,10 +33,10 @@ config :bonfire, Bonfire.Web.Endpoint,
       "watch.css",
       cd: Path.expand("assets", File.cwd!())
     ],
-    # pnpm: [
-    #   "watch.assets",
-    #   cd: Path.expand("assets", File.cwd!())
-    # ]
+    pnpm: [
+      "watch.assets",
+      cd: Path.expand("assets", File.cwd!())
+    ]
   ],
   live_reload: [
     patterns: [
