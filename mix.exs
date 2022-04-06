@@ -103,13 +103,13 @@ defmodule Bonfire.MixProject do
       "bonfire.deps.clean.data": ["deps.clean " <> deps_to_clean(:data) <> " --build"],
       "bonfire.deps.clean.api": ["deps.clean " <> deps_to_clean(:api) <> " --build"],
       "bonfire.deps.recompile": ["deps.compile " <> deps_to_update() <> " --force"],
-      "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean"],
+      "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean.data"],
       "ecto.seeds": [
         "run #{flavour_path()}/repo/seeds.exs"
         ],
       "js.deps.get": ["cmd make js.deps.get"],
       "js.deps.update": ["cmd cd assets && pnpm update"],
-      setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean", "ecto.setup"],
+      setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean.data", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
