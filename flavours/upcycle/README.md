@@ -21,7 +21,7 @@ This app is a flavour of [Bonfire](https://bonfirenetworks.org/) and bundles the
 - [Bonfire:Breadpub](https://github.com/bonfire-networks/bonfire_breadpub) - needs & offers for mutual aid
 - [Bonfire:Files](https://github.com/bonfire-networks/bonfire_files) - file management for bonfire apps
 - [Bonfire:Data:SharedUser](https://github.com/bonfire-networks/bonfire_data_shared_user) - database models for shared users in the bonfire ecosystem
-- [Bonfire:Upcycle](https://gitlab.com/msoe.edu/sdl/y22sdl/sdl-upcycle/upcycle_ext) - WIP: Upcycle UI
+- [Bonfire:Upcycle](https://gitlab.com/msoe.edu-public/sdl/y22sdl/upcycle/bonfire_upcycle/-/tree/master) - Upcycle UI
 
 ## More information
 
