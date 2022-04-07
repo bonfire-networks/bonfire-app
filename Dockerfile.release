@@ -92,8 +92,8 @@ COPY assets assets
 RUN mix do deps.get --only prod
 
 # include an archive of the source code
-COPY LICENSE docs ./
-RUN mkdir -p priv/static/ && tar --exclude=*.env --exclude=assets/node_modules --exclude=docs/exdoc -czvf priv/static/source.tar.gz lib deps assets config docs mix.exs mix.lock mess.exs LICENSE
+COPY LICENSE ./
+RUN mkdir -p priv/static/ && tar --exclude=*.env --exclude=assets/node_modules --exclude=docs/exdoc -czvf priv/static/source.tar.gz lib deps assets config mix.exs mix.lock mess.exs LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
