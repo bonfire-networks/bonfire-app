@@ -162,8 +162,8 @@ update.deps.all: ## Update evey single dependency (use with caution)
 	@make --no-print-directory update.dep~"--all"
 
 update.dep~%: ## Update a specify dep (eg. `make update.dep~pointers`)
-	@make --no-print-directory mix.remote~"deps.update $*"
 	@chmod +x git-publish.sh && ./git-publish.sh $(FORKS_PATH)/$* pull
+	@make --no-print-directory mix.remote~"deps.update $*"
 
 update.forks: ## Pull the latest commits from all ./forks
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
