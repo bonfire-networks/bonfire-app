@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.2.0-alpha.20", # note that the flavour will automatically be added where the dash appears
+      version: "0.2.0-alpha.21", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -40,7 +40,10 @@ defmodule Bonfire.MixProject do
       deps: deps(),
       config_path: config_path("config.exs"),
       releases: [
-        bonfire: [runtime_config_path: config_path("runtime.exs")],
+        bonfire: [
+          runtime_config_path: config_path("runtime.exs"),
+          strip_beams: false # to enable debugging
+        ],
       ],
       source_url: "https://github.com/bonfire-networks/bonfire-app",
       homepage_url: "https://bonfirenetworks.org",
