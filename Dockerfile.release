@@ -27,7 +27,7 @@ ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR F
 WORKDIR $HOME
 
 # necessary utils
-RUN apk add --no-cache curl git rust cargo npm bash
+RUN apk add --no-cache tar curl git rust cargo npm bash
 
 # dependencies for comeonin
 RUN apk add --no-cache make gcc libc-dev
@@ -61,7 +61,7 @@ RUN rm ./config/deps.path
 # Update Bonfire extensions to latest git version 
 RUN mix do bonfire.deps.update
 
-# Uncomment these lines only if you want to include locally-forked deps in the release
+# Uncomment these lines only if you want to include locally-forked deps in the release (rather than only ones downloaded from hex.pm or git)
 # COPY data/current_flavour/config/deps.path ./config 
 # COPY forks/ ./ 
 # RUN mix do deps.get --only prod
@@ -95,6 +95,9 @@ RUN mix do deps.get --only prod
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
 RUN mix assets.release
 RUN MIX_ENV=prod CI=1 mix phx.digest
+
+COPY LICENSE ./
+RUN mkdir -p priv/data/uploads && tar --exclude=*.env -czvf priv/data/uploads/source.tar.gz lib deps assets mix.exs mix.lock mess.exs LICENSE data/current_flavour/
 
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
