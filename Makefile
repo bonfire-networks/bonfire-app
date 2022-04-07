@@ -350,6 +350,7 @@ rel.env:
 
 rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
 	rm -rf ./data/current_flavour
+	mkdir data
 	@cp -rfL $(FLAVOUR_PATH) ./data/current_flavour
 
 rel.prepare: rel.env rel.config.prepare # copy current flavour's config, without using symlinks
