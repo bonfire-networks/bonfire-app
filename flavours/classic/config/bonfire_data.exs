@@ -169,7 +169,7 @@ config :pointers, Pointer,
     unquote_splicing(common.([:controlled, :tagged]))
     # has_many
     unquote_splicing(common.([:activities, :care_closure, :direct_replies, :feed_publishes]))
-    
+
     ## special things
     # these should go away in future and they should be populated by a single query.
     has_one :like_count, unquote(EdgeTotal), foreign_key: :id, references: :id,
@@ -318,7 +318,7 @@ config :bonfire_data_identity, User,
       join_through: "bonfire_data_shared_user_accounts",
       join_keys: [shared_user_id: :id, account_id: :id]
     # has_many :account, through: [:accounted, :account] # this is private info, do not expose
-    # has_one :geolocation, Bonfire.Geolocate.Geolocation
+    # has_one :geolocation, Bonfire.Geolocate.Geolocation # enable if using Geolocate extension
   end]
 
 ### bonfire_data_social
@@ -387,7 +387,7 @@ config :bonfire_data_social, FeedPublish,
     # belongs_to :character, unquote(Character), foreign_key: :id, define_field: false
     # belongs_to :user, unquote(User), foreign_key: :id, define_field: false
   end]
- 
+
 
 config :bonfire_data_social, Follow,
   [code: quote do

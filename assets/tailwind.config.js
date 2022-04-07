@@ -95,7 +95,7 @@ module.exports = {
           "info": "#3ABFF8",
           "success": "#36D399",
           "warning": "#FBBD23",
-          "error": "#F87272",},
+          "error": "#f15b5b",},
       },
       "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"
     ]
