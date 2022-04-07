@@ -77,7 +77,10 @@ RUN chmod +x config/*.sh && chmod +x priv/*.sh && sh config/deps.js.sh
 # Compile Bonfire extensions
 RUN MIX_ENV=prod mix do deps.compile
 
-# migrations
+# Update mime types
+RUN MIX_ENV=prod mix do deps.clean --build mime
+
+# Include migrations
 COPY data/current_flavour/repo priv/repo
 
 # bonfire-app code & assets 
