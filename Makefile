@@ -349,9 +349,13 @@ rel.env:
 	$(eval export)
 
 rel.config.prepare: rel.env # copy current flavour's config, without using symlinks
+	rm -rf ./data/current_flavour
 	@cp -rfL $(FLAVOUR_PATH) ./data/current_flavour
 
-rel.rebuild: rel.env init rel.config.prepare assets.prepare ## Build the Docker image
+rel.prepare: rel.env rel.config.prepare # copy current flavour's config, without using symlinks
+	@mkdir -p forks/ && mkdir -p data/uploads/ && touch data/current_flavour/config/deps.path
+
+rel.rebuild: rel.env init rel.prepare assets.prepare ## Build the Docker image
 	docker build \
 		--no-cache \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
@@ -362,7 +366,7 @@ rel.rebuild: rel.env init rel.config.prepare assets.prepare ## Build the Docker 
 		-f $(APP_REL_DOCKERFILE) .
 	@echo Build complete: $(APP_DOCKER_REPO):$(APP_VSN)-release-$(APP_BUILD)
 
-rel.build: rel.env init rel.config.prepare assets.prepare ## Build the Docker image using previous cache
+rel.build: rel.env init rel.prepare assets.prepare ## Build the Docker image using previous cache
 	@echo "Building $(APP_NAME) with flavour $(FLAVOUR)"
 	docker build \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
