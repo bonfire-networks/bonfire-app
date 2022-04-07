@@ -11,7 +11,7 @@ defmodule Bonfire.Web.Router do
   end
 
   pipeline :browser do
-    plug :accepts, ["html", "activity+json", "json", "json+ld"]
+    plug :accepts, ["html", "activity+json", "json", "ld+json"]
     plug :fetch_session
     plug PhoenixGon.Pipeline,
       assets: Map.new(Config.get(:js_config, []))
