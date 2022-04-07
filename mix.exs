@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.2.0-alpha.17", # note that the flavour will automatically be added where the dash appears
+      version: "0.2.0-alpha.18", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.12",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -32,6 +32,7 @@ defmodule Bonfire.MixProject do
       version: version(),
       elixir: @config[:elixir],
       elixirc_paths: elixirc_paths(Mix.env()),
+      elixirc_options: [debug_info: true, docs: true],
       test_paths: test_paths(),
       compilers: compilers(Mix.env()),
       start_permanent: Mix.env() == :prod,
