@@ -56,7 +56,7 @@ alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Boundaries.{Permitted, Stereotyped}
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, CareClosure, Character, Credential, Email, Named, Self, User,
+  Account, Accounted, Caretaker, CareClosure, Character, Credential, Email, Named, Self, Settings, User,
 }
 alias Bonfire.Data.Social.{
   Activity, APActivity, Article, Block, Bookmark, Boost, Created, Feed, FeedPublish,
@@ -253,11 +253,12 @@ config :bonfire_data_identity, Account,
   [code: quote do
     has_one :credential, unquote(Credential),foreign_key: :id
     has_one :email, unquote(Email), foreign_key: :id
+    has_one :settings, unquote(Settings), foreign_key: :id
     many_to_many :users, unquote(User),
-      join_through: "bonfire_data_identity_accounted",
+      join_through: Accounted,
       join_keys: [account_id: :id, id: :id]
-    many_to_many :shared_users, unquote(User),
-      join_through: "bonfire_data_shared_user_accounts",
+    many_to_many :shared_users, unquote(User), # optional
+      join_through: Bonfire.Data.SharedUser,
       join_keys: [account_id: :id, shared_user_id: :id]
   end]
 
@@ -306,6 +307,7 @@ config :bonfire_data_identity, User,
     has_one  :instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update
     has_one  :self, unquote(Self), foreign_key: :id
     has_one  :shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id
+    has_one  :settings, unquote(Settings), foreign_key: :id
     unquote_splicing(common.([:actor, :character, :created, :peered, :profile]))
     # multimixins
     unquote_splicing(common.([:controlled]))

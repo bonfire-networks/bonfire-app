@@ -11,7 +11,7 @@ use Common.Utils
 import Bonfire.Me.Fake
 require Logger
 
-if module_enabled?(Bonfire.Common.Test.Interactive) do
+if module_enabled?(Bonfire.Common.Test.Interactive) && Mix.env() == :test do
   # to run tests from iex
 
   # Code.compiler_options(ignore_module_conflict: true)
@@ -27,6 +27,6 @@ if module_enabled?(Bonfire.Common.Test.Interactive) do
   Bonfire.Common.Test.Interactive.Helpers.ready
 
 else
-  Logger.info("IExWatchTests is not available")
+  Logger.info("IExWatchTests is not running")
 end
 import_if_enabled Bonfire.Common.Test.Interactive.Helpers
