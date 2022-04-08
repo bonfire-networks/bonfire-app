@@ -19,5 +19,6 @@ config :bonfire_me, Bonfire.Me.Accounts,
   ]
 
 config :bonfire_me, Bonfire.Me.Users,
+  discoverable: true, # whether profiles should be dicoverable by search engines (can be overriden in user settings)
   # TODO: not hooked up yet
   max_per_account: 5 # Maximum number of users that an account may create
