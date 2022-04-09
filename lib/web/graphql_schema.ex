@@ -168,7 +168,7 @@ defmodule Bonfire.API.GraphQL.Schema do
       # :collection,
       # :comment,
       # :flag,
-      :follow,
+      # :follow,
       :activity,
       :post,
       :user,
