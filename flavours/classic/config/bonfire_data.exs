@@ -258,7 +258,7 @@ config :bonfire_data_identity, Account,
       join_through: Accounted,
       join_keys: [account_id: :id, id: :id]
     many_to_many :shared_users, unquote(User), # optional
-      join_through: Bonfire.Data.SharedUser,
+      join_through: "bonfire_data_shared_user_accounts",
       join_keys: [account_id: :id, shared_user_id: :id]
   end]
 
@@ -302,6 +302,9 @@ config :bonfire_data_identity, Self, []
 
 config :bonfire_data_identity, User,
   [code: quote do
+    @like_ulid   "11KES11KET0BE11KEDY0VKN0WS"
+    @boost_ulid  "300STANN0VNCERESHARESH0VTS"
+    @follow_ulid "70110WTHE1EADER1EADER1EADE"
     # mixins
     has_one  :accounted, unquote(Accounted), foreign_key: :id
     has_one  :instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update
@@ -315,7 +318,11 @@ config :bonfire_data_identity, User,
     has_many :encircles, unquote(Encircle), foreign_key: :subject_id
     has_many :creations, through: [:created, :pointer] # todo: stop through
     has_many :posts, through: [:created, :post] # todo: stop through
+    has_many :followers, unquote(Edge), foreign_key: :object_id, references: :id, where: [table_id: @follow_ulid]
+    has_many :followed, unquote(Edge), foreign_key: :subject_id, references: :id, where: [table_id: @follow_ulid]
     has_many :user_activities, unquote(Activity), foreign_key: :subject_id, references: :id
+    has_many :boost_activities, unquote(Edge), foreign_key: :subject_id, references: :id, where: [table_id: @boost_ulid]
+    has_many :like_activities, unquote(Edge), foreign_key: :subject_id, references: :id, where: [table_id: @like_ulid]
     many_to_many :caretaker_accounts, unquote(Account),
       join_through: "bonfire_data_shared_user_accounts",
       join_keys: [shared_user_id: :id, account_id: :id]
@@ -330,30 +337,17 @@ config :bonfire_data_social, Activity,
     @like_ulid   "11KES11KET0BE11KEDY0VKN0WS"
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
-    # has_one :object_created, unquote(Created), foreign_key: :id
-    # belongs_to :object_peered, unquote(Peered), foreign_key: :id, define_field: false
-    # belongs_to :object_post, unquote(Post), foreign_key: :id, define_field: false
-    # belongs_to :object_post_content, unquote(PostContent), foreign_key: :id, define_field: false
-    # belongs_to :object_message, unquote(Message), foreign_key: :id, define_field: false
+    has_many :feed_publishes, unquote(FeedPublish), unquote(mixin)
+    # ugly workaround needed for certain queries:
+    has_one :activity, unquote(Activity), foreign_key: :id, references: :id
+    # mixins linked to the object rather than the activity:
+    has_one :created, unquote(Created), foreign_key: :id, references: :object_id
     has_one :replied, unquote(Replied), foreign_key: :id, references: :object_id
-    # has_one:    [reply_to: {[through: [:replied, :reply_to]]}],
-    # has_one:    [reply_to_post: {[through: [:replied, :reply_to_post]]}],
-    # has_one:    [reply_to_post_content: {[through: [:replied, :reply_to_post_content]]}],
-    # has_one:    [reply_to_creator_character: {[through: [:replied, :reply_to_creator_character]]}],
-    # has_one:    [reply_to_creator_profile: {[through: [:replied, :reply_to_creator_profile]]}],
-    # has_one:    [thread_post: {[through: [:replied, :thread_post]]}],
-    # has_one:    [thread_post_content: {[through: [:replied, :thread_post_content]]}],
-    # has_one:    [object_creator_user: {[through: [:object_created, :creator_user]]}],
-    # has_one:    [object_creator_character: {[through: [:object_created, :creator_character]]}],
-    # has_one:    [object_creator_profile: {[through: [:object_created, :creator_profile]]}],
-    # ugly workaround needed for querying
-    has_one :activity, unquote(Activity), foreign_key: :object_id, references: :id
     has_one :like_count, unquote(EdgeTotal), foreign_key: :id, references: :object_id, where: [table_id: @like_ulid]
     has_one :boost_count, unquote(EdgeTotal), foreign_key: :id, references: :object_id, where: [table_id: @boost_ulid]
     has_one :follow_count, unquote(EdgeTotal), foreign_key: :id, references: :object_id, where: [table_id: @follow_ulid]
     has_many :controlled, unquote(Controlled), foreign_key: :id, references: :object_id
     has_many :tagged, unquote(Tagged), foreign_key: :id, references: :object_id
-    has_many :feed_publishes, unquote(FeedPublish), unquote(mixin)
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
