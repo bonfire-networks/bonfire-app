@@ -22,7 +22,7 @@ defmodule Bonfire.Application do
 
   def applications(with_graphql? \\ Code.ensure_loaded?(Bonfire.API.GraphQL.Schema)) # TODO better
 
-  def applications(true = _with_graphql?) do
+  def applications(true = _with_graphql?) do # include GraphQL API
     [
       {Absinthe.Schema, Bonfire.API.GraphQL.Schema} # use persistent_term backend for Absinthe
     ]
@@ -33,7 +33,7 @@ defmodule Bonfire.Application do
     ]
   end
 
-  def applications(_) do
+  def applications(_) do # default apps
     [ Bonfire.Web.Telemetry,                  # Metrics
       Bonfire.Repo,                           # Database
       EctoSparkles.AutoMigrator,
@@ -46,7 +46,15 @@ defmodule Bonfire.Application do
       Bonfire.Federate.ActivityPub.FederationModules,
       # Stuff that uses all the above
       Bonfire.Web.Endpoint,                       # Web app
-      {Oban, Application.fetch_env!(:bonfire, Oban)} # Job Queue
+      {Oban, Application.fetch_env!(:bonfire, Oban)}, # Job Queue
+      %{
+        id: :cachex_settings,
+        start: {Cachex, :start_link, [
+            :settings_cache, [
+              default_ttl: 25_000,
+              ttl_interval: 1000,
+              limit: 2500 # increase for instances with more users (at least num. of users*2+1)
+      ]]}},
     ]
   end
 
