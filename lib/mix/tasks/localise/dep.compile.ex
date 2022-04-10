@@ -1,10 +1,13 @@
 defmodule Mix.Tasks.Bonfire.Dep.Compile do
   use Mix.Task
+  import Where
 
   @shortdoc "Compiles dependencies"
 
   @moduledoc """
   Compiles dependencies.
+
+  This is a modified version of Elixir's `Mix.Tasks.Deps.Compile` which was needed to compile depedencies and extract localisable strings in `Mix.Tasks.Bonfire.Localise.Extract`
 
   By default, compile all dependencies. A list of dependencies
   can be given compile multiple dependencies in order.
@@ -38,7 +41,7 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
     case OptionParser.parse(args, switches: @switches) do
       {opts, [], _} ->
         # Because this command may be invoked explicitly with
-        # deps.compile, we simply try to compile any available
+        # dep.compile, we simply try to compile any available
         # dependency.
         compile(Enum.filter(loaded_deps(), &available?/1), opts)
       {opts, tail, _} ->
@@ -110,8 +113,7 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   defp do_mix(dep, _config) do
     Mix.Dep.in_dependency dep, fn _ ->
       if req = old_elixir_req(Mix.Project.config) do
-        Mix.shell.error "warning: the dependency #{inspect dep.app} requires Elixir #{inspect req} " <>
-                        "but you are running on v#{System.version}"
+        Mix.shell.error "warning: the dependency #{inspect dep.app} requires Elixir #{inspect req} " <> "but you are running on v#{System.version}"
       end
 
       Mix.shell.info "Recompiling extension #{inspect dep.app}"
@@ -178,10 +180,13 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   provided in the project are in the wrong format.
   """
   def loaded_by_name(given, all_deps \\ nil, opts) do
-    all_deps = all_deps || loaded_deps()
+    all_deps = (all_deps || loaded_deps())
+    |> debug("all_deps")
 
     # Ensure all apps are atoms
     apps = to_app_names(given)
+    |> debug("given_app_names")
+
     deps =
       if opts[:include_children] do
         get_deps_with_children(all_deps, apps)
@@ -191,7 +196,7 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
 
     Enum.each apps, fn(app) ->
       unless Enum.any?(all_deps, &(&1.app == app)) do
-        Mix.raise "Unknown dependency #{app} for environment #{Mix.env}"
+        warn("Unknown dependency #{app} for environment #{Mix.env}")
       end
     end
 
