@@ -3,9 +3,11 @@ defmodule Bonfire.Application do
   @sup_name Bonfire.Supervisor
   @name Mix.Project.config()[:name]
   @otp_app Bonfire.Common.Config.get!(:otp_app)
+  @env Bonfire.Common.Config.get!(:env)
   @version Mix.Project.config()[:version]
   @repository Mix.Project.config()[:source_url]
   @deps Bonfire.Common.Extend.loaded_deps()
+  @endpoint_module Bonfire.Common.Config.get!(:endpoint_module)
 
   use Application
 
@@ -16,36 +18,37 @@ defmodule Bonfire.Application do
     :telemetry.attach("oban-errors", [:oban, :job, :exception], &Bonfire.ObanLogger.handle_event/4, [])
     Oban.Telemetry.attach_default_logger()
 
-    applications() #|> IO.inspect
+    applications(@env, Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)) #|> IO.inspect
     |> Supervisor.start_link(strategy: :one_for_one, name: @sup_name)
   end
 
-  def applications(with_graphql? \\ Code.ensure_loaded?(Bonfire.API.GraphQL.Schema)) # TODO better
-
-  def applications(true = _with_graphql?) do # include GraphQL API
+  def applications(env, true = _with_graphql?) do # include GraphQL API
     [
       {Absinthe.Schema, Bonfire.API.GraphQL.Schema} # use persistent_term backend for Absinthe
     ]
-    ++ applications(nil)
+    ++ applications(env, :default)
     ++
     [
-      {Absinthe.Subscription, Bonfire.Web.Endpoint}
+      {Absinthe.Subscription, @endpoint_module}
     ]
   end
 
-  def applications(_) do # default apps
-    [ Bonfire.Web.Telemetry,                  # Metrics
-      Bonfire.Repo,                           # Database
-      EctoSparkles.AutoMigrator,
-      {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]}, # PubSub
-      # Persistent Data Services
-      Pointers.Tables,
-      # Bonfire.Data.AccessControl.Accesses,
-      Bonfire.Common.ContextModules,
-      Bonfire.Common.QueryModules,
-      Bonfire.Federate.ActivityPub.FederationModules,
-      # Stuff that uses all the above
-      Bonfire.Web.Endpoint,                       # Web app
+  @apps_before [
+    Bonfire.Web.Telemetry,                  # Metrics
+    Bonfire.Repo,                           # Database
+    EctoSparkles.AutoMigrator,
+    {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]}, # PubSub
+    # Persistent Data Services
+    Pointers.Tables,
+    # Bonfire.Data.AccessControl.Accesses,
+    Bonfire.Common.ContextModules,
+    Bonfire.Common.QueryModules,
+    Bonfire.Federate.ActivityPub.FederationModules
+  ]
+
+  # Stuff that depends on all the above
+  @apps_after [
+      @endpoint_module, # Web app
       {Oban, Application.fetch_env!(:bonfire, Oban)}, # Job Queue
       %{
         id: :cachex_settings,
@@ -56,12 +59,21 @@ defmodule Bonfire.Application do
               limit: 2500 # increase for instances with more users (at least num. of users*2+1)
       ]]}},
     ]
+
+  def applications(:test, _any) do
+    @apps_before
+    # ++ [Bonfire.Web.FakeRemoteEndpoint]
+    ++ @apps_after
+  end
+
+  def applications(_env, _any) do # default apps
+    @apps_before ++ @apps_after
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    Bonfire.Web.Endpoint.config_change(changed, removed)
+    @endpoint_module.config_change(changed, removed)
     :ok
   end
 

@@ -6,7 +6,14 @@ config :bonfire, :ui,
       instance_name: "Reflow Demo",
       instance_logo: "https://reflowproject.eu/wp-content/themes/reflow/images/logoWhite.svg",
       instance_image: "https://reflowproject.eu/wp-content/uploads/2020/06/reflow-blog-1600x900.jpg",
-      instance_description: "This is a Reflow demo instance"
+      instance_description: "This is a Reflow demo instance",
+      instance_welcome: [
+         links: [
+            "About Bonfire": "https://bonfirenetworks.org/",
+            "About Reflow": "https://reflowproject.eu/",
+            "Contribute": "https://bonfirenetworks.org/contribute/"
+         ]
+      ]
    ],
    sidebar_components: [
       {Bonfire.UI.Social.SidebarNavigationLive, []},

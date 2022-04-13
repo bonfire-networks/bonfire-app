@@ -29,11 +29,24 @@ config :bonfire, Bonfire.Repo,
   database: db,
   slow_query_ms: 500
 
-# We don't run a server during test. If one is required,
-# you can enable the server option below.
+# These defaults are overriden in runtime.exs
 config :bonfire, Bonfire.Web.Endpoint,
-  http: [port: 4000],
-  server: false
+  http: [port: 4001],
+  server: (if System.get_env("TEST_INSTANCE")=="yes", do: true, else: false)
+
+# Run a 2nd endpoint for testing federation (not currently used)
+config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
+  server: true,
+  url: [
+    host: "localhost",
+    port: 4002
+  ],
+  http: [
+    port: 4002
+  ],
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  live_view: [signing_salt: System.get_env("SIGNING_SALT")],
+  render_errors: [view: Bonfire.UI.Social.Web.ErrorView, accepts: ~w(html json), layout: false]
 
 config :bonfire, Oban,
   crontab: false,
@@ -52,3 +65,5 @@ config :paginator, Paginator.Repo,
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   hostname: System.get_env("POSTGRES_HOST", "localhost"),
   database: db
+
+config :tesla, adapter: (if System.get_env("TEST_INSTANCE")=="yes", do: Tesla.Adapter.Hackney, else: Tesla.Mock)

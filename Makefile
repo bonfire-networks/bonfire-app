@@ -297,6 +297,8 @@ git.publish:
 
 test.env:
 	$(eval export MIX_ENV=test)
+	$(eval export SERVER_PORT=4001)
+	$(eval export PUBLIC_PORT=4001)
 
 test.env.server: test.env
 	$(eval export START_SERVER=true)
