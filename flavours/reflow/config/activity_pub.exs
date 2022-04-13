@@ -2,6 +2,7 @@ import Config
 
 config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
 config :activity_pub, :repo, Bonfire.Repo
+config :activity_pub, :env, Mix.env()
 
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 

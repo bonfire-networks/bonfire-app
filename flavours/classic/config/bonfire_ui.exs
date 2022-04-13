@@ -7,8 +7,9 @@ config :bonfire, :ui,
       instance_logo: "https://bonfirenetworks.org/img/bonfire.png",
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
-      instance_welcome_title: "About",
-      instance_welcome_description: "## 👋 Welcome to the bonfire testing instance
+      instance_welcome: [
+         title: "About",
+         description: "## 👋 Welcome to the bonfire testing instance
 <div class='shadow-lg alert alert-warning'>
       <span>Warning: Bonfire is in alpha and some things may not work as expected.</span>
 </div>
@@ -19,8 +20,14 @@ The bonfire ecosystem will include:
    3. Bonfire device: A plug-and-play device to have anything you need in your hands (literally).
    4. Bonfire cloud services: Your public identity in the cloud can receive messages even when your device is offline. Syncs your Bonfire device with the fediverse, and deletes already-synced data from the cloud. Open source so others can host equivalent services.
 
-More details at https://bonfirenetworks.org"
-   ],
+More details at https://bonfirenetworks.org",
+         links: [
+            "About Bonfire": "https://bonfirenetworks.org/",
+            "Forum": "https://socialhub.activitypub.rocks/g/bonfire/activity/posts",
+            "Community Chat": "https://matrix.to/#/%23bonfire-networks:matrix.org",
+            "Contribute": "https://bonfirenetworks.org/contribute/"
+         ]
+   ]],
    sidebar_components: [
       {Bonfire.UI.Social.SidebarNavigationLive, []},
    ],

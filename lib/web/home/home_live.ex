@@ -1,4 +1,7 @@
 defmodule Bonfire.Web.HomeLive do
+  @moduledoc """
+  The main instance home page, mainly for guests visiting the instance
+  """
   use Bonfire.Web, {:surface_view, [layout: {Bonfire.UI.Social.Web.LayoutView, "without_sidebar.html"}]}
   alias Bonfire.Web.LivePlugs
   alias Bonfire.Common.Utils
@@ -14,16 +17,22 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(_params, _session, socket) do
-    welcome = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_description], "Login or register to play around")
-      |> Utils.md
-    welcome_title = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome_title], "About")
-    title = "Recent activity on this instance"
+    instance_name = Bonfire.Common.Config.get([:ui, :theme, :instance_name], l "An instance of Bonfire")
+    links = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome, :links], %{
+      "https://bonfirenetworks.org/"=> l("About Bonfire"),
+      "https://bonfirenetworks.org/contribute/"=> l("Contribute")
+    })
+    welcome_title = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome, :title], l "About")
+    welcome_text = (
+      Bonfire.Common.Config.get([:ui, :theme, :instance_welcome, :description], nil)
+      || Bonfire.Common.Config.get([:ui, :theme, :instance_description], l "Welcome")
+      ) |> Utils.md
     {:ok, socket
     |> assign(
-      page_title: "A Bonfire Instance",
-      feed_title: title,
+      page_title: instance_name,
       welcome_title: welcome_title,
-      welcome: welcome
+      welcome: welcome_text,
+      links: links
     )}
   end
 
