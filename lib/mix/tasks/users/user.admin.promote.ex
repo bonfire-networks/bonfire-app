@@ -18,8 +18,6 @@ defmodule Mix.Tasks.Bonfire.User.Admin.Promote do
   import Mix.Dep, only: [available?: 1, mix?: 1]
   alias Bonfire.Me.Users
 
-  @switches [include_children: :boolean, force: :boolean]
-
   @spec run(OptionParser.argv) :: :ok
   def run(args) do
     options = options(args, %{})
@@ -27,7 +25,7 @@ defmodule Mix.Tasks.Bonfire.User.Admin.Promote do
     case Users.by_username!(options.username) do
       nil -> raise RuntimeError, message: "User not found"
       user ->
-        {:ok, user} = Users.make_admin(user)
+        Users.make_admin(user)
     end
   end
 
