@@ -33,7 +33,6 @@ context_and_queries_extensions = pointable_schema_extensions ++ [
     :bonfire_common,
     :bonfire_me,
     :bonfire_social,
-    :bonfire_valueflows
   ]
 config :bonfire, :query_modules_search_path,   context_and_queries_extensions
 config :bonfire, :context_modules_search_path, context_and_queries_extensions
@@ -542,9 +541,21 @@ config :bonfire_data_social, Profile,
 
 ######### other extensions
 
-# add references of tagged objects to any Category
+config :bonfire_files, Media,
+  [code: quote do
+    field :url, :string, virtual: true
+    # multimixins - shouldn't be here really
+    unquote_splicing(common.([:controlled]))
+  end]
+
 config :bonfire_classify, Category,
   [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :created, :actor, :peered, :profile, :character])) # TODO :caretaker
+    # multimixins
+    unquote_splicing(common.([:controlled, :feed_publishes]))
+
+  # add references of tagged objects to any Category
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
       unique: true,
@@ -552,9 +563,22 @@ config :bonfire_classify, Category,
       on_replace: :delete
   end]
 
-config :bonfire_files, Media,
+config :bonfire_valueflows, ValueFlows.EconomicEvent,
   [code: quote do
-    field :url, :string, virtual: true
-    # multimixins - shouldn't be here really
-    unquote_splicing(common.([:controlled]))
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied])) # TODO :caretaker
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
+config :bonfire_valueflows, ValueFlows.EconomicResource,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
   end]

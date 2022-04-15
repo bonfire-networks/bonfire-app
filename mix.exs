@@ -21,7 +21,7 @@ defmodule Bonfire.MixProject do
       deps_prefixes: [
         docs: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "absinthe_client", "activity_pub", "arrows", "ecto_materialized_path", "flexto", "grumble", "linkify", "verbs", "voodoo", "waffle", "zest"],
         test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "activity_pub"],
-        data: ["bonfire_data_", "pointers", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_boundaries"],
+        data: ["bonfire_data_", "pointers", "bonfire_boundaries", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_quantify", "bonfire_valueflows"],
         api: ["bonfire_me", "bonfire_social", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_valueflows"]
       ]
     ]
