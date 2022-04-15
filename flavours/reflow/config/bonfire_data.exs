@@ -582,3 +582,33 @@ config :bonfire_valueflows, ValueFlows.EconomicResource,
     # has
     unquote_splicing(common.([:direct_replies]))
   end]
+
+config :bonfire_valueflows, ValueFlows.Process,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
+config :bonfire_valueflows, ValueFlows.Planning.Intent,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
+config :bonfire_valueflows, ValueFlows.Proposal,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
