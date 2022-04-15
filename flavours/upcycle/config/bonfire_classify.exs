@@ -1,1 +1,4 @@
-../../classic/config/bonfire_classify.exs
+import Config
+
+config :bonfire_classify,
+  templates_path: "lib"
