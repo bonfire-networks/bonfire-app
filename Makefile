@@ -228,12 +228,15 @@ dep.go.hex: ## Switch to using a library from hex.pm, eg: make dep.go.hex dep="p
 
 dep.hex~%: ## add/enable/disable/delete a hex dep with messctl command, eg: `make dep.hex.enable dep=pointers version="~> 0.2"
 	@make --no-print-directory messctl args="$* $(dep) $(version)"
+	@make --no-print-directory cmd cmd="mix deps.clean $(dep)" 
 
 dep.git~%: ## add/enable/disable/delete a git dep with messctl command, eg: `make dep.hex.enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
 	@make --no-print-directory messctl args="$* $(dep) $(repo) config/deps.git"
+	@make --no-print-directory cmd cmd="mix deps.clean $(dep)" 
 
 dep.local~%: ## add/enable/disable/delete a local dep with messctl command, eg: `make dep.hex.enable dep=pointers path=./libs/pointers
 	@make --no-print-directory messctl args="$* $(dep) $(path) config/deps.path"
+	@make --no-print-directory cmd cmd="mix deps.clean $(dep)" 
 
 messctl~%: ## Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `make messctl~help`)
 	@make --no-print-directory messctl args=$*

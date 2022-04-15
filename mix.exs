@@ -129,6 +129,10 @@ defmodule Bonfire.MixProject do
       ## password hashing - builtin vs nif
       {:pbkdf2_elixir, "~> 1.4", only: [:dev, :test]},
       {:argon2_elixir, "~> 2.4", only: [:prod]},
+
+      # error reporting
+      {:sentry, "~> 8.0", only: [:prod]},
+
       ## dev conveniences
       # {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
