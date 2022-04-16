@@ -1,11 +1,12 @@
 defmodule Bonfire.Web.EndpointTemplate do
 defmacro __using__(_) do
 quote do
+  use Bonfire.ErrorReporting # make sure this comes before the Phoenix endpoint
   use Phoenix.Endpoint, otp_app: :bonfire
-  use Sentry.PlugCapture
+
+  import Bonfire.Common.Extend
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Config
-  import Bonfire.Common.Extend
 
   use_if_enabled Absinthe.Phoenix.Endpoint
 
@@ -81,7 +82,8 @@ quote do
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
-  plug Sentry.PlugContext
+
+  plug Bonfire.ErrorReporting
 
   plug Plug.MethodOverride
   plug Plug.Head
