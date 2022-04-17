@@ -20,7 +20,8 @@ config :bonfire_search,
 config :logger, level: :info
 # config :logger, level: :debug
 # config :logger, level: :notice
-
+config :logger, truncate: :infinity
+config :logger, :console, truncate: :infinity
 
 # Configure your database
 db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
