@@ -2,11 +2,12 @@ ExUnit.configure formatters: [ExUnit.CLIFormatter, ExUnitNotifier]
 ++ [Bonfire.Common.TestSummary]
 # ++ [Bonfire.UI.Kanban.TestDrivenCoordination]
 
-skip = [:skip, :todo, :fixme]
+skip = if System.get_env("TEST_INSTANCE")=="yes", do: [], else: [:test_instance]
 
-skip = if System.get_env("TEST_INSTANCE")=="yes", do: skip, else: skip ++ [:test_instance]
-
-ExUnit.start(exclude: skip)
+ExUnit.start(
+  exclude: [:skip, :todo, :fixme] ++ skip,
+  capture_log: true # only show log for failed tests (Can be overridden for individual tests via `@tag capture_log: false`)
+)
 
 # Mix.Task.run("ecto.create")
 # Mix.Task.run("ecto.migrate")
