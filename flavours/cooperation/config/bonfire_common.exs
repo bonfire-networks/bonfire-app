@@ -5,10 +5,6 @@ default_locale = "en"
 config :bonfire_common,
   otp_app: :bonfire
 
-# localisation
-config :bonfire,
-  default_locale: default_locale
-
 # internationalisation
 config :bonfire_common, Bonfire.Web.Cldr,
   default_locale: default_locale,

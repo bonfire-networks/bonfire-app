@@ -563,6 +563,20 @@ config :bonfire_classify, Category,
       on_replace: :delete
   end]
 
+config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :created, :actor, :peered, :profile, :character]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :feed_publishes]))
+    # add references of tagged objects to any Geolocation
+    many_to_many :tags, unquote(Pointer),
+      join_through: unquote(Tagged),
+      unique: true,
+      join_keys: [id: :id, tag_id: :id],
+      on_replace: :delete
+  end]
+
 config :bonfire_valueflows, ValueFlows.EconomicEvent,
   [code: quote do
     # mixins

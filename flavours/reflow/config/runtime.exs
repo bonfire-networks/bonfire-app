@@ -48,6 +48,7 @@ config :bonfire,
   host: host,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
+  invite_only: System.get_env("INVITE_ONLY", "true") !="false",
   github_token: System.get_env("GITHUB_TOKEN"),
   encryption_salt: encryption_salt,
   signing_salt: signing_salt
