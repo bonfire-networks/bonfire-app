@@ -7,6 +7,6 @@ defmodule Bonfire.Repo.Migrations.ImportSettings do
   end
 
   def down do
-    Bonfire.Data.Identity.Settings.Migration.migrate_settings(:up)
+    Bonfire.Data.Identity.Settings.Migration.migrate_settings(:down)
   end
 end
