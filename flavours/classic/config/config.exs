@@ -61,6 +61,9 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :surface, :compiler,
+    warn_on_undefined_props: false
+
 config :bonfire, Oban,
   repo: Bonfire.Repo,
   plugins: [Oban.Plugins.Pruner],
