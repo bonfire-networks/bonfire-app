@@ -62,6 +62,9 @@ config :phoenix, :stacktrace_depth, 30
 
 config :phoenix, :plug_init_mode, :runtime
 
+config :surface, :compiler,
+    warn_on_undefined_props: true
+
 config :exsync,
   src_monitor: true,
   extra_extensions: [".leex", ".js", ".css", ".sface"]

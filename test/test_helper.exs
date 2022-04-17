@@ -2,6 +2,8 @@ ExUnit.configure formatters: [ExUnit.CLIFormatter, ExUnitNotifier]
 ++ [Bonfire.Common.TestSummary]
 # ++ [Bonfire.UI.Kanban.TestDrivenCoordination]
 
+# Code.put_compiler_option(:nowarn_unused_vars, true)
+
 skip = if System.get_env("TEST_INSTANCE")=="yes", do: [], else: [:test_instance]
 
 ExUnit.start(
