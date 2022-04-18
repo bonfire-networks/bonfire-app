@@ -13,7 +13,7 @@ defmodule Bonfire.Application do
 
   def start(_type, _args) do
 
-    EctoSparkles.LogSlow.setup(@otp_app)
+    EctoSparkles.Log.setup(@otp_app)
 
     :telemetry.attach("oban-errors", [:oban, :job, :exception], &Bonfire.ObanLogger.handle_event/4, [])
     Oban.Telemetry.attach_default_logger()

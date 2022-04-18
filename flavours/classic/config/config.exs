@@ -50,7 +50,8 @@ config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Repo]
 config :bonfire, Bonfire.Repo,
   types: Bonfire.Geolocate.PostgresTypes,
-  priv: flavour_path <> "/repo"
+  priv: flavour_path <> "/repo",
+  log: false
 config :ecto_sparkles, :otp_app, :bonfire
 config :ecto_shorts, repo: Bonfire.Repo, error_module: EctoShorts.Actions.Error
 
