@@ -1,5 +1,6 @@
 import Config
 
+
 config :bonfire_boundaries,
   disabled: false # you wouldn't want to do that.
 
@@ -21,11 +22,19 @@ verbs = %{
   request: %{id: "1NEEDPERM1SS10NT0D0TH1SN0W", verb: "Request"}, # request to do another verb (eg. request to follow)
 }
 
+verbs_eyes_only = [:read, :see, :mention, :tag, :like, :follow, :request]
+verbs_interact = verbs_eyes_only ++ [:boost]
+verbs_interact_and_reply = verbs_interact ++ [:reply]
+verbs_eyes_only_reply = verbs_eyes_only ++ [:reply]
+
 all_verb_names = Enum.map(verbs, &elem(&1, 0))
 verbs_negative = fn verbs -> Enum.reduce(verbs, %{}, &Map.put(&2, &1, false)) end
 
 config :bonfire,
   verbs: verbs,
+  verbs_interact: verbs_interact,
+  verbs_interact_and_reply: verbs_interact_and_reply,
+  verbs_eyes_only_reply: verbs_eyes_only_reply,
   create_verbs: [
     # block:  Bonfire.Data.Social.Block,
     boost:  Bonfire.Data.Social.Boost,
@@ -91,10 +100,10 @@ config :bonfire,
   grants: %{
     ### Public ACLs need their permissions filling out
     guests_may_see_read:  %{guest: [:read, :see, :request]},
-    guests_may_see:       %{guest: [:read, :request]},
+    guests_may_see:       %{guest: [:see, :request]},
     guests_may_read:      %{guest: [:read, :request]},
-    locals_may_interact:  %{local: [:read, :see, :mention, :tag, :boost, :like, :follow, :request]}, # interact but not reply
-    locals_may_reply:     %{local: [:read, :see, :mention, :tag, :boost, :like, :follow, :reply, :request]}, # interact and reply
+    locals_may_interact:  %{local: verbs_interact}, # interact but not reply
+    locals_may_reply:     %{local: verbs_interact_and_reply}, # interact and reply
     # TODO: are we doing this because of instance-wide blocking?
     nobody_can_anything: %{ghost_them:   verbs_negative.(all_verb_names)},
     nobody_can_reach:    %{silence_them: verbs_negative.([:mention, :message, :reply])},
