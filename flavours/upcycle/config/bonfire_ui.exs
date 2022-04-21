@@ -29,7 +29,7 @@ config :bonfire, :ui,
    profile: [
       sections: [ # TODO: make dynamic based on active extensions
          timeline: Bonfire.UI.Social.ProfileTimelineLive,
-         private: Bonfire.UI.Social.PrivateLive,
+         private: Bonfire.UI.Social.MessageThreadsLive,
          posts: Bonfire.UI.Social.ProfilePostsLive,
          boosts: Bonfire.UI.Social.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowsLive,
