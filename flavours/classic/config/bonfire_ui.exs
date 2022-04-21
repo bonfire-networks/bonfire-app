@@ -39,7 +39,7 @@ More details at https://bonfirenetworks.org",
    profile: [
       sections: [
          timeline: Bonfire.UI.Social.ProfileTimelineLive,
-         private: Bonfire.UI.Social.PrivateLive,
+         private: Bonfire.UI.Social.MessageThreadsLive,
          posts: Bonfire.UI.Social.ProfilePostsLive,
          boosts: Bonfire.UI.Social.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowsLive,
