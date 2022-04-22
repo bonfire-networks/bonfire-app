@@ -22,6 +22,29 @@ alias Bonfire.Social.Acts.{
   Threaded,
 }
 
+delete_object = [
+    # Create a changeset for deletion
+    {Objects.Delete,  on: :object},
+
+    # mark for deletion
+    {Bonfire.Ecto.Acts.Delete, on: :object,
+      delete_extra_associations: [
+        :tagged,
+      ]
+    },
+
+    # Now we have a short critical section
+    Ecto.Begin,
+    Ecto.Work,         # Run our deletes
+    Ecto.Commit,
+
+    {MeiliSearch.Queue, on: :object},       # Enqueue for un-indexing by meilisearch
+
+    # Oban would rather we put these here than in the transaction
+    # above because it knows better than us, obviously.
+    {ActivityPub, on: :object}, # Prepare for federation and add to deletion queue (oban).
+  ]
+
 config :bonfire_social, Bonfire.Social.Follows, []
 
 config :bonfire_social, Bonfire.Social.Posts,
@@ -53,26 +76,10 @@ config :bonfire_social, Bonfire.Social.Posts,
       {ActivityPub, on: :post}, # Prepare for federation and do the queue insert (oban).
     ],
 
-    delete: [
-      # Create a changeset for deletion
-      {Objects.Delete,  on: :object},
+    delete: delete_object,
+  ]
 
-      # mark for deletion
-      {Bonfire.Ecto.Acts.Delete, on: :object,
-        delete_extra_associations: [
-          :tagged,
-        ]
-      },
-
-      # Now we have a short critical section
-      Ecto.Begin,
-      Ecto.Work,         # Run our deletes
-      Ecto.Commit,
-
-      {MeiliSearch.Queue, on: :object},       # Enqueue for un-indexing by meilisearch
-
-      # Oban would rather we put these here than in the transaction
-      # above because it knows better than us, obviously.
-      {ActivityPub, on: :object}, # Prepare for federation and add to deletion queue (oban).
-    ],
+config :bonfire_social, Bonfire.Social.Objects,
+  epics: [
+    delete: delete_object,
   ]
