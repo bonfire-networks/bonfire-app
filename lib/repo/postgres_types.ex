@@ -7,6 +7,6 @@ Postgrex.Types.define(
 
 Postgrex.Types.define(
   Bonfire.Geolocate.PostgresTypes,
-  [Geo.PostGIS.Extension] ++ Ecto.Adapters.Postgres.extensions(),
+  Ecto.Adapters.Postgres.extensions() ++ (if Code.ensure_loaded?(Geo.PostGIS.Extension), do: [Geo.PostGIS.Extension], else: []),
   json: Jason
 )
