@@ -352,6 +352,7 @@ config :bonfire_data_social, Activity,
       unique: true,
       join_keys: [id: :object_id, tag_id: :id],
       on_replace: :delete
+    field :path, EctoMaterializedPath.ULIDs, virtual: true
   end]
 
 config :bonfire_data_social, APActivity,
