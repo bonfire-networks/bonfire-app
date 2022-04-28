@@ -56,6 +56,8 @@ pre-config: pre-init ## Initialise env files, and create some required folders, 
 pre-init:
 	@echo "Setting flavour to $(FLAVOUR_PATH)"
 	@ln -sfn $(FLAVOUR_PATH)/config ./config
+	@rm -rf ./priv/repo
+	@cp -rn $(FLAVOUR_PATH)/repo ./priv/repo
 	@mkdir -p data/
 	@rm -rf ./data/current_flavour
 	@ln -sf ../$(FLAVOUR_PATH) ./data/current_flavour
