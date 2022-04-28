@@ -8,7 +8,7 @@ config :waffle,
 
 image_media_types = ["image/png", "image/jpeg", "image/gif", "image/svg+xml", "image/tiff"]
 
-all_media_types = image_media_types ++ [
+all_allowed_media_types = image_media_types ++ [
   "text/plain",
   # doc
   "text/csv",
@@ -43,6 +43,9 @@ all_media_types = image_media_types ++ [
   "video/webm",
 ]
 
+config :bonfire, Bonfire.Files, image_media_types: image_media_types
+config :bonfire, Bonfire.Files, all_allowed_media_types: all_allowed_media_types
+
 config :bonfire, Bonfire.Files.IconUploader, allowed_media_types: image_media_types
 config :bonfire, Bonfire.Files.ImageUploader, allowed_media_types: image_media_types
-config :bonfire, Bonfire.Files.DocumentUploader, allowed_media_types: all_media_types
+config :bonfire, Bonfire.Files.DocumentUploader, allowed_media_types: all_allowed_media_types

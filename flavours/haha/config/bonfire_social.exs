@@ -13,13 +13,38 @@ alias Bonfire.Social.Acts.{
   Creator,
   Edges,
   Feeds,
+  Files,
   LivePush,
   MeiliSearch,
   Posts,
+  Objects,
   PostContents,
   Tags,
   Threaded,
 }
+
+delete_object = [
+    # Create a changeset for deletion
+    {Objects.Delete,  on: :object},
+
+    # mark for deletion
+    {Bonfire.Ecto.Acts.Delete, on: :object,
+      delete_extra_associations: [
+        :tagged,
+      ]
+    },
+
+    # Now we have a short critical section
+    Ecto.Begin,
+    Ecto.Work,         # Run our deletes
+    Ecto.Commit,
+
+    {MeiliSearch.Queue, on: :object},       # Enqueue for un-indexing by meilisearch
+
+    # Oban would rather we put these here than in the transaction
+    # above because it knows better than us, obviously.
+    {ActivityPub, on: :object}, # Prepare for federation and add to deletion queue (oban).
+  ]
 
 config :bonfire_social, Bonfire.Social.Follows, []
 
@@ -31,13 +56,12 @@ config :bonfire_social, Bonfire.Social.Posts,
       PostContents,            # with a sanitised body and tags extracted,
       {Caretaker,  on: :post}, # a caretaker,
       {Creator,    on: :post}, # and a creator,
+      {Files,      on: :post}, # possibly with uploaded files,
       {Threaded,   on: :post}, # possibly occurring in a thread,
       {Tags,       on: :post}, # with extracted tags fully hooked up,
       {Boundaries, on: :post}, # and the appropriate boundaries established,
       {Activity,   on: :post}, # summarised by an activity,
       {Feeds,      on: :post}, # appearing in feeds.
-
-      MeiliSearch.Prepare, # Prepare for search indexing or undexing
 
       # Now we have a short critical section
       Ecto.Begin,
@@ -53,4 +77,11 @@ config :bonfire_social, Bonfire.Social.Posts,
       # above because it knows better than us, obviously.
       {ActivityPub, on: :post}, # Prepare for federation and do the queue insert (oban).
     ],
+
+    delete: delete_object,
+  ]
+
+config :bonfire_social, Bonfire.Social.Objects,
+  epics: [
+    delete: delete_object,
   ]
