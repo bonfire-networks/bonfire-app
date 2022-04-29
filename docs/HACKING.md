@@ -13,7 +13,7 @@ Happy hacking!
 ## Status: alpha - have fun but don't run in production.
 
 Bonfire is currently alpha software. While it's fun to play with it,
-we would *absolutely not* recommend running any production instances
+we would _absolutely not_ recommend running any production instances
 yet because it's just not ready for that today.
 
 Either way, you need to first clone this repository and change into the directory and then do some configuration:
@@ -25,14 +25,14 @@ $ cd bonfire
 
 ## Configuration
 
-### Picking a flavour 
+### Picking a flavour
 
-Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on: 
+Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on:
 
-* Classic ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
-* Cooperation (for building cooperative communities)
-* Reflow (for community economic activities)
-* Haha (for learning new things)
+- Classic ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
+- Cooperation (for building cooperative communities)
+- Reflow (for community economic activities)
+- Haha (for learning new things)
 
 Note that at the current time, the core team are focusing most of
 their efforts on the classic flavour and this is where we recommend you start.
@@ -108,6 +108,7 @@ If you use direnv, just cd in the directory and you will have all the dependenci
 If you just have nix, running `nix shell .` (inside the repository) will set you up with a shell.
 
 You will need to create and init the db directory (keeping all your Postgres data inside this directory):
+
 - create the db directory `initdb ./db`
 - create the postgres user `createuser postgres -ds`
 - create the db `createdb bonfire_dev`
@@ -165,14 +166,15 @@ conveniences built in once you know how they all work. The gotcha is that while 
 it can be a bit overwhelming. Don't worry, we've got your back.
 
 <!-- * [Elixir from 10,000 ft.](./ELIXIR.md) - some notes to consider when learning elixir. -->
-* [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
-* [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
-* [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
-<!-- * [Epics](./EPICS.md) -->
-<!-- * []() -->
-<!-- * []() -->
-<!-- * []() -->
-<!-- * []() -->
+
+- [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
+- [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
+- [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
+  <!-- * [Epics](./EPICS.md) -->
+  <!-- * []() -->
+  <!-- * []() -->
+  <!-- * []() -->
+  <!-- * []() -->
 
 Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
