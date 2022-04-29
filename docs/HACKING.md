@@ -43,7 +43,7 @@ For example if you want to run the `classic` flavour (the default)
 
 ### Initialise
 
-Yu need to clone this repository and change into the directory and then do some configuration:
+You need to clone this repository and change into the directory and then do some configuration:
 
 ```sh
 $ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
