@@ -40,24 +40,17 @@ Some extensions use the [Absinthe](https://absinthe-graphql.org/) GraphQL librar
 ## The Bonfire Environment
 
 We like to think of bonfire as a comfortable way of developing software - there are a lot of
-conveniences built in once you know how they all work. The gotcha is that while you don't know them,
-it can be a bit overwhelming. Don't worry, we've got your back.
+conveniences built in once you know how they all work. The gotcha is that while you don't know them, it can be a bit overwhelming. Don't worry, we've got your back.
 
-<!-- * [Elixir from 10,000 ft.](./ELIXIR.md) - some notes to consider when learning elixir. -->
 * [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
 * [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
 * [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
-<!-- * [Epics](./EPICS.md) -->
-<!-- * []() -->
-<!-- * []() -->
-<!-- * []() -->
-<!-- * []() -->
 
 Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
 ## Code Structure
 
-The code is broadly composed of these namespaces:
+The code is broadly composed of these namespaces, many of which are packaged as "extensions" which are in separate git repos, and are included in the app by way of mix dependencies.
 
 - `Bonfire.*` - Core application logic (very little code).
 - `Bonfire.*.*` - Bonfire extensions (eg `Bonfire.Social.Posts`) containing mostly context modules, APIs, and routes

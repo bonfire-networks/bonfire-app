@@ -162,19 +162,13 @@ make mix~"bonfire.user.admin.promote root" # for username `root`
 ## The Bonfire Environment
 
 We like to think of bonfire as a comfortable way of developing software - there are a lot of
-conveniences built in once you know how they all work. The gotcha is that while you don't know them,
-it can be a bit overwhelming. Don't worry, we've got your back.
+conveniences built in once you know how they all work. The gotcha is that while you don't know them, it can be a bit overwhelming. Don't worry, we've got your back.
 
-<!-- * [Elixir from 10,000 ft.](./ELIXIR.md) - some notes to consider when learning elixir. -->
-
-- [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
+* [Architecture](./ARCHITECTURE.md) - an overview of the stack and code structure.
+- [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way we write Elixir.
 - [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
 - [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
-  <!-- * [Epics](./EPICS.md) -->
-  <!-- * []() -->
-  <!-- * []() -->
-  <!-- * []() -->
-  <!-- * []() -->
+
 
 Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
