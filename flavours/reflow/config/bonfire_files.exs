@@ -43,9 +43,9 @@ all_allowed_media_types = image_media_types ++ [
   "video/webm",
 ]
 
-config :bonfire, Bonfire.Files, image_media_types: image_media_types
-config :bonfire, Bonfire.Files, all_allowed_media_types: all_allowed_media_types
+config :bonfire_files, image_media_types: image_media_types
+config :bonfire_files, all_allowed_media_types: all_allowed_media_types
 
-config :bonfire, Bonfire.Files.IconUploader, allowed_media_types: image_media_types
-config :bonfire, Bonfire.Files.ImageUploader, allowed_media_types: image_media_types
-config :bonfire, Bonfire.Files.DocumentUploader, allowed_media_types: all_allowed_media_types
+config :bonfire_files, Bonfire.Files.IconUploader, allowed_media_types: image_media_types
+config :bonfire_files, Bonfire.Files.ImageUploader, allowed_media_types: image_media_types
+config :bonfire_files, Bonfire.Files.DocumentUploader, allowed_media_types: all_allowed_media_types
