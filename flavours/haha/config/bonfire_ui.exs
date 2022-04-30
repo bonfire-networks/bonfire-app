@@ -44,5 +44,5 @@ config :bonfire, :ui,
       # process: "Define a process"
    ],
    smart_input_forms: [
-      post: Bonfire.UI.Social.CreateActivityLive,
+      post: Bonfire.UI.Social.WritePostContentLive,
    ]

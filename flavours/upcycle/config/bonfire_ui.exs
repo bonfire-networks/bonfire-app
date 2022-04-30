@@ -56,7 +56,7 @@ config :bonfire, :ui,
       # process: "Define a process"
    ],
    smart_input_forms: [
-      post: Bonfire.UI.Social.CreateActivityLive,
+      post: Bonfire.UI.Social.WritePostContentLive,
       economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
       intent: Bonfire.UI.ValueFlows.CreateIntentLive,
       process: Bonfire.UI.ValueFlows.CreateProcessLive,
