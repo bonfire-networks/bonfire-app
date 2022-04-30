@@ -65,6 +65,6 @@ More details at https://bonfirenetworks.org",
       # process: "Define a process"
    ],
    smart_input_forms: [
-      post: Bonfire.UI.Social.CreateActivityLive,
+      post: Bonfire.UI.Social.WritePostContentLive,
    ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive
