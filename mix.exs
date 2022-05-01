@@ -25,6 +25,7 @@ defmodule Bonfire.MixProject do
         api: ["bonfire_me", "bonfire_social", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_valueflows"]
       ]
     ]
+  @all_deps false
 
   def project do
     [
@@ -121,7 +122,6 @@ defmodule Bonfire.MixProject do
       "ecto.reset": ["ecto.drop --force", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
     ]
-
   end
 
   defp deps() do
@@ -185,7 +185,11 @@ defmodule Bonfire.MixProject do
     ]
   end
 
-  def deps(deps \\ deps(), deps_subtype) when is_atom(deps_subtype), do:
+  def deps(deps \\ deps(), deps_subtype)
+
+  def deps(deps, :docs) when @all_deps==true, do: deps # not this only include direct deps
+
+  def deps(deps, deps_subtype) when is_atom(deps_subtype), do:
     Enum.filter(deps, &include_dep?(deps_subtype, &1))
 
   def flavour_path(), do:
