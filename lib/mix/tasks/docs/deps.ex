@@ -5,9 +5,8 @@ defmodule Mix.Tasks.Docs.Deps do
   @recursive true
 
   @moduledoc """
-  Prints the dependency tree.
-      mix docs.deps
-  If no dependency is given, it uses the tree defined in the `mix.exs` file.
+  `mix docs.deps`
+
   ## Command line options
     * `--only` - the environment to include dependencies for
     * `--target` - the target to include dependencies for
