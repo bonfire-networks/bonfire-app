@@ -13,18 +13,19 @@ config :bonfire_data_identity, Bonfire.Data.Identity.Credential,
 
 # Search these apps/extensions for Pointable ecto schema definitions to index
 pointable_schema_extensions = [
+    :bonfire,
     :bonfire_data_access_control,
     :bonfire_data_activity_pub,
     :bonfire_data_identity,
     :bonfire_data_social,
-    :bonfire,
-    :bonfire_quantify,
-    :bonfire_geolocate,
-    :bonfire_valueflows,
     :bonfire_tag,
     :bonfire_classify,
     :bonfire_data_shared_users,
-    :bonfire_files
+    :bonfire_files,
+    :bonfire_quantify,
+    :bonfire_geolocate,
+    :bonfire_valueflows,
+    :bonfire_valueflows_observe,
   ]
 config :pointers, :search_path, pointable_schema_extensions
 
@@ -592,7 +593,27 @@ config :bonfire_valueflows, ValueFlows.EconomicResource,
     unquote_splicing(common.([:direct_replies]))
   end]
 
+config :bonfire_valueflows, ValueFlows.Knowledge.ResourceSpecification,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
 config :bonfire_valueflows, ValueFlows.Process,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
+config :bonfire_valueflows, ValueFlows.Knowledge.ProcessSpecification,
   [code: quote do
     # mixins
     unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
@@ -612,7 +633,27 @@ config :bonfire_valueflows, ValueFlows.Planning.Intent,
     unquote_splicing(common.([:direct_replies]))
   end]
 
+config :bonfire_valueflows, ValueFlows.Planning.Commitment,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
 config :bonfire_valueflows, ValueFlows.Proposal,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
+    # multimixins
+    unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+    # has
+    unquote_splicing(common.([:direct_replies]))
+  end]
+
+config :bonfire_valueflows_observe, ValueFlows.Observe.Observation,
   [code: quote do
     # mixins
     unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
