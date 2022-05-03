@@ -145,6 +145,7 @@ defmodule Bonfire.MixProject do
       {:floki, ">= 0.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3", only: :test},
+      {:mox, "~> 0.5", only: :test},
       {:zest, "~> 0.1"},
       {:grumble, "~> 0.1.3", only: [:test], override: true},
       {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main", only: [:test]},
