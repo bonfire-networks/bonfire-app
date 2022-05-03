@@ -22,12 +22,12 @@
       links={@links} /> 
     </Bonfire.UI.Social.WidgetLive>
     <Bonfire.UI.Social.WidgetLive 
+      :if={Bonfire.Me.Settings.get([:ui, :show_trending_tags_for_last_x_days], nil, assigns)}
       widget_title="Trending topics"
       current_user={current_user(assigns)}
     >
       <Bonfire.UI.Social.WidgetTagsLive 
         current_user={current_user(assigns)}
-        id="widget_tags"
       />
     </Bonfire.UI.Social.WidgetLive>
   </div>

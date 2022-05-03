@@ -28,6 +28,7 @@ More details at https://bonfirenetworks.org",
             "Contribute": "https://bonfirenetworks.org/contribute/"
          ]
    ]],
+   show_trending_tags_for_last_x_days: 30,
    sidebar_components: [
       {Bonfire.UI.Social.SidebarNavigationLive, []},
    ],
