@@ -5,17 +5,19 @@ defmodule Bonfire.Web.Router do
 
   pipeline :basic do
     plug :fetch_session
-    plug :fetch_live_flash
     plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
+  end
+
+  pipeline :load_current_auth do
+    plug Bonfire.Web.Plugs.LoadCurrentAccount
     plug Bonfire.Web.Plugs.LoadCurrentUser
   end
 
   pipeline :browser do
+    plug :basic
     plug :accepts, ["html", "activity+json", "json", "ld+json"]
-    plug :fetch_session
     plug PhoenixGon.Pipeline,
       assets: Map.new(Config.get(:js_config, []))
-    plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
     plug Cldr.Plug.SetLocale,
       default: Bonfire.Web.Localise.default_locale,
 	    apps: [:cldr, :gettext],
@@ -26,8 +28,7 @@ defmodule Bonfire.Web.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Bonfire.Web.Plugs.ActivityPub
-    plug Bonfire.Web.Plugs.LoadCurrentAccount
-    plug Bonfire.Web.Plugs.LoadCurrentUser
+    plug :load_current_auth
     # plug Bonfire.Web.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
   end
 
