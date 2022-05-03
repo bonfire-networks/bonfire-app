@@ -86,10 +86,10 @@ jobs:
       run: mix compile
     - name: Set up database
       run: mix ecto.setup
-    - name: Check that database migrations can rollback
-      run: mix ecto.rollback --all && mix ecto.migrate
     - name: Run tests
       run: mix test
+    - name: Check database down migrations 
+      run: mix ecto.rollback --all 
 
   test_cooperation_flavour:
     name: Test cooperation flavour
@@ -170,7 +170,7 @@ jobs:
         cname: doc.bonfirenetworks.org
     - name: Set up database
       run: mix ecto.setup
-    - name: Check that database migrations can rollback
-      run: mix ecto.rollback --all && mix ecto.migrate
     - name: Run tests
       run: mix test
+    - name: Check database down migrations 
+      run: mix ecto.rollback --all 
