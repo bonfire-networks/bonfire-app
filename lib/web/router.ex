@@ -52,6 +52,8 @@ defmodule Bonfire.Web.Router do
 
   # use_if_enabled Bonfire.Website.Web.Routes
 
+  use_if_enabled Bonfire.OpenID.Web.Routes
+
   use_if_enabled Bonfire.Me.Web.Routes
   use_if_enabled Bonfire.Social.Web.Routes
 
