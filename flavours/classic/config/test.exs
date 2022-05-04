@@ -31,10 +31,14 @@ db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
 # Run `mix help test` for more information.
 config :bonfire, Bonfire.Common.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 60,
+  pool_size: 20,
   # show_sensitive_data_on_connection_error: true,
   database: db,
-  slow_query_ms: 500
+  slow_query_ms: 500,
+  queue_target: 5_000,
+  queue_interval: 2_000,
+  timeout: 10_000,
+  connect_timeout: 10_000
 
 config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4000]
