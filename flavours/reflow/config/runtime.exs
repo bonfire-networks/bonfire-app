@@ -17,10 +17,10 @@ System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") || System.
     """
 
 if System.get_env("DATABASE_URL") do
-  config :bonfire, Bonfire.Repo,
+  config :bonfire, Bonfire.Common.Repo,
     url: System.get_env("DATABASE_URL")
 else
-  config :bonfire, Bonfire.Repo,
+  config :bonfire, Bonfire.Common.Repo,
     # ssl: true,
     username: System.get_env("POSTGRES_USER", "postgres"),
     password: System.get_env("POSTGRES_PASSWORD", "postgres"),
@@ -70,7 +70,7 @@ if config_env() == :prod do
 
   config :logger, level: String.to_atom(System.get_env("LOG_LEVEL", "info"))
 
-  config :bonfire, Bonfire.Repo,
+  config :bonfire, Bonfire.Common.Repo,
     # ssl: true,
     database: System.get_env("POSTGRES_DB", "bonfire"),
     pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
@@ -87,7 +87,7 @@ config :sentry, server_name: System.get_env("SENTRY_NAME") || host
 # start prod and dev only config
 if config_env() != :test do
 
-  config :bonfire, Bonfire.Repo,
+  config :bonfire, Bonfire.Common.Repo,
     slow_query_ms: String.to_integer(System.get_env("SLOW_QUERY_MS", "100"))
 
 

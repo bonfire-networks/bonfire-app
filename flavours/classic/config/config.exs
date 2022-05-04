@@ -15,8 +15,8 @@ config :bonfire,
   flavour: flavour,
   flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
-  repo_module: Bonfire.Repo,
-  web_module: Bonfire.Web,
+  repo_module: Bonfire.Common.Repo,
+  web_module: Bonfire.UI.Common.Web,
   endpoint_module: Bonfire.Web.Endpoint,
   mailer_module: Bonfire.Mailer,
   default_web_namespace: Bonfire.UI.Social.Web,
@@ -47,13 +47,13 @@ config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
 
 config :ecto_sparkles, :otp_app, :bonfire
-config :bonfire, :ecto_repos, [Bonfire.Repo]
-config :bonfire, Bonfire.Repo,
+config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+config :bonfire, Bonfire.Common.Repo,
   types: Bonfire.PostgresTypes, # point to the appropriate definition to support any Postgres extensions used by your Bonfire flavour or extensions
   # priv: flavour_path <> "/repo",
   log: false
 config :ecto_sparkles, :otp_app, :bonfire
-config :ecto_shorts, repo: Bonfire.Repo, error_module: EctoShorts.Actions.Error
+config :ecto_shorts, repo: Bonfire.Common.Repo, error_module: EctoShorts.Actions.Error
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
@@ -66,7 +66,7 @@ config :surface, :compiler,
     warn_on_undefined_props: false
 
 config :bonfire, Oban,
-  repo: Bonfire.Repo,
+  repo: Bonfire.Common.Repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [
     federator_incoming: 50,

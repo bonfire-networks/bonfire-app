@@ -71,7 +71,7 @@ defmodule Bonfire.MixProject do
         groups_for_modules: [
           "Data schemas": ~r/^Bonfire.Data.?/,
           "UI extensions": ~r/^Bonfire.UI.?/,
-          "Bonfire utilities": [~r/^Bonfire.API?/, ~r/^Bonfire.GraphQL?/, ~r/^Bonfire.Repo?/, ~r/^Bonfire.Web?/, ~r/^Bonfire.Boundaries?/, ~r/^Bonfire.Common?/, ~r/^Bonfire.Ecto?/, ~r/^Bonfire.Epics?/, ~r/^Bonfire.Fail?/, ~r/^Bonfire.Files?/, ~r/^Bonfire.Mailer?/],
+          "Bonfire utilities": [~r/^Bonfire.API?/, ~r/^Bonfire.GraphQL?/, ~r/^Bonfire.Web?/, ~r/^Bonfire.Boundaries?/, ~r/^Bonfire.Common?/, ~r/^Bonfire.Ecto?/, ~r/^Bonfire.Epics?/, ~r/^Bonfire.Fail?/, ~r/^Bonfire.Files?/, ~r/^Bonfire.Mailer?/],
           "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
           "Utilities": ~r/.?/,
         ],

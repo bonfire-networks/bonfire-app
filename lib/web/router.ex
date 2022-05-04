@@ -1,5 +1,5 @@
 defmodule Bonfire.Web.Router do
-  use Bonfire.Web, :router
+  use Bonfire.UI.Common.Web, :router
   # use Plug.ErrorHandler
   alias Bonfire.Common.Config
 
@@ -9,8 +9,8 @@ defmodule Bonfire.Web.Router do
   end
 
   pipeline :load_current_auth do
-    plug Bonfire.Web.Plugs.LoadCurrentAccount
-    plug Bonfire.Web.Plugs.LoadCurrentUser
+    plug Bonfire.Me.Web.Plugs.LoadCurrentAccount
+    plug Bonfire.Me.Web.Plugs.LoadCurrentUser
   end
 
   pipeline :browser do
@@ -19,33 +19,33 @@ defmodule Bonfire.Web.Router do
     plug PhoenixGon.Pipeline,
       assets: Map.new(Config.get(:js_config, []))
     plug Cldr.Plug.SetLocale,
-      default: Bonfire.Web.Localise.default_locale,
+      default: Bonfire.Common.Localise.default_locale,
 	    apps: [:cldr, :gettext],
 	    from: [:session, :cookie, :accept_language],
-	    gettext: Bonfire.Web.Gettext,
-	    cldr: Bonfire.Web.Cldr
+	    gettext: Bonfire.Common.Localise.Gettext,
+	    cldr: Bonfire.Common.Localise.Cldr
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Bonfire.Web.Plugs.ActivityPub
+    plug Bonfire.UI.Common.Plugs.ActivityPub # detect Accept headers to serve JSON or HTML
     plug :load_current_auth
-    # plug Bonfire.Web.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
+    # plug Bonfire.Me.Web.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
   end
 
   pipeline :guest_only do
-    plug Bonfire.Web.Plugs.GuestOnly
+    plug Bonfire.Me.Web.Plugs.GuestOnly
   end
 
   pipeline :account_required do
-    plug Bonfire.Web.Plugs.AccountRequired
+    plug Bonfire.Me.Web.Plugs.AccountRequired
   end
 
   pipeline :user_required do
-    plug Bonfire.Web.Plugs.UserRequired
+    plug Bonfire.Me.Web.Plugs.UserRequired
   end
 
   pipeline :admin_required do
-    plug Bonfire.Web.Plugs.AdminRequired
+    plug Bonfire.Me.Web.Plugs.AdminRequired
   end
 
 
@@ -141,7 +141,7 @@ defmodule Bonfire.Web.Router do
       pipe_through :admin_required
 
       live_dashboard "/admin/system",
-        ecto_repos: [Bonfire.Repo],
+        ecto_repos: [Bonfire.Common.Repo],
         ecto_psql_extras_options: [long_running_queries: [threshold: "400 milliseconds"]],
         metrics: Bonfire.Web.Telemetry,
         # metrics: FlamegraphsWeb.Telemetry,

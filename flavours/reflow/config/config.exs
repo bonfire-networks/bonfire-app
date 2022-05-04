@@ -15,8 +15,8 @@ config :bonfire,
   flavour: flavour,
   flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
-  repo_module: Bonfire.Repo,
-  web_module: Bonfire.Web,
+  repo_module: Bonfire.Common.Repo,
+  web_module: Bonfire.UI.Common.Web,
   endpoint_module: Bonfire.Web.Endpoint,
   mailer_module: Bonfire.Mailer,
   default_web_namespace: Bonfire.UI.Social.Web,
@@ -43,8 +43,8 @@ config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
 
 config :ecto_sparkles, :otp_app, :bonfire
-config :bonfire, :ecto_repos, [Bonfire.Repo]
-config :bonfire, Bonfire.Repo,
+config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+config :bonfire, Bonfire.Common.Repo,
   types: Bonfire.Geolocate.PostgresTypes,
   priv: flavour_path <> "/repo"
 
@@ -56,7 +56,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :bonfire, Oban,
-  repo: Bonfire.Repo,
+  repo: Bonfire.Common.Repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [
     federator_incoming: 50,

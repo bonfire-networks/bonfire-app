@@ -69,7 +69,7 @@ pre-init:
 	@cp -n $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/dev/secrets.env | true
 	@cp -n $(CONFIG_PATH)/templates/not_secret.env $(CONFIG_PATH)/prod/secrets.env | true
 
-pre-run:
+pre-run: pre-init
 	@mkdir -p forks/
 	@mkdir -p data/uploads/
 	@mkdir -p priv/static/data
@@ -77,7 +77,7 @@ pre-run:
 	@mkdir -p data/search/dev
 	@chmod 700 .erlang.cookie
 
-init: pre-init pre-run
+init: pre-run
 	@$(call setup_env)
 	@echo "Light that fire... $(APP_NAME) with $(FLAVOUR) flavour in $(MIX_ENV) - docker:$(WITH_DOCKER) - $(APP_VSN) - $(APP_BUILD) - $(FLAVOUR_PATH)"
 	@make --no-print-directory pre-init
