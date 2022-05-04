@@ -32,7 +32,7 @@ config :bonfire, Bonfire.Common.Repo,
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :bonfire, Bonfire.Web.Endpoint,
-  http: [port: 4000],
+  http: [port: 4001],
   server: false
 
 config :bonfire, Oban,

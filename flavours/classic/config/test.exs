@@ -41,7 +41,7 @@ config :bonfire, Bonfire.Common.Repo,
   connect_timeout: 10_000
 
 config :bonfire, Bonfire.Web.Endpoint,
-  http: [port: 4000]
+  http: [port: 4001]
 
 config :bonfire, Oban,
   crontab: false,
