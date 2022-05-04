@@ -98,7 +98,7 @@ defmodule Bonfire.Web.Router do
     # live "/", Website.HomeGuestLive, as: :landing
     # live "/home", Web.HomeLive, as: :home
 
-    live "/error", Bonfire.Common.Web.ErrorLive
+    live "/error", Bonfire.UI.Common.ErrorLive
 
   end
 
