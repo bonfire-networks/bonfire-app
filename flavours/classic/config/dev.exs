@@ -3,7 +3,7 @@ import Config
 config :bonfire,
   default_pagination_limit: 5 # low limit so it is easier to test
 
-config :bonfire, Bonfire.Repo,
+config :bonfire, Bonfire.Common.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")

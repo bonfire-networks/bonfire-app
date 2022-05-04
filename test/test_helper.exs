@@ -14,10 +14,10 @@ ExUnit.start(
 # Mix.Task.run("ecto.create")
 # Mix.Task.run("ecto.migrate")
 
-# Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Repo, :manual)
+# Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Repo, :manual)
 
 # if System.get_env("START_SERVER") !="true" do
-  Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Repo, :auto)
+  Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Repo, :auto)
 # end
 
 # ExUnit.after_suite(fn results ->

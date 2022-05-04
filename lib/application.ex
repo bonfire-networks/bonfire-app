@@ -35,7 +35,7 @@ defmodule Bonfire.Application do
 
   @apps_before [
     Bonfire.Web.Telemetry,                  # Metrics
-    Bonfire.Repo,                           # Database
+    Bonfire.Common.Repo,                           # Database
     EctoSparkles.AutoMigrator,
     Bonfire.Me.Settings.LoadConfig, # load instance Settings from DB into Config
     {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]}, # PubSub
