@@ -2,7 +2,7 @@ defmodule Bonfire.Web.HomeLive do
   @moduledoc """
   The main instance home page, mainly for guests visiting the instance
   """
-  use Bonfire.UI.Common.Web, {:surface_view, [layout: {Bonfire.UI.Social.Web.LayoutView, "without_sidebar.html"}]}
+  use Bonfire.UI.Common.Web, :surface_view
   alias Bonfire.Me.Web.LivePlugs
   alias Bonfire.Common.Utils
 

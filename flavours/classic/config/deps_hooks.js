@@ -9,7 +9,7 @@ import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/in
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_social/assets/js/theme"
 import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
-import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js/extension"
+import { EditorQuillHooks } from "./../../../forks/bonfire_editor_quill/assets/js/extension"
 
 // import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/extension"
 
