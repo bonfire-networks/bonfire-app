@@ -140,8 +140,8 @@ endif
 
 db.rollback: mix~ecto.rollback ## Rollback previous DB migration (caution: this means DATA LOSS)
 
-db.rollback.all: mix~"ecto.rollback --all" ## Rollback ALL DB migrations (caution: this means DATA LOSS)
-
+db.rollback.all: ## Rollback ALL DB migrations (caution: this means DATA LOSS)
+	@make --no-print-directory cmd cmd="mix ecto.rollback --all"
 
 #### UPDATE COMMANDS ####
 
