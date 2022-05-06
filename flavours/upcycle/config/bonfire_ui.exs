@@ -55,11 +55,11 @@ config :bonfire, :ui,
       # economic_event: "Record an economic event",
       # process: "Define a process"
    ],
-   smart_input_forms: [
+   smart_input_components: [
       post: Bonfire.UI.Social.WritePostContentLive,
       economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
       intent: Bonfire.UI.ValueFlows.CreateIntentLive,
-      process: Bonfire.UI.ValueFlows.CreateProcessLive,
+      process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive
    ],
    resource: [
       navigation: [
