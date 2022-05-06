@@ -1,16 +1,20 @@
-# The version of Elixir to use
-# ATTENTION: when changing Elixir version, make sure to update the `ALPINE_VERSION` arg
-# as well as the Elixir version in mix.exs and .gitlab-ci.yml and Dockerfile.dev and .tool-versions
-ARG ELIXIR_VERSION=1.12
+# Define what version of Elixir to use - ATTENTION: when changing Elixir version 
+# make sure to update the `ALPINE_VERSION` arg to match,
+# as well as the Elixir version in:
+# - mix.exs 
+# - .github/workflows/test.yaml or .gitlab-ci.yml 
+# - Dockerfile.dev 
+# - .tool-versions
+ARG ELIXIR_VERSION=1.13
 
 # The version of Alpine to use for the final image
 # This should match the version of Alpine that the current elixir & erlang images (in Step 1) use.
 # To find this you need to:
-# 1. Locate the dockerfile for the elixir image to get the erlang image version
-#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.12/Dockerfile
+# 1. Locate the dockerfile for the elixir image to check what erlang version is used
+#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.13/Dockerfile
 # 2. Locate the corresponding dockerfile for the erlang versio used and copy the alpine version indicated there below:
 #    e.g. https://github.com/erlang/docker-erlang-otp/blob/master/24/alpine/Dockerfile
-ARG ALPINE_VERSION=3.14
+ARG ALPINE_VERSION=3.15
 
 # The following are build arguments used to change variable parts of the image, they should be set as env variables.
 # The name of your application/release (required)
@@ -43,28 +47,32 @@ COPY data/current_flavour/config/deps.hex ./config/
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
+# Compile initial hex deps 
+RUN MIX_ENV=prod mix do deps.compile
+
 # Compile elixir deps (warning this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
 # RUN MIX_ENV=prod mix do deps.compile
 
-# git deps (i.e. Bonfire extensions)
+# add git deps (typically Bonfire extensions)
 COPY data/current_flavour/config/deps.git ./config/
+
 RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/* ./config/
 
-RUN rm ./config/deps.path
-# Comment the line above and uncomment the ones below only if you want to include locally-forked deps in the release
-# RUN ls -la ./config
-# RUN MIX_ENV=prod mix do deps.compile
+RUN rm ./config/deps.path 
+# Comment the line above and uncomment the one below only if you want to include locally-forked deps in the release (rather than only ones downloaded from hex.pm or git)
+# COPY forks ./ 
 
-# Update Bonfire extensions to latest git version 
-RUN mix do bonfire.deps.update
+# Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
+# RUN mix do bonfire.deps.update
 
-# Uncomment these lines only if you want to include locally-forked deps in the release (rather than only ones downloaded from hex.pm or git)
-# COPY data/current_flavour/config/deps.path ./config 
-# COPY forks/ ./ 
+# In case an updated or forked extension specified any different deps
 # RUN mix do deps.get --only prod
+
+# Compile remaining deps
+RUN MIX_ENV=prod mix do deps.compile
 
 # JS package manager
 RUN npm install -g pnpm
@@ -73,9 +81,6 @@ COPY assets/package.json assets/pnpm-lock.yaml assets/*.sh ./assets/
 COPY priv/*.sh ./priv/
 RUN chmod +x assets/*.sh && sh assets/install.sh
 RUN chmod +x config/*.sh && chmod +x priv/*.sh && sh config/deps.js.sh
-
-# Compile Bonfire extensions
-RUN MIX_ENV=prod mix do deps.compile
 
 # Update mime types
 RUN MIX_ENV=prod mix do deps.clean --build mime
@@ -87,9 +92,6 @@ COPY data/current_flavour/repo priv/repo
 COPY lib lib
 COPY assets assets
 # COPY . .
-
-# In case some dep lockfile has a different version
-RUN mix do deps.get --only prod
 
 # include an archive of the source code
 COPY LICENSE ./
