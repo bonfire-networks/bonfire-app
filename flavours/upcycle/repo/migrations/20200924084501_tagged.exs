@@ -3,11 +3,9 @@ defmodule Bonfire.Repo.Migrations.Tagged do
 
   def up do
     Bonfire.Tag.Migrations.up()
-    Bonfire.Tag.Migrations.tagged_up()
   end
 
   def down do
-    Bonfire.Tag.Migrations.up()
-    Bonfire.Tag.Migrations.tagged_down()
+    Bonfire.Tag.Migrations.down()
   end
 end

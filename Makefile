@@ -150,6 +150,7 @@ update: init update.repo build update.forks update.deps mix~deps.get mix~ecto.mi
 update.app: update.repo update.deps ## Update the app and Bonfire extensions in ./deps
 
 update.deps: ## Update Bonfire extensions in ./deps
+	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@make --no-print-directory mix.remote~updates 
 
 update.repo:
