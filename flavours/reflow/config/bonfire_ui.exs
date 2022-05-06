@@ -25,6 +25,7 @@ config :bonfire, :ui,
       cw: true,
       summary: true
    ],
+   rich_text_editor: Bonfire.Editor.Ck,
    default_smart_input: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
    profile: [
       sections: [
@@ -55,12 +56,12 @@ config :bonfire, :ui,
       # economic_event: "Record an economic event",
       process: "Create a process"
    ],
-   smart_input_forms: [
+   smart_input_components: [
       post: Bonfire.UI.Social.WritePostContentLive,
-      economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
-      intent: Bonfire.UI.ValueFlows.CreateIntentLive,
-      process: Bonfire.UI.ValueFlows.CreateProcessLive,
-
+      # economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
+      # intent: Bonfire.UI.ValueFlows.CreateIntentLive,
+      # task: Bonfire.UI.Coordination.CreateTaskLive,
+      process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive
    ],
    resource: [
       navigation: [

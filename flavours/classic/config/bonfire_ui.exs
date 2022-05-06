@@ -65,7 +65,7 @@ More details at https://bonfirenetworks.org",
       # economic_event: "Record an economic event",
       # process: "Define a process"
    ],
-   smart_input_forms: [
+   smart_input_components: [
       post: Bonfire.UI.Social.WritePostContentLive,
    ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive
