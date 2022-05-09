@@ -493,6 +493,13 @@ else
 	WITH_FORKS=0 mix $* $(args)
 endif
 
+ifeq (exh, $(firstword $(MAKECMDGOALS)))
+  args := $(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
+  $(eval $(args):;@true)
+endif
+exh%: init ## ## Run a specific exh command, see https://github.com/rowlandcodes/exhelp
+	@exh -S mix $(args)
+
 licenses: init 
 	@mkdir -p docs/DEPENDENCIES/
 	@make --no-print-directory mix.remote~licenses && mv DEPENDENCIES.md docs/DEPENDENCIES/$(FLAVOUR).md

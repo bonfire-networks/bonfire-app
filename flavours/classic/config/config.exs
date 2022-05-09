@@ -40,7 +40,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: String.to_integer(System.get_env("SERVER_PORT", "4000")), # this gets overriden in runtime.exs
     transport_options: [socket_opts: [:inet6]]
   ],
-  render_errors: [view: Bonfire.UI.Social.Web.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Bonfire.PubSub
 
 config :phoenix, :json_library, Jason
