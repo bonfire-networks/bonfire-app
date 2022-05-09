@@ -52,7 +52,7 @@ defmodule Mix.Tasks.Docs.Deps do
         [dep] ++ prepare_list(nested_deps, opts)
 
       dep ->
-        dep
+        [dep]
     end)
   end
 
