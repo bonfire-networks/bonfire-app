@@ -98,8 +98,8 @@ defmodule Bonfire.Web.Router do
     # live "/", Website.HomeGuestLive, as: :landing
     # live "/home", Web.HomeLive, as: :home
 
-    live "/error", Bonfire.UI.Common.ErrorLive
-
+    get "/guest/error", Bonfire.UI.Common.ErrorController, as: :error_guest
+    live "/error", Bonfire.Me.Web.ErrorLive, as: :error
   end
 
   # pages only guests can view
