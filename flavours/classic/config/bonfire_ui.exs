@@ -4,6 +4,7 @@ import Config
 config :bonfire, :ui,
    theme: [
       instance_name: "Bonfire",
+      instance_theme: "bonfire",
       instance_icon: "https://bonfirenetworks.org/img/bonfire.png",
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
