@@ -8,8 +8,8 @@ config :bonfire, :ui,
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
       instance_welcome: [
-         title: "About",
-         description: "## 👋 Welcome to the bonfire testing instance
+         title: "👋 Welcome to the bonfire testing instance",
+         description: "
 <div class='shadow-lg alert alert-warning'>
       <span>Warning: Bonfire is in alpha and some things may not work as expected.</span>
 </div>
@@ -28,7 +28,7 @@ More details at https://bonfirenetworks.org",
             "Contribute": "https://bonfirenetworks.org/contribute/"
          ]
    ]],
-   show_trending_tags_for_last_x_days: 30,
+   show_trending_tags_for_last_x_days: 8,
    sidebar_components: [
       {Bonfire.UI.Social.SidebarNavigationLive, []},
    ],

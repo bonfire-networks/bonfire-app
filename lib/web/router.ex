@@ -92,11 +92,12 @@ defmodule Bonfire.Web.Router do
   scope "/" do
     pipe_through :browser
 
+    # TODO: make the homepage non-live
     live "/", Bonfire.Web.HomeLive, as: :home
     # a default homepage which you can customise (at path "/")
-    # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename the path (eg. to "/home")
-    # live "/", Website.HomeGuestLive, as: :landing
-    # live "/home", Web.HomeLive, as: :home
+    # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")
+    # live "/", Bonfire.Website.HomeGuestLive, as: :landing
+    # live "/home", Bonfire.Web.HomeLive, as: :home
 
     get "/guest/error", Bonfire.UI.Common.ErrorController, as: :error_guest
     live "/error", Bonfire.Me.Web.ErrorLive, as: :error
