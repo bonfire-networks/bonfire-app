@@ -33,7 +33,21 @@ defmodule Bonfire.Web.HomeLive do
       page_title: instance_name,
       welcome_title: welcome_title,
       welcome: welcome_text,
-      links: links
+      links: links,
+      sidebar_widgets: [
+        users: [
+          main: [
+            {Bonfire.UI.Social.HomeBannerLive, []},
+            {Bonfire.UI.Social.WidgetAdminsLive, []}
+          ]
+        ],
+        guests: [
+          main: [
+            {Bonfire.UI.Social.HomeBannerLive, []},
+            {Bonfire.UI.Social.WidgetAdminsLive, []}
+          ]
+        ]
+      ]
     )}
   end
 
