@@ -39,14 +39,18 @@ defmodule Bonfire.Web.HomeLive do
           main: [
             {Bonfire.UI.Social.HomeBannerLive, []},
             {Bonfire.UI.Social.WidgetAdminsLive, []}
+          ],
+          secondary: [
+            {Bonfire.UI.Social.WidgetLinksLive, [links: links]},
+            {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
         ],
         guests: [
-          main: [
-            {Bonfire.UI.Social.HomeBannerLive, []},
-            {Bonfire.UI.Social.WidgetAdminsLive, []}
+          secondary: [
+            {Bonfire.UI.Social.WidgetLinksLive, [links: links]},
+            {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
-        ]
+        ],
       ]
     )}
   end

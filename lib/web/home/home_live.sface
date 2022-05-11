@@ -1,35 +1,8 @@
 
 <div class="items-start justify-center w-full max-w-screen-xl mx-auto tablet:flex ">
-  <!-- <Bonfire.UI.Social.SidebarLive 
-    current_user={current_user(e(assigns, :current_user, nil))}
-  /> -->
-  <div class="flex grow w-full mx-auto shrink-0 tablet:mx-3 max-w-[580px]">
-   <Bonfire.UI.Social.WidgetLive 
+  <Bonfire.UI.Social.WidgetTextLive 
     widget_title={e(assigns, :welcome_title, "About")}
-    current_user={current_user(assigns)}
-  >
-     <Bonfire.UI.Social.WidgetTextLive 
-      text={e(assigns, :welcome, "")} 
-     /> 
-    </Bonfire.UI.Social.WidgetLive>
-  </div>
-  <div class="w-[285px] justify-start hidden overflow-hidden  xl:flex xl:flex-col xl:space-y-3">
-    <Bonfire.UI.Social.WidgetLive 
-        widget_title={"Relevant links"}
-        current_user={current_user(assigns)}
-      >
-     <Bonfire.UI.Social.WidgetLinksLive
-      links={@links} /> 
-    </Bonfire.UI.Social.WidgetLive>
-    <Bonfire.UI.Social.WidgetLive 
-      :if={!Bonfire.Me.Settings.get([:ui, :show_trending_tags, :disabled], nil, assigns)}
-      widget_title="Trending topics"
-      current_user={current_user(assigns)}
-    >
-      <Bonfire.UI.Social.WidgetTagsLive 
-        current_user={current_user(assigns)}
-      />
-    </Bonfire.UI.Social.WidgetLive>
-  </div>
+    text={e(assigns, :welcome, "")} 
+  /> 
 
 </div>
