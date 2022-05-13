@@ -67,12 +67,24 @@ $ cd bonfire
 
 - Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
 
-### Option B - the easy way (with docker-managed database & search index, recommended for active development)
+### Option B - the easy way (with bare-metal elixir, and docker-managed tooling, database & search index, recommended for active development)
 
 - Dependencies:
 
   - `make`
-  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.12+) and OTP/erlang (24+)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
+  - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
+
+- Set an environment variable to indicate your choice: `export WITH_DOCKER=easy`
+
+- Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
+
+### Option C - the partial way (with bare-metal elixir and tooling, and docker-managed database & search index, recommended for active development)
+
+- Dependencies:
+
+  - `make`
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
   - [pnpm](https://pnpm.io)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
@@ -81,12 +93,12 @@ $ cd bonfire
 
 - Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
 
-### Option C - the bare metal (if you don't use docker)
+### Option D - the bare metal (if you don't use docker)
 
 - Dependencies:
 
   - `make`
-  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.12+) and OTP/erlang (24+)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
   - [pnpm](https://pnpm.io)
   - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)
@@ -98,7 +110,7 @@ $ cd bonfire
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
 
-### Option D - the experimental one (dev environment with Nix)
+### Option E - the experimental one (dev environment with Nix)
 
 - run a recent version of Nix or NixOS: https://nixos.wiki
 - enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
@@ -114,7 +126,7 @@ You will need to create and init the db directory (keeping all your Postgres dat
 - create the db `createdb bonfire_dev`
 - start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
 - `mix deps.get` to get elixir dependencies
-- `pushd assets && npm install && popd` to get the frontend dependencies
+- `pushd assets && pnpm install && popd` to get the frontend dependencies
 - `mix ecto.migrate` to compile & get an up to date database
 - `iex -S mix phx.server` to start the server
 - check out the app on `localhost:4000` in your browser
