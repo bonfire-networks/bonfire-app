@@ -79,7 +79,7 @@ $ cd bonfire
 
 - Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
 
-### Option C - the partial way (with bare-metal elixir and tooling, and docker-managed database & search index, recommended for active development)
+### Option C - the partial way (with bare-metal elixir and tooling, and docker-managed database & search index)
 
 - Dependencies:
 
