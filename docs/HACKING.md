@@ -182,7 +182,7 @@ The code is somewhat documented inline. You can generate HTML docs (using `Exdoc
 
 - `./forks/` is used to hack on local copies of dependencies. You can clone a dependency from its git repo (like a bonfire extension) and use the local version during development, eg: `make dep.clone.local dep=bonfire_me repo=https://github.com/bonfire-networks/bonfire_me`
 
-- You can migrate the DB when the app is running (useful in a release): `EctoSparkles.ReleaseTasks.migrate`
+- You can migrate the DB when the app is running (useful in a release): `EctoSparkles.Migrator.migrate`
 
 ### Usage under Windows (WSL, MSYS or CYGWIN)
 

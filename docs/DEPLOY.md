@@ -123,7 +123,7 @@ make rel.run
 Run this at the prompt: 
 
 `bin/bonfire remote` to enter Elixir's iex environment
-`EctoSparkles.ReleaseTasks.migrate` to initialise your database
+`EctoSparkles.Migrator.migrate` to initialise your database
 
 The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
 
@@ -157,7 +157,7 @@ The known commands are:
 - `pid`            Prints the operating system PID of the running system via a remote command
 - `version`        Prints the release name and version to be booted
 
-There are some useful database-related release tasks under `EctoSparkles.ReleaseTasks.` that can be run in an `iex` console (which you get to with `make rel.shell` followed by `bin/bonfire remote`, assuming the app is already running):
+There are some useful database-related release tasks under `EctoSparkles.Migrator.` that can be run in an `iex` console (which you get to with `make rel.shell` followed by `bin/bonfire remote`, assuming the app is already running):
 
 - `migrate` runs all up migrations
 - `rollback(step)` roll back to step X
@@ -165,7 +165,7 @@ There are some useful database-related release tasks under `EctoSparkles.Release
 - `rollback_all` rolls back all migrations back to zero (caution: this means loosing all data)
 
 You can also directly call some functions in the code from the command line, for example:
-- to migrate: `docker exec bonfire_web bin/bonfire rpc 'EctoSparkles.ReleaseTasks.migrate'`
+- to migrate: `docker exec bonfire_web bin/bonfire rpc 'EctoSparkles.Migrator.migrate'`
 - to make yourself an admin: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Me.Users.make_admin("my_username")'`
 
 #### Option A2 - Building your own Docker image
@@ -206,7 +206,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - `cd _build/prod/rel/bonfire/`
 
-- Create a database and run the migrations with `bin/bonfire eval 'EctoSparkles.ReleaseTasks.migrate()'`.
+- Create a database and run the migrations with `bin/bonfire eval 'EctoSparkles.Migrator.migrate()'`.
 - If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
 
 * You can check if your instance is configured correctly by running it with `bin/bonfire start`
