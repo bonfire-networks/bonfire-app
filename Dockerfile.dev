@@ -19,7 +19,7 @@ RUN cd $FORKS/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00b
 RUN cd $FORKS/messctl && cp -r origin/* . && cargo build --release && cargo install --path . --verbose
 
 
-FROM elixir:1.12-alpine
+FROM elixir:1.13-alpine
 
 ENV HOME=/opt/app/ TERM=xterm USER=docker FORKS=./forks
 WORKDIR $HOME
