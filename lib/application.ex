@@ -10,6 +10,7 @@ defmodule Bonfire.Application do
   @endpoint_module Bonfire.Common.Config.get!(:endpoint_module)
 
   use Application
+  require Cachex.Spec
 
   def start(_type, _args) do
 
@@ -54,9 +55,11 @@ defmodule Bonfire.Application do
       %{
         id: :cachex_settings,
         start: {Cachex, :start_link, [
-            :settings_cache, [
-              default_ttl: 25_000,
-              ttl_interval: 1000,
+            :bonfire_cache, [
+              expiration: Cachex.Spec.expiration(
+                    default: 25_000,
+                    interval: 1000
+              ),
               limit: 2500 # increase for instances with more users (at least num. of users*2+1)
       ]]}},
     ]
