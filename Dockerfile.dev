@@ -35,8 +35,7 @@ RUN apk add file \
     mailcap \
     ca-certificates openssh-client openssl-dev \
     tzdata \
-    gettext \
-    imagemagick
+    gettext
 
 # deps to compile NIF deps (eg. tree_magic)
 RUN apk add git rust cargo  
@@ -46,6 +45,9 @@ RUN apk add git rust cargo
 
 # dependencies for encryption (experimental)
 # RUN apk add olm
+
+# dependencies for image processing 
+RUN apk add imagemagick vips-tools
 
 # install the dependency manager
 COPY --from=messctl_build $FORKS/messctl/target/release/messctl /bin/
