@@ -29,10 +29,10 @@ config :bonfire, :ui,
    default_smart_input: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
    profile: [
       sections: [
-         timeline: Bonfire.UI.Social.ProfileTimelineLive,
+         timeline: Bonfire.UI.Me.ProfileTimelineLive,
          private: Bonfire.UI.Social.MessageThreadsLive,
-         posts: Bonfire.UI.Social.ProfilePostsLive,
-         boosts: Bonfire.UI.Social.ProfileBoostsLive,
+         posts: Bonfire.UI.Me.ProfilePostsLive,
+         boosts: Bonfire.UI.Me.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowsLive,
          followed: Bonfire.UI.Social.ProfileFollowsLive,
          inventory: Bonfire.UI.Reflow.ProfileInventoryLive,
