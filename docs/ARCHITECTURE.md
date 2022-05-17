@@ -133,8 +133,8 @@ Here is an incomplete sample of some of current extensions and modules:
         - Config template which is then copied into an app flavour's config (eg `config/bonfire_me.exs`)
         - Contexts (eg `Bonfire.Me.Users`)
           - Sometimes LiveHandlers for handling frontend events in the backend (eg `Bonfire.Me.Users.LiveHandler`)
-        - Routes (eg `Bonfire.Me.Web.Routes`)
-          - Controllers and/or Views (eg `Bonfire.Me.Web.CreateUserController` and `Bonfire.Me.Web.CreateUserLive`)
+        - Routes (eg `Bonfire.UI.Me.Routes`)
+          - Controllers and/or Views (eg `Bonfire.UI.Me.CreateUserController` and `Bonfire.UI.Me.CreateUserLive`)
         - API (eg `Bonfire.Me.API.GraphQL`), refer to [GraphQL API documentation](./GRAPHQL.md)
           - Schemas
           - Resolvers

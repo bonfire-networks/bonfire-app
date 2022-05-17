@@ -9,7 +9,7 @@ config :bonfire, :ui,
       instance_description: "Community roadmaps for learning every branch of human knowledge"
    ],
    sidebar_components: [
-      {Bonfire.UI.Social.SidebarNavigationLive, []},
+      {Bonfire.UI.Common.SidebarNavigationLive, []},
    ],
    smart_input: [
       post: true,

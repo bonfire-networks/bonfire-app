@@ -35,7 +35,7 @@ More details at https://bonfirenetworks.org",
       limit: 8,
    ],
    sidebar_components: [
-      {Bonfire.UI.Social.SidebarNavigationLive, []},
+      {Bonfire.UI.Common.SidebarNavigationLive, []},
    ],
    smart_input: [
       post: true,

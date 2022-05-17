@@ -5,12 +5,12 @@ defmodule Bonfire.Web.Router do
 
   pipeline :basic do
     plug :fetch_session
-    plug :put_root_layout, {Bonfire.UI.Social.Web.LayoutView, :root}
+    plug :put_root_layout, {Bonfire.UI.Common.LayoutView, :root}
   end
 
   pipeline :load_current_auth do
-    plug Bonfire.Me.Web.Plugs.LoadCurrentAccount
-    plug Bonfire.Me.Web.Plugs.LoadCurrentUser
+    plug Bonfire.UI.Me.Plugs.LoadCurrentAccount
+    plug Bonfire.UI.Me.Plugs.LoadCurrentUser
   end
 
   pipeline :browser do
@@ -29,23 +29,23 @@ defmodule Bonfire.Web.Router do
     plug :put_secure_browser_headers
     plug Bonfire.UI.Common.Plugs.ActivityPub # detect Accept headers to serve JSON or HTML
     plug :load_current_auth
-    # plug Bonfire.Me.Web.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
+    # plug Bonfire.UI.Me.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
   end
 
   pipeline :guest_only do
-    plug Bonfire.Me.Web.Plugs.GuestOnly
+    plug Bonfire.UI.Me.Plugs.GuestOnly
   end
 
   pipeline :account_required do
-    plug Bonfire.Me.Web.Plugs.AccountRequired
+    plug Bonfire.UI.Me.Plugs.AccountRequired
   end
 
   pipeline :user_required do
-    plug Bonfire.Me.Web.Plugs.UserRequired
+    plug Bonfire.UI.Me.Plugs.UserRequired
   end
 
   pipeline :admin_required do
-    plug Bonfire.Me.Web.Plugs.AdminRequired
+    plug Bonfire.UI.Me.Plugs.AdminRequired
   end
 
 
@@ -55,8 +55,8 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled Bonfire.OpenID.Web.Routes
 
-  use_if_enabled Bonfire.Me.Web.Routes
-  use_if_enabled Bonfire.Social.Web.Routes
+  use_if_enabled Bonfire.UI.Me.Routes
+  use_if_enabled Bonfire.UI.Social.Routes
 
   use_if_enabled Bonfire.Search.Web.Routes
   use_if_enabled Bonfire.Tag.Web.Routes
@@ -100,7 +100,7 @@ defmodule Bonfire.Web.Router do
     # live "/home", Bonfire.Web.HomeLive, as: :home
 
     get "/guest/error", Bonfire.UI.Common.ErrorController, as: :error_guest
-    live "/error", Bonfire.Me.Web.ErrorLive, as: :error
+    live "/error", Bonfire.UI.Me.ErrorLive, as: :error
   end
 
   # pages only guests can view

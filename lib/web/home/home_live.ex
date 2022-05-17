@@ -3,7 +3,7 @@ defmodule Bonfire.Web.HomeLive do
   The main instance home page, mainly for guests visiting the instance
   """
   use Bonfire.UI.Common.Web, :surface_view
-  alias Bonfire.Me.Web.LivePlugs
+  alias Bonfire.UI.Me.LivePlugs
   alias Bonfire.Common.Utils
 
   def mount(params, session, socket) do
@@ -37,17 +37,17 @@ defmodule Bonfire.Web.HomeLive do
       sidebar_widgets: [
         users: [
           main: [
-            {Bonfire.UI.Social.HomeBannerLive, []},
-            {Bonfire.UI.Social.WidgetAdminsLive, []}
+            {Bonfire.UI.Common.HomeBannerLive, []},
+            {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
-            {Bonfire.UI.Social.WidgetLinksLive, [links: links]},
+            {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
             {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
         ],
         guests: [
           secondary: [
-            {Bonfire.UI.Social.WidgetLinksLive, [links: links]},
+            {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
             {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
         ],
