@@ -19,13 +19,13 @@ config :bonfire,
   web_module: Bonfire.UI.Common.Web,
   endpoint_module: Bonfire.Web.Endpoint,
   mailer_module: Bonfire.Mailer,
-  default_web_namespace: Bonfire.UI.Social.Web,
-  default_layout_module: Bonfire.UI.Social.Web.LayoutView,
+  default_web_namespace: Bonfire.UI.Common,
+  default_layout_module: Bonfire.UI.Common.LayoutView,
   graphql_schema_module: Bonfire.API.GraphQL.Schema,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
-  user_home_page: Bonfire.Social.Web.HomeLive,
+  user_home_page: Bonfire.UI.Social.HomeLive,
   default_pagination_limit: 40, # high limit for prod
   thread_default_pagination_limit: 500, # very high limit for prod
   thread_default_max_depth: 3, # how many nested replies to show

@@ -9,9 +9,6 @@ config :bonfire_me, Bonfire.Me.Identity.Mails,
 
 #### Pointer class configuration
 
-config :bonfire_me, Bonfire.Me.Follows,
-  followable_types: [Bonfire.Data.Identity.User]
-
 config :bonfire_me, Bonfire.Me.Accounts,
   epics: [
     delete: [
