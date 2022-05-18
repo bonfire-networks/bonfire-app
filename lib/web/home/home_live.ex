@@ -4,7 +4,6 @@ defmodule Bonfire.Web.HomeLive do
   """
   use Bonfire.UI.Common.Web, :surface_view
   alias Bonfire.UI.Me.LivePlugs
-  alias Bonfire.Common.Utils
 
   def mount(params, session, socket) do
     live_plug params, session, socket, [

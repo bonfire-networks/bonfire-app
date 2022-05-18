@@ -15,7 +15,6 @@ defmodule Mix.Tasks.Bonfire.User.Admin.Promote do
   ```
   """
 
-  import Mix.Dep, only: [available?: 1, mix?: 1]
   alias Bonfire.Me.Users
 
   @spec run(OptionParser.argv) :: :ok

@@ -107,9 +107,6 @@ end
 
 defmodule Mix.Tasks.Bonfire.Release do
   alias Releaser.VersionUtils
-  alias Releaser.Git
-  alias Releaser.Tests
-  alias Releaser.Publish
 
   def main(args) do # for running as escript
     run(args)

@@ -17,10 +17,7 @@ defmodule Mix.Tasks.Bonfire.Account.New do
   You will be prompted for a password and an email if it was not provided.
   """
 
-  import Mix.Dep, only: [available?: 1, mix?: 1]
   alias Bonfire.Me.Fake
-
-  @switches [include_children: :boolean, force: :boolean]
 
   @spec run(OptionParser.argv) :: :ok
   def run(args) do
@@ -38,7 +35,7 @@ defmodule Mix.Tasks.Bonfire.Account.New do
 
   defp options([], opts), do: opts
   defp options([email], opts), do: Map.put(opts, :email, email)
-      
+
   defp get(prompt, key, opts, must?) do
     case opts[key] do
       nil ->
@@ -63,7 +60,7 @@ defmodule Mix.Tasks.Bonfire.Account.New do
     ref = make_ref()
     password(prompt, pid, ref)
   end
-    
+
   defp password(prompt, pid, ref) do
     value = String.trim(IO.gets(prompt))
     if String.length(value) < 10 do
