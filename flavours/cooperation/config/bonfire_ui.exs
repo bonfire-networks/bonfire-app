@@ -40,10 +40,10 @@ More details at https://bonfirenetworks.org",
    ],
    profile: [
       sections: [ # TODO: make dynamic based on active extensions
-         timeline: Bonfire.UI.Me.ProfileTimelineLive,
+         timeline: Bonfire.UI.Social.ProfileTimelineLive,
          private: Bonfire.UI.Social.MessageThreadsLive,
-         posts: Bonfire.UI.Me.ProfilePostsLive,
-         boosts: Bonfire.UI.Me.ProfileBoostsLive,
+         posts: Bonfire.UI.Social.ProfilePostsLive,
+         boosts: Bonfire.UI.Social.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowsLive,
          followed: Bonfire.UI.Social.ProfileFollowsLive,
          # inventory: Bonfire.UI.Reflow.ProfileInventoryLive,
