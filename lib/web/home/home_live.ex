@@ -22,16 +22,10 @@ defmodule Bonfire.Web.HomeLive do
       l("About Bonfire") => "https://bonfirenetworks.org/",
       l("Contribute") => "https://bonfirenetworks.org/contribute/"
     })
-    welcome_title = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome, :title], l "About")
-    welcome_text =
-      Bonfire.Common.Config.get([:ui, :theme, :instance_welcome, :description], nil)
-      || Bonfire.Common.Config.get([:ui, :theme, :instance_description], l "Welcome")
 
     {:ok, socket
     |> assign(
       page_title: instance_name,
-      welcome_title: welcome_title,
-      welcome: welcome_text,
       links: links,
       sidebar_widgets: [
         users: [
