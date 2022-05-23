@@ -47,7 +47,7 @@ help:
 	@echo "Just commands for Bonfire:"
 	@just --list
 
-pre-setup flavour:
+pre-setup flavour='classic':
 	@echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
 	@ln -sfn flavours/$flavour/config ./config
 	@mkdir -p data/
