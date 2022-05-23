@@ -152,6 +152,7 @@ defmodule Bonfire.MixProject do
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
       {:mix_test_interactive, "~> 1.0", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
+      {:wallaby, "~> 0.29.1", runtime: false, only: :test},
 
       # Benchmarking utilities
       {:benchee, "~> 1.1", only: :dev},

@@ -64,3 +64,15 @@ config :paginator, Paginator.Repo,
 config :exsync,
   src_monitor: false,
   extra_extensions: [".leex", ".js", ".css", ".sface"]
+
+
+# for headless browser testing:
+config :bonfire, sql_sandbox: true
+config :wallaby,
+  # base_url: Bonfire.Web.Endpoint.url(),
+  otp_app: :bonfire,
+  screenshot_on_failure: true,
+  chromedriver: [
+    path: "assets/node_modules/chromedriver/bin/chromedriver", # point to your chromedriver path
+    headless: false # change to false if you want to see the browser in action
+  ]
