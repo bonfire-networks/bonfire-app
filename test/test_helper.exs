@@ -28,5 +28,5 @@ ExUnit.start(
 # end)
 
 Application.put_env(:wallaby, :base_url, Bonfire.Web.Endpoint.url())
-
+# TODO: skip browser-based tests if no driver is available
 if File.exists?(Bonfire.Common.Config.get([:wallaby, :chromedriver, :path])), do: {:ok, _} = Application.ensure_all_started(:wallaby)
