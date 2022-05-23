@@ -11,8 +11,7 @@ services:
     ports:
       - "4000:4000" # you may want to comment this in production
     env_file:
-      - config/prod/public.env
-      - config/prod/secrets.env
+      - config/prod/.env
     environment:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
@@ -29,7 +28,7 @@ services:
       - "80:80"
       - "443:443"
     env_file:
-      - config/prod/public.env
+      - config/prod/.env
     volumes:
       - type: bind
         source: ./config/deploy/Caddyfile2
@@ -46,8 +45,7 @@ services:
     # ports:
     #   - "5432:5432"
     env_file:
-      - config/prod/public.env
-      - config/prod/secrets.env
+      - config/prod/.env
   search:
     image: getmeili/meilisearch:latest
     # ports:
@@ -55,5 +53,4 @@ services:
     volumes:
       - "./data/search/prod:/data.ms"
     env_file:
-      - config/prod/public.env
-      - config/prod/secrets.env
+      - config/prod/.env

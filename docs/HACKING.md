@@ -16,6 +16,8 @@ Bonfire is currently alpha software. While it's fun to play with it,
 we would _absolutely not_ recommend running any production instances
 yet because it's just not ready for that today.
 
+## Download
+
 Either way, you need to first clone this repository and change into the directory and then do some configuration:
 
 ```sh
@@ -23,67 +25,52 @@ $ git clone https://github.com/bonfire-networks/bonfire-app bonfire
 $ cd bonfire
 ```
 
-## Configuration
+## Configure
 
-### Picking a flavour
+### Pick a flavour
 
 Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on:
 
-- Classic ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
-- Cooperation (for building cooperative communities)
-- Reflow (for community economic activities)
-- Haha (for learning new things)
+- `classic` ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
+- `cooperation` (for building cooperative communities)
+- `reflow` (for community economic activities)
+- `haha` (for learning new things)
 
 Note that at the current time, the core team are focusing most of
 their efforts on the classic flavour and this is where we recommend you start.
 
-For example if you want to run the `classic` flavour (the default)
+You first need to install [just](https://github.com/casey/just#packages) which is a handy tool (a `just` alternative) to run commands defined in `./justfile`.
 
-`export FLAVOUR=classic`
+So for example if you want to run the `classic` flavour, run:
 
-### Initialise
+`just config classic`
 
-You need to clone this repository and change into the directory and then do some configuration:
+### Configure
 
-```sh
-$ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
-$ cd bonfire
-```
-
-- Then run this command to initialise some default config (.env files which won't be checked into git):
-
-`make pre-config`
-
-- Edit the config (especially the secrets) for the current flavour in these files:
-  - `config/dev/secrets.env`
-  - `config/dev/public.env`
+- Then edit the config (especially the secrets) for the current flavour in `./.env`
 
 ### Option A - the entry way (fully managed via docker-compose, recommended when you're first exploring)
 
 - Dependencies:
-
-  - `make`
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
-- Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
+- Set an environment variable to indicate your choice: `export WITH_DOCKER=total`
+
+- Make sure you've edited your .env file (see above) before getting started and proceed to Hello world!
 
 ### Option B - the easy way (with bare-metal elixir, and docker-managed tooling, database & search index, recommended for active development)
 
 - Dependencies:
-
-  - `make`
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=easy`
 
-- Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
+- Make sure you've edited your .env file (see above) before getting started and proceed to Hello world!
 
 ### Option C - the partial way (with bare-metal elixir and tooling, and docker-managed database & search index)
 
 - Dependencies:
-
-  - `make`
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
   - [pnpm](https://pnpm.io)
@@ -91,20 +78,18 @@ $ cd bonfire
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=partial`
 
-- Make sure you've edited your .env files (see above) before getting started and proceed to Hello world!
+- Make sure you've edited your .env file (see above) before getting started and proceed to Hello world!
 
 ### Option D - the bare metal (if you don't use docker)
 
 - Dependencies:
-
-  - `make`
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
   - [pnpm](https://pnpm.io)
   - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)
   - [Meili Search](https://docs.meilisearch.com/learn/getting_started/installation.html) (optional)
 
-- You will need to set the relevant environment variables in the .env files (see above) to match your local install of Postgres.
+- You will need to set the relevant environment variables in the .env file (see above) to match your local install of Postgres.
 
 - If you want search capabilities, you'll also need to setup a Meili server and set the relevant env variables as well.
 
@@ -136,16 +121,16 @@ You will need to create and init the db directory (keeping all your Postgres dat
 - From a fresh checkout of this repository, this command will fetch the app's dependencies and setup the database (the same commands apply for all three options above):
 
 ```
-make setup
+just setup
 ```
 
 - You should then be able to run the app with:
 
 ```
-make dev
+just dev
 ```
 
-- See the `make` commands below for more things you may want to do.
+- See the `just` commands below for more things you may want to do.
 
 ## Onboarding
 
@@ -155,7 +140,7 @@ Your first step will be to create an account to log in with. The
 easiest way to do this is with our mix task:
 
 ```
-$ make mix~bonfire.account.new
+$ just mix bonfire.account.new
 Enter an email address: root@localhost
 Enter a password:
 ```
@@ -164,11 +149,10 @@ Your password must be at least 10 characters long and the output could be more h
 
 You should then be able to log in and create a user through the web interface.
 
-If you would like to become an administrator, there is a mix task for
-that too:
+If you would like to become an administrator, there is a mix task for that too:
 
 ```shell
-make mix~"bonfire.user.admin.promote root" # for username `root`
+just mix bonfire.user.admin.promote your_username 
 ```
 
 ## The Bonfire Environment
@@ -181,30 +165,29 @@ conveniences built in once you know how they all work. The gotcha is that while 
 - [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
 - [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
 
-
 Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
 ## Documentation
 
-The code is somewhat documented inline. You can generate HTML docs (using `Exdoc`) by running `mix docs`.
+The code is somewhat documented inline. You can generate HTML docs (using `Exdoc`) by running `just docs`.
 
 ## Additional information
 
 - messctl is a little utility for programmatically updating the .deps files from which the final elixir dependencies list is compiled by the mess script. The only use of it is in the dep-\* tasks of the Makefile. It is used by some of the project developers and the build does not rely on it.
 
-- `./forks/` is used to hack on local copies of dependencies. You can clone a dependency from its git repo (like a bonfire extension) and use the local version during development, eg: `make dep.clone.local dep=bonfire_me repo=https://github.com/bonfire-networks/bonfire_me`
+- `./forks/` is used to hack on local copies of dependencies. You can clone a dependency from its git repo (like a bonfire extension) and use the local version during development, eg: `just dep.clone.local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 
-- You can migrate the DB when the app is running (useful in a release): `EctoSparkles.Migrator.migrate`
+- You can migrate the DB when the app is running (also runs automatically on startup): `EctoSparkles.Migrator.migrate`
 
 ### Usage under Windows (WSL, MSYS or CYGWIN)
 
-By default, the `Makefile` requires symlinks, which can be enabled with the help of [this link](https://stackoverflow.com/a/59761201).
+By default, the `justfile` requires symlinks, which can be enabled with the help of [this link](https://stackoverflow.com/a/59761201).
 
 See the [pull request adding WSL support](https://github.com/bonfire-networks/bonfire-app/pull/111) for details about usage without symlinks.
 
-## Make commands
+## `just` commands
 
-Run `make` followed by any of these commands when appropriate rather than directly using the equivalent commands like `mix`, `docker`, `docker-compose`, etc. For example, `make setup` will get you started, and `make dev` will run the app.
+Run `just` followed by any of these commands when appropriate rather than directly using the equivalent commands like `mix`, `docker`, `docker-compose`, etc. For example, `just setup` will get you started, and `just dev` will run the app.
 
 You can first set an env variable to control which mode these commands will assume you're using. Here are your options:
 
@@ -213,68 +196,8 @@ You can first set an env variable to control which mode these commands will assu
 - `WITH_DOCKER=easy` : use docker for services like the DB & compiled utilities like messctl
 - `WITH_DOCKER=no` : please no
 
-```
-make help                           Makefile commands help **(run this to get more up-to-date commands and help information than available in this document)**
-make mix~help                       Help info for elixir's mix commands
-make env.exports                    Display the vars from dotenv files that you need to load in your environment
+Run `just help` to see the list of possible commands and what they do.
 
-make setup                          First run - prepare environment and dependencies
-make dev                            Run the app in development
-make dev.bg                         Run the app in dev mode, as a background service
-make db.reset                       Reset the DB (caution: this means DATA LOSS)
-make db.rollback                    Rollback previous DB migration (caution: this means DATA LOSS)
-make db.rollback.all                Rollback ALL DB migrations (caution: this means DATA LOSS)
-make update                         Update the app and all dependencies/extensions/forks, and run migrations
-
-make update.app                     Update the app and Bonfire extensions in ./deps
-make update.deps.bonfire            Update to the latest Bonfire extensions in ./deps
-make update.deps.all                Update evey single dependency (use with caution)
-make update.dep~%                   Update a specify dep (eg. `make update.dep~pointers`)
-make update.forks                   Pull the latest commits from all ./forks
-
-make deps.get                       Fetch locked version of non-forked deps
-make dep.clone.local                Clone a git dep and use the local version, eg: `make dep.clone.local dep=bonfire_me repo=https://github.com/bonfire-networks/bonfire_me`
-make deps.clone.local.all           Clone all bonfire deps / extensions
-make dep.go.local~%                 Switch to using a local path, eg: make dep.go.local~pointers
-make dep.go.local.path              Switch to using a local path, specifying the path, eg: make dep.go.local dep=pointers path=./libs/pointers
-make dep.go.git                     Switch to using a git repo, eg: make dep.go.git dep=pointers repo=https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
-make dep.go.hex                     Switch to using a library from hex.pm, eg: make dep.go.hex dep=pointers version="~> 0.2" (specifying the version is optional if previously specified)
-make dep.hex~%                      add/enable/disable/delete a hex dep with messctl command, eg: `make dep.hex.enable dep=pointers version="~> 0.2"
-make dep.git~%                      add/enable/disable/delete a git dep with messctl command, eg: `make dep.hex.enable dep=pointers repo=https://github.com/bonfire-networks/pointers#main
-make dep.local~%                    add/enable/disable/delete a local dep with messctl command, eg: `make dep.hex.enable dep=pointers path=./libs/pointers
-make messctl~%                      Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `make messctl~help`)
-
-make contrib.forks                  Push all changes to the app and extensions in ./forks
-make contrib.release                Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
-make contrib.app.up                 Update ./deps and push all changes to the app
-make contrib.app.release            Update ./deps, increment the app version number and push
-make git.forks.add                  Run the git add command on each fork
-make git.forks~%                    Run a git command on each fork (eg. `make git.forks~pull` pulls the latest version of all local deps from its git remote
-
-make test                           Run tests. You can also run only specific tests, eg: `make test only=forks/bonfire_social/test`
-make test.stale                     Run only stale tests
-make test.remote                    Run tests (ignoring changes in local forks)
-make test.watch                     Run stale tests, and wait for changes to any module's code, and re-run affected tests
-make test.db.reset                  Create or reset the test DB
-
-make rel.build                      Build the Docker image using previous cache
-make rel.tag.latest                 Add latest tag to last build
-make rel.push                       Add latest tag to last build and push to Docker Hub
-make rel.run                        Run the app in Docker & starts a new `iex` console
-make rel.run.bg                     Run the app in Docker, and keep running in the background
-make rel.stop                       Run the app in Docker, and keep running in the background
-make rel.shell                      Runs a simple shell inside of the container, useful to explore the image
-
-make services                       Start background docker services (eg. db and search backends). This is automatically done for you if using Docker.
-make build                          Build the docker image
-make cmd~%                          Run a specific command in the container, eg: `make cmd-messclt` or `make cmd~time` or `make cmd~echo args=hello`
-make shell                          Open the shell of the Docker web container, in dev mode
-make mix~%                          Run a specific mix command, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
-make mix.remote~%                   Run a specific mix command, while ignoring any deps cloned into ./forks, eg: `make mix~deps.get` or `make mix~deps.update args=pointers`
-make deps.git.fix                   Run a git command on each dep, to ignore chmod changes
-make git.merge~%                    Draft-merge another branch, eg `make git-merge-with-valueflows-api` to merge branch `with-valueflows-api` into the current one
-make git.conflicts                  Find any git conflicts in ./forks
-```
 
 ## Troubleshooting
 

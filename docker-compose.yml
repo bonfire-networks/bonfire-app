@@ -11,8 +11,7 @@ services:
     ports:
       - "4000:4000"
     env_file:
-      - config/dev/public.env
-      - config/dev/secrets.env
+      - config/dev/.env
     environment:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
@@ -41,8 +40,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - config/dev/public.env
-      - config/dev/secrets.env
+      - config/dev/.env
     # user: $UID:$GID
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -57,6 +55,5 @@ services:
       # - "./data/search/dev:/data.ms"
       # - /etc/passwd:/etc/passwd:ro 
     env_file:
-      - config/dev/public.env
-      - config/dev/secrets.env 
+      - config/dev/.env
     # user: $UID:$GID
