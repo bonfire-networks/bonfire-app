@@ -31,7 +31,7 @@ ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR F
 WORKDIR $HOME
 
 # necessary utils
-RUN apk add --no-cache tar curl git rust cargo npm bash
+RUN apk add --no-cache tar curl git rust cargo yarn bash
 
 # dependencies for comeonin
 RUN apk add --no-cache make gcc libc-dev
@@ -75,9 +75,11 @@ RUN rm ./config/deps.path
 RUN MIX_ENV=prod mix do deps.compile
 
 # JS package manager
-RUN npm install -g pnpm
+# RUN npm install -g pnpm
 # install JS deps
-COPY assets/package.json assets/pnpm-lock.yaml assets/*.sh ./assets/
+COPY assets/package.json assets/*.sh ./assets/
+# COPY assets/pnpm-lock.yaml ./assets/
+COPY assets/yarn.lock ./assets/
 COPY priv/*.sh ./priv/
 RUN chmod +x assets/*.sh && sh assets/install.sh
 RUN chmod +x config/*.sh && chmod +x priv/*.sh && sh config/deps.js.sh

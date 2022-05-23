@@ -62,6 +62,7 @@ So for example if you want to run the `classic` flavour, run:
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
+  - [yarn](https://yarnpkg.com)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=easy`
@@ -73,7 +74,7 @@ So for example if you want to run the `classic` flavour, run:
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
-  - [pnpm](https://pnpm.io)
+  - [yarn](https://yarnpkg.com)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=partial`
@@ -85,7 +86,7 @@ So for example if you want to run the `classic` flavour, run:
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
-  - [pnpm](https://pnpm.io)
+  - [yarn](https://yarnpkg.com)
   - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)
   - [Meili Search](https://docs.meilisearch.com/learn/getting_started/installation.html) (optional)
 
@@ -111,7 +112,7 @@ You will need to create and init the db directory (keeping all your Postgres dat
 - create the db `createdb bonfire_dev`
 - start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
 - `mix deps.get` to get elixir dependencies
-- `pushd assets && pnpm install && popd` to get the frontend dependencies
+- `pushd assets && yarn && popd` to get the frontend dependencies
 - `mix ecto.migrate` to compile & get an up to date database
 - `iex -S mix phx.server` to start the server
 - check out the app on `localhost:4000` in your browser

@@ -39,3 +39,6 @@ window.liveSocket = liveSocket
 import { ExtensionHooks } from "../../data/current_flavour/config/deps_hooks.js"
 // Add Extensions' Hooks... 
 Object.assign(liveSocket.hooks, ExtensionHooks);
+
+import * as tagifycss from "../node_modules/@yaireo/tagify/dist/tagify.css";
+import * as css from "../css/app.scss"

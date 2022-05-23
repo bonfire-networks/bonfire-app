@@ -1,6 +1,7 @@
+// NOTE: parcel uses .postcssrc instead
 module.exports = {
   plugins: {
-    'postcss-import': {},
+    'postcss-import': {}, 
     'tailwindcss': {},
     autoprefixer: {},
   },
