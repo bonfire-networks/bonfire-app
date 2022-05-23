@@ -82,7 +82,7 @@ jobs:
           access_token: ${{ github.token }}
       - 
         name: Pre-build prep 
-        run: apt install cargo && cargo install just && just rel-prepare
+        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
       -
         name: Build and push
         id: docker_build
@@ -140,7 +140,7 @@ jobs:
   #         password: ${{ secrets.DOCKERHUB_TOKEN }}
   #     - 
   #       name: Pre-build prep 
-  #       run: apt install cargo && cargo install just && just rel-prepare
+  #       run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
   #     -
   #       name: Build and push
   #       id: docker_build
@@ -196,7 +196,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: Pre-build prep 
-        run: apt install cargo && cargo install just && just rel-prepare
+        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
       -
         name: Build and push
         id: docker_build
@@ -253,7 +253,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: Pre-build prep 
-        run: apt install cargo && cargo install just && just rel-prepare
+        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
       -
         name: Build and push
         id: docker_build
