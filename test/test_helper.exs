@@ -26,3 +26,6 @@ ExUnit.start(
 
 #     :ok
 # end)
+
+Application.put_env(:wallaby, :base_url, Bonfire.Web.Endpoint.url())
+{:ok, _} = Application.ensure_all_started(:wallaby)
