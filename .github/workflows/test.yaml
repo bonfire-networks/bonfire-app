@@ -42,8 +42,8 @@ jobs:
       with:
         access_token: ${{ github.token }}
     - 
-      name: Install git (needed for checkout), tar (needed for cache), file (needed for bonfire_files)
-      run: apk add git tar file
+      name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), and just
+      run: apk add bash git tar file just
     - 
       name: Checkout repo
       uses: actions/checkout@v2
@@ -66,8 +66,8 @@ jobs:
         restore-keys: ${{ runner.os }}-mix-
     - name: Install system deps
       run: apk add mailcap ca-certificates openssl-dev tzdata gettext rust cargo 
-    - name: Install tools
-      run: cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH
+    # - name: Install tools
+    #   run: cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH
     - name: Install hex
       run: mix local.hex --force
     - name: Install rebar
