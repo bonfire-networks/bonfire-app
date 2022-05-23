@@ -157,6 +157,7 @@ update-app: update-repo update-deps
 # Update Bonfire extensions in ./deps
 update-deps: 
 	@rm -rf deps/*/assets/pnpm-lock.yaml
+	@rm -rf deps/*/assets/yarn.lock
 	just mix-remote updates 
 
 update-repo:
@@ -205,7 +206,6 @@ deps-clean-api:
 js-deps-get: js-assets-deps-get js-ext-deps-get
 
 js-assets-deps-get:
-	@pnpm -v || npm -g install pnpm
 	@chmod +x ./assets/install.sh
 	just cmd ./assets/install.sh
 

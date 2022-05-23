@@ -30,7 +30,7 @@ RUN apk update && \
 
 # various dependencies of dependencies
 RUN apk add file \
-    npm \
+    yarn \
     git \
     mailcap \
     ca-certificates openssh-client openssl-dev \
@@ -53,7 +53,7 @@ RUN apk add imagemagick vips-tools
 COPY --from=messctl_build $FORKS/messctl/target/release/messctl /bin/
 
 # JS package manager & builders
-RUN npm install -g pnpm esbuild postcss
+# RUN npm install -g pnpm esbuild postcss
 
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp

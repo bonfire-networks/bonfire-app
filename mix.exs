@@ -98,7 +98,7 @@ defmodule Bonfire.MixProject do
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
       "assets.build": [
-        "cmd cd ./assets && pnpm build",
+        "cmd cd ./assets && yarn build",
       ],
       "bonfire.seeds": [
         # "phil_columns.seed",
@@ -112,7 +112,7 @@ defmodule Bonfire.MixProject do
         "run #{flavour_path()}/repo/seeds.exs"
         ],
       "js.deps.get": ["cmd make js.deps.get"],
-      "js.deps.update": ["cmd cd assets && pnpm update"],
+      "js.deps.update": ["cmd cd assets && yarn update"],
       setup: ["hex.setup", "rebar.setup", "deps.get", "bonfire.deps.clean.data", "ecto.setup"],
       updates: ["deps.get", "bonfire.deps"],
       upgrade: ["updates", "ecto.migrate"],

@@ -6,12 +6,12 @@ for dep in $DEPS ; do
 	printf "Install JS deps from extension %s... " "$dep"
 
 	if cd "forks/$dep/assets" 2>/dev/null ; then
-		pnpm install
+		yarn
 		cd ../../../
 	fi
 
 	if cd "deps/$dep/assets" 2>/dev/null ; then
-		pnpm install
+		yarn
 		cd ../../../
 	else
 		printf "The extension %s is not available\n" "$dep"
