@@ -7,10 +7,7 @@ _These instructions are for setting up Bonfire in production. If you want to run
 
 ## Security Warning
 
-We recommend only granting an account to people you trust to minimise the attack surface.
-
-Accordingly, Bonfire ships with public registration disabled, please
-keep it that way. The admin panel has an `invite` facility.
+We recommend only granting an account to people you trust to minimise the attack surface. Accordingly, Bonfire ships with public registration disabled. The admin panel has an `invite` facility. 
 
 ---
 
@@ -44,7 +41,7 @@ The first thing to do is choose what flavour of Bonfire you want to deploy, as e
 
 This will initialise some default config (a .env file which won't be checked into git)
 
-5. Edit the config (especially the secrets) for the selected flavour in `./.env`
+5. Edit the config (especially the secrets) for the selected flavour in `./.env` (except if using the Bonfire co-op cloud recipe, which will create its own env file you should edit instead).
 
 These are the config keys you should especially pay attention to:
 - SECRET_KEY_BASE
@@ -87,7 +84,7 @@ If you're interested in hosting Bonfire alongside other open and/or federated pr
 ### Option B - Install using Docker containers (easy mode)
 
 The easiest way to launch the docker image is using the just commands.
-The `docker-compose.release.yml` uses `config/prod/public.env` and `config/prod/secrets.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container, along with a reverse proxy (Caddy server, which you may want to replace with nginx or whatever you prefer).
+The `docker-compose.release.yml` uses `config/prod/.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container, along with a reverse proxy (Caddy server, which you may want to replace with nginx or whatever you prefer).
 
 #### Install with docker-compose
 
@@ -107,7 +104,7 @@ just 1.1.3
 
 Now that your tooling is set up, you have the choice of using pre-built images or building your own. For example if your flavour does not have a prebuilt image on Docker Hub, or if you want to customise any of the extensions, you can build one yourself - see option A2 below. 
 
-#### Option B1 - Using pre-built Docker images (recommend to start with)
+#### Option B1 - Using pre-built Docker images (recommended to start with)
 
 - The `image` entry in `docker-compose.release.yml` will by default use the image on Docker Hub which corresponds to your chosen flavour (see step 1 above for choosing your flavour).
 
