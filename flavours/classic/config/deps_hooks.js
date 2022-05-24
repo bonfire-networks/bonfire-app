@@ -8,11 +8,11 @@ import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/c
 import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
-import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
-import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js/extension"
+// import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
+import { EditorQuillHooks } from "./../../../forks/bonfire_editor_quill/assets/js/extension"
 
 // import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/extension"
 
-Object.assign(ExtensionHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, EditorCkHooks, EditorQuillHooks)
+Object.assign(ExtensionHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, EditorQuillHooks) // EditorCkHooks, GeolocateHooks
  
 export { ExtensionHooks }

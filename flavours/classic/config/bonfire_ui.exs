@@ -28,7 +28,10 @@ More details at https://bonfirenetworks.org",
             "Community Chat": "https://matrix.to/#/%23bonfire-networks:matrix.org",
             "Contribute": "https://bonfirenetworks.org/contribute/"
          ]
-   ]],
+      ]
+   ], # end theme
+   # rich_text_editor: Bonfire.Editor.Quill,
+   # rich_text_editor: Bonfire.Editor.Ck,
    show_trending_tags: [
       disabled: false,
       for_last_x_days: 30,
