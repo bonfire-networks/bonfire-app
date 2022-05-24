@@ -11,3 +11,7 @@ Alpine.plugin(collapse)
 
 window.Alpine = Alpine
 Alpine.start()
+
+// CSS
+import * as tagifycss from "../node_modules/@yaireo/tagify/dist/tagify.css";
+import * as css from "../css/app.scss"
