@@ -9,6 +9,11 @@
   height: 90vh;
 }
 
+body {
+  --scrollbarThumb: hsla(var(--b1) );
+  --scrollbarTrack: hsla(var(--b3) );
+}
+
 [x-cloak] {
   display: none !important;
 } 
@@ -437,7 +442,18 @@ html, body, a {
   top: -1rem;
   bottom: 4px;
   display: block;
+}
 
+.sm_background-invisible:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background-color: hsla(var(--b1) / 1);
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: -1rem;
+  display: block;
 }
 
 
@@ -549,8 +565,8 @@ emoji-picker {
   --tab-color: hsla(var(--p) / var(--tw-text-opacity, 1));
 }
 
-.messages_smart_input .ql-container {
-  height: 50px;
+.messages_smart_input .ql-editor {
+  min-height: 50px;
 }
 
 .hide {
