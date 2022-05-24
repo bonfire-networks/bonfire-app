@@ -25,7 +25,7 @@ config :bonfire, :ui,
       cw: true,
       summary: true
    ],
-   rich_text_editor: Bonfire.Editor.Ck,
+   # rich_text_editor: Bonfire.Editor.Ck,
    default_smart_input: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
    profile: [
       sections: [
