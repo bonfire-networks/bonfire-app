@@ -1,7 +1,6 @@
 {
   "version": "0.0.0",
   "scripts": {
-    "preinstall": "npx only-allow yarn",
     "watch.assets": "cpx 'static/**/*' ../priv/static --watch",
     "prepare.static": "mkdir -p ../priv/static/ && cp -r static/*.ico ../priv/static/ && cp -r static/images ../priv/static/",
     "build.postcss.esbuild": "yarn prepare.static && yarn build.postcss && yarn build.esbuild",
@@ -13,6 +12,9 @@
     "build.postcss": "TAILWIND_MODE=build NODE_ENV=production postcss ./css/app.scss -o ../priv/static/css/bonfire.css",
     "watch": "parcel watch 'js/bonfire_*.js' --dist-dir ../priv/static/assets",
     "build": "parcel build 'js/bonfire_*.js' --dist-dir ../priv/static/assets"
+  },
+  "disabledScripts": {
+    "preinstall": "npx only-allow yarn"
   },
   "alias": {
     "buffer": {
@@ -40,7 +42,6 @@
     "buffer": "^6.0.3",
     "chromedriver": "^101.0.0",
     "cpx": "^1.5.0",
-    "only-allow": "^1.1.0",
     "parcel": "^2.5.0",
     "postcss": "^8.4.14",
     "postcss-import": "^14.1.0",
