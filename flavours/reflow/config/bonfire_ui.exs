@@ -30,7 +30,7 @@ config :bonfire, :ui,
    profile: [
       sections: [
          timeline: Bonfire.UI.Social.ProfileTimelineLive,
-         private: Bonfire.UI.Social.MessageThreadsLive,
+         # private: Bonfire.UI.Social.MessageThreadsLive,
          posts: Bonfire.UI.Social.ProfilePostsLive,
          boosts: Bonfire.UI.Social.ProfileBoostsLive,
          followers: Bonfire.UI.Social.ProfileFollowsLive,
