@@ -5,7 +5,7 @@ ExUnit.configure formatters: [ExUnit.CLIFormatter, ExUnitNotifier]
 # Code.put_compiler_option(:nowarn_unused_vars, true)
 
 skip = if System.get_env("TEST_INSTANCE")=="yes", do: [], else: [:test_instance]
-skip = if System.get_env("CI"), do: skip, else: [:browser] ++ skip # skip browser automation tests in CI
+skip = if System.get_env("CI"), do: [:browser] ++ skip, else: skip # skip browser automation tests in CI
 
 ExUnit.start(
   exclude: [:skip, :todo, :fixme] ++ skip,
