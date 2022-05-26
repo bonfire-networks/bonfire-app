@@ -3,15 +3,15 @@
   "scripts": {
     "watch.assets": "cpx 'static/**/*' ../priv/static --watch",
     "prepare.static": "mkdir -p ../priv/static/ && cp -r static/*.ico ../priv/static/ && cp -r static/images ../priv/static/",
-    "build.postcss.esbuild": "yarn prepare.static && yarn build.postcss && yarn build.esbuild",
-    "watch.esbuild": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2017 --bundle --sourcemap --loader:.svg=text --outdir=../priv/static/js --watch",
-    "build.esbuild": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2017 --bundle --sourcemap --loader:.svg=text --bundle --outdir=../priv/static/js",
-    "watch.tailwindcss": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss -i ./css/app.scss -o ../priv/static/css/bonfire.css --files ../{lib,forks,deps}/**/*{.leex,.heex,.sface} --jit --watch",
-    "build.tailwindcss": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss -i ./css/app.scss -o ../priv/static/css/bonfire.css --jit --minify",
-    "watch.postcss": "TAILWIND_MODE=watch NODE_ENV=development postcss ./css/app.scss -o ../priv/static/css/bonfire.css -w",
-    "build.postcss": "TAILWIND_MODE=build NODE_ENV=production postcss ./css/app.scss -o ../priv/static/css/bonfire.css",
-    "watch": "parcel watch 'js/bonfire_*.js' --dist-dir ../priv/static/assets",
-    "build": "parcel build 'js/bonfire_*.js' --dist-dir ../priv/static/assets"
+    "build": "yarn prepare.static && yarn build.postcss && yarn build.esbuild",
+    "watch.js": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2017 --bundle --sourcemap --loader:.svg=text --outdir=../priv/static/assets --watch",
+    "build.esbuild": "esbuild ./js/bonfire_live.js ./js/bonfire_basic.js --target=es2017 --bundle --sourcemap --loader:.svg=text --bundle --outdir=../priv/static/assets",
+    "watch.tailwindcss": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss -i ./css/app.scss -o ../priv/static/assets/bonfire_basic.css --files ../{lib,forks,deps}/**/*{.leex,.heex,.sface} --jit --watch",
+    "build.tailwindcss": "TAILWIND_MODE=build NODE_ENV=production npx tailwindcss -i ./css/app.scss -o ../priv/static/assets/bonfire_basic.css --jit --minify",
+    "watch.css": "TAILWIND_MODE=watch NODE_ENV=development postcss ./css/app.scss -o ../priv/static/assets/bonfire_basic.css -w",
+    "build.postcss": "TAILWIND_MODE=build NODE_ENV=production postcss ./css/app.scss -o ../priv/static/assets/bonfire_basic.css",
+    "watch.parcel": "parcel watch 'js/bonfire_*.js' --dist-dir ../priv/static/assets",
+    "build.parcel": "parcel build 'js/bonfire_*.js' --dist-dir ../priv/static/assets"
   },
   "disabledScripts": {
     "preinstall": "npx only-allow yarn"
@@ -39,21 +39,20 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.5.0",
+    "autoprefixer": "^10.4.7",
     "buffer": "^6.0.3",
     "chromedriver": "^101.0.0",
     "cpx": "^1.5.0",
-    "parcel": "^2.5.0",
+    "esbuild": "^0.14.39",
     "postcss": "^8.4.14",
+    "postcss-cli": "^9.1.0",
     "postcss-import": "^14.1.0",
     "prop-types": "^15.8.1",
     "tailwindcss": "~3.0.24",
     "tailwindcss-debug-screens": "^2.2.1"
   },
   "disabledDependencies": {
-    "autoprefixer": "^10.4.7",
-    "esbuild": "^0.14.39",
-    "only-allow": "^1.1.0",
-    "pnpm": "^7.1.3",
-    "postcss-cli": "^9.1.0"
+    "parcel": "^2.5.0",
+    "pnpm": "^7.1.3"
   }
 }

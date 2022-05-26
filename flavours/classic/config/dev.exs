@@ -25,22 +25,22 @@ config :bonfire, Bonfire.Web.Endpoint,
   check_origin: false,
   code_reloader: true,
   watchers: [
+    # yarn: [
+    #   "watch",
+    #   cd: Path.expand("assets", File.cwd!())
+    # ],
     yarn: [
-      "watch",
+      "watch.js",
       cd: Path.expand("assets", File.cwd!())
     ],
-    # pnpm: [
-    #   "watch.js",
-    #   cd: Path.expand("assets", File.cwd!())
-    # ],
-    # pnpm: [
-    #   "watch.css",
-    #   cd: Path.expand("assets", File.cwd!())
-    # ],
-    # pnpm: [
-    #   "watch.assets",
-    #   cd: Path.expand("assets", File.cwd!())
-    # ]
+    yarn: [
+      "watch.css",
+      cd: Path.expand("assets", File.cwd!())
+    ],
+    yarn: [
+      "watch.assets",
+      cd: Path.expand("assets", File.cwd!())
+    ]
   ],
   live_reload: [
     patterns: [
