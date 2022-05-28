@@ -11,6 +11,7 @@ config :bonfire, :ui,
    sidebar_components: [
       {Bonfire.UI.Common.SidebarNavigationLive, []},
    ],
+   rich_text_editor: Bonfire.Editor.Quill,
    smart_input: [
       post: true,
       cw: true,

@@ -30,7 +30,8 @@ More details at https://bonfirenetworks.org",
          ]
       ]
    ], # end theme
-   # rich_text_editor: Bonfire.Editor.Quill,
+   # rich_text_editor_disabled: true,
+   rich_text_editor: Bonfire.Editor.Quill,
    # rich_text_editor: Bonfire.Editor.Ck,
    show_trending_tags: [
       disabled: false,

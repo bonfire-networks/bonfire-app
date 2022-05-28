@@ -21,6 +21,7 @@ config :bonfire, :ui,
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Lists", process_url: "/breadpub/list/"]}
    ],
+   rich_text_editor: Bonfire.Editor.Quill,
    smart_input: [
       post: true,
       cw: true,

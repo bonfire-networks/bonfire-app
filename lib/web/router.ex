@@ -48,6 +48,7 @@ defmodule Bonfire.Web.Router do
     plug Bonfire.UI.Me.Plugs.AdminRequired
   end
 
+  use_if_enabled Bonfire.UI.Common.Routes
 
   # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
 
@@ -99,7 +100,7 @@ defmodule Bonfire.Web.Router do
     # live "/", Bonfire.Website.HomeGuestLive, as: :landing
     # live "/home", Bonfire.Web.HomeLive, as: :home
 
-    get "/guest/error", Bonfire.UI.Common.ErrorController, as: :error_guest
+    # get "/guest/error", Bonfire.UI.Common.ErrorController, as: :error_guest
     live "/error", Bonfire.UI.Me.ErrorLive, as: :error
   end
 

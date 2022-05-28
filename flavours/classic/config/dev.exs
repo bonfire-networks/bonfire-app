@@ -21,7 +21,7 @@ path_dep_patterns = path_dep_patterns ++ path_dep_dirs |> Enum.map(&(String.slic
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
-  debug_errors: true,
+  debug_errors: false, # In the development environment, Phoenix will debug errors by default, showing us a very informative debugging page. If we want to see what the application would serve in production, set to false
   check_origin: false,
   code_reloader: true,
   watchers: [
