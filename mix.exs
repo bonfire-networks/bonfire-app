@@ -140,6 +140,7 @@ defmodule Bonfire.MixProject do
       {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
       {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
+      {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
