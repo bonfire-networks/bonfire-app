@@ -4,6 +4,16 @@
     widget_title={Config.get([:ui, :theme, :instance_welcome, :title], l "About")}
     banner_image={Config.get([:ui, :theme, :instance_image], nil)}
     text={Config.get([:ui, :theme, :instance_welcome, :description], nil) || Config.get([:ui, :theme, :instance_description], l "Welcome")} 
+    info={%{
+      "instance"=> %{
+        "name"=> Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire"),
+        "description"=> Bonfire.Common.Config.get([:ui, :theme, :instance_description], "")
+      },
+      "app"=> %{
+        "name"=> Bonfire.Application.name(),
+        "version"=> Bonfire.Application.version()
+      }
+    }}
   /> 
 
   {#case Config.get([:bonfire, :terms, :conduct], nil)}
