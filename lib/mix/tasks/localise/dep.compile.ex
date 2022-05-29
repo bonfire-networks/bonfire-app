@@ -181,11 +181,11 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   """
   def loaded_by_name(given, all_deps \\ nil, opts) do
     all_deps = (all_deps || loaded_deps())
-    |> debug("all_deps")
+    # |> debug("all_deps")
 
     # Ensure all apps are atoms
     apps = to_app_names(given)
-    |> debug("given_app_names")
+    |> debug("deps to recompile")
 
     deps =
       if opts[:include_children] do

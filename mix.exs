@@ -22,7 +22,9 @@ defmodule Bonfire.MixProject do
         docs: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "absinthe_client", "activity_pub", "arrows", "ecto_materialized_path", "flexto", "grumble", "linkify", "verbs", "voodoo", "waffle", "zest"],
         test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "activity_pub"],
         data: ["bonfire_data_", "pointers", "bonfire_boundaries", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_quantify", "bonfire_valueflows"],
-        api: ["bonfire_me", "bonfire_social", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_valueflows"]
+        api: ["bonfire_me", "bonfire_social", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_valueflows"],
+        localise_bonfire: ["bonfire_"],
+        localise_self: []
       ]
     ]
 
@@ -123,7 +125,7 @@ defmodule Bonfire.MixProject do
     ]
   end
 
-  defp deps() do
+  def deps() do
     Mess.deps(mess_sources(), [
       ## password hashing - builtin vs nif
       {:pbkdf2_elixir, "~> 1.4", only: [:dev, :test]},
@@ -222,11 +224,6 @@ defmodule Bonfire.MixProject do
     |> IO.inspect(label: "Running Bonfire #{version()} with configuration from #{flavour_path()} in #{Mix.env()} environment. You can run `mix bonfire.deps.update` to update these extensions and dependencies")
   end
 
-  def deps_to_localise() do
-    deps(:test)
-    |> Enum.map(&dep_name/1)
-  end
-
   # Specifies which paths to include in docs
 
   def docs_paths() do
@@ -290,9 +287,14 @@ defmodule Bonfire.MixProject do
   defp dep_name(dep) when is_binary(dep), do: dep
 
   def deps_names(deps) do
-      deps
-      |> Enum.map(&dep_name/1)
-      |> Enum.join(" ")
+    deps
+    |> Enum.map(&dep_name/1)
+    |> Enum.join(" ")
+  end
+
+  def deps_for(type) do
+    deps(type)
+    |> Enum.map(&dep_name/1)
   end
 
   defp dep_path(dep) when is_binary(dep) do

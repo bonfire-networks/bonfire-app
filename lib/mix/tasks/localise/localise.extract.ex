@@ -1,5 +1,6 @@
 defmodule Mix.Tasks.Bonfire.Localise.Extract do
   use Mix.Task
+  import Where
   @recursive true
 
   @shortdoc "Extracts translations from source code"
@@ -29,17 +30,36 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
 
   @switches [merge: :boolean]
 
-  def run(args, app \\ :bonfire_common) do
+  def run(args) do
     Application.ensure_all_started(:gettext)
     _ = Mix.Project.get!()
     mix_config = Mix.Project.config()
     {opts, _} = OptionParser.parse!(args, switches: @switches)
-    pot_files = extract(app || mix_config[:app], mix_config[:gettext] || []) #|> IO.inspect(label: "extracted")
+    gettext_config = mix_config[:gettext] || []
+    |> debug("gettext config")
+
+    exts_to_localise = Bonfire.MixProject.deps_for(:localise_bonfire)
+    |> debug("bonfire extensions to localise")
+
+    deps_to_localise = Bonfire.MixProject.deps_for(:localise_self)
+    |> debug("other deps to localise")
+
+    touch_manifests()
+
+    # first extract strings from all deps that use the Gettext module in bonfire_common
+    pot_files = extract(:bonfire_common, gettext_config, exts_to_localise)
+
+    # then those that have their own Gettext
+    pot_files = Enum.reduce(deps_to_localise, pot_files, fn dep, pot_files ->
+      pot_files ++ extract(String.to_atom(dep), gettext_config, dep)
+    end)
+
+    # pot_files |> debug("extracted pot_files")
 
     for {path, contents} <- pot_files do
       File.mkdir_p!(Path.dirname(path))
       File.write!(path, contents)
-      Mix.shell().info("Extracted #{Path.relative_to_cwd(path)}")
+      info("Extracted strings to #{Path.relative_to_cwd(path)}")
     end
 
     if opts[:merge] do
@@ -49,26 +69,20 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     :ok
   end
 
-  defp extract(app, gettext_config) do
+  defp extract(app, gettext_config, deps_to_localise) do
     Gettext.Extractor.enable()
-    force_compile()
+    force_compile(deps_to_localise)
     Gettext.Extractor.pot_files(
-      app, # |> IO.inspect(label: "app"),
-      gettext_config # |> IO.inspect(label: "config")
+      app,
+      gettext_config
     )
   after
     Gettext.Extractor.disable()
   end
 
-  defp force_compile do
-    Mix.Tasks.Compile.Elixir.manifests()
-    # ++ (Mix.Project.build_path<>"/lib/bonfire_*/.mix/compile.elixir" |> IO.inspect |> Path.wildcard(match_dot: true))
-    # ["forks/bonfire_common/lib/web/gettext.ex" |> Path.expand(File.cwd!)]
-    #|> IO.inspect(label: "recompile")
-    |> Enum.map(&make_old_if_exists/1)
+  defp force_compile(deps_to_localise) do
 
-    (["--force"] ++ Bonfire.MixProject.deps_to_localise()) #|> IO.inspect
-    |> Mix.Tasks.Bonfire.Dep.Compile.run()
+    Mix.Tasks.Bonfire.Dep.Compile.run(["--force"] ++ List.wrap(deps_to_localise)) # mark deps to be recompiled
 
     # If "compile" was never called, the reenabling is a no-op and
     # "compile.elixir" is a no-op as well (because it wasn't reenabled after
@@ -78,6 +92,12 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     Mix.Task.reenable("compile.elixir")
     Mix.Task.run("compile")
     Mix.Task.run("compile.elixir")
+  end
+
+  defp touch_manifests() do
+    Mix.Tasks.Compile.Elixir.manifests()
+    # |> debug("manifests")
+    |> Enum.map(&make_old_if_exists/1)
   end
 
   defp make_old_if_exists(path) do
