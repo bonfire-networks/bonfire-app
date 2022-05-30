@@ -30,6 +30,7 @@ defmodule Bonfire.Web.HomeLive do
       sidebar_widgets: [
         users: [
           main: [
+            {Bonfire.UI.Common.HomeBannerLive, []},
             {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
@@ -39,6 +40,7 @@ defmodule Bonfire.Web.HomeLive do
         ],
         guests: [
           main: [
+            {Bonfire.UI.Common.HomeBannerLive, []},
             {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
