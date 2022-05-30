@@ -18,12 +18,7 @@ defmodule Bonfire.Web.Router do
     plug :accepts, ["html", "activity+json", "json", "ld+json"]
     plug PhoenixGon.Pipeline,
       assets: Map.new(Config.get(:js_config, []))
-    plug Cldr.Plug.SetLocale,
-      default: Bonfire.Common.Localise.default_locale,
-	    apps: [:cldr, :gettext],
-	    from: [:session, :cookie, :accept_language],
-	    gettext: Bonfire.Common.Localise.Gettext,
-	    cldr: Bonfire.Common.Localise.Cldr
+    plug Cldr.Plug.SetLocale, Bonfire.Common.Localise.set_locale_config()
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers

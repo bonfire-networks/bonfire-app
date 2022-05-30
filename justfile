@@ -496,7 +496,7 @@ licenses:
 
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract: 
-	@just mix "bonfire.localise.extract --merge"
+	@just mix "bonfire.localise.extract"
 
 assets-prepare:
 	@cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
