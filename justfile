@@ -498,6 +498,7 @@ licenses:
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract: 
 	@just mix "bonfire.localise.extract"
+	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
 
 assets-prepare:
 	@cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
