@@ -25,6 +25,7 @@ defmodule Bonfire.Web.HomeLive do
 
     {:ok, socket
     |> assign(
+      selected_tab: "home",
       page_title: instance_name,
       links: links,
       sidebar_widgets: [
@@ -52,8 +53,33 @@ defmodule Bonfire.Web.HomeLive do
     )}
   end
 
+  def do_handle_params(%{"tab" => "code-of-conduct" = tab} = _params, _url, socket) do
+    IO.inspect(tab)
+    {:noreply, assign(socket, selected_tab: "code-of-conduct")}
+  end
 
-  defdelegate handle_params(params, attrs, socket), to: Bonfire.UI.Common.LiveHandlers
+  def do_handle_params(%{"tab" => "privacy-policy" = tab} = _params, _url, socket) do
+
+    {:noreply, assign(socket, selected_tab: "privacy-policy")}
+  end
+
+  def do_handle_params(_params, _url, socket) do
+    # debug("param")
+
+    {:noreply, socket}
+  end
+
+
+  # defdelegate handle_params(params, attrs, socket), to: Bonfire.UI.Common.LiveHandlers
+  def handle_params(params, uri, socket) do
+    # poor man's hook I guess
+    with {_, socket} <- Bonfire.UI.Common.LiveHandlers.handle_params(params, uri, socket) do
+      undead_params(socket, fn ->
+        do_handle_params(params, uri, socket)
+      end)
+    end
+  end
+ 
   def handle_event(action, attrs, socket), do: Bonfire.UI.Common.LiveHandlers.handle_event(action, attrs, socket, __MODULE__)
   def handle_info(info, socket), do: Bonfire.UI.Common.LiveHandlers.handle_info(info, socket, __MODULE__)
 
