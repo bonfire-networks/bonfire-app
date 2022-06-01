@@ -178,6 +178,7 @@ update-deps-all:
 update-dep dep: 
 	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull
 	just mix-remote "deps.update $dep"
+	./priv/deps.js.sh $dep
 
 # Pull the latest commits from all ./forks
 update-forks: 
@@ -203,9 +204,9 @@ deps-clean-api:
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js-deps-get: js-assets-deps-get js-ext-deps-get
+js-deps-get: js-app-deps-get js-ext-deps-get
 
-js-assets-deps-get:
+js-app-deps-get:
 	@chmod +x ./assets/install.sh
 	just cmd ./assets/install.sh
 
