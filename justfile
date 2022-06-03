@@ -196,6 +196,9 @@ deps-get:
 	just mix deps.get 
 	just js-ext-deps-get
 
+deps-clean: 
+	just mix bonfire.deps.clean
+
 deps-clean-data: 
 	just mix bonfire.deps.clean.data
 
@@ -499,6 +502,14 @@ licenses:
 localise-extract: 
 	@just mix "bonfire.localise.extract"
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
+
+localise-rename:
+	#!/usr/bin/env bash
+	set -euxo pipefail
+	for old in priv/localisation/**/*po*.po; do
+		new=$(echo $old | sed -e 's/-/_/' | sed -e 's/for_use_bonfire_priv-localisation-//' | sed -e 's/_po__main_es\.po$/.po/')
+		mv -v "$old" "$new"
+	done
 
 assets-prepare:
 	@cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true

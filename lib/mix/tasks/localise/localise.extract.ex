@@ -38,7 +38,7 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     gettext_config = mix_config[:gettext] || []
     |> debug("gettext config")
 
-    exts_to_localise = Bonfire.MixProject.deps_for(:localise_bonfire)
+    exts_to_localise = Bonfire.MixProject.deps_for(:localise)
     |> debug("bonfire extensions to localise")
 
     deps_to_localise = Bonfire.MixProject.deps_for(:localise_self)
