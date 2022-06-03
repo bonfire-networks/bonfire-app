@@ -23,7 +23,7 @@ defmodule Bonfire.MixProject do
         test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "activity_pub"],
         data: ["bonfire_data_", "pointers", "bonfire_boundaries", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_quantify", "bonfire_valueflows"],
         api: ["bonfire_me", "bonfire_social", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_valueflows"],
-        localise_bonfire: ["bonfire_"],
+        localise: ["bonfire_"],
         localise_self: []
       ]
     ]
@@ -106,6 +106,7 @@ defmodule Bonfire.MixProject do
         # "phil_columns.seed",
       ],
       "bonfire.deps.update": ["deps.update " <> deps_to_update()],
+      "bonfire.deps.clean": ["deps.clean " <> deps_to_clean(:localise) <> " --build"],
       "bonfire.deps.clean.data": ["deps.clean " <> deps_to_clean(:data) <> " --build"],
       "bonfire.deps.clean.api": ["deps.clean " <> deps_to_clean(:api) <> " --build"],
       "bonfire.deps.recompile": ["deps.compile " <> deps_to_update() <> " --force"],
