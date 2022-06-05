@@ -279,13 +279,13 @@ messctl *args='': init
 contrib-forks: contrib-forks-publish git-publish 
 
 # Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
-contrib-release: contrib-forks-publish contrib-app-release 
+contrib-release: contrib-forks-publish update-app contrib-app-release
 
-# Update ./deps and push all changes to the app
-contrib-app-up: update-app git-publish 
+# Rebase app's repo and push all changes to the app
+contrib-app-only: update-repo git-publish 
 
-# Update ./deps, increment the app version number and push
-contrib-app-release: update-app contrib-app-release-increment git-publish 
+# Increment the app version number and commit/push
+contrib-app-release: contrib-app-release-increment git-publish 
 
 contrib-app-release-increment: 
 	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $APP_VSN_EXTRA
