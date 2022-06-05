@@ -31,7 +31,7 @@ defmodule Bonfire.Web.HomeLive do
       sidebar_widgets: [
         users: [
           main: [
-            {Bonfire.UI.Common.HomeBannerLive, []},
+            {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
             {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
@@ -41,7 +41,7 @@ defmodule Bonfire.Web.HomeLive do
         ],
         guests: [
           main: [
-            {Bonfire.UI.Common.HomeBannerLive, []},
+            {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
             {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
@@ -79,7 +79,7 @@ defmodule Bonfire.Web.HomeLive do
       end)
     end
   end
- 
+
   def handle_event(action, attrs, socket), do: Bonfire.UI.Common.LiveHandlers.handle_event(action, attrs, socket, __MODULE__)
   def handle_info(info, socket), do: Bonfire.UI.Common.LiveHandlers.handle_info(info, socket, __MODULE__)
 

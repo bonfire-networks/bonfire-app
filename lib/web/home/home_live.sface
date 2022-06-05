@@ -16,7 +16,7 @@
         class={"hover:bg-base-content hover:bg-opacity-10 flex-1 pt-2 font-semibold place-content-center flex capitalize text-base"}  
         to={"/"}>
         <div class={"tab tab-bordered", "tab-active": @selected_tab == "home"}>
-          {l "About"}
+          {Config.get([:ui, :theme, :instance_welcome, :title], l "About")}
         </div>
       </LiveRedirect>
 
@@ -41,46 +41,25 @@
       </LiveRedirect>
     </nav>
 
-
   {#case @selected_tab}
-    {#match "about"}
-
-    <Bonfire.UI.Common.WidgetTextLive 
-      widget_title={Config.get([:ui, :theme, :instance_welcome, :title], l "About")}
-      banner_image={Config.get([:ui, :theme, :instance_image], nil)}
-      text={Config.get([:ui, :theme, :instance_welcome, :description], nil) || Config.get([:ui, :theme, :instance_description], l "Welcome")} 
-      info={%{
-        "instance"=> %{
-          "name"=> Bonfire.Common.Config.get([:ui, :theme, :instance_name], "Bonfire"),
-          "description"=> Bonfire.Common.Config.get([:ui, :theme, :instance_description], "")
-        },
-        "app"=> %{
-          "name"=> Bonfire.Application.name(),
-          "version"=> Bonfire.Application.version()
-        }
-      }}
-    /> 
-  {#match "code-of-conduct"}
-    {#case Config.get([:bonfire, :terms, :conduct], nil)}
+    {#match "code-of-conduct"}
+      {#case Config.get([:bonfire, :terms, :conduct], nil)}
+        {#match terms when is_binary(terms)}
+          <Bonfire.UI.Common.WidgetTextLive 
+            text={terms} 
+          /> 
+        {#match _}
+      {/case}
+  {#match "privacy-policy"}
+    {#case Config.get([:bonfire, :terms, :privacy], nil)}
       {#match terms when is_binary(terms)}
         <Bonfire.UI.Common.WidgetTextLive 
-          widget_title={l "Code of Conduct"}
           text={terms} 
         /> 
       {#match _}
     {/case}
- {#match "privacy-policy"}
-  {#case Config.get([:bonfire, :terms, :privacy], nil)}
-    {#match terms when is_binary(terms)}
-      <Bonfire.UI.Common.WidgetTextLive 
-        widget_title={l "Privacy Policy"}
-        text={terms} 
-      /> 
-    {#match _}
-  {/case}
- {#match _}
-  <Bonfire.UI.Common.WidgetTextLive 
-      widget_title={Config.get([:ui, :theme, :instance_welcome, :title], l "About")}
+  {#match _}
+    <Bonfire.UI.Common.WidgetTextLive 
       banner_image={Config.get([:ui, :theme, :instance_image], nil)}
       text={Config.get([:ui, :theme, :instance_welcome, :description], nil) || Config.get([:ui, :theme, :instance_description], l "Welcome")} 
       info={%{
@@ -94,6 +73,5 @@
         }
       }}
     /> 
-
-{/case}
+  {/case}
 </div>

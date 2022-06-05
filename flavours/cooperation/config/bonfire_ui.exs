@@ -8,7 +8,7 @@ config :bonfire, :ui,
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
       instance_welcome: [
-         title: "👋 Welcome to this testing instance",
+         title: "👋 Welcome",
          description: "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.
 
 More details at https://bonfirenetworks.org",

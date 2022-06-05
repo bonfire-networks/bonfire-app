@@ -9,7 +9,7 @@ config :bonfire, :ui,
       instance_image: "https://bonfirenetworks.org/img/4.png",
       instance_description: "This is a bonfire demo instance for testing purposes",
       instance_welcome: [
-         title: "👋 Welcome to the bonfire testing instance",
+         title: "👋 Welcome",
          description: "
 Bonfire is a federated social networking toolkit for communities and individuals to design, operate and control their digital lives, by assembling their own social networks like lego blocks in order to cultivate safe and private spaces while being interconnected with the rest of the 'fediverse' and the internet at wide on their own terms.
 The bonfire ecosystem will include:
