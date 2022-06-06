@@ -131,17 +131,27 @@ details > summary::marker { display: none; }
 }
 
 ::-webkit-scrollbar {
-  @apply md:w-[12px]
+  @apply md:w-[12px] h-[12px];
 }
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #313543;
+  border: 0 #fff;
+  border-radius: 50px;
+}
+
 
 .scroll::-webkit-scrollbar {
   @apply md:w-[5px]
 }
-
-.main_reply_to {
-  padding-left: 0.75rem !important
-}
-
 
 .kanban-scrollbar::-webkit-scrollbar-track {
   box-shadow: none !important;
@@ -163,6 +173,9 @@ details > summary::marker { display: none; }
   background: #091e4214 !important;
 }
 
+.main_reply_to {
+  padding-left: 0.75rem !important
+}
 
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
@@ -252,6 +265,10 @@ iframe {
   background: var(--scrollbarTrack);
 }
 
+::-webkit-scrollbar-track:hover {
+  background: var(--b2);
+}
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbarThumb);
@@ -259,9 +276,7 @@ iframe {
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbarThumbHover);
-}
+
 
 .menu .menu-title>a, .menu .menu-title>span {
   font-weight: normal
