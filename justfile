@@ -287,6 +287,7 @@ contrib-app-only: update-repo git-publish
 # Increment the app version number and commit/push
 contrib-app-release: contrib-app-release-increment git-publish 
 
+# Increment the app version number 
 contrib-app-release-increment: 
 	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $APP_VSN_EXTRA
 
