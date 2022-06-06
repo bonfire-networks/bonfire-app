@@ -9,7 +9,7 @@ Please note this guide assumes you already know [Elixir](https://elixir-lang.org
 The Elixir [|> ("pipe") operator](https://hexdocs.pm/elixir/Kernel.html#%7C%3E/2) is one of the things that seems to get people excited about elixir. Probably in part because you then don't have to keep coming up with function names. Unfortunately it's kind of limiting. 
 The moment you need to pipe a parameter into a position that isn't the first one, it breaks down and you have to drop out of the pipeline format or write a secondary function to handle it.
 
-Not any more! By simply inserting `...` where you would like the value to be inserted, `Arrows` will override where it is placed. This allows you to keep on piping while accommodating that function with the annoying argument order. `Arrows` was inspired [an existing library](https://hexdocs.pm/magritte/Magritte.html). Here is part of the test suite in lieu of examples:
+Not any more! By simply inserting `...` where you would like the value to be inserted, `Arrows` will override where it is placed. This allows you to keep on piping while accommodating that function with the annoying argument order. `Arrows` was inspired by [an existing library](https://hexdocs.pm/magritte/Magritte.html). Here is part of the test suite in lieu of examples:
 
 ```elixir
 defmodule ArrowsTest do
