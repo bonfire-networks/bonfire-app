@@ -42,6 +42,7 @@ defmodule Bonfire.Web.HomeLive do
         guests: [
           main: [
             {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
+            {Bonfire.UI.Social.WidgetTimelinesLive, []},
             {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
