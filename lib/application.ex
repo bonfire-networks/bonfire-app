@@ -48,20 +48,22 @@ defmodule Bonfire.Application do
     Bonfire.Federate.ActivityPub.FederationModules
   ]
 
+  @default_cache_ttl 1_000 * 60 * 60 * 6 # 6 hours
+
   # Stuff that depends on all the above
   @apps_after [
       @endpoint_module, # Web app
       {Oban, Application.fetch_env!(:bonfire, Oban)}, # Job Queue
       %{
-        id: :cachex_settings,
+        id: :bonfire_cache,
         start: {Cachex, :start_link, [
-            :bonfire_cache, [
-              expiration: Cachex.Spec.expiration(
-                    default: 25_000,
-                    interval: 1000
-              ),
-              limit: 2500 # increase for instances with more users (at least num. of users*2+1)
-      ]]}},
+          :bonfire_cache, [
+            expiration: Cachex.Spec.expiration(
+              default: @default_cache_ttl,
+              interval: 1000
+            ),
+            limit: 5000 # increase for instances with more users (at least num. of users*2+1)
+      ]]}}
     ]
 
   def applications(:test, _any) do
