@@ -203,3 +203,37 @@ config :bonfire_search,
 if Code.ensure_loaded?(Livebook) do
   Livebook.config_runtime()
 end
+
+## bonfire_files
+
+if System.get_env("UPLOADS_S3_BUCKET") && System.get_env("UPLOADS_ACCESS_KEY_ID") && System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY") do
+  IO.puts(
+    "Note: uploads will be stored in s3: #{System.get_env("UPLOADS_S3_HOST")}"
+  )
+  # Use s3-compatible cloud storage
+
+  bucket = System.get_env("UPLOADS_S3_BUCKET")
+
+  # specify the bucket's host and region (defaults to Scaleway Paris), see:
+  # https://www.scaleway.com/en/docs/storage/object/quickstart/
+  # https://docs.aws.amazon.com/general/latest/gr/rande.html
+  region = System.get_env("UPLOADS_S3_REGION", "fr-par")
+  host = System.get_env("UPLOADS_S3_HOST", "s3.#{region}.scw.cloud")
+  scheme = System.get_env("UPLOADS_S3_SCHEME", "https://")
+
+  config :waffle,
+    storage: Waffle.Storage.S3,
+    bucket: bucket,
+    asset_host: System.get_env("UPLOADS_S3_URL", "#{scheme}#{bucket}.#{host}/")
+
+  config :ex_aws,
+    json_codec: Jason,
+    access_key_id: System.get_env("UPLOADS_ACCESS_KEY_ID"),
+    secret_access_key: System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY"),
+    region: region,
+    s3: [
+      scheme: scheme,
+      host: host,
+      region: region
+    ]
+end

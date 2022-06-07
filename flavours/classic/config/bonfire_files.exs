@@ -2,6 +2,8 @@ import Config
 
 # where do you want to store files? supports local storage, s3-compatible services, and more
 # see https://hexdocs.pm/waffle/Waffle.html#module-setup-a-storage-provider
+# an example s3 compatible service: https://www.scaleway.com/en/pricing/?tags=storage
+# The default is local, see runtime.exs config & env vars to choose another and configure API keys.
 config :waffle,
   storage: Waffle.Storage.Local,
   asset_host: "/" # or {:system, "ASSET_HOST"}
