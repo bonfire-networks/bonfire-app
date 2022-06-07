@@ -50,6 +50,8 @@ These are the config keys you should especially pay attention to:
 - POSTGRES_PASSWORD
 - MEILI_MASTER_KEY
 
+WARNING: If you want to store uploads in an object storage rather than directly on your server (which you probably want, to not run out of space), you need to configure that up front, otherwise URLs will break if you change it later. The relevant keys are UPLOADS_S3_BUCKET and the related API key and secret. See `config/runtime.exs` for extra variables to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
+
 You can use `just secrets` to generate some random secret keys to use.
 
 And in public.env:

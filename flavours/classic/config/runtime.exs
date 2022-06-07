@@ -206,7 +206,7 @@ end
 
 ## bonfire_files
 
-if System.get_env("UPLOADS_S3_BUCKET") && System.get_env("UPLOADS_ACCESS_KEY_ID") && System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY") do
+if System.get_env("UPLOADS_S3_BUCKET") && System.get_env("UPLOADS_S3_ACCESS_KEY_ID") && System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY") do
   IO.puts(
     "Note: uploads will be stored in s3: #{System.get_env("UPLOADS_S3_HOST")}"
   )
@@ -228,7 +228,7 @@ if System.get_env("UPLOADS_S3_BUCKET") && System.get_env("UPLOADS_ACCESS_KEY_ID"
 
   config :ex_aws,
     json_codec: Jason,
-    access_key_id: System.get_env("UPLOADS_ACCESS_KEY_ID"),
+    access_key_id: System.get_env("UPLOADS_S3_ACCESS_KEY_ID"),
     secret_access_key: System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY"),
     region: region,
     s3: [
