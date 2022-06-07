@@ -44,23 +44,17 @@ This will initialise some default config (a .env file which won't be checked int
 5. Edit the config (especially the secrets) for the selected flavour in `./.env` (except if using the Bonfire co-op cloud recipe, which will create its own env file you should edit instead).
 
 These are the config keys you should especially pay attention to:
-- SECRET_KEY_BASE
-- SIGNING_SALT
-- ENCRYPTION_SALT
-- POSTGRES_PASSWORD
-- MEILI_MASTER_KEY
+- `HOSTNAME` (your domain name, eg: `bonfire.example.com`)
+- `PUBLIC_PORT` (usually 443)
+- `MAIL_DOMAIN` and `MAIL_KEY` to configure transactional email, you can for example sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key. Other providers are supported as well.
+- `UPLOADS_S3_BUCKET` and the related API key and secret for uploads. WARNING: If you want to store uploads in an object storage rather than directly on your server (which you probably want, to not run out of space), you need to configure that up front, otherwise URLs will break if you change it later. See `config/runtime.exs` for extra variables to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
 
-WARNING: If you want to store uploads in an object storage rather than directly on your server (which you probably want, to not run out of space), you need to configure that up front, otherwise URLs will break if you change it later. The relevant keys are UPLOADS_S3_BUCKET and the related API key and secret. See `config/runtime.exs` for extra variables to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
-
-You can use `just secrets` to generate some random secret keys to use.
-
-And in public.env:
-- HOSTNAME
-- PUBLIC_PORT
-
-You can just registrations on your instance invite-only by setting `INVITE_ONLY=true`.
-
-`MAIL_DOMAIN` and `MAIL_KEY` are needed to configure transactional email, you can for example sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key.
+These are the secret keys for which you should put random secrets. You can run `just secrets` to generate some:
+- `SECRET_KEY_BASE`
+- `SIGNING_SALT`
+- `ENCRYPTION_SALT`
+- `POSTGRES_PASSWORD`
+- `MEILI_MASTER_KEY` 
 
 ### Further information on config
 
