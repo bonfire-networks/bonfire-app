@@ -133,7 +133,7 @@ defmodule Bonfire.MixProject do
       {:argon2_elixir, "~> 2.4", only: [:prod]},
 
       # error reporting
-      {:sentry, "~> 8.0", only: [:prod]},
+      {:sentry, "~> 8.0", only: [:dev, :prod]},
 
       ## dev conveniences
       # {:dbg, "~> 1.0", only: [:dev, :test]},
