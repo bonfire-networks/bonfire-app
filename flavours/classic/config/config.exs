@@ -84,7 +84,10 @@ config :mime, :types, %{
 config :sentry,
   dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
   environment_name: Mix.env,
-  included_environments: [:prod]
+  # enable_source_code_context: true,
+  root_source_code_path: File.cwd!(),
+  included_environments: [:prod],
+  tags: %{app_version: Mix.Project.config()[:version]}
 
 
 # include config for all used Bonfire extensions
