@@ -18,6 +18,7 @@ pointable_schema_extensions = [
     :bonfire_data_activity_pub,
     :bonfire_data_identity,
     :bonfire_data_social,
+    :bonfire_data_edges,
     :bonfire_tag,
     :bonfire_classify,
     :bonfire_data_shared_users,
@@ -150,7 +151,7 @@ common = fn names ->
   end
 end
 
-edge  = common.([:controlled, :activities, :request])
+edge  = common.([:controlled, :activities, :request, :created])
 edges = common.([:controlled, :activities, :request, :created, :caretaker, :activity, :feed_publishes])
 
 # first up, pointers could have all the mixins we're using. TODO
@@ -373,7 +374,7 @@ config :bonfire_data_social, APActivity,
     unquote_splicing(common.([:activity, :caretaker]))
   end]
 
-config :bonfire_data_social, Edge,
+config :bonfire_data_edges, Edge,
   [code: quote do
     unquote_splicing(edge)
     # TODO: requires composite foreign keys:
