@@ -1,5 +1,6 @@
 defmodule Bonfire.ErrorReporting do
   @behaviour Plug
+  import Where
 
   defmacro __using__(_) do
     quote do
