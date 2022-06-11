@@ -67,6 +67,18 @@ config :bonfire, Bonfire.Web.Endpoint,
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
+if System.get_env("SENTRY_DSN") do
+  IO.puts(
+    "Note: errors will be reported to Sentry."
+  )
+
+  config :sentry,
+    dsn: System.get_env("SENTRY_DSN")
+
+  if System.get_env("SENTRY_NAME") do
+    config :sentry, server_name: System.get_env("SENTRY_NAME")
+  end
+end
 
 # start prod-only config
 if config_env() == :prod do
@@ -77,12 +89,6 @@ if config_env() == :prod do
     pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
     log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug")) # Note: keep this disabled if using EctoSparkles.Log instead #
 
-  config :sentry,
-    dsn: System.get_env("SENTRY_DSN")
-
-  if System.get_env("SENTRY_NAME") do
-    config :sentry, server_name: System.get_env("SENTRY_NAME")
-  end
 end # prod only config
 
 
