@@ -390,11 +390,28 @@ body {
 
 html, body, a {
   @apply text-base-content;
-
 }
 
-.ck.ck-placeholder:before, .ck .ck-placeholder:before {
-  @apply text-base-content text-opacity-80;
+a, .link, .link-hover {
+  text-decoration-skip: objects;
+  text-decoration-skip-ink: auto;
+}
+
+.alert {
+  display: block;
+}
+
+
+article .prose {
+  color: hsla(var(--bc));
+}
+
+article a.mention {
+  text-decoration: none;
+  opacity: 0.6;
+}
+article a.mention:hover {
+  text-decoration: underline;
 }
 
 .write_post_content {
@@ -404,18 +421,9 @@ html, body, a {
   --ck-color-mention-text: hsla(var(--sc) / 1) ;
 }
 
-.ck.ck-editor__editable_inline>:first-child {
-  margin-top: 8px !important;
-}
-
 .write_post_content .mention {
   font-weight: 500;
 }
-
-.alert {
-  display: block;
-}
-
 
 .mention-item {
   @apply flex items-center font-semibold;
@@ -427,10 +435,18 @@ html, body, a {
   font-weight: 700 !important;
 }
 
-
 .mention-item .mention-item-username {
   margin-left: 4px !important;
   color: hsla(var(--n) / 0.7) !important;
+}
+
+.ck.ck-placeholder:before,
+.ck .ck-placeholder:before {
+  @apply text-base-content text-opacity-80;
+}
+
+.ck.ck-editor__editable_inline>:first-child {
+  margin-top: 8px !important;
 }
 
 .ck.ck-list__item {
@@ -500,7 +516,6 @@ emoji-picker {
   --button-hover-background: hsla(var(--bc) / 4);
   width: 280px;
   height: 300px;
- 
 }
 
 .no-padding {
@@ -616,7 +631,6 @@ emoji-picker {
 .not-distraction-free {
   word-break: break-word;
 }
-
 
 .tab.tab-bordered {
   height: auto;
