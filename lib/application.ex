@@ -3,11 +3,11 @@ defmodule Bonfire.Application do
   @sup_name Bonfire.Supervisor
   @name Mix.Project.config()[:name]
   @otp_app Bonfire.Common.Config.get!(:otp_app)
-  @env Bonfire.Common.Config.get!(:env)
+  @env Application.compile_env!(@otp_app, :env)
   @version Mix.Project.config()[:version]
   @repository Mix.Project.config()[:source_url]
   @deps Bonfire.Common.Extend.loaded_deps()
-  @endpoint_module Bonfire.Common.Config.get!(:endpoint_module)
+  @endpoint_module Application.compile_env!(@otp_app, :endpoint_module)
 
   use Application
   require Cachex.Spec
