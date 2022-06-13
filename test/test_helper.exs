@@ -4,11 +4,13 @@ ExUnit.configure formatters: [ExUnit.CLIFormatter, ExUnitNotifier]
 
 # Code.put_compiler_option(:nowarn_unused_vars, true)
 
-skip = if System.get_env("TEST_INSTANCE")=="yes", do: [], else: [:test_instance]
+skip = [:skip, :todo, :fixme]
+skip = if System.get_env("TEST_INSTANCE")=="yes", do: skip, else: [:test_instance] ++ skip # skip two-instances-required federation tests
 skip = if System.get_env("CI"), do: [:browser] ++ skip, else: skip # skip browser automation tests in CI
+IO.inspect(skip, label: "Skipping tests tagged with")
 
 ExUnit.start(
-  exclude: [:skip, :todo, :fixme] ++ skip,
+  exclude: skip,
   capture_log: true # only show log for failed tests (Can be overridden for individual tests via `@tag capture_log: false`)
 )
 
