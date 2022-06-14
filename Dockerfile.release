@@ -5,7 +5,7 @@
 # - .github/workflows/test.yaml or .gitlab-ci.yml 
 # - Dockerfile.dev 
 # - .tool-versions
-ARG ELIXIR_VERSION=1.13-otp-25-alpine
+ARG ELIXIR_IMAGE=1.13-otp-25-alpine
 
 # The version of Alpine to use for the final image
 # This should match the version of Alpine that the current elixir & erlang images (in Step 1) use.
@@ -25,7 +25,7 @@ ARG FLAVOUR
 ARG FLAVOUR_PATH
 
 #### STEP 1 - Build our app
-FROM elixir:${ELIXIR_VERSION}-alpine as builder 
+FROM elixir:${ELIXIR_IMAGE} as builder 
 
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
