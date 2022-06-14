@@ -106,7 +106,7 @@ jobs:
 
 # FIXME: tried running this separately with the same Docker tag to not slow down the release (currently about 10 min for x86, 40 min for x86+arm64, and several hours if you add armv7), but putting this as a separate task overwrites the image pushed to docker hub by the first one
 
-  classic_flavour_common_docker_release_build_push:
+  classic_flavour_common_docker_release_build_push_arm64:
     name: Classic flavour - Maybe tag version & release Docker image - for arm64
     runs-on: ubuntu-latest
     env:
@@ -124,12 +124,13 @@ jobs:
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
+          create-tag: false # tag already created in first job
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Cancel workflow if the version has not changed
-        uses: andymckay/cancel-action@0.2
+      # - 
+      #   if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+      #   name: Cancel workflow if the version has not changed
+      #   uses: andymckay/cancel-action@0.2
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -146,11 +147,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: Cancel any already running releases workflows
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
+      # - 
+      #   name: Cancel any already running releases workflows
+      #   uses: styfle/cancel-workflow-action@0.9.0
+      #   with:
+      #     access_token: ${{ github.token }}
       - 
         name: Pre-build prep 
         run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
@@ -193,12 +194,13 @@ jobs:
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
+          create-tag: false # tag already created in first job
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Cancel workflow if the version has not changed
-        uses: andymckay/cancel-action@0.2
+      # - 
+      #   if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+      #   name: Cancel workflow if the version has not changed
+      #   uses: andymckay/cancel-action@0.2
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -215,11 +217,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: Cancel any already running releases workflows
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
+      # - 
+      #   name: Cancel any already running releases workflows
+      #   uses: styfle/cancel-workflow-action@0.9.0
+      #   with:
+      #     access_token: ${{ github.token }}
       - 
         name: Pre-build prep 
         run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
