@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.2.0-alpha.123", # note that the flavour will automatically be added where the dash appears
+      version: "0.2.0-alpha.129", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.13",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -144,6 +144,7 @@ defmodule Bonfire.MixProject do
       {:ecto_erd, "~> 0.4", only: :dev},
       {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
       {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
+      {:periscope, "~> 0.1.1", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
