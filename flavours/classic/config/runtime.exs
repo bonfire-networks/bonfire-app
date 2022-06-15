@@ -128,7 +128,7 @@ if config_env() != :test do
                 mail_blackhole.("MAIL_FROM")
 
               from ->
-                IO.puts("NOTE: Transactional emails will be sent through Mailgun.")
+                IO.puts("Note: Transactional emails will be sent through Mailgun.")
 
                 config :bonfire, Bonfire.Mailer,
                   adapter: Bamboo.MailgunAdapter,
@@ -167,7 +167,7 @@ if config_env() != :test do
                         mail_blackhole.("MAIL_FROM")
 
                       from ->
-                        IO.puts("NOTE: Transactional emails will be sent through SMTP.")
+                        IO.puts("Note: Transactional emails will be sent through SMTP.")
 
                         config :bonfire, Bonfire.Mailer,
                           adapter: Bamboo.SMTPAdapter,
@@ -214,7 +214,7 @@ end
 
 if System.get_env("UPLOADS_S3_BUCKET") && System.get_env("UPLOADS_S3_ACCESS_KEY_ID") && System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY") do
   IO.puts(
-    "Note: uploads will be stored in s3: #{System.get_env("UPLOADS_S3_HOST")}"
+    "Note: uploads will be stored in s3: #{System.get_env("UPLOADS_S3_BUCKET")}"
   )
   # Use s3-compatible cloud storage
 

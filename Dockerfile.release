@@ -5,16 +5,16 @@
 # - .github/workflows/test.yaml or .gitlab-ci.yml 
 # - Dockerfile.dev 
 # - .tool-versions
-ARG ELIXIR_VERSION=1.13
+ARG ELIXIR_IMAGE=1.13-alpine
 
 # The version of Alpine to use for the final image
 # This should match the version of Alpine that the current elixir & erlang images (in Step 1) use.
 # To find this you need to:
 # 1. Locate the dockerfile for the elixir image matching the version, and check what erlang version it uses
-#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.13/alpine/Dockerfile
+#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.13/otp-25-alpine/Dockerfile
 # 2. Locate the corresponding dockerfile for the erlang version used, and check what alpine version it uses, and then copy that number into the ARG below:
-#    e.g. https://github.com/erlang/docker-erlang-otp/blob/master/24/alpine/Dockerfile
-ARG ALPINE_VERSION=3.15
+#    e.g. https://github.com/erlang/docker-erlang-otp/blob/master/25/alpine/Dockerfile
+ARG ALPINE_VERSION=3.16
 
 # The following are build arguments used to change variable parts of the image, they should be set as env variables.
 # The name of your application/release (required)
@@ -25,7 +25,7 @@ ARG FLAVOUR
 ARG FLAVOUR_PATH
 
 #### STEP 1 - Build our app
-FROM elixir:${ELIXIR_VERSION}-alpine as builder 
+FROM elixir:${ELIXIR_IMAGE} as builder 
 
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
