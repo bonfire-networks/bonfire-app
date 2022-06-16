@@ -13,24 +13,8 @@
   grid-template-columns: repeat(auto-fit, 280px);
 }
 
-em-emoji-picker {
-  width: 280px
-}
-
-
-
-
 .checkbox {
   background-color: transparent;
-}
-
-.h-90vh {
-  height: 90vh;
-}
-
-body {
-  --scrollbarThumb: hsla(var(--b1) );
-  --scrollbarTrack: hsla(var(--b3) );
 }
 
 [x-cloak] {
@@ -48,34 +32,6 @@ body {
   @apply bg-primary
 }
 
-.w-center {
-  width: 100%;
-}
-@media (min-width: 580px) { 
-  .w-center {width: 100% !important}
-}
-@media (min-width: 768px) { 
-  .w-center {width: 100% !important}
-}
-@media (min-width: 1024px) { 
-  .w-center {width: 580px !important} 
-}
-
-@media (min-width: 1280px) { 
-  .w-center {
-    width: 580px !important
-  }
-
-}
-
-details > summary { 
-  list-style: none;
-  cursor: pointer;
-}
-details > summary::before { display: none; }
-details > summary::marker { display: none; }
-
-
 .dropdown.open:before {
   content: " ";
   background: transparent;
@@ -88,109 +44,11 @@ details > summary::marker { display: none; }
   z-index: 10;
 }
 
-.details-dropdown[open] > summary {
-  cursor: default;
-}
-
-.details-dropdown[open] > summary:before {
-  content: " ";
-  background: transparent;
-  display: block;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 10;
-}
-
-.details-dialog[open] > summary:before {
-  content: " ";
-  background: rgba(0,0,0,0.4);
-  display: block;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 10;
-}
-
-
-.details-modal {
-  margin-left: -16rem;
-  left: 50%;
-}
-
-.mh-80 {
-  max-height: 80vh;
-}
-
-
-.h-main {
-  height: calc(100vh - 16px);
-}
-
-.h-body {
-  height: calc(100vh - 84px);
-}
-
-@media (max-width: 920px) { 
-  .h-body {
-    height: calc(100vh - 51px);
-  }
-}
-
-.narrow {
-  width: 400px;
-}
 
 .wide {
   width: 640px;
 }
 
-::-webkit-scrollbar {
-  @apply md:w-[12px] h-[12px];
-}
-
-::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #313543;
-  border: 0 #fff;
-  border-radius: 50px;
-}
-
-
-.scroll::-webkit-scrollbar {
-  @apply md:w-[5px]
-}
-
-.kanban-scrollbar::-webkit-scrollbar-track {
-  box-shadow: none !important;
-  border-radius: 4px !important;
-}
-
-.kanban-scrollbar::-webkit-scrollbar {
-  height: 8px !important;
-  width: 8px !important;
-}
-
-.kanban-scrollbar::-webkit-scrollbar-thumb {
-  background: #091e4214 !important;
-  border-radius: 4px !important;
-}
-
-
-.kanban-scrollbar::-webkit-scrollbar-track-piece {
-  background: #091e4214 !important;
-}
 
 .main_reply_to {
   padding-left: 0.75rem !important
@@ -270,13 +128,13 @@ iframe {
 
 :root {
   --scrollbarTrack: hsla(var(--b2));
-  --scrollbarThumb: hsla(var(--b3));
-  --scrollbarThumbHover: hsla(var(--p));
+  --scrollbarThumb: hsla(var(--bc)/0.1);
+  --scrollbarThumbHover: hsla(var(--bc)/0.2);
 }
 /* Scrollbar colors*/
 /* width */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 /* Track */
@@ -284,9 +142,11 @@ iframe {
   background: var(--scrollbarTrack);
 }
 
+
 ::-webkit-scrollbar-track:hover {
-  background: var(--b2);
+  background: var(--b1);
 }
+
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -371,18 +231,6 @@ iframe {
 
 .profile_item:hover {
   background-color: hsla(var(--bc)/var(--tw-bg-opacity,1));
-}
-
-.prose-valueflows ul li {
-  position: static;
-  padding-left: 0;
-
-}
-
-.prose-valueflows ul li input {
-  margin: 8px !important;
-  margin-left: 0 !important;
-
 }
 
 
@@ -566,8 +414,14 @@ emoji-picker {
 }
 
 .ql-editor {
-  @apply h-full min-h-full	min-h-[100px];
+  @apply h-full min-h-full;
   overflow-x: hidden;
+  padding: 15px !important;
+}
+
+
+.ql-editor.ql-blank::before {
+  @apply !text-base-content/70
 }
 
 .ql-mention-list-container {
@@ -610,12 +464,8 @@ emoji-picker {
   @apply w-full h-[140px] object-cover rounded-lg;
 }
 
-.media-entry {
-  @apply my-4;
-}
-
 .media-entry img {
-  @apply max-w-full max-h-[270px] object-cover rounded-lg;
+  @apply max-w-full w-full max-h-[270px] object-cover rounded-md;
 }
 
 
@@ -629,9 +479,6 @@ emoji-picker {
   --tab-color: hsla(var(--p) / var(--tw-text-opacity, 1));
 }
 
-.messages_smart_input .ql-editor {
-  min-height: 50px;
-}
 
 .hide {
   display: none !important;
