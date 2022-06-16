@@ -33,11 +33,15 @@ CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 
-# Configure just
-set shell := ["bash", "-uc"] 
+## Configure just
+# choose shell for running recipes
+set shell := ["bash", "-uc"]
 # set shell := ["bash", "-uxc"] 
+# load all vars from .env file
 set dotenv-load
+# export just vars into recipe as env vars
 set export
+# support args like $1, $2, etc, and $@ for all args
 set positional-arguments
 
 
@@ -97,7 +101,7 @@ prepare:
 # Run the app in development
 dev: init dev-run 
 
-dev-run:
+@dev-run:
 	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "iex -S mix phx.server" } }}
 
 # Generate docs from code & readmes
@@ -210,11 +214,11 @@ deps-clean-api:
 js-deps-get: js-app-deps-get js-ext-deps-get
 
 js-app-deps-get:
-	@chmod +x ./assets/install.sh
+	chmod +x ./assets/install.sh
 	just cmd ./assets/install.sh
 
 js-ext-deps-get:
-	@chmod +x ./config/deps.js.sh
+	chmod +x ./config/deps.js.sh
 	just cmd ./config/deps.js.sh
 
 deps-outdated:
@@ -230,7 +234,7 @@ dep-clone-local dep repo:
 
 # Clone all bonfire deps / extensions
 deps-clone-local-all: 
-	@curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[just dep.clone.local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
+	curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[just dep.clone.local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
 # Switch to using a local path, eg: just dep.go.local pointers
 dep-go-local dep: 
@@ -243,13 +247,13 @@ dep-go-local-path dep path:
 
 # Switch to using a git repo, eg: just dep.go.git pointers https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
 dep-go-git dep repo: 
-	just dep-git add $dep $repo 2> /dev/null || true
+	-just dep-git add $dep $repo 
 	just dep-git enable $dep NA
 	just dep-local disable $dep NA
 
 # Switch to using a library from hex.pm, eg: just dep.go.hex dep="pointers" version="_> 0.2" (specifying the version is optional if previously specified)
 dep-go-hex dep version: 
-	just dep-hex add dep=$dep version=$version 2> /dev/null || true
+	-just dep-hex add dep=$dep version=$version 
 	just dep-hex enable $dep NA
 	just dep-git disable $dep NA
 	just dep-local disable $dep NA
@@ -318,14 +322,14 @@ deps-git-fix:
 	find ./forks -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
 
 # Draft-merge another branch, eg `just git-merge with-valueflows-api` to merge branch `with-valueflows-api` into the current one
-git-merge branch: 
+@git-merge branch: 
 	git merge --no-ff --no-commit $branch
 
 # Find any git conflicts in ./forks
-git-conflicts: 
+@git-conflicts: 
 	find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
-git-publish:
+@git-publish:
 	chmod +x git-publish.sh
 	./git-publish.sh
 
@@ -333,19 +337,19 @@ git-publish:
 
 # Run tests. You can also run only specific tests, eg: `just test forks/bonfire_social/test`
 test *args='': 
-	@MIX_ENV=test just mix test $@
+	MIX_ENV=test just mix test $@
 
 # Run only stale tests
 test-stale *args='': 
-	@MIX_ENV=test just mix test --stale $@
+	MIX_ENV=test just mix test --stale $@
 
 # Run tests (ignoring changes in local forks)
 test-remote *args='': 
-	@MIX_ENV=test just mix-remote test $@
+	MIX_ENV=test just mix-remote test $@
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch *args='': 
-	@MIX_ENV=test just mix test.watch --stale $@
+	MIX_ENV=test just mix test.watch --stale $@
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive *args='': 
@@ -455,11 +459,11 @@ rel-services:
 #### DOCKER-SPECIFIC COMMANDS ####
 
 # Start background docker services (eg. db and search backends).
-services: 
-	@{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
+@services: 
+	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
 
-dev-services: 
-	@{{ if WITH_DOCKER != "no" { "docker-compose up -d db search" } else {""} }}
+@dev-services: 
+	{{ if WITH_DOCKER != "no" { "docker-compose up -d db search" } else {""} }}
 
 # Build the docker image
 build: init 
@@ -470,22 +474,22 @@ rebuild: init
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose build --no-cache" } else { "Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
-cmd *args='': init 
-	@{{ if WITH_DOCKER == "total" { "docker-compose run --service-ports web $@" } else {"$@"} }}
+@cmd *args='': init 
+	{{ if WITH_DOCKER == "total" { "docker-compose run --service-ports web $@" } else {"$@"} }}
 
 # Open the shell of the web container, in dev mode
 shell: 
-	@just cmd bash
+	just cmd bash
 
 docker-stop-web: 
-	@docker stop $WEB_CONTAINER 2> /dev/null || true
-	@docker rm $WEB_CONTAINER 2> /dev/null || true
+	-docker stop $WEB_CONTAINER
+	-docker rm $WEB_CONTAINER
 
 #### MISC COMMANDS ####
 
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
 mix *args='': 
-	@just cmd mix $@
+	just cmd mix $@
 
 # Run a specific mix command, while ignoring any deps cloned into ./forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
 mix-remote *args='': init 
@@ -493,7 +497,7 @@ mix-remote *args='': init
 
 # Run a specific exh command, see https://github.com/rowlandcodes/exhelp
 exh *args='': 
-	@just cmd "exh -S mix $@"
+	just cmd "exh -S mix $@"
 
 licenses:  
 	@mkdir -p docs/DEPENDENCIES/
@@ -501,7 +505,7 @@ licenses:
 
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract: 
-	@just mix "bonfire.localise.extract"
+	just mix "bonfire.localise.extract"
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
 
 localise-rename:
@@ -513,13 +517,13 @@ localise-rename:
 	done
 
 assets-prepare:
-	@cp lib/*/*/overlay/* rel/overlays/ 2> /dev/null || true
+	-cp lib/*/*/overlay/* rel/overlays/ 
 
 # Workarounds for some issues running migrations
 db-pre-migrations: 
-	touch deps/*/lib/migrations.ex 2> /dev/null || echo "continue"
-	touch forks/*/lib/migrations.ex 2> /dev/null || echo "continue"
-	touch priv/repo/* 2> /dev/null || echo "continue"
+	-touch deps/*/lib/migrations.ex
+	-touch forks/*/lib/migrations.ex
+	-touch priv/repo/*
 
 # Generate secrets
 secrets:
