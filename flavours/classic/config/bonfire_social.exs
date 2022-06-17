@@ -30,7 +30,9 @@ delete_object = [
     # mark for deletion
     {Bonfire.Ecto.Acts.Delete, on: :object,
       delete_extra_associations: [
+        :post_content,
         :tagged,
+        :media
       ]
     },
 

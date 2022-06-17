@@ -463,7 +463,7 @@ config :bonfire_data_social, Post,
     @like_ulid  "11KES11KET0BE11KEDY0VKN0WS"
     @boost_ulid "300STANN0VNCERESHARESH0VTS"
     # mixins
-    unquote_splicing(common.([:activity, :caretaker, :created, :peered, :post_content, :replied]))
+    unquote_splicing(common.([:activities, :activity, :caretaker, :created, :peered, :post_content, :replied]))
     # multimixins
     unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
     # has
