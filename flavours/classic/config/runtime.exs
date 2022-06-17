@@ -8,6 +8,10 @@ host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 
+## load runtime configs directly via extension-provided modules
+Bonfire.Common.Config.LoadExtensionsConfig.load_configs()
+##
+
 System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") || System.get_env("CI") ||
     raise """
     Environment variables for database are missing.
@@ -98,148 +102,9 @@ if config_env() != :test do
   config :bonfire, Bonfire.Common.Repo,
     slow_query_ms: String.to_integer(System.get_env("SLOW_QUERY_MS", "100"))
 
-
-# transactional emails
-
-  mail_blackhole = fn var ->
-    IO.puts(
-      "WARNING: The environment variable #{var} was not set or was set incorrectly, mail will NOT be sent."
-    )
-
-    config :bonfire, Bonfire.Mailer, adapter: Bamboo.LocalAdapter
-  end
-
-  mail_mailgun = fn ->
-    # API URI depends on whether you're registered with Mailgun in EU, US, etc (defaults to EU)
-    base_uri = System.get_env("MAIL_BASE_URI", "https://api.eu.mailgun.net/v3")
-
-    case System.get_env("MAIL_KEY") do
-      nil ->
-        mail_blackhole.("MAIL_KEY")
-
-      key ->
-        case System.get_env("MAIL_DOMAIN") do
-          nil ->
-            mail_blackhole.("MAIL_DOMAIN")
-
-          domain ->
-            case System.get_env("MAIL_FROM") do
-              nil ->
-                mail_blackhole.("MAIL_FROM")
-
-              from ->
-                IO.puts("Note: Transactional emails will be sent through Mailgun.")
-
-                config :bonfire, Bonfire.Mailer,
-                  adapter: Bamboo.MailgunAdapter,
-                  api_key: key,
-                  base_uri: base_uri,
-                  domain: domain,
-                  reply_to: from
-            end
-        end
-    end
-  end
-
-  mail_smtp = fn ->
-    case System.get_env("MAIL_SERVER") do
-      nil ->
-        mail_blackhole.("MAIL_SERVER")
-
-      server ->
-        case System.get_env("MAIL_DOMAIN") do
-          nil ->
-            mail_blackhole.("MAIL_DOMAIN")
-
-          domain ->
-            case System.get_env("MAIL_USER") do
-              nil ->
-                mail_blackhole.("MAIL_USER")
-
-              user ->
-                case System.get_env("MAIL_PASSWORD") do
-                  nil ->
-                    mail_blackhole.("MAIL_PASSWORD")
-
-                  password ->
-                    case System.get_env("MAIL_FROM") do
-                      nil ->
-                        mail_blackhole.("MAIL_FROM")
-
-                      from ->
-                        IO.puts("Note: Transactional emails will be sent through SMTP.")
-
-                        config :bonfire, Bonfire.Mailer,
-                          adapter: Bamboo.SMTPAdapter,
-                          server: server,
-                          hostname: domain,
-                          port: String.to_integer(System.get_env("MAIL_PORT", "587")),
-                          username: user,
-                          password: password,
-                          tls: :always,
-                          allowed_tls_versions: [:"tlsv1.2"],
-                          ssl: false,
-                          retries: 1,
-                          auth: :always,
-                          reply_to: from
-                    end
-                end
-            end
-        end
-    end
-  end
-
-  case System.get_env("MAIL_BACKEND") do
-    "mailgun" -> mail_mailgun.()
-    "smtp" -> mail_smtp.()
-    _ -> mail_blackhole.("MAIL_BACKEND")
-  end
-
 end
-
-### copy-paste Bonfire extension configs that need to read env at runtime
-
-## bonfire_search
-config :bonfire_search,
-  disable_indexing: System.get_env("SEARCH_INDEXING_DISABLED", "false"),
-  instance: System.get_env("SEARCH_MEILI_INSTANCE", "http://localhost:7700"), # protocol, hostname and port
-  api_key: System.get_env("MEILI_MASTER_KEY", "make-sure-to-change-me") # secret key
 
 ## bonfire_livebook
 if Code.ensure_loaded?(Livebook) do
   Livebook.config_runtime()
-end
-
-## bonfire_files
-
-if System.get_env("UPLOADS_S3_BUCKET") && System.get_env("UPLOADS_S3_ACCESS_KEY_ID") && System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY") do
-  IO.puts(
-    "Note: uploads will be stored in s3: #{System.get_env("UPLOADS_S3_BUCKET")}"
-  )
-  # Use s3-compatible cloud storage
-
-  bucket = System.get_env("UPLOADS_S3_BUCKET")
-
-  # specify the bucket's host and region (defaults to Scaleway Paris), see:
-  # https://www.scaleway.com/en/docs/storage/object/quickstart/
-  # https://docs.aws.amazon.com/general/latest/gr/rande.html
-  region = System.get_env("UPLOADS_S3_REGION", "fr-par")
-  host = System.get_env("UPLOADS_S3_HOST", "s3.#{region}.scw.cloud")
-  scheme = System.get_env("UPLOADS_S3_SCHEME", "https://")
-
-  config :waffle,
-    storage: Waffle.Storage.S3,
-    bucket: bucket,
-    asset_host: System.get_env("UPLOADS_S3_URL", "#{scheme}#{bucket}.#{host}/")
-
-  config :ex_aws,
-    json_codec: Jason,
-    access_key_id: System.get_env("UPLOADS_S3_ACCESS_KEY_ID"),
-    secret_access_key: System.get_env("UPLOADS_S3_SECRET_ACCESS_KEY"),
-    region: region,
-    s3: [
-      scheme: scheme,
-      host: host,
-      region: region
-    ]
 end

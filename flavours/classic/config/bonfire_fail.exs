@@ -1,5 +1,6 @@
 import Config
 
+# compile env
 config :bonfire_fail,
   common_errors: %{
     unauthorized: {403, "You do not have permission to %s."},
