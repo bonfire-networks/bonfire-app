@@ -64,8 +64,8 @@ defmodule Bonfire.Web.HomeLive do
     {:noreply, assign(socket, selected_tab: "privacy-policy")}
   end
 
-  def do_handle_params(_params, _url, socket) do
-    # debug("param")
+  def do_handle_params(params, _url, socket) do
+    debug(params, "param")
 
     {:noreply, socket}
   end

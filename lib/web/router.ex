@@ -90,9 +90,8 @@ defmodule Bonfire.Web.Router do
 
     # TODO: make the homepage non-live
     live "/", Bonfire.Web.HomeLive, as: :home
-    live "/code-of-conduct", Bonfire.Web.HomeLive
-    live "/privacy-policy", Bonfire.Web.HomeLive
-    
+    live "/terms/:tab", Bonfire.Web.HomeLive
+
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")
     # live "/", Bonfire.Website.HomeGuestLive, as: :landing
