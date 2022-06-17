@@ -2,6 +2,9 @@ import Config
 
 #### Base configuration
 
+verbs = ["Boost", "Create", "Delete", "Edit", "Flag", "Follow", "Like", "Mention",
+ "Message", "Read", "Reply", "Request", "See", "Tag"]
+
 # Choose password hashing backend
 # Note that this corresponds with our dependencies in mix.exs
 hasher = if config_env() in [:dev, :test], do: Pbkdf2, else: Argon2
@@ -36,8 +39,18 @@ context_and_queries_extensions = pointable_schema_extensions ++ [
     :bonfire_me,
     :bonfire_social,
   ]
-config :bonfire, :query_modules_search_path,   context_and_queries_extensions
+
+extensions_with_config = context_and_queries_extensions ++ [
+    :bonfire_boundaries,
+    :bonfire_federate_activitypub,
+    :bonfire_search,
+    :bonfire_mailer
+  ]
+
+config :bonfire, :verb_names, verbs
 config :bonfire, :context_modules_search_path, context_and_queries_extensions
+config :bonfire, :query_modules_search_path, context_and_queries_extensions
+config :bonfire, :config_modules_search_path, extensions_with_config
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
