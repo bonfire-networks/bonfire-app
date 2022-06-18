@@ -91,7 +91,7 @@ if config_env() == :prod do
     # ssl: true,
     database: System.get_env("POSTGRES_DB", "bonfire"),
     pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
-    log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug")) # Note: keep this disabled if using EctoSparkles.Log instead #
+    log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "false")) # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
 
 end # prod only config
 

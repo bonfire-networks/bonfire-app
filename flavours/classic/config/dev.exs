@@ -8,7 +8,8 @@ config :bonfire,
 config :bonfire, Bonfire.Common.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  log: false
 
 path_dep_dirs =
   Mess.deps([path: "deps.path"], [])

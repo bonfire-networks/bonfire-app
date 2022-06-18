@@ -142,6 +142,7 @@ defmodule Bonfire.MixProject do
       {:mix_unused, "~> 0.3.0", only: :dev},
       {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
+      # {:ecto_dev_logger, "~> 0.2", only: :dev},
       {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
       {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
       {:periscope, "~> 0.1.1", only: :dev},

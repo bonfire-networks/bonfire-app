@@ -71,7 +71,7 @@ if config_env() == :prod do
     # ssl: true,
     database: System.get_env("POSTGRES_DB", "bonfire"),
     pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
-    log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
+    log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "false"))
 
   config :sentry,
     dsn: System.get_env("SENTRY_DSN")

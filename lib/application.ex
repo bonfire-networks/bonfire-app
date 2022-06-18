@@ -8,15 +8,17 @@ defmodule Bonfire.Application do
   @repository Mix.Project.config()[:source_url]
   @deps Bonfire.Common.Extend.loaded_deps()
   @endpoint_module Application.compile_env!(@otp_app, :endpoint_module)
+  @repo_module Application.compile_env!(@otp_app, :repo_module)
 
   use Application
   require Cachex.Spec
 
   def start(_type, _args) do
 
-    EctoSparkles.Log.setup(@otp_app)
+    EctoSparkles.Log.setup(@repo_module)
+    # Ecto.DevLogger.install(@repo_module)
 
-    :telemetry.attach("oban-errors", [:oban, :job, :exception], &Bonfire.ObanLogger.handle_event/4, [])
+    Bonfire.ObanLogger.setup()
     Oban.Telemetry.attach_default_logger()
 
     applications(@env, Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)) #|> IO.inspect
@@ -36,7 +38,7 @@ defmodule Bonfire.Application do
 
   @apps_before [
     Bonfire.Web.Telemetry,                  # Metrics
-    Bonfire.Common.Repo,                           # Database
+    @repo_module,                           # Database
     EctoSparkles.AutoMigrator,
     # Bonfire.Common.ConfigModules,
     # Bonfire.Common.Config.LoadExtensionsConfig,
