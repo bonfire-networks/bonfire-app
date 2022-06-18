@@ -1,6 +1,11 @@
 defmodule Bonfire.ObanLogger do
   require Logger
 
+  def setup do
+
+    :telemetry.attach("bonfire-oban-errors", [:oban, :job, :exception], &Bonfire.ObanLogger.handle_event/4, [])
+  end
+
   def handle_event([:oban, :job, :exception], measure, meta, _) do
     extra =
       meta.job
