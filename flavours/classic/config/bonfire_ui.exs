@@ -30,6 +30,12 @@ More details at https://bonfirenetworks.org",
    # rich_text_editor_disabled: true,
    rich_text_editor: Bonfire.Editor.Quill,
    # rich_text_editor: Bonfire.Editor.Ck,
+   font_family: "Inter",
+   font_families: [
+      "Inter",
+      "Roboto",
+      "OpenDyslexic"
+   ],
    show_trending_tags: [
       disabled: false,
       for_last_x_days: 30,

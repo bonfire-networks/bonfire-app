@@ -16,13 +16,12 @@ defmodule Bonfire.Web.Endpoint do
     # imported into main CSS already
     # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
-    # TODO: serve fonts directly
+    font_family = Bonfire.Me.Settings.get([:ui, :font_family], "Inter", conn)
+
     """
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+     <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     """
