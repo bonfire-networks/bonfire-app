@@ -71,9 +71,15 @@ pre-setup flavour='classic':
 	@chmod 700 .erlang.cookie
 
 # Initialise env files, and create some required folders, files and softlinks
-config select_flavour: 
+config: 
+	@just flavour $FLAVOUR
+
+# Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
+flavour select_flavour: 
 	@echo "Switching to flavour '$select_flavour'..."
 	@just pre-setup $select_flavour
+	@just deps-clean-data
+	@just js-deps-get
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
 pre-init:
@@ -88,10 +94,9 @@ init: pre-init services
 
 # First run - prepare environment and dependencies
 setup: 
-	just pre-setup $FLAVOUR
+	just flavour $FLAVOUR
 	just build
 	just mix setup 
-	just js-deps-get
 
 # Prepare environment and dependencies
 prepare: 

@@ -13,6 +13,7 @@ defmodule Bonfire.API.GraphQL.Schema do
   require Logger
   alias Bonfire.API.GraphQL.SchemaUtils
   alias Bonfire.API.GraphQL.Middleware.CollapseErrors
+  alias Absinthe.Resolution.Helpers
 
   @doc """
   Define dataloaders
