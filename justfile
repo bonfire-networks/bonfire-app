@@ -493,7 +493,7 @@ docker-stop-web:
 #### MISC COMMANDS ####
 
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
-mix *args='': 
+@mix *args='': 
 	just cmd mix $@
 
 # Run a specific mix command, while ignoring any deps cloned into ./forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
