@@ -2,6 +2,9 @@ import Config
 
 #### Base configuration
 
+verbs = ["Boost", "Create", "Delete", "Edit", "Flag", "Follow", "Like", "Mention",
+ "Message", "Read", "Reply", "Request", "See", "Tag"]
+
 # Choose password hashing backend
 # Note that this corresponds with our dependencies in mix.exs
 hasher = if config_env() in [:dev, :test], do: Pbkdf2, else: Argon2
@@ -18,6 +21,7 @@ pointable_schema_extensions = [
     :bonfire_data_activity_pub,
     :bonfire_data_identity,
     :bonfire_data_social,
+    :bonfire_data_edges,
     :bonfire_tag,
     :bonfire_classify,
     :bonfire_data_shared_users,
@@ -35,8 +39,19 @@ context_and_queries_extensions = pointable_schema_extensions ++ [
     :bonfire_me,
     :bonfire_social,
   ]
-config :bonfire, :query_modules_search_path,   context_and_queries_extensions
+
+extensions_with_config = context_and_queries_extensions ++ [
+    :bonfire_boundaries,
+    :bonfire_federate_activitypub,
+    :bonfire_search,
+    :bonfire_mailer,
+    :bonfire_geolocate
+  ]
+
+config :bonfire, :verb_names, verbs
 config :bonfire, :context_modules_search_path, context_and_queries_extensions
+config :bonfire, :query_modules_search_path, context_and_queries_extensions
+config :bonfire, :config_modules_search_path, extensions_with_config
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
@@ -150,7 +165,7 @@ common = fn names ->
   end
 end
 
-edge  = common.([:controlled, :activities, :request])
+edge  = common.([:controlled, :activities, :request, :created])
 edges = common.([:controlled, :activities, :request, :created, :caretaker, :activity, :feed_publishes])
 
 # first up, pointers could have all the mixins we're using. TODO
@@ -343,7 +358,8 @@ config :bonfire_data_social, Activity,
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
     has_many :feed_publishes, unquote(FeedPublish), unquote(mixin)
-    # ugly workaround needed for certain queries:
+    has_one :seen, unquote(Edge), foreign_key: :id, references: :id
+    # ugly workaround needed for certain queries (TODO: check if still needed)
     has_one :activity, unquote(Activity), foreign_key: :id, references: :id
     # mixins linked to the object rather than the activity:
     has_one :created, unquote(Created), foreign_key: :id, references: :object_id
@@ -372,7 +388,7 @@ config :bonfire_data_social, APActivity,
     unquote_splicing(common.([:activity, :caretaker]))
   end]
 
-config :bonfire_data_social, Edge,
+config :bonfire_data_edges, Edge,
   [code: quote do
     unquote_splicing(edge)
     # TODO: requires composite foreign keys:
@@ -461,7 +477,7 @@ config :bonfire_data_social, Post,
     @like_ulid  "11KES11KET0BE11KEDY0VKN0WS"
     @boost_ulid "300STANN0VNCERESHARESH0VTS"
     # mixins
-    unquote_splicing(common.([:activity, :caretaker, :created, :peered, :post_content, :replied]))
+    unquote_splicing(common.([:activities, :activity, :caretaker, :created, :peered, :post_content, :replied]))
     # multimixins
     unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
     # has

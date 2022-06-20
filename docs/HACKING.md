@@ -36,14 +36,14 @@ Bonfire is a flexible platform that powers a variety of social networks. The fir
 - `reflow` (for community economic activities)
 - `haha` (for learning new things)
 
-Note that at the current time, the core team are focusing most of
-their efforts on the classic flavour and this is where we recommend you start.
+Note that at the current time, the core team are focusing most of their efforts on the classic flavour and this is where we recommend you start.
 
 You first need to install [just](https://github.com/casey/just#packages) which is a handy tool (a `just` alternative) to run commands defined in `./justfile`.
 
 So for example if you want to run the `classic` flavour, run:
 
-`just config classic`
+- `export FLAVOUR=classic` (you may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time)
+- `just config`
 
 ### Configure
 

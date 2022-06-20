@@ -32,12 +32,12 @@ $ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
 $ cd bonfire
 ```
 
-3. Specify that you want to run in production:
-`export MIX_ENV=prod`
+3. Specify what flavour you want to run in production:
 
-The first thing to do is choose what flavour of Bonfire you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `classic` flavour (you may want to use direnv or something similar to persist this):
+The first thing to do is choose what flavour of Bonfire you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `classic` flavour:
 
-`just config classic`
+- `export MIX_ENV=prod FLAVOUR=classic` (you may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time)
+- `just config`
 
 This will initialise some default config (a .env file which won't be checked into git)
 
