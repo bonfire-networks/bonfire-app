@@ -44,7 +44,8 @@ extensions_with_config = context_and_queries_extensions ++ [
     :bonfire_boundaries,
     :bonfire_federate_activitypub,
     :bonfire_search,
-    :bonfire_mailer
+    :bonfire_mailer,
+    :bonfire_geolocate
   ]
 
 config :bonfire, :verb_names, verbs
