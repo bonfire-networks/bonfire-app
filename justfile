@@ -79,6 +79,7 @@ flavour select_flavour:
 	@echo "Switching to flavour '$select_flavour'..."
 	@just pre-setup $select_flavour
 	@just deps-clean-data
+	@just deps-clean-api
 	@just js-deps-get
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 

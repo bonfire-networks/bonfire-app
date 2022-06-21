@@ -44,8 +44,7 @@ extensions_with_config = context_and_queries_extensions ++ [
     :bonfire_boundaries,
     :bonfire_federate_activitypub,
     :bonfire_search,
-    :bonfire_mailer,
-    :bonfire_geolocate
+    :bonfire_mailer
   ]
 
 config :bonfire, :verb_names, verbs
@@ -71,7 +70,7 @@ alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Boundaries.{Permitted, Stereotyped}
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, CareClosure, Character, Credential, Email, Named, Self, Settings, User,
+  Account, Accounted, AuthSecondFactor, Caretaker, CareClosure, Character, Credential, Email, Named, Self, Settings, User,
 }
 alias Bonfire.Data.Social.{
   Activity, APActivity, Article, Block, Bookmark, Boost, Created, Feed, FeedPublish,
@@ -273,6 +272,7 @@ config :bonfire_data_identity, Account,
   [code: quote do
     has_one :credential, unquote(Credential),foreign_key: :id
     has_one :email, unquote(Email), foreign_key: :id
+    has_one :auth_second_factor, unquote(AuthSecondFactor), foreign_key: :id
     has_one :settings, unquote(Settings), foreign_key: :id
     many_to_many :users, unquote(User),
       join_through: Accounted,
