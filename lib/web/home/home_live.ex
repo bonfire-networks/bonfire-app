@@ -17,8 +17,8 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(_params, _session, socket) do
-    instance_name = Bonfire.Common.Config.get([:ui, :theme, :instance_name], l "An instance of Bonfire")
-    links = Bonfire.Common.Config.get([:ui, :theme, :instance_welcome, :links], %{
+    instance_name = Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())
+    links = Config.get([:ui, :theme, :instance_welcome, :links], %{
       l("About Bonfire") => "https://bonfirenetworks.org/",
       l("Contribute") => "https://bonfirenetworks.org/contribute/"
     })
