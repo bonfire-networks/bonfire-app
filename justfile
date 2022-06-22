@@ -182,7 +182,8 @@ update-deps-bonfire:
 
 # Update evey single dependency (use with caution)
 update-deps-all: 
-	just update.dep "--all"
+	just mix-remote "deps.update --all"
+	just deps-get
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: 
