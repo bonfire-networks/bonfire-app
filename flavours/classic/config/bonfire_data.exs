@@ -359,7 +359,7 @@ config :bonfire_data_social, Activity,
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
     has_many :feed_publishes, unquote(FeedPublish), unquote(mixin)
-    has_one :seen, unquote(Edge), foreign_key: :id, references: :id
+    has_one :seen, unquote(Edge), foreign_key: :object_id, references: :id
     # ugly workaround needed for certain queries (TODO: check if still needed)
     has_one :activity, unquote(Activity), foreign_key: :id, references: :id
     # mixins linked to the object rather than the activity:
