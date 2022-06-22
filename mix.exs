@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.2.0-alpha.141", # note that the flavour will automatically be added where the dash appears
+      version: "0.2.0-alpha.142", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.13",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -129,8 +129,8 @@ defmodule Bonfire.MixProject do
   def deps() do
     Mess.deps(mess_sources(), [
       ## password hashing - builtin vs nif
-      {:pbkdf2_elixir, "~> 1.4", only: [:dev, :test]},
-      {:argon2_elixir, "~> 2.4", only: [:prod]},
+      {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
+      {:argon2_elixir, "~> 3.0", only: [:prod]},
 
       # error reporting
       {:sentry, "~> 8.0", only: [:dev, :prod]},
@@ -139,24 +139,24 @@ defmodule Bonfire.MixProject do
       # {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:exsync, "~> 0.2", only: :dev},
-      {:mix_unused, "~> 0.3.0", only: :dev},
+      {:mix_unused, "~> 0.4", only: :dev},
       {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
       # {:ecto_dev_logger, "~> 0.2", only: :dev},
-      {:flame_on, "~> 0.2.1", only: :dev}, # flame graphs in live_dashboard
+      {:flame_on, "~> 0.5", only: :dev}, # flame graphs in live_dashboard
       {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
-      {:periscope, "~> 0.1.1", only: :dev},
+      {:periscope, "~> 0.4", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.4", only: :test},
       {:mock, "~> 0.3", only: :test},
-      {:mox, "~> 0.5", only: :test},
+      {:mox, "~> 1.0", only: :test},
       {:zest, "~> 0.1"},
       {:grumble, "~> 0.1.3", only: [:test], override: true},
       {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main", only: [:test]},
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
-      {:mix_test_interactive, "~> 1.0", only: :test, runtime: false},
+      {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
       {:wallaby, "~> 0.29.1", runtime: false, only: :test},
 
