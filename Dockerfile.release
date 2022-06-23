@@ -47,32 +47,32 @@ COPY data/current_flavour/config/deps.hex ./config/
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
 
-# Compile initial hex deps 
-RUN MIX_ENV=prod mix do deps.compile
-
-# Compile elixir deps (warning this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
-# RUN MIX_ENV=prod mix do deps.compile
+# Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
+RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix do deps.compile ; else echo "Skip" ; fi 
 
 # add git deps (typically Bonfire extensions)
 COPY data/current_flavour/config/deps.git ./config/
 
+# fetch them because we need them for the non-configurable paths in config/deps_hooks.js
 RUN mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
-COPY data/current_flavour/config/* ./config/
+COPY data/current_flavour/config/ ./config/
 
-# Include translations
-COPY priv/localisation/* priv/localisation/
-
-RUN rm ./config/deps.path 
-# Comment the line above and uncomment the one below only if you want to include locally-forked deps in the release (rather than only ones downloaded from hex.pm or git)
-# COPY forks ./ 
+# Optionally include local forks
+ARG FORKS_TO_COPY_PATH
+RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps.path ; else echo "Include locally forked extensions." ; fi 
+COPY ${FORKS_TO_COPY_PATH} ./forks/
 
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
 # RUN mix do bonfire.deps.update
 
-# In case an updated or forked extension specified any different deps
-# RUN mix do deps.get --only prod
+# Fetch git deps (should be after forks are copied and updates are fetched, in case a forked/updated extension specified any different deps)
+RUN mix do deps.get --only prod
+
+# Include translations
+COPY priv/localisation/ priv/localisation/
+RUN ls -la priv/localisation/
 
 # Compile remaining deps
 RUN MIX_ENV=prod mix do deps.compile

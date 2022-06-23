@@ -36,7 +36,11 @@ liveSocket.connect()
  
 window.liveSocket = liveSocket
 
+// import DynamicImport from '@rtvision/esbuild-dynamic-import';
+// note depending on your setup you may need to do DynamicImport.default() instead
+// DynamicImport({ transformExtensions: ['.js'], changeRelativeToAbsolute: false, filter: "../../data/current_flavour/config/deps_hooks.js" })
+
 import { ExtensionHooks } from "../../data/current_flavour/config/deps_hooks.js"
-// Add Extensions' Hooks...  
+// Add Extensions' Hooks...   
 Object.assign(liveSocket.hooks, ExtensionHooks);
 
