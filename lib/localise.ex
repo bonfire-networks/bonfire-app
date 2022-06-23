@@ -13,4 +13,13 @@ defmodule Bonfire.Localise do
   |> IO.inspect(label: "Making all object type names localisable")
   |> localise_strings(Bonfire.Common.Types)
 
+  l "timeline"
+  l "posts"
+  l "boosts"
+
+  # for {item, _item} <- Bonfire.Common.Config.get([:ui, :profile, :navigation], [timeline: "timeline"])
+  #                   |> IO.inspect(label: "Making profile tab names localisable") do
+  #   # localise_string("#{item}")
+  #   dgettext("bonfire", "#{item}", [])
+  # end
 end
