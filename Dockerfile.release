@@ -61,6 +61,9 @@ RUN mix do deps.get --only prod
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/* ./config/
 
+# Include translations
+COPY priv/localisation/* priv/localisation/
+
 RUN rm ./config/deps.path 
 # Comment the line above and uncomment the one below only if you want to include locally-forked deps in the release (rather than only ones downloaded from hex.pm or git)
 # COPY forks ./ 
@@ -140,7 +143,7 @@ RUN apk add --update --no-cache \
 
 WORKDIR /opt/app
 
-# install app 
+# copy app build
 COPY --from=builder /opt/app/_build/prod/rel/bonfire /opt/app
 
 # start
