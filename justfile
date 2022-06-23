@@ -28,7 +28,7 @@ APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD := `git rev-parse --short HEAD`
-APP_DOCKER_REPO := ORG_NAME+"/"+APP_NAME+"-"+FLAVOUR
+APP_DOCKER_REPO := ORG_NAME+"/"+APP_NAME
 CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
@@ -90,7 +90,7 @@ pre-init:
 	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
 
 init: pre-init services
-	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH"
+	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 #### COMMON COMMANDS ####
 
@@ -128,24 +128,25 @@ dev-bg: init
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
 db-migrate: 
-	just mix ecto.migrate
+	just mix "ecto.migrate"
 
 # Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
-db-seeds: 
-	just mix ecto.migrate 
-	just mix ecto.seeds
+db-seeds: db-migrate
+	just mix "ecto.seeds"
 
 # Reset the DB (caution: this means DATA LOSS)
 db-reset: init dev-search-reset db-pre-migrations   
-	just mix ecto.reset
+	just mix "ecto.reset"
 
-dev-search-reset:
-	{{ if WITH_DOCKER != "no" { "docker-compose rm -s -v search" } else {""} }}
+dev-search-reset: dev-search-reset-docker
 	rm -rf data/search/dev
+
+dev-search-reset-docker:
+	{{ if WITH_DOCKER != "no" { "docker-compose rm -s -v search" } else {""} }}
 
 # Rollback previous DB migration (caution: this means DATA LOSS)
 db-rollback: 
-	just mix ecto.rollback
+	just mix "ecto.rollback"
 
 # Rollback ALL DB migrations (caution: this means DATA LOSS)
 db-rollback-all: 
@@ -159,7 +160,7 @@ update: init update-repo
 	just update-forks 
 	just update-deps
 	just mix deps.get 
-	just mix ecto.migrate 
+	just mix "ecto.migrate"
 	just js-deps-get 
 
 # Update the app and Bonfire extensions in ./deps
@@ -373,7 +374,7 @@ test-db-reset: init db-pre-migrations
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
 rel-init:
-	@MIX_ENV=prod just init
+	@MIX_ENV=prod just pre-init
 
 # copy current flavour's config, without using symlinks
 rel-config-prepare: 
@@ -387,41 +388,43 @@ rel-prepare: rel-config-prepare
 	@mkdir -p data/uploads/
 	@touch data/current_flavour/config/deps.path
 
-# Build the Docker image
+# Build the Docker image (with no caching)
 rel-rebuild: rel-init rel-prepare assets-prepare 
+	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}. Please note that the build will not include any changes in forks/ that haven't been commited and pushed."
 	MIX_ENV=prod docker build \
 		--no-cache \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
 		--build-arg APP_BUILD=$APP_BUILD \
-		-t $APP_DOCKER_REPO:$APP_VSN-release-$APP_BUILD \
+		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
-	@echo Build complete: $APP_DOCKER_REPO:$APP_VSN-release-$APP_BUILD
+	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
 
-# Build the Docker image using previous cache
+# Build the Docker image (using caching)
 rel-build: rel-init rel-prepare assets-prepare 
-	@echo "Building $APP_NAME with flavour $FLAVOUR"
+	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}. Please note that the build will not include any changes in forks/ that haven't been commited and pushed."
 	docker build \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
 		--build-arg APP_BUILD=$APP_BUILD \
-		-t $APP_DOCKER_REPO:$APP_VSN-release-$APP_BUILD \
+		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
-	@echo Build complete: $APP_DOCKER_REPO:$APP_VSN-release-$APP_BUILD 
-	@echo "Remember to run just rel.tag.latest or just rel.push"
+	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
+	@echo "Remember to run just rel-tag-latest or just rel-push"
 
 # Add latest tag to last build
-rel-tag-latest: 
-	@docker tag $APP_DOCKER_REPO:$APP_VSN-release-$APP_BUILD $APP_DOCKER_REPO:latest
+rel-tag label='latest': 
+	@docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  $APP_DOCKER_REPO:$label-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build and push to Docker Hub
-rel-push: 
-	@docker push $APP_DOCKER_REPO:latest
+rel-push label='latest': 
+	@just rel-tag $label
+	@docker login && docker push $APP_DOCKER_REPO:$label-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
-rel-run: rel-init docker-stop-web 
+rel-run: rel-init docker-stop-web rel-services
 	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
@@ -444,21 +447,21 @@ rel-down: rel-stop
 	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-rel-shell: rel-init docker-stop-web 
+rel-shell: rel-init docker-stop-web rel-services
 	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
-rel-shell-bg: rel-init 
+rel-shell-bg: rel-init rel-services
 	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
-rel-db-shell-bg: rel-init 
+rel-db-shell-bg: rel-init rel-services
 	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
 
-rel-db-dump: rel-init
+rel-db-dump: rel-init rel-services
 	docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
 
-rel-db-restore: rel-init
+rel-db-restore: rel-init rel-services
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
 rel-services: 
