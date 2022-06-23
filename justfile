@@ -386,29 +386,27 @@ rel-config-prepare:
 rel-prepare: rel-config-prepare 
 	@mkdir -p forks/
 	@mkdir -p data/uploads/
+	@mkdir -p data/null/
 	@touch data/current_flavour/config/deps.path
 
 # Build the Docker image (with no caching)
 rel-rebuild: rel-init rel-prepare assets-prepare 
-	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}. Please note that the build will not include any changes in forks/ that haven't been commited and pushed."
-	MIX_ENV=prod docker build \
-		--no-cache \
-		--build-arg FLAVOUR_PATH=data/current_flavour \
-		--build-arg APP_NAME=$APP_NAME \
-		--build-arg APP_VSN=$APP_VSN \
-		--build-arg APP_BUILD=$APP_BUILD \
-		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
-		-f $APP_REL_DOCKERFILE .
-	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
+	@just rel-build "forks/" --no-cache
 
-# Build the Docker image (using caching)
-rel-build: rel-init rel-prepare assets-prepare 
-	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}. Please note that the build will not include any changes in forks/ that haven't been commited and pushed."
-	docker build \
+# Build the Docker image (NOT including changes to local forks)
+rel-build-release: rel-init rel-prepare assets-prepare 
+	@echo "Please note that the build will not include any changes in forks/ that haven't been commited and pushed, you may want to run just contrib-release first."
+	@just rel-build "data/null" --no-cache
+
+# Build the Docker image (including changes to local forks, and using caching)
+rel-build FORKS_TO_COPY_PATH="forks/" ARGS="": rel-init rel-prepare assets-prepare 
+	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
+	@docker build $ARGS --progress=plain \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
 		--build-arg APP_BUILD=$APP_BUILD \
+		--build-arg FORKS_TO_COPY_PATH=$FORKS_TO_COPY_PATH \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
 	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
@@ -519,15 +517,20 @@ localise-extract:
 	just mix "bonfire.localise.extract"
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
 
-localise-rename:
-	#!/usr/bin/env bash
-	set -euxo pipefail
-	for old in priv/localisation/**/*po*.po; do
-		new=$(echo $old | sed -e 's/-/_/' | sed -e 's/for_use_bonfire_priv-localisation-//' | sed -e 's/_po__main_es\.po$/.po/')
-		mv -v "$old" "$new"
-	done
+@localise-tx-init:
+	pip install transifex-client
+	tx config mapping-bulk -p bonfire --source-language en --type PO -f '.po' --source-file-dir priv/localisation/ -i fr -i es -i it -i de --expression 'priv/localisation/<lang>/LC_MESSAGES/{filename}{extension}' --execute 
+# curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
 
-assets-prepare:
+@localise-tx-pull:
+	tx pull --all --minimum-perc=5 --force
+
+@localise-tx-push:
+	tx push --source
+
+@localise-extract-push: localise-extract localise-tx-push
+
+@assets-prepare:
 	-cp lib/*/*/overlay/* rel/overlays/ 
 
 # Workarounds for some issues running migrations
