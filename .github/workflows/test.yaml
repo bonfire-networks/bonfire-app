@@ -88,6 +88,14 @@ jobs:
       run: mix bonfire.deps.clean.data
     - name: Compile deps & app
       run: mix compile
+    - name: Generate docs
+      run: mix docs
+    - name: Deploy docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/exdoc
+        cname: doc.bonfirenetworks.org
     - name: Set up database
       run: mix ecto.setup
     - name: Run tests
@@ -164,14 +172,6 @@ jobs:
   #     run: mix bonfire.deps.clean.data
   #   - name: Compile deps & app
   #     run: mix compile
-  #   - name: Generate docs
-  #     run: mix docs
-  #   - name: Deploy docs
-  #     uses: peaceiris/actions-gh-pages@v3
-  #     with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
-  #       publish_dir: ./docs/exdoc
-  #       cname: doc.bonfirenetworks.org
   #   - name: Set up database
   #     run: mix ecto.setup
   #   - name: Run tests
