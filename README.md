@@ -5,7 +5,7 @@
 Customise and host your own online space and control your experience at the most granular level.
 
 ### ⚠️ Warning
-This project is in the alpha stage (with beta coming soon). APIs may change without warning and no guarantees are given about stability. Do not use it in production. You can keep track of progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones?direction=asc&sort=due_date&state=open)
+This project is in the beta stage - you're welcome to try out it out (specifically the social feature in the classic flavour), but APIs may still change and no guarantees are given about stability. You can keep track of progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones?direction=asc&sort=due_date&state=open)
 
 ### 🔥 Flavours
 This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
