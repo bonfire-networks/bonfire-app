@@ -1,6 +1,8 @@
 # Deployment guide
 
-### WARNING: Bonfire is still under active development and deployment is only recommended for development and testing purposes!
+### WARNING: beta status - have fun but don't rely on it yet 🙏
+
+Bonfire is currently beta software. While it's fun to play with it, we would not recommend running any production instances yet (meaning not using it for your primary fediverse identity) because it's not quite ready for that today. 
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Developer Guide](./HACKING.md)!_
 
@@ -75,7 +77,7 @@ You should *not* have to modify the files above. Instead, overload any settings 
 ### Option A - Install using Co-op Cloud (recommended)
 [https://coopcloud.tech](https://coopcloud.tech) is an alternative to corporate clouds built by tech co-ops, and provides very useful tools for setting up and managing many self-hosted free software tools using ready-to-use "recipes".
 
-If you're interested in hosting Bonfire alongside other open and/or federated projects, we recommend installing [Abra](https://docs.coopcloud.tech/abra/), [setting up a co-op cloud server](https://docs.coopcloud.tech/operators/) and using the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) to set up an instance. 
+If you're interested in hosting Bonfire alongside other open and/or federated projects, we recommend installing [Abra](https://docs.coopcloud.tech/abra/), [setting up a co-op cloud server](https://docs.coopcloud.tech/operators/) and using the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) (which provides it's own instructions, so read that and you can mostly ignore this document) to set up an instance. 
 
 ### Option B - Install using Docker containers (easy mode)
 
@@ -109,7 +111,7 @@ You can see the images available per flavour, version (we currently recommend us
 - Start the docker containers with docker-compose:
 
 ```
-just rel.run
+just rel-run
 ```
 
 Run this at the prompt: 
@@ -122,16 +124,16 @@ The backend should now be running at [http://localhost:4000/](http://localhost:4
 - If that worked, start the app as a daemon next time:
 
 ```
-just rel.run.bg
+just rel-run-bg
 ```
 
 #### Docker-related handy commands
 
 - `just update` to update to the latest release of Bonfire 
-- `just rel.run`                        Run the app in Docker, in the foreground
-- `just rel.run.bg`                     Run the app in Docker, and keep running in the background
-- `just rel.stop`                       Stop the running release
-- `just rel.shell`                      Runs a simple shell inside of the container, useful to explore the image 
+- `just rel-run`                        Run the app in Docker, in the foreground
+- `just rel-run-bg`                     Run the app in Docker, and keep running in the background
+- `just rel-stop`                       Stop the running release
+- `just rel-shell`                      Runs a simple shell inside of the container, useful to explore the image 
 
 Once in the shell, you can run `bin/bonfire` with the following commands:
 Usage: `bonfire COMMAND [ARGS]`
@@ -166,11 +168,11 @@ You can also directly call some functions in the code from the command line, for
 
 There is a `justfile` with relevant commands (make sure set the `MIX_ENV=prod` env variable):
 
-- `just rel.build` which builds the docker image 
-- `just rel.tag.latest` adds the "latest" tag to your last build, so that it will be used when running
-- `just rel.push` if you want to push your latest build to Docker Hub
+- `just rel-build-release` which builds the docker image of the latest release
+- `just rel-build` which builds the docker image, including local changes to any cloned extensions in `./forks/`
+- `just rel-tag` adds the "latest" tag to your last build, so that it will be used when running
 
-Once you've built and tagged your image, you may need to update the `image` name in `docker-compose.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.
+Once you've built and tagged your image, you may need to update the `image` name in `docker-compose.release.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.
 
 For production, we recommend to set up a CI workflow to automate this, for an example you can look at the one [we currently use](../github/workflows/release.yaml).
 
@@ -190,7 +192,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Run `mix deps.get --only prod` to install elixir dependencies.
 
-- Prepare assets with `just js.deps.get`, `just assets.release` and `mix phx.digest`
+- Prepare assets with `just js-deps-get`, `just assets-release` and `mix phx.digest`
 
 - Run `mix release` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
 
