@@ -10,11 +10,9 @@ not clear and we'll try to improve it.
 
 Happy hacking!
 
-## Status: alpha - have fun but don't run in production.
+## Status: beta - have fun and provide feedback 🙏
 
-Bonfire is currently alpha software. While it's fun to play with it,
-we would _absolutely not_ recommend running any production instances
-yet because it's just not ready for that today.
+Bonfire is currently beta software. While it's fun to play with it, we would not recommend running any production instances (meaning not using it for your primary fediverse identity) yet because it's just not ready for that today. 
 
 ## Download
 
