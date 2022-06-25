@@ -4,15 +4,13 @@ _These instructions are for hacking on Bonfire. If you wish to deploy in product
 
 Hello, potential contributor! :-)
 
-This is a work in progress guide to getting up and running as a
-developer. Please ask questions in the issue tracker if something is
-not clear and we'll try to improve it.
+This is a work in progress guide to getting up and running as a developer. Please ask questions in the issue tracker if something is not clear and we'll try to improve it.
 
 Happy hacking!
 
 ## Status: beta - have fun and provide feedback 🙏
 
-Bonfire is currently beta software. While it's fun to play with it, we would not recommend running any production instances (meaning not using it for your primary fediverse identity) yet because it's just not ready for that today. 
+Bonfire is currently beta software. While it's fun to play with it, we would not recommend running any production instances (meaning not using it for your primary fediverse identity) yet because it's not quite ready for that today. 
 
 ## Download
 
