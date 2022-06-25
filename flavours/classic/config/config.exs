@@ -26,7 +26,7 @@ config :bonfire,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
   user_home_page: Bonfire.UI.Social.HomeLive,
-  default_pagination_limit: 40, # high limit for prod
+  default_pagination_limit: 15, # limit for prod
   thread_default_pagination_limit: 500, # very high limit for prod
   thread_default_max_depth: 3, # how many nested replies to show
   localisation_path: "priv/localisation",
