@@ -55,8 +55,6 @@ pre-setup flavour='classic':
 	@echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
 	@ln -sfn flavours/$flavour/config ./config
 	@mkdir -p data/
-	@rm -rf ./data/current_flavour
-	@ln -sf ../flavours/$flavour ./data/current_flavour
 	@mkdir -p ./config/prod
 	@mkdir -p ./config/dev
 	@mkdir -p ./config/test
@@ -85,9 +83,12 @@ flavour select_flavour:
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
 pre-init:
-	@echo "Using flavour: $FLAVOUR at path: $FLAVOUR_PATH"
+	@echo "Running $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
+	@ln -sf ./config/$MIX_ENV/.env ./.env
 	@rm -rf ./priv/repo
 	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
+	@rm -rf ./data/current_flavour
+	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 
 init: pre-init services
 	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
