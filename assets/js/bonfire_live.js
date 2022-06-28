@@ -17,9 +17,9 @@ let liveSocket = new LiveSocket("/live", Socket, {
       onBeforeElUpdated(from, to) {
         if (from._x_dataStack) { window.Alpine.clone(from, to) }
       }
-    },
+    }, 
     hooks: Hooks
-})
+}) 
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
