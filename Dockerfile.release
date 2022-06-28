@@ -31,10 +31,10 @@ ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR F
 WORKDIR $HOME
 
 # necessary utils
-RUN apk add --no-cache tar curl git rust cargo npm yarn bash
+RUN apk add tar curl git rust cargo npm yarn bash
 
 # dependencies for comeonin
-RUN apk add --no-cache make gcc libc-dev
+RUN apk add make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mess.exs mix.lock ./
