@@ -512,6 +512,7 @@ config :bonfire_data_social, PostContent,
     # virtuals for changesets
     field :hashtags, {:array, :any}, virtual: true
     field :mentions, {:array, :any}, virtual: true
+    field :urls, {:array, :any}, virtual: true
   end]
 
 config :bonfire_data_social, Replied,
