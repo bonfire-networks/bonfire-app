@@ -60,6 +60,7 @@ pre-setup flavour='classic':
 	@mkdir -p ./config/test
 	@touch ./config/deps.path
 	@test -f ./config/$MIX_ENV/.env || ((test -f ./config/$MIX_ENV/public.env && (cat ./config/$MIX_ENV/public.env ./config/$MIX_ENV/secrets.env > ./config/$MIX_ENV/.env) && rm ./config/$MIX_ENV/public.env && rm ./config/$MIX_ENV/secrets.env) || (cat ./config/templates/public.env ./config/templates/not_secret.env > ./config/$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./config/$MIX_ENV/.env)
+	@ln -sf ./config/dev/ ./config/test/
 	@rm .env | true
 	@ln -sf ./config/$MIX_ENV/.env ./.env
 	@mkdir -p forks/
@@ -84,7 +85,6 @@ flavour select_flavour:
 
 pre-init:
 	@echo "Running $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
-	@ln -sf ./config/$MIX_ENV/.env ./.env
 	@rm -rf ./priv/repo
 	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
 	@rm -rf ./data/current_flavour
