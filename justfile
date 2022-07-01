@@ -89,6 +89,7 @@ pre-init:
 	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
 	@rm -rf ./data/current_flavour
 	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
+	@ln -sf ./config/$MIX_ENV/.env ./.env
 
 init: pre-init services
 	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
