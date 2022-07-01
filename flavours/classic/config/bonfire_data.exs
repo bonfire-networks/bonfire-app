@@ -247,8 +247,7 @@ config :bonfire_data_access_control, Verb, []
 
 config :bonfire_boundaries, Stereotyped,
   [code: quote do
-    # mixins
-    unquote_splicing(common.([:named]))
+    has_one(:named,        unquote(Named),       [foreign_key: :id, references: :stereotype_id])
   end]
 
 # bonfire_data_activity_pub
