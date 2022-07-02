@@ -214,6 +214,8 @@ config :pointers, Table, []
 
 config :bonfire_data_access_control, Acl,
   [code: quote do
+    field :grants_count, :integer, virtual: true
+    field :controlled_count, :integer, virtual: true
     # mixins
     unquote_splicing(common.([:caretaker, :named, :stereotyped]))
     # multimixins
@@ -222,6 +224,7 @@ config :bonfire_data_access_control, Acl,
 
 config :bonfire_data_access_control, Circle,
   [code: quote do
+    field :encircles_count, :integer, virtual: true
     # mixins
     unquote_splicing(common.([:caretaker, :named, :stereotyped]))
     # multimixins
