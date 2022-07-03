@@ -526,6 +526,7 @@ localise-extract:
 
 @localise-tx-pull:
 	tx pull --all --minimum-perc=5 --force
+	just mix deps.compile bonfire_common --force
 
 @localise-tx-push:
 	tx push --source
