@@ -1,6 +1,7 @@
 import Config
 
 config :bonfire,
+  experimental_features_enabled: false,
   default_pagination_limit: 5 # low limit so it is easier to test
 
 # config :pseudo_gettext, :locale, "en-pseudo_text" # uncomment to use https://en.wikipedia.org/wiki/Pseudolocalization and check that the app is properly localisable
