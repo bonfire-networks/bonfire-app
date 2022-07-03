@@ -10,7 +10,8 @@ defmodule Bonfire.Web.EndpointTemplate do
       store: :cookie,
       key: "_bonfire_key",
       signing_salt: Config.get!(:signing_salt),
-      encryption_salt: Config.get!(:encryption_salt)
+      encryption_salt: Config.get!(:encryption_salt),
+      max_age: Config.get(:session_time_to_remember, 60*60*24*60) # 60 days by default
     ]
   end
 
