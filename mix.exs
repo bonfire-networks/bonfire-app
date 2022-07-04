@@ -20,7 +20,7 @@ defmodule Bonfire.MixProject do
       ],
       deps_prefixes: [
         docs: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "absinthe_client", "activity_pub", "arrows", "ecto_materialized_path", "flexto", "grumble", "linkify", "verbs", "voodoo", "waffle", "zest"],
-        test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "activity_pub"],
+        test: ["bonfire_", "pointers", "paginator", "ecto_shorts", "ecto_sparkles", "activity_pub", "linkify", "fetch_favicon"],
         data: ["bonfire_data_", "bonfire_data_edges", "pointers", "bonfire_boundaries", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_quantify", "bonfire_valueflows"],
         api: ["bonfire_me", "bonfire_social", "bonfire_tag", "bonfire_classify", "bonfire_geolocate", "bonfire_valueflows"],
         localise: ["bonfire_"],
@@ -159,6 +159,7 @@ defmodule Bonfire.MixProject do
       {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
       {:wallaby, "~> 0.29.1", runtime: false, only: :test},
+      # {:bypass, "~> 2.1", only: :test}, # used in furlex
 
       # Benchmarking utilities
       {:benchee, "~> 1.1", only: :dev},
