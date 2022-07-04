@@ -388,7 +388,7 @@ config :bonfire_data_social, Activity,
 
 config :bonfire_data_social, APActivity,
   [code: quote do
-    unquote_splicing(common.([:activity, :caretaker]))
+    unquote_splicing(common.([:activity, :caretaker, :controlled]))
   end]
 
 config :bonfire_data_edges, Edge,
