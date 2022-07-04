@@ -102,7 +102,7 @@
 | timex                        | MIT                                | 3.7.5     | https://hex.pm/packages/timex                                    |
 | toml                         | Apache 2.0                         | 0.5.2     | https://hex.pm/packages/toml                                     |
 | towel                        | MIT                                | 0.2.1     | https://hex.pm/packages/towel                                    |
-| tree_magic                   | GPL v3                             | 0.1.1     | https://github.com/commonspub/tree_magic.ex                      |
+| tree_magic                   | GPL v3                             | 0.1.1     | https://github.com/bonfire-networks/tree_magic.ex                      |
 | twinkle_star                 | GPL v3                             | 0.1.0     | https://github.com/bonfire-ecosystem/twinkle_star                |
 | tzdata                       | MIT                                | 1.1.0     | https://hex.pm/packages/tzdata                                   |
 | unicode_util_compat          | Apache 2.0                         | 0.7.0     | https://hex.pm/packages/unicode_util_compat                      |
