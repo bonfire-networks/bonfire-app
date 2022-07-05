@@ -182,6 +182,7 @@ config :pointers, Pointer,
     field :dummy, :any, virtual: true
     # pointables
     has_one :circle, unquote(Circle), foreign_key: :id
+    many_to_many :encircle_subjects, Pointer, join_through: Encircle, join_keys: [circle_id: :id, subject_id: :id]
     has_one :permitted, unquote(Permitted), foreign_key: :object_id
     has_one :user, unquote(User), foreign_key: :id
     has_one :post, unquote(Post), foreign_key: :id
