@@ -16,7 +16,12 @@ defmodule Bonfire.Web.Endpoint do
     # imported into main CSS already
     # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
-    font_family = Bonfire.Me.Settings.get([:ui, :font_family], "Inter", conn) |> Utils.maybe_to_string() |> String.downcase()
+    font_family = Bonfire.Me.Settings.get([:ui, :font_family], "Inter", conn)
+    |> Utils.maybe_to_string()
+    |> String.trim_trailing(" Languages)")
+    |> String.replace([" ", "-", "(", ")"], "-")
+    |> String.replace("--", "-")
+    |> String.downcase()
 
     """
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
