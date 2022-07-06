@@ -414,20 +414,20 @@ rel-build FORKS_TO_COPY_PATH="forks/" ARGS="": rel-init rel-prepare assets-prepa
 	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
 	@echo "Remember to run just rel-tag-latest or just rel-push"
 
+rel-tag-commit build label: 
+	@docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}  $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+
 # Add latest tag to last build
 rel-tag label='latest': 
-	rel-tag-build $APP_BUILD $label
-
-rel-tag-build build label='latest': 
-	@docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$build  $APP_DOCKER_REPO:$label-$FLAVOUR-{{arch()}}
+	@docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest': 
-	@just rel-tag $label
-	@just rel-push-only $label
+	@just rel-tag {{label}}
+	@just rel-push-only {{label}}
 
 rel-push-only label='latest': 
-	@docker login && docker push $APP_DOCKER_REPO:$label-$FLAVOUR-{{arch()}}
+	@docker login && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 
 
 # Run the app in Docker & starts a new `iex` console
