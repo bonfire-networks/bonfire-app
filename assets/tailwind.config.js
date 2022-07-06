@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['OpenDyslexic', 'Inter', 'Roboto', 'IBM Plex Sans', 'system-ui', 'sans-serif']
+        'sans': ['OpenDyslexic', 'Inter', 'Noto Sans', 'Roboto', 'system-ui', 'sans-serif']
       },
       screens: {
         'tablet': '920px',

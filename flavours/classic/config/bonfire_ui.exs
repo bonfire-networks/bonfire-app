@@ -30,13 +30,14 @@ More details at https://bonfirenetworks.org",
    # rich_text_editor_disabled: true,
    rich_text_editor: Bonfire.Editor.Quill,
    # rich_text_editor: Bonfire.Editor.Ck,
-   font_family: "Inter",
+   font_family: "Inter (Latin Languages)", # default
    font_families: [
-      "Inter",
-      "Roboto",
+      "Inter (Latin Languages)",
+      "Inter (More Languages)",
+      "Noto Sans (Latin Languages)",
+      "Noto Sans (More Languages)",
       "OpenDyslexic"
    ],
-
    theme: "bonfire",
    themes: [
      "bonfire",
