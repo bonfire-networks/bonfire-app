@@ -117,3 +117,10 @@ More details at https://bonfirenetworks.org",
       post: Bonfire.UI.Social.WritePostContentLive,
    ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive
+
+# config :surface_boxicon,
+#   icons: [
+#     regular: ["shield-x", "shield", "check-shield"],
+#     solid: ["shield-x", "shield", "check-shield"],
+#     logos: nil
+#   ]
