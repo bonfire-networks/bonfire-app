@@ -1,6 +1,7 @@
 defmodule Bonfire.Web.Router do
   use Bonfire.UI.Common.Web, :router
   # use Plug.ErrorHandler
+
   alias Bonfire.Common.Config
 
   pipeline :basic do
