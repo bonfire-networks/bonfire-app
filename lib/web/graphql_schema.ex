@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(ValueFlows.Schema) and Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
+if Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and Bonfire.Common.Extend.module_enabled?(Bonfire.ValueFlows.API.Schema) and Bonfire.Common.Extend.module_enabled?(Absinthe.Schema.Notation) do
+
 defmodule Bonfire.API.GraphQL.Schema do
   @moduledoc """
   Root GraphQL Schema.
@@ -11,6 +12,7 @@ defmodule Bonfire.API.GraphQL.Schema do
   # @pipeline_modifier Bonfire.API.GraphQL.SchemaPipelines
 
   require Logger
+
   alias Bonfire.API.GraphQL.SchemaUtils
   alias Bonfire.API.GraphQL.Middleware.CollapseErrors
   alias Absinthe.Resolution.Helpers
@@ -62,10 +64,10 @@ defmodule Bonfire.API.GraphQL.Schema do
   import_types(Bonfire.Quantify.Units.GraphQL)
   import_types(Bonfire.Geolocate.GraphQL)
 
-  import_types(ValueFlows.Schema)
-  import_types(ValueFlows.GraphQL.Subscriptions)
+  import_types(Bonfire.ValueFlows.API.Schema)
+  import_types(Bonfire.ValueFlows.API.Schema.Subscriptions)
 
-  import_types(ValueFlows.Observe.GraphQL)
+  import_types(Bonfire.ValueFlows.API.Schema.Observe)
 
 
   query do
@@ -204,11 +206,11 @@ defmodule Bonfire.API.GraphQL.Schema do
 
       # %Bonfire.Tag{} -> :tag
 
-      %ValueFlows.Planning.Intent{} -> :intent
+      # %ValueFlows.Planning.Intent{} -> :intent
 
-      %ValueFlows.Process{} -> :process
+      # %ValueFlows.Process{} -> :process
 
-      %ValueFlows.EconomicEvent{} -> :economic_event
+      # %ValueFlows.EconomicEvent{} -> :economic_event
 
       object ->
 
