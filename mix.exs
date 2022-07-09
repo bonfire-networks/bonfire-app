@@ -154,7 +154,6 @@ defmodule Bonfire.MixProject do
       {:mox, "~> 1.0", only: :test},
       {:zest, "~> 0.1"},
       {:grumble, "~> 0.1.3", only: [:test], override: true},
-      {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql", branch: "main", only: [:test]},
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
       {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
