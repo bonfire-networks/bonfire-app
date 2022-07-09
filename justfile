@@ -290,6 +290,9 @@ messctl *args='': init
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
+pre-contrib-hooks:
+	@sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
+
 # Push all changes to the app and extensions in ./forks
 contrib-forks: contrib-forks-publish git-publish 
 
