@@ -7,6 +7,7 @@ let ExtensionHooks = {};
 import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/change_locale"
 import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
+import { EmojiHooks } from "./../../../forks/bonfire_ui_common/assets/js/emoji"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
