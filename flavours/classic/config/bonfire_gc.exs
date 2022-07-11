@@ -2,12 +2,13 @@ import Config
 
 config :bonfire_gc,
   mixins: [
-    # these mixins should be deleted if their 
+    # these mixins should be deleted if their
     delete: [
       Bonfire.Data.AccessControl.InstanceAdmin,
       Bonfire.Data.Identity.Email,
       Bonfire.Data.Identity.Accounted,
       Bonfire.Data.Identity.Named,
+      Bonfire.Data.Identity.ExtraInfo,
       Bonfire.Data.Social.Inbox,
       Bonfire.Data.Social.Profile,
       Bonfire.Data.ActivityPub.Peered,
