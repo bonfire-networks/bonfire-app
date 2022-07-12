@@ -10,8 +10,28 @@
   color: inherit;
 }
 
-:host {
-  height: 350px !important;
+.tagify {
+  @apply rounded border-base-content/70;
+  --placeholder-color: hsl(var(--bc)/70);
+  --input-color:  hsl(var(--bc)/70);
+  --tags-border-color: hsl(var(--bc)/70);
+}
+
+.tagify--outside{
+  border: 0;
+}
+
+.tagify--outside .tagify__input{
+order: -1;
+flex: 100%;
+border: 1px solid var(--tags-border-color);
+transition: .1s;
+}
+
+.tagify--outside .tagify__input:hover{ border-color:var(--tags-hover-border-color); }
+.tagify--outside.tagify--focus .tagify__input{
+transition:0s;
+border-color: var(--tags-focus-border-color);
 }
 
 .badge-lg {
