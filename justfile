@@ -174,10 +174,10 @@ update-deps:
 	@rm -rf deps/*/assets/yarn.lock
 	just mix-remote updates 
 
-update-repo:
+update-repo: pre-contrib-hooks
 	@chmod +x git-publish.sh && ./git-publish.sh . pull || git pull
 
-update-repo-pull:
+update-repo-pull: 
 	@chmod +x git-publish.sh && ./git-publish.sh . pull only
 
 # Update to the latest Bonfire extensions in ./deps 
@@ -294,10 +294,10 @@ pre-contrib-hooks:
 	@sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
-contrib-forks: contrib-forks-publish git-publish 
+contrib-forks: pre-contrib-hooks contrib-forks-publish git-publish 
 
 # Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
-contrib-release: contrib-forks-publish update-app contrib-app-release
+contrib-release: pre-contrib-hooks contrib-forks-publish update-app contrib-app-release
 
 # Rebase app's repo and push all changes to the app
 contrib-app-only: update-repo git-publish 
@@ -309,7 +309,7 @@ contrib-app-release: contrib-app-release-increment git-publish
 contrib-app-release-increment: 
 	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $APP_VSN_EXTRA
 
-contrib-forks-publish:
+contrib-forks-publish: 
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
 	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} \;
 # TODO: run in parallel? 
