@@ -25,6 +25,7 @@ defmodule Bonfire.Web.HomeLive do
 
     {:ok, socket
     |> assign(
+      page: "home",
       selected_tab: "home",
       page_title: instance_name,
       links: links,
@@ -32,9 +33,9 @@ defmodule Bonfire.Web.HomeLive do
         users: [
           main: [
             {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-            {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
+            {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
             {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
@@ -42,7 +43,7 @@ defmodule Bonfire.Web.HomeLive do
         guests: [
           main: [
             {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-            {Bonfire.UI.Social.WidgetTimelinesLive, []},
+            {Bonfire.UI.Social.WidgetTimelinesLive, [page: @page]},
             {Bonfire.UI.Me.WidgetAdminsLive, []}
           ],
           secondary: [
