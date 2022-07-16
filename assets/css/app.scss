@@ -10,17 +10,32 @@
   color: inherit;
 }
 
-#boundaries_selection_tagify.tagify {
-  border: 0
+#boundaries_selection tags, #boundaries_selection_tagify {
+  border: none;
 }
 
 .tagify {
-  @apply border-transparent border-none;
+  @apply rounded;
   --placeholder-color: hsl(var(--bc)/80);
   --placeholder-color-focus: hsl(var(--bc)/80);
   --input-color:  hsl(var(--bc)/70);
-  --tags-border-color: hsl(var(--bc)/70);
-  --tag-bg: hsl(var(--in))
+  --tags-border-color: var(--input-color);
+  --tag-bg: var(--in);
+  --tag-hover: var(--tag-bg);
+  --tag-remove-bg: var(--tag-bg);
+}
+.tagify--outside tag,
+.tagify tag {
+  @apply rounded bg-info;
+}
+
+.tagify__dropdown__wrapper {
+}
+.tagify__dropdown__item {
+  @apply text-slate-800;
+}
+.tagify__dropdown__item:hover,
+.tagify__dropdown__item--active {
 }
 
 .tagify--outside{
@@ -28,16 +43,17 @@
 }
 
 .tagify--outside .tagify__input{
-order: -1;
-flex: 100%;
-border: 1px solid var(--tags-border-color);
-transition: .1s;
+  @apply rounded;
+  order: -1;
+  flex: 100%;
+  border: 1px solid var(--tags-border-color);
+  transition: .1s;
 }
 
 .tagify--outside .tagify__input:hover{ border-color:var(--tags-hover-border-color); }
 .tagify--outside.tagify--focus .tagify__input{
-transition:0s;
-border-color: var(--tags-focus-border-color);
+  transition: 0s;
+  border-color: var(--tags-focus-border-color);
 }
 
 .badge-lg {
@@ -260,16 +276,6 @@ border-color: var(--tags-focus-border-color);
   z-index: 999999;
   @apply bg-base-200;
 }
-
-.tagify__dropdown__item {
-  @apply text-base-content;
-}
-
-.tags-look {
-  @apply text-slate-800;
-}
-
-
 
 .profile_item:hover {
   background-color: hsla(var(--bc)/var(--tw-bg-opacity,1));
