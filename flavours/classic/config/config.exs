@@ -49,7 +49,7 @@ config :phoenix_gon, :json_library, Jason
 config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
 config :bonfire, Bonfire.Common.Repo,
-  types: Bonfire.PostgresTypes # point to the appropriate definition to support any Postgres extensions used by your Bonfire flavour or extensions
+  types: Bonfire.Geolocate.PostgresTypes # point to the appropriate definition to support any Postgres extensions used by your Bonfire flavour or extensions
   # priv: flavour_path <> "/repo",
 config :ecto_sparkles, :otp_app, :bonfire
 config :ecto_shorts, repo: Bonfire.Common.Repo, error_module: EctoShorts.Actions.Error
