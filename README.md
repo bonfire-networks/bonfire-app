@@ -5,9 +5,11 @@
 Customise and host your own online space and control your experience at the most granular level.
 
 ### ⚠️ Warning
+
 This project is in the beta stage - you're welcome to try out it out (specifically the social features in the classic flavour), but APIs may still change and no guarantees are given about stability. You can keep track of progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones?direction=asc&sort=due_date&state=open)
 
 ### 🔥 Flavours
+
 This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
 * [Classic](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/classic) for basic social networking
 * [Cooperation](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/cooperation) with a bunch more extensions and features 
