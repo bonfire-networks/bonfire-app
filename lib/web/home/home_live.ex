@@ -31,9 +31,7 @@ defmodule Bonfire.Web.HomeLive do
       links: links,
       sidebar_widgets: [
         users: [
-          main: [
-            {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-          ],
+          main: [],
           secondary: [
             {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
