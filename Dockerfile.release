@@ -100,7 +100,10 @@ COPY assets assets
 
 # include an archive of the source code
 COPY LICENSE ./
-RUN mkdir -p priv/static/ && tar --exclude=*.env --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps assets config priv/repo mix.exs mix.lock mess.exs LICENSE
+COPY docs/*.md ./docs/
+RUN mkdir -p forks/
+RUN mkdir -p priv/static/
+RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps forks assets config docs priv/repo mix.exs mix.lock mess.exs LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
