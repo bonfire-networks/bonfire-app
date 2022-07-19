@@ -146,6 +146,9 @@ defmodule Bonfire.MixProject do
       {:flame_on, "~> 0.5", only: :dev}, # flame graphs in live_dashboard
       {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
       {:periscope, "~> 0.4", only: :dev},
+      # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
+      {:versioce, "~> 1.1.2", only: :dev}, # changelog generation
+      {:git_cli, "~> 0.3.0", only: :dev}, # needed for changelog generation
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
