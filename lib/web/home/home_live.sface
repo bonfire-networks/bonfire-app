@@ -38,6 +38,7 @@
           {l "Privacy Policy"}
         </div>
       </LiveRedirect>
+
     </nav>
 
   {#case @selected_tab}
@@ -54,6 +55,14 @@
       {#match terms when is_binary(terms)}
         <Bonfire.UI.Common.WidgetTextLive 
           text={terms} 
+        /> 
+      {#match _}
+    {/case}
+  {#match "changelog"}
+    {#case @changelog}
+      {#match changelog when is_binary(changelog)}
+        <Bonfire.UI.Common.WidgetTextLive 
+          text={changelog} 
         /> 
       {#match _}
     {/case}
