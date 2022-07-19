@@ -5,6 +5,8 @@ defmodule Bonfire.Web.HomeLive do
   use Bonfire.UI.Common.Web, :surface_view
   alias Bonfire.UI.Me.LivePlugs
 
+  @changelog File.read!("docs/CHANGELOG.md")
+
   def mount(params, session, socket) do
     live_plug params, session, socket, [
       LivePlugs.LoadCurrentAccount,
@@ -29,9 +31,10 @@ defmodule Bonfire.Web.HomeLive do
       selected_tab: "home",
       page_title: instance_name,
       links: links,
+      changelog: @changelog,
       sidebar_widgets: [
         users: [
-          main: [],
+          main: [{Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]}],
           secondary: [
             {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
@@ -53,14 +56,9 @@ defmodule Bonfire.Web.HomeLive do
     )}
   end
 
-  def do_handle_params(%{"tab" => "code-of-conduct" = tab} = _params, _url, socket) do
-    IO.inspect(tab)
-    {:noreply, assign(socket, selected_tab: "code-of-conduct")}
-  end
-
-  def do_handle_params(%{"tab" => "privacy-policy" = tab} = _params, _url, socket) do
-
-    {:noreply, assign(socket, selected_tab: "privacy-policy")}
+  def do_handle_params(%{"tab" => tab} = _params, _url, socket) do
+    debug(tab)
+    {:noreply, assign(socket, selected_tab: tab)}
   end
 
   def do_handle_params(params, _url, socket) do
