@@ -1,6 +1,12 @@
-# Changelog
+# Bonfire Changelog
 
-## Unreleased (2022-07-19)
+## 0.3.1-beta (2022-07-19)
+### Added
+- Add a Compose box at the bottom of the screen as an alternative to the standard microblogging composer [#419](https://github.com/bonfire-networks/bonfire-app/issues/419) 
+- Add "compact layout" as a user preference [#418](https://github.com/bonfire-networks/bonfire-app/issues/418) 
+- Fetch URL metadata and show link previews in feeds [#314](https://github.com/bonfire-networks/bonfire-app/issues/314) 
+- Circles & flexible boundaries [#223](https://github.com/bonfire-networks/bonfire-app/issues/223) by mayel & ivanminutillo
+
 ### Changed
 - Pasting images into the editor should upload them [#411](https://github.com/bonfire-networks/bonfire-app/issues/411) 
 - Bug: When starting from the feed page, clicking back would exit the site [#400](https://github.com/bonfire-networks/bonfire-app/issues/400) 
