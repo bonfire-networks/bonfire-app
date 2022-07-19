@@ -545,6 +545,8 @@ localise-extract:
 @localise-extract-push: localise-extract localise-tx-push
 
 @assets-prepare:
+	mkdir -p priv/static/data/uploads
+	mkdir -p rel/overlays/
 	-cp lib/*/*/overlay/* rel/overlays/ 
 
 # Workarounds for some issues running migrations
