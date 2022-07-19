@@ -108,3 +108,7 @@ end
 if Code.ensure_loaded?(Livebook) do
   Livebook.config_runtime()
 end
+
+IO.puts(
+  "Welcome to Bonfire!"
+)
