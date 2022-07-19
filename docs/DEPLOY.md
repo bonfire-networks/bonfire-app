@@ -192,7 +192,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Run `mix deps.get --only prod` to install elixir dependencies.
 
-- Prepare assets with `just js-deps-get`, `just assets-release` and `mix phx.digest`
+- Prepare assets with `just js-deps-get`, `just assets-prepare` and `mix phx.digest`
 
 - Run `mix release` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
 
