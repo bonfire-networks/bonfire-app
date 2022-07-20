@@ -3,5 +3,5 @@
 # add more modules separated by $IFS
 DEPS='bonfire_ui_common bonfire_editor_ck bonfire_geolocate'
 
-chmod +x ./priv/deps.js.sh
-./priv/deps.js.sh "$DEPS"
+chmod +x ./assets/install_extensions.sh
+./assets/install_extensions.sh "$DEPS" $@
