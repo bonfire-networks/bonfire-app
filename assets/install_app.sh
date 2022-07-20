@@ -7,4 +7,4 @@ echo "Install the app's main JS deps from dir '$SCRIPT_DIR' with args '$@'\n"
 
 yarn -v || npm -g install yarn
 
-cd $DIR && yarn $@
+cd $SCRIPT_DIR && yarn $@
