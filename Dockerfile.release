@@ -83,9 +83,10 @@ RUN MIX_ENV=prod mix do deps.compile
 COPY assets/package.json assets/*.sh ./assets/
 # COPY assets/pnpm-lock.yaml ./assets/
 COPY assets/yarn.lock ./assets/
-COPY priv/*.sh ./priv/
-RUN chmod +x assets/*.sh && sh assets/install.sh
-RUN chmod +x config/*.sh && chmod +x priv/*.sh && sh config/deps.js.sh
+RUN chmod +x assets/*.sh
+RUN chmod +x config/*.sh
+RUN sh assets/install_app.sh --prod
+RUN sh config/deps.js.sh --prod
 
 # Update mime types
 RUN MIX_ENV=prod mix do deps.clean --build mime
