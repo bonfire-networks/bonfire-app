@@ -85,8 +85,9 @@ COPY assets/package.json assets/*.sh ./assets/
 COPY assets/yarn.lock ./assets/
 RUN chmod +x assets/*.sh
 RUN chmod +x config/*.sh
-RUN sh assets/install_app.sh
-RUN sh config/deps.js.sh
+RUN sh assets/install_app.sh --dev
+RUN sh config/deps.js.sh --dev
+# FIXME: should we be installing dev deps here?
 
 # Update mime types
 RUN MIX_ENV=prod mix do deps.clean --build mime
