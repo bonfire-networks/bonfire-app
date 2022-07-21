@@ -94,8 +94,8 @@ jobs:
           context: .
           file: Dockerfile.release
           # platforms: linux/amd64
-          platforms: linux/amd64,linux/arm64
-          # platforms: linux/amd64,linux/arm64,linux/arm/v7
+          # platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
@@ -178,7 +178,7 @@ jobs:
 
 
   cooperation_flavour_docker_release_build_push:
-    name: Cooperation flavour - Maybe release Docker image
+    name: Cooperation flavour - multiarch - Maybe release Docker image
     runs-on: ubuntu-latest
     env:
       FLAVOUR: cooperation
