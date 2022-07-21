@@ -290,21 +290,23 @@ messctl *args='': init
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
-pre-contrib-hooks:
+pre-push-hooks: pre-contrib-hooks
 	just mix changelog
+
+pre-contrib-hooks: 
 # 	@sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
-contrib-forks: pre-contrib-hooks contrib-forks-publish git-publish 
+contrib-forks: pre-push-hooks contrib-forks-publish git-publish 
 
 # Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
-contrib-release: pre-contrib-hooks contrib-forks-publish update-app contrib-app-release
+contrib-release: pre-push-hooks contrib-forks-publish update-app contrib-app-release
 
 # Rebase app's repo and push all changes to the app
-contrib-app-only: update-repo git-publish 
+contrib-app-only: pre-push-hooks update-repo git-publish 
 
 # Increment the app version number and commit/push
-contrib-app-release: contrib-app-release-increment git-publish 
+contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish 
 
 # Increment the app version number 
 contrib-app-release-increment: 
