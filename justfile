@@ -382,24 +382,25 @@ test-db-reset: init db-pre-migrations
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
 rel-init:
-	@MIX_ENV=prod just pre-init
+	MIX_ENV=prod just pre-init
 
 # copy current flavour's config, without using symlinks
 rel-config-prepare: 
-	@rm -rf data/current_flavour
-	@mkdir -p data
-	@cp -rfL $FLAVOUR_PATH data/current_flavour
+	rm -rf data/current_flavour
+	mkdir -p data
+	rm -rf flavours/*/config/*/dev
+	cp -rfL $FLAVOUR_PATH data/current_flavour
 
 # copy current flavour's config, without using symlinks
 rel-prepare: rel-config-prepare 
-	@mkdir -p forks/
-	@mkdir -p data/uploads/
-	@mkdir -p data/null/
-	@touch data/current_flavour/config/deps.path
+	mkdir -p forks/
+	mkdir -p data/uploads/
+	mkdir -p data/null/
+	touch data/current_flavour/config/deps.path
 
 # Build the Docker image (with no caching)
 rel-rebuild: rel-init rel-prepare assets-prepare 
-	@just rel-build "forks/" --no-cache
+	just rel-build "forks/" --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
 rel-build-release: rel-init rel-prepare assets-prepare 

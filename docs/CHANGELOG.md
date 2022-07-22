@@ -1,7 +1,10 @@
 # Bonfire Changelog
 
-## [0.3.1-beta.8 (2022-07-21)]
-### Other
+## 0.3.1-beta.9 (2022-07-22)
+### Added
+- Circles & flexible boundaries [#223](https://github.com/bonfire-networks/bonfire-app/issues/223) by mayel & ivanminutillo
+
+### Fixed
 - BUG:Responsive, navigation goes under the mobile bottom tab [#420](https://github.com/bonfire-networks/bonfire-app/issues/420) by ivanminutillo
 
 
