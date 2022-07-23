@@ -119,6 +119,8 @@ More details at https://bonfirenetworks.org",
       ],
    ],
    smart_input_activities: [
+      # post: "Write a post",
+      # category: "Create a topic",
       # offer: "Publish an offer",
       # need: "Publish a need",
       # transfer_resource: "Transfer a resource",
@@ -129,6 +131,8 @@ More details at https://bonfirenetworks.org",
    ],
    smart_input_components: [
       post: Bonfire.UI.Social.WritePostContentLive,
+      message: Bonfire.UI.Social.WritePostContentLive,
+      category: Bonfire.Classify.Web.NewCategoryLive,
    ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive
 
