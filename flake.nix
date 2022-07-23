@@ -124,8 +124,17 @@
             mix local.rebar --if-missing rebar ${rebar}/bin/rebar;
           '';
 
-          buildInputs = [ elixir erlang mix2nix locality rebar3 rebar ]
-            ++ optional pkgs.stdenv.isLinux
+          buildInputs = [
+            elixir
+            erlang
+            mix2nix
+            locality
+            rebar3
+            rebar
+            pkgs.yarn
+            pkgs.cargo
+            pkgs.rustc
+          ] ++ optional pkgs.stdenv.isLinux
             pkgs.libnotify # For ExUnit Notifier on Linux.
             ++ optional pkgs.stdenv.isLinux
             pkgs.inotify-tools; # For file_system on Linux.
