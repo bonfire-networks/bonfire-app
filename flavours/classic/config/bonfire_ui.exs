@@ -96,12 +96,26 @@ More details at https://bonfirenetworks.org",
          follow: Bonfire.UI.Me.ProfileRemoteFollowLive,
       ],
       navigation: [
-         timeline: "timeline",
-         posts: "posts",
-         boosts: "boosts",
-         # private: "private",
+         timeline: "Timeline",
+         posts: "Posts",
+         boosts: "Boosts",
+         # private: "Messages",
       ],
       widgets: [
+      ],
+   ],
+   category: [
+      navigation: [
+         timeline: "Published",
+         submitted: "Submitted"
+      ],
+      sections: [
+         timeline: Bonfire.UI.Social.ProfileTimelineLive,
+         posts: Bonfire.UI.Social.ProfilePostsLive,
+         boosts: Bonfire.UI.Social.ProfileBoostsLive,
+         followers: Bonfire.UI.Social.ProfileFollowsLive,
+         follow: Bonfire.UI.Me.ProfileRemoteFollowLive,
+         new: Bonfire.Classify.Web.NewCategoryLive,
       ],
    ],
    smart_input_activities: [
