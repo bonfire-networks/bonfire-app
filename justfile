@@ -489,11 +489,11 @@ rel-services:
 
 # Build the docker image
 build: init 
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose pull && docker-compose build" } else { "Skip building container..." } }}
+	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose pull && docker-compose build" } else { "echo Skip building container..." } }}
 
 # Build the docker image
 rebuild: init 
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose build --no-cache" } else { "Skip building container..." } }}
+	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose build --no-cache" } else { "echo Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
 @cmd *args='': init 
