@@ -44,7 +44,8 @@ extensions_with_config = context_and_queries_extensions ++ [
     :bonfire_boundaries,
     :bonfire_federate_activitypub,
     :bonfire_search,
-    :bonfire_mailer
+    :bonfire_mailer,
+    :bonfire_geolocate
   ]
 
 config :bonfire, :verb_names, verbs
@@ -70,7 +71,7 @@ alias Bonfire.Data.ActivityPub.{Actor, Peer, Peered}
 alias Bonfire.Boundaries.{Permitted, Stereotyped}
 alias Bonfire.Data.Edges.{Edge,EdgeTotal}
 alias Bonfire.Data.Identity.{
-  Account, Accounted, Caretaker, CareClosure, Character, Credential, Email, Named, Self, Settings, User,
+  Account, Accounted, AuthSecondFactor, Caretaker, CareClosure, Character, Credential, Email, ExtraInfo, Named, Self, Settings, User,
 }
 alias Bonfire.Data.Social.{
   Activity, APActivity, Article, Block, Bookmark, Boost, Created, Feed, FeedPublish,
@@ -110,6 +111,8 @@ common_assocs = %{
   edge:         quote(do: has_one(:edge,         unquote(Edge),        unquote(mixin))),
   # Adds a name that can appear in the user interface for an object. e.g. for an ACL.
   named:        quote(do: has_one(:named,        unquote(Named),       unquote(mixin))),
+  # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
+  extra_info:   quote(do: has_one(:extra_info,   unquote(ExtraInfo),   unquote(mixin))),
   # Information about the remote instance the object is from, if it is not local.
   peered:       quote(do: has_one(:peered,       unquote(Peered),      unquote(mixin))),
   # Information about the content of posts, e.g. a scrubbed html body
@@ -171,7 +174,7 @@ edges = common.([:controlled, :activities, :request, :created, :caretaker, :acti
 
 pointer_mixins = common.([
   :activity, :actor, :caretaker, :character, :created, :edge,
-  :named, :peered, :post_content, :profile, :replied, :stereotyped
+  :named, :extra_info, :peered, :post_content, :profile, :replied, :stereotyped
 ])
 config :pointers, Pointer,
   [code: quote do
@@ -181,6 +184,7 @@ config :pointers, Pointer,
     field :dummy, :any, virtual: true
     # pointables
     has_one :circle, unquote(Circle), foreign_key: :id
+    many_to_many :encircle_subjects, Pointer, join_through: Encircle, join_keys: [circle_id: :id, subject_id: :id]
     has_one :permitted, unquote(Permitted), foreign_key: :object_id
     has_one :user, unquote(User), foreign_key: :id
     has_one :post, unquote(Post), foreign_key: :id
@@ -213,16 +217,19 @@ config :pointers, Table, []
 
 config :bonfire_data_access_control, Acl,
   [code: quote do
+    field :grants_count, :integer, virtual: true
+    field :controlled_count, :integer, virtual: true
     # mixins
-    unquote_splicing(common.([:caretaker, :named, :stereotyped]))
+    unquote_splicing(common.([:caretaker, :named, :extra_info, :stereotyped]))
     # multimixins
     # unquote_splicing(common.([:controlled]))
   end]
 
 config :bonfire_data_access_control, Circle,
   [code: quote do
+    field :encircles_count, :integer, virtual: true
     # mixins
-    unquote_splicing(common.([:caretaker, :named, :stereotyped]))
+    unquote_splicing(common.([:caretaker, :named, :extra_info, :stereotyped]))
     # multimixins
     unquote_splicing(common.([:controlled]))
   end]
@@ -246,8 +253,7 @@ config :bonfire_data_access_control, Verb, []
 
 config :bonfire_boundaries, Stereotyped,
   [code: quote do
-    # mixins
-    unquote_splicing(common.([:named]))
+    has_one(:named,        unquote(Named),       [foreign_key: :id, references: :stereotype_id])
   end]
 
 # bonfire_data_activity_pub
@@ -272,6 +278,7 @@ config :bonfire_data_identity, Account,
   [code: quote do
     has_one :credential, unquote(Credential),foreign_key: :id
     has_one :email, unquote(Email), foreign_key: :id
+    has_one :auth_second_factor, unquote(AuthSecondFactor), foreign_key: :id
     has_one :settings, unquote(Settings), foreign_key: :id
     many_to_many :users, unquote(User),
       join_through: Accounted,
@@ -349,6 +356,9 @@ config :bonfire_data_identity, User,
     # has_one :geolocation, Bonfire.Geolocate.Geolocation # enable if using Geolocate extension
   end]
 
+config :bonfire_data_identity, Named, []
+config :bonfire_data_identity, ExtraInfo, []
+
 ### bonfire_data_social
 
 config :bonfire_data_social, Activity,
@@ -357,7 +367,7 @@ config :bonfire_data_social, Activity,
     @boost_ulid  "300STANN0VNCERESHARESH0VTS"
     @follow_ulid "70110WTHE1EADER1EADER1EADE"
     has_many :feed_publishes, unquote(FeedPublish), unquote(mixin)
-    has_one :seen, unquote(Edge), foreign_key: :id, references: :id
+    has_one :seen, unquote(Edge), foreign_key: :object_id, references: :id
     # ugly workaround needed for certain queries (TODO: check if still needed)
     has_one :activity, unquote(Activity), foreign_key: :id, references: :id
     # mixins linked to the object rather than the activity:
@@ -384,7 +394,7 @@ config :bonfire_data_social, Activity,
 
 config :bonfire_data_social, APActivity,
   [code: quote do
-    unquote_splicing(common.([:activity, :caretaker]))
+    unquote_splicing(common.([:activity, :caretaker, :controlled]))
   end]
 
 config :bonfire_data_edges, Edge,
@@ -469,7 +479,6 @@ config :bonfire_data_social, Message,
   end]
 
 config :bonfire_data_social, Mention, []
-config :bonfire_data_social, Named, []
 
 config :bonfire_data_social, Post,
   [code: quote do
@@ -510,6 +519,7 @@ config :bonfire_data_social, PostContent,
     # virtuals for changesets
     field :hashtags, {:array, :any}, virtual: true
     field :mentions, {:array, :any}, virtual: true
+    field :urls, {:array, :any}, virtual: true
   end]
 
 config :bonfire_data_social, Replied,
