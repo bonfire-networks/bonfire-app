@@ -60,19 +60,22 @@ More details at https://bonfirenetworks.org",
       ],
    ],
    smart_input_activities: [
-      # offer: "Publish an offer",
-      # need: "Publish a need",
+      post: "Write a post",
+      task: "Add a task",
+      offer: "Publish an offer",
+      need: "Publish a need",
       # transfer_resource: "Transfer a resource",
       # produce_resource: "Add a resource",
       # intent: "Indicate an itent",
-      # economic_event: "Record an economic event",
-      # process: "Define a process"
+      economic_event: "Record an economic event",
+      process: "Define a process"
    ],
    smart_input_components: [
       post: Bonfire.UI.Social.WritePostContentLive,
       economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
       process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
-      intent: Bonfire.UI.ValueFlows.CreateIntentLive,
+      offer: Bonfire.UI.ValueFlows.CreateIntentLive,
+      need: Bonfire.UI.ValueFlows.CreateIntentLive,
       task: Bonfire.UI.Coordination.CreateTaskLive,
    ],
    resource: [
