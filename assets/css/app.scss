@@ -75,12 +75,17 @@ body {
   stroke-width: 1;
 }
 
-.feed {
+.invisible_frame::before {
+  @apply fixed h-4 bg-base-300 z-[90] top-0 left-0 right-0 block;
+  content: "";
+}
+
+.full-height {
   height: calc(var(--doc-height) - 84px);
 }
 
 @media (max-width: 768px) { 
-  .feed {
+  .full-height {
     height: calc(var(--doc-height) - 137px);
   }
 }
