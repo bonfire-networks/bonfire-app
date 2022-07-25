@@ -34,8 +34,9 @@ defmodule Bonfire.Web.HomeLive do
       changelog: @changelog,
       sidebar_widgets: [
         users: [
-          main: [{Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]}],
+          main: [],
           secondary: [
+            {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
             {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
             {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
