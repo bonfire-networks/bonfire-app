@@ -20,4 +20,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Other
 - Add unique key to encircle [#248](https://github.com/bonfire-networks/bonfire-app/issues/248) 
 - Database Question [#3](https://github.com/bonfire-networks/activity_pub/issues/3) 
+- Being able to change activity type from the composer [#429](https://github.com/bonfire-networks/bonfire-app/issues/429) 
 
