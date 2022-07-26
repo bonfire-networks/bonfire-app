@@ -116,6 +116,7 @@ More details at https://bonfirenetworks.org",
          followers: Bonfire.UI.Social.ProfileFollowsLive,
          follow: Bonfire.UI.Me.ProfileRemoteFollowLive,
          new: Bonfire.Classify.Web.NewCategoryLive,
+         settings: Bonfire.Classify.Web.SettingsLive
       ],
    ],
    smart_input_activities: [
