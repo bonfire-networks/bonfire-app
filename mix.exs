@@ -151,6 +151,7 @@ defmodule Bonfire.MixProject do
       # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
       {:versioce, "~> 1.1.2", only: :dev}, # changelog generation
       {:git_cli, "~> 0.3.0", only: :dev}, # needed for changelog generation
+      {:neuron, "~> 5.0", only: :dev}, # needed for graphql client, eg github for changelog
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
