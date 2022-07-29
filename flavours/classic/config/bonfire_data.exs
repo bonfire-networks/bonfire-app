@@ -582,6 +582,8 @@ config :bonfire_classify, Category,
     # multimixins
     unquote_splicing(common.([:controlled, :feed_publishes]))
 
+    has_one(:creator, through: [:created, :creator])
+
   # add references of tagged objects to any Category
     many_to_many :tags, unquote(Pointer),
       join_through: unquote(Tagged),
