@@ -1,12 +1,17 @@
 #!/bin/bash 
 DIR="${1:-$PWD}" 
 
+function rebase {
+    # if jungle is available and we can assume fetches were already done by just and so we rebase, otherwise we rebase pull
+    command -v jungle && git rebase || git pull --rebase || fail "Please resolve conflicts before continuing." 
+}
+
 function fail {
     printf '%s\n' "$1" >&2 ## Send message to stderr.
     exit "${2-1}" ## Return a code specified by $2, or 1 by default.
 }
 
-echo Checking for changes in $DIR
+echo "Checking for changes in $DIR"
 
 cd $DIR
 
@@ -30,8 +35,7 @@ then
     # fi
 
     # merge/rebase local changes
-    # git rebase origin
-    git pull --rebase && echo "Publishing changes!" || fail "Please resolve conflicts before continuing." 
+    rebase && echo "Published changes!" 
 
     if [[ $3 != 'only' ]] 
     then
@@ -40,17 +44,15 @@ then
 
 else
     set -e
-    #echo No local changes since last run 
+    echo "No local changes to push"
 
     if [[ $2 == 'pull' ]] 
     then
         git pull --rebase || fail "Please resolve conflicts before continuing." 
     fi
 
-    if [[ $2 == 'maybe-pull' ]] 
+    if [[ $2 == 'rebase' ]] 
     then
-        # if jungle is available and we assume fetches were already done
-        # command -v jungle || 
-        git pull --rebase || fail "Please resolve conflicts before continuing." 
+        rebase
     fi
 fi

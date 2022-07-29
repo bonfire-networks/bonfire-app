@@ -198,7 +198,7 @@ update-dep dep:
 # Pull the latest commits from all ./forks
 update-forks: 
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
-	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} maybe-pull \;
+	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
 # TODO: run in parallel? find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
 
 # Pull the latest commits from all ./forks
@@ -312,10 +312,7 @@ contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish
 contrib-app-release-increment: 
 	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $APP_VSN_EXTRA
 
-contrib-forks-publish: 
-	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
-	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} \;
-# TODO: run in parallel? 
+contrib-forks-publish: update-forks
 
 # Run the git add command on each fork
 git-forks-add: deps-git-fix 
