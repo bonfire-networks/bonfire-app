@@ -94,24 +94,33 @@ So for example if you want to run the `classic` flavour, run:
 
 ### Option E - the experimental one (dev environment with Nix)
 
-- run a recent version of Nix or NixOS: https://nixos.wiki
-- enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
-- add `sandbox = false` in your nix.conf
+Dependencies:
+- Run a recent version of Nix or NixOS: https://nixos.org/download.html
+- Enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
+- Install [direnv](https://direnv.net/) through nix if you don't have the tool already:
+  ```
+  nix profile install nixpkgs#direnv`
+  ```
+- Clone the bonfire-app repo if you haven't already and allow direnv to use environment variables:
+  ```
+  git clone https://github.com/bonfire-networks/bonfire-app
+  cd `bonfire-app`
+  direnv allow
+  ```
 
-If you use direnv, just cd in the directory and you will have all the dependencies.
-If you just have nix, running `nix shell .` (inside the repository) will set you up with a shell.
+The tool direnv is necessary for the nix setup as the nix shell environment will use variables defined on `.envrc` to set itself up.
 
-You will need to create and init the db directory (keeping all your Postgres data inside this directory):
+Note: when you run `direnv allow` on the bonfire-app directory for the first time, nix will automatically fetch the dependencies for bonfire. The process will take a while as it's downloading everything needed to use the development environment. Afterwards you will be able to use just fine. Proceeding times you enter the directory, the shell with automatically set up for your use without downloading the packages again.
 
-- create the db directory `initdb ./db`
-- create the postgres user `createuser postgres -ds`
-- create the db `createdb bonfire_dev`
-- start the postgres instance `pg_ctl -l "$PGDATA/server.log" start`
-- `mix deps.get` to get elixir dependencies
-- `pushd assets && yarn && popd` to get the frontend dependencies
-- `mix ecto.migrate` to compile & get an up to date database
-- `iex -S mix phx.server` to start the server
-- check out the app on `localhost:4000` in your browser
+
+You will need to update the db directory which is automatically created by nix the first time you initialized the shell with `direnv allow`. You can do so with the following steps:
+- Update `props.nix` to the settings you want.
+- Run `just nix-db-init` to create the database and user for postgres defined on `props.nix`.
+
+Lastly, you will need to run the following commands to get the environment setup
+- Copy `.env` to `config/dev/public.env`.
+- Modify the `config/dev/public.env` file to comment out all `POSTGRES_*` variables. These are populated automatically by nix. So if the variables are set here, you may get issues with overriding your settings in `props.nix` when using bonfire.
+- You can now proceed to Hello World!
 
 ## Hello world!
 
