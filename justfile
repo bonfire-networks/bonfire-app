@@ -559,3 +559,7 @@ db-pre-migrations:
 secrets:
 	@cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
 
+# start or stop nix postgres server
+nix-pg pg_cmd:
+  @pg_ctl -D ${PGDATA} -l ${PGDATA}/all.log -o "--unix_socket_directories='${PGDATA}'" $pg_cmd
+
