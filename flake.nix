@@ -124,10 +124,13 @@
             mix local.rebar --if-missing rebar ${rebar}/bin/rebar;
 
             export PGDATA=$PWD/db
-            export PGHOST=$PGDATA
-            export PGUSERNAME=$POSTGRES_USER
-            export PGPASS=$POSTGRES_PASSWORD
-            export PGDATABASE=$POSTGRES_DB
+            export PGHOST=$PWD/db
+            export PGUSERNAME=${props.PGUSERNAME}
+            export PGPASS=${props.PGPASS}
+            export PGDATABASE=${props.PGDATABASE}
+            export POSTGRES_USER=${props.PGUSERNAME}
+            export POSTGRES_PASSWORD=${props.PGPASS}
+            export POSTGRES_DB=${props.PGDATABASE}
             if [[ ! -d $PGDATA ]]; then
               mkdir $PGDATA
               # comment out if not using CoW fs
