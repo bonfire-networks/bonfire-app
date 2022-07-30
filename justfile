@@ -559,7 +559,11 @@ db-pre-migrations:
 secrets:
 	@cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
 
-# start or stop nix postgres server
-nix-pg pg_cmd:
-  @pg_ctl -D ${PGDATA} -l ${PGDATA}/all.log -o "--unix_socket_directories='${PGDATA}'" $pg_cmd
+# Start or stop nix postgres server
+@nix-pg pg_cmd:
+  pg_ctl -D ${PGDATA} -l ${PGDATA}/all.log -o "--unix_socket_directories='${PGDATA}'" $pg_cmd
 
+# Initialize postgres database. Only need to run the first time!
+nix-pg-init: (nix-pg "start")
+  createdb ${PGDATABASE}
+  createuser -dlsw ${PGUSERNAME}

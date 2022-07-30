@@ -9,7 +9,7 @@
   erlang_release = "24";
 
   # remove dotenv variables POSTGRES_* to use these!
-  PGUSERNAME = "postgres";
+  PGUSERNAME = "bonfire";
   PGDATABASE = "bonfire_db";
   PGPASS = "password";
 }
