@@ -122,6 +122,18 @@
             export PATH="$MIX_PATH/bin:$HEX_HOME/bin:$PATH"
             mix local.rebar --if-missing rebar3 ${rebar3}/bin/rebar3;
             mix local.rebar --if-missing rebar ${rebar}/bin/rebar;
+
+            export PGDATA=$PWD/db
+            export PGHOST=$PGDATA
+            export PGUSERNAME=$POSTGRES_USER
+            export PGPASS=$POSTGRES_PASSWORD
+            export PGDATABASE=$POSTGRES_DB
+            if [[ ! -d $PGDATA ]]; then
+              mkdir $PGDATA
+              # comment out if not using CoW fs
+              chattr +C $PGDATA
+              initdb -D $PGDATA
+            fi
           '';
 
           buildInputs = [
