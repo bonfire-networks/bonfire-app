@@ -134,6 +134,9 @@
             pkgs.yarn
             pkgs.cargo
             pkgs.rustc
+            pkgs.postgis
+            pkgs.postgresql
+            pkgs.meilisearch
           ] ++ optional pkgs.stdenv.isLinux
             pkgs.libnotify # For ExUnit Notifier on Linux.
             ++ optional pkgs.stdenv.isLinux
