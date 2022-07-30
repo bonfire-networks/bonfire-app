@@ -7,4 +7,9 @@
   elixir_release = "1.13";
   # version release of erlang
   erlang_release = "24";
+
+  # remove dotenv variables POSTGRES_* to use these!
+  PGUSERNAME = "postgres";
+  PGDATABASE = "bonfire_db";
+  PGPASS = "password";
 }
