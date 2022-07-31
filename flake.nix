@@ -8,14 +8,13 @@
 
   outputs = { self, nixpkgs, flake-utils, ... }:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       # props to hold settings to apply on this file like name and version
       props = import ./props.nix;
       # set elixir nix version
       elixir_nix_version = elixir_version:
         builtins.replaceStrings [ "." ] [ "_" ] "elixir_${elixir_version}";
       erlang_nix_version = erlang_version: "erlangR${erlang_version}";
-    in flake-utils.lib.eachSystem supportedSystems (system:
+    in flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let
         inherit (nixpkgs.lib) optional;
         pkgs = import nixpkgs { inherit system; };
