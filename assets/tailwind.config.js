@@ -88,17 +88,15 @@ module.exports = {
     themes: [
       {
         bonfire: {
-          "primary": "#fde047", 
-          "secondary": "#fb923c",
-          "accent": "#1FB2A6",
-          "neutral": "#191D24",
-          "base-100": "rgb(30, 41, 59)",
-          "base-300": "rgb(15, 23, 42)",
-          "base-content": "rgb(226, 232, 240)",
-          "info": "#3ABFF8",
-          "success": "#36D399",
-          "warning": "#FBBD23",
-          "error": "#f15b5b",
+          "primary": "#fde047",
+          "secondary": "#BF95F9",
+          "accent": "#FFB86B",
+          "neutral": "#414558",
+          "base-100": "#272935",
+          "info": "#8BE8FD",
+          "success": "#52FA7C",
+          "warning": "#F1FA89",
+          "error": "#FF5757"
         },
       },
       "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"
