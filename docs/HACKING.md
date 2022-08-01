@@ -92,7 +92,7 @@ So for example if you want to run the `classic` flavour, run:
 
 - Set an environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
 
-### Option E - the experimental one (dev environment with Nix)
+### Option E - the nix one (dev environment with Nix)
 
 Dependencies:
 
@@ -116,11 +116,17 @@ Note: when you run `direnv allow` on the bonfire-app directory for the first tim
 You will need to update the db directory which is automatically created by nix the first time you initialized the shell with `direnv allow`. You can do so with the following steps:
 - Update `props.nix` to the settings you want.
 - Run `just nix-db-init` to create the database and user for postgres defined on `props.nix`.
-
-Lastly, you will need to run the following commands to get the environment setup
-- Copy `.env` to `config/dev/public.env`.
-- Modify the `config/dev/public.env` file to comment out all `POSTGRES_*` variables. These are populated automatically by nix. So if the variables are set here, you may get issues with overriding your settings in `props.nix` when using bonfire.
+- Modify the `.env` file to comment out all `POSTGRES_*` variables. These are populated automatically by nix. So if the variables are set here, you may get issues with overriding your settings in `props.nix` when using bonfire.
 - You can now proceed to Hello World!
+
+Note: if you ever want to shut off the postgres server in nix, simply run the nix-db targets in just:
+
+```
+# stop postgres server running locally
+just nix-db stop
+# start postgres server running locally
+just nix-db start
+```
 
 ## Hello world!
 
