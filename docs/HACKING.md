@@ -95,12 +95,13 @@ So for example if you want to run the `classic` flavour, run:
 ### Option E - the experimental one (dev environment with Nix)
 
 Dependencies:
+
 - Run a recent version of Nix or NixOS: https://nixos.org/download.html
+
 - Enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
-- Install [direnv](https://direnv.net/) through nix if you don't have the tool already:
-  ```
-  nix profile install nixpkgs#direnv`
-  ```
+
+- Install [direnv](https://direnv.net/) through nix if you don't have the tool already: `nix profile install nixpkgs#direnv` and add it to your shell: https://direnv.net/docs/hook.html
+
 - Clone the bonfire-app repo if you haven't already and allow direnv to use environment variables:
   ```
   git clone https://github.com/bonfire-networks/bonfire-app
@@ -111,7 +112,6 @@ Dependencies:
 The tool direnv is necessary for the nix setup as the nix shell environment will use variables defined on `.envrc` to set itself up.
 
 Note: when you run `direnv allow` on the bonfire-app directory for the first time, nix will automatically fetch the dependencies for bonfire. The process will take a while as it's downloading everything needed to use the development environment. Afterwards you will be able to use just fine. Proceeding times you enter the directory, the shell with automatically set up for your use without downloading the packages again.
-
 
 You will need to update the db directory which is automatically created by nix the first time you initialized the shell with `direnv allow`. You can do so with the following steps:
 - Update `props.nix` to the settings you want.
