@@ -149,9 +149,10 @@
             pkgs.cargo
             pkgs.rustc
             (pkgs.postgresql_12.withPackages (p: [ p.postgis ]))
-            pkgs.meilisearch
           ] ++ optional pkgs.stdenv.isLinux
             pkgs.libnotify # For ExUnit Notifier on Linux.
+            ++ optional pkgs.stdenv.isLinux
+            pkgs.meilisearch # For meilisearch when running linux only
             ++ optional pkgs.stdenv.isLinux
             pkgs.inotify-tools; # For file_system on Linux.
         };
