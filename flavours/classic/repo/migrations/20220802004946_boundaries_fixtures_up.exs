@@ -1,4 +1,4 @@
-defmodule Bonfire.Boundaries.Repo.Migrations.BoundariesUpFixtures do
+defmodule Bonfire.Boundaries.Repo.Migrations.BoundariesFixturesUp do
   use Ecto.Migration
 
   import Bonfire.Boundaries.Fixtures
