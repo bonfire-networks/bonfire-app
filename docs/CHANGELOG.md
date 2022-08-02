@@ -1,5 +1,9 @@
 # Bonfire Changelog
 
+## [0.3.3 (2022-08-02)]
+### Added
+- Define & implement granular role & permission system for instance administration and moderation [#406](https://github.com/bonfire-networks/bonfire-app/issues/406) 
+
 ## [0.3.2 (2022-07-30)]
 ### Added
 - Pagination topics list & feeds within topics [#431](https://github.com/bonfire-networks/bonfire-app/issues/431) 
