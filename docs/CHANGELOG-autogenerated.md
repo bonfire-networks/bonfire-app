@@ -8,3 +8,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Define & implement granular role & permission system for instance administration and moderation [#406](https://github.com/bonfire-networks/bonfire-app/issues/406) 
 
+### Other
+- Improve media/link attachments [#440](https://github.com/bonfire-networks/bonfire-app/issues/440) 
+
