@@ -109,7 +109,7 @@ defmodule Bonfire.MixProject do
       ],
       "bonfire.deps.update": ["deps.update " <> deps_to_update()],
       "bonfire.deps.clean": ["deps.clean " <> deps_to_clean(:localise) <> " --build"],
-      "bonfire.deps.clean.data": ["deps.clean " <> (deps_to_clean(:data) |> IO.inspect) <> " --build"],
+      "bonfire.deps.clean.data": ["deps.clean " <> deps_to_clean(:data) <> " --build"],
       "bonfire.deps.clean.api": ["deps.clean " <> deps_to_clean(:api) <> " --build"],
       "bonfire.deps.recompile": ["deps.compile " <> deps_to_update() <> " --force"],
       "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean.data"],
