@@ -28,3 +28,9 @@ ExUnit.start(
 Application.put_env(:wallaby, :base_url, Bonfire.Web.Endpoint.url())
 chromedriver_path = Bonfire.Common.Config.get([:wallaby, :chromedriver, :path])
 if chromedriver_path && File.exists?(chromedriver_path), do: {:ok, _} = Application.ensure_all_started(:wallaby), else: IO.inspect("Note: Wallaby will not run because the chromedriver is missing")
+
+IO.puts("""
+
+Testing shows the presence, not the absence of bugs.
+ - Edsger W. Dijkstra
+""")
