@@ -1,6 +1,6 @@
 # Bonfire Changelog
 
-## [Unreleased (0.3.4-beta.5)]
+## [0.3.4-beta.5 (2022-08-19)]
 ### Changed
 - 3 options for smart input (sidebar, modal, floating) and improve responsive (modal on small screens) [#443](https://github.com/bonfire-networks/bonfire-app/issues/443) 
 - Improve feeds async loading [#437](https://github.com/bonfire-networks/bonfire-app/issues/437) by mayel
