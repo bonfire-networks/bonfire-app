@@ -8,6 +8,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Define & implement granular role & permission system for instance administration and moderation [#406](https://github.com/bonfire-networks/bonfire-app/issues/406) 
 
+### Changed
+- 3 options for smart input (sidebar, modal, floating) and improve responsive (modal on small screens) [#443](https://github.com/bonfire-networks/bonfire-app/issues/443) 
+- Improve feeds async loading [#437](https://github.com/bonfire-networks/bonfire-app/issues/437) by mayel
+
+### Fixed
+- Show and count only local users in user directory [#438](https://github.com/bonfire-networks/bonfire-app/issues/438) by mayel
+
 ### Other
+- Investigate library to detect mime types of uploads [#349](https://github.com/bonfire-networks/bonfire-app/issues/349) 
 - Improve media/link attachments [#440](https://github.com/bonfire-networks/bonfire-app/issues/440) 
 
