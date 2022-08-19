@@ -144,7 +144,7 @@ defmodule Bonfire.MixProject do
       {:mix_unused, "~> 0.4", only: :dev},
       {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
-      # {:ecto_dev_logger, "~> 0.2", only: :dev},
+      # {:ecto_dev_logger, "~> 0.4", only: :dev},
       {:flame_on, "~> 0.5", only: :dev}, # flame graphs in live_dashboard
       {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
       {:periscope, "~> 0.4", only: :dev},
@@ -162,7 +162,7 @@ defmodule Bonfire.MixProject do
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
       {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
-      {:wallaby, "~> 0.29.1", runtime: false, only: :test},
+      {:wallaby, "~> 0.30", runtime: false, only: :test},
       # {:bypass, "~> 2.1", only: :test}, # used in furlex
 
       # Benchmarking utilities

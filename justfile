@@ -185,7 +185,7 @@ update-deps-bonfire:
 	just mix-remote bonfire.deps
 
 # Update evey single dependency (use with caution)
-update-deps-all: 
+update-deps-all: deps-clean-unused
 	just mix-remote "deps.update --all"
 	just deps-get
 
@@ -232,8 +232,11 @@ js-ext-deps-get:
 	chmod +x ./config/deps.js.sh
 	just cmd ./config/deps.js.sh
 
-deps-outdated:
+deps-outdated: deps-clean-unused
 	@just mix-remote "hex.outdated --all"
+
+deps-clean-unused:
+	@just mix "deps.clean --unlock --unused" 
 
 dep-clean dep:
 	@just mix "deps.clean $dep --build" 
