@@ -1,5 +1,14 @@
 # Bonfire Changelog
 
+## [Unreleased (0.3.4-beta.5)]
+### Changed
+- 3 options for smart input (sidebar, modal, floating) and improve responsive (modal on small screens) [#443](https://github.com/bonfire-networks/bonfire-app/issues/443) 
+- Improve feeds async loading [#437](https://github.com/bonfire-networks/bonfire-app/issues/437) by mayel
+- Improve media/link attachments [#440](https://github.com/bonfire-networks/bonfire-app/issues/440) 
+
+### Fixed
+- Show and count only local users in user directory [#438](https://github.com/bonfire-networks/bonfire-app/issues/438) by mayel
+
 ## [0.3.4 (2022-08-09)]
 ### Added
 - Define & implement granular role & permission system for instance administration and moderation [#406](https://github.com/bonfire-networks/bonfire-app/issues/406) 
