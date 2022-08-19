@@ -25,31 +25,6 @@ let liveSocket = new LiveSocket("/live", Socket, {
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
 window.addEventListener("phx:page-loading-stop", info => NProgress.done())
 
-
-const mobile_composer = document.getElementById('smart_input_mobile');
-const composer = document.getElementById("composer_container");
-const sidebar_composer = document.getElementById('smart_input_desktop')
-
-console.log(mobile_composer)
-console.log(composer)
-console.log(sidebar_composer)
-
-if (sidebar_composer != null) {
-  
-  if (window.innerWidth < 768) {
-    mobile_composer.append(composer)
-  } 
-
-}
-
-window.addEventListener("resize", function () {
-  if (window.innerWidth < 768) {
-      mobile_composer.append(composer)
-   } else {
-    sidebar_composer.append(composer)
-   }
-})
-
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 // themeChange()
