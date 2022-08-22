@@ -120,7 +120,7 @@ More details at https://bonfirenetworks.org",
       ],
    ],
    smart_input_activities: [
-      post: "Write a post",
+      post: "Compose a post",
       category: "Create a topic",
       # offer: "Publish an offer",
       # need: "Publish a need",
