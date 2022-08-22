@@ -44,3 +44,11 @@ import { ExtensionHooks } from "../../data/current_flavour/config/deps_hooks.js"
 // Add Extensions' Hooks...   
 Object.assign(liveSocket.hooks, ExtensionHooks);
 
+function vh() {
+  // get the viewport height 
+  let vh = window.innerHeight;
+  // set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+vh() // set initial vh
+window.addEventListener('resize', vh); // listen to the resize event
