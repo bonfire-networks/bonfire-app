@@ -21,7 +21,12 @@ Object.assign(Hooks, ImageHooks);
 }) ();
 
 function phxClick(event) {
-    window.location = "/LiveHandler/" + this.getAttribute("phx-click") + "?" + new URLSearchParams(getPhxValues(this)).toString()
+    // event.preventDefault(); // Override the native event?
+    let name = this.getAttribute("phx-click")
+    if (name.charAt(0) == "[") {
+        name = JSON.parse(name)[0][1]["event"]
+    }
+    window.location = "/LiveHandler/" + name + "?" + new URLSearchParams(getPhxValues(this)).toString()
 }  
 
 // attempt graceful degradation for LiveView events without LiveView
