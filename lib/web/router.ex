@@ -126,9 +126,6 @@ defmodule Bonfire.Web.Router do
     pipe_through :admin_required
   end
 
-
-
-
   scope "/" do
     pipe_through :browser
 

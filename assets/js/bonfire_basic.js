@@ -7,7 +7,7 @@ import { ImageHooks } from "./../../deps/bonfire_ui_common/assets/js/image"
 
 Object.assign(Hooks, ImageHooks);
 
-// run LiveView hooks without LiveView
+// run LiveView Hooks without LiveView
 (function () {
     [...document.querySelectorAll("[phx-hook]")].map((hookEl) => {
         let hookName = hookEl.getAttribute("phx-hook");
@@ -19,3 +19,25 @@ Object.assign(Hooks, ImageHooks);
         }
     });
 }) ();
+
+function phxClick(event) {
+    window.location = "/LiveHandler/" + this.getAttribute("phx-click") + "?" + new URLSearchParams(getPhxValues(this)).toString()
+}  
+
+// attempt graceful degradation for LiveView events without LiveView
+(function () {
+    [...document.querySelectorAll("[phx-click]")].map((el) => {
+        el.addEventListener('click', phxClick);
+    });
+})();
+
+function getPhxValues(el) {
+    console.log(el)
+    return el
+    .getAttributeNames()
+    .filter(name => name.startsWith("phx-value-"))
+    .reduce((obj, name) => ({
+        ...obj,
+        [name.substring(10)]: el.getAttribute(name)
+    }), {})
+}
