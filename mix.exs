@@ -307,7 +307,7 @@ defmodule Bonfire.MixProject do
 
   defp dep_path(dep) when is_binary(dep) do
     path_if_exists(forks_path()<>dep)
-    || path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.relative_to(File.cwd!))
+    || path_if_exists(Mix.Project.deps_path() <> "/" <> dep |> Path.expand(File.cwd!))
     || "."
   end
 
@@ -316,7 +316,7 @@ defmodule Bonfire.MixProject do
 
     path = if is_list(spec) && spec[:path],
       do: spec[:path],
-      else: Mix.Project.deps_path() <> "/" <> dep_name(dep) |> Path.relative_to(File.cwd!)
+      else: Mix.Project.deps_path() <> "/" <> dep_name(dep) |> Path.expand(File.cwd!)
 
     path_if_exists(path)
   end

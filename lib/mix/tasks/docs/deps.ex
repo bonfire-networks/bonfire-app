@@ -3,6 +3,7 @@ defmodule Mix.Tasks.Docs.Deps do
 
   @shortdoc "Generates docs for your app and its all deps"
   @recursive true
+  @root Bonfire.Common.Config.get(:root_path)
 
   @moduledoc """
   `mix docs.deps`
@@ -64,7 +65,7 @@ defmodule Mix.Tasks.Docs.Deps do
 
     path = if is_list(dep) && dep[:path],
       do: dep[:path],
-      else: Mix.Project.deps_path() <> "/#{dep_name(dep)}" |> Path.relative_to(File.cwd!)
+      else: Mix.Project.deps_path() <> "/#{dep_name(dep)}" |> Path.expand(@root)
 
     path_if_exists(path)
   end

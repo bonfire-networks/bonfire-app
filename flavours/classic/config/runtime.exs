@@ -55,7 +55,8 @@ config :bonfire,
   github_token: System.get_env("GITHUB_TOKEN"),
   show_debug_errors_in_dev: System.get_env("SHOW_DEBUG_IN_DEV"),
   encryption_salt: encryption_salt,
-  signing_salt: signing_salt
+  signing_salt: signing_salt,
+  root_path: File.cwd!()
 
 start_server? = if config_env() == :test, do: System.get_env("START_SERVER", "true"), else: System.get_env("START_SERVER", "true")
 
