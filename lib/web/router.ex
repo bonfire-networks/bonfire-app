@@ -4,45 +4,13 @@ defmodule Bonfire.Web.Router do
 
   alias Bonfire.Common.Config
 
-  pipeline :basic do
-    plug :fetch_session
-    plug :put_root_layout, {Bonfire.UI.Common.LayoutView, :root}
-  end
-
   pipeline :load_current_auth do
     plug Bonfire.UI.Me.Plugs.LoadCurrentAccount
     plug Bonfire.UI.Me.Plugs.LoadCurrentUser
   end
 
-  pipeline :browser do
-    plug :basic
-    plug :accepts, ["html", "activity+json", "json", "ld+json"]
-    plug PhoenixGon.Pipeline,
-      assets: Map.new(Config.get(:js_config, []))
-    plug Cldr.Plug.SetLocale, Bonfire.Common.Localise.set_locale_config()
-    plug :fetch_live_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug Bonfire.UI.Common.Plugs.ActivityPub # detect Accept headers to serve JSON or HTML
-    plug :load_current_auth
-    # plug Bonfire.UI.Me.Plugs.Locale # TODO: skip guessing a locale if the user has one in preferences
-  end
 
-  pipeline :guest_only do
-    plug Bonfire.UI.Me.Plugs.GuestOnly
-  end
-
-  pipeline :account_required do
-    plug Bonfire.UI.Me.Plugs.AccountRequired
-  end
-
-  pipeline :user_required do
-    plug Bonfire.UI.Me.Plugs.UserRequired
-  end
-
-  pipeline :admin_required do
-    plug Bonfire.UI.Me.Plugs.AdminRequired
-  end
+  # please note the order matters here, because of pipelines being defined in some module and re-used in others
 
   use_if_enabled Bonfire.UI.Common.Routes
 
@@ -50,10 +18,10 @@ defmodule Bonfire.Web.Router do
 
   # use_if_enabled Bonfire.Website.Web.Routes
 
-  use_if_enabled Bonfire.OpenID.Web.Routes
-
   use_if_enabled Bonfire.UI.Me.Routes
   use_if_enabled Bonfire.UI.Social.Routes
+
+  use_if_enabled Bonfire.OpenID.Web.Routes
 
   use_if_enabled Bonfire.Search.Web.Routes
   use_if_enabled Bonfire.Tag.Web.Routes
@@ -90,8 +58,8 @@ defmodule Bonfire.Web.Router do
     pipe_through :browser
 
     # TODO: make the homepage non-live
-    live "/", Bonfire.Web.HomeLive, as: :home
-    live "/terms/:tab", Bonfire.Web.HomeLive
+    live "/", Bonfire.Web.HomeLive, as: :home, private: %{cache: true}
+    live "/terms/:tab", Bonfire.Web.HomeLive, private: %{cache: true}
 
     # a default homepage which you can customise (at path "/")
     # can be replaced with something else (eg. bonfire_website extension or similar), in which case you may want to rename this default path (eg. to "/home")
@@ -103,21 +71,25 @@ defmodule Bonfire.Web.Router do
   end
 
   # pages only guests can view
-  scope "/", Bonfire do
+  scope "/" do
     pipe_through :browser
     pipe_through :guest_only
   end
 
   # pages you need an account to view
-  scope "/", Bonfire do
+  scope "/" do
     pipe_through :browser
     pipe_through :account_required
  end
 
   # pages you need to view as a user
-  scope "/", Bonfire do
+  scope "/" do
     pipe_through :browser
     pipe_through :user_required
+
+    live "/dashboard", Bonfire.Web.HomeLive, as: :dashboard
+    # live "/dashboard", Bonfire.UI.Social.HomeLive, as: :dashboard
+
   end
 
   # pages only admins can view
