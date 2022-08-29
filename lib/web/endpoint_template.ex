@@ -36,20 +36,16 @@ defmodule Bonfire.Web.EndpointTemplate do
           longpoll: false
       end
 
-      # plug Plug.Static,
-      #   at: "/data/uploads",
-      #   from: {:bonfire, "data/uploads"},
-      #   gzip: false
-
       # Serve at "/" the static files from "priv/static" directory.
       #
       # You should set gzip to true if you are running phx.digest
       # when deploying your static files in production.
+
       plug Plug.Static,
         at: "/",
         from: :bonfire,
         gzip: true,
-        only: ~w(assets css fonts images js favicon.ico robots.txt cache_manifest.json favicon.ico source.tar.gz)
+        only: ~w(public assets css fonts images js favicon.ico robots.txt cache_manifest.json favicon.ico source.tar.gz index.html)
 
       plug Plug.Static,
         at: "/data/uploads/",
