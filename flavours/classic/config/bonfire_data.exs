@@ -575,6 +575,12 @@ config :bonfire_files, Media,
     unquote_splicing(common.([:controlled]))
   end]
 
+config :bonfire_tag, Tagged,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity]))
+  end]
+
 config :bonfire_classify, Category,
   [code: quote do
     # mixins
