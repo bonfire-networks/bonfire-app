@@ -72,6 +72,8 @@ More details at https://bonfirenetworks.org",
    ],
    smart_input_components: [
       post: Bonfire.UI.Social.WritePostContentLive,
+      message: Bonfire.UI.Social.WritePostContentLive,
+      category: Bonfire.Classify.Web.NewCategoryLive,
       economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
       process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
       offer: Bonfire.UI.ValueFlows.CreateIntentLive,

@@ -575,12 +575,20 @@ config :bonfire_files, Media,
     unquote_splicing(common.([:controlled]))
   end]
 
+config :bonfire_tag, Tagged,
+  [code: quote do
+    # mixins
+    unquote_splicing(common.([:activity]))
+  end]
+
 config :bonfire_classify, Category,
   [code: quote do
     # mixins
     unquote_splicing(common.([:activity, :created, :actor, :peered, :profile, :character])) # TODO :caretaker
     # multimixins
     unquote_splicing(common.([:controlled, :feed_publishes]))
+
+    has_one(:creator, through: [:created, :creator])
 
   # add references of tagged objects to any Category
     many_to_many :tags, unquote(Pointer),
