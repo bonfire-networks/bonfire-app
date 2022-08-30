@@ -17,3 +17,8 @@ config :bonfire_common, Bonfire.Common.Localise.Cldr,
   # precompile_transliterations: [{:latn, :arab}, {:thai, :latn}]
   # force_locale_download: false,
   generate_docs: true
+
+config :ex_cldr,
+  default_locale: default_locale,
+  default_backend: Bonfire.Common.Localise.Cldr,
+  json_library: Jason
