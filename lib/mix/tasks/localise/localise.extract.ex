@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.Bonfire.Localise.Extract do
   use Mix.Task
-  import Where
+  import Untangle
   @recursive true
 
   @shortdoc "Extracts translations from source code"

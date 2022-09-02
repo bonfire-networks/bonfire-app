@@ -64,13 +64,13 @@ We also deal with a lot of functions that indicate failure by returning nil. `~>
 
 `|>` and `~>` compose in the way you'd expect; i.e. a `~>` receiving an error tuple or nil will stop executing the rest of the chain of (mixed) pipes.
 
-## Where
+## Untangle
 
-`Where` provides replacements for the macros in Elixir's `Logger` module and the `IO.inspect` function to output code location information. The first argument will be `inspect`ed and the second (where provided) will be used as a label:
+`Untangle` provides replacements for the macros in Elixir's `Logger` module and the `IO.inspect` function to output code location information. The first argument will be `inspect`ed and the second (where provided) will be used as a label:
 
 ```
-iex(1)> import Where
-Where
+iex(1)> import Untangle
+Untangle
 iex(2)> debug(:no, "the answer is") # log at debug
 11:19:09.915 [debug] [iex:2] the answer is: :no
 :no
@@ -82,7 +82,7 @@ iex(3)> dump(%{a: :map}, "it") # inspect something on stdout
 When used in a code file, the location information becomes slightly more useful, e.g.:
 
 ```
-[lib/test_where.ex:15@Test.Where.example/2] Here's an empty list: []
+[lib/test_untangle.ex:15@Test.Untangle.example/2] Here's an empty list: []
 ```
 
 You may also notice from the iex output that it returns its first argument. This makes it ideal for
