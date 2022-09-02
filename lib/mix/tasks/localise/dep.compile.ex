@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.Bonfire.Dep.Compile do
   use Mix.Task
-  import Where
+  import Untangle
 
   @shortdoc "Compiles dependencies"
 

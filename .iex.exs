@@ -9,7 +9,7 @@ alias Bonfire.Social
 alias Bonfire.Common
 use Common.Utils
 import Bonfire.Me.Fake
-require Logger
+import Untangle
 
 if module_enabled?(Bonfire.Common.Test.Interactive) && Mix.env() == :test do
   # to run tests from iex
@@ -27,6 +27,6 @@ if module_enabled?(Bonfire.Common.Test.Interactive) && Mix.env() == :test do
   Bonfire.Common.Test.Interactive.Helpers.ready
 
 else
-  Logger.info("IExWatchTests is not running")
+  info("IExWatchTests is not running")
 end
 import_if_enabled Bonfire.Common.Test.Interactive.Helpers

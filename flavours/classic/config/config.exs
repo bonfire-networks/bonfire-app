@@ -61,6 +61,8 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
+
 config :surface, :compiler,
     warn_on_undefined_props: false
 

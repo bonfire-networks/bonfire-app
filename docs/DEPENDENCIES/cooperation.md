@@ -169,6 +169,6 @@
 | verbs                        | MIT                                | 0.6.1    | https://github.com/shannonwells/verbs_ex                         |
 | voodoo                       | Undefined                          | 0.1.0    | https://github.com/bonfire-networks/voodoo                       |
 | waffle                       | Apache 2.0                         | 1.1.6    | https://hex.pm/packages/waffle                                   |
-| where                        | Apache 2.0                         | 0.1.0    | https://github.com/bonfire-networks/where                        |
+| where                        | Apache 2.0                         | 0.1.0    | https://github.com/bonfire-networks/untangle                        |
 | zest                         | Apache 2.0                         | 0.1.2    | https://hex.pm/packages/zest                                     |
 |------------------------------|------------------------------------|----------|------------------------------------------------------------------|
