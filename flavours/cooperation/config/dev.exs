@@ -4,7 +4,8 @@ config :bonfire, Bonfire.Common.Repo,
   experimental_features_enabled: true, # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  log: false # EctoSparkles does the logging instead
 
 path_dep_dirs =
   Mess.deps([path: "deps.path"], [])
