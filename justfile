@@ -118,6 +118,17 @@ dev: init dev-run
 docs: 
 	just mix-remote docs
 
+# Analyse the codebase and generate some reports. Requires Graphviz and SQLite
+arch:
+	just mix arch.explore.static 
+	just mix arch.explore.xrefs
+	just mix arch.explore.apps
+	MIX_ENV=test just mix arch.explore.coverage
+	just mix arch.report.html
+	just mix arch.dsm
+	just mix arch.xref --format png --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes 
+	just mix arch.apps.xref --format png --out reports/dev/static/apps.png
+
 # Force the app to recompile
 recompile: 
 	just mix "compile --force"
@@ -571,3 +582,4 @@ secrets:
 nix-db-init: (nix-db "start")
   createdb ${PGDATABASE}
   createuser -dlsw ${PGUSERNAME}
+

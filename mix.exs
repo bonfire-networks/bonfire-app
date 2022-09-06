@@ -151,6 +151,7 @@ defmodule Bonfire.MixProject do
       # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
       {:versioce, "~> 1.1.2", only: :dev}, # changelog generation
       {:git_cli, "~> 0.3.0", only: :dev}, # needed for changelog generation
+      {:archeometer, "~> 0.1.0", only: [:dev, :test]},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
@@ -187,7 +188,7 @@ defmodule Bonfire.MixProject do
     [:unused] ++ compilers(nil)
   end
   defp compilers(_) do
-    [:phoenix, :gettext] ++ Mix.compilers()
+    [:phoenix] ++ Mix.compilers()
   end
 
   def catalogues(_env) do
