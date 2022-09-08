@@ -123,11 +123,13 @@ arch:
 	just mix arch.explore.static 
 	just mix arch.explore.xrefs
 	just mix arch.explore.apps
-	MIX_ENV=test just mix arch.explore.coverage
-	just mix arch.report.html
+	-MIX_ENV=test just mix arch.explore.coverage
 	just mix arch.dsm
-	just mix arch.xref --format png --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes 
-	just mix arch.apps.xref --format png --out reports/dev/static/apps.png
+	just mix arch.report.html
+	mkdir -p reports/dev/static/html/data/
+	just mix arch.apps.xref --format mermaid --out reports/dev/static/html/data/apps.mermaid
+	just mix arch.apps.xref --format svg --out reports/dev/static/html/data/apps.svg
+# just mix arch.xref --format svg --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes 
 
 # Force the app to recompile
 recompile: 
