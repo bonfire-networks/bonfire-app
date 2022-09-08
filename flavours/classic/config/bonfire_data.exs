@@ -48,10 +48,21 @@ extensions_with_config = context_and_queries_extensions ++ [
     :bonfire_geolocate
   ]
 
+extensions_with_ui = extensions_with_config ++ [
+    :bonfire_ui_common,
+    :bonfire_ui_me,
+    :bonfire_ui_social,
+    :bonfire_ui_valueflows,
+    :bonfire_ui_cooperation,
+    :bonfire_ui_breadpub,
+    :bonfire_ui_kanban
+  ]
+
 config :bonfire, :verb_names, verbs
 config :bonfire, :context_modules_search_path, context_and_queries_extensions
 config :bonfire, :query_modules_search_path, context_and_queries_extensions
 config :bonfire, :config_modules_search_path, extensions_with_config
+config :bonfire, :ui_modules_search_path, extensions_with_ui
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
