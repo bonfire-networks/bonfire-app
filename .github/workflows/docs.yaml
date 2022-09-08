@@ -39,7 +39,7 @@ jobs:
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app # see https://github.com/actions/checkout/issues/760
       - 
         name: Generate docs
-        run: just docs
+        run: just config && just docs
       - 
         name: Generate arch reports
         run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
