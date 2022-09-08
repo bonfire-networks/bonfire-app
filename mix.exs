@@ -3,7 +3,7 @@ defmodule Bonfire.MixProject do
   use Mix.Project
 
   @config [ # TODO: put these in ENV or an external writeable config file similar to deps.*
-      version: "0.3.4-beta.22", # note that the flavour will automatically be added where the dash appears
+      version: "0.3.4-beta.23", # note that the flavour will automatically be added where the dash appears
       elixir: "~> 1.13",
       default_flavour: "classic",
       logo: "assets/static/images/bonfire-icon.png",
@@ -156,6 +156,7 @@ defmodule Bonfire.MixProject do
       {:versioce, "~> 1.1.2", only: :dev}, # changelog generation
       {:git_cli, "~> 0.3.0", only: :dev}, # needed for changelog generation
       {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0"
+      {:ex_sqlean, "~> 0.8.7", only: [:dev, :test]}, # Precompiled native SQLITE (used for archeometer)
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
