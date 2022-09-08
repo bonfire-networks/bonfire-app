@@ -3,8 +3,8 @@ on:
   push:
     branches: 
       - main 
+      
 jobs:
-  
   docs:
     name: Generate docs upon new release
     runs-on: ubuntu-latest
@@ -32,20 +32,20 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
-    - 
+      - 
         name: Prep 
         run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH &&
-    - 
-      name: Generate docs
-      run: just docs
-    - 
-      name: Generate arch reports
-      run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
-    - 
-      name: Deploy docs
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/exdoc
-        cname: doc.bonfirenetworks.org
-        
+      - 
+        name: Generate docs
+        run: just docs
+      - 
+        name: Generate arch reports
+        run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
+      - 
+        name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/exdoc
+          cname: doc.bonfirenetworks.org
+          
