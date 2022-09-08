@@ -1,0 +1,51 @@
+name: Maybe generate docs
+on:
+  push:
+    branches: 
+      - main 
+jobs:
+  
+  docs:
+    name: Generate docs upon new release
+    runs-on: ubuntu-latest
+    container: elixir:1.13-alpine
+    env:
+      FLAVOUR: classic
+      FLAVOUR_PATH: flavours/classic
+      MIX_ENV: dev
+      WITH_DOCKER: no
+      CI: true
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      - 
+        name: Detect new version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - 
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        name: Cancel workflow if the version has not changed
+        uses: andymckay/cancel-action@0.2
+    - 
+        name: Prep 
+        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH &&
+    - 
+      name: Generate docs
+      run: just docs
+    - 
+      name: Generate arch reports
+      run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
+    - 
+      name: Deploy docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/exdoc
+        cname: doc.bonfirenetworks.org
+        
