@@ -17,6 +17,9 @@ jobs:
       CI: true
     steps:
       - 
+        name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), and just
+        run: apk add bash git tar file just
+      - 
         name: Checkout
         uses: actions/checkout@v2
         with:
@@ -32,9 +35,6 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
-      - 
-        name: Prep 
-        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH &&
       - 
         name: Generate docs
         run: just docs
