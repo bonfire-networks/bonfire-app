@@ -37,6 +37,10 @@ jobs:
       #   uses: andymckay/cancel-action@0.2
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app # see https://github.com/actions/checkout/issues/760
+      - name: Install hex
+        run: mix local.hex --force
+      - name: Install rebar
+        run: mix local.rebar --force
       - 
         name: Generate docs
         run: just config && just docs
