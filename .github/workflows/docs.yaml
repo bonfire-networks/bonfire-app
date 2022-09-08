@@ -41,9 +41,13 @@ jobs:
         run: mix local.hex --force
       - name: Install rebar
         run: mix local.rebar --force
+      - name: Prepare environment
+        run: just pre-setup && just init
+      - name: Install dependencies
+        run: mix deps.get
       - 
         name: Generate docs
-        run: just config && just docs
+        run: just docs
       - 
         name: Generate arch reports
         run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
