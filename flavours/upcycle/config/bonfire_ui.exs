@@ -9,13 +9,13 @@ config :bonfire, :ui,
       instance_description: "This is a bonfire demo instance for testing purposes"
    ],
    app_menu_extension_paths: %{ # TODO: make dynamic based on active extensions
-      "Social" => Bonfire.UI.Social.HomeLive,
+      "Social" => Bonfire.UI.Social.FeedsLive,
       "Breadpub" => Bonfire.Breadpub.Web.HomeLive,
       "Kanban" => Bonfire.UI.Kanban.HomeLive,
       "Coordination" => Bonfire.UI.Coordination.ProcessesLive
    },
    sidebar_components: [ # TODO: make dynamic based on active extensions
-      {Bonfire.UI.Common.SidebarNavigationLive, []},
+      {Bonfire.UI.Social.SidebarNavigationLive, []},
       # {Bonfire.UI.Coordination.SidebarNavigationLive, []},
       #{Bonfire.Breadpub.SidebarNavigationLive, []},
       # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},

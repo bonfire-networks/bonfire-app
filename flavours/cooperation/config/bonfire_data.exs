@@ -53,9 +53,13 @@ extensions_with_ui = extensions_with_config ++ [
     :bonfire_ui_me,
     :bonfire_ui_social,
     :bonfire_ui_valueflows,
-    :bonfire_ui_cooperation,
+    :bonfire_ui_coordination,
     :bonfire_ui_breadpub,
-    :bonfire_ui_kanban
+    :bonfire_ui_kanban,
+    :bonfire_breadpub,
+    :bonfire_upcycle,
+    :bonfire_recyclapp,
+    :bonfire_ui_reflow
   ]
 
 config :bonfire, :verb_names, verbs

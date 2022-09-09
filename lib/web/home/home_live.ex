@@ -32,24 +32,24 @@ defmodule Bonfire.Web.HomeLive do
       page_title: instance_name,
       links: links,
       changelog: @changelog,
+      without_sidebar: true,
       sidebar_widgets: [
         users: [
-          main: [],
           secondary: [
             {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-            {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
+            {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
         ],
         guests: [
           main: [
-            {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-            {Bonfire.UI.Social.WidgetTimelinesLive, [page: @page]},
-            {Bonfire.UI.Me.WidgetAdminsLive, []}
+            {Bonfire.UI.Social.WidgetTimelinesLive, [page: "home"]},
           ],
           secondary: [
+            {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
             {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
+            {Bonfire.UI.Me.WidgetAdminsLive, []},
             {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
           ]
         ],

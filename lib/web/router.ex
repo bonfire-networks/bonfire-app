@@ -20,6 +20,7 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled Bonfire.UI.Me.Routes
   use_if_enabled Bonfire.UI.Social.Routes
+  use_if_enabled Bonfire.Boundaries.Web.Routes
 
   use_if_enabled Bonfire.OpenID.Web.Routes
 
@@ -88,7 +89,7 @@ defmodule Bonfire.Web.Router do
     pipe_through :user_required
 
     live "/dashboard", Bonfire.Web.HomeLive, as: :dashboard
-    # live "/dashboard", Bonfire.UI.Social.HomeLive, as: :dashboard
+    # live "/dashboard", Bonfire.UI.Social.FeedsLive, as: :dashboard
 
   end
 

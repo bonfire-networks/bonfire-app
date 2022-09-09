@@ -47,9 +47,10 @@ defmodule Bonfire.Application do
     # Persistent Data Services
     Pointers.Tables,
     # Bonfire.Data.AccessControl.Accesses,
-    Bonfire.Common.ContextModules,
-    Bonfire.Common.QueryModules,
-    Bonfire.Federate.ActivityPub.FederationModules
+    ## these populate on first call, so no need to run on startup:
+    # Bonfire.Common.ContextModules,
+    # Bonfire.Common.QueryModules,
+    # Bonfire.Federate.ActivityPub.FederationModules
   ]
 
   @default_cache_ttl 1_000 * 60 * 60 * 6 # 6 hours
