@@ -44,8 +44,7 @@ extensions_with_config = context_and_queries_extensions ++ [
     :bonfire_boundaries,
     :bonfire_federate_activitypub,
     :bonfire_search,
-    :bonfire_mailer,
-    :bonfire_geolocate
+    :bonfire_mailer
   ]
 
 extensions_with_ui = extensions_with_config ++ [
@@ -55,7 +54,10 @@ extensions_with_ui = extensions_with_config ++ [
     :bonfire_ui_valueflows,
     :bonfire_ui_cooperation,
     :bonfire_ui_breadpub,
-    :bonfire_ui_kanban
+    :bonfire_ui_kanban,
+    :bonfire_breadpub,
+    :bonfire_recycleapp,
+    :bonfire_ui_reflow
   ]
 
 config :bonfire, :verb_names, verbs

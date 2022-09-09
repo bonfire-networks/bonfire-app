@@ -78,7 +78,7 @@ More details at https://bonfirenetworks.org",
       limit: 8,
    ],
    sidebar_components: [
-      {Bonfire.UI.Common.SidebarNavigationLive, []},
+      {Bonfire.UI.Social.SidebarNavigationLive, []},
    ],
    smart_input: [
       post: true,
