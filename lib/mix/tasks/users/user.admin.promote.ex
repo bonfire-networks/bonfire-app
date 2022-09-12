@@ -17,17 +17,19 @@ defmodule Mix.Tasks.Bonfire.User.Admin.Promote do
 
   alias Bonfire.Me.Users
 
-  @spec run(OptionParser.argv) :: :ok
+  @spec run(OptionParser.argv()) :: :ok
   def run(args) do
     options = options(args, %{})
     Mix.Task.run("app.start")
+
     case Users.by_username!(options.username) do
-      nil -> raise RuntimeError, message: "User not found"
+      nil ->
+        raise RuntimeError, message: "User not found"
+
       user ->
         Users.make_admin(user)
     end
   end
 
   defp options([username], opts), do: Map.put(opts, :username, username)
-
 end

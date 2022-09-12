@@ -15,7 +15,6 @@ config :bonfire_search,
 config :logger, level: :warn
 # config :logger, level: :notice
 
-
 # Configure your database
 db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
 #
@@ -46,6 +45,7 @@ config :mix_test_interactive,
   clear: true
 
 config :paginator, ecto_repos: [Bonfire.Common.Repo]
+
 config :paginator, Paginator.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   username: System.get_env("POSTGRES_USER", "postgres"),

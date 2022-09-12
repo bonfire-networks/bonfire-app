@@ -19,18 +19,18 @@ defmodule Mix.Tasks.Bonfire.Account.New do
 
   alias Bonfire.Me.Fake
 
-  @spec run(OptionParser.argv) :: :ok
+  @spec run(OptionParser.argv()) :: :ok
   def run(args) do
     options = options(args, %{})
     Mix.Task.run("app.start")
     email = get("Enter an email address: ", :email, options, true)
     password = password("Enter a password:")
     IO.inspect(password: password)
-    %{
-      credential: %{password:      password},
-      email:      %{email_address: email},
-    }
-    |> Fake.fake_account!()
+
+    Fake.fake_account!(%{
+      credential: %{password: password},
+      email: %{email_address: email}
+    })
   end
 
   defp options([], opts), do: opts
@@ -40,14 +40,23 @@ defmodule Mix.Tasks.Bonfire.Account.New do
     case opts[key] do
       nil ->
         case IO.gets(prompt) do
-          :eof -> raise RuntimeError, message: "EOF"
-          data when is_binary(data) -> get(prompt, key, Map.put(opts, key, data), must?)
-          data when is_list(data)   -> get(prompt, key, Map.put(opts, key, to_string(data)), must?)
+          :eof ->
+            raise RuntimeError, message: "EOF"
+
+          data when is_binary(data) ->
+            get(prompt, key, Map.put(opts, key, data), must?)
+
+          data when is_list(data) ->
+            get(prompt, key, Map.put(opts, key, to_string(data)), must?)
         end
+
       data ->
         data = String.trim(data)
+
         if data == "" do
-          if must?, do: get(prompt, key, Map.delete(opts, key), must?), else: nil
+          if must?,
+            do: get(prompt, key, Map.delete(opts, key), must?),
+            else: nil
         else
           data
         end
@@ -63,11 +72,17 @@ defmodule Mix.Tasks.Bonfire.Account.New do
 
   defp password(prompt, pid, ref) do
     value = String.trim(IO.gets(prompt))
+
     if String.length(value) < 10 do
-      IO.puts(:standard_error, "Password too short, must be at least 10 characters long")
+      IO.puts(
+        :standard_error,
+        "Password too short, must be at least 10 characters long"
+      )
+
       password(prompt, pid, ref)
     else
       send(pid, {:done, self(), ref})
+
       receive do
         {:done, ^pid, ^ref} -> value
       end
@@ -85,5 +100,4 @@ defmodule Mix.Tasks.Bonfire.Account.New do
         loop(prompt)
     end
   end
-
 end

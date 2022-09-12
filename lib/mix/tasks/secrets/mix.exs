@@ -9,5 +9,4 @@ defmodule Bonfire.Secrets do
       escript: [main_module: Mix.Tasks.Bonfire.Secrets]
     ]
   end
-
 end

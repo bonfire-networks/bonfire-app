@@ -4,5 +4,4 @@ defmodule Bonfire.Data.Identity.Repo.Migrations.CareClosure do
   alias Bonfire.Data.Identity.CareClosure.Migration
 
   def change, do: Migration.migrate_care_closure_view()
-
 end

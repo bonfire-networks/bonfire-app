@@ -5,5 +5,4 @@ defmodule Bonfire.Repo.Migrations.ImportInbox do
 
   def up, do: migrate_inbox()
   def down, do: migrate_inbox()
-
 end

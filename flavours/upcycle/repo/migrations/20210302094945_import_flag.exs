@@ -10,5 +10,4 @@ defmodule Bonfire.Repo.Migrations.ImportFlag do
   def down do
     migrate_flag()
   end
-
 end

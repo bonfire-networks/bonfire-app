@@ -30,13 +30,13 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
 
   @switches [include_children: :boolean, force: :boolean]
 
-  @spec run(OptionParser.argv) :: :ok
+  @spec run(OptionParser.argv()) :: :ok
   def run(args) do
     unless "--no-archives-check" in args do
-      Mix.Task.run "archive.check", args
+      Mix.Task.run("archive.check", args)
     end
 
-    Mix.Project.get!
+    Mix.Project.get!()
 
     case OptionParser.parse(args, switches: @switches) do
       {opts, [], _} ->
@@ -44,32 +44,37 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
         # dep.compile, we simply try to compile any available
         # dependency.
         compile(Enum.filter(loaded_deps(), &available?/1), opts)
+
       {opts, tail, _} ->
-        compile(loaded_by_name(tail, [env: Mix.env] ++ opts), opts)
+        compile(loaded_by_name(tail, [env: Mix.env()] ++ opts), opts)
     end
   end
 
   @doc false
   def compile(deps, options \\ []) do
-    shell  = Mix.shell
-    config = Mix.Project.deps_config
+    shell = Mix.shell()
+    config = Mix.Project.deps_config()
 
-    Mix.Task.run "deps.precompile"
+    Mix.Task.run("deps.precompile")
 
     compiled =
       Enum.map(deps, fn %Mix.Dep{app: app, status: status, opts: opts, scm: scm} = dep ->
-
         check_unavailable!(app, status)
 
-        compiled? = cond do
-          mix?(dep) ->
-            maybe_clean(dep, options)
-            do_mix dep, config
-          true ->
-            shell.error "Could not compile #{inspect app}, no \"mix.exs\" found " <>
-              "(pass :compile as an option to customize compilation, set it to \"false\" to do nothing)"
-            false
-        end
+        compiled? =
+          cond do
+            mix?(dep) ->
+              maybe_clean(dep, options)
+              do_mix(dep, config)
+
+            true ->
+              shell.error(
+                "Could not compile #{inspect(app)}, no \"mix.exs\" found " <>
+                  "(pass :compile as an option to customize compilation, set it to \"false\" to do nothing)"
+              )
+
+              false
+          end
 
         # We should touch fetchable dependencies even if they
         # did not compile otherwise they will always be marked
@@ -77,7 +82,6 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
         fetchable? = touch_fetchable(scm, opts[:build])
 
         compiled? and fetchable?
-
       end)
 
     if true in compiled, do: Mix.Task.run("will_recompile"), else: :ok
@@ -102,8 +106,10 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   end
 
   defp check_unavailable!(app, {:unavailable, _}) do
-    Mix.raise "Cannot compile dependency #{inspect app} because " <>
-      "it isn't available, run \"mix deps.get\" first"
+    Mix.raise(
+      "Cannot compile dependency #{inspect(app)} because " <>
+        "it isn't available, run \"mix deps.get\" first"
+    )
   end
 
   defp check_unavailable!(_, _) do
@@ -111,15 +117,17 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   end
 
   defp do_mix(dep, _config) do
-    Mix.Dep.in_dependency dep, fn _ ->
-      if req = old_elixir_req(Mix.Project.config) do
-        Mix.shell.error "warning: the dependency #{inspect dep.app} requires Elixir #{inspect req} " <> "but you are running on v#{System.version}"
+    Mix.Dep.in_dependency(dep, fn _ ->
+      if req = old_elixir_req(Mix.Project.config()) do
+        Mix.shell().error(
+          "warning: the dependency #{inspect(dep.app)} requires Elixir #{inspect(req)} " <>
+            "but you are running on v#{System.version()}"
+        )
       end
 
-      Mix.shell.info "Recompiling extension #{inspect dep.app}"
+      Mix.shell().info("Recompiling extension #{inspect(dep.app)}")
 
       try do
-
         # If "compile" was never called, the reenabling is a no-op and
         # "compile.elixir" is a no-op as well (because it wasn't reenabled after
         # running "compile"). If "compile" was already called, then running
@@ -144,22 +152,26 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
         # Mix.shell.info(inspect res)
 
         match?({:ok, _}, res)
-
       catch
         kind, reason ->
-          stacktrace = System.stacktrace
+          stacktrace = System.stacktrace()
           app = dep.app
-          Mix.shell.error "could not compile dependency #{inspect app}, \"mix compile\" failed. " <>
-            "You can recompile this dependency with \"mix deps.compile #{app}\", update it " <>
-            "with \"mix deps.update #{app}\" or clean it with \"mix deps.clean #{app}\""
+
+          Mix.shell().error(
+            "could not compile dependency #{inspect(app)}, \"mix compile\" failed. " <>
+              "You can recompile this dependency with \"mix deps.compile #{app}\", update it " <>
+              "with \"mix deps.update #{app}\" or clean it with \"mix deps.clean #{app}\""
+          )
+
           :erlang.raise(kind, reason, stacktrace)
       end
-    end
+    end)
   end
 
   defp old_elixir_req(config) do
     req = config[:elixir]
-    if req && not Version.match?(System.version, req) do
+
+    if req && not Version.match?(System.version(), req) do
       req
     end
   end
@@ -180,12 +192,13 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   provided in the project are in the wrong format.
   """
   def loaded_by_name(given, all_deps \\ nil, opts) do
-    all_deps = (all_deps || loaded_deps())
+    all_deps = all_deps || loaded_deps()
     # |> debug("all_deps")
 
     # Ensure all apps are atoms
-    apps = to_app_names(given)
-    |> debug("deps to recompile")
+    apps =
+      to_app_names(given)
+      |> debug("deps to recompile")
 
     deps =
       if opts[:include_children] do
@@ -194,19 +207,19 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
         get_deps(all_deps, apps)
       end
 
-    Enum.each apps, fn(app) ->
+    Enum.each(apps, fn app ->
       unless Enum.any?(all_deps, &(&1.app == app)) do
-        warn("Unknown dependency #{app} for environment #{Mix.env}")
+        warn("Unknown dependency #{app} for environment #{Mix.env()}")
       end
-    end
+    end)
 
     deps
   end
 
   defp to_app_names(given) do
-    Enum.map given, fn(app) ->
+    Enum.map(given, fn app ->
       if is_binary(app), do: String.to_atom(app), else: app
-    end
+    end)
   end
 
   defp get_deps(all_deps, apps) do
@@ -215,22 +228,23 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
 
   defp get_deps_with_children(all_deps, apps) do
     deps = get_children(all_deps, apps)
-    apps = deps |> Enum.map(& &1.app) |> Enum.uniq
+    apps = deps |> Enum.map(& &1.app) |> Enum.uniq()
     get_deps(all_deps, apps)
   end
 
   defp get_children(_all_deps, []), do: []
+
   defp get_children(all_deps, apps) do
     # Current deps
     deps = get_deps(all_deps, apps)
 
     # Children apps
-    apps = for %{deps: children} <- deps,
-               %{app: app} <- children,
-               do: app
+    apps =
+      for %{deps: children} <- deps,
+          %{app: app} <- children,
+          do: app
 
     # Current deps + children deps
     deps ++ get_children(all_deps, apps)
   end
-
 end

@@ -13,8 +13,10 @@ config :activity_pub, Oban,
   queues: false
 
 config :activity_pub, :instance,
-  federating: false #(if System.get_env("TEST_INSTANCE")=="yes", do: true, else: false)
-  # rewrite_policy: [ActivityPub.MRF.SimplePolicy]
+  # (if System.get_env("TEST_INSTANCE")=="yes", do: true, else: false)
+  federating: false
+
+# rewrite_policy: [ActivityPub.MRF.SimplePolicy]
 
 config :tesla, adapter: Tesla.Mock
 

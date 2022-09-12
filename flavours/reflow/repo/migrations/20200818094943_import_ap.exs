@@ -6,5 +6,4 @@ defmodule Bonfire.Federate.ActivityPub.Repo.Migrations.ImportMe do
 
   def up, do: migrate_activity_pub
   def down, do: migrate_activity_pub
-
 end

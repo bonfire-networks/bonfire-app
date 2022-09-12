@@ -5,5 +5,4 @@ defmodule Bonfire.Repo.Migrations.Message do
 
   def up, do: migrate_message()
   def down, do: migrate_message()
-
 end

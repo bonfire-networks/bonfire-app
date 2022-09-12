@@ -8,7 +8,8 @@ config :bonfire_common,
 # internationalisation
 config :bonfire_common, Bonfire.Common.Localise.Cldr,
   default_locale: default_locale,
-  locales: ["fr", "en", "es"], # locales that will be made available on top of those for which gettext localisation files are available
+  # locales that will be made available on top of those for which gettext localisation files are available
+  locales: ["fr", "en", "es"],
   providers: [Cldr.Language],
   gettext: Bonfire.Common.Localise.Gettext,
   data_dir: "./priv/cldr",

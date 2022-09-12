@@ -13,10 +13,12 @@ config :bonfire_common,
 
 config :bonfire_common, Bonfire.Common.Localise.Cldr,
   default_locale: default_locale,
-  locales: ["fr", "en", "es", "it", "vi"], # locales that will be made available on top of those for which gettext localisation files are available
+  # locales that will be made available on top of those for which gettext localisation files are available
+  locales: ["fr", "en", "es", "it", "vi"],
   providers: [Cldr.Language],
   gettext: Bonfire.Common.Localise.Gettext,
-  extra_gettext: [Timex.Gettext], # extra Gettex modules from dependencies not using the one from Bonfire.Common, so we can change their locale too
+  # extra Gettex modules from dependencies not using the one from Bonfire.Common, so we can change their locale too
+  extra_gettext: [Timex.Gettext],
   data_dir: "priv/cldr",
   add_fallback_locales: true,
   # precompile_number_formats: ["¤¤#,##0.##"],

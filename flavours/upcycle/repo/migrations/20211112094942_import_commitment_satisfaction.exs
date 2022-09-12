@@ -3,7 +3,7 @@ defmodule Bonfire.Repo.Migrations.ImportCommitmentSatisfaction do
 
   def up do
     ValueFlows.Planning.Commitment.Migrations.up()
-      ValueFlows.Planning.Satisfaction.Migrations.up()
+    ValueFlows.Planning.Satisfaction.Migrations.up()
   end
 
   def down do

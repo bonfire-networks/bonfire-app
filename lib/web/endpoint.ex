@@ -8,7 +8,6 @@ defmodule Bonfire.Web.Endpoint do
   end
 
   def include_assets(conn, :top) do
-
     # unused?
     # <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     # <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
@@ -16,12 +15,13 @@ defmodule Bonfire.Web.Endpoint do
     # imported into main CSS already
     # <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
-    font_family = Bonfire.Me.Settings.get([:ui, :font_family], "Inter", conn)
-    |> Utils.maybe_to_string()
-    |> String.trim_trailing(" Languages)")
-    |> String.replace([" ", "-", "(", ")"], "-")
-    |> String.replace("--", "-")
-    |> String.downcase()
+    font_family =
+      Bonfire.Me.Settings.get([:ui, :font_family], "Inter (Latin Languages)", conn)
+      |> Utils.maybe_to_string()
+      |> String.trim_trailing(" Languages)")
+      |> String.replace([" ", "-", "(", ")"], "-")
+      |> String.replace("--", "-")
+      |> String.downcase()
 
     """
     <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
@@ -32,18 +32,18 @@ defmodule Bonfire.Web.Endpoint do
     """
   end
 
-
   def include_assets(conn, :bottom) do
-    js = if Utils.e(conn, :assigns, :current_account, nil) || Utils.e(conn, :assigns, :current_user, nil) do
-      static_path("/assets/bonfire_live.js")
-    else
-      static_path("/assets/bonfire_basic.js")
-    end
+    js =
+      if Utils.e(conn, :assigns, :current_account, nil) ||
+           Utils.e(conn, :assigns, :current_user, nil) do
+        static_path("/assets/bonfire_live.js")
+      else
+        static_path("/assets/bonfire_basic.js")
+      end
 
-    (PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string) <>
-    """
-    <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
-    """
+    (PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()) <>
+      """
+      <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
+      """
   end
-
 end

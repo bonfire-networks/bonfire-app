@@ -11,5 +11,4 @@ defmodule Bonfire.Repo.Migrations.TaxonomySeeder do
   end
 
   # def change, do: nil
-
 end

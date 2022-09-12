@@ -7,5 +7,4 @@ defmodule Bonfire.Repo.Migrations.InitPointersULID do
     init_pointers_ulid_extra()
     # init_pointers()
   end
-
 end

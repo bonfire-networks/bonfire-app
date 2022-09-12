@@ -43,5 +43,4 @@ defmodule Bonfire.ConnCase do
 
     {:ok, []}
   end
-
 end

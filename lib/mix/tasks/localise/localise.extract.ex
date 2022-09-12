@@ -35,14 +35,18 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     _ = Mix.Project.get!()
     mix_config = Mix.Project.config()
     {opts, _} = OptionParser.parse!(args, switches: @switches)
-    gettext_config = mix_config[:gettext] || []
-    |> debug("gettext config")
 
-    exts_to_localise = Bonfire.MixProject.deps_for(:localise)
-    |> debug("bonfire extensions to localise")
+    gettext_config =
+      (mix_config[:gettext] || [])
+      |> debug("gettext config")
 
-    deps_to_localise = Bonfire.MixProject.deps_for(:localise_self)
-    |> debug("other deps to localise")
+    exts_to_localise =
+      Bonfire.MixProject.deps_for(:localise)
+      |> debug("bonfire extensions to localise")
+
+    deps_to_localise =
+      Bonfire.MixProject.deps_for(:localise_self)
+      |> debug("other deps to localise")
 
     touch_manifests()
 
@@ -50,9 +54,10 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     pot_files = extract(:bonfire_common, gettext_config, exts_to_localise)
 
     # then those that have their own Gettext
-    pot_files = Enum.reduce(deps_to_localise, pot_files, fn dep, pot_files ->
-      pot_files ++ extract(String.to_atom(dep), gettext_config, dep)
-    end)
+    pot_files =
+      Enum.reduce(deps_to_localise, pot_files, fn dep, pot_files ->
+        pot_files ++ extract(String.to_atom(dep), gettext_config, dep)
+      end)
 
     # pot_files |> debug("extracted pot_files")
 
@@ -72,6 +77,7 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
   defp extract(app, gettext_config, deps_to_localise) do
     Gettext.Extractor.enable()
     force_compile(deps_to_localise)
+
     Gettext.Extractor.pot_files(
       app,
       gettext_config
@@ -81,8 +87,8 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
   end
 
   defp force_compile(deps_to_localise) do
-
-    Mix.Tasks.Bonfire.Dep.Compile.run(["--force"] ++ List.wrap(deps_to_localise)) # mark deps to be recompiled
+    # mark deps to be recompiled
+    Mix.Tasks.Bonfire.Dep.Compile.run(["--force"] ++ List.wrap(deps_to_localise))
 
     # If "compile" was never called, the reenabling is a no-op and
     # "compile.elixir" is a no-op as well (because it wasn't reenabled after
@@ -95,9 +101,8 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
   end
 
   defp touch_manifests() do
-    Mix.Tasks.Compile.Elixir.manifests()
     # |> debug("manifests")
-    |> Enum.map(&make_old_if_exists/1)
+    Enum.map(Mix.Tasks.Compile.Elixir.manifests(), &make_old_if_exists/1)
   end
 
   defp make_old_if_exists(path) do
@@ -108,7 +113,9 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     pot_files
     |> Enum.map(fn {path, _} -> Path.dirname(path) end)
     |> Enum.uniq()
-    |> Task.async_stream(&Mix.Tasks.Gettext.Merge.run([&1 | argv]), ordered: false)
+    |> Task.async_stream(&Mix.Tasks.Gettext.Merge.run([&1 | argv]),
+      ordered: false
+    )
     |> Stream.run()
   end
 end

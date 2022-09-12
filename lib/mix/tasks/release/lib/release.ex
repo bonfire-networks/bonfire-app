@@ -21,33 +21,46 @@ defmodule Releaser.VersionUtils do
 
   def bump_pre(%Version{} = version, pre_label) do
     IO.inspect(old_pre: version.pre)
-    new_pre = if is_list(version.pre) and List.first(version.pre) == pre_label do
-      [pre_label, List.last(version.pre) + 1]
-    else
-      [pre_label, 1]
-    end
+
+    new_pre =
+      if is_list(version.pre) and List.first(version.pre) == pre_label do
+        [pre_label, List.last(version.pre) + 1]
+      else
+        [pre_label, 1]
+      end
+
     %{version | pre: new_pre}
   end
 
-  def version_to_string(%Version{major: major, minor: minor, patch: patch, pre: pre}) when is_list(pre) and length(pre)>0 do
-    "#{major}.#{minor}.#{patch}-"<>Enum.join(pre, ".")
+  def version_to_string(%Version{
+        major: major,
+        minor: minor,
+        patch: patch,
+        pre: pre
+      })
+      when is_list(pre) and length(pre) > 0 do
+    "#{major}.#{minor}.#{patch}-" <> Enum.join(pre, ".")
   end
+
   def version_to_string(%Version{major: major, minor: minor, patch: patch}) do
     "#{major}.#{minor}.#{patch}"
   end
 
   def get_version(mix_path \\ ".") do
-    version = if Code.ensure_loaded?(Mix.Project) do
-      Mix.Project.config()[:version]
-    else
-      contents = File.read!(mix_path<>"/mix.exs")
-      Regex.run(@version_line_regex, contents) |> Enum.fetch!(2)
-    end |> IO.inspect
+    version =
+      if Code.ensure_loaded?(Mix.Project) do
+        Mix.Project.config()[:version]
+      else
+        contents = File.read!(mix_path <> "/mix.exs")
+        Regex.run(@version_line_regex, contents) |> Enum.fetch!(2)
+      end
+      |> IO.inspect()
+
     Version.parse!(version)
   end
 
   def set_version(version, mix_path \\ ".") do
-    contents = File.read!(mix_path<>"/mix.exs")
+    contents = File.read!(mix_path <> "/mix.exs")
     version_string = version_to_string(version)
 
     replaced =
@@ -55,17 +68,22 @@ defmodule Releaser.VersionUtils do
         "#{pre}#{version_string}#{post}"
       end)
 
-    File.write!(mix_path<>"/mix.exs", replaced)
+    File.write!(mix_path <> "/mix.exs", replaced)
   end
 
   def update_version(%Version{} = version, "major"), do: bump_major(version)
   def update_version(%Version{} = version, "minor"), do: bump_minor(version)
   def update_version(%Version{} = version, "patch"), do: bump_patch(version)
-  def update_version(%Version{} = version, "alpha"=pre_label), do: bump_pre(version, pre_label)
-  def update_version(%Version{} = version, "beta"=pre_label), do: bump_pre(version, pre_label)
-  def update_version(%Version{} = _version, type), do: raise("Invalid version type: #{type}")
-end
 
+  def update_version(%Version{} = version, "alpha" = pre_label),
+    do: bump_pre(version, pre_label)
+
+  def update_version(%Version{} = version, "beta" = pre_label),
+    do: bump_pre(version, pre_label)
+
+  def update_version(%Version{} = _version, type),
+    do: raise("Invalid version type: #{type}")
+end
 
 defmodule Releaser.Git do
   @doc """
@@ -77,6 +95,7 @@ defmodule Releaser.Git do
     version_string = VersionUtils.version_to_string(version)
     Mix.Shell.IO.cmd("git add .", [])
     Mix.Shell.IO.cmd(~s'git commit -m "Bumped version number"')
+
     Mix.Shell.IO.cmd(~s'git tag -a v#{version_string} -m "Version #{version_string}"')
   end
 end
@@ -108,15 +127,17 @@ end
 defmodule Mix.Tasks.Bonfire.Release do
   alias Releaser.VersionUtils
 
-  def main(args) do # for running as escript
+  # for running as escript
+  def main(args) do
     run(args)
   end
 
-  def run(args) do # when running as Mix task
+  # when running as Mix task
+  def run(args) do
+    mix_path = if is_list(args) and length(args) > 0, do: List.first(args), else: "."
 
-    mix_path = if is_list(args) and length(args)>0, do: List.first(args), else: "."
-
-    release_type = if is_list(args) and length(args)>1, do: List.last(args), else: "alpha" # TODO make the default configurable
+    # TODO make the default configurable
+    release_type = if is_list(args) and length(args) > 1, do: List.last(args), else: "alpha"
 
     IO.inspect(release_type: release_type)
 
@@ -129,7 +150,7 @@ defmodule Mix.Tasks.Bonfire.Release do
     IO.inspect(old_version: old_version)
 
     new_version = VersionUtils.update_version(old_version, release_type)
-    IO.inspect(new_version: new_version |> VersionUtils.version_to_string())
+    IO.inspect(new_version: VersionUtils.version_to_string(new_version))
 
     # Set a new version on the mix.exs file
     VersionUtils.set_version(new_version, mix_path)

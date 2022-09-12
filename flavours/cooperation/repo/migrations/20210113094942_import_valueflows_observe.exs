@@ -4,10 +4,10 @@ defmodule Bonfire.Repo.Migrations.ImportValueFlowsObserve do
   alias ValueFlows.Observe.Migrations
 
   def up do
-    Migrations.up
+    Migrations.up()
   end
 
   def down do
-    Migrations.down
+    Migrations.down()
   end
 end
