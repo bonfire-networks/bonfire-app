@@ -2,4 +2,5 @@ import Config
 
 config :bonfire_me,
   validate_name_min: 1,
-  validate_name_max: 250 # needed for taxonomy
+  # needed for taxonomy
+  validate_name_max: 250

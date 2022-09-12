@@ -25,7 +25,10 @@ defmodule Bonfire.Web.Telemetry do
     [
       # Phoenix
       summary("phoenix.endpoint.stop.duration", unit: @millis),
-      summary("phoenix.router_dispatch.stop.duration", tags: [:route], unit: @millis),
+      summary("phoenix.router_dispatch.stop.duration",
+        tags: [:route],
+        unit: @millis
+      ),
       summary("phoenix.error_rendered.duration", unit: @millis),
       summary("phoenix.socket_connected.duration", unit: @millis),
       summary("phoenix.channel_joined.duration", unit: @millis),
@@ -35,11 +38,15 @@ defmodule Bonfire.Web.Telemetry do
       summary("phoenix.live_view.mount.stop.duration", unit: @millis),
       summary("phoenix.live_view.mount.exception.duration", unit: @millis),
       summary("phoenix.live_view.handle_params.stop.duration", unit: @millis),
-      summary("phoenix.live_view.handle_params.exception.duration", unit: @millis),
+      summary("phoenix.live_view.handle_params.exception.duration",
+        unit: @millis
+      ),
       summary("phoenix.live_view.handle_event.stop.duration", unit: @millis),
       summary("phoenix.live_view.handle_event.exception.duration", unit: @millis),
       summary("phoenix.live_component.handle_event.stop.duration", unit: @millis),
-      summary("phoenix.live_component.handle_event.exception.duration", unit: @millis),
+      summary("phoenix.live_component.handle_event.exception.duration",
+        unit: @millis
+      ),
 
       # Database Metrics
       summary("bonfire.repo.query.total_time", unit: @millis),

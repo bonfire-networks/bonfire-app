@@ -8,11 +8,13 @@ System.put_env("SEARCH_INDEXING_DISABLED", "true")
 
 # if the user has configured an admin user for the seeds, insert it.
 case {System.get_env("ADMIN_USER", "root"), System.get_env("ADMIN_PASSWORD", "")} do
-  {u,p} when p != "" ->
+  {u, p} when p != "" ->
     fake_account!(%{credential: %{password: p}})
     |> fake_user!(%{character: %{username: u}, profile: %{name: u}})
     |> Bonfire.Me.Users.make_admin()
-  _ -> nil
+
+  _ ->
+    nil
 end
 
 # create some users
@@ -20,7 +22,7 @@ users = for _ <- 1..3, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
 
 # start fake threads
-#for _ <- 1..3 do
+# for _ <- 1..3 do
 #  user = random_user.()
 #  thread = fake_thread!(user)
 #  comment = fake_comment!(user, thread)
@@ -28,15 +30,14 @@ random_user = fn -> Faker.Util.pick(users) end
 #  reply = fake_comment!(random_user.(), thread, %{in_reply_to_id: comment.id})
 #  subreply = fake_comment!(random_user.(), thread, %{in_reply_to_id: reply.id})
 #  subreply2 = fake_comment!(random_user.(), thread, %{in_reply_to_id: subreply.id})
-#end
+# end
 #
 ## more fake threads
-#for _ <- 1..2 do
+# for _ <- 1..2 do
 #  user = random_user.()
 #  thread = fake_thread!(user)
 #  comment = fake_comment!(user, thread)
-#end
-
+# end
 
 # define some tags/categories
 if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Classify.Simulate)) do
@@ -82,17 +83,21 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
 
     # some proposed intents
     action_id = ValueFlows.Simulate.action_id()
-    intent = ValueFlows.Simulate.fake_intent!(user, %{resource_conforms_to: res_spec, action_id: action_id})
+
+    intent =
+      ValueFlows.Simulate.fake_intent!(user, %{
+        resource_conforms_to: res_spec,
+        action_id: action_id
+      })
+
     proposal = ValueFlows.Simulate.fake_proposal!(user)
     ValueFlows.Simulate.fake_proposed_to!(random_user.(), proposal)
     ValueFlows.Simulate.fake_proposed_intent!(proposal, intent)
 
     # define some geolocations
     if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Geolocate.Simulate)) do
-
       places = for _ <- 1..2, do: Bonfire.Geolocate.Simulate.fake_geolocation!(random_user.())
       random_place = fn -> Faker.Util.pick(places) end
-
 
       for _ <- 1..2 do
         # define some intents with geolocation
@@ -103,7 +108,8 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
           )
 
         # define some proposals with geolocation
-        _proposal = ValueFlows.Simulate.fake_proposal!(user, %{eligible_location: random_place.()})
+        _proposal =
+          ValueFlows.Simulate.fake_proposal!(user, %{eligible_location: random_place.()})
 
         # both with geo
         intent =
@@ -118,8 +124,13 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
         # some economic events
         user = random_user.()
 
-        resource_inventoried_as = ValueFlows.Simulate.fake_economic_resource!(user, %{current_location: random_place.()})
-        to_resource_inventoried_as = ValueFlows.Simulate.fake_economic_resource!(random_user.(), %{current_location: random_place.()})
+        resource_inventoried_as =
+          ValueFlows.Simulate.fake_economic_resource!(user, %{current_location: random_place.()})
+
+        to_resource_inventoried_as =
+          ValueFlows.Simulate.fake_economic_resource!(random_user.(), %{
+            current_location: random_place.()
+          })
 
         ValueFlows.Simulate.fake_economic_event!(
           user,
@@ -155,7 +166,9 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
         unit = Faker.Util.pick([unit1, unit2])
 
         resource_inventoried_as = ValueFlows.Simulate.fake_economic_resource!(user, %{}, unit)
-        to_resource_inventoried_as = ValueFlows.Simulate.fake_economic_resource!(random_user.(), %{}, unit)
+
+        to_resource_inventoried_as =
+          ValueFlows.Simulate.fake_economic_resource!(random_user.(), %{}, unit)
 
         ValueFlows.Simulate.fake_economic_event!(
           user,

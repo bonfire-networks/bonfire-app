@@ -9,5 +9,4 @@ defmodule Bonfire.Release do
       escript: [main_module: Mix.Tasks.Bonfire.Release]
     ]
   end
-
 end

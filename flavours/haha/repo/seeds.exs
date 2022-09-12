@@ -6,19 +6,20 @@ import Bonfire.Me.Fake
 System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
 
-%{
-  preferred_username: System.get_env("SEEDS_USER", "root"),
-  name: System.get_env("SEEDS_USER", "Seed User")
-}
-|> fake_user!(%{confirm_email: true})
+fake_user!(
+  %{
+    preferred_username: System.get_env("SEEDS_USER", "root"),
+    name: System.get_env("SEEDS_USER", "Seed User")
+  },
+  %{confirm_email: true}
+)
 
 # create some users
 users = for _ <- 1..3, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
 
-
 # start fake threads
-#for _ <- 1..3 do
+# for _ <- 1..3 do
 #  user = random_user.()
 #  thread = fake_thread!(user)
 #  comment = fake_comment!(user, thread)
@@ -26,15 +27,14 @@ random_user = fn -> Faker.Util.pick(users) end
 #  reply = fake_comment!(random_user.(), thread, %{in_reply_to_id: comment.id})
 #  subreply = fake_comment!(random_user.(), thread, %{in_reply_to_id: reply.id})
 #  subreply2 = fake_comment!(random_user.(), thread, %{in_reply_to_id: subreply.id})
-#end
+# end
 #
 ## more fake threads
-#for _ <- 1..2 do
+# for _ <- 1..2 do
 #  user = random_user.()
 #  thread = fake_thread!(user)
 #  comment = fake_comment!(user, thread)
-#end
-
+# end
 
 # define some tags/categories
 if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Classify.Simulate)) do

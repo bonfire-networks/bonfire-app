@@ -21,5 +21,5 @@ config :bonfire_gc,
       Bonfire.Data.Identity.Caretaker,
       Bonfire.Data.Identity.Self,
       Bonfire.Data.Social.PostContent
-    ],
+    ]
   ]

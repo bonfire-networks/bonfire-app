@@ -2,7 +2,7 @@ import Config
 
 default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
-flavour_path = System.get_env("FLAVOUR_PATH", "flavours/"<>flavour)
+flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 
 #### Basic configuration
 
@@ -33,7 +33,8 @@ config :bonfire,
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   http: [
-    port: String.to_integer(System.get_env("SERVER_PORT", "4000")), # this gets overriden in runtime.exs
+    # this gets overriden in runtime.exs
+    port: String.to_integer(System.get_env("SERVER_PORT", "4000")),
     transport_options: [socket_opts: [:inet6]]
   ],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
@@ -44,6 +45,7 @@ config :phoenix_gon, :json_library, Jason
 
 config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+
 config :bonfire, Bonfire.Common.Repo,
   types: Bonfire.Geolocate.PostgresTypes,
   priv: flavour_path <> "/repo"
@@ -74,9 +76,8 @@ config :mime, :types, %{
 
 config :sentry,
   dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
-  environment_name: Mix.env,
+  environment_name: Mix.env(),
   included_environments: [:prod]
-
 
 # include config for all used Bonfire extensions
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
@@ -85,7 +86,6 @@ for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
 end
 
 import_config "activity_pub.exs"
-
 
 # finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{config_env()}.exs"

@@ -5,5 +5,4 @@ defmodule Bonfire.Boundaries.Repo.Migrations.ImportBoundaries do
 
   def up, do: migrate_boundaries
   def down, do: migrate_boundaries
-
 end

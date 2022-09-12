@@ -5,7 +5,6 @@ config :activity_pub, :repo, Bonfire.Common.Repo
 
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
-
 config :activity_pub, :instance,
   hostname: "localhost",
   federation_publisher_modules: [ActivityPubWeb.Publisher],
@@ -29,6 +28,7 @@ config :activity_pub, :mrf_simple,
   banner_removal: []
 
 config :http_signatures, adapter: ActivityPub.Signature
+
 config :activity_pub, :http,
   proxy_url: nil,
   send_user_agent: true,
@@ -42,10 +42,14 @@ config :activity_pub, :http,
   ]
 
 config :activity_pub, ActivityPubWeb.Endpoint,
-  render_errors: [view: ActivityPubWeb.ErrorView, accepts: ~w(json), layout: false]
+  render_errors: [
+    view: ActivityPubWeb.ErrorView,
+    accepts: ~w(json),
+    layout: false
+  ]
 
 config :activity_pub, :json_contexts, %{
-    "Hashtag"=> "as:Hashtag",
-    "ValueFlows" => "https://w3id.org/valueflows#",
-    "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-  }
+  "Hashtag" => "as:Hashtag",
+  "ValueFlows" => "https://w3id.org/valueflows#",
+  "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+}

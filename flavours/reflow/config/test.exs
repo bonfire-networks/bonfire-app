@@ -15,7 +15,6 @@ config :bonfire_search,
 config :logger, level: :info
 # config :logger, level: :notice
 
-
 # Configure your database
 db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
 #
@@ -32,7 +31,7 @@ config :bonfire, Bonfire.Common.Repo,
 # These defaults are overriden in runtime.exs
 config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4001],
-  server: (if System.get_env("TEST_INSTANCE")=="yes", do: true, else: false)
+  server: if(System.get_env("TEST_INSTANCE") == "yes", do: true, else: false)
 
 # Run a 2nd endpoint for testing federation (not currently used)
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
@@ -59,6 +58,7 @@ config :mix_test_interactive,
   clear: true
 
 config :paginator, ecto_repos: [Bonfire.Common.Repo]
+
 config :paginator, Paginator.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   username: System.get_env("POSTGRES_USER", "postgres"),
@@ -66,4 +66,6 @@ config :paginator, Paginator.Repo,
   hostname: System.get_env("POSTGRES_HOST", "localhost"),
   database: db
 
-config :tesla, adapter: (if System.get_env("TEST_INSTANCE")=="yes", do: Tesla.Adapter.Hackney, else: Tesla.Mock)
+config :tesla,
+  adapter:
+    if(System.get_env("TEST_INSTANCE") == "yes", do: Tesla.Adapter.Hackney, else: Tesla.Mock)

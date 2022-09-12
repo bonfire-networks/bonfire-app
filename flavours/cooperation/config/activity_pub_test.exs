@@ -12,9 +12,8 @@ config :activity_pub, Oban,
   repo: Bonfire.Common.Repo,
   queues: false
 
-config :activity_pub, :instance,
-  federating: false
-  # rewrite_policy: [ActivityPub.MRF.SimplePolicy]
+config :activity_pub, :instance, federating: false
+# rewrite_policy: [ActivityPub.MRF.SimplePolicy]
 
 config :tesla, adapter: Tesla.Mock
 

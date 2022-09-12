@@ -2,7 +2,7 @@ import Config
 
 default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
-flavour_path = System.get_env("FLAVOUR_PATH", "flavours/"<>flavour)
+flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 
 #### Basic configuration
 
@@ -26,9 +26,12 @@ config :bonfire,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
   user_home_page: Bonfire.UI.Social.FeedsLive,
-  default_pagination_limit: 15, # limit for prod
-  thread_default_pagination_limit: 500, # very high limit for prod
-  thread_default_max_depth: 3, # how many nested replies to show
+  # limit for prod
+  default_pagination_limit: 15,
+  # very high limit for prod
+  thread_default_pagination_limit: 500,
+  # how many nested replies to show
+  thread_default_max_depth: 3,
   localisation_path: "priv/localisation",
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   signing_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
@@ -37,10 +40,15 @@ config :bonfire,
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   http: [
-    port: String.to_integer(System.get_env("SERVER_PORT", "4000")), # this gets overriden in runtime.exs
+    # this gets overriden in runtime.exs
+    port: String.to_integer(System.get_env("SERVER_PORT", "4000")),
     transport_options: [socket_opts: [:inet6]]
   ],
-  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    view: Bonfire.UI.Common.ErrorView,
+    accepts: ~w(html json),
+    layout: false
+  ],
   pubsub_server: Bonfire.PubSub
 
 config :phoenix, :json_library, Jason
@@ -48,11 +56,17 @@ config :phoenix_gon, :json_library, Jason
 
 config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+
 config :bonfire, Bonfire.Common.Repo,
-  types: Bonfire.Geolocate.PostgresTypes # point to the appropriate definition to support any Postgres extensions used by your Bonfire flavour or extensions
-  # priv: flavour_path <> "/repo",
+  # point to the appropriate definition to support any Postgres extensions used by your Bonfire flavour or extensions
+  types: Bonfire.Geolocate.PostgresTypes
+
+# priv: flavour_path <> "/repo",
 config :ecto_sparkles, :otp_app, :bonfire
-config :ecto_shorts, repo: Bonfire.Common.Repo, error_module: EctoShorts.Actions.Error
+
+config :ecto_shorts,
+  repo: Bonfire.Common.Repo,
+  error_module: EctoShorts.Actions.Error
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
@@ -63,8 +77,7 @@ config :logger, :console,
 
 config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 
-config :surface, :compiler,
-    warn_on_undefined_props: false
+config :surface, :compiler, warn_on_undefined_props: false
 
 config :bonfire, Oban,
   repo: Bonfire.Common.Repo,
@@ -85,12 +98,11 @@ config :mime, :types, %{
 
 config :sentry,
   dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
-  environment_name: Mix.env,
+  environment_name: Mix.env(),
   # enable_source_code_context: true,
   root_source_code_path: File.cwd!(),
   included_environments: [:prod, :dev],
   tags: %{app_version: Mix.Project.config()[:version]}
-
 
 # include config for all used Bonfire extensions
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
@@ -99,7 +111,6 @@ for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
 end
 
 import_config "activity_pub.exs"
-
 
 # finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{config_env()}.exs"

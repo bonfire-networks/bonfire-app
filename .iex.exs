@@ -24,9 +24,9 @@ if module_enabled?(Bonfire.Common.Test.Interactive) && Mix.env() == :test do
     Process.unlink(pid)
   end
 
-  Bonfire.Common.Test.Interactive.Helpers.ready
-
+  Bonfire.Common.Test.Interactive.Helpers.ready()
 else
   info("IExWatchTests is not running")
 end
-import_if_enabled Bonfire.Common.Test.Interactive.Helpers
+
+import_if_enabled(Bonfire.Common.Test.Interactive.Helpers)

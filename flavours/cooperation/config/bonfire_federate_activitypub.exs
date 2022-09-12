@@ -13,12 +13,13 @@ config :bonfire,
     :bonfire_classify,
     :bonfire_geolocate,
     :bonfire_quantify
-    ],
-  log_federation: true, # enable/disable logging of federation logic
+  ],
+  # enable/disable logging of federation logic
+  log_federation: true,
   federation_fallback_module: Bonfire.Social.APActivities
 
 config :bonfire, actor_AP_types: actor_types
 
 # config :bonfire, Bonfire.Instance,
-  # hostname: hostname,
-  # description: desc
+# hostname: hostname,
+# description: desc

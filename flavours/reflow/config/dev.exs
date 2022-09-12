@@ -10,10 +10,14 @@ path_dep_dirs =
   |> Enum.map(&(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
 
 config :phoenix_live_reload,
-  dirs: path_dep_dirs ++ ["lib/"] # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
+  # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
+  dirs: path_dep_dirs ++ ["lib/"]
 
-path_dep_patterns = path_dep_dirs |> Enum.map(&(String.slice(&1, 2..1000) <>".*ex")) # to include cloned code in patterns
-path_dep_patterns = path_dep_patterns ++ path_dep_dirs |> Enum.map(&(String.slice(&1, 2..1000) <>".*sface")) # Surface views
+# to include cloned code in patterns
+path_dep_patterns = Enum.map(path_dep_dirs, &(String.slice(&1, 2..1000) <> ".*ex"))
+# Surface views
+path_dep_patterns =
+  (path_dep_patterns ++ path_dep_dirs) |> Enum.map(&(String.slice(&1, 2..1000) <> ".*sface"))
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
@@ -36,24 +40,26 @@ config :bonfire, Bonfire.Web.Endpoint,
     ]
   ],
   live_reload: [
-    patterns: [
-      # ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      # ~r"^priv/gettext/.*(po)$",
-      # ~r"^web/(live|views)/.*ex$",
-      # ~r"^lib/.*_live\.ex$",
-      # ~r".*leex$",
-      ~r"lib/.*ex$",
-      ~r".*sface$",
-      ~r"priv/catalogue/.*(ex)$",
-    ] ++ path_dep_patterns
-  ]
+    patterns:
+      [
+        # ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+        # ~r"^priv/gettext/.*(po)$",
+        # ~r"^web/(live|views)/.*ex$",
+        # ~r"^lib/.*_live\.ex$",
+        # ~r".*leex$",
+        # defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
 
-# defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
+        ~r"lib/.*ex$",
+        ~r".*sface$",
+        ~r"priv/catalogue/.*(ex)$"
+      ] ++ path_dep_patterns
+  ]
 
 config :logger, :console,
   level: :debug,
   # truncate: :infinity,
-  format: "[$level] $message\n" # Do not include metadata or timestamps
+  # Do not include metadata or timestamps
+  format: "[$level] $message\n"
 
 config :phoenix, :stacktrace_depth, 30
 

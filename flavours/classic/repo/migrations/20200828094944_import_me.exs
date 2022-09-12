@@ -9,5 +9,4 @@ defmodule Bonfire.Repo.Migrations.ImportMe do
   end
 
   def down, do: migrate_me()
-
 end
