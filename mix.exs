@@ -49,6 +49,7 @@ defmodule Bonfire.MixProject do
         "ecto_shorts",
         "ecto_sparkles",
         "activity_pub",
+        "arrows",
         "linkify",
         "fetch_favicon"
       ],
@@ -459,6 +460,7 @@ defmodule Bonfire.MixProject do
       "test/support"
       | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))
     ]
+    |> IO.inspect()
 
   defp elixirc_paths(env), do: ["lib"] ++ catalogues(env)
 
