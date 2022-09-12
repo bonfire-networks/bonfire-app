@@ -519,7 +519,7 @@ defmodule Bonfire.MixProject do
         do: spec[:path],
         else:
           (Mix.Project.deps_path() <> "/" <> dep_name(dep))
-          |> Path.expand(File.cwd!())
+          |> Path.relative_to_cwd()
 
     path_if_exists(path)
   end
