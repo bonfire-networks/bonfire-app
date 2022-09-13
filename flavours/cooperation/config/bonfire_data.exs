@@ -62,8 +62,7 @@ extensions_with_config =
       :bonfire_boundaries,
       :bonfire_federate_activitypub,
       :bonfire_search,
-      :bonfire_mailer,
-      :bonfire_geolocate
+      :bonfire_mailer
     ]
 
 extensions_with_ui =
