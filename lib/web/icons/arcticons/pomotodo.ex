@@ -1,4 +1,4 @@
-defmodule Iconify.HeroiconsOutline.ChatAlt2 do
+defmodule Iconify.Arcticons.Pomotodo do
   use Phoenix.Component
 
   def render(assigns) do
@@ -8,7 +8,7 @@ defmodule Iconify.HeroiconsOutline.ChatAlt2 do
       aria-hidden="true"
       role="img"
       class={@class}
-      viewBox="0 0 24 24"
+      viewBox="0 0 48 48"
       aria-hidden="true"
     >
       <path
@@ -16,8 +16,7 @@ defmodule Iconify.HeroiconsOutline.ChatAlt2 do
         stroke="currentColor"
         stroke-linecap="round"
         stroke-linejoin="round"
-        stroke-width="2"
-        d="M17 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v4l-4-4H9a1.994 1.994 0 0 1-1.414-.586m0 0L11 14h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4l.586-.586Z"
+        d="M24 2.5a21.515 21.515 0 1 0 18.816 11.11c-11.229 7.287-19.31 19.874-19.31 19.874l-10.8-12.035l2.827-2.676L22.89 24s10.096-8.369 18.492-12.646A21.5 21.5 0 0 0 24 2.5Z"
       />
     </svg>
     """

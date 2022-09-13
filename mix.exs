@@ -460,7 +460,8 @@ defmodule Bonfire.MixProject do
       "test/support"
       | Enum.flat_map(deps(:test), &dep_paths(&1, "test/support"))
     ]
-    |> IO.inspect()
+
+  # |> IO.inspect()
 
   defp elixirc_paths(env), do: ["lib"] ++ catalogues(env)
 
