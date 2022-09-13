@@ -19,7 +19,7 @@ module.exports = {
       screens: {
         'tablet': '920px',
         'tablet-lg': '1200px',
-        'desktop-lg': '1464px',
+        'desktop-lg': '1448px',
         'wide': '1920px'
       },
       maxWidth: {
