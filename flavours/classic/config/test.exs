@@ -65,7 +65,7 @@ config :paginator, Paginator.Repo,
 
 config :exsync,
   src_monitor: false,
-  extra_extensions: [".leex", ".js", ".css", ".sface"]
+  extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
 
 # for headless browser testing:
 config :bonfire, sql_sandbox: true
