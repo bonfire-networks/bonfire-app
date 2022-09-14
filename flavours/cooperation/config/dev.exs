@@ -71,4 +71,6 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :exsync,
   src_monitor: true,
+  reload_timeout: 75,
+  # addition_dirs: ["/forks"],
   extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]

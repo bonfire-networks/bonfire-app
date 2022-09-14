@@ -87,7 +87,7 @@ config :surface, :compiler, warn_on_undefined_props: true
 
 config :exsync,
   src_monitor: true,
-  extra_extensions: [".leex", ".js", ".css", ".sface"]
+  extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
 
 config :versioce, :changelog,
   # Or your own datagrabber module
