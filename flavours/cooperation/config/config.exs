@@ -46,9 +46,8 @@ config :phoenix_gon, :json_library, Jason
 config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
 
-config :bonfire, Bonfire.Common.Repo,
-  types: Bonfire.Geolocate.PostgresTypes,
-  priv: flavour_path <> "/repo"
+config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
+# priv: flavour_path <> "/repo"
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]

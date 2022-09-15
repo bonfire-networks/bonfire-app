@@ -251,6 +251,8 @@ defmodule Bonfire.MixProject do
       {:git_cli, "~> 0.3.0", only: :dev},
       # {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0" # disabled because exqlite not working in CI
       {:recode, "~> 0.4", only: :dev},
+      # API client needed for changelog generation
+      {:neuron, "~> 5.0", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},

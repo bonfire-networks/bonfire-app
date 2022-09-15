@@ -202,7 +202,11 @@ update-deps-bonfire:
 # Update evey single dependency (use with caution)
 update-deps-all: deps-clean-unused
 	just mix-remote "deps.update --all"
-	just deps-get
+	just js-app-deps upgrade
+	just js-ext-deps upgrade
+	just js-ext-deps outdated
+	just js-app-deps outdated
+	just mix "hex.outdated --all"
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: 
@@ -224,7 +228,7 @@ update-fork dep:
 deps-get: 
 	just mix-remote deps.get
 	just mix deps.get 
-	just js-ext-deps-get
+	just js-deps-get
 
 deps-clean: 
 	just mix bonfire.deps.clean
@@ -237,15 +241,15 @@ deps-clean-api:
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js-deps-get: js-app-deps-get js-ext-deps-get
+js-deps-get: js-app-deps js-ext-deps
 
-js-app-deps-get:
-	chmod +x ./assets/install_app.sh
-	just cmd ./assets/install_app.sh
+js-app-deps yarn_args='':
+	chmod +x ./assets/install_app.sh 
+	just cmd ./assets/install_app.sh $yarn_args
 
-js-ext-deps-get:
-	chmod +x ./config/deps.js.sh
-	just cmd ./config/deps.js.sh
+js-ext-deps yarn_args='':
+	chmod +x ./config/deps.js.sh 
+	just cmd ./config/deps.js.sh $yarn_args
 
 deps-outdated: deps-clean-unused
 	@just mix-remote "hex.outdated --all"
@@ -309,8 +313,8 @@ messctl *args='': init
 #### CONTRIBUTION RELATED COMMANDS ####
 
 pre-push-hooks: pre-contrib-hooks
-	just mix format
 	just mix changelog
+	just mix format
 
 pre-contrib-hooks: 
 	-sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
