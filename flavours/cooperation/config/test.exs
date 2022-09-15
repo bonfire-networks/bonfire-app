@@ -34,10 +34,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4001],
   server: false
 
-config :bonfire, Oban,
-  crontab: false,
-  plugins: false,
-  queues: false
+config :bonfire, Oban, testing: :manual
 
 config :pbkdf2_elixir, :rounds, 1
 

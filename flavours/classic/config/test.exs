@@ -44,10 +44,7 @@ config :bonfire, Bonfire.Common.Repo,
 
 config :bonfire, Bonfire.Web.Endpoint, http: [port: 4001]
 
-config :bonfire, Oban,
-  crontab: false,
-  plugins: false,
-  queues: false
+config :bonfire, Oban, testing: :manual
 
 config :pbkdf2_elixir, :rounds, 1
 

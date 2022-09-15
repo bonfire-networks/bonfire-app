@@ -47,10 +47,7 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   live_view: [signing_salt: System.get_env("SIGNING_SALT")],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
 
-config :bonfire, Oban,
-  crontab: false,
-  plugins: false,
-  queues: false
+config :bonfire, Oban, testing: :manual
 
 config :pbkdf2_elixir, :rounds, 1
 
