@@ -183,10 +183,12 @@ update: init update-repo
 # Update the app and Bonfire extensions in ./deps
 update-app: update-repo update-deps 
 
-# Update Bonfire extensions in ./deps
-update-deps: 
+pre-update-deps: 
 	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@rm -rf deps/*/assets/yarn.lock
+
+# Update Bonfire extensions in ./deps
+update-deps: pre-update-deps
 	just mix-remote updates 
 
 update-repo: pre-contrib-hooks
@@ -200,7 +202,7 @@ update-deps-bonfire:
 	just mix-remote bonfire.deps
 
 # Update evey single dependency (use with caution)
-update-deps-all: deps-clean-unused
+update-deps-all: deps-clean-unused pre-update-deps
 	just mix-remote "deps.update --all"
 	just js-app-deps upgrade
 	just js-ext-deps upgrade
