@@ -1,77 +1,54 @@
-<div class="items-start justify-center w-full  max-w-screen-xl mx-auto">
-  <div
-    class="mb-3 bg-center bg-no-repeat bg-cover h-[250px] rounded-md shadow"
-    style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-  >
-  </div>
 
-  <!-- <nav
-      role="tabpanel"
-      class="flex justify-between w-full pt-2 border-b rounded-t-md bg-base-200 tabs border-base-content border-opacity-10"
-      aria-label="Switch between search filter tabs"
+<Bonfire.UI.Common.LogoGuestLive />
+<div class="grid items-start grid-cols-2 gap-8 justify-items-start">
+  <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
+    <div
+      class="w-full bg-center bg-no-repeat bg-cover h-[250px] rounded-xl"
+      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
     >
-      <LiveRedirect
-        class={"hover:bg-base-content hover:bg-opacity-10 flex-1 pt-2 font-semibold place-content-center flex capitalize text-base"}  
-        to={"/"}>
-        <div class={"tab tab-bordered", "tab-active": @selected_tab == "home"}>
-          {Config.get([:ui, :theme, :instance_welcome, :title], l "About")}
-        </div>
-      </LiveRedirect>
+    </div>
 
-      <LiveRedirect
-        :if={Config.get([:bonfire, :terms, :conduct], nil)} 
-        class={"hover:bg-base-content hover:bg-opacity-10 flex-1 pt-2 font-semibold place-content-center flex capitalize text-base"} 
-        to={"/terms/code-of-conduct"}>
-        <div class={"tab tab-bordered", "tab-active": @selected_tab == "code-of-conduct"}>
-          {l "Code of Conduct"}
-        </div>
-      </LiveRedirect>
+    {#case @selected_tab}
+      {#match "code-of-conduct"}
+        {#case Config.get([:bonfire, :terms, :conduct], nil)}
+          {#match terms when is_binary(terms)}
+            <Bonfire.UI.Common.WidgetTextLive text={terms} />
+          {#match _}
+        {/case}
+      {#match "privacy-policy"}
+        {#case Config.get([:bonfire, :terms, :privacy], nil)}
+          {#match terms when is_binary(terms)}
+            <Bonfire.UI.Common.WidgetTextLive text={terms} />
+          {#match _}
+        {/case}
+      {#match "changelog"}
+        {#case @changelog}
+          {#match changelog when is_binary(changelog)}
+            <Bonfire.UI.Common.WidgetTextLive text={changelog} />
+          {#match _}
+        {/case}
+      {#match _}
+        <Bonfire.UI.Common.WidgetTextLive
+          banner_image={Config.get([:ui, :theme, :instance_image], nil)}
+          text={Config.get([:ui, :theme, :instance_welcome, :description], nil) ||
+            Config.get([:ui, :theme, :instance_description], l("Welcome"))}
+          info={%{
+            "instance" => %{
+              "name" => Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
+              "description" => Config.get([:ui, :theme, :instance_description], "")
+            },
+            "app" => %{
+              "name" => Bonfire.Application.name(),
+              "version" => Bonfire.Application.version()
+            }
+          }}
+        />
+    {/case}
 
-      <LiveRedirect 
-        :if={Config.get([:bonfire, :terms, :privacy], nil)}
-        class={"hover:bg-base-content hover:bg-opacity-10 flex-1 pt-2 font-semibold place-content-center flex capitalize text-base"} 
-        to={"/terms/privacy-policy"}>
-        <div class={"tab tab-bordered", "tab-active": @selected_tab == "privacy-policy"}>
-          {l "Privacy Policy"}
-        </div>
-      </LiveRedirect>
-
-    </nav> -->
-
-  {#case @selected_tab}
-    {#match "code-of-conduct"}
-      {#case Config.get([:bonfire, :terms, :conduct], nil)}
-        {#match terms when is_binary(terms)}
-          <Bonfire.UI.Common.WidgetTextLive text={terms} />
-        {#match _}
-      {/case}
-    {#match "privacy-policy"}
-      {#case Config.get([:bonfire, :terms, :privacy], nil)}
-        {#match terms when is_binary(terms)}
-          <Bonfire.UI.Common.WidgetTextLive text={terms} />
-        {#match _}
-      {/case}
-    {#match "changelog"}
-      {#case @changelog}
-        {#match changelog when is_binary(changelog)}
-          <Bonfire.UI.Common.WidgetTextLive text={changelog} />
-        {#match _}
-      {/case}
-    {#match _}
-      <Bonfire.UI.Common.WidgetTextLive
-        banner_image={Config.get([:ui, :theme, :instance_image], nil)}
-        text={Config.get([:ui, :theme, :instance_welcome, :description], nil) ||
-          Config.get([:ui, :theme, :instance_description], l("Welcome"))}
-        info={%{
-          "instance" => %{
-            "name" => Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
-            "description" => Config.get([:ui, :theme, :instance_description], "")
-          },
-          "app" => %{
-            "name" => Bonfire.Application.name(),
-            "version" => Bonfire.Application.version()
-          }
-        }}
-      />
-  {/case}
+    <Bonfire.UI.Common.WidgetLinksLive links={@links} />
+  </div>
+  <div class="flex flex-col w-full gap-3">
+    <Bonfire.UI.Me.LoginViewLive form={@form} error={@error} />
+    <Bonfire.UI.Me.WidgetAdminsLive />
+  </div>
 </div>
