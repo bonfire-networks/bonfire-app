@@ -1,5 +1,5 @@
 
-<Bonfire.UI.Common.LogoGuestLive />
+<Bonfire.UI.Common.LogoGuestLive :if={!@current_user} />
 <div class="grid items-start grid-cols-1 gap-8 md:grid-cols-2 justify-items-start">
   <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
     <div
@@ -48,7 +48,12 @@
     <Bonfire.UI.Common.WidgetLinksLive links={@links} />
   </div>
   <div class="flex flex-col w-full gap-3">
-    <Bonfire.UI.Me.LoginViewLive form={@form} error={@error} />
+    <Bonfire.UI.Me.LoginViewLive 
+      :if={!@current_user}
+      form={@form} error={@error} />
     <Bonfire.UI.Me.WidgetAdminsLive />
+    <Bonfire.UI.Social.WidgetTagsLive 
+      :if={@current_user}
+    />
   </div>
 </div>
