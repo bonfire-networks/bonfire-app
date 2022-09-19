@@ -9,58 +9,60 @@ defmodule Bonfire.Web.HomeLive do
   @changelog File.read!("docs/CHANGELOG.md")
 
   def mount(params, session, socket) do
-    live_plug params, session, socket, [
+    live_plug(params, session, socket, [
       LivePlugs.LoadCurrentAccount,
       LivePlugs.LoadCurrentUser,
       Bonfire.UI.Common.LivePlugs.StaticChanged,
       Bonfire.UI.Common.LivePlugs.Csrf,
       Bonfire.UI.Common.LivePlugs.Locale,
-      &mounted/3,
-    ]
+      &mounted/3
+    ])
   end
 
   defp mounted(params, _session, socket) do
     instance_name = Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())
-    links = Config.get([:ui, :theme, :instance_welcome, :links], %{
-      l("About Bonfire") => "https://bonfirenetworks.org/",
-      l("Contribute") => "https://bonfirenetworks.org/contribute/"
-    })
 
-    {:ok, socket
-    |> assign(
-      page: "home",
-      selected_tab: "home",
-      page_title: instance_name,
-      links: links,
-      changelog: @changelog,
-      without_guest_header: true,
-      error: nil,
-      form: login_form(params),
-      without_sidebar: true,
-      sidebar_widgets: [
-        # users: [
-        #   secondary: [
-        #     {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-        #     {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
-        #     {Bonfire.UI.Me.WidgetAdminsLive, []},
-        #     {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
-        #   ]
-        # ],
-        # guests: [
-        #   secondary: [
-        #     {Bonfire.UI.Me.LoginViewLive, [form: login_form(params), error: nil]},
-        #     # {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-        #     # {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
-        #     # {Bonfire.UI.Me.WidgetAdminsLive, []},
-        #     # {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
-        #   ]
-        # ],
-      ]
-    )}
+    links =
+      Config.get([:ui, :theme, :instance_welcome, :links], %{
+        l("About Bonfire") => "https://bonfirenetworks.org/",
+        l("Contribute") => "https://bonfirenetworks.org/contribute/"
+      })
+
+    {:ok,
+     socket
+     |> assign(
+       page: "home",
+       selected_tab: "home",
+       page_title: instance_name,
+       links: links,
+       changelog: @changelog,
+       without_guest_header: true,
+       error: nil,
+       form: login_form(params),
+       without_sidebar: true,
+       sidebar_widgets: [
+         # users: [
+         #   secondary: [
+         #     {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
+         #     {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
+         #     {Bonfire.UI.Me.WidgetAdminsLive, []},
+         #     {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
+         #   ]
+         # ],
+         # guests: [
+         #   secondary: [
+         #     {Bonfire.UI.Me.LoginViewLive, [form: login_form(params), error: nil]},
+         #     # {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
+         #     # {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
+         #     # {Bonfire.UI.Me.WidgetAdminsLive, []},
+         #     # {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
+         #   ]
+         # ],
+       ]
+     )}
   end
 
   defp login_form(params), do: Accounts.changeset(:login, params)
-
 
   def do_handle_params(%{"tab" => tab} = _params, _url, socket) do
     debug(tab)
@@ -73,7 +75,6 @@ defmodule Bonfire.Web.HomeLive do
     {:noreply, socket}
   end
 
-
   # defdelegate handle_params(params, attrs, socket), to: Bonfire.UI.Common.LiveHandlers
   def handle_params(params, uri, socket) do
     # poor man's hook I guess
@@ -84,7 +85,9 @@ defmodule Bonfire.Web.HomeLive do
     end
   end
 
-  def handle_event(action, attrs, socket), do: Bonfire.UI.Common.LiveHandlers.handle_event(action, attrs, socket, __MODULE__)
-  def handle_info(info, socket), do: Bonfire.UI.Common.LiveHandlers.handle_info(info, socket, __MODULE__)
+  def handle_event(action, attrs, socket),
+    do: Bonfire.UI.Common.LiveHandlers.handle_event(action, attrs, socket, __MODULE__)
 
+  def handle_info(info, socket),
+    do: Bonfire.UI.Common.LiveHandlers.handle_info(info, socket, __MODULE__)
 end
