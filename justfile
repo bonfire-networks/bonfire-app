@@ -339,6 +339,10 @@ contrib-app-release-increment:
 
 contrib-forks-publish: update-forks
 
+# Count lines of code (requires cloc: `brew install cloc`)
+cloc: 
+	cloc lib config forks/*/lib forks/*/test test
+
 # Run the git add command on each fork
 git-forks-add: deps-git-fix 
 	find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
