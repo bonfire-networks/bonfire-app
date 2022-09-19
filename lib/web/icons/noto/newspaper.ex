@@ -62,7 +62,7 @@ defmodule Iconify.Noto.Newspaper do
         />
       </g>
       <linearGradient
-        id="svgIDa"
+        id="newspaper"
         x1="60.262"
         x2="60.262"
         y1="91.106"
@@ -75,7 +75,7 @@ defmodule Iconify.Noto.Newspaper do
         />
       </linearGradient>
       <path
-        fill="url(#svgIDa)"
+        fill="url(#newspaper)"
         d="M111.77 101.13c-.07-1.2-.12-4.88-.15-10.02H5.96v10.05c0 4.33 3.11 9.57 8.79 9.57c5.69 0 99.8-.03 99.8-.03s-2.22-.5-2.78-9.57z"
         opacity=".3"
       />
