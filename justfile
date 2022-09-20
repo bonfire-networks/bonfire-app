@@ -445,14 +445,14 @@ rel-build FORKS_TO_COPY_PATH="forks/" ARGS="": rel-init rel-prepare assets-prepa
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
 	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
-	@echo "Remember to run just rel-tag-latest or just rel-push"
+	@echo "Remember to run just rel-tag or just rel-push"
 
-rel-tag-commit build label: 
-	@docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}  $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+rel-tag-commit build label: rel-init 
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build
 rel-tag label='latest': 
-	@docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	just rel-tag-commit $APP_BUILD {{label}}
 
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest': 
