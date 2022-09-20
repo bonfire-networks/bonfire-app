@@ -72,6 +72,14 @@ defmodule Bonfire.MixProject do
         "bonfire_geolocate",
         "bonfire_valueflows"
       ],
+      required: [
+        "bonfire_boundaries",
+        "bonfire_social",
+        "bonfire_me",
+        "bonfire_ecto",
+        "bonfire_epics",
+        "bonfire_common"
+      ],
       localise: ["bonfire"],
       localise_self: []
     ]
@@ -86,6 +94,7 @@ defmodule Bonfire.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       test_paths: test_paths(),
       test_deps: deps(:test),
+      required_deps: @config[:deps_prefixes][:required],
       compilers: compilers(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),

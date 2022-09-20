@@ -8,6 +8,7 @@ defmodule Bonfire.Application do
   @deps Bonfire.Common.Extend.loaded_deps()
   @endpoint_module Application.compile_env!(@otp_app, :endpoint_module)
   @repo_module Application.compile_env!(@otp_app, :repo_module)
+  @required_deps Mix.Project.config()[:required_deps]
 
   use Application
   require Cachex.Spec
@@ -112,4 +113,5 @@ defmodule Bonfire.Application do
   def named_version, do: name() <> " " <> @version
   def repository, do: @repository
   def deps, do: @deps
+  def required_deps, do: @required_deps
 end
