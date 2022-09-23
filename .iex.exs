@@ -26,7 +26,7 @@ if module_enabled?(Bonfire.Common.Test.Interactive) && Mix.env() == :test do
 
   Bonfire.Common.Test.Interactive.Helpers.ready()
 else
-  info("IExWatchTests is not running")
+  if Mix.env() == :test, do: info("IExWatchTests is not running")
 end
 
 if Code.ensure_loaded?(ExSync) && function_exported?(ExSync, :register_group_leader, 0) do

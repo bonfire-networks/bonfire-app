@@ -26,7 +26,7 @@ config :bonfire, :ui,
     summary: true
   ],
   rich_text_editor: Bonfire.Editor.Quill,
-  default_smart_input: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
+  default_smart_input: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
   profile: [
     sections: [
       timeline: Bonfire.UI.Social.ProfileTimelineLive,
@@ -60,7 +60,7 @@ config :bonfire, :ui,
     # economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
     # intent: Bonfire.UI.ValueFlows.CreateIntentLive,
     # task: Bonfire.UI.Coordination.CreateTaskLive,
-    process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive
+    process: Bonfire.UI.ValueFlows.SelectEconomicEventLive
   ],
   resource: [
     navigation: [
