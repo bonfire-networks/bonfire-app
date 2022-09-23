@@ -78,7 +78,7 @@ More details at https://bonfirenetworks.org",
     message: Bonfire.UI.Social.WritePostContentLive,
     category: Bonfire.Classify.Web.NewCategoryLive,
     economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
-    process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive,
+    process: Bonfire.UI.ValueFlows.CreateProcessLive,
     offer: Bonfire.UI.ValueFlows.CreateIntentLive,
     need: Bonfire.UI.ValueFlows.CreateIntentLive,
     task: Bonfire.UI.Coordination.CreateTaskLive

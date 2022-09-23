@@ -61,7 +61,7 @@ config :bonfire, :ui,
     post: Bonfire.UI.Social.WritePostContentLive,
     economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
     intent: Bonfire.UI.ValueFlows.CreateIntentLive,
-    process: Bonfire.UI.ValueFlows.CreateProcessSmartInputLive
+    process: Bonfire.UI.ValueFlows.SelectEconomicEventLive
   ],
   resource: [
     navigation: [
