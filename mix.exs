@@ -6,7 +6,7 @@ defmodule Bonfire.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.3.4-beta.42",
+    version: "0.3.5-beta.0",
     elixir: "~> 1.13",
     default_flavour: "classic",
     logo: "assets/static/images/bonfire-icon.png",
@@ -261,7 +261,7 @@ defmodule Bonfire.MixProject do
       # {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0" # disabled because exqlite not working in CI
       {:recode, "~> 0.4", only: :dev},
       # API client needed for changelog generation
-      {:neuron, "~> 5.0", only: :dev},
+      {:neuron, "~> 5.0", only: :dev, override: true},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
