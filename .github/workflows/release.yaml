@@ -59,6 +59,14 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
+      - name: Create tags in extensions repos
+        uses: bonfire-networks/create-tags-multirepo
+        with:
+          version: ${{ steps.version.outputs.current-version }}
+          message: ${{ github.event.inputs.message }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repos: "bonfire_common,bonfire_me,bonfire_social,bonfire_ui_common,bonfire_ui_me,bonfire_ui_social"
+          owner: "bonfire-networks"
       # - 
       #   name: Get branch names
       #   id: branch-name
