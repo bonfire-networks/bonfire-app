@@ -1,5 +1,19 @@
 # Bonfire Changelog
 
+## [0.3.5-beta (2022-09-23)]
+### Added
+- Coordination MVP [#445](https://github.com/bonfire-networks/bonfire-app/issues/445) by mayel & ivanminutillo
+- UI to enable/disable extensions in settings [#448](https://github.com/bonfire-networks/bonfire-app/issues/448) 
+- Static page generator [#444](https://github.com/bonfire-networks/bonfire-app/issues/444) 
+- Publish creation of sub-topic in the topic's feed [#439](https://github.com/bonfire-networks/bonfire-app/issues/439) by mayel
+
+### Changed
+- Refactor navs/sidebars to use dynamic navigation & widgets provided by extensions [#447](https://github.com/bonfire-networks/bonfire-app/issues/447) 
+
+### Other
+- When I reply to a task, the activity in the feed does not show the parent activity [#449](https://github.com/bonfire-networks/bonfire-app/issues/449) 
+- Use same composer for create post / topic / create a new list / create task
+
 ## [0.3.4-beta.8 (2022-08-26)]
 ### Added
 - Remember position in timeline [#392](https://github.com/bonfire-networks/bonfire-app/issues/392) by mayel
