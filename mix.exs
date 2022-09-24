@@ -250,7 +250,7 @@ defmodule Bonfire.MixProject do
       {:ecto_erd, "~> 0.4", only: :dev},
       # {:ecto_dev_logger, "~> 0.4", only: :dev},
       # flame graphs in live_dashboard
-      {:flame_on, "~> 0.5", only: :dev},
+      # {:flame_on, "~> 0.5", only: :dev},
       {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
       {:periscope, "~> 0.4", only: :dev},
       # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
