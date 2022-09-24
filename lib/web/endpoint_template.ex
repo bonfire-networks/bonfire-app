@@ -55,7 +55,7 @@ defmodule Bonfire.Web.EndpointTemplate do
         from: :bonfire,
         gzip: true,
         only:
-          ~w(public assets css fonts images js favicon.ico robots.txt cache_manifest.json favicon.ico source.tar.gz index.html)
+          ~w(public assets css fonts images js favicon.ico pwa pwabuilder-sw.js robots.txt cache_manifest.json source.tar.gz index.html)
       )
 
       plug(Plug.Static,
