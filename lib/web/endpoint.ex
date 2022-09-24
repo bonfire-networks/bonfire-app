@@ -24,11 +24,17 @@ defmodule Bonfire.Web.Endpoint do
       |> String.downcase()
 
     """
-    <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
-
-     <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
-
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <link phx-track-static rel='stylesheet' href='#{static_path("/assets/bonfire_basic.css")}'/>
+    <link phx-track-static rel='stylesheet' href='#{static_path("/fonts/#{font_family}.css")}'/>
+
+    <link rel="manifest" href="/pwa/manifest.json" />
+    <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+      const el = document.createElement('pwa-update');
+      document.body.appendChild(el);
+    </script>
     """
   end
 
