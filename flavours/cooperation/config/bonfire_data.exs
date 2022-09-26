@@ -78,7 +78,8 @@ extensions_with_ui =
       :bonfire_breadpub,
       :bonfire_upcycle,
       :bonfire_recyclapp,
-      :bonfire_ui_reflow
+      :bonfire_ui_reflow,
+      :rauversion_extension
     ]
 
 config :bonfire, :verb_names, verbs

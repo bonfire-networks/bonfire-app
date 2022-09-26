@@ -45,6 +45,13 @@ config :phoenix_gon, :json_library, Jason
 
 config :ecto_sparkles, :otp_app, :bonfire
 config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+config :rauversion_extension, :repo_module, Bonfire.Common.Repo
+
+config :rauversion_extension, :user_schema, Bonfire.Data.Identity.User
+config :rauversion_extension, :router_helper, Bonfire.Web.Router.Helpers
+config :rauversion_extension, :default_layout_module, Bonfire.UI.Common.LayoutView
+config :rauversion_extension, :user_table, "pointers_pointer"
+config :rauversion_extension, :user_key_type, :uuid
 
 config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
 # priv: flavour_path <> "/repo"
@@ -70,7 +77,8 @@ config :mime, :types, %{
   "application/json" => ["json"],
   "application/activity+json" => ["activity+json"],
   "application/ld+json" => ["ld+json"],
-  "application/jrd+json" => ["jrd+json"]
+  "application/jrd+json" => ["jrd+json"],
+  "audio/ogg" => ["ogg"]
 }
 
 config :sentry,

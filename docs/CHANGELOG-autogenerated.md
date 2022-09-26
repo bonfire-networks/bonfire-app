@@ -16,4 +16,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Other
 - Publish creation of sub-topic in the topic's feed [#439](https://github.com/bonfire-networks/bonfire-app/issues/439) by mayel
 - When I reply to a task, the activity in the feed does not show the parent activity [#449](https://github.com/bonfire-networks/bonfire-app/issues/449) 
+- Feature Proposal: Use prefers-color-scheme [#451](https://github.com/bonfire-networks/bonfire-app/issues/451) 
 
