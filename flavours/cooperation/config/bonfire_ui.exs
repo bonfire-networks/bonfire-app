@@ -3,6 +3,8 @@ import Config
 config :bonfire, :ui,
   theme: [
     instance_name: "Bonfire",
+    instance_theme: "bonfire",
+    instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
     instance_image: "/images/bonfires.png",
     instance_description: "This is a bonfire demo instance for testing purposes",
@@ -21,22 +23,63 @@ More details at https://bonfirenetworks.org",
       ]
     ]
   ],
-  # TODO: make dynamic based on active extensions
-  app_menu_extension_paths: %{
-    "Social" => Bonfire.UI.Social.FeedsLive,
-    "Breadpub" => Bonfire.Breadpub.Web.HomeLive,
-    "Kanban" => Bonfire.UI.Kanban.HomeLive
-    # "Coordination" => Bonfire.UI.Coordination.ProcessesLive
-  },
-  # TODO: make dynamic based on active extensions
-  sidebar_components: [
-    {Bonfire.UI.Social.SidebarNavigationLive, []}
-    # {Bonfire.UI.Coordination.SidebarNavigationLive, []},
-    # {Bonfire.Breadpub.SidebarNavigationLive, []},
-    # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-    # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Lists", process_url: "/breadpub/list/"]}
-  ],
+
+  # end theme
+  # rich_text_editor_disabled: true,
   rich_text_editor: Bonfire.Editor.Quill,
+  # rich_text_editor: Bonfire.Editor.Ck,
+  # default
+  font_family: "Inter (Latin Languages)",
+  font_families: [
+    "Inter (Latin Languages)",
+    "Inter (More Languages)",
+    "Noto Sans (Latin Languages)",
+    "Noto Sans (More Languages)",
+    "OpenDyslexic"
+  ],
+  themes: [
+    "bonfire",
+    "dark",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "black",
+    "luxury",
+    "dracula",
+    "business",
+    "night",
+    "coffee"
+  ],
+  themes_light: [
+    "light",
+    "cupcake",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "garden",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "cmyk",
+    "autumn",
+    "acid",
+    "lemonade",
+    "winter"
+  ],
+  show_trending_tags: [
+    disabled: false,
+    for_last_x_days: 30,
+    limit: 8
+  ],
   smart_input: [
     post: true,
     cw: true,

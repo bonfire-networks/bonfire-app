@@ -15,11 +15,6 @@ config :bonfire, :ui,
       ]
     ]
   ],
-  sidebar_components: [
-    {Bonfire.UI.Social.SidebarNavigationLive, []},
-    {Bonfire.UI.Reflow.SidebarNavigationLive, []}
-    # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-  ],
   smart_input: [
     post: false,
     cw: true,

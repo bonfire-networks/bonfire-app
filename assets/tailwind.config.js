@@ -86,6 +86,7 @@ module.exports = {
     }
   },
   daisyui: {
+    darkTheme: "bonfire",
     themes: [
       {
         bonfire: {
@@ -100,7 +101,7 @@ module.exports = {
           "error": "#FF5757"
         },
       },
-      "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"
+      "dark", "light", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"
     ]
   },
   variants: {
