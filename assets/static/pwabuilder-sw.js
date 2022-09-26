@@ -1,8 +1,9 @@
-// This is the service worker with the combined offline experience (Offline page + Offline copy of pages)
-
-const CACHE = "pwabuilder-offline-page";
+// This is the "Offline page" service worker
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+const CACHE = "pwabuilder-page";
+// const CACHE = "pwabuilder-offline-page";
 
 const offlineFallbackPage = "/pwa/offline.html";
 
@@ -23,12 +24,13 @@ if (workbox.navigationPreload.isSupported()) {
   workbox.navigationPreload.enable();
 }
 
-workbox.routing.registerRoute(
-  new RegExp('/*'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: CACHE
-  })
-);
+// uncomment to cache pages
+// workbox.routing.registerRoute(
+//   new RegExp('/*'),
+//   new workbox.strategies.StaleWhileRevalidate({
+//     cacheName: CACHE
+//   })
+// );
 
 self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
