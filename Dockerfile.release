@@ -72,7 +72,7 @@ RUN mix do deps.get --only prod
 
 # Include translations
 COPY priv/localisation/ priv/localisation/
-RUN ls -la priv/localisation/
+# RUN ls -la priv/localisation/
 
 # Compile remaining deps
 RUN MIX_ENV=prod mix do deps.compile
@@ -98,7 +98,7 @@ COPY data/current_flavour/repo priv/repo
 # bonfire-app code & assets 
 COPY lib lib
 COPY assets assets
-# COPY . .
+# RUN ls -la assets/static
 
 # include an archive of the source code
 COPY LICENSE ./
@@ -111,6 +111,7 @@ RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=a
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
 RUN mix assets.build
 RUN MIX_ENV=prod CI=1 mix phx.digest
+# RUN ls -la priv/static
 
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release

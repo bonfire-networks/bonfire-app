@@ -7,9 +7,6 @@ config :bonfire, :ui,
     instance_image: "https://haha.academy/images/wheel.png",
     instance_description: "Community roadmaps for learning every branch of human knowledge"
   ],
-  sidebar_components: [
-    {Bonfire.UI.Social.SidebarNavigationLive, []}
-  ],
   rich_text_editor: Bonfire.Editor.Quill,
   smart_input: [
     post: true,

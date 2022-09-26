@@ -1,27 +1,13 @@
 defmodule Bonfire.Web.EndpointTemplate do
   alias Bonfire.Common.Config
 
-  def session_options do
-    # TODO: check that this is changeable at runtime
-    # The session will be stored in the cookie and signed,
-    # this means its contents can be read but not tampered with.
-    # Set :encryption_salt if you would also like to encrypt it.
-    [
-      store: :cookie,
-      key: "_bonfire_key",
-      signing_salt: Config.get!(:signing_salt),
-      encryption_salt: Config.get!(:encryption_salt),
-      # 60 days by default
-      max_age: Config.get(:session_time_to_remember, 60 * 60 * 24 * 60)
-    ]
-  end
-
   defmacro __using__(_) do
     quote do
       # make sure this comes before the Phoenix endpoint
       use Bonfire.ErrorReporting
       use Phoenix.Endpoint, otp_app: :bonfire
       import Bonfire.Common.Extend
+      alias Bonfire.Web.EndpointTemplate
 
       use_if_enabled(Absinthe.Phoenix.Endpoint)
 
@@ -33,7 +19,7 @@ defmodule Bonfire.Web.EndpointTemplate do
         websocket: [
           connect_info: [
             :user_agent,
-            session: Bonfire.Web.EndpointTemplate.session_options()
+            session: EndpointTemplate.session_options()
           ]
         ]
       )
@@ -106,9 +92,24 @@ defmodule Bonfire.Web.EndpointTemplate do
 
       plug(Plug.MethodOverride)
       plug(Plug.Head)
-      plug(Plug.Session, Bonfire.Web.EndpointTemplate.session_options())
+      plug(Plug.Session, EndpointTemplate.session_options())
 
       plug(Bonfire.Web.Router)
     end
+  end
+
+  def session_options do
+    # TODO: check that this is changeable at runtime
+    # The session will be stored in the cookie and signed,
+    # this means its contents can be read but not tampered with.
+    # Set :encryption_salt if you would also like to encrypt it.
+    [
+      store: :cookie,
+      key: "_bonfire_key",
+      signing_salt: Config.get!(:signing_salt),
+      encryption_salt: Config.get!(:encryption_salt),
+      # 60 days by default
+      max_age: Config.get(:session_time_to_remember, 60 * 60 * 24 * 60)
+    ]
   end
 end

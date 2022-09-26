@@ -1,6 +1,7 @@
 defmodule Bonfire.Web.Endpoint do
   use Bonfire.Web.EndpointTemplate
   alias Bonfire.Common.Utils
+  alias Bonfire.Common.Config
 
   def include_assets(conn) do
     include_assets(conn, :top)

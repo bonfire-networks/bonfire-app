@@ -7,21 +7,6 @@ config :bonfire, :ui,
     instance_image: "https://bonfirenetworks.org/img/brand2.png",
     instance_description: "This is a bonfire demo instance for testing purposes"
   ],
-  # TODO: make dynamic based on active extensions
-  app_menu_extension_paths: %{
-    "Social" => Bonfire.UI.Social.FeedsLive,
-    "Breadpub" => Bonfire.Breadpub.Web.HomeLive,
-    "Kanban" => Bonfire.UI.Kanban.HomeLive,
-    "Coordination" => Bonfire.UI.Coordination.ProcessesLive
-  },
-  # TODO: make dynamic based on active extensions
-  sidebar_components: [
-    {Bonfire.UI.Social.SidebarNavigationLive, []}
-    # {Bonfire.UI.Coordination.SidebarNavigationLive, []},
-    # {Bonfire.Breadpub.SidebarNavigationLive, []},
-    # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Processes", process_url: "/process/"]},
-    # {Bonfire.UI.ValueFlows.ProcessesListLive, [title: "Lists", process_url: "/breadpub/list/"]}
-  ],
   rich_text_editor: Bonfire.Editor.Quill,
   smart_input: [
     post: true,
