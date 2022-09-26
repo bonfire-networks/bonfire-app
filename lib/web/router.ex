@@ -35,6 +35,8 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(Bonfire.Recyclapp.Routes)
   use_if_enabled(Bonfire.Upcycle.Web.Routes)
 
+  use_if_enabled(RauversionExtension.UI.Routes)
+
   # include GraphQL API
   use_if_enabled(Bonfire.API.GraphQL.Router)
 
