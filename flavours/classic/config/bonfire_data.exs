@@ -42,7 +42,8 @@ pointable_schema_extensions = [
   :bonfire_quantify,
   :bonfire_geolocate,
   :bonfire_valueflows,
-  :bonfire_valueflows_observe
+  :bonfire_valueflows_observe,
+  :bonfire_pages
 ]
 
 config :pointers, :search_path, pointable_schema_extensions

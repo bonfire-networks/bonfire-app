@@ -42,7 +42,8 @@ pointable_schema_extensions = [
   :bonfire_quantify,
   :bonfire_geolocate,
   :bonfire_valueflows,
-  :bonfire_valueflows_observe
+  :bonfire_valueflows_observe,
+  :bonfire_pages
 ]
 
 config :pointers, :search_path, pointable_schema_extensions
@@ -153,6 +154,9 @@ alias Bonfire.Data.Social.PostContent
 alias Bonfire.Data.Social.Profile
 alias Bonfire.Data.Social.Replied
 alias Bonfire.Data.Social.Request
+
+alias Bonfire.Pages.Page
+alias Bonfire.Pages.Section
 
 alias Bonfire.Classify.Category
 alias Bonfire.Geolocate.Geolocation
@@ -837,6 +841,86 @@ config :bonfire_data_social, Profile,
      end)
 
 ######### other extensions
+
+config :bonfire_pages, Page,
+  code:
+    (quote do
+       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
+       @boost_ulid "300STANN0VNCERESHARESH0VTS"
+       # mixins
+       unquote_splicing(common.([:activities, :activity, :caretaker, :created, :post_content]))
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+
+       # special
+       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+
+       has_one(:like_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @like_ulid]
+       )
+
+       has_one(:boost_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @boost_ulid]
+       )
+
+       has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
+         foreign_key: :scope_id,
+         references: :id
+       )
+
+       # add references of page sections
+       many_to_many(:sections, unquote(Pointer),
+         join_through: unquote(Bonfire.Data.Assort.Ranked),
+         unique: true,
+         join_keys: [scope_id: :id, item_id: :id],
+         on_replace: :delete
+       )
+     end)
+
+config :bonfire_pages, Section,
+  code:
+    (quote do
+       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
+       @boost_ulid "300STANN0VNCERESHARESH0VTS"
+       # mixins
+       unquote_splicing(common.([:activities, :activity, :caretaker, :created, :post_content]))
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+
+       # special
+       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+
+       has_one(:like_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @like_ulid]
+       )
+
+       has_one(:boost_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @boost_ulid]
+       )
+
+       has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
+         foreign_key: :item_id,
+         references: :id
+       )
+
+       # add references of page sections
+       many_to_many(:pages, unquote(Pointer),
+         join_through: unquote(Bonfire.Data.Assort.Ranked),
+         unique: true,
+         join_keys: [item_id: :id, scope_id: :id],
+         on_replace: :delete
+       )
+     end)
 
 config :bonfire_files, Media,
   code:
