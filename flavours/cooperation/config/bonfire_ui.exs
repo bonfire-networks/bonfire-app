@@ -124,7 +124,9 @@ More details at https://bonfirenetworks.org",
     process: Bonfire.UI.ValueFlows.CreateProcessLive,
     offer: Bonfire.UI.ValueFlows.CreateIntentLive,
     need: Bonfire.UI.ValueFlows.CreateIntentLive,
-    task: Bonfire.UI.Coordination.CreateTaskLive
+    task: Bonfire.UI.Coordination.CreateTaskLive,
+    page: Bonfire.Pages.Web.CreatePageLive,
+    section: Bonfire.Pages.Web.EditSectionLive
   ],
   resource: [
     navigation: [
