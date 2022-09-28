@@ -232,7 +232,7 @@ Your `flake.nix` file would look like the following. Remember to replace `myHost
   outputs = { self, nixpkgs, bonfire }: {
     overlay = final: prev: with final;{
       # a package named bonfire already exists on nixpkgs so we put it under a different name
-      elixirBonfire = bonfire.defaultPackage.x86_64-linux;
+      elixirBonfire = bonfire.packages.x86_64-linux.default;
     };
     nixosConfigurations.myHostName = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -250,8 +250,6 @@ Your `flake.nix` file would look like the following. Remember to replace `myHost
 ```
 
 Then your `myHostName.nix` would look like the following:
-
-TODO: add caddy reverse proxy config
 
 ```nix
 { config, lib, pkgs, ... }:
@@ -272,6 +270,18 @@ TODO: add caddy reverse proxy config
     environmentFile = "/run/secrets/bonfireEnv";
     dbSocketDir = "/var/run/postgresql";
   };
+	
+	# this is specifically for a reverse proxy, which is primarily used for SSL certs
+	services.ngnix = {
+		enable = true;
+		forceSSL = true;
+		enableACME = true;
+		virtualHosts."myHostName".locations.proxyPass = "http://localhost:4000";
+	};
+	
+	# You will need to accept ACME's terms and conditions if you haven't elsewhere in your configuration
+	security.acme.defaults.email = "you@myHostName.com";
+	security.acme.acceptTerms = true;
 
   # this is uniquely for database backup purposes
   # replace myBackupUserName with the user name that will do the backups
