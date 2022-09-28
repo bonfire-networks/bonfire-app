@@ -14,7 +14,8 @@
       elixir_nix_version = elixir_version:
         builtins.replaceStrings [ "." ] [ "_" ] "elixir_${elixir_version}";
       erlang_nix_version = erlang_version: "erlangR${erlang_version}";
-    in flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
+    in
+    flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let
         inherit (nixpkgs.lib) optional;
         pkgs = import nixpkgs { inherit system; };
@@ -73,7 +74,8 @@
           enableDebugInfo = true;
           installPhase = installHook { release = "dev"; };
         };
-      in rec {
+      in
+      rec {
         # packages to build
         packages = {
           prod = release-prod;
@@ -108,6 +110,9 @@
           };
           default = apps.prod;
         };
+
+        # Module for deployment
+        nixosModule.bonfire = import ./nix/module.nix;
 
         devShells.default = pkgs.mkShell {
 
@@ -151,9 +156,9 @@
             (pkgs.postgresql_12.withPackages (p: [ p.postgis ]))
           ] ++ optional pkgs.stdenv.isLinux
             pkgs.libnotify # For ExUnit Notifier on Linux.
-            ++ optional pkgs.stdenv.isLinux
+          ++ optional pkgs.stdenv.isLinux
             pkgs.meilisearch # For meilisearch when running linux only
-            ++ optional pkgs.stdenv.isLinux
+          ++ optional pkgs.stdenv.isLinux
             pkgs.inotify-tools; # For file_system on Linux.
         };
       });
