@@ -63,12 +63,16 @@ extensions_with_config =
       :bonfire_boundaries,
       :bonfire_federate_activitypub,
       :bonfire_search,
-      :bonfire_mailer
+      :bonfire_mailer,
+      :bonfire_fail
     ]
 
 extensions_with_ui =
-  extensions_with_config ++
+  context_and_queries_extensions ++
     [
+      :bonfire_boundaries,
+      :bonfire_federate_activitypub,
+      :bonfire_search,
       :bonfire_ui_common,
       :bonfire_ui_me,
       :bonfire_ui_social,
