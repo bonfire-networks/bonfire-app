@@ -64,7 +64,8 @@ extensions_with_config =
       :bonfire_federate_activitypub,
       :bonfire_search,
       :bonfire_mailer,
-      :bonfire_fail
+      :bonfire_fail,
+      :bonfire_pages_beacon
     ]
 
 extensions_with_ui =
