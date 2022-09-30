@@ -62,6 +62,8 @@ config :bonfire, Bonfire.Web.Endpoint,
       ] ++ path_dep_patterns
   ]
 
+config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
+
 config :logger, :console,
   level: :debug,
   # truncate: :infinity,

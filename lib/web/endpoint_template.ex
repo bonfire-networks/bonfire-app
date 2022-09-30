@@ -5,7 +5,6 @@ defmodule Bonfire.Web.EndpointTemplate do
     quote do
       # make sure this comes before the Phoenix endpoint
       use Bonfire.ErrorReporting
-      use Phoenix.Endpoint, otp_app: :bonfire
       import Bonfire.Common.Extend
       alias Bonfire.Web.EndpointTemplate
 
@@ -64,16 +63,6 @@ defmodule Bonfire.Web.EndpointTemplate do
         only: ~w(css images js favicon.ico robots.txt cache_manifest.json)
       )
 
-      # Code reloading can be explicitly enabled under the
-      # :code_reloader configuration of your endpoint.
-      # FIXME: doesn't work when defined in template macro
-      # if code_reloading? do
-      #   socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-      #   plug Phoenix.LiveReloader
-      #   plug Phoenix.CodeReloader
-      #   plug Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire
-      # end
-
       plug(Phoenix.LiveDashboard.RequestLogger,
         param_key: "request_logger",
         cookie_key: "request_logger"
@@ -93,8 +82,6 @@ defmodule Bonfire.Web.EndpointTemplate do
       plug(Plug.MethodOverride)
       plug(Plug.Head)
       plug(Plug.Session, EndpointTemplate.session_options())
-
-      plug(Bonfire.Web.Router)
     end
   end
 

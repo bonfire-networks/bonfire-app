@@ -123,7 +123,8 @@ defmodule Bonfire.Web.Router do
         metrics: Bonfire.Web.Telemetry,
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
-          flame_on: FlameOn.DashboardPage
+          flame_on: FlameOn.DashboardPage,
+          _profiler: {PhoenixProfiler.Dashboard, []}
         ]
       )
     end
