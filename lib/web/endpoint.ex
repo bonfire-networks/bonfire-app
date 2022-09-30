@@ -1,7 +1,21 @@
 defmodule Bonfire.Web.Endpoint do
+  use Phoenix.Endpoint, otp_app: :bonfire
   use Bonfire.Web.EndpointTemplate
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Config
+
+  # Code reloading can be explicitly enabled under the
+  # :code_reloader configuration of your endpoint.
+  if code_reloading? do
+    socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
+    plug(Phoenix.LiveReloader)
+    plug(Phoenix.CodeReloader)
+    plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire)
+
+    plug(PhoenixProfiler)
+  end
+
+  plug(Bonfire.Web.Router)
 
   def include_assets(conn) do
     include_assets(conn, :top)
