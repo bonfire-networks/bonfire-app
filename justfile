@@ -339,6 +339,8 @@ contrib-app-release-increment:
 
 contrib-forks-publish: update-forks
 
+contrib-rel-push: contrib-release rel-build-release rel-push 
+
 # Count lines of code (requires cloc: `brew install cloc`)
 cloc: 
 	cloc lib config forks/*/lib forks/*/test test
