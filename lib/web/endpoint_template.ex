@@ -63,6 +63,8 @@ defmodule Bonfire.Web.EndpointTemplate do
         only: ~w(css images js favicon.ico robots.txt cache_manifest.json)
       )
 
+      # TODO: serve priv/static from any extensions that have one as well?
+
       plug(Phoenix.LiveDashboard.RequestLogger,
         param_key: "request_logger",
         cookie_key: "request_logger"
