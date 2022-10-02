@@ -52,7 +52,7 @@
 | db_connection                | Apache 2.0                         | 2.4.2      | https://hex.pm/packages/db_connection                            |
 | decimal                      | Apache 2.0                         | 2.0.0      | https://hex.pm/packages/decimal                                  |
 | deep_merge                   | MIT                                | 1.0.0      | https://hex.pm/packages/deep_merge                               |
-| earmark                      | Apache 2.0                         | 1.5.0-pre1 | https://hex.pm/packages/earmark                                  |
+| earmark                      | Apache 2.0                         | 1.4.28 | https://hex.pm/packages/earmark                                  |
 | earmark_parser               | Apache 2.0                         | 1.4.26     | https://hex.pm/packages/earmark_parser                           |
 | ecto                         | Apache 2.0                         | 3.8.4      | https://hex.pm/packages/ecto                                     |
 | ecto_erd                     | Apache 2.0                         | 0.4.2      | https://hex.pm/packages/ecto_erd                                 |
