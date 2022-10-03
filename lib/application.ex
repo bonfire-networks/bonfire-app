@@ -31,6 +31,8 @@ defmodule Bonfire.Application do
 
   # include GraphQL API
   def applications(env, true = _with_graphql?) do
+    IO.puts("Enabling the GraphQL API...")
+
     [
       # use persistent_term backend for Absinthe
       {Absinthe.Schema, Bonfire.API.GraphQL.Schema}
@@ -54,21 +56,20 @@ defmodule Bonfire.Application do
     # PubSub
     {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]},
     # Persistent Data Services
-    Pointers.Tables
+    Pointers.Tables,
     # Bonfire.Data.AccessControl.Accesses,
     ## these populate on first call, so no need to run on startup:
     # Bonfire.Common.ContextModules,
     # Bonfire.Common.QueryModules,
     # Bonfire.Federate.ActivityPub.FederationModules
+    {PhoenixProfiler, name: Bonfire.Web.Profiler}
   ]
 
   # 6 hours
   @default_cache_ttl 1_000 * 60 * 60 * 6
 
-  # Stuff that depends on all the above
+  # Stuff that depends on the Endpoint and/or the above
   @apps_after [
-    # Web app
-    @endpoint_module,
     # Job Queue
     {Oban, Application.fetch_env!(:bonfire, Oban)},
     %{
@@ -91,14 +92,17 @@ defmodule Bonfire.Application do
   ]
 
   def applications(:test, _any) do
-    # ++ [Bonfire.Web.FakeRemoteEndpoint]
+    # ++ [Bonfire.Web.FakeRemoteEndpoint] # NOTE: enable for tests that require two running instances
     @apps_before ++
+      [@endpoint_module] ++
       @apps_after
   end
 
   # default apps
   def applications(_env, _any) do
-    @apps_before ++ @apps_after
+    @apps_before ++
+      [@endpoint_module] ++
+      @apps_after
   end
 
   # Tell Phoenix to update the endpoint configuration
