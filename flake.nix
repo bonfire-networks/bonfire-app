@@ -163,6 +163,6 @@
       # Module for deployment
       # Doesn't get built per system
       nixosModules.bonfire = import ./nix/module.nix;
-      nixosModule = nixosModules.bonfire;
+      nixosModule = self.nixosModules.bonfire;
     };
 }
