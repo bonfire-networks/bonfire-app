@@ -96,3 +96,19 @@ do_something()
 When you are done debugging something, the location of the debug statement is already in the output so you know where to remove it or comment it out! Bliss!
 
 You will find the codebase uses this a lot, though the debugs are frequently commented out. Just uncomment the ones that would help you with a particular debugging task and you're off.
+
+## Error handling
+
+`Bonfire.Fail` is an `Exception` handler, which you can use to stop the show anywhere in the code, e.g:
+
+`user = current_user(assigns) || raise(Bonfire.Fail, :unauthenticated)` 
+
+Advantages include:
+
+- standardised error messages (defaults are defined at https://github.com/bonfire-networks/bonfire_fail/blob/main/lib/runtime_config.ex#L16) which can be overridden in your app's config using `config :bonfire_fail, :common_errors`
+- messages are defined in one place, which means no duplicated localisation efforts
+- uses the elixir/OTP pattern of "let it crash"
+- no need to wrap blocks in if/else or the like 
+
+Note that when users of the LiveView frontend, this will make the corresponding friendly error message appear in flash overlay. 
+

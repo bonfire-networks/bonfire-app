@@ -39,6 +39,10 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled(RauversionExtension.UI.Routes)
 
+  use_if_enabled(Bonfire.Pages.Beacon.Web.Routes)
+
+  use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
+
   # include GraphQL API
   use_if_enabled(Bonfire.API.GraphQL.Router)
 
@@ -119,7 +123,8 @@ defmodule Bonfire.Web.Router do
         metrics: Bonfire.Web.Telemetry,
         # metrics: FlamegraphsWeb.Telemetry,
         additional_pages: [
-          flame_on: FlameOn.DashboardPage
+          flame_on: FlameOn.DashboardPage,
+          _profiler: {PhoenixProfiler.Dashboard, []}
         ]
       )
     end

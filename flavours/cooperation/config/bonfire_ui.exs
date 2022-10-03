@@ -93,7 +93,8 @@ More details at https://bonfirenetworks.org",
       posts: Bonfire.UI.Social.ProfilePostsLive,
       boosts: Bonfire.UI.Social.ProfileBoostsLive,
       followers: Bonfire.UI.Social.ProfileFollowsLive,
-      followed: Bonfire.UI.Social.ProfileFollowsLive
+      followed: Bonfire.UI.Social.ProfileFollowsLive,
+      follow: Bonfire.UI.Me.RemoteInteractionFormLive
       # inventory: Bonfire.UI.Reflow.ProfileInventoryLive,
     ],
     navigation: [

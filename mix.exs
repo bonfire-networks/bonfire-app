@@ -6,7 +6,7 @@ defmodule Bonfire.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.3.5-beta.8",
+    version: "0.3.5-beta.10",
     elixir: "~> 1.13",
     default_flavour: "classic",
     logo: "assets/static/images/bonfire-icon.png",
@@ -262,6 +262,7 @@ defmodule Bonfire.MixProject do
       {:recode, "~> 0.4", only: :dev},
       # API client needed for changelog generation
       {:neuron, "~> 5.0", only: :dev, override: true},
+      {:phoenix_profiler, "~> 0.2.0", only: :dev},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
@@ -270,7 +271,7 @@ defmodule Bonfire.MixProject do
       {:mox, "~> 1.0", only: :test},
       {:zest, "~> 0.1.0"},
       {:grumble, "~> 0.1.3", only: [:test], override: true},
-      {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
+      {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
       {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
       {:ex_unit_notifier, "~> 1.0", only: :test},
       {:wallaby, "~> 0.30", runtime: false, only: :test},

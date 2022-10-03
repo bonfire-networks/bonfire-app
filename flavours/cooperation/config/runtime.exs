@@ -20,15 +20,16 @@ System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") || System.
   and POSTGRES_USER (default: postgres) and POSTGRES_HOST (default: localhost)
   """
 
-if System.get_env("DATABASE_URL") do
-  config :bonfire, Bonfire.Common.Repo, url: System.get_env("DATABASE_URL")
-else
-  config :bonfire, Bonfire.Common.Repo,
-    # ssl: true,
-    username: System.get_env("POSTGRES_USER", "postgres"),
-    password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-    hostname: System.get_env("POSTGRES_HOST", "localhost")
-end
+repo_connection_config =
+  if System.get_env("DATABASE_URL") do
+    [url: System.get_env("DATABASE_URL")]
+  else
+    [
+      username: System.get_env("POSTGRES_USER", "postgres"),
+      password: System.get_env("POSTGRES_PASSWORD", "postgres"),
+      hostname: System.get_env("POSTGRES_HOST", "localhost")
+    ]
+  end
 
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") || System.get_env("CI") ||
@@ -86,12 +87,30 @@ if System.get_env("SENTRY_DSN") do
   end
 end
 
+pool_size = String.to_integer(System.get_env("POOL_SIZE", "10"))
+
+config :bonfire, :ecto_repos, [Bonfire.Common.Repo, Beacon.Repo]
+config :bonfire, Bonfire.Common.Repo, repo_connection_config
+config :beacon, Beacon.Repo, repo_connection_config
+config :beacon, Beacon.Repo, pool_size: pool_size
+
+database =
+  case config_env() do
+    :test -> "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
+    :dev -> System.get_env("POSTGRES_DB", "bonfire_dev")
+    _ -> System.get_env("POSTGRES_DB", "bonfire")
+  end
+
+config :bonfire, Bonfire.Common.Repo, database: database
+config :beacon, Beacon.Repo, database: database
+config :paginator, Paginator.Repo, database: database
+
 # start prod-only config
 if config_env() == :prod do
   config :bonfire, Bonfire.Common.Repo,
     # ssl: true,
-    database: System.get_env("POSTGRES_DB", "bonfire"),
-    pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
+    # database: System.get_env("POSTGRES_DB", "bonfire"),
+    pool_size: pool_size,
     # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
     log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "false"))
 end
