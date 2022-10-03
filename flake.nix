@@ -113,7 +113,7 @@
 
         # Module for deployment
         nixosModules.bonfire = import ./nix/module.nix;
-        nixosModule = self.nixosModules.bonfire;
+        nixosModule = nixosModules.bonfire;
 
         devShells.default = pkgs.mkShell {
 
