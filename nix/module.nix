@@ -51,7 +51,7 @@ in
     };
   };
 
-  config = with bonfireConfig; {
+  config = lib.mkIf config.bonfireConfig.enable {
     services.postgresql = {
       extraPlugins = with pkgs.postgresql_13.pkgs; [ postgis ];
       ensureDatabases = [ dbName ];
