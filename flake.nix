@@ -56,15 +56,43 @@
             runHook postInstall
           '';
 
+          # Pass just as a build input 
+          inputsBuild = with pkgs; [ just ];
+
+          # Run just before compiling to set up the environment
+          configureHook = ''
+            runHook preConfigure
+            ${./mix-configure-hook.sh}
+
+            # Run just and setup config directory before we compile 
+            just rel-init
+            just rel-prepare
+            just assets-prepare
+            cp -r data/current_flavour/config/ ./config/
+
+            # this is needed for projects that have a specific compile step
+            # the dependency needs to be compiled in order for the task
+            # to be available
+            # Phoenix projects for example will need compile.phoenix
+            mix do deps.compile --no-deps-check --skip-umbrella-children --force
+
+            # We have to rebuild mime so it includes our compile time definitions
+            mix deps.clean mime --force --build
+
+            runHook postConfigure
+          '';
+
           # src of the project
           src = ./.;
           # mix2nix dependencies
-          mixNixDeps = import ./deps.nix { inherit lib beamPackages; };
+          mixNixDeps = import ./deps.nix { inherit lib beamPackages; pkgs = pkgs; };
 
           # mix release definition
           release-prod = beamPackages.mixRelease {
             inherit src pname version mixNixDeps elixir;
             mixEnv = "prod";
+            configurePhase = configureHook;
+            buildInputs = inputsBuild;
 
             installPhase = installHook { release = "prod"; };
           };
@@ -73,6 +101,8 @@
             inherit src pname version mixNixDeps elixir;
             mixEnv = "dev";
             enableDebugInfo = true;
+            configurePhase = configureHook;
+            buildInputs = inputsBuild;
             installPhase = installHook { release = "dev"; };
           };
         in

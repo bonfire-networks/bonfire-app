@@ -27,7 +27,8 @@ APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
 APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
-APP_BUILD := `git rev-parse --short HEAD`
+# Nix build doesn't include the .git repo
+#APP_BUILD := `git rev-parse --short HEAD`
 APP_DOCKER_REPO := ORG_NAME+"/"+APP_NAME
 CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
@@ -90,6 +91,8 @@ pre-init:
 	@rm -rf ./priv/repo
 	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
 	@rm -rf ./data/current_flavour
+	# I think this is supposed to be created by a different just command, and I'm not calling them in the right order
+	@mkdir -p data/
 	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	@ln -sf ./config/$MIX_ENV/.env ./.env
 

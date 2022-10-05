@@ -1,4 +1,4 @@
-{ lib, beamPackages, overrides ? (x: y: {}) }:
+{ lib, beamPackages, overrides ? (x: y: { }), pkgs }:
 
 let
   buildRebar3 = lib.makeOverridable beamPackages.buildRebar3;
@@ -19,6 +19,20 @@ let
       };
 
       beamDeps = [ dataloader decimal nimble_parsec telemetry ];
+    };
+
+    ex_aws = buildMix rec {
+      name = "ex_aws";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "ex_aws";
+        rev = "2979884fdadabe44cc589346b697c00d8a8d1266";
+        sha256 = "+l2GHFGY+LziX0CI6g/jqilIRUmB3XHCCuoTXW4mipc=";
+      };
+
+      beamDeps = [ hackney sweet_xml ];
     };
 
     absinthe_error_payload = buildMix rec {
@@ -161,7 +175,7 @@ let
         sha256 = "19bp6xh052ql3ha0v3r8999cvja5d2p6cph02mxphfaj4jsbyc53";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     cachex = buildMix rec {
@@ -187,7 +201,7 @@ let
         sha256 = "01kawrhxcc0i7zkygss5ia8hmkzv39q4bnrwnf0fz0mpa9jazfv1";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     certifi = buildRebar3 rec {
@@ -200,7 +214,7 @@ let
         sha256 = "0ha6vmf5p3xlbf5w1msa89frhvfk535rnyfybz9wdmh6vdms8v96";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     cldr_utils = buildMix rec {
@@ -226,7 +240,7 @@ let
         sha256 = "06s5y8b0snr1s5ax9v3s7rc6c8xf5vj6878d1mc7cc07j0bvq78v";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     comeonin = buildMix rec {
@@ -239,7 +253,7 @@ let
         sha256 = "1pw4rhhsh8mwj26dkbxz2niih9j8pc3qijlpcl8jh208rg1cjf1y";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     connection = buildMix rec {
@@ -252,7 +266,7 @@ let
         sha256 = "1746n8ba11amp1xhwzp38yfii2h051za8ndxlwdykyqqljq1wb3j";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     content_disposition = buildMix rec {
@@ -265,7 +279,7 @@ let
         sha256 = "0s84d6jwi2a0p6zxy8sd70k7dl59225s9kx8icljylfvyh5wlzw7";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     countries = buildMix rec {
@@ -317,7 +331,7 @@ let
         sha256 = "1ac6pj3x4vdbsa8hvmbzpdfc4k0v1p102jbd39snai8wnah9sgib";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     credo = buildMix rec {
@@ -382,7 +396,7 @@ let
         sha256 = "0xzm8hfhn8q02rmg8cpgs68n5jz61wvqg7bxww9i1a6yanf6wril";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     deep_merge = buildMix rec {
@@ -395,7 +409,7 @@ let
         sha256 = "0c2li2a3hxcc05nwvy4kpsal0315yk900kxyybld972b15gqww6f";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     digital_token = buildMix rec {
@@ -434,7 +448,7 @@ let
         sha256 = "1ys34w9r74k1dsligybpd5cgkv1x8nlm44y8h3f32cka509fy72h";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ecto = buildMix rec {
@@ -538,7 +552,7 @@ let
         sha256 = "05ppvbhqi5m9zk1c4xnrki814sqhxrc7d1dpvfmwm2v7qm8xdjzm";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     email_checker = buildMix rec {
@@ -551,7 +565,7 @@ let
         sha256 = "02p54gvj54j6q853jdyy3pk84pasabdzzsq8vz4fkp1mn1g0xb74";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     eqrcode = buildMix rec {
@@ -564,7 +578,7 @@ let
         sha256 = "1wbn23l17my4bjlnhnn4ssb9i499c2qn91pmnrxd63vaqdry6c6s";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     esbuild = buildMix rec {
@@ -590,7 +604,7 @@ let
         sha256 = "10p7m6kv2z2c16gw36wgiwnkykss4lfkmm71llxp09ipkhmy77rc";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ex_aws_s3 = buildMix rec {
@@ -609,11 +623,12 @@ let
     ex_cldr = buildMix rec {
       name = "ex_cldr";
       version = "2.33.2";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "1y7vx4imyqx1gh38jfxkqz6fy7cdrd2189f08h66rn2fgcaag0gx";
+        sha256 = "/YGnFHtO2GwMRMAlFETLjR3vzMezO4kGfKFjXyPp+/g=";
       };
 
       beamDeps = [ castore certifi cldr_utils decimal gettext jason nimble_parsec ];
@@ -622,6 +637,7 @@ let
     ex_cldr_calendars = buildMix rec {
       name = "ex_cldr_calendars";
       version = "1.20.0";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
@@ -635,6 +651,7 @@ let
     ex_cldr_currencies = buildMix rec {
       name = "ex_cldr_currencies";
       version = "2.14.1";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
@@ -648,6 +665,7 @@ let
     ex_cldr_dates_times = buildMix rec {
       name = "ex_cldr_dates_times";
       version = "2.12.0";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
@@ -661,6 +679,7 @@ let
     ex_cldr_languages = buildMix rec {
       name = "ex_cldr_languages";
       version = "0.3.3";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
@@ -674,6 +693,7 @@ let
     ex_cldr_numbers = buildMix rec {
       name = "ex_cldr_numbers";
       version = "2.27.2";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
@@ -687,6 +707,7 @@ let
     ex_cldr_plugs = buildMix rec {
       name = "ex_cldr_plugs";
       version = "1.2.0";
+      mixEnv = "release";
 
       src = fetchHex {
         pkg = "${name}";
@@ -733,7 +754,7 @@ let
         sha256 = "1yvj7d4hw9g8hb8h83pcvjas05kkrvc0f7hcx705572s8fbw9ps8";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ex_maybe = buildMix rec {
@@ -746,7 +767,7 @@ let
         sha256 = "1lk3nz2f8rajk62zsm1dskzcjp7w08bhlc1va6d12zswj66cgy0s";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ex_ulid = buildMix rec {
@@ -759,7 +780,7 @@ let
         sha256 = "0q08y8xw2q4dr1w6g3rcyjlgib2w2wz26znycfan7i7bg93zvgm2";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ex_unit_notifier = buildMix rec {
@@ -772,7 +793,7 @@ let
         sha256 = "0cp3msbal2pc4w1bydibqs91r7qdl60xgi5fy3bqmrhdsp4l907k";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     exconstructor = buildMix rec {
@@ -785,7 +806,7 @@ let
         sha256 = "1q41sdkmfz70hvz9ikzv65d048hn46c9j8fh5r96nda1kg9diqvk";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     exqlite = buildMix rec {
@@ -811,7 +832,7 @@ let
         sha256 = "0slacn8z5xnk8i0kpgs1y8zl7hlzg19hfl83adgmrlizm62avm57";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     fast_ngram = buildMix rec {
@@ -824,7 +845,7 @@ let
         sha256 = "1gf11p1rx3bgq9xs8rmd9k74byayl3vgpwjvg88xh503n32lkjch";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     file_info = buildMix rec {
@@ -850,7 +871,7 @@ let
         sha256 = "1p0myxmnjjds8bbg69dd6fvhk8q3n7lb78zd4qvmjajnzgdmw6a1";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     floki = buildMix rec {
@@ -915,7 +936,7 @@ let
         sha256 = "0xld8m2l9a7pbzmq7vp0r9mz4pkisrjpslgbjs9ikhwlkllf4lw4";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     geo = buildMix rec {
@@ -967,7 +988,7 @@ let
         sha256 = "1qhflfwv2mbcrhsr670cc27mfbqflxyfrvmr3ji72bv8wkvr3vcq";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     geoip = buildMix rec {
@@ -993,7 +1014,7 @@ let
         sha256 = "0ggb458h60ch3inndqp9xhbailhb0jkq3xnp85sa94sy8dvv20qw";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     git_cli = buildMix rec {
@@ -1006,7 +1027,7 @@ let
         sha256 = "16xg5rkx86xa5zg7iwkx7a72dnwfnbnd7w8i6m6iz9469hprbjvq";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     grumble = buildMix rec {
@@ -1045,7 +1066,7 @@ let
         sha256 = "1k7xyj0q38ms3n5hbn782pa6w1vgd6biwlxr4db6319l828a6fy5";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     html_sanitize_ex = buildMix rec {
@@ -1097,7 +1118,7 @@ let
         sha256 = "1n1d2s9kspqbg8n9blcqafi8k8rayayz3gxh379vdsafvc2pvh8l";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     jason = buildMix rec {
@@ -1123,7 +1144,7 @@ let
         sha256 = "0cvlbfkapkvbwaijmjq3cxg5m6yv4rh69wvss9kfj862i83mk31i";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     makeup = buildMix rec {
@@ -1266,7 +1287,7 @@ let
         sha256 = "09jq0jrsd3dwzjlnwqjv6m9r2rijgiv57yja6jl41p2p2db4yd41";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     metrics = buildRebar3 rec {
@@ -1279,7 +1300,7 @@ let
         sha256 = "05lz15piphyhvvm3d1ldjyw0zsrvz50d2m5f2q3s8x2gvkfrmc39";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     mime = buildMix rec {
@@ -1292,7 +1313,7 @@ let
         sha256 = "0szzdfalafpawjrrwbrplhkgxjv8837mlxbkpbn5xlj4vgq0p8r7";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     mimerl = buildRebar3 rec {
@@ -1305,7 +1326,7 @@ let
         sha256 = "08wkw73dy449n68ssrkz57gikfzqk3vfnf264s31jn5aa1b5hy7j";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     mimetype_parser = buildMix rec {
@@ -1318,7 +1339,7 @@ let
         sha256 = "0lm8yzcmg17nhvr4p4dbmamb280a9dzqx4rwv66ffz40cz2q13vx";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     mix_test_interactive = buildMix rec {
@@ -1357,7 +1378,7 @@ let
         sha256 = "0mbnl017as88jqj121l4viizpnpn703kx8f8s5vcb0yj2p9izgfb";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     mock = buildMix rec {
@@ -1383,10 +1404,10 @@ let
         sha256 = "1wpyh6wp76lyx0q2cys23rpmci4gj1pqwnqvfk467xxanchlk1pr";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
-    neotoma = buildMix rec {
+    neotoma = buildRebar3 rec {
       name = "neotoma";
       version = "1.7.3";
 
@@ -1396,7 +1417,7 @@ let
         sha256 = "0a0gdr1ksjjbbxhm042awid86w6ypdmhzwx70q3zlzsnn6wj58rd";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     neuron = buildMix rec {
@@ -1422,7 +1443,7 @@ let
         sha256 = "1c3hnppmjkwnqrc9vvm72kpliav0mqyyk4cjp7vsqccikgiqkmy8";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     nimble_totp = buildMix rec {
@@ -1435,7 +1456,7 @@ let
         sha256 = "1cshbdz6hss32hbipi9iyxx10zvad93ninivzg9cqds6y5gx3v3z";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     number = buildMix rec {
@@ -1487,7 +1508,7 @@ let
         sha256 = "12pz0i5gjln4clv1k9l61n9slbm1sizw2c1989vlfbgmhv5958i7";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     parse_trans = buildRebar3 rec {
@@ -1500,7 +1521,7 @@ let
         sha256 = "12w8ai6b5s6b4hnvkav7hwxd846zdd74r32f84nkcmjzi1vrbk87";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     pbkdf2_elixir = buildMix rec {
@@ -1526,17 +1547,651 @@ let
         sha256 = "1i49lrg45h9vzqmsl1b65yhaszc33hq2mkbn1v1sbzxxwi0z3gjf";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
+    };
+
+    untangle = buildMix rec {
+      name = "untangle";
+      version = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "untangle";
+        rev = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    verbs = buildMix rec {
+      name = "verbs";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "shannonnwells";
+        repo = "verbs_ex";
+        rev = "4b27067385390d4d2063ec1a09f9d96b97ed9a73";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    voodoo = buildMix rec {
+      name = "voodoo";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "voodoo";
+        rev = "8c384a112504849b2fa663d49acef7bbad67a745";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    absinthe_client = buildMix rec {
+      name = "absinthe_client";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "absinthe_client";
+        rev = "818955a3e2804816abb0b4961e7b1fe88a3ff387";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    # TODO these have the same git repo but different "sparse"
+    # Also the branch is not main or master it's skip-oban-config
+    # Though the branch may not matter since we specifiy a commit
+    # active_job = buildMix rec {
+    #   name = "active_job";
+    #   version = "";
+
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "chaskiq";
+    #     repo = "ex-rails";
+    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
+    #     sha256 = "";
+    #   };
+
+    #   beamDeps = [ ];
+    # };
+
+    # active_storage = buildMix rec {
+    #   name = "active_storage";
+    #   version = "";
+
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "chaskiq";
+    #     repo = "ex-rails";
+    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
+    #     sha256 = "";
+    #   };
+
+    #   beamDeps = [ ];
+    # };
+
+    activity_pub = buildMix rec {
+      name = "activity_pub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "activity_pub";
+        rev = "2cbb74be6ee9398b3e53ebfacfbd1e6d4bf0aaf0";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    arrows = buildMix rec {
+      name = "arrows";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "arrows";
+        rev = "2482f0b33f966db602fcbad68c756aa643f0f8af";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    archeometer = buildMix rec {
+      name = "archeometer";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "mayel";
+        repo = "archeometer";
+        rev = "e388acec0137706e8da83ef11454544463b2a7a1";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_api_graphql = buildMix rec {
+      name = "bonfire_api_graphql";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_api_graphql";
+        rev = "e9623c158071f57a164ab8e3e9c9c7512d7ce3a3";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_boundaries = buildMix rec {
+      name = "bonfire_boundaries";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_boundaries";
+        rev = "8c540b34c19100ba0cd4283ca7bd8212cf8c1b1b";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_breadpub = buildMix rec {
+      name = "bonfire_breadpub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_breadpub";
+        rev = "9c89c7bf91a43a6b01dac252497a3a2ba92adf6b";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_classify = buildMix rec {
+      name = "bonfire_classify";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_classify";
+        rev = "2c2b008fb0e29b85cf8af36be0f466e87fec6bc3";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_common = buildMix rec {
+      name = "bonfire_common";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_common";
+        rev = "e3fde546c897c14570ba648d95e09388d0e6fd2e";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_access_control = buildMix rec {
+      name = "bonfire_data_access_control";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_access_control";
+        rev = "7fe8c4d77f53e2fa03c5796d95bf90f1c9051b37";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_activity_pub = buildMix rec {
+      name = "bonfire_data_activity_pub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_activity_pub";
+        rev = "db4a68a89b93c374c34a269f403b9054bd79bd5c";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_assort = buildMix rec {
+      name = "bonfire_data_assort";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_assort";
+        rev = "ba8493ba162e161834f0c9b2e057202566a499ac";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_edges = buildMix rec {
+      name = "bonfire_data_edges";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_edges";
+        rev = "269a91e01db1d83d43f38962f23ca23aac5044a9";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_identity = buildMix rec {
+      name = "bonfire_data_identity";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_identity";
+        rev = "351f418d0e79fa7da34d451a0e5bc26a0dd56b57";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_shared_user = buildMix rec {
+      name = "bonfire_data_shared_user";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_shared_user";
+        rev = "97d4745ea86d2bee3da95c4a1d23bea99d673cea";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_social = buildMix rec {
+      name = "bonfire_data_social";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_social";
+        rev = "5971794776293bf1b22e320e243da8e4a1dbef3d";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ecto = buildMix rec {
+      name = "bonfire_ecto";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ecto";
+        rev = "e7bec619bfb0923b37da8e8572f4d7363b279c1d";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_editor_quill = buildMix rec {
+      name = "bonfire_editor_quill";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_editor_quill";
+        rev = "a6d3743b982e9f7be14612391b4465473ba3ab75";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_epics = buildMix rec {
+      name = "bonfire_epics";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_epics";
+        rev = "652217237632c7210ad6d6b0c8375654ef3c0d8f";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_fail = buildMix rec {
+      name = "bonfire_fail";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_fail";
+        rev = "88686a00be6fef9d5a6dd30fe26fcd842ab3d7a3";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_federate_activitypub = buildMix rec {
+      name = "bonfire_federate_activitypub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_federate_activitypub";
+        rev = "25f19d985ed82d4003b0c4355f36c11ed31f3e20";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_files = buildMix rec {
+      name = "bonfire_files";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_files";
+        rev = "b90932fe939c8acd7eee3e1d8c91d835f33b6c37";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_geolocate = buildMix rec {
+      name = "bonfire_geolocate";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_geolocate";
+        rev = "286b7f55324addebe2af70be8d9d34a3d790b099";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_invite_links = buildMix rec {
+      name = "bonfire_invite_links";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_invite_links";
+        rev = "fbe87ee6bd8c418af7ff8b73728a23fc0fd6df9e";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_mailer = buildMix rec {
+      name = "bonfire_mailer";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_mailer";
+        rev = "d8a3f4bef0cbe4b8c9db1ee107366ecf083b7824";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_me = buildMix rec {
+      name = "bonfire_me";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_me";
+        rev = "9af9fea23c63ee094a76b24e855848b2c6764e93";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_pages = buildMix rec {
+      name = "bonfire_pages";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_pages";
+        rev = "ed479703092ee3dbf0a87cba2f0c44e69983fa23";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_quantify = buildMix rec {
+      name = "bonfire_quantify";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_quantify";
+        rev = "b9a4f9e83a64da928b2eb865649c576ed1acf74b";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_search = buildMix rec {
+      name = "bonfire_search";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_search";
+        rev = "2dea043a3614a258509af44eab0266b85ac8902f";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_social = buildMix rec {
+      name = "bonfire_social";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_social";
+        rev = "46313f075b627f2f5dbc3a58895266b4c2d9d671";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_tag = buildMix rec {
+      name = "bonfire_tag";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_tag";
+        rev = "f44449ba6f2daa146bae0af2689b767272feefe3";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_common = buildMix rec {
+      name = "bonfire_ui_common";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_common";
+        rev = "b5c6e193317c730fb672d2dbbf242b94c06b3c2f";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_coordination = buildMix rec {
+      name = "bonfire_ui_coordination";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_coordination";
+        rev = "4b64eaebdb2dc88319a786a3fc84beecd159d704";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_kanban = buildMix rec {
+      name = "bonfire_ui_kanban";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_kanban";
+        rev = "9f36951c167d0e6c5dc98e4d09daa55afe23b861";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_me = buildMix rec {
+      name = "bonfire_ui_me";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_me";
+        rev = "810972ceb163805763905ad23cddac6102882c55";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_social = buildMix rec {
+      name = "bonfire_ui_social";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_social";
+        rev = "60561996abdc8bd1ba97c03c014c3c31681d14de";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_valueflows = buildMix rec {
+      name = "bonfire_ui_valueflows";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_valueflows";
+        rev = "ca7265c43a7e172e6a3e7f423af254ec06327be5";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_valueflows = buildMix rec {
+      name = "bonfire_valueflows";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_valueflows";
+        rev = "aef5cd10f22e929b1c7f43cbb75dcd6e83b9572a";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_valueflows_api_schema = buildMix rec {
+      name = "bonfire_valueflows_api_schema";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_valueflows_api_schema";
+        rev = "32fff390e37b7a7d7bd1fc9f220cbc7516e4df17";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_valueflows_observe = buildMix rec {
+      name = "bonfire_valueflows_observe";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_valueflows_observe";
+        rev = "1540b181b7e68155445c6b067cefdd5d2494bd0a";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
     };
 
     phil_columns = buildMix rec {
       name = "phil_columns";
       version = "3.1.0";
 
-      src = fetchHex {
-        pkg = "${name}";
-        version = "${version}";
-        sha256 = "0s070kgrwkqq82yr40wzs7qfw6zpvf72spfxz5s590f4csimz8qa";
+      src = pkgs.fetchFromGitHub {
+        owner = "chickensoupwithrice";
+        repo = "phil_columns-ex";
+        rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
+        sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
       };
 
       beamDeps = [ ecto_sql inflex ];
@@ -1656,7 +2311,7 @@ let
         sha256 = "1nfqrmbrq45if9pgk6g6vqiply2sxc40is3bfanphn7a3rnpqdl1";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     phoenix_view = buildMix rec {
@@ -1708,7 +2363,7 @@ let
         sha256 = "18plj2idhp3f0nmqyjjf2rzj849l3br0797m8ln20p5dqscj0rxm";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     poison = buildMix rec {
@@ -1721,7 +2376,7 @@ let
         sha256 = "098gdz7xzfmnjzgnnv80nl4h3zl8l9czqqd132vlnfabxbz3d25s";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     poolboy = buildRebar3 rec {
@@ -1734,7 +2389,7 @@ let
         sha256 = "1qq116314418jp4skxg8c6jx29fwp688a738lgaz6h2lrq29gmys";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     postgrex = buildMix rec {
@@ -1773,7 +2428,7 @@ let
         sha256 = "19sm4jv8zngsb7mkkpha22vygd508pwfcvavwlb3n71szfbv7c4y";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ranch = buildRebar3 rec {
@@ -1786,7 +2441,7 @@ let
         sha256 = "1rfz5ld54pkd2w25jadyznia2vb7aw9bclck21fizargd39wzys9";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     recase = buildMix rec {
@@ -1799,7 +2454,7 @@ let
         sha256 = "032fib052caapihmxhnrzbap4kigwdq5hsaanna4lbsmkxm7bx9n";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     recode = buildMix rec {
@@ -1851,7 +2506,7 @@ let
         sha256 = "171jc2zxcrrznwq3dpyr53pqpq9ndgrh1is63mbppz51j3ms9b67";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     rewrite = buildMix rec {
@@ -1890,7 +2545,7 @@ let
         sha256 = "1n90nv9913xg8lrj1n7c4r4ym5d92fnvxf0xxvxlw9s09pna0rkq";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     scrivener_ecto = buildMix rec {
@@ -1916,7 +2571,7 @@ let
         sha256 = "1az658qpha6pnlns37pn9l201wck4ahrvldgp91s2h1rbvqm95qv";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     sentry = buildMix rec {
@@ -1955,7 +2610,7 @@ let
         sha256 = "1q823i5bisc83pyssgrqkggyxiasm7b8dygzj2r943adzyp3gvl4";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     slime = buildMix rec {
@@ -1981,7 +2636,7 @@ let
         sha256 = "1fmgnl4ydq4ivbfk1a934vcn0d0wb24lhnvcmqg5sq0jwz8dxl10";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     sobelow = buildMix rec {
@@ -2020,7 +2675,7 @@ let
         sha256 = "1yqdnxdvbwlcvklv2472r0pkgfjccyqgg3y6xvk6p8wni08mkdls";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ssl_verify_fun = buildRebar3 rec {
@@ -2033,7 +2688,7 @@ let
         sha256 = "1026l1z1jh25z8bfrhaw0ryk5gprhrpnirq877zqhg253x3x5c5x";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     statistex = buildMix rec {
@@ -2046,7 +2701,7 @@ let
         sha256 = "09vcm2sz2llv00cm7krkx3n5r8ra1b42zx9gfjs8l0imf3p8p7gz";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     stream_data = buildMix rec {
@@ -2059,7 +2714,7 @@ let
         sha256 = "0wg2p5hwf7qmkwsc1i3q7h558f7sr9f13y8i6kds9bb9q3pd4aq1";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     surface = buildMix rec {
@@ -2085,7 +2740,7 @@ let
         sha256 = "1fpmwhqgvakvdpbwmmyh31ays3hzhnm9766xqyzp9zmkl5kwh471";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     table_rex = buildMix rec {
@@ -2098,7 +2753,7 @@ let
         sha256 = "141404hwnwnpspvhs112j2la8dfnvkwr0xy14ff42w6nljmj72k7";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     tailwind = buildMix rec {
@@ -2124,7 +2779,7 @@ let
         sha256 = "0j6zq3y7xz768djz25x55gampyhd9nv6ax9dzx67f52nyyhv49xp";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     telemetry_metrics = buildMix rec {
@@ -2163,7 +2818,7 @@ let
         sha256 = "039ys0yccxnydgq8c9c8j0diwamfs5s1a0p1id3jg945d9yrxwba";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     tesla = buildMix rec {
@@ -2228,7 +2883,7 @@ let
         sha256 = "0yivgnaxdlfcv0rc35bviy47z8n9rkpis38k3rw9xpyqwvkwbdz7";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     typed_struct = buildMix rec {
@@ -2241,7 +2896,7 @@ let
         sha256 = "0v8v3l8j7g3ran3f9gc2nc1mkj6kwfdr6kshm2cf3r0zlv1xa2y5";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     tzdata = buildMix rec {
@@ -2267,7 +2922,7 @@ let
         sha256 = "08952lw8cjdw8w171lv8wqbrxc4rcmb3jhkrdb7n06gngpbfdvi5";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     unsafe = buildMix rec {
@@ -2280,7 +2935,7 @@ let
         sha256 = "1rahpgz1lsd66r7ycns1ryz2qymamz1anrlps986900lsai2jxvc";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     uuid = buildMix rec {
@@ -2293,7 +2948,7 @@ let
         sha256 = "1b7jjbkmp42rayl6nif6qirksnxgxzksm2rpq9fiyq1v9hxmk467";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     versioce = buildMix rec {
@@ -2358,7 +3013,7 @@ let
         sha256 = "0xz66k24f8srn94p75hq5qkls1nfkcljil8qhgmqq5mrz16ql628";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     yamerl = buildRebar3 rec {
@@ -2371,7 +3026,7 @@ let
         sha256 = "0vjf9gnchvh4qfykrxf0jw0didvfrx54wdm26z41s1gicclxnsil";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     zest = buildMix rec {
@@ -2384,8 +3039,9 @@ let
         sha256 = "0jlpldb94wm1v2kavvsy5h7w5mvjmxnkssl48mp2iphmysnddqpb";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
   };
-in self
+in
+self
 
