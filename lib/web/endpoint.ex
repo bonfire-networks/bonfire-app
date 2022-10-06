@@ -67,4 +67,6 @@ defmodule Bonfire.Web.Endpoint do
       <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
       """
   end
+
+  def reload!(), do: Phoenix.CodeReloader.reload!(__MODULE__)
 end
