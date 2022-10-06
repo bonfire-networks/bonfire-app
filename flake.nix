@@ -87,17 +87,18 @@
           # mix2nix dependencies
           mixNixDeps = import ./deps.nix { inherit lib beamPackages; pkgs = pkgs; };
 
+          mixFodDeps = beamPackages.fetchMixDeps {
+            pname = "mix-deps-${pname}";
+            inherit src version;
+            # nix will complain and tell you the right value to replace this with
+            sha256 = lib.fakeSha256;
+          };
+
           # mix release definition
           release-prod = beamPackages.mixRelease {
-            inherit src pname version elixir;
+            inherit src pname version mixFodDeps elixir;
             mixEnv = "prod";
-            # configurePhase = configureHook;
-            mixFodDeps = pkgs.fetchMixDeps {
-              pname = "mix-deps-${pname}";
-              inherit src version;
-              # nix will complain and tell you the right value to replace this with
-              sha256 = lib.fakeSha256;
-            };
+            configurePhase = configureHook;
             buildInputs = inputsBuild;
 
             installPhase = installHook { release = "prod"; };
