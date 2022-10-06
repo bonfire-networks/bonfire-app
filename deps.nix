@@ -21,20 +21,6 @@ let
       beamDeps = [ dataloader decimal nimble_parsec telemetry ];
     };
 
-    ex_aws = buildMix rec {
-      name = "ex_aws";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "ex_aws";
-        rev = "2979884fdadabe44cc589346b697c00d8a8d1266";
-        sha256 = "+l2GHFGY+LziX0CI6g/jqilIRUmB3XHCCuoTXW4mipc=";
-      };
-
-      beamDeps = [ hackney sweet_xml ];
-    };
-
     absinthe_error_payload = buildMix rec {
       name = "absinthe_error_payload";
       version = "1.1.4";
@@ -1550,653 +1536,6 @@ let
       beamDeps = [ ];
     };
 
-    untangle = buildMix rec {
-      name = "untangle";
-      version = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "untangle";
-        rev = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    verbs = buildMix rec {
-      name = "verbs";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "shannonnwells";
-        repo = "verbs_ex";
-        rev = "4b27067385390d4d2063ec1a09f9d96b97ed9a73";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    voodoo = buildMix rec {
-      name = "voodoo";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "voodoo";
-        rev = "8c384a112504849b2fa663d49acef7bbad67a745";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    absinthe_client = buildMix rec {
-      name = "absinthe_client";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "absinthe_client";
-        rev = "818955a3e2804816abb0b4961e7b1fe88a3ff387";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    # TODO these have the same git repo but different "sparse"
-    # Also the branch is not main or master it's skip-oban-config
-    # Though the branch may not matter since we specifiy a commit
-    # active_job = buildMix rec {
-    #   name = "active_job";
-    #   version = "";
-
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "chaskiq";
-    #     repo = "ex-rails";
-    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
-    #     sha256 = "";
-    #   };
-
-    #   beamDeps = [ ];
-    # };
-
-    # active_storage = buildMix rec {
-    #   name = "active_storage";
-    #   version = "";
-
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "chaskiq";
-    #     repo = "ex-rails";
-    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
-    #     sha256 = "";
-    #   };
-
-    #   beamDeps = [ ];
-    # };
-
-    activity_pub = buildMix rec {
-      name = "activity_pub";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "activity_pub";
-        rev = "2cbb74be6ee9398b3e53ebfacfbd1e6d4bf0aaf0";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    arrows = buildMix rec {
-      name = "arrows";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "arrows";
-        rev = "2482f0b33f966db602fcbad68c756aa643f0f8af";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    archeometer = buildMix rec {
-      name = "archeometer";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "mayel";
-        repo = "archeometer";
-        rev = "e388acec0137706e8da83ef11454544463b2a7a1";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_api_graphql = buildMix rec {
-      name = "bonfire_api_graphql";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_api_graphql";
-        rev = "e9623c158071f57a164ab8e3e9c9c7512d7ce3a3";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_boundaries = buildMix rec {
-      name = "bonfire_boundaries";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_boundaries";
-        rev = "8c540b34c19100ba0cd4283ca7bd8212cf8c1b1b";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_breadpub = buildMix rec {
-      name = "bonfire_breadpub";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_breadpub";
-        rev = "9c89c7bf91a43a6b01dac252497a3a2ba92adf6b";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_classify = buildMix rec {
-      name = "bonfire_classify";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_classify";
-        rev = "2c2b008fb0e29b85cf8af36be0f466e87fec6bc3";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_common = buildMix rec {
-      name = "bonfire_common";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_common";
-        rev = "e3fde546c897c14570ba648d95e09388d0e6fd2e";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_access_control = buildMix rec {
-      name = "bonfire_data_access_control";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_access_control";
-        rev = "7fe8c4d77f53e2fa03c5796d95bf90f1c9051b37";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_activity_pub = buildMix rec {
-      name = "bonfire_data_activity_pub";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_activity_pub";
-        rev = "db4a68a89b93c374c34a269f403b9054bd79bd5c";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_assort = buildMix rec {
-      name = "bonfire_data_assort";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_assort";
-        rev = "ba8493ba162e161834f0c9b2e057202566a499ac";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_edges = buildMix rec {
-      name = "bonfire_data_edges";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_edges";
-        rev = "269a91e01db1d83d43f38962f23ca23aac5044a9";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_identity = buildMix rec {
-      name = "bonfire_data_identity";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_identity";
-        rev = "351f418d0e79fa7da34d451a0e5bc26a0dd56b57";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_shared_user = buildMix rec {
-      name = "bonfire_data_shared_user";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_shared_user";
-        rev = "97d4745ea86d2bee3da95c4a1d23bea99d673cea";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_data_social = buildMix rec {
-      name = "bonfire_data_social";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_data_social";
-        rev = "5971794776293bf1b22e320e243da8e4a1dbef3d";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ecto = buildMix rec {
-      name = "bonfire_ecto";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ecto";
-        rev = "e7bec619bfb0923b37da8e8572f4d7363b279c1d";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_editor_quill = buildMix rec {
-      name = "bonfire_editor_quill";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_editor_quill";
-        rev = "a6d3743b982e9f7be14612391b4465473ba3ab75";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_epics = buildMix rec {
-      name = "bonfire_epics";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_epics";
-        rev = "652217237632c7210ad6d6b0c8375654ef3c0d8f";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_fail = buildMix rec {
-      name = "bonfire_fail";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_fail";
-        rev = "88686a00be6fef9d5a6dd30fe26fcd842ab3d7a3";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_federate_activitypub = buildMix rec {
-      name = "bonfire_federate_activitypub";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_federate_activitypub";
-        rev = "25f19d985ed82d4003b0c4355f36c11ed31f3e20";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_files = buildMix rec {
-      name = "bonfire_files";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_files";
-        rev = "b90932fe939c8acd7eee3e1d8c91d835f33b6c37";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_geolocate = buildMix rec {
-      name = "bonfire_geolocate";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_geolocate";
-        rev = "286b7f55324addebe2af70be8d9d34a3d790b099";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_invite_links = buildMix rec {
-      name = "bonfire_invite_links";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_invite_links";
-        rev = "fbe87ee6bd8c418af7ff8b73728a23fc0fd6df9e";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_mailer = buildMix rec {
-      name = "bonfire_mailer";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_mailer";
-        rev = "d8a3f4bef0cbe4b8c9db1ee107366ecf083b7824";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_me = buildMix rec {
-      name = "bonfire_me";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_me";
-        rev = "9af9fea23c63ee094a76b24e855848b2c6764e93";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_pages = buildMix rec {
-      name = "bonfire_pages";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_pages";
-        rev = "ed479703092ee3dbf0a87cba2f0c44e69983fa23";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_quantify = buildMix rec {
-      name = "bonfire_quantify";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_quantify";
-        rev = "b9a4f9e83a64da928b2eb865649c576ed1acf74b";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_search = buildMix rec {
-      name = "bonfire_search";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_search";
-        rev = "2dea043a3614a258509af44eab0266b85ac8902f";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_social = buildMix rec {
-      name = "bonfire_social";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_social";
-        rev = "46313f075b627f2f5dbc3a58895266b4c2d9d671";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_tag = buildMix rec {
-      name = "bonfire_tag";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_tag";
-        rev = "f44449ba6f2daa146bae0af2689b767272feefe3";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ui_common = buildMix rec {
-      name = "bonfire_ui_common";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ui_common";
-        rev = "b5c6e193317c730fb672d2dbbf242b94c06b3c2f";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ui_coordination = buildMix rec {
-      name = "bonfire_ui_coordination";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ui_coordination";
-        rev = "4b64eaebdb2dc88319a786a3fc84beecd159d704";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ui_kanban = buildMix rec {
-      name = "bonfire_ui_kanban";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ui_kanban";
-        rev = "9f36951c167d0e6c5dc98e4d09daa55afe23b861";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ui_me = buildMix rec {
-      name = "bonfire_ui_me";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ui_me";
-        rev = "810972ceb163805763905ad23cddac6102882c55";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ui_social = buildMix rec {
-      name = "bonfire_ui_social";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ui_social";
-        rev = "60561996abdc8bd1ba97c03c014c3c31681d14de";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_ui_valueflows = buildMix rec {
-      name = "bonfire_ui_valueflows";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_ui_valueflows";
-        rev = "ca7265c43a7e172e6a3e7f423af254ec06327be5";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_valueflows = buildMix rec {
-      name = "bonfire_valueflows";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_valueflows";
-        rev = "aef5cd10f22e929b1c7f43cbb75dcd6e83b9572a";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_valueflows_api_schema = buildMix rec {
-      name = "bonfire_valueflows_api_schema";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_valueflows_api_schema";
-        rev = "32fff390e37b7a7d7bd1fc9f220cbc7516e4df17";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    bonfire_valueflows_observe = buildMix rec {
-      name = "bonfire_valueflows_observe";
-      version = "";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "bonfire-networks";
-        repo = "bonfire_valueflows_observe";
-        rev = "1540b181b7e68155445c6b067cefdd5d2494bd0a";
-        sha256 = "";
-      };
-
-      beamDeps = [ ];
-    };
-
-    phil_columns = buildMix rec {
-      name = "phil_columns";
-      version = "3.1.0";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "chickensoupwithrice";
-        repo = "phil_columns-ex";
-        rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
-        sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
-      };
-
-      beamDeps = [ ecto_sql inflex ];
-    };
-
     phoenix = buildMix rec {
       name = "phoenix";
       version = "1.6.13";
@@ -3041,6 +2380,736 @@ let
 
       beamDeps = [ ];
     };
+
+    pointers = buildMix rec {
+      name = "pointers";
+      version = "0.5.1";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "";
+      };
+
+      beamDeps = [ ecto_sql flexto pointers_ulid ];
+    };
+
+    flexto = buildMix rec {
+      name = "flexto";
+      version = "0.2.3";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "";
+      };
+
+      beamDeps = [ ecto ecto_sql ];
+    };
+
+    pointers_ulid = buildMix rec {
+      name = "pointers_ulid";
+      version = "0.2.2";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "";
+      };
+
+      beamDeps = [ ecto ecto_sql ];
+    };
+
+    ########################
+    ### GIT DEPENDENCIES ###
+    ########################
+
+    untangle = buildMix rec {
+      name = "untangle";
+      version = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "untangle";
+        rev = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    verbs = buildMix rec {
+      name = "verbs";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "shannonnwells";
+        repo = "verbs_ex";
+        rev = "4b27067385390d4d2063ec1a09f9d96b97ed9a73";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    voodoo = buildMix rec {
+      name = "voodoo";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "voodoo";
+        rev = "8c384a112504849b2fa663d49acef7bbad67a745";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    absinthe_client = buildMix rec {
+      name = "absinthe_client";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "absinthe_client";
+        rev = "818955a3e2804816abb0b4961e7b1fe88a3ff387";
+        sha256 = "";
+      };
+
+      beamDeps = [ castore req slipstream ];
+    };
+
+    # TODO big one, might needs it's own definition
+    activity_pub = buildMix rec {
+      name = "activity_pub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "activity_pub";
+        rev = "2cbb74be6ee9398b3e53ebfacfbd1e6d4bf0aaf0";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    arrows = buildMix rec {
+      name = "arrows";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "arrows";
+        rev = "2482f0b33f966db602fcbad68c756aa643f0f8af";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    archeometer = buildMix rec {
+      name = "archeometer";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "mayel";
+        repo = "archeometer";
+        rev = "e388acec0137706e8da83ef11454544463b2a7a1";
+        sha256 = "";
+      };
+
+      beamDeps = [ credo css_colors exqlite slime temp uuid ];
+    };
+
+    bonfire_api_graphql = buildMix rec {
+      name = "bonfire_api_graphql";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_api_graphql";
+        rev = "e9623c158071f57a164ab8e3e9c9c7512d7ce3a3";
+        sha256 = "";
+      };
+
+      beamDeps = [ ]; # I'm not including dev dependencies
+    };
+
+    # TODO big one
+    bonfire_boundaries = buildMix rec {
+      name = "bonfire_boundaries";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_boundaries";
+        rev = "8c540b34c19100ba0cd4283ca7bd8212cf8c1b1b";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_breadpub = buildMix rec {
+      name = "bonfire_breadpub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_breadpub";
+        rev = "9c89c7bf91a43a6b01dac252497a3a2ba92adf6b";
+        sha256 = "";
+      };
+
+      beamDeps = [ absinthe absinthe_plug bonfire_search ]; # Not sure if this is built with mix or rebar, or if we need to include deps.{git, hex} dependencies 
+    };
+
+    bonfire_classify = buildMix rec {
+      name = "bonfire_classify";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_classify";
+        rev = "2c2b008fb0e29b85cf8af36be0f466e87fec6bc3";
+        sha256 = "";
+      };
+
+      beamDeps = [ bonfire_api_graphql bonfire_search bonfire_tag bonfire_me ]; # All these are optional, didn't include deps.{hex, git}
+    };
+
+    # TODO Big one
+    bonfire_common = buildMix rec {
+      name = "bonfire_common";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_common";
+        rev = "e3fde546c897c14570ba648d95e09388d0e6fd2e";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_access_control = buildMix rec {
+      name = "bonfire_data_access_control";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_access_control";
+        rev = "7fe8c4d77f53e2fa03c5796d95bf90f1c9051b37";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_activity_pub = buildMix rec {
+      name = "bonfire_data_activity_pub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_activity_pub";
+        rev = "db4a68a89b93c374c34a269f403b9054bd79bd5c";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_data_assort = buildMix rec {
+      name = "bonfire_data_assort";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_assort";
+        rev = "ba8493ba162e161834f0c9b2e057202566a499ac";
+        sha256 = "";
+      };
+
+      beamDeps = [ pointers ecto_ranked ];
+    };
+
+    bonfire_data_edges = buildMix rec {
+      name = "bonfire_data_edges";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_edges";
+        rev = "269a91e01db1d83d43f38962f23ca23aac5044a9";
+        sha256 = "";
+      };
+
+      beamDeps = [ connection db_connection decimal ecto ecto_sql flexto pointers_ulid pointers telemetry ];
+    };
+
+    bonfire_data_identity = buildMix rec {
+      name = "bonfire_data_identity";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_identity";
+        rev = "351f418d0e79fa7da34d451a0e5bc26a0dd56b57";
+        sha256 = "";
+      };
+
+      beamDeps = [ comeonin connection db_connection decimal earmark_parser ecto ecto_sql ex_ulid ex_doc flexto makeup makeup_elixir makeup_erlang nimble_parsec pbkdf2_elixir pointers pointers_ulid telemetry where ];
+      # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
+    };
+
+    bonfire_data_shared_user = buildMix rec {
+      name = "bonfire_data_shared_user";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_shared_user";
+        rev = "97d4745ea86d2bee3da95c4a1d23bea99d673cea";
+        sha256 = "";
+      };
+
+      beamDeps = [ pointers bonfire_data_identity ];
+    };
+
+    bonfire_data_social = buildMix rec {
+      name = "bonfire_data_social";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_data_social";
+        rev = "5971794776293bf1b22e320e243da8e4a1dbef3d";
+        sha256 = "";
+      };
+
+      beamDeps = [ arrows bonfire_data_edges connection db_connection decimal earmark_parser ecto ecto_materialized_path ecto_sql flexto ex_doc makeup makeup_elixir makeup_erlang nimble_parsec pointers pointers_ulid telemetry where ];
+      # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
+    };
+
+    ecto_materialized_path = buildMix rec {
+      name = "ecto_materialized_path";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "ecto_materialized_path";
+        rev = "5971794776293bf1b22e320e243da8e4a1dbef3d";
+        sha256 = "";
+      };
+
+      beamDeps = [ connection db_connection decimal earmark ecto ex_doc ex_machina poolboy postgrex ];
+    };
+
+
+    bonfire_ecto = buildMix rec {
+      name = "bonfire_ecto";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ecto";
+        rev = "e7bec619bfb0923b37da8e8572f4d7363b279c1d";
+        sha256 = "";
+      };
+
+      beamDeps = [ bonfire_common bonfire_epics ];
+    };
+
+    bonfire_editor_quill = buildMix rec {
+      name = "bonfire_editor_quill";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_editor_quill";
+        rev = "a6d3743b982e9f7be14612391b4465473ba3ab75";
+        sha256 = "";
+      };
+
+      beamDeps = [ ]; # Not including deps.{hex,git}
+    };
+
+    bonfire_epics = buildMix rec {
+      name = "bonfire_epics";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_epics";
+        rev = "652217237632c7210ad6d6b0c8375654ef3c0d8f";
+        sha256 = "";
+      };
+
+      beamDeps = [ arrows where ];
+      # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
+    };
+
+    bonfire_fail = buildMix rec {
+      name = "bonfire_fail";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_fail";
+        rev = "88686a00be6fef9d5a6dd30fe26fcd842ab3d7a3";
+        sha256 = "";
+      };
+
+      beamDeps = [ untangle bonfire_common ];
+    };
+
+    bonfire_federate_activitypub = buildMix rec {
+      name = "bonfire_federate_activitypub";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_federate_activitypub";
+        rev = "25f19d985ed82d4003b0c4355f36c11ed31f3e20";
+        sha256 = "";
+      };
+
+      beamDeps = [ floki ]; # Not including deps.{git, hex}
+    };
+
+    bonfire_files = buildMix rec {
+      name = "bonfire_files";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_files";
+        rev = "b90932fe939c8acd7eee3e1d8c91d835f33b6c37";
+        sha256 = "";
+      };
+
+      beamDeps = [ tree_magic bonfire_api_graphql ex_aws_s3 ];
+    };
+
+    bonfire_geolocate = buildMix rec {
+      name = "bonfire_geolocate";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_geolocate";
+        rev = "286b7f55324addebe2af70be8d9d34a3d790b099";
+        sha256 = "";
+      };
+
+      beamDeps = [ floki bonfire_api_graphql grumble bonfire_tag ];
+    };
+
+    bonfire_invite_links = buildMix rec {
+      name = "bonfire_invite_links";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_invite_links";
+        rev = "fbe87ee6bd8c418af7ff8b73728a23fc0fd6df9e";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_mailer = buildMix rec {
+      name = "bonfire_mailer";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_mailer";
+        rev = "d8a3f4bef0cbe4b8c9db1ee107366ecf083b7824";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_me = buildMix rec {
+      name = "bonfire_me";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_me";
+        rev = "9af9fea23c63ee094a76b24e855848b2c6764e93";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_pages = buildMix rec {
+      name = "bonfire_pages";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_pages";
+        rev = "ed479703092ee3dbf0a87cba2f0c44e69983fa23";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_quantify = buildMix rec {
+      name = "bonfire_quantify";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_quantify";
+        rev = "b9a4f9e83a64da928b2eb865649c576ed1acf74b";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_search = buildMix rec {
+      name = "bonfire_search";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_search";
+        rev = "2dea043a3614a258509af44eab0266b85ac8902f";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_social = buildMix rec {
+      name = "bonfire_social";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_social";
+        rev = "46313f075b627f2f5dbc3a58895266b4c2d9d671";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_tag = buildMix rec {
+      name = "bonfire_tag";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_tag";
+        rev = "f44449ba6f2daa146bae0af2689b767272feefe3";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_common = buildMix rec {
+      name = "bonfire_ui_common";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_common";
+        rev = "b5c6e193317c730fb672d2dbbf242b94c06b3c2f";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_coordination = buildMix rec {
+      name = "bonfire_ui_coordination";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_coordination";
+        rev = "4b64eaebdb2dc88319a786a3fc84beecd159d704";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_kanban = buildMix rec {
+      name = "bonfire_ui_kanban";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_kanban";
+        rev = "9f36951c167d0e6c5dc98e4d09daa55afe23b861";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_me = buildMix rec {
+      name = "bonfire_ui_me";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_me";
+        rev = "810972ceb163805763905ad23cddac6102882c55";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_social = buildMix rec {
+      name = "bonfire_ui_social";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_social";
+        rev = "60561996abdc8bd1ba97c03c014c3c31681d14de";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_ui_valueflows = buildMix rec {
+      name = "bonfire_ui_valueflows";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_ui_valueflows";
+        rev = "ca7265c43a7e172e6a3e7f423af254ec06327be5";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_valueflows = buildMix rec {
+      name = "bonfire_valueflows";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_valueflows";
+        rev = "aef5cd10f22e929b1c7f43cbb75dcd6e83b9572a";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_valueflows_api_schema = buildMix rec {
+      name = "bonfire_valueflows_api_schema";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_valueflows_api_schema";
+        rev = "32fff390e37b7a7d7bd1fc9f220cbc7516e4df17";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    bonfire_valueflows_observe = buildMix rec {
+      name = "bonfire_valueflows_observe";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_valueflows_observe";
+        rev = "1540b181b7e68155445c6b067cefdd5d2494bd0a";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
+
+    phil_columns = buildMix rec {
+      name = "phil_columns";
+      version = "3.1.0";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "chickensoupwithrice";
+        repo = "phil_columns-ex";
+        rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
+        sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
+      };
+
+      beamDeps = [ ecto_sql inflex ];
+    };
+
+    ex_aws = buildMix rec {
+      name = "ex_aws";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "ex_aws";
+        rev = "2979884fdadabe44cc589346b697c00d8a8d1266";
+        sha256 = "+l2GHFGY+LziX0CI6g/jqilIRUmB3XHCCuoTXW4mipc=";
+      };
+
+      beamDeps = [ hackney sweet_xml ];
+    };
+
+
+    # TODO Transitive deps
+    # req slipstream
+
+    # TODO these have the same git repo but different "sparse"
+    # Also the branch is not main or master it's skip-oban-config
+    # Though the branch may not matter since we specifiy a commit
+    # active_job = buildMix rec {
+    #   name = "active_job";
+    #   version = "";
+
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "chaskiq";
+    #     repo = "ex-rails";
+    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
+    #     sha256 = "";
+    #   };
+
+    #   beamDeps = [ ];
+    # };
+
+    # active_storage = buildMix rec {
+    #   name = "active_storage";
+    #   version = "";
+
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "chaskiq";
+    #     repo = "ex-rails";
+    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
+    #     sha256 = "";
+    #   };
+
+    #   beamDeps = [ ];
+    # };
+
   };
 in
 self
