@@ -8,6 +8,20 @@ let
   self = packages // (overrides self packages);
 
   packages = with beamPackages; with self; {
+
+    surface_heroicons = buildMix rec {
+      name = "surface_heroicons";
+      version = "0.4.0";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "";
+      };
+
+      beamDeps = [ dataloader decimal nimble_parsec telemetry ];
+    };
+
     absinthe = buildMix rec {
       name = "absinthe";
       version = "1.7.0";
@@ -614,7 +628,7 @@ let
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "/YGnFHtO2GwMRMAlFETLjR3vzMezO4kGfKFjXyPp+/g=";
+        sha256 = "1y7vx4imyqx1gh38jfxkqz6fy7cdrd2189f08h66rn2fgcaag0gx";
       };
 
       beamDeps = [ castore certifi cldr_utils decimal gettext jason nimble_parsec ];
@@ -860,6 +874,19 @@ let
       beamDeps = [ ];
     };
 
+    finch = buildMix rec {
+      name = "finch";
+      version = "0.13.0";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "1k56zfbadpppn8flavb4aczq0npcqnlhg993l51c1k8dw76pv5a9";
+      };
+
+      beamDeps = [ castore mime mint nimble_options nimble_pool telemetry ];
+    };
+
     floki = buildMix rec {
       name = "floki";
       version = "0.33.1";
@@ -1016,6 +1043,33 @@ let
       beamDeps = [ ];
     };
 
+    git_diff = buildMix rec {
+      name = "git_diff";
+      version = "0.6.3";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "26fe7799c923fd4ef082efaa4b6725b47a556aa98fddc7b5017509fb4132f963";
+      };
+
+      beamDeps = [ ];
+    };
+
+    mappable = buildMix rec {
+      name = "mappable";
+      version = "0.2.4";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "3038564db78bbde442100d9252aac484be746612bc74b333fbeaeffec8087efa";
+      };
+
+      beamDeps = [ ];
+    };
+
+
     grumble = buildMix rec {
       name = "grumble";
       version = "0.1.3";
@@ -1040,6 +1094,19 @@ let
       };
 
       beamDeps = [ certifi idna metrics mimerl parse_trans ssl_verify_fun unicode_util_compat ];
+    };
+
+    hpax = buildMix rec {
+      name = "hpax";
+      version = "0.1.2";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "04wci9ifsfyd2pbcrnpgh2aq0a8fi1lpkrzb91kz3x93b8yq91rc";
+      };
+
+      beamDeps = [ ];
     };
 
     html_entities = buildMix rec {
@@ -1328,6 +1395,32 @@ let
       beamDeps = [ ];
     };
 
+    mint = buildMix rec {
+      name = "mint";
+      version = "1.4.2";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "106x9nmzi4ji5cqaddn76pxiyxdihk12z2qgszcdgd2rrjxsaxff";
+      };
+
+      beamDeps = [ castore hpax ];
+    };
+
+    mint_web_socket = buildMix rec {
+      name = "mint_web_socket";
+      version = "1.0.1";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "18km9aj3hv1cvx6wl6lk5qgqx967y85l2dzc3qzv77m5aqkilisj";
+      };
+
+      beamDeps = [ mint ];
+    };
+
     mix_test_interactive = buildMix rec {
       name = "mix_test_interactive";
       version = "1.2.1";
@@ -1380,6 +1473,19 @@ let
       beamDeps = [ meck ];
     };
 
+    mogrify = buildMix rec {
+      name = "mogrify";
+      version = "0.9.2";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "17b9dy40rq3rwn7crjggjafibxz4ys4nqq81adcf486af3yi13f1";
+      };
+
+      beamDeps = [ ];
+    };
+
     mox = buildMix rec {
       name = "mox";
       version = "1.0.2";
@@ -1419,6 +1525,19 @@ let
       beamDeps = [ httpoison jason ];
     };
 
+    nimble_options = buildMix rec {
+      name = "nimble_options";
+      version = "0.4.0";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "0bd0pi3sij9vxhiilv25x6n3jls75g3b38rljvm1x896ycd1qw76";
+      };
+
+      beamDeps = [ ];
+    };
+
     nimble_parsec = buildMix rec {
       name = "nimble_parsec";
       version = "1.2.3";
@@ -1427,6 +1546,19 @@ let
         pkg = "${name}";
         version = "${version}";
         sha256 = "1c3hnppmjkwnqrc9vvm72kpliav0mqyyk4cjp7vsqccikgiqkmy8";
+      };
+
+      beamDeps = [ ];
+    };
+
+    nimble_pool = buildMix rec {
+      name = "nimble_pool";
+      version = "0.2.6";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "0gv59waa505mz2gi956sj1aa6844c65w2dp2qh2jfgsx15am0w8w";
       };
 
       beamDeps = [ ];
@@ -1534,6 +1666,19 @@ let
       };
 
       beamDeps = [ ];
+    };
+
+    phil_columns = buildMix rec {
+      name = "phil_columns";
+      version = "3.1.0";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "0s070kgrwkqq82yr40wzs7qfw6zpvf72spfxz5s590f4csimz8qa";
+      };
+
+      beamDeps = [ ecto_sql inflex ];
     };
 
     phoenix = buildMix rec {
@@ -1835,6 +1980,19 @@ let
       beamDeps = [ combine plug ];
     };
 
+    req = buildMix rec {
+      name = "req";
+      version = "0.3.1";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "150gnx1xi144kikcl2ppymj8ppgf0gkl38bn9s0sm465pf5nc1hx";
+      };
+
+      beamDeps = [ finch jason mime plug ];
+    };
+
     result = buildMix rec {
       name = "result";
       version = "1.3.0";
@@ -1963,6 +2121,19 @@ let
       };
 
       beamDeps = [ neotoma ];
+    };
+
+    slipstream = buildMix rec {
+      name = "slipstream";
+      version = "1.0.1";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "04x9mg0a74ri7f009wrzi3aqk5mfh68bxv1bm7qryjk56vg58xiv";
+      };
+
+      beamDeps = [ jason mint_web_socket nimble_options telemetry ];
     };
 
     slugger = buildMix rec {
@@ -2170,7 +2341,7 @@ let
         sha256 = "0mv48vgby1fv9b2npc0ird3y4isr10np3a3yas3v5hfyz54kll6m";
       };
 
-      beamDeps = [ castore hackney jason mime poison telemetry ];
+      beamDeps = [ castore finch hackney jason mime mint poison telemetry ];
     };
 
     text = buildMix rec {
@@ -2388,7 +2559,7 @@ let
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "";
+        sha256 = "DugdtfoRAIpQi2sCm1mivmahJkh5tTYdRYbBUz8ugYo=";
       };
 
       beamDeps = [ ecto_sql flexto pointers_ulid ];
@@ -2401,7 +2572,7 @@ let
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "";
+        sha256 = "Im7ZSvEKICZUUVx9+Jxj/YW3ibcZimYbNiR1Yj9z4Ik=";
       };
 
       beamDeps = [ ecto ecto_sql ];
@@ -2410,6 +2581,19 @@ let
     pointers_ulid = buildMix rec {
       name = "pointers_ulid";
       version = "0.2.2";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "TDvO6i4XRN9TVeHrny2q3SPT1lS3Eh4nJVzhur3bHVI=";
+      };
+
+      beamDeps = [ ecto ecto_sql ];
+    };
+
+    tree_magic = buildMix rec {
+      name = "pointers_ulid";
+      version = "0.1.1";
 
       src = fetchHex {
         pkg = "${name}";
@@ -2423,6 +2607,20 @@ let
     ########################
     ### GIT DEPENDENCIES ###
     ########################
+
+    where = buildMix rec {
+      name = "where";
+      version = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "untangle";
+        rev = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
+        sha256 = "";
+      };
+
+      beamDeps = [ ];
+    };
 
     untangle = buildMix rec {
       name = "untangle";
@@ -2480,7 +2678,6 @@ let
       beamDeps = [ castore req slipstream ];
     };
 
-    # TODO big one, might needs it's own definition
     activity_pub = buildMix rec {
       name = "activity_pub";
       version = "";
@@ -2492,7 +2689,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ cachex certifi combine connection cowboy cowboy_telemetry cowlib db_connection decimal earmark_parser ecto ecto_sql eternal ex_doc ex_machina ex_ulid flexto gettext hackney http_signatures idna jason jumper makeup makeup_elixir makeup_erlang meck metrics mime mimerl mock nimble_parsec oban parse_trans phoenix phoenix_ecto phoenix_html phoenix_live_dashboard phoenix_live_view phoenix_pubsub phoenix_view plug plug_cowboy plug_crypto pointers pointers_ulid postgrex ranch sleeplocks ssl_verify_fun telemetry telemetry_metrics telemetry_poller tesla timex tzdata unicode_util_compat unsafe where ];
     };
 
     arrows = buildMix rec {
@@ -2537,7 +2734,6 @@ let
       beamDeps = [ ]; # I'm not including dev dependencies
     };
 
-    # TODO big one
     bonfire_boundaries = buildMix rec {
       name = "bonfire_boundaries";
       version = "";
@@ -2549,7 +2745,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ arrows bonfire_common bonfire_data_access_control bonfire_data_identity bonfire_ui_common certifi cldr_utils combine connection cowboy cowboy_telemetry cowlib db_connection decimal earmark earmark_parser ecto ecto_sql ex_cldr ex_ulid faker file_system flexto floki gettext git_diff hackney html_entities html_sanitize_ex idna jason makeup makeup_diff makeup_eex makeup_elixir makeup_graphql makeup_html makeup_js makeup_sql mappable metrics mime mimerl mochiweb nimble_parsec paginator pane parse_trans phoenix phoenix_gon phoenix_html phoenix_live_reload phoenix_live_view phoenix_pubsub phoenix_view plug plug_cowboy plug_crypto pointers pointers_ulid ranch recase scribe sourceror ssl_verify_fun surface surface_heroicons telemetry telemetry_metrics telemetry_poller timex tzdata unicode_util_compat where ];
     };
 
     bonfire_breadpub = buildMix rec {
@@ -2580,7 +2776,6 @@ let
       beamDeps = [ bonfire_api_graphql bonfire_search bonfire_tag bonfire_me ]; # All these are optional, didn't include deps.{hex, git}
     };
 
-    # TODO Big one
     bonfire_common = buildMix rec {
       name = "bonfire_common";
       version = "";
@@ -2592,7 +2787,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ arrows bonfire_data_identity certifi cldr_utils combine connection dataloader db_connection decimal earmark earmark_parser ecto ecto_sql emote ex_cldr ex_cldr_languages ex_cldr_plugs ex_ulid faker flexto floki gettext hackney html_entities html_sanitize_ex idna jason mappable metrics mime mimerl mochiweb nimble_parsec paginator parse_trans plug plug_crypto pointers pointers_ulid recase sentry ssl_verify_fun telemetry timex tzdata unicode_util_compat where zest ];
     };
 
     bonfire_data_access_control = buildMix rec {
@@ -2662,7 +2857,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ comeonin connection db_connection decimal earmark_parser ecto ecto_sql ex_ulid ex_doc flexto makeup makeup_elixir makeup_erlang nimble_parsec pbkdf2_elixir pointers pointers_ulid telemetry where ];
+      beamDeps = [ comeonin connection db_connection decimal earmark_parser ecto ecto_sql ex_ulid ex_doc flexto makeup makeup_elixir makeup_erlang nimble_parsec pbkdf2_elixir pointers pointers_ulid telemetry untangle ];
       # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
     };
 
@@ -2688,10 +2883,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_data_social";
         rev = "5971794776293bf1b22e320e243da8e4a1dbef3d";
-        sha256 = "";
+        sha256 = "TdV9BTbom9MP5+nU8one27PSzRuFrn4QnD7tFveN8Ns=";
       };
 
-      beamDeps = [ arrows bonfire_data_edges connection db_connection decimal earmark_parser ecto ecto_materialized_path ecto_sql flexto ex_doc makeup makeup_elixir makeup_erlang nimble_parsec pointers pointers_ulid telemetry where ];
+      beamDeps = [ arrows bonfire_data_edges connection db_connection decimal earmark_parser ecto ecto_materialized_path ecto_sql flexto ex_doc makeup makeup_elixir makeup_erlang nimble_parsec pointers pointers_ulid telemetry untangle ];
       # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
     };
 
@@ -2724,6 +2919,20 @@ let
       beamDeps = [ bonfire_common bonfire_epics ];
     };
 
+    bonfire_editor_ck = buildMix rec {
+      name = "bonfire_editor_ck";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "bonfire_editor_ck";
+        rev = "3aa70f94200f503af8aa22a1ae77e3fe77eae10e";
+        sha256 = "";
+      };
+
+      beamDeps = [ ]; # Not including deps.{hex,git}
+    };
+
     bonfire_editor_quill = buildMix rec {
       name = "bonfire_editor_quill";
       version = "";
@@ -2749,7 +2958,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ arrows where ];
+      beamDeps = [ arrows untangle ];
       # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
     };
 
@@ -2848,7 +3057,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_data_shared_user bonfire_api_graphql ];
     };
 
     bonfire_pages = buildMix rec {
@@ -2873,10 +3082,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_quantify";
         rev = "b9a4f9e83a64da928b2eb865649c576ed1acf74b";
-        sha256 = "";
+        sha256 = "33SkvB5VmtMZZHNkqQZ8jHj4jzquWskveLGhKaAg76g=";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_api_graphql bonfire_me ];
     };
 
     bonfire_search = buildMix rec {
@@ -2904,7 +3113,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_api_graphql bonfire_me ];
     };
 
     bonfire_tag = buildMix rec {
@@ -2918,7 +3127,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_api_graphql ];
     };
 
     bonfire_ui_common = buildMix rec {
@@ -2932,7 +3141,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ zest ];
     };
 
     bonfire_ui_coordination = buildMix rec {
@@ -2946,7 +3155,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ absinthe absinthe_plug ];
     };
 
     bonfire_ui_kanban = buildMix rec {
@@ -2960,7 +3169,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ absinthe absinthe_plug ];
     };
 
     bonfire_ui_me = buildMix rec {
@@ -2974,7 +3183,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_tag bonfire_social ];
     };
 
     bonfire_ui_social = buildMix rec {
@@ -2988,7 +3197,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_editor_ck bonfire_editor_quill bonfire_tag bonfire_boundaries ];
     };
 
     bonfire_ui_valueflows = buildMix rec {
@@ -3002,7 +3211,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ absinthe_plug absinthe ];
     };
 
     bonfire_valueflows = buildMix rec {
@@ -3016,7 +3225,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ activity_pub bonfire_search bonfire_api_graphql ];
     };
 
     bonfire_valueflows_api_schema = buildMix rec {
@@ -3030,7 +3239,7 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_api_graphql ];
     };
 
     bonfire_valueflows_observe = buildMix rec {
@@ -3044,22 +3253,22 @@ let
         sha256 = "";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_api_graphql bonfire_me ];
     };
 
-    phil_columns = buildMix rec {
-      name = "phil_columns";
-      version = "3.1.0";
+    # phil_columns = buildMix rec {
+    #   name = "phil_columns";
+    #   version = "3.1.0";
 
-      src = pkgs.fetchFromGitHub {
-        owner = "chickensoupwithrice";
-        repo = "phil_columns-ex";
-        rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
-        sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
-      };
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "chickensoupwithrice";
+    #     repo = "phil_columns-ex";
+    #     rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
+    #     sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
+    #   };
 
-      beamDeps = [ ecto_sql inflex ];
-    };
+    #   beamDeps = [ ecto_sql inflex ];
+    # };
 
     ex_aws = buildMix rec {
       name = "ex_aws";
@@ -3075,37 +3284,47 @@ let
       beamDeps = [ hackney sweet_xml ];
     };
 
-    # TODO these have the same git repo but different "sparse"
-    # Also the branch is not main or master it's skip-oban-config
-    # Though the branch may not matter since we specifiy a commit
-    # active_job = buildMix rec {
-    #   name = "active_job";
-    #   version = "";
+    http_signatures = buildMix rec {
+      name = "http_signatures";
+      version = "";
 
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "chaskiq";
-    #     repo = "ex-rails";
-    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
-    #     sha256 = "";
-    #   };
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "ex_aws";
+        rev = "2979884fdadabe44cc589346b697c00d8a8d1266";
+        sha256 = "+l2GHFGY+LziX0CI6g/jqilIRUmB3XHCCuoTXW4mipc=";
+      };
 
-    #   beamDeps = [ ];
-    # };
+      beamDeps = [ hackney sweet_xml ];
+    };
 
-    # active_storage = buildMix rec {
-    #   name = "active_storage";
-    #   version = "";
+    phoenix_gon = buildMix rec {
+      name = "phoenix_gon";
+      version = "";
 
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "chaskiq";
-    #     repo = "ex-rails";
-    #     rev = "0dd9d81f68076596de884beba4e7608b9ee51899";
-    #     sha256 = "";
-    #   };
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "phoenix_gon";
+        rev = "19fc96298ee191801527b89624a0f291838bd1e4";
+        sha256 = "";
+      };
 
-    #   beamDeps = [ ];
-    # };
+      beamDeps = [ ];
+    };
 
+    paginator = buildMix rec {
+      name = "paginator";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "paginator";
+        rev = "ab590556e9d2015c2373c1d167b857a17f650ac2";
+        sha256 = "";
+      };
+
+      beamDeps = [ bunt calendar certifi connection db_connection decimal earmark earmark_parser ecto ecto_sql ex_doc ex_machina hackney idna inch_ex jason makeup makeup_elixir makeup_erlang metrics mimerl nimble_parsec parse_trans plug_crypto poison poolboy postgrex ssl_verify_fun telemetry tzdata unicode_util_compat ];
+    };
   };
 in
 self

@@ -85,7 +85,7 @@
           # src of the project
           src = ./.;
           # mix2nix dependencies
-          mixNixDeps = import ./deps.nix { inherit lib beamPackages; pkgs = pkgs; };
+          mixNixDeps = import ./mix-deps.nix { inherit lib beamPackages; pkgs = pkgs; };
 
           mixFodDeps = beamPackages.fetchMixDeps {
             pname = "mix-deps-${pname}";
@@ -96,7 +96,7 @@
 
           # mix release definition
           release-prod = beamPackages.mixRelease {
-            inherit src pname version mixFodDeps elixir;
+            inherit src pname version mixNixDeps elixir;
             mixEnv = "prod";
             configurePhase = configureHook;
             buildInputs = inputsBuild;
