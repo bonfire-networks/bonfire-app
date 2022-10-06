@@ -12,19 +12,28 @@ config :bonfire, Bonfire.Common.Repo,
   # EctoSparkles does the logging instead
   log: false
 
-path_dep_dirs =
-  Mess.deps([path: "deps.path"], [])
-  |> Enum.map(&(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
+local_deps = Mess.deps([path: Path.relative_to_cwd("config/deps.path")], [])
+local_dep_names = Enum.map(local_deps, &elem(&1, 0))
+dep_paths = Enum.map(local_deps, &(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
+watch_paths = dep_paths ++ ["lib/"] ++ ["priv/static/"]
+
+IO.puts("Watching these deps for code reloading: #{inspect(local_dep_names)}")
 
 config :phoenix_live_reload,
   # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
-  dirs: path_dep_dirs ++ ["lib/"]
+  dirs: watch_paths
 
-# to include cloned code in patterns
-path_dep_patterns = Enum.map(path_dep_dirs, &(String.slice(&1, 2..1000) <> ".*ex"))
-# Surface views
-path_dep_patterns =
-  (path_dep_patterns ++ path_dep_dirs) |> Enum.map(&(String.slice(&1, 2..1000) <> ".*sface"))
+# filename patterns that should trigger page reloads (only within the above dirs)
+patterns = [
+  ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg|webp)$",
+  # ~r"^priv/gettext/.*(po)$",
+  ~r"_live\.ex$",
+  ~r{(views|templates|pages|components)/.*(ex)$},
+  ~r".*(heex|leex|sface)$",
+  ~r"priv/catalogue/.*(ex)$"
+]
+
+IO.puts("Watching these filenames for live reloading in the browser: #{inspect(patterns)}")
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
@@ -32,6 +41,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   debug_errors: true,
   check_origin: false,
   code_reloader: true,
+  reloadable_apps: [:bonfire] ++ local_dep_names,
   watchers: [
     yarn: [
       "watch.js",
@@ -47,19 +57,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     ]
   ],
   live_reload: [
-    patterns:
-      [
-        # ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-        # ~r"^priv/gettext/.*(po)$",
-        # ~r"^web/(live|views)/.*ex$",
-        # ~r"^lib/.*_live\.ex$",
-        # ~r".*leex$",
-        # defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
-
-        ~r"lib/.*ex$",
-        ~r".*sface$",
-        ~r"priv/catalogue/.*(ex)$"
-      ] ++ path_dep_patterns
+    patterns: patterns
   ]
 
 config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]

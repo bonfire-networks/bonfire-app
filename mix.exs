@@ -244,7 +244,7 @@ defmodule Bonfire.MixProject do
       ## dev conveniences
       # {:dbg, "~> 1.0", only: [:dev, :test]},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
-      {:exsync, git: "https://github.com/falood/exsync", only: :dev},
+      # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
       # {:mix_unused, "~> 0.4", only: :dev},
       {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
       {:ecto_erd, "~> 0.4", only: :dev},
