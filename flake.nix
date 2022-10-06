@@ -89,19 +89,30 @@
 
           # mix release definition
           release-prod = beamPackages.mixRelease {
-            inherit src pname version mixNixDeps elixir;
+            inherit src pname version elixir;
             mixEnv = "prod";
-            configurePhase = configureHook;
+            # configurePhase = configureHook;
+            mixFodDeps = pkgs.fetchMixDeps {
+              pname = "mix-deps-${pname}";
+              inherit src version;
+              # nix will complain and tell you the right value to replace this with
+              sha256 = lib.fakeSha256;
+            };
             buildInputs = inputsBuild;
 
             installPhase = installHook { release = "prod"; };
           };
 
           release-dev = beamPackages.mixRelease {
-            inherit src pname version mixNixDeps elixir;
+            inherit src pname version elixir;
             mixEnv = "dev";
             enableDebugInfo = true;
-            configurePhase = configureHook;
+            mixFodDeps = pkgs.fetchMixDeps {
+              pname = "mix-deps-${pname}";
+              inherit src version;
+              # nix will complain and tell you the right value to replace this with
+              sha256 = lib.fakeSha256;
+            };
             buildInputs = inputsBuild;
             installPhase = installHook { release = "dev"; };
           };
