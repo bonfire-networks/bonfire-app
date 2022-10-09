@@ -262,7 +262,8 @@ defmodule Bonfire.MixProject do
       {:recode, "~> 0.4", only: :dev},
       # API client needed for changelog generation
       {:neuron, "~> 5.0", only: :dev, override: true},
-      {:phoenix_profiler, "~> 0.2.0"}, # note: cannot use only: dev
+      # note: cannot use only: dev
+      {:phoenix_profiler, "~> 0.2.0"},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},
