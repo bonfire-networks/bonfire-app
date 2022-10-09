@@ -4,6 +4,14 @@ let
   buildRebar3 = lib.makeOverridable beamPackages.buildRebar3;
   buildMix = lib.makeOverridable beamPackages.buildMix;
   buildErlangMk = lib.makeOverridable beamPackages.buildErlangMk;
+  buildHook = ''
+    runHook preBuild
+    export HEX_HOME="$TEMPDIR/hex"
+    export MIX_HOME="$TEMPDIR/mix"
+    # These have mime in the config but not in the dependency, so no compile check
+    mix compile --no-deps-check --no-validate-compile-env
+    runHook postBuild
+  '';
 
   self = packages // (overrides self packages);
 
@@ -11,15 +19,15 @@ let
 
     surface_heroicons = buildMix rec {
       name = "surface_heroicons";
-      version = "0.4.0";
+      version = "0.6.0";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "";
+        sha256 = "ETbIio3kSmPAUM7JsLZPdxEn39lv6rq0zQvei2tye6I=";
       };
 
-      beamDeps = [ dataloader decimal nimble_parsec telemetry ];
+      beamDeps = [ surface dataloader decimal nimble_parsec telemetry ];
     };
 
     absinthe = buildMix rec {
@@ -1050,7 +1058,7 @@ let
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "26fe7799c923fd4ef082efaa4b6725b47a556aa98fddc7b5017509fb4132f963";
+        sha256 = "xdR6lWgoqRaxQNbWp/bibknV8kPLXZQkUqag5zzixcQ=";
       };
 
       beamDeps = [ ];
@@ -1063,7 +1071,7 @@ let
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "3038564db78bbde442100d9252aac484be746612bc74b333fbeaeffec8087efa";
+        sha256 = "GI2Skcpe7BCvYUILZzjvaSRLfX7G3Jj39Kp6TiHxqLU=";
       };
 
       beamDeps = [ ];
@@ -1668,18 +1676,18 @@ let
       beamDeps = [ ];
     };
 
-    phil_columns = buildMix rec {
-      name = "phil_columns";
-      version = "3.1.0";
+    # phil_columns = buildMix rec {
+    #   name = "phil_columns";
+    #   version = "3.1.0";
 
-      src = fetchHex {
-        pkg = "${name}";
-        version = "${version}";
-        sha256 = "0s070kgrwkqq82yr40wzs7qfw6zpvf72spfxz5s590f4csimz8qa";
-      };
+    #   src = fetchHex {
+    #     pkg = "${name}";
+    #     version = "${version}";
+    #     sha256 = "0s070kgrwkqq82yr40wzs7qfw6zpvf72spfxz5s590f4csimz8qa";
+    #   };
 
-      beamDeps = [ ecto_sql inflex ];
-    };
+    #   beamDeps = [ ecto_sql inflex ];
+    # };
 
     phoenix = buildMix rec {
       name = "phoenix";
@@ -2565,6 +2573,20 @@ let
       beamDeps = [ ecto_sql flexto pointers_ulid ];
     };
 
+    bonfire_pointers = buildMix rec {
+      name = "pointers";
+      version = "0.5.1";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "pointers";
+        rev = "0b8ada0bbcd0fa4a16ed09ba5a2b4b08b8412ca8";
+        sha256 = "Kc4jFpKKcBn+MGi5/VqM+SKVwxDlgGoTzr+VJxx3088=";
+      };
+
+      beamDeps = [ ecto_sql flexto pointers_ulid ];
+    };
+
     flexto = buildMix rec {
       name = "flexto";
       version = "0.2.3";
@@ -2585,28 +2607,57 @@ let
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "TDvO6i4XRN9TVeHrny2q3SPT1lS3Eh4nJVzhur3bHVI=";
+        sha256 = "XMpnyJKpryIDCTB2I0DXzoKgzJHXVVnKCF2FXP7T3ls=";
       };
 
       beamDeps = [ ecto ecto_sql ];
     };
 
-    tree_magic = buildMix rec {
-      name = "pointers_ulid";
-      version = "0.1.1";
+    # tree_magic = buildMix rec {
+    #   name = "tree_magic";
+    #   version = "0.1.1";
+    #   buildInputs = [ pkgs.rustc pkgs.cargo pkgs.rustup ];
+
+    #   src = fetchHex {
+    #     pkg = "${name}";
+    #     version = "${version}";
+    #     sha256 = "o24nttuqRvZHKhNoBAgd1xLbarNdbg76/t5mlgokbK8=";
+    #   };
+
+    #   beamDeps = [ rustler ];
+    # };
+
+    rustler = buildMix rec {
+      name = "rustler";
+      version = "0.26.0";
+      buildInputs = [ pkgs.rustc pkgs.cargo pkgs.rustup ];
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "";
+        sha256 = "QpYenSCD0ATVpT4RGtHww0fv2aBcsusv+h0DfNx025E=";
       };
 
-      beamDeps = [ ecto ecto_sql ];
+      beamDeps = [ jason toml ];
     };
 
-    ########################
-    ### GIT DEPENDENCIES ###
-    ########################
+    toml = buildMix rec {
+      name = "toml";
+      version = "0.6.2";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "0BPkUSbXTAwmo40x9ejpuD6hn8dSRw/rmoYHHKWmcvo=";
+      };
+
+      beamDeps = [ ];
+    };
+
+    ###########################
+    ###  GIT DEPENDENCIES  ####
+    ### NO TEST / DEV DEPS ####
+    ###########################
 
     where = buildMix rec {
       name = "where";
@@ -2616,7 +2667,7 @@ let
         owner = "bonfire-networks";
         repo = "untangle";
         rev = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
-        sha256 = "";
+        sha256 = "8jq4OyM04cB2CJTf0tkbfVQ2Sx+XMxXR2VIgxAZs9B4=";
       };
 
       beamDeps = [ ];
@@ -2630,7 +2681,7 @@ let
         owner = "bonfire-networks";
         repo = "untangle";
         rev = "df249f5b8abdeb23c63dbcf1c7fc99b197c93d93";
-        sha256 = "";
+        sha256 = "8jq4OyM04cB2CJTf0tkbfVQ2Sx+XMxXR2VIgxAZs9B4=";
       };
 
       beamDeps = [ ];
@@ -2638,12 +2689,11 @@ let
 
     verbs = buildMix rec {
       name = "verbs";
-      version = "";
+      version = "0.6.1";
 
-      src = pkgs.fetchFromGitHub {
-        owner = "shannonnwells";
-        repo = "verbs_ex";
-        rev = "4b27067385390d4d2063ec1a09f9d96b97ed9a73";
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
         sha256 = "";
       };
 
@@ -2658,7 +2708,7 @@ let
         owner = "bonfire-networks";
         repo = "voodoo";
         rev = "8c384a112504849b2fa663d49acef7bbad67a745";
-        sha256 = "";
+        sha256 = "Njv+LzfZgrweteuHkeP4TYZYSzZ5OvjxUEwAzs9SkfM=";
       };
 
       beamDeps = [ ];
@@ -2667,26 +2717,28 @@ let
     absinthe_client = buildMix rec {
       name = "absinthe_client";
       version = "";
+      mixEnv = "dev";
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "absinthe_client";
         rev = "818955a3e2804816abb0b4961e7b1fe88a3ff387";
-        sha256 = "";
+        sha256 = "r/fT4XGcbiBEkH6XE52W0uu+zQ9Wq/a1KcZETTOeaf4=";
       };
 
-      beamDeps = [ castore req slipstream ];
+      beamDeps = [ phoenix_live_view castore req slipstream absinthe absinthe_plug decimal phoenix phoenix_pubsub phoenix_html ];
     };
 
     activity_pub = buildMix rec {
       name = "activity_pub";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "activity_pub";
         rev = "2cbb74be6ee9398b3e53ebfacfbd1e6d4bf0aaf0";
-        sha256 = "";
+        sha256 = "viR7DFiMY7v6mKimxTNFUwaluqFePl37C3/f2GSJKNs=";
       };
 
       beamDeps = [ cachex certifi combine connection cowboy cowboy_telemetry cowlib db_connection decimal earmark_parser ecto ecto_sql eternal ex_doc ex_machina ex_ulid flexto gettext hackney http_signatures idna jason jumper makeup makeup_elixir makeup_erlang meck metrics mime mimerl mock nimble_parsec oban parse_trans phoenix phoenix_ecto phoenix_html phoenix_live_dashboard phoenix_live_view phoenix_pubsub phoenix_view plug plug_cowboy plug_crypto pointers pointers_ulid postgrex ranch sleeplocks ssl_verify_fun telemetry telemetry_metrics telemetry_poller tesla timex tzdata unicode_util_compat unsafe where ];
@@ -2700,7 +2752,7 @@ let
         owner = "bonfire-networks";
         repo = "arrows";
         rev = "2482f0b33f966db602fcbad68c756aa643f0f8af";
-        sha256 = "";
+        sha256 = "HVBtPme7iQvgiva7Z9csUl+zpuL1YgbfrSqO0IiX3js=";
       };
 
       beamDeps = [ ];
@@ -2710,11 +2762,11 @@ let
       name = "archeometer";
       version = "";
 
-      src = pkgs.fetchFromGitHub {
+      src = pkgs.fetchFromGitLab {
         owner = "mayel";
         repo = "archeometer";
         rev = "e388acec0137706e8da83ef11454544463b2a7a1";
-        sha256 = "";
+        sha256 = "6dK2YrBrMIJGI2XnV1wsSwfBg6UeDoOXToymRELVRMc=";
       };
 
       beamDeps = [ credo css_colors exqlite slime temp uuid ];
@@ -2728,10 +2780,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_api_graphql";
         rev = "e9623c158071f57a164ab8e3e9c9c7512d7ce3a3";
-        sha256 = "";
+        sha256 = "IQu5Es3ZtYqegLg9SwUDkdKXTOMK/f+lQa9F7piLyAU=";
       };
 
-      beamDeps = [ ]; # I'm not including dev dependencies
+      beamDeps = [ zest absinthe untangle phoenix_live_reload ]; # I'm not including dev dependencies
     };
 
     bonfire_boundaries = buildMix rec {
@@ -2742,7 +2794,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_boundaries";
         rev = "8c540b34c19100ba0cd4283ca7bd8212cf8c1b1b";
-        sha256 = "";
+        sha256 = "22C4yrjyz4lGcI4gAhEN8VgOAy5V81+TB8AyMgSCuRo=";
       };
 
       beamDeps = [ arrows bonfire_common bonfire_data_access_control bonfire_data_identity bonfire_ui_common certifi cldr_utils combine connection cowboy cowboy_telemetry cowlib db_connection decimal earmark earmark_parser ecto ecto_sql ex_cldr ex_ulid faker file_system flexto floki gettext git_diff hackney html_entities html_sanitize_ex idna jason makeup makeup_diff makeup_eex makeup_elixir makeup_graphql makeup_html makeup_js makeup_sql mappable metrics mime mimerl mochiweb nimble_parsec paginator pane parse_trans phoenix phoenix_gon phoenix_html phoenix_live_reload phoenix_live_view phoenix_pubsub phoenix_view plug plug_cowboy plug_crypto pointers pointers_ulid ranch recase scribe sourceror ssl_verify_fun surface surface_heroicons telemetry telemetry_metrics telemetry_poller timex tzdata unicode_util_compat where ];
@@ -2756,7 +2808,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_breadpub";
         rev = "9c89c7bf91a43a6b01dac252497a3a2ba92adf6b";
-        sha256 = "";
+        sha256 = "MP74KzuLMhhwxXthOsSWH9lcPws1rZ1t7J6447kiu2U=";
       };
 
       beamDeps = [ absinthe absinthe_plug bonfire_search ]; # Not sure if this is built with mix or rebar, or if we need to include deps.{git, hex} dependencies 
@@ -2770,7 +2822,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_classify";
         rev = "2c2b008fb0e29b85cf8af36be0f466e87fec6bc3";
-        sha256 = "";
+        sha256 = "M83bpdN5D2Tvo5Pa3Bi33k7Krl3jtC5vtRxBEnlb36s=";
       };
 
       beamDeps = [ bonfire_api_graphql bonfire_search bonfire_tag bonfire_me ]; # All these are optional, didn't include deps.{hex, git}
@@ -2784,10 +2836,24 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_common";
         rev = "e3fde546c897c14570ba648d95e09388d0e6fd2e";
-        sha256 = "";
+        sha256 = "0NDYOulJ1sQzBmZIS8OKmW/pIwZrcNxSNYCflYdTWHs=";
       };
 
       beamDeps = [ arrows bonfire_data_identity certifi cldr_utils combine connection dataloader db_connection decimal earmark earmark_parser ecto ecto_sql emote ex_cldr ex_cldr_languages ex_cldr_plugs ex_ulid faker flexto floki gettext hackney html_entities html_sanitize_ex idna jason mappable metrics mime mimerl mochiweb nimble_parsec paginator parse_trans plug plug_crypto pointers pointers_ulid recase sentry ssl_verify_fun telemetry timex tzdata unicode_util_compat where zest ];
+    };
+
+    emote = buildMix rec {
+      name = "emote";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "emote";
+        rev = "8106c918919b9af8e2fe4e583f223ace4df1fa7d";
+        sha256 = "B9we1Xxum6WTIEj6Wu1GPZ5+J2oQC2AxSBeWbfKP424=";
+      };
+
+      beamDeps = [ ];
     };
 
     bonfire_data_access_control = buildMix rec {
@@ -2798,10 +2864,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_data_access_control";
         rev = "7fe8c4d77f53e2fa03c5796d95bf90f1c9051b37";
-        sha256 = "";
+        sha256 = "elggmNVVCT3az3ewbdc1lLNmigoIJhO9219Sk2WogcQ=";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ verbs pointers ];
     };
 
     bonfire_data_activity_pub = buildMix rec {
@@ -2812,10 +2878,11 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_data_activity_pub";
         rev = "db4a68a89b93c374c34a269f403b9054bd79bd5c";
-        sha256 = "";
+        sha256 = "YmULjp6mqyqzDcgPQfcp4PMthDMnAzYwQBvbud8is9E=";
       };
 
-      beamDeps = [ ];
+      # Not in mix.exs but still exists in deps.hex
+      beamDeps = [ pointers ];
     };
 
     bonfire_data_assort = buildMix rec {
@@ -2826,7 +2893,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_data_assort";
         rev = "ba8493ba162e161834f0c9b2e057202566a499ac";
-        sha256 = "";
+        sha256 = "FhcSny2Hs4V7ybk+mFoVHvaaSY4bRSP9zm67p2H9mwg=";
       };
 
       beamDeps = [ pointers ecto_ranked ];
@@ -2840,10 +2907,24 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_data_edges";
         rev = "269a91e01db1d83d43f38962f23ca23aac5044a9";
-        sha256 = "";
+        sha256 = "7ZuWQ3TGYczm1h2jRNWF/1MAEu8WjX6vVOt1Jr5Dg7o=";
       };
 
       beamDeps = [ connection db_connection decimal ecto ecto_sql flexto pointers_ulid pointers telemetry ];
+    };
+
+    ecto_sparkles = buildMix rec {
+      name = "ecto_sparkles";
+      version = "";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "bonfire-networks";
+        repo = "ecto_sparkles";
+        rev = "2152dededf54bda6bb5da029442948bd4dee6e9d";
+        sha256 = "iQBr1pjbVWTs7as3egFzful90QzJOsMNHx+iF5ez7DY=";
+      };
+
+      beamDeps = [ connection db_connection decimal earmark_parser ecto ecto_sql makeup makeup_elixir makeup_erlang nimble_parsec telemetry ];
     };
 
     bonfire_data_identity = buildMix rec {
@@ -2854,22 +2935,23 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_data_identity";
         rev = "351f418d0e79fa7da34d451a0e5bc26a0dd56b57";
-        sha256 = "";
+        sha256 = "XedchkAdmUK+40k7r5H5jjqZB52Of3mhzLnXBA+c89Y=";
       };
 
-      beamDeps = [ comeonin connection db_connection decimal earmark_parser ecto ecto_sql ex_ulid ex_doc flexto makeup makeup_elixir makeup_erlang nimble_parsec pbkdf2_elixir pointers pointers_ulid telemetry untangle ];
+      beamDeps = [ comeonin connection db_connection decimal earmark_parser ecto ecto_sql ecto_sparkles ex_ulid ex_doc flexto makeup makeup_elixir makeup_erlang nimble_parsec pbkdf2_elixir bonfire_pointers pointers_ulid telemetry untangle ];
       # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
     };
 
     bonfire_data_shared_user = buildMix rec {
       name = "bonfire_data_shared_user";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_data_shared_user";
         rev = "97d4745ea86d2bee3da95c4a1d23bea99d673cea";
-        sha256 = "";
+        sha256 = "qwD3ovJU4M/Af16LyQmue3Sj2B6zei656ekQNhk+5Qk=";
       };
 
       beamDeps = [ pointers bonfire_data_identity ];
@@ -2886,7 +2968,7 @@ let
         sha256 = "TdV9BTbom9MP5+nU8one27PSzRuFrn4QnD7tFveN8Ns=";
       };
 
-      beamDeps = [ arrows bonfire_data_edges connection db_connection decimal earmark_parser ecto ecto_materialized_path ecto_sql flexto ex_doc makeup makeup_elixir makeup_erlang nimble_parsec pointers pointers_ulid telemetry untangle ];
+      beamDeps = [ arrows bonfire_data_edges connection db_connection decimal earmark_parser ecto ecto_materialized_path ecto_sql flexto ex_doc makeup makeup_elixir makeup_erlang nimble_parsec bonfire_pointers pointers_ulid telemetry untangle ];
       # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
     };
 
@@ -2897,8 +2979,8 @@ let
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "ecto_materialized_path";
-        rev = "5971794776293bf1b22e320e243da8e4a1dbef3d";
-        sha256 = "";
+        rev = "b67bbf84031e25abb6eedbdc1e1897f1c936c45f";
+        sha256 = "oMEE1VKoxjc+LwZUsB/S2C61we5ZvCWpVvODXmOQcx4=";
       };
 
       beamDeps = [ connection db_connection decimal earmark ecto ex_doc ex_machina poolboy postgrex ];
@@ -2913,7 +2995,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_ecto";
         rev = "e7bec619bfb0923b37da8e8572f4d7363b279c1d";
-        sha256 = "";
+        sha256 = "/Lmeuw6h7No+a0lmBFBA1jfn1f9l0FsNG485668T0g4=";
       };
 
       beamDeps = [ bonfire_common bonfire_epics ];
@@ -2922,29 +3004,31 @@ let
     bonfire_editor_ck = buildMix rec {
       name = "bonfire_editor_ck";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_editor_ck";
         rev = "3aa70f94200f503af8aa22a1ae77e3fe77eae10e";
-        sha256 = "";
+        sha256 = "/DK0HdbbpaOTeVBq+uq9Y0It2IMXf+2yWrp6xe2I3mM=";
       };
 
-      beamDeps = [ ]; # Not including deps.{hex,git}
+      beamDeps = [ phoenix_live_reload bonfire_ui_common untangle ]; # Not including deps.{hex,git}
     };
 
     bonfire_editor_quill = buildMix rec {
       name = "bonfire_editor_quill";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_editor_quill";
         rev = "a6d3743b982e9f7be14612391b4465473ba3ab75";
-        sha256 = "";
+        sha256 = "CV0x5Yhy5/ZEi3f7/6kS57X689WEFKkQ6IdkA8KR+ac=";
       };
 
-      beamDeps = [ ]; # Not including deps.{hex,git}
+      beamDeps = [ bonfire_ui_common phoenix_live_reload untangle ]; # Not including deps.{hex,git}
     };
 
     bonfire_epics = buildMix rec {
@@ -2955,10 +3039,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_epics";
         rev = "652217237632c7210ad6d6b0c8375654ef3c0d8f";
-        sha256 = "";
+        sha256 = "iqOtbciig+ZwTYKob7cCN+3YMZnZmwnv3REbD5OIiLA=";
       };
 
-      beamDeps = [ arrows untangle ];
+      beamDeps = [ arrows untangle bonfire_common ];
       # Apparently where and untangle are the same repo? bonfire-networks/untangle, may be different commits though
     };
 
@@ -2970,7 +3054,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_fail";
         rev = "88686a00be6fef9d5a6dd30fe26fcd842ab3d7a3";
-        sha256 = "";
+        sha256 = "zXsu0JI2LIV4cL7D0DlrqtBVjZ9Sr97cURyAxXn3Az8=";
       };
 
       beamDeps = [ untangle bonfire_common ];
@@ -2984,10 +3068,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_federate_activitypub";
         rev = "25f19d985ed82d4003b0c4355f36c11ed31f3e20";
-        sha256 = "";
+        sha256 = "VKGcbYbAwdWXkQ0PlcNqpQ9P67Coi7mmUOyOoyIseTI=";
       };
 
-      beamDeps = [ floki ]; # Not including deps.{git, hex}
+      beamDeps = [ ecto arrows untangle phoenix_live_reload bonfire_common ];
     };
 
     bonfire_files = buildMix rec {
@@ -2998,10 +3082,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_files";
         rev = "b90932fe939c8acd7eee3e1d8c91d835f33b6c37";
-        sha256 = "";
+        sha256 = "wH4cxFLlcUwBS+nJRGILj7HyrBqyL7nJjOQTbyieKKs=";
       };
 
-      beamDeps = [ tree_magic bonfire_api_graphql ex_aws_s3 ];
+      beamDeps = [ bonfire_api_graphql ex_aws_s3 ];
     };
 
     bonfire_geolocate = buildMix rec {
@@ -3012,7 +3096,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_geolocate";
         rev = "286b7f55324addebe2af70be8d9d34a3d790b099";
-        sha256 = "";
+        sha256 = "OOBZNUqth6IleWzgyr/yuDWkms5jlAJ27o0RDxP1dto=";
       };
 
       beamDeps = [ floki bonfire_api_graphql grumble bonfire_tag ];
@@ -3021,15 +3105,16 @@ let
     bonfire_invite_links = buildMix rec {
       name = "bonfire_invite_links";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_invite_links";
         rev = "fbe87ee6bd8c418af7ff8b73728a23fc0fd6df9e";
-        sha256 = "";
+        sha256 = "flAiYXbnVhcKEfBW5G15riyOOU4PIPz6qytrDo7IVsg=";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ phoenix_live_reload bonfire_ui_common ]; # in deps.hex
     };
 
     bonfire_mailer = buildMix rec {
@@ -3040,10 +3125,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_mailer";
         rev = "d8a3f4bef0cbe4b8c9db1ee107366ecf083b7824";
-        sha256 = "";
+        sha256 = "yJrbf7ep1QZduu+0oG/ulYFqZ1SWh2dnQr9Rw/qM7rY=";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ bonfire_common phoenix_live_reload bamboo bamboo_smtp untangle ];
     };
 
     bonfire_me = buildMix rec {
@@ -3054,7 +3139,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_me";
         rev = "9af9fea23c63ee094a76b24e855848b2c6764e93";
-        sha256 = "";
+        sha256 = "hTfwkOCOMReltEI28BBrHqvLU9Yk7g6dDC+ppFSkcWI=";
       };
 
       beamDeps = [ bonfire_data_shared_user bonfire_api_graphql ];
@@ -3068,10 +3153,10 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_pages";
         rev = "ed479703092ee3dbf0a87cba2f0c44e69983fa23";
-        sha256 = "";
+        sha256 = "2NGZW9VDjIfGAunpz+4SMygCgYxjM+OaGpashkDoLqs=";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ pointers pointers_ulid bonfire_common bonfire_ui_common ]; # not in mix.exs
     };
 
     bonfire_quantify = buildMix rec {
@@ -3096,10 +3181,11 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_search";
         rev = "2dea043a3614a258509af44eab0266b85ac8902f";
-        sha256 = "";
+        sha256 = "2mhfk6vLj0XYchxdkCuK1bdsjNdOWRxOifJjYHXRVfM=";
       };
 
-      beamDeps = [ ];
+      # This isn't listed in the deps, but one of the tasks calls compile.phoenix
+      beamDeps = [ phoenix bonfire_ui_common ];
     };
 
     bonfire_social = buildMix rec {
@@ -3110,7 +3196,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_social";
         rev = "46313f075b627f2f5dbc3a58895266b4c2d9d671";
-        sha256 = "";
+        sha256 = "UKJXB6gyjLtlqmyOpAu5BczV5YIRz+DSN/XxMGjeZ9k=";
       };
 
       beamDeps = [ bonfire_api_graphql bonfire_me ];
@@ -3124,7 +3210,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_tag";
         rev = "f44449ba6f2daa146bae0af2689b767272feefe3";
-        sha256 = "";
+        sha256 = "CZXIhwip3FIkMQfLHq2gJt/PBP0qux7VhoCJh1HWihk=";
       };
 
       beamDeps = [ bonfire_api_graphql ];
@@ -3138,7 +3224,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_ui_common";
         rev = "b5c6e193317c730fb672d2dbbf242b94c06b3c2f";
-        sha256 = "";
+        sha256 = "QGghTRcaDqUnGh0epHnCRCAv9zBqiPejogKWQ/YsvwE=";
       };
 
       beamDeps = [ zest ];
@@ -3147,29 +3233,31 @@ let
     bonfire_ui_coordination = buildMix rec {
       name = "bonfire_ui_coordination";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_ui_coordination";
         rev = "4b64eaebdb2dc88319a786a3fc84beecd159d704";
-        sha256 = "";
+        sha256 = "+unuM2Ux9Oh47oemegnsy20zZA5oeUYALPvAjzaIH28=";
       };
 
-      beamDeps = [ absinthe absinthe_plug ];
+      beamDeps = [ bonfire_ui_common phoenix_live_reload absinthe absinthe_plug ];
     };
 
     bonfire_ui_kanban = buildMix rec {
       name = "bonfire_ui_kanban";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_ui_kanban";
-        rev = "9f36951c167d0e6c5dc98e4d09daa55afe23b861";
-        sha256 = "";
+        rev = "d324ae46270b964e0ab175ef15c3ba0af85afe79";
+        sha256 = "3fXzh5QeBhdk3PMKHXJ4tD1E/EL69NG2k6HIo+H2YZU=";
       };
 
-      beamDeps = [ absinthe absinthe_plug ];
+      beamDeps = [ bonfire_ui_common phoenix_live_reload absinthe absinthe_plug ];
     };
 
     bonfire_ui_me = buildMix rec {
@@ -3180,7 +3268,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_ui_me";
         rev = "810972ceb163805763905ad23cddac6102882c55";
-        sha256 = "";
+        sha256 = "Dw8sIuOREzkdtnybSlrrAhe7ktERmzziDYmR3MzA2zg=";
       };
 
       beamDeps = [ bonfire_tag bonfire_social ];
@@ -3194,7 +3282,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_ui_social";
         rev = "60561996abdc8bd1ba97c03c014c3c31681d14de";
-        sha256 = "";
+        sha256 = "9neX/pY4WLyt8Y+IEH5kwWzSPz5XoI3AIoQLwp3OpwE=";
       };
 
       beamDeps = [ bonfire_editor_ck bonfire_editor_quill bonfire_tag bonfire_boundaries ];
@@ -3203,15 +3291,16 @@ let
     bonfire_ui_valueflows = buildMix rec {
       name = "bonfire_ui_valueflows";
       version = "";
+      buildPhase = buildHook;
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "bonfire_ui_valueflows";
         rev = "ca7265c43a7e172e6a3e7f423af254ec06327be5";
-        sha256 = "";
+        sha256 = "jIBsa6jJdX9X/R47oKu0+vwMJPXVCXDFFsCaxMXaLb0=";
       };
 
-      beamDeps = [ absinthe_plug absinthe ];
+      beamDeps = [ bonfire_ui_common phoenix_live_reload absinthe_plug absinthe ];
     };
 
     bonfire_valueflows = buildMix rec {
@@ -3222,7 +3311,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_valueflows";
         rev = "aef5cd10f22e929b1c7f43cbb75dcd6e83b9572a";
-        sha256 = "";
+        sha256 = "K7F+OV4yKQPKLRdD34sGQdTBiKcV9Yzhchku4s+XIX4=";
       };
 
       beamDeps = [ activity_pub bonfire_search bonfire_api_graphql ];
@@ -3236,7 +3325,7 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_valueflows_api_schema";
         rev = "32fff390e37b7a7d7bd1fc9f220cbc7516e4df17";
-        sha256 = "";
+        sha256 = "Zj7Ha0iRmBU2JKvTcH2bWEpgy1GKBQjk34M8TewkRYQ=";
       };
 
       beamDeps = [ bonfire_api_graphql ];
@@ -3250,25 +3339,25 @@ let
         owner = "bonfire-networks";
         repo = "bonfire_valueflows_observe";
         rev = "1540b181b7e68155445c6b067cefdd5d2494bd0a";
-        sha256 = "";
+        sha256 = "D85OFj8lBZfxOldLuuBItkYLVx5iZhppNxsDSTtvk8I=";
       };
 
       beamDeps = [ bonfire_api_graphql bonfire_me ];
     };
 
-    # phil_columns = buildMix rec {
-    #   name = "phil_columns";
-    #   version = "3.1.0";
+    phil_columns = buildMix rec {
+      name = "phil_columns";
+      version = "3.1.0";
 
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "chickensoupwithrice";
-    #     repo = "phil_columns-ex";
-    #     rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
-    #     sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
-    #   };
+      src = pkgs.fetchFromGitHub {
+        owner = "chickensoupwithrice";
+        repo = "phil_columns-ex";
+        rev = "8d728ee8db462e8355cba7f741ca8e574fc321a9";
+        sha256 = "8LV368RRlzdM9eep799GM8lluJ2KeAj4QhF/YpO7KT8=";
+      };
 
-    #   beamDeps = [ ecto_sql inflex ];
-    # };
+      beamDeps = [ ecto_sql inflex ];
+    };
 
     ex_aws = buildMix rec {
       name = "ex_aws";
@@ -3306,24 +3395,25 @@ let
         owner = "bonfire-networks";
         repo = "phoenix_gon";
         rev = "19fc96298ee191801527b89624a0f291838bd1e4";
-        sha256 = "";
+        sha256 = "J1mCkhEo07A4wLk9BndUGGNBI/oUea1zGF+Ec8iJCOs=";
       };
 
-      beamDeps = [ ];
+      beamDeps = [ phoenix_html plug recase jason ];
     };
 
     paginator = buildMix rec {
       name = "paginator";
       version = "";
+      mixEnv = "dev";
 
       src = pkgs.fetchFromGitHub {
         owner = "bonfire-networks";
         repo = "paginator";
         rev = "ab590556e9d2015c2373c1d167b857a17f650ac2";
-        sha256 = "";
+        sha256 = "lrqaoHBEOCsaY5AZ2qsMmtulhqvcaBvuTGuvqnjxLzU=";
       };
 
-      beamDeps = [ bunt calendar certifi connection db_connection decimal earmark earmark_parser ecto ecto_sql ex_doc ex_machina hackney idna inch_ex jason makeup makeup_elixir makeup_erlang metrics mimerl nimble_parsec parse_trans plug_crypto poison poolboy postgrex ssl_verify_fun telemetry tzdata unicode_util_compat ];
+      beamDeps = [ bunt certifi connection db_connection decimal earmark earmark_parser ecto ecto_sql ex_doc ex_machina hackney idna jason makeup makeup_elixir makeup_erlang metrics mimerl nimble_parsec parse_trans plug_crypto poison poolboy postgrex ssl_verify_fun telemetry tzdata unicode_util_compat ];
     };
   };
 in

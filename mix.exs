@@ -296,13 +296,13 @@ defmodule Bonfire.MixProject do
       {:sobelow, "~> 0.8", only: :dev},
 
       # transitive dependencies of git dependencies (used to simplify nix build)
-      {:req, "~> 0.3.1"},
-      {:slipstream, "~> 1.0"},
-      {:tree_magic, "~> 0.1.1"},
-      {:pointers, "~> 0.5.1"},
-      {:flexto, "~> 0.2.3"},
-      {:git_diff "~> 0.6.3"},
-      {:surface_heroicons, "~> 0.4.0"}
+      # {:req, "~> 0.3.1"},
+      # {:slipstream, "~> 1.0"},
+      # {:tree_magic, [env: :prod, git: "https://github.com/bonfire-networks/tree_magic.ex", optional: true]},
+      # {:pointers, "~> 0.5.1"},
+      # {:flexto, "~> 0.2.3"},
+      # {:git_diff, "~> 0.6.3"},
+      # {:surface_heroicons, "~> 0.6.0"}
     ])
   end
 

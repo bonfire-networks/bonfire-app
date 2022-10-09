@@ -47,17 +47,25 @@
           lib = pkgs.lib;
           mix2nix = pkgs.mix2nix;
 
-          installHook = { release }: ''
+          installHook = {}: ''
             export APP_VERSION="${version}"
             export APP_NAME="${pname}"
             export ELIXIR_RELEASE="${props.elixir_release}"
             runHook preInstall
-            mix release --no-deps-check --path "$out" ${release}
+            mix release --no-deps-check --path "$out"
             runHook postInstall
           '';
 
           # Pass just as a build input 
           inputsBuild = with pkgs; [ just ];
+
+          fetchMixInstallPhase = { mixEnv }: ''
+            runHook preInstall
+            mix deps.get --only ${mixEnv}
+            find "$TEMPDIR/deps" -path '*/.git/*' -a ! -name HEAD -prune -execdir rm -rf {} + 
+            cp -r --no-preserve=mode,ownership,timestamps $TEMPDIR/deps $out
+            runHook postInstall
+          '';
 
           # Run just before compiling to set up the environment
           configureHook = ''
@@ -74,10 +82,10 @@
             # the dependency needs to be compiled in order for the task
             # to be available
             # Phoenix projects for example will need compile.phoenix
-            mix do deps.compile --no-deps-check --skip-umbrella-children --force
+            mix do deps.compile --no-deps-check --skip-umbrella-children 
 
             # We have to rebuild mime so it includes our compile time definitions
-            mix deps.clean mime --force --build
+            # mix deps.clean mime --force --build
 
             runHook postConfigure
           '';
@@ -90,30 +98,25 @@
           mixFodDeps = beamPackages.fetchMixDeps {
             pname = "mix-deps-${pname}";
             inherit src version;
+            installPhase = fetchMixInstallPhase { mixEnv = "prod"; };
             # nix will complain and tell you the right value to replace this with
-            sha256 = lib.fakeSha256;
+            sha256 = "7MGvdRnrzrfCBX8c/nScHrTzmaaWKzre4buQzw0gYGE=";
           };
 
           # mix release definition
           release-prod = beamPackages.mixRelease {
-            inherit src pname version mixNixDeps elixir;
-            mixEnv = "prod";
+            inherit src pname version mixFodDeps elixir;
+            #mixEnv = "bonfire";
             configurePhase = configureHook;
             buildInputs = inputsBuild;
 
-            installPhase = installHook { release = "prod"; };
+            installPhase = installHook { };
           };
 
           release-dev = beamPackages.mixRelease {
-            inherit src pname version elixir;
+            inherit src pname version mixNixDeps elixir;
             mixEnv = "dev";
             enableDebugInfo = true;
-            mixFodDeps = pkgs.fetchMixDeps {
-              pname = "mix-deps-${pname}";
-              inherit src version;
-              # nix will complain and tell you the right value to replace this with
-              sha256 = lib.fakeSha256;
-            };
             buildInputs = inputsBuild;
             installPhase = installHook { release = "dev"; };
           };
