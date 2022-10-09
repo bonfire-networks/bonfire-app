@@ -41,13 +41,11 @@
           rebar3 = beamPackages.rebar3;
           rebar = beamPackages.rebar;
 
+          # This is setting locality to latin for some reason
           locality = pkgs.glibcLocales;
 
-          # needed to set libs for mix2nix
-          lib = pkgs.lib;
-          mix2nix = pkgs.mix2nix;
-
-          installHook = {}: ''
+          # Install hook for mixRelease 
+          installHook = ''
             export APP_VERSION="${version}"
             export APP_NAME="${pname}"
             export ELIXIR_RELEASE="${props.elixir_release}"
@@ -59,6 +57,7 @@
           # Pass just as a build input 
           inputsBuild = with pkgs; [ just ];
 
+          # Had to change the find command because it wasn't working
           fetchMixInstallPhase = { mixEnv }: ''
             runHook preInstall
             mix deps.get --only ${mixEnv}
@@ -73,6 +72,7 @@
             ${./mix-configure-hook.sh}
 
             # Run just and setup config directory before we compile 
+            # TODO allow choosing flavor
             just rel-init
             just rel-prepare
             just assets-prepare
@@ -84,16 +84,11 @@
             # Phoenix projects for example will need compile.phoenix
             mix do deps.compile --no-deps-check --skip-umbrella-children 
 
-            # We have to rebuild mime so it includes our compile time definitions
-            # mix deps.clean mime --force --build
-
             runHook postConfigure
           '';
 
           # src of the project
           src = ./.;
-          # mix2nix dependencies
-          mixNixDeps = import ./mix-deps.nix { inherit lib beamPackages; pkgs = pkgs; };
 
           mixFodDeps = beamPackages.fetchMixDeps {
             pname = "mix-deps-${pname}";
@@ -106,39 +101,17 @@
           # mix release definition
           release-prod = beamPackages.mixRelease {
             inherit src pname version mixFodDeps elixir;
-            #mixEnv = "bonfire";
             configurePhase = configureHook;
             buildInputs = inputsBuild;
 
-            installPhase = installHook { };
-          };
-
-          release-dev = beamPackages.mixRelease {
-            inherit src pname version mixNixDeps elixir;
-            mixEnv = "dev";
-            enableDebugInfo = true;
-            buildInputs = inputsBuild;
-            installPhase = installHook { release = "dev"; };
+            installPhase = installHook;
           };
         in
         rec {
           # packages to build
           packages = {
             prod = release-prod;
-            dev = release-dev;
-            container = pkgs.dockerTools.buildImage {
-              name = pname;
-              tag = packages.prod.version;
-              # required extra packages to make release work
-              contents =
-                [ packages.prod pkgs.coreutils pkgs.gnused pkgs.gnugrep ];
-              created = "now";
-              config.Entrypoint = [ "${packages.prod}/bin/prod" ];
-              config.Cmd = [ "version" ];
-            };
-            oci = pkgs.ociTools.buildContainer {
-              args = [ "${packages.prod}/bin/prod" ];
-            };
+
             default = packages.prod;
           };
 
@@ -149,11 +122,7 @@
               drv = packages.prod;
               exePath = "/bin/prod";
             };
-            dev = flake-utils.lib.mkApp {
-              name = "${pname}-dev";
-              drv = packages.dev;
-              exePath = "/bin/dev";
-            };
+
             default = apps.prod;
           };
 
@@ -189,7 +158,6 @@
             buildInputs = [
               elixir
               erlang
-              mix2nix
               locality
               rebar3
               rebar
