@@ -154,7 +154,6 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
         match?({:ok, _}, res)
       catch
         kind, reason ->
-          stacktrace = System.stacktrace()
           app = dep.app
 
           Mix.shell().error(
@@ -163,7 +162,7 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
               "with \"mix deps.update #{app}\" or clean it with \"mix deps.clean #{app}\""
           )
 
-          :erlang.raise(kind, reason, stacktrace)
+          :erlang.raise(kind, reason, __STACKTRACE__)
       end
     end)
   end

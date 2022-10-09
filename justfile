@@ -543,6 +543,10 @@ docker-stop-web:
 
 #### MISC COMMANDS ####
 
+# Open an interactive console
+@imix *args='': 
+	just cmd iex -S mix $@
+
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
 @mix *args='': 
 	just cmd mix $@

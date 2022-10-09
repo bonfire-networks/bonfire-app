@@ -90,15 +90,8 @@ module.exports = {
     themes: [
       {
         bonfire: {
-          "primary": "#fde047",
-          "secondary": "#BF95F9",
-          "accent": "#FFB86B",
-          "neutral": "#414558",
-          "base-100": "#272935",
-          "info": "#8BE8FD",
-          "success": "#52FA7C",
-          "warning": "#F1FA89",
-          "error": "#FF5757"
+          ...require("daisyui/src/colors/themes")["[data-theme=dracula]"],
+          "primary": "#fde047"
         },
       },
       "dark", "light", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"
