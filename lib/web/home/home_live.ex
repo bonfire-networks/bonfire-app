@@ -46,7 +46,7 @@ defmodule Bonfire.Web.HomeLive do
          #     {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
          #     {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
          #     {Bonfire.UI.Me.WidgetAdminsLive, []},
-         #     {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
+         #     {Bonfire.Tag.Web.WidgetTagsLive, [links: links]}
          #   ]
          # ],
          # guests: [
@@ -55,7 +55,7 @@ defmodule Bonfire.Web.HomeLive do
          #     # {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
          #     # {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
          #     # {Bonfire.UI.Me.WidgetAdminsLive, []},
-         #     # {Bonfire.UI.Social.WidgetTagsLive, [links: links]}
+         #     # {Bonfire.Tag.Web.WidgetTagsLive, [links: links]}
          #   ]
          # ],
        ]
