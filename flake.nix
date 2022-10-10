@@ -9,7 +9,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }:
     let
       # props to hold settings to apply on this file like name and version
-      props = import ./props.nix;
+      props = import ./nix/props.nix;
       # set elixir nix version
       elixir_nix_version = elixir_version:
         builtins.replaceStrings [ "." ] [ "_" ] "elixir_${elixir_version}";
@@ -69,13 +69,14 @@
           # Run just before compiling to set up the environment
           configureHook = ''
             runHook preConfigure
-            ${./mix-configure-hook.sh}
+            # This might not be necessary for FOD builds
+            ${./nix/mix-configure-hook.sh}
 
             # Run just and setup config directory before we compile 
             # TODO allow choosing flavor
-            just rel-init
-            just rel-prepare
-            just assets-prepare
+            APP_BUILD=none just rel-init
+            APP_BUILD=none just rel-prepare 
+            APP_BUILD=none just assets-prepare 
             cp -r data/current_flavour/config/ ./config/
 
             # this is needed for projects that have a specific compile step
@@ -94,7 +95,7 @@
             pname = "mix-deps-${pname}";
             inherit src version;
             installPhase = fetchMixInstallPhase { mixEnv = "prod"; };
-            # nix will complain and tell you the right value to replace this with
+            # nix will complain and tell you the right value to replace this with if deps change
             sha256 = "7MGvdRnrzrfCBX8c/nScHrTzmaaWKzre4buQzw0gYGE=";
           };
 
@@ -161,6 +162,7 @@
               locality
               rebar3
               rebar
+              pkgs.just
               pkgs.yarn
               pkgs.cargo
               pkgs.rustc
@@ -172,10 +174,47 @@
             ++ optional pkgs.stdenv.isLinux
               pkgs.inotify-tools; # For file_system on Linux.
           };
-        }) // {
+        }) //
+    {
       # Module for deployment
       # Doesn't get built per system
       nixosModules.bonfire = import ./nix/module.nix;
       nixosModule = self.nixosModules.bonfire;
+
+      # Test container to make sure the module / package work
+      # If you're using nixOS you can run this with: 
+      # `sudo nixos-container create <name> --flake .#test`  # will take a while, because it builds bonfire
+      # `sudo nixos-container start <name>` 
+      # You should then be able to view bonfire at http://<ip>
+      # You can get ip from `sudo nixos-container show-ip <name>`
+      nixosConfigurations."test" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          self.nixosModule
+          ({ pkgs, ... }: {
+            boot.isContainer = true;
+            networking.hostName = "bonfire-test";
+            system.stateVersion = "22.05";
+            networking.firewall.allowedTCPPorts = [ 80 ];
+            environment.etc."bonfire-test-secrets".text = ''
+              # These are random test values
+              # DO NOT USE THIS IN YOUR CONFIGURATION 
+              SECRET_KEY_BASE=RjGsaxeysELzFf4fmCzZTxYmqWmwroLbMQ/5d2oyfOGdkvdkSSkOm2EFPdPD2Mgu4JrVIQNy/1QD9+UQrCEnsmVUvaw86jc8RMHRkSn5NHqKkiPifuVIS4w/BJRnASNP
+              SIGNING_SALT=IlUkRlK33+QV0B5tuY3P1X8mMamoruBrEd3mtGPKiGO70/t/rmIdCZdc7vLu1Q8VBzADqZ5pSOk+L78qg9i0IK9fJ1zbFeSFpyLGKdvny/S7S2uNb4a+5yYVxLbtOIQs
+              ENCRYPTION_SALT=58fau1M/b4tl58iMs7rBwcw/CQ4ZcazqF/JLRmYEvkf9xBNcdusOYzVuvk12q5iZQPBnI+6AY1vY2OEpyZ7rYa6AClW6hyO2axZwoPyluwCiv6QShGtgSTOl56D2dBTf
+              RELEASE_COOKIE=vpP1kluF2F4W3q1L1Exulkfu7C5UQhuO
+            '';
+            services.postgresql.enable = true;
+            services.bonfire = {
+              enable = true;
+              hostname = "test.bonfire.lan";
+              port = 80;
+              package = self.packages.x86_64-linux.default;
+              environmentFile = "/etc/bonfire-test-secrets";
+            };
+          })
+        ];
+      };
+
     };
 }

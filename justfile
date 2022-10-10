@@ -27,8 +27,7 @@ APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
 APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
-# Nix build doesn't include the .git repo
-#APP_BUILD := `git rev-parse --short HEAD`
+APP_BUILD := `git rev-parse --short HEAD`
 APP_DOCKER_REPO := ORG_NAME+"/"+APP_NAME
 CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
