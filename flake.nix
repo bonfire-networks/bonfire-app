@@ -74,9 +74,9 @@
 
             # Run just and setup config directory before we compile 
             # TODO allow choosing flavor
-            APP_BUILD=none just rel-init
-            APP_BUILD=none just rel-prepare 
-            APP_BUILD=none just assets-prepare 
+            just rel-init
+            just rel-prepare 
+            just assets-prepare 
             cp -r data/current_flavour/config/ ./config/
 
             # this is needed for projects that have a specific compile step
