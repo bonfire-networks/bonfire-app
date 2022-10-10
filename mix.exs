@@ -263,7 +263,7 @@ defmodule Bonfire.MixProject do
       # API client needed for changelog generation
       {:neuron, "~> 5.0", only: :dev, override: true},
       # note: cannot use only: dev
-      {:phoenix_profiler, "~> 0.2.0"},
+      # {:phoenix_profiler, "~> 0.2.0"},
 
       # tests
       {:floki, ">= 0.0.0", only: [:dev, :test]},

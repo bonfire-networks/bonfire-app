@@ -56,13 +56,13 @@ defmodule Bonfire.Application do
     # PubSub
     {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]},
     # Persistent Data Services
-    Pointers.Tables,
+    Pointers.Tables
     # Bonfire.Data.AccessControl.Accesses,
     ## these populate on first call, so no need to run on startup:
     # Bonfire.Common.ContextModules,
     # Bonfire.Common.QueryModules,
     # Bonfire.Federate.ActivityPub.FederationModules
-    {PhoenixProfiler, name: Bonfire.Web.Profiler}
+    # {PhoenixProfiler, name: Bonfire.Web.Profiler}
   ]
 
   # 6 hours
