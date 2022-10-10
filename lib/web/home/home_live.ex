@@ -36,7 +36,7 @@ defmodule Bonfire.Web.HomeLive do
        page_title: instance_name,
        links: links,
        changelog: @changelog,
-       without_guest_header: true,
+       without_header: true,
        error: nil,
        form: login_form(params),
        without_sidebar: true,

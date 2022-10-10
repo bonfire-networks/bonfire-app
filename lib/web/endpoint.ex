@@ -12,7 +12,7 @@ defmodule Bonfire.Web.Endpoint do
     plug(Phoenix.CodeReloader)
     plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire)
 
-    plug(PhoenixProfiler)
+    # plug(PhoenixProfiler)
   end
 
   plug(Bonfire.Web.Router)
