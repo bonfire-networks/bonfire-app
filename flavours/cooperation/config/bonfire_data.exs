@@ -179,6 +179,7 @@ alias Bonfire.Tag.Tagged
 ## `rm -Rf _build/*/lib/bonfire_data_*` a lot.
 
 mixin = [foreign_key: :id, references: :id]
+mixin_updatable = mixin ++ [on_replace: :update]
 
 common_assocs = %{
   ### Mixins
@@ -191,23 +192,23 @@ common_assocs = %{
   # during deletion - when the caretaker is deleted, all their stuff will be too.
   caretaker: quote(do: has_one(:caretaker, unquote(Caretaker), unquote(mixin))),
   # A Character has a unique username and some feeds.
-  character: quote(do: has_one(:character, unquote(Character), unquote(mixin))),
+  character: quote(do: has_one(:character, unquote(Character), unquote(mixin_updatable))),
   # Indicates the creator of an object
   created: quote(do: has_one(:created, unquote(Created), unquote(mixin))),
   # Used for non-textual interactions such as likes and follows to indicate the other object.
   edge: quote(do: has_one(:edge, unquote(Edge), unquote(mixin))),
   # Adds a name that can appear in the user interface for an object. e.g. for an ACL.
-  named: quote(do: has_one(:named, unquote(Named), unquote(mixin))),
+  named: quote(do: has_one(:named, unquote(Named), unquote(mixin_updatable))),
   # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
-  extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin))),
+  extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
   # Information about the remote instance the object is from, if it is not local.
   peered: quote(do: has_one(:peered, unquote(Peered), unquote(mixin))),
   # Information about the content of posts, e.g. a scrubbed html body
-  post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin))),
+  post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin_updatable))),
   # Information about a user or other object that they wish to make available
-  profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin))),
+  profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin_updatable))),
   # Threading information, for threaded discussions.
-  replied: quote(do: has_one(:replied, unquote(Replied), unquote(mixin))),
+  replied: quote(do: has_one(:replied, unquote(Replied), unquote(mixin_updatable))),
   # Information that allows the system to identify special system-managed ACLS.
   stereotyped: quote(do: has_one(:stereotyped, unquote(Stereotyped), unquote(mixin))),
 
