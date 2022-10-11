@@ -101,7 +101,7 @@ You will find the codebase uses this a lot, though the debugs are frequently com
 
 `Bonfire.Fail` is an `Exception` handler, which you can use to stop the show anywhere in the code, e.g:
 
-`user = current_user(assigns) || raise(Bonfire.Fail, :unauthenticated)` 
+`id = ulid(object) || raise(Bonfire.Fail, :not_found)` 
 
 Advantages include:
 
@@ -112,3 +112,5 @@ Advantages include:
 
 Note that when users of the LiveView frontend, this will make the corresponding friendly error message appear in flash overlay. 
 
+You can also use this exception when you want to redirect the user to the login page:
+`user = current_user(assigns) || raise(Bonfire.Fail.Auth, :needs_login)` 
