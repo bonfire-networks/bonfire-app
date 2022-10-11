@@ -36,10 +36,11 @@ defmodule Bonfire.Web.HomeLive do
        page_title: instance_name,
        links: links,
        changelog: @changelog,
-       without_header: true,
        error: nil,
        form: login_form(params),
-       without_sidebar: true,
+       nav_items: Bonfire.Common.ExtensionModules.default_nav(:bonfire_ui_social),
+       #  without_header: true,
+       #  without_sidebar: true,
        sidebar_widgets: [
          # users: [
          #   secondary: [
