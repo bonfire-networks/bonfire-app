@@ -650,3 +650,33 @@ emoji-picker {
 .text-sm code {
   font-size: 0.8rem;
 }
+
+.input-sizer.stacked {
+  align-items: stretch;
+}
+
+.input-sizer.stacked::after {
+  grid-area: 2 / 1;
+}
+
+.input-sizer.stacked textarea {
+  grid-area: 2 / 1;
+}
+
+.input-sizer::after, .input-sizer .textarea {
+  resize: none;
+}
+
+
+.input-sizer::after {
+  content: attr(data-value) ' ';
+  visibility: hidden;
+  white-space: pre-wrap;
+}
+
+.input-sizer {
+  display: inline-grid;
+  vertical-align: top;
+  align-items: center;
+  position: relative; 
+}
