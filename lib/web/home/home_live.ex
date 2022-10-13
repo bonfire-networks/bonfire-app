@@ -27,7 +27,7 @@ defmodule Bonfire.Web.HomeLive do
          |> redirect_to(url, fallback: "/?dashboard", replace: false)}
 
       _ ->
-        mount(%{"home" => nil} = params, session, socket)
+        mount(Map.put(params, "dashboard", nil), session, socket)
     end
   end
 
