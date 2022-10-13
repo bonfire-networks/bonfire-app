@@ -8,7 +8,7 @@ defmodule Bonfire.Web.HomeLive do
 
   @changelog File.read!("docs/CHANGELOG.md")
 
-  def mount(params, session, socket) do
+  def mount(%{"dashboard" => _} = params, session, socket) do
     live_plug(params, session, socket, [
       LivePlugs.LoadCurrentAccount,
       LivePlugs.LoadCurrentUser,
@@ -17,6 +17,18 @@ defmodule Bonfire.Web.HomeLive do
       Bonfire.UI.Common.LivePlugs.Locale,
       &mounted/3
     ])
+  end
+
+  def mount(params, session, socket) do
+    case Config.get([:ui, :homepage_redirect_to]) do
+      url when is_binary(url) ->
+        {:ok,
+         socket
+         |> redirect_to(url, fallback: "/?dashboard", replace: false)}
+
+      _ ->
+        mount(%{"home" => nil} = params, session, socket)
+    end
   end
 
   defp mounted(params, _session, socket) do
