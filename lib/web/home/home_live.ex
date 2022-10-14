@@ -51,7 +51,7 @@ defmodule Bonfire.Web.HomeLive do
        error: nil,
        form: login_form(params),
        nav_items: Bonfire.Common.ExtensionModules.default_nav(:bonfire_ui_social),
-       #  without_header: true,
+       #  nav_header: false,
        without_sidebar: true,
        sidebar_widgets: [
          # users: [
