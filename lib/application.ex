@@ -1,17 +1,29 @@
 defmodule Bonfire.Application do
-  @sup_name Bonfire.Supervisor
-  @name Mix.Project.config()[:name]
-  @otp_app Bonfire.Common.Config.get!(:otp_app)
-  @env Application.compile_env!(@otp_app, :env)
-  @version Mix.Project.config()[:version]
-  @repository Mix.Project.config()[:source_url]
-  @deps Bonfire.Common.Extend.loaded_deps()
-  @endpoint_module Application.compile_env!(@otp_app, :endpoint_module)
-  @repo_module Application.compile_env!(@otp_app, :repo_module)
-  @required_deps Mix.Project.config()[:required_deps]
-
   use Application
   require Cachex.Spec
+
+  @sup_name Bonfire.Supervisor
+  @otp_app Bonfire.Common.Config.get!(:otp_app)
+  @env Application.compile_env!(@otp_app, :env)
+  @endpoint_module Application.compile_env!(@otp_app, :endpoint_module)
+  @repo_module Application.compile_env!(@otp_app, :repo_module)
+  @config Mix.Project.config()
+  @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
+  @deps_loaded_flat Bonfire.Common.Extensions.loaded_deps(deps_loaded: @deps_loaded)
+
+  def config, do: @config
+  def name, do: Application.get_env(:bonfire, :app_name) || config()[:name]
+  def version, do: config()[:version]
+  def named_version, do: "#{name()} #{version()}"
+  def repository, do: config()[:sources_url] || config()[:source_url]
+  def required_deps, do: config()[:required_deps]
+  def deps(opt \\ nil)
+  # as loaded at compile time, nested
+  def deps(:nested), do: @deps_loaded
+  #  as loaded at compile time, flat
+  def deps(:flat), do: @deps_loaded_flat
+  # as defined in the top-level app's mix.exs / deps.hex / etc
+  def deps(_), do: config()[:deps]
 
   def start(_type, _args) do
     EctoSparkles.Log.setup(@repo_module)
@@ -111,11 +123,4 @@ defmodule Bonfire.Application do
     @endpoint_module.config_change(changed, removed)
     :ok
   end
-
-  def name(), do: Application.get_env(:bonfire, :app_name, @name)
-  def version, do: @version
-  def named_version, do: name() <> " " <> @version
-  def repository, do: @repository
-  def deps, do: @deps
-  def required_deps, do: @required_deps
 end
