@@ -159,6 +159,7 @@ alias Bonfire.Data.Social.PostContent
 alias Bonfire.Data.Social.Profile
 alias Bonfire.Data.Social.Replied
 alias Bonfire.Data.Social.Request
+alias Bonfire.Data.Social.Pin
 
 alias Bonfire.Pages.Page
 alias Bonfire.Pages.Section
@@ -669,6 +670,12 @@ config :bonfire_data_social, Like,
      end)
 
 # has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause
+
+config :bonfire_data_social, Pin,
+  code:
+    (quote do
+       (unquote_splicing(edges))
+     end)
 
 config :bonfire_data_social, Flag,
   code:
