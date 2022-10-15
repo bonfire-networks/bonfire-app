@@ -380,3 +380,22 @@ Once you've signed up, you will automatically be an instance admin if you were t
 The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker-compose setup).
 
 Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
+
+## Troubleshooting
+
+Some common issues that may arise during deployment and our suggestions for resolving them.
+
+#### WebSocket connections not establishing behind a reverse proxy
+
+If you are running Bonfire behind your own reverse proxy (e.g. nginx), you might experience issues with WebSocket connections not establishing. WebSocket connections require specific configuration to work, in nginx the following configuration is necessary for websockets to work:
+
+```
+location /live/websocket {
+    proxy_pass http://127.0.0.1:4000;
+    
+    # these configurations are necessary to proxy WebSocket requests
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+}
+```
