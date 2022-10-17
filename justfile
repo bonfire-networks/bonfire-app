@@ -16,12 +16,13 @@ WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 
 MIX_ENV := env_var_or_default('MIX_ENV', "dev") 
 
+DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
+
 ## Other configs - edit these here if necessary
 FORKS_PATH := "forks/"
 ORG_NAME := "bonfirenetworks"
 APP_NAME := "bonfire"
 APP_VSN_EXTRA := "beta"
-DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.2-alpine")  
 APP_REL_DOCKERFILE :="Dockerfile.release"
 APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
 APP_REL_CONTAINER := APP_NAME + "_release"
@@ -92,6 +93,7 @@ pre-init:
 	@rm -rf ./data/current_flavour
 	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	@ln -sf ./config/$MIX_ENV/.env ./.env
+	@mkdir -p priv/static/public
 
 init: pre-init services
 	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
@@ -510,6 +512,9 @@ rel-services:
 	{{ if WITH_DOCKER != "no" { "docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d db search" } else {""} }}
 
 #### DOCKER-SPECIFIC COMMANDS ####
+
+dc *args='': 
+	docker-compose $@
 
 # Start background docker services (eg. db and search backends).
 @services: 
