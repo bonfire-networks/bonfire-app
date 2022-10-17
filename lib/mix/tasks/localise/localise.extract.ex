@@ -41,11 +41,11 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
       |> debug("gettext config")
 
     exts_to_localise =
-      Bonfire.MixProject.deps_for(:localise)
+      Bonfire.Mixer.deps_for(:localise)
       |> debug("bonfire extensions to localise")
 
     deps_to_localise =
-      Bonfire.MixProject.deps_for(:localise_self)
+      Bonfire.Mixer.deps_for(:localise_self)
       |> debug("other deps to localise")
 
     touch_manifests()

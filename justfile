@@ -16,6 +16,7 @@ WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 
 MIX_ENV := env_var_or_default('MIX_ENV', "dev") 
 
+APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', "bonfirenetworks/bonfire:latest-" +FLAVOUR)
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
 ## Other configs - edit these here if necessary
