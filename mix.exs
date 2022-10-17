@@ -1,5 +1,5 @@
-Code.eval_file("lib/mess.exs")
-Code.eval_file("lib/mixer.ex")
+Code.eval_file("lib/mix/mess/mess.exs")
+Code.eval_file("lib/mix/mess/mixer.ex")
 
 defmodule Bonfire.MixProject do
   use Mix.Project
