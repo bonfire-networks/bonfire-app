@@ -26,8 +26,8 @@ function phxClick(event) {
     if (name.charAt(0) == "[") {
         name = JSON.parse(name)[0][1]["event"]
     }
-    window.location = "/LiveHandler/" + name + "?" + new URLSearchParams(getPhxValues(this)).toString()
-}  
+    window.location = "/LiveHandler/" + name.replace(":", "/") + "?" + new URLSearchParams(getPhxValues(this)).toString()
+} 
 
 // attempt graceful degradation for LiveView events without LiveView
 (function () {

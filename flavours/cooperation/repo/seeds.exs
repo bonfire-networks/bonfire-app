@@ -1,4 +1,5 @@
 import Bonfire.Me.Fake
+import Bonfire.Social.Fake
 
 System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
@@ -12,7 +13,7 @@ fake_user!(
 )
 
 # create some users
-users = for _ <- 1..2, do: fake_user!()
+users = for _ <- 1..5, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
 
 # start some communities
@@ -42,6 +43,12 @@ random_user = fn -> Faker.Util.pick(users) end
 #  thread = fake_thread!(user, maybe_random_collection.())
 #  comment = fake_comment!(user, thread)
 # end
+
+for _ <- 1..10 do
+  thread = fake_post!(random_user.())
+  comment = fake_comment!(random_user.(), thread)
+  comment = fake_comment!(random_user.(), comment)
+end
 
 # post some links/resources
 # for _ <- 1..2, do: fake_resource!(random_user.(), maybe_random_community.())
