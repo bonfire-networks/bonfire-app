@@ -27,7 +27,7 @@ config :phoenix_live_reload,
 patterns = [
   ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg|webp)$",
   # ~r"^priv/gettext/.*(po)$",
-  ~r"(_live|_live_handler|live_handlers|routes)\.ex$",
+  ~r"(_live|live_handler|live_handlers|routes)\.ex$",
   ~r{(views|templates|pages|components)/.*(ex)$},
   ~r".*(heex|leex|sface)$",
   ~r"priv/catalogue/.*(ex)$"
