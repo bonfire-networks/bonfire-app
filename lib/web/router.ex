@@ -14,6 +14,10 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(Bonfire.UI.Common.Routes)
 
   # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
+  # TODO: automatically include all active extensions
+  # for extension <- ui_extensions do
+  #   use_if_enabled(extension)
+  # end
 
   # use_if_enabled Bonfire.Website.Web.Routes
 
@@ -141,13 +145,5 @@ defmodule Bonfire.Web.Router do
   end
 end
 
-defmodule Bonfire.Web.Router.Reverse do
-  import Voodoo, only: [def_reverse_router: 2]
-  # import Untangle
-  def_reverse_router(:path, for: Bonfire.Web.Router)
-
-  # def path(_conn_or_socket_or_endpoint, name, _arg1) do
-  #   error(name, "no path defined for type")
-  #   nil
-  # end
-end
+# generate initial reverse router (note that it will be re-generated at app start and when extensions are enabled/disabled)
+Bonfire.Web.Endpoint.generate_reverse_router!()
