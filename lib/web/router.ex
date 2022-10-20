@@ -13,15 +13,22 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled(Bonfire.UI.Common.Routes)
 
+  use_if_enabled(Bonfire.UI.Me.Routes)
+
   # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
   # TODO: automatically include all active extensions
+  # ui_extensions = Application.compile_env!(:bonfire, :ui_modules_search_path)
+  # |> Enum.flat_map(& Application.spec(&1, :modules) || [] )
+  # |> Enum.filter(& Code.ensure_loaded?(&1) and function_exported?(&1, :declare_routes, 0))
+  # |> debug()
+  # # quoted_use_if_enabled(ui_extensions)
   # for extension <- ui_extensions do
-  #   use_if_enabled(extension)
+  #   require extension
+  #   extension.__using__(nil)
   # end
 
   # use_if_enabled Bonfire.Website.Web.Routes
 
-  use_if_enabled(Bonfire.UI.Me.Routes)
   use_if_enabled(Bonfire.UI.Social.Routes)
   use_if_enabled(Bonfire.Boundaries.Web.Routes)
 
@@ -45,7 +52,7 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled(Bonfire.Pages.Beacon.Web.Routes)
 
-  # use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
+  use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
 
   # include GraphQL API
   use_if_enabled(Bonfire.API.GraphQL.Router)
@@ -57,7 +64,7 @@ defmodule Bonfire.Web.Router do
   use_if_enabled(NodeinfoWeb.Router)
 
   # optionally include Livebook for developers
-  use_if_enabled(Bonfire.Livebook.Web.Routes)
+  # use_if_enabled(Bonfire.Livebook.Web.Routes)
 
   # optionally include Surface Catalogue for the stylebook
   require_if_enabled(Surface.Catalogue.Router)
