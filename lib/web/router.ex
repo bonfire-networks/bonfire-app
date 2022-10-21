@@ -17,7 +17,7 @@ defmodule Bonfire.Web.Router do
 
   # include routes for active Bonfire extensions (no need to comment out, they'll be skipped if not available or if disabled)
   # TODO: automatically include all active extensions
-  # ui_extensions = Application.compile_env!(:bonfire, :ui_modules_search_path)
+  # ui_extensions = Application.compile_env!(:bonfire, :extensions_grouped, Bonfire.Common.NavModule)
   # |> Enum.flat_map(& Application.spec(&1, :modules) || [] )
   # |> Enum.filter(& Code.ensure_loaded?(&1) and function_exported?(&1, :declare_routes, 0))
   # |> debug()

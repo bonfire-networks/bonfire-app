@@ -48,7 +48,7 @@ pointable_schema_extensions = [
 
 config :pointers, :search_path, pointable_schema_extensions
 
-# Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a queries_module/0 or context_modules/0 function)
+# Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a query_module/0 or context_modules/0 function)
 context_and_queries_extensions =
   pointable_schema_extensions ++
     [
