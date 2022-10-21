@@ -48,7 +48,7 @@ pointable_schema_extensions = [
 
 config :pointers, :search_path, pointable_schema_extensions
 
-# Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a queries_module/0 or context_modules/0 function)
+# Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a query_module/0 or context_modules/0 function)
 context_and_queries_extensions =
   pointable_schema_extensions ++
     [
@@ -89,10 +89,17 @@ extensions_with_ui =
     ]
 
 config :bonfire, :verb_names, verbs
-config :bonfire, :context_modules_search_path, context_and_queries_extensions
-config :bonfire, :query_modules_search_path, context_and_queries_extensions
-config :bonfire, :config_modules_search_path, extensions_with_config
-config :bonfire, :ui_modules_search_path, extensions_with_ui
+
+# NOTE: these shouldn't be needed anymore since we scan all apps with Bonfire.Common.ExtensionBehaviour
+config :bonfire, :extensions_grouped, %{
+  Bonfire.Common.ContextModule => context_and_queries_extensions,
+  Bonfire.Common.SchemaModule => context_and_queries_extensions,
+  Bonfire.Common.QueryModule => context_and_queries_extensions,
+  Bonfire.Common.ConfigModule => extensions_with_config,
+  Bonfire.Common.ExtensionModule => extensions_with_ui,
+  Bonfire.Common.WidgetModule => extensions_with_ui,
+  Bonfire.Common.NavModule => extensions_with_ui
+}
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,

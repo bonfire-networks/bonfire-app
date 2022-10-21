@@ -61,7 +61,8 @@ defmodule Bonfire.Application do
     # Database
     @repo_module,
     EctoSparkles.AutoMigrator,
-    # Bonfire.Common.ConfigModules,
+    # behaviour modules are already prepared as part of `Bonfire.Common.Config.LoadExtensionsConfig`
+    # Bonfire.Common.ExtensionBehaviour,
     # Bonfire.Common.Config.LoadExtensionsConfig,
     # load instance Settings from DB into Config
     Bonfire.Me.Settings.LoadInstanceConfig,
@@ -71,8 +72,8 @@ defmodule Bonfire.Application do
     Pointers.Tables
     # Bonfire.Data.AccessControl.Accesses,
     ## these populate on first call, so no need to run on startup:
-    # Bonfire.Common.ContextModules,
-    # Bonfire.Common.QueryModules,
+    # Bonfire.Common.ContextModule,
+    # Bonfire.Common.QueryModule,
     # Bonfire.Federate.ActivityPub.FederationModules
     # {PhoenixProfiler, name: Bonfire.Web.Profiler}
   ]
