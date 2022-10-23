@@ -19,7 +19,7 @@ ExUnit.start(
 
 # Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Repo, :manual)
 
-# if System.get_env("START_SERVER") !="true" do
+# if System.get_env("START_SERVER") !="yes" do
 Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Repo, :auto)
 # end
 

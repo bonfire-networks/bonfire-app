@@ -10,6 +10,54 @@ defmodule Bonfire.Application do
   @config Mix.Project.config()
   @deps_loaded Bonfire.Common.Extensions.loaded_deps(:nested)
   @deps_loaded_flat Bonfire.Common.Extensions.loaded_deps(deps_loaded: @deps_loaded)
+  # 6 hours
+  @default_cache_ttl 1_000 * 60 * 60 * 6
+
+  @apps_before [
+    # Metrics
+    Bonfire.Web.Telemetry,
+    # Database
+    @repo_module,
+    EctoSparkles.AutoMigrator,
+    # behaviour modules are already prepared as part of `Bonfire.Common.Config.LoadExtensionsConfig`
+    # Bonfire.Common.ExtensionBehaviour,
+    # Bonfire.Common.Config.LoadExtensionsConfig,
+    # load instance Settings from DB into Config
+    Bonfire.Me.Settings.LoadInstanceConfig,
+    # PubSub
+    {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]},
+    # Persistent Data Services
+    Pointers.Tables
+    # Bonfire.Data.AccessControl.Accesses,
+    ## these populate on first call, so no need to run on startup:
+    # Bonfire.Common.ContextModule,
+    # Bonfire.Common.QueryModule,
+    # Bonfire.Federate.ActivityPub.FederationModules
+    # {PhoenixProfiler, name: Bonfire.Web.Profiler}
+  ]
+
+  # Stuff that depends on the Endpoint and/or the above
+  @apps_after [
+    # Job Queue
+    {Oban, Application.fetch_env!(:bonfire, Oban)},
+    %{
+      id: :bonfire_cache,
+      start:
+        {Cachex, :start_link,
+         [
+           :bonfire_cache,
+           [
+             expiration:
+               Cachex.Spec.expiration(
+                 default: @default_cache_ttl,
+                 interval: 1000
+               ),
+             # increase for instances with more users (at least num. of users*2+1)
+             limit: 5000
+           ]
+         ]}
+    }
+  ]
 
   def config, do: @config
   def name, do: Application.get_env(:bonfire, :app_name) || config()[:name]
@@ -35,6 +83,7 @@ defmodule Bonfire.Application do
     # |> IO.inspect
     applications(
       @env,
+      System.get_env("TEST_INSTANCE") == "yes",
       Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL) and
         Bonfire.Common.Extend.module_enabled?(Bonfire.API.GraphQL.Schema)
     )
@@ -42,81 +91,32 @@ defmodule Bonfire.Application do
   end
 
   # include GraphQL API
-  def applications(env, true = _with_graphql?) do
+  def applications(env, test_instance?, true = _with_graphql?) do
     IO.puts("Enabling the GraphQL API...")
 
     [
       # use persistent_term backend for Absinthe
       {Absinthe.Schema, Bonfire.API.GraphQL.Schema}
     ] ++
-      applications(env, :default) ++
+      applications(env, test_instance?, nil) ++
       [
         {Absinthe.Subscription, @endpoint_module}
       ]
   end
 
-  @apps_before [
-    # Metrics
-    Bonfire.Web.Telemetry,
-    # Database
-    @repo_module,
-    EctoSparkles.AutoMigrator,
-    # behaviour modules are already prepared as part of `Bonfire.Common.Config.LoadExtensionsConfig`
-    # Bonfire.Common.ExtensionBehaviour,
-    # Bonfire.Common.Config.LoadExtensionsConfig,
-    # load instance Settings from DB into Config
-    Bonfire.Me.Settings.LoadInstanceConfig,
-    # PubSub
-    {Phoenix.PubSub, [name: Bonfire.PubSub, adapter: Phoenix.PubSub.PG2]},
-    # Persistent Data Services
-    Pointers.Tables
-    # Bonfire.Data.AccessControl.Accesses,
-    ## these populate on first call, so no need to run on startup:
-    # Bonfire.Common.ContextModule,
-    # Bonfire.Common.QueryModule,
-    # Bonfire.Federate.ActivityPub.FederationModules
-    # {PhoenixProfiler, name: Bonfire.Web.Profiler}
-  ]
-
-  # 6 hours
-  @default_cache_ttl 1_000 * 60 * 60 * 6
-
-  # Stuff that depends on the Endpoint and/or the above
-  @apps_after [
-    # Job Queue
-    {Oban, Application.fetch_env!(:bonfire, Oban)},
-    %{
-      id: :bonfire_cache,
-      start:
-        {Cachex, :start_link,
-         [
-           :bonfire_cache,
-           [
-             expiration:
-               Cachex.Spec.expiration(
-                 default: @default_cache_ttl,
-                 interval: 1000
-               ),
-             # increase for instances with more users (at least num. of users*2+1)
-             limit: 5000
-           ]
-         ]}
-    }
-  ]
-
-  def applications(:test, _any) do
-    # ++ [Bonfire.Web.FakeRemoteEndpoint] # NOTE: enable for tests that require two running instances
+  def applications(:test, true = _test_instance?, _any) do
     @apps_before ++
-      [@endpoint_module] ++
-      @apps_after
+    [@endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
+    @apps_after
   end
 
   # default apps
-  def applications(_env, _any) do
+  def applications(_env, _test_instance?, _any) do
     @apps_before ++
-      [@endpoint_module] ++
-      @apps_after
+    [@endpoint_module] ++
+    @apps_after
   end
+
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.

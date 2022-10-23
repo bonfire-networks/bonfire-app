@@ -28,11 +28,19 @@ config :bonfire, Bonfire.Common.Repo,
   # database: db,
   slow_query_ms: 500
 
-# We don't run a server during test. If one is required,
-# you can enable the server option below.
-config :bonfire, Bonfire.Web.Endpoint,
-  http: [port: 4001],
-  server: false
+# Optionally run a 2nd endpoint for testing federation
+config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
+  server: true,
+  url: [
+    host: "localhost",
+    port: 4002
+  ],
+  http: [
+    port: 4002
+  ],
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  live_view: [signing_salt: System.get_env("SIGNING_SALT")],
+  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
 
 config :bonfire, Oban, testing: :manual
 
