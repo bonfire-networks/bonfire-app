@@ -140,7 +140,7 @@ recompile:
 	just mix "compile --force"
 
 dev-test: 
-	@MIX_ENV=test START_SERVER=true just dev-run
+	@MIX_ENV=test START_SERVER=yes just dev-run
 
 # Run the app in dev mode, as a background service
 dev-bg: init  

@@ -59,13 +59,8 @@ config :bonfire,
   encryption_salt: encryption_salt,
   signing_salt: signing_salt
 
-start_server? =
-  if config_env() == :test,
-    do: System.get_env("START_SERVER", "true"),
-    else: System.get_env("START_SERVER", "true")
-
 config :bonfire, Bonfire.Web.Endpoint,
-  server: String.to_existing_atom(start_server?),
+  server: config_env() == :test and System.get_env("TEST_INSTANCE") == "yes" or System.get_env("START_SERVER") == "yes",
   url: [
     host: host,
     port: public_port
@@ -89,7 +84,8 @@ end
 
 pool_size = String.to_integer(System.get_env("POOL_SIZE", "10"))
 
-config :bonfire, :ecto_repos, [Bonfire.Common.Repo, Beacon.Repo]
+config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+# config :bonfire, :ecto_repos, [Bonfire.Common.Repo, Beacon.Repo]
 config :bonfire, Bonfire.Common.Repo, repo_connection_config
 config :beacon, Beacon.Repo, repo_connection_config
 config :beacon, Beacon.Repo, pool_size: pool_size

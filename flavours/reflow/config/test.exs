@@ -30,7 +30,7 @@ config :bonfire, Bonfire.Common.Repo,
 
 # These defaults are overriden in runtime.exs
 config :bonfire, Bonfire.Web.Endpoint,
-  http: [port: 4001],
+  http: [port: 4000],
   server: if(System.get_env("TEST_INSTANCE") == "yes", do: true, else: false)
 
 # Run a 2nd endpoint for testing federation (not currently used)
