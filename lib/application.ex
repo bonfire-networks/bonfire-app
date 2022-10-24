@@ -106,17 +106,17 @@ defmodule Bonfire.Application do
 
   def applications(:test, true = _test_instance?, _any) do
     @apps_before ++
-    [@endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
-    @apps_after
+      [Bonfire.Common.TestInstanceRepo] ++
+      [@endpoint_module, Bonfire.Web.FakeRemoteEndpoint] ++
+      @apps_after
   end
 
   # default apps
   def applications(_env, _test_instance?, _any) do
     @apps_before ++
-    [@endpoint_module] ++
-    @apps_after
+      [@endpoint_module] ++
+      @apps_after
   end
-
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.

@@ -1,6 +1,6 @@
 defmodule Bonfire.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :bonfire
-  use Bonfire.Web.EndpointTemplate
+  use Bonfire.UI.Common.EndpointTemplate
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Config
 
@@ -10,6 +10,7 @@ defmodule Bonfire.Web.Endpoint do
     socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
     plug(Phoenix.LiveReloader)
     plug(Phoenix.CodeReloader)
+
     plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :bonfire)
 
     # plug(PhoenixProfiler)
@@ -62,10 +63,10 @@ defmodule Bonfire.Web.Endpoint do
         static_path("/assets/bonfire_basic.js")
       end
 
-    (PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()) <>
-      """
-      <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
-      """
+    """
+    #{PhoenixGon.View.render_gon_script(conn) |> Phoenix.HTML.safe_to_string()}
+    <script defer phx-track-static crossorigin='anonymous' src='#{js}'></script>
+    """
   end
 
   def reload!(), do: Phoenix.CodeReloader.reload!(__MODULE__)

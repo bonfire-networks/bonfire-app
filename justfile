@@ -403,6 +403,18 @@ test-watch *args='':
 test-interactive *args='': 
 	@MIX_ENV=test just mix test.interactive --stale $@
 
+test-federation-lib *args='forks/activity_pub': 
+	@MIX_ENV=test just test-watch $@
+
+test-federation-integration *args='forks/bonfire_federate_activitypub/test/activity_pub_integration': 
+	@MIX_ENV=test just test-watch $@
+
+test-federation-extensions *args='forks/*/test/*federat* forks/*/test/*/*federat* forks/*/test/*/*/*federat*': 
+	@MIX_ENV=test just test-watch $@
+
+test-federation-two *args='forks/bonfire_federate_activitypub/test/two_instances': 
+	@MIX_ENV=test TEST_INSTANCE=yes just test-watch $@
+
 # dev-test-watch: init ## Run tests
 # 	docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
