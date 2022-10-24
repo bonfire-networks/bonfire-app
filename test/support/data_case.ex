@@ -18,8 +18,6 @@ defmodule Bonfire.DataCase do
 
   using do
     quote do
-      alias Bonfire.Common.Repo
-
       import Ecto
       import Ecto.Changeset
       import Ecto.Query

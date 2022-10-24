@@ -42,19 +42,20 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   live_view: [signing_salt: System.get_env("SIGNING_SALT")],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
 
-config :bonfire, Oban, testing: :manual
+config :tesla,
+  adapter:
+    if(System.get_env("TEST_INSTANCE") == "yes", do: Tesla.Adapter.Hackney, else: Tesla.Mock)
+
+config :bonfire, Oban,
+  testing: if(System.get_env("TEST_INSTANCE") == "yes", do: :inline, else: :manual)
 
 config :pbkdf2_elixir, :rounds, 1
 
 config :mix_test_interactive,
   clear: true
 
-config :paginator, ecto_repos: [Bonfire.Common.Repo]
-
 config :paginator, Paginator.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   hostname: System.get_env("POSTGRES_HOST", "localhost")
-
-# database: db

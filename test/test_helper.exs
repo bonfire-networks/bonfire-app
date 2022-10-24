@@ -1,3 +1,5 @@
+import Bonfire.Common.Config, only: [repo: 0]
+
 ExUnit.configure(
   formatters:
     [ExUnit.CLIFormatter, ExUnitNotifier] ++
@@ -17,10 +19,10 @@ ExUnit.start(
 # Mix.Task.run("ecto.create")
 # Mix.Task.run("ecto.migrate")
 
-# Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Repo, :manual)
+# Ecto.Adapters.SQL.Sandbox.mode(repo(), :manual)
 
 # if System.get_env("START_SERVER") !="yes" do
-Ecto.Adapters.SQL.Sandbox.mode(Bonfire.Common.Repo, :auto)
+Ecto.Adapters.SQL.Sandbox.mode(repo(), :auto)
 # end
 
 # ExUnit.after_suite(fn results ->
@@ -42,3 +44,7 @@ IO.puts("""
 Testing shows the presence, not the absence of bugs.
  - Edsger W. Dijkstra
 """)
+
+# insert fixtures on startup (because running them as part of migrations inserts in primary repo)
+if System.get_env("TEST_INSTANCE") == "yes",
+  do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)

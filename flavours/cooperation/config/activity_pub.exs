@@ -5,14 +5,6 @@ config :activity_pub, :repo, Bonfire.Common.Repo
 
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
-config :activity_pub, :mrf_simple,
-  media_removal: [],
-  media_nsfw: [],
-  report_removal: [],
-  accept: [],
-  avatar_removal: [],
-  banner_removal: []
-
 config :activity_pub, :instance,
   hostname: "localhost",
   federation_publisher_modules: [ActivityPubWeb.Publisher],
@@ -20,6 +12,22 @@ config :activity_pub, :instance,
   federating: true,
   rewrite_policy: [Bonfire.Federate.ActivityPub.BoundariesMRF],
   handle_unknown_activities: true
+
+config :activity_pub, :boundaries,
+  block: [],
+  silence_them: [],
+  ghost_them: []
+
+config :activity_pub, :mrf_simple,
+  reject: [],
+  accept: [],
+  media_removal: [],
+  media_nsfw: [],
+  report_removal: [],
+  avatar_removal: [],
+  banner_removal: []
+
+config :http_signatures, adapter: ActivityPub.Signature
 
 config :activity_pub, :http,
   proxy_url: nil,
@@ -34,7 +42,11 @@ config :activity_pub, :http,
   ]
 
 config :activity_pub, ActivityPubWeb.Endpoint,
-  render_errors: [view: ActivityPubWeb.ErrorView, accepts: ~w(json), layout: false]
+  render_errors: [
+    view: ActivityPubWeb.ErrorView,
+    accepts: ~w(json),
+    layout: false
+  ]
 
 config :activity_pub, :json_contexts, %{
   "Hashtag" => "as:Hashtag",
