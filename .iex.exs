@@ -11,7 +11,7 @@ use Common.Utils
 import Bonfire.Me.Fake
 import Untangle
 
-if module_enabled?(Bonfire.Common.Test.Interactive) && Mix.env() == :test do
+if module_enabled?(Bonfire.Common.Test.Interactive) and Mix.env() == :test do
   # to run tests from iex
 
   # Code.compiler_options(ignore_module_conflict: true)
@@ -29,8 +29,8 @@ else
   if Mix.env() == :test, do: info("IExWatchTests is not running")
 end
 
-if Code.ensure_loaded?(ExSync) && function_exported?(ExSync, :register_group_leader, 0) do
-  ExSync.register_group_leader()
-end
+# if Code.ensure_loaded?(ExSync) and function_exported?(ExSync, :register_group_leader, 0) do
+#   ExSync.register_group_leader()
+# end
 
 import_if_enabled(Bonfire.Common.Test.Interactive.Helpers)
