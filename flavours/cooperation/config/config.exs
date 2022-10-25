@@ -54,6 +54,7 @@ config :rauversion_extension, :user_table, "pointers_pointer"
 config :rauversion_extension, :user_key_type, :uuid
 
 config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
+config :bonfire, Bonfire.Common.TestInstanceRepo, types: Bonfire.Geolocate.PostgresTypes
 # priv: flavour_path <> "/repo"
 
 # ecto query filtering
