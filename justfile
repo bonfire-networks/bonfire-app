@@ -385,35 +385,51 @@ deps-git-fix:
 
 # Run tests. You can also run only specific tests, eg: `just test forks/bonfire_social/test`
 test *args='': 
+	@echo "Testing $@..."
 	MIX_ENV=test just mix test $@
 
 # Run only stale tests
 test-stale *args='': 
+	@echo "Testing $@..."
 	MIX_ENV=test just mix test --stale $@
 
 # Run tests (ignoring changes in local forks)
 test-remote *args='': 
+	@echo "Testing $@..."
 	MIX_ENV=test just mix-remote test $@
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch *args='': 
+	@echo "Testing $@..."
 	MIX_ENV=test just mix test.watch --stale $@
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive *args='': 
 	@MIX_ENV=test just mix test.interactive --stale $@
 
-test-federation-lib *args='forks/activity_pub': 
-	@MIX_ENV=test just test-watch $@
+ap_lib := "forks/activity_pub"
+ap_integration := "forks/bonfire_federate_activitypub/test/activity_pub_integration"
+ap_boundaries := "forks/bonfire_federate_activitypub/test/ap_boundaries"
+ap_ext := "forks/*/test/*federat* forks/*/test/*/*federat* forks/*/test/*/*/*federat*"
+# ap_two := "forks/bonfire_federate_activitypub/test/two_instances"
 
-test-federation-integration *args='forks/bonfire_federate_activitypub/test/activity_pub_integration': 
-	@MIX_ENV=test just test-watch $@
+test-federation: 
+	just test-stale {{ ap_lib }}
+	just test-stale {{ ap_integration }}
+	just test-stale {{ ap_ext }}
+	TEST_INSTANCE=yes just test-stale --only test_instance
 
-test-federation-extensions *args='forks/*/test/*federat* forks/*/test/*/*federat* forks/*/test/*/*/*federat*': 
-	@MIX_ENV=test just test-watch $@
+test-federation-lib *args=ap_lib: 
+	just test-watch $@
 
-test-federation-two *args='forks/bonfire_federate_activitypub/test/two_instances': 
-	@MIX_ENV=test TEST_INSTANCE=yes just test-watch $@
+test-federation-integration *args=ap_integration: 
+	just test-watch $@
+
+test-federation-ext *args=ap_ext: 
+	just test-watch $@
+
+test-federation-two *args='': 
+	TEST_INSTANCE=yes just test-watch --only test_instance $@
 
 # dev-test-watch: init ## Run tests
 # 	docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
