@@ -72,6 +72,6 @@ defmodule Bonfire.Web.Endpoint do
   def reload!(), do: Phoenix.CodeReloader.reload!(__MODULE__)
 
   def generate_reverse_router!() do
-    Code.eval_file("priv/router_reverse.ex")
+    Code.eval_file(Path.join(:code.priv_dir(:bonfire), "extras/router_reverse.ex"))
   end
 end
