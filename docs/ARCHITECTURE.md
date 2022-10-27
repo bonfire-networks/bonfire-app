@@ -184,5 +184,5 @@ This namespace contains the ActivityPub Server-to-Server REST API, the activity 
 The callback functions defined in `ActivityPub.Adapter` are implemented in `Bonfire.Federate.ActivityPub.Adapter`. 
 
 When implementing federation for a new object type it needs to be implemented for both directions: 
-for outgoing federation using the hooks in `Bonfire.Federate.ActivityPub.Publisher` and for incoming federation using the hooks in `Bonfire.Federate.ActivityPub.Receiver`.
+for outgoing federation using the hooks in `Bonfire.Federate.ActivityPub.Outgoing` and for incoming federation using the hooks in `Bonfire.Federate.ActivityPub.Incoming`.
 

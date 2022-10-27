@@ -70,8 +70,7 @@ config :bonfire, Oban,
   queues: [
     federator_incoming: 50,
     federator_outgoing: 50,
-    ap_incoming: 15,
-    ap_publish: 15
+    ap_incoming: 15
   ]
 
 config :mime, :types, %{

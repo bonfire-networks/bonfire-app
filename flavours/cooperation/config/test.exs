@@ -47,6 +47,7 @@ config :tesla,
     if(System.get_env("TEST_INSTANCE") == "yes", do: Tesla.Adapter.Hackney, else: Tesla.Mock)
 
 config :bonfire, Oban,
+  # testing: :inline
   testing: if(System.get_env("TEST_INSTANCE") == "yes", do: :inline, else: :manual)
 
 config :pbkdf2_elixir, :rounds, 1
