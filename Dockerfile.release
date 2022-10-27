@@ -106,7 +106,8 @@ COPY LICENSE ./
 COPY docs/*.md ./docs/
 RUN mkdir -p forks/
 RUN mkdir -p priv/static/
-RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps forks assets config docs priv/repo mix.exs mix.lock LICENSE
+COPY priv/extras/ priv/extras/
+RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps forks assets config docs priv/repo priv/extras mix.exs mix.lock LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
