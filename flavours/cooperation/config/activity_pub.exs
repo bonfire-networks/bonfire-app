@@ -1,5 +1,6 @@
 import Config
 
+config :activity_pub, :env, config_env()
 config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
 config :activity_pub, :repo, Bonfire.Common.Repo
 

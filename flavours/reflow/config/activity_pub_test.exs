@@ -1,6 +1,5 @@
 import Config
 
-config :activity_pub, :test_repo, Bonfire.Common.Repo
 config :activity_pub, :repo, Bonfire.Common.Repo
 config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
 

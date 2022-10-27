@@ -571,6 +571,8 @@ config :bonfire_data_social, Activity,
        has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
        field(:path, EctoMaterializedPath.ULIDs, virtual: true)
 
+       field(:federate_activity_pub, :any, virtual: true)
+
        has_one(:like_count, unquote(EdgeTotal),
          foreign_key: :id,
          references: :object_id,
