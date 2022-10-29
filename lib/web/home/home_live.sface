@@ -1,3 +1,4 @@
+{#if !@current_user}
 <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} />
 <div class="grid items-start grid-cols-1 gap-4 mt-6 md:grid-cols-2 justify-items-start">
   <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
@@ -54,3 +55,25 @@
     <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
   </div>
 </div>
+{#else}
+<div class="m-6">
+  <div class="flex">
+    <div class="text-3xl font-bold tracking-wide">{l "Howdy"} {e(@current_user, :profile, :name, "")}</div>
+  </div>
+
+  <div class="mt-6">
+    <Bonfire.UI.Common.MyPinnedLive
+      title="Pinned posts"
+      object_types={Bonfire.Data.Social.Post}
+    />
+  </div>
+
+  <div mt-6>
+    <Bonfire.UI.Common.MyPinnedLive
+      object_types={ValueFlows.Process}
+      load_pointer
+      title={l("Top lists")}
+    />
+  </div>
+</div>
+{/if}
