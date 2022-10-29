@@ -12,8 +12,9 @@ config :bonfire_search,
 
 ## Other general test config
 
-config :logger, level: :info
-# config :logger, level: :notice
+config :logger,
+  level: :info,
+  truncate: :infinity
 
 # Configure your database
 # db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
@@ -42,13 +43,26 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   live_view: [signing_salt: System.get_env("SIGNING_SALT")],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
 
-config :tesla,
-  adapter:
-    if(System.get_env("TEST_INSTANCE") == "yes", do: Tesla.Adapter.Hackney, else: Tesla.Mock)
+test_instance? = System.get_env("TEST_INSTANCE") == "yes"
 
-config :bonfire, Oban,
-  # testing: :inline
-  testing: if(System.get_env("TEST_INSTANCE") == "yes", do: :inline, else: :manual)
+config :tesla,
+  adapter: if(test_instance?, do: Tesla.Adapter.Hackney, else: Tesla.Mock)
+
+oban_mode = if(test_instance?, do: :inline, else: :manual)
+config :bonfire, Oban, testing: oban_mode
+config :activity_pub, Oban, testing: oban_mode
+
+config :activity_pub, :disable_cache, test_instance?
+
+if test_instance? do
+  config :logger, :console,
+    format: "[$level $metadata] $message\n",
+    metadata: [:instance, :action]
+else
+  config :logger, :console,
+    format: "[$level $metadata] $message\n",
+    metadata: [:action]
+end
 
 config :pbkdf2_elixir, :rounds, 1
 

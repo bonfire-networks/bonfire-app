@@ -44,14 +44,10 @@ config :bonfire, Bonfire.Common.Repo,
 
 config :bonfire, Bonfire.Web.Endpoint, http: [port: 4001]
 
-config :bonfire, Oban, testing: :manual
-
 config :pbkdf2_elixir, :rounds, 1
 
 config :mix_test_interactive,
   clear: true
-
-config :paginator, ecto_repos: [Bonfire.Common.Repo]
 
 config :paginator, Paginator.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,

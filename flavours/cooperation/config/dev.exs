@@ -62,9 +62,11 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
 
-config :logger, :console,
+config :logger,
   level: :debug,
-  # truncate: :infinity,
+  truncate: :infinity
+
+config :logger, :console,
   # Do not include metadata or timestamps
   format: "[$level] $message\n"
 

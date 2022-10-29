@@ -55,9 +55,11 @@ config :bonfire, Bonfire.Web.Endpoint,
       ] ++ path_dep_patterns
   ]
 
-config :logger, :console,
+config :logger,
   level: :debug,
-  # truncate: :infinity,
+  truncate: :infinity
+
+config :logger, :console,
   # Do not include metadata or timestamps
   format: "[$level] $message\n"
 
