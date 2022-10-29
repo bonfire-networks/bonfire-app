@@ -52,7 +52,7 @@ defmodule Bonfire.Web.HomeLive do
        form: login_form(params),
        nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  nav_header: false,
-       without_sidebar: true,
+      #  without_sidebar: true,
        sidebar_widgets: [
          # users: [
          #   secondary: [
