@@ -58,9 +58,12 @@
 {#else}
 <div class="m-6">
   <div class="flex">
-    <div class="text-3xl font-bold tracking-wide">{l "Howdy"} {e(@current_user, :profile, :name, "")}</div>
+    <div class="flex items-center gap-4 text-3xl font-bold tracking-wide">
+    <Icon iconify="noto:waving-hand" class="w-10 h-10" />
+    <span>{l "Howdy"} {e(@current_user, :profile, :name, "")}</span>
+    </div>
   </div>
-
+  <Bonfire.Classify.Web.TopicsNavLive id="my_fav_topics" />
   <div class="mt-6">
     <Bonfire.UI.Common.MyPinnedLive
       title="Pinned posts"
@@ -68,7 +71,7 @@
     />
   </div>
 
-  <div mt-6>
+  <div class="mt-6">
     <Bonfire.UI.Common.MyPinnedLive
       object_types={ValueFlows.Process}
       load_pointer
