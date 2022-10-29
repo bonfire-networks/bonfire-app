@@ -34,8 +34,6 @@ config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4000],
   server: false
 
-config :bonfire, Oban, testing: :manual
-
 config :pbkdf2_elixir, :rounds, 1
 
 config :mix_test_interactive,

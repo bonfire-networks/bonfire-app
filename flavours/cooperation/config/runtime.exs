@@ -100,17 +100,21 @@ database =
     _ -> System.get_env("POSTGRES_DB", "bonfire")
   end
 
-config :bonfire, :ecto_repos, repos
+config :bonfire, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :bonfire, Bonfire.Common.Repo, repo_connection_config
 config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
 config :beacon, Beacon.Repo, repo_connection_config
 config :bonfire, Bonfire.Common.Repo, database: database
-config :bonfire, Bonfire.Common.TestInstanceRepo, database: "bonfire_test_instance"
 config :beacon, Beacon.Repo, database: database
 config :paginator, Paginator.Repo, database: database
 config :beacon, Beacon.Repo, pool_size: pool_size
 config :bonfire, Bonfire.Common.TestInstanceRepo, priv: "priv/repo"
+config :activity_pub, ecto_repos: repos
+
+config :activity_pub, Oban,
+  repo: Bonfire.Common.Repo,
+  queues: false
 
 # start prod-only config
 if config_env() == :prod do

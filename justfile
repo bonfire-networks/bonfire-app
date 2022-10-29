@@ -411,7 +411,7 @@ ap_lib := "forks/activity_pub"
 ap_integration := "forks/bonfire_federate_activitypub/test/activity_pub_integration"
 ap_boundaries := "forks/bonfire_federate_activitypub/test/ap_boundaries"
 ap_ext := "forks/*/test/*federat* forks/*/test/*/*federat* forks/*/test/*/*/*federat*"
-# ap_two := "forks/bonfire_federate_activitypub/test/two_instances"
+# ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation: 
 	just test-stale {{ ap_lib }}
@@ -428,7 +428,7 @@ test-federation-integration *args=ap_integration:
 test-federation-ext *args=ap_ext: 
 	just test-watch $@
 
-test-federation-two *args='': 
+test-federation-dance *args='': 
 	TEST_INSTANCE=yes just test-watch --only test_instance $@
 
 # dev-test-watch: init ## Run tests
