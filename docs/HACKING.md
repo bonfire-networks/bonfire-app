@@ -34,7 +34,7 @@ Bonfire is a flexible platform that powers a variety of social networks. The fir
 
 Note that at the current time, the core team are focusing most of their efforts on the classic flavour and this is where we recommend you start.
 
-You first need to install [just](https://github.com/casey/just#packages) which is a handy tool (a `just` alternative) to run commands defined in `./justfile`.
+You first need to install [just](https://github.com/casey/just#packages) which is a handy tool (a `make` alternative) to run commands defined in `./justfile`.
 
 So for example if you want to run the `classic` flavour, run:
 
