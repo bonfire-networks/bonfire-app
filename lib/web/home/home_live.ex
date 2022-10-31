@@ -50,7 +50,7 @@ defmodule Bonfire.Web.HomeLive do
        changelog: @changelog,
        error: nil,
        form: login_form(params),
-       nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+      #  nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  nav_header: false,
       #  without_sidebar: true,
        sidebar_widgets: [
