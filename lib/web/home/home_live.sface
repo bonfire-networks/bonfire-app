@@ -1,6 +1,6 @@
 {#if !@current_user}
-<Bonfire.UI.Common.LogoGuestLive :if={!@current_user} />
-<div class="grid items-start grid-cols-1 gap-4 mt-6 md:grid-cols-2 justify-items-start">
+<!-- <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} /> -->
+<div class="grid items-start max-w-screen-lg grid-cols-1 gap-4 mx-auto mt-6 md:grid-cols-2 justify-items-start">
   <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
     <div
       class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded-xl"
@@ -45,13 +45,13 @@
         />
     {/case}
 
-    <Bonfire.UI.Common.WidgetLinksLive links={@links} />
+    <!-- <Bonfire.UI.Common.WidgetLinksLive links={@links} /> -->
+    <Bonfire.UI.Common.WidgetAppsLive />
     <!-- <Bonfire.UI.Common.WidgetFeedbackLive :if={not is_nil(@current_user)} /> -->
   </div>
   <div class="flex flex-col w-full gap-3">
     <Bonfire.UI.Me.LoginViewLive :if={is_nil(@current_user)} form={@form} error={@error} />
     <Bonfire.UI.Me.WidgetAdminsLive />
-    <Bonfire.UI.Common.WidgetAppsLive />
     <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
   </div>
 </div>
