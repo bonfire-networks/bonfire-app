@@ -1,82 +1,90 @@
 {#if !@current_user}
-<!-- <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} /> -->
-<div class="grid items-start max-w-screen-lg grid-cols-1 gap-4 mx-auto mt-6 md:grid-cols-2 justify-items-start">
-  <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
-    <div
-      class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded-xl"
-      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
-    >
+  <!-- <Bonfire.UI.Common.LogoGuestLive :if={!@current_user} /> -->
+  <div class="grid items-start max-w-screen-lg grid-cols-1 gap-4 mx-auto mt-6 md:grid-cols-2 justify-items-start">
+    <div class="flex flex-col items-start justify-center w-full gap-3 mx-auto">
+      <div
+        class="w-full bg-center bg-no-repeat bg-cover h-[250px] md:rounded-xl"
+        style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+      >
+      </div>
+
+      {#case @selected_tab}
+        {#match "code-of-conduct"}
+          {#case Config.get([:bonfire, :terms, :conduct], nil)}
+            {#match terms when is_binary(terms)}
+              <Bonfire.UI.Common.WidgetTextLive text={terms} />
+            {#match _}
+          {/case}
+        {#match "privacy-policy"}
+          {#case Config.get([:bonfire, :terms, :privacy], nil)}
+            {#match terms when is_binary(terms)}
+              <Bonfire.UI.Common.WidgetTextLive text={terms} />
+            {#match _}
+          {/case}
+        {#match "changelog"}
+          {#case @changelog}
+            {#match changelog when is_binary(changelog)}
+              <Bonfire.UI.Common.WidgetTextLive text={changelog} />
+            {#match _}
+          {/case}
+        {#match _}
+          <Bonfire.UI.Common.WidgetTextLive
+            banner_image={Config.get([:ui, :theme, :instance_image], nil)}
+            text={Config.get([:ui, :theme, :instance_welcome, :description], nil) ||
+              Config.get([:ui, :theme, :instance_description], l("Welcome"))}
+            info={%{
+              "instance" => %{
+                "name" => Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
+                "description" => Config.get([:ui, :theme, :instance_description], "")
+              },
+              "app" => %{
+                "name" => Bonfire.Application.name(),
+                "version" => Bonfire.Application.version()
+              }
+            }}
+          />
+      {/case}
+
+      <!-- <Bonfire.UI.Common.WidgetLinksLive links={@links} /> -->
+      <Bonfire.UI.Common.WidgetAppsLive />
+      <!-- <Bonfire.UI.Common.WidgetFeedbackLive :if={not is_nil(@current_user)} /> -->
     </div>
-
-    {#case @selected_tab}
-      {#match "code-of-conduct"}
-        {#case Config.get([:bonfire, :terms, :conduct], nil)}
-          {#match terms when is_binary(terms)}
-            <Bonfire.UI.Common.WidgetTextLive text={terms} />
-          {#match _}
-        {/case}
-      {#match "privacy-policy"}
-        {#case Config.get([:bonfire, :terms, :privacy], nil)}
-          {#match terms when is_binary(terms)}
-            <Bonfire.UI.Common.WidgetTextLive text={terms} />
-          {#match _}
-        {/case}
-      {#match "changelog"}
-        {#case @changelog}
-          {#match changelog when is_binary(changelog)}
-            <Bonfire.UI.Common.WidgetTextLive text={changelog} />
-          {#match _}
-        {/case}
-      {#match _}
-        <Bonfire.UI.Common.WidgetTextLive
-          banner_image={Config.get([:ui, :theme, :instance_image], nil)}
-          text={Config.get([:ui, :theme, :instance_welcome, :description], nil) ||
-            Config.get([:ui, :theme, :instance_description], l("Welcome"))}
-          info={%{
-            "instance" => %{
-              "name" => Config.get([:ui, :theme, :instance_name], Bonfire.Application.name()),
-              "description" => Config.get([:ui, :theme, :instance_description], "")
-            },
-            "app" => %{
-              "name" => Bonfire.Application.name(),
-              "version" => Bonfire.Application.version()
-            }
-          }}
-        />
-    {/case}
-
-    <!-- <Bonfire.UI.Common.WidgetLinksLive links={@links} /> -->
-    <Bonfire.UI.Common.WidgetAppsLive />
-    <!-- <Bonfire.UI.Common.WidgetFeedbackLive :if={not is_nil(@current_user)} /> -->
+    <div class="flex flex-col w-full gap-3">
+      <Bonfire.UI.Me.LoginViewLive :if={is_nil(@current_user)} form={@form} error={@error} />
+      <Bonfire.UI.Me.WidgetAdminsLive />
+      <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
+    </div>
   </div>
-  <div class="flex flex-col w-full gap-3">
-    <Bonfire.UI.Me.LoginViewLive :if={is_nil(@current_user)} form={@form} error={@error} />
-    <Bonfire.UI.Me.WidgetAdminsLive />
-    <Bonfire.Tag.Web.WidgetTagsLive :if={not is_nil(@current_user)} />
-  </div>
-</div>
 {#else}
-<div class="m-6">
-  <div class="flex">
-    <div class="flex items-center gap-4 text-3xl font-bold tracking-wide">
-    <Icon iconify="noto:waving-hand" class="w-10 h-10" />
-    <span>{l "Howdy"} {e(@current_user, :profile, :name, "")}</span>
+  <div class="m-6">
+    <div class="flex">
+      <div class="flex items-center gap-4 text-3xl font-bold tracking-wide">
+        <Icon iconify="noto:waving-hand" class="w-10 h-10" />
+        <span>{l("Howdy")} {e(@current_user, :profile, :name, "")}</span>
+      </div>
+    </div>
+    <Bonfire.Classify.Web.TopicsNavLive id="my_fav_topics" />
+    <div class="mt-6">
+      <Bonfire.UI.Common.MyPinnedLive title="Pinned posts" object_types={Bonfire.Data.Social.Post} />
+    </div>
+
+    <div class="mt-6">
+      <Bonfire.UI.Common.MyPinnedLive
+        object_types={ValueFlows.Process}
+        load_pointer
+        title={l("Top lists")}
+      />
+    </div>
+
+    <div class="mt-6">
+      <Bonfire.UI.Social.FeedLive
+        id={:my}
+        feed_id={@feed_id}
+        feed_ids={@feed_ids}
+        feed={@feed}
+        page_info={@page_info}
+        tab_path_prefix="/feed/"
+      />
     </div>
   </div>
-  <Bonfire.Classify.Web.TopicsNavLive id="my_fav_topics" />
-  <div class="mt-6">
-    <Bonfire.UI.Common.MyPinnedLive
-      title="Pinned posts"
-      object_types={Bonfire.Data.Social.Post}
-    />
-  </div>
-
-  <div class="mt-6">
-    <Bonfire.UI.Common.MyPinnedLive
-      object_types={ValueFlows.Process}
-      load_pointer
-      title={l("Top lists")}
-    />
-  </div>
-</div>
 {/if}
