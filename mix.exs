@@ -73,7 +73,7 @@ defmodule Bonfire.MixProject do
   @default_flavour "classic"
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.3.5-beta.20",
+    version: "0.3.5-beta.21",
     elixir: "~> 1.13",
     default_flavour: @default_flavour,
     logo: "assets/static/images/bonfire-icon.png",
