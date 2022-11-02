@@ -50,9 +50,13 @@ defmodule Bonfire.Web.HomeLive do
        changelog: @changelog,
        error: nil,
        form: login_form(params),
-      #  nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       feed: nil,
+       feed_id: nil,
+       feed_ids: nil,
+       page_info: nil,
+       #  nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  nav_header: false,
-      #  without_sidebar: true,
+       #  without_sidebar: true,
        sidebar_widgets: [
          # users: [
          #   secondary: [
