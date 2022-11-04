@@ -282,7 +282,6 @@ defmodule Bonfire.MixProject do
       "bonfire.deps.recompile": [
         "deps.compile " <> Mixer.deps_to_update(config()) <> " --force"
       ],
-      "bonfire.deps": ["bonfire.deps.update", "bonfire.deps.clean.data"],
       "ecto.seeds": [
         "run #{Mixer.flavour_path(config())}/repo/seeds.exs"
       ],
@@ -295,7 +294,7 @@ defmodule Bonfire.MixProject do
         "bonfire.deps.clean.data",
         "ecto.setup"
       ],
-      updates: ["deps.get", "bonfire.deps"],
+      updates: ["deps.get", "bonfire.deps.update"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.migrate": ["ecto.migrate", "bonfire.seeds"],
