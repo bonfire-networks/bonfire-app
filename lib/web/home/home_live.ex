@@ -59,24 +59,15 @@ defmodule Bonfire.Web.HomeLive do
        #  nav_header: false,
        #  without_sidebar: true,
        sidebar_widgets: [
-         # users: [
-         #   secondary: [
-         #     {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-         #     {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
-         #     {Bonfire.UI.Me.WidgetAdminsLive, []},
-         #     {Bonfire.Tag.Web.WidgetTagsLive, [links: links]}
-         #   ]
-         # ],
-         # guests: [
-         #   secondary: [
-         #     {Bonfire.UI.Me.LoginViewLive, [form: login_form(params), error: nil]},
-         #     # {Bonfire.UI.Common.WidgetInstanceInfoLive, [display_banner: false]},
-         #     # {Bonfire.UI.Common.WidgetLinksLive, [links: links]},
-         #     # {Bonfire.UI.Me.WidgetAdminsLive, []},
-         #     # {Bonfire.Tag.Web.WidgetTagsLive, [links: links]}
-         #   ]
-         # ],
-       ]
+        users: [
+          secondary: [
+            {Bonfire.Tag.Web.WidgetTagsLive, []}
+          ]
+        ],
+        guests: [
+          secondary: []
+        ]
+      ]
      )}
   end
 
