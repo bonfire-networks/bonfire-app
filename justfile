@@ -202,7 +202,7 @@ update-repo-pull:
 
 # Update to the latest Bonfire extensions in ./deps 
 update-deps-bonfire:  
-	just mix-remote bonfire.deps
+	just mix-remote bonfire.deps.update
 
 # Update evey single dependency (use with caution)
 update-deps-all: deps-clean-unused pre-update-deps
@@ -235,8 +235,8 @@ deps-get:
 	just mix deps.get 
 	just js-deps-get
 
-deps-clean: 
-	just mix bonfire.deps.clean
+deps-clean dep: 
+	just mix deps.clean $dep
 
 deps-clean-data: 
 	just mix bonfire.deps.clean.data
