@@ -59,15 +59,15 @@ defmodule Bonfire.Web.HomeLive do
        #  nav_header: false,
        #  without_sidebar: true,
        sidebar_widgets: [
-        users: [
-          secondary: [
-            {Bonfire.Tag.Web.WidgetTagsLive, []}
-          ]
-        ],
-        guests: [
-          secondary: []
-        ]
-      ]
+         users: [
+           secondary: [
+             {Bonfire.Tag.Web.WidgetTagsLive, []}
+           ]
+         ],
+         guests: [
+           secondary: []
+         ]
+       ]
      )}
   end
 
