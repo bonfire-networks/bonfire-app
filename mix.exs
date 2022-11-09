@@ -145,7 +145,8 @@ defmodule Bonfire.MixProject do
         "bonfire_me",
         "bonfire_ecto",
         "bonfire_epics",
-        "bonfire_common"
+        "bonfire_common",
+        "bonfire_fail"
       ],
       localise: ["bonfire"],
       localise_self: []
@@ -269,6 +270,7 @@ defmodule Bonfire.MixProject do
       "bonfire.seeds": [
         # "phil_columns.seed",
       ],
+      # FIXME: this does not update transitive deps
       "bonfire.deps.update": ["deps.update " <> Mixer.deps_to_update(config())],
       "bonfire.deps.clean": [
         "deps.clean " <> Mixer.deps_to_clean(config(), :localise) <> " --build"

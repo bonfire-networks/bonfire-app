@@ -1,9 +1,20 @@
 if not Code.ensure_loaded?(Bonfire.Mixer) do
   defmodule Bonfire.Mixer do
+
     def deps(config, deps_subtype)
 
     def deps(config, :bonfire) do
-      Enum.filter(config[:deps] || config, &in_multirepo?(&1, multirepo_prefixes(config)))
+      prefixes = multirepo_prefixes(config)
+      Enum.filter(config[:deps] || config, &in_multirepo?(&1, prefixes))
+    end
+
+    def deps(config, :update = deps_subtype) do
+      prefixes = multirepo_prefixes(config)
+      Enum.filter(
+          config[:deps] || config,
+          &( include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]) || in_multirepo?(&1, prefixes) )
+        )
+      |> IO.inspect(limit: :infinity)
     end
 
     def deps(config, deps_subtype) when is_atom(deps_subtype),
@@ -171,7 +182,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def include_dep?(type, dep, config_or_prefixes)
 
-    def include_dep?(:update, dep, _deps_prefixes) when is_tuple(dep),
+    def include_dep?(:update, dep, _config_or_prefixes) when is_tuple(dep),
       do: unpinned_git_dep?(dep)
 
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
@@ -179,7 +190,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do:
         String.starts_with?(
           dep_name(dep),
-          config_or_prefixes[:deps_prefixes][type] || config_or_prefixes
+          (config_or_prefixes[:deps_prefixes][type]) || (config_or_prefixes)
         )
 
     # defp git_dep?(dep) do
