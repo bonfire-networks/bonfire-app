@@ -204,7 +204,7 @@ update-repo-pull:
 update-deps-bonfire:  
 	just mix-remote bonfire.deps.update
 
-# Update evey single dependency (use with caution)
+# Update every single dependency (use with caution)
 update-deps-all: deps-clean-unused pre-update-deps
 	just mix-remote "deps.update --all"
 	just js-app-deps upgrade
@@ -463,7 +463,7 @@ rel-rebuild: rel-init rel-prepare assets-prepare
 
 # Build the Docker image (NOT including changes to local forks)
 rel-build-release: rel-init rel-prepare assets-prepare 
-	@echo "Please note that the build will not include any changes in forks/ that haven't been commited and pushed, you may want to run just contrib-release first."
+	@echo "Please note that the build will not include any changes in forks/ that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build "data/null" --no-cache
 
 # Build the Docker image (including changes to local forks, and using caching)

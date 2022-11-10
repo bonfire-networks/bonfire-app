@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # any extensions/deps with a package.json in their /assets directory
-# space seperated
+# space separated
 DEPS='iconify_ex bonfire_ui_common bonfire_editor_quill'
 # bonfire_editor_ck
 

@@ -1,6 +1,6 @@
 import Config
 
-# Please note that these are defaults meant to be overriden in Settings rather than edited here
+# Please note that these are defaults meant to be overridden in Settings rather than edited here
 config :bonfire, :ui,
   theme: [
     instance_name: "Bonfire",

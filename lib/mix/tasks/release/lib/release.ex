@@ -1,7 +1,7 @@
 defmodule Releaser.VersionUtils do
   @doc """
   Some utilities to get and set version numbers in the `mix.exs` file
-  and to programatically transform version numbers.
+  and to programmatically transform version numbers.
   Maybe the `bump_*` functions should be in the standard library?
   This script doesn't support pre-release versions or versions with build information.
   """
