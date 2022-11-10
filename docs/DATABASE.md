@@ -39,7 +39,7 @@ independently of the database. It's also a little different, being made up of tw
 * Strong random padding for uniqueness.
 
 This means that it naturally sorts by time to the millisecond (close enough for us), giving us a
-performance advantage on queries ordered by a seperate creation datetime field (by contrast, UUIDv4 is 
+performance advantage on queries ordered by a separate creation datetime field (by contrast, UUIDv4 is 
 randomly distributed).
 
 If you've only worked with integer primary keys before, you are probably used to letting the

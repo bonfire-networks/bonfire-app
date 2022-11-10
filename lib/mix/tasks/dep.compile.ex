@@ -7,7 +7,7 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   @moduledoc """
   Compiles dependencies.
 
-  This is a modified version of Elixir's `Mix.Tasks.Deps.Compile` which was needed to compile depedencies and extract localisable strings in `Mix.Tasks.Bonfire.Localise.Extract`
+  This is a modified version of Elixir's `Mix.Tasks.Deps.Compile` which was needed to compile dependencies and extract localisable strings in `Mix.Tasks.Bonfire.Localise.Extract`
 
   By default, compile all dependencies. A list of dependencies
   can be given compile multiple dependencies in order.
@@ -129,10 +129,10 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
 
       try do
         # If "compile" was never called, the reenabling is a no-op and
-        # "compile.elixir" is a no-op as well (because it wasn't reenabled after
+        # "compile.elixir" is a no-op as well (because it wasn't re-enabled after
         # running "compile"). If "compile" was already called, then running
         # "compile" is a no-op and running "compile.elixir" will work because we
-        # manually reenabled it.
+        # manually re-enabled it.
         Mix.Task.reenable("compile.elixir")
         Mix.Task.reenable("compile.leex")
         Mix.Task.reenable("compile.all")

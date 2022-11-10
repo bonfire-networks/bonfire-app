@@ -10,7 +10,7 @@ config :bonfire, Bonfire.Web.Endpoint, cache_static_manifest: "priv/static/cache
 config :logger,
   backends: [:console, Sentry.LoggerBackend]
 
-# Do not print debug messages in production (this can be overriden by runtime env)
+# Do not print debug messages in production (this can be overridden by runtime env)
 config :logger, level: :info
 
 config :bonfire, Bonfire.Web.Endpoint, server: true
