@@ -45,7 +45,7 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(
        page: "home",
        selected_tab: "home",
-       page_title: instance_name,
+       page_title: instance_name <> " " <> l("dashboard"),
        links: links,
        changelog: @changelog,
        error: nil,

@@ -57,18 +57,61 @@
   </div>
 {#else}
   <div class="">
-    <div class="flex mx-3 mt-6">
-      <div class="flex items-center gap-4 text-3xl font-bold tracking-wide">
-        <Icon iconify="noto:waving-hand" class="w-10 h-10" />
-        <span>{l("Howdy")} {e(@current_user, :profile, :name, "")}</span>
-      </div>
-    </div>
 
     <!-- <Bonfire.Classify.Web.TopicsNavLive id="my_fav_topics" /> -->
-    <!-- 
-    <div class="mt-6">
-      <Bonfire.UI.Common.MyPinnedLive title="Pinned posts" object_types={Bonfire.Data.Social.Post} />
-    </div> -->
+    <div 
+      x-data="{selectedId: 'posts'}"
+      class="max-w-screen-md mx-3 mt-6 mb-3 rounded-md shadow md:mx-auto bg-base-100">
+      <div 
+        x-ref="tablist"
+        @keydown.right.prevent.stop="$focus.wrap().next()"
+        @keydown.home.prevent.stop="$focus.first()"
+        @keydown.page-up.prevent.stop="$focus.first()"
+        @keydown.left.prevent.stop="$focus.wrap().prev()"
+        @keydown.end.prevent.stop="$focus.last()"
+        @keydown.page-down.prevent.stop="$focus.last()"
+        role="tablist"
+        class="w-full mb-3 border-b justify-evenly border-base-content/10 tabs">
+        <div>
+        <button 
+          @click="selectedId = 'posts'"
+          @mousedown.prevent
+          type="button"
+          :tabindex="selectedId === 'posts' ? 0 : -1"
+          :class="selectedId === 'posts' ? 'tab-active' : 'border-b-0'"
+          class="tab tab-bordered !py-4 !h-[3.5rem]">{l "Best Posts"}</button> 
+          </div>
+          <div>
+        <button 
+          @click="selectedId = 'lists'"
+          @mousedown.prevent
+          type="button"
+          :tabindex="selectedId === 'lists' ? 0 : -1"
+          :aria-selected="selectedId === 'lists'"
+          :class="selectedId === 'lists' ? 'tab-active' : 'border-b-0'"
+          class="tab tab-bordered !py-4 !h-[3.5rem]">{l "Best Lists"}</button> 
+          </div>
+      </div>
+      <div 
+        role="tabpanels"
+        class="p-3">
+        <section
+          x-show="selectedId === 'posts'"
+          role="tabpanel">
+          <Bonfire.UI.Common.InstancePinnedLive object_types={Bonfire.Data.Social.Post} />
+        </section>
+        <section
+          x-show="selectedId === 'lists'"
+          role="tabpanel"
+        >
+        
+          <Bonfire.UI.Common.InstancePinnedLive
+            object_types={ValueFlows.Process}
+            load_pointer
+          />
+        </section>
+      </div>
+    </div>
 
     <!-- <div class="mt-6">
       <Bonfire.UI.Common.MyPinnedLive
@@ -78,7 +121,7 @@
       />
     </div> -->
 
-    <div class="mt-6">
+    <div class="">
       <Bonfire.UI.Social.FeedLive
         id="feeds"
         feed_id={@feed_id}
