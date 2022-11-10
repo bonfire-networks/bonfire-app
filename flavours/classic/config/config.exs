@@ -40,7 +40,7 @@ config :bonfire,
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   http: [
-    # this gets overriden in runtime.exs
+    # this gets overridden in runtime.exs
     port: String.to_integer(System.get_env("SERVER_PORT", "4000")),
     transport_options: [socket_opts: [:inet6]]
   ],

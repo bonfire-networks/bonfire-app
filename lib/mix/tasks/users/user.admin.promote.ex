@@ -1,4 +1,4 @@
-## About half of htis code is taken from hex, therefore this whole
+## About half of this code is taken from hex, therefore this whole
 ## file is considered under the same license terms as hex.
 defmodule Mix.Tasks.Bonfire.User.Admin.Promote do
   use Mix.Task

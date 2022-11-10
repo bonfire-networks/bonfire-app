@@ -28,7 +28,7 @@ config :bonfire, Bonfire.Common.Repo,
   database: db,
   slow_query_ms: 500
 
-# These defaults are overriden in runtime.exs
+# These defaults are overridden in runtime.exs
 config :bonfire, Bonfire.Web.Endpoint,
   http: [port: 4000],
   server: if(System.get_env("TEST_INSTANCE") == "yes", do: true, else: false)

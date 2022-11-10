@@ -91,10 +91,10 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     Mix.Tasks.Bonfire.Dep.Compile.run(["--force"] ++ List.wrap(deps_to_localise))
 
     # If "compile" was never called, the reenabling is a no-op and
-    # "compile.elixir" is a no-op as well (because it wasn't reenabled after
+    # "compile.elixir" is a no-op as well (because it wasn't re-enabled after
     # running "compile"). If "compile" was already called, then running
     # "compile" is a no-op and running "compile.elixir" will work because we
-    # manually reenabled it.
+    # manually re-enabled it.
     Mix.Task.reenable("compile.elixir")
     Mix.Task.run("compile")
     Mix.Task.run("compile.elixir")

@@ -156,7 +156,7 @@ There are some useful database-related release tasks under `EctoSparkles.Migrato
 - `migrate` runs all up migrations
 - `rollback(step)` roll back to step X
 - `rollback_to(version)` roll back to a specific version
-- `rollback_all` rolls back all migrations back to zero (caution: this means loosing all data)
+- `rollback_all` rolls back all migrations back to zero (caution: this means losing all data)
 
 You can also directly call some functions in the code from the command line, for example:
 - to migrate: `docker exec bonfire_web bin/bonfire rpc 'EctoSparkles.Migrator.migrate'`
