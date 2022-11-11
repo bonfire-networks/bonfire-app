@@ -419,20 +419,7 @@ article figure iframe {
 .prose .mention {
   @apply link-primary link-hover;
 }
-.mention-item {
-  @apply flex items-center font-semibold;
-}
 
-.mention-item .mention-item-name {
-  font-size: 14px !important;
-  color: hsla(var(--n)) !important;
-  font-weight: 700 !important;
-}
-
-.mention-item .mention-item-username {
-  margin-left: 4px !important;
-  color: hsla(var(--n) / 0.7) !important;
-}
 
 .ck.ck-placeholder:before,
 .ck .ck-placeholder:before {
@@ -443,7 +430,15 @@ article figure iframe {
   margin-top: 8px !important;
 }
 
-.ck.ck-list__item {
+.ck-balloon-panel_visible {
+  @apply !border-none !bg-neutral
+}
+
+.ck_list {
+  @apply !bg-neutral !border-none !shadow !menu !m-0 !p-0;
+}
+
+.ck-list__item {
   cursor: pointer !important;
   border-radius: 4px !important;
 }
@@ -452,8 +447,17 @@ article figure iframe {
   cursor: pointer !important;
 }
 
+.mention_item-name {
+  @apply !text-neutral-content !font-semibold;
+}
+
+.mention_item-username {
+  @apply !ml-1 !font-light !text-neutral-content/80;
+
+}
+
 .ck.ck-list__item .ck-button.ck-on {
-  background-color: hsla(var(--p) / 0.2) !important;
+  @apply !bg-base-content/5 !block !w-full;
 }
 
 .ck.ck-reset.ck-list.ck-mentions {
@@ -461,7 +465,7 @@ article figure iframe {
 }
 
 .ck-content .mention {
-  color: hsla(var(--bc) / 0.2) !important;
+  @apply !text-primary !link;
 }
 
 .ck.ck-balloon-panel.ck-balloon-panel_caret_se.ck-balloon-panel_visible {
