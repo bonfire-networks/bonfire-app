@@ -1,5 +1,5 @@
 [
-  import_deps: [:surface],
+  import_deps: [:surface, :ecto, :phoenix],
   plugins: [Phoenix.LiveView.HTMLFormatter, Surface.Formatter.Plugin],
 
   # add patterns matching all .sface files and all .ex files with ~F sigils
@@ -8,6 +8,7 @@
     "{flavours,lib,test}/**/*.{ex,exs,sface,heex}",
     "forks/bonfire*/{config,lib,test}/**/*.{ex,exs,sface,heex}"
   ],
+  subdirectories: ["priv/*/migrations"],
 
   # THE FOLLOWING ARE OPTIONAL:
 

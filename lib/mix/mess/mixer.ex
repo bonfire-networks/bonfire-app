@@ -15,7 +15,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         &(include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]) ||
             in_multirepo?(&1, prefixes))
       )
-      |> IO.inspect(limit: :infinity)
+
+      # |> IO.inspect(limit: :infinity)
     end
 
     def deps(config, deps_subtype) when is_atom(deps_subtype),
@@ -264,7 +265,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # end
 
     def compilers(_) do
-      [:phoenix] ++ Mix.compilers()
+      Mix.compilers()
     end
 
     def catalogues(_env) do
