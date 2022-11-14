@@ -5,7 +5,7 @@ let ExtensionHooks = {};
 // TODO: make this more configurable? ie. don't import disabled extensions
 
 import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/change_locale"
-import { InputSelectHooks, live_select } from "./../../../forks/bonfire_ui_common/assets/js/input_select"
+import { InputSelectHooks, live_select } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
 import { CarouselHooks } from "./../../../deps/bonfire_ui_common/assets/js/carousel"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
