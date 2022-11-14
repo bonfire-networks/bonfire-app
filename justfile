@@ -550,7 +550,7 @@ dc *args='':
 	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
 
 @dev-services: 
-	{{ if WITH_DOCKER != "no" { "docker-compose up -d db search || exit You may want to make sure the docker daemon is started or run 'colima start' first." } else {""} }}
+	{{ if WITH_DOCKER != "no" { "docker-compose up -d db search || exit \"You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else {""} }}
 
 # Build the docker image
 build: init 
