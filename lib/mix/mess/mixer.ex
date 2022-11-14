@@ -46,17 +46,21 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def flavour_path(config),
       do: System.get_env("FLAVOUR_PATH", "flavours/" <> flavour(config))
 
-    def flavour(config \\ Bonfire.Application.mix_config()),
-      do: System.get_env("FLAVOUR") || config[:default_flavour]
+    def flavour(config \\ Bonfire.Application.mix_config())
 
-    def config_path(config, filename),
-      do: Path.expand(Path.join([flavour_path(config), "config", filename]))
+    def flavour(default_flavour) when is_binary(default_flavour),
+      do: System.get_env("FLAVOUR") || default_flavour
+
+    def flavour(config), do: System.get_env("FLAVOUR") || config[:default_flavour]
+
+    def config_path(config_or_flavour, filename),
+      do: Path.expand(Path.join([flavour_path(config_or_flavour), "config", filename]))
 
     def forks_path(), do: System.get_env("FORKS_PATH", "forks/")
 
-    def mess_sources(config) do
+    def mess_sources(config_or_flavour) do
       do_mess_sources(System.get_env("WITH_FORKS", "1"))
-      |> Enum.map(fn {k, v} -> {k, config_path(config, v)} end)
+      |> Enum.map(fn {k, v} -> {k, config_path(config_or_flavour, v)} end)
     end
 
     defp do_mess_sources("0"), do: [git: "deps.git", hex: "deps.hex"]
