@@ -63,9 +63,6 @@ defmodule Bonfire.Web.HomeLive do
            secondary: [
              {Bonfire.Tag.Web.WidgetTagsLive, []}
            ]
-         ],
-         guests: [
-           secondary: []
          ]
        ]
      )}
