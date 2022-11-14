@@ -9,7 +9,7 @@ module.exports = {
   },
   content: [
     '../{lib,forks,deps}/**/*{.leex,.heex,.sface,_live.ex,.js}',
-    '../bonfire_ui_common/deps/live_select/lib/live_select/component.*ex',
+    '../deps/bonfire_ui_common/live_select/lib/live_select/component.*ex', // FIXME: what should this point to?
     './js/*.js'
   ],
   theme: {
