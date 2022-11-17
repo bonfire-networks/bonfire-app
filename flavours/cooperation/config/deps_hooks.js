@@ -7,7 +7,7 @@ let ExtensionHooks = {};
 import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/change_locale"
 import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
-import { CarouselHooks } from "./../../../forks/bonfire_ui_common/assets/js/carousel"
+import { CarouselHooks } from "./../../../deps/bonfire_ui_common/assets/js/carousel"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
