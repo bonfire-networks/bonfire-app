@@ -27,7 +27,8 @@ config :bonfire, Bonfire.Common.Repo,
   pool_size: 60,
   # show_sensitive_data_on_connection_error: true,
   # database: db,
-  slow_query_ms: 500
+  slow_query_ms: 500,
+  log: :info
 
 # Optionally run a 2nd endpoint for testing federation
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
