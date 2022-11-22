@@ -318,8 +318,8 @@ messctl *args='': init
 #### CONTRIBUTION RELATED COMMANDS ####
 
 pre-push-hooks: pre-contrib-hooks
-	just mix changelog
 	just mix format
+#	just mix changelog 
 
 pre-contrib-hooks: 
 	-sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
