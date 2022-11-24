@@ -26,14 +26,27 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
           &include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype])
         )
 
-    def deps_for(type, deps \\ Bonfire.Application.deps()) do
+    def deps_for(type, deps \\ deps()) do
       deps(deps, type)
       |> Enum.map(&dep_name/1)
     end
 
-    def multirepo_prefixes(config \\ Bonfire.Application.mix_config()),
+    def deps do
+      if function_exported?(Mix.Project, :config, 0),
+        do: Mix.Project.config()[:deps],
+        else: Bonfire.Application.deps()
+    end
+
+    def mix_config do
+      if function_exported?(Mix.Project, :config, 0),
+        do: Mix.Project.config(),
+        else: Bonfire.Application.config()
+    end
+
+    def multirepo_prefixes(config \\ mix_config()),
       do:
-        Enum.flat_map(config[:deps_prefixes], fn {_, list} -> list end)
+        List.wrap(config[:deps_prefixes] || mix_config()[:deps_prefixes])
+        |> Enum.flat_map(fn {_, list} -> list || [] end)
         |> Enum.uniq()
 
     def in_multirepo?(dep, deps_prefixes \\ multirepo_prefixes()),
@@ -46,7 +59,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def flavour_path(config),
       do: System.get_env("FLAVOUR_PATH", "flavours/" <> flavour(config))
 
-    def flavour(config \\ Bonfire.Application.mix_config())
+    def flavour(config \\ mix_config())
 
     def flavour(default_flavour) when is_binary(default_flavour),
       do: System.get_env("FLAVOUR") || default_flavour
@@ -192,12 +205,13 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do: unpinned_git_dep?(dep)
 
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
-    def include_dep?(type, dep, config_or_prefixes),
-      do:
-        String.starts_with?(
-          dep_name(dep),
-          config_or_prefixes[:deps_prefixes][type] || config_or_prefixes
-        )
+    def include_dep?(type, dep, config_or_prefixes) do
+      # IO.inspect(config_or_prefixes)
+      String.starts_with?(
+        dep_name(dep),
+        config_or_prefixes[:deps_prefixes][type] || config_or_prefixes[type] || config_or_prefixes
+      )
+    end
 
     # defp git_dep?(dep) do
     #   spec = elem(dep, 1)

@@ -47,7 +47,7 @@ defmodule Bonfire.Web.HomeLive do
        page: "home",
        selected_tab: "home",
        page_title:
-         if(current_user(socket),
+         if(Utils.current_user(socket),
            do: app <> " " <> l("dashboard"),
            else: l("An  instance of") <> " " <> app
          ),
@@ -60,7 +60,7 @@ defmodule Bonfire.Web.HomeLive do
        feed_ids: nil,
        feed_component_id: "feeds",
        page_info: nil,
-       #  nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
+       nav_items: Bonfire.Common.ExtensionModule.default_nav(:bonfire_ui_social),
        #  nav_header: false,
        #  without_sidebar: true,
        sidebar_widgets: [
