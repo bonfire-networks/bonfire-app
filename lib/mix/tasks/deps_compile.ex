@@ -1,11 +1,11 @@
-defmodule Mix.Tasks.Bonfire.Dep.Compile do
+defmodule Mix.Tasks.Bonfire.Deps.Compile do
   use Mix.Task
   import Untangle
 
   @shortdoc "Compiles dependencies"
 
   @moduledoc """
-  Compiles dependencies.
+  (re)compiles dependencies.
 
   This is a modified version of Elixir's `Mix.Tasks.Deps.Compile` which was needed to compile dependencies and extract localisable strings in `Mix.Tasks.Bonfire.Localise.Extract`
 
@@ -29,6 +29,27 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
   import Mix.Dep, only: [available?: 1, mix?: 1]
 
   @switches [include_children: :boolean, force: :boolean]
+
+  def force_compile(dep_or_deps, compile_args \\ []) do
+    # mark deps to be recompiled (run this task)
+    Mix.Tasks.Bonfire.Deps.Compile.run(["--force"] ++ List.wrap(dep_or_deps))
+
+    # If "compile" was never called, the reenabling is a no-op and
+    # "compile.elixir" is a no-op as well (because it wasn't re-enabled after
+    # running "compile"). If "compile" was already called, then running
+    # "compile" is a no-op and running "compile.elixir" will work because we
+    # manually re-enabled it.
+    Mix.Task.reenable("compile.elixir")
+    Mix.Task.run("compile", compile_args)
+    Mix.Task.run("compile.elixir", compile_args)
+  end
+
+  def try_compile(dep_or_deps, compile_args \\ []) do
+    # mark deps to be recompiled (run this task)
+    Mix.Tasks.Bonfire.Deps.Compile.run(["--force"] ++ List.wrap(dep_or_deps))
+
+    Mix.Task.rerun("compile.elixir", compile_args)
+  end
 
   @spec run(OptionParser.argv()) :: :ok
   def run(args) do
@@ -245,5 +266,14 @@ defmodule Mix.Tasks.Bonfire.Dep.Compile do
 
     # Current deps + children deps
     deps ++ get_children(all_deps, apps)
+  end
+
+  def touch_manifests() do
+    # |> debug("manifests")
+    Enum.map(Mix.Tasks.Compile.Elixir.manifests(), &make_old_if_exists/1)
+  end
+
+  defp make_old_if_exists(path) do
+    :file.change_time(path, {{2000, 1, 1}, {0, 0, 0}})
   end
 end

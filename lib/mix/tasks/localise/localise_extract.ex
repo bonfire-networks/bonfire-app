@@ -48,7 +48,7 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
       Bonfire.Mixer.deps_for(:localise_self)
       |> debug("other deps to localise")
 
-    touch_manifests()
+    Mix.Tasks.Bonfire.Deps.Compile.touch_manifests()
 
     # first extract strings from all deps that use the Gettext module in bonfire_common
     pot_files = extract(:bonfire_common, gettext_config, exts_to_localise)
@@ -76,7 +76,8 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
 
   defp extract(app, gettext_config, deps_to_localise) do
     Gettext.Extractor.enable()
-    force_compile(deps_to_localise)
+
+    Mix.Tasks.Bonfire.Deps.Compile.force_compile(deps_to_localise)
 
     Gettext.Extractor.pot_files(
       app,
@@ -84,29 +85,6 @@ defmodule Mix.Tasks.Bonfire.Localise.Extract do
     )
   after
     Gettext.Extractor.disable()
-  end
-
-  defp force_compile(deps_to_localise) do
-    # mark deps to be recompiled
-    Mix.Tasks.Bonfire.Dep.Compile.run(["--force"] ++ List.wrap(deps_to_localise))
-
-    # If "compile" was never called, the reenabling is a no-op and
-    # "compile.elixir" is a no-op as well (because it wasn't re-enabled after
-    # running "compile"). If "compile" was already called, then running
-    # "compile" is a no-op and running "compile.elixir" will work because we
-    # manually re-enabled it.
-    Mix.Task.reenable("compile.elixir")
-    Mix.Task.run("compile")
-    Mix.Task.run("compile.elixir")
-  end
-
-  defp touch_manifests() do
-    # |> debug("manifests")
-    Enum.map(Mix.Tasks.Compile.Elixir.manifests(), &make_old_if_exists/1)
-  end
-
-  defp make_old_if_exists(path) do
-    :file.change_time(path, {{2000, 1, 1}, {0, 0, 0}})
   end
 
   defp run_merge(pot_files, argv) do
