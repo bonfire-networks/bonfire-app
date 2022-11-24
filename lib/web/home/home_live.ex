@@ -24,7 +24,7 @@ defmodule Bonfire.Web.HomeLive do
       url when is_binary(url) ->
         {:ok,
          socket
-         |> redirect_to(url, fallback: "/?dashboard", replace: false)}
+         |> redirect_to(url, fallback: "/dashboard", replace: false)}
 
       _ ->
         mount(Map.put(params, "dashboard", nil), session, socket)
@@ -32,7 +32,8 @@ defmodule Bonfire.Web.HomeLive do
   end
 
   defp mounted(params, _session, socket) do
-    instance_name = Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())
+    app = String.capitalize(Bonfire.Application.name())
+    instance_name = Config.get([:ui, :theme, :instance_name], app)
 
     links =
       Config.get([:ui, :theme, :instance_welcome, :links], %{
@@ -45,7 +46,11 @@ defmodule Bonfire.Web.HomeLive do
      |> assign(
        page: "home",
        selected_tab: "home",
-       page_title: instance_name <> " " <> l("dashboard"),
+       page_title:
+         if(current_user(socket),
+           do: app <> " " <> l("dashboard"),
+           else: l("An  instance of") <> " " <> app
+         ),
        links: links,
        changelog: @changelog,
        error: nil,
@@ -81,19 +86,30 @@ defmodule Bonfire.Web.HomeLive do
     {:noreply, socket}
   end
 
-  # defdelegate handle_params(params, attrs, socket), to: Bonfire.UI.Common.LiveHandlers
-  def handle_params(params, uri, socket) do
-    # poor man's hook I guess
-    with {_, socket} <- Bonfire.UI.Common.LiveHandlers.handle_params(params, uri, socket) do
-      undead_params(socket, fn ->
-        do_handle_params(params, uri, socket)
-      end)
-    end
-  end
-
-  def handle_event(action, attrs, socket),
-    do: Bonfire.UI.Common.LiveHandlers.handle_event(action, attrs, socket, __MODULE__)
+  def handle_params(params, uri, socket),
+    do:
+      Bonfire.UI.Common.LiveHandlers.handle_params(
+        params,
+        uri,
+        socket,
+        __MODULE__,
+        &do_handle_params/3
+      )
 
   def handle_info(info, socket),
     do: Bonfire.UI.Common.LiveHandlers.handle_info(info, socket, __MODULE__)
+
+  def handle_event(
+        action,
+        attrs,
+        socket
+      ),
+      do:
+        Bonfire.UI.Common.LiveHandlers.handle_event(
+          action,
+          attrs,
+          socket,
+          __MODULE__
+          # &do_handle_event/3
+        )
 end
