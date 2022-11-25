@@ -8,6 +8,7 @@ import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/c
 import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
 import { CarouselHooks } from "./../../../deps/bonfire_ui_common/assets/js/carousel"
+import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
@@ -17,6 +18,6 @@ import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js
 import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/extension"
 import { KanbanHooks } from "./../../../deps/bonfire_ui_kanban/assets/js/extension"
 
-Object.assign(ExtensionHooks, EditorQuillHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, GeolocateHooks, KanbanHooks) // EditorCkHooks
+Object.assign(ExtensionHooks, ResponsiveTabsHooks, EditorQuillHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, GeolocateHooks, KanbanHooks) // EditorCkHooks
  
 export { ExtensionHooks }
