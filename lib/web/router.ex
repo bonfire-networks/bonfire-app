@@ -52,6 +52,8 @@ defmodule Bonfire.Web.Router do
 
   use_if_enabled(Bonfire.Pages.Beacon.Web.Routes)
 
+  use_if_enabled(Bonfire.Encrypt.Web.Routes)
+
   use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)
 
   # include GraphQL API
