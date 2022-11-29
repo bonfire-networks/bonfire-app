@@ -6,7 +6,7 @@ defmodule Bonfire.Umbrella.MixProject do
   alias Bonfire.Mixer
 
   # we only behave as an umbrella im dev/test env
-  @umbrella_path if Mix.env() != :prod, do: Mixer.forks_path(), else: nil
+  @umbrella_path if Mix.env() == :dev, do: Mixer.forks_path(), else: nil
   @mess_opts [umbrella_root?: true, umbrella_path: @umbrella_path]
 
   @extra_deps [
@@ -165,7 +165,7 @@ defmodule Bonfire.Umbrella.MixProject do
       elixirc_options: [debug_info: true, docs: true],
       elixirc_paths: Mixer.elixirc_paths(config(), Mix.env()),
       test_paths: Mixer.test_paths(config()),
-      test_deps: Mixer.deps(config(), :test),
+      # test_deps: Mixer.deps(config(), :test) |> IO.inspect(),
       required_deps: config()[:deps_prefixes][:required],
       compilers: Mixer.compilers(Mix.env()),
       start_permanent: Mix.env() == :prod,
