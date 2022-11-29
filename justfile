@@ -21,6 +21,7 @@ DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" 
 
 ## Other configs - edit these here if necessary
 FORKS_PATH := "extensions/"
+EXTRA_FORKS_PATH := "forks/"
 ORG_NAME := "bonfirenetworks"
 APP_NAME := "bonfire"
 APP_VSN_EXTRA := "beta"
@@ -215,24 +216,24 @@ update-deps-all: deps-clean-unused pre-update-deps
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: 
-	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull
+	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull && ./git-publish.sh $EXTRA_FORKS_PATH/$dep pull 
 	just mix-remote "deps.update $dep"
 	./js-deps-get.sh $dep
 
 # Pull the latest commits from all forks
 update-forks: 
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
-	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
+	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \; && find $EXTRA_FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
 # TODO: run in parallel? find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
 
 # Pull the latest commits from all forks
 update-fork dep: 
-	@chmod +x git-publish.sh && find $FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
+	@chmod +x git-publish.sh && find $FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \; && find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
 
 # Fetch locked version of non-forked deps
 deps-get: 
-	just mix-remote deps.get
 	just mix deps.get 
+	just mix-remote deps.get
 	just js-deps-get
 
 deps-clean dep: 
@@ -247,7 +248,7 @@ deps-clean-api:
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js-deps-get: js-ext-deps
-	@[ -d "extensions/bonfire_ui_common" ] && ln -s "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -s "deps/bonfire_ui_common/assets" 
+	@[ -d "extensions/bonfire_ui_common" ] && ln -sf "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -sf "deps/bonfire_ui_common/assets" 
 
 js-ext-deps yarn_args='':
 	chmod +x ./config/deps.js.sh 
@@ -569,7 +570,7 @@ rebuild: init
 shell: 
 	just cmd bash
 
-docker-stop-web: 
+@docker-stop-web: 
 	-docker stop $WEB_CONTAINER
 	-docker rm $WEB_CONTAINER
 
