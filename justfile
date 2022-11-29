@@ -209,17 +209,15 @@ update-deps-bonfire:
 # Update every single dependency (use with caution)
 update-deps-all: deps-clean-unused pre-update-deps
 	just mix-remote "deps.update --all"
-	just js-app-deps upgrade
 	just js-ext-deps upgrade
 	just js-ext-deps outdated
-	just js-app-deps outdated
 	just mix "hex.outdated --all"
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: 
 	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull
 	just mix-remote "deps.update $dep"
-	./assets/install_extensions.sh $dep
+	./js-deps-get.sh $dep
 
 # Pull the latest commits from all forks
 update-forks: 
@@ -248,11 +246,8 @@ deps-clean-api:
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js-deps-get: js-app-deps js-ext-deps
-
-js-app-deps yarn_args='':
-	chmod +x ./assets/install_app.sh 
-	just cmd ./assets/install_app.sh $yarn_args
+js-deps-get: js-ext-deps
+	@[ -d "extensions/bonfire_ui_common" ] && ln -s "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -s "deps/bonfire_ui_common/assets" 
 
 js-ext-deps yarn_args='':
 	chmod +x ./config/deps.js.sh 

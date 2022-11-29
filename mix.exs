@@ -262,9 +262,6 @@ defmodule Bonfire.Umbrella.MixProject do
     [
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
-      "assets.build": [
-        "cmd cd ./assets && yarn build"
-      ],
       "bonfire.seeds": [
         # "phil_columns.seed",
       ],
@@ -285,8 +282,6 @@ defmodule Bonfire.Umbrella.MixProject do
       "ecto.seeds": [
         "run #{Mixer.flavour_path(config())}/repo/seeds.exs"
       ],
-      "js.deps.get": ["cmd make js.deps.get"],
-      "js.deps.update": ["cmd cd assets && yarn update"],
       setup: [
         "hex.setup",
         "rebar.setup",

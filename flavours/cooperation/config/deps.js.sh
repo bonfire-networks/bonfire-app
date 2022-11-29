@@ -7,5 +7,5 @@
 DEPS='iconify_ex bonfire_ui_common bonfire_editor_quill bonfire_editor_ck bonfire_geolocate bonfire_ui_kanban'
 # 
 
-chmod +x ./assets/install_extensions.sh
-./assets/install_extensions.sh "$DEPS" $@
+chmod +x ./js-deps-get.sh
+./js-deps-get.sh "$DEPS" $@
