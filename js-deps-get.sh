@@ -4,10 +4,17 @@
 
 DEPS=${1} 
 
+yarn -v || npm -g install yarn || echo "Yarn is required to install JS deps"
+
 for dep in $DEPS ; do
 	echo "Install JS deps from extension '$dep' with args '$2'"
 
 	if cd "extensions/$dep/assets" 2>/dev/null ; then
+		yarn $2
+		cd ../../../
+	fi
+
+	if cd "forks/$dep/assets" 2>/dev/null ; then
 		yarn $2
 		cd ../../../
 	fi

@@ -112,7 +112,7 @@ RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=a
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
-RUN mix assets.build
+RUN cd ./assets && yarn build && cd ..
 RUN MIX_ENV=prod CI=1 mix phx.digest
 # RUN ls -la priv/static
 

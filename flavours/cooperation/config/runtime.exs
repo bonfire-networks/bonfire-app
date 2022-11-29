@@ -101,6 +101,7 @@ database =
   end
 
 config :bonfire, ecto_repos: repos
+# config :bonfire_umbrella, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :bonfire, Bonfire.Common.Repo, repo_connection_config
 config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config

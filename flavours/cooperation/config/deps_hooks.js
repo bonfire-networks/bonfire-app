@@ -23,4 +23,3 @@ import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extensio
 Object.assign(ExtensionHooks, ResponsiveTabsHooks, EditorQuillHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, GeolocateHooks, KanbanHooks, EncryptHooks) // EditorCkHooks
  
 export { ExtensionHooks }
- 
