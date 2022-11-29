@@ -1,9 +1,12 @@
-Code.eval_file("lib/mix/mess/mess.exs")
-Code.eval_file("lib/mix/mess/mixer.ex")
+Code.eval_file("lib/mix/mess.exs")
+Code.eval_file("lib/mix/mixer.ex")
 
 defmodule Bonfire.MixProject do
   use Mix.Project
   alias Bonfire.Mixer
+
+  @umbrella_path if Mix.env() != :prod, do: "apps/", else: nil
+  @mess_opts [umbrella_root?: true, umbrella_path: @umbrella_path]
 
   @extra_deps [
     ## password hashing - builtin vs nif
@@ -14,7 +17,7 @@ defmodule Bonfire.MixProject do
     {:sentry, "~> 8.0", only: [:dev, :prod]},
 
     ## dev conveniences
-    # {:dbg, "~> 1.0", only: [:dev, :test]},
+    #
     {:phoenix_live_reload, "~> 1.3", only: :dev},
     # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
     # {:mix_unused, "~> 0.4", only: :dev},
@@ -39,9 +42,8 @@ defmodule Bonfire.MixProject do
 
     # tests
     {:floki, ">= 0.0.0", only: [:dev, :test]},
-    {:ex_machina, "~> 2.4", only: :test},
     {:mock, "~> 0.3", only: :test},
-    {:mox, "~> 1.0", only: :test},
+    # {:mox, "~> 1.0", only: :test},
     {:zest, "~> 0.1.0"},
     {:grumble, "~> 0.1.3", only: [:test], override: true},
     {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
@@ -151,7 +153,7 @@ defmodule Bonfire.MixProject do
       localise: ["bonfire"],
       localise_self: []
     ],
-    deps: Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps)
+    deps: Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps, @mess_opts)
   ]
 
   def config, do: @config
@@ -160,6 +162,7 @@ defmodule Bonfire.MixProject do
   def project do
     [
       app: :bonfire,
+      apps_path: @umbrella_path,
       version: Mixer.version(config()),
       elixir: config()[:elixir],
       elixirc_options: [debug_info: true, docs: true],

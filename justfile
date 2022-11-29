@@ -20,7 +20,7 @@ APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', "bonfirenetworks/bonf
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
 ## Other configs - edit these here if necessary
-FORKS_PATH := "forks/"
+FORKS_PATH := "apps/"
 ORG_NAME := "bonfirenetworks"
 APP_NAME := "bonfire"
 APP_VSN_EXTRA := "beta"
@@ -65,6 +65,7 @@ pre-setup flavour='classic':
 	@ln -sf ./config/dev/ ./config/test/
 	@rm .env | true
 	@ln -sf ./config/$MIX_ENV/.env ./.env
+	@mkdir -p apps/
 	@mkdir -p forks/
 	@mkdir -p data/uploads/
 	@mkdir -p priv/static/data
@@ -219,13 +220,13 @@ update-dep dep:
 	just mix-remote "deps.update $dep"
 	./assets/install_extensions.sh $dep
 
-# Pull the latest commits from all ./forks
+# Pull the latest commits from all forks
 update-forks: 
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
 	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
 # TODO: run in parallel? find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
 
-# Pull the latest commits from all ./forks
+# Pull the latest commits from all forks
 update-fork dep: 
 	@chmod +x git-publish.sh && find $FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
 
@@ -322,6 +323,7 @@ pre-push-hooks: pre-contrib-hooks
 #	just mix changelog 
 
 pre-contrib-hooks: 
+	-sed -i '' 's,/apps/,/deps/,' config/deps_hooks.js
 	-sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
@@ -346,7 +348,7 @@ contrib-rel-push: contrib-release rel-build-release rel-push
 
 # Count lines of code (requires cloc: `brew install cloc`)
 cloc: 
-	cloc lib config forks/*/lib forks/*/test test
+	cloc lib config apps/*/lib apps/*/test test
 
 # Run the git add command on each fork
 git-forks-add: deps-git-fix 
@@ -373,7 +375,7 @@ deps-git-fix:
 @git-merge branch: 
 	git merge --no-ff --no-commit $branch
 
-# Find any git conflicts in ./forks
+# Find any git conflicts in forks
 @git-conflicts: 
 	find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
@@ -383,7 +385,7 @@ deps-git-fix:
 
 #### TESTING RELATED COMMANDS ####
 
-# Run tests. You can also run only specific tests, eg: `just test forks/bonfire_social/test`
+# Run tests. You can also run only specific tests, eg: `just test apps/bonfire_social/test`
 test *args='': 
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test $@
@@ -407,10 +409,10 @@ test-watch *args='':
 test-interactive *args='': 
 	@MIX_ENV=test just mix test.interactive --stale $@
 
-ap_lib := "forks/activity_pub"
-ap_integration := "forks/bonfire_federate_activitypub/test/activity_pub_integration"
-ap_boundaries := "forks/bonfire_federate_activitypub/test/ap_boundaries"
-ap_ext := "forks/*/test/*federat* forks/*/test/*/*federat* forks/*/test/*/*/*federat*"
+ap_lib := "apps/activity_pub"
+ap_integration := "apps/bonfire_federate_activitypub/test/activity_pub_integration"
+ap_boundaries := "apps/bonfire_federate_activitypub/test/ap_boundaries"
+ap_ext := "apps/*/test/*federat* apps/*/test/*/*federat* apps/*/test/*/*/*federat*"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation: 
@@ -452,6 +454,7 @@ rel-config-prepare:
 
 # copy current flavour's config, without using symlinks
 rel-prepare: rel-config-prepare 
+	mkdir -p apps/
 	mkdir -p forks/
 	mkdir -p data/uploads/
 	mkdir -p data/null/
@@ -459,15 +462,18 @@ rel-prepare: rel-config-prepare
 
 # Build the Docker image (with no caching)
 rel-rebuild: rel-init rel-prepare assets-prepare 
-	just rel-build "forks/" --no-cache
+	just rel-build {{FORKS_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
 rel-build-release: rel-init rel-prepare assets-prepare 
-	@echo "Please note that the build will not include any changes in forks/ that haven't been committed and pushed, you may want to run just contrib-release first."
+	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build "data/null" --no-cache
 
 # Build the Docker image (including changes to local forks, and using caching)
-rel-build FORKS_TO_COPY_PATH="forks/" ARGS="": rel-init rel-prepare assets-prepare 
+rel-build FORKS_TO_COPY_PATH="" ARGS="": 
+	@rel-build-path {{ if FORKS_TO_COPY_PATH != "" {FORKS_TO_COPY_PATH} else {FORKS_PATH} }} ARGS
+
+rel-build-path FORKS_TO_COPY_PATH ARGS="": rel-init rel-prepare assets-prepare 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
 	@docker build $ARGS --progress=plain \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
@@ -582,9 +588,14 @@ docker-stop-web:
 @mix *args='': 
 	just cmd mix $@
 
-# Run a specific mix command, while ignoring any deps cloned into ./forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
+# Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
 mix-remote *args='': init 
 	{{ if WITH_DOCKER == "total" { "docker-compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
+
+xref-dot:
+	just mix xref graph --format dot --include-siblings
+	(awk '{if (!a[$0]++ && $1 != "}") print}' apps/*/xref_graph.dot; echo }) > docs/xref_graph.dot
+	dot -Tsvg docs/xref_graph.dot -o docs/xref_graph.svg
 
 # Run a specific exh command, see https://github.com/rowlandcodes/exhelp
 exh *args='': 
@@ -621,6 +632,7 @@ assets-prepare:
 # Workarounds for some issues running migrations
 db-pre-migrations: 
 	-touch deps/*/lib/migrations.ex
+	-touch apps/*/lib/migrations.ex
 	-touch forks/*/lib/migrations.ex
 	-touch priv/repo/*
 

@@ -7,7 +7,7 @@ DEPS=${1}
 for dep in $DEPS ; do
 	echo "Install JS deps from extension '$dep' with args '$2'"
 
-	if cd "forks/$dep/assets" 2>/dev/null ; then
+	if cd "apps/$dep/assets" 2>/dev/null ; then
 		yarn $2
 		cd ../../../
 	fi
