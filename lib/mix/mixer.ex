@@ -150,6 +150,9 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def source_url_pattern("deps/" <> _ = path, line),
       do: bonfire_ext_pattern(path, line)
 
+    def source_url_pattern("apps/" <> _ = path, line),
+      do: bonfire_ext_pattern(path, line)
+
     def source_url_pattern("forks/" <> _ = path, line),
       do: bonfire_ext_pattern(path, line)
 

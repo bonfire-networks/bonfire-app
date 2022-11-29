@@ -187,9 +187,11 @@ The code is somewhat documented inline. You can generate HTML docs (using `Exdoc
 
 - messctl is a little utility for programmatically updating the .deps files from which the final elixir dependencies list is compiled by the mess script. The only use of it is in the dep-\* tasks of the Makefile. It is used by some of the project developers and the build does not rely on it.
 
-- `./forks/` is used to hack on local copies of dependencies. You can clone a dependency from its git repo (like a bonfire extension) and use the local version during development, eg: `just dep.clone.local bonfire_me https://github.com/bonfire-networks/bonfire_me`
+- `./apps/` and `./forks/` is used to hack on local copies of dependencies. You can clone a dependency from its git repo (like a bonfire extension) and use the local version during development, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 
 - You can migrate the DB when the app is running (also runs automatically on startup): `EctoSparkles.Migrator.migrate`
+
+- You can generate a dependency graph using `just xref-graph` which will generate a DOT file at `docs/` (if Graphviz is installed it will also generate an SVG visualisation using `dot`).
 
 ### Usage under Windows (WSL, MSYS or CYGWIN)
 

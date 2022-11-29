@@ -63,7 +63,7 @@ COPY data/current_flavour/config/ ./config/
 # Optionally include local forks
 ARG FORKS_TO_COPY_PATH
 RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps.path ; else echo "Include locally forked extensions." ; fi 
-COPY ${FORKS_TO_COPY_PATH} ./forks/
+COPY ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
 
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
 # RUN mix do bonfire.deps.update
@@ -104,10 +104,11 @@ COPY assets assets
 # include an archive of the source code
 COPY LICENSE ./
 COPY docs/*.md ./docs/
+RUN mkdir -p apps/
 RUN mkdir -p forks/
 RUN mkdir -p priv/static/
 COPY priv/extras/ priv/extras/
-RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps forks assets config docs priv/repo priv/extras mix.exs mix.lock LICENSE
+RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps apps forks assets config docs priv/repo priv/extras mix.exs mix.lock LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
