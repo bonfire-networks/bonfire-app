@@ -18,7 +18,7 @@ import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js
 import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/extension"
 import { KanbanHooks } from "./../../../deps/bonfire_ui_kanban/assets/js/extension"
 
-import { EncryptHooks } from "./../../../extensions/bonfire_encrypt/assets/js/extension"
+import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extension"
  
 Object.assign(ExtensionHooks, ResponsiveTabsHooks, EditorQuillHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, GeolocateHooks, KanbanHooks, EncryptHooks) // EditorCkHooks
  
