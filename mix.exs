@@ -187,6 +187,7 @@ defmodule Bonfire.Umbrella.MixProject do
       homepage_url: "https://bonfirenetworks.org",
       docs: [
         # The first page to display from the docs
+        name: "Bonfire",
         main: "readme",
         logo: config()[:logo],
         output: "docs/exdoc",
@@ -194,14 +195,14 @@ defmodule Bonfire.Umbrella.MixProject do
         # extra pages to include
         extras: Mixer.readme_paths(config()),
         # extra apps to include in module docs
-        source_beam: Mixer.beam_paths(config(), :docs),
-        deps: Mixer.doc_deps(config()),
+        source_beam: Mixer.docs_beam_paths(config()),
+        # deps: Mixer.doc_dep_urls(config()),
         # Note: first match wins
         groups_for_extras: [
           Guides: Path.wildcard("docs/*"),
           "Flavours of Bonfire": Path.wildcard("flavours/*/*"),
-          "Data schemas": Path.wildcard("{deps,forks}/bonfire_data_*/*"),
-          "UI extensions": Path.wildcard("{deps,forks}/bonfire_ui_*/*"),
+          "Data schemas": Path.wildcard("{extensions,deps,forks}/bonfire_data_*/*"),
+          "UI extensions": Path.wildcard("{extensions,deps,forks}/bonfire_ui_*/*"),
           "Bonfire utilities":
             [
               "bonfire_api_graphql",
@@ -213,9 +214,9 @@ defmodule Bonfire.Umbrella.MixProject do
               "bonfire_files",
               "bonfire_mailer"
             ]
-            |> Enum.flat_map(&Path.wildcard("{deps,forks}/#{&1}/*")),
-          "Feature extensions": Path.wildcard("{deps,forks}/bonfire_*/*"),
-          "Other utilities": Path.wildcard("{deps,forks}/*/*"),
+            |> Enum.flat_map(&Path.wildcard("{extensions,deps,forks}/#{&1}/*")),
+          "Feature extensions": Path.wildcard("{extensions,deps,forks}/bonfire_*/*"),
+          "Other utilities": Path.wildcard("{extensions,deps,forks}/*/*"),
           Dependencies: Path.wildcard("docs/DEPENDENCIES/*")
         ],
         groups_for_modules: [
@@ -231,16 +232,27 @@ defmodule Bonfire.Umbrella.MixProject do
             ~r/^Bonfire.Epics?/,
             ~r/^Bonfire.Fail?/,
             ~r/^Bonfire.Files?/,
-            ~r/^Bonfire.Mailer?/
+            ~r/^Bonfire.Mailer?/,
+            ~r/^Pointers?/
           ],
           "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
+          Federation: [
+            ~r/^ActivityPub.?/,
+            ~r/^ActivityPub.?/,
+            ~r/^Nodeinfo.?/,
+            ~r/^NodeinfoWeb.?/
+          ],
+          Icons: ~r/^Iconify.?/,
           Utilities: ~r/.?/
         ],
         nest_modules_by_prefix: [
           Bonfire.Data,
           # Bonfire.UI,
           Bonfire,
-          ValueFlows
+          ActivityPub,
+          ActivityPubWeb,
+          # ValueFlows,
+          Iconify
         ]
       ]
     ]
