@@ -606,8 +606,10 @@ licenses:
 	just mix-remote licenses && mv DEPENDENCIES.md docs/DEPENDENCIES/$FLAVOUR.md
 
 # Extract strings to-be-localised from the app and installed extensions
+# FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
 localise-extract: 
 	just mix "bonfire.localise.extract"
+	mv extensions/activity_pub/priv/localisation* priv/localisation/
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
 
 @localise-tx-init:
