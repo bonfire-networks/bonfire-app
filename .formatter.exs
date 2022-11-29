@@ -6,6 +6,7 @@
   inputs: [
     "{mix,.formatter,mess}.exs",
     "{flavours,lib,test}/**/*.{ex,exs,sface,heex}",
+    "extensions/*/{config,lib,test}/**/*.{ex,exs,sface,heex}",
     "forks/bonfire*/{config,lib,test}/**/*.{ex,exs,sface,heex}"
   ],
   subdirectories: ["priv/*/migrations"],
