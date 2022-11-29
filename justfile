@@ -20,7 +20,7 @@ APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', "bonfirenetworks/bonf
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
 ## Other configs - edit these here if necessary
-FORKS_PATH := "apps/"
+FORKS_PATH := "extensions/"
 ORG_NAME := "bonfirenetworks"
 APP_NAME := "bonfire"
 APP_VSN_EXTRA := "beta"
@@ -65,7 +65,7 @@ pre-setup flavour='classic':
 	@ln -sf ./config/dev/ ./config/test/
 	@rm .env | true
 	@ln -sf ./config/$MIX_ENV/.env ./.env
-	@mkdir -p apps/
+	@mkdir -p extensions/
 	@mkdir -p forks/
 	@mkdir -p data/uploads/
 	@mkdir -p priv/static/data
@@ -96,6 +96,7 @@ pre-init:
 	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	@ln -sf ./config/$MIX_ENV/.env ./.env
 	@mkdir -p priv/static/public
+	@ln -sf ../../../priv/static extensions/bonfire/priv/static | true
 
 init: pre-init services
 	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
@@ -323,13 +324,12 @@ pre-push-hooks: pre-contrib-hooks
 #	just mix changelog 
 
 pre-contrib-hooks: 
-	-sed -i '' 's,/apps/,/deps/,' config/deps_hooks.js
-	-sed -i '' 's,/forks/,/deps/,' config/deps_hooks.js
+	-sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
 contrib-forks: pre-push-hooks contrib-forks-publish git-publish 
 
-# Push all changes to the app and extensions in ./forks, increment the app version number, and push a new version/release
+# Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
 contrib-release: pre-push-hooks contrib-forks-publish update-app contrib-app-release
 
 # Rebase app's repo and push all changes to the app
@@ -348,7 +348,7 @@ contrib-rel-push: contrib-release rel-build-release rel-push
 
 # Count lines of code (requires cloc: `brew install cloc`)
 cloc: 
-	cloc lib config apps/*/lib apps/*/test test
+	cloc lib config extensions/*/lib extensions/*/test test
 
 # Run the git add command on each fork
 git-forks-add: deps-git-fix 
@@ -385,7 +385,7 @@ deps-git-fix:
 
 #### TESTING RELATED COMMANDS ####
 
-# Run tests. You can also run only specific tests, eg: `just test apps/bonfire_social/test`
+# Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
 test *args='': 
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test $@
@@ -409,10 +409,10 @@ test-watch *args='':
 test-interactive *args='': 
 	@MIX_ENV=test just mix test.interactive --stale $@
 
-ap_lib := "apps/activity_pub"
-ap_integration := "apps/bonfire_federate_activitypub/test/activity_pub_integration"
-ap_boundaries := "apps/bonfire_federate_activitypub/test/ap_boundaries"
-ap_ext := "apps/*/test/*federat* apps/*/test/*/*federat* apps/*/test/*/*/*federat*"
+ap_lib := "extensions/activity_pub"
+ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration"
+ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
+ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation: 
@@ -454,7 +454,7 @@ rel-config-prepare:
 
 # copy current flavour's config, without using symlinks
 rel-prepare: rel-config-prepare 
-	mkdir -p apps/
+	mkdir -p extensions/
 	mkdir -p forks/
 	mkdir -p data/uploads/
 	mkdir -p data/null/
@@ -594,7 +594,7 @@ mix-remote *args='': init
 
 xref-dot:
 	just mix xref graph --format dot --include-siblings
-	(awk '{if (!a[$0]++ && $1 != "}") print}' apps/*/xref_graph.dot; echo }) > docs/xref_graph.dot
+	(awk '{if (!a[$0]++ && $1 != "}") print}' extensions/*/xref_graph.dot; echo }) > docs/xref_graph.dot
 	dot -Tsvg docs/xref_graph.dot -o docs/xref_graph.svg
 
 # Run a specific exh command, see https://github.com/rowlandcodes/exhelp
@@ -632,7 +632,7 @@ assets-prepare:
 # Workarounds for some issues running migrations
 db-pre-migrations: 
 	-touch deps/*/lib/migrations.ex
-	-touch apps/*/lib/migrations.ex
+	-touch extensions/*/lib/migrations.ex
 	-touch forks/*/lib/migrations.ex
 	-touch priv/repo/*
 

@@ -101,7 +101,6 @@ Here is an incomplete sample of some of current extensions and modules:
 
 - `Bonfire.Common` and `Bonfire.Common.Utils` (stuff that gets used everywhere)
 - `Bonfire.Application` (OTP application)
-- `Bonfire.MixProject` (Mix application configuration and helpers)
 - `Bonfire.Me.Characters` (a shared abstraction over users, organisations, categories, and other objects that need to have feeds and behave as an actor in ActivityPub land)
 - `Bonfire.Federate.ActivityPub` and `ActivityPub` (ActivityPub integration)
 - `Bonfire.Search` (local search indexing and search API, powered by Meili)
