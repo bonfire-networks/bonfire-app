@@ -6,9 +6,13 @@ defmodule Bonfire.Umbrella.MixProject do
   alias Bonfire.Mixer
 
   # we only behave as an umbrella im dev/test env
-  @use_local_forks System.get_env("WITH_FORKS", "1")=="1"
+  @use_local_forks System.get_env("WITH_FORKS", "1") == "1"
   @umbrella_path if Mix.env() == :dev and @use_local_forks, do: Mixer.forks_path(), else: nil
-  @mess_opts [use_local_forks?: @use_local_forks, umbrella_root?: @use_local_forks, umbrella_path: @umbrella_path]
+  @mess_opts [
+    use_local_forks?: @use_local_forks,
+    umbrella_root?: @use_local_forks,
+    umbrella_path: @umbrella_path
+  ]
 
   @extra_deps [
     ## password hashing - builtin vs nif

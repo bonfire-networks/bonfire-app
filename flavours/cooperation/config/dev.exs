@@ -12,9 +12,26 @@ config :bonfire, Bonfire.Common.Repo,
   # EctoSparkles does the logging instead
   log: false
 
-local_deps = Mess.deps((if System.get_env("WITH_FORKS", "1")=="1", do: [path: Path.relative_to_cwd("config/deps.path")], else: []), [])
+local_deps =
+  Mess.deps(
+    if(System.get_env("WITH_FORKS", "1") == "1",
+      do: [path: Path.relative_to_cwd("config/deps.path")],
+      else: []
+    ),
+    []
+  )
+
 local_dep_names = Enum.map(local_deps, &elem(&1, 0))
-dep_paths = Enum.map(local_deps, &(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
+
+dep_paths =
+  Enum.map(local_deps, fn dep ->
+    case elem(dep, 1)[:path] do
+      nil -> nil
+      path -> "#{path}/lib"
+    end
+  end)
+  |> Enum.reject(&is_nil/1)
+
 watch_paths = dep_paths ++ ["lib/"] ++ ["priv/static/"]
 
 IO.puts("Watching these deps for code reloading: #{inspect(local_dep_names)}")
