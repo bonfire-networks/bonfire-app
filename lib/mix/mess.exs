@@ -12,7 +12,7 @@ if not Code.ensure_loaded?(Mess) do
     @git_branch ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
 
     def umbrella_path(opts \\ []),
-      do: opts[:umbrella_path] || if(Mix.env() != :prod, do: "extensions/", else: nil)
+      do: opts[:umbrella_path] || if(Mix.env() == :dev, do: "extensions/", else: nil)
 
     def deps(sources \\ @sources, extra_deps, opts \\ []),
       do: Enum.flat_map(sources, fn {k, v} -> read(v, k) end) |> deps_packages(extra_deps, opts)
