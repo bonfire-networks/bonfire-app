@@ -169,7 +169,7 @@ You can also directly call some functions in the code from the command line, for
 There is a `justfile` with relevant commands (make sure set the `MIX_ENV=prod` env variable):
 
 - `just rel-build-release` which builds the docker image of the latest release
-- `just rel-build` which builds the docker image, including local changes to any cloned extensions in `./apps/` or `./forks/`
+- `just rel-build` which builds the docker image, including local changes to any cloned extensions in `./extensions/` 
 - `just rel-tag` adds the "latest" tag to your last build, so that it will be used when running
 
 Once you've built and tagged your image, you may need to update the `image` name in `docker-compose.release.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.

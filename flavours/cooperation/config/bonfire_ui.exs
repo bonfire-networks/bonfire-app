@@ -167,3 +167,6 @@ More details at https://bonfirenetworks.org",
 config :surface_catalogue,
   title: "Bonfire UI",
   subtitle: "Surface Components Documentation & Examples"
+
+config :iconify_ex,
+  generated_icon_modules_path: "./extensions/bonfire/lib/web"

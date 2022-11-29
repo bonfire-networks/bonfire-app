@@ -1,11 +1,12 @@
 Code.eval_file("lib/mix/mess.exs")
 Code.eval_file("lib/mix/mixer.ex")
 
-defmodule Bonfire.MixProject do
+defmodule Bonfire.Umbrella.MixProject do
   use Mix.Project
   alias Bonfire.Mixer
 
-  @umbrella_path if Mix.env() != :prod, do: "apps/", else: nil
+  # we only behave as an umbrella im dev/test env
+  @umbrella_path if Mix.env() != :prod, do: Mixer.forks_path(), else: nil
   @mess_opts [umbrella_root?: true, umbrella_path: @umbrella_path]
 
   @extra_deps [
@@ -13,12 +14,8 @@ defmodule Bonfire.MixProject do
     {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
     {:argon2_elixir, "~> 3.0", only: [:prod]},
 
-    # error reporting
-    {:sentry, "~> 8.0", only: [:dev, :prod]},
-
     ## dev conveniences
     #
-    {:phoenix_live_reload, "~> 1.3", only: :dev},
     # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
     # {:mix_unused, "~> 0.4", only: :dev},
     {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
@@ -161,7 +158,7 @@ defmodule Bonfire.MixProject do
 
   def project do
     [
-      app: :bonfire,
+      app: :bonfire_umbrella,
       apps_path: @umbrella_path,
       version: Mixer.version(config()),
       elixir: config()[:elixir],
@@ -245,20 +242,6 @@ defmodule Bonfire.MixProject do
           Bonfire,
           ValueFlows
         ]
-      ]
-    ]
-  end
-
-  def application do
-    [
-      mod: {Bonfire.Application, []},
-      extra_applications: [
-        :logger,
-        :runtime_tools,
-        :os_mon,
-        :ssl,
-        :bamboo,
-        :bamboo_smtp
       ]
     ]
   end

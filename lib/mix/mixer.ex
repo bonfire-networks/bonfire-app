@@ -69,7 +69,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def config_path(config_or_flavour, filename),
       do: Path.expand(Path.join([flavour_path(config_or_flavour), "config", filename]))
 
-    def forks_path(), do: System.get_env("FORKS_PATH", "forks/")
+    def forks_path(), do: System.get_env("FORKS_PATH", "extensions/")
 
     def mess_sources(config_or_flavour) do
       do_mess_sources(System.get_env("WITH_FORKS", "1"))
@@ -150,7 +150,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def source_url_pattern("deps/" <> _ = path, line),
       do: bonfire_ext_pattern(path, line)
 
-    def source_url_pattern("apps/" <> _ = path, line),
+    def source_url_pattern("extensions/" <> _ = path, line),
       do: bonfire_ext_pattern(path, line)
 
     def source_url_pattern("forks/" <> _ = path, line),
