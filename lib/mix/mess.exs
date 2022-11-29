@@ -5,17 +5,23 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 if not Code.ensure_loaded?(Mess) do
   defmodule Mess do
-    @sources [path: "deps.path", git: "deps.git", hex: "deps.hex"]
 
     @newline ~r/(?:\r\n|[\r\n])/
     @parser ~r/^(?<indent>\s*)((?<package>[a-z_][a-z0-9_]+)\s*=\s*"(?<value>[^"]+)")?(?<post>.*)/
     @git_branch ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
 
-    def umbrella_path(opts \\ []),
-      do: opts[:umbrella_path] || if(Mix.env() == :dev, do: "extensions/", else: nil)
+    defp sources(true), do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+    defp sources(_), do: [git: "deps.git", hex: "deps.hex"]
 
-    def deps(sources \\ @sources, extra_deps, opts \\ []),
-      do: Enum.flat_map(sources, fn {k, v} -> read(v, k) end) |> deps_packages(extra_deps, opts)
+    defp opts(opts \\ []),
+      do: opts
+      |> Keyword.put_new_lazy(:use_local_forks?, fn -> System.get_env("WITH_FORKS", "1")=="1" end)
+      |> Keyword.put_new_lazy(:umbrella_path, fn -> if Mix.env() == :dev, do: "extensions/", else: nil end)
+
+    def deps(sources \\ nil, extra_deps, opts \\ []) do
+      opts = opts(opts)
+      Enum.flat_map(sources || sources(opts[:use_local_forks?]), fn {k, v} -> read(v, k) end) |> deps_packages(extra_deps, opts)
+    end
 
     defp deps_packages(packages, extra_deps, opts),
       do: Enum.flat_map(packages, &dep_spec(&1, opts)) |> deps_uniq(extra_deps, opts)
@@ -38,11 +44,11 @@ if not Code.ensure_loaded?(Mess) do
             dep_opts = elem(dep, 1)
             is_list(dep_opts) and dep_opts[:from_umbrella]
           end)
-
         # |> IO.inspect(label: "umbrella_only")
 
-        umbrella_path(opts) != nil ->
-          umbrella_deps = read_umbrella("../../config/deps.path", opts)
+        opts[:umbrella_path] != nil ->
+          umbrella_deps = read_umbrella("#{File.cwd!()}/config/deps.path", opts)
+          |> IO.inspect(label: "umbrella_deps")
 
           deps
           |> Enum.map(fn dep ->
@@ -68,10 +74,12 @@ if not Code.ensure_loaded?(Mess) do
     end
 
     defp read_umbrella(path, opts) when is_binary(path) do
-      if File.exists?(path) do
+      if opts[:use_local_forks?] and File.exists?(path) do
         read(path, :path)
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
+        IO.inspect(File.cwd!())
+        IO.warn("did not load #{path}")
         []
       end
     end
@@ -95,7 +103,7 @@ if not Code.ensure_loaded?(Mess) do
       do: pkg(p, v, override: true)
 
     defp dep_spec(%{"package" => p, "value" => v, :kind => :path}, opts) do
-      umbrella_path = umbrella_path(opts)
+      umbrella_path = opts[:umbrella_path]
 
       if umbrella_path && String.starts_with?(v, umbrella_path) do
         pkg(p, from_umbrella: true, override: true, path: v)
