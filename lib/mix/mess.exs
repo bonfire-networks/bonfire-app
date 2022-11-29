@@ -5,7 +5,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 if not Code.ensure_loaded?(Mess) do
   defmodule Mess do
-
     @newline ~r/(?:\r\n|[\r\n])/
     @parser ~r/^(?<indent>\s*)((?<package>[a-z_][a-z0-9_]+)\s*=\s*"(?<value>[^"]+)")?(?<post>.*)/
     @git_branch ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
@@ -14,13 +13,20 @@ if not Code.ensure_loaded?(Mess) do
     defp sources(_), do: [git: "deps.git", hex: "deps.hex"]
 
     defp opts(opts \\ []),
-      do: opts
-      |> Keyword.put_new_lazy(:use_local_forks?, fn -> System.get_env("WITH_FORKS", "1")=="1" end)
-      |> Keyword.put_new_lazy(:umbrella_path, fn -> if Mix.env() == :dev, do: "extensions/", else: nil end)
+      do:
+        opts
+        |> Keyword.put_new_lazy(:use_local_forks?, fn ->
+          System.get_env("WITH_FORKS", "1") == "1"
+        end)
+        |> Keyword.put_new_lazy(:umbrella_path, fn ->
+          if Mix.env() == :dev, do: "extensions/", else: nil
+        end)
 
     def deps(sources \\ nil, extra_deps, opts \\ []) do
       opts = opts(opts)
-      Enum.flat_map(sources || sources(opts[:use_local_forks?]), fn {k, v} -> read(v, k) end) |> deps_packages(extra_deps, opts)
+
+      Enum.flat_map(sources || sources(opts[:use_local_forks?]), fn {k, v} -> read(v, k) end)
+      |> deps_packages(extra_deps, opts)
     end
 
     defp deps_packages(packages, extra_deps, opts),
@@ -44,11 +50,13 @@ if not Code.ensure_loaded?(Mess) do
             dep_opts = elem(dep, 1)
             is_list(dep_opts) and dep_opts[:from_umbrella]
           end)
+
         # |> IO.inspect(label: "umbrella_only")
 
         opts[:umbrella_path] != nil ->
-          umbrella_deps = read_umbrella("#{File.cwd!()}/config/deps.path", opts)
-          |> IO.inspect(label: "umbrella_deps")
+          umbrella_deps =
+            read_umbrella("#{File.cwd!()}/config/deps.path", opts)
+            |> IO.inspect(label: "umbrella_deps")
 
           deps
           |> Enum.map(fn dep ->
