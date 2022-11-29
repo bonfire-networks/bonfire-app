@@ -122,7 +122,7 @@ dev: init dev-run
 
 # Generate docs from code & readmes
 docs: 
-	just mix-remote docs
+	just mix docs
 
 # Analyse the codebase and generate some reports. Requires Graphviz and SQLite
 arch:
