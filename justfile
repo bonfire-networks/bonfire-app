@@ -89,7 +89,7 @@ flavour select_flavour:
 	@just js-deps-get
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
-pre-init:
+pre-init: assets-ln
 	@echo "Running $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 	@rm -rf ./priv/repo
 	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
@@ -120,6 +120,9 @@ dev: init dev-run
 
 @dev-run:
 	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "iex -S mix phx.server" } }}
+
+@dev-remote: init
+	{{ if WITH_DOCKER == "total" { "WITH_FORKS=0 just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
 # Generate docs from code & readmes
 docs: 
@@ -211,6 +214,7 @@ update-deps-bonfire:
 update-deps-all: deps-clean-unused pre-update-deps
 	just mix-remote "deps.update --all"
 	just js-ext-deps upgrade
+	just assets-ln
 	just js-ext-deps outdated
 	just mix "hex.outdated --all"
 
@@ -247,12 +251,14 @@ deps-clean-api:
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js-deps-get: js-ext-deps
-	@[ -d "extensions/bonfire_ui_common" ] && ln -sf "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -sf "deps/bonfire_ui_common/assets" 
+js-deps-get: js-ext-deps assets-ln
 
 js-ext-deps yarn_args='':
 	chmod +x ./config/deps.js.sh 
 	just cmd ./config/deps.js.sh $yarn_args
+
+assets-ln:
+	@[ -d "extensions/bonfire_ui_common" ] && ln -sf "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -sf "deps/bonfire_ui_common/assets" 
 
 deps-outdated: deps-clean-unused
 	@just mix-remote "hex.outdated --all"

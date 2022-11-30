@@ -8,7 +8,7 @@ host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 
-## load runtime configs directly via extension-provided modules
+## load extensions' runtime configs (and behaviours) directly via extension-provided modules
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs()
 ##
 

@@ -7,12 +7,8 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # we only behave as an umbrella im dev/test env
   @use_local_forks System.get_env("WITH_FORKS", "1") == "1"
-  @umbrella_path if Mix.env() == :dev and @use_local_forks, do: Mixer.forks_path(), else: nil
-  @mess_opts [
-    use_local_forks?: @use_local_forks,
-    umbrella_root?: @use_local_forks,
-    umbrella_path: @umbrella_path
-  ]
+  @ext_forks_path Mixer.forks_path()
+  @umbrella_path if Mix.env() == :dev and @use_local_forks and File.exists?("#{@ext_forks_path}/bonfire"), do: @ext_forks_path, else: nil
 
   @extra_deps [
     ## password hashing - builtin vs nif
@@ -155,8 +151,12 @@ defmodule Bonfire.Umbrella.MixProject do
       localise: ["bonfire"],
       localise_self: []
     ],
-    deps: Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps, @mess_opts)
-  ]
+    deps: Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps, [
+    use_local_forks?: @use_local_forks,
+    umbrella_root?: @use_local_forks,
+    umbrella_path: @umbrella_path
+  ] |> IO.inspect())
+  ] |> IO.inspect(limit: :infinity)
 
   def config, do: @config
   def deps, do: config()[:deps]
@@ -262,6 +262,8 @@ defmodule Bonfire.Umbrella.MixProject do
       ]
     ]
   end
+
+  # def application, do: Bonfire.Spark.MixProject.application()
 
   defp aliases do
     [
