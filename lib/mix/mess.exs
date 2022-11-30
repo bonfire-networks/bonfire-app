@@ -37,7 +37,7 @@ if not Code.ensure_loaded?(Mess) do
 
     defp maybe_filter_umbrella(deps, opts) do
       cond do
-        opts[:umbrella_root?] == true ->
+        opts[:umbrella_root?] ->
           Enum.reject(deps, fn dep ->
             dep_opts = elem(dep, 1)
             is_list(dep_opts) and dep_opts[:from_umbrella]
@@ -45,7 +45,7 @@ if not Code.ensure_loaded?(Mess) do
 
         # |> IO.inspect(label: "umbrella_root")
 
-        opts[:umbrella_only] == true ->
+        opts[:umbrella_only] ->
           Enum.filter(deps, fn dep ->
             dep_opts = elem(dep, 1)
             is_list(dep_opts) and dep_opts[:from_umbrella]
@@ -55,8 +55,8 @@ if not Code.ensure_loaded?(Mess) do
 
         opts[:umbrella_path] != nil ->
           umbrella_deps =
-            read_umbrella("#{File.cwd!()}/config/deps.path", opts)
-            |> IO.inspect(label: "umbrella_deps")
+            read_umbrella("../../config/deps.path", opts)
+            |> IO.inspect(label: "umbrella_deps for #{File.cwd!}")
 
           deps
           |> Enum.map(fn dep ->
@@ -87,7 +87,7 @@ if not Code.ensure_loaded?(Mess) do
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
         IO.inspect(File.cwd!())
-        IO.warn("did not load #{path}")
+        IO.puts("did not load #{path}")
         []
       end
     end

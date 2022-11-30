@@ -15,7 +15,7 @@ repos =
 
 # [Bonfire.Common.Repo, Beacon.Repo]
 
-## load runtime configs directly via extension-provided modules
+## load extensions' runtime configs (and behaviours) directly via extension-provided modules
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs()
 ##
 
