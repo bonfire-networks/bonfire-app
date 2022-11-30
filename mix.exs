@@ -8,7 +8,11 @@ defmodule Bonfire.Umbrella.MixProject do
   # we only behave as an umbrella im dev/test env
   @use_local_forks System.get_env("WITH_FORKS", "1") == "1"
   @ext_forks_path Mixer.forks_path()
-  @umbrella_path if Mix.env() == :dev and @use_local_forks and File.exists?("#{@ext_forks_path}/bonfire"), do: @ext_forks_path, else: nil
+  @use_umbrella? Mix.env() == :dev and @use_local_forks and System.get_env("AS_UMBRELLA") == "1" and
+                   File.exists?("#{@ext_forks_path}/bonfire")
+  @umbrella_path if @use_umbrella?, do: @ext_forks_path, else: nil
+
+  if @use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
   @extra_deps [
     ## password hashing - builtin vs nif
@@ -55,14 +59,14 @@ defmodule Bonfire.Umbrella.MixProject do
     {:benchee_html, "~> 1.0", only: :dev},
 
     # list dependencies & licenses
-    {
-      :licensir,
-      only: :dev,
-      runtime: false,
-      git: "https://github.com/bonfire-networks/licensir",
-      branch: "main"
-      # path: "./forks/licensir"
-    },
+    # {
+    #   :licensir,
+    #   only: :dev,
+    #   runtime: false,
+    #   git: "https://github.com/bonfire-networks/licensir",
+    #   branch: "main"
+    #   # path: "./forks/licensir"
+    # },
 
     # security auditing
     # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
@@ -151,12 +155,16 @@ defmodule Bonfire.Umbrella.MixProject do
       localise: ["bonfire"],
       localise_self: []
     ],
-    deps: Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps, [
-    use_local_forks?: @use_local_forks,
-    umbrella_root?: @use_local_forks,
-    umbrella_path: @umbrella_path
-  ] |> IO.inspect())
-  ] |> IO.inspect(limit: :infinity)
+    deps:
+      Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps,
+        use_local_forks?: @use_local_forks,
+        use_umbrella?: @use_umbrella?,
+        umbrella_root?: @use_local_forks,
+        umbrella_path: @umbrella_path
+      )
+  ]
+
+  # |> IO.inspect(limit: :infinity)
 
   def config, do: @config
   def deps, do: config()[:deps]

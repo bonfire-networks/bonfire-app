@@ -8,19 +8,33 @@ if not Code.ensure_loaded?(Mess) do
     @newline ~r/(?:\r\n|[\r\n])/
     @parser ~r/^(?<indent>\s*)((?<package>[a-z_][a-z0-9_]+)\s*=\s*"(?<value>[^"]+)")?(?<post>.*)/
     @git_branch ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
+    @ext_forks_path System.get_env("FORKS_PATH", "extensions/")
 
     defp sources(true), do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
     defp sources(_), do: [git: "deps.git", hex: "deps.hex"]
 
-    defp opts(opts \\ []),
-      do:
+    defp opts(opts \\ []) do
+      opts =
         opts
         |> Keyword.put_new_lazy(:use_local_forks?, fn ->
           System.get_env("WITH_FORKS", "1") == "1"
         end)
-        |> Keyword.put_new_lazy(:umbrella_path, fn ->
-          if Mix.env() == :dev, do: "extensions/", else: nil
+
+      # NOTE: we check MIX_ENV instead of `Mix.env` because it incorrectly returns :prod when doing deps.get
+      opts =
+        opts
+        |> Keyword.put_new_lazy(:use_umbrella?, fn ->
+          System.get_env("MIX_ENV", "dev") == "dev" and opts[:use_local_forks?] and
+            System.get_env("AS_UMBRELLA") == "1"
         end)
+
+      opts
+      |> Keyword.put_new_lazy(:umbrella_path, fn ->
+        if opts[:use_umbrella?], do: @ext_forks_path, else: nil
+      end)
+
+      # |> IO.inspect(label: "opts for #{File.cwd!}")
+    end
 
     def deps(sources \\ nil, extra_deps, opts \\ []) do
       opts = opts(opts)
@@ -53,10 +67,9 @@ if not Code.ensure_loaded?(Mess) do
 
         # |> IO.inspect(label: "umbrella_only")
 
-        opts[:umbrella_path] != nil ->
-          umbrella_deps =
-            read_umbrella("../../config/deps.path", opts)
-            |> IO.inspect(label: "umbrella_deps for #{File.cwd!}")
+        opts[:use_umbrella?] ->
+          umbrella_deps = read_umbrella("../../config/deps.path", opts)
+          # |> IO.inspect(label: "umbrella_deps for #{File.cwd!}")
 
           deps
           |> Enum.map(fn dep ->
@@ -70,7 +83,11 @@ if not Code.ensure_loaded?(Mess) do
                 if dep_opts[:from_umbrella] do
                   {name, in_umbrella: true, override: true}
                 else
-                  {name, dep_opts |> Keyword.put(:path, "../../#{dep_opts[:path]}")}
+                  {
+                    name,
+                    dep_opts
+                    # |> Keyword.put(:path, "../../#{dep_opts[:path]}")
+                  }
                 end
             end
           end)
@@ -86,8 +103,7 @@ if not Code.ensure_loaded?(Mess) do
         read(path, :path)
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
-        IO.inspect(File.cwd!())
-        IO.puts("did not load #{path}")
+        # IO.puts("did not load #{path}")
         []
       end
     end
@@ -114,7 +130,13 @@ if not Code.ensure_loaded?(Mess) do
       umbrella_path = opts[:umbrella_path]
 
       if umbrella_path && String.starts_with?(v, umbrella_path) do
-        pkg(p, from_umbrella: true, override: true, path: v)
+        if opts[:umbrella_root?] do
+          pkg(p, from_umbrella: true, override: true, path: "../../#{v}")
+          # |> IO.inspect(label: "from_umbrella: #{p}")
+        else
+          pkg(p, in_umbrella: true, override: true)
+          # |> IO.inspect(label: "in_umbrella: #{p}")
+        end
       else
         pkg(p, path: v, override: true)
       end
