@@ -64,13 +64,13 @@ pre-setup flavour='classic':
 	@touch ./config/deps.path
 	@test -f ./config/$MIX_ENV/.env || ((test -f ./config/$MIX_ENV/public.env && (cat ./config/$MIX_ENV/public.env ./config/$MIX_ENV/secrets.env > ./config/$MIX_ENV/.env) && rm ./config/$MIX_ENV/public.env && rm ./config/$MIX_ENV/secrets.env) || (cat ./config/templates/public.env ./config/templates/not_secret.env > ./config/$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./config/$MIX_ENV/.env)
 	@ln -sf ./config/dev/ ./config/test/
-	@rm .env | true
+	-rm .env 
 	@ln -sf ./config/$MIX_ENV/.env ./.env
 	@mkdir -p extensions/
 	@mkdir -p forks/
 	@mkdir -p data/uploads/
 	@mkdir -p priv/static/data
-	@ln -s data/uploads priv/static/data/ | true
+	-ln -s data/uploads priv/static/data/
 	@mkdir -p data/search/dev
 	@chmod 700 .erlang.cookie
 
@@ -81,12 +81,12 @@ config:
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
 flavour select_flavour: 
 	@echo "Switching to flavour '$select_flavour'..."
-	@just pre-setup $select_flavour
-	@just deps-clean-data
-	@just deps-clean-api
-	@just mix deps.clean --build --unused
-	@just deps-get
-	@just js-deps-get
+	just pre-setup $select_flavour
+	just deps-clean-data
+	just deps-clean-api
+	just mix deps.clean --build --unused
+	just deps-get
+	just js-deps-get
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
 pre-init: assets-ln
@@ -97,7 +97,6 @@ pre-init: assets-ln
 	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	@ln -sf ./config/$MIX_ENV/.env ./.env
 	@mkdir -p priv/static/public
-	@ln -sf ../../../priv/static extensions/bonfire/priv/static | true
 
 init: pre-init services
 	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
@@ -186,6 +185,7 @@ update: init update-repo
 	just update-forks 
 	just update-deps
 	just mix deps.get 
+	just deps-post-get
 	just mix "ecto.migrate"
 	just js-deps-get 
 
@@ -213,6 +213,7 @@ update-deps-bonfire:
 # Update every single dependency (use with caution)
 update-deps-all: deps-clean-unused pre-update-deps
 	just mix-remote "deps.update --all"
+	just deps-post-get
 	just js-ext-deps upgrade
 	just assets-ln
 	just js-ext-deps outdated
@@ -222,6 +223,7 @@ update-deps-all: deps-clean-unused pre-update-deps
 update-dep dep: 
 	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull && ./git-publish.sh $EXTRA_FORKS_PATH/$dep pull 
 	just mix-remote "deps.update $dep"
+	just deps-post-get
 	./js-deps-get.sh $dep
 
 # Pull the latest commits from all forks
@@ -238,15 +240,19 @@ update-fork dep:
 deps-get: 
 	just mix deps.get 
 	just mix-remote deps.get
+	just deps-post-get
 	just js-deps-get
+
+deps-post-get:
+	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static 
 
 deps-clean dep: 
 	just mix deps.clean $dep
 
-deps-clean-data: 
+@deps-clean-data: 
 	just mix bonfire.deps.clean.data
 
-deps-clean-api: 
+@deps-clean-api: 
 	just mix bonfire.deps.clean.api
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
