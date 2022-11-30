@@ -54,25 +54,24 @@ help:
 	@echo "Just commands for Bonfire:"
 	@just --list
 
-pre-setup flavour='classic':
-	@echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
-	@ln -sfn flavours/$flavour/config ./config
-	@mkdir -p data/
-	@mkdir -p ./config/prod
-	@mkdir -p ./config/dev
-	@mkdir -p ./config/test
-	@touch ./config/deps.path
-	@test -f ./config/$MIX_ENV/.env || ((test -f ./config/$MIX_ENV/public.env && (cat ./config/$MIX_ENV/public.env ./config/$MIX_ENV/secrets.env > ./config/$MIX_ENV/.env) && rm ./config/$MIX_ENV/public.env && rm ./config/$MIX_ENV/secrets.env) || (cat ./config/templates/public.env ./config/templates/not_secret.env > ./config/$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./config/$MIX_ENV/.env)
-	@ln -sf ./config/dev/ ./config/test/
+@pre-setup flavour='classic':
+	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
+	ln -sfn flavours/$flavour/config ./config
+	mkdir -p data/
+	mkdir -p ./config/prod
+	mkdir -p ./config/dev
+	mkdir -p ./config/test
+	touch ./config/deps.path
+	test -f ./config/$MIX_ENV/.env || ((test -f ./config/$MIX_ENV/public.env && (cat ./config/$MIX_ENV/public.env ./config/$MIX_ENV/secrets.env > ./config/$MIX_ENV/.env) && rm ./config/$MIX_ENV/public.env && rm ./config/$MIX_ENV/secrets.env) || (cat ./config/templates/public.env ./config/templates/not_secret.env > ./config/$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./config/$MIX_ENV/.env)
+	ln -sf ./config/dev/ ./config/test/
 	-rm .env 
-	@ln -sf ./config/$MIX_ENV/.env ./.env
-	@mkdir -p extensions/
-	@mkdir -p forks/
-	@mkdir -p data/uploads/
-	@mkdir -p priv/static/data
-	-ln -s data/uploads priv/static/data/
-	@mkdir -p data/search/dev
-	@chmod 700 .erlang.cookie
+	ln -sf ./config/$MIX_ENV/.env ./.env
+	mkdir -p extensions/
+	mkdir -p forks/
+	mkdir -p data/uploads/
+	mkdir -p priv/static/data
+	mkdir -p data/search/dev
+	chmod 700 .erlang.cookie
 
 # Initialise env files, and create some required folders, files and softlinks
 config: 
@@ -89,17 +88,17 @@ flavour select_flavour:
 	just js-deps-get
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
-pre-init: assets-ln
-	@echo "Running $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
-	@rm -rf ./priv/repo
-	@cp -rn $FLAVOUR_PATH/repo ./priv/repo
-	@rm -rf ./data/current_flavour
-	@ln -sf ../$FLAVOUR_PATH ./data/current_flavour
-	@ln -sf ./config/$MIX_ENV/.env ./.env
-	@mkdir -p priv/static/public
+@pre-init: assets-ln
+	rm -rf ./priv/repo
+	cp -rn $FLAVOUR_PATH/repo ./priv/repo
+	rm -rf ./data/current_flavour
+	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
+	ln -sf ./config/$MIX_ENV/.env ./.env
+	mkdir -p priv/static/public
+	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 
 init: pre-init services
-	@echo "Light that fire... $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
+	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 #### COMMON COMMANDS ####
 
@@ -245,6 +244,7 @@ deps-get:
 
 deps-post-get:
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static 
+	-ln -s data/uploads priv/static/data/
 
 deps-clean dep: 
 	just mix deps.clean $dep
@@ -564,7 +564,7 @@ dc *args='':
 	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
 
 @dev-services: 
-	{{ if WITH_DOCKER != "no" { "docker-compose up -d db search || exit \"You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "docker-compose up -d db search || exit \"You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else {"Skipping docker services"} }}
 
 # Build the docker image
 build: init 
@@ -575,7 +575,7 @@ rebuild: init
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose build --no-cache" } else { "echo Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
-@cmd *args='': init 
+cmd *args='': init 
 	{{ if WITH_DOCKER == "total" { "docker-compose run --service-ports web $@" } else {"$@"} }}
 
 # Open the shell of the web container, in dev mode
