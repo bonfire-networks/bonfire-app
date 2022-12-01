@@ -194,6 +194,7 @@ update-app: update-repo update-deps
 pre-update-deps: 
 	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@rm -rf deps/*/assets/yarn.lock
+	@rm -rf deps/bonfire/priv/repo
 
 # Update Bonfire extensions in ./deps
 update-deps: pre-update-deps
