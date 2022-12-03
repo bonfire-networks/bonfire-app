@@ -3,7 +3,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps(config, deps_subtype, extensions \\ [])
 
     def deps(config, :bonfire, extensions) do
-      extensions = umbrella_extension_names()
+      # extensions = extensions || umbrella_extension_names()
       prefixes = multirepo_prefixes(config)
 
       (config[:deps] || config)
