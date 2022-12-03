@@ -1,9 +1,0 @@
-{application,release,
-             [{applications,[kernel,stdlib,elixir]},
-              {description,"release"},
-              {modules,['Elixir.Mix.Tasks.Bonfire.Release',
-                        'Elixir.Releaser.Git','Elixir.Releaser.Publish',
-                        'Elixir.Releaser.Tests',
-                        'Elixir.Releaser.VersionUtils']},
-              {registered,[]},
-              {vsn,"0.1.0-alpha.1"}]}.

@@ -13,7 +13,7 @@ if not Code.ensure_loaded?(Mess) do
     defp sources(true), do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
     defp sources(_), do: [git: "deps.git", hex: "deps.hex"]
 
-    defp opts(opts \\ []) do
+    defp opts(opts) do
       opts =
         opts
         |> Keyword.put_new_lazy(:use_local_forks?, fn ->
@@ -110,7 +110,7 @@ if not Code.ensure_loaded?(Mess) do
 
     defp read(path, kind) when is_binary(path), do: have_read(File.read(path), path, kind)
 
-    defp have_read({:error, :enoent}, path, _kind) do
+    defp have_read({:error, :enoent}, _path, _kind) do
       # IO.puts("Could not find #{path} in #{File.cwd!()}")
       []
     end

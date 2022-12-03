@@ -350,8 +350,9 @@ contrib-app-only: pre-push-hooks update-repo git-publish
 contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish 
 
 # Increment the app version number 
-contrib-app-release-increment: 
-	@cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $APP_VSN_EXTRA
+@contrib-app-release-increment: 
+	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks 
+	cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../ $APP_VSN_EXTRA
 
 contrib-forks-publish: update-forks
 
@@ -650,8 +651,9 @@ db-pre-migrations:
 	-touch priv/repo/*
 
 # Generate secrets
-secrets:
-	@cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
+@secrets:
+	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
+	cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
 
 # Start or stop nix postgres server
 @nix-db pg_cmd:
