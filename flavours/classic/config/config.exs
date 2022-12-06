@@ -8,6 +8,7 @@ flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 
 # You probably won't want to touch these. You might override some in
 # other config files.
+repo = Bonfire.Common.Repo
 
 config :bonfire,
   otp_app: :bonfire,
@@ -15,7 +16,7 @@ config :bonfire,
   flavour: flavour,
   flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
-  repo_module: Bonfire.Common.Repo,
+  repo_module: repo,
   web_module: Bonfire.UI.Common.Web,
   endpoint_module: Bonfire.Web.Endpoint,
   mailer_module: Bonfire.Mailer,
@@ -50,10 +51,14 @@ config :bonfire, Bonfire.Web.Endpoint,
 config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
 
-config :bonfire, ecto_repos: [Bonfire.Common.Repo]
+repos = [repo]
+config :bonfire, ecto_repos: repos
+config :bonfire_umbrella, ecto_repos: repos
+config :paginator, ecto_repos: repos
+config :activity_pub, ecto_repos: repos
 config :ecto_sparkles, :otp_app, :bonfire
-config :rauversion_extension, :repo_module, Bonfire.Common.Repo
-config :activity_pub, :repo, Bonfire.Common.Repo
+config :rauversion_extension, :repo_module, repo
+config :activity_pub, :repo, repo
 config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
 
 config :rauversion_extension, :user_schema, Bonfire.Data.Identity.User
@@ -79,7 +84,7 @@ config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 config :surface, :compiler, warn_on_undefined_props: false
 
 config :bonfire, Oban,
-  repo: Bonfire.Common.Repo,
+  repo: repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [
     federator_incoming: 50,
