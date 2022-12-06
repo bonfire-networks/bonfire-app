@@ -1,11 +1,8 @@
 import Config
 
-# NOTE: make sure you also copy the config that needs to go in your app's runtime.exs config
-
 config :bonfire_livebook,
-  disabled: false
-
-config :livebook, :base_url_path, "/livebook/"
+  disabled: false,
+  base_url_path: "/livebook/"
 
 # Sets the default authentication mode to token
 config :livebook, :authentication_mode, :token

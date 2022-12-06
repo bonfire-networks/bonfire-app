@@ -63,29 +63,43 @@ extensions_with_config =
       :bonfire_boundaries,
       :bonfire_federate_activitypub,
       :bonfire_search,
-      :bonfire_mailer
+      :bonfire_mailer,
+      :bonfire_fail,
+      :bonfire_pages_beacon
     ]
 
 extensions_with_ui =
-  extensions_with_config ++
+  context_and_queries_extensions ++
     [
+      :bonfire_boundaries,
+      :bonfire_federate_activitypub,
+      :bonfire_search,
       :bonfire_ui_common,
       :bonfire_ui_me,
       :bonfire_ui_social,
       :bonfire_ui_valueflows,
-      :bonfire_ui_cooperation,
+      :bonfire_ui_coordination,
       :bonfire_ui_breadpub,
       :bonfire_ui_kanban,
       :bonfire_breadpub,
-      :bonfire_recycleapp,
-      :bonfire_ui_reflow
+      :bonfire_upcycle,
+      :bonfire_recyclapp,
+      :bonfire_ui_reflow,
+      :rauversion_extension
     ]
 
 config :bonfire, :verb_names, verbs
-config :bonfire, :context_modules_search_path, context_and_queries_extensions
-config :bonfire, :query_modules_search_path, context_and_queries_extensions
-config :bonfire, :config_modules_search_path, extensions_with_config
-config :bonfire, :ui_modules_search_path, extensions_with_ui
+
+# NOTE: these shouldn't be needed anymore since we scan all apps with Bonfire.Common.ExtensionBehaviour
+config :bonfire, :extensions_grouped, %{
+  Bonfire.Common.ContextModule => context_and_queries_extensions,
+  Bonfire.Common.SchemaModule => context_and_queries_extensions,
+  Bonfire.Common.QueryModule => context_and_queries_extensions,
+  Bonfire.Common.ConfigModule => extensions_with_config,
+  Bonfire.Common.ExtensionModule => extensions_with_ui,
+  Bonfire.Common.WidgetModule => extensions_with_ui,
+  Bonfire.Common.NavModule => extensions_with_ui
+}
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
@@ -152,6 +166,10 @@ alias Bonfire.Data.Social.PostContent
 alias Bonfire.Data.Social.Profile
 alias Bonfire.Data.Social.Replied
 alias Bonfire.Data.Social.Request
+alias Bonfire.Data.Social.Pin
+
+alias Bonfire.Pages.Page
+alias Bonfire.Pages.Section
 
 alias Bonfire.Classify.Category
 alias Bonfire.Geolocate.Geolocation
@@ -169,6 +187,7 @@ alias Bonfire.Tag.Tagged
 ## `rm -Rf _build/*/lib/bonfire_data_*` a lot.
 
 mixin = [foreign_key: :id, references: :id]
+mixin_updatable = mixin ++ [on_replace: :update]
 
 common_assocs = %{
   ### Mixins
@@ -181,23 +200,23 @@ common_assocs = %{
   # during deletion - when the caretaker is deleted, all their stuff will be too.
   caretaker: quote(do: has_one(:caretaker, unquote(Caretaker), unquote(mixin))),
   # A Character has a unique username and some feeds.
-  character: quote(do: has_one(:character, unquote(Character), unquote(mixin))),
+  character: quote(do: has_one(:character, unquote(Character), unquote(mixin_updatable))),
   # Indicates the creator of an object
   created: quote(do: has_one(:created, unquote(Created), unquote(mixin))),
   # Used for non-textual interactions such as likes and follows to indicate the other object.
   edge: quote(do: has_one(:edge, unquote(Edge), unquote(mixin))),
   # Adds a name that can appear in the user interface for an object. e.g. for an ACL.
-  named: quote(do: has_one(:named, unquote(Named), unquote(mixin))),
+  named: quote(do: has_one(:named, unquote(Named), unquote(mixin_updatable))),
   # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
-  extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin))),
+  extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
   # Information about the remote instance the object is from, if it is not local.
   peered: quote(do: has_one(:peered, unquote(Peered), unquote(mixin))),
   # Information about the content of posts, e.g. a scrubbed html body
-  post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin))),
+  post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin_updatable))),
   # Information about a user or other object that they wish to make available
-  profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin))),
+  profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin_updatable))),
   # Threading information, for threaded discussions.
-  replied: quote(do: has_one(:replied, unquote(Replied), unquote(mixin))),
+  replied: quote(do: has_one(:replied, unquote(Replied), unquote(mixin_updatable))),
   # Information that allows the system to identify special system-managed ACLS.
   stereotyped: quote(do: has_one(:stereotyped, unquote(Stereotyped), unquote(mixin))),
 
@@ -246,13 +265,7 @@ common_assocs = %{
   # Retrieves activities where we are the object. e.g. if we are a
   # post or a user, this could turn up activities from likes or follows.
   activities:
-    quote(
-      do:
-        has_many(:activities, unquote(Activity),
-          foreign_key: :object_id,
-          references: :id
-        )
-    ),
+    quote(do: has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)),
 
   ### Stuff I'm not sure how to categorise yet
 
@@ -265,24 +278,14 @@ common = fn names ->
   for name <- List.wrap(names) do
     with nil <- common_assocs[name],
          do:
-           raise(RuntimeError,
-             message: "Expected a common association name, got #{inspect(name)}"
-           )
+           raise(RuntimeError, message: "Expected a common association name, got #{inspect(name)}")
   end
 end
 
 edge = common.([:controlled, :activities, :request, :created])
 
 edges =
-  common.([
-    :controlled,
-    :activities,
-    :request,
-    :created,
-    :caretaker,
-    :activity,
-    :feed_publishes
-  ])
+  common.([:controlled, :activities, :request, :created, :caretaker, :activity, :feed_publishes])
 
 # first up, pointers could have all the mixins we're using. TODO
 
@@ -375,7 +378,6 @@ config :bonfire_data_access_control, Circle,
        field(:encircles_count, :integer, virtual: true)
        # mixins
        unquote_splicing(common.([:caretaker, :named, :extra_info, :stereotyped]))
-
        # multimixins
        unquote_splicing(common.([:controlled]))
      end)
@@ -403,10 +405,7 @@ config :bonfire_data_access_control, Verb, []
 config :bonfire_boundaries, Stereotyped,
   code:
     (quote do
-       has_one(:named, unquote(Named),
-         foreign_key: :id,
-         references: :stereotype_id
-       )
+       has_one(:named, unquote(Named), foreign_key: :id, references: :stereotype_id)
      end)
 
 # bonfire_data_activity_pub
@@ -415,11 +414,7 @@ config :bonfire_data_activity_pub, Actor,
   code:
     (quote do
        # hacks
-       belongs_to(:character, unquote(Character),
-         foreign_key: :id,
-         define_field: false
-       )
-
+       belongs_to(:character, unquote(Character), foreign_key: :id, define_field: false)
        belongs_to(:user, unquote(User), foreign_key: :id, define_field: false)
        # mixins
        unquote_splicing(common.([:peered]))
@@ -462,7 +457,6 @@ config :bonfire_data_identity, Caretaker,
   code:
     (quote do
        has_one(:user, unquote(User), foreign_key: :id, references: :caretaker_id)
-
        # mixins
        unquote_splicing(common.([:character, :profile]))
      end)
@@ -475,16 +469,8 @@ config :bonfire_data_identity, Character,
        unquote_splicing(common.([:actor, :peered, :profile]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
-
-       has_many(:followers, unquote(Follow),
-         foreign_key: :following_id,
-         references: :id
-       )
-
-       has_many(:followed, unquote(Follow),
-         foreign_key: :follower_id,
-         references: :id
-       )
+       has_many(:followers, unquote(Follow), foreign_key: :following_id, references: :id)
+       has_many(:followed, unquote(Follow), foreign_key: :follower_id, references: :id)
 
        has_one(:follow_count, unquote(EdgeTotal),
          foreign_key: :id,
@@ -496,20 +482,14 @@ config :bonfire_data_identity, Character,
 config :bonfire_data_identity, Credential,
   code:
     (quote do
-       belongs_to(:account, unquote(Account),
-         foreign_key: :id,
-         define_field: false
-       )
+       belongs_to(:account, unquote(Account), foreign_key: :id, define_field: false)
      end)
 
 config :bonfire_data_identity, Email,
   must_confirm: true,
   code:
     (quote do
-       belongs_to(:account, unquote(Account),
-         foreign_key: :id,
-         define_field: false
-       )
+       belongs_to(:account, unquote(Account), foreign_key: :id, define_field: false)
      end)
 
 config :bonfire_data_identity, Self, []
@@ -522,18 +502,11 @@ config :bonfire_data_identity, User,
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
        has_one(:accounted, unquote(Accounted), foreign_key: :id)
-
-       has_one(:instance_admin, unquote(InstanceAdmin),
-         foreign_key: :id,
-         on_replace: :update
-       )
-
+       has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
        has_one(:self, unquote(Self), foreign_key: :id)
        has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
        has_one(:settings, unquote(Settings), foreign_key: :id)
-
        unquote_splicing(common.([:actor, :character, :created, :peered, :profile]))
-
        # multimixins
        unquote_splicing(common.([:controlled]))
        # manies
@@ -555,10 +528,7 @@ config :bonfire_data_identity, User,
          where: [table_id: @follow_ulid]
        )
 
-       has_many(:user_activities, unquote(Activity),
-         foreign_key: :subject_id,
-         references: :id
-       )
+       has_many(:user_activities, unquote(Activity), foreign_key: :subject_id, references: :id)
 
        has_many(:boost_activities, unquote(Edge),
          foreign_key: :subject_id,
@@ -594,21 +564,14 @@ config :bonfire_data_social, Activity,
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        has_many(:feed_publishes, unquote(FeedPublish), unquote(mixin))
        has_one(:seen, unquote(Edge), foreign_key: :object_id, references: :id)
-
        # ugly workaround needed for certain queries (TODO: check if still needed)
        has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
        # mixins linked to the object rather than the activity:
-       has_one(:created, unquote(Created),
-         foreign_key: :id,
-         references: :object_id
-       )
-
-       has_one(:replied, unquote(Replied),
-         foreign_key: :id,
-         references: :object_id
-       )
-
+       has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)
+       has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
        field(:path, EctoMaterializedPath.ULIDs, virtual: true)
+
+       field(:federate_activity_pub, :any, virtual: true)
 
        has_one(:like_count, unquote(EdgeTotal),
          foreign_key: :id,
@@ -628,15 +591,8 @@ config :bonfire_data_social, Activity,
          where: [table_id: @follow_ulid]
        )
 
-       has_many(:controlled, unquote(Controlled),
-         foreign_key: :id,
-         references: :object_id
-       )
-
-       has_many(:tagged, unquote(Tagged),
-         foreign_key: :id,
-         references: :object_id
-       )
+       has_many(:controlled, unquote(Controlled), foreign_key: :id, references: :object_id)
+       has_many(:tagged, unquote(Tagged), foreign_key: :id, references: :object_id)
 
        many_to_many(:tags, unquote(Pointer),
          join_through: unquote(Tagged),
@@ -685,11 +641,7 @@ config :bonfire_data_social, FeedPublish,
   code:
     (quote do
        field(:dummy, :any, virtual: true)
-
-       has_one(:activity, unquote(Activity),
-         foreign_key: :object_id,
-         references: :id
-       )
+       has_one(:activity, unquote(Activity), foreign_key: :object_id, references: :id)
 
        # belongs_to :character, unquote(Character), foreign_key: :id, define_field: false
        # belongs_to :user, unquote(User), foreign_key: :id, define_field: false
@@ -728,6 +680,12 @@ config :bonfire_data_social, Like,
 
 # has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause
 
+config :bonfire_data_social, Pin,
+  code:
+    (quote do
+       (unquote_splicing(edges))
+     end)
+
 config :bonfire_data_social, Flag,
   code:
     (quote do
@@ -753,19 +711,11 @@ config :bonfire_data_social, Message,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
        unquote_splicing(
-         common.([
-           :activity,
-           :caretaker,
-           :created,
-           :peered,
-           :post_content,
-           :replied
-         ])
+         common.([:activity, :caretaker, :created, :peered, :post_content, :replied])
        )
 
        # multimixins
        unquote_splicing(common.([:controlled, :feed_publishes, :tagged, :tags, :files, :media]))
-
        # has
        unquote_splicing(common.([:direct_replies]))
        # special
@@ -791,20 +741,11 @@ config :bonfire_data_social, Post,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
        unquote_splicing(
-         common.([
-           :activities,
-           :activity,
-           :caretaker,
-           :created,
-           :peered,
-           :post_content,
-           :replied
-         ])
+         common.([:activities, :activity, :caretaker, :created, :peered, :post_content, :replied])
        )
 
        # multimixins
        unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
-
        # has
        unquote_splicing(common.([:direct_replies]))
        # special
@@ -855,52 +796,24 @@ config :bonfire_data_social, Replied,
        @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
-
-       belongs_to(:post_content, unquote(PostContent),
-         foreign_key: :id,
-         define_field: false
-       )
-
-       has_one(:activity, unquote(Activity),
-         foreign_key: :object_id,
-         references: :id
-       )
-
+       belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
+       has_one(:activity, unquote(Activity), foreign_key: :object_id, references: :id)
        # used in changesets
        field(:replying_to, :map, virtual: true)
-
-       has_one(:reply_to_post, unquote(Post),
-         foreign_key: :id,
-         references: :reply_to_id
-       )
+       has_one(:reply_to_post, unquote(Post), foreign_key: :id, references: :reply_to_id)
 
        has_one(:reply_to_post_content, unquote(PostContent),
          foreign_key: :id,
          references: :reply_to_id
        )
 
-       has_one(:reply_to_created, unquote(Created),
-         foreign_key: :id,
-         references: :reply_to_id
-       )
-
+       has_one(:reply_to_created, unquote(Created), foreign_key: :id, references: :reply_to_id)
        # has_one  :reply_to_creator_user, through: [:reply_to_created, :creator_user]
        # has_one  :reply_to_creator_character, through: [:reply_to_created, :creator_character]
        # has_one  :reply_to_creator_profile, through: [:reply_to_created, :creator_profile]
-       has_many(:direct_replies, unquote(Replied),
-         foreign_key: :reply_to_id,
-         references: :id
-       )
-
-       has_many(:thread_replies, unquote(Replied),
-         foreign_key: :thread_id,
-         references: :id
-       )
-
-       has_one(:thread_post, unquote(Post),
-         foreign_key: :id,
-         references: :thread_id
-       )
+       has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id, references: :id)
+       has_many(:thread_replies, unquote(Replied), foreign_key: :thread_id, references: :id)
+       has_one(:thread_post, unquote(Post), foreign_key: :id, references: :thread_id)
 
        has_one(:thread_post_content, unquote(PostContent),
          foreign_key: :id,
@@ -923,10 +836,7 @@ config :bonfire_data_social, Replied,
 config :bonfire_data_social, Created,
   code:
     (quote do
-       belongs_to(:creator_user, unquote(User),
-         foreign_key: :creator_id,
-         define_field: false
-       )
+       belongs_to(:creator_user, unquote(User), foreign_key: :creator_id, define_field: false)
 
        belongs_to(:creator_character, unquote(Character),
          foreign_key: :creator_id,
@@ -954,6 +864,86 @@ config :bonfire_data_social, Profile,
 
 ######### other extensions
 
+config :bonfire_pages, Page,
+  code:
+    (quote do
+       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
+       @boost_ulid "300STANN0VNCERESHARESH0VTS"
+       # mixins
+       unquote_splicing(common.([:activities, :activity, :caretaker, :created, :post_content]))
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+
+       # special
+       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+
+       has_one(:like_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @like_ulid]
+       )
+
+       has_one(:boost_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @boost_ulid]
+       )
+
+       has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
+         foreign_key: :scope_id,
+         references: :id
+       )
+
+       # add references of page sections
+       many_to_many(:sections, unquote(Pointer),
+         join_through: unquote(Bonfire.Data.Assort.Ranked),
+         unique: true,
+         join_keys: [scope_id: :id, item_id: :id],
+         on_replace: :delete
+       )
+     end)
+
+config :bonfire_pages, Section,
+  code:
+    (quote do
+       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
+       @boost_ulid "300STANN0VNCERESHARESH0VTS"
+       # mixins
+       unquote_splicing(common.([:activities, :activity, :caretaker, :created, :post_content]))
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+
+       # special
+       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+
+       has_one(:like_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @like_ulid]
+       )
+
+       has_one(:boost_count, unquote(EdgeTotal),
+         references: :id,
+         foreign_key: :id,
+         where: [table_id: @boost_ulid]
+       )
+
+       has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
+         foreign_key: :item_id,
+         references: :id
+       )
+
+       # add references of page sections
+       many_to_many(:pages, unquote(Pointer),
+         join_through: unquote(Bonfire.Data.Assort.Ranked),
+         unique: true,
+         join_keys: [item_id: :id, scope_id: :id],
+         on_replace: :delete
+       )
+     end)
+
 config :bonfire_files, Media,
   code:
     (quote do
@@ -975,7 +965,6 @@ config :bonfire_classify, Category,
        # mixins
        # TODO :caretaker
        unquote_splicing(common.([:activity, :created, :actor, :peered, :profile, :character]))
-
        # multimixins
        unquote_splicing(common.([:controlled, :feed_publishes]))
 
@@ -995,15 +984,7 @@ config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
     (quote do
        # mixins
        unquote_splicing(
-         common.([
-           :activity,
-           :caretaker,
-           :created,
-           :actor,
-           :peered,
-           :profile,
-           :character
-         ])
+         common.([:activity, :caretaker, :created, :actor, :peered, :profile, :character])
        )
 
        # multimixins

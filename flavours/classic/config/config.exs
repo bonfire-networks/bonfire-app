@@ -25,7 +25,7 @@ config :bonfire,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
   home_page: Bonfire.Web.HomeLive,
-  user_home_page: Bonfire.UI.Social.FeedsLive,
+  user_home_page: Bonfire.Web.HomeLive,
   # limit for prod
   default_pagination_limit: 15,
   # very high limit for prod
@@ -44,29 +44,28 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: String.to_integer(System.get_env("SERVER_PORT", "4000")),
     transport_options: [socket_opts: [:inet6]]
   ],
-  render_errors: [
-    view: Bonfire.UI.Common.ErrorView,
-    accepts: ~w(html json),
-    layout: false
-  ],
+  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Bonfire.PubSub
 
 config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
 
+config :bonfire, ecto_repos: [Bonfire.Common.Repo]
 config :ecto_sparkles, :otp_app, :bonfire
-config :bonfire, :ecto_repos, [Bonfire.Common.Repo]
+config :rauversion_extension, :repo_module, Bonfire.Common.Repo
+config :activity_pub, :repo, Bonfire.Common.Repo
+config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
 
-config :bonfire, Bonfire.Common.Repo,
-  # point to the appropriate definition to support any Postgres extensions used by your Bonfire flavour or extensions
-  types: Bonfire.Geolocate.PostgresTypes
+config :rauversion_extension, :user_schema, Bonfire.Data.Identity.User
+config :rauversion_extension, :router_helper, Bonfire.Web.Router.Helpers
+config :rauversion_extension, :default_layout_module, Bonfire.UI.Common.LayoutView
+config :rauversion_extension, :user_table, "pointers_pointer"
+config :rauversion_extension, :user_key_type, :uuid
 
-# priv: flavour_path <> "/repo",
-config :ecto_sparkles, :otp_app, :bonfire
-
-config :ecto_shorts,
-  repo: Bonfire.Common.Repo,
-  error_module: EctoShorts.Actions.Error
+config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
+config :bonfire, Bonfire.Common.TestInstanceRepo, types: Bonfire.Geolocate.PostgresTypes
+config :bonfire, Bonfire.Common.TestInstanceRepo, database: "bonfire_test_instance"
+# priv: flavour_path <> "/repo"
 
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
@@ -91,7 +90,8 @@ config :mime, :types, %{
   "application/json" => ["json"],
   "application/activity+json" => ["activity+json"],
   "application/ld+json" => ["ld+json"],
-  "application/jrd+json" => ["jrd+json"]
+  "application/jrd+json" => ["jrd+json"],
+  "audio/ogg" => ["ogg"]
 }
 
 config :sentry,
@@ -99,11 +99,17 @@ config :sentry,
   environment_name: Mix.env(),
   # enable_source_code_context: true,
   root_source_code_path: File.cwd!(),
-  included_environments: [:prod, :dev],
+  included_environments: [:prod],
   tags: %{app_version: Mix.Project.config()[:version]}
 
-# include config for all used Bonfire extensions
+# include Bonfire-specific config files
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
+  # IO.inspect(include_config: config)
+  import_config config
+end
+
+# include configs for the current flavour (augmenting or overriding the previous ones)
+for config <- "flavour_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   # IO.inspect(include_config: config)
   import_config config
 end

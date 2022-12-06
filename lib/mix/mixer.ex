@@ -98,20 +98,35 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def flavour(config), do: System.get_env("FLAVOUR") || config[:default_flavour]
 
-    def config_path(config_or_flavour, filename),
-      do: Path.expand(Path.join([flavour_path(config_or_flavour), "config", filename]))
+    def config_path(_config_or_flavour \\ nil, filename),
+      do: Path.expand(Path.join(["config", filename]))
+
+    # flavour_path(config_or_flavour)
 
     def forks_path(), do: System.get_env("FORKS_PATH", "extensions/")
 
     def mess_sources(config_or_flavour) do
-      do_mess_sources(System.get_env("WITH_FORKS", "1"))
-      |> Enum.map(fn {k, v} -> {k, config_path(config_or_flavour, v)} end)
+      mess_source_files(System.get_env("WITH_FORKS", "1"))
+      |> enum_mess_sources(config_or_flavour)
     end
 
-    defp do_mess_sources("0"), do: [git: "deps.git", hex: "deps.hex"]
+    defp enum_mess_sources({k, v}, config_or_flavour) do
+      {k, config_path(config_or_flavour, v)}
+    end
 
-    defp do_mess_sources(_),
-      do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+    defp enum_mess_sources(sublist, config_or_flavour) when is_list(sublist) do
+      sublist
+      |> Enum.map(&enum_mess_sources(&1, config_or_flavour))
+    end
+
+    defp mess_source_files("0"),
+      do: [[git: "deps.flavour.git", hex: "deps.flavour.hex"], [git: "deps.git", hex: "deps.hex"]]
+
+    defp mess_source_files(_),
+      do: [
+        [path: "deps.flavour.path", git: "deps.flavour.git", hex: "deps.flavour.hex"],
+        [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+      ]
 
     def deps_to_clean(deps, type) do
       deps(deps, type)

@@ -5,3 +5,4 @@ config :bonfire_quantify,
 
 # specify what types a unit can have as context
 config :bonfire_quantify, Bonfire.Quantify.Units, valid_contexts: [:any]
+# Bonfire.Quantify.Units, Bonfire.Data.Identity.User
