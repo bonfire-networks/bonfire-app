@@ -42,8 +42,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   http: [
     # this gets overridden in runtime.exs
-    port: String.to_integer(System.get_env("SERVER_PORT", "4000")),
-    transport_options: [socket_opts: [:inet6]]
+    port: String.to_integer(System.get_env("SERVER_PORT", "4000"))
   ],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Bonfire.PubSub

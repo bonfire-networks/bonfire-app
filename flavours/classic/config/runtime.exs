@@ -138,8 +138,15 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: public_port
   ],
   http: [
-    port: server_port
+    port: server_port,
+    transport_options:
+      if(System.get_env("PLUG_SERVER") != "bandit", do: [socket_opts: [:inet6]], else: [])
   ],
+  adapter:
+    if(System.get_env("PLUG_SERVER") != "bandit",
+      do: Phoenix.Endpoint.Cowboy2Adapter,
+      else: Bandit.PhoenixAdapter
+    ),
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
