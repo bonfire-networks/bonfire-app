@@ -43,7 +43,7 @@ defmodule Bonfire.Umbrella.MixProject do
     # {:phoenix_profiler, "~> 0.2.0"},
 
     # tests
-    {:floki, ">= 0.0.0", only: [:dev, :test]},
+    # {:floki, ">= 0.0.0", only: [:dev, :test]},
     {:mock, "~> 0.3", only: :test},
     # {:mox, "~> 1.0", only: :test},
     {:zest, "~> 0.1.0"},
