@@ -15,6 +15,68 @@ repos =
 
 # [Bonfire.Common.Repo, Beacon.Repo]
 
+if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
+     (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSEP_API_KEY") ||
+        System.get_env("OTEL_HONEYCOMB_API_KEY")) do
+  config :opentelemetry,
+    disabled: false
+
+  config :opentelemetry_exporter,
+    otlp_protocol: :http_protobuf
+
+  otel_endpoint = System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT")
+
+  if otel_endpoint do
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to #{otel_endpoint}")
+
+    config :opentelemetry_exporter,
+      otlp_endpoint: otel_endpoint
+  end
+
+  if System.get_env("OTEL_LIGHTSEP_API_KEY") do
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep.com")
+    # Example configuration for Lightstep.com, for more refers to:
+    # https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
+    config :opentelemetry_exporter,
+      # You can configure the compression type for exporting traces.
+      otlp_compression: :gzip,
+      oltp_traces_compression: :gzip,
+      otlp_traces_endpoint: "https://ingest.lightstep.com:443/traces/otlp/v0.9",
+      otlp_headers: [
+        {"lightstep-access-token", System.get_env("OTEL_LIGHTSEP_API_KEY")}
+      ]
+  end
+
+  if System.get_env("OTEL_HONEYCOMB_API_KEY") do
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to honeycomb.io")
+
+    config :opentelemetry, :processors,
+      otel_batch_processor: %{
+        exporter: {
+          :opentelemetry_exporter,
+          %{
+            endpoints: [
+              {:https, 'api.honeycomb.io', 443,
+               [
+                 verify: :verify_peer,
+                 cacertfile: :certifi.cacertfile(),
+                 depth: 3,
+                 customize_hostname_check: [
+                   match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+                 ]
+               ]}
+            ],
+            headers: [
+              {"x-honeycomb-team", System.fetch_env!("OTEL_HONEYCOMB_API_KEY")},
+              {"x-honeycomb-dataset", System.get_env("OTEL_SERVICE_NAME", "bonfire")}
+            ],
+            protocol: :grpc
+          }
+        }
+      }
+  end
+end
+
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs()
 ##
