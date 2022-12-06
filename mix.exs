@@ -193,7 +193,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # to enable debugging
           strip_beams: false,
           applications: [
-            bonfire: :permanent,
+            my_app: :permanent,
             # if observability fails it shouldn’t take your app down with it
             opentelemetry_exporter: :permanent,
             opentelemetry: :temporary
@@ -312,7 +312,7 @@ defmodule Bonfire.Umbrella.MixProject do
       updates: ["deps.get", "bonfire.deps.update"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
-      "ecto.migrate": ["ecto.migrate", "bonfire.seeds"],
+      "ecto.migrate": ["bonfire.seeds"],
       "ecto.reset": ["ecto.drop --force", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
