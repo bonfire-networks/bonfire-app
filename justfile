@@ -62,7 +62,7 @@ help:
 	-rm ./config/flavour_*
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	cd flavours/$flavour/config && test -f ./$MIX_ENV/.env || (test -f ./$MIX_ENV/public.env && (cat ./$MIX_ENV/public.env ./$MIX_ENV/secrets.env > ./$MIX_ENV/.env) || (cat ./templates/public.env ./templates/not_secret.env > ./$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./$MIX_ENV/.env && echo "FLAVOUR=$flavour" >> ./$MIX_ENV/.env)
+	test -f ./flavours/$flavour/config/$MIX_ENV/.env || cd flavours/$flavour/config && (cat ./templates/public.env ./templates/not_secret.env > ./$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./$MIX_ENV/.env && echo "FLAVOUR=$flavour" >> ./$MIX_ENV/.env)
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	-rm .env 
@@ -245,8 +245,8 @@ deps-get:
 	just js-deps-get
 
 deps-post-get:
-	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static 
-	-cd deps/bonfire/priv && ln -sf ../../../priv/repo 	 
+	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
+	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
 	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
 	-ln -s data/uploads priv/static/data/
 
