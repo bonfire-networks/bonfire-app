@@ -169,6 +169,7 @@ database =
 config :bonfire, ecto_repos: repos
 config :bonfire_umbrella, ecto_repos: repos
 config :paginator, ecto_repos: repos
+config :activity_pub, ecto_repos: repos
 config :bonfire, Bonfire.Common.Repo, repo_connection_config
 config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
 config :beacon, Beacon.Repo, repo_connection_config
@@ -177,7 +178,6 @@ config :beacon, Beacon.Repo, database: database
 config :paginator, Paginator.Repo, database: database
 config :beacon, Beacon.Repo, pool_size: pool_size
 config :bonfire, Bonfire.Common.TestInstanceRepo, priv: "priv/repo"
-config :activity_pub, ecto_repos: repos
 
 config :activity_pub, Oban,
   repo: Bonfire.Common.Repo,
