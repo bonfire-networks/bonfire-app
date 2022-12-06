@@ -131,7 +131,11 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps_to_clean(deps, type) do
       deps(deps, type)
       |> deps_names()
+      |> or_unused()
     end
+
+    defp or_unused(""), do: " --unused"
+    defp or_unused(deps), do: deps
 
     def deps_to_update(config) do
       deps(config, :update)
