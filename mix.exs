@@ -192,7 +192,13 @@ defmodule Bonfire.Umbrella.MixProject do
         bonfire: [
           runtime_config_path: Mixer.config_path(config(), "runtime.exs"),
           # to enable debugging
-          strip_beams: false
+          strip_beams: false,
+          applications: [
+            my_app: :permanent,
+            # if observability fails it shouldn’t take your app down with it
+            opentelemetry_exporter: :permanent,
+            opentelemetry: :temporary
+          ]
         ]
       ],
       sources_url: "https://github.com/bonfire-networks",
