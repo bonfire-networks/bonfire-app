@@ -1,1 +1,0 @@
-../../classic/config/activity_pub_test.exs

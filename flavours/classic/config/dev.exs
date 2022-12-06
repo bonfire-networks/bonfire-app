@@ -6,7 +6,7 @@ changelog_issues_closed_after = "2022-08-30"
 config :bonfire,
   # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
   experimental_features_enabled: true,
-  # low limit so it is easier to test
+  # low limit so it is easier to test UX
   default_pagination_limit: 10
 
 # config :pseudo_gettext, :locale, "en-pseudo_text" # uncomment to use https://en.wikipedia.org/wiki/Pseudolocalization and check that the app is properly localisable
@@ -15,36 +15,57 @@ config :bonfire, Bonfire.Common.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  # EctoSparkles does the logging instead
   log: false
 
-path_dep_dirs =
-  Mess.deps([path: "deps.path"], [])
-  |> Enum.map(&(Keyword.fetch!(elem(&1, 1), :path) <> "/lib"))
+local_deps =
+  Mess.deps(
+    if(System.get_env("WITH_FORKS", "1") == "1",
+      do: [path: Path.relative_to_cwd("config/deps.path")],
+      else: []
+    ),
+    []
+  )
+
+local_dep_names = Enum.map(local_deps, &elem(&1, 0))
+
+dep_paths =
+  Enum.map(local_deps, fn dep ->
+    case elem(dep, 1)[:path] do
+      nil -> nil
+      path -> "#{path}/lib"
+    end
+  end)
+  |> Enum.reject(&is_nil/1)
+
+watch_paths = dep_paths ++ ["lib/"] ++ ["priv/static/"]
+
+IO.puts("Watching these deps for code reloading: #{inspect(local_dep_names)}")
 
 config :phoenix_live_reload,
   # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
-  dirs: path_dep_dirs ++ ["lib/"]
+  dirs: watch_paths
 
-# to include cloned code in patterns
-path_dep_patterns = Enum.map(path_dep_dirs, &(String.slice(&1, 2..1000) <> ".*ex"))
+# filename patterns that should trigger page reloads (only within the above dirs)
+patterns = [
+  ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg|webp)$",
+  # ~r"^priv/gettext/.*(po)$",
+  ~r"(_live|live_handler|live_handlers|routes)\.ex$",
+  ~r{(views|templates|pages|components)/.*(ex)$},
+  ~r".*(heex|leex|sface)$",
+  ~r"priv/catalogue/.*(ex)$"
+]
 
-# Surface views
-path_dep_patterns =
-  (path_dep_patterns ++ path_dep_dirs)
-  |> Enum.map(&(String.slice(&1, 2..1000) <> ".*sface"))
+IO.puts("Watching these filenames for live reloading in the browser: #{inspect(patterns)}")
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
-  # In the development environment, Phoenix will debug errors by default, showing us a very informative debugging page. If we want to see what the application would serve in production, set to false
   debug_errors: true,
   check_origin: false,
   code_reloader: true,
+  reloadable_apps: [:bonfire] ++ local_dep_names,
   watchers: [
-    # yarn: [
-    #   "watch",
-    #   cd: Path.expand("assets", File.cwd!())
-    # ],
     yarn: [
       "watch.js",
       cd: Path.expand("assets", File.cwd!())
@@ -59,19 +80,10 @@ config :bonfire, Bonfire.Web.Endpoint,
     ]
   ],
   live_reload: [
-    patterns:
-      [
-        # ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-        # ~r"^priv/gettext/.*(po)$",
-        # ~r"^web/(live|views)/.*ex$",
-        # ~r"^lib/.*_live\.ex$",
-        # ~r".*leex$",
-        # defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
-
-        ~r"lib/.*(ex|sface)$",
-        ~r"priv/catalogue/.*(ex)$"
-      ] ++ path_dep_patterns
+    patterns: patterns
   ]
+
+config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
 
 config :logger,
   level: :debug,
@@ -85,10 +97,12 @@ config :phoenix, :stacktrace_depth, 30
 
 config :phoenix, :plug_init_mode, :runtime
 
-config :surface, :compiler, warn_on_undefined_props: true
+config :surface, :compiler, warn_on_undefined_props: false
 
 config :exsync,
   src_monitor: true,
+  reload_timeout: 75,
+  # addition_dirs: ["/forks"],
   extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
 
 config :versioce, :changelog,

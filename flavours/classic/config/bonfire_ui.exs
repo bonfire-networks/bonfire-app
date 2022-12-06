@@ -1,22 +1,18 @@
 import Config
 
-# Please note that these are defaults meant to be overridden in Settings rather than edited here
+# Please note that most of these are defaults meant to be overridden by instance admins in Settings rather than edited here
 config :bonfire, :ui,
   theme: [
     instance_name: "Bonfire",
     instance_theme: "bonfire",
+    instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
     instance_image: "/images/bonfires.png",
     instance_description: "This is a bonfire demo instance for testing purposes",
     instance_welcome: [
       title: "👋 Welcome",
-      description: "
-Bonfire is a federated social networking toolkit for communities and individuals to design, operate and control their digital lives, by assembling their own social networks like lego blocks in order to cultivate safe and private spaces while being interconnected with the rest of the 'fediverse' and the internet at wide on their own terms.
-The bonfire ecosystem will include:
-   1. Bonfire apps/flavours: Open source federated networks that are ready to be installed and used for different purposes. Made up of a set of pre-configured extensions.
-   2. Bonfire extensions: Forkable/customisable modules providing different features or UX, ready to be used within bonfire apps.
-   3. Bonfire device: A plug-and-play device to have anything you need in your hands (literally).
-   4. Bonfire cloud services: Your public identity in the cloud can receive messages even when your device is offline. Syncs your Bonfire device with the fediverse, and deletes already-synced data from the cloud. Open source so others can host equivalent services.
+      description:
+        "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.
 
 More details at https://bonfirenetworks.org",
       links: [
@@ -27,8 +23,8 @@ More details at https://bonfirenetworks.org",
       ]
     ]
   ],
-
   # end theme
+  hide_app_switcher: true,
   # rich_text_editor_disabled: true,
   rich_text_editor: Bonfire.Editor.Quill,
   # rich_text_editor: Bonfire.Editor.Ck,
@@ -41,7 +37,6 @@ More details at https://bonfirenetworks.org",
     "Noto Sans (More Languages)",
     "OpenDyslexic"
   ],
-  theme: "bonfire",
   themes: [
     "bonfire",
     "dark",
@@ -91,6 +86,7 @@ More details at https://bonfirenetworks.org",
     summary: true
   ],
   profile: [
+    # TODO: make dynamic based on active extensions
     sections: [
       timeline: Bonfire.UI.Social.ProfileTimelineLive,
       # private: Bonfire.UI.Social.MessageThreadsLive,
@@ -101,49 +97,31 @@ More details at https://bonfirenetworks.org",
       follow: Bonfire.UI.Me.RemoteInteractionFormLive
     ],
     navigation: [
-      timeline: "Timeline",
-      posts: "Posts",
-      boosts: "Boosts"
-      # private: "Messages",
+      timeline: "timeline",
+      posts: "posts",
+      boosts: "boosts"
+      # private: "private",
     ],
     widgets: []
   ],
-  category: [
-    navigation: [
-      timeline: "Published",
-      submitted: "Submitted"
-    ],
-    sections: [
-      timeline: Bonfire.UI.Social.ProfileTimelineLive,
-      posts: Bonfire.UI.Social.ProfilePostsLive,
-      boosts: Bonfire.UI.Social.ProfileBoostsLive,
-      followers: Bonfire.UI.Social.ProfileFollowsLive,
-      follow: Bonfire.UI.Me.RemoteInteractionFormLive,
-      new: Bonfire.Classify.Web.NewCategoryLive,
-      settings: Bonfire.Classify.Web.SettingsLive
-    ]
-  ],
+  invites_component: Bonfire.Invite.Links.Web.InvitesLive,
   smart_input_activities: [
     post: "Compose a post",
-    category: "Create a topic"
-    # offer: "Publish an offer",
-    # need: "Publish a need",
-    # transfer_resource: "Transfer a resource",
-    # produce_resource: "Add a resource",
-    # intent: "Indicate an itent",
-    # economic_event: "Record an economic event",
-    # process: "Define a process"
+    category: "Create a topic",
+    label: "New label"
   ],
   smart_input_components: [
     post: Bonfire.UI.Social.WritePostContentLive,
     message: Bonfire.UI.Social.WritePostContentLive,
-    category: Bonfire.Classify.Web.NewCategoryLive
-  ],
-  invites_component: Bonfire.Invite.Links.Web.InvitesLive
+    category: Bonfire.Classify.Web.NewCategoryLive,
+    label: Bonfire.Classify.Web.NewLabelLive,
+    page: Bonfire.Pages.Web.CreatePageLive,
+    section: Bonfire.Pages.Web.EditSectionLive
+  ]
 
-# config :surface_boxicon,
-#   icons: [
-#     regular: ["shield-x", "shield", "check-shield"],
-#     solid: ["shield-x", "shield", "check-shield"],
-#     logos: nil
-#   ]
+config :surface_catalogue,
+  title: "Bonfire UI",
+  subtitle: "Surface Components Documentation & Examples"
+
+config :iconify_ex,
+  generated_icon_modules_path: "./extensions/bonfire/lib/web/icons"

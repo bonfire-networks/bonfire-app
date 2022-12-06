@@ -39,8 +39,19 @@ if not Code.ensure_loaded?(Mess) do
     def deps(sources \\ nil, extra_deps, opts \\ []) do
       opts = opts(opts)
 
-      Enum.flat_map(sources || sources(opts[:use_local_forks?]), fn {k, v} -> read(v, k) end)
+      (sources || sources(opts[:use_local_forks?]))
+      # |> IO.inspect()
+      |> enum_deps()
       |> deps_packages(extra_deps, opts)
+    end
+
+    defp enum_deps({k, v}) do
+      read(v, k)
+    end
+
+    defp enum_deps(sublist) when is_list(sublist) do
+      sublist
+      |> Enum.flat_map(&enum_deps/1)
     end
 
     defp deps_packages(packages, extra_deps, opts),
@@ -68,7 +79,7 @@ if not Code.ensure_loaded?(Mess) do
         # |> IO.inspect(label: "umbrella_only")
 
         opts[:use_umbrella?] ->
-          umbrella_deps = read_umbrella("../../config/deps.path", opts)
+          umbrella_deps = read_umbrella(opts)
           # |> IO.inspect(label: "umbrella_deps for #{File.cwd!}")
 
           deps
@@ -98,9 +109,12 @@ if not Code.ensure_loaded?(Mess) do
       end
     end
 
-    defp read_umbrella(path, opts) when is_binary(path) do
+    defp read_umbrella(opts) do
+      path = "../../config/deps.path"
+
       if opts[:use_local_forks?] and File.exists?(path) do
-        read(path, :path)
+        [path, "../../config/deps.flavour.path"]
+        |> Enum.flat_map(&read(&1, :path))
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
         # IO.puts("did not load #{path}")

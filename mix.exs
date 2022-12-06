@@ -162,9 +162,8 @@ defmodule Bonfire.Umbrella.MixProject do
         umbrella_root?: @use_local_forks,
         umbrella_path: @umbrella_path
       )
+    # |> IO.inspect(limit: :infinity)
   ]
-
-  # |> IO.inspect(limit: :infinity)
 
   def config, do: @config
   def deps, do: config()[:deps]
@@ -187,7 +186,7 @@ defmodule Bonfire.Umbrella.MixProject do
       multirepo_deps: Mixer.deps(config(), :bonfire),
       in_multirepo_fn: &Mixer.in_multirepo?/1,
       multirepo_recompile_fn: &Mixer.deps_recompile/0,
-      config_path: Mixer.config_path(config(), "config.exs"),
+      config_path: "config/config.exs",
       releases: [
         bonfire: [
           runtime_config_path: Mixer.config_path(config(), "runtime.exs"),

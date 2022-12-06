@@ -56,14 +56,15 @@ help:
 
 @pre-setup flavour='classic':
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
-	ln -sfn flavours/$flavour/config ./config
-	mkdir -p data/
-	mkdir -p ./config/prod
-	mkdir -p ./config/dev
-	mkdir -p ./config/test
+	mkdir -p ./data
+	mkdir -p ./config
+	-rm ./config/deps.flavour.*
+	-rm ./config/flavour_*
+	mkdir -p ./flavours/$flavour/config/prod/
+	mkdir -p ./flavours/$flavour/config/dev/
+	cd flavours/$flavour/config && test -f ./$MIX_ENV/.env || (test -f ./$MIX_ENV/public.env && (cat ./$MIX_ENV/public.env ./$MIX_ENV/secrets.env > ./$MIX_ENV/.env) || (cat ./templates/public.env ./templates/not_secret.env > ./$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./$MIX_ENV/.env && echo "FLAVOUR=$flavour" >> ./$MIX_ENV/.env)
+	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
-	test -f ./config/$MIX_ENV/.env || ((test -f ./config/$MIX_ENV/public.env && (cat ./config/$MIX_ENV/public.env ./config/$MIX_ENV/secrets.env > ./config/$MIX_ENV/.env) && rm ./config/$MIX_ENV/public.env && rm ./config/$MIX_ENV/secrets.env) || (cat ./config/templates/public.env ./config/templates/not_secret.env > ./config/$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./config/$MIX_ENV/.env)
-	ln -sf ./config/dev/ ./config/test/
 	-rm .env 
 	ln -sf ./config/$MIX_ENV/.env ./.env
 	mkdir -p extensions/
@@ -83,7 +84,7 @@ flavour select_flavour:
 	just pre-setup $select_flavour
 	just deps-clean-data
 	just deps-clean-api
-	just mix deps.clean --build --unused
+	just deps-clean-unused
 	just deps-get
 	just js-deps-get
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
@@ -211,7 +212,7 @@ update-deps-bonfire:
 	just mix-remote bonfire.deps.update
 
 # Update every single dependency (use with caution)
-update-deps-all: deps-clean-unused pre-update-deps
+update-deps-all: deps-unlock-unused pre-update-deps
 	just mix-remote "deps.update --all"
 	just deps-post-get
 	just js-ext-deps upgrade
@@ -269,10 +270,13 @@ js-ext-deps yarn_args='':
 assets-ln:
 	@[ -d "extensions/bonfire_ui_common" ] && ln -sf "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -sf "deps/bonfire_ui_common/assets" 
 
-deps-outdated: deps-clean-unused
+deps-outdated: deps-unlock-unused
 	@just mix-remote "hex.outdated --all"
 
 deps-clean-unused:
+	@just mix "deps.clean --build --unused" 
+
+deps-unlock-unused:
 	@just mix "deps.clean --unlock --unused" 
 
 dep-clean dep:
@@ -579,7 +583,7 @@ rebuild: init
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose build --no-cache" } else { "echo Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
-cmd *args='': init 
+@cmd *args='': init 
 	{{ if WITH_DOCKER == "total" { "docker-compose run --service-ports web $@" } else {"$@"} }}
 
 # Open the shell of the web container, in dev mode

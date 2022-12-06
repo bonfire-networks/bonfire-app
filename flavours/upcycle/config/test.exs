@@ -1,1 +1,0 @@
-../../classic/config/test.exs
