@@ -78,7 +78,7 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
 end
 
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
-Bonfire.Common.Config.LoadExtensionsConfig.load_configs()
+Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
 ##
 
 System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") || System.get_env("CI") ||
