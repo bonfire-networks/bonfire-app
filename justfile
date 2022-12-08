@@ -221,7 +221,7 @@ update-deps-all: deps-unlock-unused pre-update-deps
 	just mix "hex.outdated --all"
 
 # Update a specify dep (eg. `just update.dep pointers`)
-update-dep dep: 
+update-dep dep: pre-update-deps
 	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull && ./git-publish.sh $EXTRA_FORKS_PATH/$dep pull 
 	just mix-remote "deps.update $dep"
 	just deps-post-get
