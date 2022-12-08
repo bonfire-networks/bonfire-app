@@ -26,8 +26,9 @@ More details at https://bonfirenetworks.org",
   # end theme
   hide_app_switcher: true,
   # rich_text_editor_disabled: true,
-  rich_text_editor: Bonfire.Editor.Quill,
+  # rich_text_editor: Bonfire.Editor.Quill,
   # rich_text_editor: Bonfire.Editor.Ck,
+  rich_text_editor: Bonfire.UI.Common.ComposerLive,
   # default
   font_family: "Inter (Latin Languages)",
   font_families: [
