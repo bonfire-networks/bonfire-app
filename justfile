@@ -58,11 +58,11 @@ help:
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
 	mkdir -p ./data
 	mkdir -p ./config
-	-rm ./config/deps.flavour.*
-	-rm ./config/flavour_*
+	# -rm ./config/deps.flavour.*
+	# -rm ./config/flavour_*
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	test -f ./flavours/$flavour/config/$MIX_ENV/.env || cd flavours/$flavour/config && (cat ./templates/public.env ./templates/not_secret.env > ./$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./$MIX_ENV/.env && echo "FLAVOUR=$flavour" >> ./$MIX_ENV/.env)
+	test -f ./flavours/$flavour/config/$MIX_ENV/.env || cd flavours/$flavour/config && (cat ./templates/public.env ./templates/not_secret.env > ./$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./$MIX_ENV/.env && echo "FLAVOUR=$flavour" >> ./$MIX_ENV/.env
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	-rm .env 
