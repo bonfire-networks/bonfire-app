@@ -3,7 +3,7 @@ import Config
 default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
 flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
-
+project_root = File.cwd!()
 #### Basic configuration
 
 # You probably won't want to touch these. You might override some in
@@ -14,6 +14,7 @@ config :bonfire,
   otp_app: :bonfire,
   umbrella_otp_app: :bonfire_umbrella,
   env: config_env(),
+  project_path: project_root,
   flavour: flavour,
   flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
@@ -104,7 +105,7 @@ config :sentry,
   dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
   environment_name: Mix.env(),
   # enable_source_code_context: true,
-  root_source_code_path: File.cwd!(),
+  root_source_code_path: project_root,
   included_environments: [:prod],
   tags: %{app_version: Mix.Project.config()[:version]}
 
