@@ -140,7 +140,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   http: [
     port: server_port,
     transport_options:
-      if(System.get_env("PLUG_SERVER") != "bandit", do: [socket_opts: [:inet6]], else: [])
+      if(System.get_env("PLUG_SERVER") != "bandit", do: [socket_opts: [:inet6]], else: [:inet6])
   ],
   adapter:
     if(System.get_env("PLUG_SERVER") != "bandit",
