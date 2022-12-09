@@ -196,7 +196,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # to enable debugging
           strip_beams: false,
           applications: [
-            my_app: :permanent,
+            bonfire: :permanent,
             # if observability fails it shouldn’t take your app down with it
             opentelemetry_exporter: :permanent,
             opentelemetry: :temporary

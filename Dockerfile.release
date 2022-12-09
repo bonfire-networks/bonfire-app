@@ -27,14 +27,11 @@ ARG FLAVOUR_PATH
 #### STEP 1 - Build our app
 FROM elixir:${ELIXIR_IMAGE} as builder 
 
+# necessary utils + dependencies for comeonin
+RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev
+
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
-
-# necessary utils
-RUN apk add tar curl git rust cargo npm yarn bash
-
-# dependencies for comeonin
-RUN apk add make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mix.lock ./
@@ -75,18 +72,20 @@ RUN mix do deps.get --only prod
 COPY priv/localisation/ priv/localisation/
 # RUN ls -la priv/localisation/
 
+COPY docs/*.md ./docs/
+
 # Compile remaining deps
 RUN MIX_ENV=prod mix do deps.compile
 
 # JS package manager
 # RUN npm install -g pnpm
 # install JS deps
-COPY assets/package.json assets/*.sh ./assets/
+COPY js-deps-get.sh ./
+# COPY assets/package.json ./assets/
 # COPY assets/pnpm-lock.yaml ./assets/
-COPY assets/yarn.lock ./assets/
-RUN chmod +x assets/*.sh
+# COPY assets/yarn.lock ./assets/
 RUN chmod +x config/*.sh
-RUN sh assets/install_app.sh
+RUN chmod +x ./*.sh
 RUN sh config/deps.js.sh
 # FIXME: should we be installing dev deps here?
 
@@ -98,28 +97,28 @@ COPY data/current_flavour/repo priv/repo
 
 # bonfire-app code & assets 
 COPY lib lib
-COPY assets assets
+# COPY assets assets
 # RUN ls -la assets/static
 
 # include an archive of the source code
 COPY LICENSE ./
-COPY docs/*.md ./docs/
 RUN mkdir -p apps/
+RUN mkdir -p extensions/
 RUN mkdir -p forks/
 RUN mkdir -p priv/static/
 # COPY priv/extras/ priv/extras/
-RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks assets config docs priv/repo mix.exs mix.lock LICENSE
+RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=*/*/assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo mix.exs mix.lock LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
-RUN cd ./assets && yarn build && cd ..
+RUN cd ./deps/bonfire_ui_common/assets && yarn && yarn build 
 RUN MIX_ENV=prod CI=1 mix phx.digest
 # RUN ls -la priv/static
 
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
 
-##### STEP 2 - Prepare the server image
+##### STEP 2 - Prepare the server image ####
 # From this line onwards, we're in a new image, which will be the image used in production
 FROM alpine:${ALPINE_VERSION}
 

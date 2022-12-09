@@ -483,7 +483,7 @@ rel-rebuild: rel-init rel-prepare assets-prepare
 # Build the Docker image (NOT including changes to local forks)
 rel-build-release: rel-init rel-prepare assets-prepare 
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
-	@just rel-build "data/null" --no-cache
+	@just rel-build "data/null" 
 
 # Build the Docker image (including changes to local forks, and using caching)
 rel-build FORKS_TO_COPY_PATH="" ARGS="": 
