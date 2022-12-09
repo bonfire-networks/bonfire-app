@@ -38,7 +38,7 @@ RUN apk add make gcc libc-dev
 
 # Cache elixir deps
 COPY mix.exs mix.lock ./
-COPY lib/mix/mess ./lib/mix/mess
+COPY lib/mix ./lib/mix
 # sometimes mix tries to read the config
 RUN mkdir -p ./config 
 COPY data/current_flavour/config/config_basics.exs ./config/config.exs
@@ -107,8 +107,8 @@ COPY docs/*.md ./docs/
 RUN mkdir -p apps/
 RUN mkdir -p forks/
 RUN mkdir -p priv/static/
-COPY priv/extras/ priv/extras/
-RUN tar --exclude=*.env --exclude=.git --exclude=assets/node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps apps forks assets config docs priv/repo priv/extras mix.exs mix.lock LICENSE
+# COPY priv/extras/ priv/extras/
+RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks assets config docs priv/repo mix.exs mix.lock LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
