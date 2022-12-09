@@ -41,6 +41,8 @@ defmodule Bonfire.Umbrella.MixProject do
     {:neuron, "~> 5.0", only: :dev, override: true},
     # note: cannot use only: dev
     # {:phoenix_profiler, "~> 0.2.0"},
+    # "~> 0.1.0", path: "forks/one_plus_n_detector",
+    {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
 
     # tests
     # {:floki, ">= 0.0.0", only: [:dev, :test]},
