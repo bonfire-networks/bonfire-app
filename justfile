@@ -487,16 +487,16 @@ rel-build-release: rel-init rel-prepare assets-prepare
 
 # Build the Docker image (including changes to local forks, and using caching)
 rel-build FORKS_TO_COPY_PATH="" ARGS="": 
-	@rel-build-path {{ if FORKS_TO_COPY_PATH != "" {FORKS_TO_COPY_PATH} else {FORKS_PATH} }} ARGS
+	@just rel-build-path {{ if FORKS_TO_COPY_PATH != "" {FORKS_TO_COPY_PATH} else {FORKS_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="": rel-init rel-prepare assets-prepare 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
-	@docker build $ARGS --progress=plain \
+	@docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
 		--build-arg APP_BUILD=$APP_BUILD \
-		--build-arg FORKS_TO_COPY_PATH=$FORKS_TO_COPY_PATH \
+		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
 	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
