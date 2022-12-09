@@ -115,7 +115,7 @@ RUN MIX_ENV=prod CI=1 mix phx.digest
 RUN ls -la priv/static
 RUN ls -la priv/static/assets
 
-RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=*/*/assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo priv/static mix.exs mix.lock LICENSE
+RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/static/data --exclude=*/*/assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo priv/static mix.exs mix.lock LICENSE || echo "Could not prepare code archive"
 
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
