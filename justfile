@@ -342,7 +342,7 @@ pre-contrib-hooks:
 	-sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
-contrib-forks: pre-push-hooks contrib-forks-publish git-publish 
+contrib: pre-push-hooks contrib-forks-publish git-publish 
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
 contrib-release: pre-push-hooks contrib-forks-publish update-app contrib-app-release
