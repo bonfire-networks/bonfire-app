@@ -107,13 +107,15 @@ RUN mkdir -p extensions/
 RUN mkdir -p forks/
 RUN mkdir -p priv/static/
 # COPY priv/extras/ priv/extras/
-RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=*/*/assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo mix.exs mix.lock LICENSE
 
 # prepare static assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
 RUN cd ./deps/bonfire_ui_common/assets && yarn && yarn build 
 RUN MIX_ENV=prod CI=1 mix phx.digest
-# RUN ls -la priv/static
+RUN ls -la priv/static
+RUN ls -la priv/static/assets
+
+RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=*/*/assets/static/data -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo priv/static mix.exs mix.lock LICENSE
 
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
