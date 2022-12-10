@@ -36,6 +36,8 @@ CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 
+ENV_ENV := if MIX_ENV == "test" { "dev" } else { MIX_ENV } 
+
 ## Configure just
 # choose shell for running recipes
 set shell := ["bash", "-uc"]
@@ -55,18 +57,18 @@ help:
 	@just --list
 
 @pre-setup flavour='classic':
-	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV'"
+	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
 	mkdir -p ./data
 	mkdir -p ./config
 	-rm ./config/deps.flavour.* 
 	-rm ./config/flavour_* 
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	test -f ./flavours/$flavour/config/$MIX_ENV/.env || (cd flavours/$flavour/config && (cat ./templates/public.env ./templates/not_secret.env > ./flavours/$flavour/config/$MIX_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./flavours/$flavour/config/$MIX_ENV/.env && echo "FLAVOUR=$flavour" >> ./flavours/$flavour/config/$MIX_ENV/.env)
+	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && (cat ./templates/public.env ./templates/not_secret.env > ./flavours/$flavour/config/$ENV_ENV/.env) && echo "MIX_ENV=$MIX_ENV" >> ./flavours/$flavour/config/$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./flavours/$flavour/config/$ENV_ENV/.env)
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	-rm .env 
-	ln -sf ./config/$MIX_ENV/.env ./.env
+	ln -sf ./config/$ENV_ENV/.env ./.env
 	mkdir -p extensions/
 	mkdir -p forks/
 	mkdir -p data/uploads/
@@ -94,7 +96,7 @@ flavour select_flavour:
 	cp -rn $FLAVOUR_PATH/repo ./priv/repo
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
-	ln -sf ./config/$MIX_ENV/.env ./.env
+	ln -sf ./config/$ENV_ENV/.env ./.env
 	mkdir -p priv/static/public
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 
@@ -448,6 +450,7 @@ test-federation-ext *args=ap_ext:
 	just test-watch $@
 
 test-federation-dance *args='': 
+	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 	TEST_INSTANCE=yes just test-watch --only test_instance $@
 
 # dev-test-watch: init ## Run tests
