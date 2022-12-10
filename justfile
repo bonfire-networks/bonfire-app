@@ -339,7 +339,8 @@ pre-push-hooks: pre-contrib-hooks
 #	just mix changelog 
 
 pre-contrib-hooks: 
-	-sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
+	-ex +%s,/extensions/,/deps/,e -scwq config/deps_hooks.js
+# -sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
 contrib: pre-push-hooks contrib-forks-publish git-publish 

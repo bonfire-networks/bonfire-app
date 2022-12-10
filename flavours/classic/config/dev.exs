@@ -16,7 +16,8 @@ config :bonfire, Bonfire.Common.Repo,
   # show_sensitive_data_on_connection_error: true,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   # EctoSparkles does the logging instead
-  log: false
+  log: false,
+  stacktrace: true
 
 local_deps =
   Mess.deps(
