@@ -1,6 +1,9 @@
 import Config
 
-# Please note that most of these are defaults meant to be overridden by instance admins in Settings rather than edited here
+# Please note that most of these are defaults meant to be overridden/extended by:
+# 1) flavour-specific config
+# 2) instance admins in Settings
+
 config :bonfire, :ui,
   theme: [
     instance_name: "Bonfire",
