@@ -10,6 +10,8 @@ import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/
 import { CarouselHooks } from "./../../../deps/bonfire_ui_common/assets/js/carousel"
 import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
+import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
+
 import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
 import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
@@ -24,6 +26,6 @@ import { ComposerHooks } from "./../../../deps/bonfire_ui_common/assets/js/compo
 
 // import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extension"
 
-Object.assign(ExtensionHooks, ComposerHooks, EmojiHooks, ResponsiveTabsHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks) // EditorCkHooks
+Object.assign(ExtensionHooks, ComposerHooks, PopupHooks, EmojiHooks, ResponsiveTabsHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks) // EditorCkHooks
 
 export { ExtensionHooks }
