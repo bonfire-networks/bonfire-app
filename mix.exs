@@ -48,6 +48,7 @@ defmodule Bonfire.Umbrella.MixProject do
     # {:floki, ">= 0.0.0", only: [:dev, :test]},
     {:mock, "~> 0.3", only: :test},
     # {:mox, "~> 1.0", only: :test},
+    {:ex_machina, "~> 2.7", only: [:dev, :test]},
     {:zest, "~> 0.1.0"},
     {:grumble, "~> 0.1.3", only: [:test], override: true},
     {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
@@ -118,7 +119,7 @@ defmodule Bonfire.Umbrella.MixProject do
       test: [
         "bonfire",
         "pointers",
-        "paginator",
+        # "paginator",
         "ecto_shorts",
         "ecto_sparkles",
         "activity_pub",

@@ -428,7 +428,7 @@ test-watch *args='':
 test-interactive *args='': 
 	@MIX_ENV=test just mix test.interactive --stale $@
 
-ap_lib := "extensions/activity_pub"
+ap_lib := "forks/activity_pub"
 ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration"
 ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
 ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
@@ -438,7 +438,9 @@ test-federation:
 	just test-stale {{ ap_lib }}
 	just test-stale {{ ap_integration }}
 	just test-stale {{ ap_ext }}
+	just test-federation-dance-positions
 	TEST_INSTANCE=yes just test-stale --only test_instance
+	just test-federation-dance-positions
 
 test-federation-lib *args=ap_lib: 
 	just test-watch $@
@@ -449,9 +451,12 @@ test-federation-integration *args=ap_integration:
 test-federation-ext *args=ap_ext: 
 	just test-watch $@
 
-test-federation-dance *args='': 
-	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
+test-federation-dance *args='': test-federation-dance-positions
 	TEST_INSTANCE=yes just test-watch --only test_instance $@
+	just test-federation-dance-positions
+
+test-federation-dance-positions: 
+	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 # dev-test-watch: init ## Run tests
 # 	docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
