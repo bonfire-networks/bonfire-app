@@ -32,6 +32,7 @@ config :http_signatures, adapter: ActivityPub.Signature
 
 config :activity_pub, :http,
   proxy_url: nil,
+  user_agent: "Bonfire ActivityPub federation",
   send_user_agent: true,
   adapter: [
     ssl_options: [
