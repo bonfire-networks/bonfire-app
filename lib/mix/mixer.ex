@@ -25,7 +25,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do:
         (config[:deps] || config)
         # |> IO.inspect(limit: :infinity)
-        |> Enum.filter(&include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]))
+        |> Enum.filter(&include_dep?(deps_subtype, &1, config))
 
     def deps_names_for(type, deps \\ mix_config()) do
       deps(deps, type)
@@ -274,11 +274,11 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
     def include_dep?(type, dep, config_or_prefixes) do
-      # IO.inspect(config_or_prefixes)
+      prefix = config_or_prefixes[:deps_prefixes][type] || config_or_prefixes[type] || "bonfire"
+
       String.starts_with?(
         dep_name(dep),
-        config_or_prefixes[:deps_prefixes][type] || config_or_prefixes[type] || "bonfire"
-        # || mix_config()[:deps_prefixes][type]
+        prefix
       )
     end
 
