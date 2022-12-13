@@ -25,7 +25,7 @@ defmodule Bonfire.Umbrella.MixProject do
     # {:mix_unused, "~> 0.4", only: :dev},
     {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
     {:ecto_erd, "~> 0.4", only: :dev},
-    # {:ecto_dev_logger, "~> 0.4", only: :dev},
+    # {:ecto_dev_logger, "~> 0.7", only: :dev},
     # flame graphs in live_dashboard
     # {:flame_on, "~> 0.5", only: :dev},
     {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
