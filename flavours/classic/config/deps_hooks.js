@@ -26,6 +26,8 @@ import { ComposerHooks } from "./../../../deps/bonfire_ui_common/assets/js/compo
 
 // import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extension"
 
-Object.assign(ExtensionHooks, ComposerHooks, PopupHooks, EmojiHooks, ResponsiveTabsHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks) // EditorCkHooks
+import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
+
+Object.assign(ExtensionHooks, ComposerHooks, PopupHooks, EmojiHooks, ResponsiveTabsHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, LiveSelect) // EditorCkHooks
 
 export { ExtensionHooks }
