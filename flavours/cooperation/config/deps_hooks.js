@@ -19,7 +19,9 @@ import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/exte
 import { KanbanHooks } from "./../../../deps/bonfire_ui_kanban/assets/js/extension"
 
 import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extension"
- 
-Object.assign(ExtensionHooks, ResponsiveTabsHooks, EditorQuillHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, GeolocateHooks, KanbanHooks, EncryptHooks) // EditorCkHooks
+
+import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
+
+Object.assign(ExtensionHooks, ResponsiveTabsHooks, EditorQuillHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, ImageHooks, GeolocateHooks, KanbanHooks, EncryptHooks, LiveSelect) // EditorCkHooks
  
 export { ExtensionHooks }
