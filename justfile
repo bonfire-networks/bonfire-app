@@ -115,7 +115,6 @@ setup:
 prepare: 
 	just pre-setup $FLAVOUR
 	just build
-	just dep-clean voodoo
 
 # Run the app in development
 dev: init dev-run 
