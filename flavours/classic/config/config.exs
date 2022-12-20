@@ -47,7 +47,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: String.to_integer(System.get_env("SERVER_PORT", "4000"))
   ],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Bonfire.PubSub
+  pubsub_server: Bonfire.Common.PubSub
 
 config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
