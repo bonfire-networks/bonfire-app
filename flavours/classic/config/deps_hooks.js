@@ -12,7 +12,7 @@ import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
 
-import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
+import { FeedHooks } from "./../../../extensions/bonfire_ui_common/assets/js/feed"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
 import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
 // import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
