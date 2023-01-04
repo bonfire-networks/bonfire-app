@@ -189,7 +189,8 @@ update: init update-repo
 	just mix deps.get 
 	just deps-post-get
 	just mix "ecto.migrate"
-	just js-deps-get 
+	just js-deps-get
+	just mix compile
 
 # Update the app and Bonfire extensions in ./deps
 update-app: update-repo update-deps 
