@@ -19,8 +19,6 @@ import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
 // import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js/extension"
 import { ComposerHooks } from "./../../../deps/bonfire_ui_common/assets/js/composer"
 
-// import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js/extension"
-
 // import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/extension"
 // import { KanbanHooks } from "./../../../deps/bonfire_ui_kanban/assets/js/extension"
 

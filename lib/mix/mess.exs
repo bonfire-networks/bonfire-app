@@ -55,10 +55,24 @@ if not Code.ensure_loaded?(Mess) do
     end
 
     defp deps_packages(packages, extra_deps, opts),
-      do: Enum.flat_map(packages, &dep_spec(&1, opts)) |> deps_uniq(extra_deps, opts)
+      do:
+        (Enum.flat_map(packages, &dep_spec(&1, opts)) ++ extra_deps)
+        |> deps_uniq(opts)
+        |> maybe_filter_umbrella(opts)
 
-    defp deps_uniq(packages, extra_deps, opts),
-      do: Enum.uniq_by(packages ++ extra_deps, &elem(&1, 0)) |> maybe_filter_umbrella(opts)
+    defp deps_uniq(packages, opts),
+      do:
+        packages
+        # |> IO.inspect(label: "non-unique")
+        |> maybe_filter_invalid_paths(opts)
+        |> Enum.uniq_by(&elem(&1, 0))
+
+    defp maybe_filter_invalid_paths(deps, _opts) do
+      Enum.reject(deps, fn dep ->
+        dep_opts = elem(dep, 1)
+        is_list(dep_opts) and dep_opts[:path] && not File.exists?("#{dep_opts[:path]}/mix.exs")
+      end)
+    end
 
     defp maybe_filter_umbrella(deps, opts) do
       cond do
