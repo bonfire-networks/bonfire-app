@@ -139,6 +139,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_valueflows"
       ],
       api: [
+        "bonfire_api_graphql",
         "bonfire_me",
         "bonfire_social",
         "bonfire_tag",
