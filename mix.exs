@@ -318,7 +318,8 @@ defmodule Bonfire.Umbrella.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.migrate": ["bonfire.seeds"],
       "ecto.reset": ["ecto.drop --force", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      sobelow: ["cmd mix sobelow"]
     ]
   end
 end

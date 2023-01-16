@@ -631,6 +631,9 @@ licenses:
 	@mkdir -p docs/DEPENDENCIES/
 	just mix-remote licenses && mv DEPENDENCIES.md docs/DEPENDENCIES/$FLAVOUR.md
 
+audit:
+	AS_UMBRELLA=1 just mix sobelow
+
 # Extract strings to-be-localised from the app and installed extensions
 # FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
 localise-extract: 
