@@ -43,6 +43,7 @@ defmodule Bonfire.Umbrella.MixProject do
     # {:phoenix_profiler, "~> 0.2.0"},
     # "~> 0.1.0", path: "forks/one_plus_n_detector",
     # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
+    {:observer_cli, "~> 1.7", only: :dev},
 
     # tests
     # {:floki, ">= 0.0.0", only: [:dev, :test]},
@@ -60,6 +61,8 @@ defmodule Bonfire.Umbrella.MixProject do
     # Benchmarking utilities
     {:benchee, "~> 1.1", only: :dev},
     {:benchee_html, "~> 1.0", only: :dev},
+    # for Telemetry store
+    {:circular_buffer, "~> 0.4", only: :dev},
 
     # list dependencies & licenses
     # {
