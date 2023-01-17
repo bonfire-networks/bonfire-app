@@ -90,8 +90,8 @@ config :surface,
   log_level: :debug
 
 config :logger,
-  # level: :debug,
-  level: :info,
+  level: :debug,
+  # level: :info,
   truncate: :infinity
 
 config :logger, :console,
