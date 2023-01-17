@@ -18,3 +18,5 @@ config :bonfire, Bonfire.Web.Endpoint, server: true
 config :bonfire, Bonfire.Common.Repo,
   # in releases migrations are not in a flavour-specific directory
   priv: "priv/repo"
+
+# config :surface, :compiler, warn_on_undefined_props: false

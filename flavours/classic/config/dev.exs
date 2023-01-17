@@ -86,8 +86,12 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
 
+config :surface,
+  log_level: :debug
+
 config :logger,
-  level: :debug,
+  # level: :debug,
+  level: :info,
   truncate: :infinity
 
 config :logger, :console,
@@ -97,8 +101,6 @@ config :logger, :console,
 config :phoenix, :stacktrace_depth, 30
 
 config :phoenix, :plug_init_mode, :runtime
-
-config :surface, :compiler, warn_on_undefined_props: false
 
 config :exsync,
   src_monitor: true,

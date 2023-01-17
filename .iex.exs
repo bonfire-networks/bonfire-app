@@ -34,3 +34,12 @@ end
 # end
 
 import_if_enabled(Bonfire.Common.Test.Interactive.Helpers)
+
+defmodule ObserverCLI do
+  def observer_cli_start, do: start()
+  defp start do
+    Logger.configure(level: :error)
+    :observer_cli.start
+  end
+end
+import ObserverCLI

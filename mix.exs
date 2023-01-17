@@ -59,8 +59,8 @@ defmodule Bonfire.Umbrella.MixProject do
     # {:bypass, "~> 2.1", only: :test}, # used in furlex
 
     # Benchmarking utilities
-    {:benchee, "~> 1.1", only: :dev},
-    {:benchee_html, "~> 1.0", only: :dev},
+    {:benchee, "~> 1.1", only: [:dev, :test]},
+    {:benchee_html, "~> 1.0", only: [:dev, :test]},
     # for Telemetry store
     {:circular_buffer, "~> 0.4", only: :dev},
 
