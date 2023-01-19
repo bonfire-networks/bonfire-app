@@ -128,4 +128,5 @@ config :surface_catalogue,
   subtitle: "Surface Components Documentation & Examples"
 
 config :iconify_ex,
+  generated_icon_app: :bonfire,
   generated_icon_modules_path: "./extensions/bonfire/lib/web/icons"
