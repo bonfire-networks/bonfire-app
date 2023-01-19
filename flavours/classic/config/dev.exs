@@ -92,6 +92,7 @@ config :surface,
 config :logger,
   level: :debug,
   # level: :info,
+  # level: :warning,
   truncate: :infinity
 
 config :logger, :console,
