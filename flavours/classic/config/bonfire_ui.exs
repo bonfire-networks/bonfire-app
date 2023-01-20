@@ -26,6 +26,9 @@ More details at https://bonfirenetworks.org",
       ]
     ]
   ],
+  show_activity_counts: false,
+  show_profile_background_image: true,
+  
   # end theme
   hide_app_switcher: true,
   # rich_text_editor_disabled: true,
