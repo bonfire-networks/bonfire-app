@@ -65,6 +65,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   debug_errors: true,
   check_origin: false,
   code_reloader: true,
+  http: [protocol_options: [idle_timeout: 120_000]],
   reloadable_apps: [:bonfire] ++ local_dep_names,
   watchers: [
     yarn: [
