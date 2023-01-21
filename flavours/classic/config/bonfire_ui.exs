@@ -6,7 +6,7 @@ import Config
 
 config :bonfire, :ui,
   theme: [
-    instance_name: "Bonfire",
+    # instance_name: "Bonfire",
     instance_theme: "bonfire",
     instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
@@ -28,7 +28,7 @@ More details at https://bonfirenetworks.org",
   ],
   show_activity_counts: false,
   show_profile_background_image: true,
-  
+
   # end theme
   hide_app_switcher: true,
   # rich_text_editor_disabled: true,

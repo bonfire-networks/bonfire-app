@@ -6,7 +6,7 @@ config :bonfire_api_graphql,
 # Please note that most of these are defaults meant to be overridden by instance admins in Settings rather than edited here
 config :bonfire, :ui,
   theme: [
-    instance_name: "Bonfire",
+    # instance_name: "Bonfire",
     instance_theme: "bonfire",
     instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
