@@ -29,6 +29,7 @@ More details at https://bonfirenetworks.org",
   ],
   # end theme
   hide_app_switcher: false,
+  disable_feed_object_preloads: false,
   profile: [
     # TODO: make dynamic based on active extensions
     sections: [
