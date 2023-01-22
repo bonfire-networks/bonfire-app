@@ -26,6 +26,9 @@ More details at https://bonfirenetworks.org",
       ]
     ]
   ],
+  terms: [
+    conduct: "https://raw.githubusercontent.com/bonfire-networks/blog/master/code_of_conduct.md"
+  ],
   show_activity_counts: false,
   show_profile_background_image: true,
   disable_feed_object_preloads: true,
