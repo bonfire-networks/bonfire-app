@@ -129,6 +129,15 @@ More details at https://bonfirenetworks.org",
     section: Bonfire.Pages.Web.EditSectionLive
   ]
 
+config :bonfire,
+  # used by ActivityLive - TODO: autogenerate?
+  verb_families: [
+    reply: ["Reply", "Respond"],
+    create: ["Create", "Write"],
+    react: ["Like", "Boost", "Flag", "Tag"],
+    simple_action: ["Assign", "Label", "Schedule"]
+  ]
+
 config :surface_catalogue,
   title: "Bonfire UI",
   subtitle: "Surface Components Documentation & Examples"

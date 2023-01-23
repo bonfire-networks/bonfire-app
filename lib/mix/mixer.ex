@@ -346,13 +346,14 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # end
 
     def compilers(_) do
+      # [:tria] ++ 
       Mix.compilers()
     end
 
     def catalogues(_env) do
       [
         "deps/surface/priv/catalogue",
-        dep_path("bonfire_ui_social") <> "/priv/catalogue"
+        dep_path("bonfire_ui_common") <> "/priv/catalogue"
       ]
     end
   end

@@ -15,6 +15,9 @@ defmodule Bonfire.Umbrella.MixProject do
   if @use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
   @extra_deps [
+    # compilation
+    # {:tria, github: "hissssst/tria"},
+
     ## password hashing - builtin vs nif
     {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
     {:argon2_elixir, "~> 3.0", only: [:prod]},
@@ -186,6 +189,7 @@ defmodule Bonfire.Umbrella.MixProject do
       test_paths: Mixer.test_paths(config()),
       # test_deps: Mixer.deps(config(), :test) |> IO.inspect(),
       required_deps: config()[:deps_prefixes][:required],
+      # consolidate_protocols: false, # for Tria
       compilers: Mixer.compilers(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
