@@ -15,7 +15,7 @@ config :bonfire, :ui,
       ]
     ]
   ],
-  disable_feed_object_preloads: false,
+  feed_object_extension_preloads_disabled: false,
   default_smart_input: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
   profile: [
     sections: [

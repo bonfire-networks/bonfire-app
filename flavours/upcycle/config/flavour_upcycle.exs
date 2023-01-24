@@ -7,7 +7,7 @@ config :bonfire, :ui,
     instance_image: "https://bonfirenetworks.org/img/brand2.png",
     instance_description: "This is a bonfire demo instance (upcycle flavour) for testing purposes"
   ],
-  disable_feed_object_preloads: false,
+  feed_object_extension_preloads_disabled: false,
   smart_input_components: [
     economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
     intent: Bonfire.UI.ValueFlows.CreateIntentLive,

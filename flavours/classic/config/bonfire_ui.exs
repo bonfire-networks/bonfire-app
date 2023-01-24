@@ -31,7 +31,8 @@ More details at https://bonfirenetworks.org",
   ],
   show_activity_counts: false,
   show_profile_background_image: true,
-  disable_feed_object_preloads: true,
+  # should be enabled if using any extra extensions (other than social) or if you used some in the past and still want to display the old activities
+  feed_object_extension_preloads_disabled: true,
   # end theme
   hide_app_switcher: true,
   # rich_text_editor_disabled: true,
