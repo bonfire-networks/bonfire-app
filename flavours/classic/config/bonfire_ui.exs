@@ -106,6 +106,7 @@ More details at https://bonfirenetworks.org",
       followers: Bonfire.UI.Social.ProfileFollowsLive,
       followed: Bonfire.UI.Social.ProfileFollowsLive,
       requested: Bonfire.UI.Social.ProfileFollowsLive,
+      requests: Bonfire.UI.Social.ProfileFollowsLive,
       follow: Bonfire.UI.Me.RemoteInteractionFormLive
     ],
     navigation: [
@@ -115,6 +116,10 @@ More details at https://bonfirenetworks.org",
       # private: "private",
     ],
     network: [
+      followers: "followers",
+      followed: "followed"
+    ],
+    my_network: [
       followers: "followers",
       followed: "followed",
       requested: "requested",
