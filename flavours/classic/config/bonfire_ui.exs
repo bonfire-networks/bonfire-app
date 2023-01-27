@@ -105,6 +105,7 @@ More details at https://bonfirenetworks.org",
       boosts: Bonfire.UI.Social.ProfileBoostsLive,
       followers: Bonfire.UI.Social.ProfileFollowsLive,
       followed: Bonfire.UI.Social.ProfileFollowsLive,
+      requested: Bonfire.UI.Social.ProfileFollowsLive,
       follow: Bonfire.UI.Me.RemoteInteractionFormLive
     ],
     navigation: [
