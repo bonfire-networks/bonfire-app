@@ -113,6 +113,12 @@ More details at https://bonfirenetworks.org",
       boosts: "boosts"
       # private: "private",
     ],
+    network: [
+      followers: "followers",
+      followed: "followed",
+      requested: "requested",
+      requests: "requests"
+    ],
     widgets: []
   ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
