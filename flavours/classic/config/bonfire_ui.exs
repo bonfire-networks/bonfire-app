@@ -110,21 +110,24 @@ More details at https://bonfirenetworks.org",
       follow: Bonfire.UI.Me.RemoteInteractionFormLive
     ],
     navigation: [
-      timeline: "timeline",
-      posts: "posts",
-      boosts: "boosts"
+      timeline: "Timeline",
+      posts: "Posts",
+      boosts: "Boosts"
       # private: "private",
     ],
     network: [
-      followers: "followers",
-      followed: "followed"
+      followers: "Followers",
+      followed: "Followed"
     ],
-    my_network: [
-      followers: "followers",
-      requests: "follower requests",
-      followed: "followed",
-      requested: "pending"
-    ],
+    my_network: %{
+      :followers => "Followers",
+      # :requests=> "Follower requests",
+      :followed => "Followed",
+      # :requested=> "Pending",
+      "/boundaries/circles" => "Circles",
+      "/boundaries/ghosted" => "Ghosted",
+      "/boundaries/silenced" => "Silenced"
+    },
     widgets: []
   ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
