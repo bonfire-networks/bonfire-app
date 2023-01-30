@@ -121,9 +121,9 @@ More details at https://bonfirenetworks.org",
     ],
     my_network: [
       followers: "followers",
+      requests: "follower requests",
       followed: "followed",
-      requested: "requested",
-      requests: "requests"
+      requested: "pending"
     ],
     widgets: []
   ],
