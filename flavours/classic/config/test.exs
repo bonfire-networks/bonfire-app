@@ -20,7 +20,7 @@ config :bonfire_search,
 ## Other general test config
 
 config :logger,
-  level: :info,
+  level: :debug,
   truncate: :infinity
 
 config :logger, :console, truncate: :infinity
