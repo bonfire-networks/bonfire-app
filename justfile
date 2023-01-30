@@ -669,14 +669,14 @@ db-pre-migrations:
 
 # Generate secrets
 @secrets: 
-	just rand 
-	just rand 
-	just rand 
-# cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
-# cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
+	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
+	cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
+# just rand 
+# just rand 
+# just rand 
 
-@rand: 
-	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
+# @rand: # note: doesn't work in github CI
+# 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
 
 # Start or stop nix postgres server
 @nix-db pg_cmd:
