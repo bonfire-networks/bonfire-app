@@ -160,7 +160,10 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_ecto",
         "bonfire_epics",
         "bonfire_common",
-        "bonfire_fail"
+        "bonfire_fail",
+        "bonfire_ui_common",
+        "bonfire_ui_me",
+        "bonfire_ui_social"
       ],
       localise: ["bonfire"],
       localise_self: []
