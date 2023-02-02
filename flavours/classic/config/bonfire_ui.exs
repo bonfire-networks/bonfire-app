@@ -161,3 +161,7 @@ config :surface_catalogue,
 config :iconify_ex,
   generated_icon_app: :bonfire,
   generated_icon_modules_path: "./extensions/bonfire/lib/web/icons"
+
+config :surface, :components, [
+  {Bonfire.UI.Common.ReusableModalLive, propagate_context_to_slots: true},
+]
