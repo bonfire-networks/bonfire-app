@@ -160,10 +160,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_ecto",
         "bonfire_epics",
         "bonfire_common",
-        "bonfire_fail",
-        "bonfire_ui_common",
-        "bonfire_ui_me",
-        "bonfire_ui_social"
+        "bonfire_fail"
       ],
       localise: ["bonfire"],
       localise_self: []
@@ -204,7 +201,7 @@ defmodule Bonfire.Umbrella.MixProject do
       releases: [
         bonfire: [
           runtime_config_path: Mixer.config_path(config(), "runtime.exs"),
-          # should BEAM files should have their debug information, documentation chunks, and other non-essential metadata?
+          # to enable debugging
           strip_beams: false,
           applications: [
             bonfire: :permanent,
