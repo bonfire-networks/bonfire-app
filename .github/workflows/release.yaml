@@ -405,7 +405,7 @@ jobs:
           create-tag: false # tag already created in other job
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - uses: uraimo/run-on-arch-action@v2
+      - uses: uraimo/run-on-arch-action@v2.5.0
         name: Build artifact
         id: build
         with:
@@ -446,12 +446,12 @@ jobs:
                 echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
                 wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
                 apt-get update && apt-get install -y elixir
+                elixir -v
                 ;;
               alpine*)
                 apk add bash git tar file build-base gcc sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just libc-dev elixir
                 ;;
             esac
-            elixir -v
             mix local.hex --force
             mix local.rebar --force
             
