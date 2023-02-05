@@ -24,6 +24,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      - 
+        name: Detect new version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false # tag already created in other job
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -342,11 +350,11 @@ jobs:
       - name: Build the OTP release
         run: just rel-build
       - name: Create an archive
-        run: cd _build/prod/rel && tar -cf bonfire.tar bonfire
+        run: cd _build/prod/rel && tar -czvf bonfire.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
-          files: _build/prod/rel/bonfire.tar
+          files: _build/prod/rel/bonfire.tar.gz
           name: unstable
           tag_name: ${{ steps.version.outputs.tag }}
           prerelease: true
