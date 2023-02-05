@@ -366,9 +366,13 @@ jobs:
         run: just mix "deps.get --only prod"
       - name: Prepare release
         run: just rel-build
-      - name: Publish release 
-        uses: mayel/actions/bin/ghr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_PATH: _build/prod/rel
-          CI: 1
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: _build/prod/rel/
+      # - name: Publish release 
+      #   uses: mayel/actions/bin/ghr@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     RELEASE_PATH: _build/prod/rel
+      #     CI: 1
