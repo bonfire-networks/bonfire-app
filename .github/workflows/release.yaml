@@ -307,7 +307,7 @@ jobs:
   #       run: echo ${{ steps.docker_build.outputs.digest }}
 
   elixir_release: 
-    name: Elixir/OTP release without Docker
+    name: Elixir/OTP release on alpine x86 
     runs-on: ubuntu-latest
     container: elixir:1.14-alpine
     env:
@@ -440,7 +440,7 @@ jobs:
             case "${{ matrix.distro }}" in
               ubuntu*|jessie|stretch|buster|bullseye)
                 apt-get update -q -y
-                apt-get install -q -y git tar file build-essential gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin
+                apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin wget
 
                 bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
                 git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
