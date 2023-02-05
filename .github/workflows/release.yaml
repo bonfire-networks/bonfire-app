@@ -307,14 +307,16 @@ jobs:
       WITH_DOCKER: no
       MIX_ENV: prod
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
       - 
         name: Cancel any already running releases workflows
         uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      - name: Install git
+        run: apk add git 
       - 
         name: Maybe tag/release new version
         id: version
