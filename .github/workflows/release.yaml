@@ -340,7 +340,7 @@ jobs:
       - 
         name: Install system deps
         run: |
-          apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget libc-bin-
+          apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget 
 
           bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
           git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
@@ -405,12 +405,12 @@ jobs:
             distro: bullseye
           # - arch: aarch64
           #   distro: alpine_latest
-          - arch: none 
-            distro: none
-            base_image: debian:bullseye-slim
-            family: debian
-            arch_alt: x86
-            distro_alt: bullseye
+          # - arch: none 
+          #   distro: none
+          #   base_image: debian:bullseye-slim # Error: run-on-arch: If arch and distro are not specified, base_image is required
+          #   family: debian
+          #   arch_alt: x86
+          #   distro_alt: bullseye
     steps:
       - 
         name: Checkout
