@@ -255,7 +255,7 @@ deps-post-get:
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
 	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
 	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
-	-ln -s data/uploads priv/static/data/
+	-cd priv/static/data && ln -s ../../../data/uploads 
 
 deps-clean dep: 
 	just mix deps.clean $dep
