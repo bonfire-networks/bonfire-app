@@ -208,7 +208,7 @@ jobs:
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Detect new version
+        name: Detect version
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
@@ -350,7 +350,7 @@ jobs:
       - name: Build the OTP release
         run: just rel-build
       - name: Create an archive
-        run: cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-x86.tar.gz bonfire
+        run: cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-x86-alpine.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
@@ -372,3 +372,100 @@ jobs:
           owner: "bonfire-networks"
           repos: "bonfire_api_graphql,bonfire_data_identity,bonfire_fail,bonfire_ui_me,bonfire_boundaries,bonfire_data_shared_user,bonfire_federate_activitypub,bonfire_quantify,bonfire_breadpub,bonfire_data_social,bonfire_files,bonfire_recyclapp,bonfire_ui_social,bonfire_classify,bonfire_geolocate,bonfire_search,bonfire_ui_valueflows,bonfire_common,bonfire_ecto,bonfire_invite_links,bonfire_social,bonfire_data_access_control,bonfire_editor_ck,bonfire_livebook,bonfire_tag,bonfire_valueflows,bonfire_data_activity_pub,bonfire_editor_quill,bonfire_mailer,bonfire_valueflows_api_schema,bonfire_data_assort,bonfire_me,bonfire_ui_common,bonfire_valueflows_observe,bonfire_epics,bonfire_notify,bonfire_ui_coordination,bonfire_data_edges,bonfire_extension_template,bonfire_open_id,bonfire_ui_kanban"
           # bonfire_upcycle,bonfire_publisher_thesis,bonfire_ui_reflow,bonfire_data_tasks,bonfire_taxonomy_seeder,bonfire_encryption_backend,bonfire_pages,bonfire_web_phoenix,bonfire_website
+
+  elixir_release_extra_architectures:
+    # The host should always be linux
+    runs-on: ubuntu-latest
+    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
+    env:
+      FLAVOUR: classic
+      WITH_DOCKER: no
+      MIX_ENV: prod
+    # Run steps on a matrix of several arch/distro combinations
+    strategy:
+      matrix:
+        include:
+          - arch: aarch64
+            distro: bullseye
+          - arch: armv7
+            distro: bullseye
+          - arch: aarch64
+            distro: alpine_latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      - 
+        name: Detect version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false # tag already created in other job
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - uses: uraimo/run-on-arch-action@v2
+        name: Build artifact
+        id: build
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
+
+          # Not required, but speeds up builds
+          githubToken: ${{ github.token }}
+
+          # Create an artifacts directory
+          setup: |
+            mkdir -p "${PWD}/artifacts"
+
+          # Mount the artifacts directory as /artifacts in the container
+          dockerRunArgs: |
+            --volume "${PWD}/artifacts:/artifacts"
+
+          # Pass some environment variables to the container
+          env: | # YAML, but pipe character is necessary
+            artifact_name: bonfire-${{ env.FLAVOUR }}-${{ matrix.arch }}-${{ matrix.distro }}.tar.gz
+
+          # The shell to run commands with in the container
+          shell: /bin/sh
+
+          # Install some dependencies in the container. This speeds up builds if
+          # you are also using githubToken. Any dependencies installed here will
+          # be part of the container image that gets cached, so subsequent
+          # builds don't have to re-install them. The image layer is cached
+          # publicly in your project's package repository, so it is vital that
+          # no secrets are present in the container state or logs.
+          install: |
+            case "${{ matrix.distro }}" in
+              ubuntu*|jessie|stretch|buster|bullseye)
+                apt-get update -q -y
+                apt-get install -q -y git tar file build-essential gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin
+                git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
+                ;;
+              alpine*)
+                apk add bash git tar file build-base gcc sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just libc-dev
+                ;;
+            esac
+            mix local.hex --force
+            mix local.rebar --force
+            
+          # Produce a binary artifact and place it in the mounted volume
+          run: |
+            just config
+            just mix "deps.get --only prod"
+            just rel-build
+            cd _build/prod/rel && tar -czvf /artifacts/${artifact_name} bonfire
+            echo "Produced artifact at /artifacts/${artifact_name}"
+
+      - name: List the artifacts
+        # Items placed in /artifacts in the container will be in
+        # ${PWD}/artifacts on the host.
+        run: |
+          ls -al "${PWD}/artifacts"
+      - name: Release to github
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "${PWD}/artifacts/*"
+          name: Unstable - ${{ steps.version.outputs.tag }}
+          tag_name: ${{ steps.version.outputs.tag }}
