@@ -93,6 +93,7 @@ flavour select_flavour:
 
 @pre-init: assets-ln
 	rm -rf ./priv/repo
+	mkdir -p data
 	cp -rn $FLAVOUR_PATH/repo ./priv/repo
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
