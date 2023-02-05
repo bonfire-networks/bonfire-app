@@ -340,7 +340,7 @@ jobs:
       - 
         name: Install system deps
         run: |
-          apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget
+          apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget libc-bin-
 
           bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
           git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
@@ -387,7 +387,7 @@ jobs:
   elixir_release_extra_architectures:
     # The host should always be linux
     runs-on: ubuntu-latest
-    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
+    name: Build on ${{ matrix.arch }} ${{ matrix.distro }} 
     env:
       FLAVOUR: classic
       WITH_DOCKER: no
@@ -405,12 +405,12 @@ jobs:
             distro: bullseye
           # - arch: aarch64
           #   distro: alpine_latest
-          - arch: none # x86
+          - arch: none 
             distro: none
+            base_image: debian:bullseye-slim
             family: debian
             arch_alt: x86
             distro_alt: bullseye
-            base_image: debian:bullseye-slim
     steps:
       - 
         name: Checkout
@@ -461,7 +461,7 @@ jobs:
             case "${{ matrix.distro }}" in
               ubuntu*|jessie|stretch|buster|bullseye)
                 apt-get update -q -y
-                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin wget
+                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget
 
                 bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
                 git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
