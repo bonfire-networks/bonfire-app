@@ -112,7 +112,7 @@ jobs:
         uses: andymckay/cancel-action@0.2
       - 
         name: Install system deps
-        run: ./deps-debian.sh
+        run: chmod +x deps-debian.sh && ./deps-debian.sh
       - name: Install hex
         run: mix local.hex --force
       - name: Install rebar
@@ -155,6 +155,8 @@ jobs:
     strategy:
       matrix:
         flavour: ["classic"] # , "cooperation"]
+        arch: ["aarch64", "armv7"] 
+        distro: ["bullseye"] 
         include:
           - arch: aarch64
             family: debian
@@ -222,12 +224,13 @@ jobs:
           # no secrets are present in the container state or logs.
           install: |
             export TERM=${{ env.TERM }}
+            ls -la
             case "${{ matrix.distro }}" in
               ubuntu*|jessie|stretch|buster|bullseye)
-                ./deps-debian.sh
+                chmod +x deps-debian.sh && ./deps-debian.sh
                 ;;
               alpine*)
-                ./deps-alpine.sh
+                chmod +x deps-alpine.sh && ./deps-alpine.sh
                 ;;
             esac
             mix local.hex --force
