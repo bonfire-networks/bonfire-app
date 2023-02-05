@@ -5,13 +5,19 @@ on:
       - main 
 jobs:
 
-  classic_flavour_common_docker_release_build_push:
-    name: Classic flavour - multiarch - Maybe tag version & release Docker image
+  docker:
+    strategy:
+      matrix:
+        flavour: ["classic"] # , "cooperation"]
+        platforms: ["linux/amd64", "linux/amd64,linux/arm64,linux/arm/v7"] # , "linux/arm64"
+        include:
+          - platforms: "linux/amd64"
+            tag_extra: "-x86"
+    name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
     env:
-      FLAVOUR: classic
-      FLAVOUR_PATH: flavours/classic
+      FLAVOUR: ${{ matrix.flavour }}
       DOCKER_REPO: bonfire
     steps:
       - 
@@ -25,196 +31,17 @@ jobs:
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Detect new version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # tag already created in other job
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      # - 
-      #   name: Get branch names
-      #   id: branch-name
-      #   uses: tj-actions/branch-names@v4
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: Pre-build prep 
-        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        env:
-          FLAVOUR: classic
-          FLAVOUR_PATH: data/current_flavour
-        with:
-          context: .
-          file: Dockerfile.release
-          # platforms: linux/amd64
-          # platforms: linux/amd64,linux/arm64
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
-
-# FIXME: tried running this separately with the same Docker tag to not slow down the release (currently about 10 min for x86, 40 min for x86+arm64, and several hours if you add armv7), but putting this as a separate task overwrites the image pushed to docker hub by the first one
-
-  classic_flavour_common_docker_release_build_push_x86:
-    name: Classic flavour for x86 - release Docker image
-    runs-on: ubuntu-latest
-    env:
-      FLAVOUR: classic
-      FLAVOUR_PATH: flavours/classic
-      DOCKER_REPO: bonfire
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # needed for action-detect-and-tag-new-version
-      - 
-        name: Detect new version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # tag already created in other job
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      # - 
-      #   name: Get branch names
-      #   id: branch-name
-      #   uses: tj-actions/branch-names@v4
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: Pre-build prep 
-        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        env:
-          FLAVOUR: classic
-          FLAVOUR_PATH: data/current_flavour
-        with:
-          context: .
-          file: Dockerfile.release
-          platforms: linux/amd64
-          # platforms: linux/amd64,linux/arm64
-          # platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-x86
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-x86
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
-
-
-  classic_flavour_common_docker_release_build_push_arm:
-    name: Classic flavour for ARM - release Docker image
-    runs-on: ubuntu-latest
-    env:
-      FLAVOUR: classic
-      FLAVOUR_PATH: flavours/classic
-      DOCKER_REPO: bonfire
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # needed for action-detect-and-tag-new-version
-      - 
-        name: Detect new version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # tag already created in other job
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: Pre-build prep 
-        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        env:
-          FLAVOUR: classic
-          FLAVOUR_PATH: data/current_flavour
-        with:
-          context: .
-          file: Dockerfile.release
-          platforms: linux/arm64
-          # platforms: linux/amd64,linux/arm64
-          # platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-aarch64
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-x86
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
-
-
-  cooperation_flavour_docker_release_build_push:
-    name: Cooperation flavour - multiarch - Maybe release Docker image
-    runs-on: ubuntu-latest
-    env:
-      FLAVOUR: cooperation
-      FLAVOUR_PATH: flavours/cooperation
-      DOCKER_REPO: bonfire
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # needed for action-detect-and-tag-new-version
-      - 
         name: Detect version
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
-          create-tag: false # tag already created in first job
+          create-tag: false # tag already created in other job
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      # - 
+      #   name: Get branch names
+      #   id: branch-name
+      #   uses: tj-actions/branch-names@v4
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -235,79 +62,21 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         env:
-          FLAVOUR: cooperation
           FLAVOUR_PATH: data/current_flavour
         with:
           context: .
           file: Dockerfile.release
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: ${{ matrix.platforms }}
           push: true
           tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra || "" }}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra || "" }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-
-  # reflow_flavour_docker_release_build_push:
-  #   name: Reflow flavour - Maybe release Docker image
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     FLAVOUR: reflow
-  #     FLAVOUR_PATH: flavours/reflow
-  #     DOCKER_REPO: reflow
-  #     APP_NAME: reflow
-  #   steps:
-  #     - 
-  #       name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 2 # needed for action-detect-and-tag-new-version
-  #     - 
-  #       name: Detect version
-  #       id: version
-  #       uses: salsify/action-detect-and-tag-new-version@v2
-  #       with:
-  #         create-tag: false # tag already created in first job
-  #         version-command: |
-  #           grep -m 1 'version:' mix.exs | cut -d '"' -f2
-  #     -
-  #       name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v1
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v1
-  #     -
-  #       name: Login to DockerHub
-  #       uses: docker/login-action@v1 
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     - 
-  #       name: Pre-build prep 
-  #       run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare
-  #     -
-  #       name: Build and push
-  #       id: docker_build
-  #       uses: docker/build-push-action@v2
-  #       env:
-  #         FLAVOUR: reflow
-  #         FLAVOUR_PATH: data/current_flavour
-  #       with:
-  #         context: .
-  #         file: Dockerfile.release
-  #         platforms: linux/amd64 #,linux/arm64
-  #         push: true
-  #         tags: |
-  #           bonfirenetworks/${{ env.DOCKER_REPO }}:latest
-  #           bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}
-  #     -
-  #       name: Image digest
-  #       run: echo ${{ steps.docker_build.outputs.digest }}
-
   elixir_release: 
-    name: Elixir/OTP release on debian bullseye x86 
+    name: OTP on x86 bullseye  
     runs-on: ubuntu-latest
     container: debian:bullseye-slim
     env:
@@ -387,7 +156,7 @@ jobs:
   elixir_release_extra_architectures:
     # The host should always be linux
     runs-on: ubuntu-latest
-    name: Build on ${{ matrix.arch }} ${{ matrix.distro }} 
+    name: OTP on ${{ matrix.arch }} ${{ matrix.distro }} 
     env:
       FLAVOUR: classic
       WITH_DOCKER: no
