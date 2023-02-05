@@ -717,3 +717,5 @@ nix-db-init: (nix-db "start")
   createdb ${PGDATABASE}
   createuser -dlsw ${PGUSERNAME}
 
+sys-deps-debian:
+  ./deps-debian.sh

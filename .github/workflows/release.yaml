@@ -76,13 +76,17 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   elixir_release: 
-    name: OTP on x86 bullseye  
+    name: ${{ matrix.flavour }} - OTP on x86 bullseye  
+    strategy:
+      matrix:
+        flavour: ["classic"] # , "cooperation"]
     runs-on: ubuntu-latest
     container: debian:bullseye-slim
     env:
-      FLAVOUR: classic
+      FLAVOUR: ${{ matrix.flavour }}
       WITH_DOCKER: no
       MIX_ENV: prod
+      TERM: linux
     steps:
       - 
         name: Cancel any already running releases workflows
@@ -108,17 +112,7 @@ jobs:
         uses: andymckay/cancel-action@0.2
       - 
         name: Install system deps
-        run: |
-          apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget 
-
-          bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
-          git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
-
-          echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
-          wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
-          apt-get update && apt-get install -y elixir
-          elixir -v
-        # run: apk add bash git tar file build-base sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just gcc libc-dev
+        run: ./deps-debian.sh
       - name: Install hex
         run: mix local.hex --force
       - name: Install rebar
@@ -156,15 +150,11 @@ jobs:
   elixir_release_extra_architectures:
     # The host should always be linux
     runs-on: ubuntu-latest
-    name: OTP on ${{ matrix.arch }} ${{ matrix.distro }} 
-    env:
-      FLAVOUR: classic
-      WITH_DOCKER: no
-      MIX_ENV: prod
-      TERM: linux
+    name: ${{ matrix.flavour }} - OTP on ${{ matrix.arch }} ${{ matrix.distro }} 
     # Run steps on a matrix of several arch/distro combinations
     strategy:
       matrix:
+        flavour: ["classic"] # , "cooperation"]
         include:
           - arch: aarch64
             family: debian
@@ -180,6 +170,11 @@ jobs:
           #   family: debian
           #   arch_alt: x86
           #   distro_alt: bullseye
+    env:
+      FLAVOUR: ${{ matrix.flavour }}
+      WITH_DOCKER: no
+      MIX_ENV: prod
+      TERM: linux
     steps:
       - 
         name: Checkout
@@ -217,7 +212,7 @@ jobs:
             artifact_name: bonfire-${{ env.FLAVOUR }}-${{ matrix.arch || matrix.arch_alt }}-${{ matrix.family }}-${{ matrix.distro || matrix.distro_alt }}.tar.gz
 
           # The shell to run commands with in the container
-          shell: /bin/sh
+          shell: /bin/bash
 
           # Install some dependencies in the container. This speeds up builds if
           # you are also using githubToken. Any dependencies installed here will
@@ -229,19 +224,10 @@ jobs:
             export TERM=${{ env.TERM }}
             case "${{ matrix.distro }}" in
               ubuntu*|jessie|stretch|buster|bullseye)
-                apt-get update -q -y
-                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget
-
-                bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
-                git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
-
-                echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
-                wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
-                apt-get update && apt-get install -y elixir
-                elixir -v
+                ./deps-debian.sh
                 ;;
               alpine*)
-                apk add bash git tar file build-base gcc sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just libc-dev elixir
+                ./deps-alpine.sh
                 ;;
             esac
             mix local.hex --force
