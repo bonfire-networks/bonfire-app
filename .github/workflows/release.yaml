@@ -321,7 +321,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
       - name: Install git # needed for checkout with fetch-depth
-        run: apk add git 
+        run: apt-get install -q -y git
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
@@ -337,8 +337,20 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
-      - name: Install system deps
-        run: apk add bash git tar file build-base sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just gcc libc-dev
+      - 
+        name: Install system deps
+        run: |
+          apt-get update -q -y
+          apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin wget
+
+          bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
+          git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
+
+          echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
+          wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
+          apt-get update && apt-get install -y elixir
+          elixir -v
+        # run: apk add bash git tar file build-base sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just gcc libc-dev
       - name: Install hex
         run: mix local.hex --force
       - name: Install rebar
