@@ -307,9 +307,9 @@ jobs:
   #       run: echo ${{ steps.docker_build.outputs.digest }}
 
   elixir_release: 
-    name: Elixir/OTP release on alpine x86 
+    name: Elixir/OTP release on debian bullseye x86 
     runs-on: ubuntu-latest
-    container: elixir:1.14-alpine
+    container: bullseye-slim
     env:
       FLAVOUR: classic
       WITH_DOCKER: no
@@ -350,7 +350,7 @@ jobs:
       - name: Build the OTP release
         run: just rel-build
       - name: Create an archive
-        run: cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-x86-alpine.tar.gz bonfire
+        run: cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-x86-debian-bullseye.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
