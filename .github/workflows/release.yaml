@@ -350,11 +350,11 @@ jobs:
       - name: Build the OTP release
         run: just rel-build
       - name: Create an archive
-        run: cd _build/prod/rel && tar -czvf bonfire-x86.tar.gz bonfire
+        run: cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-x86.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
-          files: _build/prod/rel/bonfire-x86.tar.gz
+          files: _build/prod/rel/bonfire-*.tar.gz
           name: Unstable - ${{ steps.version.outputs.tag }}
           tag_name: ${{ steps.version.outputs.tag }}
       # - name: Publish release 
