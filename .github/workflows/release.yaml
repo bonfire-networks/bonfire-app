@@ -229,14 +229,20 @@ jobs:
                 # chmod +x deps-debian.sh && ./deps-debian.sh
                 # have to copy paste because the script ^ is not available in container:
                 apt-get update -q -y
-                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg
+                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg sudo
 
-                bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
-                git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
+                # Setup makedeb.
+                curl -q 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1> /dev/null 
+                echo "deb [signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr bullseye" | tee /etc/apt/sources.list.d/prebuilt-mpr.list 
 
+                # Elixir
                 echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
                 wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
-                apt-get update && apt-get install -y elixir
+
+                # Install
+                apt-get update -q -y
+                apt-get install -y elixir just
+
                 elixir -v
                 ;;
               alpine*)
