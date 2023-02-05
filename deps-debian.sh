@@ -1,5 +1,5 @@
 apt-get update -q -y
-apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg sudo
+apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg sudo
 
 # Setup makedeb.
 curl -q 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1> /dev/null 
@@ -11,6 +11,10 @@ wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key
 
 # Install
 apt-get update -q -y
-apt-get install -y elixir just
+apt-get install -y elixir
+apt-get install -y just || cargo install just
+npm install --global yarn
 
 elixir -v
+just --version
+yarn -v
