@@ -500,11 +500,11 @@ rel-build-release:
 	@just rel-build remote 
 
 # Build the release 
-rel-build USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
+rel-build USE_EXT="local" ARGS="": 
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release 
-rel-build-OTP USE_EXT="local" ARGS="": assets-ln
+rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare assets-ln
 	cd ./assets && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest
 	just rel-mix {{ USE_EXT }} release
@@ -515,10 +515,10 @@ rel-mix USE_EXT="local" ARGS="":
 	@MIX_ENV=prod CI=1 just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image 
-rel-build-docker USE_EXT="local" ARGS="": 
+rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
 	@just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
-rel-build-path FORKS_TO_COPY_PATH ARGS="": rel-init rel-prepare assets-prepare 
+rel-build-path FORKS_TO_COPY_PATH ARGS="": 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
@@ -677,6 +677,8 @@ localise-extract:
 @localise-extract-push: localise-extract localise-tx-push
 
 assets-prepare:
+	-mkdir -p priv/static
+	-mkdir -p priv/static/data
 	-mkdir -p priv/static/data/uploads
 	-mkdir -p rel/overlays/
 	-cp lib/*/*/overlay/* rel/overlays/ 
