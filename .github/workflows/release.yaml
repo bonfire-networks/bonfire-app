@@ -4,36 +4,6 @@ on:
     branches: 
       - main 
 jobs:
-  # elixir_release: 
-  #   name: Elixir/OTP release without Docker
-  #   runs-on: ubuntu-latest
-  #   container: elixir:alpine
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Install system deps
-  #       run: apk add git npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargojust gcc libc-dev
-  #     - name: Install hex
-  #       run: mix local.hex --force
-  #     - name: Install rebar
-  #       run: mix local.rebar --force
-  #     - name: Install Elixir dependencies
-  #       run: mix deps.get --only prod
-  #     - name: Install JS dependencies
-  #       run: just js-deps-get
-  #     - name: Prepare release
-  #       run: |
-  #         mix compile
-  #         cd ./assets && yarn build && cd ..
-  #         mix phx.digest
-  #         mix release
-  #       env:
-  #         MIX_ENV: prod
-  #     - name: Publish release 
-  #       uses: mayel/actions/bin/ghr@master
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         RELEASE_PATH: _build/prod/rel
-  #         CI: 1
 
   classic_flavour_common_docker_release_build_push:
     name: Classic flavour - multiarch - Maybe tag version & release Docker image
@@ -369,3 +339,32 @@ jobs:
   #     -
   #       name: Image digest
   #       run: echo ${{ steps.docker_build.outputs.digest }}
+
+  elixir_release: 
+    name: Elixir/OTP release without Docker
+    runs-on: ubuntu-latest
+    container: elixir:alpine
+    env:
+      FLAVOUR: cooperation
+      WITH_DOCKER: no
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install system deps
+        run: apk add git npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargojust gcc libc-dev
+      - name: Install hex
+        run: mix local.hex --force
+      - name: Install rebar
+        run: mix local.rebar --force
+      - name: Install Elixir dependencies
+        run: mix deps.get --only prod
+      - name: Prepare release
+        run: |
+          just rel-build
+        env:
+          MIX_ENV: prod
+      - name: Publish release 
+        uses: mayel/actions/bin/ghr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_PATH: _build/prod/rel
+          CI: 1

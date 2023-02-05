@@ -20,7 +20,7 @@ APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', "bonfirenetworks/bonf
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
 ## Other configs - edit these here if necessary
-FORKS_PATH := "extensions/"
+EXT_PATH := "extensions/"
 EXTRA_FORKS_PATH := "forks/"
 ORG_NAME := "bonfirenetworks"
 APP_NAME := "bonfire"
@@ -228,7 +228,7 @@ update-deps-all: deps-unlock-unused pre-update-deps
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: pre-update-deps
-	@chmod +x git-publish.sh && ./git-publish.sh $FORKS_PATH/$dep pull && ./git-publish.sh $EXTRA_FORKS_PATH/$dep pull 
+	@chmod +x git-publish.sh && ./git-publish.sh $EXT_PATH/$dep pull && ./git-publish.sh $EXTRA_FORKS_PATH/$dep pull 
 	just mix-remote "deps.update $dep"
 	just deps-post-get
 	./js-deps-get.sh $dep
@@ -236,12 +236,12 @@ update-dep dep: pre-update-deps
 # Pull the latest commits from all forks
 update-forks: 
 	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
-	@chmod +x git-publish.sh && find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \; && find $EXTRA_FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
-# TODO: run in parallel? find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
+	@chmod +x git-publish.sh && find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \; && find $EXTRA_FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
+# TODO: run in parallel? find $EXT_PATH -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
 
 # Pull the latest commits from all forks
 update-fork dep: 
-	@chmod +x git-publish.sh && find $FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \; && find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
+	@chmod +x git-publish.sh && find $EXT_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \; && find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
 
 # Fetch locked version of non-forked deps
 deps-get: 
@@ -290,7 +290,7 @@ dep-clean dep:
 
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 dep-clone-local dep repo: 
-	git clone $repo $FORKS_PATH$dep 2> /dev/null || (cd $FORKS_PATH$dep ; git pull)
+	git clone $repo $EXT_PATH$dep 2> /dev/null || (cd $EXT_PATH$dep ; git pull)
 	just dep.go.local dep=$dep
 
 # Clone all bonfire deps / extensions
@@ -299,7 +299,7 @@ deps-clone-local-all:
 
 # Switch to using a local path, eg: just dep.go.local pointers
 dep-go-local dep: 
-	just dep-go-local-path $dep $FORKS_PATH$dep
+	just dep-go-local-path $dep $EXT_PATH$dep
 
 # Switch to using a local path, specifying the path, eg: just dep.go.local dep=pointers path=./libs/pointers
 dep-go-local-path dep path: 
@@ -375,19 +375,19 @@ cloc:
 
 # Run the git add command on each fork
 git-forks-add: deps-git-fix 
-	find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
+	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
 # Run a git status on each fork
 git-forks-status: 
-	@jungle git status || find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
+	@jungle git status || find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
 
 # Run a git command on each fork (eg. `just git-forks pull` pulls the latest version of all local deps from its git remote
 git-forks command: 
-	@find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
+	@find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
 
 # List all diffs in forks
 git-diff: 
-	@find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
+	@find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
 
 # Run a git command on each dep, to ignore chmod changes
 deps-git-fix: 
@@ -400,7 +400,7 @@ deps-git-fix:
 
 # Find any git conflicts in forks
 @git-conflicts: 
-	find $FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
+	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
 @git-publish:
 	chmod +x git-publish.sh
@@ -490,21 +490,36 @@ rel-prepare: rel-config-prepare
 	touch data/current_flavour/config/deps.path
 
 # Build the Docker image (with no caching)
-rel-rebuild: rel-init rel-prepare assets-prepare 
-	just rel-build {{FORKS_PATH}} --no-cache
+rel-rebuild: 
+	just rel-build {{EXT_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
-rel-build-release: rel-init rel-prepare assets-prepare 
+rel-build-release: 
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
-	@just rel-build "data/null" 
+	@just rel-build remote 
 
-# Build the Docker image (including changes to local forks, and using caching)
-rel-build FORKS_TO_COPY_PATH="" ARGS="": 
-	@just rel-build-path {{ if FORKS_TO_COPY_PATH != "" {FORKS_TO_COPY_PATH} else {FORKS_PATH} }} {{ ARGS }}
+# Build the release 
+rel-build USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
+	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
+
+# Build the OTP release 
+rel-build-OTP USE_EXT="local" ARGS="": assets-ln
+	cd ./assets && yarn build && cd ..
+	just rel-mix {{ USE_EXT }} phx.digest
+	just rel-mix {{ USE_EXT }} release
+# just rel-mix {{ USE_EXT }} compile
+
+rel-mix USE_EXT="local" ARGS="": 
+	@echo {{ ARGS }}
+	@MIX_ENV=prod CI=1 just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
+
+# Build the Docker image 
+rel-build-docker USE_EXT="local" ARGS="": 
+	@just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="": rel-init rel-prepare assets-prepare 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
-	@docker build {{ ARGS }} --progress=plain \
+	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
@@ -615,10 +630,12 @@ shell:
 
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
 @mix *args='': 
+	echo % mix $@
 	just cmd mix $@
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
 mix-remote *args='': init 
+	echo % WITH_FORKS=0 mix $@
 	{{ if WITH_DOCKER == "total" { "docker-compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
 
 xref-dot:

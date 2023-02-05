@@ -257,7 +257,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # Specifies which paths to compile per environment
     def elixirc_paths(config, :test),
       do: [
-        "lib",
+        # "lib",
         "test/support"
         | Enum.flat_map(
             deps(config, :test) ++ umbrella_extension_paths(),
@@ -265,7 +265,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
           )
       ]
 
-    def elixirc_paths(_, env), do: ["lib"] ++ catalogues(env)
+    def elixirc_paths(_, env), do: catalogues(env) #++ ["lib"]
 
     def include_dep?(type, dep, config_or_prefixes)
 
