@@ -339,12 +339,15 @@ jobs:
         run: just config
       - name: Install Elixir dependencies
         run: just mix "deps.get --only prod"
-      - name: Prepare release
+      - name: Build the OTP release
         run: just rel-build
-      - name: Release
+      - name: Create an archive
+        run: cd _build/prod/rel && tar -cf bonfire.tar bonfire
+      - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
-          files: _build/prod/rel/
+          files: _build/prod/rel/bonfire.tar
+          name: unstable
           tag_name: ${{ steps.version.outputs.tag }}
           prerelease: true
       # - name: Publish release 
