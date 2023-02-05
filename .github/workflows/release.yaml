@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         flavour: ["classic"] # , "cooperation"]
-        platforms: ["linux/amd64", "linux/amd64,linux/arm64,linux/arm/v7"] # , "linux/arm64"
+        platforms: ["linux/amd64", "linux/arm/v7,linux/arm64,linux/amd64"] # , "linux/arm64"
         include:
           - platforms: "linux/amd64"
             tag_extra: "-x86"
@@ -224,10 +224,20 @@ jobs:
           # no secrets are present in the container state or logs.
           install: |
             export TERM=${{ env.TERM }}
-            ls -la
             case "${{ matrix.distro }}" in
               ubuntu*|jessie|stretch|buster|bullseye)
-                chmod +x deps-debian.sh && ./deps-debian.sh
+                # chmod +x deps-debian.sh && ./deps-debian.sh
+                # have to copy paste because the script ^ is not available in container:
+                apt-get update -q -y
+                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg
+
+                bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
+                git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
+
+                echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
+                wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
+                apt-get update && apt-get install -y elixir
+                elixir -v
                 ;;
               alpine*)
                 chmod +x deps-alpine.sh && ./deps-alpine.sh
