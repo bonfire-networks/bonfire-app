@@ -381,6 +381,7 @@ jobs:
       FLAVOUR: classic
       WITH_DOCKER: no
       MIX_ENV: prod
+      TERM: linux
     # Run steps on a matrix of several arch/distro combinations
     strategy:
       matrix:
@@ -437,10 +438,11 @@ jobs:
           # publicly in your project's package repository, so it is vital that
           # no secrets are present in the container state or logs.
           install: |
+            export TERM=${{ env.TERM }}
             case "${{ matrix.distro }}" in
               ubuntu*|jessie|stretch|buster|bullseye)
                 apt-get update -q -y
-                apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin wget
+                apt-get install -q -y git tar file gcc sqlite3 yarnpkg mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin wget
 
                 bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
                 git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
