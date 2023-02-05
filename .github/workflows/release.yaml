@@ -398,11 +398,19 @@ jobs:
       matrix:
         include:
           - arch: aarch64
+            family: debian
             distro: bullseye
           - arch: armv7
+            family: debian
             distro: bullseye
           # - arch: aarch64
           #   distro: alpine_latest
+          - arch: none # x86
+            distro: none
+            family: debian
+            arch_alt: x86
+            distro_alt: bullseye
+            base_image: debian:bullseye-slim
     steps:
       - 
         name: Checkout
@@ -437,7 +445,7 @@ jobs:
 
           # Pass some environment variables to the container
           env: | # YAML, but pipe character is necessary
-            artifact_name: bonfire-${{ env.FLAVOUR }}-${{ matrix.arch }}-${{ matrix.distro }}.tar.gz
+            artifact_name: bonfire-${{ env.FLAVOUR }}-${{ matrix.arch || matrix.arch_alt }}-${{ matrix.family }}-${{ matrix.distro || matrix.distro_alt }}.tar.gz
 
           # The shell to run commands with in the container
           shell: /bin/sh
