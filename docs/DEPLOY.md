@@ -190,11 +190,11 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Make sure you have erlang and elixir installed (check `Dockerfile` for what version we're currently using)
 
-- Run `mix deps.get --only prod` to install elixir dependencies.
+- `export WITH_DOCKER=no` and `just flavour [classic or your choice of flavour]`
 
-- Prepare assets with `just js-deps-get`, `just assets-prepare` and `mix phx.digest`
+- Run `just mix "deps.get --only prod"` and `just js-deps-get` to install elixir dependencies.
 
-- Run `mix release` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
+- Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
 
 #### C-2. Running the release
 
@@ -206,7 +206,6 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 * You can check if your instance is configured correctly by running it with `bin/bonfire start`
 
 * To run the instance as a daemon, use `bin/bonfire start daemon`.
-
 
 ---
 

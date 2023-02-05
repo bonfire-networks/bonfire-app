@@ -360,6 +360,8 @@ jobs:
         run: mix local.hex --force
       - name: Install rebar
         run: mix local.rebar --force
+      - name: Prep environment
+        run: just config
       - name: Install Elixir dependencies
         run: just mix "deps.get --only prod"
       - name: Prepare release
