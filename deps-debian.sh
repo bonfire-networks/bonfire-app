@@ -11,7 +11,7 @@ wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key
 
 # Install
 apt-get update -q -y
-apt-get install -y elixir
+elixir -v || apt-get install -y elixir
 apt-get install -y just || cargo install just
 npm install --global yarn
 
