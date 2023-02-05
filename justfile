@@ -507,9 +507,12 @@ rel-build USE_EXT="local" ARGS="":
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release 
-rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare assets-ln
+rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare 
 	cd ./assets && yarn build && cd ..
-	ls -la priv/static/ && ls -la priv/static/data  && ls -la priv/static/data/uploads
+	-rm -rf priv/static
+	just assets-prepare 
+	just assets-ln
+	ls -la priv/static/ && ls -la priv/static/data && ls -la priv/static/data/uploads
 	just rel-mix {{ USE_EXT }} phx.digest
 	just rel-mix {{ USE_EXT }} release
 # just rel-mix {{ USE_EXT }} compile
