@@ -441,6 +441,8 @@ jobs:
               ubuntu*|jessie|stretch|buster|bullseye)
                 apt-get update -q -y
                 apt-get install -q -y git tar file build-essential gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo libc-dev-bin
+
+                bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
                 git clone 'https://mpr.makedeb.org/just' && cd just && makedeb -si
 
                 echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
