@@ -345,12 +345,14 @@ jobs:
     runs-on: ubuntu-latest
     container: elixir:alpine
     env:
-      FLAVOUR: cooperation
+      FLAVOUR: classic
       WITH_DOCKER: no
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
+      - name: Trust my repo
+        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app # see https://github.com/actions/checkout/issues/760
       - name: Install system deps
         run: apk add bash git npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just gcc libc-dev
       - name: Install hex
@@ -358,10 +360,9 @@ jobs:
       - name: Install rebar
         run: mix local.rebar --force
       - name: Install Elixir dependencies
-        run: mix deps.get --only prod
+        run: just mix "deps.get --only prod"
       - name: Prepare release
-        run: |
-          just rel-build
+        run: just rel-build
         env:
           MIX_ENV: prod
       - name: Publish release 
