@@ -1,3 +1,7 @@
+asdf_dir=/opt/asdf
+mkdir -p ${asdf_dir}
+export PATH=${asdf_dir}/bin:${asdf_dir}/shims:${PATH}
+
 apt-get update -q -y
 apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg sudo
 
@@ -9,12 +13,12 @@ apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libss
 # echo "deb http://packages.erlang-solutions.com/debian bullseye contrib" >> /etc/apt/sources.list
 # wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+git clone https://github.com/asdf-vm/asdf.git ${asdf_dir} --branch v0.11.1
 
 # Install
 apt-get update -q -y
-elixir -v || brew install elixir || apt-get install -y elixir
-just --version || brew install just || apt-get install -y just || cargo install just
+elixir -v || asdf install elixir || apt-get install -y elixir
+just --version || asdf install just || apt-get install -y just || cargo install just
 npm install --global yarn
 
 elixir -v
