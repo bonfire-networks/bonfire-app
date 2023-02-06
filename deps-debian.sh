@@ -18,8 +18,8 @@ asdf plugin-add erlang && asdf plugin-add elixir && asdf plugin-add just
 
 # Install
 apt-get update -q -y
-elixir -v || asdf install elixir #|| apt-get install -y elixir
-just --version || asdf install just || cargo install just #|| apt-get install -y just 
+elixir -v || asdf install elixir latest #|| apt-get install -y elixir
+just --version || asdf install just latest || cargo install just #|| apt-get install -y just 
 npm install --global yarn
 
 elixir -v

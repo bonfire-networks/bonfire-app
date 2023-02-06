@@ -12,7 +12,7 @@ jobs:
         platforms: ["linux/amd64", "linux/arm/v7,linux/arm64,linux/amd64"] # , "linux/arm64"
         include:
           - platforms: "linux/amd64"
-            tag_extra: "-x86"
+            tag_extra: "-amd64"
     name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
@@ -76,7 +76,7 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   elixir_release: 
-    name: ${{ matrix.flavour }} - OTP on x86 bullseye  
+    name: ${{ matrix.flavour }} - OTP on amd64 bullseye  
     strategy:
       matrix:
         flavour: ["classic"] # , "cooperation"]
@@ -111,20 +111,15 @@ jobs:
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
       - 
-        name: Install system deps
-        run: chmod +x deps-debian.sh && ./deps-debian.sh
-      - name: Install hex
-        run: mix local.hex --force
-      - name: Install rebar
-        run: mix local.rebar --force
-      - name: Prep environment
-        run: just config
-      - name: Install Elixir dependencies
-        run: just mix "deps.get --only prod"
-      - name: Build the OTP release
-        run: just rel-build
-      - name: Create an archive
-        run: cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-x86-debian-bullseye.tar.gz bonfire
+        name: Install deps & build app
+        run: |
+          chmod +x deps-debian.sh && ./deps-debian.sh
+          mix local.hex --force
+          mix local.rebar --force
+          just config
+          just mix "deps.get --only prod"
+          just rel-build
+          cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
@@ -172,7 +167,7 @@ jobs:
           #   distro: none
           #   base_image: debian:bullseye-slim # Error: run-on-arch: If arch and distro are not specified, base_image is required
           #   family: debian
-          #   arch_alt: x86
+          #   arch_alt: amd64
           #   distro_alt: bullseye
     env:
       FLAVOUR: ${{ matrix.flavour }}
@@ -242,8 +237,8 @@ jobs:
 
                 # Install
                 apt-get update -q -y
-                elixir -v || asdf install elixir #|| apt-get install -y elixir
-                just --version || asdf install just || cargo install just #|| apt-get install -y just 
+                elixir -v || asdf install elixir latest #|| apt-get install -y elixir
+                just --version || asdf install just latest || cargo install just #|| apt-get install -y just 
                 npm install --global yarn
 
                 elixir -v
