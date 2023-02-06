@@ -1,3 +1,4 @@
+#!/bin/bash
 # NOTE: using asdf because bullseye elixir version is too old
 
 asdf_dir=/opt/asdf
@@ -17,7 +18,7 @@ just --version || asdf install just latest || cargo install just #|| apt-get ins
 npm install --global yarn
 
 echo $PATH
-ls -la $asdf_dir && ls -la $asdf_dir/bin && ls -la $asdf_dir/shims
+ls -la $asdf_dir && ls -la $asdf_dir/bin && ls -la /root/.asdf/shims
 elixir -v
 just --version
 yarn -v
