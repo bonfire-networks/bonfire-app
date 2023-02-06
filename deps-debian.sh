@@ -20,7 +20,7 @@ just --version || (asdf install just latest && asdf global just latest) || cargo
 npm install --global yarn
 
 echo $PATH
-ls -la $asdf_dir && ls -la $asdf_dir/bin
+ls -la $asdf_dir && ls -la $asdf_dir/bin && ls -la $asdf_dir/bin/private
 elixir -v
 just --version
 yarn -v
