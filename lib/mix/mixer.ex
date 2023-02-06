@@ -265,7 +265,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
           )
       ]
 
-    def elixirc_paths(_, env), do: catalogues(env) #++ ["lib"]
+    # ++ ["lib"]
+    def elixirc_paths(_, env), do: catalogues(env)
 
     def include_dep?(type, dep, config_or_prefixes)
 
