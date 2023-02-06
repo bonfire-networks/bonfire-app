@@ -16,6 +16,8 @@ elixir -v || asdf install elixir latest #|| apt-get install -y elixir
 just --version || asdf install just latest || cargo install just #|| apt-get install -y just 
 npm install --global yarn
 
+echo $PATH
+ls -la $asdf_dir && ls -la $asdf_dir/bin && ls -la $asdf_dir/shims
 elixir -v
 just --version
 yarn -v
