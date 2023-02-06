@@ -508,7 +508,8 @@ rel-build USE_EXT="local" ARGS="":
 
 # Build the OTP release 
 rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare 
-	npm install --global yarn esbuild postcss
+	yarn -v || npm install --global yarn
+	npm install --global esbuild postcss
 	cd ./assets && yarn build && cd ..
 	-rm -rf priv/static
 	just assets-prepare 
