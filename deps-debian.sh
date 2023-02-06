@@ -3,7 +3,7 @@ mkdir -p ${asdf_dir}
 export PATH=${asdf_dir}/bin:${asdf_dir}/shims:${PATH}
 
 apt-get update -q -y
-apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg sudo
+apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libssl-dev tzdata gettext curl rustc cargo wget gnupg sudo unzip
 
 # Setup makedeb.
 # curl -q 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1> /dev/null 
