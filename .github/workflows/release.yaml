@@ -114,7 +114,7 @@ jobs:
         name: Install deps & build app
         run: |
           chmod +x deps-debian.sh && ./deps-debian.sh
-          . "/opt/asdf/asdf.sh"
+          . /opt/asdf/asdf.sh
           mix local.hex --force
           mix local.rebar --force
           just config
@@ -247,7 +247,7 @@ jobs:
                 npm install --global yarn
 
                 echo $PATH
-                ls -la $asdf_dir && ls -la $asdf_dir/bin
+                ls -la $asdf_dir && ls -la $asdf_dir/bin && /github/home/.asdf/shims
                 elixir -v
                 just --version
                 yarn -v
