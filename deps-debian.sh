@@ -14,11 +14,12 @@ apt-get install -q -y git tar file gcc sqlite3 npm mailcap ca-certificates libss
 # wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && apt-key add erlang_solutions.asc
 
 git clone https://github.com/asdf-vm/asdf.git ${asdf_dir} --branch v0.11.1
+asdf plugin-add erlang && asdf plugin-add elixir && asdf plugin-add just
 
 # Install
 apt-get update -q -y
-elixir -v || asdf install elixir || apt-get install -y elixir
-just --version || asdf install just || apt-get install -y just || cargo install just
+elixir -v || asdf install elixir #|| apt-get install -y elixir
+just --version || asdf install just || cargo install just #|| apt-get install -y just 
 npm install --global yarn
 
 elixir -v
