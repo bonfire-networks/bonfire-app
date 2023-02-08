@@ -16,7 +16,7 @@ config :bonfire_common, Bonfire.Common.Localise.Cldr,
   add_fallback_locales: true,
   # precompile_number_formats: ["¤¤#,##0.##"],
   # precompile_transliterations: [{:latn, :arab}, {:thai, :latn}]
-  # force_locale_download: false,
+  force_locale_download: Mix.env() == :prod,
   generate_docs: true
 
 config :ex_cldr,
