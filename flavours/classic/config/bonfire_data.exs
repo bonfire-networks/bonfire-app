@@ -101,6 +101,19 @@ config :bonfire, :extensions_grouped, %{
   Bonfire.Common.NavModule => extensions_with_ui
 }
 
+# TODO: refactor to use ExtensionBehaviour
+config :bonfire,
+  federation_search_path: [
+    :bonfire_common,
+    :bonfire_me,
+    :bonfire_social,
+    :bonfire_valueflows,
+    :bonfire_classify,
+    :bonfire_geolocate,
+    :bonfire_quantify,
+    :bonfire_boundaries
+  ]
+
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
 config :bonfire_data_access_control,
   search_path: [

@@ -90,7 +90,8 @@ config :bonfire, Oban,
   plugins: [Oban.Plugins.Pruner],
   queues: [
     federator_incoming: 50,
-    federator_outgoing: 50
+    federator_outgoing: 50,
+    remote_fetcher: 20
   ]
 
 config :mime, :types, %{

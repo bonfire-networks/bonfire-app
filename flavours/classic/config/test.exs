@@ -36,12 +36,14 @@ config :bonfire, Bonfire.Common.Repo,
   pool_size: 60,
   # show_sensitive_data_on_connection_error: true,
   # database: db,
-  log: :info,
   slow_query_ms: 500,
   queue_target: 5_000,
   queue_interval: 2_000,
   timeout: 10_000,
-  connect_timeout: 10_000
+  connect_timeout: 10_000,
+  # log: :info,
+  log: false,
+  stacktrace: true
 
 # Optionally run a 2nd endpoint for testing federation
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,

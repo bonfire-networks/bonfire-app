@@ -5,15 +5,6 @@ alias Bonfire.Federate.ActivityPub.Adapter
 actor_types = ["Person", "Group", "Application", "Service", "Organization"]
 
 config :bonfire,
-  federation_search_path: [
-    :bonfire_common,
-    :bonfire_me,
-    :bonfire_social,
-    :bonfire_valueflows,
-    :bonfire_classify,
-    :bonfire_geolocate,
-    :bonfire_quantify
-  ],
   # enable/disable logging of federation logic
   log_federation: true,
   federation_fallback_module: Bonfire.Social.APActivities
