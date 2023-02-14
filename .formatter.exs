@@ -7,7 +7,8 @@
     "{mix,.formatter,mess}.exs",
     "{flavours,lib,test}/**/*.{ex,exs,sface,heex}",
     "extensions/*/{config,lib,test}/**/*.{ex,exs,sface,heex}",
-    "forks/bonfire*/{config,lib,test}/**/*.{ex,exs,sface,heex}"
+    "forks/bonfire*/{config,lib,test}/**/*.{ex,exs,sface,heex}",
+    "forks/{untangle,voodoo,zest,pointers,pointers_ulid,nodeinfo,iconify_ex,grumble,flexto,emote.ecto_sparkles,activity_pub,absinthe_client}/{config,lib,test}/**/*.{ex,exs,heex}"
   ],
   subdirectories: ["priv/*/migrations"],
 
