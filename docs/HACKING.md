@@ -1,6 +1,6 @@
 # Development guide
 
-_These instructions are for hacking on Bonfire. If you wish to deploy in production, please refer to our [Deployment Guide](./DEPLOY.md)!_
+_These instructions are for hacking on Bonfire. If you wish to deploy in production, please refer to our deployment guide instead._
 
 Hello, potential contributor! :-)
 
