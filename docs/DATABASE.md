@@ -1,23 +1,18 @@
 # Bonfire's Database - an intro
 
-Bonfire uses the excellent PostgreSQL database for most data storage. PostgreSQL allows us to make a
-wide range of queries and to make them relatively fast while upholding data integrity guarantees.
+Bonfire uses the excellent PostgreSQL database for most data storage. PostgreSQL allows us to make a wide range of queries and to make them relatively fast while upholding data integrity guarantees.
 
-Postgres is a relational schema-led database - it expects you to pre-define tables and the fields 
-in each table (represented in tabular form, i.e. as a collection of tables with each table consisting 
-of a set of rows and columns). Fields can contain data or a reference to a row in another table. 
-This usually means that a field containing a reference has to be pre-defined with a foreign key 
-pointing to a specific field (typically a primary key, like an ID column) *in a specific table*. 
+Postgres is a relational schema-led database - it expects you to pre-define tables and the fields in each table (represented in tabular form, i.e. as a collection of tables with each table consisting of a set of rows and columns). Fields can contain data or a reference to a row in another table. 
+
+This usually means that a field containing a reference has to be pre-defined with a foreign key pointing to a specific field (typically a primary key, like an ID column) *in a specific table*. 
 
 A simple example would be a blogging app, which might have a `post` table with `author` field that references the `user` table.
 
-A social network, by contrast, is actually a graph of objects. Objects need to be able to refer 
-to other objects by their ID without knowing their type. 
+A social network, by contrast, is actually a graph of objects. Objects need to be able to refer to other objects by their ID without knowing their type. 
 
 A simple example would be likes, you might have a `likes` table with `liked_object` field that references the `post` table. But you don't just have posts that can be liked, but also videos, images, polls, etc, each with their own table?
 
-We needed the flexibility to have a foreign key that can reference any referenceable object. 
-We call our system `Pointers`.
+We needed the flexibility to have a foreign key that can reference any referenceable object. We call our system `Pointers`.
 
 This guide is a brief introduction to Pointers. It assumes some foundational knowledge:
 
@@ -26,48 +21,37 @@ This guide is a brief introduction to Pointers. It assumes some foundational kno
   * What a primary key is and why it's useful.
   * Foreign keys and relationships between tables (1 to 1, 1 to Many, Many to 1, Many to Many).
   * Views as virtual tables backed by a SQL query.
+
 * Basic understanding of Elixir (enough to follow the examples).
-  * Basic working knowledge of the [Ecto](https://hexdocs.pm/ecto/Ecto.html) database library (schema and migration definitions)
+* Basic working knowledge of the [Ecto](https://hexdocs.pm/ecto/Ecto.html) database library (schema and migration definitions)
 
 ## Identifying objects - the ULID type
 
-All referenceable objects in the system have a unique ID (primary key) whose type is the
-[`ULID`](https://github.com/ulid/spec). It's a lot like a `UUID` in that you can generate unique ones
-independently of the database. It's also a little different, being made up of two parts:
+All referenceable objects in the system have a unique ID (primary key) whose type is the [`ULID`](https://github.com/ulid/spec). It's a lot like a `UUID` in that you can generate unique ones independently of the database. It's also a little different, being made up of two parts:
 
 * The current timestamp, to millisecond precision.
 * Strong random padding for uniqueness.
 
-This means that it naturally sorts by time to the millisecond (close enough for us), giving us a
-performance advantage on queries ordered by a separate creation datetime field (by contrast, UUIDv4 is 
-randomly distributed).
+This means that it naturally sorts by time to the millisecond (close enough for us), giving us a performance advantage on queries ordered by a separate creation datetime field (by contrast, UUIDv4 is randomly distributed).
 
-If you've only worked with integer primary keys before, you are probably used to letting the
-database dispense an ID for you. With `ULID` (or `UUID`), IDs can be known *before* they are stored,
-greatly easing the process of storing a graph of data and allowing us to do more of the preparation
-work outside of a transaction for increased performance.
+If you've only worked with integer primary keys before, you are probably used to letting the database dispense an ID for you. With `ULID` (or `UUID`), IDs can be known *before* they are stored, greatly easing the process of storing a graph of data and allowing us to do more of the preparation work outside of a transaction for increased performance.
 
-In PostgreSQL, we actually store `ULID`s as `UUID` columns, thanks to both being the same size 
-(and the lack of a `ULID` column type shipping with postgresql). You mostly will not notice this
-because it's handled for you, but there are a few places it can come up:
+In PostgreSQL, we actually store `ULID`s as `UUID` columns, thanks to both being the same size (and the lack of a `ULID` column type shipping with postgresql). You mostly will not notice this because it's handled for you, but there are a few places it can come up:
 
 * Ecto debug and error output may show either binary values or UUID-formatted values.
 * Hand-written SQL may need to convert table IDs to the `UUID` format before use.
 
 ## It's just a table
 
-The `pointers` system is mostly based around a single table represented by the `Pointers.Pointer`
-schema with the following fields:
+The `pointers` system is mostly based around a single table represented by the `Pointers.Pointer` schema with the following fields:
 
 * `id` (ULID) - the database-wide unique id for the object, primary key.
 * `table_id` (ULID) - identifies the type of the object, references `Pointers.Table`.
 * `deleted_at` (timestamp, default: `null`) - when the object was deleted.
 
-Every object that is stored in the system will have a record in this table. It may also have records
-in other tables (handy for storing more than 3 fields about the object!).
+Every object that is stored in the system will have a record in this table. It may also have records in other tables (handy for storing more than 3 fields about the object!).
 
-Don't worry about `Pointers.Table` for now, just know that every object type will have a
-record there so `Pointers.Pointer.table_id` can reference it.
+Don't worry about `Pointers.Table` for now, just know that every object type will have a record there so `Pointers.Pointer.table_id` can reference it.
 
 ## Mixins - storing data about objects
 
@@ -78,14 +62,9 @@ record or not record information for each mixin. Sample mixins include:
 * post content (containing the title, summary, and/or html body of a post or message)
 * created (containing the id of the object creator)
 
-In this way, they are reusable across different object types. One mixin may (or may not) be used 
-by any number of objects. This is mostly driven by the type of the object we are storing, 
-but can also be driven by user input.
+In this way, they are reusable across different object types. One mixin may (or may not) be used by any number of objects. This is mostly driven by the type of the object we are storing, but can also be driven by user input.
 
-Mixins are just tables too! The only requirement is they have a `ULID` primary key which references
-`Pointers.Pointer`. The developer of the mixin is free to put whatever other fields they want in the
-table, so long as they have that primary-key-as-reference (which will be automatically added for you 
-by the `mixin_schema` macro). 
+Mixins are just tables too! The only requirement is they have a `ULID` primary key which references `Pointers.Pointer`. The developer of the mixin is free to put whatever other fields they want in the table, so long as they have that primary-key-as-reference (which will be automatically added for you by the `mixin_schema` macro). 
 
 Here is a sample mixin definition for a user profile:
 
@@ -117,11 +96,9 @@ We will cover dynamic configuration later. For now, you can use the OTP app that
 
 ## Multimixins
 
-Multimixins are like mixins, except that where an object may have 0 or 1 of a particular mixins, an
-object may have any number of a particular multimixin.
+Multimixins are like mixins, except that where an object may have 0 or 1 of a particular mixins, an object may have any number of a particular multimixin.
 
-For this to work, a multimixin must have a *compound primary key* which must contain an `id` column
-referencing `Pointers.Pointer` and at least one other field which will collectively be unique.
+For this to work, a multimixin must have a *compound primary key* which must contain an `id` column referencing `Pointers.Pointer` and at least one other field which will collectively be unique.
 
 An example multimixin is used for publishing an item to feeds:
 
@@ -140,29 +117,22 @@ defmodule Bonfire.Data.Social.FeedPublish do
 end
 ```
 
-Notice that this looks very similar to defining a mixin. Indeed, the only difference is the
-`primary_key: true` in this line, which adds a second field to the compound primary key.
-This results in ecto recording a compound primary key of `(id, feed_id)` for the schema (the id is
-added for you as with regular mixins).
+Notice that this looks very similar to defining a mixin. Indeed, the only difference is the `primary_key: true` in this line, which adds a second field to the compound primary key.
+This results in ecto recording a compound primary key of `(id, feed_id)` for the schema (the id is added for you as with regular mixins).
 
 ## Declaring Object Types
 
 ### Picking a table id
 
-The first step to declaring a type is picking a unique table ID in ULID format. You could just
-generate one at the terminal, but since these IDs are special, we tend to assign a synthetic ULID
-that are readable as words so they stand out in debug output.
+The first step to declaring a type is picking a unique table ID in ULID format. You could just generate one at the terminal, but since these IDs are special, we tend to assign a synthetic ULID that are readable as words so they stand out in debug output.
 
-For example, the ID for the `Feed` table is: `1TFEEDS0NTHES0V1S0FM0RTA1S`, which can be read as "It
-feeds on the souls of mortals". Feel free to have a little fun coming up with them, it makes debug
-output a little more cheery! The rules are:
+For example, the ID for the `Feed` table is: `1TFEEDS0NTHES0V1S0FM0RTA1S`, which can be read as "It feeds on the souls of mortals". Feel free to have a little fun coming up with them, it makes debug output a little more cheery! The rules are:
 
 * The alphabet is [Crockford's Base32](https://en.wikipedia.org/wiki/Base32#Crockford's_Base32).
 * They must be 26 characters in length.
 * The first character must be a digit in the range 0-7.
 
-To help you with this, the `Pointers.ULID.synthesise!/1` method takes an alphanumeric
-binary and tries to return you it transliterated into a valid ULID. Example usage:
+To help you with this, the `Pointers.ULID.synthesise!/1` method takes an alphanumeric binary and tries to return you it transliterated into a valid ULID. Example usage:
 
 ```
 iex(1)> Pointers.ULID.synthesise!("itfeedsonthesouls")
@@ -201,38 +171,26 @@ defmodule Bonfire.Data.Social.Block do
 end
 ```
 
-It should look quite similar to a mixin definition, except that we `use` `Pointers.Virtual` this time
-(passing an additional `table_id` argument) and we call the `virtual_schema` macro.
+It should look quite similar to a mixin definition, except that we `use` `Pointers.Virtual` this time (passing an additional `table_id` argument) and we call the `virtual_schema` macro.
 
-The primary limitation of a virtual is that you cannot put extra fields into one. This also means
-that `belongs_to` is not generally permitted because it results in adding a field. `has_one` and
-`has_many` work just fine as they do not cause the creation of fields in the schema.
+The primary limitation of a virtual is that you cannot put extra fields into one. This also means that `belongs_to` is not generally permitted because it results in adding a field. `has_one` and `has_many` work just fine as they do not cause the creation of fields in the schema.
 
 This is not usually a problem, as extra fields can be put into mixins or multimixins as appropriate.
 
-Under the hood, a virtual has a view (in this example, called `bonfire_data_social_block`). It looks
-like a table with just an id, but it's populated with all the ids of blocks that are not
-deleted. When the view is inserted into, a record is created in the `pointers` table for you 
-transparently. When you delete from the view, the corresponding `pointers` entry is marked deleted 
-for you.
+Under the hood, a virtual has a view (in this example, called `bonfire_data_social_block`). It looks like a table with just an id, but it's populated with all the ids of blocks that are not deleted. When the view is inserted into, a record is created in the `pointers` table for you transparently. When you delete from the view, the corresponding `pointers` entry is marked deleted for you.
 
 ### Pointables
 
-The other, lesser used, type of object is called the Pointable. The major difference is that unlike
-the simple case of virtuals, pointables are not backed by views, but by tables.
+The other, lesser used, type of object is called the Pointable. The major difference is that unlike the simple case of virtuals, pointables are not backed by views, but by tables.
 
-When a record is inserted into a pointable table, a copy is made in the `pointers` table for you
-transparently. When you delete from the table, the the corresponding `pointers` entry is marked
-deleted for you. In these ways, they behave very much like virtuals. By having a table, however, we
-are free to add new fields.
+When a record is inserted into a pointable table, a copy is made in the `pointers` table for you transparently. When you delete from the table, the the corresponding `pointers` entry is marked deleted for you. In these ways, they behave very much like virtuals. By having a table, however, we are free to add new fields.
 
 Pointables pay for this flexibility by being slightly more expensive than virtuals:
 
 * Records must be inserted into/deleted from two tables (the pointable's table and the `pointers` table).
 * The pointable table needs its own primary key index.
 
-Here is a definition of a pointable type (indicating an ActivityPub activity whose type we don't
-recognise, stored as a JSON blob):
+Here is a definition of a pointable type (indicating an ActivityPub activity whose type we don't recognise, stored as a JSON blob):
 
 ```elixir
 defmodule Bonfire.Data.Social.APActivity do
@@ -252,8 +210,7 @@ The choice of using a pointable instead of a virtual combined with one or more m
 
 ## Writing Migrations
 
-Migrations are typically included along with the schemas as public APIs you can call within your
-project's migrations.
+Migrations are typically included along with the schemas as public APIs you can call within your project's migrations.
 
 ### Virtuals
 
@@ -270,8 +227,7 @@ defmodule Bonfire.Data.Social.Post.Migration do
 end
 ```
 
-If you need to do more work, it can be a little trickier. Here's an example for `block`, which
-also creates a unique index on another table:
+If you need to do more work, it can be a little trickier. Here's an example for `block`, which also creates a unique index on another table:
 
 ```elixir
 defmodule Bonfire.Data.Social.Block.Migration do
@@ -300,8 +256,7 @@ defmodule Bonfire.Data.Social.Block.Migration do
 end
 ```
 
-Notice how we have to write our `up` and `down` versions separately to get the correct
-ordering of operations. Handling down migrations can be a bit awkward in ecto.
+Notice how we have to write our `up` and `down` versions separately to get the correct ordering of operations. 
 
 ### Pointables
 
@@ -477,6 +432,5 @@ scenarios by now:
 * [bonfire_data_identity](https://github.com/bonfire-networks/bonfire_data_identity/)
 * [bonfire_data_edges](https://github.com/bonfire-networks/bonfire_data_edges/) (feat. bonus triggers)
 
-If you want to know exactly what's happening, I can only suggest reading the code for
-[Pointers.Migration](https://github.com/bonfire-networks/pointers/blob/main/lib/migration.ex), it's
-surprisingly readable.
+If you want to know exactly what's happening, you may want to read the code for
+[Pointers.Migration](https://github.com/bonfire-networks/pointers/blob/main/lib/migration.ex).

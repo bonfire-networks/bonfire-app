@@ -2,11 +2,9 @@
 
 ## Hacking
 
-Bonfire is an unusual piece of software, developed in an unusual way. 
-It originally started with requests by Moodle users to be able to share and collaborate on educational resources with their peers and has been forked and evolved a lot since then.
+Bonfire is an unusual piece of software, developed in an unusual way. It originally started as a project to create a generic federation library/framework, while building an app for educators to share and collaborate on learning resources with their peers, and has been forked and evolved a lot since then. 
 
-Hacking on it is actually pretty fun. The codebase has a unique feeling to work with and we've relentlessly refactored to manage the ever-growing complexity that a distributed social networking toolkit implies. 
-That said, it is not easy to understand without context, which is what this document is here to provide.
+Hacking on it is actually pretty fun. The codebase has a unique feeling to work with and we've relentlessly refactored to manage the ever-growing complexity that a distributed social networking toolkit implies. That said, it is not easy to understand without context, which is what this document is here to provide.
 
 ## Design Decisions
 
@@ -24,33 +22,21 @@ Operational goals:
 
 ## Stack
 
-Our main implementation language is [Elixir](https://www.elixir-lang.org/), which is designed for
-building reliable systems. We have almost [our own dialect](./BONFIRE-FLAVOURED-ELIXIR.md).
+Our main implementation language is [Elixir](https://www.elixir-lang.org/), which is designed for building reliable systems. We have almost [our own dialect](./BONFIRE-FLAVOURED-ELIXIR.md).
 
-We use the [Phoenix](https://www.phoenixframework.org/) web framework with
-[LiveView](https://hexdocs.pm/phoenix_live_view/) and [Surface](https://surface-ui.org/documentation)
-for UI components and views.
+We use the [Phoenix](https://www.phoenixframework.org/) web framework with [LiveView](https://hexdocs.pm/phoenix_live_view/) and [Surface](https://surface-ui.org/documentation) for UI components and views.
 
-Surface is a different syntax for LiveView that is designed to be more convenient and understandable
-to frontend developers, with extra compile time checks. Surface views and components are compiled
-into LiveView code (so once you hit runtime, Surface in effect doesn't exist any more).
+Surface is a different syntax for LiveView that is designed to be more convenient and understandable to frontend developers, with extra compile time checks. Surface views and components are compiled into LiveView code (so once you hit runtime, Surface in effect doesn't exist any more).
 
 Some extensions use the [Absinthe](https://absinthe-graphql.org/) GraphQL library to expose an API.
 
 ## The Bonfire Environment
 
-We like to think of bonfire as a comfortable way of developing software - there are a lot of
-conveniences built in once you know how they all work. The gotcha is that while you don't know them, it can be a bit overwhelming. Don't worry, we've got your back.
-
-* [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way write elixir.
-* [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
-* [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
-
-Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
+We like to think of bonfire as a comfortable way of developing software - there are a lot of conveniences built in once you know how they all work. The gotcha is that while you don't know them, it can be a bit overwhelming. Don't worry, we've got your back.
 
 ## Code Structure
 
-The code is broadly composed of these namespaces, many of which are packaged as "extensions" which are in separate git repos, and are included in the app by way of mix dependencies.
+The code is broadly composed namespaces such as these, many of which are packaged as "extensions" which live in separate git repositories, which are included in the app by way of mix dependencies:
 
 - `Bonfire.*` - Core application logic (very little code).
 - `Bonfire.*.*` - Bonfire extensions (eg `Bonfire.Social.Posts`) containing mostly context modules, APIs, and routes
@@ -80,7 +66,6 @@ EconomicResources.many(deleted: true) # List any deleted resources
 ```
 
 Context modules also have functions for creating, updating and deleting objects, as well as hooks for federating or indexing in the search engine.
-
 
 Here is an incomplete sample of some of current extensions and modules:
 

@@ -42,8 +42,7 @@ end
 ```
 
 A few little extra features you might notice here:
-* You can move the parameter into a subexpression, as in `2 |> double_fst(double(...), 1)` where
-  double will be called before the parameter is passed to `double_fst`.
+* You can move the parameter into a subexpression, as in `2 |> double_fst(double(...), 1)` where double will be called before the parameter is passed to `double_fst`.
 * You can use `...` multiple times, substituting it in multiple places.
 * The right hand side need not even be a function call, you can use any expression with `...`.
 
@@ -103,14 +102,15 @@ You will find the codebase uses this a lot, though the debugs are frequently com
 
 `id = ulid(object) || raise(Bonfire.Fail, :not_found)` 
 
+You can use this special exception when you want to redirect the user to the login page rather than just show an error:
+`user = current_user(assigns) || raise(Bonfire.Fail.Auth, :needs_login)` 
+
 Advantages include:
 
 - standardised error messages (defaults are defined at https://github.com/bonfire-networks/bonfire_fail/blob/main/lib/runtime_config.ex#L16) which can be overridden in your app's config using `config :bonfire_fail, :common_errors`
-- messages are defined in one place, which means no duplicated localisation efforts
+- friendly error messages are defined in one place, which means no duplicated localisation efforts
 - uses the elixir/OTP pattern of "let it crash"
+- returns the correct HTTP code when applicable
 - no need to wrap blocks in if/else or the like 
+- for users of the LiveView frontend, this will make the corresponding friendly error message appear in a flash overlay (if using `Bonfire.UI.Common.LiveHandlers` and/or `Bonfire.UI.Common.undead/3`)
 
-Note that when users of the LiveView frontend, this will make the corresponding friendly error message appear in flash overlay. 
-
-You can also use this exception when you want to redirect the user to the login page:
-`user = current_user(assigns) || raise(Bonfire.Fail.Auth, :needs_login)` 
