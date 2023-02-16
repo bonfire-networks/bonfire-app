@@ -310,8 +310,8 @@ defmodule Bonfire.Umbrella.MixProject do
       "bonfire.deps.clean.api": [
         "deps.clean " <> Mixer.deps_to_clean(config(), :api) <> " --build"
       ],
-      "bonfire.deps.recompile": [
-        "deps.compile " <> Mixer.deps_to_update(config()) <> " --force"
+      "bonfire.deps.compile": [
+        "deps.compile " <> Mixer.deps_to_update(config())
       ],
       "ecto.seeds": [
         "run #{Mixer.flavour_path(config())}/repo/seeds.exs"

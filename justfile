@@ -118,13 +118,15 @@ prepare:
 	just build
 
 # Run the app in development
-dev: init dev-run 
+@dev *args='': init 
+	just dev-run {{args}}
 
 @dev-extra: 
 	iex --sname extra --remsh dev
 
-@dev-run:
-	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "iex --sname dev -S mix phx.server" } }}
+dev-run *args='':
+	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "iex --sname dev -S mix phx.server $args" } }}
+# TODO: pass args to docker as well
 
 @dev-remote: init
 	{{ if WITH_DOCKER == "total" { "WITH_FORKS=0 just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
@@ -146,9 +148,14 @@ arch:
 	just mix arch.apps.xref --format svg --out reports/dev/static/html/data/apps.svg
 # just mix arch.xref --format svg --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes 
 
-# Force the app to recompile
-recompile: 
-	just mix "compile --force"
+# Compile the app + extensions
+compile *args='': 
+	just mix bonfire.deps.compile $args
+	just mix compile $args
+
+# Force the app + extensions to recompile
+recompile *args='': 
+	just compile --force $args
 
 dev-test: 
 	@MIX_ENV=test START_SERVER=yes just dev-run

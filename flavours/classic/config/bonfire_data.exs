@@ -140,7 +140,7 @@ alias Bonfire.Data.ActivityPub.Actor
 alias Bonfire.Data.ActivityPub.Peer
 alias Bonfire.Data.ActivityPub.Peered
 
-alias Bonfire.Boundaries.Permitted
+# alias Bonfire.Boundaries.Permitted
 alias Bonfire.Boundaries.Stereotyped
 
 alias Bonfire.Data.Edges.Edge
@@ -334,7 +334,7 @@ config :pointers, Pointer,
          join_keys: [circle_id: :id, subject_id: :id]
        )
 
-       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+       #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
        has_one(:user, unquote(User), foreign_key: :id)
        has_one(:post, unquote(Post), foreign_key: :id)
        has_one(:message, unquote(Message), foreign_key: :id)
@@ -482,8 +482,18 @@ config :bonfire_data_identity, Character,
        unquote_splicing(common.([:actor, :peered, :profile]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
-       has_many(:followers, unquote(Follow), foreign_key: :following_id, references: :id)
-       has_many(:followed, unquote(Follow), foreign_key: :follower_id, references: :id)
+
+       has_many(:followers, unquote(Edge),
+         foreign_key: :object_id,
+         references: :id,
+         where: [table_id: @follow_ulid]
+       )
+
+       has_many(:followed, unquote(Edge),
+         foreign_key: :subject_id,
+         references: :id,
+         where: [table_id: @follow_ulid]
+       )
 
        has_one(:follow_count, unquote(EdgeTotal),
          foreign_key: :id,
@@ -762,7 +772,7 @@ config :bonfire_data_social, Post,
        # has
        unquote_splicing(common.([:direct_replies]))
        # special
-       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+       #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
        # has_one:  [creator_user: {[through: [:created, :creator_user]]}],
        # has_one:  [creator_character: {[through: [:created, :creator_character]]}],
        # has_one:  [creator_profile: {[through: [:created, :creator_profile]]}],
@@ -889,7 +899,7 @@ config :bonfire_pages, Page,
        unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
 
        # special
-       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+       #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
 
        has_one(:like_count, unquote(EdgeTotal),
          references: :id,
@@ -929,7 +939,7 @@ config :bonfire_pages, Section,
        unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
 
        # special
-       has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
+       #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
 
        has_one(:like_count, unquote(EdgeTotal),
          references: :id,
