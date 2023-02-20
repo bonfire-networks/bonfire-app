@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.Pin do
+  @moduledoc false
   use Ecto.Migration
   require Bonfire.Data.Social.Pin.Migration
 

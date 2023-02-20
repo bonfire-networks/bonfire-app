@@ -1,4 +1,5 @@
 defmodule Rauversion.Repo.Migrations.CreateTracks do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

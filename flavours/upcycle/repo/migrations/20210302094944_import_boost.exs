@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportBoost do
+  @moduledoc false
   use Ecto.Migration
 
   import Bonfire.Data.Social.Boost.Migration

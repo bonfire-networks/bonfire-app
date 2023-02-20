@@ -1,4 +1,5 @@
 defmodule Bonfire.Pages.Repo.Migrations.ImportPages do
+  @moduledoc false
   use Ecto.Migration
 
   import Bonfire.Pages.Migrations

@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.Seen do
+  @moduledoc false
   use Ecto.Migration
   require Bonfire.Data.Social.Seen.Migration
 

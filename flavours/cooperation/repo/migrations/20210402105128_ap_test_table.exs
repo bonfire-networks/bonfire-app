@@ -1,4 +1,5 @@
 defmodule ActivityPub.Repo.Migrations.APTestTable do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

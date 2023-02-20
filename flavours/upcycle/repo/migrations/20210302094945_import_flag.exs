@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportFlag do
+  @moduledoc false
   use Ecto.Migration
 
   import Bonfire.Data.Social.Flag.Migration

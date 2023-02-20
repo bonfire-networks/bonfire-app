@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.AddFilesMixin do
+  @moduledoc false
   use Ecto.Migration
 
   import Bonfire.Files.Migrations

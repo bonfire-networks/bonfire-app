@@ -8,7 +8,7 @@ config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
 config :activity_pub, :instance,
   hostname: "localhost",
-  federation_publisher_modules: [ActivityPubWeb.Publisher],
+  federation_publisher_modules: [ActivityPub.Federator.APPublisher],
   federation_reachability_timeout_days: 7,
   federating: true,
   rewrite_policy: [Bonfire.Federate.ActivityPub.BoundariesMRF],
@@ -28,7 +28,7 @@ config :activity_pub, :mrf_simple,
   avatar_removal: [],
   banner_removal: []
 
-config :http_signatures, adapter: ActivityPub.Signature
+config :http_signatures, adapter: ActivityPub.Safety.Signatures
 
 config :activity_pub, :http,
   proxy_url: nil,
@@ -43,9 +43,9 @@ config :activity_pub, :http,
     ]
   ]
 
-config :activity_pub, ActivityPubWeb.Endpoint,
+config :activity_pub, ActivityPub.Web.Endpoint,
   render_errors: [
-    view: ActivityPubWeb.ErrorView,
+    view: ActivityPub.Web.ErrorView,
     accepts: ~w(json),
     layout: false
   ]

@@ -20,6 +20,6 @@ config :tesla, adapter: Tesla.Mock
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :activity_pub, ActivityPubWeb.Endpoint,
+config :activity_pub, ActivityPub.Web.Endpoint,
   http: [port: 4000],
   server: false

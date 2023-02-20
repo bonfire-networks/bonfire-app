@@ -1,4 +1,5 @@
 defmodule Bonfire.Social.Repo.Migrations.ProfileImages do
+  @moduledoc false
   use Ecto.Migration
 
   import Pointers.Migration

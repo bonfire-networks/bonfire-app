@@ -1,4 +1,5 @@
 defmodule Bonfire.Encrypt.Repo.Migrations.InitSecret do
+  @moduledoc false
   use Ecto.Migration
 
   if Code.ensure_loaded?(Bonfire.Encrypt.Migrations) do

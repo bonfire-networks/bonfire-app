@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.Hashtag do
+  @moduledoc false
   use Ecto.Migration
   require Bonfire.Tag.Hashtag.Migration
 

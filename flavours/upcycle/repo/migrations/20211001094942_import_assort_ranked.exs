@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportRanked do
+  @moduledoc false
   use Ecto.Migration
   require Bonfire.Data.Assort.Ranked.Migration
 

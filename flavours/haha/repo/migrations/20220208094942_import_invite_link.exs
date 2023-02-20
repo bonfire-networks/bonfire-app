@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportInviteLink do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

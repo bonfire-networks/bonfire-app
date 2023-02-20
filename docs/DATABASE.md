@@ -267,7 +267,8 @@ how useful this is in practice, so we might go for a simpler option in future.
 Example:
 
 ```elixir
-defmodule Bonfire.Data.Social.APActivity.Migration do
+defmodule Bonfire.Data.Social.APActivity.Migration  do
+  @moduledoc false
   use Ecto.Migration
   import Pointers.Migration
   alias Bonfire.Data.Social.APActivity

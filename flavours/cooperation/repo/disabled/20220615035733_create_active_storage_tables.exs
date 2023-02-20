@@ -1,4 +1,5 @@
 defmodule Chaskiq.Repo.Migrations.CreateActiveStorageTables do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

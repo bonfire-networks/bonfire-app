@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.CreateApTables do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

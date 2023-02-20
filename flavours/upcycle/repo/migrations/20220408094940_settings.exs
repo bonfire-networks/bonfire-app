@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportSettings do
+  @moduledoc false
   use Ecto.Migration
   require Bonfire.Data.Identity.Settings.Migration
 

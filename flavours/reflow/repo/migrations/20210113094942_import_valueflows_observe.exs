@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportValueFlowsObserve do
+  @moduledoc false
   use Ecto.Migration
 
   alias ValueFlows.Observe.Migrations

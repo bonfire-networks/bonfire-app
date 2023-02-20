@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.ImportApActivity do
+  @moduledoc false
   use Ecto.Migration
   import Bonfire.Data.Social.APActivity.Migration
 

@@ -1,4 +1,5 @@
 defmodule Bonfire.Repo.Migrations.AddFiles do
+  @moduledoc false
   use Ecto.Migration
 
   import Bonfire.Files.Media.Migrations
