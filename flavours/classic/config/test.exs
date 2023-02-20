@@ -77,7 +77,7 @@ if test_instance? do
 else
   config :logger, :console,
     format: "[$level $metadata] $message\n",
-    metadata: [:action]
+    metadata: [:action, :pid]
 end
 
 config :pbkdf2_elixir, :rounds, 1
