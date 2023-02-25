@@ -11,10 +11,11 @@ ARG ELIXIR_IMAGE=1.14-alpine
 # This should match the version of Alpine that the current elixir & erlang images (in Step 1) use.
 # To find this you need to:
 # 1. Locate the dockerfile for the elixir image matching the version, and check what erlang version it uses
-#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.13/otp-25-alpine/Dockerfile
+#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.14/alpine/Dockerfile
 # 2. Locate the corresponding dockerfile for the erlang version used, and check what alpine version it uses, and then copy that number into the ARG below:
 #    e.g. https://github.com/erlang/docker-erlang-otp/blob/master/25/alpine/Dockerfile
-ARG ALPINE_VERSION=3.16
+# TODO! switch to image from hex.pm which don't randombly change Alpine version on an existing label
+ARG ALPINE_VERSION=3.17
 
 # The following are build arguments used to change variable parts of the image, they should be set as env variables.
 # The name of your application/release (required)
@@ -28,7 +29,7 @@ ARG FLAVOUR_PATH
 FROM elixir:${ELIXIR_IMAGE} as builder 
 
 # necessary utils + dependencies for comeonin
-RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev
+RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
 
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
 WORKDIR $HOME
@@ -137,7 +138,7 @@ RUN apk add --update --no-cache \
   ca-certificates \
   openssh-client \
   openssl-dev \
-  # ^ for HTTPS
+  # ^ for HTTPS, etc
   git \ 
   build-base \ 
   # ^ required by tree_magic 
@@ -148,9 +149,8 @@ RUN apk add --update --no-cache \
   vips-tools \
   # ^ image resizing
   bash \
-  curl \
+  curl 
   #^ misc
-  libressl libressl-dev
 
 WORKDIR /opt/app
 
