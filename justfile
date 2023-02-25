@@ -565,6 +565,7 @@ rel-push-only label='latest':
 
 # Run the app in Docker & starts a new `iex` console
 rel-run: rel-init docker-stop-web rel-services
+	echo Run with Docker based on image $APP_DOCKER_IMAGE
 	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
