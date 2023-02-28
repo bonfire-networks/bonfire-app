@@ -449,7 +449,7 @@ ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
 ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
-test-federation: 
+test-federation: test-federation-dance-positions
 	just test-stale {{ ap_lib }}
 	just test-stale {{ ap_integration }}
 	just test-stale {{ ap_ext }}
@@ -457,13 +457,13 @@ test-federation:
 	TEST_INSTANCE=yes just test-stale --only test_instance
 	just test-federation-dance-positions
 
-test-federation-lib *args=ap_lib: 
+test-federation-lib *args=ap_lib: test-federation-dance-positions
 	just test-watch $@
 
-test-federation-integration *args=ap_integration: 
+test-federation-integration *args=ap_integration: test-federation-dance-positions
 	just test-watch $@
 
-test-federation-ext *args=ap_ext: 
+test-federation-ext *args=ap_ext: test-federation-dance-positions
 	just test-watch $@
 
 test-federation-dance *args='': test-federation-dance-positions
