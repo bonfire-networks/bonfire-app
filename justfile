@@ -118,13 +118,13 @@ prepare:
 	just build
 
 # Run the app in development
-@dev *args='': init 
-	just dev-run {{args}}
+@dev *args='': 
+	MIX_ENV=dev just dev-run {{args}}
 
 @dev-extra: 
 	iex --sname extra --remsh dev
 
-dev-run *args='':
+dev-run *args='': init
 	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "iex --sname dev -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
