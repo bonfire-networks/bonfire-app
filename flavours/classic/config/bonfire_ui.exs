@@ -137,7 +137,7 @@ More details at https://bonfirenetworks.org",
         members: "Members",
         invites: "Invites",
         notifications: "Notifications"
-      ],
+      ]
     ]
   ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
