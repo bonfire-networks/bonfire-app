@@ -123,15 +123,16 @@ if not Code.ensure_loaded?(Mess) do
       end
     end
 
-    defp read_umbrella(opts) do
-      path = "../../config/deps.path"
+    def read_umbrella(opts) do
+      config_dir = opts[:config_dir] || "../../config/"
+      path = "#{config_dir}deps.path"
 
       if opts[:use_local_forks?] and File.exists?(path) do
-        [path, "../../config/deps.flavour.path"]
+        [path, "#{config_dir}deps.flavour.path"]
         |> Enum.flat_map(&read(&1, :path))
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
-        # IO.puts("did not load #{path}")
+        IO.warn("did not load #{path}")
         []
       end
     end
