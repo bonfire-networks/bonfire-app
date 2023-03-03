@@ -131,6 +131,20 @@ More details at https://bonfirenetworks.org",
     widgets: []
   ],
   groups: [
+    sections: [
+      timeline: Bonfire.UI.Social.ProfileTimelineLive,
+      # private: Bonfire.UI.Social.MessageThreadsLive,
+      posts: Bonfire.UI.Social.ProfilePostsLive,
+      topics: Bonfire.UI.Topics.TopicsLive,
+      members: Bonfire.UI.Group.MembersLive
+    ],
+    navigation: [
+      timeline: "Timeline",
+      posts: "Posts",
+      topics: "Topics",
+      members: "Members"
+      # private: "private",
+    ],
     settings: [
       navigation: [
         general: "General",
