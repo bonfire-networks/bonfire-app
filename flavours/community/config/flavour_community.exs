@@ -7,7 +7,7 @@ config :bonfire_api_graphql,
 config :bonfire, :ui,
   # end theme
   hide_app_switcher: true,
-  # feed_object_extension_preloads_disabled: false,
+  feed_object_extension_preloads_disabled: false,
   smart_input_activities: [
     category: "Create a topic",
     label: "New label"
