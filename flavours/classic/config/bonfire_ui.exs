@@ -96,64 +96,6 @@ More details at https://bonfirenetworks.org",
     cw: true,
     summary: true
   ],
-  profile: [
-    # TODO: make dynamic based on active extensions
-    sections: [
-      timeline: Bonfire.UI.Social.ProfileTimelineLive,
-      # private: Bonfire.UI.Social.MessageThreadsLive,
-      posts: Bonfire.UI.Social.ProfilePostsLive,
-      boosts: Bonfire.UI.Social.ProfileBoostsLive,
-      followers: Bonfire.UI.Social.ProfileFollowsLive,
-      followed: Bonfire.UI.Social.ProfileFollowsLive,
-      requested: Bonfire.UI.Social.ProfileFollowsLive,
-      requests: Bonfire.UI.Social.ProfileFollowsLive,
-      follow: Bonfire.UI.Me.RemoteInteractionFormLive
-    ],
-    navigation: [
-      timeline: "Timeline",
-      posts: "Posts",
-      boosts: "Boosts"
-      # private: "private",
-    ],
-    network: [
-      followers: "Followers",
-      followed: "Followed"
-    ],
-    my_network: %{
-      :followers => "Followers",
-      # :requests=> "Follower requests",
-      :followed => "Followed",
-      # :requested=> "Pending",
-      "/boundaries/circles" => "Circles",
-      "/boundaries/ghosted" => "Ghosted",
-      "/boundaries/silenced" => "Silenced"
-    },
-    widgets: []
-  ],
-  groups: [
-    sections: [
-      timeline: Bonfire.UI.Social.ProfileTimelineLive,
-      # private: Bonfire.UI.Social.MessageThreadsLive,
-      posts: Bonfire.UI.Social.ProfilePostsLive,
-      topics: Bonfire.UI.Topics.TopicsLive,
-      members: Bonfire.UI.Group.MembersLive
-    ],
-    navigation: [
-      timeline: "Timeline",
-      posts: "Posts",
-      topics: "Topics",
-      members: "Members"
-      # private: "private",
-    ],
-    settings: [
-      navigation: [
-        general: "General",
-        members: "Members",
-        invites: "Invites",
-        notifications: "Notifications"
-      ]
-    ]
-  ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
   smart_input_activities: [
     post: "Compose a post",
