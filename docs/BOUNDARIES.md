@@ -59,3 +59,6 @@ Conceptually, an ACL contains a grant for every user-or-circle/verb combination,
 ## Controlled - Applying boundaries to an object
 
 An object is linked to one or more `ACL`s by the `Controlled` multimixin, which pairs an object ID with an ACL ID. Because it is a multimixin, a given object can have multiple ACLs applied. In the case of overlap, permissions are combined in the manner described earlier. 
+
+
+See also https://doc.bonfirenetworks.org/extension-bonfire_data_access_control.html for more docs (TODO: merge/deduplicate)
