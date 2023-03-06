@@ -117,7 +117,7 @@ for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
 end
 
 # include configs for the current flavour (augmenting or overriding the previous ones)
-import_config "flavour_#{flavour}.exs"
+if File.exists?("flavour_#{flavour}.exs"), do: import_config "flavour_#{flavour}.exs"
 
 import_config "activity_pub.exs"
 

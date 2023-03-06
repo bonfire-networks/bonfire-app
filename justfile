@@ -505,9 +505,9 @@ rel-rebuild:
 	just rel-build {{EXT_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
-rel-build-release: 
+rel-build-release ARGS="": 
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
-	@just rel-build remote 
+	@just rel-build remote {{ ARGS }}
 
 # Build the release 
 rel-build USE_EXT="local" ARGS="": 
@@ -537,6 +537,7 @@ rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare
 rel-build-path FORKS_TO_COPY_PATH ARGS="": 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
+		--build-arg FLAVOUR=$FLAVOUR \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
