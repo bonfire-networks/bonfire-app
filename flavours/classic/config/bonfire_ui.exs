@@ -122,7 +122,9 @@ config :bonfire,
     simple_action: ["Assign", "Label", "Schedule"]
   ]
 
-config :bonfire_ui_common, Bonfire.UI.Common.SmartInputLive, max_length: 2000
+config :bonfire_ui_common, Bonfire.UI.Common.SmartInputLive,
+  max_length: 2000,
+  max_uploads: 4
 
 config :surface_catalogue,
   title: "Bonfire UI",
