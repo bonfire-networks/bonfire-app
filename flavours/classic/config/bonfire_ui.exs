@@ -96,7 +96,6 @@ More details at https://bonfirenetworks.org",
     cw: true,
     summary: true
   ],
-
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
   smart_input_activities: [
     post: "Compose a post",
@@ -111,7 +110,7 @@ More details at https://bonfirenetworks.org",
     page: Bonfire.Pages.Web.CreatePageLive,
     section: Bonfire.Pages.Web.EditSectionLive
   ],
-  smart_input_type: "non_blocking"
+  smart_input_as: :non_blocking
 
 config :bonfire,
   # used by ActivityLive - TODO: autogenerate?
