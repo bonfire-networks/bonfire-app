@@ -185,6 +185,7 @@ alias Bonfire.Pages.Page
 alias Bonfire.Pages.Section
 
 alias Bonfire.Classify.Category
+alias Bonfire.Classify.Tree
 alias Bonfire.Geolocate.Geolocation
 alias Bonfire.Files
 alias Bonfire.Files.Media
@@ -230,6 +231,8 @@ common_assocs = %{
   profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin_updatable))),
   # Threading information, for threaded discussions.
   replied: quote(do: has_one(:replied, unquote(Replied), unquote(mixin_updatable))),
+  # Tree info for categories (groups/topics)
+  tree: quote(do: has_one(:tree, unquote(Tree), unquote(mixin_updatable))),
   # Information that allows the system to identify special system-managed ACLS.
   stereotyped: quote(do: has_one(:stereotyped, unquote(Stereotyped), unquote(mixin))),
 
@@ -316,6 +319,7 @@ pointer_mixins =
     :post_content,
     :profile,
     :replied,
+    :tree,
     :stereotyped
   ])
 
@@ -479,7 +483,7 @@ config :bonfire_data_identity, Character,
     (quote do
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
-       unquote_splicing(common.([:actor, :peered, :profile]))
+       unquote_splicing(common.([:actor, :peered, :profile, :tree]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
 
@@ -592,6 +596,8 @@ config :bonfire_data_social, Activity,
        # mixins linked to the object rather than the activity:
        has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)
        has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
+       has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)
+
        field(:path, EctoMaterializedPath.ULIDs, virtual: true)
 
        field(:federate_activity_pub, :any, virtual: true)
@@ -764,7 +770,16 @@ config :bonfire_data_social, Post,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
        unquote_splicing(
-         common.([:activities, :activity, :caretaker, :created, :peered, :post_content, :replied])
+         common.([
+           :activities,
+           :activity,
+           :caretaker,
+           :created,
+           :peered,
+           :post_content,
+           :replied,
+           :tree
+         ])
        )
 
        # multimixins
