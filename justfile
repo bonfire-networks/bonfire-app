@@ -490,7 +490,8 @@ rel-config-prepare:
 	rm -rf data/current_flavour
 	mkdir -p data
 	rm -rf flavours/*/config/*/dev
-	cp -rfL $FLAVOUR_PATH data/current_flavour
+	cp -rfL flavours/classic data/current_flavour
+	cp -rfL $FLAVOUR_PATH/* data/current_flavour
 
 # copy current flavour's config, without using symlinks
 rel-prepare: rel-config-prepare 
