@@ -72,7 +72,7 @@ IO.puts("Watching these filenames for live reloading in the browser: #{inspect(p
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
-  debug_errors: true,
+  debug_errors: false,
   check_origin: false,
   code_reloader: true,
   http: [protocol_options: [idle_timeout: 120_000]],
