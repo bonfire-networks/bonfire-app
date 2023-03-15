@@ -16,14 +16,17 @@ WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 
 MIX_ENV := env_var_or_default('MIX_ENV', "dev") 
 
-APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', "bonfirenetworks/bonfire:latest-" +FLAVOUR)
+APP_NAME := "bonfire"
+APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
+APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
+
+APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":latest-" +FLAVOUR)
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
 ## Other configs - edit these here if necessary
+
 EXT_PATH := "extensions/"
 EXTRA_FORKS_PATH := "forks/"
-ORG_NAME := "bonfirenetworks"
-APP_NAME := "bonfire"
 APP_VSN_EXTRA := "beta"
 APP_REL_DOCKERFILE :="Dockerfile.release"
 APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
@@ -31,7 +34,6 @@ APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD := env_var_or_default('APP_BUILD', `git rev-parse --short HEAD || echo unknown`)  
-APP_DOCKER_REPO := ORG_NAME+"/"+APP_NAME
 CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
@@ -546,11 +548,12 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
-	@echo Build complete: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
+	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
 	@echo "Remember to run just rel-tag or just rel-push"
 
-rel-tag-commit build label: rel-init 
+rel-tag-commit build label='latest': rel-init 
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build
 rel-tag label='latest': 
@@ -559,11 +562,11 @@ rel-tag label='latest':
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest': 
 	@just rel-tag {{label}}
-	@just rel-push-only {{label}}
+	@just rel-push-only $APP_BUILD {{label}}
 
-rel-push-only label='latest': 
-	@docker login && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
-
+rel-push-only build label='latest': 
+	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
 rel-run: rel-init docker-stop-web rel-services
