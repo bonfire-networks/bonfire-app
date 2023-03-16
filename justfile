@@ -553,7 +553,8 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 
 rel-tag-commit build label='latest': rel-init 
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} 
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build
 rel-tag label='latest': 
@@ -566,6 +567,10 @@ rel-push label='latest':
 
 rel-push-only build label='latest': 
 	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	just rel-push-only-alt {{build}} {{label}}
+
+rel-push-only-alt build label='latest': 
+	echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
 	docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
