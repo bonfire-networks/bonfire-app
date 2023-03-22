@@ -5,10 +5,23 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 if not Code.ensure_loaded?(Mess) do
   defmodule Mess do
+    @moduledoc """
+    Helper for using dependencies specified in simpler text files in an Elixir mix project.
+    """
     @newline ~r/(?:\r\n|[\r\n])/
     @parser ~r/^(?<indent>\s*)((?<package>[a-z_][a-z0-9_]+)\s*=\s*"(?<value>[^"]+)")?(?<post>.*)/
     @git_branch ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
     @ext_forks_path System.get_env("FORKS_PATH", "extensions/")
+
+    @doc "Takes a list of sources and an extra list of dependencies, and returns a new list of unique dependencies that include the packages specified in the sources. The sources list specifies where to find the list(s) of dependencies (if none are specified default paths are used, see `sources/1`). Each source is a keyword list of a source type and the path to the file where those type of dependencies are specified. The possible source types are path, git, and hex."
+    def deps(sources \\ nil, extra_deps, opts \\ []) do
+      opts = opts(opts)
+
+      (sources || sources(opts[:use_local_forks?]))
+      # |> IO.inspect()
+      |> enum_deps()
+      |> deps_packages(extra_deps, opts)
+    end
 
     defp sources(true), do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
     defp sources(_), do: [git: "deps.git", hex: "deps.hex"]
@@ -34,15 +47,6 @@ if not Code.ensure_loaded?(Mess) do
       end)
 
       # |> IO.inspect(label: "opts for #{File.cwd!}")
-    end
-
-    def deps(sources \\ nil, extra_deps, opts \\ []) do
-      opts = opts(opts)
-
-      (sources || sources(opts[:use_local_forks?]))
-      # |> IO.inspect()
-      |> enum_deps()
-      |> deps_packages(extra_deps, opts)
     end
 
     defp enum_deps({k, v}) do
