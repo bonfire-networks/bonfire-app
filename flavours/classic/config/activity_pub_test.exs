@@ -1,7 +1,6 @@
 import Config
 
 config :activity_pub, :instance,
-  federating: false,
   disable_test_apps: true,
   adapter: Bonfire.Federate.ActivityPub.Adapter
 

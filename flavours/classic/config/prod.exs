@@ -19,4 +19,6 @@ config :bonfire, Bonfire.Common.Repo,
   # in releases migrations are not in a flavour-specific directory
   priv: "priv/repo"
 
+config :activity_pub, :instance, federating: true
+
 # config :surface, :compiler, warn_on_undefined_props: false
