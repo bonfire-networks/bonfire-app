@@ -10,7 +10,7 @@ System.put_env("SEARCH_INDEXING_DISABLED", "true")
 case {System.get_env("ADMIN_USER", "root"), System.get_env("ADMIN_PASSWORD", "")} do
   {u, p} when p != "" ->
     fake_account!(%{credential: %{password: p}})
-    |> fake_user!(%{character: %{username: u}, profile: %{name: u}})
+    |> fake_user!(%{username: u, name: u})
     |> Bonfire.Me.Users.make_admin()
 
   _ ->
