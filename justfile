@@ -734,7 +734,7 @@ db-pre-migrations:
 
 @ln-mix-tasks: 	
 	just mix deps.get
-	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire/lib/mix/tasks") { "ln -sf ../../extensions/bonfire/lib/mix/tasks" } else {"ln -sf ../../deps/bonfire/lib/mix/tasks"} }} 
+	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire/lib/mix/tasks")==true { "ln -sf ../../extensions/bonfire/lib/mix/tasks" } else {"ln -sf ../../deps/bonfire/lib/mix/tasks"} }} 
 
 @rand: 
 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
