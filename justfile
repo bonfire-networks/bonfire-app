@@ -83,11 +83,11 @@ config:
 	@just flavour $FLAVOUR
 
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
-flavour select_flavour: 
-	@echo "Switching to flavour '$select_flavour'..."
+@flavour select_flavour: 
+	echo "Switching to flavour '$select_flavour'..."
 	just pre-setup $select_flavour
-	{{ if MIX_ENV == "prod" { "echo ." } else { "just dev-setup" } }}
-	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
+	{{ if MIX_ENV == "prod" { "echo ..." } else { "just dev-setup" } }}
+	echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
 @pre-init: assets-ln
 	rm -rf ./priv/repo
@@ -722,14 +722,21 @@ db-pre-migrations:
 
 # Generate secrets
 @secrets: 
+	{{ if MIX_ENV == "prod" { "echo just rands" } else { "just mix-secrets" } }}
+
+@rands:
+	just rand 
+	just rand 
+	just rand 
+
+@mix-secrets: 
+	just deps-get
 	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
 	cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
-# just rand 
-# just rand 
-# just rand 
 
-# @rand: # note: doesn't work in github CI
-# 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
+@rand: 
+	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
+# note: doesn't work in github CI ^
 
 # Start or stop nix postgres server
 @nix-db pg_cmd:

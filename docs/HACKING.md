@@ -28,18 +28,20 @@ $ cd bonfire
 Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on:
 
 - `classic` ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
-- `cooperation` (for building cooperative communities)
-- `reflow` (for community economic activities)
-- `haha` (for learning new things)
+- `community` (for groups and communities)
+- `cooperation` (for building cooperative economic networks)
 
 Note that at the current time, the core team are focusing most of their efforts on the classic flavour and this is where we recommend you start.
 
 You first need to install [just](https://github.com/casey/just#packages) which is a handy tool (a `make` alternative) to run commands defined in `./justfile`.
 
-So for example if you want to run the `classic` flavour, run:
+So for example if you want to run the `classic` flavour, with a fully-docker-managed setup (see the other options available below), run:
 
-- `export FLAVOUR=classic` (you may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time)
-- `just config`
+- `export FLAVOUR=classic WITH_DOCKER=total` 
+
+You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
+
+- Then run `just config` to initialise some config.
 
 ### Configure
 
@@ -50,7 +52,7 @@ So for example if you want to run the `classic` flavour, run:
 - Dependencies:
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
-- Set an environment variable to indicate your choice: `export WITH_DOCKER=total`
+- Make sure you've set the environment variable to indicate your choice: `export WITH_DOCKER=total`
 
 - Make sure you've edited your .env file (see above) before getting started and proceed to Hello world!
 
@@ -61,7 +63,7 @@ So for example if you want to run the `classic` flavour, run:
   - [yarn](https://yarnpkg.com)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
-- Set an environment variable to indicate your choice: `export WITH_DOCKER=easy`
+- Make sure you've set the env to indicate your choice: `export WITH_DOCKER=easy`
 
 - Make sure you've edited your .env file (see above) before getting started and proceed to Hello world!
 
@@ -73,7 +75,7 @@ So for example if you want to run the `classic` flavour, run:
   - [yarn](https://yarnpkg.com)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
-- Set an environment variable to indicate your choice: `export WITH_DOCKER=partial`
+- Make sure you've set the environment variable to indicate your choice: `export WITH_DOCKER=partial`
 
 - Make sure you've edited your .env file (see above) before getting started and proceed to Hello world!
 
@@ -90,7 +92,7 @@ So for example if you want to run the `classic` flavour, run:
 
 - If you want search capabilities, you'll also need to setup a Meili server and set the relevant env variables as well.
 
-- Set an environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
+- Make sure you've set the environment variable to indicate your choice: `export WITH_DOCKER=no` and proceed to Hello world!
 
 ### Option E - the nix one (dev environment with Nix)
 
