@@ -151,8 +151,7 @@ This namespace handles the ActivityPub logic and stores AP activities. It is lar
 - `ActivityPub.Federator.Adapter` defines callback functions for the AP library.
 
 It also contains some functionality that isn't part of the AP spec but is required for federation:
-- `ActivityPub.Safety.Keys` - Generating and handling RSA keys for messagage signing
-- `ActivityPub.Safety.Signatures` - Adapter for the HTTPSignature library
+- `ActivityPub.Safety.Keys` - Generating and handling RSA keys and signatures 
 - `ActivityPub.Federator.WebFinger` - Implementation of the WebFinger protocol
 - `ActivityPub.Federator.HTTP` - Module for making HTTP requests (wrapper around tesla)
 - `ActivityPub.Instances` - Module for storing reachability information about remote instances

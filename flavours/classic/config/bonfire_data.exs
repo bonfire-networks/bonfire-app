@@ -528,12 +528,13 @@ config :bonfire_data_identity, User,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
+       unquote_splicing(common.([:actor, :character, :created, :peered, :profile]))
        has_one(:accounted, unquote(Accounted), foreign_key: :id)
        has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
        has_one(:self, unquote(Self), foreign_key: :id)
        has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
        has_one(:settings, unquote(Settings), foreign_key: :id)
-       unquote_splicing(common.([:actor, :character, :created, :peered, :profile]))
+
        # multimixins
        unquote_splicing(common.([:controlled]))
        # manies
