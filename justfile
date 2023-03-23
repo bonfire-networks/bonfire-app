@@ -729,10 +729,12 @@ db-pre-migrations:
 	just rand 
 	just rand 
 
-@mix-secrets: 
-	just deps-get
-	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
+@mix-secrets: ln-mix-tasks
 	cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
+
+@ln-mix-tasks: 	
+	just mix deps.get
+	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire/lib/mix/tasks") { "ln -sf ../../extensions/bonfire/lib/mix/tasks" } else {"ln -sf ../../deps/bonfire/lib/mix/tasks"} }} 
 
 @rand: 
 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
