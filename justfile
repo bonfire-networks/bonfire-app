@@ -86,11 +86,7 @@ config:
 flavour select_flavour: 
 	@echo "Switching to flavour '$select_flavour'..."
 	just pre-setup $select_flavour
-	just deps-clean-data
-	just deps-clean-api
-	just deps-clean-unused
-	just deps-get
-	just js-deps-get
+	{{ if MIX_ENV == "prod" { "echo ." } else { "just dev-setup" } }}
 	@echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
 @pre-init: assets-ln
@@ -107,6 +103,13 @@ init: pre-init services
 	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 #### COMMON COMMANDS ####
+
+dev-setup: 
+	just deps-clean-data
+	just deps-clean-api
+	just deps-clean-unused
+	just deps-get
+	just js-deps-get
 
 # First run - prepare environment and dependencies
 setup: 
