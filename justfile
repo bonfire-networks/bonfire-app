@@ -127,11 +127,11 @@ prepare:
 	iex --sname extra --remsh dev
 
 dev-run *args='': init
-	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "iex --sname dev -S mix phx.server $args" } }}
+	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker compose run --name $WEB_CONTAINER --service-ports web" } else { "iex --sname dev -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
 @dev-remote: init
-	{{ if WITH_DOCKER == "total" { "WITH_FORKS=0 just docker-stop-web && docker-compose run --name $WEB_CONTAINER --service-ports web" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
+	{{ if WITH_DOCKER == "total" { "WITH_FORKS=0 just docker-stop-web && docker compose run --name $WEB_CONTAINER --service-ports web" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
 # Generate docs from code & readmes
 docs: 
@@ -164,7 +164,7 @@ dev-test:
 
 # Run the app in dev mode, as a background service
 dev-bg: init  
-	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker-compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
+	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
 db-migrate: 
@@ -182,7 +182,7 @@ dev-search-reset: dev-search-reset-docker
 	rm -rf data/search/dev
 
 dev-search-reset-docker:
-	{{ if WITH_DOCKER != "no" { "docker-compose rm -s -v search" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "docker compose rm -s -v search" } else {""} }}
 
 # Rollback previous DB migration (caution: this means DATA LOSS)
 db-rollback: 
@@ -349,7 +349,7 @@ dep-local command dep path:
 
 # Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `just messctl help`)
 messctl *args='': init 
-	{{ if WITH_DOCKER == "no" { "messctl $@" } else { "docker-compose run web messctl $@" } }}
+	{{ if WITH_DOCKER == "no" { "messctl $@" } else { "docker compose run web messctl $@" } }}
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
@@ -476,11 +476,11 @@ test-federation-dance-positions:
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 # dev-test-watch: init ## Run tests
-# 	docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
+# 	docker compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
 # Create or reset the test DB
 test-db-reset: init db-pre-migrations 
-	{{ if WITH_DOCKER == "total" { "docker-compose run -e MIX_ENV=test web mix ecto.reset" } else { "MIX_ENV=test mix ecto.reset" } }}
+	{{ if WITH_DOCKER == "total" { "docker compose run -e MIX_ENV=test web mix ecto.reset" } else { "MIX_ENV=test mix ecto.reset" } }}
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
@@ -576,71 +576,71 @@ rel-push-only-alt build label='latest':
 # Run the app in Docker & starts a new `iex` console
 rel-run: rel-init docker-stop-web rel-services
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
 rel-run-bg: rel-init docker-stop-web 
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
 
 # Stop the running release
 rel-stop: 
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE stop
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE stop
 
 rel-update: update-repo-pull
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE pull
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE pull
 	@echo Remember to run migrations on your DB...
 
 rel-logs:
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE logs
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE logs
 
 # Stop the running release
 rel-down: rel-stop 
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
 rel-shell: rel-init docker-stop-web rel-services
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
 rel-shell-bg: rel-init rel-services
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
 rel-db-shell-bg: rel-init rel-services
-	@docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
+	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
 
 rel-db-dump: rel-init rel-services
-	docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
+	docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
 
 rel-db-restore: rel-init rel-services
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
 rel-services: 
-	{{ if WITH_DOCKER != "no" { "docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d db search" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d db search" } else {""} }}
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
 dc *args='': 
-	docker-compose $@
+	docker compose $@
 
 # Start background docker services (eg. db and search backends).
 @services: 
 	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
 
 @dev-services: 
-	{{ if WITH_DOCKER != "no" { "docker-compose up -d db search || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+	{{ if WITH_DOCKER != "no" { "docker compose up -d db search || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
 build: init 
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose pull && docker-compose build" } else { "echo Skip building container..." } }}
+	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose pull && docker compose build" } else { "echo Skip building container..." } }}
 
 # Build the docker image
 rebuild: init 
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker-compose build --no-cache" } else { "echo Skip building container..." } }}
+	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose build --no-cache" } else { "echo Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
 @cmd *args='': init 
-	{{ if WITH_DOCKER == "total" { "docker-compose run --service-ports web $@" } else {"$@"} }}
+	{{ if WITH_DOCKER == "total" { "docker compose run --service-ports web $@" } else {"$@"} }}
 
 # Open the shell of the web container, in dev mode
 shell: 
@@ -664,7 +664,7 @@ shell:
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
 mix-remote *args='': init 
 	echo % WITH_FORKS=0 mix $@
-	{{ if WITH_DOCKER == "total" { "docker-compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
+	{{ if WITH_DOCKER == "total" { "docker compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
 
 xref-dot:
 	just mix xref graph --format dot --include-siblings

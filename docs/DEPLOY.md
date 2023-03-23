@@ -95,19 +95,17 @@ Follow the instructions in the coop-cloud recipe readme.
 The easiest way to launch the docker image is using the just commands.
 The `docker-compose.release.yml` uses `config/prod/.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container, along with a reverse proxy (Caddy server, which you may want to replace with nginx or whatever you prefer).
 
-#### Install with docker-compose
-
-Make sure you have [Docker](https://www.docker.com/), a recent [docker-compose](https://docs.docker.com/compose/install/#install-compose) (which supports v3 configs), and [just](https://github.com/casey/just#packages) installed:
+Make sure you have [Docker](https://www.docker.com/), with the [compose](https://docs.docker.com/compose/install/#install-compose) plugin, and [just](https://github.com/casey/just#packages) installed:
 
 ```sh
 $ docker version
-Docker version 18.09.1-ce
+Docker Engine - Community - 23.0.1
 
-$ docker-compose -v
-docker-compose version 1.23.2
+$ docker compose version
+Docker Compose version v2.16.0
 
 $ just --version
-just 1.1.3
+just 1.13.0
 ...
 ```
 
@@ -388,7 +386,7 @@ Once you've signed up, you will automatically be an instance admin if you were t
 
 #### Step 5 - Adding HTTPS
 
-The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker-compose setup).
+The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker compose setup).
 
 Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
 
