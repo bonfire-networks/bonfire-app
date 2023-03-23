@@ -62,8 +62,8 @@ help:
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
 	mkdir -p ./data
 	mkdir -p ./config
-	-rm ./config/deps.flavour.* 
-	-rm ./config/flavour_* 
+	-rm ./config/deps.flavour.* 2> /dev/null
+	-rm ./config/flavour_* 2> /dev/null
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
 	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && cat ./templates/public.env ./templates/not_secret.env > ./$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> ./$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./$ENV_ENV/.env)
@@ -659,7 +659,7 @@ shell:
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
 @mix *args='': 
 	echo % mix $@
-	just cmd mix $@
+	{{ if MIX_ENV == "prod" { "echo Ignore mix commands in prod" } else { "just cmd mix $@" } }}
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
 mix-remote *args='': init 

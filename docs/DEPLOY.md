@@ -109,7 +109,7 @@ just 1.13.0
 ...
 ```
 
-Now that your tooling is set up, you have the choice of using pre-built images or building your own. For example if your flavour does not have a prebuilt image on Docker Hub, or if you want to customise any of the extensions, you can build one yourself - see option A2 below. 
+Now that your tooling is set up, you have the choice of using pre-built images or building your own. For example if your flavour does not have a prebuilt image on Docker Hub, or if you want to customise any of the extensions, you can build one yourself - see option B2 below. 
 
 #### Option B1 - Using pre-built Docker images (recommended to start with)
 
