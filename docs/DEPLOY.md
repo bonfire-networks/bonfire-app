@@ -13,45 +13,60 @@ We recommend only granting an account to people you trust to minimise the attack
 
 ---
 
-## Step 0 - Configure your database
+## Step - 0 - Decide how you want to deploy and manage the app
 
-You must provide a postgresql database for data storage. We require postgres 12 or above.
-
-If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database:
-
-```
-CREATE EXTENSION IF NOT EXISTS citext;
-```
+* Option A - Install using [Co-op Cloud](https://coopcloud.tech) (recommended) which is an alternative to corporate cloud services built by tech co-ops, and provides handy tools for setting up and managing many self-hosted free software tools using ready-to-use "recipes". Very useful if you'd like to host Bonfire alongside other open and/or federated projects. In this case, jump straight to step 4.
+* Option B - Install using Docker containers (easy mode)
+  * Option B1 - Using pre-built Docker images 
+  * Option B2 - Building your own Docker image (if you want to make changes to the code)
+* Option C - Manual installation (without Docker)
 
 ## Step 1 - Download and configure the app
 
-1. Install dependencies. You will need to install [just](https://github.com/casey/just#packages), and other requirements such as Docker (check the exact list of requirements based on the option you choose in step 2.)
+### Option A - Install using Co-op Cloud (recommended)
+1. Install [Abra](https://docs.coopcloud.tech/abra/) on your machine
+2. [Set up a server with co-op cloud](https://docs.coopcloud.tech/operators/) 
+3. Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the instructions there. 
+
+### Options B and C
+
+1. Install dependencies. 
+You may need to install [just](https://github.com/casey/just#packages), and other requirements such as Docker (check the exact list of requirements based on the option you choose in step 2.)
 
 2. Clone this repository and change into the directory:
 
 ```sh
-$ git clone https://github.com/bonfire-networks/bonfire-app.git bonfire
-$ cd bonfire
+git clone --depth 1 https://github.com/bonfire-networks/bonfire-app.git bonfire && cd bonfire
 ```
 
 3. Specify what flavour you want to run in production:
 
-The first thing to do is choose what flavour of Bonfire you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `classic` flavour:
+The first thing to do is choose what flavour of Bonfire (eg. classic, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `classic` flavour:
 
-- `export MIX_ENV=prod FLAVOUR=classic` (you may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time)
-- `just config`
+- `export MIX_ENV=prod FLAVOUR=classic` 
 
-This will initialise some default config (a .env file which won't be checked into git)
+You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
-5. Edit the config (especially the secrets) for the selected flavour in `./.env` (except if using the Bonfire co-op cloud recipe, which will create its own env file you should edit instead).
 
-These are the config keys you should especially pay attention to:
+## Step 2- Prepare the config
+
+* **Option A**: if deploying with co-op cloud, edit the env file at `~/.abra/servers/your_server/your_app.env` instead.
+
+* **Option B and C**: 
+- Run `just config` to initialise some default config and then edit the config in the `./.env` file.
+
+### Config keys you should pay special attention to:
+The app needs these environment variables to be configured in order to work.
+
+- `FLAVOUR` should reflect your chosen flavour
 - `HOSTNAME` (your domain name, eg: `bonfire.example.com`)
 - `PUBLIC_PORT` (usually 443)
 - `MAIL_DOMAIN` and `MAIL_KEY` and related keys to configure transactional email, for example set `MAIL_BACKEND=mailgun` and sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key (you may also need to set `MAIL_BASE_URI` if your domain is not setup in EU, as the default `MAIL_BASE_URI` is set as `https://api.eu.mailgun.net/v3`). SMTP is supported as well. 
 - `UPLOADS_S3_BUCKET` and the related API key and secret for uploads. WARNING: If you want to store uploads in an object storage rather than directly on your server (which you probably want, to not run out of space), you need to configure that up front, otherwise URLs will break if you change it later. See `config/runtime.exs` for extra variables to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
 
-These are the secret keys for which you should put random secrets. You can run `just secrets` to generate some:
+### Secret keys for which you should put random secrets. 
+You can run `just secrets` to generate some for you.
+
 - `SECRET_KEY_BASE`
 - `SIGNING_SALT`
 - `ENCRYPTION_SALT`
@@ -60,8 +75,6 @@ These are the secret keys for which you should put random secrets. You can run `
 
 ### Further information on config
 
-The app needs some environment variables to be configured in order to work. The easy way to manage that is whit the `just` commands which take care of loading the environment for you.
-
 In the `./config/` (which is a symbolic link to the config of the flavour you choose to run) directory of the codebase, there are following config files:
 
 - `config.exs`: default base configuration, which itself loads many other config files, such as one for each installed Bonfire extension.
@@ -69,15 +82,13 @@ In the `./config/` (which is a symbolic link to the config of the flavour you ch
 - `runtime.exs`: extra configuration which is loaded at runtime (vs the others which are only loaded once at compile time, i.e. when you build a release)
 - `bonfire_*.exs`: configs specific to different extensions, which are automatically imported by `config.exs`
 
-You should *not* have to modify the files above. Instead, overload any settings from the above files using env variables or in `./.env`. 
+You should *not* have to modify the files above. Instead, overload any settings from the above files using env variables or in `./.env`. If any settings in the `.exs` config files are not available in env or in the instance settings UI, please open an issue or PR.
 
 
-## Step 2 - Install
+## Step 3 - Install
 
 ### Option A - Install using Co-op Cloud (recommended)
-[https://coopcloud.tech](https://coopcloud.tech) is an alternative to corporate clouds built by tech co-ops, and provides very useful tools for setting up and managing many self-hosted free software tools using ready-to-use "recipes".
-
-If you're interested in hosting Bonfire alongside other open and/or federated projects, we recommend installing [Abra](https://docs.coopcloud.tech/abra/), [setting up a co-op cloud server](https://docs.coopcloud.tech/operators/) and using the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) (which provides it's own instructions, so read that and you can mostly ignore this document) to set up an instance. 
+Follow the instructions in the coop-cloud recipe readme.
 
 ### Option B - Install using Docker containers (easy mode)
 
@@ -366,15 +377,16 @@ TODO: add the caddy config
 }
 ```
 
-## Step 3 - Run
+## Step 4 - Run
 
 By default, the backend listens on port 4000 (TCP), so you can access it on http://localhost:4000/ (if you are on the same machine). In case of an error it will restart automatically.
 
 Once you've signed up, you will automatically be an instance admin if you were the first to register.
 
----
+> NOTE: If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database before migrations can run: `CREATE EXTENSION IF NOT EXISTS citext;`
 
-#### Step 4 - Adding HTTPS
+
+#### Step 5 - Adding HTTPS
 
 The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker-compose setup).
 
