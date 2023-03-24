@@ -137,8 +137,8 @@ dev-run *args='': init
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
 dev-proxied:
-	docker compose -f docker-compose.yml -f docker-compose.proxy.yml up -d proxy
-	just dev-docker -f docker-compose.yml -f docker-compose.proxy.yml
+	docker compose --profile proxy up -d proxy
+	just dev-docker --profile proxy
 
 dev-docker *args='': docker-stop-web 
 	docker compose $args run --name $WEB_CONTAINER --service-ports web

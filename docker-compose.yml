@@ -57,3 +57,21 @@ services:
     env_file:
       - config/dev/.env
     # user: $UID:$GID
+  proxy:
+    profiles:
+      - proxy
+    image: "caddy:alpine"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - config/prod/.env
+    volumes:
+      - type: bind
+        source: ./config/deploy/Caddyfile2
+        target: /etc/caddy/Caddyfile
+        read_only: true
+      - type: bind
+        source: ./data/uploads
+        target: /frontend/uploads
