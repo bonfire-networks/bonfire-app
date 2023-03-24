@@ -138,6 +138,9 @@ dev-run *args='': init
 
 dev-proxied:
 	docker compose --profile proxy up -d 
+	docker logs bonfire_web -f
+
+dev-proxied-iex:
 	docker compose --profile proxy exec web iex --sname extra --remsh dev 
 
 dev-docker *args='': docker-stop-web 
