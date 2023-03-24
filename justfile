@@ -130,11 +130,17 @@ prepare:
 	iex --sname extra --remsh dev
 
 dev-run *args='': init
-	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker compose run --name $WEB_CONTAINER --service-ports web" } else { "iex --sname dev -S mix phx.server $args" } }}
+	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --sname dev -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
 @dev-remote: init
-	{{ if WITH_DOCKER == "total" { "WITH_FORKS=0 just docker-stop-web && docker compose run --name $WEB_CONTAINER --service-ports web" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
+	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
+
+dev-proxied:
+	just dev-docker -f docker-compose.yml -f docker-compose.proxy.yml
+
+dev-docker *args='': docker-stop-web 
+	docker compose run --name $WEB_CONTAINER --service-ports $args web
 
 # Generate docs from code & readmes
 docs: 
