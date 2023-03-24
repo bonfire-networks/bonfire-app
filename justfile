@@ -140,7 +140,7 @@ dev-proxied:
 	just dev-docker -f docker-compose.yml -f docker-compose.proxy.yml
 
 dev-docker *args='': docker-stop-web 
-	docker compose run --name $WEB_CONTAINER --service-ports $args web
+	docker compose $args run --name $WEB_CONTAINER --service-ports web
 
 # Generate docs from code & readmes
 docs: 
