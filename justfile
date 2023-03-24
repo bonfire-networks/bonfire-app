@@ -722,7 +722,7 @@ db-pre-migrations:
 
 # Generate secrets
 @secrets: 
-	{{ if MIX_ENV == "prod" { "echo just rands" } else { "just mix-secrets" } }}
+	{{ if MIX_ENV == "prod" or WITH_DOCKER=="total" { "echo just rands" } else { "just mix-secrets" } }}
 
 @rands:
 	just rand 
