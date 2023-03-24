@@ -138,7 +138,7 @@ dev-run *args='': init
 
 dev-proxied:
 	docker compose --profile proxy up -d 
-	docker compose --profile proxy exec web iex --remsh dev -S mix
+	docker compose --profile proxy exec web iex --sname extra --remsh dev -S mix
 
 dev-docker *args='': docker-stop-web 
 	docker compose $args run --name $WEB_CONTAINER --service-ports web
