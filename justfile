@@ -299,8 +299,8 @@ js-ext-deps yarn_args='':
 	chmod +x ./config/deps.js.sh 
 	just cmd ./config/deps.js.sh $yarn_args
 
-assets-ln:
-	@[ -d "extensions/bonfire_ui_common" ] && ln -sf "extensions/bonfire_ui_common/assets" && echo "Assets served from the local UI.Common extension will be used" || ln -sf "deps/bonfire_ui_common/assets" 
+@assets-ln:
+	{{ if path_exists("extensions/bonfire_ui_common")=="true" { "ln -sf extensions/bonfire_ui_common/assets && echo Assets served from the local UI.Common extension will be used" } else {"ln -sf deps/bonfire_ui_common/assets "} }}
 
 deps-outdated: deps-unlock-unused
 	@just mix-remote "hex.outdated --all"
