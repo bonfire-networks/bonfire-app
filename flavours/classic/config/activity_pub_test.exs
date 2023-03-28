@@ -10,8 +10,7 @@ config :activity_pub, :repo, Bonfire.Common.Repo
 config :activity_pub, ecto_repos: [Bonfire.Common.Repo]
 config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
 
-config :activity_pub, Oban,
-  repo: Bonfire.Common.Repo
+config :activity_pub, Oban, repo: Bonfire.Common.Repo
 
 config :tesla, adapter: Tesla.Mock
 
