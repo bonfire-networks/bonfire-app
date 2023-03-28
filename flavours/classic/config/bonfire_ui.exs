@@ -139,6 +139,9 @@ config :iconify_ex,
   generated_icon_static_path: "#{cwd}/extensions/bonfire_ui_common/assets/static/images/icons"
 
 config :surface, :components, [
+  {Iconify.Icon, propagate_context_to_slots: false},
   {Bonfire.UI.Common.ReusableModalLive, propagate_context_to_slots: true},
-  {Bonfire.UI.Common.LinkLive, propagate_context_to_slots: false}
+  {Bonfire.UI.Common.LinkLive, propagate_context_to_slots: true},
+  {Bonfire.UI.Common.LogoLinkLive, propagate_context_to_slots: false},
+  {Bonfire.UI.Social.Activity.LinkToActivityLive, propagate_context_to_slots: true}
 ]
