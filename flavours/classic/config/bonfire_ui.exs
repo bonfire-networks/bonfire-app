@@ -133,11 +133,12 @@ config :surface_catalogue,
 
 config :iconify_ex,
   generated_icon_app: :bonfire_ui_common,
-  mode: :img,
+  mode: :css,
   generated_icon_modules_path: "#{cwd}/extensions/bonfire_ui_common/components/icons",
   generated_icon_static_url: "/images/icons",
   generated_icon_static_path: "#{cwd}/extensions/bonfire_ui_common/assets/static/images/icons"
 
 config :surface, :components, [
-  {Bonfire.UI.Common.ReusableModalLive, propagate_context_to_slots: true}
+  {Bonfire.UI.Common.ReusableModalLive, propagate_context_to_slots: true},
+  {Bonfire.UI.Common.LinkLive, propagate_context_to_slots: false}
 ]
