@@ -86,7 +86,7 @@ config:
 @flavour select_flavour: 
 	echo "Switching to flavour '$select_flavour'..."
 	just pre-setup $select_flavour
-	{{ if MIX_ENV == "prod" { "echo ..." } else { "just dev-setup" } }}
+	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 	echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
 @pre-init: assets-ln
@@ -104,24 +104,24 @@ init: pre-init services
 
 #### COMMON COMMANDS ####
 
-dev-setup: 
+setup-dev: 
+	just build
 	just deps-clean-data
 	just deps-clean-api
 	just deps-clean-unused
 	just deps-get
-	just js-deps-get
 
-# First run - prepare environment and dependencies
-setup: 
-	just flavour $FLAVOUR
+setup-prod: 
 	just build
-	just mix setup 
+	just deps-get
 
 # Prepare environment and dependencies
 prepare: 
 	just pre-setup $FLAVOUR
 	just build
 
+prepare-prod: 
+	
 # Run the app in development
 @dev *args='': 
 	MIX_ENV=dev just dev-run {{args}}
@@ -267,9 +267,9 @@ update-fork dep:
 	@chmod +x git-publish.sh && find $EXT_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \; && find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
 
 # Fetch locked version of non-forked deps
-deps-get: 
-	just mix deps.get 
-	just mix-remote deps.get
+deps-get *args='': 
+	just mix deps.get $@
+	just mix-remote deps.get $@
 	just deps-post-get
 	just js-deps-get
 
@@ -645,7 +645,7 @@ dc *args='':
 
 # Build the docker image
 build: init 
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose pull && docker compose build" } else { "echo Skip building container..." } }}
+	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose pull && docker compose build" } else { "just mix setup" } }}
 
 # Build the docker image
 rebuild: init 

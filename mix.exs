@@ -296,6 +296,10 @@ defmodule Bonfire.Umbrella.MixProject do
     [
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
+      setup: [
+        "hex.setup",
+        "rebar.setup"
+      ],
       "bonfire.seeds": [
         # "phil_columns.seed",
       ],
@@ -315,13 +319,6 @@ defmodule Bonfire.Umbrella.MixProject do
       ],
       "ecto.seeds": [
         "run #{Mixer.flavour_path(config())}/repo/seeds.exs"
-      ],
-      setup: [
-        "hex.setup",
-        "rebar.setup",
-        "deps.get",
-        "bonfire.deps.clean.data",
-        "ecto.setup"
       ],
       updates: ["deps.get", "bonfire.deps.update"],
       upgrade: ["updates", "ecto.migrate"],
