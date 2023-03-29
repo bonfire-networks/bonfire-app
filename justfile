@@ -672,7 +672,13 @@ shell:
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
 @mix *args='': 
 	echo % mix $@
-	{{ if MIX_ENV == "prod" { "echo Ignore mix commands in prod" } else { "just cmd mix $@" } }}
+	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $@" } else { "just cmd mix $@" } }}
+
+@mix-maybe-prod *args='': 
+	{{ if WITH_DOCKER != "no" { "echo Ignoring mix commands when using docker in prod" } else { "just mix-maybe-prod-pre-release $@" } }}
+
+@mix-maybe-prod-pre-release *args='': 
+	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $@" } }}
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
 mix-remote *args='': init 
