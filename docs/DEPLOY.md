@@ -199,7 +199,9 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Make sure you have erlang and elixir installed (check `Dockerfile` for what version we're currently using)
 
-- `export WITH_DOCKER=no` and `just flavour [classic or your choice of flavour]` which will install both elixir and javascript dependencies
+- `export WITH_DOCKER=no` 
+
+- `just flavour [classic or your choice of flavour]` to select your flavour, set up some things, and download dependencies
 
 - Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
 
