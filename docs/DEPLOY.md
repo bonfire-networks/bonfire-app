@@ -203,18 +203,21 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - `just flavour [classic or your choice of flavour]` to select your flavour, set up some things, and download dependencies
 
-- Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. We will be using the `bin/bonfire` executable from here on.
+- Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. Note that you will need `just` to pass in the `.env` file to the executable, like so: `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. We will be using the `bin/bonfire` executable as called from `just` from here on. 
 
 #### C-2. Running the release
 
-- `cd _build/prod/rel/bonfire/`
+- Create a database, and a user, fill out the `.env` with your credentials and secrets
 
-- Create a database and run the migrations with `bin/bonfire eval 'EctoSparkles.Migrator.migrate()'`.
+- You will need to use `just` in order to pass the `.env` file to the executable. This can be accomplished by running `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Just works from the root directory of the `justfile`, not your current directory.
+
+- The migrations should automatically run on first boot, but if you run into troubles the migration command is: `bin/bonfire eval 'EctoSparkles.Migrator.migrate()'`. 
+
 - If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
 
-* You can check if your instance is configured correctly by running it with `bin/bonfire start`
+- You can check if your instance is configured correctly by running it with `bin/bonfire start`
 
-* To run the instance as a daemon, use `bin/bonfire start daemon`.
+- To run the instance as a daemon, use `bin/bonfire start daemon`.
 
 ---
 
