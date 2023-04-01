@@ -79,7 +79,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
     # security auditing
     # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
-    {:sobelow, "~> 0.8", only: :dev}
+    {:sobelow, "~> 0.12.1", only: :dev}
   ]
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
