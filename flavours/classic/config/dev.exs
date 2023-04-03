@@ -32,51 +32,12 @@ local_deps =
 # ),
 # else: []
 
-local_dep_names = Enum.map(local_deps, &elem(&1, 0))
-
-dep_paths =
-  Enum.map(local_deps, fn dep ->
-    case elem(dep, 1)[:path] do
-      nil -> nil
-      path -> "#{path}/lib"
-    end
-  end)
-  |> Enum.reject(&is_nil/1)
-
-watch_paths = dep_paths ++ ["lib/"] ++ ["priv/static/"]
-
-IO.puts("Watching these deps for code reloading: #{inspect(local_dep_names)}")
-
-config :phoenix_live_reload,
-  # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
-  dirs: watch_paths
-
-# filename patterns that should trigger hots reloads of components/CSS/etc (only within the above dirs)
-hot_patterns = [
-  ~r"(_live)\.ex$",
-  ~r{(live|views|pages|components)/.*(ex|css)$},
-  ~r".*(heex|leex|sface)$",
-  ~r"priv/catalogue/.*(ex)$"
-]
-
-# filename patterns that should trigger page reloads (only within the above dirs)
-patterns = [
-  ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg|webp)$",
-  # ~r"^priv/gettext/.*(po)$",
-  ~r{(web|templates)/.*(ex)$},
-  ~r"(live_handler|live_handlers|routes)\.ex$"
-]
-
-IO.puts("Watching these filenames for live reloading in the browser: #{inspect(patterns)}")
-
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
   debug_errors: false,
   check_origin: false,
-  code_reloader: true,
   http: [protocol_options: [idle_timeout: 120_000]],
-  reloadable_apps: [:bonfire] ++ local_dep_names,
   watchers: [
     yarn: [
       "watch.js",
@@ -90,13 +51,58 @@ config :bonfire, Bonfire.Web.Endpoint,
       "watch.assets",
       cd: Path.expand("assets", File.cwd!())
     ]
-  ],
-  live_reload: [
-    patterns: patterns ++ hot_patterns,
-    notify: [
-      live_view: hot_patterns
-    ]
   ]
+
+enable_code_reloading = System.get_env("HOT_CODE_RELOAD") != "0"
+
+if enable_code_reloading do
+  local_dep_names = Enum.map(local_deps, &elem(&1, 0))
+
+  dep_paths =
+    Enum.map(local_deps, fn dep ->
+      case elem(dep, 1)[:path] do
+        nil -> nil
+        path -> "#{path}/lib"
+      end
+    end)
+    |> Enum.reject(&is_nil/1)
+
+  watch_paths = dep_paths ++ ["lib/"] ++ ["priv/static/"]
+
+  IO.puts("Watching these deps for code reloading: #{inspect(local_dep_names)}")
+
+  config :phoenix_live_reload,
+    # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
+    dirs: watch_paths
+
+  # filename patterns that should trigger page reloads (only within the above dirs)
+  patterns = [
+    ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg|webp)$",
+    # ~r"^priv/gettext/.*(po)$",
+    ~r{(web|templates)/.*(ex)$},
+    ~r"(live_handler|live_handlers|routes)\.ex$"
+  ]
+
+  # filename patterns that should trigger hots reloads of components/CSS/etc (only within the above dirs)
+  hot_patterns = [
+    ~r"(_live)\.ex$",
+    ~r{(live|views|pages|components)/.*(ex|css)$},
+    ~r".*(heex|leex|sface)$",
+    ~r"priv/catalogue/.*(ex)$"
+  ]
+
+  IO.puts("Watching these filenames for live reloading in the browser: #{inspect(patterns)}")
+
+  config :bonfire, Bonfire.Web.Endpoint,
+    code_reloader: true,
+    reloadable_apps: [:bonfire] ++ local_dep_names,
+    live_reload: [
+      patterns: patterns ++ hot_patterns,
+      notify: [
+        live_view: hot_patterns
+      ]
+    ]
+end
 
 config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
 
