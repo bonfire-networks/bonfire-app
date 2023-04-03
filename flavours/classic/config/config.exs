@@ -27,8 +27,8 @@ config :bonfire,
   graphql_schema_module: Bonfire.API.GraphQL.Schema,
   user_schema: Bonfire.Data.Identity.User,
   org_schema: Bonfire.Data.Identity.User,
-  home_page: Bonfire.Web.HomeLive,
-  user_home_page: Bonfire.Web.HomeLive,
+  home_page: :home,
+  user_home_page: :dashboard,
   # limit for prod
   default_pagination_limit: 15,
   # very high limit for prod
