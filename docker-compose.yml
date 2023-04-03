@@ -67,9 +67,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"
     env_file:
       - config/dev/.env
     volumes:
+      - caddy_data:/data
+      - caddy_config:/config
       - type: bind
         source: ${PROXY_CADDYFILE_PATH}
         target: /etc/caddy/Caddyfile
@@ -77,3 +80,8 @@ services:
       - type: bind
         source: ./data/uploads
         target: /frontend/uploads
+
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:
