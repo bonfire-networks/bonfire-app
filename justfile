@@ -1,6 +1,11 @@
 # recipes for the `just` command runner: https://just.systems
 # how to install: https://github.com/casey/just#packages
 
+# we load all vars from .env file into the env of just commands
+set dotenv-load
+# and export just vars as env vars
+set export
+
 ## Main configs - override these using env vars
 
 # what flavour do we want?
@@ -24,7 +29,6 @@ APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":lat
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
 ## Other configs - edit these here if necessary
-
 EXT_PATH := "extensions/"
 EXTRA_FORKS_PATH := "forks/"
 APP_VSN_EXTRA := "beta"
@@ -38,16 +42,14 @@ CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 
+PROXY_CADDYFILE_PATH := if PUBLIC_PORT == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }  
+
 ENV_ENV := if MIX_ENV == "test" { "dev" } else { MIX_ENV } 
 
 ## Configure just
 # choose shell for running recipes
 set shell := ["bash", "-uc"]
 # set shell := ["bash", "-uxc"] 
-# load all vars from .env file
-set dotenv-load
-# export just vars into recipe as env vars
-set export
 # support args like $1, $2, etc, and $@ for all args
 set positional-arguments
 
