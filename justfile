@@ -136,7 +136,7 @@ dev-run *args='': init
 @dev-remote: init
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
-dev-proxied:
+dev-proxied: docker-stop-web
 	docker compose --profile proxy up -d 
 	docker logs bonfire_web -f
 
