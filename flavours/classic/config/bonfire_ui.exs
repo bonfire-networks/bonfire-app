@@ -1,10 +1,11 @@
 import Config
 
-cwd = File.cwd!()
-
 # Please note that most of these are defaults meant to be overridden/extended by:
 # 1) flavour-specific config
 # 2) instance admins in Settings
+
+cwd = File.cwd!()
+dep_ui_common = (if File.exists?("#{cwd}/extensions/bonfire_ui_common/"), do: "#{cwd}/deps/bonfire_ui_common/")
 
 config :bonfire, :ui,
   theme: [
@@ -134,9 +135,9 @@ config :surface_catalogue,
 config :iconify_ex,
   generated_icon_app: :bonfire_ui_common,
   mode: :css,
-  generated_icon_modules_path: "#{cwd}/extensions/bonfire_ui_common/components/icons",
+  generated_icon_modules_path: "#{dep_ui_common}lib/components/icons",
   generated_icon_static_url: "/images/icons",
-  generated_icon_static_path: "#{cwd}/extensions/bonfire_ui_common/assets/static/images/icons"
+  generated_icon_static_path: "#{dep_ui_common}assets/static/images/icons"
 
 config :surface, :components, [
   {Iconify.Icon, propagate_context_to_slots: false},
