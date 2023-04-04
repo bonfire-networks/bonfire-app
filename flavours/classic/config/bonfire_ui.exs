@@ -5,7 +5,7 @@ import Config
 # 2) instance admins in Settings
 
 cwd = File.cwd!()
-dep_ui_common = (if File.exists?("#{cwd}/extensions/bonfire_ui_common/"), do: "#{cwd}/deps/bonfire_ui_common/")
+dep_ui_common = (if File.exists?("#{cwd}/extensions/bonfire_ui_common/"), do: "#{cwd}/extensions/bonfire_ui_common/", else: "#{cwd}/deps/bonfire_ui_common/")
 
 config :bonfire, :ui,
   theme: [
