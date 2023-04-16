@@ -9,6 +9,7 @@ ARG FLAVOUR_PATH
 # RUN apk update && apk add git rust cargo
 
 # fetch messctl
+RUN mkdir forks/messctl/origin
 RUN git clone https://github.com/bonfire-networks/messctl forks/messctl/origin 2> /dev/null || (cd forks/messctl/origin && git pull)
 RUN cd forks/messctl/origin && git checkout 8f53c86687ba2bd262471c6e8d9490ed00bf1306
 # FIXME: try using latest version of messctl
