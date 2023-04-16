@@ -47,6 +47,9 @@ The first thing to do is choose what flavour of Bonfire (eg. classic, community,
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
+If you're not planning on using Docker, you'll also need:
+
+- `export WITH_DOCKER=no`
 
 ## Step 2- Prepare the config
 
@@ -199,11 +202,9 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Make sure you have erlang and elixir installed (check `Dockerfile` for what version we're currently using)
 
-- `export WITH_DOCKER=no` 
+- `export WITH_DOCKER=no` OR add `WITH_DOCKER=no` to the end of `.env` and source it with `source .env`
 
-- `just flavour [classic or your choice of flavour]` to select your flavour, set up some things, and download dependencies
-
-- Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. Note that you will need `just` to pass in the `.env` file to the executable, like so: `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. We will be using the `bin/bonfire` executable as called from `just` from here on. 
+- Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. Note that you will need `just` to pass in the `.env` file to the executable, like so: `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Alternatively, this file can be sourced by `source .env` instead. We will be using the `bin/bonfire` executable as called from `just` from here on. 
 
 #### C-2. Running the release
 
