@@ -15,7 +15,7 @@ FLAVOUR_PATH := env_var_or_default('FLAVOUR_PATH', "flavours/" + FLAVOUR)
 # do we want to use Docker? set as env var:
 # - WITH_DOCKER=total : use docker for everything (default)
 # - WITH_DOCKER=partial : use docker for services like the DB 
-# - WITH_DOCKER=easy : use docker for services like the DB & compiled utilities like messctl 
+# - WITH_DOCKER=easy : use docker for services like the DB & compiled utilities  (deprecated, now same as partial)
 # - WITH_DOCKER=no : please no
 WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total") 
 
@@ -645,7 +645,9 @@ dc *args='':
 
 # Build the docker image
 build: init 
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose pull && docker compose build" } else { "just mix setup" } }}
+	mkdir -p deps
+	{{ if WITH_DOCKER != "no" { "docker compose pull" } else { "just mix setup" } }}
+	{{ if WITH_DOCKER == "total" { "docker compose build" } else { "echo ." } }}
 
 # Build the docker image
 rebuild: init 
