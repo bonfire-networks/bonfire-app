@@ -26,7 +26,7 @@ defmodule Bonfire.Umbrella.MixProject do
     #
     # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
     # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
-    {:ex_doc, "~> 0.28.3", only: [:dev, :test], runtime: false},
+    {:ex_doc, "~> 0.29.4", only: [:dev, :test], runtime: false},
     {:ecto_erd, "~> 0.4", only: :dev},
     # {:ecto_dev_logger, "~> 0.7", only: :dev},
     # flame graphs in live_dashboard
@@ -35,7 +35,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:periscope, "~> 0.4", only: :dev},
     # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
     # changelog generation
-    {:versioce, "~> 1.1.2", only: :dev},
+    {:versioce, "~> 2.0.0", only: :dev},
     # needed for changelog generation
     {:git_cli, "~> 0.3.0", only: :dev},
     # {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0" # disabled because exqlite not working in CI
