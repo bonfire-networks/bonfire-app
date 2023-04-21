@@ -59,6 +59,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
     {:ex_unit_notifier, "~> 1.0", only: :test},
     {:wallaby, "~> 0.30", runtime: false, only: :test},
+    {:credo, "~> 1.7.0", only: :test},
     # {:bypass, "~> 2.1", only: :test}, # used in furlex
 
     # Benchmarking utilities
