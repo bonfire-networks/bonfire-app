@@ -50,6 +50,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
     # tests
     # {:floki, ">= 0.0.0", only: [:dev, :test]},
+    # {:pages, "~> 0.12", only: :test}, # extends Floki for testing 
     {:mock, "~> 0.3", only: :test},
     # {:mox, "~> 1.0", only: :test},
     {:ex_machina, "~> 2.7", only: [:dev, :test]},
