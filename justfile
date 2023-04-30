@@ -568,7 +568,7 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
 	@echo "Remember to run just rel-tag or just rel-push"
 
-rel-tag-commit build label='latest': rel-init 
+@rel-tag-commit build label='latest': rel-init 
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} 
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
@@ -583,12 +583,14 @@ rel-push label='latest':
 	@just rel-push-only $APP_BUILD {{label}}
 
 rel-push-only build label='latest': 
+	@echo "Pushing to $APP_DOCKER_REPO"
 	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
-	just rel-push-only-alt {{build}} {{label}}
+	@just rel-push-only-alt {{build}} {{label}}
 
 rel-push-only-alt build label='latest': 
-	echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
-	docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
+	@echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
+	@echo "Pushing to $APP_DOCKER_REPO_ALT"
+	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
 rel-run: rel-init docker-stop-web rel-services
