@@ -293,6 +293,9 @@ deps-clean dep:
 @deps-clean-api: 
 	just mix bonfire.deps.clean.api
 
+@deps-clean-web: 
+	just deps-clean bonfire_ui_common
+
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
 js-deps-get: js-ext-deps assets-ln
