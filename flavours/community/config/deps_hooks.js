@@ -10,7 +10,7 @@ import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/
 import { CarouselHooks } from "./../../../deps/bonfire_ui_common/assets/js/carousel"
 import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
-import { CopyHooks } from "./../../../extensions/bonfire_ui_common/assets/js/copy"
+import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
 
 import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
 
