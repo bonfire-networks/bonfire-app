@@ -68,8 +68,8 @@ help:
 	-rm ./config/flavour_* 2> /dev/null
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && cat ./templates/public.env ./templates/not_secret.env > ./$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> ./$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./$ENV_ENV/.env)
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
+	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && cat ./templates/public.env ./templates/not_secret.env > ./$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> ./$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./$ENV_ENV/.env)
 	touch ./config/deps.path
 	-rm .env 
 	ln -sf ./config/$ENV_ENV/.env ./.env
