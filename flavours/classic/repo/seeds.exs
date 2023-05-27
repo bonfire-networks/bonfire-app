@@ -2,6 +2,7 @@
 #
 
 import Bonfire.Me.Fake
+import Bonfire.Social.Fake
 
 System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
@@ -22,6 +23,12 @@ users = for _ <- 1..3, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
 
 # start fake threads
+for _ <- 1..10 do
+  thread = fake_post!(random_user.())
+  comment = fake_comment!(random_user.(), thread)
+  comment = fake_comment!(random_user.(), comment)
+end
+
 # for _ <- 1..3 do
 #  user = random_user.()
 #  thread = fake_thread!(user)
