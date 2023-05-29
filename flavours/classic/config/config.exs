@@ -29,8 +29,8 @@ config :bonfire,
   org_schema: Bonfire.Data.Identity.User,
   home_page: :home,
   user_home_page: :dashboard,
-  # limit for prod
-  default_pagination_limit: 15,
+  # default limit for prod
+  default_pagination_limit: 20,
   # very high limit for prod
   thread_default_pagination_limit: 500,
   # how many nested replies to show

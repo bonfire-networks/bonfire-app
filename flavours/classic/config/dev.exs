@@ -7,7 +7,7 @@ config :bonfire,
   # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
   experimental_features_enabled: true,
   # low limit so it is easier to test UX
-  default_pagination_limit: 10
+  default_pagination_limit: 15
 
 # config :pseudo_gettext, :locale, "en-pseudo_text" # uncomment to use https://en.wikipedia.org/wiki/Pseudolocalization and check that the app is properly localisable
 
