@@ -57,7 +57,7 @@ More details at https://bonfirenetworks.org",
   ],
   themes: [
     "bonfire",
-    "dark",
+    # "dark",
     "synthwave",
     "retro",
     "cyberpunk",
