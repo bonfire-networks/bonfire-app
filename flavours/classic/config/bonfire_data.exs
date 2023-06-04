@@ -298,7 +298,7 @@ common = fn names ->
   end
 end
 
-edge = common.([:controlled, :activities, :request, :created])
+edge = common.([:controlled, :activity, :activities, :request, :created])
 
 edges =
   common.([:controlled, :activities, :request, :created, :caretaker, :activity, :feed_publishes])
@@ -651,6 +651,8 @@ config :bonfire_data_edges, Edge,
   code:
     (quote do
        (unquote_splicing(edge))
+
+       has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)
 
        # TODO: requires composite foreign keys:
        # has_one :activity, unquote(Activity),
