@@ -1,5 +1,8 @@
 import Config
 
+config :bonfire_ui_topics,
+  disabled: true
+
 config :bonfire_api_graphql,
   disabled: false
 
