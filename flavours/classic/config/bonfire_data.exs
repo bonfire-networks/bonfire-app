@@ -141,7 +141,7 @@ alias Bonfire.Data.ActivityPub.Peer
 alias Bonfire.Data.ActivityPub.Peered
 
 # alias Bonfire.Boundaries.Permitted
-alias Bonfire.Boundaries.Stereotyped
+alias Bonfire.Data.AccessControl.Stereotyped
 
 alias Bonfire.Data.Edges.Edge
 alias Bonfire.Data.Edges.EdgeTotal
