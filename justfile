@@ -577,12 +577,13 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build
-rel-tag label='latest': 
+@rel-tag label='latest': 
 	just rel-tag-commit $APP_BUILD {{label}}
 
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest': 
 	@just rel-tag {{label}}
+	@echo just rel-push-only $APP_BUILD {{label}}
 	@just rel-push-only $APP_BUILD {{label}}
 
 rel-push-only build label='latest': 
