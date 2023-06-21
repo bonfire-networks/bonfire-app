@@ -101,6 +101,7 @@ More details at https://bonfirenetworks.org",
   smart_input: [
     post: true,
     cw: true,
+    title: true,
     summary: true
   ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
