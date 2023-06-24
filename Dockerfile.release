@@ -45,6 +45,7 @@ COPY data/current_flavour/config/config_basics.exs ./config/config.exs
 COPY data/current_flavour/config/deps*hex ./config/ 
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
 
 # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
 RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix do deps.compile ; else echo "Skip" ; fi 
