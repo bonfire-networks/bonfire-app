@@ -774,6 +774,7 @@ config :bonfire_data_social, Post,
        # mixins
        unquote_splicing(
          common.([
+           :named,
            :activities,
            :activity,
            :caretaker,
@@ -819,7 +820,7 @@ config :bonfire_data_social, PostContent,
   code:
     (quote do
        # mixins
-       unquote_splicing(common.([:created]))
+       unquote_splicing(common.([:created, :named]))
        # multimixins
        unquote_splicing(common.([:controlled]))
        # virtuals for changesets
