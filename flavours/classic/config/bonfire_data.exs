@@ -298,10 +298,19 @@ common = fn names ->
   end
 end
 
-edge = common.([:controlled, :activity, :activities, :request, :created])
+edge = common.([:controlled, :activity, :activities, :request])
 
 edges =
-  common.([:controlled, :activities, :request, :created, :caretaker, :activity, :feed_publishes])
+  common.([
+    :controlled,
+    :activities,
+    :request,
+    :created,
+    :replied,
+    :caretaker,
+    :activity,
+    :feed_publishes
+  ])
 
 # first up, pointers could have all the mixins we're using. TODO
 
@@ -654,6 +663,11 @@ config :bonfire_data_edges, Edge,
 
        has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)
 
+       has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)
+       has_one(:caretaker, unquote(Replied), foreign_key: :id, references: :object_id)
+
+       has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
+
        # TODO: requires composite foreign keys:
        # has_one :activity, unquote(Activity),
        #   foreign_key: [:table_id, :object_id], references: [:table_id, :object_id]
@@ -839,7 +853,10 @@ config :bonfire_data_social, Replied,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
        belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
-       has_one(:activity, unquote(Activity), foreign_key: :object_id, references: :id)
+
+       has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
+       has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)
+
        # used in changesets
        field(:replying_to, :map, virtual: true)
        has_one(:reply_to_post, unquote(Post), foreign_key: :id, references: :reply_to_id)
