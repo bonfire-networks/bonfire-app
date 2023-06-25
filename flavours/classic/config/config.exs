@@ -62,6 +62,7 @@ config :ecto_sparkles, :umbrella_otp_app, :bonfire_umbrella
 config :rauversion_extension, :repo_module, repo
 config :activity_pub, :repo, repo
 config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
+config :paper_trail, repo: repo
 
 config :rauversion_extension, :user_schema, Bonfire.Data.Identity.User
 config :rauversion_extension, :router_helper, Bonfire.Web.Router.Helpers
@@ -93,6 +94,12 @@ config :bonfire, Oban,
     federator_outgoing: 50,
     remote_fetcher: 20
   ]
+
+config :paper_trail,
+  item_type: Pointers.ULID,
+  originator_type: Pointers.ULID,
+  originator_relationship_options: [references: :id],
+  originator: [name: :user, model: Bonfire.Data.Identity.User]
 
 config :mime, :types, %{
   "application/json" => ["json"],
