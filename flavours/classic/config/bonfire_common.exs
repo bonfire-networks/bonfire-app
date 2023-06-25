@@ -10,7 +10,7 @@ config :bonfire_common, Bonfire.Common.Localise.Cldr,
   default_locale: default_locale,
   # locales that will be made available on top of those for which gettext localisation files are available
   locales: ["fr", "en", "es"],
-  providers: [Cldr.Language],
+  providers: [Cldr.Language, Cldr.DateTime, Cldr.Number, Cldr.Calendar],
   gettext: Bonfire.Common.Localise.Gettext,
   data_dir: "./priv/cldr",
   add_fallback_locales: true,
