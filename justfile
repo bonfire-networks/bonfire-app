@@ -25,7 +25,7 @@ APP_NAME := "bonfire"
 
 # The version of Alpine to use for the final image - should match the version of Alpine used in the ELIXIR_VERSION below:
 ALPINE_VERSION := env_var_or_default('ALPINE_VERSION', "3.18.2")
-ELIXIR_VERSION := env_var_or_default('APP_DOCKER_IMAGE', "1.15.0-erlang-26.0.1-alpine-"+ALPINE_VERSION)
+ELIXIR_VERSION := env_var_or_default('ELIXIR_VERSION', "1.15.0-erlang-26.0.1-alpine-"+ALPINE_VERSION)
 # ^ Defines what version of Elixir to use - ATTENTION: when changing Elixir version  make sure to update the `ALPINE_VERSION` arg to match, as well as the Elixir version in:
 # - .tool-versions
 # - Dockerfile.dev 
@@ -568,8 +568,10 @@ rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare
 	@just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="": 
-	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}}."
+	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}} with image $ELIXIR_VERSION."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
+		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
+		--build-arg ELIXIR_VERSION=$ELIXIR_VERSION \
 		--build-arg FLAVOUR=$FLAVOUR \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg APP_NAME=$APP_NAME \

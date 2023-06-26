@@ -29,8 +29,9 @@ COPY data/current_flavour/config/config_basics.exs ./config/config.exs
 # get deps from hex.pm
 COPY data/current_flavour/config/deps*hex ./config/ 
 RUN mix do local.hex --force, local.rebar --force
-# RUN mix do deps.get --only prod
-RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
+RUN mix do deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
+# ^ useful in case of spotting connectivity
 
 # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
 RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix do deps.compile ; else echo "Skip" ; fi 
@@ -39,8 +40,8 @@ RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix do deps.c
 COPY data/current_flavour/config/deps*git ./config/
 
 # fetch them because we need them for the non-configurable paths in config/deps_hooks.js
-# RUN mix do deps.get --only prod
-RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
+RUN mix do deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
 
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/ ./config/
@@ -108,16 +109,12 @@ RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/sta
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
 
+
 ##### STEP 2 - Prepare the server image ####
 # From this line onwards, we're in a new image, which will be the image used in production
 FROM alpine:${ALPINE_VERSION}
 
-# The name of your application/release (required)
-ARG APP_NAME
-ARG APP_VSN
-ARG APP_BUILD
-
-ENV APP_NAME=${APP_NAME} APP_VSN=${APP_VSN} APP_REVISION=${APP_VSN}-${APP_BUILD}
+ENV APP_NAME=${APP_NAME} APP_VSN=${APP_VSN} APP_REVISION=${APP_VSN}-${APP_BUILD} FLAVOUR=$FLAVOUR
 
 # Essentials
 RUN apk add --update --no-cache \
