@@ -133,7 +133,8 @@ defmodule Bonfire.Umbrella.MixProject do
         "activity_pub",
         "arrows",
         "linkify",
-        "fetch_favicon"
+        "fetch_favicon",
+        "paper_trail"
       ],
       data: [
         "bonfire_data_",

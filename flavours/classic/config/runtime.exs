@@ -187,7 +187,10 @@ config :bonfire, Bonfire.Common.Repo, database: database
 config :beacon, Beacon.Repo, database: database
 config :paginator, Paginator.Repo, database: database
 config :beacon, Beacon.Repo, pool_size: pool_size
-config :bonfire, Bonfire.Common.TestInstanceRepo, priv: "priv/repo"
+
+repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
+config :bonfire, Bonfire.Common.Repo, priv: repo_path
+config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
 
 config :activity_pub, Oban,
   repo: Bonfire.Common.Repo,
