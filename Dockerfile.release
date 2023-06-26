@@ -1,21 +1,4 @@
-# Define what version of Elixir to use - ATTENTION: when changing Elixir version 
-# make sure to update the `ALPINE_VERSION` arg to match,
-# as well as the Elixir version in:
-# - mix.exs 
-# - .github/workflows/test.yaml or .gitlab-ci.yml 
-# - Dockerfile.dev 
-# - .tool-versions
-ARG ELIXIR_IMAGE=1.14-alpine
 
-# The version of Alpine to use for the final image
-# This should match the version of Alpine that the current elixir & erlang images (in Step 1) use.
-# To find this you need to:
-# 1. Locate the dockerfile for the elixir image matching the version, and check what erlang version it uses
-#    e.g. https://github.com/erlef/docker-elixir/blob/master/1.14/alpine/Dockerfile
-# 2. Locate the corresponding dockerfile for the erlang version used, and check what alpine version it uses, and then copy that number into the ARG below:
-#    e.g. https://github.com/erlang/docker-erlang-otp/blob/master/25/alpine/Dockerfile
-# TODO! switch to image from hex.pm which don't randombly change Alpine version on an existing label
-ARG ALPINE_VERSION=3.17
 
 # The following are build arguments used to change variable parts of the image, they should be set as env variables.
 # The name of your application/release (required)
@@ -24,9 +7,11 @@ ARG APP_NAME
 ARG APP_VSN
 ARG FLAVOUR
 ARG FLAVOUR_PATH
+ARG ELIXIR_VERSION
+ARG ALPINE_VERSION
 
 #### STEP 1 - Build our app
-FROM elixir:${ELIXIR_IMAGE} as builder 
+FROM hexpm/elixir:${ELIXIR_VERSION} as builder 
 
 # necessary utils + dependencies for comeonin
 RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 

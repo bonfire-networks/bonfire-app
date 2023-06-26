@@ -22,6 +22,16 @@ WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 MIX_ENV := env_var_or_default('MIX_ENV', "dev") 
 
 APP_NAME := "bonfire"
+
+# The version of Alpine to use for the final image - should match the version of Alpine used in the ELIXIR_VERSION below:
+ALPINE_VERSION := env_var_or_default('ALPINE_VERSION', "3.18.2")
+ELIXIR_VERSION := env_var_or_default('APP_DOCKER_IMAGE', "1.15.0-erlang-26.0.1-alpine-"+ALPINE_VERSION)
+# ^ Defines what version of Elixir to use - ATTENTION: when changing Elixir version  make sure to update the `ALPINE_VERSION` arg to match, as well as the Elixir version in:
+# - .tool-versions
+# - Dockerfile.dev 
+# - .github/workflows/test.yaml and/or .gitlab-ci.yml 
+# - mix.exs 
+
 APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
 APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 

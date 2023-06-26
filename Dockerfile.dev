@@ -1,8 +1,9 @@
 # stage to build the dependency manager
 ARG FLAVOUR
 ARG FLAVOUR_PATH
+ARG ELIXIR_VERSION
 
-FROM elixir:1.14-alpine
+FROM hexpm/elixir:${ELIXIR_VERSION}
 
 ENV HOME=/opt/app/ TERM=xterm USER=docker 
 WORKDIR $HOME

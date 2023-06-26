@@ -56,7 +56,7 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
           :opentelemetry_exporter,
           %{
             endpoints: [
-              {:https, 'api.honeycomb.io', 443,
+              {:https, ~c"api.honeycomb.io", 443,
                [
                  verify: :verify_peer,
                  cacertfile: :certifi.cacertfile(),

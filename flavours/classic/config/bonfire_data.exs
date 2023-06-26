@@ -294,7 +294,9 @@ common = fn names ->
   for name <- List.wrap(names) do
     with nil <- common_assocs[name],
          do:
-           raise(RuntimeError, message: "Expected a common association name, got #{inspect(name)}")
+           raise(RuntimeError,
+             message: "Expected a common association name, got #{inspect(name)}"
+           )
   end
 end
 
