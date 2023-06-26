@@ -2,14 +2,7 @@
 #   ExSync.register_group_leader()
 # end
 
-alias Bonfire.Repo
-alias Bonfire.Data
-alias Bonfire.Me
-alias Bonfire.Social
-alias Bonfire.Common
-use Common.Utils
-import Bonfire.Me.Fake
-import Untangle
+use ConsoleHelpers
 
 if module_enabled?(Bonfire.Common.Test.Interactive) and Mix.env() == :test do
   # to run tests from iex
