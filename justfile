@@ -52,7 +52,7 @@ CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 
-PROXY_CADDYFILE_PATH := if env_var('PUBLIC_PORT') == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }  
+PROXY_CADDYFILE_PATH := if env_var_or_default('PUBLIC_PORT', '4000') == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }  
 
 ENV_ENV := if MIX_ENV == "test" { "dev" } else { MIX_ENV } 
 
