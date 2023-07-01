@@ -23,9 +23,9 @@ MIX_ENV := env_var_or_default('MIX_ENV', "dev")
 
 APP_NAME := "bonfire"
 
-# The version of Alpine to use for the final image - should match the version of Alpine used in the ELIXIR_VERSION below:
+# The version of Alpine to use for the final image - should match the version used in the Elixir docker image, which can be checked on Docker Hub: https://hub.docker.com/r/hexpm/elixir/tags?name=1.15.1-erlang-26.0.2-alpine 
 ALPINE_VERSION := env_var_or_default('ALPINE_VERSION', "3.18.2")
-ELIXIR_VERSION := env_var_or_default('ELIXIR_VERSION', "1.15.0-erlang-26.0.1-alpine-"+ALPINE_VERSION)
+ELIXIR_VERSION := env_var_or_default('ELIXIR_VERSION', "1.15.1-erlang-26.0.2-alpine-"+ALPINE_VERSION)
 # ^ Defines what version of Elixir to use - ATTENTION: when changing Elixir version  make sure to update the `ALPINE_VERSION` arg to match, as well as the Elixir version in:
 # - .tool-versions
 # - Dockerfile.dev 
