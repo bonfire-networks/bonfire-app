@@ -29,6 +29,9 @@ config :activity_pub, :mrf_simple,
 
 config :http_signatures, adapter: ActivityPub.Safety.Keys
 
+# config :tesla, adapter: Tesla.Adapter.Hackney
+config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch}
+
 config :activity_pub, :http,
   proxy_url: nil,
   user_agent: "Bonfire ActivityPub federation",
@@ -36,7 +39,7 @@ config :activity_pub, :http,
   adapter: [
     ssl_options: [
       # Workaround for remote server certificate chain issues
-      partial_chain: &:hackney_connect.partial_chain/1,
+      # partial_chain: &:hackney_connect.partial_chain/1,
       # We don't support TLS v1.3 yet
       versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"]
     ]

@@ -90,9 +90,10 @@ config :bonfire, Oban,
   repo: repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [
-    federator_incoming: 50,
-    federator_outgoing: 50,
-    remote_fetcher: 20
+    federator_incoming: 10,
+    federator_outgoing: 10,
+    remote_fetcher: 5,
+    import: 5
   ]
 
 config :paper_trail,
