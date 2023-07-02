@@ -689,7 +689,7 @@ config :bonfire_data_social, FeedPublish,
   code:
     (quote do
        field(:dummy, :any, virtual: true)
-       has_one(:activity, unquote(Activity), foreign_key: :object_id, references: :id)
+       has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
 
        # belongs_to :character, unquote(Character), foreign_key: :id, define_field: false
        # belongs_to :user, unquote(User), foreign_key: :id, define_field: false
