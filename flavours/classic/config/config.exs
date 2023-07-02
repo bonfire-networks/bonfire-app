@@ -93,7 +93,8 @@ config :bonfire, Oban,
     federator_incoming: 10,
     federator_outgoing: 10,
     remote_fetcher: 5,
-    import: 5
+    import: 2,
+    deletion: 1
   ]
 
 config :paper_trail,

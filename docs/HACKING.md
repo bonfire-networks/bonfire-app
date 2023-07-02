@@ -266,11 +266,11 @@ Example:
 In this case, the seeds were unable to complete because a query took too long to execute on your machine. You can configure the timeout to be larger in the `dev` environment:
 
 1. Open `config/dev.exs` in your editor.
-2. Find the database configuration (search for `Bonfire.Repo`).
+2. Find the database configuration (search for `Bonfire.Common.Repo`).
 3. Add `timeout: 60_000` to the list of options:
 
 ```
-config :bonfire, Bonfire.Repo,
+config :bonfire, Bonfire.Common.Repo,
   timeout: 60_000,
   [...]
 ```
