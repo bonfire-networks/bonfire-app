@@ -7,11 +7,11 @@ ARG APP_NAME
 ARG APP_VSN
 ARG FLAVOUR
 ARG FLAVOUR_PATH
-ARG ELIXIR_VERSION
+ARG ELIXIR_DOCKER_IMAGE
 ARG ALPINE_VERSION
 
 #### STEP 1 - Build our app
-FROM hexpm/elixir:${ELIXIR_VERSION} as builder 
+FROM hexpm/elixir:${ELIXIR_DOCKER_IMAGE} as builder 
 
 # necessary utils + dependencies for comeonin
 RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
