@@ -53,7 +53,6 @@ config :activity_pub, ActivityPub.Web.Endpoint,
   ]
 
 config :activity_pub, :json_contexts, %{
-  "Hashtag" => "as:Hashtag",
   "ValueFlows" => "https://w3id.org/valueflows#",
   "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/"
 }

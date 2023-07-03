@@ -147,3 +147,5 @@ config :versioce, :changelog,
     fixed: ["Bug"],
     security: ["Security", "Safety"]
   }
+
+config :source_inspector, :enabled, true

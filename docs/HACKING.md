@@ -27,7 +27,7 @@ $ cd bonfire
 
 Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on:
 
-- `classic` ("Bonfire Social", a toot-based social network that interoperates with the fediverse)
+- `classic` ("Bonfire Social", a basic social network that interoperates with the fediverse)
 - `community` (for groups and communities)
 - `cooperation` (for building cooperative economic networks)
 

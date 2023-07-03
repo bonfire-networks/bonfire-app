@@ -159,11 +159,11 @@ alias Bonfire.Data.Identity.Named
 alias Bonfire.Data.Identity.Self
 alias Bonfire.Data.Identity.Settings
 alias Bonfire.Data.Identity.User
+alias Bonfire.Data.Identity.Alias
 
 alias Bonfire.Data.Social.Activity
 alias Bonfire.Data.Social.APActivity
 alias Bonfire.Data.Social.Article
-alias Bonfire.Data.Social.Block
 alias Bonfire.Data.Social.Bookmark
 alias Bonfire.Data.Social.Boost
 alias Bonfire.Data.Social.Created
@@ -235,6 +235,7 @@ common_assocs = %{
   tree: quote(do: has_one(:tree, unquote(Tree), unquote(mixin_updatable))),
   # Information that allows the system to identify special system-managed ACLS.
   stereotyped: quote(do: has_one(:stereotyped, unquote(Stereotyped), unquote(mixin))),
+  settings: quote(do: has_one(:settings, unquote(Settings), foreign_key: :id)),
 
   ### Multimixins
 
@@ -314,7 +315,7 @@ edges =
     :feed_publishes
   ])
 
-# first up, pointers could have all the mixins we're using. TODO
+# first up, Pointer could have all the mixins we're using
 
 pointer_mixins =
   common.([
@@ -331,7 +332,8 @@ pointer_mixins =
     :profile,
     :replied,
     :tree,
-    :stereotyped
+    :stereotyped,
+    :settings
   ])
 
 config :pointers, Pointer,
@@ -493,10 +495,28 @@ config :bonfire_data_identity, Character,
   code:
     (quote do
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
+       @alias_ulid "7NA11ASA1S0KN0WNASFACESWAP"
+
        # mixins
        unquote_splicing(common.([:actor, :peered, :profile, :tree]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
+
+       # TODO? link the Edge assocs directly to the subject or object instead of the Edge
+
+       # aliases I added
+       has_many(:aliases, unquote(Edge),
+         foreign_key: :subject_id,
+         references: :id,
+         where: [table_id: @alias_ulid]
+       )
+
+       # aliases others add of me
+       has_many(:aliased, unquote(Edge),
+         foreign_key: :object_id,
+         references: :id,
+         where: [table_id: @alias_ulid]
+       )
 
        has_many(:followers, unquote(Edge),
          foreign_key: :object_id,
@@ -539,12 +559,11 @@ config :bonfire_data_identity, User,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
-       unquote_splicing(common.([:actor, :character, :created, :peered, :profile]))
+       unquote_splicing(common.([:actor, :character, :created, :peered, :profile, :settings]))
        has_one(:accounted, unquote(Accounted), foreign_key: :id)
        has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
        has_one(:self, unquote(Self), foreign_key: :id)
        has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
-       has_one(:settings, unquote(Settings), foreign_key: :id)
 
        # multimixins
        unquote_splicing(common.([:controlled]))
@@ -592,6 +611,12 @@ config :bonfire_data_identity, User,
 
 config :bonfire_data_identity, Named, []
 config :bonfire_data_identity, ExtraInfo, []
+
+config :bonfire_data_identity, Alias,
+  code:
+    (quote do
+       (unquote_splicing(edges))
+     end)
 
 ### bonfire_data_social
 
@@ -705,12 +730,6 @@ config :bonfire_data_social, Follow,
 # belongs_to: [follower_profile: {Profile, foreign_key: :follower_id, define_field: false}],
 # belongs_to: [followed_character: {Character, foreign_key: :followed_id, define_field: false}],
 # belongs_to: [followed_profile: {Profile, foreign_key: :followed_id, define_field: false}]
-
-config :bonfire_data_social, Block,
-  code:
-    (quote do
-       (unquote_splicing(edges))
-     end)
 
 config :bonfire_data_social, Boost,
   code:
@@ -1025,13 +1044,14 @@ config :bonfire_classify, Category,
     (quote do
        # mixins
        # TODO :caretaker
-       unquote_splicing(common.([:activity, :created, :actor, :peered, :profile, :character]))
+       unquote_splicing(
+         common.([:activity, :created, :actor, :peered, :profile, :character, :settings])
+       )
+
        # multimixins
        unquote_splicing(common.([:controlled, :feed_publishes]))
 
        has_one(:creator, through: [:created, :creator])
-
-       has_one(:settings, unquote(Settings), foreign_key: :id)
 
        # add references of tagged objects to any Category
        many_to_many(:tags, unquote(Pointer),
