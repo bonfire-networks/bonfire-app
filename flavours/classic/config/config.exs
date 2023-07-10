@@ -33,8 +33,6 @@ config :bonfire,
   default_pagination_limit: 20,
   # very high limit for prod
   thread_default_pagination_limit: 500,
-  # how many nested replies to show
-  thread_default_max_depth: 3,
   localisation_path: "priv/localisation",
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   signing_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",

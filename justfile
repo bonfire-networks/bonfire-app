@@ -389,6 +389,8 @@ pre-push-hooks: pre-contrib-hooks
 
 pre-contrib-hooks: 
 	-ex +%s,/extensions/,/deps/,e -scwq config/deps_hooks.js
+	rm -rf forks/*/data/uploads/favicons/
+	rm -rf extensions/*/data/uploads/favicons/
 # -sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
