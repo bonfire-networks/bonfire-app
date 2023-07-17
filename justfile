@@ -298,7 +298,7 @@ deps-post-get:
 	-cd priv/static/data && ln -s ../../../data/uploads 
 
 deps-clean dep: 
-	just mix deps.clean $dep
+	just mix deps.clean $dep --build
 
 @deps-clean-data: 
 	just mix bonfire.deps.clean.data
@@ -307,6 +307,8 @@ deps-clean dep:
 	just mix bonfire.deps.clean.api
 
 @deps-clean-web: 
+	just deps-clean plug
+	just deps-clean phoenix_html
 	just deps-clean bonfire_ui_common
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
