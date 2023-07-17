@@ -284,7 +284,7 @@ update-fork dep:
 # Fetch locked version of non-forked deps
 deps-get *args='': 
 	just mix deps.get $@
-	just mix-remote deps.get $@
+	-just mix-remote deps.get $@ || echo "Oops, could not download mix deps"
 	just deps-post-get
 	just js-deps-get
 
@@ -673,7 +673,7 @@ dc *args='':
 # Build the docker image
 build: init 
 	mkdir -p deps
-	{{ if WITH_DOCKER != "no" { "docker compose pull" } else { "just mix setup" } }}
+	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix setup" } }}
 	{{ if WITH_DOCKER == "total" { "docker compose build" } else { "echo ." } }}
 
 # Build the docker image
