@@ -2,12 +2,12 @@
 DIR="${1:-$PWD}" 
 
 function maye_rebase {
-    if [[ $2 == 'pull' ]] 
+    if [[ $1 == 'pull' ]] 
     then
         git pull --rebase || fail "Please resolve conflicts before continuing." 
     fi
 
-    if [[ $2 == 'rebase' ]] 
+    if [[ $1 == 'rebase' ]] 
     then
         rebase
     fi
@@ -48,7 +48,7 @@ then
     # fi
 
     # merge/rebase local changes
-    maye_rebase
+    maye_rebase $2
 
     if [[ $3 != 'only' ]] 
     then
@@ -59,5 +59,5 @@ else
     set -e
     echo "No local changes to push"
 
-    maye_rebase
+    maye_rebase $2
 fi
