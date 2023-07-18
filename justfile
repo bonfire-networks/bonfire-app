@@ -274,13 +274,20 @@ update-dep dep: pre-update-deps
 
 # Pull the latest commits from all forks
 @update-forks: 
-	jungle git fetch && just update-fork "" rebase || echo "Jungle not available, will fetch one by one instead." && just update-fork "" pull
+	jungle git fetch && just update-forks-all rebase || echo "Jungle not available, will fetch one by one instead." && just update-forks-all pull
+
+update-forks-all cmd='pull': 
+	just update-fork-path $EXT_PATH $cmd 
+	just update-fork-path $EXTRA_FORKS_PATH $cmd 
 
 # Pull the latest commits from all forks
 update-fork dep cmd='pull': 
+	just update-fork-path $EXT_PATH/$dep $cmd 
+	just update-fork-path $EXTRA_FORKS_PATH/$dep $cmd 
+
+update-fork-path path cmd='pull': 
 	@chmod +x git-publish.sh
-	find $EXT_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} $cmd \; 
-	find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} $cmd \;
+	find $path -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} $cmd \; 
 
 # Fetch locked version of non-forked deps
 deps-get *args='': 
