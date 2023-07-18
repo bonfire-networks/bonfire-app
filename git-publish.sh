@@ -24,7 +24,7 @@ function fail {
 }
 
 
-echo "Checking for changes in $DIR"
+echo "Checking ($2) for changes in $DIR"
 
 cd $DIR
 
