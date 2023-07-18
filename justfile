@@ -274,7 +274,7 @@ update-dep dep: pre-update-deps
 
 # Pull the latest commits from all forks
 @update-forks: 
-	jungle git fetch && just update-forks-all rebase || echo "Jungle not available, will fetch one by one instead." && just update-forks-all pull
+	(jungle git fetch && just update-forks-all rebase) || (echo "Jungle not available, will fetch one by one instead." && just update-forks-all pull)
 
 update-forks-all cmd='pull': 
 	just update-fork-path $EXT_PATH $cmd 
