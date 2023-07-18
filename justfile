@@ -287,7 +287,7 @@ update-fork dep cmd='pull':
 
 update-fork-path path cmd='pull': 
 	@chmod +x git-publish.sh
-	find $path -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} $cmd \; 
+	find $path -mindepth 0 -maxdepth 1 -type d -exec ./git-publish.sh {} $cmd \; 
 
 # Fetch locked version of non-forked deps
 deps-get *args='': 
