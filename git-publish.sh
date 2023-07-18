@@ -1,6 +1,18 @@
 #!/bin/bash 
 DIR="${1:-$PWD}" 
 
+function maye_rebase {
+    if [[ $2 == 'pull' ]] 
+    then
+        git pull --rebase || fail "Please resolve conflicts before continuing." 
+    fi
+
+    if [[ $2 == 'rebase' ]] 
+    then
+        rebase
+    fi
+}
+
 function rebase {
     # if jungle is available and we can assume fetches were already done by just and so we rebase, otherwise we rebase pull
     command -v jungle && git rebase || git pull --rebase || fail "Please resolve conflicts before continuing." 
@@ -10,6 +22,7 @@ function fail {
     printf '%s\n' "$1" >&2 ## Send message to stderr.
     exit "${2-1}" ## Return a code specified by $2, or 1 by default.
 }
+
 
 echo "Checking for changes in $DIR"
 
@@ -35,24 +48,16 @@ then
     # fi
 
     # merge/rebase local changes
-    rebase && echo "Published changes!" 
+    maye_rebase
 
     if [[ $3 != 'only' ]] 
     then
-        git push
+        git push && echo "Published changes!" 
     fi
 
 else
     set -e
     echo "No local changes to push"
 
-    if [[ $2 == 'pull' ]] 
-    then
-        git pull --rebase || fail "Please resolve conflicts before continuing." 
-    fi
-
-    if [[ $2 == 'rebase' ]] 
-    then
-        rebase
-    fi
+    maye_rebase
 fi

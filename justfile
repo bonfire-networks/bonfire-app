@@ -257,6 +257,7 @@ update-deps-bonfire:
 
 # Update every single dependency (use with caution)
 update-deps-all: deps-unlock-unused pre-update-deps
+	just update-forks
 	just mix-remote "deps.update --all"
 	just deps-post-get
 	just js-ext-deps upgrade
@@ -266,20 +267,20 @@ update-deps-all: deps-unlock-unused pre-update-deps
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: pre-update-deps
-	@chmod +x git-publish.sh && ./git-publish.sh $EXT_PATH/$dep pull && ./git-publish.sh $EXTRA_FORKS_PATH/$dep pull 
+	just update-fork $dep pull 
 	just mix-remote "deps.update $dep"
 	just deps-post-get
 	./js-deps-get.sh $dep
 
 # Pull the latest commits from all forks
-update-forks: 
-	@jungle git fetch || echo "Jungle not available, will fetch one by one instead."
-	@chmod +x git-publish.sh && find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \; && find $EXTRA_FORKS_PATH -mindepth 1 -maxdepth 1 -type d -exec ./git-publish.sh {} rebase \;
-# TODO: run in parallel? find $EXT_PATH -mindepth 1 -maxdepth 1 -type d | xargs -P 50 -I '{}' ./git-publish.sh '{}'
+@update-forks: 
+	jungle git fetch && just update-fork "" rebase || echo "Jungle not available, will fetch one by one instead." && just update-fork "" pull
 
 # Pull the latest commits from all forks
-update-fork dep: 
-	@chmod +x git-publish.sh && find $EXT_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \; && find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} pull \;
+update-fork dep cmd='pull': 
+	@chmod +x git-publish.sh
+	find $EXT_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} $cmd \; 
+	find $EXTRA_FORKS_PATH/$dep -mindepth 0 -maxdepth 0 -type d -exec ./git-publish.sh {} $cmd \;
 
 # Fetch locked version of non-forked deps
 deps-get *args='': 
