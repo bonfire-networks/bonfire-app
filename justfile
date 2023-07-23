@@ -396,6 +396,7 @@ messctl *args='': init
 
 pre-push-hooks: pre-contrib-hooks
 	just mix format
+	just deps-clean bonfire
 #	just mix changelog 
 
 pre-contrib-hooks: 
