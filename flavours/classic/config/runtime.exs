@@ -13,6 +13,13 @@ repos =
     do: [Bonfire.Common.Repo, Bonfire.Common.TestInstanceRepo],
     else: [Bonfire.Common.Repo]
 
+hosts =
+  "#{host}#{System.get_env("EXTRA_DOMAINS")}"
+  |> String.split(",")
+  |> Enum.map(&(&1 |> String.trim() |> String.trim("`")))
+
+# |> IO.inspect()
+
 # [Bonfire.Common.Repo, Beacon.Repo]
 
 if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
@@ -139,6 +146,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     host: host,
     port: public_port
   ],
+  check_origin: hosts,
   http: [
     port: server_port,
     transport_options:
