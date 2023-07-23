@@ -15,8 +15,9 @@ repos =
 
 hosts =
   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
+  |> String.replace(["`", " "], "")
   |> String.split(",")
-  |> Enum.map(&(&1 |> String.trim() |> String.trim("`")))
+  |> Enum.map(&"//#{&1}")
 
 # |> IO.inspect()
 
