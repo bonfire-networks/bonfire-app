@@ -409,7 +409,7 @@ pre-contrib-hooks:
 contrib: pre-push-hooks contrib-forks-publish git-publish 
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
-contrib-release: pre-push-hooks contrib-forks-publish update-app contrib-app-release
+contrib-release: pre-push-hooks contrib-forks-publish update contrib-app-release
 
 # Rebase app's repo and push all changes to the app
 contrib-app-only: pre-push-hooks update-repo git-publish 
