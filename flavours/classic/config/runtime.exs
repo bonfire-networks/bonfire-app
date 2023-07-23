@@ -18,6 +18,7 @@ hosts =
   |> String.replace(["`", " "], "")
   |> String.split(",")
   |> Enum.map(&"//#{&1}")
+
 # |> IO.inspect()
 
 # [Bonfire.Common.Repo, Beacon.Repo]
@@ -146,7 +147,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     host: host,
     port: public_port
   ],
-  #check_origin: hosts, # FIXME
+  # check_origin: hosts, # FIXME
   check_origin: false,
   http: [
     port: server_port,
