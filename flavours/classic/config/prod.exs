@@ -13,9 +13,7 @@ config :logger,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :bonfire, Bonfire.Web.Endpoint,
-  server: true,
-  check_origin: :conn
+config :bonfire, Bonfire.Web.Endpoint, server: true
 
 config :bonfire, Bonfire.Common.Repo,
   # in releases migrations are not in a flavour-specific directory
