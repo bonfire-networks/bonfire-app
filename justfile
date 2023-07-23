@@ -281,13 +281,13 @@ update-forks-all cmd='pull':
 	just update-fork-path $EXTRA_FORKS_PATH $cmd 
 
 # Pull the latest commits from all forks
-update-fork dep cmd='pull': 
-	just update-fork-path $EXT_PATH/$dep $cmd 
-	just update-fork-path $EXTRA_FORKS_PATH/$dep $cmd 
+update-fork dep cmd='pull' mindepth='0' maxdepth='0': 
+	-just update-fork-path $EXT_PATH/$dep $cmd $mindepth $maxdepth
+	-just update-fork-path $EXTRA_FORKS_PATH/$dep $cmd $mindepth $maxdepth
 
-update-fork-path path cmd='pull': 
+update-fork-path path cmd='pull' mindepth='0' maxdepth='1': 
 	@chmod +x git-publish.sh
-	find $path -mindepth 0 -maxdepth 1 -type d -exec ./git-publish.sh {} $cmd \; 
+	find $path -mindepth $mindepth -maxdepth $maxdepth -type d -exec ./git-publish.sh {} $cmd \; 
 
 # Fetch locked version of non-forked deps
 deps-get *args='': 
