@@ -18,7 +18,7 @@ import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
 import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
 
-import { MilkdownHooks } from "./../../../extensions/bonfire_milkdown/assets/js/extension"
+import { MilkdownHooks } from "./../../../deps/bonfire_milkdown/assets/js/extension"
 // import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
 // import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js/extension"
 import { ComposerHooks } from "./../../../deps/bonfire_ui_common/assets/js/composer"
