@@ -263,7 +263,7 @@ update-deps-all: deps-unlock-unused pre-update-deps
 	just js-ext-deps upgrade
 	just assets-ln
 	just js-ext-deps outdated
-	just mix "hex.outdated --all"
+	-just mix "hex.outdated --all"
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: pre-update-deps
