@@ -237,6 +237,36 @@ common_assocs = %{
   stereotyped: quote(do: has_one(:stereotyped, unquote(Stereotyped), unquote(mixin))),
   settings: quote(do: has_one(:settings, unquote(Settings), foreign_key: :id)),
 
+  ### Counts
+
+  follow_count:
+    quote(
+      do:
+        has_one(:follow_count, unquote(EdgeTotal),
+          foreign_key: :id,
+          references: :id,
+          where: [table_id: "70110WTHE1EADER1EADER1EADE"]
+        )
+    ),
+  like_count:
+    quote(
+      do:
+        has_one(:like_count, unquote(EdgeTotal),
+          foreign_key: :id,
+          references: :id,
+          where: [table_id: "11KES11KET0BE11KEDY0VKN0WS"]
+        )
+    ),
+  boost_count:
+    quote(
+      do:
+        has_one(:boost_count, unquote(EdgeTotal),
+          foreign_key: :id,
+          references: :id,
+          where: [table_id: "300STANN0VNCERESHARESH0VTS"]
+        )
+    ),
+
   ### Multimixins
 
   # Links to access control information for this object.
@@ -312,7 +342,10 @@ edges =
     :replied,
     :caretaker,
     :activity,
-    :feed_publishes
+    :feed_publishes,
+    :follow_count,
+    :boost_count,
+    :like_count
   ])
 
 # first up, Pointer could have all the mixins we're using
@@ -333,15 +366,15 @@ pointer_mixins =
     :replied,
     :tree,
     :stereotyped,
-    :settings
+    :settings,
+    :follow_count,
+    :boost_count,
+    :like_count
   ])
 
 config :pointers, Pointer,
   code:
     (quote do
-       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-       @boost_ulid "300STANN0VNCERESHARESH0VTS"
-       @follow_ulid "70110WTHE1EADER1EADER1EADE"
        field(:dummy, :any, virtual: true)
        # pointables
        has_one(:circle, unquote(Circle), foreign_key: :id)
@@ -363,26 +396,6 @@ config :pointers, Pointer,
        unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media]))
        # has_many
        unquote_splicing(common.([:activities, :care_closure, :direct_replies, :feed_publishes]))
-
-       ## special things
-       # these should go away in future and they should be populated by a single query.
-       has_one(:like_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @like_ulid]
-       )
-
-       has_one(:boost_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @boost_ulid]
-       )
-
-       has_one(:follow_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @follow_ulid]
-       )
      end)
 
 config :pointers, Table, []
@@ -498,7 +511,7 @@ config :bonfire_data_identity, Character,
        @alias_ulid "7NA11ASA1S0KN0WNASFACESWAP"
 
        # mixins
-       unquote_splicing(common.([:actor, :peered, :profile, :tree]))
+       unquote_splicing(common.([:actor, :peered, :profile, :tree, :follow_count]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
 
@@ -526,12 +539,6 @@ config :bonfire_data_identity, Character,
 
        has_many(:followed, unquote(Edge),
          foreign_key: :subject_id,
-         references: :id,
-         where: [table_id: @follow_ulid]
-       )
-
-       has_one(:follow_count, unquote(EdgeTotal),
-         foreign_key: :id,
          references: :id,
          where: [table_id: @follow_ulid]
        )
@@ -774,29 +781,24 @@ config :bonfire_data_social, Bookmark,
 config :bonfire_data_social, Message,
   code:
     (quote do
-       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-       @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
        unquote_splicing(
-         common.([:activity, :caretaker, :created, :peered, :post_content, :replied])
+         common.([
+           :activity,
+           :caretaker,
+           :created,
+           :peered,
+           :post_content,
+           :replied,
+           :like_count,
+           :boost_count
+         ])
        )
 
        # multimixins
        unquote_splicing(common.([:controlled, :feed_publishes, :tagged, :tags, :files, :media]))
        # has
        unquote_splicing(common.([:direct_replies]))
-       # special
-       has_one(:like_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @like_ulid]
-       )
-
-       has_one(:boost_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @boost_ulid]
-       )
      end)
 
 config :bonfire_data_social, Mention, []
@@ -804,8 +806,6 @@ config :bonfire_data_social, Mention, []
 config :bonfire_data_social, Post,
   code:
     (quote do
-       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-       @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
        unquote_splicing(
          common.([
@@ -817,7 +817,9 @@ config :bonfire_data_social, Post,
            :peered,
            :post_content,
            :replied,
-           :tree
+           :tree,
+           :like_count,
+           :boost_count
          ])
        )
 
@@ -838,17 +840,6 @@ config :bonfire_data_social, Post,
        # has_one:  [reply_to_creator_profile: {[through: [:replied, :reply_to_creator_profile]]}],
        # has_one:  [thread_post: {[through: [:replied, :thread_post]]}],
        # has_one:  [thread_post_content: {[through: [:replied, :thread_post_content]]}],
-       has_one(:like_count, unquote(EdgeTotal),
-         references: :id,
-         foreign_key: :id,
-         where: [table_id: @like_ulid]
-       )
-
-       has_one(:boost_count, unquote(EdgeTotal),
-         references: :id,
-         foreign_key: :id,
-         where: [table_id: @boost_ulid]
-       )
      end)
 
 config :bonfire_data_social, PostContent,
@@ -867,11 +858,9 @@ config :bonfire_data_social, PostContent,
 config :bonfire_data_social, Replied,
   code:
     (quote do
-       # multimixins - shouldn't be here really
-       unquote_splicing(common.([:controlled]))
+       # multimixins 
+       unquote_splicing(common.([:controlled, :like_count, :boost_count]))
 
-       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-       @boost_ulid "300STANN0VNCERESHARESH0VTS"
        belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
        belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
 
@@ -898,18 +887,6 @@ config :bonfire_data_social, Replied,
        has_one(:thread_post_content, unquote(PostContent),
          foreign_key: :id,
          references: :thread_id
-       )
-
-       has_one(:like_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @like_ulid]
-       )
-
-       has_one(:boost_count, unquote(EdgeTotal),
-         foreign_key: :id,
-         references: :id,
-         where: [table_id: @boost_ulid]
        )
      end)
 
@@ -947,28 +924,24 @@ config :bonfire_data_social, Profile,
 config :bonfire_pages, Page,
   code:
     (quote do
-       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-       @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
-       unquote_splicing(common.([:activities, :activity, :caretaker, :created, :post_content]))
+       unquote_splicing(
+         common.([
+           :activities,
+           :activity,
+           :caretaker,
+           :created,
+           :post_content,
+           :like_count,
+           :boost_count
+         ])
+       )
 
        # multimixins
        unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
-
-       has_one(:like_count, unquote(EdgeTotal),
-         references: :id,
-         foreign_key: :id,
-         where: [table_id: @like_ulid]
-       )
-
-       has_one(:boost_count, unquote(EdgeTotal),
-         references: :id,
-         foreign_key: :id,
-         where: [table_id: @boost_ulid]
-       )
 
        has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
          foreign_key: :scope_id,
@@ -987,28 +960,24 @@ config :bonfire_pages, Page,
 config :bonfire_pages, Section,
   code:
     (quote do
-       @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
-       @boost_ulid "300STANN0VNCERESHARESH0VTS"
        # mixins
-       unquote_splicing(common.([:activities, :activity, :caretaker, :created, :post_content]))
+       unquote_splicing(
+         common.([
+           :activities,
+           :activity,
+           :caretaker,
+           :created,
+           :post_content,
+           :like_count,
+           :boost_count
+         ])
+       )
 
        # multimixins
        unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
-
-       has_one(:like_count, unquote(EdgeTotal),
-         references: :id,
-         foreign_key: :id,
-         where: [table_id: @like_ulid]
-       )
-
-       has_one(:boost_count, unquote(EdgeTotal),
-         references: :id,
-         foreign_key: :id,
-         where: [table_id: @boost_ulid]
-       )
 
        has_many(:ranked, unquote(Bonfire.Data.Assort.Ranked),
          foreign_key: :item_id,
