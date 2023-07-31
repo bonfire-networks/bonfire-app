@@ -569,7 +569,7 @@ rel-mix USE_EXT="local" ARGS="":
 
 # Build the Docker image 
 @rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
-	export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
+	export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo ELIXIR_DOCKER_IMAGE && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="": 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}} with image $ELIXIR_DOCKER_IMAGE."
