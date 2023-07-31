@@ -193,7 +193,7 @@ The code is somewhat documented inline. You can generate HTML docs (using `Exdoc
 
 - `./forks/` is used to hack on local copies of any other dependencies.
 
-- You can migrate the DB when the app is running (also runs automatically on startup): `EctoSparkles.Migrator.migrate`
+- You can migrate the DB when the app is running (also runs automatically on startup): `Bonfire.Common.Repo.migrate`
 
 - You can generate a dependency graph using `just xref-graph` which will generate a DOT file at `docs/` (if Graphviz is installed it will also generate an SVG visualisation using `dot`).
 

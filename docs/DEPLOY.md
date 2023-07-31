@@ -139,7 +139,7 @@ just rel-run
 Run this at the prompt: 
 
 `bin/bonfire remote` to enter Elixir's iex environment
-`EctoSparkles.Migrator.migrate` to initialise your database
+`Bonfire.Common.Repo.migrate` to initialise your database
 
 The backend should now be running at [http://localhost:4000/](http://localhost:4000/).
 
@@ -181,7 +181,7 @@ There are some useful database-related release tasks under `EctoSparkles.Migrato
 - `rollback_all` rolls back all migrations back to zero (caution: this means losing all data)
 
 You can also directly call some functions in the code from the command line, for example:
-- to migrate: `docker exec bonfire_web bin/bonfire rpc 'EctoSparkles.Migrator.migrate'`
+- to migrate: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Common.Repo.migrate'`
 - to just yourself an admin: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Me.Users.make_admin("my_username")'`
 
 #### Option B2 - Building your own Docker image
@@ -222,7 +222,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - You will need to use `just` in order to pass the `.env` file to the executable. This can be accomplished by running `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Just works from the root directory of the `justfile`, not your current directory.
 
-- The migrations should automatically run on first boot, but if you run into troubles the migration command is: `bin/bonfire eval 'EctoSparkles.Migrator.migrate()'`. 
+- The migrations should automatically run on first boot, but if you run into troubles the migration command is: `bin/bonfire eval 'Bonfire.Common.Repo.migrate()'`. 
 
 - If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
 
