@@ -45,9 +45,8 @@ jobs:
       #   name: Get branch names
       #   id: branch-name
       #   uses: tj-actions/branch-names@v4
-      - name: Set up env
-        run: export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE
-        #run: cp .tool-versions.env .env 
+      # - name: Set up env
+      #   run: cp .tool-versions.env .env 
       # - id: dotenv
       #   uses: falti/dotenv-action@v1.0.4
       #   with:
@@ -88,7 +87,7 @@ jobs:
             ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
           build-args: |
             "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}"
+            "ELIXIR_DOCKER_IMAGE="${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}""
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
