@@ -19,9 +19,9 @@ jobs:
     env:
       FLAVOUR: ${{ matrix.flavour }}
       DOCKER_REPO: bonfire
-      # ALPINE_VERSION: 3.18.2
-      # ERLANG_VERSION: 26.0.2
-      # ELIXIR_VERSION: 1.15.4
+      ALPINE_VERSION: 3.18.2
+      ERLANG_VERSION: 26.0.2
+      ELIXIR_VERSION: 1.15.4
     steps:
       - 
         name: Cancel any already running releases workflows
@@ -47,10 +47,10 @@ jobs:
       #   uses: tj-actions/branch-names@v4
       - name: Set up .env
         run: cp .tool-versions.env .env 
-      - id: dotenv
-        uses: falti/dotenv-action@v1.0.4
-        with:
-          export-variables: true
+      # - id: dotenv
+      #   uses: falti/dotenv-action@v1.0.4
+      #   with:
+      #     export-variables: true
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
