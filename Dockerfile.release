@@ -109,6 +109,7 @@ RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/sta
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
 
+ARG ALPINE_VERSION
 
 ##### STEP 2 - Prepare the server image ####
 # From this line onwards, we're in a new image, which will be the image used in production
