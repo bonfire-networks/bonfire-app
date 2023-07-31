@@ -23,18 +23,6 @@ MIX_ENV := env_var_or_default('MIX_ENV', "dev")
 
 APP_NAME := "bonfire"
 
-# NOTE: remember to also update the version in .tool-versions
-# The version of Alpine to use for the final image - should match a version used in the Elixir docker image, which can be checked on Docker Hub: https://hub.docker.com/r/hexpm/elixir/tags?name=alpine
-ALPINE_VERSION := env_var_or_default('ALPINE_VERSION', "3.18.2")
-ERLANG_VERSION := env_var_or_default('ERLANG_VERSION', "26.0.2")
-ELIXIR_VERSION := env_var_or_default('ELIXIR_VERSION', "1.15.4") 
-ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_DOCKER_IMAGE', ELIXIR_VERSION+"-erlang-"+ERLANG_VERSION+"-alpine-"+ALPINE_VERSION)
-# ^ Defines what version of Elixir to use - ATTENTION: when changing Elixir version  make sure to update the `ALPINE_VERSION` arg to match, as well as the Elixir version in:
-# - .tool-versions
-# - Dockerfile.dev 
-# - .github/workflows/test.yaml and/or .gitlab-ci.yml 
-# - mix.exs 
-
 APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
 APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 
@@ -536,7 +524,7 @@ rel-init:
 	MIX_ENV=prod just pre-init
 
 # copy current flavour's config, without using symlinks
-rel-config-prepare: 
+@rel-config-prepare: 
 	rm -rf data/current_flavour
 	mkdir -p data
 	rm -rf flavours/*/config/*/dev
@@ -544,7 +532,7 @@ rel-config-prepare:
 	cp -rfL $FLAVOUR_PATH/* data/current_flavour
 
 # copy current flavour's config, without using symlinks
-rel-prepare: rel-config-prepare 
+@rel-prepare: rel-config-prepare 
 	mkdir -p extensions/
 	mkdir -p forks/
 	mkdir -p data/uploads/
@@ -580,8 +568,8 @@ rel-mix USE_EXT="local" ARGS="":
 	@MIX_ENV=prod CI=1 just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image 
-rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
-	@just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
+@rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
+	export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="": 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}} with image $ELIXIR_DOCKER_IMAGE."
@@ -685,7 +673,7 @@ dc *args='':
 build: init 
 	mkdir -p deps
 	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix setup" } }}
-	{{ if WITH_DOCKER == "total" { "docker compose build" } else { "echo ." } }}
+	{{ if WITH_DOCKER == "total" { "export $(grep -v '^#' .tool-versions.env | xargs) && docker compose build" } else { "echo ." } }}
 
 # Build the docker image
 rebuild: init 
@@ -762,7 +750,7 @@ localise-extract:
 
 @localise-extract-push: localise-extract localise-tx-push
 
-assets-prepare:
+@assets-prepare:
 	-mkdir -p priv/static
 	-mkdir -p priv/static/data
 	-mkdir -p priv/static/data/uploads
@@ -770,7 +758,7 @@ assets-prepare:
 	-cp lib/*/*/overlay/* rel/overlays/ 
 
 # Workarounds for some issues running migrations
-db-pre-migrations: 
+@db-pre-migrations: 
 	-touch deps/*/lib/migrations.ex
 	-touch extensions/*/lib/migrations.ex
 	-touch forks/*/lib/migrations.ex
