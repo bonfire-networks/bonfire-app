@@ -45,8 +45,9 @@ jobs:
       #   name: Get branch names
       #   id: branch-name
       #   uses: tj-actions/branch-names@v4
-      - name: Set up .env
-        run: cp .tool-versions.env .env 
+      - name: Set up env
+        run: export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE
+        #run: cp .tool-versions.env .env 
       # - id: dotenv
       #   uses: falti/dotenv-action@v1.0.4
       #   with:
@@ -64,8 +65,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
+        name: Install tools 
+        run: sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH 
+      - 
         name: Pre-build prep 
-        run: sudo apt-get install -y cargo && cargo install just && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo "/github/home/.cargo/bin" >> $GITHUB_PATH && just rel-prepare 
+        run: just rel-prepare 
       -
         name: Build and push
         id: docker_build
@@ -82,6 +86,8 @@ jobs:
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
             ghcr.io/bonfire-networks/bonfire-app:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
             ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
+          build-args: |
+            "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
