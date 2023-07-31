@@ -574,11 +574,7 @@ rel-mix USE_EXT="local" ARGS="":
 rel-build-path FORKS_TO_COPY_PATH ARGS="": 
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
-		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
-		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
-		--build-arg APP_VSN=$APP_VSN \
-		--build-arg APP_BUILD=$APP_BUILD \
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
 		-f $APP_REL_DOCKERFILE .
