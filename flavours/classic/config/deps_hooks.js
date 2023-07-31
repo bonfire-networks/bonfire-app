@@ -16,7 +16,7 @@ import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
 import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js/infinite_scroll"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
-import { EmojiHooks } from "./../../../extensions/bonfire_ui_common/assets/js/emoji"
+import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
 
 import { MilkdownHooks } from "./../../../extensions/bonfire_milkdown/assets/js/extension"
 // import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
