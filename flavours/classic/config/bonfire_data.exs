@@ -867,6 +867,8 @@ config :bonfire_data_social, Replied,
        has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
        has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)
 
+       field(:path_sorter, :any, virtual: true)
+
        # used in changesets
        field(:replying_to, :map, virtual: true)
        has_one(:reply_to_post, unquote(Post), foreign_key: :id, references: :reply_to_id)
