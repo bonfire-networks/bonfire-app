@@ -45,7 +45,7 @@ More details at https://bonfirenetworks.org",
   # rich_text_editor_disabled: true,
   # rich_text_editor: Bonfire.Editor.Quill,
   # rich_text_editor: Bonfire.Editor.Ck,
-  rich_text_editor: Bonfire.Milkdown.ComposerLive,
+  rich_text_editor: Bonfire.Editor.Milkdown,
   # rich_text_editor: Bonfire.UI.Common.ComposerLive,
   # default
   font_family: "Inter (Latin Languages)",
