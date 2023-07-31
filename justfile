@@ -576,9 +576,7 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
 		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
-		--build-arg FLAVOUR=$FLAVOUR \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
-		--build-arg APP_NAME=$APP_NAME \
 		--build-arg APP_VSN=$APP_VSN \
 		--build-arg APP_BUILD=$APP_BUILD \
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \

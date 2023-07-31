@@ -2,21 +2,20 @@
 
 # The following are build arguments used to change variable parts of the image, they should be set as env variables.
 # The name of your application/release (required)
-ARG APP_NAME
 # The version of the application we are building (required)
-ARG APP_VSN
-ARG FLAVOUR
-ARG FLAVOUR_PATH
 ARG ELIXIR_DOCKER_IMAGE
 ARG ALPINE_VERSION
 
 #### STEP 1 - Build our app
 FROM hexpm/elixir:${ELIXIR_DOCKER_IMAGE} as builder 
 
+ARG APP_NAME
+ARG FLAVOUR_PATH
+
 # necessary utils + dependencies for comeonin
 RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
 
-ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod APP_NAME=$APP_NAME FLAVOUR=$FLAVOUR FLAVOUR_PATH=./
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./
 WORKDIR $HOME
 
 # Cache elixir deps
@@ -115,7 +114,9 @@ ARG ALPINE_VERSION
 # From this line onwards, we're in a new image, which will be the image used in production
 FROM alpine:${ALPINE_VERSION}
 
-ENV APP_NAME=${APP_NAME} APP_VSN=${APP_VSN} APP_REVISION=${APP_VSN}-${APP_BUILD} FLAVOUR=$FLAVOUR
+ARG APP_BUILD
+ARG APP_VSN
+ENV APP_REVISION=${APP_VSN}-${APP_BUILD} 
 
 # Essentials
 RUN apk add --update --no-cache \
