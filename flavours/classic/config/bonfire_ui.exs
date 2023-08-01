@@ -150,5 +150,6 @@ config :surface, :components, [
   {Bonfire.UI.Common.ReusableModalLive, propagate_context_to_slots: true},
   {Bonfire.UI.Common.LinkLive, propagate_context_to_slots: true},
   {Bonfire.UI.Common.LogoLinkLive, propagate_context_to_slots: false},
-  {Bonfire.UI.Social.Activity.LinkToActivityLive, propagate_context_to_slots: true}
+  {Bonfire.UI.Social.Activity.LinkToActivityLive, propagate_context_to_slots: true},
+  {Bonfire.UI.Common.TabsLive, propagate_context_to_slots: true}
 ]
