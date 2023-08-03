@@ -5,9 +5,8 @@ let ExtensionHooks = {};
 // TODO: make this more configurable? ie. don't import disabled extensions
 
 import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/change_locale"
-import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
+// import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
 import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
-import { CarouselHooks } from "./../../../deps/bonfire_ui_common/assets/js/carousel"
 import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
@@ -32,6 +31,6 @@ import { CodeHooks } from "./../../../deps/bonfire_ui_common/assets/js/code"
 // import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
 import LiveSelect from "./../../../deps/live_select/priv/static/live_select.min.js"
 
-Object.assign(ExtensionHooks, MilkdownHooks, ComposerHooks, PopupHooks, EmojiHooks, ResponsiveTabsHooks, CarouselHooks, FeedHooks, ChangeLocaleHooks, ImageHooks, InputSelectHooks, NotificationsHooks, ThemeHooks, LiveSelect, CodeHooks, InfiniteScrollHooks, CopyHooks) // ImageHooks, EditorCkHooks, EditorQuillHooks
+Object.assign(ExtensionHooks, MilkdownHooks, ComposerHooks, PopupHooks, EmojiHooks, ResponsiveTabsHooks, FeedHooks, ChangeLocaleHooks, ImageHooks, NotificationsHooks, ThemeHooks, LiveSelect, CodeHooks, InfiniteScrollHooks, CopyHooks) // ImageHooks, EditorCkHooks, EditorQuillHooks
 
 export { ExtensionHooks }
