@@ -29,6 +29,8 @@ APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":latest-" +FLAVOUR)
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
 
+GRAPH_DB_URL := if WITH_DOCKER != "total" { env_var_or_default('GRAPH_DB_URL', "bolt://localhost:7687") } else { env_var_or_default('GRAPH_DB_URL', "bolt://graph:7687") }
+
 ## Other configs - edit these here if necessary
 EXT_PATH := "extensions/"
 EXTRA_FORKS_PATH := "forks/"
@@ -663,7 +665,7 @@ dc *args='':
 	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
 
 @dev-services: 
-	{{ if WITH_DOCKER != "no" { "docker compose up -d db search || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+	{{ if WITH_DOCKER != "no" { "docker compose up -d db search graph || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
 build: init 
@@ -686,6 +688,12 @@ shell:
 @docker-stop-web: 
 	-docker stop $WEB_CONTAINER
 	-docker rm $WEB_CONTAINER
+
+@docker *args='': 
+	docker $@
+	
+@docker-compose *args='': 
+	docker compose $@
 
 #### MISC COMMANDS ####
 

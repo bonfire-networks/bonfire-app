@@ -15,10 +15,12 @@ services:
     environment:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
+      - GRAPH_DB_URL=bolt://graph:7687
     depends_on:
       - db
         # - condition: service_healthy
       - search
+      - graph
     volumes:
       # - /etc/passwd:/etc/passwd:ro 
       - type: bind
@@ -80,8 +82,22 @@ services:
       - type: bind
         source: ./data/uploads
         target: /frontend/uploads
+  graph:
+    image: memgraph/memgraph-platform
+    entrypoint: ["/usr/bin/supervisord"]
+    ports:
+      - "7687:7687"
+      - "3000:3000"
+      - "7444:7444"
+    volumes:
+      - mg_lib:/var/lib/memgraph
+      - mg_log:/var/log/memgraph
+      - mg_etc:/etc/memgraph
 
 volumes:
   caddy_data:
     # external: true
   caddy_config:
+  mg_lib:
+  mg_log:
+  mg_etc:

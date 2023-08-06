@@ -208,6 +208,17 @@ config :activity_pub, Oban,
   repo: Bonfire.Common.Repo,
   queues: false
 
+case System.get_env("GRAPH_DB_URL") do
+  nil ->
+    nil
+
+  url ->
+    config :bolt_sips, Bolt,
+      url: url,
+      basic_auth: [username: "memgraph", password: "memgraph"],
+      pool_size: 10
+end
+
 # start prod-only config
 if config_env() == :prod do
   config :bonfire, Bonfire.Common.Repo,
