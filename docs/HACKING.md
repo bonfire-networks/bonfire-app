@@ -41,6 +41,8 @@ So for example if you want to run the `classic` flavour, with a fully-docker-man
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
+- Make sure docker daemon is running if you chose a docker managed setup.
+
 - Then run `just config` to initialise some config.
 
 ### Configure
