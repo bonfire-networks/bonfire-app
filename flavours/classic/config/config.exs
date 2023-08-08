@@ -45,7 +45,14 @@ config :bonfire, Bonfire.Web.Endpoint,
     # this gets overridden in runtime.exs
     port: String.to_integer(System.get_env("SERVER_PORT", "4000"))
   ],
-  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    #view: Bonfire.UI.Common.ErrorView, 
+    accepts: ~w(html json), 
+    #layout: false,
+    layout: [html: {Bonfire.UI.Common.BasicView, :error}],
+    #root_layout: [html: {Bonfire.UI.Common.BasicView, :error}],
+    formats: [html: Bonfire.UI.Common.ErrorView, json: Bonfire.UI.Common.ErrorView]
+  ],
   pubsub_server: Bonfire.Common.PubSub
 
 config :phoenix, :json_library, Jason
