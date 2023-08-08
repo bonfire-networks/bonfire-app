@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Bonfire contributors <https://github.com/bonfire-networks/bonfire-app/graphs/contributors>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 let ExtensionHooks = {};
 
 // NOTE: any extensions included here need to also be added to ./deps.js.sh
