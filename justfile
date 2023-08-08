@@ -580,19 +580,20 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
 		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
-		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD  \
+		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}}  \
 		-f $APP_REL_DOCKERFILE .
-	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD 
+	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}} 
 	@echo "Remember to run just rel-tag or just rel-push"
 
-@rel-tag-commit build label='latest': rel-init 
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} 
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build
 @rel-tag label='latest': 
 	just rel-tag-commit $APP_BUILD {{label}}
+
+@rel-tag-commit build label='latest': rel-init 
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}
+	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest': 
