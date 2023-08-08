@@ -603,13 +603,13 @@ rel-push label='latest':
 
 rel-push-only build label='latest': 
 	@echo "Pushing to $APP_DOCKER_REPO"
-	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 # @just rel-push-only-alt {{build}} {{label}}
 
 rel-push-only-alt build label='latest': 
 	@echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
 	@echo "Pushing to $APP_DOCKER_REPO_ALT"
-	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
+	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
 rel-run: rel-init docker-stop-web rel-services
