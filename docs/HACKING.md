@@ -61,7 +61,7 @@ You may also want to put this in the appropriate place in your system so your ch
 ### Option B - the easy way (with bare-metal elixir, and docker-managed tooling, database & search index, recommended for active development)
 
 - Dependencies:
-  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
   - [yarn](https://yarnpkg.com)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
@@ -72,7 +72,7 @@ You may also want to put this in the appropriate place in your system so your ch
 ### Option C - the partial way (with bare-metal elixir and tooling, and docker-managed database & search index)
 
 - Dependencies:
-  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
   - [yarn](https://yarnpkg.com)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
@@ -84,7 +84,7 @@ You may also want to put this in the appropriate place in your system so your ch
 ### Option D - the bare metal (if you don't use docker)
 
 - Dependencies:
-  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.13+) and OTP/erlang (24+)
+  - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
   - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
   - [yarn](https://yarnpkg.com)
   - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)

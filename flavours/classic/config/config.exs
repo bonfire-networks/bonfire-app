@@ -53,7 +53,12 @@ config :bonfire, Bonfire.Web.Endpoint,
     # root_layout: [html: {Bonfire.UI.Common.BasicView, :error}],
     formats: [html: Bonfire.UI.Common.ErrorView, json: Bonfire.UI.Common.ErrorView]
   ],
-  pubsub_server: Bonfire.Common.PubSub
+  pubsub_server: Bonfire.Common.PubSub,
+  live_view: [
+    # the time of inactivity allowed in the LiveView before compressing its own memory and state. Defaults to 15000ms (15 seconds)
+    hibernate_after: String.to_integer(System.get_env("LV_HIBERNATE_AFTER", "7000"))
+    # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module 
+  ]
 
 config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
