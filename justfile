@@ -63,24 +63,24 @@ help:
 	@echo "Just commands for Bonfire:"
 	@just --list
 
-@pre-setup flavour='classic':
+@pre-setup-env flavour='classic':
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
-	mkdir -p ./data
-	mkdir -p ./config
-	-rm ./config/deps.flavour.* 2> /dev/null
-	-rm ./config/flavour_* 2> /dev/null
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && cat ./templates/public.env ./templates/not_secret.env > ./$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> ./$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./$ENV_ENV/.env)
-	touch ./config/deps.path
 	-rm .env 
 	ln -sf ./config/$ENV_ENV/.env ./.env
+
+@pre-setup flavour='classic':
+	mkdir -p config
+	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
+	touch ./config/deps.path
+	mkdir -p data
+	mkdir -p data/uploads/
+	mkdir -p data/search/dev
+	mkdir -p priv/static/data
 	mkdir -p extensions/
 	mkdir -p forks/
-	mkdir -p data/uploads/
-	mkdir -p priv/static/data
-	mkdir -p data/search/dev
 	chmod 700 .erlang.cookie
 
 # Initialise env files, and create some required folders, files and softlinks
@@ -89,10 +89,21 @@ config:
 
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
 @flavour select_flavour: 
-	echo "Switching to flavour '$select_flavour'..."
+	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
+	-rm ./config/deps.flavour.* 2> /dev/null
+	-rm ./config/flavour_* 2> /dev/null
 	just pre-setup $select_flavour
+	just pre-setup-env $select_flavour
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 	echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
+
+@config-basic select_flavour=FLAVOUR: 
+	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
+	-rm ./config/deps.flavour.* 2> /dev/null
+	-rm ./config/flavour_* 2> /dev/null
+	just pre-setup $select_flavour
+	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
+	echo "Setup done."
 
 @pre-init: assets-ln
 	rm -rf ./priv/repo
