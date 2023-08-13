@@ -129,6 +129,7 @@ setup-dev:
 setup-prod: 
 	just build
 	just deps-get --only prod
+	just deps-post-get
 
 # Prepare environment and dependencies
 prepare: 
