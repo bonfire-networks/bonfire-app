@@ -571,7 +571,6 @@ rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare
 	npm install --global esbuild postcss
 	-rm -rf priv/static
 	cd ./assets && yarn build && cd ..
-	ls -la priv/static/ && ls -la priv/static/data && ls -la priv/static/data/uploads
 	just rel-mix {{ USE_EXT }} phx.digest
 	just rel-mix {{ USE_EXT }} release
 # just rel-mix {{ USE_EXT }} compile
