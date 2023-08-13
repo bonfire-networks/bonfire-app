@@ -111,7 +111,6 @@ config:
 	cp -rn $FLAVOUR_PATH/repo ./priv/repo
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
-	ln -sf ./config/$ENV_ENV/.env ./.env
 	mkdir -p priv/static/public
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 
