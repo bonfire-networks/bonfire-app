@@ -687,7 +687,21 @@ config :bonfire_data_social, Activity,
 config :bonfire_data_social, APActivity,
   code:
     (quote do
-       (unquote_splicing(common.([:activity, :caretaker, :controlled])))
+       (unquote_splicing(
+          common.([
+            :created,
+            :peered,
+            :activity,
+            :caretaker,
+            :controlled,
+            :files,
+            :profile,
+            :character,
+            :post_content
+          ])
+        ))
+
+       # FIXME: find how to avoid declaring unused mixins here (eg. post_content) without it causing repo.preload to crash
      end)
 
 config :bonfire_data_edges, Edge,
