@@ -11,7 +11,7 @@ import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js
 import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
 import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
- 
+
 import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js/infinite_scroll"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
