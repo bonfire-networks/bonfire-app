@@ -222,11 +222,11 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - You will need to use `just` in order to pass the `.env` file to the executable. This can be accomplished by running `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Just works from the root directory of the `justfile`, not your current directory.
 
-- The migrations should automatically run on first boot, but if you run into troubles the migration command is: `bin/bonfire eval 'Bonfire.Common.Repo.migrate()'`. 
-
 - If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
 
-- You can check if your instance is configured correctly by running it with `bin/bonfire start`
+- You can check if your instance is configured correctly and get to the iex console by running `bin/bonfire start`
+
+- The migrations should automatically run on first boot, but if you run into troubles the migration command is: `Bonfire.Common.Repo.migrate()` in the iex console. 
 
 - To run the instance as a daemon, use `bin/bonfire start daemon`.
 
