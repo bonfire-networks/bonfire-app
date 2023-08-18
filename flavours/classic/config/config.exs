@@ -122,6 +122,12 @@ config :mime, :types, %{
   "audio/ogg" => ["ogg"]
 }
 
+config :os_mon,
+  disk_space_check_interval: 60,
+  memory_check_interval: 15,
+  disk_almost_full_threshold: 0.85,
+  start_cpu_sup: false
+
 config :sentry,
   dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
   environment_name: Mix.env(),
