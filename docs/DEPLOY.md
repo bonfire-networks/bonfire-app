@@ -206,7 +206,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Postgres (or Postgis) version 12 or newer
 - [just](https://github.com/casey/just#packages)
-- Elixir version 1.15+ with OTP 25+. If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [asdf](https://github.com/asdf-vm/asdf) (run `asdf install` in this directory).
+- Elixir version 1.15+ with OTP 25+. If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [rtx](https://github.com/jdxcode/rtx) (run `rtx install` in this directory).
 
 #### C-1. Building the release
 
