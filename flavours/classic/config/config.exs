@@ -129,7 +129,7 @@ config :os_mon,
   start_cpu_sup: false
 
 config :sentry,
-  dsn: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
+  # dsn: "this-should-be-set-in-env-and-loaded-in-runtime.exs",
   environment_name: Mix.env(),
   # enable_source_code_context: true,
   root_source_code_path: project_root,
