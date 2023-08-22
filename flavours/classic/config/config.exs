@@ -114,12 +114,55 @@ config :paper_trail,
   originator_relationship_options: [references: :id],
   originator: [name: :user, model: Bonfire.Data.Identity.User]
 
+# NOTE: need to declare types to avoid LV uploads failing with `invalid accept filter provided to allow_upload. Expected a file extension with a known MIME type.`
 config :mime, :types, %{
   "application/json" => ["json"],
   "application/activity+json" => ["activity+json"],
   "application/ld+json" => ["ld+json"],
   "application/jrd+json" => ["jrd+json"],
-  "audio/ogg" => ["ogg"]
+  "image/png" => ["png"],
+  "image/jpeg" => ["jpg", "jpeg"],
+  "image/gif" => ["gif"],
+  "image/svg+xml" => ["svg"],
+  "image/webp" => ["webp"],
+  "image/tiff" => ["tiff"],
+  "text/plain" => ["txt"],
+  "text/markdown" => ["md"],
+  # doc
+  "text/csv" => ["csv"],
+  "text/tab-separated-values" => ["tsv"],
+  "application/pdf" => ["pdf"],
+  "application/rtf" => ["rtf"],
+  "application/msword" => ["doc", "dot"],
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => ["docx"],
+  "application/vnd.ms-excel" => ["xls"],
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => ["xlsx"],
+  "application/vnd.oasis.opendocument.presentation" => ["odp"],
+  "application/vnd.oasis.opendocument.spreadsheet" => ["ods"],
+  "application/vnd.oasis.opendocument.text" => ["odt"],
+  "application/epub+zip" => ["epub"],
+  # archives
+  "application/x-tar" => ["tar"],
+  "application/x-bzip" => ["bzip"],
+  "application/x-bzip2" => ["bzip2"],
+  "application/gzip" => ["gz", "gzip"],
+  "application/zip" => ["zip"],
+  "application/vnd.rar" => ["rar"],
+  "application/x-7z-compressed" => ["7z"],
+  # audio
+  "audio/aac" => ["aac"],
+  "audio/mpeg" => ["mpa", "mp2"],
+  "audio/mp3" => ["mp3"],
+  "audio/ogg" => ["oga"],
+  "audio/wav" => ["wav"],
+  # "audio/webm"=> ["webm"],
+  "audio/opus" => ["opus"],
+  "audio/flac" => ["flac"],
+  # video
+  "video/mp4" => ["mp4"],
+  "video/mpeg" => ["mpeg"],
+  "video/ogg" => ["ogg", "ogv"],
+  "video/webm" => ["webm"]
 }
 
 config :os_mon,
