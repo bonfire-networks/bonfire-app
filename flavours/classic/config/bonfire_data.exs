@@ -869,42 +869,45 @@ config :bonfire_data_social, PostContent,
        field(:urls, {:array, :any}, virtual: true)
      end)
 
-config :bonfire_data_social, Replied,
-  code:
-    (quote do
-       # multimixins 
-       unquote_splicing(common.([:controlled, :like_count, :boost_count]))
+replied =
+  quote do
+    # multimixins 
+    unquote_splicing(common.([:controlled, :like_count, :boost_count]))
 
-       belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
-       belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
+    belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
+    belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
 
-       has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
-       has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)
+    has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
+    has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)
 
-       field(:path_sorter, :any, virtual: true)
+    field(:path_sorter, :any, virtual: true)
 
-       # used in changesets
-       field(:replying_to, :map, virtual: true)
-       has_one(:reply_to_post, unquote(Post), foreign_key: :id, references: :reply_to_id)
+    # used in changesets
+    field(:replying_to, :map, virtual: true)
+    has_one(:reply_to_post, unquote(Post), foreign_key: :id, references: :reply_to_id)
 
-       has_one(:reply_to_post_content, unquote(PostContent),
-         foreign_key: :id,
-         references: :reply_to_id
-       )
+    has_one(:reply_to_post_content, unquote(PostContent),
+      foreign_key: :id,
+      references: :reply_to_id
+    )
 
-       has_one(:reply_to_created, unquote(Created), foreign_key: :id, references: :reply_to_id)
-       # has_one  :reply_to_creator_user, through: [:reply_to_created, :creator_user]
-       # has_one  :reply_to_creator_character, through: [:reply_to_created, :creator_character]
-       # has_one  :reply_to_creator_profile, through: [:reply_to_created, :creator_profile]
-       has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id, references: :id)
-       has_many(:thread_replies, unquote(Replied), foreign_key: :thread_id, references: :id)
-       has_one(:thread_post, unquote(Post), foreign_key: :id, references: :thread_id)
+    has_one(:reply_to_created, unquote(Created), foreign_key: :id, references: :reply_to_id)
+    # has_one  :reply_to_creator_user, through: [:reply_to_created, :creator_user]
+    # has_one  :reply_to_creator_character, through: [:reply_to_created, :creator_character]
+    # has_one  :reply_to_creator_profile, through: [:reply_to_created, :creator_profile]
+    has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id, references: :id)
+    has_many(:thread_replies, unquote(Replied), foreign_key: :thread_id, references: :id)
+    has_one(:thread_post, unquote(Post), foreign_key: :id, references: :thread_id)
 
-       has_one(:thread_post_content, unquote(PostContent),
-         foreign_key: :id,
-         references: :thread_id
-       )
-     end)
+    has_one(:thread_post_content, unquote(PostContent),
+      foreign_key: :id,
+      references: :thread_id
+    )
+  end
+
+config :bonfire_data_social, Replied, code: replied
+
+config :bonfire_data_social, Bonfire.Data.Social.RepliedTotal, code: replied
 
 config :bonfire_data_social, Created,
   code:
