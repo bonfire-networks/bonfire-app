@@ -477,6 +477,7 @@ config :bonfire_data_identity, Account,
        has_one(:email, unquote(Email), foreign_key: :id)
        has_one(:auth_second_factor, unquote(AuthSecondFactor), foreign_key: :id)
        has_one(:settings, unquote(Settings), foreign_key: :id)
+       has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
 
        many_to_many(:users, unquote(User),
          join_through: Accounted,
@@ -493,6 +494,7 @@ config :bonfire_data_identity, Account,
 config :bonfire_data_identity, Accounted,
   code:
     (quote do
+       # belongs_to(:account, Account) # NOTE: defined in schema
        belongs_to(:user, unquote(User), foreign_key: :id, define_field: false)
      end)
 
@@ -567,10 +569,19 @@ config :bonfire_data_identity, User,
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
        unquote_splicing(common.([:actor, :character, :created, :peered, :profile, :settings]))
-       has_one(:accounted, unquote(Accounted), foreign_key: :id)
-       has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
        has_one(:self, unquote(Self), foreign_key: :id)
        has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
+
+       has_one(:accounted, unquote(Accounted), foreign_key: :id)
+
+       has_one(:account,
+         through: [:accounted, :account]
+       )
+
+       #  has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
+       has_one(:instance_admin,
+         through: [:account, :instance_admin]
+       )
 
        # multimixins
        unquote_splicing(common.([:controlled]))
