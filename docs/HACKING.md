@@ -143,7 +143,7 @@ just nix-db start
 - From a fresh checkout of this repository, this command will fetch the app's dependencies and setup the database (the same commands apply for all three options above):
 
 ```
-just setup
+just setup-dev
 ```
 
 - You should then be able to run the app with:
