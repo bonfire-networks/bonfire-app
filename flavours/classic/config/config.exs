@@ -31,8 +31,8 @@ config :bonfire,
   user_home_page: :dashboard,
   # default limit for prod
   default_pagination_limit: 20,
-  # very high limit for prod
-  thread_default_pagination_limit: 500,
+  # very high limit for prod (so we can load nested threads)
+  pagination_hard_max_limit: 500,
   localisation_path: "priv/localisation",
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   signing_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
