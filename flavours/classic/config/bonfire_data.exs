@@ -433,6 +433,12 @@ config :bonfire_data_access_control, Encircle,
        has_one(:peer, unquote(Peer), foreign_key: :id, references: :subject_id)
      end)
 
+config :bonfire_data_access_control, InstanceAdmin,
+  code:
+    (quote do
+       belongs_to(:user, unquote(User))
+     end)
+
 config :bonfire_data_access_control, Grant,
   code:
     (quote do
@@ -578,10 +584,14 @@ config :bonfire_data_identity, User,
          through: [:accounted, :account]
        )
 
-       #  has_one(:instance_admin, unquote(InstanceAdmin), foreign_key: :id, on_replace: :update)
-       has_one(:instance_admin,
-         through: [:account, :instance_admin]
+       has_one(:instance_admin, unquote(InstanceAdmin),
+         foreign_key: :user_id,
+         on_replace: :update
        )
+
+       #  has_one(:instance_admin,
+       #    through: [:account, :instance_admin]
+       #  )
 
        # multimixins
        unquote_splicing(common.([:controlled]))

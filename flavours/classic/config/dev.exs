@@ -5,7 +5,7 @@ changelog_issues_closed_after = "2022-08-30"
 
 config :bonfire,
   # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
-  experimental_features_enabled: false,
+  experimental_features_enabled: true,
   # low limit so it is easier to test UX
   default_pagination_limit: 15,
   ui: [
