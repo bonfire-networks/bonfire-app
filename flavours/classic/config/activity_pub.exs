@@ -52,7 +52,22 @@ config :activity_pub, ActivityPub.Web.Endpoint,
     layout: false
   ]
 
-config :activity_pub, :json_contexts, %{
-  "ValueFlows" => "https://w3id.org/valueflows#",
-  "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-}
+config :activity_pub, :json_contexts,
+  actor: [
+    # TODO: expose Aliases in these fields
+    movedTo: "as:movedTo",
+    alsoKnownAs: %{
+      "@id" => "as:alsoKnownAs",
+      "@type" => "@id"
+    },
+    sensitive: "as:sensitive",
+    # TODO
+    manuallyApprovesFollowers: "as:manuallyApprovesFollowers"
+  ],
+  object: [
+    Hashtag: "as:Hashtag",
+    sensitive: "as:sensitive",
+    # "conversation": "ostatus:conversation", # TODO?
+    ValueFlows: "https://w3id.org/valueflows#",
+    om2: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+  ]
