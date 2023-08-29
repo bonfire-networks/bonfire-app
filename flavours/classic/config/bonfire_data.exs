@@ -180,6 +180,7 @@ alias Bonfire.Data.Social.Profile
 alias Bonfire.Data.Social.Replied
 alias Bonfire.Data.Social.Request
 alias Bonfire.Data.Social.Pin
+alias Bonfire.Data.Social.Sensitive
 
 alias Bonfire.Pages.Page
 alias Bonfire.Pages.Section
@@ -221,6 +222,8 @@ common_assocs = %{
   edge: quote(do: has_one(:edge, unquote(Edge), unquote(mixin))),
   # Adds a name that can appear in the user interface for an object. e.g. for an ACL.
   named: quote(do: has_one(:named, unquote(Named), unquote(mixin_updatable))),
+  # CW/NSFW
+  sensitive: quote(do: has_one(:sensitive, unquote(Sensitive), unquote(mixin_updatable))),
   # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
   extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
   # Information about the remote instance the object is from, if it is not local.
@@ -359,6 +362,7 @@ pointer_mixins =
     :created,
     :edge,
     :named,
+    :sensitive,
     :extra_info,
     :peered,
     :post_content,
@@ -574,7 +578,10 @@ config :bonfire_data_identity, User,
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
-       unquote_splicing(common.([:actor, :character, :created, :peered, :profile, :settings]))
+       unquote_splicing(
+         common.([:actor, :character, :created, :peered, :profile, :settings, :sensitive])
+       )
+
        has_one(:self, unquote(Self), foreign_key: :id)
        has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
 
@@ -660,6 +667,7 @@ config :bonfire_data_social, Activity,
        has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
        # mixins linked to the object rather than the activity:
        has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)
+       has_one(:sensitive, unquote(Sensitive), foreign_key: :id, references: :object_id)
        has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
        has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)
 
@@ -854,7 +862,8 @@ config :bonfire_data_social, Post,
            :replied,
            :tree,
            :like_count,
-           :boost_count
+           :boost_count,
+           :sensitive
          ])
        )
 
