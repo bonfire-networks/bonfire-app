@@ -490,7 +490,7 @@ test-watch *args='':
 test-interactive *args='': 
 	@MIX_ENV=test just mix test.interactive --stale $@
 
-ap_lib := "forks/activity_pub"
+ap_lib := "forks/activity_pub/test/activity_pub"
 ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration"
 ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
 ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
