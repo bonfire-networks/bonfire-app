@@ -97,8 +97,17 @@ config :exsync,
   src_monitor: false,
   extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
 
-# for headless browser testing:
-config :bonfire, sql_sandbox: true
+# use Ecto sandbox?
+config :bonfire,
+  sql_sandbox:
+    System.get_env("START_SERVER") != "yes" and System.get_env("TEST_INSTANCE") != "yes"
+
+{chromedriver_path, _} = System.cmd("command", ["-v", "chromedriver"])
+
+chromedriver_path =
+  (chromedriver_path || "/usr/local/bin/chromedriver")
+  |> String.trim()
+  |> IO.inspect(label: "chromedriver_path")
 
 config :wallaby,
   otp_app: :bonfire,
@@ -107,7 +116,7 @@ config :wallaby,
   screenshot_on_failure: true,
   chromedriver: [
     # point to your chromedriver path
-    path: "assets/node_modules/chromedriver/bin/chromedriver",
+    path: chromedriver_path,
     # change to false if you want to see the browser in action
     headless: true
   ]
