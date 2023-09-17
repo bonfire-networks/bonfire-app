@@ -103,7 +103,7 @@ config :bonfire,
   sql_sandbox:
     System.get_env("START_SERVER") != "yes" and System.get_env("TEST_INSTANCE") != "yes"
 
-{chromedriver_path, _} = System.cmd("command", ["-v", "chromedriver"])
+{chromedriver_path, _} = System.cmd("sh", ["-c", "command -v chromedriver"])
 
 chromedriver_path =
   (chromedriver_path || "/usr/local/bin/chromedriver")
