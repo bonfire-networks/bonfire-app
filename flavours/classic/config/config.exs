@@ -197,5 +197,7 @@ end
 
 import_config "activity_pub.exs"
 
+import_config "native.exs"
+
 # finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{config_env()}.exs"
