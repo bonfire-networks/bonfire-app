@@ -60,11 +60,12 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
 
 test_instance? = System.get_env("TEST_INSTANCE") == "yes"
+federate? = test_instance? or System.get_env("FEDERATE") == "yes"
 
 config :tesla,
-  adapter: if(test_instance?, do: Tesla.Adapter.Hackney, else: Tesla.Mock)
+  adapter: if(federate?, do: {Tesla.Adapter.Finch, name: Bonfire.Finch}, else: Tesla.Mock)
 
-oban_mode = if(test_instance?, do: :inline, else: :manual)
+oban_mode = if(federate?, do: :inline, else: :manual)
 config :bonfire, Oban, testing: oban_mode
 config :activity_pub, Oban, testing: oban_mode
 

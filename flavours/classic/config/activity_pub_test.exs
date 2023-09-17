@@ -12,8 +12,6 @@ config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
 
 config :activity_pub, Oban, repo: Bonfire.Common.Repo
 
-config :tesla, adapter: Tesla.Mock
-
 # Print only warnings and errors during test
 config :logger, level: :warn
 

@@ -44,8 +44,9 @@ APP_BUILD := env_var_or_default('APP_BUILD', `git rev-parse --short HEAD || echo
 CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
+PUBLIC_PORT := env_var_or_default('PUBLIC_PORT', '4000')
 
-PROXY_CADDYFILE_PATH := if env_var_or_default('PUBLIC_PORT', '4000') == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }  
+PROXY_CADDYFILE_PATH := if PUBLIC_PORT == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }  
 
 ENV_ENV := if MIX_ENV == "test" { "dev" } else { MIX_ENV } 
 
@@ -159,9 +160,8 @@ dev-proxied: docker-stop-web
 dev-proxied-iex:
 	docker compose --profile proxy exec web iex --sname extra --remsh dev 
 
-dev-federate: docker-stop-web
-	which wg-quick || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
-	FEDERATE=yes HOSTNAME=$(([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/4000 > tunnel.conf) && wg-quick up ./tunnel.conf | pcregrep -o1 'https:\/\/([^/]+)') PUBLIC_PORT=443 just dev
+dev-federate: 
+	FEDERATE=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web 
 	docker compose $args run --name $WEB_CONTAINER --service-ports web
@@ -528,6 +528,9 @@ test-federation-dance *args='': test-federation-dance-positions
 test-federation-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
+test-federation-live *args='': 
+	FEDERATE=yes START_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test-watch --only live_federation $@
+
 # dev-test-watch: init ## Run tests
 # 	docker compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
@@ -814,3 +817,7 @@ nix-db-init: (nix-db "start")
 
 sys-deps-debian:
   ./deps-debian.sh
+
+local-tunnel-hostname: 
+	command -v wg-quick &> /dev/null || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
+	([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/{{PUBLIC_PORT}} > tunnel.conf) && (wg-quick up ./tunnel.conf || cat tunnel.conf) | pcregrep -o1 'https:\/\/([^/]+)'
