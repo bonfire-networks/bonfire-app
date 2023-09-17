@@ -142,7 +142,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       |> deps_names()
       |> IO.inspect(
         label:
-          "Running Bonfire #{version(config)} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
+          "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
       )
     end
 

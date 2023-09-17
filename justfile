@@ -159,6 +159,10 @@ dev-proxied: docker-stop-web
 dev-proxied-iex:
 	docker compose --profile proxy exec web iex --sname extra --remsh dev 
 
+dev-federate: docker-stop-web
+	which wg-quick || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
+	FEDERATE=yes HOSTNAME=$(([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/4000 > tunnel.conf) && wg-quick up ./tunnel.conf | pcregrep -o1 'https:\/\/([^/]+)') PUBLIC_PORT=443 just dev
+
 dev-docker *args='': docker-stop-web 
 	docker compose $args run --name $WEB_CONTAINER --service-ports web
 
