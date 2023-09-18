@@ -511,24 +511,27 @@ test-federation: test-federation-dance-positions
 test-federation-lib *args=ap_lib: test-federation-dance-positions
 	just test-watch $@
 
-test-federation-integration *args=ap_integration: test-federation-dance-positions
+test-federation-bonfire *args=ap_integration: test-federation-dance-positions
 	just test-watch $@
 
-test-federation-ext *args=ap_ext: test-federation-dance-positions
+test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": test-federation-dance-positions
 	just test-watch $@
 
-test-federation-dance-signed *args='': test-federation-dance-positions
+test-federation-in-extensions *args=ap_ext: test-federation-dance-positions
+	just test-watch $@
+
+test-federation-dance *args='': test-federation-dance-positions
 	TEST_INSTANCE=yes just test-watch --only test_instance $@
 	just test-federation-dance-positions
 
-test-federation-dance *args='': test-federation-dance-positions
+test-federation-dance-unsigned *args='': test-federation-dance-positions
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes just test-watch --only test_instance $@
 	just test-federation-dance-positions
 
 test-federation-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
-test-federation-live *args='': 
+test-federation-live-DRAGONS *args='': 
 	FEDERATE=yes START_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test-watch --only live_federation $@
 
 # dev-test-watch: init ## Run tests
