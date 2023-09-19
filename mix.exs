@@ -88,7 +88,7 @@ defmodule Bonfire.Umbrella.MixProject do
   @default_flavour "classic"
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.6-beta.12",
+    version: "0.9.6-beta.13",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     default_flavour: @default_flavour,
     logo: "assets/static/images/bonfire-icon.png",
