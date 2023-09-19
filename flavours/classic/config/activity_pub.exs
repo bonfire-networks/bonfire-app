@@ -27,7 +27,7 @@ config :activity_pub, :mrf_simple,
   avatar_removal: [],
   banner_removal: []
 
-config :http_signatures, adapter: ActivityPub.Safety.Keys
+config :http_signatures, adapter: ActivityPub.Safety.Signatures
 
 # config :tesla, adapter: Tesla.Adapter.Hackney
 config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch}
