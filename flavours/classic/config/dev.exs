@@ -151,4 +151,5 @@ config :versioce, :changelog,
     security: ["Security", "Safety"]
   }
 
-config :source_inspector, :enabled, true
+# config :source_inspector, :enabled, true
+config :phoenix_live_view, debug_heex_annotations: true

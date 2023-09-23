@@ -121,3 +121,5 @@ config :wallaby,
     # change to false if you want to see the browser in action
     headless: true
   ]
+
+config :phoenix_live_view, debug_heex_annotations: true
