@@ -444,7 +444,14 @@ pointer_mixins =
     :settings,
     :follow_count,
     :boost_count,
-    :like_count
+    :like_count,
+    :tags,
+    :media,
+    :controlled,
+    :activities,
+    :care_closure,
+    :direct_replies,
+    :feed_publishes
   ])
 
 config :pointers, Pointer,
@@ -467,10 +474,6 @@ config :pointers, Pointer,
        has_one(:geolocation, unquote(Geolocation), foreign_key: :id)
        # mixins
        unquote_splicing(pointer_mixins)
-       # multimixins
-       unquote_splicing(common.([:controlled, :tags, :media]))
-       # has_many
-       unquote_splicing(common.([:activities, :care_closure, :direct_replies, :feed_publishes]))
      end)
 
 config :pointers, Table, []
@@ -650,7 +653,7 @@ config :bonfire_data_identity, User,
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
        unquote_splicing(
-         common.([:actor, :character, :created, :peered, :profile, :settings, :sensitive])
+         common.([:actor, :character, :created, :peered, :profile, :settings, :sensitive, :tags])
        )
 
        has_one(:self, unquote(Self), foreign_key: :id)
