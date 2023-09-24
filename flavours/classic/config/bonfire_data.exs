@@ -209,36 +209,65 @@ common_assocs = %{
 
   # A summary of an object that can appear in a feed.
   activity: quote(do: has_one(:activity, unquote(Activity), unquote(mixin))),
-  # ActivityPub actor information
-  actor: quote(do: has_one(:actor, unquote(Actor), unquote(mixin))),
+
   # Indicates the entity responsible for an activity. Sort of like creator, but transferrable. Used
   # during deletion - when the caretaker is deleted, all their stuff will be too.
   caretaker: quote(do: has_one(:caretaker, unquote(Caretaker), unquote(mixin))),
-  # A Character has a unique username and some feeds.
-  character: quote(do: has_one(:character, unquote(Character), unquote(mixin_updatable))),
+  object_caretaker:
+    quote(do: has_one(:caretaker, unquote(Replied), foreign_key: :id, references: :object_id)),
+
   # Indicates the creator of an object
+  # TODO: add :creator with join_through
   created: quote(do: has_one(:created, unquote(Created), unquote(mixin))),
+  object_created:
+    quote(do: has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)),
+
   # Used for non-textual interactions such as likes and follows to indicate the other object.
   edge: quote(do: has_one(:edge, unquote(Edge), unquote(mixin))),
+
   # Adds a name that can appear in the user interface for an object. e.g. for an ACL.
   named: quote(do: has_one(:named, unquote(Named), unquote(mixin_updatable))),
+
   # CW/NSFW
   sensitive: quote(do: has_one(:sensitive, unquote(Sensitive), unquote(mixin_updatable))),
-  # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
-  extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
-  # Information about the remote instance the object is from, if it is not local.
-  peered: quote(do: has_one(:peered, unquote(Peered), unquote(mixin))),
+  object_sensitive:
+    quote(do: has_one(:sensitive, unquote(Sensitive), foreign_key: :id, references: :object_id)),
+
   # Information about the content of posts, e.g. a scrubbed html body
   post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin_updatable))),
+
   # Information about a user or other object that they wish to make available
   profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin_updatable))),
+
+  # A Character has a unique username and some feeds.
+  character: quote(do: has_one(:character, unquote(Character), unquote(mixin_updatable))),
+
+  # Information about the remote instance the object is from, if it is not local.
+  peered: quote(do: has_one(:peered, unquote(Peered), unquote(mixin))),
+
+  # ActivityPub actor information
+  actor: quote(do: has_one(:actor, unquote(Actor), unquote(mixin))),
+
   # Threading information, for threaded discussions.
   replied: quote(do: has_one(:replied, unquote(Replied), unquote(mixin_updatable))),
+  object_replied:
+    quote(do: has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)),
+
   # Tree info for categories (groups/topics)
   tree: quote(do: has_one(:tree, unquote(Tree), unquote(mixin_updatable))),
+  object_tree: quote(do: has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)),
+
   # Information that allows the system to identify special system-managed ACLS.
   stereotyped: quote(do: has_one(:stereotyped, unquote(Stereotyped), unquote(mixin))),
+
+  # Settings data
   settings: quote(do: has_one(:settings, unquote(Settings), foreign_key: :id)),
+  seen: quote(do: has_one(:seen, unquote(Edge), unquote(mixin_updatable))),
+  object_seen: quote(do: has_one(:seen, unquote(Edge), foreign_key: :object_id, references: :id)),
+  # FIXME: use the object or edge/activity here?
+
+  # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
+  extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
 
   ### Counts
 
@@ -274,36 +303,62 @@ common_assocs = %{
 
   # Links to access control information for this object.
   controlled: quote(do: has_many(:controlled, unquote(Controlled), unquote(mixin))),
+  object_controlled:
+    quote(
+      do: has_many(:controlled, unquote(Controlled), foreign_key: :id, references: :object_id)
+    ),
+
   # Inserts the object into selected feeds.
   feed_publishes: quote(do: has_many(:feed_publishes, unquote(FeedPublish), unquote(mixin))),
 
-  # Information that this object has some files
-  files: quote(do: has_many(:files, unquote(Files), unquote(mixin))),
-  # The actual files
+  # Information that this object has some files + the actual files
   media:
-    quote(
-      do:
-        many_to_many(:media, unquote(Media),
-          join_through: unquote(Files),
-          unique: true,
-          join_keys: [id: :id, media_id: :id],
-          on_replace: :delete
-        )
-    ),
+    quote do
+      has_many(:files, unquote(Files), unquote(mixin))
+
+      many_to_many(:media, unquote(Media),
+        join_through: unquote(Files),
+        unique: true,
+        join_keys: [id: :id, media_id: :id],
+        on_replace: :delete
+      )
+    end,
+  object_media:
+    quote do
+      has_many(:files, unquote(Files), foreign_key: :id, references: :object_id)
+
+      many_to_many(:media, unquote(Media),
+        join_through: unquote(Files),
+        unique: true,
+        join_keys: [id: :object_id, media_id: :id],
+        on_replace: :delete
+      )
+    end,
 
   # Information that this object tagged other objects.
-  tagged: quote(do: has_many(:tagged, unquote(Tagged), unquote(mixin))),
-  # The actual tags
+  # + the actual tags
   tags:
-    quote(
-      do:
-        many_to_many(:tags, unquote(Pointer),
-          join_through: unquote(Tagged),
-          unique: true,
-          join_keys: [id: :id, tag_id: :id],
-          on_replace: :delete
-        )
-    ),
+    quote do
+      has_many(:tagged, unquote(Tagged), unquote(mixin))
+
+      many_to_many(:tags, unquote(Pointer),
+        join_through: unquote(Tagged),
+        unique: true,
+        join_keys: [id: :id, tag_id: :id],
+        on_replace: :delete
+      )
+    end,
+  object_tags:
+    quote do
+      has_many(:tagged, unquote(Tagged), foreign_key: :id, references: :object_id)
+
+      many_to_many(:tags, unquote(Pointer),
+        join_through: unquote(Tagged),
+        unique: true,
+        join_keys: [id: :object_id, tag_id: :id],
+        on_replace: :delete
+      )
+    end,
 
   ### Regular has_many associations
 
@@ -334,7 +389,23 @@ common = fn names ->
   end
 end
 
-edge = common.([:controlled, :activity, :activities, :request])
+edge =
+  common.([
+    :activity,
+    :activities,
+    :request,
+    :object_media,
+    :object_created,
+    :object_caretaker,
+    :object_replied,
+    :object_tree,
+    :object_sensitive,
+    :object_seen,
+    :object_controlled,
+    :object_tags
+  ])
+
+# FIXME? do we want to boundarise an edge by the object (:object_controlled - eg. the post) or the edge (:controlled - eg. the like)
 
 edges =
   common.([
@@ -397,7 +468,7 @@ config :pointers, Pointer,
        # mixins
        unquote_splicing(pointer_mixins)
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media]))
+       unquote_splicing(common.([:controlled, :tags, :media]))
        # has_many
        unquote_splicing(common.([:activities, :care_closure, :direct_replies, :feed_publishes]))
      end)
@@ -661,20 +732,31 @@ config :bonfire_data_social, Activity,
        @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
-       has_many(:feed_publishes, unquote(FeedPublish), unquote(mixin))
-       has_one(:seen, unquote(Edge), foreign_key: :object_id, references: :id)
+
+       # mixins (note most should be linked to the object rather than the activity)
+       (unquote_splicing(
+          common.([
+            :feed_publishes,
+            :object_media,
+            :object_created,
+            :object_caretaker,
+            :object_replied,
+            :object_tree,
+            :object_sensitive,
+            :object_seen,
+            :object_controlled,
+            :object_tags
+          ])
+        ))
+
        # ugly workaround needed for certain queries (TODO: check if still needed)
        has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
-       # mixins linked to the object rather than the activity:
-       has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)
-       has_one(:sensitive, unquote(Sensitive), foreign_key: :id, references: :object_id)
-       has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
-       has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)
 
+       # Virtuals
        field(:path, EctoMaterializedPath.ULIDs, virtual: true)
-
        field(:federate_activity_pub, :any, virtual: true)
 
+       # Edge counts
        has_one(:like_count, unquote(EdgeTotal),
          foreign_key: :id,
          references: :object_id,
@@ -692,25 +774,6 @@ config :bonfire_data_social, Activity,
          references: :object_id,
          where: [table_id: @follow_ulid]
        )
-
-       has_many(:controlled, unquote(Controlled), foreign_key: :id, references: :object_id)
-       has_many(:tagged, unquote(Tagged), foreign_key: :id, references: :object_id)
-
-       many_to_many(:tags, unquote(Pointer),
-         join_through: unquote(Tagged),
-         unique: true,
-         join_keys: [id: :object_id, tag_id: :id],
-         on_replace: :delete
-       )
-
-       has_many(:files, unquote(Files), foreign_key: :id, references: :object_id)
-
-       many_to_many(:media, unquote(Media),
-         join_through: unquote(Files),
-         unique: true,
-         join_keys: [id: :object_id, media_id: :id],
-         on_replace: :delete
-       )
      end)
 
 config :bonfire_data_social, APActivity,
@@ -723,7 +786,7 @@ config :bonfire_data_social, APActivity,
             :activity,
             :caretaker,
             :controlled,
-            :files,
+            :media,
             :profile,
             :character,
             :post_content
@@ -737,13 +800,6 @@ config :bonfire_data_edges, Edge,
   code:
     (quote do
        (unquote_splicing(edge))
-
-       has_one(:tree, unquote(Tree), foreign_key: :id, references: :object_id)
-
-       has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)
-       has_one(:caretaker, unquote(Replied), foreign_key: :id, references: :object_id)
-
-       has_one(:replied, unquote(Replied), foreign_key: :id, references: :object_id)
 
        # TODO: requires composite foreign keys:
        # has_one :activity, unquote(Activity),
@@ -839,7 +895,7 @@ config :bonfire_data_social, Message,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :feed_publishes, :tagged, :tags, :files, :media]))
+       unquote_splicing(common.([:controlled, :feed_publishes, :tags, :media]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -868,7 +924,7 @@ config :bonfire_data_social, Post,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
        # special
@@ -984,7 +1040,7 @@ config :bonfire_pages, Page,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
@@ -1020,7 +1076,7 @@ config :bonfire_pages, Section,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :files, :media, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
@@ -1086,7 +1142,7 @@ config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
        )
 
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
      end)
 
 config :bonfire_valueflows, ValueFlows.EconomicEvent,
@@ -1096,7 +1152,7 @@ config :bonfire_valueflows, ValueFlows.EconomicEvent,
        # TODO :caretaker
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1107,7 +1163,7 @@ config :bonfire_valueflows, ValueFlows.EconomicResource,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1118,7 +1174,7 @@ config :bonfire_valueflows, ValueFlows.Knowledge.ResourceSpecification,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1129,7 +1185,7 @@ config :bonfire_valueflows, ValueFlows.Process,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1140,7 +1196,7 @@ config :bonfire_valueflows, ValueFlows.Knowledge.ProcessSpecification,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1151,7 +1207,7 @@ config :bonfire_valueflows, ValueFlows.Planning.Intent,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1162,7 +1218,7 @@ config :bonfire_valueflows, ValueFlows.Planning.Commitment,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1173,7 +1229,7 @@ config :bonfire_valueflows, ValueFlows.Proposal,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
@@ -1184,7 +1240,7 @@ config :bonfire_valueflows_observe, ValueFlows.Observe.Observation,
        # mixins
        unquote_splicing(common.([:activity, :caretaker, :peered, :replied]))
        # multimixins
-       unquote_splicing(common.([:controlled, :tagged, :tags, :feed_publishes]))
+       unquote_splicing(common.([:controlled, :tags, :feed_publishes]))
        # has
        unquote_splicing(common.([:direct_replies]))
      end)
