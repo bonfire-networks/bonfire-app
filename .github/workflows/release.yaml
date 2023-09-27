@@ -38,9 +38,13 @@ jobs:
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
-          create-tag: false # tag already created in other job
+          create-tag: true # unless tag is already created in another job
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - 
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        name: Cancel workflow if the version has not changed
+        uses: andymckay/cancel-action@0.2
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -122,6 +126,7 @@ jobs:
   #       id: version
   #       uses: salsify/action-detect-and-tag-new-version@v2
   #       with:
+          # create-tag: false # unless tag is already created in another job
   #         version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
   #     - 
   #       if: steps.version.outputs.current-version == steps.version.outputs.previous-version

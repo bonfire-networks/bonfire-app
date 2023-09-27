@@ -6,12 +6,12 @@ on:
       
 jobs:
   docs:
-    name: Generate docs upon new release
+    name: Generate docs (upon new release)
     runs-on: ubuntu-latest
     container: hexpm/elixir:1.15.6-erlang-26.1-alpine-3.18.2
     env:
-      FLAVOUR: classic
-      FLAVOUR_PATH: flavours/classic
+      FLAVOUR: cooperation
+      FLAVOUR_PATH: flavours/cooperation
       MIX_ENV: dev
       WITH_DOCKER: no
       CI: true
@@ -27,8 +27,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
-      # - # FIXME
-      #   name: Detect new version
+      # - 
+      #   name: Detect version
       #   id: version
       #   uses: salsify/action-detect-and-tag-new-version@v2
       #   with:
