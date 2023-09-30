@@ -357,5 +357,79 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         dep_path("bonfire_ui_common") <> "/priv/catalogue"
       ]
     end
+
+    def list_deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
+      deps_by_size(sort_by, paths)
+      |> IO.inspect(limit: :infinity)
+
+      :ok
+    end
+
+    def deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
+      Mix.Project.deps_tree()
+      |> Enum.map(fn {app, deps} ->
+        app_size =
+          paths
+          |> Map.get(app)
+          |> List.wrap()
+          # |> IO.inspect
+          |> Mix.Utils.extract_files("*")
+          |> Enum.map(&(File.stat(&1) |> ok_unwrap(%{}) |> Map.get(:size) || 0))
+          |> Enum.sum()
+
+        deps_size =
+          deps
+          |> Enum.map(&Map.get(paths, &1))
+          # |> IO.inspect
+          |> Mix.Utils.extract_files("*")
+          |> Enum.map(&(File.stat(&1) |> ok_unwrap(%{}) |> Map.get(:size) || 0))
+          |> Enum.sum()
+
+        {app,
+         if sort_by != :app do
+           %{
+             deps_list: deps,
+             app: app_size,
+             deps: deps_size,
+             total: app_size + deps_size
+           }
+         else
+           %{
+             app: app_size,
+             deps: deps_size,
+             total: app_size + deps_size
+           }
+         end}
+      end)
+      |> Enum.sort_by(&(elem(&1, 1) |> Map.get(sort_by)), &>=/2)
+      |> Enum.map(fn {app, meta} ->
+        {app,
+         Map.merge(meta, %{
+           app: format_byte_size(meta.app),
+           deps: format_byte_size(meta.deps),
+           total: format_byte_size(meta.total)
+         })}
+      end)
+    end
+
+    def format_byte_size(byte_size) do
+      System.cmd("numfmt", ["--to=iec-i", "--suffix=B", "--format=%9.2f", to_string(byte_size)])
+      |> elem(0)
+      |> String.trim()
+    end
+
+    @doc """
+    Unwraps an `{:ok, val}` tuple, returning the value, or returns a fallback value (nil by default) if the tuple is `{:error, _}` or `:error`.
+    """
+    def ok_unwrap(val, fallback \\ nil)
+    def ok_unwrap({:ok, val}, _fallback), do: val
+
+    def ok_unwrap({:error, val}, fallback) do
+      IO.warn(inspect(val))
+      fallback
+    end
+
+    def ok_unwrap(:error, fallback), do: fallback
+    def ok_unwrap(val, fallback), do: val || fallback
   end
 end
