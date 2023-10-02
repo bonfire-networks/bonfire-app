@@ -406,6 +406,16 @@ Caddyserver and other servers can handle generating and setting up HTTPS certifi
 
 If you've built from source, you should point the nginx root directory to be `_build/prod/rel/bonfire/lib/bonfire-0.1.0-*/priv/static`
 
+
+## Admin tools
+
+- LiveDashboard for viewing real-time metrics and logs at `/admin/system/`
+- Oban logs for viewing queued jobs (e.g. for processing federated activities) `/admin/system/oban_queues`
+- LiveAdmin for browsing data in the database at `/admin/system/data`
+- Orion for dynamic distributed performance profiling at `/admin/system/orion`
+- Web Observer as an alternative way to view metrics at `/admin/system/wobserver`
+
+
 ## Troubleshooting
 
 Some common issues that may arise during deployment and our suggestions for resolving them.

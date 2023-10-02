@@ -171,6 +171,10 @@ config :os_mon,
   disk_almost_full_threshold: 0.85,
   start_cpu_sup: false
 
+config :wobserver,
+  mode: :plug,
+  remote_url_prefix: "/admin/system/wobserver"
+
 config :sentry,
   # dsn: "this-should-be-set-in-env-and-loaded-in-runtime.exs",
   environment_name: Mix.env(),
