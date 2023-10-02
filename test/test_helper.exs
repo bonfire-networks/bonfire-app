@@ -11,7 +11,9 @@ ExUnit.configure(
 # Code.put_compiler_option(:nowarn_unused_vars, true)
 
 ExUnit.start(
-  timeout: 200_000,
+  #  miliseconds
+  timeout: 120_000,
+  assert_receive_timeout: 1000,
   exclude: Bonfire.Common.RuntimeConfig.skip_test_tags(),
   # only show log for failed tests (Can be overridden for individual tests via `@tag capture_log: false`)
   capture_log: true
