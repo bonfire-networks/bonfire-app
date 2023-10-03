@@ -823,6 +823,8 @@ sys-deps-debian:
 
 local-tunnel-hostname: 
 	echo "bonfire-test.tunnelto.dev"
+# run this in seperate terminal to start the above tunnel: 
+# tunnelto --subdomain bonfire-test --port 4000
+# FIXME in case tunnel.pyjam.as comes back up:
 # command -v wg-quick &> /dev/null || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
 # ([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/{{PUBLIC_PORT}} > tunnel.conf) && (wg-quick up ./tunnel.conf || cat tunnel.conf) | pcregrep -o1 'https:\/\/([^/]+)'
-# FIXME ^ hopefully tunnel.pyjam.as comes back up or we need to find an alternative
