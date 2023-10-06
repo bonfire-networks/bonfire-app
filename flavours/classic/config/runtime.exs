@@ -242,4 +242,12 @@ if Code.ensure_loaded?(Livebook) do
   Livebook.config_runtime()
 end
 
+config :forecastr,
+  backend: Forecastr.PirateWeather,
+  appid: System.get_env("PIRATE_WEATHER_API"),
+  # backend: Forecastr.OWM,
+  # appid: System.get_env("OPEN_WEATHER_MAP_API_KEY"),
+  # minutes to cache
+  ttl: 14 * 60_000
+
 IO.puts("Welcome to Bonfire!")
