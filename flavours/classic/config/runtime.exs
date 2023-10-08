@@ -9,9 +9,14 @@ server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 
 repos =
-  if System.get_env("TEST_INSTANCE") == "yes",
-    do: [Bonfire.Common.Repo, Bonfire.Common.TestInstanceRepo],
+  if Code.ensure_loaded?(Beacon.Repo),
+    do: [Bonfire.Common.Repo, Beacon.Repo],
     else: [Bonfire.Common.Repo]
+
+repos =
+  if System.get_env("TEST_INSTANCE") == "yes",
+    do: repos ++ [Bonfire.Common.TestInstanceRepo],
+    else: repos
 
 hosts =
   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
@@ -20,8 +25,6 @@ hosts =
   |> Enum.map(&"//#{&1}")
 
 # |> IO.inspect()
-
-# [Bonfire.Common.Repo, Beacon.Repo]
 
 if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
      (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSEP_API_KEY") ||

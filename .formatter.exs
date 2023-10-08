@@ -1,5 +1,5 @@
 [
-  import_deps: [:surface, :ecto, :phoenix],
+  import_deps: [:beacon, :beacon_live_admin, :surface, :phoenix, :ecto, :ecto_sql],
   plugins: [Phoenix.LiveView.HTMLFormatter, Surface.Formatter.Plugin],
 
   # add patterns matching all .sface files and all .ex files with ~F sigils
