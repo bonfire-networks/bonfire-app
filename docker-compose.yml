@@ -5,6 +5,11 @@ version: "3.5"
 services:
   web:
     container_name: "bonfire_web"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "20"
     build:
       context: .
       dockerfile: "Dockerfile.dev"

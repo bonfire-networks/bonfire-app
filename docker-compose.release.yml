@@ -6,6 +6,11 @@ services:
     image: ${APP_DOCKER_IMAGE}
     container_name: "bonfire_web"
     restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
     ports:
       - "4000:4000" # you may want to comment this in production
     env_file:
