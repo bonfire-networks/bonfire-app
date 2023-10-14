@@ -692,7 +692,7 @@ dc *args='':
 build: init 
 	mkdir -p deps
 	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix setup" } }}
-	{{ if WITH_DOCKER == "total" { "export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE=${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION} && docker compose build" } else { "echo ." } }}
+	{{ if WITH_DOCKER == "total" { "export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE=${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION} && docker compose build" } else { "echo ." } }}
 
 # Build the docker image
 rebuild: init 
