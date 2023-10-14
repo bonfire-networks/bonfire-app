@@ -62,6 +62,8 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
 test_instance? = System.get_env("TEST_INSTANCE") == "yes"
 federate? = test_instance? or System.get_env("FEDERATE") == "yes"
 
+config :activity_pub, :instance, federating: federate?
+
 config :tesla,
   adapter: if(federate?, do: {Tesla.Adapter.Finch, name: Bonfire.Finch}, else: Tesla.Mock)
 

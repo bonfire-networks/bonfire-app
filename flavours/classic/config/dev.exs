@@ -12,6 +12,10 @@ config :bonfire,
     feed_object_extension_preloads_disabled: false
   ]
 
+federate? = System.get_env("FEDERATE") == "yes"
+
+config :activity_pub, :instance, federating: federate?
+
 # config :pseudo_gettext, :locale, "en-pseudo_text" # uncomment to use https://en.wikipedia.org/wiki/Pseudolocalization and check that the app is properly localisable
 
 config :bonfire, Bonfire.Common.Repo,
