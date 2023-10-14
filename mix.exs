@@ -20,7 +20,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
     ## password hashing - builtin vs nif
     {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
-    {:argon2_elixir, "~> 3.0", only: [:prod]},
+    {:argon2_elixir, "~> 4.0", only: [:prod]},
 
     ## dev conveniences
     #
@@ -68,6 +68,9 @@ defmodule Bonfire.Umbrella.MixProject do
     {:benchee_html, "~> 1.0", only: [:dev, :test]},
     # for Telemetry store
     {:circular_buffer, "~> 0.4", only: :dev},
+
+    # logging
+    {:sentry, "~> 9.0", only: :prod, override: true},
 
     # list dependencies & licenses
     # {

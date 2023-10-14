@@ -92,6 +92,10 @@ config :bonfire, Bonfire.Common.TestInstanceRepo, database: "bonfire_test_instan
 # ecto query filtering
 # config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
 
+# disable Tzdata and replace with Tz library
+config :tzdata, :autoupdate, :disabled
+config :elixir, :time_zone_database, Tz.TimeZoneDatabase
+
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]

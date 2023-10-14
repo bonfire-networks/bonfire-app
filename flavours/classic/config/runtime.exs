@@ -27,7 +27,7 @@ hosts =
 # |> IO.inspect()
 
 if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
-     (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSEP_API_KEY") ||
+     (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSTEP_API_KEY") ||
         System.get_env("OTEL_HONEYCOMB_API_KEY")) do
   config :opentelemetry,
     disabled: false
@@ -44,7 +44,7 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
       otlp_endpoint: otel_endpoint
   end
 
-  if System.get_env("OTEL_LIGHTSEP_API_KEY") do
+  if System.get_env("OTEL_LIGHTSTEP_API_KEY") do
     IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep.com")
     # Example configuration for Lightstep.com, for more refers to:
     # https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
@@ -54,7 +54,7 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
       oltp_traces_compression: :gzip,
       otlp_traces_endpoint: "https://ingest.lightstep.com:443/traces/otlp/v0.9",
       otlp_headers: [
-        {"lightstep-access-token", System.get_env("OTEL_LIGHTSEP_API_KEY")}
+        {"lightstep-access-token", System.get_env("OTEL_LIGHTSTEP_API_KEY")}
       ]
   end
 
