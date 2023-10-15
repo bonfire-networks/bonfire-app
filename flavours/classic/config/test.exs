@@ -62,10 +62,11 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
 test_instance? = System.get_env("TEST_INSTANCE") == "yes"
 federate? = test_instance? or System.get_env("FEDERATE") == "yes"
 
-config :activity_pub, :instance, federating: federate?
-
 config :tesla,
   adapter: if(federate?, do: {Tesla.Adapter.Finch, name: Bonfire.Finch}, else: Tesla.Mock)
+
+#  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE 
+config :activity_pub, :instance, federating: true
 
 oban_mode = if(federate?, do: :inline, else: :manual)
 config :bonfire, Oban, testing: oban_mode
