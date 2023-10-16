@@ -4,7 +4,8 @@
     :surface,
     :phoenix,
     :ecto,
-    :ecto_sql
+    :ecto_sql,
+    :assert_value
   ],
   plugins: [Phoenix.LiveView.HTMLFormatter, Surface.Formatter.Plugin],
 
