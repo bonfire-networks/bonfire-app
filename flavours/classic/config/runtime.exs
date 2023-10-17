@@ -186,9 +186,14 @@ pool_size = String.to_integer(System.get_env("POOL_SIZE", "10"))
 
 database =
   case config_env() do
-    :test -> "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
-    :dev -> System.get_env("POSTGRES_DB", "bonfire_dev")
-    _ -> System.get_env("POSTGRES_DB", "bonfire")
+    :test ->
+      "bonfire_test_#{System.get_env("TEST_INSTANCE")}_#{System.get_env("MIX_TEST_PARTITION")}"
+
+    :dev ->
+      System.get_env("POSTGRES_DB", "bonfire_dev")
+
+    _ ->
+      System.get_env("POSTGRES_DB", "bonfire")
   end
 
 config :bonfire, ecto_repos: repos

@@ -42,12 +42,19 @@ if chromedriver_path && File.exists?(chromedriver_path),
   do: {:ok, _} = Application.ensure_all_started(:wallaby),
   else: IO.inspect("Note: Wallaby UI tests will not run because the chromedriver is missing")
 
+# insert fixtures in test instance's repo on startup 
+if System.get_env("TEST_INSTANCE") == "yes",
+  do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
+
 IO.puts("""
 
 Testing shows the presence, not the absence of bugs.
  - Edsger W. Dijkstra
 """)
 
-# insert fixtures in test instance's repo on startup 
-if System.get_env("TEST_INSTANCE") == "yes",
-  do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
+if System.get_env("OBSERVE") do
+  Mix.ensure_application!(:wx)
+  Mix.ensure_application!(:runtime_tools)
+  Mix.ensure_application!(:observer)
+  :observer.start()
+end

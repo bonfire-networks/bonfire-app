@@ -144,10 +144,10 @@ prepare-prod:
 	MIX_ENV=dev just dev-run {{args}}
 
 @dev-extra: 
-	iex --sname extra --remsh dev
+	iex --sname extra --remsh localenv
 
 dev-run *args='': init
-	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --sname dev -S mix phx.server $args" } }}
+	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --sname localenv -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
 @dev-remote: init
@@ -158,7 +158,7 @@ dev-proxied: docker-stop-web
 	docker logs bonfire_web -f
 
 dev-proxied-iex:
-	docker compose --profile proxy exec web iex --sname extra --remsh dev 
+	docker compose --profile proxy exec web iex --sname extra --remsh localenv 
 
 dev-federate: 
 	FEDERATE=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
