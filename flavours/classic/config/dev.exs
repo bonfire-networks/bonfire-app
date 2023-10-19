@@ -102,6 +102,7 @@ if enable_code_reloading do
 
   config :bonfire, Bonfire.Web.Endpoint,
     code_reloader: true,
+    reloadable_compilers: [:leex, :elixir, :surface],
     reloadable_apps: [:bonfire] ++ local_dep_names,
     live_reload: [
       patterns: patterns ++ hot_patterns,
