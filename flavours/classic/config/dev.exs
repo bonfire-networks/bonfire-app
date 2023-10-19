@@ -39,12 +39,14 @@ local_deps =
 # ),
 # else: []
 
+use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
+
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
   debug_errors: false,
   check_origin: false,
-  http: [protocol_options: [idle_timeout: 120_000]],
+  http: if(use_cowboy?, do: [protocol_options: [idle_timeout: 120_000]], else: []),
   watchers: [
     yarn: [
       "watch.js",

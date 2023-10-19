@@ -26,68 +26,6 @@ hosts =
 
 # |> IO.inspect()
 
-if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
-     (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSTEP_API_KEY") ||
-        System.get_env("OTEL_HONEYCOMB_API_KEY")) do
-  config :opentelemetry,
-    disabled: false
-
-  config :opentelemetry_exporter,
-    otlp_protocol: :http_protobuf
-
-  otel_endpoint = System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT")
-
-  if otel_endpoint do
-    IO.puts("NOTE: OTLP (open telemetry) data will be sent to #{otel_endpoint}")
-
-    config :opentelemetry_exporter,
-      otlp_endpoint: otel_endpoint
-  end
-
-  if System.get_env("OTEL_LIGHTSTEP_API_KEY") do
-    IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep.com")
-    # Example configuration for Lightstep.com, for more refers to:
-    # https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
-    config :opentelemetry_exporter,
-      # You can configure the compression type for exporting traces.
-      otlp_compression: :gzip,
-      oltp_traces_compression: :gzip,
-      otlp_traces_endpoint: "https://ingest.lightstep.com:443/traces/otlp/v0.9",
-      otlp_headers: [
-        {"lightstep-access-token", System.get_env("OTEL_LIGHTSTEP_API_KEY")}
-      ]
-  end
-
-  if System.get_env("OTEL_HONEYCOMB_API_KEY") do
-    IO.puts("NOTE: OTLP (open telemetry) data will be sent to honeycomb.io")
-
-    config :opentelemetry, :processors,
-      otel_batch_processor: %{
-        exporter: {
-          :opentelemetry_exporter,
-          %{
-            endpoints: [
-              {:https, ~c"api.honeycomb.io", 443,
-               [
-                 verify: :verify_peer,
-                 cacertfile: :certifi.cacertfile(),
-                 depth: 3,
-                 customize_hostname_check: [
-                   match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
-                 ]
-               ]}
-            ],
-            headers: [
-              {"x-honeycomb-team", System.fetch_env!("OTEL_HONEYCOMB_API_KEY")},
-              {"x-honeycomb-dataset", System.get_env("OTEL_SERVICE_NAME", "bonfire")}
-            ],
-            protocol: :grpc
-          }
-        }
-      }
-  end
-end
-
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
 ##
@@ -142,6 +80,8 @@ config :bonfire,
   signing_salt: signing_salt,
   root_path: File.cwd!()
 
+use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
+
 config :bonfire, Bonfire.Web.Endpoint,
   server:
     config_env() != :test or System.get_env("TEST_INSTANCE") == "yes" or
@@ -152,18 +92,20 @@ config :bonfire, Bonfire.Web.Endpoint,
   ],
   # check_origin: hosts, # FIXME
   check_origin: false,
-  http: [
-    port: server_port,
-    transport_options:
-      if(System.get_env("PLUG_SERVER") != "bandit",
-        do: [max_connections: 16_384, socket_opts: [:inet6]],
-        else: [:inet6]
-      )
-  ],
   adapter:
-    if(System.get_env("PLUG_SERVER") != "bandit",
+    if(use_cowboy?,
       do: Phoenix.Endpoint.Cowboy2Adapter,
       else: Bandit.PhoenixAdapter
+    ),
+  http:
+    if(use_cowboy?,
+      do: [
+        port: server_port,
+        transport_options: [max_connections: 16_384, socket_opts: [:inet6]]
+      ],
+      else: [
+        port: server_port
+      ]
     ),
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
@@ -225,6 +167,68 @@ case System.get_env("GRAPH_DB_URL") do
       url: url,
       basic_auth: [username: "memgraph", password: "memgraph"],
       pool_size: 10
+end
+
+if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
+     (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSTEP_API_KEY") ||
+        System.get_env("OTEL_HONEYCOMB_API_KEY")) do
+  config :opentelemetry,
+    disabled: false
+
+  config :opentelemetry_exporter,
+    otlp_protocol: :http_protobuf
+
+  otel_endpoint = System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT")
+
+  if otel_endpoint do
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to #{otel_endpoint}")
+
+    config :opentelemetry_exporter,
+      otlp_endpoint: otel_endpoint
+  end
+
+  if System.get_env("OTEL_LIGHTSTEP_API_KEY") do
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep.com")
+    # Example configuration for Lightstep.com, for more refers to:
+    # https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
+    config :opentelemetry_exporter,
+      # You can configure the compression type for exporting traces.
+      otlp_compression: :gzip,
+      oltp_traces_compression: :gzip,
+      otlp_traces_endpoint: "https://ingest.lightstep.com:443/traces/otlp/v0.9",
+      otlp_headers: [
+        {"lightstep-access-token", System.get_env("OTEL_LIGHTSTEP_API_KEY")}
+      ]
+  end
+
+  if System.get_env("OTEL_HONEYCOMB_API_KEY") do
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to honeycomb.io")
+
+    config :opentelemetry, :processors,
+      otel_batch_processor: %{
+        exporter: {
+          :opentelemetry_exporter,
+          %{
+            endpoints: [
+              {:https, ~c"api.honeycomb.io", 443,
+               [
+                 verify: :verify_peer,
+                 cacertfile: :certifi.cacertfile(),
+                 depth: 3,
+                 customize_hostname_check: [
+                   match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+                 ]
+               ]}
+            ],
+            headers: [
+              {"x-honeycomb-team", System.fetch_env!("OTEL_HONEYCOMB_API_KEY")},
+              {"x-honeycomb-dataset", System.get_env("OTEL_SERVICE_NAME", "bonfire")}
+            ],
+            protocol: :grpc
+          }
+        }
+      }
+  end
 end
 
 # start prod-only config
