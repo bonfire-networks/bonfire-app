@@ -347,8 +347,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # end
 
     def compilers(_) do
-      # [:tria] ++ 
-      Mix.compilers()
+      Mix.compilers() ++ [:surface]
     end
 
     def catalogues(_env) do
