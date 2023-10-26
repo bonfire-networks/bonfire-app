@@ -42,7 +42,7 @@ More details at https://bonfirenetworks.org",
   feed_object_extension_preloads_disabled: true,
   # end theme
   hide_app_switcher: true,
-  # rich_text_editor_disabled: true,
+  rich_text_editor_disabled: false,
   # rich_text_editor: Bonfire.Editor.Quill,
   # rich_text_editor: Bonfire.Editor.Ck,
   rich_text_editor: Bonfire.Editor.Milkdown,
