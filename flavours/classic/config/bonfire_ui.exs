@@ -154,3 +154,10 @@ config :surface, :components, [
   {Bonfire.UI.Social.Activity.LinkToActivityLive, propagate_context_to_slots: true},
   {Bonfire.UI.Common.TabsLive, propagate_context_to_slots: true}
 ]
+
+config :surface, :compiler,
+  hooks_output_dir: "assets/js/_hooks",
+  css_output_file: "assets/css/_components.css",
+  enable_variants: true
+
+# variants_prefix: "s-"
