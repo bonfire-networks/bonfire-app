@@ -156,8 +156,9 @@ config :surface, :components, [
 ]
 
 config :surface, :compiler,
-  hooks_output_dir: "assets/js/_hooks",
-  css_output_file: "assets/css/_components.css",
+  hooks_output_dir: "data/current_flavour/config/flavour_assets/hooks/",
+  css_output_file: "data/current_flavour/config/flavour_assets/components.css",
+  variants_output_file: "assets/css/variants.js",
   enable_variants: true
 
 # variants_prefix: "s-"
