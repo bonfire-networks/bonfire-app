@@ -1,4 +1,4 @@
-let ExtensionHooks = {};
+let ExtensionHooks = {}; 
 
 // NOTE: any extensions included here need to also be added to ./deps.js.sh
 // NOTE: during development you may want to change 'deps' in the path to 'forks', but remember to change it back before committing! 
@@ -12,7 +12,7 @@ import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
 // import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
 import {TooltipHooks} from "./../../../deps/bonfire_ui_common/assets/js/tooltip"
-import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
+// import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js/infinite_scroll"
 import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
 import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
@@ -31,6 +31,6 @@ import { CodeHooks } from "./../../../deps/bonfire_ui_common/assets/js/code"
 // import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
 import LiveSelect from "./../../../deps/live_select/priv/static/live_select.min.js"
 
-Object.assign(ExtensionHooks, EmojiHooks, TooltipHooks, MilkdownHooks, FeedHooks, ChangeLocaleHooks, ImageHooks, NotificationsHooks, ThemeHooks, LiveSelect, CodeHooks, InfiniteScrollHooks, CopyHooks) // ImageHooks, EditorCkHooks, EditorQuillHooks
+Object.assign(ExtensionHooks, EmojiHooks, TooltipHooks, MilkdownHooks, ChangeLocaleHooks, ImageHooks, NotificationsHooks, ThemeHooks, LiveSelect, CodeHooks, InfiniteScrollHooks, CopyHooks) // ImageHooks, EditorCkHooks, EditorQuillHooks
 
 export { ExtensionHooks }
