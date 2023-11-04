@@ -372,6 +372,9 @@ common_assocs = %{
   activities:
     quote(do: has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)),
 
+  # retrieves the Create activity
+  activity: quote(do: has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)),
+
   ### Stuff I'm not sure how to categorise yet
 
   # Used currently only for requesting to follow a user, but more general
@@ -949,7 +952,7 @@ config :bonfire_data_social, PostContent,
   code:
     (quote do
        # mixins
-       unquote_splicing(common.([:created, :named]))
+       unquote_splicing(common.([:created, :named, :activity]))
        # multimixins
        unquote_splicing(common.([:controlled]))
        # virtuals for changesets
@@ -962,13 +965,10 @@ config :bonfire_data_social, Replied,
   code:
     (quote do
        # multimixins 
-       unquote_splicing(common.([:controlled, :like_count, :boost_count]))
+       unquote_splicing(common.([:activities, :activity, :controlled, :like_count, :boost_count]))
 
        belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
        belongs_to(:post_content, unquote(PostContent), foreign_key: :id, define_field: false)
-
-       has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)
-       has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)
 
        field(:path_sorter, :any, virtual: true)
 
