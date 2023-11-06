@@ -1,11 +1,12 @@
 [
   import_deps: [
-    # :beacon, :beacon_live_admin, 
+    # :beacon, :beacon_live_admin,
     :surface,
     :phoenix,
     :ecto,
     :ecto_sql,
-    :assert_value
+    :assert_value,
+    :mneme
   ],
   plugins: [Phoenix.LiveView.HTMLFormatter, Surface.Formatter.Plugin],
 

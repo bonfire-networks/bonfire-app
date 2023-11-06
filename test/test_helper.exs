@@ -1,12 +1,13 @@
 import Bonfire.Common.Config, only: [repo: 0]
 
 ExUnit.configure(
-  formatters:
-    [ExUnit.CLIFormatter, ExUnitNotifier] ++
-      [Bonfire.Common.TestSummary]
+  formatters: [
+    ExUnit.CLIFormatter,
+    ExUnitNotifier,
+    Bonfire.Common.TestSummary
+    # Bonfire.UI.Kanban.TestDrivenCoordination
+  ]
 )
-
-# ++ [Bonfire.UI.Kanban.TestDrivenCoordination]
 
 # Code.put_compiler_option(:nowarn_unused_vars, true)
 
@@ -18,6 +19,8 @@ ExUnit.start(
   # only show log for failed tests (Can be overridden for individual tests via `@tag capture_log: false`)
   capture_log: true
 )
+
+Mneme.start()
 
 # Mix.Task.run("ecto.create")
 # Mix.Task.run("ecto.migrate")
@@ -42,7 +45,7 @@ if chromedriver_path && File.exists?(chromedriver_path),
   do: {:ok, _} = Application.ensure_all_started(:wallaby),
   else: IO.inspect("Note: Wallaby UI tests will not run because the chromedriver is missing")
 
-# insert fixtures in test instance's repo on startup 
+# insert fixtures in test instance's repo on startup
 if System.get_env("TEST_INSTANCE") == "yes",
   do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
 

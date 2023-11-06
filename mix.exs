@@ -63,6 +63,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:credo, "~> 1.7.0", only: :test, override: true},
     # {:bypass, "~> 2.1", only: :test}, # used in furlex
     {:assert_value, ">= 0.0.0", only: [:dev, :test]},
+    {:mneme, ">= 0.0.0", only: [:dev, :test]},
 
     # Benchmarking utilities
     {:benchee, "~> 1.1", only: [:dev, :test]},
