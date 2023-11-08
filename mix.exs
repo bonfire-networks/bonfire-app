@@ -66,7 +66,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:mneme, ">= 0.0.0", only: [:dev, :test]},
 
     # Benchmarking utilities
-    {:benchee, "~> 1.1", only: [:dev, :test]},
+    {:benchee, "~> 1.1", override: true},
     {:benchee_html, "~> 1.0", only: [:dev, :test]},
     # for Telemetry store
     {:circular_buffer, "~> 0.4", only: :dev},

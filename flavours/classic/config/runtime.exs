@@ -246,7 +246,17 @@ end
 # start prod and dev only config
 if config_env() != :test do
   config :bonfire, Bonfire.Common.Repo,
-    slow_query_ms: String.to_integer(System.get_env("SLOW_QUERY_MS", "100"))
+    slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
+    # The timeout for establishing new connections (default: 5000)
+    connect_timeout: String.to_integer(System.get_env("DB_CONNECT_TIMEOUT", "10000")),
+    # The time in milliseconds (as an integer) to wait for the query call to finish (default: 15_000)
+    timeout: String.to_integer(System.get_env("DB_QUERY_TIMEOUT", "20000")),
+    parameters: [
+      # Abort any statement that takes more than the specified amount of time. The timeout is measured from the time a command arrives at the server until it is completed by the server.
+      statement_timeout: System.get_env("DB_STATEMENT_TIMEOUT", "20000"),
+      # Terminate any session with an open transaction that has been idle for longer than the specified amount of time. This allows any locks held by that session to be released and the connection slot to be reused
+      idle_in_transaction_session_timeout: System.get_env("DB_IDLE_TRANSACTION_TIMEOUT", "1000")
+    ]
 end
 
 ## bonfire_livebook
