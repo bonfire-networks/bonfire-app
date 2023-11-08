@@ -9,17 +9,17 @@ set export
 ## Main configs - override these using env vars
 
 # what flavour do we want?
-FLAVOUR := env_var_or_default('FLAVOUR', "classic") 
-FLAVOUR_PATH := env_var_or_default('FLAVOUR_PATH', "flavours/" + FLAVOUR) 
+FLAVOUR := env_var_or_default('FLAVOUR', "classic")
+FLAVOUR_PATH := env_var_or_default('FLAVOUR_PATH', "flavours/" + FLAVOUR)
 
 # do we want to use Docker? set as env var:
 # - WITH_DOCKER=total : use docker for everything (default)
-# - WITH_DOCKER=partial : use docker for services like the DB 
+# - WITH_DOCKER=partial : use docker for services like the DB
 # - WITH_DOCKER=easy : use docker for services like the DB & compiled utilities  (deprecated, now same as partial)
 # - WITH_DOCKER=no : please no
-WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total") 
+WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 
-MIX_ENV := env_var_or_default('MIX_ENV', "dev") 
+MIX_ENV := env_var_or_default('MIX_ENV', "dev")
 
 APP_NAME := "bonfire"
 
@@ -27,7 +27,7 @@ APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
 APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":latest-" +FLAVOUR)
-DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") } 
+DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") }
 
 GRAPH_DB_URL := if WITH_DOCKER != "total" { env_var_or_default('GRAPH_DB_URL', "bolt://localhost:7687") } else { env_var_or_default('GRAPH_DB_URL', "bolt://graph:7687") }
 
@@ -40,20 +40,20 @@ APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
 APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
-APP_BUILD := env_var_or_default('APP_BUILD', `git rev-parse --short HEAD || echo unknown`)  
+APP_BUILD := env_var_or_default('APP_BUILD', `git rev-parse --short HEAD || echo unknown`)
 CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 PUBLIC_PORT := env_var_or_default('PUBLIC_PORT', '4000')
 
-PROXY_CADDYFILE_PATH := if PUBLIC_PORT == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }  
+PROXY_CADDYFILE_PATH := if PUBLIC_PORT == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }
 
-ENV_ENV := if MIX_ENV == "test" { "dev" } else { MIX_ENV } 
+ENV_ENV := if MIX_ENV == "test" { "dev" } else { MIX_ENV }
 
 ## Configure just
 # choose shell for running recipes
 set shell := ["bash", "-uc"]
-# set shell := ["bash", "-uxc"] 
+# set shell := ["bash", "-uxc"]
 # support args like $1, $2, etc, and $@ for all args
 set positional-arguments
 
@@ -69,7 +69,7 @@ help:
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
 	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && cat ./templates/public.env ./templates/not_secret.env > ./$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> ./$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./$ENV_ENV/.env)
-	-rm .env 
+	-rm .env
 	ln -sf ./config/$ENV_ENV/.env ./.env
 
 @pre-setup flavour='classic':
@@ -85,11 +85,11 @@ help:
 	chmod 700 .erlang.cookie
 
 # Initialise env files, and create some required folders, files and softlinks
-config: 
+config:
 	@just flavour $FLAVOUR
 
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
-@flavour select_flavour: 
+@flavour select_flavour:
 	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
 	-rm ./config/deps.flavour.* 2> /dev/null
 	-rm ./config/flavour_* 2> /dev/null
@@ -98,7 +98,7 @@ config:
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 	echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
 
-@config-basic select_flavour=FLAVOUR: 
+@config-basic select_flavour=FLAVOUR:
 	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
 	-rm ./config/deps.flavour.* 2> /dev/null
 	-rm ./config/flavour_* 2> /dev/null
@@ -120,30 +120,30 @@ init: pre-init services
 
 #### COMMON COMMANDS ####
 
-setup-dev: 
+setup-dev:
 	just build
 	just deps-clean-data
 	just deps-clean-api
 	just deps-clean-unused
 	just deps-get
 
-setup-prod: 
+setup-prod:
 	just build
 	just deps-get --only prod
 	just deps-post-get
 
 # Prepare environment and dependencies
-prepare: 
+prepare:
 	just pre-setup $FLAVOUR
 	just build
 
-prepare-prod: 
-	
+prepare-prod:
+
 # Run the app in development
-@dev *args='': 
+@dev *args='':
 	MIX_ENV=dev just dev-run {{args}}
 
-@dev-extra: 
+@dev-extra:
 	iex --sname extra --remsh localenv
 
 dev-run *args='': init
@@ -154,25 +154,25 @@ dev-run *args='': init
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
 dev-proxied: docker-stop-web
-	docker compose --profile proxy up -d 
+	docker compose --profile proxy up -d
 	docker logs bonfire_web -f
 
 dev-proxied-iex:
-	docker compose --profile proxy exec web iex --sname extra --remsh localenv 
+	docker compose --profile proxy exec web iex --sname extra --remsh localenv
 
-dev-federate: 
+dev-federate:
 	FEDERATE=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
 
-dev-docker *args='': docker-stop-web 
+dev-docker *args='': docker-stop-web
 	docker compose $args run --name $WEB_CONTAINER --service-ports web
 
 # Generate docs from code & readmes
-docs: 
+docs:
 	just mix docs
 
 # Analyse the codebase and generate some reports. Requires Graphviz and SQLite
 arch:
-	just mix arch.explore.static 
+	just mix arch.explore.static
 	just mix arch.explore.xrefs
 	just mix arch.explore.apps
 	-MIX_ENV=test just mix arch.explore.coverage
@@ -181,26 +181,26 @@ arch:
 	mkdir -p reports/dev/static/html/data/
 	just mix arch.apps.xref --format mermaid --out reports/dev/static/html/data/apps.mermaid
 	just mix arch.apps.xref --format svg --out reports/dev/static/html/data/apps.svg
-# just mix arch.xref --format svg --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes 
+# just mix arch.xref --format svg --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes
 
 # Compile the app + extensions
-compile *args='': 
+compile *args='':
 	just mix bonfire.deps.compile $args
 	just mix compile $args
 
 # Force the app + extensions to recompile
-recompile *args='': 
+recompile *args='':
 	just compile --force $args
 
-dev-test: 
+dev-test:
 	@MIX_ENV=test START_SERVER=yes just dev-run
 
 # Run the app in dev mode, as a background service
-dev-bg: init  
+dev-bg: init
 	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
-db-migrate: 
+db-migrate:
 	just mix "ecto.migrate"
 
 # Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
@@ -208,7 +208,7 @@ db-seeds: db-migrate
 	just mix "ecto.seeds"
 
 # Reset the DB (caution: this means DATA LOSS)
-db-reset: init dev-search-reset db-pre-migrations   
+db-reset: init dev-search-reset db-pre-migrations
 	just mix "ecto.reset"
 
 dev-search-reset: dev-search-reset-docker
@@ -218,11 +218,11 @@ dev-search-reset-docker:
 	{{ if WITH_DOCKER != "no" { "docker compose rm -s -v search" } else {""} }}
 
 # Rollback previous DB migration (caution: this means DATA LOSS)
-db-rollback: 
+db-rollback:
 	just mix "ecto.rollback"
 
 # Rollback ALL DB migrations (caution: this means DATA LOSS)
-db-rollback-all: 
+db-rollback-all:
 	just mix "ecto.rollback --all"
 
 #### UPDATE COMMANDS ####
@@ -230,34 +230,34 @@ db-rollback-all:
 # Update the dev app and all dependencies/extensions/forks, and run migrations
 update: init update-repo
 	just prepare
-	just update-forks 
+	just update-forks
 	just update-deps
-	just mix deps.get 
+	just mix deps.get
 	just deps-post-get
 	just mix "ecto.migrate"
 	just js-deps-get
 	just mix compile
 
 # Update the app and Bonfire extensions in ./deps
-update-app: update-repo update-deps 
+update-app: update-repo update-deps
 
-pre-update-deps: 
+pre-update-deps:
 	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@rm -rf deps/*/assets/yarn.lock
 	@rm -rf deps/bonfire/priv/repo
 
 # Update Bonfire extensions in ./deps
 update-deps: pre-update-deps
-	just mix-remote updates 
+	just mix-remote updates
 
 update-repo: pre-contrib-hooks
 	@chmod +x git-publish.sh && ./git-publish.sh . pull || git pull
 
-update-repo-pull: 
+update-repo-pull:
 	@chmod +x git-publish.sh && ./git-publish.sh . pull only
 
-# Update to the latest Bonfire extensions in ./deps 
-update-deps-bonfire:  
+# Update to the latest Bonfire extensions in ./deps
+update-deps-bonfire:
 	just mix-remote bonfire.deps.update
 
 # Update every single dependency (use with caution)
@@ -272,30 +272,30 @@ update-deps-all: deps-unlock-unused pre-update-deps
 
 # Update a specify dep (eg. `just update.dep pointers`)
 update-dep dep: pre-update-deps
-	just update-fork $dep pull 
+	just update-fork $dep pull
 	just mix-remote "deps.update $dep"
 	just deps-post-get
 	./js-deps-get.sh $dep
 
 # Pull the latest commits from all forks
-@update-forks: 
+@update-forks:
 	(jungle git fetch && just update-forks-all rebase) || (echo "Jungle not available, will fetch one by one instead." && just update-forks-all pull)
 
-update-forks-all cmd='pull': 
-	just update-fork-path $EXT_PATH $cmd 
-	just update-fork-path $EXTRA_FORKS_PATH $cmd 
+update-forks-all cmd='pull':
+	just update-fork-path $EXT_PATH $cmd
+	just update-fork-path $EXTRA_FORKS_PATH $cmd
 
 # Pull the latest commits from all forks
-update-fork dep cmd='pull' mindepth='0' maxdepth='0': 
+update-fork dep cmd='pull' mindepth='0' maxdepth='0':
 	-just update-fork-path $EXT_PATH/$dep $cmd $mindepth $maxdepth
 	-just update-fork-path $EXTRA_FORKS_PATH/$dep $cmd $mindepth $maxdepth
 
-update-fork-path path cmd='pull' mindepth='0' maxdepth='1': 
+update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 	@chmod +x git-publish.sh
-	find $path -mindepth $mindepth -maxdepth $maxdepth -type d -exec ./git-publish.sh {} $cmd \; 
+	find $path -mindepth $mindepth -maxdepth $maxdepth -type d -exec ./git-publish.sh {} $cmd \;
 
 # Fetch locked version of non-forked deps
-deps-get *args='': 
+deps-get *args='':
 	just mix deps.get $@
 	-just mix-remote deps.get $@ || echo "Oops, could not download mix deps"
 	just deps-post-get
@@ -306,20 +306,20 @@ deps-post-get:
 	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
 	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
 	mkdir -p priv/static/data
-	mkdir -p data 
-	mkdir -p data/uploads 
-	-cd priv/static/data && ln -s ../../../data/uploads 
+	mkdir -p data
+	mkdir -p data/uploads
+	-cd priv/static/data && ln -s ../../../data/uploads
 
-deps-clean dep: 
+deps-clean dep:
 	just mix deps.clean $dep --build
 
-@deps-clean-data: 
+@deps-clean-data:
 	just mix bonfire.deps.clean.data
 
-@deps-clean-api: 
+@deps-clean-api:
 	just mix bonfire.deps.clean.api
 
-@deps-clean-web: 
+@deps-clean-web:
 	just deps-clean plug
 	just deps-clean phoenix_html
 	just deps-clean bonfire_ui_common
@@ -329,7 +329,7 @@ deps-clean dep:
 js-deps-get: js-ext-deps assets-ln
 
 js-ext-deps yarn_args='':
-	chmod +x ./config/deps.js.sh 
+	chmod +x ./config/deps.js.sh
 	just cmd ./config/deps.js.sh $yarn_args
 
 @assets-ln:
@@ -339,62 +339,62 @@ deps-outdated: deps-unlock-unused
 	@just mix-remote "hex.outdated --all"
 
 deps-clean-unused:
-	@just mix "deps.clean --build --unused" 
+	@just mix "deps.clean --build --unused"
 
 deps-unlock-unused:
-	@just mix "deps.clean --unlock --unused" 
+	@just mix "deps.clean --unlock --unused"
 
 dep-clean dep:
-	@just mix "deps.clean $dep --build" 
+	@just mix "deps.clean $dep --build"
 
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
-dep-clone-local dep repo: 
+dep-clone-local dep repo:
 	git clone $repo $EXT_PATH$dep 2> /dev/null || (cd $EXT_PATH$dep ; git pull)
 	just dep.go.local dep=$dep
 
 # Clone all bonfire deps / extensions
-deps-clone-local-all: 
+deps-clone-local-all:
 	curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[just dep.clone.local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
 # Switch to using a local path, eg: just dep.go.local pointers
-dep-go-local dep: 
+dep-go-local dep:
 	just dep-go-local-path $dep $EXT_PATH$dep
 
 # Switch to using a local path, specifying the path, eg: just dep.go.local dep=pointers path=./libs/pointers
-dep-go-local-path dep path: 
+dep-go-local-path dep path:
 	just dep-local add $dep $path
 	just dep-local enable $dep $path
 
 # Switch to using a git repo, eg: just dep.go.git pointers https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
-dep-go-git dep repo: 
-	-just dep-git add $dep $repo 
+dep-go-git dep repo:
+	-just dep-git add $dep $repo
 	just dep-git enable $dep NA
 	just dep-local disable $dep NA
 
 # Switch to using a library from hex.pm, eg: just dep.go.hex dep="pointers" version="_> 0.2" (specifying the version is optional if previously specified)
-dep-go-hex dep version: 
-	-just dep-hex add dep=$dep version=$version 
+dep-go-hex dep version:
+	-just dep-hex add dep=$dep version=$version
 	just dep-hex enable $dep NA
 	just dep-git disable $dep NA
 	just dep-local disable $dep NA
 
 # add/enable/disable/delete a hex dep with messctl command, eg: `just dep-hex enable pointers 0.2`
-dep-hex command dep version: 
+dep-hex command dep version:
 	just messctl "$command $dep $version"
-	just mix "deps.clean $dep" 
+	just mix "deps.clean $dep"
 
 # add/enable/disable/delete a git dep with messctl command, eg: `just dep-hex enable pointers https://github.com/bonfire-networks/pointers#main
-dep-git command dep repo: 
+dep-git command dep repo:
 	just messctl "$command $dep $repo config/deps.git"
-	just mix "deps.clean $dep" 
+	just mix "deps.clean $dep"
 
 # add/enable/disable/delete a local dep with messctl command, eg: `just dep-hex enable pointers ./libs/pointers`
-dep-local command dep path: 
+dep-local command dep path:
 	just messctl "$command $dep $path config/deps.path"
-	just mix "deps.clean $dep" 
+	just mix "deps.clean $dep"
 
 # Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `just messctl help`)
-messctl *args='': init 
+messctl *args='': init
 	{{ if WITH_DOCKER == "no" { "messctl $@" } else { "docker compose run web messctl $@" } }}
 
 #### CONTRIBUTION RELATED COMMANDS ####
@@ -402,66 +402,66 @@ messctl *args='': init
 pre-push-hooks: pre-contrib-hooks
 	just mix format
 	just deps-clean bonfire
-#	just mix changelog 
+#	just mix changelog
 
-pre-contrib-hooks: 
+pre-contrib-hooks:
 	-ex +%s,/extensions/,/deps/,e -scwq config/deps_hooks.js
 	rm -rf forks/*/data/uploads/favicons/
 	rm -rf extensions/*/data/uploads/favicons/
 # -sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
 
 # Push all changes to the app and extensions in ./forks
-contrib: pre-push-hooks contrib-forks-publish git-publish 
+contrib: pre-push-hooks contrib-forks-publish git-publish
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
 contrib-release: pre-push-hooks contrib-forks-publish update contrib-app-release
 
 # Rebase app's repo and push all changes to the app
-contrib-app-only: pre-push-hooks update-repo git-publish 
+contrib-app-only: pre-push-hooks update-repo git-publish
 
 # Increment the app version number and commit/push
-contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish 
+contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish
 
-# Increment the app version number 
-@contrib-app-release-increment: 
-	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks 
+# Increment the app version number
+@contrib-app-release-increment:
+	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
 	cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../../../ $APP_VSN_EXTRA
 
 contrib-forks-publish: update-forks
 
-contrib-rel-push: contrib-release rel-build-release rel-push 
+contrib-rel-push: contrib-release rel-build-release rel-push
 
 # Count lines of code (requires cloc: `brew install cloc`)
-cloc: 
+cloc:
 	cloc lib config extensions/*/lib extensions/*/test test
 
 # Run the git add command on each fork
-git-forks-add: deps-git-fix 
+git-forks-add: deps-git-fix
 	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
 # Run a git status on each fork
-git-forks-status: 
+git-forks-status:
 	@jungle git status || find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
 
 # Run a git command on each fork (eg. `just git-forks pull` pulls the latest version of all local deps from its git remote
-git-forks command: 
+git-forks command:
 	@find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
 
 # List all diffs in forks
-git-diff: 
+git-diff:
 	@find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
 
 # Run a git command on each dep, to ignore chmod changes
-deps-git-fix: 
+deps-git-fix:
 	find ./deps -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
 	find ./forks -mindepth 1 -maxdepth 1 -type d -exec git -C '{}' config core.fileMode false \;
 
 # Draft-merge another branch, eg `just git-merge with-valueflows-api` to merge branch `with-valueflows-api` into the current one
-@git-merge branch: 
+@git-merge branch:
 	git merge --no-ff --no-commit $branch
 
 # Find any git conflicts in forks
-@git-conflicts: 
+@git-conflicts:
 	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
 @git-publish:
@@ -471,27 +471,27 @@ deps-git-fix:
 #### TESTING RELATED COMMANDS ####
 
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
-test *args='': 
+test *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test $@
 
 # Run only stale tests
-test-stale *args='': 
+test-stale *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test --stale $@
 
 # Run tests (ignoring changes in local forks)
-test-remote *args='': 
+test-remote *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix-remote test $@
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
-test-watch *args='': 
+test-watch *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test.watch --stale $@
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
-test-interactive *args='': 
+test-interactive *args='':
 	@MIX_ENV=test just mix test.interactive --stale $@
 
 ap_lib := "forks/activity_pub/test/activity_pub"
@@ -528,17 +528,17 @@ test-federation-dance-unsigned *args='': test-federation-dance-positions
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes just test-watch --only test_instance $@
 	just test-federation-dance-positions
 
-test-federation-dance-positions: 
+test-federation-dance-positions:
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
-test-federation-live-DRAGONS *args='': 
-	FEDERATE=yes START_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test-watch --only live_federation $@
+test-federation-live-DRAGONS *args='':
+	FEDERATE=yes START_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test --only live_federation $@
 
 # dev-test-watch: init ## Run tests
 # 	docker compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
 # Create or reset the test DB
-test-db-reset: init db-pre-migrations 
+test-db-reset: init db-pre-migrations
 	{{ if WITH_DOCKER == "total" { "docker compose run -e MIX_ENV=test web mix ecto.reset" } else { "MIX_ENV=test mix ecto.reset" } }}
 
 
@@ -547,7 +547,7 @@ rel-init:
 	MIX_ENV=prod just pre-init
 
 # copy current flavour's config, without using symlinks
-@rel-config-prepare: 
+@rel-config-prepare:
 	rm -rf data/current_flavour
 	mkdir -p data
 	rm -rf flavours/*/config/*/dev
@@ -555,7 +555,7 @@ rel-init:
 	cp -rfL $FLAVOUR_PATH/* data/current_flavour
 
 # copy current flavour's config, without using symlinks
-@rel-prepare: rel-config-prepare 
+@rel-prepare: rel-config-prepare
 	mkdir -p extensions/
 	mkdir -p forks/
 	mkdir -p data/uploads/
@@ -563,20 +563,20 @@ rel-init:
 	touch data/current_flavour/config/deps.path
 
 # Build the Docker image (with no caching)
-rel-rebuild: 
+rel-rebuild:
 	just rel-build {{EXT_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
-rel-build-release ARGS="": 
+rel-build-release ARGS="":
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build remote {{ ARGS }}
 
-# Build the release 
-rel-build USE_EXT="local" ARGS="": 
+# Build the release
+rel-build USE_EXT="local" ARGS="":
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
-# Build the OTP release 
-rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare 
+# Build the OTP release
+rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare
 	yarn -v || npm install --global yarn
 	npm install --global esbuild postcss
 	-rm -rf priv/static
@@ -585,15 +585,15 @@ rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare
 	just rel-mix {{ USE_EXT }} release
 # just rel-mix {{ USE_EXT }} compile
 
-rel-mix USE_EXT="local" ARGS="": 
+rel-mix USE_EXT="local" ARGS="":
 	@echo {{ ARGS }}
 	@MIX_ENV=prod CI=1 just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
-# Build the Docker image 
-@rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare 
+# Build the Docker image
+@rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare
 	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
-rel-build-path FORKS_TO_COPY_PATH ARGS="": 
+rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
@@ -602,31 +602,31 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}}  \
 		-f $APP_REL_DOCKERFILE .
-	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}} 
+	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}}
 	@echo "Remember to run just rel-tag or just rel-push"
 
 
 # Add latest tag to last build
-@rel-tag label='latest': 
+@rel-tag label='latest':
 	just rel-tag-commit $APP_BUILD {{label}}
 
-@rel-tag-commit build label='latest': rel-init 
+@rel-tag-commit build label='latest': rel-init
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Add latest tag to last build and push to Docker Hub
-rel-push label='latest': 
+rel-push label='latest':
 	@just rel-tag {{label}}
 	@echo just rel-push-only $APP_BUILD {{label}}
 	@just rel-push-only $APP_BUILD {{label}}
 
-rel-push-only build label='latest': 
+rel-push-only build label='latest':
 	@echo "Pushing to $APP_DOCKER_REPO"
 	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 # @just rel-push-only-alt {{build}} {{label}}
 
-rel-push-only-alt build label='latest': 
+rel-push-only-alt build label='latest':
 	@echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
 	@echo "Pushing to $APP_DOCKER_REPO_ALT"
 	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
@@ -637,11 +637,11 @@ rel-run: rel-init docker-stop-web rel-services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
-rel-run-bg: rel-init docker-stop-web 
+rel-run-bg: rel-init docker-stop-web
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
 
 # Stop the running release
-rel-stop: 
+rel-stop:
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE stop
 
 rel-update: update-repo-pull
@@ -652,7 +652,7 @@ rel-logs:
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE logs
 
 # Stop the running release
-rel-down: rel-stop 
+rel-down: rel-stop
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
@@ -673,68 +673,68 @@ rel-db-dump: rel-init rel-services
 rel-db-restore: rel-init rel-services
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
-rel-services: 
+rel-services:
 	{{ if WITH_DOCKER != "no" { "docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d db search" } else {""} }}
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
-dc *args='': 
+dc *args='':
 	docker compose $@
 
 # Start background docker services (eg. db and search backends).
-@services: 
+@services:
 	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
 
-@dev-services: 
+@dev-services:
 	{{ if WITH_DOCKER != "no" { "docker compose up -d db search graph || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
-build: init 
+build: init
 	mkdir -p deps
 	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix setup" } }}
 	{{ if WITH_DOCKER == "total" { "export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE=${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION} && docker compose build" } else { "echo ." } }}
 
 # Build the docker image
-rebuild: init 
+rebuild: init
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose build --no-cache" } else { "echo Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
-@cmd *args='': init 
+@cmd *args='': init
 	{{ if WITH_DOCKER == "total" { "docker compose run --service-ports web $@" } else {"$@"} }}
 
 # Open the shell of the web container, in dev mode
-shell: 
+shell:
 	just cmd bash
 
-@docker-stop-web: 
+@docker-stop-web:
 	-docker stop $WEB_CONTAINER
 	-docker rm $WEB_CONTAINER
 
-@docker *args='': 
+@docker *args='':
 	docker $@
-	
-@docker-compose *args='': 
+
+@docker-compose *args='':
 	docker compose $@
 
 #### MISC COMMANDS ####
 
 # Open an interactive console
-@imix *args='': 
+@imix *args='':
 	just cmd iex -S mix $@
 
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
-@mix *args='': 
+@mix *args='':
 	echo % mix $@
 	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $@" } else { "just cmd mix $@" } }}
 
-@mix-maybe-prod *args='': 
+@mix-maybe-prod *args='':
 	{{ if WITH_DOCKER != "no" { "echo Ignoring mix commands when using docker in prod" } else { "just mix-maybe-prod-pre-release $@" } }}
 
-@mix-maybe-prod-pre-release *args='': 
+@mix-maybe-prod-pre-release *args='':
 	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $@" } }}
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
-mix-remote *args='': init 
+mix-remote *args='': init
 	echo % WITH_FORKS=0 mix $@
 	{{ if WITH_DOCKER == "total" { "docker compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
 
@@ -744,10 +744,10 @@ xref-dot:
 	dot -Tsvg docs/xref_graph.dot -o docs/xref_graph.svg
 
 # Run a specific exh command, see https://github.com/rowlandcodes/exhelp
-exh *args='': 
+exh *args='':
 	just cmd "exh -S mix $@"
 
-licenses:  
+licenses:
 	@mkdir -p docs/DEPENDENCIES/
 	just mix-remote licenses && mv DEPENDENCIES.md docs/DEPENDENCIES/$FLAVOUR.md
 
@@ -756,14 +756,14 @@ audit:
 
 # Extract strings to-be-localised from the app and installed extensions
 # FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
-localise-extract: 
+localise-extract:
 	just mix "bonfire.localise.extract"
 	mv extensions/activity_pub/priv/localisation* priv/localisation/
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
 
 @localise-tx-init:
 	pip install transifex-client
-	tx config mapping-bulk -p bonfire --source-language en --type PO -f '.po' --source-file-dir priv/localisation/ -i fr -i es -i it -i de --expression 'priv/localisation/<lang>/LC_MESSAGES/{filename}{extension}' --execute 
+	tx config mapping-bulk -p bonfire --source-language en --type PO -f '.po' --source-file-dir priv/localisation/ -i fr -i es -i it -i de --expression 'priv/localisation/<lang>/LC_MESSAGES/{filename}{extension}' --execute
 # curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
 
 @localise-tx-pull:
@@ -780,32 +780,32 @@ localise-extract:
 	-mkdir -p priv/static/data
 	-mkdir -p priv/static/data/uploads
 	-mkdir -p rel/overlays/
-	-cp lib/*/*/overlay/* rel/overlays/ 
+	-cp lib/*/*/overlay/* rel/overlays/
 
 # Workarounds for some issues running migrations
-@db-pre-migrations: 
+@db-pre-migrations:
 	-touch deps/*/lib/migrations.ex
 	-touch extensions/*/lib/migrations.ex
 	-touch forks/*/lib/migrations.ex
 	-touch priv/repo/*
 
 # Generate secrets
-@secrets: 
+@secrets:
 	{{ if MIX_ENV == "prod" { "just rands" } else if WITH_DOCKER=="total" { "just rands" } else { "just mix-secrets" } }}
 
 @rands:
-	just rand 
-	just rand 
-	just rand 
+	just rand
+	just rand
+	just rand
 
 @mix-secrets: ln-mix-tasks
 	cd lib/mix/tasks/secrets/ && mix escript.build && ./secrets 128 3
 
-@ln-mix-tasks: 	
+@ln-mix-tasks:
 	just mix deps.get
-	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire/lib/mix/tasks")=="true" { "ln -sf ../../extensions/bonfire/lib/mix/tasks" } else {"ln -sf ../../deps/bonfire/lib/mix/tasks"} }} 
+	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire/lib/mix/tasks")=="true" { "ln -sf ../../extensions/bonfire/lib/mix/tasks" } else {"ln -sf ../../deps/bonfire/lib/mix/tasks"} }}
 
-@rand: 
+@rand:
 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
 # note: doesn't work in github CI ^
 
@@ -821,9 +821,9 @@ nix-db-init: (nix-db "start")
 sys-deps-debian:
   ./deps-debian.sh
 
-local-tunnel-hostname: 
+local-tunnel-hostname:
 	echo "bonfire-test.tunnelto.dev"
-# run this in seperate terminal to start the above tunnel: 
+# run this in seperate terminal to start the above tunnel:
 # tunnelto --subdomain bonfire-test --port 4000
 # FIXME in case tunnel.pyjam.as comes back up:
 # command -v wg-quick &> /dev/null || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
