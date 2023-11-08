@@ -54,6 +54,7 @@ More details at https://bonfirenetworks.org",
     "Inter (More Languages)",
     "Noto Sans (Latin Languages)",
     "Noto Sans (More Languages)",
+    "Luciole",
     "OpenDyslexic"
   ],
   themes: [
