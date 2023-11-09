@@ -7,7 +7,7 @@ config :bonfire,
   # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
   experimental_features_enabled: true,
   # low limit so it is easier to test UX
-  default_pagination_limit: 15,
+  # default_pagination_limit: 10,
   ui: [
     feed_object_extension_preloads_disabled: false
   ]
