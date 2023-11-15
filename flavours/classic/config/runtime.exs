@@ -71,6 +71,7 @@ encryption_salt =
 config :bonfire,
   # how many nested replies to show
   thread_default_max_depth: 7,
+  feed_live_update_many_preloads: :inline,
   host: host,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
