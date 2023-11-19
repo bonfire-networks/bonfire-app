@@ -60,8 +60,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module 
   ]
 
-# FIXME: MDex not defined
-config :bonfire, :markdown_library, :earmark
+config :bonfire, :markdown_library, MDEx
 
 config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
