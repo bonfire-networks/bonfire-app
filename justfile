@@ -238,7 +238,7 @@ update: init update-repo
 	just update-deps
 	just mix deps.get
 	just deps-post-get
-	just mix "excellent_migrations.migrate"
+	just db-migrate
 	just js-deps-get
 	just mix compile
 
