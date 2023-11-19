@@ -202,6 +202,10 @@ dev-bg: init
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
 db-migrate:
 	just mix "ecto.migrate"
+#	just mix "excellent_migrations.migrate"
+
+db-migration-checks:
+	just mix "excellent_migrations.migrate"
 
 # Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
 db-seeds: db-migrate
@@ -234,7 +238,7 @@ update: init update-repo
 	just update-deps
 	just mix deps.get
 	just deps-post-get
-	just mix "ecto.migrate"
+	just mix "excellent_migrations.migrate"
 	just js-deps-get
 	just mix compile
 

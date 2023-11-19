@@ -28,6 +28,7 @@ defmodule Bonfire.Umbrella.MixProject do
     # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
     {:ex_doc, "~> 0.30.3", only: [:dev, :test], runtime: false},
     {:ecto_erd, "~> 0.4", only: :dev},
+    {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
     # {:ecto_dev_logger, "~> 0.7", only: :dev},
     # flame graphs in live_dashboard
     # {:flame_on, "~> 0.5", only: :dev},

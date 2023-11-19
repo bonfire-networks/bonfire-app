@@ -89,7 +89,7 @@ jobs:
     - name: Compile deps & app
       run: mix compile
     - name: Set up database
-      run: mix ecto.setup
+      run: mix ecto.create && mix ecto.migrate
     - name: Run tests
       run: mix test
     - name: Check database down migrations 
