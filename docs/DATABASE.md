@@ -10,7 +10,7 @@ A simple example would be a blogging app, which might have a `post` table with `
 
 A social network, by contrast, is actually a graph of objects. Objects need to be able to refer to other objects by their ID without knowing their type. 
 
-A simple example would be likes, you might have a `likes` table with `liked_object` field that references the `post` table. But you don't just have posts that can be liked, but also videos, images, polls, etc, each with their own table?
+A simple example would be likes, you might have a `likes` table with `liked_post_id` field that references the `post` table. But you don't just have posts that can be liked, but also videos, images, polls, etc, each with their own table, but probably do not want to have to add `liked_video_id`, `liked_image_id`, etc?
 
 We needed the flexibility to have a foreign key that can reference any referenceable object. We call our system `Pointers`.
 
