@@ -238,9 +238,9 @@ update: init update-repo
 	just update-deps
 	just mix deps.get
 	just deps-post-get
-	just db-migrate
 	just js-deps-get
-	just mix compile
+#   just mix compile
+#	just db-migrate
 
 # Update the app and Bonfire extensions in ./deps
 update-app: update-repo update-deps
