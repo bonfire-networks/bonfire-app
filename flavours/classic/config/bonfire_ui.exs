@@ -73,7 +73,9 @@ More details at https://bonfirenetworks.org",
     "dracula",
     "business",
     "night",
-    "coffee"
+    "coffee",
+    "dim",
+    "sunset"
   ],
   themes_light: [
     "light",
@@ -93,7 +95,8 @@ More details at https://bonfirenetworks.org",
     "autumn",
     "acid",
     "lemonade",
-    "winter"
+    "winter",
+    "nord"
   ],
   show_trending_tags: [
     disabled: false,
