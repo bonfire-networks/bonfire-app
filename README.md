@@ -14,12 +14,14 @@ This project is in the beta stage - you're welcome to try out it out (specifical
 ### 🔥 Flavours
 
 This repo includes configurations to run two main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
-* [Classic](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/classic) for basic social networking
-* [Cooperation](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/cooperation) with a bunch more extensions and features 
+* [Classic](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/classic) for basic social networking (beta)
+* [Community](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/community) with groups and topics functionality (alpha)
+* [Cooperation](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/cooperation) with a bunch more extensions and features (pre-alpha)
 
-As well as app flavours being built by others, including: 
+<!-- As well as app flavours being built by others, including: 
 * [Haha Academy](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/haha) by haha.academy 
-* [Reflow](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/reflow) by reflowproject.eu and dyne.org
+* [Upcycle](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/upcycle) by MSOE 
+* [Reflow](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/reflow) by reflowproject.eu and dyne.org -->
 
 
 ## 📖 Documentation
