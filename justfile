@@ -525,11 +525,11 @@ test-federation-in-extensions *args=ap_ext: test-federation-dance-positions
 	just test-watch $@
 
 test-federation-dance *args='': test-federation-dance-positions
-	TEST_INSTANCE=yes just test-watch --only test_instance $@
+	TEST_INSTANCE=yes just test --only test_instance $@
 	just test-federation-dance-positions
 
 test-federation-dance-unsigned *args='': test-federation-dance-positions
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes just test-watch --only test_instance $@
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes just test --only test_instance $@
 	just test-federation-dance-positions
 
 test-federation-dance-positions:
