@@ -543,7 +543,7 @@ test-federation-live-DRAGONS *args='':
 
 # Create or reset the test DB
 test-db-reset: init db-pre-migrations
-	{{ if WITH_DOCKER == "total" { "docker compose run -e MIX_ENV=test web mix ecto.reset" } else { "MIX_ENV=test mix ecto.reset" } }}
+	{{ if WITH_DOCKER == "total" { "docker compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
