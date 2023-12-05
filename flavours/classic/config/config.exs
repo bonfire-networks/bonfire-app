@@ -46,7 +46,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: String.to_integer(System.get_env("SERVER_PORT", "4000"))
   ],
   render_errors: [
-    # view: Bonfire.UI.Common.ErrorView, 
+    # view: Bonfire.UI.Common.ErrorView,
     accepts: ~w(html json),
     # layout: false,
     layout: [html: {Bonfire.UI.Common.BasicView, :error}],
@@ -57,7 +57,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   live_view: [
     # the time of inactivity allowed in the LiveView before compressing its own memory and state. Defaults to 15000ms (15 seconds)
     hibernate_after: String.to_integer(System.get_env("LV_HIBERNATE_AFTER", "7000"))
-    # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module 
+    # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module
   ]
 
 config :bonfire, :markdown_library, MDEx
@@ -213,7 +213,7 @@ end
 
 import_config "activity_pub.exs"
 
-import_config "native.exs"
+#  import_config "native.exs"
 
 # finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{config_env()}.exs"
