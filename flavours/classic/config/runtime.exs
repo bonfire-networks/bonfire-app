@@ -159,6 +159,10 @@ config :activity_pub, Oban,
   repo: Bonfire.Common.Repo,
   queues: false
 
+config :activity_pub, ActivityPub.Federator.HTTP.RateLimit,
+  scale_ms: String.to_integer(System.get_env("AP_RATELIMIT_PER_MS", "10000")),
+  limit: String.to_integer(System.get_env("AP_RATELIMIT_NUM", "20"))
+
 case System.get_env("GRAPH_DB_URL") do
   nil ->
     nil

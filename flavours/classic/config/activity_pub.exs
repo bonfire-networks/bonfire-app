@@ -71,3 +71,6 @@ config :activity_pub, :json_contexts,
     ValueFlows: "https://w3id.org/valueflows#",
     om2: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
   ]
+
+config :hammer,
+  backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
