@@ -156,29 +156,32 @@ repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
 config :bonfire, Bonfire.Common.Repo, priv: repo_path
 config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
 
-oban_opts = 
+oban_opts =
+  config :bonfire, Oban,
+    repo: Bonfire.Common.Repo,
+    # avoid extra PubSub chatter as we don't need that much precision
+    insert_trigger: false,
+    queues: [
+      federator_incoming: 10,
+      federator_outgoing: 10,
+      remote_fetcher: 5,
+      import: 2,
+      deletion: 1
+    ],
+    plugins: [
+      #  delete job history after 7 days
+      {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
+      # rescue orphaned jobs
+      {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
+      {Oban.Plugins.Cron,
+       crontab: [
+         {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
+       ]}
+    ]
 
-config :bonfire, Oban,   
-  repo: Bonfire.Common.Repo,
-  insert_trigger: false, # avoid extra PubSub chatter as we don't need that much precision
-  queues: [
-    federator_incoming: 10,
-    federator_outgoing: 10,
-    remote_fetcher: 5,
-    import: 2,
-    deletion: 1
-  ],
-  plugins: [
-    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7}, # delete job history after 7 days
-    {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)}, # rescue orphaned jobs
-    {Oban.Plugins.Cron,
-     crontab: [
-       {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
-     ]}
-  ]
-
-config :activity_pub, Oban, 
-  queues: false, # to avoid running it twice
+config :activity_pub, Oban,
+  # to avoid running it twice
+  queues: false,
   repo: Bonfire.Common.Repo
 
 config :activity_pub, ActivityPub.Federator.HTTP.RateLimit,
