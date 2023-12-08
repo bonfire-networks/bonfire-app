@@ -73,6 +73,7 @@ config :bonfire,
   thread_default_max_depth: 7,
   feed_live_update_many_preloads: :async_actions,
   host: host,
+  default_cache_hours: String.to_integer(System.get_env("BONFIRE_CACHE_HOURS", "3")),
   app_name: System.get_env("APP_NAME", "Bonfire"),
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   github_token: System.get_env("GITHUB_TOKEN"),
@@ -155,9 +156,30 @@ repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
 config :bonfire, Bonfire.Common.Repo, priv: repo_path
 config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
 
-config :activity_pub, Oban,
+oban_opts = 
+
+config :bonfire, Oban,   
   repo: Bonfire.Common.Repo,
-  queues: false
+  insert_trigger: false, # avoid extra PubSub chatter as we don't need that much precision
+  queues: [
+    federator_incoming: 10,
+    federator_outgoing: 10,
+    remote_fetcher: 5,
+    import: 2,
+    deletion: 1
+  ],
+  plugins: [
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7}, # delete job history after 7 days
+    {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)}, # rescue orphaned jobs
+    {Oban.Plugins.Cron,
+     crontab: [
+       {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
+     ]}
+  ]
+
+config :activity_pub, Oban, 
+  queues: false, # to avoid running it twice
+  repo: Bonfire.Common.Repo
 
 config :activity_pub, ActivityPub.Federator.HTTP.RateLimit,
   scale_ms: String.to_integer(System.get_env("AP_RATELIMIT_PER_MS", "10000")),

@@ -103,23 +103,6 @@ config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 
 config :surface, :compiler, warn_on_undefined_props: false
 
-config :bonfire, Oban,
-  repo: repo,
-  queues: [
-    federator_incoming: 10,
-    federator_outgoing: 10,
-    remote_fetcher: 5,
-    import: 2,
-    deletion: 1
-  ],
-  plugins: [
-    Oban.Plugins.Pruner,
-    {Oban.Plugins.Cron,
-     crontab: [
-       {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
-     ]}
-  ]
-
 config :paper_trail,
   item_type: Pointers.ULID,
   originator_type: Pointers.ULID,
