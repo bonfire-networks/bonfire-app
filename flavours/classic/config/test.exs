@@ -33,7 +33,6 @@ config :logger, :console, truncate: :infinity
 # Run `mix help test` for more information.
 config :bonfire, Bonfire.Common.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 60,
   # show_sensitive_data_on_connection_error: true,
   # database: db,
   slow_query_ms: 500,

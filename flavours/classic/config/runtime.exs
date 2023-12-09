@@ -4,6 +4,8 @@
 # remember to add this file to your .gitignore.
 import Config
 
+IO.puts("🔥 Welcome to Bonfire!")
+
 host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
@@ -126,7 +128,17 @@ else
     disabled: true
 end
 
-pool_size = String.to_integer(System.get_env("POOL_SIZE", "10"))
+pool_size =
+  case System.get_env("POOL_SIZE") do
+    pool when is_binary(pool) and pool not in ["", "0"] ->
+      String.to_integer(pool)
+
+    # default to twice the number of CPU cores
+    _ ->
+      System.schedulers_online() * 2
+  end
+
+IO.puts("Note: Starting database connection pool of #{pool_size}")
 
 database =
   case config_env() do
@@ -144,40 +156,47 @@ config :bonfire, ecto_repos: repos
 config :bonfire_umbrella, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos
+
 config :bonfire, Bonfire.Common.Repo, repo_connection_config
 config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
 config :beacon, Beacon.Repo, repo_connection_config
+
 config :bonfire, Bonfire.Common.Repo, database: database
 config :beacon, Beacon.Repo, database: database
 config :paginator, Paginator.Repo, database: database
+
+config :bonfire, Bonfire.Common.Repo, pool_size: pool_size
+config :bonfire, Bonfire.Common.TestInstanceRepo, pool_size: pool_size
 config :beacon, Beacon.Repo, pool_size: pool_size
+config :paginator, Paginator.Repo, pool_size: pool_size
 
 repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
 config :bonfire, Bonfire.Common.Repo, priv: repo_path
 config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
 
-oban_opts =
-  config :bonfire, Oban,
-    repo: Bonfire.Common.Repo,
-    # avoid extra PubSub chatter as we don't need that much precision
-    insert_trigger: false,
-    queues: [
-      federator_incoming: 10,
-      federator_outgoing: 10,
-      remote_fetcher: 5,
-      import: 2,
-      deletion: 1
-    ],
-    plugins: [
-      #  delete job history after 7 days
-      {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
-      # rescue orphaned jobs
-      {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
-      {Oban.Plugins.Cron,
-       crontab: [
-         {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
-       ]}
-    ]
+config :bonfire, Oban,
+  repo: Bonfire.Common.Repo,
+  # avoid extra PubSub chatter as we don't need that much precision
+  insert_trigger: false,
+  # time between making scheduled jobs available and notifying relevant queues that jobs are available, affects how frequently the database is checked for jobs to run
+  stage_interval: :timer.seconds(2),
+  queues: [
+    federator_incoming: 5,
+    federator_outgoing: 5,
+    remote_fetcher: 3,
+    import: 1,
+    deletion: 1
+  ],
+  plugins: [
+    #  delete job history after 7 days
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
+    # rescue orphaned jobs
+    {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
+    {Oban.Plugins.Cron,
+     crontab: [
+       {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
+     ]}
+  ]
 
 config :activity_pub, Oban,
   # to avoid running it twice
@@ -196,7 +215,7 @@ case System.get_env("GRAPH_DB_URL") do
     config :bolt_sips, Bolt,
       url: url,
       basic_auth: [username: "memgraph", password: "memgraph"],
-      pool_size: 10
+      pool_size: pool_size
 end
 
 if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
@@ -266,7 +285,6 @@ if config_env() == :prod do
   config :bonfire, Bonfire.Common.Repo,
     # ssl: true,
     # database: System.get_env("POSTGRES_DB", "bonfire"),
-    pool_size: pool_size,
     # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
     log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "false"))
 end
@@ -301,5 +319,3 @@ config :forecastr,
   # appid: System.get_env("OPEN_WEATHER_MAP_API_KEY"),
   # minutes to cache
   ttl: 14 * 60_000
-
-IO.puts("Welcome to Bonfire!")

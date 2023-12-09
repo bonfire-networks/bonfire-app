@@ -1,8 +1,10 @@
 import Config
 
-config :activity_pub, :env, config_env()
-config :activity_pub, :adapter, Bonfire.Federate.ActivityPub.Adapter
-config :activity_pub, :repo, Bonfire.Common.Repo
+config :activity_pub,
+  sign_object_fetches: true,
+  env: config_env(),
+  adapter: Bonfire.Federate.ActivityPub.Adapter,
+  repo: Bonfire.Common.Repo
 
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 

@@ -16,12 +16,14 @@ federate? = System.get_env("FEDERATE") == "yes"
 
 config :activity_pub, :instance, federating: federate?
 
+# only sign fetches when federating (which hopefully means we have a public domain name so signature key can be verified)
+config :activity_pub, sign_object_fetches: federate?
+
 # config :pseudo_gettext, :locale, "en-pseudo_text" # uncomment to use https://en.wikipedia.org/wiki/Pseudolocalization and check that the app is properly localisable
 
 config :bonfire, Bonfire.Common.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   # EctoSparkles does the logging instead
   log: false,
   stacktrace: true
