@@ -2,6 +2,7 @@ import Config
 
 config :activity_pub,
   sign_object_fetches: true,
+  reject_unsigned: true,
   env: config_env(),
   adapter: Bonfire.Federate.ActivityPub.Adapter,
   repo: Bonfire.Common.Repo
