@@ -48,21 +48,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   server: true,
   debug_errors: false,
   check_origin: false,
-  http: if(use_cowboy?, do: [protocol_options: [idle_timeout: 120_000]], else: []),
-  watchers: [
-    yarn: [
-      "watch.js",
-      cd: Path.expand("assets", File.cwd!())
-    ],
-    yarn: [
-      "watch.css",
-      cd: Path.expand("assets", File.cwd!())
-    ],
-    yarn: [
-      "watch.assets",
-      cd: Path.expand("assets", File.cwd!())
-    ]
-  ]
+  http: if(use_cowboy?, do: [protocol_options: [idle_timeout: 120_000]], else: [])
 
 enable_code_reloading = System.get_env("HOT_CODE_RELOAD") != "0"
 
@@ -96,7 +82,7 @@ if enable_code_reloading do
 
   # filename patterns that should trigger hots reloads of components/CSS/etc (only within the above dirs)
   hot_patterns = [
-    ~r"(_live)\.ex$",
+    ~r"(_live|_view)\.ex$",
     ~r{(live|views|pages|components)/.*(ex|css)$},
     ~r".*(heex|leex|sface)$",
     ~r"priv/catalogue/.*(ex)$"
@@ -112,6 +98,20 @@ if enable_code_reloading do
       patterns: patterns ++ hot_patterns,
       notify: [
         live_view: hot_patterns
+      ]
+    ],
+    watchers: [
+      yarn: [
+        "watch.js",
+        cd: Path.expand("assets", File.cwd!())
+      ],
+      yarn: [
+        "watch.css",
+        cd: Path.expand("assets", File.cwd!())
+      ],
+      yarn: [
+        "watch.assets",
+        cd: Path.expand("assets", File.cwd!())
       ]
     ]
 end

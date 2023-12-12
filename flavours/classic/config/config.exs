@@ -4,6 +4,7 @@ default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
 flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 project_root = File.cwd!()
+env = config_env()
 #### Basic configuration
 
 # You probably won't want to touch these. You might override some in
@@ -13,7 +14,7 @@ repo = Bonfire.Common.Repo
 config :bonfire,
   otp_app: :bonfire,
   umbrella_otp_app: :bonfire_umbrella,
-  env: config_env(),
+  env: env,
   project_path: project_root,
   flavour: flavour,
   flavour_path: flavour_path,
@@ -71,6 +72,7 @@ config :bonfire_umbrella, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos
 config :ecto_sparkles, :otp_app, :bonfire
+config :ecto_sparkles, :env, env
 config :ecto_sparkles, :umbrella_otp_app, :bonfire_umbrella
 config :rauversion_extension, :repo_module, repo
 config :activity_pub, :repo, repo
@@ -197,9 +199,11 @@ else
   IO.puts("You could put any flavour-specific config at `#{flavour_config}`")
 end
 
+# federation library
 import_config "activity_pub.exs"
 
+# native app
 #  import_config "native.exs"
 
 # finally, append/override config based on env, which will override any config set above (including from imported files)
-import_config "#{config_env()}.exs"
+import_config "#{env}.exs"
