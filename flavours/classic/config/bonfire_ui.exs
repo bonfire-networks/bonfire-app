@@ -130,7 +130,7 @@ config :bonfire,
   verb_families: [
     reply: ["Reply", "Respond"],
     create: ["Create", "Write"],
-    react: ["Like", "Boost", "Flag", "Tag"],
+    react: ["Like", "Boost", "Flag", "Tag", "Pin"],
     simple_action: ["Assign", "Label", "Schedule"]
   ]
 
