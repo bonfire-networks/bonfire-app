@@ -5,26 +5,26 @@ let ExtensionHooks = {};
 // TODO: use classic's hooks as a base so flavours only need to add extra ones
 // TODO: make this more configurable? ie. don't import disabled extensions
 
-import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/change_locale"
+// import { ChangeLocaleHooks } from "./../../../deps/bonfire_ui_common/assets/js/change_locale"
 // import { InputSelectHooks } from "./../../../deps/bonfire_ui_common/assets/js/input_select"
-import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
-import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
-import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
+// import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
+// import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
+// import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
+
 import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
 import { TooltipHooks } from "./../../../deps/bonfire_ui_common/assets/js/tooltip"
-
-import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
+// import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
 
 // import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
-import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js/infinite_scroll"
-import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
-import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
+// import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js/infinite_scroll"
+// import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
+// import { EmojiHooks } from "./../../../deps/bonfire_ui_common/assets/js/emoji"
 // import { EditorCkHooks } from "./../../../deps/bonfire_editor_ck/assets/js/extension"
 // import { EditorQuillHooks } from "./../../../deps/bonfire_editor_quill/assets/js/extension"
-import { MilkdownHooks } from "./../../../deps/bonfire_editor_milkdown/assets/js/extension"
+// import { MilkdownHooks } from "./../../../deps/bonfire_editor_milkdown/assets/js/extension"
 
-import { ComposerHooks } from "./../../../deps/bonfire_ui_common/assets/js/composer"
-import { CodeHooks } from "./../../../deps/bonfire_ui_common/assets/js/code"
+// import { ComposerHooks } from "./../../../deps/bonfire_ui_common/assets/js/composer"
+// import { CodeHooks } from "./../../../deps/bonfire_ui_common/assets/js/code"
 
 // import { GeolocateHooks } from "./../../../deps/bonfire_geolocate/assets/js/extension"
 // import { KanbanHooks } from "./../../../deps/bonfire_ui_kanban/assets/js/extension"
@@ -32,8 +32,9 @@ import { CodeHooks } from "./../../../deps/bonfire_ui_common/assets/js/code"
 // import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extension"
 
 // import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
+
 import LiveSelect from "./../../../deps/live_select/priv/static/live_select.min.js"
 
-Object.assign(ExtensionHooks, MilkdownHooks, CopyHooks, ComposerHooks, PopupHooks, EmojiHooks, ResponsiveTabsHooks, InfiniteScrollHooks, ChangeLocaleHooks, ImageHooks, NotificationsHooks, ThemeHooks, LiveSelect, CodeHooks, TooltipHooks) // ImageHooks, EditorCkHooks, EditorQuillHooks
+Object.assign(ExtensionHooks, CopyHooks, TooltipHooks, LiveSelect) // EditorCkHooks, EditorQuillHooks
 
 export { ExtensionHooks }

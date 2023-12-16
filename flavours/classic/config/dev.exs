@@ -72,20 +72,20 @@ if enable_code_reloading do
     # watch the app's lib/ dir + the dep/lib/ dir of every locally-cloned dep
     dirs: watch_paths
 
-  # filename patterns that should trigger page reloads (only within the above dirs)
+  # filename patterns that should trigger hots reloads of components/CSS/etc (only within the above dirs)
+  hot_patterns = [
+    ~r"(_live|_view)\.ex$",
+    ~r{(live|views|pages|components)/.*(ex|css)$},
+    ~r".*(heex|leex|sface|hooks.js)$",
+    ~r"priv/catalogue/.*(ex)$"
+  ]
+
+  # filename patterns that should trigger full page reloads (only within the above dirs)
   patterns = [
     ~r"^priv/static/.*(js|css|png|jpeg|jpg|gif|svg|webp)$",
     # ~r"^priv/gettext/.*(po)$",
     ~r{(web|templates)/.*(ex)$},
     ~r"(live_handler|live_handlers|routes)\.ex$"
-  ]
-
-  # filename patterns that should trigger hots reloads of components/CSS/etc (only within the above dirs)
-  hot_patterns = [
-    ~r"(_live|_view)\.ex$",
-    ~r{(live|views|pages|components)/.*(ex|css)$},
-    ~r".*(heex|leex|sface)$",
-    ~r"priv/catalogue/.*(ex)$"
   ]
 
   IO.puts("Watching these filenames for live reloading in the browser: #{inspect(patterns)}")

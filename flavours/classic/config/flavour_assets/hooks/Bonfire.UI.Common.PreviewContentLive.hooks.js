@@ -115,7 +115,7 @@ let PreviewActivity = {
 // }
 
 
-let ClosePreview = {
+let ClosePreview = { 
   mounted() {
 
     const back = function () {
