@@ -25,10 +25,10 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do:
         (config[:deps] || config)
         # |> IO.inspect(limit: :infinity)
-        |> Enum.filter(&include_dep?(deps_subtype, &1, config))
+        |> Enum.filter(&include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]))
 
-    def deps_names_for(type, deps \\ mix_config()) do
-      deps(deps, type)
+    def deps_names_for(type, config \\ mix_config()) do
+      deps(config, type)
       |> Enum.map(&dep_name/1)
     end
 
@@ -68,8 +68,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     def mix_config do
-      if function_exported?(Mix.Project, :config, 0),
-        do: Mix.Project.config(),
+      if function_exported?(Bonfire.Umbrella.MixProject, :config, 0),
+        do: Bonfire.Umbrella.MixProject.config(),
         else: Bonfire.Application.config()
     end
 
@@ -128,8 +128,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         [path: "deps.path", git: "deps.git", hex: "deps.hex"]
       ]
 
-    def deps_to_clean(deps, type) do
-      deps(deps, type)
+    def deps_to_clean(config, type) do
+      deps(config, type)
       |> deps_names()
       |> or_unused()
     end
@@ -274,12 +274,10 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do: unpinned_git_dep?(dep)
 
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
-    def include_dep?(type, dep, config_or_prefixes) do
-      prefix = config_or_prefixes[:deps_prefixes][type] || config_or_prefixes[type] || "bonfire"
-
+    def include_dep?(type, dep, prefixes) do
       String.starts_with?(
         dep_name(dep),
-        prefix
+        prefixes
       )
     end
 

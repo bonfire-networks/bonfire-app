@@ -10,7 +10,7 @@ function ns(hooks, nameSpace) {
   return updatedHooks
 }
 
-import * as c1 from "./Bonfire.Editor.Milkdown.hooks"    
+import * as c1 from "./Bonfire.Editor.Milkdown.hooks"
 import * as c2 from "./Bonfire.UI.Common.ViewCodeLive.hooks"
 import * as c3 from "./Bonfire.UI.Common.PreviewContentLive.hooks"
 import * as c4 from "./Bonfire.UI.Common.NotificationLive.hooks"

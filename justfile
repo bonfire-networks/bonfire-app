@@ -759,11 +759,12 @@ audit:
 	AS_UMBRELLA=1 just mix sobelow
 
 # Extract strings to-be-localised from the app and installed extensions
-# FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
 localise-extract:
 	just mix "bonfire.localise.extract"
-	mv extensions/activity_pub/priv/localisation* priv/localisation/
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
+# TODO: copy .pot strings from extensions/deps
+# cp extensions/*/priv/gettext/* priv/localisation/
+# cp forks/*/priv/gettext/* priv/localisation/
 
 @localise-tx-init:
 	pip install transifex-client

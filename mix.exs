@@ -176,7 +176,10 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_ui_social"
       ],
       localise: ["bonfire"],
-      localise_self: []
+      localise_self: [
+        # FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
+        "activity_pub"
+      ]
     ],
     deps:
       Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps,

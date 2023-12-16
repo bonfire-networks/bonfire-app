@@ -208,7 +208,10 @@ common_assocs = %{
   ### Mixins
 
   # A summary of an object that can appear in a feed.
-  activity: quote(do: has_one(:activity, unquote(Activity), unquote(mixin))),
+  # activity: quote(do: has_one(:activity, unquote(Activity), unquote(mixin))),
+
+  # retrieves the Create activity
+  activity: quote(do: has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)),
 
   # Indicates the entity responsible for an activity. Sort of like creator, but transferrable. Used
   # during deletion - when the caretaker is deleted, all their stuff will be too.
@@ -371,9 +374,6 @@ common_assocs = %{
   # post or a user, this could turn up activities from likes or follows.
   activities:
     quote(do: has_many(:activities, unquote(Activity), foreign_key: :object_id, references: :id)),
-
-  # retrieves the Create activity
-  activity: quote(do: has_one(:activity, unquote(Activity), foreign_key: :id, references: :id)),
 
   ### Stuff I'm not sure how to categorise yet
 
