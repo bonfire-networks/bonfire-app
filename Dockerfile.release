@@ -23,19 +23,19 @@ COPY data/current_flavour/config/config_basics.exs ./config/config.exs
 # get deps from hex.pm
 COPY data/current_flavour/config/deps*hex ./config/ 
 RUN mix do local.hex --force, local.rebar --force
-RUN mix do deps.get --only prod
-# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
+RUN mix deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 # ^ useful in case of spotting connectivity
 
 # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
-RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix do deps.compile ; else echo "Skip" ; fi 
+RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix deps.compile ; else echo "Skip" ; fi 
 
 # add git deps (typically Bonfire extensions)
 COPY data/current_flavour/config/deps*git ./config/
 
 # fetch them because we need them for the non-configurable paths in config/deps_hooks.js
-RUN mix do deps.get --only prod
-# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix do deps.get --only prod
+RUN mix deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/ ./config/
@@ -45,10 +45,10 @@ RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path ; el
 COPY ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
 
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
-# RUN mix do bonfire.deps.update
+# RUN mix bonfire.deps.update
 
 # Fetch git deps (should be after forks are copied and updates are fetched, in case a forked/updated extension specified any different deps)
-RUN mix do deps.get --only prod
+RUN mix deps.get --only prod
 
 # Include translations
 COPY priv/localisation/ priv/localisation/
@@ -62,7 +62,7 @@ RUN ls -la data/current_flavour/config/flavour_assets
 COPY docs/*.md ./docs/
 
 # Compile remaining deps
-RUN MIX_ENV=prod mix do deps.compile
+# RUN MIX_ENV=prod mix deps.compile # disabled because doesn't properly compile Surface hooks/CSS
 
 # JS package manager
 # RUN npm install -g pnpm
@@ -77,7 +77,7 @@ RUN sh config/deps.js.sh
 # FIXME: should we be installing dev deps here?
 
 # Update mime types
-RUN MIX_ENV=prod mix do deps.clean --build mime
+RUN MIX_ENV=prod mix deps.clean --build mime
 
 # Include migrations
 COPY data/current_flavour/repo priv/repo
@@ -86,6 +86,9 @@ COPY data/current_flavour/repo priv/repo
 COPY lib lib
 # COPY assets assets
 # RUN ls -la assets/static
+
+# compile app (needs to be before building assets so it includes Surface hooks & component CSS)
+RUN MIX_ENV=prod mix compile
 
 # include an archive of the source code
 COPY LICENSE ./
