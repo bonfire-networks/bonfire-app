@@ -92,6 +92,7 @@ RUN mkdir -p priv/static/
 
 # prepare static assets
 COPY data/current_flavour/config/flavour_assets data/current_flavour/config/flavour_assets
+RUN ls -la data/current_flavour/config/flavour_assets
 COPY data/current_flavour/config/deps_hooks.js data/current_flavour/config/deps_hooks.js
 RUN cd ./deps/bonfire_ui_common/assets && yarn && yarn build 
 RUN MIX_ENV=prod CI=1 mix phx.digest
