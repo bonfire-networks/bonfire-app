@@ -47,7 +47,7 @@ COPY ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
 # RUN mix bonfire.deps.update
 
-# Fetch git deps (should be after forks are copied and updates are fetched, in case a forked/updated extension specified any different deps)
+# Fetch git deps - should be after forks are copied (and updates are fetched, if doing so) in case a forked/updated extension specified any different deps)
 RUN mix deps.get --only prod
 
 # Include translations
