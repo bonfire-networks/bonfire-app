@@ -192,13 +192,13 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
              path
              |> String.split("/")
              |> Enum.at(2)
-             |> String.slice(0..-4)
+             |> String.slice(0..-4//1)
              |> String.capitalize(),
            filename:
              path
              |> String.split("/")
              |> Enum.at(2)
-             |> String.slice(0..-4)
+             |> String.slice(0..-4//1)
              |> then(&"deps-#{&1}")
          ]}
 
@@ -274,7 +274,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do: unpinned_git_dep?(dep)
 
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
-    def include_dep?(type, dep, prefixes) do
+    def include_dep?(_type, dep, prefixes) do
       String.starts_with?(
         dep_name(dep),
         prefixes

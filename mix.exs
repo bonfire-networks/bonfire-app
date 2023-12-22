@@ -7,10 +7,11 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # we only behave as an umbrella im dev/test env
   @use_local_forks System.get_env("WITH_FORKS", "1") == "1"
-  @ext_forks_path Mixer.forks_path()
+  ext_forks_path = Mixer.forks_path()
+
   @use_umbrella? Mix.env() == :dev and @use_local_forks and System.get_env("AS_UMBRELLA") == "1" and
-                   File.exists?("#{@ext_forks_path}/bonfire")
-  @umbrella_path if @use_umbrella?, do: @ext_forks_path, else: nil
+                   File.exists?("#{ext_forks_path}/bonfire")
+  @umbrella_path if @use_umbrella?, do: ext_forks_path, else: nil
 
   if @use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
