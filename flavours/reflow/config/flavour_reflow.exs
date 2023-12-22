@@ -29,21 +29,21 @@ config :bonfire, :ui,
     ],
     widgets: []
   ],
-  smart_input_activities: [
-    # offer: "Publish an offer",
-    # need: "Publish a need",
-    transfer_resource: "Transfer a resource",
-    produce_resource: "Add a resource",
-    # intent: "Indicate an itent",
-    # economic_event: "Record an economic event",
-    process: "Create a process"
-  ],
-  smart_input_components: [
-    # economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
-    # intent: Bonfire.UI.ValueFlows.CreateIntentLive,
-    # task: Bonfire.UI.Coordination.CreateTaskLive,
-    process: Bonfire.UI.ValueFlows.SelectEconomicEventLive
-  ],
+  # smart_input_activities: [
+  #   # offer: "Publish an offer",
+  #   # need: "Publish a need",
+  #   transfer_resource: "Transfer a resource",
+  #   produce_resource: "Add a resource",
+  #   # intent: "Indicate an itent",
+  #   # economic_event: "Record an economic event",
+  #   process: "Create a process"
+  # ],
+  # smart_input_components: [ # NOTE: replaced by the SmartInputModule behaviour
+  #   # economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
+  #   # intent: Bonfire.UI.ValueFlows.CreateIntentLive,
+  #   # task: Bonfire.UI.Coordination.CreateTaskLive,
+  #   process: Bonfire.UI.ValueFlows.SelectEconomicEventLive
+  # ],
   resource: [
     navigation: [
       trace: "trace",

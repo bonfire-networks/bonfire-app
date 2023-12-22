@@ -110,19 +110,19 @@ More details at https://bonfirenetworks.org",
     summary: true
   ],
   invites_component: Bonfire.Invite.Links.Web.InvitesLive,
-  smart_input_activities: [
-    post: "Compose a post",
-    category: "Create a topic",
-    label: "New label"
-  ],
-  smart_input_components: [
-    post: Bonfire.UI.Social.WritePostContentLive,
-    message: Bonfire.UI.Social.WritePostContentLive,
-    category: Bonfire.Classify.Web.NewCategoryLive,
-    label: Bonfire.Classify.Web.NewLabelLive,
-    page: Bonfire.Pages.Web.CreatePageLive,
-    section: Bonfire.Pages.Web.EditSectionLive
-  ],
+  # smart_input_activities: [
+  #   post: "Compose a post",
+  #   category: "Create a topic",
+  #   label: "New label"
+  # ],
+  # smart_input_components: [ # NOTE: replaced by the SmartInputModule behaviour
+  #   post: Bonfire.UI.Social.WritePostContentLive,
+  #   message: Bonfire.UI.Social.WritePostContentLive,
+  #   category: Bonfire.Classify.Web.NewCategoryLive,
+  #   label: Bonfire.Classify.Web.NewLabelLive,
+  #   page: Bonfire.Pages.Web.CreatePageLive,
+  #   section: Bonfire.Pages.Web.EditSectionLive
+  # ],
   smart_input_as: :non_blocking
 
 config :bonfire,

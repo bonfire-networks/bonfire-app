@@ -97,8 +97,8 @@ config :bonfire, :extensions_grouped, %{
   Bonfire.Common.QueryModule => context_and_queries_extensions,
   Bonfire.Common.ConfigModule => extensions_with_config,
   Bonfire.Common.ExtensionModule => extensions_with_ui,
-  Bonfire.Common.WidgetModule => extensions_with_ui,
-  Bonfire.Common.NavModule => extensions_with_ui
+  Bonfire.UI.Common.WidgetModule => extensions_with_ui,
+  Bonfire.UI.Common.NavModule => extensions_with_ui
 }
 
 # TODO: refactor to use ExtensionBehaviour

@@ -8,11 +8,11 @@ config :bonfire, :ui,
     instance_description: "This is a bonfire demo instance (upcycle flavour) for testing purposes"
   ],
   feed_object_extension_preloads_disabled: false,
-  smart_input_components: [
-    economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
-    intent: Bonfire.UI.ValueFlows.CreateIntentLive,
-    process: Bonfire.UI.ValueFlows.SelectEconomicEventLive
-  ],
+  # smart_input_components: [ # NOTE: replaced by the SmartInputModule behaviour
+  #   economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
+  #   intent: Bonfire.UI.ValueFlows.CreateIntentLive,
+  #   process: Bonfire.UI.ValueFlows.SelectEconomicEventLive
+  # ],
   resource: [
     navigation: [
       timeline: "timeline",

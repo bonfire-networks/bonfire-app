@@ -40,28 +40,28 @@ More details at https://bonfirenetworks.org",
     ],
     widgets: []
   ],
-  smart_input_activities: [
-    category: "Create a topic",
-    label: "New label",
-    task: "Add a task",
-    offer: "Publish an offer",
-    need: "Publish a need",
-    # transfer_resource: "Transfer a resource",
-    # produce_resource: "Add a resource",
-    # intent: "Indicate an itent",
-    economic_event: "Record an economic event",
-    process: "Define a process"
-  ],
-  smart_input_components: [
-    task: Bonfire.UI.Coordination.CreateTaskLive,
-    upcycle_intent: Bonfire.Upcycle.Web.CreateIntentLive,
-    upcycle_resource: Bonfire.Upcycle.Web.CreateResourceLive,
-    upcycle_transfer: Bonfire.Upcycle.Web.CreateTransferLive,
-    economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
-    process: Bonfire.UI.ValueFlows.CreateProcessLive,
-    offer: Bonfire.UI.ValueFlows.CreateIntentLive,
-    need: Bonfire.UI.ValueFlows.CreateIntentLive
-  ],
+  # smart_input_activities: [
+  #   category: "Create a topic",
+  #   label: "New label",
+  #   task: "Add a task",
+  #   offer: "Publish an offer",
+  #   need: "Publish a need",
+  #   # transfer_resource: "Transfer a resource",
+  #   # produce_resource: "Add a resource",
+  #   # intent: "Indicate an itent",
+  #   economic_event: "Record an economic event",
+  #   process: "Define a process"
+  # ],
+  # smart_input_components: [ # NOTE: replaced by the SmartInputModule behaviour
+  #   task: Bonfire.UI.Coordination.CreateTaskLive,
+  #   upcycle_intent: Bonfire.Upcycle.Web.CreateIntentLive,
+  #   upcycle_resource: Bonfire.Upcycle.Web.CreateResourceLive,
+  #   upcycle_transfer: Bonfire.Upcycle.Web.CreateTransferLive,
+  #   economic_event: Bonfire.UI.ValueFlows.SelectEconomicEventLive,
+  #   process: Bonfire.UI.ValueFlows.CreateProcessLive,
+  #   offer: Bonfire.UI.ValueFlows.CreateIntentLive,
+  #   need: Bonfire.UI.ValueFlows.CreateIntentLive
+  # ],
   resource: [
     navigation: [
       timeline: "timeline",
