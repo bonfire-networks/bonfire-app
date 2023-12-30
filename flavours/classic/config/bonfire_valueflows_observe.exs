@@ -1,4 +1,4 @@
 import Config
 
-config :bonfire_valueflows_observe,
-  disabled: true
+# config :bonfire_valueflows_observe,
+#   modularity: :disabled

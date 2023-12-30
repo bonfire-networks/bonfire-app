@@ -1,7 +1,7 @@
 import Config
 
-config :bonfire_api_graphql,
-  disabled: false
+# config :bonfire_api_graphql,
+#   modularity: :disabled
 
 # Please note that most of these are defaults meant to be overridden by instance admins in Settings rather than edited here
 config :bonfire, :ui,

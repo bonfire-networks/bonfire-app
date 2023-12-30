@@ -127,7 +127,7 @@ if System.get_env("SENTRY_DSN") do
   end
 else
   config :sentry,
-    disabled: true
+    modularity: :disabled
 end
 
 pool_size =
@@ -223,9 +223,6 @@ end
 if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
      (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSTEP_API_KEY") ||
         System.get_env("OTEL_HONEYCOMB_API_KEY")) do
-  config :opentelemetry,
-    disabled: false
-
   config :opentelemetry_exporter,
     otlp_protocol: :http_protobuf
 
@@ -280,6 +277,9 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
         }
       }
   end
+else
+  config :opentelemetry,
+    modularity: :disabled
 end
 
 # start prod-only config

@@ -1,7 +1,7 @@
 import Config
 
 config :bonfire_livebook,
-  disabled: false,
+  # modularity: :disabled,
   base_url_path: "/livebook/"
 
 # Sets the default authentication mode to token

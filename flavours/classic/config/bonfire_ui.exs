@@ -151,6 +151,8 @@ config :iconify_ex,
   generated_icon_static_path: "#{dep_ui_common}assets/static/images/icons"
 
 config :surface, :components, [
+  {Bonfire.UI.Common.Modular.StatelessComponent, propagate_context_to_slots: true},
+  {Bonfire.UI.Common.Modular.StatefulComponent, propagate_context_to_slots: true},
   {Iconify.Icon, propagate_context_to_slots: false},
   {Bonfire.UI.Common.ReusableModalLive, propagate_context_to_slots: true},
   {Bonfire.UI.Common.LinkLive, propagate_context_to_slots: true},

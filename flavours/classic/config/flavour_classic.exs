@@ -1,6 +1,6 @@
 import Config
 
 config :bonfire_api_graphql,
-  disabled: true
+  modularity: :disabled
 
-config :bonfire_social, Bonfire.Social.Pins, disabled: true
+config :bonfire_social, Bonfire.Social.Pins, modularity: :disabled
