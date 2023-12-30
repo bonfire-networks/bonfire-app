@@ -53,7 +53,7 @@ The code is broadly composed namespaces such as these, many of which are package
 
 Contexts are were we put any core logic. A context often is circumscribed to providing logic for a particular object type (e. g. `Bonfire.Posts` implements `Bonfire.Data.Social.Post`). 
 
-All Bonfire objects use an ULID as their primary key. We use the `Pointers` library (with extra logic in `Bonfire.Common.Pointers`) to reference any object by its primary key without knowing what type it is beforehand. This is very useful as it allows for example following or liking many different types of objects (as opposed to say only a user or a post) and this approach allows us to store the context of the like/follow by only storing its primary key (see `Bonfire.Data.Social.Follow`) for an example.
+All Bonfire objects use an ULID as their primary key. We use the `Needle` library (with extra logic in `Bonfire.Common.Needle`) to reference any object by its primary key without knowing what type it is beforehand. This is very useful as it allows for example following or liking many different types of objects (as opposed to say only a user or a post) and this approach allows us to store the context of the like/follow by only storing its primary key (see `Bonfire.Data.Social.Follow`) for an example.
 
 Context modules usually have `one/2`, `many/2`, and `many_paginated/1` functions for fetching objects, which in turn call a `query/2` function. These take a keyword list as filters (and an optional `opts` argument) allowing objects to be fetched by arbitrary criteria.
 
@@ -94,7 +94,7 @@ Here is an incomplete sample of some of current extensions and modules:
 - `Bonfire.GraphQL` (GraphQL API abstractions)
 - `Queery` and `Bonfire.Repo.Query` (Helpers for making queries on the database)
 - `Bonfire.Repo` (Ecto repository)
-- `Flexto` (to extend DB schemas in config, especially useful for adding associations)
+- `Exto` (to extend DB schemas in config, especially useful for adding associations)
 - `AbsintheClient` (for querying the API from within the server)
 
 
@@ -123,7 +123,7 @@ Here is an incomplete sample of some of current extensions and modules:
           - Schemas
           - Resolvers
         - Sometimes Plugs (eg `Bonfire.Web.Plugs.UserRequired` and `Bonfire.Web.LivePlugs.UserRequired`)
-      - Other extensions or libraries (eg `Pointers` or `Bonfire.Common` which are used by most other extensions)
+      - Other extensions or libraries (eg `Needle` or `Bonfire.Common` which are used by most other extensions)
           
 
 ## Naming
@@ -132,7 +132,7 @@ It is said that naming is one of the four hard problems of computer science (alo
 
 ### Naming guidelines
 
-- Module names mostly begin with `Bonfire.` unless they belong to a more generic library (eg `Pointers` or `ValueFlows`)
+- Module names mostly begin with `Bonfire.` unless they belong to a more generic library (eg `Needle` or `ValueFlows`)
 - Everything within an extension begins with the context name and a `.` (eg `Bonfire.Social.Migrations`)
 - Database schemas should be named in the singular (eg `Bonfire.Data.Social.Post`)
 - Context modules are named in plural where possible (eg `Bonfire.Posts`)

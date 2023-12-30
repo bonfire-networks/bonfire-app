@@ -3,7 +3,7 @@ defmodule Bonfire.Messages.Repo.Migrations.ImportSocial do
   use Ecto.Migration
 
   import Bonfire.Messages.Migrations
-  import Pointers.Migration
+  import Needle.Migration
 
   def up do
     migrate_social()

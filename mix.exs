@@ -116,7 +116,7 @@ defmodule Bonfire.Umbrella.MixProject do
     deps_prefixes: [
       docs: [
         "bonfire",
-        "pointers",
+        "needle",
         "paginator",
         "ecto_shorts",
         "ecto_sparkles",
@@ -124,7 +124,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "activity_pub",
         "arrows",
         "ecto_materialized_path",
-        "flexto",
+        "exto",
         "grumble",
         "linkify",
         "verbs",
@@ -134,7 +134,7 @@ defmodule Bonfire.Umbrella.MixProject do
       ],
       test: [
         "bonfire",
-        "pointers",
+        "needle",
         # "paginator",
         "ecto_shorts",
         "ecto_sparkles",
@@ -147,7 +147,7 @@ defmodule Bonfire.Umbrella.MixProject do
       data: [
         "bonfire_data_",
         "bonfire_data_edges",
-        "pointers",
+        "needle",
         "bonfire_boundaries",
         "bonfire_tag",
         "bonfire_classify",
@@ -279,7 +279,7 @@ defmodule Bonfire.Umbrella.MixProject do
             ~r/^Bonfire.Fail?/,
             ~r/^Bonfire.Files?/,
             ~r/^Bonfire.Mailer?/,
-            ~r/^Pointers?/
+            ~r/^Needle?/
           ],
           "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
           Federation: [

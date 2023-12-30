@@ -82,7 +82,7 @@
 | file_info                    | MIT                                | 0.0.4      | https://hex.pm/packages/file_info                                |
 | file_system                  | WTFPL                              | 0.2.10     | https://hex.pm/packages/file_system                              |
 | flame_on                     | MIT                                | 0.5.0      | https://hex.pm/packages/flame_on                                 |
-| flexto                       | Apache 2.0                         | 0.2.3      | https://github.com/bonfire-networks/flexto                       |
+| exto                       | Apache 2.0                         | 0.2.3      | https://github.com/bonfire-networks/exto                       |
 | floki                        | MIT                                | 0.32.1     | https://hex.pm/packages/floki                                    |
 | gen_smtp                     | BSD-2-Clause; Unrecognized license | 1.2.0      | https://hex.pm/packages/gen_smtp                                 |
 | geo                          | MIT                                | 3.4.3      | https://hex.pm/packages/geo                                      |
@@ -143,7 +143,7 @@
 | plug_cowboy                  | Apache 2.0                         | 2.5.2      | https://hex.pm/packages/plug_cowboy                              |
 | plug_crypto                  | Apache 2.0                         | 1.2.2      | https://hex.pm/packages/plug_crypto                              |
 | pointers                     | Apache 2.0                         | 0.6.0      | https://github.com/bonfire-networks/pointers                     |
-| pointers_ulid                | MIT                                | 0.2.2      | https://github.com/bonfire-networks/pointers_ulid                |
+| needle_ulid                | MIT                                | 0.2.2      | https://github.com/bonfire-networks/needle_ulid                |
 | postgrex                     | Apache 2.0                         | 0.16.3     | https://hex.pm/packages/postgrex                                 |
 | pseudo_gettext               | Undefined                          | 0.1.0      | https://github.com/tmbb/pseudo_gettext                           |
 | ranch                        | ISC                                | 1.8.0      | https://hex.pm/packages/ranch                                    |

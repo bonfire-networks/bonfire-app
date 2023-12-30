@@ -14,7 +14,7 @@ Circles allow a user to categorise work colleagues differently from friends, for
 
 Verbs represent actions that the user could perform, such as reading a post or replying to a message.
 
-Each verb has a unique ID, like the table IDs from `pointers`, which must be known to the system through configuration.
+Each verb has a unique ID, like the table IDs from `Needle`, which must be known to the system through configuration.
 
 ## Permissions
 

@@ -3,7 +3,7 @@ defmodule Bonfire.Repo.Migrations.AddFilesMixin do
   use Ecto.Migration
 
   import Bonfire.Files.Migrations
-  import Pointers.Migration
+  import Needle.Migration
 
   def up do
     # cleanup old stuff

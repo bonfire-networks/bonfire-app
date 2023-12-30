@@ -1,8 +1,8 @@
 defmodule Bonfire.Repo.Migrations.InitPointersULID do
   @moduledoc false
   use Ecto.Migration
-  # import Pointers.Migration
-  import Pointers.ULID.Migration
+  # import Needle.Migration
+  import Needle.ULID.Migration
 
   def change do
     init_pointers_ulid_extra()

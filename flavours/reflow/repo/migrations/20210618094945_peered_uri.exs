@@ -2,7 +2,7 @@ defmodule Bonfire.Social.Repo.Migrations.PeeredURI do
   @moduledoc false
   use Ecto.Migration
 
-  import Pointers.Migration
+  import Needle.Migration
 
   def up do
     alter table("bonfire_data_activity_pub_peered") do

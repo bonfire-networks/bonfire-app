@@ -274,7 +274,7 @@ update-deps-all: deps-unlock-unused pre-update-deps
 	just js-ext-deps outdated
 	-just mix "hex.outdated --all"
 
-# Update a specify dep (eg. `just update.dep pointers`)
+# Update a specify dep (eg. `just update.dep needle`)
 update-dep dep: pre-update-deps
 	just update-fork $dep pull
 	just mix-remote "deps.update $dep"
@@ -360,39 +360,39 @@ dep-clone-local dep repo:
 deps-clone-local-all:
 	curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[just dep.clone.local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
-# Switch to using a local path, eg: just dep.go.local pointers
+# Switch to using a local path, eg: just dep.go.local needle
 dep-go-local dep:
 	just dep-go-local-path $dep $EXT_PATH$dep
 
-# Switch to using a local path, specifying the path, eg: just dep.go.local dep=pointers path=./libs/pointers
+# Switch to using a local path, specifying the path, eg: just dep.go.local dep=needle path=./libs/needle
 dep-go-local-path dep path:
 	just dep-local add $dep $path
 	just dep-local enable $dep $path
 
-# Switch to using a git repo, eg: just dep.go.git pointers https://github.com/bonfire-networks/pointers (specifying the repo is optional if previously specified)
+# Switch to using a git repo, eg: just dep.go.git needle https://github.com/bonfire-networks/needle (specifying the repo is optional if previously specified)
 dep-go-git dep repo:
 	-just dep-git add $dep $repo
 	just dep-git enable $dep NA
 	just dep-local disable $dep NA
 
-# Switch to using a library from hex.pm, eg: just dep.go.hex dep="pointers" version="_> 0.2" (specifying the version is optional if previously specified)
+# Switch to using a library from hex.pm, eg: just dep.go.hex dep="needle" version="_> 0.2" (specifying the version is optional if previously specified)
 dep-go-hex dep version:
 	-just dep-hex add dep=$dep version=$version
 	just dep-hex enable $dep NA
 	just dep-git disable $dep NA
 	just dep-local disable $dep NA
 
-# add/enable/disable/delete a hex dep with messctl command, eg: `just dep-hex enable pointers 0.2`
+# add/enable/disable/delete a hex dep with messctl command, eg: `just dep-hex enable needle 0.2`
 dep-hex command dep version:
 	just messctl "$command $dep $version"
 	just mix "deps.clean $dep"
 
-# add/enable/disable/delete a git dep with messctl command, eg: `just dep-hex enable pointers https://github.com/bonfire-networks/pointers#main
+# add/enable/disable/delete a git dep with messctl command, eg: `just dep-hex enable needle https://github.com/bonfire-networks/needle#main
 dep-git command dep repo:
 	just messctl "$command $dep $repo config/deps.git"
 	just mix "deps.clean $dep"
 
-# add/enable/disable/delete a local dep with messctl command, eg: `just dep-hex enable pointers ./libs/pointers`
+# add/enable/disable/delete a local dep with messctl command, eg: `just dep-hex enable needle ./libs/needle`
 dep-local command dep path:
 	just messctl "$command $dep $path config/deps.path"
 	just mix "deps.clean $dep"
@@ -726,7 +726,7 @@ shell:
 @imix *args='':
 	just cmd iex -S mix $@
 
-# Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update pointers"`
+# Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update needle"`
 @mix *args='':
 	echo % mix $@
 	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $@" } else { "just cmd mix $@" } }}
@@ -737,7 +737,7 @@ shell:
 @mix-maybe-prod-pre-release *args='':
 	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $@" } }}
 
-# Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update pointers`
+# Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
 mix-remote *args='': init
 	echo % WITH_FORKS=0 mix $@
 	{{ if WITH_DOCKER == "total" { "docker compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}

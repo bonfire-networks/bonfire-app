@@ -12,9 +12,9 @@ A social network, by contrast, is actually a graph of objects. Objects need to b
 
 A simple example would be likes, you might have a `likes` table with `liked_post_id` field that references the `post` table. But you don't just have posts that can be liked, but also videos, images, polls, etc, each with their own table, but probably do not want to have to add `liked_video_id`, `liked_image_id`, etc?
 
-We needed the flexibility to have a foreign key that can reference any referenceable object. We call our system `Pointers`.
+We needed the flexibility to have a foreign key that can reference any referenceable object. We call our system `Needle`.
 
-This guide is a brief introduction to Pointers. It assumes some foundational knowledge:
+This guide is a brief introduction to Needle. It assumes some foundational knowledge:
 
 * Basic understanding of how relational databases like Postgresql work, in particular:
   * Tables being made up of fields.
@@ -43,15 +43,15 @@ In PostgreSQL, we actually store `ULID`s as `UUID` columns, thanks to both being
 
 ## It's just a table
 
-The `pointers` system is mostly based around a single table represented by the `Pointers.Pointer` schema with the following fields:
+The `Needle` system is mostly based around a single table represented by the `Needle.Pointer` schema with the following fields:
 
 * `id` (ULID) - the database-wide unique id for the object, primary key.
-* `table_id` (ULID) - identifies the type of the object, references `Pointers.Table`.
+* `table_id` (ULID) - identifies the type of the object, references `Needle.Table`.
 * `deleted_at` (timestamp, default: `null`) - when the object was deleted.
 
 Every object that is stored in the system will have a record in this table. It may also have records in other tables (handy for storing more than 3 fields about the object!).
 
-Don't worry about `Pointers.Table` for now, just know that every object type will have a record there so `Pointers.Pointer.table_id` can reference it.
+Don't worry about `Needle.Table` for now, just know that every object type will have a record there so `Needle.Pointer.table_id` can reference it.
 
 ## Mixins - storing data about objects
 
@@ -64,14 +64,14 @@ record or not record information for each mixin. Sample mixins include:
 
 In this way, they are reusable across different object types. One mixin may (or may not) be used by any number of objects. This is mostly driven by the type of the object we are storing, but can also be driven by user input.
 
-Mixins are just tables too! The only requirement is they have a `ULID` primary key which references `Pointers.Pointer`. The developer of the mixin is free to put whatever other fields they want in the table, so long as they have that primary-key-as-reference (which will be automatically added for you by the `mixin_schema` macro). 
+Mixins are just tables too! The only requirement is they have a `ULID` primary key which references `Needle.Pointer`. The developer of the mixin is free to put whatever other fields they want in the table, so long as they have that primary-key-as-reference (which will be automatically added for you by the `mixin_schema` macro). 
 
 Here is a sample mixin definition for a user profile:
 
 ```elixir
 defmodule Bonfire.Data.Social.Profile do
 
-  use Pointers.Mixin,
+  use Needle.Mixin,
     otp_app: :bonfire_data_social,
     source: "bonfire_data_social_profile"
 
@@ -84,10 +84,10 @@ defmodule Bonfire.Data.Social.Profile do
 end
 ```
 
-Aside from `use`ing `Pointers.Mixin` instead of `Ecto.Schema` and calling `mixin_schema` instead of
+Aside from `use`ing `Needle.Mixin` instead of `Ecto.Schema` and calling `mixin_schema` instead of
 `schema`, pretty similar to a standard Ecto schema, right? 
 
-The arguments to `use Pointers.Mixin` are:
+The arguments to `use Needle.Mixin` are:
 
 * `otp_app`: the OTP app name to use when loading dynamic configuration, e.g. the current extension or app (required)
 * `source`: the underlying table name to use in the database
@@ -98,18 +98,18 @@ We will cover dynamic configuration later. For now, you can use the OTP app that
 
 Multimixins are like mixins, except that where an object may have 0 or 1 of a particular mixins, an object may have any number of a particular multimixin.
 
-For this to work, a multimixin must have a *compound primary key* which must contain an `id` column referencing `Pointers.Pointer` and at least one other field which will collectively be unique.
+For this to work, a multimixin must have a *compound primary key* which must contain an `id` column referencing `Needle.Pointer` and at least one other field which will collectively be unique.
 
 An example multimixin is used for publishing an item to feeds:
 
 ```elixir
 defmodule Bonfire.Data.Social.FeedPublish do
 
-  use Pointers.Mixin,
+  use Needle.Mixin,
     otp_app: :bonfire_data_social,
     source: "bonfire_data_social_feed_publish"
 
-  alias Pointers.Pointer
+  alias Needle.Pointer
 
   mixin_schema do
     belongs_to :feed, Pointer, primary_key: true
@@ -132,20 +132,20 @@ For example, the ID for the `Feed` table is: `1TFEEDS0NTHES0V1S0FM0RTA1S`, which
 * They must be 26 characters in length.
 * The first character must be a digit in the range 0-7.
 
-To help you with this, the `Pointers.ULID.synthesise!/1` method takes an alphanumeric binary and tries to return you it transliterated into a valid ULID. Example usage:
+To help you with this, the `Needle.ULID.synthesise!/1` method takes an alphanumeric binary and tries to return you it transliterated into a valid ULID. Example usage:
 
 ```
-iex(1)> Pointers.ULID.synthesise!("itfeedsonthesouls")
+iex(1)> Needle.ULID.synthesise!("itfeedsonthesouls")
 
 11:20:28.299 [error] Too short, need 9 chars.
 :ok
-iex(2)> Pointers.ULID.synthesise!("itfeedsonthesoulsofmortalsandothers")
+iex(2)> Needle.ULID.synthesise!("itfeedsonthesoulsofmortalsandothers")
 
 11:20:31.819 [warn]  Too long, chopping off last 9 chars
 "1TFEEDS0NTHES0V1S0FM0RTA1S"
-iex(3)> Pointers.ULID.synthesise!("itfeedsonthesoulsofmortals")
+iex(3)> Needle.ULID.synthesise!("itfeedsonthesoulsofmortals")
 "1TFEEDS0NTHES0V1S0FM0RTA1S"
-iex(4)> Pointers.ULID.synthesise!("gtfeedsonthesoulsofmortals")
+iex(4)> Needle.ULID.synthesise!("gtfeedsonthesoulsofmortals")
 
 11:21:03.268 [warn]  First character must be a digit in the range 0-7, replacing with 7
 "7TFEEDS0NTHES0V1S0FM0RTA1S"
@@ -158,7 +158,7 @@ Virtuals are the simplest and most common type of object. Here's a definition of
 ```elixir
 defmodule Bonfire.Data.Social.Block do
 
-  use Pointers.Virtual,
+  use Needle.Virtual,
     otp_app: :bonfire_data_social,
     table_id: "310CK1NGSTVFFAV01DSSEE1NG1",
     source: "bonfire_data_social_block"
@@ -171,7 +171,7 @@ defmodule Bonfire.Data.Social.Block do
 end
 ```
 
-It should look quite similar to a mixin definition, except that we `use` `Pointers.Virtual` this time (passing an additional `table_id` argument) and we call the `virtual_schema` macro.
+It should look quite similar to a mixin definition, except that we `use` `Needle.Virtual` this time (passing an additional `table_id` argument) and we call the `virtual_schema` macro.
 
 The primary limitation of a virtual is that you cannot put extra fields into one. This also means that `belongs_to` is not generally permitted because it results in adding a field. `has_one` and `has_many` work just fine as they do not cause the creation of fields in the schema.
 
@@ -195,7 +195,7 @@ Here is a definition of a pointable type (indicating an ActivityPub activity who
 ```elixir
 defmodule Bonfire.Data.Social.APActivity do
 
-  use Pointers.Pointable,
+  use Needle.Pointable,
     otp_app: :bonfire_data_social,
     table_id: "30NF1REAPACTTAB1ENVMBER0NE",
     source: "bonfire_data_social_apactivity"
@@ -219,7 +219,7 @@ Most virtuals are incredibly simple to migrate for:
 ```elixir
 defmodule Bonfire.Data.Social.Post.Migration do
 
-  import Pointers.Migration
+  import Needle.Migration
   alias Bonfire.Data.Social.Post
 
   def migrate_post(), do: migrate_virtual(Post)
@@ -233,7 +233,7 @@ If you need to do more work, it can be a little trickier. Here's an example for 
 defmodule Bonfire.Data.Social.Block.Migration do
 
   import Ecto.Migration
-  import Pointers.Migration
+  import Needle.Migration
   import Bonfire.Data.Edges.Edge.Migration
   alias Bonfire.Data.Social.Block
 
@@ -270,13 +270,13 @@ Example:
 defmodule Bonfire.Data.Social.APActivity.Migration  do
   @moduledoc false
   use Ecto.Migration
-  import Pointers.Migration
+  import Needle.Migration
   alias Bonfire.Data.Social.APActivity
 
   defp make_apactivity_table(exprs) do
     quote do
-      require Pointers.Migration
-      Pointers.Migration.create_pointable_table(Bonfire.Data.Social.APActivity) do
+      require Needle.Migration
+      Needle.Migration.create_pointable_table(Bonfire.Data.Social.APActivity) do
         Ecto.Migration.add :json, :jsonb
         unquote_splicing(exprs)
       end
@@ -311,15 +311,15 @@ Mixins look much like pointables:
 ```elixir
 defmodule Bonfire.Data.Social.Profile.Migration do
 
-  import Pointers.Migration
+  import Needle.Migration
   alias Bonfire.Data.Social.Profile
 
   # create_profile_table/{0,1}
 
   defp make_profile_table(exprs) do
     quote do
-      require Pointers.Migration
-      Pointers.Migration.create_mixin_table(Bonfire.Data.Social.Profile) do
+      require Needle.Migration
+      Needle.Migration.create_mixin_table(Bonfire.Data.Social.Profile) do
         Ecto.Migration.add :name, :text
         Ecto.Migration.add :summary, :text
         Ecto.Migration.add :website, :text
@@ -367,7 +367,7 @@ Similar to mixins:
 defmodule Bonfire.Data.Social.FeedPublish.Migration do
 
   import Ecto.Migration
-  import Pointers.Migration
+  import Needle.Migration
   alias Bonfire.Data.Social.FeedPublish
 
   @feed_publish_table FeedPublish.__schema__(:source)
@@ -376,10 +376,10 @@ defmodule Bonfire.Data.Social.FeedPublish.Migration do
 
   defp make_feed_publish_table(exprs) do
     quote do
-      require Pointers.Migration
-      Pointers.Migration.create_mixin_table(Bonfire.Data.Social.FeedPublish) do
+      require Needle.Migration
+      Needle.Migration.create_mixin_table(Bonfire.Data.Social.FeedPublish) do
         Ecto.Migration.add :feed_id,
-          Pointers.Migration.strong_pointer(), primary_key: true
+          Needle.Migration.strong_pointer(), primary_key: true
         unquote_splicing(exprs)
       end
     end
@@ -434,4 +434,4 @@ scenarios by now:
 * [bonfire_data_edges](https://github.com/bonfire-networks/bonfire_data_edges/) (feat. bonus triggers)
 
 If you want to know exactly what's happening, you may want to read the code for
-[Pointers.Migration](https://github.com/bonfire-networks/pointers/blob/main/lib/migration.ex).
+[Needle.Migration](https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex).

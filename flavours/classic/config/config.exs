@@ -94,7 +94,7 @@ config :bonfire, Bonfire.Common.TestInstanceRepo,
 # priv: flavour_path <> "/repo"
 
 # ecto query filtering
-# config :query_elf, :id_types, [:id, :binary_id, Pointers.ULID]
+# config :query_elf, :id_types, [:id, :binary_id, Needle.ULID]
 
 # disable Tzdata and replace with Tz library
 config :tzdata, :autoupdate, :disabled
@@ -109,8 +109,8 @@ config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 config :surface, :compiler, warn_on_undefined_props: false
 
 config :paper_trail,
-  item_type: Pointers.ULID,
-  originator_type: Pointers.ULID,
+  item_type: Needle.ULID,
+  originator_type: Needle.ULID,
   originator_relationship_options: [references: :id],
   originator: [name: :user, model: Bonfire.Data.Identity.User]
 

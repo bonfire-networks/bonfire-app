@@ -46,7 +46,7 @@ pointable_schema_extensions = [
   :bonfire_pages
 ]
 
-config :pointers, :search_path, pointable_schema_extensions
+config :needle, :search_path, pointable_schema_extensions
 
 # Search these apps/extensions for context or queries modules to index (i.e. they contain modules with a query_module/0 or context_modules/0 function)
 context_and_queries_extensions =
@@ -125,8 +125,8 @@ config :bonfire_data_access_control,
   ]
 
 #### Alias modules for readability
-alias Pointers.Pointer
-alias Pointers.Table
+alias Needle.Pointer
+alias Needle.Table
 
 alias Bonfire.Data.AccessControl.Acl
 alias Bonfire.Data.AccessControl.Circle
@@ -193,7 +193,7 @@ alias Bonfire.Files.Media
 alias Bonfire.Tag
 alias Bonfire.Tag.Tagged
 
-#### Flexto Stitching
+#### Exto Stitching
 
 ## WARNING: This is the flaky magic bit. We use configuration to
 ## compile extra stuff into modules.  If you add new fields or
@@ -457,7 +457,7 @@ pointer_mixins =
     :feed_publishes
   ])
 
-config :pointers, Pointer,
+config :needle, Pointer,
   code:
     (quote do
        field(:dummy, :any, virtual: true)
@@ -479,7 +479,7 @@ config :pointers, Pointer,
        unquote_splicing(pointer_mixins)
      end)
 
-config :pointers, Table, []
+config :needle, Table, []
 
 # now let's weave everything else together for convenience
 # bonfire_data_access_control
