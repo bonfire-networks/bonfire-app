@@ -39,7 +39,7 @@ We like to think of bonfire as a comfortable way of developing software - there 
 The code is broadly composed namespaces such as these, many of which are packaged as "extensions" which live in separate git repositories, which are included in the app by way of mix dependencies:
 
 - `Bonfire.*` - Core application logic (very little code).
-- `Bonfire.*.*` - Bonfire extensions (eg `Bonfire.Social.Posts`) containing mostly context modules, APIs, and routes
+- `Bonfire.*.*` - Bonfire extensions (eg `Bonfire.Posts`) containing mostly context modules, APIs, and routes
 - `Bonfire.Data.*` - Extensions containing database schemas and migrations 
 - `Bonfire.UI.*` - UI component extensions
 - `Bonfire.*.*.LiveHandler` - Backend logic to handle events in the frontend
@@ -51,7 +51,7 @@ The code is broadly composed namespaces such as these, many of which are package
 - `ValueFlows.*` - economic extensions implementing the [ValueFlows vocabulary](https://www.valueflo.ws)
 
 
-Contexts are were we put any core logic. A context often is circumscribed to providing logic for a particular object type (e. g. `Bonfire.Social.Posts` implements `Bonfire.Data.Social.Post`). 
+Contexts are were we put any core logic. A context often is circumscribed to providing logic for a particular object type (e. g. `Bonfire.Posts` implements `Bonfire.Data.Social.Post`). 
 
 All Bonfire objects use an ULID as their primary key. We use the `Pointers` library (with extra logic in `Bonfire.Common.Pointers`) to reference any object by its primary key without knowing what type it is beforehand. This is very useful as it allows for example following or liking many different types of objects (as opposed to say only a user or a post) and this approach allows us to store the context of the like/follow by only storing its primary key (see `Bonfire.Data.Social.Follow`) for an example.
 
@@ -73,10 +73,10 @@ Here is an incomplete sample of some of current extensions and modules:
 - `Bonfire.Me.Users` (for managing and querying both local and remote user identities and profiles)
 - `Bonfire.Boundaries` (for managing and querying circles, ACLs, permissions...)
 - `Bonfire.Social.FeedActivities`, `Bonfire.Social.Feeds` and `Bonfire.Social.Activities` (for managing and querying activities and feeds)
-- `Bonfire.Social.Posts` and `Bonfire.Social.PostContents` (for managing and querying posts)
+- `Bonfire.Posts` and `Bonfire.Social.PostContents` (for managing and querying posts)
 - `Bonfire.Social.Threads` (for managing and querying threads and comments)
 - `Bonfire.Social.Flags` (for managing and querying flags)
-- `Bonfire.Social.Follows` (for managing and querying follows)
+- `Bonfire.Social.Graph.Follows` (for managing and querying follows)
 - `Bonfire.Classify` (for managing and querying categories, topics, and the like)
 - `Bonfire.Tag` (for managing and querying tags and mentions)
 - `Bonfire.Geolocate` (for managing and querying locations and geographical coordinates)
@@ -135,8 +135,8 @@ It is said that naming is one of the four hard problems of computer science (alo
 - Module names mostly begin with `Bonfire.` unless they belong to a more generic library (eg `Pointers` or `ValueFlows`)
 - Everything within an extension begins with the context name and a `.` (eg `Bonfire.Social.Migrations`)
 - Database schemas should be named in the singular (eg `Bonfire.Data.Social.Post`)
-- Context modules are named in plural where possible (eg `Bonfire.Social.Posts`)
-- Other modules within a context begins with the context name and a `.` (eg `Bonfire.Social.Posts.LiveHandler`)
+- Context modules are named in plural where possible (eg `Bonfire.Posts`)
+- Other modules within a context begins with the context name and a `.` (eg `Bonfire.Posts.LiveHandler`)
 - Modules use UpperCamelCase while functions use snake_case
 - Acronyms in module names should be all uppercase (eg `Bonfire.Social.APActivities`)
 
