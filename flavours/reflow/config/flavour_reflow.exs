@@ -56,7 +56,7 @@ config :bonfire, :ui,
     ]
   ],
   default_instance_feed_previews: [
-    process: Bonfire.UI.Social.Activity.ProcessReflowLive
+    process: Bonfire.UI.Reflow.Preview.ProcessReflowLive
   ]
 
 # process: [
