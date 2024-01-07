@@ -55,6 +55,7 @@ config :bonfire, :ui,
       Bonfire.UI.ValueFlows.PrimaryAccountableWidgetLive
     ]
   ],
+  # TODO: replace with :object_preview
   default_instance_feed_previews: [
     process: Bonfire.UI.Reflow.Preview.ProcessReflowLive
   ]
