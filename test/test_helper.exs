@@ -1,5 +1,7 @@
 import Bonfire.Common.Config, only: [repo: 0]
 
+running_a_second_test_instance? = System.get_env("TEST_INSTANCE") == "yes"
+
 ExUnit.configure(
   formatters: [
     ExUnit.CLIFormatter,
@@ -17,7 +19,7 @@ ExUnit.start(
   assert_receive_timeout: 1000,
   exclude: Bonfire.Common.RuntimeConfig.skip_test_tags(),
   # only show log for failed tests (Can be overridden for individual tests via `@tag capture_log: false`)
-  capture_log: true
+  capture_log: !running_a_second_test_instance?
 )
 
 Mneme.start()
@@ -46,7 +48,7 @@ if chromedriver_path && File.exists?(chromedriver_path),
   else: IO.inspect("Note: Wallaby UI tests will not run because the chromedriver is missing")
 
 # insert fixtures in test instance's repo on startup
-if System.get_env("TEST_INSTANCE") == "yes",
+if running_a_second_test_instance?,
   do: Bonfire.Common.TestInstanceRepo.apply(&Bonfire.Boundaries.Fixtures.insert/0)
 
 IO.puts("""
