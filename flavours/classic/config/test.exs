@@ -14,8 +14,7 @@ config :bonfire,
 config :bonfire, Bonfire.Mailer, adapter: Bamboo.TestAdapter
 
 config :bonfire_search,
-  modularity: :disabled,
-  disable_indexing: true
+  modularity: :disabled
 
 ## Other general test config
 
