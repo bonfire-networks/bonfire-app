@@ -60,7 +60,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 ### Option B - the easy way (with bare-metal elixir, and docker-managed tooling, database & search index, recommended for active development)
 
-> Note: you can use a tool like [rtx](https://github.com/jdxcode/rtx) or asdf to setup the environment (run `rtx install` in the root directory).
+> Note: you can use a tool like [mise](https://github.com/jdx/mise) or asdf to setup the environment (run `mise install` in the root directory).
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
@@ -73,7 +73,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 ### Option C - the partial way (with bare-metal elixir and tooling, and docker-managed database & search index)
 
-> Note: you can use a tool like [rtx](https://github.com/jdxcode/rtx) or asdf to setup the environment (run `rtx install` in the root directory).
+> Note: you can use a tool like [mise](https://github.com/jdx/mise) or asdf to setup the environment (run `mise install` in the root directory).
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
@@ -87,7 +87,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 ### Option D - the bare metal (if you don't use docker)
 
-> Note: you can use a tool like [rtx](https://github.com/jdxcode/rtx) or asdf to setup your the environment (run `rtx install` in the root directory). You will still need to install Postgres and Meili seperately though.
+> Note: you can use a tool like [mise](https://github.com/jdx/mise) or asdf to setup the environment (run `mise install` in the root directory). You will still need to install Postgres and Meili seperately though.
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)

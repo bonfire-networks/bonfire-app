@@ -72,7 +72,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:benchee_html, "~> 1.0", only: [:dev, :test]},
     # for Telemetry store
     {:circular_buffer, "~> 0.4", only: :dev},
-    {:chaperon, "~> 0.3.1", only: [:dev, :test]},
+    # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
     # logging
     {:sentry, "~> 9.0", only: :prod, override: true},

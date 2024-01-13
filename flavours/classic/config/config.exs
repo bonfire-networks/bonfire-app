@@ -61,6 +61,20 @@ config :bonfire, Bonfire.Web.Endpoint,
     # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module
   ]
 
+# Optionally run a 2nd endpoint for testing federation (only used in dev/prod)
+config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
+  server: true,
+  url: [
+    host: "localhost",
+    port: 4002
+  ],
+  http: [
+    port: 4002
+  ],
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  live_view: [signing_salt: System.get_env("SIGNING_SALT")],
+  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
+
 config :bonfire, :markdown_library, MDEx
 
 config :phoenix, :json_library, Jason

@@ -539,6 +539,9 @@ test-federation-dance-positions:
 test-federation-live-DRAGONS *args='':
 	FEDERATE=yes START_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test --only live_federation $@
 
+load_testing:
+	TEST_INSTANCE=yes just mix bonfire.load_testing
+
 # dev-test-watch: init ## Run tests
 # 	docker compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 

@@ -44,20 +44,6 @@ config :bonfire, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-# Optionally run a 2nd endpoint for testing federation
-config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
-  server: true,
-  url: [
-    host: "localhost",
-    port: 4002
-  ],
-  http: [
-    port: 4002
-  ],
-  secret_key_base: System.get_env("SECRET_KEY_BASE"),
-  live_view: [signing_salt: System.get_env("SIGNING_SALT")],
-  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
-
 test_instance? = System.get_env("TEST_INSTANCE") == "yes"
 federate? = test_instance? or System.get_env("FEDERATE") == "yes"
 
