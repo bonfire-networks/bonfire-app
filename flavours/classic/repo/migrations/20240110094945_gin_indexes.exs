@@ -10,12 +10,19 @@ defmodule Bonfire.Repo.Migrations.GinIndexes do
   def up do
     execute "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
 
+    create_index("bonfire_data_social_named", "name")
     create_index("bonfire_data_identity_character", "username")
-    create_index("bonfire_data_social_profile", "name")
+
+    # create_index("bonfire_data_social_profile", "name")
+    create_index_fields(
+      "bonfire_data_social_profile",
+      "name gin_trgm_ops, summary gin_trgm_ops"
+    )
 
     create_index_fields(
       "bonfire_data_social_post_content",
-      "name gin_trgm_ops, summary gin_trgm_ops, html_body gin_trgm_ops"
+      # "name gin_trgm_ops, summary gin_trgm_ops, html_body gin_trgm_ops"
+      "name gin_trgm_ops, summary gin_trgm_ops"
     )
   end
 
@@ -28,6 +35,10 @@ defmodule Bonfire.Repo.Migrations.GinIndexes do
   end
 
   def create_index_fields(table, fields) do
+    execute """
+      DROP INDEX IF EXISTS #{table}_gin_index;
+    """
+
     execute """
       CREATE INDEX CONCURRENTLY #{table}_gin_index 
         ON #{table} 
