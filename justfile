@@ -46,6 +46,7 @@ CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 PUBLIC_PORT := env_var_or_default('PUBLIC_PORT', '4000')
+TUNNEL_SUBDOMAIN := env_var_or_default('TUNNEL_SUBDOMAIN', 'bonfire-test')
 
 PROXY_CADDYFILE_PATH := if PUBLIC_PORT == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }
 
@@ -830,10 +831,13 @@ nix-db-init: (nix-db "start")
 sys-deps-debian:
   ./deps-debian.sh
 
-local-tunnel-hostname:
-	echo "bonfire-test.tunnelto.dev"
-# run this in seperate terminal to start the above tunnel:
-# tunnelto --subdomain bonfire-test --port 4000
-# FIXME in case tunnel.pyjam.as comes back up:
+# to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
+# and run this in seperate terminal to start the above tunnel: `just tunnel-start`
+@tunnel-start:
+	echo "Opening tunnel on ${TUNNEL_SUBDOMAIN}.tunnelto.dev"
+	tunnelto --subdomain $TUNNEL_SUBDOMAIN --port 4000
+@local-tunnel-hostname:
+	echo "${TUNNEL_SUBDOMAIN}.tunnelto.dev"
+# alternatively FIXME in case tunnel.pyjam.as comes back up:
 # command -v wg-quick &> /dev/null || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
 # ([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/{{PUBLIC_PORT}} > tunnel.conf) && (wg-quick up ./tunnel.conf || cat tunnel.conf) | pcregrep -o1 'https:\/\/([^/]+)'
