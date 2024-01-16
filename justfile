@@ -315,13 +315,13 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 	find $path -mindepth $mindepth -maxdepth $maxdepth -type d -exec ./git-publish.sh {} $cmd \;
 
 # Fetch locked version of non-forked deps
-deps-get *args='':
+@deps-get *args='':
 	just mix deps.get $@
 	-just mix-remote deps.get $@ || echo "Oops, could not download mix deps"
 	just deps-post-get
 	just js-deps-get
 
-deps-post-get:
+@deps-post-get:
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
 	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
 	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
@@ -719,7 +719,7 @@ dc *args='':
 	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && docker compose up -d $services) || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
-build: init
+@build: init
 	mkdir -p deps
 	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix setup" } }}
 	{{ if WITH_DOCKER == "total" { "export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE=${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION} && docker compose build" } else { "echo ." } }}
