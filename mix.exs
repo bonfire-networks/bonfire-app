@@ -122,15 +122,20 @@ defmodule Bonfire.Umbrella.MixProject do
         "ecto_sparkles",
         "absinthe_client",
         "activity_pub",
+        "http_signatures",
         "arrows",
         "ecto_materialized_path",
         "exto",
+        "untangle",
         "grumble",
         "linkify",
         "verbs",
         "voodoo",
         "waffle",
-        "zest"
+        # "zest",
+        "iconify",
+        "fetch_favicon",
+        "paper_trail"
       ],
       test: [
         "bonfire",
