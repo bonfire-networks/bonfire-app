@@ -117,7 +117,8 @@ config:
 	mkdir -p priv/static/public
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 
-init: pre-init services
+init services="db": pre-init 
+	@just services $services
 	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 #### COMMON COMMANDS ####
@@ -143,24 +144,37 @@ prepare-prod:
 
 # Run the app in development
 @dev *args='':
-	MIX_ENV=dev just dev-run {{args}}
+	MIX_ENV=dev just dev-run "db" {{args}}
 
 @dev-extra:
 	iex --sname extra --remsh localenv
 
-dev-run *args='': init
+dev-run services="db" *args='': 
+	@just init $services
 	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --sname localenv -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
 @dev-remote: init
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
-dev-proxied: docker-stop-web
-	docker compose --profile proxy up -d
+dev-search: 
+	just dev-run search
+
+dev-graph:
+	just dev-run graph
+
+dev-proxy: 
+	just dev-profile proxy
+
+dev-proxy-iex:
+	just dev-profile-iex proxy
+
+dev-profile profile: docker-stop-web
+	docker compose --profile $profile up -d
 	docker logs bonfire_web -f
 
-dev-proxied-iex:
-	docker compose --profile proxy exec web iex --sname extra --remsh localenv
+dev-profile-iex profile:
+	docker compose --profile $profile exec web iex --sname extra --remsh localenv
 
 dev-federate:
 	FEDERATE=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
@@ -641,12 +655,14 @@ rel-push-only-alt build label='latest':
 	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
-rel-run: rel-init docker-stop-web rel-services
+rel-run services="db proxy": rel-init docker-stop-web 
+	just rel-services $services
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
-rel-run-bg: rel-init docker-stop-web
+rel-run-bg services="db proxy": rel-init docker-stop-web
+	just rel-services $services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
 
 # Stop the running release
@@ -665,25 +681,30 @@ rel-down: rel-stop
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-rel-shell: rel-init docker-stop-web rel-services
+rel-shell services="db proxy": rel-init docker-stop-web 
+	just rel-services $services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
-rel-shell-bg: rel-init rel-services
+rel-shell-bg services="db proxy": rel-init 
+	just rel-services $services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
-rel-db-shell-bg: rel-init rel-services
+rel-db-shell-bg: rel-init 
+	just rel-services db
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
 
-rel-db-dump: rel-init rel-services
+rel-db-dump: rel-init 
+	just rel-services db
 	docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
 
-rel-db-restore: rel-init rel-services
+rel-db-restore: rel-init 
+	just rel-services db
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
-rel-services:
-	{{ if WITH_DOCKER != "no" { "docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d db search" } else {""} }}
+rel-services services="db":
+	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d $services" } else {""} }}
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
@@ -691,11 +712,11 @@ dc *args='':
 	docker compose $@
 
 # Start background docker services (eg. db and search backends).
-@services:
-	{{ if MIX_ENV == "prod" { "just rel-services" } else { "just dev-services" } }}
+@services services="db":
+	{{ if MIX_ENV == "prod" { "just rel-services $services" } else { "just dev-services $services" } }}
 
-@dev-services:
-	{{ if WITH_DOCKER != "no" { "docker compose up -d db search graph || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+@dev-services services="db":
+	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && docker compose up -d $services) || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
 build: init

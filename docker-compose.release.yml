@@ -25,6 +25,8 @@ services:
         source: ./data/uploads
         target: /opt/app/data/uploads
   proxy:
+    profiles:
+      - proxy
     image: "caddy:alpine"
     restart: always
     ports:
@@ -53,6 +55,8 @@ services:
     env_file:
       - config/prod/.env
   search:
+    profiles:
+      - search
     image: getmeili/meilisearch:latest
     # ports:
       # - "7700:7700"

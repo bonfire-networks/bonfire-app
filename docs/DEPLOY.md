@@ -149,6 +149,8 @@ The backend should now be running at [http://localhost:4000/](http://localhost:4
 just rel-run-bg
 ```
 
+(Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index.)
+
 #### Docker-related handy commands
 
 - `just update` to update to the latest release of Bonfire 
