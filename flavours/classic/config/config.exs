@@ -11,6 +11,8 @@ env = config_env()
 # other config files.
 repo = Bonfire.Common.Repo
 
+import_config "config_basics.exs"
+
 config :bonfire,
   otp_app: :bonfire,
   umbrella_otp_app: :bonfire_umbrella,
@@ -85,9 +87,6 @@ config :bonfire, ecto_repos: repos
 config :bonfire_umbrella, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos
-config :ecto_sparkles, :otp_app, :bonfire
-config :ecto_sparkles, :env, env
-config :ecto_sparkles, :umbrella_otp_app, :bonfire_umbrella
 config :rauversion_extension, :repo_module, repo
 config :activity_pub, :repo, repo
 config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint

@@ -87,6 +87,9 @@ COPY lib lib
 # COPY assets assets
 # RUN ls -la assets/static
 
+# workaround for compilation error
+RUN MIX_ENV=prod mix deps.clean needle_ulid --build
+
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
 
