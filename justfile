@@ -600,6 +600,7 @@ rel-build USE_EXT="local" ARGS="":
 
 # Build the OTP release
 rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare
+	just rel-mix {{ USE_EXT }} compile 
 	yarn -v || npm install --global yarn
 	-rm -rf priv/static
 	cd ./assets && yarn && yarn build && cd ..
