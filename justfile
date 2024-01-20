@@ -601,9 +601,8 @@ rel-build USE_EXT="local" ARGS="":
 # Build the OTP release
 rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare
 	yarn -v || npm install --global yarn
-	npm install --global esbuild postcss
 	-rm -rf priv/static
-	cd ./assets && yarn build && cd ..
+	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest
 	just rel-mix {{ USE_EXT }} release
 # just rel-mix {{ USE_EXT }} compile
