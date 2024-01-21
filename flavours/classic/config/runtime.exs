@@ -159,22 +159,22 @@ config :bonfire_umbrella, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos
 
-config :bonfire, Bonfire.Common.Repo, repo_connection_config
-config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
+config :bonfire_umbrella, Bonfire.Common.Repo, repo_connection_config
+config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, repo_connection_config
 config :beacon, Beacon.Repo, repo_connection_config
 
-config :bonfire, Bonfire.Common.Repo, database: database
+config :bonfire_umbrella, Bonfire.Common.Repo, database: database
 config :beacon, Beacon.Repo, database: database
 config :paginator, Paginator.Repo, database: database
 
-config :bonfire, Bonfire.Common.Repo, pool_size: pool_size
-config :bonfire, Bonfire.Common.TestInstanceRepo, pool_size: pool_size
+config :bonfire_umbrella, Bonfire.Common.Repo, pool_size: pool_size
+config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, pool_size: pool_size
 config :beacon, Beacon.Repo, pool_size: pool_size
 config :paginator, Paginator.Repo, pool_size: pool_size
 
 repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
-config :bonfire, Bonfire.Common.Repo, priv: repo_path
-config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
+config :bonfire_umbrella, Bonfire.Common.Repo, priv: repo_path
+config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, priv: repo_path
 
 config :bonfire, Oban,
   repo: Bonfire.Common.Repo,
@@ -284,7 +284,7 @@ end
 
 # start prod-only config
 if config_env() == :prod do
-  config :bonfire, Bonfire.Common.Repo,
+  config :bonfire_umbrella, Bonfire.Common.Repo,
     # ssl: true,
     # database: System.get_env("POSTGRES_DB", "bonfire"),
     # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
@@ -295,7 +295,7 @@ end
 
 # start prod and dev only config
 if config_env() != :test do
-  config :bonfire, Bonfire.Common.Repo,
+  config :bonfire_umbrella, Bonfire.Common.Repo,
     slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
     # The timeout for establishing new connections (default: 5000)
     connect_timeout: String.to_integer(System.get_env("DB_CONNECT_TIMEOUT", "10000")),

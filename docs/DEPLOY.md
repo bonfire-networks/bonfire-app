@@ -406,7 +406,7 @@ The common and convenient way for adding HTTPS is by using a reverse proxy like 
 
 Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
 
-If you've built from source, you should point the nginx root directory to be `_build/prod/rel/bonfire/lib/bonfire-0.1.0-*/priv/static`
+If you've built from source, you should point the nginx root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
 
 
 ## Admin tools

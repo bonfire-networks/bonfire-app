@@ -98,9 +98,9 @@ config :rauversion_extension, :default_layout_module, Bonfire.UI.Common.LayoutVi
 config :rauversion_extension, :user_table, "pointers_pointer"
 config :rauversion_extension, :user_key_type, :uuid
 
-config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
+config :bonfire_umbrella, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
 
-config :bonfire, Bonfire.Common.TestInstanceRepo,
+config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo,
   types: Bonfire.Geolocate.PostgresTypes,
   database: "bonfire_test_instance"
 

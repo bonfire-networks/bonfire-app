@@ -21,7 +21,7 @@ config :activity_pub, sign_object_fetches: federate?
 
 # config :pseudo_gettext, :locale, "en-pseudo_text" # uncomment to use https://en.wikipedia.org/wiki/Pseudolocalization and check that the app is properly localisable
 
-config :bonfire, Bonfire.Common.Repo,
+config :bonfire_umbrella, Bonfire.Common.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
   # show_sensitive_data_on_connection_error: true,
   # EctoSparkles does the logging instead
