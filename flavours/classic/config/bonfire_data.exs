@@ -265,9 +265,28 @@ common_assocs = %{
 
   # Settings data
   settings: quote(do: has_one(:settings, unquote(Settings), foreign_key: :id)),
+
+  # FIXME: use the object or edge/activity here?
   seen: quote(do: has_one(:seen, unquote(Edge), unquote(mixin_updatable))),
   object_seen: quote(do: has_one(:seen, unquote(Edge), foreign_key: :object_id, references: :id)),
-  # FIXME: use the object or edge/activity here?
+  labelled:
+    quote(
+      do:
+        has_one(:labelled, unquote(Edge),
+          foreign_key: :id,
+          references: :id,
+          where: [table_id: "71ABE1SADDED0NT0S0METH1NGS"]
+        )
+    ),
+  object_labelled:
+    quote(
+      do:
+        has_one(:labelled, unquote(Edge),
+          foreign_key: :object_id,
+          references: :id,
+          where: [table_id: "71ABE1SADDED0NT0S0METH1NGS"]
+        )
+    ),
 
   # Adds extra info that can appear in the user interface for an object. e.g. a summary or JSON-encoded data.
   extra_info: quote(do: has_one(:extra_info, unquote(ExtraInfo), unquote(mixin_updatable))),
@@ -397,12 +416,15 @@ edge =
     :activity,
     :activities,
     :request,
-    :object_media,
+    :post_content,
+    :media,
+    # :object_media,
     :object_created,
     :object_caretaker,
     :object_replied,
     :object_tree,
     :object_sensitive,
+    :object_labelled,
     :object_seen,
     :object_controlled,
     :object_tags
@@ -437,6 +459,8 @@ pointer_mixins =
     :edge,
     :named,
     :sensitive,
+    :seen,
+    :labelled,
     :extra_info,
     :peered,
     :post_content,
@@ -749,6 +773,7 @@ config :bonfire_data_social, Activity,
             :object_replied,
             :object_tree,
             :object_sensitive,
+            :object_labelled,
             :object_seen,
             :object_controlled,
             :object_tags
@@ -939,6 +964,7 @@ config :bonfire_data_social, Post,
            :tree,
            :like_count,
            :boost_count,
+           :labelled,
            :sensitive
          ])
        )
