@@ -119,7 +119,7 @@ More details at https://bonfirenetworks.org",
   #   post: Bonfire.UI.Social.WritePostContentLive,
   #   message: Bonfire.UI.Social.WritePostContentLive,
   #   category: Bonfire.Classify.Web.NewCategoryLive,
-  #   label: Bonfire.Classify.Web.NewLabelLive,
+  #   label: Bonfire.Label.Web.NewLabelLive,
   #   page: Bonfire.Pages.Web.CreatePageLive,
   #   section: Bonfire.Pages.Web.EditSectionLive
   # ],

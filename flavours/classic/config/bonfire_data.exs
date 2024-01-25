@@ -849,6 +849,12 @@ config :bonfire_data_social, Boost,
        (unquote_splicing(edges))
      end)
 
+config :bonfire_label, Bonfire.Label,
+  code:
+    (quote do
+       (unquote_splicing(edges))
+     end)
+
 # has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
 
 config :bonfire_data_social, Like,
