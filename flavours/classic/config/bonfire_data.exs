@@ -852,7 +852,15 @@ config :bonfire_data_social, Boost,
 config :bonfire_label, Bonfire.Label,
   code:
     (quote do
-       (unquote_splicing(edges))
+       unquote_splicing(edges)
+
+       unquote_splicing(
+         common.([
+           #  :created,
+           :media,
+           :post_content
+         ])
+       )
      end)
 
 # has_one:  [activity: {Activity, foreign_key: :object_id, references: :boosted_id}] # requires an ON clause
