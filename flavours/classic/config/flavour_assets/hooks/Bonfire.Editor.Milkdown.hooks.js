@@ -370,7 +370,7 @@ const createEditor = async (_this, hidden_input, composer$) => {
     referenceElement: trigger,
     triggerElement: trigger,
     emojiSize: '1.75rem',
-    className: 'z-[9999]',
+    className: 'z-[99999999999999999999]',
   });
   
 
