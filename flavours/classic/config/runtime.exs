@@ -106,9 +106,10 @@ config :bonfire, Bonfire.Web.Endpoint,
       do: [
         port: server_port,
         # only bind the app to localhost when serving behind a proxy
-        http: if(public_port != server_port, do: [ip: {127, 0, 0, 1}]),
+        # ip: (if public_port != server_port, do: {127, 0, 0, 1}),
         transport_options: [max_connections: 16_384, socket_opts: [:inet6]]
       ],
+      #  bandit
       else: [
         port: server_port
       ]

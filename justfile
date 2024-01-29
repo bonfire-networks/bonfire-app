@@ -115,6 +115,7 @@ config:
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	mkdir -p priv/static/public
+	# ulimit -n 524288
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 
 init services="db": pre-init 
@@ -177,7 +178,7 @@ dev-profile-iex profile:
 	docker compose --profile $profile exec web iex --sname extra --remsh localenv
 
 dev-federate:
-	FEDERATE=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
+	FEDERATE=yes HOT_CODE_RELOAD=-1 HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web
 	docker compose $args run --name $WEB_CONTAINER --service-ports web
@@ -855,11 +856,18 @@ sys-deps-debian:
 # to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
 # and run this in seperate terminal to start the above tunnel: `just tunnel-start`
 # this requires `cargo install tunnelto` (the homebrew version of tunnelto doesn't work)
-@tunnel-start:
+@tunnel-start-tunnelto:
 	echo "Opening tunnel on ${TUNNEL_SUBDOMAIN}.tunnelto.dev"
 	tunnelto --subdomain $TUNNEL_SUBDOMAIN --port 4000
+
 @local-tunnel-hostname:
 	echo "${TUNNEL_SUBDOMAIN}.tunnelto.dev"
-# alternatively FIXME in case tunnel.pyjam.as comes back up:
-# command -v wg-quick &> /dev/null || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
-# ([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/{{PUBLIC_PORT}} > tunnel.conf) && (wg-quick up ./tunnel.conf || cat tunnel.conf) | pcregrep -o1 'https:\/\/([^/]+)'
+# 	just tunnel-pyjamas
+
+@tunnel-pyjamas:
+	command -v wg-quick &> /dev/null || exit "You need to install Wireguard to run the tunnel/proxy. E.g. with: brew install wireguard-tools"
+	([ -f tunnel.conf ] || curl https://tunnel.pyjam.as/{{PUBLIC_PORT}} > tunnel.conf) && (wg-quick up ./tunnel.conf || cat tunnel.conf) | pcregrep -o1 'https:\/\/([^/]+)'
+
+@tunnel-pyjamas-down:
+	wg-quick down ./tunnel.conf
+

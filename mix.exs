@@ -311,6 +311,13 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # def application, do: Bonfire.Spark.MixProject.application()
 
+  def cli do
+    [
+      default_task: "phx.server"
+      # preferred_envs: [docs: :docs]
+    ]
+  end
+
   defp aliases do
     [
       "hex.setup": ["local.hex --force"],

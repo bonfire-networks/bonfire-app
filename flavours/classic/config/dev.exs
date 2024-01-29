@@ -42,17 +42,25 @@ local_deps =
 # else: []
 
 use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
+max_requests = 1
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
   debug_errors: false,
   check_origin: false,
-  http: if(use_cowboy?, do: [protocol_options: [idle_timeout: 120_000]], else: [])
+  http:
+    if(use_cowboy?,
+      do: [protocol_options: [idle_timeout: 120_000]],
+      else: [
+        http_1_options: [max_requests: max_requests],
+        http_1_options: [max_requests: max_requests]
+      ]
+    )
 
-enable_code_reloading = System.get_env("HOT_CODE_RELOAD") != "0"
+if System.get_env("HOT_CODE_RELOAD") != "-1" do
+  config :bonfire, :hot_code_reload, System.get_env("HOT_CODE_RELOAD") != "0"
 
-if enable_code_reloading do
   local_dep_names = Enum.map(local_deps, &elem(&1, 0))
 
   dep_paths =
@@ -115,6 +123,8 @@ if enable_code_reloading do
       ]
     ]
 end
+
+#  code reloading
 
 config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
 
