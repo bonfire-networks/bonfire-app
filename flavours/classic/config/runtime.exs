@@ -70,6 +70,8 @@ encryption_salt =
     environment variable ENCRYPTION_SALT is missing.
     """
 
+cute_gifs_dir = System.get_env("CUTE_GIFS_DIR", "data/uploads/cute-gifs/")
+
 config :bonfire,
   # how many nested replies to show
   thread_default_max_depth: 7,
@@ -82,7 +84,11 @@ config :bonfire,
   show_debug_errors_in_dev: System.get_env("SHOW_DEBUG_IN_DEV"),
   encryption_salt: encryption_salt,
   signing_salt: signing_salt,
-  root_path: File.cwd!()
+  root_path: File.cwd!(),
+  cute_gifs: [
+    num: length(Path.wildcard(cute_gifs_dir <> "*.gif")),
+    dir: cute_gifs_dir
+  ]
 
 use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
 

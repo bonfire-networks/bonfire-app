@@ -178,7 +178,7 @@ dev-profile-iex profile:
 	docker compose --profile $profile exec web iex --sname extra --remsh localenv
 
 dev-federate:
-	FEDERATE=yes HOT_CODE_RELOAD=-1 HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
+	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web
 	docker compose $args run --name $WEB_CONTAINER --service-ports web
