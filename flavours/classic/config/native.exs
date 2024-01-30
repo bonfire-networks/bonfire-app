@@ -4,6 +4,7 @@ import Config
 
 # Use LiveView Native to add support for native platforms
 config :live_view_native,
+  modularity: if(System.get_env("NATIVE_ENABLED") not in ["1", "true"], do: :disabled),
   plugins: [
     LiveViewNative.SwiftUI
     # LiveViewNative.Jetpack
