@@ -1,4 +1,4 @@
-defmodule Bonfire.Repo.Migrations.ClassifyAddTree  do
+defmodule Bonfire.Repo.Migrations.ClassifyAddTree do
   @moduledoc false
   use Ecto.Migration
   require Bonfire.Classify.Tree.Migration

@@ -1,4 +1,4 @@
-defmodule Bonfire.Repo.Migrations.ClassifyAddType  do
+defmodule Bonfire.Repo.Migrations.ClassifyAddType do
   @moduledoc false
   use Ecto.Migration
 
