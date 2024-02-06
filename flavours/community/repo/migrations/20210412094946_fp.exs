@@ -1,4 +1,4 @@
-defmodule Bonfire.Repo.Migrations.FP do
+defmodule Bonfire.Social.Repo.Migrations.FeedPublish do
   @moduledoc false
   use Ecto.Migration
 

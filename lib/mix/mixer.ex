@@ -1,5 +1,9 @@
 if not Code.ensure_loaded?(Bonfire.Mixer) do
   defmodule Bonfire.Mixer do
+    def deps_for(type, config \\ mix_config()) do
+      deps(config, type)
+    end
+
     def deps(config, deps_subtype, extensions \\ [])
 
     def deps(config, :bonfire, extensions) do
@@ -88,7 +92,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do: Mix.Task.run("bonfire.dep.compile", ["--force"] ++ List.wrap(deps))
 
     # def flavour_path(path) when is_binary(path), do: path
-    def flavour_path(config),
+    def flavour_path(config \\ mix_config()),
       do: System.get_env("FLAVOUR_PATH", "flavours/" <> flavour(config))
 
     def flavour(config \\ mix_config())
@@ -295,16 +299,20 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def dep_name(dep) when is_atom(dep), do: Atom.to_string(dep)
     def dep_name(dep) when is_binary(dep), do: dep
 
-    def dep_path(dep) when is_binary(dep) do
+    def dep_path(dep, force? \\ false)
+
+    def dep_path(dep, force?) when is_binary(dep) do
       path_if_exists(forks_path() <> dep) ||
-        path_if_exists(
-          (Mix.Project.deps_path() <> "/" <> dep)
-          |> Path.expand(File.cwd!())
-        ) ||
-        "."
+        (
+          path =
+            (Mix.Project.deps_path() <> "/" <> dep)
+            |> Path.expand(File.cwd!())
+
+          if force?, do: path, else: path_if_exists(path) || "."
+        )
     end
 
-    def dep_path(dep) do
+    def dep_path(dep, force?) do
       spec = elem(dep, 1)
 
       path =
@@ -314,16 +322,19 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
             (Mix.Project.deps_path() <> "/" <> dep_name(dep))
             |> Path.relative_to_cwd()
 
-      path_if_exists(path)
+      if force?, do: path, else: path_if_exists(path)
     end
 
     defp path_if_exists(path), do: if(File.exists?(path), do: path)
+
+    def dep_paths(deps, extra) when is_list(deps),
+      do: Enum.flat_map(deps, &dep_paths(&1, extra))
 
     def dep_paths(dep, extra) when is_list(extra),
       do: Enum.flat_map(extra, &dep_paths(dep, &1))
 
     def dep_paths(dep, extra) when is_binary(extra) do
-      dep_path = dep_path(dep)
+      dep_path = dep_path(dep, true)
 
       if dep_path do
         path = Path.join(dep_path, extra) |> path_if_exists()

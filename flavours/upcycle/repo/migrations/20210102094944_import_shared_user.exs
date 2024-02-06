@@ -1,4 +1,4 @@
-defmodule Bonfire.Repo.Migrations.ImportSharedUser do
+defmodule Bonfire.Data.SharedUser.ImportSharedUser do
   @moduledoc false
   use Ecto.Migration
 

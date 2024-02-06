@@ -66,16 +66,41 @@ help:
 	@echo "Just commands for Bonfire:"
 	@just --list
 
-@pre-setup-env flavour='classic':
-	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
-	mkdir -p ./flavours/$flavour/config/prod/
-	mkdir -p ./flavours/$flavour/config/dev/
-	test -f ./flavours/$flavour/config/$ENV_ENV/.env || (cd flavours/$flavour/config && cat ./templates/public.env ./templates/not_secret.env > ./$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> ./$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> ./$ENV_ENV/.env)
-	-rm .env
-	ln -sf ./config/$ENV_ENV/.env ./.env
+
+# Initialise env files, and create some required folders, files and softlinks
+config:
+	@just flavour $FLAVOUR
+
+# Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
+@flavour select_flavour:
+	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
+	just pre-config $select_flavour
+	just pre-setup-env $select_flavour
+	printf "\nNow make sure to finish the flavour setup with 'just setup'. You can also edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
+
+setup:
+	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
+
+init services="db": pre-init 
+	@just services $services
+	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
+
+@config-basic select_flavour=FLAVOUR:
+	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
+	just pre-config $select_flavour
+	just setup
+	echo "Setup done."
+
+@pre-config select_flavour=FLAVOUR:
+	rm -rf ./priv/repo/*
+	-rm ./config/deps.flavour.* 2> /dev/null
+	-rm ./config/flavour_* 2> /dev/null
+	just pre-setup $select_flavour
 
 @pre-setup flavour='classic':
 	mkdir -p config
+	mkdir -p ./flavours/$flavour/config/prod/
+	mkdir -p ./flavours/$flavour/config/dev/
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	mkdir -p data
@@ -86,41 +111,24 @@ help:
 	mkdir -p forks/
 	chmod 700 .erlang.cookie
 
-# Initialise env files, and create some required folders, files and softlinks
-config:
-	@just flavour $FLAVOUR
+@pre-setup-env flavour='classic':
+	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
+	test -f ./flavours/$flavour/config/$ENV_ENV/.env || just pre-setup-env-init flavours/$flavour/config flavours/$flavour/config || just pre-setup-env-init flavours/classic/config flavours/$flavour/config
+	-rm .env
+	ln -sf ./config/$ENV_ENV/.env ./.env
 
-# Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
-@flavour select_flavour:
-	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
-	-rm ./config/deps.flavour.* 2> /dev/null
-	-rm ./config/flavour_* 2> /dev/null
-	just pre-setup $select_flavour
-	just pre-setup-env $select_flavour
-	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
-	echo "You can now edit your config for flavour '$select_flavour' in /.env and ./config/ more generally."
-
-@config-basic select_flavour=FLAVOUR:
-	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
-	-rm ./config/deps.flavour.* 2> /dev/null
-	-rm ./config/flavour_* 2> /dev/null
-	just pre-setup $select_flavour
-	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
-	echo "Setup done."
+@pre-setup-env-init from to:
+	cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> {{to}}/$ENV_ENV/.env
 
 @pre-init: assets-ln
-	rm -rf ./priv/repo
 	mkdir -p data
-	cp -rn $FLAVOUR_PATH/repo ./priv/repo
+	cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	mkdir -p priv/static/public
 	# ulimit -n 524288
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 
-init services="db": pre-init 
-	@just services $services
-	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 #### COMMON COMMANDS ####
 
@@ -130,6 +138,10 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	just deps-get
+	just db-migrations-copy
+
+db-migrations-copy:
+	just mix bonfire.extension.copy_migrations --force
 
 setup-prod:
 	just build
@@ -202,7 +214,7 @@ arch:
 
 # Compile the app + extensions
 compile *args='':
-	just mix bonfire.deps.compile $args
+	just mix bonfire.extension.compile $args
 	just mix compile $args
 
 # Force the app + extensions to recompile
@@ -722,7 +734,7 @@ dc *args='':
 # Build the docker image
 @build: init
 	mkdir -p deps
-	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix setup" } }}
+	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix hex_setup" } }}
 	{{ if WITH_DOCKER == "total" { "export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE=${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION} && docker compose build" } else { "echo ." } }}
 
 # Build the docker image

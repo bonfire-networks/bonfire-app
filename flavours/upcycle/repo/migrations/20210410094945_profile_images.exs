@@ -1,4 +1,4 @@
-defmodule Bonfire.Social.Repo.Migrations.ProfileImages do
+defmodule Bonfire.UI.Me.Repo.Migrations.ProfileImages do
   @moduledoc false
   use Ecto.Migration
 

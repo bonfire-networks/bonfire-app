@@ -322,7 +322,7 @@ defmodule Bonfire.Umbrella.MixProject do
     [
       "hex.setup": ["local.hex --force"],
       "rebar.setup": ["local.rebar --force"],
-      setup: [
+      hex_setup: [
         "hex.setup",
         "rebar.setup"
       ],

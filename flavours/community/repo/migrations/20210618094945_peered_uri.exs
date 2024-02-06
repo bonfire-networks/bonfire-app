@@ -1,4 +1,4 @@
-defmodule Bonfire.Social.Repo.Migrations.PeeredURI do
+defmodule Bonfire.Federate.ActivityPub.Repo.Migrations.PeeredURI do
   @moduledoc false
   use Ecto.Migration
 
