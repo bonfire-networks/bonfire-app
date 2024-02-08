@@ -13,7 +13,7 @@ This project is in the beta stage - you're welcome to try out it out (specifical
 
 ### 🔥 Flavours
 
-This repo includes configurations to run a few main [flavours of Bonfire](https://bonfirenetworks.org/use-bonfire/) you can choose from:
+This repo includes configurations to run a few main [flavours of Bonfire](https://bonfirenetworks.org/apps/) you can choose from:
 * [Classic](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/classic) for basic social networking (beta)
 * [Community](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/community) with groups and topics functionality (alpha)
 * [Open Science](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/open-science) building the next generation of open science platforms (pre-alpha)
