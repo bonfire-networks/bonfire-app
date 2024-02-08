@@ -88,8 +88,7 @@ config :exsync,
 
 # use Ecto sandbox?
 config :bonfire,
-  sql_sandbox:
-    System.get_env("START_SERVER") != "yes" and System.get_env("TEST_INSTANCE") != "yes"
+  sql_sandbox: System.get_env("PHX_SERVER") != "yes" and System.get_env("TEST_INSTANCE") != "yes"
 
 {chromedriver_path, _} = System.cmd("sh", ["-c", "command -v chromedriver"])
 

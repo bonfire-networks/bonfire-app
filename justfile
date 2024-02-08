@@ -222,7 +222,7 @@ recompile *args='':
 	just compile --force $args
 
 dev-test:
-	@MIX_ENV=test START_SERVER=yes just dev-run
+	@MIX_ENV=test PHX_SERVER=yes just dev-run
 
 # Run the app in dev mode, as a background service
 dev-bg: init
@@ -565,7 +565,7 @@ test-federation-dance-positions:
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 test-federation-live-DRAGONS *args='':
-	FEDERATE=yes START_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test --only live_federation $@
+	FEDERATE=yes PHX_SERVER=yes HOSTNAME=$(just local-tunnel-hostname) PUBLIC_PORT=443 just test --only live_federation $@
 
 load_testing:
 	TEST_INSTANCE=yes just mix bonfire.load_testing

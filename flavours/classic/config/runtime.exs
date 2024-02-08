@@ -9,6 +9,10 @@ IO.puts("🔥 Welcome to Bonfire!")
 host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
+test_instance = System.get_env("TEST_INSTANCE")
+
+yes? = ~w(true yes 1)
+no? = ~w(false no 0)
 
 repos =
   if Code.ensure_loaded?(Beacon.Repo),
@@ -16,7 +20,7 @@ repos =
     else: [Bonfire.Common.Repo]
 
 repos =
-  if System.get_env("TEST_INSTANCE") == "yes",
+  if test_instance in yes?,
     do: repos ++ [Bonfire.Common.TestInstanceRepo],
     else: repos
 
@@ -40,14 +44,20 @@ System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") || System.
   and POSTGRES_USER (default: postgres) and POSTGRES_HOST (default: localhost)
   """
 
+maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
+
 repo_connection_config =
   if System.get_env("DATABASE_URL") do
-    [url: System.get_env("DATABASE_URL")]
+    [
+      url: System.get_env("DATABASE_URL"),
+      socket_options: maybe_repo_ipv6
+    ]
   else
     [
       username: System.get_env("POSTGRES_USER", "postgres"),
       password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-      hostname: System.get_env("POSTGRES_HOST", "localhost")
+      hostname: System.get_env("POSTGRES_HOST", "localhost"),
+      socket_options: maybe_repo_ipv6
     ]
   end
 
@@ -90,12 +100,13 @@ config :bonfire,
     dir: cute_gifs_dir
   ]
 
+phx_server = System.get_env("PHX_SERVER")
 use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
 
 config :bonfire, Bonfire.Web.Endpoint,
   server:
-    config_env() != :test or System.get_env("TEST_INSTANCE") == "yes" or
-      System.get_env("START_SERVER") == "yes",
+    phx_server not in no? and
+      (config_env() != :test or test_instance in yes? or phx_server in yes?),
   url: [
     host: host,
     port: public_port
@@ -152,7 +163,7 @@ IO.puts("Note: Starting database connection pool of #{pool_size}")
 database =
   case config_env() do
     :test ->
-      "bonfire_test_#{System.get_env("TEST_INSTANCE")}_#{System.get_env("MIX_TEST_PARTITION")}"
+      "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}"
 
     :dev ->
       System.get_env("POSTGRES_DB", "bonfire_dev")
@@ -227,7 +238,7 @@ case System.get_env("GRAPH_DB_URL") do
       pool_size: pool_size
 end
 
-if (config_env() == :prod or System.get_env("OTEL_ENABLED") == "1") and
+if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
      (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSTEP_API_KEY") ||
         System.get_env("OTEL_HONEYCOMB_API_KEY")) do
   config :opentelemetry_exporter,

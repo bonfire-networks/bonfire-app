@@ -29,7 +29,7 @@ Mix.Task.run("ecto.migrate")
 
 # Ecto.Adapters.SQL.Sandbox.mode(repo(), :manual)
 
-# if System.get_env("START_SERVER") !="yes" do
+# if System.get_env("PHX_SERVER") !="yes" do
 Ecto.Adapters.SQL.Sandbox.mode(repo(), :auto)
 # end
 
