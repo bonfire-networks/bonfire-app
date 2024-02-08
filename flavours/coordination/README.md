@@ -1,4 +1,4 @@
-# Bonfire Cooperation 
+# Bonfire Coordination 
 
 This app is a flavour of [Bonfire](https://bonfirenetworks.org/) and bundles the following extensions:
 
@@ -13,10 +13,8 @@ This app is a flavour of [Bonfire](https://bonfirenetworks.org/) and bundles the
 - [Bonfire.ValueFlows](https://github.com/bonfire-ecosystem/bonfire_valueflows) - economic activities with ValueFlows
 - [Bonfire.API.GraphQL](https://github.com/bonfire-ecosystem/bonfire_api_graphql) - a GraphQL client API
 - [Bonfire.UI.ValueFlows](https://github.com/bonfire-networks/bonfire_ui_valueflows) - reusable frontend components for economic activities 
-- [Bonfire.Geolocate](https://github.com/bonfire-ecosystem/bonfire_geolocate) - places
-- [Bonfire.Quantify](https://github.com/bonfire-ecosystem/bonfire_quantify) - units & measures
-- [Bonfire.ValueFlows.Observe](https://github.com/bonfire-ecosystem/bonfire_valueflows_observe) - observation of economic resources
-- [Bonfire.Breadpub](https://github.com/bonfire-networks/bonfire_breadpub) - needs & offers for mutual aid
+- [Bonfire.UI.Coordination](https://github.com/bonfire-networks/bonfire_ui_coordinatio) - basic coordination UI for projects and communities
+- [Bonfire.UI.Kanban](https://github.com/bonfire-networks/bonfire_ui_kanban) - coordination tools with drag-and-drop card based UI
 
 
 ## More information
