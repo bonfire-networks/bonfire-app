@@ -69,6 +69,8 @@ else
     metadata: [:action, :pid]
 end
 
+config :phoenix_test, :endpoint, Bonfire.Web.Endpoint
+
 config :pbkdf2_elixir, :rounds, 1
 
 config :mix_test_interactive,

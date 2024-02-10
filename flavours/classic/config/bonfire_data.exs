@@ -265,6 +265,14 @@ common_assocs = %{
 
   # Settings data
   settings: quote(do: has_one(:settings, unquote(Settings), foreign_key: :id)),
+  account:
+    quote do
+      has_one(:accounted, unquote(Accounted), foreign_key: :id)
+
+      has_one(:account,
+        through: [:accounted, :account]
+      )
+    end,
 
   # FIXME: use the object or edge/activity here?
   seen: quote(do: has_one(:seen, unquote(Edge), unquote(mixin_updatable))),
@@ -452,6 +460,7 @@ edges =
 pointer_mixins =
   common.([
     :activity,
+    :account,
     :actor,
     :caretaker,
     :character,
@@ -680,17 +689,21 @@ config :bonfire_data_identity, User,
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
        # mixins
        unquote_splicing(
-         common.([:actor, :character, :created, :peered, :profile, :settings, :sensitive, :tags])
+         common.([
+           :account,
+           :actor,
+           :character,
+           :created,
+           :peered,
+           :profile,
+           :settings,
+           :sensitive,
+           :tags
+         ])
        )
 
        has_one(:self, unquote(Self), foreign_key: :id)
        has_one(:shared_user, unquote(Bonfire.Data.SharedUser), foreign_key: :id)
-
-       has_one(:accounted, unquote(Accounted), foreign_key: :id)
-
-       has_one(:account,
-         through: [:accounted, :account]
-       )
 
        has_one(:instance_admin, unquote(InstanceAdmin),
          foreign_key: :user_id,
