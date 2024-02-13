@@ -21,10 +21,11 @@ config :bonfire_search,
 
 ## Other general test config
 
-truncate = case System.get_env("TEST_LOG_TRUNCATE", "1000") do
-  "0" -> :infinity
-  truncate -> String.to_integer(truncate)
-end
+truncate =
+  case System.get_env("TEST_LOG_TRUNCATE", "1000") do
+    "0" -> :infinity
+    truncate -> String.to_integer(truncate)
+  end
 
 config :logger,
   level: String.to_existing_atom(System.get_env("TEST_LOG_LEVEL", "info")),
@@ -36,7 +37,6 @@ if !test_instance? do
   # to supress non-captured logs in tests (eg. in setup_all)
   config :logger, backends: []
 end
-
 
 # Configure your database
 # db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
