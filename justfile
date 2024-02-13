@@ -122,6 +122,7 @@ init services="db": pre-init
 
 @pre-init: assets-ln
 	mkdir -p data
+	mkdir -p ./priv/repo/
 	cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
