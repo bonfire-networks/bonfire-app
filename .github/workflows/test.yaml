@@ -19,6 +19,8 @@ jobs:
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
       CI: true
+      TEST_LOG_TRUNCATE: 340
+      TEST_LOG_LEVEL: error
       SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
@@ -84,8 +86,8 @@ jobs:
       run: mix bonfire.deps.update
     - name: Fetch any differences in nested deps (+ run post-install setup)
       run: just deps-get && just pre-init
-    - name: Clean-build Bonfire data extensions
-      run: mix bonfire.deps.clean.data
+    # - name: Clean-build Bonfire data extensions
+    #   run: mix bonfire.deps.clean.data
     - name: Compile deps & app
       run: mix compile
     - name: Set up database
