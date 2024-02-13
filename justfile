@@ -139,7 +139,6 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	just deps-get
-	just extension-post-install
 
 extension-post-install:
 	just ext-migrations-copy
@@ -338,7 +337,7 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 	just deps-post-get
 	just js-deps-get
 
-@deps-post-get:
+@deps-post-get: extension-post-install
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
 	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
 	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
