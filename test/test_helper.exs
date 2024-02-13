@@ -2,18 +2,16 @@ import Bonfire.Common.Config, only: [repo: 0]
 
 running_a_second_test_instance? = System.get_env("TEST_INSTANCE") == "yes"
 
+# Start ExUnitSummary application, with recommended config 
+# ExUnitSummary.start(:normal, %ExUnitSummary.Config{
+#   filter_results: :success, 
+#   # filter_results: :failed, 
+#   print_delay: 100
+#   })
+
 ExUnit.configure(
-  formatters: [
-    ExUnit.CLIFormatter,
-    ExUnitNotifier,
-    Bonfire.Common.TestSummary
-    # Bonfire.UI.Kanban.TestDrivenCoordination
-  ]
-)
-
-# Code.put_compiler_option(:nowarn_unused_vars, true)
-
-ExUnit.start(
+  # please note that Mneme overrides any custom formatters
+  formatters: Bonfire.Common.RuntimeConfig.test_formatters(),
   #  miliseconds
   timeout: 120_000,
   assert_receive_timeout: 1000,
@@ -22,7 +20,14 @@ ExUnit.start(
   capture_log: !running_a_second_test_instance?
 )
 
-Mneme.start()
+ExUnit.configuration()
+|> IO.inspect()
+
+# Code.put_compiler_option(:nowarn_unused_vars, true)
+
+ExUnit.start()
+
+if System.get_env("TEST_WITH_MNEME") != "no", do: Mneme.start(), else: Mneme.Options.configure([])
 
 Mix.Task.run("ecto.create")
 Mix.Task.run("ecto.migrate")
@@ -63,3 +68,6 @@ if System.get_env("OBSERVE") do
   Mix.ensure_application!(:observer)
   :observer.start()
 end
+
+ExUnit.configuration()
+|> IO.inspect()

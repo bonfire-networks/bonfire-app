@@ -1,5 +1,8 @@
 import Config
 
+test_instance? = System.get_env("TEST_INSTANCE") == "yes"
+federate? = test_instance? or System.get_env("FEDERATE") == "yes"
+
 ## Import or set test configs for extensions
 
 import_config "activity_pub_test.exs"
@@ -19,8 +22,13 @@ config :bonfire_search,
 ## Other general test config
 
 config :logger,
-  level: :debug,
+  level: :error,
   truncate: :infinity
+
+if !test_instance? do
+  # to supress non-captured logs in tests (eg. in setup_all)
+  config :logger, backends: []
+end
 
 config :logger, :console, truncate: :infinity
 
@@ -43,9 +51,6 @@ config :bonfire_umbrella, Bonfire.Common.Repo,
   # log: :info,
   log: false,
   stacktrace: true
-
-test_instance? = System.get_env("TEST_INSTANCE") == "yes"
-federate? = test_instance? or System.get_env("FEDERATE") == "yes"
 
 config :tesla,
   adapter: if(federate?, do: {Tesla.Adapter.Finch, name: Bonfire.Finch}, else: Tesla.Mock)

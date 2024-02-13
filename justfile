@@ -139,9 +139,12 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	just deps-get
-	just db-migrations-copy
+	just extension-post-install
 
-db-migrations-copy:
+extension-post-install:
+	just ext-migrations-copy
+
+ext-migrations-copy:
 	just mix bonfire.extension.copy_migrations --force
 
 setup-prod:

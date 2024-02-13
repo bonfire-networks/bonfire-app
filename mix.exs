@@ -61,6 +61,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:grumble, "~> 0.1.3", only: [:test], override: true},
     {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
     {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
+    {:ex_unit_summary, "~> 0.1.0", only: :test},
     {:ex_unit_notifier, "~> 1.0", only: :test},
     {:wallaby, "~> 0.30", runtime: false, only: :test},
     {:credo, "~> 1.7.0", only: :test, override: true},
