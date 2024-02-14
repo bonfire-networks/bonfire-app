@@ -460,8 +460,9 @@ contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish
 
 # Increment the app version number
 @contrib-app-release-increment:
-	cd lib/mix/ && ln -sf ../../extensions/bonfire/lib/mix/tasks || ln -sf ../../deps/bonfire/lib/mix/tasks
-	cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../../../ $APP_VSN_EXTRA
+	mkdir -p lib/mix
+	cd lib/mix/ && (ln -sf ../../extensions/bonfire_common/lib/mix_tasks tasks || ln -sf ../../deps/bonfire_common/lib/mix_tasks tasks)
+	cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../../ $APP_VSN_EXTRA
 
 contrib-forks-publish: update-forks
 
