@@ -87,9 +87,11 @@ COPY lib lib
 # COPY assets assets
 # RUN ls -la assets/static
 
-# workaround for compilation error
-RUN MIX_ENV=prod mix deps.clean needle_ulid --build
+# workaround for compilation errors
+RUN MIX_ENV=prod mix deps.clean needle_ulid jason poison --build
 
+# compile protocols (attempted fix for 'could not load module Poison.Encoder due to reason :unavailable')
+# RUN MIX_ENV=prod mix compile.protocols
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
 
