@@ -24,7 +24,7 @@ defmodule Bonfire.Umbrella.MixProject do
     {:argon2_elixir, "~> 4.0", only: [:prod]},
 
     ## dev conveniences
-    {:phoenix_live_reload, "~> 1.3", only: :dev},
+    {:phoenix_live_reload, "~> 1.3", only: :dev, override: true},
     #
     # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
     # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
