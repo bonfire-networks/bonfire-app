@@ -30,8 +30,11 @@ RUN mix deps.get --only prod
 # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
 RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix deps.compile ; else echo "Skip" ; fi 
 
-# add git deps (typically Bonfire extensions)
+# add flavour's git deps (typically Bonfire extensions)
 COPY data/current_flavour/config/deps*git ./config/
+
+# add extra deps (specified by the core app)
+RUN cp -rfL deps/bonfire/deps.* ./config/
 
 # fetch them because we need them for the non-configurable paths in config/deps_hooks.js
 RUN mix deps.get --only prod
