@@ -135,18 +135,20 @@ config :bonfire, Bonfire.Web.Endpoint,
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
-if System.get_env("SENTRY_DSN") do
-  IO.puts("NOTE: errors will be reported to Sentry.")
+case System.get_env("SENTRY_DSN", "") do
+  "" ->
+    config :sentry,
+      modularity: :disabled
 
-  config :sentry,
-    dsn: System.get_env("SENTRY_DSN")
+  dsn ->
+    IO.puts("NOTE: errors will be reported to Sentry.")
 
-  if System.get_env("SENTRY_NAME") do
-    config :sentry, server_name: System.get_env("SENTRY_NAME")
-  end
-else
-  config :sentry,
-    modularity: :disabled
+    config :sentry,
+      dsn: dsn
+
+    if System.get_env("SENTRY_NAME") do
+      config :sentry, server_name: System.get_env("SENTRY_NAME")
+    end
 end
 
 pool_size =
