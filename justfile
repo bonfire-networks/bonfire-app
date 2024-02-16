@@ -851,7 +851,7 @@ localise-extract:
 
 @ln-mix-tasks:
 	just mix deps.get
-	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire/lib/mix/tasks")=="true" { "ln -sf ../../extensions/bonfire/lib/mix/tasks" } else {"ln -sf ../../deps/bonfire/lib/mix/tasks"} }}
+	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire_common/lib/mix_tasks")=="true" { "ln -sf ../../extensions/bonfire_common/lib/mix_tasks tasks" } else {"ln -sf ../../deps/bonfire_common/lib/mix_tasks tasks"} }}
 
 @rand:
 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}

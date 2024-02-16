@@ -19,12 +19,6 @@ verbs = [
   "Tag"
 ]
 
-# Choose password hashing backend
-# Note that this corresponds with our dependencies in mix.exs
-hasher = if config_env() in [:dev, :test], do: Pbkdf2, else: Argon2
-
-config :bonfire_data_identity, Bonfire.Data.Identity.Credential, hasher_module: hasher
-
 #### Sentinel Data Services
 
 # Search these apps/extensions for Pointable ecto schema definitions to index
@@ -523,7 +517,7 @@ config :bonfire_data_access_control, Acl,
        field(:grants_count, :integer, virtual: true)
        field(:controlled_count, :integer, virtual: true)
        # mixins
-       unquote_splicing(common.([:caretaker, :named, :extra_info, :stereotyped]))
+       unquote_splicing(common.([:caretaker, :named, :extra_info]))
 
        # multimixins
        # unquote_splicing(common.([:controlled]))
@@ -534,7 +528,7 @@ config :bonfire_data_access_control, Circle,
     (quote do
        field(:encircles_count, :integer, virtual: true)
        # mixins
-       unquote_splicing(common.([:caretaker, :named, :extra_info, :stereotyped]))
+       unquote_splicing(common.([:caretaker, :named, :extra_info]))
        # multimixins
        unquote_splicing(common.([:controlled]))
      end)

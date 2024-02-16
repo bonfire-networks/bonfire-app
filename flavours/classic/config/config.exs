@@ -11,7 +11,16 @@ env = config_env()
 # other config files.
 repo = Bonfire.Common.Repo
 
-import_config "config_basics.exs"
+cond do
+  File.exists?("../extensions/bonfire/config/config.exs") ->
+    import_config "../extensions/bonfire/config/config.exs"
+
+  File.exists?("../deps/bonfire/config/config.exs") ->
+    import_config "../deps/bonfire/config/config.exs"
+
+  true ->
+    import_config "config_basics.exs"
+end
 
 config :bonfire,
   otp_app: :bonfire,
@@ -112,6 +121,10 @@ config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo,
 # disable Tzdata and replace with Tz library
 config :tzdata, :autoupdate, :disabled
 config :elixir, :time_zone_database, Tz.TimeZoneDatabase
+
+config :logger,
+  handle_otp_reports: true,
+  handle_sasl_reports: true
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
