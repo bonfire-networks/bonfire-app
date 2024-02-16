@@ -97,10 +97,11 @@ init services="db": pre-init
 	-rm ./config/flavour_* 2> /dev/null
 	just pre-setup $select_flavour
 
-@pre-setup flavour='classic':
+pre-setup flavour='classic':
 	mkdir -p config
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
+	cd config && (ln -sfn ../extensions/bonfire/deps.* ./ || ln -sfn ../deps/bonfire/deps.* ./)
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	mkdir -p data
