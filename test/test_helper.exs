@@ -63,10 +63,7 @@ Testing shows the presence, not the absence of bugs.
 """)
 
 if System.get_env("OBSERVE") do
-  Mix.ensure_application!(:wx)
-  Mix.ensure_application!(:runtime_tools)
-  Mix.ensure_application!(:observer)
-  :observer.start()
+  Bonfire.Application.observer()
 end
 
 ExUnit.configuration()
