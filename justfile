@@ -383,6 +383,7 @@ deps-unlock-unused:
 
 dep-clean dep:
 	@just mix "deps.clean $dep --build"
+	@just mix "deps.clean bonfire --build"
 
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 dep-clone-local dep repo:
