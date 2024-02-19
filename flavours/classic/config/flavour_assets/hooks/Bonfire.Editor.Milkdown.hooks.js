@@ -330,8 +330,7 @@ const createEditor = async (_this, hidden_input, composer$) => {
     ctx.get(listenerCtx)
     .markdownUpdated((ctx, markdown, prevMarkdown) => {
       const transformedMarkdown = markdown
-      .replace(/!\[(.*?)\]\(.*?\)/g, '$1')
-      .replace(/\[(.*?)\]\(.*?\)/g, '$1');
+      .replace(/!\[(.*?)\]\(.*?\)/g, '$1');
     hidden_input.value = transformedMarkdown;
     console.log(hidden_input.value);
     const inputEvent = new Event('input', { 

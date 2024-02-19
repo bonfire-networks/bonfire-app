@@ -10,6 +10,8 @@ config :bonfire, :ui,
     :bonfire_ui_common,
     :bonfire_ui_social,
     :bonfire_ui_reactions,
-    :bonfire_ui_messages
+    :bonfire_ui_messages,
+    :bonfire_open_science,
+    :bonfire_files
     # :bonfire_ui_search
   ]
