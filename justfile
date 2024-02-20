@@ -113,7 +113,7 @@ pre-setup flavour='classic':
 	chmod 700 .erlang.cookie
 
 ln-spark-deps:
-	cd config && (ln -sfn ../extensions/bonfire/deps.* ./ || ln -sfn ../deps/bonfire/deps.* ./)
+	cd config && (ln -sfn ../extensions/bonfire/deps.* ./ || ln -sfn ../deps/bonfire/deps.* ./) && ls -la ./
 
 @pre-setup-env flavour='classic':
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
