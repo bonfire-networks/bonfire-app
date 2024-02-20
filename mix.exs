@@ -17,6 +17,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
   @extra_deps [
     # {:bonfire, git: "https://github.com/bonfire-networks/bonfire_spark"}, # putting it here breaks Dockerfile.release
+    {:floki, "~> 0.33", override: true}, # needed here for CI
 
     # compilation
     # {:tria, github: "hissssst/tria"},
