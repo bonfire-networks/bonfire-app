@@ -101,7 +101,7 @@ pre-setup flavour='classic':
 	mkdir -p config
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	cd config && (ln -sfn ../extensions/bonfire/deps.* ./ || ln -sfn ../deps/bonfire/deps.* ./)
+	just ln-spark-deps
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	mkdir -p data
@@ -111,6 +111,9 @@ pre-setup flavour='classic':
 	mkdir -p extensions/
 	mkdir -p forks/
 	chmod 700 .erlang.cookie
+
+ln-spark-deps:
+	cd config && (ln -sfn ../extensions/bonfire/deps.* ./ || ln -sfn ../deps/bonfire/deps.* ./)
 
 @pre-setup-env flavour='classic':
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
@@ -139,6 +142,8 @@ setup-dev:
 	just deps-clean-data
 	just deps-clean-api
 	just deps-clean-unused
+	WITH_GIT_DEPS=0 just deps-get
+	just ln-spark-deps
 	just deps-get
 
 extension-post-install:

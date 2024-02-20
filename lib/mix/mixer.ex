@@ -110,7 +110,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def forks_path(), do: System.get_env("FORKS_PATH", "extensions/")
 
     def mess_sources(config_or_flavour) do
-      mess_source_files(System.get_env("WITH_FORKS", "1"))
+      mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
       |> enum_mess_sources(config_or_flavour)
     end
 
@@ -123,10 +123,13 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       |> Enum.map(&enum_mess_sources(&1, config_or_flavour))
     end
 
-    defp mess_source_files("0"),
+    defp mess_source_files("0", "0"),
+      do: [[hex: "deps.flavour.hex"], [hex: "deps.hex"]]
+
+    defp mess_source_files("0", _1),
       do: [[git: "deps.flavour.git", hex: "deps.flavour.hex"], [git: "deps.git", hex: "deps.hex"]]
 
-    defp mess_source_files(_),
+    defp mess_source_files(_1, _1),
       do: [
         [path: "deps.flavour.path", git: "deps.flavour.git", hex: "deps.flavour.hex"],
         [path: "deps.path", git: "deps.git", hex: "deps.hex"]
