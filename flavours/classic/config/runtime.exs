@@ -216,9 +216,20 @@ config :bonfire, Oban,
     # rescue orphaned jobs
     {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
     {Oban.Plugins.Cron,
-     crontab: [
-       {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
-     ]}
+     crontab:
+       [
+         {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
+       ] ++
+         if Bonfire.Common.Extend.extension_enabled?(:bonfire_open_science) do
+           IO.puts(
+             "Open science publications will be fetched for all users at regular intervals."
+           )
+
+           [{"@hourly", Bonfire.OpenScience.APIs}]
+         else
+           IO.puts("Open science extension is not enabled")
+           []
+         end}
   ]
 
 config :activity_pub, Oban,
