@@ -113,7 +113,7 @@ pre-setup flavour='classic':
 	chmod 700 .erlang.cookie
 
 ln-spark-deps:
-	cd config && (ln -sfn ../extensions/bonfire/deps.* ./ || ln -sfn ../deps/bonfire/deps.* ./) && ls -la ./
+	cd config && (find ../extensions/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || find ../deps/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || echo "Could not symlink the bonfire_spark deps") && ls -la ./
 
 @pre-setup-env flavour='classic':
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
