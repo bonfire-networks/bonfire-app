@@ -15,8 +15,9 @@ defmodule Bonfire.Umbrella.MixProject do
 
   if @use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
-  @extra_deps [
-    # {:bonfire, git: "https://github.com/bonfire-networks/bonfire_spark"}, # putting it here breaks Dockerfile.release
+  @main_deps if(System.get_env("WITH_GIT_DEPS")=="0", do: [{:bonfire, git: "https://github.com/bonfire-networks/bonfire_spark"}], else: []) # including it by default breaks Dockerfile.release but not including it like this breaks CI...
+
+  @extra_deps @main_deps ++ [
 
     # compilation
     # {:tria, github: "hissssst/tria"},
