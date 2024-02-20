@@ -595,7 +595,7 @@ rel-init:
 	rm -rf flavours/*/config/*/dev
 	cp -rfL flavours/classic data/current_flavour
 	cp -rfL $FLAVOUR_PATH/* data/current_flavour/
-# cp -rfL extensions/bonfire/deps.* data/current_flavour/config/ || cp -rfL deps/bonfire/deps.* data/current_flavour/config/
+	cp -rfL extensions/bonfire/deps.* data/current_flavour/config/ || cp -rfL deps/bonfire/deps.* data/current_flavour/config/ || echo "Could not copy the deps definitions from the bonfire_spark dep"
 
 # copy current flavour's config, without using symlinks
 @rel-prepare: rel-config-prepare
