@@ -126,10 +126,10 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     defp mess_source_files("0", "0"),
       do: [[hex: "deps.flavour.hex"], [hex: "deps.hex"]]
 
-    defp mess_source_files("0", _1),
+    defp mess_source_files("0", _),
       do: [[git: "deps.flavour.git", hex: "deps.flavour.hex"], [git: "deps.git", hex: "deps.hex"]]
 
-    defp mess_source_files(_1, _1),
+    defp mess_source_files(_, _),
       do: [
         [path: "deps.flavour.path", git: "deps.flavour.git", hex: "deps.flavour.hex"],
         [path: "deps.path", git: "deps.git", hex: "deps.hex"]
