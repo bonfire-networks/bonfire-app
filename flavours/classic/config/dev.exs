@@ -47,7 +47,8 @@ max_requests = 1
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
-  debug_errors: false,
+  #  show special Phoenix error pages instead of custom Bonfire ones?
+  debug_errors: true,
   check_origin: false,
   http:
     if(use_cowboy?,
