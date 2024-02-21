@@ -348,7 +348,7 @@ const createEditor = async (_this, hidden_input, composer$) => {
   })
   // .config(nord)
   .use(commonmark)
-  .use(gfm)
+  // .use(gfm)
   .use(emoji)
   .use(listener)
   .use(mentionSlash)

@@ -15,92 +15,96 @@ defmodule Bonfire.Umbrella.MixProject do
 
   if @use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
-  @main_deps if(System.get_env("WITH_GIT_DEPS")=="0", do: [{:bonfire, git: "https://github.com/bonfire-networks/bonfire_spark"}], else: []) # including it by default breaks Dockerfile.release but not including it like this breaks CI...
+  # including it by default breaks Dockerfile.release but not including it like this breaks CI...
+  @main_deps if(System.get_env("WITH_GIT_DEPS") == "0",
+               do: [{:bonfire, git: "https://github.com/bonfire-networks/bonfire_spark"}],
+               else: []
+             )
 
-  @extra_deps @main_deps ++ [
+  @extra_deps @main_deps ++
+                [
+                  # compilation
+                  # {:tria, github: "hissssst/tria"},
 
-    # compilation
-    # {:tria, github: "hissssst/tria"},
+                  ## password hashing - builtin vs nif
+                  {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
+                  {:argon2_elixir, "~> 4.0", only: [:prod]},
 
-    ## password hashing - builtin vs nif
-    {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
-    {:argon2_elixir, "~> 4.0", only: [:prod]},
+                  ## dev conveniences
+                  {:phoenix_live_reload, "~> 1.3", only: :dev, override: true},
+                  #
+                  # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
+                  # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
+                  {:ex_doc, "~> 0.30.3", only: [:dev, :test], runtime: false},
+                  {:ecto_erd, "~> 0.4", only: :dev},
+                  {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
+                  # {:ecto_dev_logger, "~> 0.7", only: :dev},
+                  # flame graphs in live_dashboard
+                  # {:flame_on, "~> 0.5", only: :dev},
+                  {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
+                  {:periscope, "~> 0.4", only: :dev},
+                  # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
+                  # changelog generation
+                  {:versioce, "~> 2.0.0", only: :dev},
+                  # needed for changelog generation
+                  {:git_cli, "~> 0.3.0", only: :dev},
+                  # {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0" # disabled because exqlite not working in CI
+                  {:recode, "~> 0.4", only: :dev},
+                  # API client needed for changelog generation
+                  {:neuron, "~> 5.0", only: :dev, override: true},
+                  # note: cannot use only: dev
+                  # {:phoenix_profiler, "~> 0.2.0"},
+                  # "~> 0.1.0", path: "forks/one_plus_n_detector",
+                  # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
+                  {:observer_cli, "~> 1.7", only: [:dev, :test]},
 
-    ## dev conveniences
-    {:phoenix_live_reload, "~> 1.3", only: :dev, override: true},
-    #
-    # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
-    # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
-    {:ex_doc, "~> 0.30.3", only: [:dev, :test], runtime: false},
-    {:ecto_erd, "~> 0.4", only: :dev},
-    {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
-    # {:ecto_dev_logger, "~> 0.7", only: :dev},
-    # flame graphs in live_dashboard
-    # {:flame_on, "~> 0.5", only: :dev},
-    {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
-    {:periscope, "~> 0.4", only: :dev},
-    # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
-    # changelog generation
-    {:versioce, "~> 2.0.0", only: :dev},
-    # needed for changelog generation
-    {:git_cli, "~> 0.3.0", only: :dev},
-    # {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0" # disabled because exqlite not working in CI
-    {:recode, "~> 0.4", only: :dev},
-    # API client needed for changelog generation
-    {:neuron, "~> 5.0", only: :dev, override: true},
-    # note: cannot use only: dev
-    # {:phoenix_profiler, "~> 0.2.0"},
-    # "~> 0.1.0", path: "forks/one_plus_n_detector",
-    # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
-    {:observer_cli, "~> 1.7", only: [:dev, :test]},
+                  # tests
+                  # {:floki, ">= 0.0.0", only: [:dev, :test]},
+                  # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
+                  {
+                    :phoenix_test,
+                    # "~> 0.2.4", 
+                    git: "https://github.com/germsvel/phoenix_test", only: :test, runtime: false
+                  },
+                  {:mock, "~> 0.3", only: :test},
+                  {:mox, "~> 1.0", only: :test},
+                  {:ex_machina, "~> 2.7", only: [:dev, :test]},
+                  {:zest, "~> 0.1.0"},
+                  {:grumble, "~> 0.1.3", only: [:test], override: true},
+                  {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
+                  {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
+                  {:ex_unit_summary, "~> 0.1.0", only: :test},
+                  {:ex_unit_notifier, "~> 1.0", only: :test},
+                  {:wallaby, "~> 0.30", runtime: false, only: :test},
+                  {:credo, "~> 1.7.0", only: :test, override: true},
+                  # {:bypass, "~> 2.1", only: :test}, # used in furlex
+                  {:assert_value, ">= 0.0.0", only: [:dev, :test]},
+                  {:mneme, ">= 0.0.0", only: [:dev, :test]},
 
-    # tests
-    # {:floki, ">= 0.0.0", only: [:dev, :test]},
-    # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
-    {
-      :phoenix_test,
-      # "~> 0.2.4", 
-      git: "https://github.com/germsvel/phoenix_test", only: :test, runtime: false
-    },
-    {:mock, "~> 0.3", only: :test},
-    {:mox, "~> 1.0", only: :test},
-    {:ex_machina, "~> 2.7", only: [:dev, :test]},
-    {:zest, "~> 0.1.0"},
-    {:grumble, "~> 0.1.3", only: [:test], override: true},
-    {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
-    {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
-    {:ex_unit_summary, "~> 0.1.0", only: :test},
-    {:ex_unit_notifier, "~> 1.0", only: :test},
-    {:wallaby, "~> 0.30", runtime: false, only: :test},
-    {:credo, "~> 1.7.0", only: :test, override: true},
-    # {:bypass, "~> 2.1", only: :test}, # used in furlex
-    {:assert_value, ">= 0.0.0", only: [:dev, :test]},
-    {:mneme, ">= 0.0.0", only: [:dev, :test]},
+                  # Benchmarking utilities
+                  {:benchee, "~> 1.1", override: true},
+                  {:benchee_html, "~> 1.0", only: [:dev, :test]},
+                  # for Telemetry store
+                  {:circular_buffer, "~> 0.4", only: :dev},
+                  # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
-    # Benchmarking utilities
-    {:benchee, "~> 1.1", override: true},
-    {:benchee_html, "~> 1.0", only: [:dev, :test]},
-    # for Telemetry store
-    {:circular_buffer, "~> 0.4", only: :dev},
-    # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
+                  # logging
+                  {:sentry, "~> 9.0", only: :prod, override: true},
 
-    # logging
-    {:sentry, "~> 9.0", only: :prod, override: true},
+                  # list dependencies & licenses
+                  # {
+                  #   :licensir,
+                  #   only: :dev,
+                  #   runtime: false,
+                  #   git: "https://github.com/bonfire-networks/licensir",
+                  #   branch: "main"
+                  #   # path: "./forks/licensir"
+                  # },
 
-    # list dependencies & licenses
-    # {
-    #   :licensir,
-    #   only: :dev,
-    #   runtime: false,
-    #   git: "https://github.com/bonfire-networks/licensir",
-    #   branch: "main"
-    #   # path: "./forks/licensir"
-    # },
-
-    # security auditing
-    # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
-    {:sobelow, "~> 0.12.1", only: :dev}
-  ]
+                  # security auditing
+                  # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
+                  {:sobelow, "~> 0.12.1", only: :dev}
+                ]
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @default_flavour "classic"
@@ -204,7 +208,7 @@ defmodule Bonfire.Umbrella.MixProject do
         umbrella_root?: @use_local_forks,
         umbrella_path: @umbrella_path
       )
-    |> IO.inspect(limit: :infinity)
+      |> IO.inspect(limit: :infinity)
   ]
 
   def config, do: @config
