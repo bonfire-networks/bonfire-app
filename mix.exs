@@ -204,7 +204,7 @@ defmodule Bonfire.Umbrella.MixProject do
         umbrella_root?: @use_local_forks,
         umbrella_path: @umbrella_path
       )
-    # |> IO.inspect(limit: :infinity)
+    |> IO.inspect(limit: :infinity)
   ]
 
   def config, do: @config
