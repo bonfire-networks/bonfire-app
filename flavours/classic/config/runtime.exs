@@ -132,6 +132,7 @@ config :bonfire, Bonfire.Web.Endpoint,
         port: server_port
       ]
     ),
+  thousand_island: [transport_ports: [hibernate_after: 15_000]],
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
