@@ -336,6 +336,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     defp path_if_exists(path), do: if(File.exists?(path), do: path)
 
+    def dep_paths(deps, extra \\ "/")
+
     def dep_paths(deps, extra) when is_list(deps),
       do: Enum.flat_map(deps, &dep_paths(&1, extra))
 

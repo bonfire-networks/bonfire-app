@@ -35,7 +35,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   #
                   # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
                   # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
-                  {:ex_doc, "~> 0.30.3", only: [:dev, :test], runtime: false},
+                  {:ex_doc, "~> 0.31.1", only: [:dev, :test], runtime: false},
                   {:ecto_erd, "~> 0.4", only: :dev},
                   {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
                   # {:ecto_dev_logger, "~> 0.7", only: :dev},
@@ -72,11 +72,11 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:zest, "~> 0.1.0"},
                   {:grumble, "~> 0.1.3", only: [:test], override: true},
                   {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
-                  {:mix_test_interactive, "~> 1.2", only: :test, runtime: false},
+                  {:mix_test_interactive, "~> 2.0", only: :test, runtime: false},
                   {:ex_unit_summary, "~> 0.1.0", only: :test},
                   {:ex_unit_notifier, "~> 1.0", only: :test},
                   {:wallaby, "~> 0.30", runtime: false, only: :test},
-                  {:credo, "~> 1.7.0", only: :test, override: true},
+                  {:credo, "~> 1.7.5", only: :test, override: true},
                   # {:bypass, "~> 2.1", only: :test}, # used in furlex
                   {:assert_value, ">= 0.0.0", only: [:dev, :test]},
                   {:mneme, ">= 0.0.0", only: [:dev, :test]},
@@ -89,7 +89,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
                   # logging
-                  {:sentry, "~> 9.0", only: :prod, override: true},
+                  {:sentry, "~> 10.0", only: [:dev, :prod], override: true},
 
                   # list dependencies & licenses
                   # {

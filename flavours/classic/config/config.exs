@@ -204,9 +204,11 @@ config :wobserver,
 config :sentry,
   # dsn: "this-should-be-set-in-env-and-loaded-in-runtime.exs",
   environment_name: Mix.env(),
-  # enable_source_code_context: true,
-  root_source_code_path: project_root,
-  included_environments: [:prod],
+  # TODO? see https://hexdocs.pm/sentry/upgrade-10-x.html#actively-package-your-source-code
+  enable_source_code_context: false, # NOTE: enabling errors with `Found two source files in different source root paths with the same relative path`
+  root_source_code_paths: [project_root] ++ Bonfire.Mixer.dep_paths(Bonfire.Mixer.deps_names_for(:bonfire)) |> IO.inspect(),
+  source_code_exclude_patterns: [~r/\/flavours\//, ~r/\/extensions\//, ~r/\/deps\//, ~r/\/_build\//, ~r/\/priv\//, ~r/\/test\//],
+  context_lines: 15,
   tags: %{app_version: Mix.Project.config()[:version]}
 
 # include Bonfire-specific config files
