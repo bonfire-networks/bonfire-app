@@ -303,7 +303,7 @@ update-deps-bonfire:
 	just mix-remote bonfire.deps.update
 
 # Update every single dependency (use with caution)
-update-deps-all: deps-unlock-unused pre-update-deps
+update-deps-all: pre-update-deps
 	just update-forks
 	just mix-remote "deps.update --all"
 	just deps-post-get
