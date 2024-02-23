@@ -484,9 +484,26 @@ const createEditor = async (_this, hidden_input, composer$) => {
   // })
 
 
-  
+  composer$.addEventListener('focus', (e) => {
+    console.log("QUII")
+    if (e.target.matches('div[contenteditable]')) {
+      document.body.classList.add('no-scroll');
+    }
+  })
+
+  composer$.addEventListener('blur', (e) => {
+    console.log("QUII")
+    if (e.target.matches('div[contenteditable]')) {
+      document.body.classList.remove('no-scroll');
+    }
+  })
 
   composer$.addEventListener('click', (e) => {
+
+    if (e.target.matches('div[contenteditable]')) {
+      document.body.classList.add('no-scroll');
+    }
+    
     if (e.target.matches('.emoji_btn')) {
       e.preventDefault();
       const emoji = e.target.dataset.emoji;
@@ -533,7 +550,27 @@ export default {
   mounted() {
     const hidden_input = document.getElementById('editor_hidden_input');
     const composer$ = this.el.querySelector('#editor')
-    createEditor(this, hidden_input, composer$)
+
+    // when composer$ get focus prevent the body from scrolling
+    // if (window.innerWidth <= 768) {
+      //   document.body.classList.add('no-scroll');
+      // }
+      createEditor(this, hidden_input, composer$)
+      // editor.addEventListener('click', function() {
+      //   console.log("FOCUSSSS")
+      //   document.body.classList.add('no-scroll');
+      // });
+  },
+  updated() {
+    // composer$.addEventListener('click', function() {
+    //   console.log("FOCUSSSS")
+    //   document.body.classList.add('no-scroll');
+    // });
+    // if (window.innerWidth <= 768) {
+    //   document.body.classList.add('no-scroll');
+    // } else {
+    //   document.body.classList.remove('no-scroll');
+    // }
   }
 }
 
