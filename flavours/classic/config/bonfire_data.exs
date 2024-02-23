@@ -1067,6 +1067,10 @@ config :bonfire_data_social, Profile,
   code:
     (quote do
        belongs_to(:user, unquote(User), foreign_key: :id, define_field: false)
+
+       belongs_to(:icon, Bonfire.Files.Media)
+       belongs_to(:image, Bonfire.Files.Media)
+
        # multimixins - shouldn't be here really
        unquote_splicing(common.([:controlled]))
      end)

@@ -757,6 +757,12 @@ rebuild: init
 @cmd *args='': init
 	{{ if WITH_DOCKER == "total" { "docker compose run --service-ports web $@" } else {"$@"} }}
 
+cwd *args:
+	cd {{invocation_directory()}}; $@
+
+cwd-test *args:
+	cd {{invocation_directory()}}; MIX_ENV=test mix test $@ 
+
 # Open the shell of the web container, in dev mode
 shell:
 	just cmd bash
