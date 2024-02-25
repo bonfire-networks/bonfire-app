@@ -46,6 +46,8 @@ CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 PUBLIC_PORT := env_var_or_default('PUBLIC_PORT', '4000')
+DOCKER_EXT_NETWORK := env_var_or_default('DOCKER_EXT_NETWORK', 'bonfire_default')
+DOCKER_EXT_NETWORK_BOOL := if DOCKER_EXT_NETWORK == "bonfire_default" { "false" } else { "true" }
 TUNNEL_SUBDOMAIN := env_var_or_default('TUNNEL_SUBDOMAIN', 'bonfire-test')
 
 PROXY_CADDYFILE_PATH := if PUBLIC_PORT == "443" { "./config/deploy/Caddyfile2-https" } else { "./config/deploy/Caddyfile2" }
@@ -202,7 +204,7 @@ dev-federate:
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web
-	docker compose $args run --name $WEB_CONTAINER --service-ports web
+	HOT_CODE_RELOAD=0 docker compose $args run --name $WEB_CONTAINER --service-ports web
 
 # Generate docs from code & readmes
 docs:
@@ -370,7 +372,7 @@ deps-clean dep:
 
 js-deps-get: js-ext-deps assets-ln
 
-js-ext-deps yarn_args='':
+@js-ext-deps yarn_args='':
 	chmod +x ./config/deps.js.sh
 	just cmd ./config/deps.js.sh $yarn_args
 
@@ -754,8 +756,8 @@ rebuild: init
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose build --no-cache" } else { "echo Skip building container..." } }}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
-@cmd *args='': init
-	{{ if WITH_DOCKER == "total" { "docker compose run --service-ports web $@" } else {"$@"} }}
+@cmd *args='': init docker-stop-web
+	{{ if WITH_DOCKER == "total" { "echo Run $@ in docker && docker compose run --name $WEB_CONTAINER --service-ports web $@" } else {" echo Run $@ && $@"} }}
 
 cwd *args:
 	cd {{invocation_directory()}}; $@

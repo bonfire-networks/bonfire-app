@@ -16,13 +16,14 @@ services:
       args:
         - ELIXIR_DOCKER_IMAGE=${ELIXIR_DOCKER_IMAGE}
     ports:
-      - "4000:4000"
+      - "4000:${SERVER_PORT}"
+      - "${SERVER_PORT}:${SERVER_PORT}"
     env_file:
       - config/dev/.env
     environment:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
-      - GRAPH_DB_URL=bolt://graph:7687
+      # - GRAPH_DB_URL=bolt://graph:7687 # commented temporarily 
     depends_on:
       - db
         # - condition: service_healthy
@@ -112,3 +113,8 @@ volumes:
   mg_lib:
   mg_log:
   mg_etc:
+
+networks:
+  default:
+    external: ${DOCKER_EXT_NETWORK_BOOL}
+    name: ${DOCKER_EXT_NETWORK}
