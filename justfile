@@ -890,7 +890,7 @@ sys-deps-debian:
 # this requires `cargo install tunnelto` (the homebrew version of tunnelto doesn't work)
 @tunnel-start-tunnelto:
 	echo "Opening tunnel on ${TUNNEL_SUBDOMAIN}.tunnelto.dev"
-	tunnelto --subdomain $TUNNEL_SUBDOMAIN --port 4000
+	tunnelto --subdomain $TUNNEL_SUBDOMAIN --port ${SERVER_PORT}
 
 @local-tunnel-hostname:
 	echo "${TUNNEL_SUBDOMAIN}.tunnelto.dev"
