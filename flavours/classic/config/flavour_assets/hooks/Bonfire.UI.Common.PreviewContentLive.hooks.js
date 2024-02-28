@@ -86,7 +86,7 @@ let PreviewActivity = {
         console.log(trigger)
         console.log(window.liveSocket)
         console.log(anchor)
-        console.log(anchor.classList)
+        // console.log(anchor.classList)
         console.log(e.ctrlKey)
         console.log(e.metaKey)
         console.log(window.getSelection().toString())
