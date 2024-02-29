@@ -8,9 +8,21 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def deps(config, :bonfire, extensions) do
       # extensions = extensions || umbrella_extension_names()
-      prefixes = multirepo_prefixes(config)
+      prefixes =
+        case multirepo_prefixes(config) |> IO.inspect(label: "prefixes") do
+          [] ->
+            IO.puts(
+              "No prefixes found in config, fallback to including any deps that starts with 'bonfire'..."
+            )
+
+            ["bonfire"]
+
+          prefixes ->
+            prefixes
+        end
 
       (config[:deps] || config)
+      |> IO.inspect()
       |> Enum.filter(&in_multirepo?(&1, prefixes, extensions))
     end
 
@@ -31,6 +43,12 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         # |> IO.inspect(limit: :infinity)
         |> Enum.filter(&include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]))
 
+    def deps do
+      if function_exported?(Mix.Project, :config, 0),
+        do: Mix.Project.config()[:deps],
+        else: Bonfire.Application.deps()
+    end
+
     def deps_names_for(type, config \\ mix_config()) do
       deps(config, type)
       |> Enum.map(&dep_name/1)
@@ -40,12 +58,6 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       deps
       |> Enum.map(&dep_name/1)
       |> Enum.join(" ")
-    end
-
-    def deps do
-      if function_exported?(Mix.Project, :config, 0),
-        do: Mix.Project.config()[:deps],
-        else: Bonfire.Application.deps()
     end
 
     def umbrella_extensions do
@@ -72,9 +84,20 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     def mix_config do
-      if function_exported?(Bonfire.Umbrella.MixProject, :config, 0),
-        do: Bonfire.Umbrella.MixProject.config(),
-        else: Bonfire.Application.config()
+      cond do
+        function_exported?(Bonfire.Umbrella.MixProject, :config, 0) ->
+          Bonfire.Umbrella.MixProject.config()
+
+        Code.ensure_loaded?(Bonfire.Application) ->
+          Bonfire.Application.config()
+
+        Code.ensure_loaded?(Mix.Project) ->
+          Mix.Project.config()
+
+        true ->
+          IO.warn("Could not get config")
+          []
+      end
     end
 
     def multirepo_prefixes(config \\ mix_config()),
@@ -289,7 +312,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
     def include_dep?(_type, dep, prefixes) do
       String.starts_with?(
-        dep_name(dep),
+        dep_name(dep) |> IO.inspect(),
         prefixes
       )
     end
@@ -377,6 +400,15 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       ]
     end
 
+    def deps_tree, do: Mix.Project.deps_tree()
+
+    def deps_tree_flat(tree \\ deps_tree()) do
+      # note that you should call the compile-time cached list in Bonfire.Application
+      (Map.values(tree) ++ Map.keys(tree))
+      |> List.flatten()
+      |> Enum.uniq()
+    end
+
     def list_deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
       deps_by_size(sort_by, paths)
       |> IO.inspect(limit: :infinity)
@@ -385,7 +417,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     def deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
-      Mix.Project.deps_tree()
+      deps_tree()
       |> Enum.map(fn {app, deps} ->
         app_size =
           paths
