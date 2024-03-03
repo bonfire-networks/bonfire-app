@@ -446,6 +446,7 @@ messctl *args='': init
 
 pre-push-hooks: pre-contrib-hooks
 	just mix format
+	just icons-uniq
 	just deps-clean bonfire
 #	just mix changelog
 
@@ -454,6 +455,9 @@ pre-contrib-hooks:
 	rm -rf forks/*/data/uploads/favicons/
 	rm -rf extensions/*/data/uploads/favicons/
 # -sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
+
+icons-uniq:
+	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
 
 # Push all changes to the app and extensions in ./forks
 contrib: pre-push-hooks contrib-forks-publish git-publish
