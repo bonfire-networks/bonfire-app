@@ -8,8 +8,9 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def deps(config, :bonfire, extensions) do
       # extensions = extensions || umbrella_extension_names()
+      # |> IO.inspect(label: "prefixes")
       prefixes =
-        case multirepo_prefixes(config) |> IO.inspect(label: "prefixes") do
+        case multirepo_prefixes(config) do
           [] ->
             IO.puts(
               "No prefixes found in config, fallback to including any deps that starts with 'bonfire'..."
@@ -22,7 +23,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         end
 
       (config[:deps] || config)
-      |> IO.inspect()
+      # |> IO.inspect()
       |> Enum.filter(&in_multirepo?(&1, prefixes, extensions))
     end
 
@@ -312,7 +313,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
     def include_dep?(_type, dep, prefixes) do
       String.starts_with?(
-        dep_name(dep) |> IO.inspect(),
+        dep_name(dep),
         prefixes
       )
     end

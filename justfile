@@ -204,7 +204,7 @@ dev-federate:
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web
-	HOT_CODE_RELOAD=0 docker compose $args run --name $WEB_CONTAINER --service-ports web
+	docker compose $args run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
 
 # Generate docs from code & readmes
 docs:
@@ -906,4 +906,18 @@ sys-deps-debian:
 
 @tunnel-pyjamas-down:
 	wg-quick down ./tunnel.conf
+
+with-docker-total:
+	just with-docker-switch WITHOUT_DOCKER_TOTAL WITH_DOCKER_TOTAL
+	
+with-docker-not-total:
+	just with-docker-switch WITH_DOCKER_TOTAL WITHOUT_DOCKER_TOTAL
+	
+with-docker-switch old_dir new_dir:
+	mkdir -p data/{{ old_dir }} 
+	mkdir -p data/{{ new_dir }} 
+	mv _build data/{{ old_dir }} 
+	mv assets/node_modules data/{{ old_dir }} 
+	mv data/{{ old_dir }}/_build ./ 
+	mv data/{{ old_dir }}/node_modules assets/
 
