@@ -890,14 +890,21 @@ sys-deps-debian:
   ./deps-debian.sh
 
 # to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
-# and run this in seperate terminal to start the above tunnel: `just tunnel-start`
+# and run this in seperate terminal to start the above tunnel: `just tunnel`
+
+tunnel: tunnel-localhost-run
+
+@tunnel-localhost-run:
+	ssh -R 80:localhost:${SERVER_PORT} localhost.run
+
 # this requires `cargo install tunnelto` (the homebrew version of tunnelto doesn't work)
-@tunnel-start-tunnelto:
+@tunnel-tunnelto:
 	echo "Opening tunnel on ${TUNNEL_SUBDOMAIN}.tunnelto.dev"
 	tunnelto --subdomain $TUNNEL_SUBDOMAIN --port ${SERVER_PORT}
 
 @local-tunnel-hostname:
-	echo "${TUNNEL_SUBDOMAIN}.tunnelto.dev"
+	echo ${TUNNEL_DOMAIN}
+#	echo "${TUNNEL_SUBDOMAIN}.tunnelto.dev"
 # 	just tunnel-pyjamas
 
 @tunnel-pyjamas:

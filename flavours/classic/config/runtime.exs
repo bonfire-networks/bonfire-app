@@ -233,6 +233,9 @@ config :bonfire, Oban,
          end}
   ]
 
+config :activity_pub, :oban_queues,
+  retries: [federator_incoming: 2, federator_outgoing: 3, remote_fetcher: 1]
+
 config :activity_pub, Oban,
   # to avoid running it twice
   queues: false,
