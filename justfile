@@ -910,7 +910,7 @@ sys-deps-debian:
 with-docker-total:
 	just with-docker-switch WITHOUT_DOCKER_TOTAL WITH_DOCKER_TOTAL
 	
-with-docker-not-total:
+without-docker-total:
 	just with-docker-switch WITH_DOCKER_TOTAL WITHOUT_DOCKER_TOTAL
 	
 with-docker-switch old_dir new_dir:
@@ -918,6 +918,6 @@ with-docker-switch old_dir new_dir:
 	mkdir -p data/{{ new_dir }} 
 	mv _build data/{{ old_dir }} 
 	mv assets/node_modules data/{{ old_dir }} 
-	mv data/{{ old_dir }}/_build ./ 
-	mv data/{{ old_dir }}/node_modules assets/
+	mv data/{{ new_dir }}/_build ./ 
+	mv data/{{ new_dir }}/node_modules assets/
 
