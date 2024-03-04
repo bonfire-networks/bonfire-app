@@ -33,8 +33,8 @@ config :logger,
 
 config :logger, :console, truncate: truncate
 
-if !test_instance? do
-  # to supress non-captured logs in tests (eg. in setup_all)
+if !test_instance? and System.get_env("CAPTURE_LOG") != "no" do
+  # to suppress non-captured logs in tests (eg. in setup_all)
   config :logger, backends: []
 end
 
