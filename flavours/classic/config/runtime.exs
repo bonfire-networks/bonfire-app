@@ -209,7 +209,10 @@ config :bonfire, Oban,
     federator_outgoing: 5,
     remote_fetcher: 3,
     import: 1,
-    deletion: 1
+    deletion: 1,
+    database_prune: 1,
+    static_generator: 1,
+    fetch_open_science: 1
   ],
   plugins: [
     #  delete job history after 7 days
@@ -219,6 +222,7 @@ config :bonfire, Oban,
     {Oban.Plugins.Cron,
      crontab:
        [
+         {"*/2 * * * *", Bonfire.UI.Common.StaticGenerator, max_attempts: 3},
          {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
        ] ++
          if Bonfire.Common.Extend.extension_enabled?(:bonfire_open_science) do
