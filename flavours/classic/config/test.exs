@@ -22,7 +22,7 @@ config :bonfire_search,
 ## Other general test config
 
 truncate =
-  case System.get_env("TEST_LOG_TRUNCATE", "1000") do
+  case System.get_env("TEST_LOG_TRUNCATE", "2000") do
     "0" -> :infinity
     truncate -> String.to_integer(truncate)
   end
