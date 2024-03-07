@@ -1,6 +1,6 @@
 import Config
 
-if System.get_env("WITH_API_GRAPHQL") !="yes" do
+if System.get_env("WITH_API_GRAPHQL") != "yes" do
   config :bonfire_api_graphql,
     modularity: :disabled
 end
