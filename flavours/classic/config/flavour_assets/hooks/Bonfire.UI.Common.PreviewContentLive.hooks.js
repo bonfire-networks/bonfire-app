@@ -18,69 +18,75 @@ let PreviewActivity = {
     this.el.addEventListener("click", e => {
       console.log("PreviewActivity clicked")
       let trigger = this.el.querySelector('.open_preview_link')
-        let anchor = e.target.closest('a')
-        console.log(e.target)
+      let anchor = e.target.closest('a')
+      console.log(e.target)
 
-        // this was used to expand long posts by clicking on them, now replaced with a 'Read more' button
-        // let previewable_activity = e.target.closest('.previewable_activity')
-        // anchor == trigger || (!anchor && previewable_activity && ( previewable_activity.classList.contains('previewable_expanded') || this.isTruncated(previewable_activity.querySelector('.previewable_truncate')) == false)
+      // this was used to expand long posts by clicking on them, now replaced with a 'Read more' button
+      // let previewable_activity = e.target.closest('.previewable_activity')
+      // anchor == trigger || (!anchor && previewable_activity && ( previewable_activity.classList.contains('previewable_expanded') || this.isTruncated(previewable_activity.querySelector('.previewable_truncate')) == false)
 
       if ((trigger || !window.liveSocket) && ((!anchor || anchor.classList.contains('preview_activity_link')) && !e.ctrlKey && !e.metaKey && (!window.getSelection().toString() || window.getSelection().toString() == "") && !e.target.closest('button') && !e.target.closest('figure') && !e.target.closest('.dropdown') && !e.target.closest('[data-id=activity_actions]')
-        )) {
-          let uri = this.el.dataset.href || (trigger !== undefined && trigger.getAttribute('href')) 
-          if (window.liveSocket) {
-            // const feed = document.querySelector(".feed")
-            const main = document.getElementById("inner")
-            const layout = document.getElementById("root")
-            const preview_content = document.getElementById("preview_content")
-            let previous_scroll = null
+      )) {
+        let uri = this.el.dataset.href || (trigger !== undefined && trigger.getAttribute('href'))
+        if (window.liveSocket) {
+          // const feed = document.querySelector(".feed")
+          const layout = document.getElementById("root")
+          const main = document.getElementById("inner_inner") || document.getElementById("inner")
+          const preview_content = document.getElementById("preview_content")
+          const extra_contents = document.getElementById("the_extra_contents")
 
-            console.log("push event to load up the PreviewContent")
-            this.pushEventTo(trigger, "open", {})
+          let previous_scroll = null
 
-            // this.pushEvent("Bonfire.Social.Feeds:open_activity", { id: this.el.dataset.id, permalink: uri })
+          console.log("push event to load up the PreviewContent")
+          this.pushEventTo(trigger, "open", {})
 
-            if (layout) {
-              previous_scroll = layout.scrollTop
-            }
+          // this.pushEvent("Bonfire.Social.Feeds:open_activity", { id: this.el.dataset.id, permalink: uri })
 
-            if (preview_content) {
-              preview_content.classList.remove("hidden")
-            }
-            if (main) {
-              main.classList.add("hidden")
-            }
-            if (uri) {
-              // console.log(uri)
-
-              history.pushState(
-                {
-                  'previous_url': document.location.href,
-                  'previous_scroll': previous_scroll
-                },
-                '',
-                uri)
-            }
-
-            e.preventDefault();
-
-          } else {
-
-            // fallback if not connected with live socket
-
-            if (uri) {
-              console.log(uri)
-              window.location = uri;
-              e.preventDefault();
-            } else {
-              console.log("No URL")
-            }
+          if (layout) {
+            previous_scroll = layout.scrollTop
           }
+
+          if (main) {
+            main.classList.add("hidden")
+          }
+          if (extra_contents) {
+            extra_contents.classList.add("hidden")
+          }
+          if (preview_content) {
+            preview_content.classList.remove("hidden")
+          }
+
+          if (uri) {
+            // console.log(uri)
+
+            history.pushState(
+              {
+                'previous_url': document.location.href,
+                'previous_scroll': previous_scroll
+              },
+              '',
+              uri)
+          }
+
+          e.preventDefault();
 
         } else {
 
+          // fallback if not connected with live socket
+
+          if (uri) {
+            console.log(uri)
+            window.location = uri;
+            e.preventDefault();
+          } else {
+            console.log("No URL")
+          }
+        }
+
+      } else {
+
         // e.preventDefault();
-        
+
         console.log("PreviewActivity: do not trigger preview in favour of another link or button's action (or opening in new tab)")
 
         console.log(trigger)
@@ -95,14 +101,14 @@ let PreviewActivity = {
         console.log(e.target.closest('.dropdown'))
         console.log(e.target.closest('[data-id=activity_actions]'))
 
-          // if (previewable_activity) { previewable_activity.classList.add("previewable_expanded") }
+        // if (previewable_activity) { previewable_activity.classList.add("previewable_expanded") }
 
-          return;
+        return;
 
-        }
+      }
 
 
-      
+
 
     })
   }
@@ -129,21 +135,65 @@ let PreviewActivity = {
 //     }
 // }
 
+let PreviewExtra = {
+  mounted() {
+    this.el.addEventListener("click", e => {
+      console.log("click - attempt showing extra preview")
+      e.preventDefault();
 
-let ClosePreview = { 
+      const preview_content = document.getElementById("preview_content")
+      const main = document.getElementById("inner_inner") || document.getElementById("inner")
+      if (main && preview_content) {
+        main.classList.add("hidden")
+        preview_content.classList.add("!visible")
+        preview_content.classList.add("!h-auto")
+        preview_content.classList.remove("hidden")
+      } else {
+        console.log("fallback to navigate")
+        this.pushEvent(
+          "navigate",
+          { to: this.el.dataset.to || "#unknown_to" }
+        )
+      }
+
+    })
+  }
+}
+
+
+let ClosePreviewExtra = {
   mounted() {
 
-    const back = function () {
-      const layout = document.getElementById("root")
-      const main = document.getElementById("inner")
-      const preview_content = document.getElementById("preview_content")
-      if (preview_content) {
+
+    // close button
+    this.el.addEventListener("click", e => {
+      const the_extra_contents = document.getElementById("the_extra_contents")
+      if (the_extra_contents) {
+        console.log("click - attempt going back to extra content")
+        const main = document.getElementById("inner_inner") || document.getElementById("inner")
+        const the_preview_contents = document.getElementById("the_preview_contents")
+
         preview_content.classList.add("hidden")
+        main.classList.remove("hidden")
+      } else {
+        console.log("fallback to navigate")
+        this.pushEvent(
+          "navigate",
+          { to: this.el.dataset.to || "/" }
+        )
       }
+    })
+
+  }
+}
+
+let ClosePreview = {
+  mounted() {
+
+    const maybe_browser_back = function () {
       if (history.state) {
         location_before_preview = history.state["previous_url"]
         previous_scroll = history.state["previous_scroll"]
-        main.classList.remove("hidden")
         if (location_before_preview) {
           history.pushState({}, '', location_before_preview)
         }
@@ -154,10 +204,35 @@ let ClosePreview = {
       }
     }
 
+    const close_or_back = function () {
+      const the_extra_contents = document.getElementById("the_extra_contents")
+      if (the_extra_contents) {
+        console.log("click - attempt going back to extra content")
+
+        const extra_contents = document.getElementById("extra_contents")
+        const the_preview_contents = document.getElementById("the_preview_contents")
+
+        the_preview_contents.classList.remove("hidden")
+        extra_contents.classList.remove("hidden")
+        the_extra_contents.classList.remove("hidden")
+      } else {
+        console.log("click - attempt going back to main view")
+        const preview_content = document.getElementById("preview_content")
+
+        if (preview_content) {
+          const main = document.getElementById("inner_inner") || document.getElementById("inner")
+          preview_content.classList.add("hidden")
+          main.classList.remove("hidden")
+        } else {
+          maybe_browser_back()
+        }
+      }
+
+    }
+
     // close button
     this.el.addEventListener("click", e => {
-      console.log("click - attempt going back")
-      back()
+      close_or_back()
     })
 
     // intercept browser "back" action
@@ -169,10 +244,9 @@ let ClosePreview = {
       console.log("qui")
 
       // this.pushEvent("Bonfire.UI.Common.OpenPreviewLive:close", {})
-      back();
+      close_or_back();
     })
   }
-  
 }
 
-export { PreviewActivity, ClosePreview }
+export { PreviewActivity, PreviewExtra, ClosePreview, ClosePreviewExtra }
