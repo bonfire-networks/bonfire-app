@@ -105,7 +105,7 @@ RUN MIX_ENV=prod mix compile
 COPY data/current_flavour/repo priv/repo
 
 # Copy DB/repo migrations from installed extensions
-RUN mix bonfire.extension.copy_migrations --force
+RUN mix bonfire.extension.copy_migrations --force --to priv/repo
 
 # include an archive of the source code
 COPY LICENSE ./
