@@ -87,8 +87,6 @@ RUN sh config/deps.js.sh
 # Update mime types
 RUN MIX_ENV=prod mix deps.clean --build mime
 
-# Include migrations
-COPY data/current_flavour/repo priv/repo
 
 # bonfire-app code & assets 
 COPY lib lib
@@ -102,6 +100,12 @@ RUN MIX_ENV=prod mix deps.clean needle_ulid jason poison --build
 # RUN MIX_ENV=prod mix compile.protocols
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
+
+# Include any migrations provided by flavour
+COPY data/current_flavour/repo priv/repo
+
+# Copy DB/repo migrations from installed extensions
+RUN mix bonfire.extension.copy_migrations --force
 
 # include an archive of the source code
 COPY LICENSE ./
