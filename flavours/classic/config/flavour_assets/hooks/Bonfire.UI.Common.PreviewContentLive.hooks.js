@@ -31,7 +31,7 @@ let PreviewActivity = {
         if (window.liveSocket) {
           // const feed = document.querySelector(".feed")
           const layout = document.getElementById("root")
-          const main = document.getElementById("inner_inner") || document.getElementById("inner")
+          const main = document.getElementById("inner")
           const preview_content = document.getElementById("preview_content")
           const extra_contents = document.getElementById("the_extra_contents")
 
@@ -142,9 +142,13 @@ let PreviewExtra = {
       e.preventDefault();
 
       const preview_content = document.getElementById("preview_content")
-      const main = document.getElementById("inner_inner") || document.getElementById("inner")
+      const main = document.getElementById("inner")
       if (main && preview_content) {
         main.classList.add("hidden")
+        const the_preview_contents = document.getElementById("the_preview_contents")
+        if (the_preview_contents) { the_preview_contents.classList.add("hidden") }
+        const extra_contents = document.getElementById("extra_contents")
+        if (extra_contents) { extra_contents.classList.remove("hidden") }
         preview_content.classList.add("!visible")
         preview_content.classList.add("!h-auto")
         preview_content.classList.remove("hidden")
@@ -161,31 +165,6 @@ let PreviewExtra = {
 }
 
 
-let ClosePreviewExtra = {
-  mounted() {
-
-
-    // close button
-    this.el.addEventListener("click", e => {
-      const the_extra_contents = document.getElementById("the_extra_contents")
-      if (the_extra_contents) {
-        console.log("click - attempt going back to extra content")
-        const main = document.getElementById("inner_inner") || document.getElementById("inner")
-        const the_preview_contents = document.getElementById("the_preview_contents")
-
-        preview_content.classList.add("hidden")
-        main.classList.remove("hidden")
-      } else {
-        console.log("fallback to navigate")
-        this.pushEvent(
-          "navigate",
-          { to: this.el.dataset.to || "/" }
-        )
-      }
-    })
-
-  }
-}
 
 let ClosePreview = {
   mounted() {
@@ -205,27 +184,30 @@ let ClosePreview = {
     }
 
     const close_or_back = function () {
+      const the_preview_contents = document.getElementById("the_preview_contents")
       const the_extra_contents = document.getElementById("the_extra_contents")
-      if (the_extra_contents) {
+      if (the_preview_contents && the_extra_contents) {
         console.log("click - attempt going back to extra content")
 
         const extra_contents = document.getElementById("extra_contents")
-        const the_preview_contents = document.getElementById("the_preview_contents")
 
-        the_preview_contents.classList.remove("hidden")
+        the_preview_contents.classList.add("hidden")
         extra_contents.classList.remove("hidden")
         the_extra_contents.classList.remove("hidden")
-      } else {
-        console.log("click - attempt going back to main view")
-        const preview_content = document.getElementById("preview_content")
 
-        if (preview_content) {
+      } else {
+
+        if (the_extra_contents) {
+          console.log("click - attempt going back to main view")
+          const preview_content = document.getElementById("preview_content")
           const main = document.getElementById("inner_inner") || document.getElementById("inner")
           preview_content.classList.add("hidden")
           main.classList.remove("hidden")
         } else {
+          console.log("click - attempt browser back")
           maybe_browser_back()
         }
+
       }
 
     }
@@ -249,4 +231,29 @@ let ClosePreview = {
   }
 }
 
-export { PreviewActivity, PreviewExtra, ClosePreview, ClosePreviewExtra }
+let CloseAll = {
+  mounted() {
+
+    // close button
+    this.el.addEventListener("click", e => {
+
+      const the_preview_contents = document.getElementById("the_preview_contents")
+      const the_extra_contents = document.getElementById("the_extra_contents")
+
+      if (the_extra_contents || the_preview_contents) {
+        console.log("click - attempt going back to main view")
+        const main = document.getElementById("inner")
+        main.innerHTML = ""; // empty previous contents - TODO: show loading placeholder/animation? and skip if destination is existing view
+        const preview_content = document.getElementById("preview_content")
+        preview_content.classList.add("hidden")
+        main.classList.remove("hidden")
+      } else {
+        console.log("click - no preview open, stick to default action")
+      }
+
+    })
+
+  }
+}
+
+export { PreviewActivity, PreviewExtra, ClosePreview, CloseAll }
