@@ -28,51 +28,68 @@ let PreviewActivity = {
       // this was used to expand long posts by clicking on them, now replaced with a 'Read more' button
       // let previewable_activity = e.target.closest('.previewable_activity')
       // anchor == trigger || (!anchor && previewable_activity && ( previewable_activity.classList.contains('previewable_expanded') || this.isTruncated(previewable_activity.querySelector('.previewable_truncate')) == false)
-
+      
       if ((trigger || !window.liveSocket) && ((!anchor || anchor.classList.contains('preview_activity_link')) && !e.ctrlKey && !e.metaKey && (!window.getSelection().toString() || window.getSelection().toString() == "") && !e.target.closest('button') && !e.target.closest('figure') && !e.target.closest('.dropdown') && !e.target.closest('[data-id=activity_actions]')
       )) {
         let uri = this.el.dataset.href || (trigger !== undefined && trigger.getAttribute('href'))
+
         if (window.liveSocket) {
-          // const feed = document.querySelector(".feed")
-          const layout = document.getElementById("root")
-          const main = document.getElementById("inner")
-          const preview_content = document.getElementById("preview_content")
-          const extra_contents = document.getElementById("the_extra_contents")
 
-          let previous_scroll = null
+          if (!e.target.closest('#preview_content')) {
+            // if we're not already in preview_content (i.e. for feed in extra_contents, because it's in a different LV), don't use this and just redirect
+            console.log("fallback to navigate")
+            let uri = this.el.dataset.href || (trigger !== undefined && trigger.getAttribute('href'))
+            if (uri) {
+              this.pushEvent(
+                "navigate",
+                { to: uri }
+              )
+            }
 
-          console.log("push event to load up the PreviewContent")
-          this.pushEventTo(trigger, "open", {})
+          } else { 
+            console.log("push event to load up the PreviewContent")
 
-          // this.pushEvent("Bonfire.Social.Feeds:open_activity", { id: this.el.dataset.id, permalink: uri })
+            // const feed = document.querySelector(".feed")
+            const layout = document.getElementById("root")
+            const main = document.getElementById("inner")
+            const preview_content = document.getElementById("preview_content")
+            const extra_contents = document.getElementById("the_extra_contents")
 
-          if (layout) {
-            previous_scroll = layout.scrollTop
+            let previous_scroll = null
+
+            this.pushEventTo(trigger, "open", {})
+
+            // this.pushEvent("Bonfire.Social.Feeds:open_activity", { id: this.el.dataset.id, permalink: uri })
+
+            if (layout) {
+              previous_scroll = layout.scrollTop
+            }
+
+            if (main) {
+              main.classList.add("hidden")
+            }
+            if (extra_contents) {
+              extra_contents.classList.add("hidden")
+            }
+            if (preview_content) {
+              preview_content.classList.remove("hidden")
+            }
+
+            if (uri) {
+              // console.log(uri)
+
+              history.pushState(
+                {
+                  'previous_url': document.location.href,
+                  'previous_scroll': previous_scroll
+                },
+                '',
+                uri)
+            }
+
+            e.preventDefault();
+          
           }
-
-          if (main) {
-            main.classList.add("hidden")
-          }
-          if (extra_contents) {
-            extra_contents.classList.add("hidden")
-          }
-          if (preview_content) {
-            preview_content.classList.remove("hidden")
-          }
-
-          if (uri) {
-            // console.log(uri)
-
-            history.pushState(
-              {
-                'previous_url': document.location.href,
-                'previous_scroll': previous_scroll
-              },
-              '',
-              uri)
-          }
-
-          e.preventDefault();
 
         } else {
 
@@ -86,6 +103,7 @@ let PreviewActivity = {
             console.log("No URL")
           }
         }
+
 
       } else {
 
