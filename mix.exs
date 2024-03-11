@@ -20,8 +20,17 @@ defmodule Bonfire.Umbrella.MixProject do
                do: [{:bonfire, git: "https://github.com/bonfire-networks/bonfire_spark"}],
                else: []
              )
+  @maybe_api_deps if(System.get_env("WITH_API_GRAPHQL") == "yes",
+                    do: [
+                      {:bonfire_api_graphql,
+                       git: "https://github.com/bonfire-networks/bonfire_api_graphql",
+                       branch: "main"}
+                    ],
+                    else: []
+                  )
 
   @extra_deps @main_deps ++
+                @maybe_api_deps ++
                 [
                   # compilation
                   # {:tria, github: "hissssst/tria"},
