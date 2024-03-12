@@ -87,7 +87,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:wallaby, "~> 0.30", runtime: false, only: :test},
                   {:credo, "~> 1.7.5", only: :test, override: true},
                   # used in furlex
-                  {:bypass, "~> 2.1", only: :test},
+                  # {:bypass, "~> 2.1", only: :test},
                   {:assert_value, ">= 0.0.0", only: [:dev, :test]},
                   {:mneme, ">= 0.0.0", only: [:dev, :test]},
 
