@@ -86,7 +86,8 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:ex_unit_notifier, "~> 1.0", only: :test},
                   {:wallaby, "~> 0.30", runtime: false, only: :test},
                   {:credo, "~> 1.7.5", only: :test, override: true},
-                  # {:bypass, "~> 2.1", only: :test}, # used in furlex
+                  # used in furlex
+                  {:bypass, "~> 2.1", only: :test},
                   {:assert_value, ">= 0.0.0", only: [:dev, :test]},
                   {:mneme, ">= 0.0.0", only: [:dev, :test]},
 

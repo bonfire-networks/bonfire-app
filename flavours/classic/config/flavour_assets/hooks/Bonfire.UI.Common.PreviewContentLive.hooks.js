@@ -54,6 +54,7 @@ let PreviewActivity = {
             const main = document.getElementById("inner")
             const preview_content = document.getElementById("preview_content")
             const extra_contents = document.getElementById("the_extra_contents")
+            const the_preview_contents = document.getElementById("the_preview_contents")
 
             let previous_scroll = null
 
@@ -73,6 +74,9 @@ let PreviewActivity = {
             }
             if (preview_content) {
               preview_content.classList.remove("hidden")
+            }
+            if (the_preview_contents) {
+              the_preview_contents.classList.remove("hidden")
             }
 
             if (uri) {
