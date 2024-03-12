@@ -146,12 +146,15 @@ config :mime, :types, %{
   "application/activity+json" => ["activity+json"],
   "application/ld+json" => ["ld+json"],
   "application/jrd+json" => ["jrd+json"],
+  # images
   "image/png" => ["png"],
+  "image/apng" => ["apng"],
   "image/jpeg" => ["jpg", "jpeg"],
   "image/gif" => ["gif"],
   "image/svg+xml" => ["svg"],
   "image/webp" => ["webp"],
   "image/tiff" => ["tiff"],
+  # text
   "text/plain" => ["txt"],
   "text/markdown" => ["md"],
   # doc
