@@ -14,8 +14,9 @@ jobs:
     strategy:
       matrix:
         flavour: ['classic'] # 'community', 'cooperation'
-        otp: ['26.2.3', '25.3.2.8']
-        elixir: ['1.16.2', '1.13.4']
+        otp: ['26.2.3', '25.2.3'] 
+        elixir: ['1.16.2', '1.14.0']
+        # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
     env:
       FLAVOUR: ${{matrix.flavour}}
       MIX_ENV: test
