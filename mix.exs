@@ -5,6 +5,9 @@ defmodule Bonfire.Umbrella.MixProject do
   use Mix.Project
   alias Bonfire.Mixer
 
+  @default_flavour "classic"
+  @flavour System.get_env("FLAVOUR") || @default_flavour
+
   # we only behave as an umbrella im dev/test env
   @use_local_forks System.get_env("WITH_FORKS", "1") == "1"
   ext_forks_path = Mixer.forks_path()
@@ -117,11 +120,11 @@ defmodule Bonfire.Umbrella.MixProject do
                 ]
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
-  @default_flavour "classic"
   @config [
     # note that the flavour will automatically be added where the dash appears
     version: "0.9.10-beta.5",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
+    flavour: @flavour,
     default_flavour: @default_flavour,
     logo: "assets/static/images/bonfire-icon.png",
     guides: [
@@ -212,13 +215,13 @@ defmodule Bonfire.Umbrella.MixProject do
       ]
     ],
     deps:
-      Mess.deps(Mixer.mess_sources(@default_flavour), @extra_deps,
+      Mess.deps(Mixer.mess_sources(@flavour), @extra_deps,
         use_local_forks?: @use_local_forks,
         use_umbrella?: @use_umbrella?,
         umbrella_root?: @use_local_forks,
         umbrella_path: @umbrella_path
       )
-      |> IO.inspect(limit: :infinity)
+    # |> IO.inspect(limit: :infinity)
   ]
 
   def config, do: @config
@@ -246,7 +249,7 @@ defmodule Bonfire.Umbrella.MixProject do
       config_path: "config/config.exs",
       releases: [
         bonfire: [
-          runtime_config_path: Mixer.config_path(config(), "runtime.exs"),
+          runtime_config_path: Mixer.config_path("runtime.exs"),
           # should BEAM files should have their debug information, documentation chunks, and other non-essential metadata?
           strip_beams: false,
           applications: [

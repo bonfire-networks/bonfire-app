@@ -55,9 +55,13 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       |> Enum.map(&dep_name/1)
     end
 
-    def deps_names(deps \\ deps()) do
+    def deps_names_list(deps \\ deps(), as_atom \\ true) do
       deps
-      |> Enum.map(&dep_name/1)
+      |> Enum.map(&dep_name(&1, as_atom))
+    end
+
+    def deps_names(deps \\ deps()) do
+      deps_names_list(deps, false)
       |> Enum.join(" ")
     end
 
@@ -126,40 +130,109 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def flavour(config), do: System.get_env("FLAVOUR") || config[:default_flavour]
 
-    def config_path(_config_or_flavour \\ nil, filename),
-      do: Path.expand(Path.join(["config", filename]))
+    def config_path(path \\ nil, filename),
+      do: Path.expand(Path.join([path || "config", filename]))
 
     # flavour_path(config_or_flavour)
 
     def forks_path(), do: System.get_env("FORKS_PATH", "extensions/")
 
-    def mess_sources(config_or_flavour) do
+    def mess_sources(flavour) do
       mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
-      |> enum_mess_sources(config_or_flavour)
+      |> maybe_all_flavour_sources(flavour, System.get_env("WITH_ALL_FLAVOUR_DEPS", "1"))
+
+      # |> IO.inspect(label: "messy")
     end
 
-    defp enum_mess_sources({k, v}, config_or_flavour) do
-      {k, config_path(config_or_flavour, v)}
+    def mess_other_flavour_deps(current_flavour \\ System.get_env("FLAVOUR", "classic")) do
+      current_flavour_sources =
+        mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
+
+      current_flavour_deps =
+        enum_mess_sources(current_flavour_sources)
+        # |> IO.inspect(label: "current_mess_sources")
+        |> Mess.deps([], [])
+        |> deps_names_list()
+
+      # |> IO.inspect(label: "current_flavour_deps", limit: :infinity)
+
+      other_flavours_sources = other_flavour_sources(current_flavour_sources, current_flavour)
+      # |> IO.inspect(label: "other_flavours_sources")
+
+      Mess.deps(other_flavours_sources, [], [])
+      # |> IO.inspect(label: "other_flavours_deps")
+      |> Enum.reject(fn
+        {dep, _} -> dep in current_flavour_deps
+        {dep, _, _} -> dep in current_flavour_deps
+      end)
+
+      # |> IO.inspect(label: "other_flavour_deps")
     end
 
-    defp enum_mess_sources(sublist, config_or_flavour) when is_list(sublist) do
+    def mess_other_flavour_dep_names(current_flavour \\ System.get_env("FLAVOUR", "classic")) do
+      mess_other_flavour_deps(current_flavour)
+      |> deps_names_list()
+    end
+
+    defp maybe_all_flavour_sources(
+           existing_sources,
+           current_flavour,
+           "1" = _WITH_ALL_FLAVOUR_DEPS
+         ) do
+      enum_mess_sources(existing_sources) ++
+        [disabled: other_flavour_sources(existing_sources, current_flavour)]
+    end
+
+    defp maybe_all_flavour_sources(existing_sources, _flavour, _not_WITH_ALL_FLAVOUR_DEPS) do
+      enum_mess_sources(existing_sources)
+    end
+
+    def other_flavour_sources(
+          existing_sources \\ mess_source_files(
+            System.get_env("WITH_FORKS", "1"),
+            System.get_env("WITH_GIT_DEPS", "1")
+          ),
+          current_flavour \\ System.get_env("FLAVOUR", "classic")
+        ) do
+      flavour_paths =
+        for path <- "flavours/*/config/" |> Path.wildcard() do
+          path
+        end
+        |> Enum.reject(&(&1 == "flavours/#{current_flavour}/config"))
+
+      # |> IO.inspect(label: "creams")
+
+      Enum.map(
+        flavour_paths,
+        &(List.first(existing_sources)
+          |> enum_mess_sources(&1))
+      )
+    end
+
+    defp enum_mess_sources(sublist, path \\ nil)
+
+    defp enum_mess_sources(sublist, path) when is_list(sublist) do
       sublist
-      |> Enum.map(&enum_mess_sources(&1, config_or_flavour))
+      |> Enum.map(&enum_mess_sources(&1, path))
     end
 
-    defp mess_source_files("0", "0"),
+    defp enum_mess_sources({k, v}, path) do
+      {k, config_path(path, v)}
+    end
+
+    defp mess_source_files("0" = _not_WITH_FORKS, "0" = _not_WITH_GIT_DEPS),
       do: [[hex: "deps.flavour.hex"], [hex: "deps.hex"]]
 
-    defp mess_source_files("0", "1"),
+    defp mess_source_files("0" = _not_WITH_FORKS, "1" = _WITH_GIT_DEPS),
       do: [[git: "deps.flavour.git", hex: "deps.flavour.hex"], [git: "deps.git", hex: "deps.hex"]]
 
-    defp mess_source_files("1", "0"),
+    defp mess_source_files("1" = _WITH_FORKS, "0" = _not_WITH_GIT_DEPS),
       do: [
         [path: "deps.flavour.path", hex: "deps.flavour.hex"],
         [path: "deps.path", hex: "deps.hex"]
       ]
 
-    defp mess_source_files("1", "1"),
+    defp mess_source_files("1" = _WITH_FORKS, "1" = _WITH_GIT_DEPS),
       do: [
         [path: "deps.flavour.path", git: "deps.flavour.git", hex: "deps.flavour.hex"],
         [path: "deps.path", git: "deps.git", hex: "deps.hex"]
@@ -328,9 +401,11 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       is_list(spec) && spec[:git] && !spec[:commit]
     end
 
-    def dep_name(dep) when is_tuple(dep), do: elem(dep, 0) |> dep_name()
-    def dep_name(dep) when is_atom(dep), do: Atom.to_string(dep)
-    def dep_name(dep) when is_binary(dep), do: dep
+    def dep_name(dep, as_atom \\ false)
+    def dep_name(dep, as_atom) when is_tuple(dep), do: elem(dep, 0) |> dep_name(as_atom)
+    def dep_name(dep, false) when is_atom(dep), do: Atom.to_string(dep)
+    def dep_name(dep, true) when is_binary(dep), do: String.to_existing_atom(dep)
+    def dep_name(dep, _), do: dep
 
     def dep_path(dep, force? \\ false)
 

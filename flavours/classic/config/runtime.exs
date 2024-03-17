@@ -6,6 +6,7 @@ import Config
 
 IO.puts("🔥 Welcome to Bonfire!")
 
+flavour = System.get_env("FLAVOUR", "classic")
 host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))

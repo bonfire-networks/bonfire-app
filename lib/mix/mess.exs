@@ -18,9 +18,11 @@ if not Code.ensure_loaded?(Mess) do
       opts = opts(opts)
 
       (sources || sources(opts[:use_local_forks?]))
-      # |> IO.inspect()
       |> enum_deps()
+      # |> IO.inspect(label: "enum_deps")
       |> deps_packages(extra_deps, opts)
+
+      # |> IO.inspect(label: "deps_packages")
     end
 
     defp sources(true), do: [path: "deps.path", git: "deps.git", hex: "deps.hex"]
@@ -49,8 +51,16 @@ if not Code.ensure_loaded?(Mess) do
       # |> IO.inspect(label: "opts for #{File.cwd!}")
     end
 
-    defp enum_deps({k, v}) do
-      read(v, k)
+    defp enum_deps({:disabled, sublist}) do
+      sublist
+      |> Enum.flat_map(&enum_deps/1)
+      |> Enum.map(&Map.put(&1, :disabled, true))
+
+      # |> IO.inspect(label: "disabled")
+    end
+
+    defp enum_deps({kind, path}) do
+      maybe_read(path, kind)
     end
 
     defp enum_deps(sublist) when is_list(sublist) do
@@ -133,7 +143,7 @@ if not Code.ensure_loaded?(Mess) do
 
       if opts[:use_local_forks?] and File.exists?(path) do
         [path, "#{config_dir}deps.flavour.path"]
-        |> Enum.flat_map(&read(&1, :path))
+        |> Enum.flat_map(&maybe_read(&1, :path))
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
         IO.warn("did not load #{path}")
@@ -141,7 +151,7 @@ if not Code.ensure_loaded?(Mess) do
       end
     end
 
-    defp read(path, kind) when is_binary(path), do: have_read(File.read(path), path, kind)
+    defp maybe_read(path, kind) when is_binary(path), do: have_read(File.read(path), path, kind)
 
     defp have_read({:error, :enoent}, _path, _kind) do
       # IO.puts("Could not find #{path} in #{File.cwd!()}")
@@ -156,35 +166,42 @@ if not Code.ensure_loaded?(Mess) do
 
     defp dep_spec(%{"package" => ""}, _opts), do: []
 
-    defp dep_spec(%{"package" => p, "value" => v, :kind => :hex}, _opts),
-      do: pkg(p, v, override: true)
+    defp dep_spec(%{"package" => p, "value" => v, :kind => :hex} = params, _opts),
+      do: pkg(p, v, override: true, runtime: !params[:disabled])
 
-    defp dep_spec(%{"package" => p, "value" => v, :kind => :path}, opts) do
+    defp dep_spec(%{"package" => p, "value" => v, :kind => :path} = params, opts) do
       umbrella_path = opts[:umbrella_path]
 
       if umbrella_path && String.starts_with?(v, umbrella_path) do
         if opts[:umbrella_root?] do
-          pkg(p, from_umbrella: true, override: true, path: "../../#{v}")
+          pkg(p,
+            from_umbrella: true,
+            override: true,
+            path: "../../#{v}",
+            runtime: !params[:disabled]
+          )
+
           # |> IO.inspect(label: "from_umbrella: #{p}")
         else
-          pkg(p, in_umbrella: true, override: true)
+          pkg(p, in_umbrella: true, override: true, runtime: !params[:disabled])
           # |> IO.inspect(label: "in_umbrella: #{p}")
         end
       else
-        pkg(p, path: v, override: true)
+        pkg(p, path: v, override: true, runtime: !params[:disabled])
       end
     end
 
-    defp dep_spec(%{"package" => p, "value" => v, :kind => :git}, _opts), do: git(v, p)
+    defp dep_spec(%{"package" => p, "value" => v, :kind => :git} = params, _opts),
+      do: git(v, p, !params[:disabled])
 
-    defp git(line, p) when is_binary(line),
-      do: git(Regex.named_captures(@git_branch, line), p)
+    defp git(line, p, runtime) when is_binary(line),
+      do: git(Regex.named_captures(@git_branch, line), p, runtime)
 
-    defp git(%{"branch" => "", "repo" => r}, p),
-      do: pkg(p, git: r, override: true)
+    defp git(%{"branch" => "", "repo" => r}, p, runtime),
+      do: pkg(p, git: r, override: true, runtime: runtime)
 
-    defp git(%{"branch" => b, "repo" => r}, p),
-      do: pkg(p, git: r, branch: b, override: true)
+    defp git(%{"branch" => b, "repo" => r}, p, runtime),
+      do: pkg(p, git: r, branch: b, override: true, runtime: runtime)
 
     defp pkg(name, opts), do: [{String.to_atom(name), opts}]
     defp pkg(name, version, opts), do: [{String.to_atom(name), version, opts}]

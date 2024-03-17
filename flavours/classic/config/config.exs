@@ -211,8 +211,7 @@ config :sentry,
   # NOTE: enabling errors with `Found two source files in different source root paths with the same relative path`
   enable_source_code_context: false,
   root_source_code_paths:
-    ([project_root] ++ Bonfire.Mixer.dep_paths(Bonfire.Mixer.deps_names_for(:bonfire)))
-    |> IO.inspect(),
+    [project_root] ++ Bonfire.Mixer.dep_paths(Bonfire.Mixer.deps_names_for(:bonfire)),
   source_code_exclude_patterns: [
     ~r/\/flavours\//,
     ~r/\/extensions\//,
@@ -223,6 +222,24 @@ config :sentry,
   ],
   context_lines: 15,
   tags: %{app_version: Mix.Project.config()[:version]}
+
+for dep <-
+      Bonfire.Mixer.mess_other_flavour_dep_names(flavour)
+      |> IO.inspect(
+        label:
+          "NOTE: these extensions are not part of the #{flavour} flavour and will be available but disabled by default"
+      ) do
+  config dep,
+    modularity: :disabled
+end
+
+if System.get_env("WITH_API_GRAPHQL") != "yes" do
+  config :bonfire_api_graphql,
+    modularity: :disabled
+else
+  config :bonfire_api_graphql,
+    modularity: true
+end
 
 # include Bonfire-specific config files
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
