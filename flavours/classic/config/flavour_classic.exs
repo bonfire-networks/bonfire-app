@@ -2,6 +2,14 @@ import Config
 
 config :bonfire_social, Bonfire.Social.Pins, modularity: :disabled
 
+config :bonfire_label, modularity: :disabled
+
+config :bonfire_boundaries, Bonfire.Boundaries.Web.SetBoundariesLive, modularity: :disabled
+config :bonfire_boundaries, Bonfire.Boundaries.Web.PreviewBoundariesLive, modularity: :disabled
+
+config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarksLive, modularity: :disabled
+config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarkActionLive, modularity: :disabled
+
 config :bonfire, :ui,
   default_nav_extensions: [
     :bonfire,
