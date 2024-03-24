@@ -103,7 +103,7 @@ config :bonfire,
   ]
 
 phx_server = System.get_env("PHX_SERVER")
-use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
+use_cowboy? = System.get_env("PLUG_SERVER") != "bandit"
 
 config :bonfire, Bonfire.Web.Endpoint,
   server:
@@ -223,7 +223,8 @@ config :bonfire, Oban,
     {Oban.Plugins.Cron,
      crontab:
        [
-         {"*/2 * * * *", Bonfire.UI.Common.StaticGenerator, max_attempts: 3},
+         #  generate static pages for guests every 10 min
+         {"*/10 * * * *", Bonfire.UI.Common.StaticGenerator, max_attempts: 3},
          {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
        ] ++
          if Bonfire.Common.Extend.extension_enabled?(:bonfire_open_science) do

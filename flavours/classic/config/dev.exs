@@ -41,7 +41,7 @@ local_deps =
 # ),
 # else: []
 
-use_cowboy? = System.get_env("PLUG_SERVER") == "cowboy"
+use_cowboy? = System.get_env("PLUG_SERVER") != "bandit"
 max_requests = 1
 
 # Watch static and templates for browser reloading.
