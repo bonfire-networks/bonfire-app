@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1.7-labs
+# ^ needed for --parents flag
 
 ARG ALPINE_VERSION
 ARG ELIXIR_DOCKER_IMAGE
@@ -33,7 +34,6 @@ COPY mix.lock ./
 
 # # RUN mix deps.get --only prod
 # RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
-# # ^ useful in case of spotty connectivity
 
 # RUN ls -la config/*
 # # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
@@ -50,8 +50,9 @@ COPY mix.lock ./
 COPY data/current_flavour/config/deps.* ./config/
 RUN ls -la config/* 
 
-# RUN mix deps.get --only prod
-RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+RUN mix deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+# # ^ useful in case of spotty connectivity
 
 # add extra deps 
 # from other flavours
@@ -61,8 +62,8 @@ RUN cp -rfL deps/bonfire/deps.* ./config/
 RUN ls -la config/* && ls -la flavours/*/config/*
 
 # fetch extras (we need extensions for the non-configurable paths in config/deps_hooks.js)
-# RUN mix deps.get --only prod
-RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+RUN mix deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/ ./config/
