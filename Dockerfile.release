@@ -24,6 +24,7 @@ RUN mix do local.hex --force, local.rebar --force
 
 # get deps from hex.pm
 COPY data/current_flavour/config/deps*hex ./config/ 
+COPY flavours/*/config/deps*hex ./
 RUN mix deps.get --only prod
 # RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 # ^ useful in case of spotty connectivity
@@ -34,6 +35,7 @@ RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix deps.comp
 
 # add flavour's git deps (typically Bonfire extensions)
 COPY data/current_flavour/config/deps*git ./config/
+COPY flavours/*/config/deps*git ./
 
 # fetch more deps/extensions
 RUN mix deps.get --only prod
@@ -47,6 +49,7 @@ RUN mix deps.get --only prod
 
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/ ./config/
+COPY flavours/*/config/* ./
 
 # Optionally include local forks
 RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path ; else echo "Include locally forked extensions." ; fi 
