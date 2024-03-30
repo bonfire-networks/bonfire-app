@@ -15,8 +15,8 @@ RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev ope
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./
 WORKDIR $HOME
 
-# Cache elixir deps
-COPY mix.exs mix.lock ./
+# Prepare elixir deps 
+COPY mix.exs ./
 COPY lib/mix ./lib/mix
 # sometimes mix tries to read the config
 RUN mkdir -p ./config 
@@ -24,35 +24,48 @@ COPY data/current_flavour/config/config_basics.exs ./config/config.exs
 
 RUN mix do local.hex --force, local.rebar --force
 
-# get deps from hex.pm
-COPY data/current_flavour/config/deps*hex ./config/ 
-COPY --parents flavours/*/config/deps*hex ./
+# FIXME: copying mix.lock here means the optimisations of fetching hex and git deps seperately are useless, so commenting those for now
+COPY mix.lock ./
+
+# # first get deps from hex.pm
+# COPY data/current_flavour/config/deps*hex ./config/ 
+# COPY --parents flavours/*/config/deps*hex ./
+
+# # RUN mix deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+# # ^ useful in case of spotty connectivity
+
+# RUN ls -la config/*
+# # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
+# RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix deps.compile ; else echo "Skip" ; fi 
+
+# # add flavour's git deps (typically Bonfire extensions)
+# COPY data/current_flavour/config/deps*git ./config/
+# COPY --parents flavours/*/config/deps*git ./
+
+# # fetch more deps/extensions
+# RUN mix deps.get --only prod
+
+# add main dep sources
+COPY data/current_flavour/config/deps.* ./config/
+RUN ls -la config/* 
+
 # RUN mix deps.get --only prod
 RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
-# ^ useful in case of spotty connectivity
 
-RUN ls -la config/*
-# Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
-RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix deps.compile ; else echo "Skip" ; fi 
-
-# add flavour's git deps (typically Bonfire extensions)
-COPY data/current_flavour/config/deps*git ./config/
-COPY --parents flavours/*/config/deps*git ./
-
-# fetch more deps/extensions
-RUN mix deps.get --only prod
-
-# add extra deps (specified by the core app)
+# add extra deps 
+# from other flavours
+COPY --parents flavours/*/config/* ./
+#specified by the core app
 RUN cp -rfL deps/bonfire/deps.* ./config/
+RUN ls -la config/* && ls -la flavours/*/config/*
 
-# fetch (we need extensions for the non-configurable paths in config/deps_hooks.js)
-RUN mix deps.get --only prod
-# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+# fetch extras (we need extensions for the non-configurable paths in config/deps_hooks.js)
+# RUN mix deps.get --only prod
+RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 
 # we need config before compiling Bonfire extensions
 COPY data/current_flavour/config/ ./config/
-COPY --parents flavours/*/config/* ./
-RUN ls -la flavours/*/config/*
 
 # Optionally include local forks
 RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./flavours/*/config/deps*path ; else echo "Include locally forked extensions." ; fi 
