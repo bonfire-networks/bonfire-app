@@ -142,7 +142,7 @@ config :logger, :console,
   # Do not include metadata or timestamps
   format: "[$level] $message\n"
 
-config :phoenix, :stacktrace_depth, 30
+config :phoenix, :stacktrace_depth, 60
 
 config :phoenix, :plug_init_mode, :runtime
 
