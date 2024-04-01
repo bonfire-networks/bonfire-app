@@ -119,10 +119,28 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:sobelow, "~> 0.12.1", only: :dev}
                 ]
 
+  @deps Mess.deps(Mixer.mess_sources(@flavour), @extra_deps,
+        use_local_forks?: @use_local_forks,
+        use_umbrella?: @use_umbrella?,
+        umbrella_root?: @use_local_forks,
+        umbrella_path: @umbrella_path
+      )
+
+  @extra_release_apps @deps
+      |> Enum.filter(fn
+        {_dep, opts} when is_list(opts) -> opts[:runtime]==false and (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
+        {_dep, _, opts} -> opts[:runtime]==false and (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
+        _ -> false
+      end)
+      # Mixer.other_flavour_sources()
+      |> Mixer.deps_names_list()
+      |> Enum.map(& {&1, :load})
+      |> IO.inspect(label: "extensions to include in release")
+
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.25",
+    version: "0.9.10-beta.26",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,
@@ -214,18 +232,14 @@ defmodule Bonfire.Umbrella.MixProject do
         "activity_pub"
       ]
     ],
-    deps:
-      Mess.deps(Mixer.mess_sources(@flavour), @extra_deps,
-        use_local_forks?: @use_local_forks,
-        use_umbrella?: @use_umbrella?,
-        umbrella_root?: @use_local_forks,
-        umbrella_path: @umbrella_path
-      )
+    deps: @deps,
+    disabled_extensions: @extra_release_apps
     # |> IO.inspect(limit: :infinity)
   ]
 
   def config, do: @config
   def deps, do: config()[:deps]
+
 
   def project do
     [
@@ -255,9 +269,9 @@ defmodule Bonfire.Umbrella.MixProject do
           applications: [
             bonfire: :permanent,
             # if observability fails it shouldn’t take your app down with it
-            opentelemetry_exporter: :permanent,
+            opentelemetry_exporter: :temporary,
             opentelemetry: :temporary
-          ]
+          ] ++ config()[:disabled_extensions]
         ]
       ],
       sources_url: "https://github.com/bonfire-networks",

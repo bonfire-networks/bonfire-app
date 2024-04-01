@@ -165,8 +165,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         {dep, _} -> dep in current_flavour_deps
         {dep, _, _} -> dep in current_flavour_deps
       end)
-
-      # |> IO.inspect(label: "other_flavour_deps")
+      |> IO.inspect(label: "other_flavour_deps")
     end
 
     def mess_other_flavour_dep_names(current_flavour \\ System.get_env("FLAVOUR", "classic")) do

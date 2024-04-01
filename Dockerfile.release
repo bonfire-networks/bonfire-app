@@ -7,6 +7,7 @@ ARG ELIXIR_DOCKER_IMAGE
 #### STEP 1 - Build our app
 FROM hexpm/elixir:${ELIXIR_DOCKER_IMAGE} as builder 
 
+ARG FLAVOUR
 ARG FLAVOUR_PATH
 ARG FORKS_TO_COPY_PATH
 
@@ -54,15 +55,15 @@ RUN mix deps.get --only prod
 # RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 # # ^ useful in case of spotty connectivity
 
-# add extra deps 
+## add extra deps 
 # from other flavours
 COPY --parents flavours/*/config/* ./
-#specified by the core app
+# specified by the core app
 RUN cp -rfL deps/bonfire/deps.* ./config/
-RUN ls -la config/* && ls -la flavours/*/config/*
+RUN ls -la config/* && ls flavours/*/config/*
 
 # fetch extras (we need extensions for the non-configurable paths in config/deps_hooks.js)
-RUN mix deps.get --only prod
+# RUN mix deps.get --only prod
 # RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 
 # we need config before compiling Bonfire extensions
@@ -77,6 +78,7 @@ COPY ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
 
 # Fetch git deps - should be after forks are copied (and updates are fetched, if doing so) in case a forked/updated extension specified any different deps)
 RUN mix deps.get --only prod
+RUN ls deps/
 
 # Include translations
 COPY priv/localisation/ priv/localisation/
@@ -121,8 +123,9 @@ RUN MIX_ENV=prod mix deps.clean needle_ulid jason poison --build
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
 
-# Include any migrations provided by flavour
-COPY data/current_flavour/repo priv/repo
+# Include any migrations provided by flavour (maybe not needed?)
+# COPY data/current_flavour/repo priv/repo
+RUN mkdir -p priv/repo/migrations
 
 # Copy DB/repo migrations from installed extensions
 RUN mix bonfire.extension.copy_migrations --force --to priv/repo/migrations
@@ -178,6 +181,8 @@ WORKDIR /opt/app
 
 # copy app build
 COPY --from=builder /opt/app/_build/prod/rel/bonfire /opt/app
+COPY --from=builder /opt/app/flavours/ /opt/app/flavours/
+RUN ls /opt/app/lib/
 
 # start
 CMD ["./bin/bonfire", "start"]
