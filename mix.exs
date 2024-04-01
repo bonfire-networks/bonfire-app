@@ -120,22 +120,29 @@ defmodule Bonfire.Umbrella.MixProject do
                 ]
 
   @deps Mess.deps(Mixer.mess_sources(@flavour), @extra_deps,
-        use_local_forks?: @use_local_forks,
-        use_umbrella?: @use_umbrella?,
-        umbrella_root?: @use_local_forks,
-        umbrella_path: @umbrella_path
-      )
+          use_local_forks?: @use_local_forks,
+          use_umbrella?: @use_umbrella?,
+          umbrella_root?: @use_local_forks,
+          umbrella_path: @umbrella_path
+        )
 
   @extra_release_apps @deps
-      |> Enum.filter(fn
-        {_dep, opts} when is_list(opts) -> opts[:runtime]==false and (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
-        {_dep, _, opts} -> opts[:runtime]==false and (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
-        _ -> false
-      end)
-      # Mixer.other_flavour_sources()
-      |> Mixer.deps_names_list()
-      |> Enum.map(& {&1, :load})
-      |> IO.inspect(label: "extensions to include in release")
+                      |> Enum.filter(fn
+                        {_dep, opts} when is_list(opts) ->
+                          opts[:runtime] == false and
+                            (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
+
+                        {_dep, _, opts} ->
+                          opts[:runtime] == false and
+                            (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
+
+                        _ ->
+                          false
+                      end)
+                      # Mixer.other_flavour_sources()
+                      |> Mixer.deps_names_list()
+                      |> Enum.map(&{&1, :load})
+                      |> IO.inspect(label: "extensions to include in release")
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
@@ -240,7 +247,6 @@ defmodule Bonfire.Umbrella.MixProject do
   def config, do: @config
   def deps, do: config()[:deps]
 
-
   def project do
     [
       app: :bonfire_umbrella,
@@ -266,12 +272,13 @@ defmodule Bonfire.Umbrella.MixProject do
           runtime_config_path: Mixer.config_path("runtime.exs"),
           # should BEAM files should have their debug information, documentation chunks, and other non-essential metadata?
           strip_beams: false,
-          applications: [
-            bonfire: :permanent,
-            # if observability fails it shouldn’t take your app down with it
-            opentelemetry_exporter: :temporary,
-            opentelemetry: :temporary
-          ] ++ config()[:disabled_extensions]
+          applications:
+            [
+              bonfire: :permanent,
+              # if observability fails it shouldn’t take your app down with it
+              opentelemetry_exporter: :temporary,
+              opentelemetry: :temporary
+            ] ++ config()[:disabled_extensions]
         ]
       ],
       sources_url: "https://github.com/bonfire-networks",
