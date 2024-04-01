@@ -119,7 +119,8 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:sobelow, "~> 0.12.1", only: :dev}
                 ]
 
-  @deps Mess.deps(Mixer.mess_sources(@flavour), @extra_deps,
+  @deps Mixer.mess_sources(@flavour)
+        |> Mess.deps(@extra_deps,
           use_local_forks?: @use_local_forks,
           use_umbrella?: @use_umbrella?,
           umbrella_root?: @use_local_forks,
