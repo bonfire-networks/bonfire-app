@@ -35,6 +35,8 @@ defmodule Bonfire.Umbrella.MixProject do
   @extra_deps @main_deps ++
                 @maybe_api_deps ++
                 [
+                  
+                  {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
                   # compilation
                   # {:tria, github: "hissssst/tria"},
 
@@ -148,7 +150,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.27",
+    version: "0.9.10-beta.28",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,
