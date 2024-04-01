@@ -35,7 +35,6 @@ defmodule Bonfire.Umbrella.MixProject do
   @extra_deps @main_deps ++
                 @maybe_api_deps ++
                 [
-                  
                   {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
                   # compilation
                   # {:tria, github: "hissssst/tria"},
