@@ -139,14 +139,19 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 case System.get_env("SENTRY_DSN", "") do
   "" ->
-    config :sentry,
-      modularity: :disabled
+    config :sentry, modularity: :disabled
 
   dsn ->
     IO.puts("NOTE: errors will be reported to Sentry.")
 
     config :sentry,
-      dsn: dsn
+      dsn: dsn,
+      integrations: [
+        oban: [
+          capture_errors: true,
+          cron: [enabled: true]
+        ]
+      ]
 
     if System.get_env("SENTRY_NAME") do
       config :sentry, server_name: System.get_env("SENTRY_NAME")

@@ -208,7 +208,7 @@ config :sentry,
   # dsn: "this-should-be-set-in-env-and-loaded-in-runtime.exs",
   environment_name: Mix.env(),
   # TODO? see https://hexdocs.pm/sentry/upgrade-10-x.html#actively-package-your-source-code
-  # NOTE: enabling errors with `Found two source files in different source root paths with the same relative path`
+  # NOTE: enabling `enable_source_code_context` errors with `Found two source files in different source root paths with the same relative path`
   enable_source_code_context: false,
   root_source_code_paths:
     [project_root] ++ Bonfire.Mixer.dep_paths(Bonfire.Mixer.deps_names_for(:bonfire)),
