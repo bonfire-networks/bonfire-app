@@ -428,7 +428,7 @@ dep-hex command dep version:
 	just messctl "$command $dep $version"
 	just mix "deps.clean $dep"
 
-# add/enable/disable/delete a git dep with messctl command, eg: `just dep-hex enable needle https://github.com/bonfire-networks/needle#main
+# add/enable/disable/delete a git dep with messctl command, eg: `just dep-hex enable needle https://github.com/bonfire-networks/needle
 dep-git command dep repo:
 	just messctl "$command $dep $repo config/deps.git"
 	just mix "deps.clean $dep"

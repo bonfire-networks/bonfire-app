@@ -26,8 +26,7 @@ defmodule Bonfire.Umbrella.MixProject do
   @maybe_api_deps if(System.get_env("WITH_API_GRAPHQL") == "yes",
                     do: [
                       {:bonfire_api_graphql,
-                       git: "https://github.com/bonfire-networks/bonfire_api_graphql",
-                       branch: "main"}
+                       git: "https://github.com/bonfire-networks/bonfire_api_graphql"}
                     ],
                     else: []
                   )
@@ -117,7 +116,6 @@ defmodule Bonfire.Umbrella.MixProject do
                   #   only: :dev,
                   #   runtime: false,
                   #   git: "https://github.com/bonfire-networks/licensir",
-                  #   branch: "main"
                   #   # path: "./forks/licensir"
                   # },
 
@@ -156,7 +154,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.33",
+    version: "0.9.10-beta.34",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,
