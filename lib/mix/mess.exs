@@ -77,6 +77,7 @@ if not Code.ensure_loaded?(Mess) do
     defp deps_uniq(packages, opts),
       do:
         packages
+        |> Enum.reject(&is_nil/1)
         # |> IO.inspect(label: "non-unique")
         |> maybe_filter_invalid_paths(opts)
         |> Enum.uniq_by(&elem(&1, 0))
