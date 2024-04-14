@@ -15,10 +15,10 @@ We recommend only granting an account to people you trust to minimise the attack
 
 ## Step - 0 - Decide how you want to deploy and manage the app
 
-* Option A - Install using [Co-op Cloud](https://coopcloud.tech) (recommended) which is an alternative to corporate cloud services built by tech co-ops, and provides handy tools for setting up and managing many self-hosted free software tools using ready-to-use "recipes". Very useful if you'd like to host Bonfire alongside other open and/or federated projects. In this case, jump straight to step 4.
-* Option B - Install using Docker containers (easy mode)
-  * Option B1 - Using pre-built Docker images 
-  * Option B2 - Building your own Docker image (if you want to make changes to the code)
+* Option A - Install using [Co-op Cloud](https://coopcloud.tech) (recommended) which is an alternative to corporate cloud services built by tech co-ops, and provides handy tools for setting up and managing many self-hosted free software tools using ready-to-use "recipes". Very useful if you'd like to host Bonfire alongside other open and/or federated projects. 
+* Option B - Install using Docker containers 
+  * Option B1 - Using pre-built Docker images (easy mode)
+  * Option B2 - Building your own Docker image (if you want to make code changes or add your own extensions)
 * Option C - Manual installation (without Docker)
 
 ## Step 1 - Download and configure the app
@@ -27,6 +27,7 @@ We recommend only granting an account to people you trust to minimise the attack
 1. Install [Abra](https://docs.coopcloud.tech/abra/) on your machine
 2. [Set up a server with co-op cloud](https://docs.coopcloud.tech/operators/) 
 3. Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the instructions there. 
+4. [Done!](#step-4-run)
 
 ### Options B and C
 
@@ -210,7 +211,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 - [just](https://github.com/casey/just#packages)
 - Elixir version 1.15+ with OTP 25+. If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf.
 
-#### C-1. Building the release
+1. Building the release
 
 - Make sure you have erlang and elixir installed (check `Dockerfile` for what version we're currently using)
 
@@ -218,7 +219,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 
 - Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. Note that you will need `just` to pass in the `.env` file to the executable, like so: `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Alternatively, this file can be sourced by `source .env` instead. We will be using the `bin/bonfire` executable as called from `just` from here on. 
 
-#### C-2. Running the release
+2. Running the release
 
 - Create a database, and a user, fill out the `.env` with your credentials and secrets
 
@@ -252,7 +253,7 @@ Your `flake.nix` file would look like the following. Remember to replace `myHost
 
 ```nix
 {
-  inputs.bonfire.url = "github:happysalada/bonfire-app/main";
+  inputs.bonfire.url = "github:bonfire-networks/bonfire-app/main";
   outputs = { self, nixpkgs, bonfire }: {
     overlay = final: prev: with final;{
       # a package named bonfire already exists on nixpkgs so we put it under a different name
@@ -320,76 +321,6 @@ Then your `myHostName.nix` would look like the following:
 }
 ```
 
-### Option C with nixos
-
-this repo is a flake and includes a nixos module.
-Here are the detailed steps to deploy it.
-
-- add it as an input to your system flake.
-- add an overlay to just the package available
-- add the required configuration in your system
-
-Your flake.nix file would look like the following. Remember to replace myHostName with your actual hostname or however your deployed system is called.
-
-```nix
-{
-  inputs.bonfire.url = "github:happysalada/bonfire-app/main";
-  outputs = { self, nixpkgs, bonfire }: {
-    overlay = final: prev: with final;{
-      # a package named bonfire already exists on nixpkgs so we put it under a different name
-      elixirBonfire = bonfire.defaultPackage.x86_64-linux;
-    };
-    nixosConfigurations.myHostName = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        {
-          environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
-          nixpkgs.overlays = [ self.overlay ];
-        }
-        ./myHostName.nix
-        bonfire.nixosModules.bonfire
-      ];
-    };
-  };
-}
-```
-
-then in myHostName.nix would look like the following
-
-TODO: add the caddy config
-
-```nix
-{ config, lib, pkgs, ... }:
-
-{
-  services.bonfire = {
-    # you will need to expose bonfire with a reverse proxy, for example caddy
-    port = 4000;
-    package = pkgs.elixirBonfire;
-    dbName = "bonfire";
-    # the environment should contain a minimum of
-    #   SECRET_KEY_BASE
-    #   SIGNING_SALT
-    #   ENCRYPTION_SALT
-    #   RELEASE_COOKIE
-    # have a look into nix/module.nix for more details
-    # the way to deploy secrets is beyond this readme, but I would recommend agenix
-    environmentFile = "/run/secrets/bonfireEnv";
-    dbSocketDir = "/var/run/postgresql";
-  };
-
-  # this is uniquely for database backup purposes
-  # replace myBackupUserName with the user name that will do the backups
-  # if you want to do backups differently, feel free to remove this part of the config
-  services.postgresql = {
-    ensureDatabases = [ "bonfire" ];
-    ensureUsers = [{
-      name = "myBackupUserName";
-      ensurePermissions = { "DATABASE bonfire" = "ALL PRIVILEGES"; };
-    }];
-  };
-}
-```
 
 ## Step 4 - Run
 

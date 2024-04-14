@@ -28,7 +28,9 @@ $ cd bonfire
 Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on:
 
 - `classic` ("Bonfire Social", a basic social network that interoperates with the fediverse)
-- `community` (for groups and communities)
+- `community` (for topics and groups)
+- `open-science` (for next-gen scientific communities)
+- `coordination` (for coordinating around tasks and projects)
 - `cooperation` (for building cooperative economic networks)
 
 Note that at the current time, the core team are focusing most of their efforts on the classic flavour and this is where we recommend you start.
