@@ -149,13 +149,14 @@ defmodule Bonfire.Umbrella.MixProject do
                       end)
                       # Mixer.other_flavour_sources()
                       |> Mixer.deps_names_list()
+                      |> Enum.reject(&(&1 == :bonfire))
                       |> Enum.map(&{&1, :load})
-                      |> IO.inspect(label: "extensions to include in release")
+                      |> IO.inspect(label: "disabled extensions to still include in release")
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.32",
+    version: "0.9.10-beta.33",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,
