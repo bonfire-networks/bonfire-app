@@ -143,10 +143,12 @@ jobs:
           chmod +x deps-debian.sh && ./deps-debian.sh
       - 
         name: Install Bonfire deps 
+        run: |
           just config
           just mix "deps.get --only prod"
       - 
         name: Build app
+        run: |
           just rel-build
           cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
       - name: Release to github
