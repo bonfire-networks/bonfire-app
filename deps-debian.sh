@@ -25,3 +25,5 @@ elixir -v
 just --version
 yarn -v
 
+mix local.hex --force
+mix local.rebar --force

@@ -8,7 +8,7 @@ jobs:
   docs:
     name: Generate docs (upon new release)
     runs-on: ubuntu-latest
-    container: hexpm/elixir:1.16.2-erlang-26.2.2-alpine-3.19.1
+    container: hexpm/elixir:1.16.2-erlang-26.2.4-alpine-3.19.1
     env:
       FLAVOUR: cooperation
       FLAVOUR_PATH: flavours/cooperation
@@ -62,4 +62,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/exdoc
           cname: doc.bonfirenetworks.org
+  #     - name: Create tags in extensions repos
+  #       uses: bonfire-networks/create-tags-multirepo@v0.6
+  #       with:
+  #         version: ${{ steps.version.outputs.current-version }}
+  #         message: ${{ github.event.inputs.message }}
+  #         token: ${{ secrets.GH_TOKEN }}
+  #         owner: "bonfire-networks"
+  #         repos: "bonfire_api_graphql,bonfire_data_identity,bonfire_fail,bonfire_ui_me,bonfire_boundaries,bonfire_data_shared_user,bonfire_federate_activitypub,bonfire_quantify,bonfire_breadpub,bonfire_data_social,bonfire_files,bonfire_recyclapp,bonfire_ui_social,bonfire_classify,bonfire_geolocate,bonfire_search,bonfire_ui_valueflows,bonfire_common,bonfire_ecto,bonfire_invite_links,bonfire_social,bonfire_data_access_control,bonfire_editor_ck,bonfire_livebook,bonfire_tag,bonfire_valueflows,bonfire_data_activity_pub,bonfire_editor_quill,bonfire_mailer,bonfire_valueflows_api_schema,bonfire_data_assort,bonfire_me,bonfire_ui_common,bonfire_valueflows_observe,bonfire_epics,bonfire_notify,bonfire_ui_coordination,bonfire_data_edges,bonfire_extension_template,bonfire_open_id,bonfire_ui_kanban"
+  #         # bonfire_upcycle,bonfire_publisher_thesis,bonfire_ui_reflow,bonfire_data_tasks,bonfire_taxonomy_seeder,bonfire_encryption_backend,bonfire_pages,bonfire_web_phoenix,bonfire_website
           
