@@ -96,95 +96,14 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  # elixir_release_simple: 
-  #   name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
-  #   strategy:
-  #     matrix:
-  #       flavour: ["classic"] # , "cooperation"]
-  #   runs-on: ubuntu-latest
-  #   container: debian:bullseye
-  #   # container: debian:bullseye-slim
-  #   env:
-  #     FLAVOUR: ${{ matrix.flavour }}
-  #     WITH_DOCKER: no
-  #     MIX_ENV: prod
-  #     TERM: linux
-  #   steps:
-  #     - 
-  #       name: Cancel any already running releases workflows
-  #       uses: styfle/cancel-workflow-action@0.9.0
-  #       with:
-  #         access_token: ${{ github.token }}
-  #     - name: Install git # needed for checkout with fetch-depth
-  #       run: apt-get update -q -y && apt-get install -q -y git
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 2 # needed for action-detect-and-tag-new-version
-  #     - name: Trust my repo
-  #       run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
-  #     # - 
-  #     #   name: Maybe tag/release new version
-  #     #   id: version
-  #     #   uses: salsify/action-detect-and-tag-new-version@v2
-  #     #   with:
-  #     #     create-tag: false # unless tag is already created in another job
-  #     #     version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
-  #     - 
-  #       if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-  #       name: Cancel workflow if the version has not changed
-  #       uses: andymckay/cancel-action@0.2
-  #     - 
-  #       name: Install deps & build app
-  #       run: |
-  #         chmod +x deps-debian.sh && ./deps-debian.sh
-  #         # . /opt/asdf/asdf.sh
-  #         just config
-  #         just mix "deps.get --only prod"
-  #         just rel-build
-  #         cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
-  #     - name: Release to github
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         files: _build/prod/rel/bonfire-*.tar.gz
-  #         name: Unstable - ${{ steps.version.outputs.tag }}
-  #         tag_name: ${{ steps.version.outputs.tag }}
-  #     # - name: Publish release 
-  #     #   uses: mayel/actions/bin/ghr@master
-  #     #   env:
-  #     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #     #     RELEASE_PATH: _build/prod/rel
-  #     #     CI: 1
-
-  elixir_release_matrix:
-    # The host should always be linux
-    runs-on: ubuntu-latest
-    name: ${{ matrix.flavour }} - OTP on ${{ matrix.arch }} ${{ matrix.distro }} 
-    # Run steps on a matrix of several arch/distro combinations
+  elixir_release_amd64: 
+    name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
     strategy:
       matrix:
         flavour: ["classic"] # , "cooperation"]
-        arch: ["amd64"] # "amd64", "aarch64", "armv7"] 
-        distro: ["bullseye"] 
-        include:
-          - arch: amd64
-            family: debian
-            distro: bullseye
-            # base_image: hexpm/elixir:1.16.2-erlang-26.2.4-debian-bullseye-20240408 # use bare debian so we build with same versions as in Yunohost recipe
-          # - arch: aarch64
-          #   family: debian
-          #   distro: bullseye
-          # - arch: armv7
-          #   family: debian
-          #   distro: bullseye
-          #  # base_image: elixir:1.14-slim
-          # - arch: aarch64
-          #   distro: alpine_latest
-          # - arch: none 
-          #   distro: none
-          #   base_image: debian:bullseye-slim # Error: run-on-arch: If arch and distro are not specified, base_image is required
-          #   family: debian
-          #   arch_alt: amd64
-          #   distro_alt: bullseye
+    runs-on: ubuntu-latest
+    container: debian:bullseye
+    # container: debian:bullseye-slim
     env:
       FLAVOUR: ${{ matrix.flavour }}
       WITH_DOCKER: no
@@ -192,96 +111,174 @@ jobs:
       TERM: linux
     steps:
       - 
-        name: Checkout
-        uses: actions/checkout@v2
+        name: Cancel any already running releases workflows
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Install git # needed for checkout with fetch-depth
+        run: apt-get update -q -y && apt-get install -q -y git
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
-      - 
-        name: Detect version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # tag already created in other job
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - name: Trust my repo
+        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
+      # - 
+      #   name: Maybe tag/release new version
+      #   id: version
+      #   uses: salsify/action-detect-and-tag-new-version@v2
+      #   with:
+      #     create-tag: false # unless tag is already created in another job
+      #     version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - 
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
-      - uses: uraimo/run-on-arch-action@v2.7.2
-        name: Build artifact
-        id: build
-        with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-
-          # Not required, but speeds up builds
-          githubToken: ${{ github.token }}
-
-          # Create an artifacts directory
-          setup: |
-            echo "Setup!..."
-            mkdir -p "${PWD}/artifacts"
-            # cp .tool-versions "${PWD}/artifacts/"
-
-          # Mount the artifacts directory as /artifacts in the container
-          dockerRunArgs: |
-            --volume "${PWD}/artifacts:/artifacts"
-
-          # Pass some environment variables to the container
-          env: | # YAML, but pipe character is necessary
-            artifact_name: bonfire-${{ env.FLAVOUR }}-${{ matrix.arch || matrix.arch_alt }}-${{ matrix.family }}-${{ matrix.distro || matrix.distro_alt }}.tar.gz
-
-          # The shell to run commands with in the container
-          shell: /bin/bash
-
-          # Install some dependencies in the container. This speeds up builds if
-          # you are also using githubToken. Any dependencies installed here will
-          # be part of the container image that gets cached, so subsequent
-          # builds don't have to re-install them. The image layer is cached
-          # publicly in your project's package repository, so it is vital that
-          # no secrets are present in the container state or logs.
-          install: |
-            echo "Install!..."
-            export TERM=${{ env.TERM }}
-            case "${{ matrix.distro }}" in
-              ubuntu*|jessie|stretch|buster|bullseye)
-                # chmod +x deps-debian.sh && ./deps-debian.sh
-                # TODO ^ how to use the script here? (checked out files not available in install step)
-                ;;
-              alpine*)
-                # chmod +x deps-alpine.sh && ./deps-alpine.sh
-                ;;
-            esac
-           
-            
-          # Produce a binary artifact and place it in the mounted volume
-          run: |
-            echo "Run!..."
-            case "${{ matrix.distro }}" in
-              ubuntu*|jessie|stretch|buster|bullseye)
-                chmod +x deps-debian.sh && ./deps-debian.sh
-                # TODO ^ do in install step instead
-                ;;
-              alpine*)
-                chmod +x deps-alpine.sh && ./deps-alpine.sh
-                ;;
-            esac
-            # . "/opt/asdf/asdf.sh"
-            just config
-            just mix "deps.get --only prod"
-            just rel-build
-            cd _build/prod/rel && tar -czvf /artifacts/${artifact_name} bonfire
-            echo "Produced artifact at /artifacts/${artifact_name}"
-
-      - name: List the artifacts
-        # Items placed in /artifacts in the container will be in
-        # ${PWD}/artifacts on the host.
+      - 
+        name: Install deps & build app
         run: |
-          ls -al "${PWD}/artifacts"
+          chmod +x deps-debian.sh && ./deps-debian.sh
+          # . /opt/asdf/asdf.sh
+          just config
+          just mix "deps.get --only prod"
+          just rel-build
+          cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v1
         with:
-          files: "${PWD}/artifacts/*"
+          files: _build/prod/rel/bonfire-*.tar.gz
           name: Unstable - ${{ steps.version.outputs.tag }}
           tag_name: ${{ steps.version.outputs.tag }}
+      # - name: Publish release 
+      #   uses: mayel/actions/bin/ghr@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     RELEASE_PATH: _build/prod/rel
+      #     CI: 1
+
+  # elixir_release_extra_architectures:
+  #   # The host should always be linux
+  #   runs-on: ubuntu-latest
+  #   name: ${{ matrix.flavour }} - OTP on ${{ matrix.arch }} ${{ matrix.distro }} 
+  #   # Run steps on a matrix of several arch/distro combinations
+  #   strategy:
+  #     matrix:
+  #       flavour: ["classic"] # , "cooperation"]
+  #       arch: ["aarch64"] # "armv7"] # NOTE: run-on-arch-action does not support amd64
+  #       distro: ["bullseye"] 
+  #       include:
+  #         - arch: aarch64
+  #           family: debian
+  #           distro: bullseye
+  #           # base_image: hexpm/elixir:1.16.2-erlang-26.2.4-debian-bullseye-20240408 # use bare debian so we build with same versions as in Yunohost recipe
+  #         # - arch: armv7
+  #         #   family: debian
+  #         #   distro: bullseye
+  #         #  # base_image: elixir:1.14-slim
+  #         # - arch: aarch64
+  #         #   distro: alpine_latest
+  #         # - arch: none 
+  #         #   distro: none
+  #         #   base_image: debian:bullseye-slim # Error: run-on-arch: If arch and distro are not specified, base_image is required
+  #         #   family: debian
+  #         #   arch_alt: amd64
+  #         #   distro_alt: bullseye
+  #   env:
+  #     FLAVOUR: ${{ matrix.flavour }}
+  #     WITH_DOCKER: no
+  #     MIX_ENV: prod
+  #     TERM: linux
+  #   steps:
+  #     - 
+  #       name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 2 # needed for action-detect-and-tag-new-version
+  #     - 
+  #       name: Detect version
+  #       id: version
+  #       uses: salsify/action-detect-and-tag-new-version@v2
+  #       with:
+  #         create-tag: false # tag already created in other job
+  #         version-command: |
+  #           grep -m 1 'version:' mix.exs | cut -d '"' -f2
+  #     - 
+  #       if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+  #       name: Cancel workflow if the version has not changed
+  #       uses: andymckay/cancel-action@0.2
+  #     - uses: uraimo/run-on-arch-action@v2.7.2
+  #       name: Build artifact
+  #       id: build
+  #       with:
+  #         arch: ${{ matrix.arch }}
+  #         distro: ${{ matrix.distro }}
+
+  #         # Not required, but speeds up builds
+  #         githubToken: ${{ github.token }}
+
+  #         # Create an artifacts directory
+  #         setup: |
+  #           echo "Setup!..."
+  #           mkdir -p "${PWD}/artifacts"
+  #           # cp .tool-versions "${PWD}/artifacts/"
+
+  #         # Mount the artifacts directory as /artifacts in the container
+  #         dockerRunArgs: |
+  #           --volume "${PWD}/artifacts:/artifacts"
+
+  #         # Pass some environment variables to the container
+  #         env: | # YAML, but pipe character is necessary
+  #           artifact_name: bonfire-${{ env.FLAVOUR }}-${{ matrix.arch || matrix.arch_alt }}-${{ matrix.family }}-${{ matrix.distro || matrix.distro_alt }}.tar.gz
+
+  #         # The shell to run commands with in the container
+  #         shell: /bin/bash
+
+  #         # Install some dependencies in the container. This speeds up builds if
+  #         # you are also using githubToken. Any dependencies installed here will
+  #         # be part of the container image that gets cached, so subsequent
+  #         # builds don't have to re-install them. The image layer is cached
+  #         # publicly in your project's package repository, so it is vital that
+  #         # no secrets are present in the container state or logs.
+  #         install: |
+  #           echo "Install!..."
+  #           export TERM=${{ env.TERM }}
+  #           case "${{ matrix.distro }}" in
+  #             ubuntu*|jessie|stretch|buster|bullseye)
+  #               # chmod +x deps-debian.sh && ./deps-debian.sh
+  #               # TODO ^ how to use the script here? (checked out files not available in install step)
+  #               ;;
+  #             alpine*)
+  #               # chmod +x deps-alpine.sh && ./deps-alpine.sh
+  #               ;;
+  #           esac
+           
+            
+  #         # Produce a binary artifact and place it in the mounted volume
+  #         run: |
+  #           echo "Run!..."
+  #           case "${{ matrix.distro }}" in
+  #             ubuntu*|jessie|stretch|buster|bullseye)
+  #               chmod +x deps-debian.sh && ./deps-debian.sh
+  #               # TODO ^ do in install step instead
+  #               ;;
+  #             alpine*)
+  #               chmod +x deps-alpine.sh && ./deps-alpine.sh
+  #               ;;
+  #           esac
+  #           # . "/opt/asdf/asdf.sh"
+  #           just config
+  #           just mix "deps.get --only prod"
+  #           just rel-build
+  #           cd _build/prod/rel && tar -czvf /artifacts/${artifact_name} bonfire
+  #           echo "Produced artifact at /artifacts/${artifact_name}"
+
+  #     - name: List the artifacts
+  #       # Items placed in /artifacts in the container will be in
+  #       # ${PWD}/artifacts on the host.
+  #       run: |
+  #         ls -al "${PWD}/artifacts"
+  #     - name: Release to github
+  #       uses: softprops/action-gh-release@v1
+  #       with:
+  #         files: "${PWD}/artifacts/*"
+  #         name: Unstable - ${{ steps.version.outputs.tag }}
+  #         tag_name: ${{ steps.version.outputs.tag }}
