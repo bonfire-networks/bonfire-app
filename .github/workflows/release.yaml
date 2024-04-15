@@ -136,8 +136,8 @@ jobs:
       - 
         name: Install deps & build app
         run: |
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
           chmod +x deps-debian.sh && ./deps-debian.sh
-          # . /opt/asdf/asdf.sh
           just config
           just mix "deps.get --only prod"
           just rel-build
