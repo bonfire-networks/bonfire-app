@@ -138,9 +138,21 @@ jobs:
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - 
-        name: Install system deps 
+        name: Install system deps & tools
         run: |
           chmod +x deps-debian.sh && ./deps-debian.sh
+          echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
+      - 
+        name: Check tools
+        run: |
+          echo $PATH
+          which erl
+          elixir -v
+          just --version
+          yarn -v
+
+          mix local.hex --force
+          mix local.rebar --force
       - 
         name: Install Bonfire deps 
         run: |

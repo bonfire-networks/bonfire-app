@@ -21,11 +21,3 @@ mise install
 # just --version || (asdf install just latest && asdf global just latest) || cargo install just #|| apt-get install -y just 
 # npm install --global yarn
 
-echo $PATH
-which erl
-elixir -v
-just --version
-yarn -v
-
-mix local.hex --force
-mix local.rebar --force
