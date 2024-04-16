@@ -597,6 +597,8 @@ test-db-reset: init db-pre-migrations
 _rel-init:
 	MIX_ENV=prod just _pre-init
 
+rel-config: config _rel-init _rel-prepare
+
 # copy current flavour's config, without using symlinks
 @_rel-config-prepare:
 	rm -rf data/current_flavour
@@ -625,13 +627,13 @@ rel-build-release ARGS="":
 
 # Build the release
 rel-build USE_EXT="local" ARGS="":
-	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"_rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
+	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
-rel-build-OTP USE_EXT="local" ARGS="": 
+rel-build-OTP USE_EXT="local" ARGS="": _rel-init _rel-prepare
 	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
 
-_rel-build-OTP USE_EXT="local" ARGS="": _rel-init _rel-prepare
+_rel-build-OTP USE_EXT="local" ARGS="": 
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 	yarn -v || npm install --global yarn
 	-rm -rf priv/static
@@ -795,6 +797,10 @@ shell:
 @mix *args='':
 	echo % mix $@
 	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $@" } else { "just cmd mix $@" } }}
+
+@mix-eval *args='': init
+	echo % mix eval "$@"
+	{{ if MIX_ENV == "prod" {"echo Skip"} else { 'mix eval "$@"' } }}
 
 @mix-maybe-prod *args='':
 	{{ if WITH_DOCKER != "no" { "echo Ignoring mix commands when using docker in prod" } else { "just mix-maybe-prod-pre-release $@" } }}
