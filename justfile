@@ -634,13 +634,21 @@ rel-build-OTP USE_EXT="local" ARGS="": _rel-init _rel-prepare
 	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
 
 _rel-build-OTP USE_EXT="local" ARGS="": 
+	just _rel-compile-OTP {{ USE_EXT }} {{ ARGS }}
+	just _rel-compile-assets {{ USE_EXT }}
+	just _rel-release-OTP {{ USE_EXT }}
+
+_rel-compile-OTP USE_EXT="local" ARGS="": 
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
+
+_rel-compile-assets USE_EXT="local" ARGS="": 
 	yarn -v || npm install --global yarn
 	-rm -rf priv/static
 	cd ./assets && yarn && yarn build && cd ..
-	just rel-mix {{ USE_EXT }} phx.digest
-	just rel-mix {{ USE_EXT }} release
-# just rel-mix {{ USE_EXT }} compile
+	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
+
+_rel-release-OTP USE_EXT="local" ARGS="": 
+	just rel-mix {{ USE_EXT }} release {{ ARGS }}
 
 rel-mix USE_EXT="local" ARGS="":
 	@echo {{ ARGS }}

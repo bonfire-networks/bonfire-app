@@ -162,10 +162,16 @@ jobs:
         name: Build app
         uses: gacts/run-and-post-run@v1
         with:
+          # TODO: figure out why Surface compiler is failing to create assets and remove the workaround (of using the ones already in the repo)
           run: |
             ls -la data/current_flavour/config/flavour_assets/
             ls -la data/current_flavour/config/flavour_assets/hooks/
-            just _rel-build-OTP remote
+            cp -r data/current_flavour/config/flavour_assets data/current_flavour/config/flavour_assets_bak 
+            just _rel-compile-OTP remote
+            rm -rf data/current_flavour/config/flavour_assets 
+            mv data/current_flavour/config/flavour_assets_bak data/current_flavour/config/flavour_assets 
+            just _rel-compile-assets remote
+            just _rel-release-OTP remote
             cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
           post: |
             ls -la data/current_flavour/config/flavour_assets/
