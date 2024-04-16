@@ -122,13 +122,13 @@ jobs:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
-      # - 
-      #   name: Maybe tag/release new version
-      #   id: version
-      #   uses: salsify/action-detect-and-tag-new-version@v2
-      #   with:
-      #     create-tag: false # tag is already created in another job
-      #     version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - 
+        name: Maybe tag/release new version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: true # NOTE: can only create tag here if it's a matrix of 1
+          version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
       # - 
       #   if: steps.version.outputs.current-version == steps.version.outputs.previous-version
       #   name: Cancel workflow if the version has not changed
