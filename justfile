@@ -133,8 +133,8 @@ _ln-spark-deps:
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	mkdir -p priv/static/public
-	# ulimit -n 524288
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
+# ulimit -n 524288
 
 
 #### COMMON COMMANDS ####
