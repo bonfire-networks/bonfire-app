@@ -76,34 +76,34 @@ config:
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
 @flavour select_flavour:
 	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
-	just pre-config $select_flavour
-	just pre-setup-env $select_flavour
+	just _pre-config $select_flavour
+	just _pre-setup-env $select_flavour
 	printf "\nNow make sure to finish the flavour setup with 'just setup'. You can also edit your config for flavour '$select_flavour' in /.env and ./config/ more generally.\n"
 
 setup:
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 
-init services="db": pre-init 
+init services="db": _pre-init 
 	@just services $services
 	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 @config-basic select_flavour=FLAVOUR:
 	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
-	just pre-config $select_flavour
+	just _pre-config $select_flavour
 	just setup
 	echo "Setup done."
 
-@pre-config select_flavour=FLAVOUR:
+@_pre-config select_flavour=FLAVOUR:
 	rm -rf ./priv/repo/*
 	-rm ./config/deps.flavour.* 2> /dev/null
 	-rm ./config/flavour_* 2> /dev/null
-	just pre-setup $select_flavour
+	just _pre-setup $select_flavour
 
-pre-setup flavour='classic':
+@_pre-setup flavour='classic':
 	mkdir -p config
 	mkdir -p ./flavours/$flavour/config/prod/
 	mkdir -p ./flavours/$flavour/config/dev/
-	just ln-spark-deps
+	just _ln-spark-deps
 	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
 	touch ./config/deps.path
 	mkdir -p data
@@ -114,19 +114,19 @@ pre-setup flavour='classic':
 	mkdir -p forks/
 	chmod 700 .erlang.cookie
 
-ln-spark-deps:
+_ln-spark-deps:
 	cd config && (find ../extensions/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || find ../deps/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || echo "Could not symlink the bonfire_spark deps") && ls -la ./
 
-@pre-setup-env flavour='classic':
+@_pre-setup-env flavour='classic':
 	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
-	test -f ./flavours/$flavour/config/$ENV_ENV/.env || just pre-setup-env-init flavours/$flavour/config flavours/$flavour/config || just pre-setup-env-init flavours/classic/config flavours/$flavour/config
+	test -f ./flavours/$flavour/config/$ENV_ENV/.env || just _pre-setup-env-init flavours/$flavour/config flavours/$flavour/config || just _pre-setup-env-init flavours/classic/config flavours/$flavour/config
 	-rm .env
 	ln -sf ./config/$ENV_ENV/.env ./.env
 
-@pre-setup-env-init from to:
+@_pre-setup-env-init from to:
 	cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> {{to}}/$ENV_ENV/.env
 
-@pre-init: assets-ln
+@_pre-init: _assets-ln
 	mkdir -p data
 	mkdir -p ./priv/repo/
 	cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
@@ -145,26 +145,24 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	WITH_GIT_DEPS=0 just mix deps.get
-	just ln-spark-deps
+	just _ln-spark-deps
 	just deps-get
 
 extension-post-install:
-	just ext-migrations-copy
+	just _ext-migrations-copy
 
-ext-migrations-copy:
+_ext-migrations-copy:
 	just mix bonfire.extension.copy_migrations --force
 
 setup-prod:
 	just build
 	just deps-get --only prod
-	just deps-post-get
+	just _deps-post-get
 
 # Prepare environment and dependencies
 prepare:
-	just pre-setup $FLAVOUR
+	just _pre-setup $FLAVOUR
 	just build
-
-prepare-prod:
 
 # Run the app in development
 @dev *args='':
@@ -277,7 +275,7 @@ update: init update-repo
 	just update-forks
 	just update-deps
 	just mix deps.get
-	just deps-post-get
+	just _deps-post-get
 	just js-deps-get
 #   just mix compile
 #	just db-migrate
@@ -285,16 +283,16 @@ update: init update-repo
 # Update the app and Bonfire extensions in ./deps
 update-app: update-repo update-deps
 
-pre-update-deps:
+_pre-update-deps:
 	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@rm -rf deps/*/assets/yarn.lock
 	@rm -rf deps/bonfire/priv/repo
 
 # Update Bonfire extensions in ./deps
-update-deps: pre-update-deps
+update-deps: _pre-update-deps
 	just mix-remote updates
 
-update-repo: pre-contrib-hooks
+update-repo: _pre-contrib-hooks
 	@chmod +x git-publish.sh && ./git-publish.sh . pull || git pull
 
 update-repo-pull:
@@ -305,20 +303,20 @@ update-deps-bonfire:
 	just mix-remote bonfire.deps.update
 
 # Update every single dependency (use with caution)
-update-deps-all: pre-update-deps
+update-deps-all: _pre-update-deps
 	just update-forks
 	just mix-remote "deps.update --all"
-	just deps-post-get
+	just _deps-post-get
 	just js-ext-deps upgrade
-	just assets-ln
+	just _assets-ln
 	just js-ext-deps outdated
 	-just mix "hex.outdated --all"
 
 # Update a specify dep (eg. `just update.dep needle`)
-update-dep dep: pre-update-deps
+update-dep dep: _pre-update-deps
 	just update-fork $dep pull
 	just mix-remote "deps.update $dep"
-	just deps-post-get
+	just _deps-post-get
 	./js-deps-get.sh $dep
 
 # Pull the latest commits from all forks
@@ -342,10 +340,10 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 @deps-get *args='':
 	just mix deps.get $@
 	-just mix-remote deps.get $@ || echo "Oops, could not download mix deps"
-	just deps-post-get
+	just _deps-post-get
 	just js-deps-get
 
-@deps-post-get: extension-post-install
+@_deps-post-get: extension-post-install
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
 	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
 	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
@@ -370,13 +368,13 @@ deps-clean dep:
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js-deps-get: js-ext-deps assets-ln
+js-deps-get: js-ext-deps _assets-ln
 
 @js-ext-deps yarn_args='':
 	chmod +x ./config/deps.js.sh
 	just cmd ./config/deps.js.sh $yarn_args
 
-@assets-ln:
+@_assets-ln:
 	{{ if path_exists("extensions/bonfire_ui_common")=="true" { "ln -sf extensions/bonfire_ui_common/assets && echo Assets served from the local UI.Common extension will be used" } else {"ln -sf deps/bonfire_ui_common/assets "} }}
 
 deps-outdated: deps-unlock-unused
@@ -444,13 +442,13 @@ messctl *args='': init
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
-pre-push-hooks: pre-contrib-hooks
+_pre-push-hooks: _pre-contrib-hooks
 	just mix format
 	just icons-uniq
 	just deps-clean bonfire
 #	just mix changelog
 
-pre-contrib-hooks:
+_pre-contrib-hooks:
 	-ex +%s,/extensions/,/deps/,e -scwq config/deps_hooks.js
 	rm -rf forks/*/data/uploads/favicons/
 	rm -rf extensions/*/data/uploads/favicons/
@@ -460,16 +458,16 @@ icons-uniq:
 	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
 
 # Push all changes to the app and extensions in ./forks
-contrib: pre-push-hooks contrib-forks-publish git-publish
+contrib: _pre-push-hooks contrib-forks-publish git-publish
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
-contrib-release: pre-push-hooks contrib-forks-publish update contrib-app-release
+contrib-release: _pre-push-hooks contrib-forks-publish update contrib-app-release
 
 # Rebase app's repo and push all changes to the app
-contrib-app-only: pre-push-hooks update-repo git-publish
+contrib-app-only: _pre-push-hooks update-repo git-publish
 
 # Increment the app version number and commit/push
-contrib-app-release: pre-push-hooks contrib-app-release-increment git-publish
+contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 
 # Increment the app version number
 @contrib-app-release-increment:
@@ -596,11 +594,11 @@ test-db-reset: init db-pre-migrations
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
-rel-init:
-	MIX_ENV=prod just pre-init
+_rel-init:
+	MIX_ENV=prod just _pre-init
 
 # copy current flavour's config, without using symlinks
-@rel-config-prepare:
+@_rel-config-prepare:
 	rm -rf data/current_flavour
 	mkdir -p data
 	rm -rf flavours/*/config/*/dev
@@ -609,7 +607,7 @@ rel-init:
 	cp -rfL extensions/bonfire/deps.* data/current_flavour/config/ || cp -rfL deps/bonfire/deps.* data/current_flavour/config/ || echo "Could not copy the deps definitions from the bonfire_spark dep"
 
 # copy current flavour's config, without using symlinks
-@rel-prepare: rel-config-prepare
+@_rel-prepare: _rel-config-prepare
 	mkdir -p extensions/
 	mkdir -p forks/
 	mkdir -p data/uploads/
@@ -627,11 +625,14 @@ rel-build-release ARGS="":
 
 # Build the release
 rel-build USE_EXT="local" ARGS="":
-	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
+	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"_rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
-rel-build-OTP USE_EXT="local" ARGS="": rel-init rel-prepare
-	just rel-mix {{ USE_EXT }} compile 
+rel-build-OTP USE_EXT="local" ARGS="": 
+	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
+
+_rel-build-OTP USE_EXT="local" ARGS="": _rel-init _rel-prepare
+	just rel-mix {{ USE_EXT }} compile --return-errors {{ ARGS }}
 	yarn -v || npm install --global yarn
 	-rm -rf priv/static
 	cd ./assets && yarn && yarn build && cd ..
@@ -644,7 +645,7 @@ rel-mix USE_EXT="local" ARGS="":
 	@MIX_ENV=prod CI=1 just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image
-@rel-build-docker USE_EXT="local" ARGS="": rel-init rel-prepare assets-prepare
+@rel-build-docker USE_EXT="local" ARGS="": _rel-init _rel-prepare assets-prepare
 	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="":
@@ -665,7 +666,7 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 @rel-tag label='latest':
 	just rel-tag-commit $APP_BUILD {{label}}
 
-@rel-tag-commit build label='latest': rel-init
+@rel-tag-commit build label='latest': _rel-init
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}
 	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
@@ -687,13 +688,13 @@ rel-push-only-alt build label='latest':
 	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
 
 # Run the app in Docker & starts a new `iex` console
-rel-run services="db proxy": rel-init docker-stop-web 
+rel-run services="db proxy": _rel-init docker-stop-web 
 	just rel-services $services
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
-rel-run-bg services="db proxy": rel-init docker-stop-web
+rel-run-bg services="db proxy": _rel-init docker-stop-web
 	just rel-services $services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
 
@@ -713,25 +714,25 @@ rel-down: rel-stop
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-rel-shell services="db proxy": rel-init docker-stop-web 
+rel-shell services="db proxy": _rel-init docker-stop-web 
 	just rel-services $services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
-rel-shell-bg services="db proxy": rel-init 
+rel-shell-bg services="db proxy": _rel-init 
 	just rel-services $services
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
-rel-db-shell-bg: rel-init 
+rel-db-shell-bg: _rel-init 
 	just rel-services db
 	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
 
-rel-db-dump: rel-init 
+rel-db-dump: _rel-init 
 	just rel-services db
 	docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
 
-rel-db-restore: rel-init 
+rel-db-restore: _rel-init 
 	just rel-services db
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 

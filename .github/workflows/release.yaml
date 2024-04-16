@@ -161,7 +161,9 @@ jobs:
       - 
         name: Build app
         run: |
+          ls -la data/current_flavour/config/flavour_assets/ && data/current_flavour/config/flavour_assets/hooks/
           just rel-build
+          ls -la data/current_flavour/config/flavour_assets/ && data/current_flavour/config/flavour_assets/hooks/
           cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v2
