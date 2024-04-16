@@ -903,9 +903,6 @@ nix-db-init: (nix-db "start")
   createdb ${PGDATABASE}
   createuser -dlsw ${PGUSERNAME}
 
-sys-deps-debian:
-  ./deps-debian.sh
-
 # to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
 # and run this in seperate terminal to start the above tunnel: `just tunnel`
 

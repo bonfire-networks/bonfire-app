@@ -140,7 +140,7 @@ jobs:
       - 
         name: Install system deps & tools
         run: |
-          chmod +x deps-debian.sh && ./deps-debian.sh
+          chmod +x deps-debian-build.sh && ./deps-debian-build.sh
           echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
       - 
         name: Check tools
@@ -277,11 +277,11 @@ jobs:
   #           export TERM=${{ env.TERM }}
   #           case "${{ matrix.distro }}" in
   #             ubuntu*|jessie|stretch|buster|bullseye)
-  #               # chmod +x deps-debian.sh && ./deps-debian.sh
+  #               # chmod +x deps-debian-build.sh && ./deps-debian-build.sh
   #               # TODO ^ how to use the script here? (checked out files not available in install step)
   #               ;;
   #             alpine*)
-  #               # chmod +x deps-alpine.sh && ./deps-alpine.sh
+  #               # chmod +x deps-alpine-build.sh && ./deps-alpine-build.sh
   #               ;;
   #           esac
            
@@ -291,11 +291,11 @@ jobs:
   #           echo "Run!..."
   #           case "${{ matrix.distro }}" in
   #             ubuntu*|jessie|stretch|buster|bullseye)
-  #               chmod +x deps-debian.sh && ./deps-debian.sh
+  #               chmod +x deps-debian-build.sh && ./deps-debian-build.sh
   #               # TODO ^ do in install step instead
   #               ;;
   #             alpine*)
-  #               chmod +x deps-alpine.sh && ./deps-alpine.sh
+  #               chmod +x deps-alpine-build.sh && ./deps-alpine-build.sh
   #               ;;
   #           esac
   #           # . "/opt/asdf/asdf.sh"
