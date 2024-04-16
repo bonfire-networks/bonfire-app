@@ -642,9 +642,10 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 
 _rel-compile-assets USE_EXT="local" ARGS="": 
-	yarn -v || npm install --global yarn
 	-rm -rf priv/static
-	cd ./assets && yarn && yarn build && cd ..
+	yarn -v || npm install --global yarn
+	just js-deps-get
+	cd ./assets && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
 
 _rel-release-OTP USE_EXT="local" ARGS="": 
