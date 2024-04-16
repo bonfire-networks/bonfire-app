@@ -72,7 +72,7 @@ jobs:
         run: sudo apt-get update -y && sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH 
       - 
         name: Pre-build prep 
-        run: just rel-prepare 
+        run: just _rel-prepare 
       -
         name: Build and push
         id: docker_build
@@ -146,24 +146,26 @@ jobs:
         name: Check tools
         run: |
           echo $PATH
+          whoami
           which erl
           elixir -v
           just --version
           yarn -v
-
-          mix local.hex --force
-          mix local.rebar --force
       - 
         name: Install Bonfire deps 
         run: |
           just config
+          mix local.hex --force
+          mix local.rebar --force
           just mix "deps.get --only prod"
       - 
         name: Build app
         run: |
-          ls -la data/current_flavour/config/flavour_assets/ && data/current_flavour/config/flavour_assets/hooks/
+          ls -la data/current_flavour/config/flavour_assets/
+          ls -la data/current_flavour/config/flavour_assets/hooks/
           just rel-build
-          ls -la data/current_flavour/config/flavour_assets/ && data/current_flavour/config/flavour_assets/hooks/
+          ls -la data/current_flavour/config/flavour_assets/
+          ls -la data/current_flavour/config/flavour_assets/hooks/
           cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
       - name: Release to github
         uses: softprops/action-gh-release@v2
