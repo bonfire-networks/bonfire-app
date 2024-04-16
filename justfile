@@ -644,8 +644,8 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 _rel-compile-assets USE_EXT="local" ARGS="": 
 	-rm -rf priv/static
 	yarn -v || npm install --global yarn
-	just js-deps-get
-	cd ./assets && yarn build && cd ..
+	just js-ext-deps
+	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
 
 _rel-release-OTP USE_EXT="local" ARGS="": 
