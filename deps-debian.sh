@@ -10,8 +10,11 @@ apt-get install -q -y --no-install-recommends autoconf dpkg-dev gcc g++ make lib
 
 # NOTE: using mise because bullseye elixir version is too old
 curl https://mise.run | sh
-echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-mise plugin-add erlang && mise plugin-add elixir && mise plugin-add just
+PATH="~/.local/share/mise/shims:$PATH"
+echo 'export PATH="~/.local/share/mise/shims:$PATH"' >> ~/.bash_profile
+mise plugin-add erlang 
+mise plugin-add elixir 
+mise plugin-add just
 
 mise install
 
