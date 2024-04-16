@@ -160,13 +160,16 @@ jobs:
           just mix "deps.get --only prod"
       - 
         name: Build app
-        run: |
-          ls -la data/current_flavour/config/flavour_assets/
-          ls -la data/current_flavour/config/flavour_assets/hooks/
-          just _rel-build-OTP remote
-          ls -la data/current_flavour/config/flavour_assets/
-          ls -la data/current_flavour/config/flavour_assets/hooks/
-          cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
+        uses: gacts/run-and-post-run@v1
+        with:
+          run: |
+            ls -la data/current_flavour/config/flavour_assets/
+            ls -la data/current_flavour/config/flavour_assets/hooks/
+            just _rel-build-OTP remote
+            cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
+          post: |
+            ls -la data/current_flavour/config/flavour_assets/
+            ls -la data/current_flavour/config/flavour_assets/hooks/
       - name: Release to github
         uses: softprops/action-gh-release@v2
         with:
