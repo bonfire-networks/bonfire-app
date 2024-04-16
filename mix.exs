@@ -27,7 +27,7 @@ defmodule Bonfire.Umbrella.MixProject do
                     do: [
                       {:bonfire_api_graphql,
                        git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
-                        {:absinthe_client,
+                      {:absinthe_client,
                        git: "https://github.com/bonfire-networks/absinthe_client"}
                     ],
                     else: []
@@ -133,7 +133,8 @@ defmodule Bonfire.Umbrella.MixProject do
           umbrella_root?: @use_local_forks,
           umbrella_path: @umbrella_path
         )
-        # |> IO.inspect(limit: :infinity)
+
+  # |> IO.inspect(limit: :infinity)
 
   @extra_release_apps @deps
                       |> Enum.filter(fn
@@ -157,7 +158,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.61",
+    version: "0.9.10-beta.62",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,

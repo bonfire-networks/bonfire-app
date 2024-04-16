@@ -12,7 +12,12 @@ ARG FLAVOUR_PATH
 ARG FORKS_TO_COPY_PATH
 
 # necessary utils + dependencies for comeonin
-RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
+COPY --link deps-alpine.sh ./
+COPY --link deps-alpine-build.sh ./
+RUN chmod +x ./*.sh
+RUN sh deps-alpine-build.sh
+
+# RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
 
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./
 WORKDIR $HOME
@@ -156,28 +161,32 @@ FROM alpine:${ALPINE_VERSION}
 
 ENV APP_REVISION=${APP_VSN}-${APP_BUILD} 
 
-# Essentials
-RUN apk add --update --no-cache \
-  mailcap \
-  ca-certificates \
-  openssh-client \
-  openssl-dev \
-  # ^ for HTTPS, etc
-  git \ 
-  # build-base \ 
-  # ^ required by tree_magic 
-  tzdata \
-  gettext \
-  # ^ localisation
-  imagemagick \
-  vips-tools \
-  poppler-utils \
-  # ^ image resizing
-  bash \
-  curl 
-  #^ misc
-
 WORKDIR /opt/app
+
+# Essentials
+COPY --link deps-alpine.sh ./
+RUN chmod +x ./deps-alpine.sh
+RUN sh deps-alpine.sh
+
+# RUN apk add --update --no-cache \
+#   mailcap \
+#   ca-certificates \
+#   openssh-client \
+#   openssl-dev \
+#   # ^ for HTTPS, etc
+#   git \ 
+#   # build-base \ 
+#   # ^ required by tree_magic 
+#   tzdata \
+#   gettext \
+#   # ^ localisation
+#   imagemagick \
+#   vips-tools \
+#   poppler-utils \
+#   # ^ image resizing
+#   bash \
+#   curl 
+#   #^ misc
 
 # copy app build
 COPY --from=builder /opt/app/_build/prod/rel/bonfire /opt/app

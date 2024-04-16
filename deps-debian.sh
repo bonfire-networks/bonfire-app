@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 apt-get update -q -y
 

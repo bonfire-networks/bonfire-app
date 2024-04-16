@@ -119,8 +119,8 @@ config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo,
 # config :query_elf, :id_types, [:id, :binary_id, Needle.ULID]
 
 # disable Tzdata and replace with Tz library
-config :tzdata, :autoupdate, :disabled
-config :elixir, :time_zone_database, Tz.TimeZoneDatabase
+# config :tzdata, :autoupdate, :disabled 
+# config :elixir, :time_zone_database, Tz.TimeZoneDatabase # FIXME: disabled for now because crashes on Yunohost / Debian 11
 
 config :logger,
   handle_otp_reports: true,

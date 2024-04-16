@@ -1,4 +1,3 @@
-apk add bash git tar file build-base gcc sqlite npm mailcap ca-certificates openssl-dev tzdata gettext curl rust cargo just libc-dev elixir
+#!/bin/sh
 
-mix local.hex --force
-mix local.rebar --force
+apk add --update --no-cache mailcap ca-certificates openssh-client openssl-dev git tzdata gettext imagemagick vips-tools poppler-utils bash curl 
