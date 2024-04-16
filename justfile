@@ -632,7 +632,7 @@ rel-build-OTP USE_EXT="local" ARGS="":
 	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
 
 _rel-build-OTP USE_EXT="local" ARGS="": _rel-init _rel-prepare
-	just rel-mix {{ USE_EXT }} compile --return-errors {{ ARGS }}
+	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 	yarn -v || npm install --global yarn
 	-rm -rf priv/static
 	cd ./assets && yarn && yarn build && cd ..
