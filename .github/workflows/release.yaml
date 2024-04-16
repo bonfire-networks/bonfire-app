@@ -164,7 +164,7 @@ jobs:
           just rel-build
           cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
       - name: Release to github
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: _build/prod/rel/bonfire-*.tar.gz
           name: Unstable - ${{ steps.version.outputs.tag }}
