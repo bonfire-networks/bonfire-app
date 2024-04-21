@@ -307,10 +307,15 @@ update-deps-all: _pre-update-deps
 	just update-forks
 	just mix-remote "deps.update --all"
 	just _deps-post-get
-	just js-ext-deps upgrade
+	just update-deps-js
 	just _assets-ln
 	just js-ext-deps outdated
 	-just mix "hex.outdated --all"
+
+# Update every single dependency (use with caution)
+update-deps-js: 
+	just js-ext-deps
+	just js-ext-deps upgrade
 
 # Update a specify dep (eg. `just update.dep needle`)
 update-dep dep: _pre-update-deps
