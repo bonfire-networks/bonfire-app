@@ -231,6 +231,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_tag",
         "bonfire_classify",
         "bonfire_geolocate",
+        "bonfire_quantify",
         "bonfire_valueflows"
       ],
       required: [
