@@ -914,7 +914,7 @@ nix-db-init: (nix-db "start")
 tunnel: tunnel-localhost-run
 
 @tunnel-localhost-run:
-	ssh -R 80:localhost:${SERVER_PORT} localhost.run
+	ssh -R 80:localhost:4000 localhost.run
 
 # this requires `cargo install tunnelto` (the homebrew version of tunnelto doesn't work)
 @tunnel-tunnelto:
