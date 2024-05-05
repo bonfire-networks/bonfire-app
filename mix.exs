@@ -84,7 +84,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
                   {
                     :phoenix_test,
-                    "~> 0.2.13",
+                    "~> 0.3",
                     # git: "https://github.com/germsvel/phoenix_test", 
                     only: :test, runtime: false
                   },
