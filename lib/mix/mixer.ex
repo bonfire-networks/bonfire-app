@@ -286,7 +286,11 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do: dep_paths(dep, "README.md") |> List.first() |> readme_path(dep)
 
     defp readme_path(path, dep) when not is_nil(path),
-      do: [{path |> String.to_atom(), [filename: "extension-" <> dep_name(dep)]}]
+      # naming the readme's like this should mean they get overriden by the moduledoc of the extension's main module, which ideally read the readme contents using e.g. `@moduledoc "./README.md" |> File.stream!() |> Enum.drop(1) |> Enum.join()`
+      do: [
+        {path |> String.to_atom(),
+         [filename: dep_name(dep) |> String.replace("_", "/") |> Macro.camelize()]}
+      ]
 
     defp readme_path(_, _), do: []
 

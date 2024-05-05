@@ -6,7 +6,7 @@ config :bonfire_open_id,
 config :boruta, Boruta.Oauth,
   repo: Bonfire.Common.Repo,
   contexts: [
-    resource_owners: Bonfire.OpenID.Integration
+    resource_owners: Bonfire.OpenID
   ]
 
 if Mix.env() == :test do
