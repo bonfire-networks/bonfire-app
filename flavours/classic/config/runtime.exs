@@ -329,6 +329,10 @@ else
     modularity: :disabled
 end
 
+config :ecto_sparkles, 
+  slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
+  queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
+
 # start prod-only config
 if config_env() == :prod do
   config :bonfire_umbrella, Bonfire.Common.Repo,
@@ -337,13 +341,11 @@ if config_env() == :prod do
     # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
     log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "false"))
 end
-
-# prod only config
+# end prod only config
 
 # start prod and dev only config
 if config_env() != :test do
   config :bonfire_umbrella, Bonfire.Common.Repo,
-    slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
     # The timeout for establishing new connections (default: 5000)
     connect_timeout: String.to_integer(System.get_env("DB_CONNECT_TIMEOUT", "10000")),
     # The time in milliseconds (as an integer) to wait for the query call to finish (default: 15_000)
