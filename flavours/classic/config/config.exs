@@ -193,7 +193,14 @@ config :mime, :types, %{
   "video/mp4" => ["mp4"],
   "video/mpeg" => ["mpeg"],
   "video/ogg" => ["ogg", "ogv"],
-  "video/webm" => ["webm"]
+  "video/webm" => ["webm"],
+  "video/x-matroska" => ["mkv"],
+  "application/x-matroska" => ["mkv"]
+}
+
+# define which is preferred when more than one
+config :mime, :extensions, %{
+  "mkv" => "video/x-matroska"
 }
 
 config :os_mon,
