@@ -140,6 +140,8 @@ config :paper_trail,
   originator_relationship_options: [references: :id],
   originator: [name: :user, model: Bonfire.Data.Identity.User]
 
+config :nx, default_backend: EXLA.Backend
+
 # NOTE: need to declare types to avoid LV uploads failing with `invalid accept filter provided to allow_upload. Expected a file extension with a known MIME type.`
 config :mime, :types, %{
   "application/json" => ["json"],

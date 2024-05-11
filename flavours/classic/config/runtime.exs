@@ -329,7 +329,7 @@ else
     modularity: :disabled
 end
 
-config :ecto_sparkles, 
+config :ecto_sparkles,
   slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
   queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
 
@@ -341,6 +341,7 @@ if config_env() == :prod do
     # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
     log: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "false"))
 end
+
 # end prod only config
 
 # start prod and dev only config
