@@ -12,29 +12,17 @@ WORKDIR $HOME
 RUN apk update && \
     apk add bash curl inotify-tools
 
-# various dependencies of dependencies
-RUN apk add file \
-    npm yarn \
-    git \
-    mailcap \
-    ca-certificates openssh-client openssl-dev \
-    tzdata \
-    gettext
-
-# deps to compile NIF deps (eg. tree_magic)
-RUN apk add git rust cargo  
-
-# dependencies for comeonin (not needed for dev)
-#RUN apk add cmake make gcc libc-dev
+# JS package manager & builders
+# RUN npm install -g pnpm esbuild postcss
 
 # dependencies for encryption (experimental)
 # RUN apk add olm
 
-# dependencies for image processing 
-RUN apk add imagemagick vips-tools poppler-utils
-
-# JS package manager & builders
-# RUN npm install -g pnpm esbuild postcss
+# other necessary utils + dependencies 
+COPY --link deps-alpine.sh ./
+COPY --link deps-alpine-build.sh ./
+RUN chmod +x ./*.sh
+RUN sh deps-alpine-build.sh
 
 EXPOSE 4000/tcp
 EXPOSE 4004/tcp
