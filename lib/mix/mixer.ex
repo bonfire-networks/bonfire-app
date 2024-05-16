@@ -288,8 +288,21 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     defp readme_path(path, dep) when not is_nil(path),
       # naming the readme's like this should mean they get overriden by the moduledoc of the extension's main module, which ideally read the readme contents using e.g. `@moduledoc "./README.md" |> File.stream!() |> Enum.drop(1) |> Enum.join()`
       do: [
-        {path |> String.to_atom(),
-         [filename: dep_name(dep) |> String.replace("_", "/") |> Macro.camelize()]}
+        {path
+         |> Path.relative_to_cwd()
+         |> String.to_atom(),
+         [
+           filename:
+             dep_name(dep)
+             |> String.replace("bonfire_data_", "Bonfire/Data/")
+             |> String.replace("bonfire_api_", "Bonfire/API/")
+             |> String.replace("bonfire_ui_", "Bonfire/UI/")
+             |> String.replace("bonfire_editor_", "Bonfire/Editor/")
+             |> String.replace("bonfire_", "bonfire/")
+             |> String.replace("needle_", "Needle/")
+             |> Macro.camelize()
+         ]}
+        # |> IO.inspect()
       ]
 
     defp readme_path(_, _), do: []

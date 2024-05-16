@@ -266,6 +266,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
   def project do
     [
+      name: "Bonfire",
       app: :bonfire_umbrella,
       apps_path: @umbrella_path,
       version: Mixer.version(config()),
@@ -303,7 +304,6 @@ defmodule Bonfire.Umbrella.MixProject do
       homepage_url: "https://bonfirenetworks.org",
       docs: [
         # The first page to display from the docs
-        name: "Bonfire",
         main: "readme",
         logo: config()[:logo],
         output: "docs/exdoc",
