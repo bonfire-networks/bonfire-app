@@ -155,7 +155,12 @@ if not Code.ensure_loaded?(Mess) do
     defp maybe_read(path, kind) when is_binary(path), do: have_read(File.read(path), path, kind)
 
     defp have_read({:error, :enoent}, _path, _kind) do
-      # IO.puts("Could not find #{path} in #{File.cwd!()}")
+      # IO.puts("Could not read deps list from #{path} in #{File.cwd!()}")
+      []
+    end
+
+    defp have_read({:error, error}, path, _kind) do
+      IO.puts("Could not read deps list from #{path}: #{inspect(error)}")
       []
     end
 

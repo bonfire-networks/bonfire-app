@@ -4,6 +4,7 @@ default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
 flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 project_root = File.cwd!()
+as_desktop_app? = System.get_env("AS_DESKTOP_APP") in ["1", "true"]
 env = config_env()
 #### Basic configuration
 
@@ -32,7 +33,7 @@ config :bonfire,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   repo_module: repo,
   web_module: Bonfire.UI.Common.Web,
-  endpoint_module: Bonfire.Web.Endpoint,
+  endpoint_module: if(as_desktop_app?, do: Bonfire.Desktop.Endpoint, else: Bonfire.Web.Endpoint),
   mailer_module: Bonfire.Mailer,
   default_web_namespace: Bonfire.UI.Common,
   default_layout_module: Bonfire.UI.Common.LayoutView,
@@ -50,6 +51,23 @@ config :bonfire,
   signing_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs",
   encryption_salt: "this-will-be-overriden-by-a-secure-string-in-runtime.exs"
 
+endpoint_live_view = [
+  # the time of inactivity allowed in the LiveView before compressing its own memory and state. Defaults to 15000ms (15 seconds)
+  # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module
+  hibernate_after: String.to_integer(System.get_env("LV_HIBERNATE_AFTER", "7000")),
+  signing_salt: System.get_env("SIGNING_SALT")
+  # ^ should be overridden at runtime
+]
+
+endpoint_render_errors = [
+  # view: Bonfire.UI.Common.ErrorView,
+  accepts: ~w(html json),
+  # layout: false,
+  layout: [html: {Bonfire.UI.Common.BasicView, :error}],
+  # root_layout: [html: {Bonfire.UI.Common.BasicView, :error}],
+  formats: [html: Bonfire.UI.Common.ErrorView, json: Bonfire.UI.Common.ErrorView]
+]
+
 config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   check_origin: :conn,
@@ -57,20 +75,24 @@ config :bonfire, Bonfire.Web.Endpoint,
     # this gets overridden in runtime.exs
     port: String.to_integer(System.get_env("SERVER_PORT", "4000"))
   ],
-  render_errors: [
-    # view: Bonfire.UI.Common.ErrorView,
-    accepts: ~w(html json),
-    # layout: false,
-    layout: [html: {Bonfire.UI.Common.BasicView, :error}],
-    # root_layout: [html: {Bonfire.UI.Common.BasicView, :error}],
-    formats: [html: Bonfire.UI.Common.ErrorView, json: Bonfire.UI.Common.ErrorView]
-  ],
-  pubsub_server: Bonfire.Common.PubSub,
-  live_view: [
-    # the time of inactivity allowed in the LiveView before compressing its own memory and state. Defaults to 15000ms (15 seconds)
-    hibernate_after: String.to_integer(System.get_env("LV_HIBERNATE_AFTER", "7000"))
-    # NOTE: see also `LV_TIMEOUT` and `LV_FULLSWEEP_AFTER` for the socket in the endpoint module
-  ]
+  render_errors: endpoint_render_errors,
+  live_view: endpoint_live_view,
+  pubsub_server: Bonfire.Common.PubSub
+
+if as_desktop_app? do
+  config :bonfire, Bonfire.Desktop.Endpoint,
+    server: true,
+    url: [host: "localhost"],
+    check_origin: :conn,
+    http: [
+      # so it gets set automatically
+      port: 0
+    ],
+    render_errors: endpoint_render_errors,
+    live_view: endpoint_live_view,
+    pubsub_server: Bonfire.Common.PubSub,
+    secret_key_base: System.get_env("SECRET_KEY_BASE")
+end
 
 # Optionally run a 2nd endpoint for testing federation (only used in dev/prod)
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
@@ -82,9 +104,9 @@ config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   http: [
     port: 4002
   ],
-  secret_key_base: System.get_env("SECRET_KEY_BASE"),
-  live_view: [signing_salt: System.get_env("SIGNING_SALT")],
-  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false]
+  render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
+  live_view: endpoint_live_view,
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 config :bonfire, :markdown_library, MDEx
 
@@ -234,9 +256,8 @@ config :sentry,
 
 for dep <-
       Bonfire.Mixer.mess_other_flavour_dep_names(flavour)
-      |> IO.inspect(
-        label:
-          "NOTE: these extensions are not part of the #{flavour} flavour and will be available but disabled by default"
+      |> Bonfire.Mixer.log(
+        "NOTE: these extensions are not part of the #{flavour} flavour and will be available but disabled by default"
       ) do
   config dep,
     modularity: :disabled
@@ -252,7 +273,7 @@ end
 
 # include Bonfire-specific config files
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
-  # IO.inspect(include_config: config)
+  # System.get_env("MIX_QUIET") || IO.inspect(include_config: config)
   import_config config
 end
 
@@ -260,10 +281,13 @@ end
 flavour_config = "flavour_#{flavour}.exs" |> Path.expand(__DIR__)
 
 if File.exists?(flavour_config) do
-  IO.puts("Include flavour-specific config from `#{flavour_config}`")
+  System.get_env("MIX_QUIET") ||
+    IO.puts("Include flavour-specific config from `#{flavour_config}`")
+
   import_config("flavour_#{flavour}.exs")
 else
-  IO.puts("You could put any flavour-specific config at `#{flavour_config}`")
+  System.get_env("MIX_QUIET") ||
+    IO.puts("You could put any flavour-specific config at `#{flavour_config}`")
 end
 
 # federation library

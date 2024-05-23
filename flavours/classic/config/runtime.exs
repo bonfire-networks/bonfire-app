@@ -4,7 +4,7 @@
 # remember to add this file to your .gitignore.
 import Config
 
-IO.puts("🔥 Welcome to Bonfire!")
+System.get_env("MIX_QUIET") || IO.puts("🔥 Welcome to Bonfire!")
 
 flavour = System.get_env("FLAVOUR", "classic")
 host = System.get_env("HOSTNAME", "localhost")
@@ -37,7 +37,8 @@ hosts =
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
 ##
 
-System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") || System.get_env("CI") ||
+System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") ||
+  System.get_env("MIX_QUIET") || System.get_env("CI") ||
   raise """
   Environment variables for database are missing.
   For example: DATABASE_URL=ecto://USER:PASS@HOST/DATABASE
@@ -63,20 +64,20 @@ repo_connection_config =
   end
 
 secret_key_base =
-  System.get_env("SECRET_KEY_BASE") || System.get_env("CI") ||
+  System.get_env("SECRET_KEY_BASE") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
     raise """
     environment variable SECRET_KEY_BASE is missing.
     You can generate one by calling: mix phx.gen.secret
     """
 
 signing_salt =
-  System.get_env("SIGNING_SALT") || System.get_env("CI") ||
+  System.get_env("SIGNING_SALT") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
     raise """
     environment variable SIGNING_SALT is missing.
     """
 
 encryption_salt =
-  System.get_env("ENCRYPTION_SALT") || System.get_env("CI") ||
+  System.get_env("ENCRYPTION_SALT") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
     raise """
     environment variable ENCRYPTION_SALT is missing.
     """

@@ -129,7 +129,7 @@ _ln-spark-deps:
 @_pre-init: _assets-ln
 	mkdir -p data
 	mkdir -p ./priv/repo/
-	cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
+	-cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
 	rm -rf ./data/current_flavour
 	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	mkdir -p priv/static/public
@@ -178,6 +178,10 @@ dev-run services="db" *args='':
 
 @dev-remote: init
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
+
+@dev-app:
+	just init db
+	cd rel/app/macos && ./run.sh
 
 dev-search: 
 	just dev-run search

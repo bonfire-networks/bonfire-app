@@ -8,7 +8,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def deps(config, :bonfire, extensions) do
       # extensions = extensions || umbrella_extension_names()
-      # |> IO.inspect(label: "prefixes")
+      # |> log(label: "prefixes")
       prefixes =
         case multirepo_prefixes(config) do
           [] ->
@@ -23,7 +23,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         end
 
       (config[:deps] || config)
-      # |> IO.inspect()
+      # |> log()
       |> Enum.filter(&in_multirepo?(&1, prefixes, extensions))
     end
 
@@ -41,7 +41,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps(config, deps_subtype, _) when is_atom(deps_subtype),
       do:
         (config[:deps] || config)
-        # |> IO.inspect(limit: :infinity)
+        # |> log(limit: :infinity)
         |> Enum.filter(&include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]))
 
     def deps do
@@ -141,7 +141,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
       |> maybe_all_flavour_sources(flavour, System.get_env("WITH_ALL_FLAVOUR_DEPS", "1"))
 
-      # |> IO.inspect(label: "messy")
+      # |> log(label: "messy")
     end
 
     def mess_other_flavour_deps(current_flavour \\ System.get_env("FLAVOUR", "classic")) do
@@ -150,22 +150,22 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
       current_flavour_deps =
         enum_mess_sources(current_flavour_sources)
-        # |> IO.inspect(label: "current_mess_sources")
+        # |> log(label: "current_mess_sources")
         |> Mess.deps([], [])
         |> deps_names_list()
 
-      # |> IO.inspect(label: "current_flavour_deps", limit: :infinity)
+      # |> log(label: "current_flavour_deps", limit: :infinity)
 
       other_flavours_sources = other_flavour_sources(current_flavour_sources, current_flavour)
-      # |> IO.inspect(label: "other_flavours_sources")
+      # |> log(label: "other_flavours_sources")
 
       Mess.deps(other_flavours_sources, [], [])
-      # |> IO.inspect(label: "other_flavours_deps")
+      # |> log(label: "other_flavours_deps")
       |> Enum.reject(fn
         {dep, _} -> dep in current_flavour_deps
         {dep, _, _} -> dep in current_flavour_deps
       end)
-      |> IO.inspect(label: "other_flavour_deps")
+      |> log("other_flavour_deps")
     end
 
     def mess_other_flavour_dep_names(current_flavour \\ System.get_env("FLAVOUR", "classic")) do
@@ -199,7 +199,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         end
         |> Enum.reject(&(&1 == "flavours/#{current_flavour}/config"))
 
-      # |> IO.inspect(label: "creams")
+      # |> log(label: "creams")
 
       Enum.map(
         flavour_paths,
@@ -249,9 +249,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps_to_update(config) do
       deps(config, :update)
       |> deps_names()
-      |> IO.inspect(
-        label:
-          "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
+      |> log(
+        "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
       )
     end
 
@@ -302,7 +301,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
              |> String.replace("needle_", "Needle/")
              |> Macro.camelize()
          ]}
-        # |> IO.inspect()
+        # |> log()
       ]
 
     defp readme_path(_, _), do: []
@@ -511,7 +510,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def list_deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
       deps_by_size(sort_by, paths)
-      |> IO.inspect(limit: :infinity)
+      |> log(limit: :infinity)
 
       :ok
     end
@@ -576,12 +575,23 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def ok_unwrap({:ok, val}, _fallback), do: val
 
     def ok_unwrap({:error, val}, fallback) do
-      IO.warn(inspect(val))
+      log(val)
       fallback
     end
 
     def ok_unwrap(:ok, fallback), do: fallback
     def ok_unwrap(:error, fallback), do: fallback
     def ok_unwrap(val, fallback), do: val || fallback
+
+    def log(thing, opts \\ [])
+    def log(thing, label) when is_binary(label), do: log(thing, label: label)
+
+    def log(thing, opts) do
+      if System.get_env("MIX_QUIET") != "1" do
+        IO.inspect(thing, opts)
+      else
+        thing
+      end
+    end
   end
 end

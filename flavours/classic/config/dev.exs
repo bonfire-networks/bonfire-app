@@ -60,7 +60,9 @@ config :bonfire, Bonfire.Web.Endpoint,
     )
 
 if System.get_env("HOT_CODE_RELOAD") != "-1" do
-  config :bonfire, :hot_code_reload, System.get_env("HOT_CODE_RELOAD") != "0"
+  enable_reloader? = System.get_env("HOT_CODE_RELOAD") != "0" and Mix.target() != :app
+
+  config :bonfire, :hot_code_reload, enable_reloader?
 
   local_dep_names = Enum.map(local_deps, &elem(&1, 0))
 
@@ -97,17 +99,18 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
     ~r"(live_handler|live_handlers|routes)\.ex$"
   ]
 
-  IO.puts("Watching these filenames for live reloading in the browser: #{inspect(patterns)}")
+  Bonfire.Mixer.log(patterns, "Watching these filenames for live reloading in the browser")
 
   config :bonfire, Bonfire.Web.Endpoint,
-    code_reloader: true,
+    code_reloader: enable_reloader?,
     reloadable_compilers: [:leex, :elixir, :surface],
     reloadable_apps: [:bonfire] ++ local_dep_names,
     live_reload: [
       patterns: patterns ++ hot_patterns,
       notify: [
         live_view: hot_patterns
-      ]
+      ],
+      web_console_logger: false
     ],
     watchers: [
       yarn: [

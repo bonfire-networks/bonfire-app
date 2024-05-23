@@ -55,7 +55,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:argon2_elixir, "~> 4.0", only: [:prod]},
 
                   ## dev conveniences
-                  {:phoenix_live_reload, "~> 1.3", only: :dev, override: true},
+                  {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
                   #
                   # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
                   # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
@@ -139,7 +139,7 @@ defmodule Bonfire.Umbrella.MixProject do
           umbrella_path: @umbrella_path
         )
 
-  # |> IO.inspect(limit: :infinity)
+  # |> Mixer.log(limit: :infinity)
 
   @extra_release_apps @deps
                       |> Enum.filter(fn
@@ -158,7 +158,7 @@ defmodule Bonfire.Umbrella.MixProject do
                       |> Mixer.deps_names_list()
                       |> Enum.reject(&(&1 == :bonfire))
                       |> Enum.map(&{&1, :load})
-                      |> IO.inspect(label: "disabled extensions to still include in release")
+                      |> Mixer.log("disabled extensions to still include in release")
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
@@ -258,7 +258,7 @@ defmodule Bonfire.Umbrella.MixProject do
     ],
     deps: @deps,
     disabled_extensions: @extra_release_apps
-    # |> IO.inspect(limit: :infinity)
+    # |> Mixer.log(limit: :infinity)
   ]
 
   def config, do: @config
@@ -274,7 +274,7 @@ defmodule Bonfire.Umbrella.MixProject do
       elixirc_options: [debug_info: true, docs: true],
       elixirc_paths: Mixer.elixirc_paths(config(), Mix.env()),
       test_paths: Mixer.test_paths(config()),
-      # test_deps: Mixer.deps(config(), :test) |> IO.inspect(),
+      # test_deps: Mixer.deps(config(), :test) |> Mixer.log(),
       required_deps: config()[:deps_prefixes][:required],
       # consolidate_protocols: false, # for Tria
       compilers: Mixer.compilers(Mix.env()),
