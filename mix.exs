@@ -180,7 +180,8 @@ defmodule Bonfire.Umbrella.MixProject do
     "bonfire_boundaries",
     "bonfire_search",
     "bonfire_geolocate",
-    "bonfire_files"
+    "bonfire_files",
+    "bonfire_invite_links"
   ]
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
