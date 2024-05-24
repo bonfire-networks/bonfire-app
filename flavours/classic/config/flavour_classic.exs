@@ -21,3 +21,5 @@ config :bonfire, :ui,
     :bonfire_files
     # :bonfire_ui_search
   ]
+
+config :bonfire_valueflows_api_schema, modularity: :disabled

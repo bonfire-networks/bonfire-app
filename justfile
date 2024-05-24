@@ -951,3 +951,5 @@ with-docker-switch old_dir new_dir:
 	mv data/{{ new_dir }}/_build ./ 
 	mv data/{{ new_dir }}/node_modules assets/
 
+@docker-stop:
+	docker compose stop
