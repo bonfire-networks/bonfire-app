@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
-    name: Flavour ${{matrix.flavour}} / OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
     strategy:
       matrix:
         flavour: ['classic'] # 'community', 'cooperation'
@@ -20,6 +20,7 @@ jobs:
         # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
     env:
       FLAVOUR: ${{matrix.flavour}}
+      MIX_TEST_ONLY: ${{matrix.test_only}}
       MIX_ENV: test
       WITH_DOCKER: partial
       CI: true
