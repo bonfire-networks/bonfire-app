@@ -381,21 +381,24 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def test_deps(config) do
       case System.get_env("MIX_TEST_ONLY") do
-        "backend" -> 
+        "backend" ->
           Enum.reject(deps(config, :test_backend) ++ umbrella_extension_paths(), fn dep ->
             String.starts_with?(dep_name(dep), ["bonfire_ui_", "bonfire_federate_"])
           end)
-        "federation" -> 
+
+        "federation" ->
           deps(config, :test_federation) ++ umbrella_extension_paths()
-        "ui" -> 
+
+        "ui" ->
           deps(config, :test_ui) ++ umbrella_extension_paths()
+
         _all ->
           deps(config, :test) ++ umbrella_extension_paths()
-      end 
+      end
       |> Enum.uniq()
-      |> Enum.reject(fn 
-        {_dep, opts} -> opts[:runtime]==false
-        {_dep, _v, opts} -> opts[:runtime]==false
+      |> Enum.reject(fn
+        {_dep, opts} -> opts[:runtime] == false
+        {_dep, _v, opts} -> opts[:runtime] == false
       end)
       |> log("test_deps: #{System.get_env("MIX_TEST_ONLY")}")
     end
