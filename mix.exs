@@ -170,7 +170,6 @@ defmodule Bonfire.Umbrella.MixProject do
     # "paginator",
     "ecto_shorts",
     "ecto_sparkles",
-    "activity_pub",
     "arrows",
     "linkify",
     "fetch_favicon"
