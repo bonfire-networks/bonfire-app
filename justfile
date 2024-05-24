@@ -532,6 +532,12 @@ test *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test $@
 
+test-backend *args='':
+	MIX_TEST_ONLY=backend just test --exclude ui --include backend $@
+
+test-ui *args='':
+	MIX_TEST_ONLY=ui just test --exclude backend --include ui $@
+
 # Run only stale tests
 test-stale *args='':
 	@echo "Testing $@..."

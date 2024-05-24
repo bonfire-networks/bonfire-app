@@ -160,6 +160,26 @@ defmodule Bonfire.Umbrella.MixProject do
                       |> Enum.map(&{&1, :load})
                       |> Mixer.log("disabled extensions to still include in release")
 
+  @test_backend [
+    "bonfire_",
+    "needle",
+    # "paginator",
+    "ecto_shorts",
+    "ecto_sparkles",
+    "activity_pub",
+    "arrows",
+    "linkify",
+    "fetch_favicon"
+    # "paper_trail"
+  ]
+  @test_ui [
+    "bonfire_ui_",
+    "bonfire_boundaries",
+    "bonfire_search",
+    "bonfire_geolocate",
+    "bonfire_files"
+  ]
+
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
@@ -205,18 +225,9 @@ defmodule Bonfire.Umbrella.MixProject do
         "fetch_favicon",
         "paper_trail"
       ],
-      test: [
-        "bonfire",
-        "needle",
-        # "paginator",
-        "ecto_shorts",
-        "ecto_sparkles",
-        "activity_pub",
-        "arrows",
-        "linkify",
-        "fetch_favicon"
-        # "paper_trail"
-      ],
+      test_backend: @test_backend,
+      test_ui: @test_ui,
+      test: @test_backend ++ @test_ui,
       data: [
         "bonfire_data_",
         "bonfire_data_edges",

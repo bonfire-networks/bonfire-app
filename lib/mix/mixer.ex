@@ -376,8 +376,27 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def test_paths(config),
       do: [
         "test"
-        | Enum.flat_map(deps(config, :test) ++ umbrella_extension_paths(), &dep_paths(&1, "test"))
+        | Enum.flat_map(test_deps(config), &dep_paths(&1, "test"))
       ]
+
+    def test_deps(config) do
+      case System.get_env("MIX_TEST_ONLY") do
+        "backend" -> 
+          Enum.reject(deps(config, :test_backend) ++ umbrella_extension_paths(), fn dep ->
+            String.starts_with?(dep_name(dep), "bonfire_ui_")
+          end)
+        "ui" -> 
+          deps(config, :test_ui) ++ umbrella_extension_paths()
+        _all ->
+          deps(config, :test) ++ umbrella_extension_paths()
+      end 
+      |> Enum.uniq()
+      |> Enum.reject(fn 
+        {_dep, opts} -> opts[:runtime]==false
+        {_dep, _v, opts} -> opts[:runtime]==false
+      end)
+      |> log("test_deps: #{System.get_env("MIX_TEST_ONLY")}")
+    end
 
     # Specifies which paths to compile per environment
     def elixirc_paths(config, :test),
@@ -385,7 +404,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         # "lib",
         "test/support"
         | Enum.flat_map(
-            deps(config, :test) ++ umbrella_extension_paths(),
+            test_deps(config),
             &dep_paths(&1, "test/support")
           )
       ]
