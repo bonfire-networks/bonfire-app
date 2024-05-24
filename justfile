@@ -532,6 +532,9 @@ test *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test $@
 
+# test-federation *args='':
+# 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation $@
+
 test-backend *args='':
 	MIX_TEST_ONLY=backend just test --exclude ui --include backend $@
 

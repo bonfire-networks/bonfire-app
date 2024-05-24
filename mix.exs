@@ -160,6 +160,10 @@ defmodule Bonfire.Umbrella.MixProject do
                       |> Enum.map(&{&1, :load})
                       |> Mixer.log("disabled extensions to still include in release")
 
+  @test_federation [
+    "activity_pub",
+    "bonfire_federate_"
+  ]
   @test_backend [
     "bonfire_",
     "needle",
@@ -225,9 +229,10 @@ defmodule Bonfire.Umbrella.MixProject do
         "fetch_favicon",
         "paper_trail"
       ],
+      test_federation: @test_federation,
       test_backend: @test_backend,
       test_ui: @test_ui,
-      test: @test_backend ++ @test_ui,
+      test: @test_backend ++ @test_federation ++ @test_ui,
       data: [
         "bonfire_data_",
         "bonfire_data_edges",
