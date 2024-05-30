@@ -257,6 +257,17 @@ db-seeds: db-migrate
 db-reset: init dev-search-reset db-pre-migrations
 	just mix "ecto.reset"
 
+# Backup and then Upgrade the Postgres DB version (NOTE: does not work with Postgis geo extension) using https://github.com/pgautoupgrade/docker-pgautoupgrade 
+db-upgrade-dev version="15": db-dump-dev 
+	just _db-upgrade-dev {{version}}
+
+_db-upgrade-dev version="15": docker-stop
+	DB_DOCKER_IMAGE=pgautoupgrade/pgautoupgrade:{{version}}-alpine PGAUTO_ONESHOT=yes docker compose up db 
+
+db-dump-dev: 
+	just services db
+	just _db-dump docker-compose.yml 
+
 dev-search-reset: dev-search-reset-docker
 	rm -rf data/search/dev
 
@@ -759,7 +770,7 @@ rel-db-shell-bg: _rel-init
 
 rel-db-dump: _rel-init 
 	just rel-services db
-	docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
+	just _db-dump $APP_REL_DOCKERCOMPOSE "-p $APP_REL_CONTAINER"
 
 rel-db-restore: _rel-init 
 	just rel-services db
@@ -789,6 +800,10 @@ dc *args='':
 # Build the docker image
 rebuild: init
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose build --no-cache" } else { "echo Skip building container..." } }}
+
+_db-dump docker_compose compose_args="": 
+	-mv data/db_dump.sql data/db_dump.archive.sql
+	docker compose -f {{docker_compose}} {{compose_args}} exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
 @cmd *args='': init docker-stop-web
