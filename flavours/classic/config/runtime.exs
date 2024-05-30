@@ -285,9 +285,8 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
   end
 
   if System.get_env("OTEL_LIGHTSTEP_API_KEY") do
-    IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep.com")
-    # Example configuration for Lightstep.com, for more refers to:
-    # https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
+    IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep / servicenow.com")
+    # Example configuration, for more refer to: https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
     config :opentelemetry_exporter,
       # You can configure the compression type for exporting traces.
       otlp_compression: :gzip,
@@ -356,7 +355,7 @@ if config_env() != :test do
     parameters: [
       # Abort any statement that takes more than the specified amount of time. The timeout is measured from the time a command arrives at the server until it is completed by the server.
       statement_timeout: System.get_env("DB_STATEMENT_TIMEOUT", "20000"),
-      # Terminate any session with an open transaction that has been idle for longer than the specified amount of time. This allows any locks held by that session to be released and the connection slot to be reused. WARNING: this seems to also apply to migrations when running in a release, so needs to be high enough for DB migrations and fixtures to run. 
+      # idle-in-transaction timeout: terminates any session with an open transaction that has been idle for longer than the specified amount of time. This allows any locks held by that session to be released and the connection slot to be reused. WARNING: this seems to also apply to migrations when running in a release, so needs to be high enough for DB migrations and fixtures to run. 
       idle_in_transaction_session_timeout: System.get_env("DB_IDLE_TRANSACTION_TIMEOUT", "5000")
     ]
 end
