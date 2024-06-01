@@ -286,6 +286,7 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
 
   if System.get_env("OTEL_LIGHTSTEP_API_KEY") do
     IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep / servicenow.com")
+
     # Example configuration, for more refer to: https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
     config :opentelemetry_exporter,
       # You can configure the compression type for exporting traces.
