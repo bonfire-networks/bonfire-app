@@ -112,7 +112,7 @@ init services="db": _pre-init
 	mkdir -p priv/static/data
 	mkdir -p extensions/
 	mkdir -p forks/
-	chmod 700 .erlang.cookie
+	chmod 644 .erlang.cookie
 
 _ln-spark-deps:
 	cd config && (find ../extensions/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || find ../deps/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || echo "Could not symlink the bonfire_spark deps") && ls -la ./
