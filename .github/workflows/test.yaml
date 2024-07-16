@@ -1,0 +1,79 @@
+name: Test
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
+    strategy:
+      fail-fast: false
+      matrix:
+        flavour: ['classic'] # 'community', 'cooperation'
+        otp: ['27.0', '25.2.3'] 
+        elixir: ['1.17.2'] # '1.14.5' 
+        test_only: ['backend', 'ui'] # 'federation' - FIXME: federation results in  (Ecto.ConstraintError) constraint error when attempting to insert struct: "bonfire_data_access_control_encircle_circle_id_fkey" (foreign_key_constraint) in `fake_user` 
+        # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
+    env:
+      FLAVOUR: ${{matrix.flavour}}
+      MIX_TEST_ONLY: ${{matrix.test_only}}
+      MIX_ENV: test
+      WITH_DOCKER: partial
+      CI: true
+      TEST_LOG_TRUNCATE: 340
+      TEST_LOG_LEVEL: error
+      SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
+      SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
+      ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.9.0
+      with:
+        access_token: ${{ github.token }}
+    - name: Add system repositories
+      run: |
+        sudo apt update
+        sudo apt install ca-certificates curl
+        sudo install -m 0755 -d /etc/apt/keyrings
+        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        sudo apt update
+    - name: Install system deps
+      run: sudo apt install git tar file make build-essential sqlite docker-compose-plugin && sudo snap install --edge just --classic
+    - uses: actions/checkout@v4
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: ${{matrix.otp}}
+        elixir-version: ${{matrix.elixir}}
+    - name: Restore dependencies cache
+      uses: actions/cache@v4
+      id: cache
+      with:
+        path: |
+            deps
+            _build
+        key: ${{ runner.os }}-mix-${{ hashFiles('/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install hex
+      run: mix local.hex --force
+    - name: Install rebar
+      run: mix local.rebar --force
+    - name: Prepare environment
+      run: just config 
+    - name: Set up deps
+      run: just setup-dev
+    - name: Run tests
+      run: just test-${{matrix.test_only}}
+    - name: Check database down migrations 
+      run: just db-rollback-all

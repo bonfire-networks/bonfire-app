@@ -1,0 +1,75 @@
+name: Maybe generate docs
+on:
+  push:
+    branches: 
+      - main 
+      
+jobs:
+  docs:
+    name: Generate docs (upon new release)
+    runs-on: ubuntu-latest
+    container: hexpm/elixir:1.17.2-erlang-27.0-alpine-3.20.1
+    # TODO: compute this ^ from .tool-versions.env
+    env:
+      FLAVOUR: cooperation
+      FLAVOUR_PATH: flavours/cooperation
+      MIX_ENV: dev
+      WITH_DOCKER: no
+      CI: true
+      EXQLITE_USE_SYSTEM: 1
+      EXQLITE_SYSTEM_CFLAGS: -I/usr/include
+      EXQLITE_SYSTEM_LDFLAGS: -L/lib -lsqlite3
+    steps:
+      - 
+        name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), make/build-base/sqlite/graphviz (for arch), and just
+        run: apk add bash git tar file make build-base sqlite graphviz just
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      - name: Trust my repo
+        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app # see https://github.com/actions/checkout/issues/760
+      - 
+        name: Detect version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - 
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        name: Cancel workflow if the version has not changed
+        uses: andymckay/cancel-action@0.2
+      - name: Install hex
+        run: mix local.hex --force
+      - name: Install rebar
+        run: mix local.rebar --force
+      - name: Prepare environment
+        run: just _pre-setup && just init
+      - name: Install dependencies
+        run: mix deps.get
+      - 
+        name: Generate docs
+        run: just docs
+      # - 
+      #   name: Generate arch reports
+      #   run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
+      - 
+        name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/exdoc
+          cname: doc.bonfirenetworks.org
+  #     - name: Create tags in extensions repos
+  #       uses: bonfire-networks/create-tags-multirepo@v0.6
+  #       with:
+  #         version: ${{ steps.version.outputs.current-version }}
+  #         message: ${{ github.event.inputs.message }}
+  #         token: ${{ secrets.GH_TOKEN }}
+  #         owner: "bonfire-networks"
+  #         repos: "bonfire_api_graphql,bonfire_data_identity,bonfire_fail,bonfire_ui_me,bonfire_boundaries,bonfire_data_shared_user,bonfire_federate_activitypub,bonfire_quantify,bonfire_breadpub,bonfire_data_social,bonfire_files,bonfire_recyclapp,bonfire_ui_social,bonfire_classify,bonfire_geolocate,bonfire_search,bonfire_ui_valueflows,bonfire_common,bonfire_ecto,bonfire_invite_links,bonfire_social,bonfire_data_access_control,bonfire_editor_ck,bonfire_livebook,bonfire_tag,bonfire_valueflows,bonfire_data_activity_pub,bonfire_editor_quill,bonfire_mailer,bonfire_valueflows_api_schema,bonfire_data_assort,bonfire_me,bonfire_ui_common,bonfire_valueflows_observe,bonfire_epics,bonfire_notify,bonfire_ui_coordination,bonfire_data_edges,bonfire_extension_template,bonfire_open_id,bonfire_ui_kanban"
+  #         # bonfire_upcycle,bonfire_publisher_thesis,bonfire_ui_reflow,bonfire_data_tasks,bonfire_taxonomy_seeder,bonfire_encryption_backend,bonfire_pages,bonfire_web_phoenix,bonfire_website
+          

@@ -1,0 +1,130 @@
+# A Dockerfile for development/testing
+
+version: "3.5"
+
+services:
+  web:
+    container_name: "bonfire_web"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "20"
+    build:
+      context: .
+      dockerfile: "Dockerfile.dev"
+      args:
+        - ELIXIR_DOCKER_IMAGE=${ELIXIR_DOCKER_IMAGE}
+    ports:
+      - "4000:${SERVER_PORT}"
+      # - "${SERVER_PORT}:${SERVER_PORT}" # commented temporarily
+    env_file:
+      - config/dev/.env
+    environment:
+      - POSTGRES_HOST=db
+      - SEARCH_MEILI_INSTANCE=http://search:7700
+      # - GRAPH_DB_URL=bolt://graph:7687 # commented temporarily 
+    depends_on:
+      - db
+        # - condition: service_healthy
+      # - search
+      # - graph
+    volumes:
+      # - /etc/passwd:/etc/passwd:ro 
+      - type: bind
+        source: .
+        target: /opt/app
+      # do not mount the following:
+      # - /opt/app/_build
+      # - /opt/app/assets/node_modules
+      - /opt/app/data/postgres 
+      - /opt/app/data/search
+    stdin_open: true # like docker run -i
+    tty: true # like docker run -t
+    user: $UID:$GID
+  db:
+    image: ${DB_DOCKER_IMAGE}
+    # volumes:
+      # - ./data/postgres/dev:/var/lib/postgresql/data:z
+      # - /etc/passwd:/etc/passwd:ro 
+    ports:
+      - "5432:5432"
+    env_file:
+      - config/dev/.env
+    # user: $UID:$GID
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  search:
+    profiles:
+      - search
+    image: getmeili/meilisearch:latest
+    ports:
+      - "7700:7700"
+    # volumes:
+      # - "./data/search/dev:/data.ms"
+      # - /etc/passwd:/etc/passwd:ro 
+    env_file:
+      - config/dev/.env
+    # user: $UID:$GID
+  proxy:
+    profiles:
+      - proxy
+    links:
+      - web
+    image: "caddy:alpine"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    env_file:
+      - config/dev/.env
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - type: bind
+        source: ${PROXY_CADDYFILE_PATH}
+        target: /etc/caddy/Caddyfile
+        read_only: true
+      - type: bind
+        source: ./data/uploads
+        target: /frontend/uploads
+  graph:
+    profiles:
+      - graph
+    image: memgraph/memgraph-platform
+    entrypoint: ["/usr/bin/supervisord"]
+    ports:
+      - "7687:7687"
+      - "3000:3000"
+      - "7444:7444"
+    volumes:
+      - mg_lib:/var/lib/memgraph
+      - mg_log:/var/log/memgraph
+      - mg_etc:/etc/memgraph
+  # materialize:
+  #   profiles:
+  #     - graph
+  #   image: materialize/materialized
+  #   ports:
+  #     - "6875:6875"
+  #     - "6876:6876"
+  #   volumes:
+  #     - mzdata:/mzdata
+
+volumes:
+  caddy_data:
+    # external: true
+  caddy_config:
+  mg_lib:
+  mg_log:
+  mg_etc:
+  # mzdata:
+
+networks:
+  default:
+    external: ${DOCKER_EXT_NETWORK_BOOL}
+    name: ${DOCKER_EXT_NETWORK}

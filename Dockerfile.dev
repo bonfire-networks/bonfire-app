@@ -1,0 +1,30 @@
+# stage to build the dependency manager
+ARG FLAVOUR
+ARG FLAVOUR_PATH
+ARG ELIXIR_DOCKER_IMAGE
+
+FROM hexpm/elixir:${ELIXIR_DOCKER_IMAGE}
+
+ENV HOME=/opt/app/ TERM=xterm USER=docker 
+WORKDIR $HOME
+
+# dev tools
+RUN apk update && \
+    apk add bash curl inotify-tools
+
+# JS package manager & builders
+# RUN npm install -g pnpm esbuild postcss
+
+# dependencies for encryption (experimental)
+# RUN apk add olm
+
+# other necessary utils + dependencies 
+COPY --link deps-alpine.sh ./
+COPY --link deps-alpine-build.sh ./
+RUN chmod +x ./*.sh
+RUN sh deps-alpine-build.sh
+
+EXPOSE 4000/tcp
+EXPOSE 4004/tcp
+
+CMD ["sh","-c","iex --sname dev -S mix phx.server"]

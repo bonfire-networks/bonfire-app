@@ -1,0 +1,71 @@
+version: "3.5"
+
+services:
+  web:
+    # You can build your own image from the source running: `just rel-build && just rel-tag-latest`
+    image: ${APP_DOCKER_IMAGE}
+    container_name: "bonfire_web"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - "4000:4000" # you may want to comment this in production
+    env_file:
+      - config/prod/.env
+    environment:
+      - POSTGRES_HOST=db
+      - SEARCH_MEILI_INSTANCE=http://search:7700
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: ./data/uploads
+        target: /opt/app/data/uploads
+  proxy:
+    profiles:
+      - proxy
+    image: "caddy:alpine"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    env_file:
+      - config/prod/.env
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - type: bind
+        source: ${PROXY_CADDYFILE_PATH}
+        target: /etc/caddy/Caddyfile
+        read_only: true
+      - type: bind
+        source: ./data/uploads
+        target: /frontend/uploads
+  db:
+    image: ${DB_DOCKER_IMAGE}
+    restart: always
+    volumes:
+      - "./data/postgres/prod:/var/lib/postgresql/data"
+    # ports:
+    #   - "5432:5432"
+    env_file:
+      - config/prod/.env
+  search:
+    profiles:
+      - search
+    image: getmeili/meilisearch:latest
+    # ports:
+      # - "7700:7700"
+    volumes:
+      - "./data/search/prod:/data.ms"
+    env_file:
+      - config/prod/.env
+
+volumes:
+  caddy_data:
+    # external: true
+  caddy_config:

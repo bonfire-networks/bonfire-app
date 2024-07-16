@@ -1,0 +1,174 @@
+name: Test
+on:
+  push:
+    branches: 
+      - main 
+  pull_request:
+    branches: 
+      - main 
+
+jobs:
+  test_classic_flavour:
+    name: Test classic flavour
+    runs-on: ubuntu-latest
+    container: hexpm/elixir:1.17.2-erlang-26.2.4-alpine-3.20.1
+    env:
+      FLAVOUR: classic
+      MIX_ENV: test
+      WITH_DOCKER: no
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: postgres
+      CI: true
+      TEST_LOG_TRUNCATE: 340
+      TEST_LOG_LEVEL: error
+      SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
+      SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
+      ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
+    services:
+      postgres:
+        image: postgis/postgis:12-3.3-alpine
+        env:
+          POSTGRES_DB: bonfire_test
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - 
+      name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.9.0
+      with:
+        access_token: ${{ github.token }}
+    - 
+      name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), make/build-base/sqlite (for arch), and just
+      run: apk add bash git tar file make build-base sqlite just
+    - 
+      name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+    # - name: Set up Elixir
+    #   uses: actions/setup-elixir@v1
+    #   with:
+    #     elixir-version: ${{ matrix.elixir }}
+    #     otp-version: ${{ matrix.otp }}
+    # TODO: does not handle git deps correctly?...
+    - name: Trust my repo
+      run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app # see https://github.com/actions/checkout/issues/760
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: |
+            deps
+            _build
+        key: ${{ runner.os }}-mix-${{ hashFiles('/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install system deps
+      run: apk add mailcap ca-certificates openssl-dev tzdata gettext rust cargo sqlite
+    # - name: Install tools
+    #   run: cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH
+    - name: Install hex
+      run: mix local.hex --force
+    - name: Install rebar
+      run: mix local.rebar --force
+    # - name: Remove mix.lock
+    #   run: rm mix.lock
+    - name: Prepare environment
+      run: just _pre-setup && just init 
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Update Bonfire extensions to latest git versions (just use lockfile in future?)
+      run: mix bonfire.deps.update
+    - name: Fetch any differences in nested deps (+ run post-install setup)
+      run: just deps-get && just pre-init
+    # - name: Clean-build Bonfire data extensions
+    #   run: mix bonfire.deps.clean.data
+    - name: Compile deps & app
+      run: mix compile
+    - name: Set up database
+      run: mix ecto.create && mix ecto.migrate
+    - name: Run tests
+      run: mix test
+    - name: Check database down migrations 
+      run: mix ecto.rollback --all 
+
+  # test_cooperation_flavour:
+  #   name: Test cooperation flavour
+  #   runs-on: ubuntu-latest
+  #   container: hexpm/elixir:1.15.0-erlang-26.0.1-alpine-3.18.2
+  #   env:
+  #     FLAVOUR: cooperation
+  #     MIX_ENV: test
+  #     WITH_DOCKER: no
+  #     POSTGRES_HOST: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     CI: true
+  #     SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
+  #     SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
+  #     ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
+  #   services:
+  #     postgres:
+  #       # image: postgres
+  #       image: postgis/postgis:12-3.3-alpine
+  #       env:
+  #         POSTGRES_DB: bonfire_test
+  #         POSTGRES_PASSWORD: postgres
+  #       ports:
+  #         - 5432:5432
+  #       options: >-
+  #         --health-cmd pg_isready
+  #         --health-interval 10s
+  #         --health-timeout 5s
+  #         --health-retries 5
+  #   steps:
+  #   - 
+  #     name: Install git (needed for checkout), tar (needed for cache), file (needed for bonfire_files)
+  #     run: apk add git tar file
+  #   - 
+  #     name: Checkout repo
+  #     uses: actions/checkout@v2
+  #     with:
+  #         fetch-depth: 2 # needed for action-detect-and-tag-new-version
+  #   # - name: Set up Elixir
+  #   #   uses: actions/setup-elixir@v1
+  #   #   with:
+  #   #     elixir-version: ${{ matrix.elixir }}
+  #   #     otp-version: ${{ matrix.otp }}
+  #   - name: Restore dependencies cache
+  #     uses: actions/cache@v2
+  #     id: cache
+  #     with:
+  #       path: |
+  #           deps
+  #           _build
+  #       key: ${{ runner.os }}-mix-${{ hashFiles('/mix.lock') }}
+  #       restore-keys: ${{ runner.os }}-mix-
+  #   - name: Install system deps
+  #     run: apk add mailcap ca-certificates openssl-dev tzdata gettext rust cargo make 
+  #   - name: Install hex
+  #     run: mix local.hex --force
+  #   - name: Install rebar
+  #     run: mix local.rebar --force
+  #   - name: Prepare environment
+  #     run: make pre-run
+  #   - name: Install dependencies
+  #     run: mix deps.get
+  #   - name: Update Bonfire extensions to latest git versions
+  #     run: mix bonfire.deps.update
+  #   - name: Fetch any differences in nested deps
+  #     run: mix deps.get
+  #   - name: Clean-build Bonfire data extensions
+  #     run: mix bonfire.deps.clean.data
+  #   - name: Compile deps & app
+  #     run: mix compile
+  #   - name: Set up database
+  #     run: mix ecto.setup
+  #   - name: Run tests
+  #     run: mix test
+  #   - name: Check database down migrations 
+  #     run: mix ecto.rollback --all 
