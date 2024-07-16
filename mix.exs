@@ -128,7 +128,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
                   # security auditing
                   # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
-                  {:sobelow, "~> 0.12.1", only: :dev}
+                  {:sobelow, "~> 0.13.0", only: :dev}
                 ]
 
   @deps Mixer.mess_sources(@flavour)
