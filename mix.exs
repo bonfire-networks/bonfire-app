@@ -142,7 +142,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # |> Mixer.log(limit: :infinity)
 
-  @extra_release_apps ((@deps
+  @extra_release_apps @deps
                       |> Enum.filter(fn
                         {_dep, opts} when is_list(opts) ->
                           opts[:runtime] == false and
@@ -157,9 +157,8 @@ defmodule Bonfire.Umbrella.MixProject do
                       end)
                       # Mixer.other_flavour_sources()
                       |> Mixer.deps_names_list()
-                      |> Enum.reject(&(&1 in [:bonfire, :ex_doc]))) 
+                      |> Enum.reject(&(&1 in [:bonfire, :ex_doc]))
                       # ++ [:phoenix_live_head, :phoenix_live_favicon] # to avoid error with ex_doc being set to :load
-                      ) 
                       |> Enum.map(&{&1, :load})
                       |> Mixer.log("disabled extensions to still include in release")
 
