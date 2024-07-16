@@ -47,6 +47,7 @@ defmodule Bonfire.Umbrella.MixProject do
                 @maybe_image_vix ++
                 [
                   {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
+
                   # compilation
                   # {:tria, github: "hissssst/tria"},
 
@@ -59,7 +60,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   #
                   # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
                   # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
-                  {:ex_doc, "~> 0.34.0", only: [:dev, :test], runtime: false},
+                  {:ex_doc, "~> 0.34.0", runtime: false},
                   {:ecto_erd, "~> 0.4", only: :dev},
                   {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
                   # {:ecto_dev_logger, "~> 0.7", only: :dev},
@@ -141,7 +142,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # |> Mixer.log(limit: :infinity)
 
-  @extra_release_apps @deps
+  @extra_release_apps ((@deps
                       |> Enum.filter(fn
                         {_dep, opts} when is_list(opts) ->
                           opts[:runtime] == false and
@@ -156,7 +157,9 @@ defmodule Bonfire.Umbrella.MixProject do
                       end)
                       # Mixer.other_flavour_sources()
                       |> Mixer.deps_names_list()
-                      |> Enum.reject(&(&1 == :bonfire))
+                      |> Enum.reject(&(&1 in [:bonfire, :ex_doc]))) 
+                      # ++ [:phoenix_live_head, :phoenix_live_favicon] # to avoid error with ex_doc being set to :load
+                      ) 
                       |> Enum.map(&{&1, :load})
                       |> Mixer.log("disabled extensions to still include in release")
 
@@ -187,7 +190,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.110",
+    version: "0.9.10-beta.111",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,

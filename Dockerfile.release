@@ -124,9 +124,6 @@ RUN MIX_ENV=prod mix deps.clean needle_ulid jason poison --build
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
 
-# generate exdocs so they can be included in the code archive
-RUN MIX_ENV=prod mix docs
-
 # Include any migrations provided by flavour (maybe not needed?)
 # COPY --link data/current_flavour/repo priv/repo
 RUN mkdir -p priv/repo/migrations
@@ -136,8 +133,13 @@ RUN MIX_ENV=prod mix bonfire.extension.copy_migrations --force --to priv/repo/mi
 
 # docs/guides
 COPY --link LICENSE ./
-COPY --link ./*.md ./
-COPY --link docs/*.md ./docs/
+COPY --link README.md ./
+COPY --link assets/static/images/bonfire-icon.png assets/static/images/bonfire-icon.png
+COPY --link docs docs
+RUN ls -la ./
+
+# generate exdocs so they can be included in the code archive
+RUN MIX_ENV=prod mix docs
 
 # include an archive of the source code
 RUN mkdir -p apps/
