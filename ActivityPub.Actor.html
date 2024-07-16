@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>ActivityPub.Actor — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">ActivityPub.Actor</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.109)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>An ActivityPub Actor type and functions for dealing with actors.</p><p>See <a href="https://www.w3.org/TR/activitypub/#actors">4. Actors</a> in the
+ActivityPub specification for more information on Actors.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:ap_id/0" data-no-tooltip translate="no">ap_id()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>The ActivityPub ID of an object, which must be a publicly-dereferencable URI,
+or <code class="inline">nil</code> if the object is anonymous.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:id/0" data-no-tooltip translate="no">id()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Your app's internal ID for an <code class="inline">Actor</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:pointer/0" data-no-tooltip translate="no">pointer()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>An association (by default a <a href="https://hexdocs.pm/needle/0.7.2/Needle.Pointer.html"><code class="inline">Needle.Pointer</code></a>) that references an <code class="inline">Actor</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:pointer_id/0" data-no-tooltip translate="no">pointer_id()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A ULID ID (eg. using the <a href="https://hexdocs.pm/needle_ulid/0.3.0/Needle.ULID.html"><code class="inline">Needle.ULID</code></a>library) that links an <code class="inline">Actor</code> to its object in the app's database.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:t/0" data-no-tooltip translate="no">t()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>An ActivityPub Actor.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:username/0" data-no-tooltip translate="no">username()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>An <code class="inline">Actor</code>'s user name, used as part of its ActivityPub ID.</p></div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#actor?/1" data-no-tooltip translate="no">actor?(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#actor_url/1" data-no-tooltip translate="no">actor_url(username)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#also_known_as?/2" data-no-tooltip translate="no">also_known_as?(ap_id, actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#check_actor_is_active/1" data-no-tooltip translate="no">check_actor_is_active(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#deactivate/1" data-no-tooltip translate="no">deactivate(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(actor, is_local?)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fetch_by_username/2" data-no-tooltip translate="no">fetch_by_username(username, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetches a remote actor by username in <code class="inline">username@domain.tld</code> format</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_remote_actor/1" data-no-tooltip translate="no">format_remote_actor(object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_username/1" data-no-tooltip translate="no">format_username(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_username/2" data-no-tooltip translate="no">format_username(ap_id, nick)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_cached/1" data-no-tooltip translate="no">get_cached(id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetches an actor given its AP ID / URI, or username@domain, or by a pointer id </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_cached!/1" data-no-tooltip translate="no">get_cached!(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_cached_or_fetch/1" data-no-tooltip translate="no">get_cached_or_fetch(username_or_uri)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Tries to get a local actor by username or tries to fetch it remotely if username is provided in <code class="inline">username@domain.tld</code> format.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_external_followers/1" data-no-tooltip translate="no">get_external_followers(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_followers/1" data-no-tooltip translate="no">get_followers(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_followings/1" data-no-tooltip translate="no">get_followings(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_non_cached/1" data-no-tooltip translate="no">get_non_cached(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#invalidate_cache/1" data-no-tooltip translate="no">invalidate_cache(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_create_actor_from_object/1" data-no-tooltip translate="no">maybe_create_actor_from_object(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reactivate/1" data-no-tooltip translate="no">reactivate(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#save_actor_tombstone/2" data-no-tooltip translate="no">save_actor_tombstone(actor, tombstone)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_cache/1" data-no-tooltip translate="no">set_cache(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#swap_or_create_actor_tombstone/1" data-no-tooltip translate="no">swap_or_create_actor_tombstone(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_actor/1" data-no-tooltip translate="no">update_actor(actor_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Updates an existing actor struct by its AP ID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_actor/2" data-no-tooltip translate="no">update_actor(actor_id, data)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Types</span>
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:ap_id/0">
+
+  <div class="detail-header">
+    <a href="#t:ap_id/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">ap_id()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L57" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> ap_id() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>The ActivityPub ID of an object, which must be a publicly-dereferencable URI,
+or <code class="inline">nil</code> if the object is anonymous.</p><p>Note that since the URI must be publicly-dereferencable,
+you should set this value to <code class="inline">ActivityPub.Federator.Adapter.base_url() &lt;&gt; ~p&quot;/pub/actors/#{username}&quot;</code>.
+This path is defined in <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Web.Endpoint.html"><code class="inline">ActivityPub.Web.Endpoint</code></a> and serves data provided
+by the functions in <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Federator.Adapter.html"><code class="inline">ActivityPub.Federator.Adapter</code></a>.</p><p>See section <a href="https://www.w3.org/TR/activitypub/#obj-id">3.1 Object Identifiers</a>
+in the ActivityPub spec for more information on the format.</p><h2 id="t:ap_id/0-examples" class="section-heading">
+  <a href="#t:ap_id/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="s">&quot;https://kenzoishii.example.com/&quot;</span><span class="w">
+
+</span><span class="s">&quot;http://localhost:4000/pub/actors/rosa&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="t:id/0">
+
+  <div class="detail-header">
+    <a href="#t:id/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">id()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L37" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> id() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>Your app's internal ID for an <code class="inline">Actor</code>.</p><h2 id="t:id/0-examples" class="section-heading">
+  <a href="#t:id/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="s">&quot;c1688a22-4e9c-42d7-935b-1f17e1d0cf58&quot;</span><span class="w">
+
+</span><span class="s">&quot;1234&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="t:pointer/0">
+
+  <div class="detail-header">
+    <a href="#t:pointer/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">pointer()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L82" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> pointer() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>An association (by default a <a href="https://hexdocs.pm/needle/0.7.2/Needle.Pointer.html"><code class="inline">Needle.Pointer</code></a>) that references an <code class="inline">Actor</code>.</p><p>Pointers consist of a table ID, referencing a database table,
+and a pointer ID, referencing a row in that table.
+Table and pointer IDs are both <code class="inline">Pointers.ULID</code> strings, which is UUID-like.</p>
+  </section>
+</section>
+<section class="detail" id="t:pointer_id/0">
+
+  <div class="detail-header">
+    <a href="#t:pointer_id/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">pointer_id()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L73" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> pointer_id() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>A ULID ID (eg. using the <a href="https://hexdocs.pm/needle_ulid/0.3.0/Needle.ULID.html"><code class="inline">Needle.ULID</code></a>library) that links an <code class="inline">Actor</code> to its object in the app's database.</p>
+  </section>
+</section>
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">t()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L87" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> t() :: %ActivityPub.Actor{
+  ap_id: <a href="#t:ap_id/0">ap_id</a>() | nil,
+  data: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(),
+  deactivated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
+  id: <a href="#t:id/0">id</a>() | nil,
+  keys: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  local: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
+  pointer: <a href="#t:pointer/0">pointer</a>() | nil,
+  pointer_id: <a href="#t:pointer_id/0">pointer_id</a>() | nil,
+  updated_at: <a href="https://hexdocs.pm/elixir/DateTime.html#t:t/0">DateTime.t</a>() | <a href="https://hexdocs.pm/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>() | nil,
+  username: <a href="#t:username/0">username</a>() | nil
+}</pre>
+
+      </div>
+
+<p>An ActivityPub Actor.</p>
+  </section>
+</section>
+<section class="detail" id="t:username/0">
+
+  <div class="detail-header">
+    <a href="#t:username/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">username()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L68" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> username() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>An <code class="inline">Actor</code>'s user name, used as part of its ActivityPub ID.</p><h2 id="t:username/0-examples" class="section-heading">
+  <a href="#t:username/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="s">&quot;alyssa&quot;</span><span class="w">
+
+</span><span class="s">&quot;ben&quot;</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="actor?/1">
+
+  <div class="detail-header">
+    <a href="#actor?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">actor?(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L796" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="actor_url/1">
+
+  <div class="detail-header">
+    <a href="#actor_url/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">actor_url(username)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L791" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="also_known_as?/2">
+
+  <div class="detail-header">
+    <a href="#also_known_as?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">also_known_as?(ap_id, actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L808" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="check_actor_is_active/1">
+
+  <div class="detail-header">
+    <a href="#check_actor_is_active/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">check_actor_is_active(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L777" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="deactivate/1">
+
+  <div class="detail-header">
+    <a href="#deactivate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">deactivate(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L757" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(actor, is_local?)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L637" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fetch_by_username/2">
+
+    <span id="fetch_by_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#fetch_by_username/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fetch_by_username(username, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L373" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Fetches a remote actor by username in <code class="inline">username@domain.tld</code> format</p>
+  </section>
+</section>
+<section class="detail" id="format_remote_actor/1">
+
+  <div class="detail-header">
+    <a href="#format_remote_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_remote_actor(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L475" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="format_username/1">
+
+  <div class="detail-header">
+    <a href="#format_username/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_username(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L445" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="format_username/2">
+
+  <div class="detail-header">
+    <a href="#format_username/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_username(ap_id, nick)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L465" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_cached/1">
+
+  <div class="detail-header">
+    <a href="#get_cached/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_cached(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L129" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Fetches an actor given its AP ID / URI, or username@domain, or by a pointer id </p><p>Remote actors are just checked if they exist in AP or adapter's database and are NOT fetched remotely if they don't.</p><p>Remote actors are also automatically updated every X hours (defaults to 24h).</p>
+  </section>
+</section>
+<section class="detail" id="get_cached!/1">
+
+  <div class="detail-header">
+    <a href="#get_cached!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_cached!(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L169" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_cached_or_fetch/1">
+
+  <div class="detail-header">
+    <a href="#get_cached_or_fetch/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_cached_or_fetch(username_or_uri)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L263" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Tries to get a local actor by username or tries to fetch it remotely if username is provided in <code class="inline">username@domain.tld</code> format.</p>
+  </section>
+</section>
+<section class="detail" id="get_external_followers/1">
+
+  <div class="detail-header">
+    <a href="#get_external_followers/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_external_followers(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L630" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_followers/1">
+
+  <div class="detail-header">
+    <a href="#get_followers/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_followers(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L622" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_followings/1">
+
+  <div class="detail-header">
+    <a href="#get_followings/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_followings(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L611" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_non_cached/1">
+
+  <div class="detail-header">
+    <a href="#get_non_cached/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_non_cached(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L252" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="invalidate_cache/1">
+
+  <div class="detail-header">
+    <a href="#invalidate_cache/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">invalidate_cache(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L601" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_create_actor_from_object/1">
+
+  <div class="detail-header">
+    <a href="#maybe_create_actor_from_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_create_actor_from_object(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L512" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="reactivate/1">
+
+  <div class="detail-header">
+    <a href="#reactivate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reactivate(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L767" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="save_actor_tombstone/2">
+
+  <div class="detail-header">
+    <a href="#save_actor_tombstone/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">save_actor_tombstone(actor, tombstone)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L693" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="set_cache/1">
+
+  <div class="detail-header">
+    <a href="#set_cache/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set_cache(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L575" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="swap_or_create_actor_tombstone/1">
+
+  <div class="detail-header">
+    <a href="#swap_or_create_actor_tombstone/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">swap_or_create_actor_tombstone(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L678" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update_actor/1">
+
+  <div class="detail-header">
+    <a href="#update_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_actor(actor_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L398" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> update_actor(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Updates an existing actor struct by its AP ID.</p>
+  </section>
+</section>
+<section class="detail" id="update_actor/2">
+
+  <div class="detail-header">
+    <a href="#update_actor/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_actor(actor_id, data)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/actor.ex#L407" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

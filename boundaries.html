@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>Boundaries & Access Control — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="extras" class="page-extra">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/topics/BOUNDARIES.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+
+    <span>Boundaries &amp; Access Control</span>
+  </h1>
+
+<p>Boundaries is Bonfire's flexible framework for full per-user/per-object/per-action access control. It makes it easy to ensure that users may only see or do what they are supposed to.</p><h2 id="users-and-circles" class="section-heading">
+  <a href="#users-and-circles" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Users and Circles</span>
+</h2>
+<p>Ignoring any future bot support, boundaries ultimately apply to users.</p><p>Circles are a way of categorising users. Each user has their own set of circles that they can add to and categorise other users in as they please.</p><p>Circles allow a user to categorise work colleagues differently from friends, for example. They can choose to allow different interactions from users in the two circles or limit which content each sees on a per-item basis.</p><h2 id="verbs" class="section-heading">
+  <a href="#verbs" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Verbs</span>
+</h2>
+<p>Verbs represent actions that the user could perform, such as reading a post or replying to a message.</p><p>Each verb has a unique ID, like the table IDs from <a href="https://hexdocs.pm/needle/0.7.2/Needle.html"><code class="inline">Needle</code></a>, which must be known to the system through configuration.</p><h2 id="permissions" class="section-heading">
+  <a href="#permissions" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Permissions</span>
+</h2>
+<p>Permissions can take one of three values:</p><ul><li><code class="inline">true</code></li><li><code class="inline">false</code></li><li><code class="inline">nil</code> (or <code class="inline">null</code> to postgresql).</li></ul><p><code class="inline">true</code> and <code class="inline">false</code> are easy enough to understand as yes and no, but what is <code class="inline">nil</code>?</p><p><code class="inline">nil</code> represents <code class="inline">no answer</code> - in isolation, it is the same as <code class="inline">false</code>.</p><p>Because a user could be in more than one circle and each circle may have a different permission, we need a way of combining permissions to produce a final result permission. <code class="inline">nil</code> is treated differently here:</p><table><thead><tr><th style="text-align: left;">left</th><th style="text-align: left;">right</th><th style="text-align: left;">result</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">nil</code></td></tr><tr><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">true</code></td></tr><tr><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">true</code></td></tr><tr><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">true</code></td></tr><tr><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr></tbody></table><p>To be considered granted, the result of combining the permissions must be <code class="inline">true</code> (<code class="inline">nil</code> is as good as <code class="inline">false</code> again here).</p><p><code class="inline">nil</code> can thus be seen as a sort of <code class="inline">weak false</code>, being easily overridden by a true, but also not by itself granting anything.</p><p>At first glance, this may seem a little odd, but it gives us a little additional flexibility which is useful for implementing features such as blocks (where <code class="inline">false</code> is really useful!). With a little practice, it feels quite natural to use.</p><h2 id="acls-and-grants" class="section-heading">
+  <a href="#acls-and-grants" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">ACLs and Grants</span>
+</h2>
+<p>An <code class="inline">ACL</code> is &quot;just&quot; a collection of <code class="inline">Grant</code>s.</p><p>Grants combine the ID of the ACL they exist in with a verb id, a user or circle id and a permission, thus providing a decision about whether a particular action is permitted for a particular user (or all users in a particular circle).</p><p>Conceptually, an ACL contains a grant for every user-or-circle/verb combination, but most of the permissions are <code class="inline">nil</code>. We do not record grants with <code class="inline">nil</code> permissions in the database, saving substantially on storage space and compute requirements.</p><h2 id="controlled-applying-boundaries-to-an-object" class="section-heading">
+  <a href="#controlled-applying-boundaries-to-an-object" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Controlled - Applying boundaries to an object</span>
+</h2>
+<p>An object is linked to one or more <code class="inline">ACL</code>s by the <code class="inline">Controlled</code> multimixin, which pairs an object ID with an ACL ID. Because it is a multimixin, a given object can have multiple ACLs applied. In the case of overlap, permissions are combined in the manner described earlier. </p><p>See also <a href="https://doc.bonfirenetworks.org/extension-bonfire_data_access_control.html">https://doc.bonfirenetworks.org/extension-bonfire_data_access_control.html</a> for more docs (TODO: merge/deduplicate)</p>
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="database.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Bonfire's Database - an intro
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="graphql.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+GraphQL API
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

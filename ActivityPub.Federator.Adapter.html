@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>ActivityPub.Federator.Adapter — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-behaviour">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">ActivityPub.Federator.Adapter</span> <small>behaviour</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.109)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Contract for ActivityPub module adapters</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-callbacks summary">
+  <h2>
+    <a href="#callbacks">Callbacks</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:base_url/0" data-no-tooltip translate="no">base_url()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>The base URL of the application serving <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Web.Endpoint.html"><code class="inline">ActivityPub.Web.Endpoint</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:external_followers_for_activity/2" data-no-tooltip translate="no">external_followers_for_activity(t, t)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Compute and return a subset of followers that should receive a specific activity (optional)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_actor_by_ap_id/1" data-no-tooltip translate="no">get_actor_by_ap_id(ap_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetch an <code class="inline">Actor</code> by its full ActivityPub ID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_actor_by_id/1" data-no-tooltip translate="no">get_actor_by_id(id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetch an <code class="inline">Actor</code> by its ID in the host application database.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_actor_by_username/1" data-no-tooltip translate="no">get_actor_by_username(username)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetch an <code class="inline">Actor</code> given its preferred username</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_follower_local_ids/1" data-no-tooltip translate="no">get_follower_local_ids(t)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the host application IDs for all <code class="inline">Actor</code>s following the given <code class="inline">Actor</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_following_local_ids/1" data-no-tooltip translate="no">get_following_local_ids(t)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the host application IDs for all <code class="inline">Actor</code>s that the given <code class="inline">Actor</code> is following.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_locale/0" data-no-tooltip translate="no">get_locale()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the default locale of the host application.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_or_create_service_actor/0" data-no-tooltip translate="no">get_or_create_service_actor()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates an internal service actor by username, if missing.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:get_redirect_url/1" data-no-tooltip translate="no">get_redirect_url(arg1)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets local url of an AP object to redirect in browser. Can take pointer id or an actor username.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:handle_activity/1" data-no-tooltip translate="no">handle_activity(t)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Passes data to be handled by the host application</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:maybe_create_remote_actor/1" data-no-tooltip translate="no">maybe_create_remote_actor(t)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:maybe_publish_object/2" data-no-tooltip translate="no">maybe_publish_object(t, t)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:update_local_actor/2" data-no-tooltip translate="no">update_local_actor(t, t)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Commit new fields to the host application database for the given <code class="inline">Actor</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:update_remote_actor/1" data-no-tooltip translate="no">update_remote_actor(t)</a>
+
+      </div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#adapter/0" data-no-tooltip translate="no">adapter()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#base_url/0" data-no-tooltip translate="no">base_url()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#call_or/3" data-no-tooltip translate="no">call_or(fun, args \\ [], fallback \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Run function from adapter if defined, otherwise return fallback value</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#external_followers_for_activity/2" data-no-tooltip translate="no">external_followers_for_activity(actor, activity)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federate_actor?/3" data-no-tooltip translate="no">federate_actor?(actor, direction \\ nil, by_actor \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Whether this (local or remote) actor has federation enabled and/or is blocked on this instance</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_actor_by_ap_id/1" data-no-tooltip translate="no">get_actor_by_ap_id(id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_actor_by_id/1" data-no-tooltip translate="no">get_actor_by_id(id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_actor_by_username/1" data-no-tooltip translate="no">get_actor_by_username(username)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_follower_local_ids/1" data-no-tooltip translate="no">get_follower_local_ids(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_following_local_ids/1" data-no-tooltip translate="no">get_following_local_ids(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_locale/0" data-no-tooltip translate="no">get_locale()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_create_service_actor/0" data-no-tooltip translate="no">get_or_create_service_actor()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_redirect_url/1" data-no-tooltip translate="no">get_redirect_url(id_or_username_or_object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#handle_activity/1" data-no-tooltip translate="no">handle_activity(activity)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_create_remote_actor/1" data-no-tooltip translate="no">maybe_create_remote_actor(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_handle_activity/1" data-no-tooltip translate="no">maybe_handle_activity(activity)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_publish_object/2" data-no-tooltip translate="no">maybe_publish_object(object, manually_fetching? \\ false)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_local_actor/2" data-no-tooltip translate="no">update_local_actor(actor, params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_remote_actor/1" data-no-tooltip translate="no">update_remote_actor(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_remote_actor/2" data-no-tooltip translate="no">update_remote_actor(actor, data)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="callbacks" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#callbacks">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Callbacks</span>
+    </h1>
+    <div class="callbacks-list">
+<section class="detail" id="c:base_url/0">
+
+  <div class="detail-header">
+    <a href="#c:base_url/0" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">base_url()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L114" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> base_url() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>The base URL of the application serving <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Web.Endpoint.html"><code class="inline">ActivityPub.Web.Endpoint</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="c:external_followers_for_activity/2">
+
+  <div class="detail-header">
+    <a href="#c:external_followers_for_activity/2" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">external_followers_for_activity(t, t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L157" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(optional)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> external_followers_for_activity(List.t(), Map.t()) :: List.t()</pre>
+
+      </div>
+
+<p>Compute and return a subset of followers that should receive a specific activity (optional)</p>
+  </section>
+</section>
+<section class="detail" id="c:get_actor_by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#c:get_actor_by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L51" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_actor_by_ap_id(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:ap_id/0">ActivityPub.Actor.ap_id</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Fetch an <code class="inline">Actor</code> by its full ActivityPub ID.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_actor_by_id/1">
+
+  <div class="detail-header">
+    <a href="#c:get_actor_by_id/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_id(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L59" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_actor_by_id(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:id/0">ActivityPub.Actor.id</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Fetch an <code class="inline">Actor</code> by its ID in the host application database.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_actor_by_username/1">
+
+  <div class="detail-header">
+    <a href="#c:get_actor_by_username/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_username(username)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L41" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_actor_by_username(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:username/0">ActivityPub.Actor.username</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Fetch an <code class="inline">Actor</code> given its preferred username</p>
+  </section>
+</section>
+<section class="detail" id="c:get_follower_local_ids/1">
+
+  <div class="detail-header">
+    <a href="#c:get_follower_local_ids/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_follower_local_ids(t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L98" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_follower_local_ids(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()) :: [<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:id/0">ActivityPub.Actor.id</a>()]</pre>
+
+      </div>
+
+<p>Get the host application IDs for all <code class="inline">Actor</code>s following the given <code class="inline">Actor</code>.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_following_local_ids/1">
+
+  <div class="detail-header">
+    <a href="#c:get_following_local_ids/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_following_local_ids(t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L106" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_following_local_ids(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()) :: [<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:id/0">ActivityPub.Actor.id</a>()]</pre>
+
+      </div>
+
+<p>Get the host application IDs for all <code class="inline">Actor</code>s that the given <code class="inline">Actor</code> is following.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_locale/0">
+
+  <div class="detail-header">
+    <a href="#c:get_locale/0" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_locale()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L169" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_locale() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>Get the default locale of the host application.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_or_create_service_actor/0">
+
+  <div class="detail-header">
+    <a href="#c:get_or_create_service_actor/0" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_create_service_actor()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L149" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_or_create_service_actor() :: <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>() | nil</pre>
+
+      </div>
+
+<p>Creates an internal service actor by username, if missing.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_redirect_url/1">
+
+  <div class="detail-header">
+    <a href="#c:get_redirect_url/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">get_redirect_url(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L127" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_redirect_url(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:username/0">ActivityPub.Actor.username</a>() | Map.t()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>Gets local url of an AP object to redirect in browser. Can take pointer id or an actor username.</p>
+  </section>
+</section>
+<section class="detail" id="c:handle_activity/1">
+
+  <div class="detail-header">
+    <a href="#c:handle_activity/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">handle_activity(t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L90" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> handle_activity(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Object.html#t:t/0">ActivityPub.Object.t</a>()) :: :ok | {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Passes data to be handled by the host application</p>
+  </section>
+</section>
+<section class="detail" id="c:maybe_create_remote_actor/1">
+
+  <div class="detail-header">
+    <a href="#c:maybe_create_remote_actor/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_create_remote_actor(t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L64" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> maybe_create_remote_actor(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()) :: :ok</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="c:maybe_publish_object/2">
+
+  <div class="detail-header">
+    <a href="#c:maybe_publish_object/2" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_publish_object(t, t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L119" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> maybe_publish_object(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), Boolean.t()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="c:update_local_actor/2">
+
+  <div class="detail-header">
+    <a href="#c:update_local_actor/2" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">update_local_actor(t, t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L72" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> update_local_actor(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>(), Map.t()) ::
+  {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Commit new fields to the host application database for the given <code class="inline">Actor</code>.</p>
+  </section>
+</section>
+<section class="detail" id="c:update_remote_actor/1">
+
+  <div class="detail-header">
+    <a href="#c:update_remote_actor/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">update_remote_actor(t)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L78" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> update_remote_actor(<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Object.html#t:t/0">ActivityPub.Object.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="adapter/0">
+
+  <div class="detail-header">
+    <a href="#adapter/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">adapter()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L9" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="base_url/0">
+
+  <div class="detail-header">
+    <a href="#base_url/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">base_url()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L115" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="call_or/3">
+
+    <span id="call_or/1"></span>
+
+    <span id="call_or/2"></span>
+
+  <div class="detail-header">
+    <a href="#call_or/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">call_or(fun, args \\ [], fallback \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L17" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Run function from adapter if defined, otherwise return fallback value</p>
+  </section>
+</section>
+<section class="detail" id="external_followers_for_activity/2">
+
+  <div class="detail-header">
+    <a href="#external_followers_for_activity/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">external_followers_for_activity(actor, activity)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L158" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federate_actor?/3">
+
+    <span id="federate_actor?/1"></span>
+
+    <span id="federate_actor?/2"></span>
+
+  <div class="detail-header">
+    <a href="#federate_actor?/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federate_actor?(actor, direction \\ nil, by_actor \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L183" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Whether this (local or remote) actor has federation enabled and/or is blocked on this instance</p><p>actor: the actor to check (eg. Alice)
+direction: :in or :out - whether we're dealing with incoming federation or outgoing (optional)
+by_actor: optionally another actor (eg. if Alice is sending something to Bob, this would be Bob) </p>
+  </section>
+</section>
+<section class="detail" id="get_actor_by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_actor_by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_ap_id(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L52" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_actor_by_id/1">
+
+  <div class="detail-header">
+    <a href="#get_actor_by_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_id(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L60" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_actor_by_username/1">
+
+  <div class="detail-header">
+    <a href="#get_actor_by_username/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_username(username)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L43" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_follower_local_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_follower_local_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_follower_local_ids(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L99" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_following_local_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_following_local_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_following_local_ids(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L107" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_locale/0">
+
+  <div class="detail-header">
+    <a href="#get_locale/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_locale()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L170" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_create_service_actor/0">
+
+  <div class="detail-header">
+    <a href="#get_or_create_service_actor/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_create_service_actor()</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L150" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_redirect_url/1">
+
+  <div class="detail-header">
+    <a href="#get_redirect_url/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_redirect_url(id_or_username_or_object)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L128" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="handle_activity/1">
+
+  <div class="detail-header">
+    <a href="#handle_activity/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">handle_activity(activity)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L91" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_create_remote_actor/1">
+
+  <div class="detail-header">
+    <a href="#maybe_create_remote_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_create_remote_actor(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L65" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_handle_activity/1">
+
+  <div class="detail-header">
+    <a href="#maybe_handle_activity/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_handle_activity(activity)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L132" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_publish_object/2">
+
+    <span id="maybe_publish_object/1"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_publish_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_publish_object(object, manually_fetching? \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L120" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update_local_actor/2">
+
+  <div class="detail-header">
+    <a href="#update_local_actor/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_local_actor(actor, params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L74" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update_remote_actor/1">
+
+  <div class="detail-header">
+    <a href="#update_remote_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_remote_actor(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L79" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update_remote_actor/2">
+
+  <div class="detail-header">
+    <a href="#update_remote_actor/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_remote_actor(actor, data)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L83" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

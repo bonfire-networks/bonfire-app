@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>EctoSparkles.DataMigration — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-behaviour">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/ecto_sparkles/blob/main/lib/data_migration/data_migration.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">EctoSparkles.DataMigration</span> <small>behaviour</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.109)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>A behaviour implemented by our data migrations (generally backfills).</p><p>Based on <a href="https://tylerayoung.com/2023/08/13/migrations/">A microframework for backfill migrations in Elixir's Ecto</a>, in turn based on David Bernheisel's <a href="https://fly.io/phoenix-files/backfilling-data/#batching-deterministic-data">template for deterministic backfills</a>.</p><p>A data migration using this behaviour may look like this (which you can put simply put in Ecto migrations, eg. <code class="inline">priv/repo/migrations/priv/repo/migrations/20231019004944_data_onboarding_step.exs</code>):</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo.Migrations.BackfillOnboardingStep</span><span class="w"> </span><span class="k" data-group-id="5099920849-1">do</span><span class="w">
+  </span><span class="kn">alias</span><span class="w"> </span><span class="nc">EctoSparkles.DataMigration</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
+  
+  </span><span class="na">@impl</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">base_query</span><span class="w"> </span><span class="k" data-group-id="5099920849-2">do</span><span class="w">
+    </span><span class="c1"># NOTE: This works in cases where:</span><span class="w">
+    </span><span class="c1"># 1. The data can be queried with a condition that not longer applies after the migration ran, so you can repeatedly query the data and update the data until the query result is empty. For example, if a column is currently null and will be updated to not be null, then you can query for the null records and pick up where you left off.</span><span class="w">
+    </span><span class="c1"># 2. The migration is written in such a way that it can be ran several times on the same data without causing data loss or duplication (or crashing).</span><span class="w">
+
+    </span><span class="n">from</span><span class="p" data-group-id="5099920849-3">(</span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="s">&quot;users&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1"># Notice how we do not use Ecto schemas here.</span><span class="w">
+      </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">is_nil</span><span class="p" data-group-id="5099920849-4">(</span><span class="n">u</span><span class="o">.</span><span class="n">onboarding_step</span><span class="p" data-group-id="5099920849-4">)</span><span class="p">,</span><span class="w">
+      </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5099920849-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="5099920849-5">}</span><span class="w">
+    </span><span class="p" data-group-id="5099920849-3">)</span><span class="w">
+  </span><span class="k" data-group-id="5099920849-2">end</span><span class="w">
+
+  </span><span class="na">@impl</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">config</span><span class="w"> </span><span class="k" data-group-id="5099920849-6">do</span><span class="w">
+    </span><span class="p" data-group-id="5099920849-7">%</span><span class="nc" data-group-id="5099920849-7">DataMigration.Config</span><span class="p" data-group-id="5099920849-7">{</span><span class="ss">batch_size</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="ss">throttle_ms</span><span class="p">:</span><span class="w"> </span><span class="mi">1_000</span><span class="p">,</span><span class="w"> </span><span class="ss">repo</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="p" data-group-id="5099920849-7">}</span><span class="w">
+  </span><span class="k" data-group-id="5099920849-6">end</span><span class="w">
+
+  </span><span class="na">@impl</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p" data-group-id="5099920849-8">(</span><span class="n">results</span><span class="p" data-group-id="5099920849-8">)</span><span class="w"> </span><span class="k" data-group-id="5099920849-9">do</span><span class="w">
+    </span><span class="nc">Enum</span><span class="o">.</span><span class="n">each</span><span class="p" data-group-id="5099920849-10">(</span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="5099920849-11">fn</span><span class="w"> </span><span class="p" data-group-id="5099920849-12">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">user_id</span><span class="p" data-group-id="5099920849-12">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="c1"># hooks into a context module, which is more likely to be kept up to date as the app evolves, to avoid having to update old migrations</span><span class="w">
+      </span><span class="n">user_id</span><span class="w">
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">MyApp.Users</span><span class="o">.</span><span class="n">set_onboarding_step!</span><span class="p" data-group-id="5099920849-13">(</span><span class="p" data-group-id="5099920849-13">)</span><span class="w">
+    </span><span class="k" data-group-id="5099920849-11">end</span><span class="p" data-group-id="5099920849-10">)</span><span class="w">
+  </span><span class="k" data-group-id="5099920849-9">end</span><span class="w">
+</span><span class="k" data-group-id="5099920849-1">end</span></code></pre>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-callbacks summary">
+  <h2>
+    <a href="#callbacks">Callbacks</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:base_query/0" data-no-tooltip translate="no">base_query()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>The core of the query you want to use to SELECT a map of your data.
+The <code class="inline">DataMigration.Runner</code> will take care of limiting this to a batch size, ordering
+it by row ID, and restricting it to rows you haven't yet handled.
+The query <em>must</em> select a map, and that map must have an <code class="inline">:id</code> key for the
+migration runner to reference as the last-modified row in your table.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:config/0" data-no-tooltip translate="no">config()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:migrate/1" data-no-tooltip translate="no">migrate(list)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>The callback to operate on a result set from your query.
+Implementers should <code class="inline">raise</code> an error if you're unable to process the batch.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="callbacks" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#callbacks">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Callbacks</span>
+    </h1>
+    <div class="callbacks-list">
+<section class="detail" id="c:base_query/0">
+
+  <div class="detail-header">
+    <a href="#c:base_query/0" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">base_query()</h1>
+
+      <a href="https://github.com/bonfire-networks/ecto_sparkles/blob/main/lib/data_migration/data_migration.ex#L53" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> base_query() :: <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Query.html#t:t/0">Ecto.Query.t</a>()</pre>
+
+      </div>
+
+<p>The core of the query you want to use to SELECT a map of your data.
+The <code class="inline">DataMigration.Runner</code> will take care of limiting this to a batch size, ordering
+it by row ID, and restricting it to rows you haven't yet handled.
+The query <em>must</em> select a map, and that map must have an <code class="inline">:id</code> key for the
+migration runner to reference as the last-modified row in your table.</p>
+  </section>
+</section>
+<section class="detail" id="c:config/0">
+
+  <div class="detail-header">
+    <a href="#c:config/0" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">config()</h1>
+
+      <a href="https://github.com/bonfire-networks/ecto_sparkles/blob/main/lib/data_migration/data_migration.ex#L44" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> config() :: EctoSparkles.DataMigration.Config.t()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="c:migrate/1">
+
+  <div class="detail-header">
+    <a href="#c:migrate/1" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">migrate(list)</h1>
+
+      <a href="https://github.com/bonfire-networks/ecto_sparkles/blob/main/lib/data_migration/data_migration.ex#L59" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> migrate([<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()]) :: :ok | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
+
+      </div>
+
+<p>The callback to operate on a result set from your query.
+Implementers should <code class="inline">raise</code> an error if you're unable to process the batch.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

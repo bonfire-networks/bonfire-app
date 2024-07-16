@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>Create a new extension — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="extras" class="page-extra">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/building/create-a-new-extension.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+
+    <span>Create a new extension</span>
+  </h1>
+
+<p>Extensions in Bonfire are powerful tools that allow you to extend the functionality and features of your application.
+This guide is perfect for developers who are looking to contribute new features or capabilities to the Bonfire ecosystem.
+By the end of this page, you should have a solid understanding of how to develop and integrate a new extension in Bonfire, leveraging its modular architecture.</p><h2 id="create-your-bonfire-extension" class="section-heading">
+  <a href="#create-your-bonfire-extension" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Create your Bonfire extension</span>
+</h2>
+<p>To start building your own extension, you can utilise our custom mix generator task. Simply navigate to the Bonfire app root folder in your terminal and type:</p><pre><code class="makeup elixir" translate="no"><span class="n">mix</span><span class="w"> </span><span class="n">bonfire</span><span class="o">.</span><span class="n">extension</span><span class="o">.</span><span class="n">new</span><span class="w"> </span><span class="o">*</span><span class="n">your_extension_name</span><span class="o">*</span></code></pre><p>This command creates a new directory in <code class="inline">./extensions</code> named <code class="inline">*your_extension_name*</code>, complete with all the necessary files and scaffolding.
+Once your extension folder is set up, you're ready to dive into coding. If your extension includes new pages, you need to link them in the main router. To do this, include <code class="inline">use_if_enabled(Bonfire.ExtensionTemplate.Web.Routes)</code> within your app's Router module, located at <code class="inline">./extensions/bonfire/lib/bonfire_spark_web/router.ex</code>.</p><blockquote><h4 class="info">Info</h4><p>The Bonfire main router lives in <code class="inline">bonfire</code> extension. Refer to the <a href="/docs/building/routing/">Routing</a> page to learn how to add new routes.</p></blockquote><p>Additionally, consider these steps to enhance your extension:</p><ul><li>Implement extension-specific fake functions for testing purposes.</li><li>Create extension-specific database migrations.</li><li>Add dependencies to deps.git and/or deps.hex.</li></ul><p> Simultaneously, begin tracking your extension’s development with Git. Initialize a new Git repository directly within your extension’s directory:</p><pre><code class="makeup elixir" translate="no"><span class="n">git</span><span class="w"> </span><span class="n">init</span><span class="w">    </span></code></pre><p>After coding your initial features, create an empty repository on your preferred Git platform. Then, commit and push your local changes to make your work accessible and open for collaboration:</p><pre><code class="makeup elixir" translate="no"><span class="n">git</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">.</span><span class="w">
+</span><span class="n">git</span><span class="w"> </span><span class="n">commit</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="s">&quot;first commit&quot;</span><span class="w">
+</span><span class="n">git</span><span class="w"> </span><span class="n">branch</span><span class="w"> </span><span class="o">-</span><span class="nc">M</span><span class="w"> </span><span class="n">main</span><span class="w">
+</span><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="p" data-group-id="5392976528-1">{</span><span class="n">your</span><span class="o">-</span><span class="n">remote</span><span class="o">-</span><span class="n">repository</span><span class="p" data-group-id="5392976528-1">}</span><span class="w">
+</span><span class="n">git</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">main</span></code></pre><p>Remember to add your extension to <code class="inline">./config/deps.git</code> (including the branch name), allowing others without access to your fork to utilise it and to <code class="inline">.config/deps.flavour.path</code> to enable it locally.
+And just like that, you've successfully created and prepared your first Bonfire extension and shared with the community 🔥!</p>
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="routing.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Routing
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="edit-an-existing-extension.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Make changes to an extension
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

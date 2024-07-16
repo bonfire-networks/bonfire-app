@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>What is a Bonfire extension — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="extras" class="page-extra">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/building/extensions-overview.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+
+    <span>What is a Bonfire extension</span>
+  </h1>
+
+<p>Extensions in Bonfire are collections of code that introduce new features and enhance the platform's functionality, or explore a different user experience for an existing feature.</p><p>They can range from adding entirely new pages, such as <a href="">bonfire_invite_links</a> which lets admins create and share invites with usage limit and expiration date, to implementing specific components or widgets.
+An example is <a href="">bonfire_editor_milkdown</a>, which integrates a markdown-first editor for publishing activities.</p><p>Extensions are versatile, they can implement their own schema, database, logic, and components, or they can leverage existing fields, context functions, and UI components, or more commonly, a combination of both.</p><h2 id="using-extensions" class="section-heading">
+  <a href="#using-extensions" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Using extensions</span>
+</h2>
+<p>In order to make changes to extensions, you need to clone them locally. As you may imagine, we have a <code class="inline">just</code> command for that.</p><pre><code class="makeup elixir" translate="no"><span class="n">just</span><span class="w"> </span><span class="n">dep</span><span class="o">-</span><span class="n">clone</span><span class="o">-</span><span class="n">local</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="p" data-group-id="8677223655-1">[</span><span class="n">extension</span><span class="w"> </span><span class="n">name</span><span class="p" data-group-id="8677223655-1">]</span><span class="o">*</span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="p" data-group-id="8677223655-2">[</span><span class="n">extension</span><span class="w"> </span><span class="n">url</span><span class="p" data-group-id="8677223655-2">]</span><span class="o">*</span><span class="o">*</span></code></pre><p>This command (eg. <code class="inline">just dep-clone-local bonfire_ui_social https://github.com/bonfire-app/bonfire_ui_social</code>) will create a local copy of the extension in <code class="inline">./extensions/bonfire_ui_social</code>.</p><p>If the extension is enabled locally, you will see an entry in <code class="inline">config/deps.flavour.path</code> with the path to the local extension: </p><pre><code class="makeup elixir" translate="no"><span class="n">bonfire_ui_social</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;extensions/bonfire_ui_social&quot;</span></code></pre><p>If you want to disable the extension, you can remove the entry from <code class="inline">config/deps.flavour.path</code></p><blockquote><h4 class="info">Info</h4><p><code class="inline">config/deps.flavour.path</code> is a symlink of the file <code class="inline">flavours/[flavour]/deps.flavour.path</code>. Ensure this file exist in the flavour you are working on, or create one to begin use your extensions locally.</p></blockquote><p>When the extension is enabled, Bonfire will use the code in <code class="inline">extensions/</code> instead of the one in <code class="inline">deps/</code>.</p><p>We will dive more into the creation and the lifecycle of extensions in the next sections.</p><h2 id="extension-helpers" class="section-heading">
+  <a href="#extension-helpers" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Extension helpers</span>
+</h2>
+<p>Given Bonfire modularity, you will likely find yourself combining functions from several extensions when using the framework.
+A significant portion of its codebase is included in extensions, each serving specific purposes.
+Moreover, extensions often utilise code from other extensions.
+For instance, <a href="https://github.com/bonfire-networks/bonfire_common">bonfire_common</a> and <a href="https://github.com/bonfire-networks/bonfire_ui_common">bonfire_ui_common</a> provide a suite of helpers to ease a good amount of tasks.</p><p>When using extensions functions, we need a way to ensure the app will not break if the extension is not enabled.</p><p>Bonfire provides a few built-in components that allows users to optionally inject components or functions from different extensions.</p><p><code class="inline">Bonfire.Common.Utils.maybe_apply</code></p><ul><li>Helpers for calling hypothetical functions in other modules. Returns the result of calling a function with the given arguments, or the result of fallback function if the primary function is not defined (by default just logging an error message).</li></ul><pre><code class="makeup elixir" translate="no"><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">maybe_apply</span><span class="p" data-group-id="2734974969-1">(</span><span class="nc">Bonfire.Social.Graph</span><span class="p">,</span><span class="w"> </span><span class="ss">:maybe_applications</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2734974969-2">[</span><span class="p" data-group-id="2734974969-2">]</span><span class="p">,</span><span class="w">
+          </span><span class="ss">fallback_return</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2734974969-3">[</span><span class="p" data-group-id="2734974969-3">]</span><span class="w">
+        </span><span class="p" data-group-id="2734974969-1">)</span></code></pre><p><code class="inline">Bonfire.UI.Common.Modular.StatefulComponent</code></p><ul><li>A built-in component that allows users to optionally inject dynamic live components into a Surface template.
+Based on <a href="https://hexdocs.pm/surface/0.11.4/Surface.Components.Dynamic.LiveComponent.html"><code class="inline">Surface.Components.Dynamic.LiveComponent</code></a> to which it adds the ability to check if a module is enabled and even to swap it out for another in settings.</li></ul><pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="nc">StatefulComponent</span><span class="w">
+    </span><span class="ss">:if</span><span class="o">=</span><span class="p" data-group-id="7301407952-1">{</span><span class="n">current_user</span><span class="p" data-group-id="7301407952-2">(</span><span class="na">@__context__</span><span class="p" data-group-id="7301407952-2">)</span><span class="p" data-group-id="7301407952-1">}</span><span class="w">
+    </span><span class="n">module</span><span class="o">=</span><span class="p" data-group-id="7301407952-3">{</span><span class="n">maybe_component</span><span class="p" data-group-id="7301407952-4">(</span><span class="nc">Bonfire.Boundaries.Web.MyCirclesLive</span><span class="p">,</span><span class="w"> </span><span class="na">@__context__</span><span class="p" data-group-id="7301407952-4">)</span><span class="p" data-group-id="7301407952-3">}</span><span class="w">
+    </span><span class="n">id</span><span class="o">=</span><span class="s">&quot;circles&quot;</span><span class="w">
+</span><span class="n">scope</span><span class="o">=</span><span class="p" data-group-id="7301407952-5">{</span><span class="na">@scope</span><span class="p" data-group-id="7301407952-5">}</span><span class="w">
+</span><span class="o">/</span><span class="o">&gt;</span></code></pre><p><code class="inline">Bonfire.UI.Common.Modular.StatelessComponent</code></p><ul><li>A built-in component that allows users to optionally inject dynamic functional components into a Surface template.
+Based on <a href="https://hexdocs.pm/surface/0.11.4/Surface.Components.Dynamic.Component.html"><code class="inline">Surface.Components.Dynamic.Component</code></a> to which it adds the ability to check if a module is enabled and even to swap it out for another in settings.</li></ul><pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="nc">StatelessComponent</span><span class="w">
+    </span><span class="n">selected_tab</span><span class="o">=</span><span class="p" data-group-id="5000972542-1">{</span><span class="na">@selected_tab</span><span class="p" data-group-id="5000972542-1">}</span><span class="w">
+    </span><span class="n">module</span><span class="o">=</span><span class="p" data-group-id="5000972542-2">{</span><span class="n">maybe_component</span><span class="p" data-group-id="5000972542-3">(</span><span class="nc">Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive</span><span class="p">,</span><span class="w"> </span><span class="na">@__context__</span><span class="p" data-group-id="5000972542-3">)</span><span class="p" data-group-id="5000972542-2">}</span><span class="w">
+</span><span class="o">/</span><span class="o">&gt;</span></code></pre>
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="what-is-flavour.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+What is a Bonfire flavour?
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="routing.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Routing
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

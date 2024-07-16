@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.109">
+
+
+    <title>ActivityPub — Bonfire v0.9.10-cooperation-beta.109</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-FA71667B.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-cooperation-beta.109
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">ActivityPub</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.109)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>ActivityPub Library for elixir.</p><p><strong>WORK IN PROGRESS, TESTING FEDERATION WITH DIFFERENT IMPLEMENTATIONS IS UNDERWAY</strong></p><h2 id="module-installation" class="section-heading">
+  <a href="#module-installation" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Installation</span>
+</h2>
+<ol><li>Add this library to your dependencies in <code class="inline">mix.exs</code></li></ol><pre><code class="makeup elixir" translate="no"><span class="kd">defp</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="1114404186-1">do</span><span class="w">
+  </span><span class="p" data-group-id="1114404186-2">[</span><span class="n">...</span><span class="p" data-group-id="1114404186-2">]</span><span class="w">
+  </span><span class="p" data-group-id="1114404186-3">{</span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">git</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/bonfire-networks/activity_pub.git&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stable&quot;</span><span class="p" data-group-id="1114404186-3">}</span><span class="w"> </span><span class="c1"># branch can &quot;stable&quot;, or &quot;develop&quot; for the bleeding edge</span><span class="w">
+</span><span class="k" data-group-id="1114404186-1">end</span></code></pre><ol start="2"><li>Create an adapter module. To start, one created at
+<code class="inline">lib/my_app/adapter.ex</code> might look like</li></ol><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Adapter</span><span class="w"> </span><span class="k" data-group-id="1279847344-1">do</span><span class="w">
+  </span><span class="na">@moduledoc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
+  Adapter functions delegated from the `ActivityPub` Library
+  &quot;&quot;&quot;</span><span class="w">
+
+  </span><span class="na">@behaviour</span><span class="w"> </span><span class="nc">ActivityPub.Federator.Adapter</span><span class="w">
+</span><span class="k" data-group-id="1279847344-1">end</span></code></pre><p>Note that, due to the defined <code class="inline">@behavior</code>, Elixir will warn you that
+the required functions</p><ul><li><code class="inline">base_url/0</code></li><li><code class="inline">get_actor_by_id/1</code></li><li><code class="inline">get_actor_by_username/1</code></li><li><code class="inline">get_follower_local_ids/1</code></li><li><code class="inline">get_following_local_ids/1</code></li><li><code class="inline">get_redirect_url/1</code></li><li><code class="inline">handle_activity/1</code></li><li><code class="inline">maybe_create_remote_actor/1</code></li><li><code class="inline">maybe_publish_object/2</code></li><li><code class="inline">update_local_actor/2</code></li><li><code class="inline">update_remote_actor/1</code></li></ul><p>have not yet been implemented though you will be able to start your
+app. Defining these allows <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.html"><code class="inline">ActivityPub</code></a> to handle ActivityPub HTTP
+and database calls and operations. An example of an implemented
+adaptor can be found
+<a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/tree/main/lib/adapter
+"Link to file hosted on GitHub"">here</a>.</p><p>Then set it in config</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:adapter</span><span class="p">,</span><span class="w"> </span><span class="nc">MyApp.Adapter</span></code></pre><ol start="3"><li>Set your application repo in config</li></ol><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:repo</span><span class="p">,</span><span class="w"> </span><span class="nc">MyApp.Repo</span></code></pre><ol start="4"><li><p>Create a new ecto migration and call <code class="inline">ActivityPub.Migration.up/0</code> from it</p></li><li><p>Inject AP routes to your router by adding <code class="inline">use ActivityPub.Web.Router</code> to your app's router module</p></li><li><p>Copy the default AP config to your app's confix.exs</p></li></ol><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:mrf_simple</span><span class="p">,</span><span class="w">
+  </span><span class="ss">media_removal</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-1">[</span><span class="p" data-group-id="5830390968-1">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">media_nsfw</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-2">[</span><span class="p" data-group-id="5830390968-2">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">report_removal</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-3">[</span><span class="p" data-group-id="5830390968-3">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">accept</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-4">[</span><span class="p" data-group-id="5830390968-4">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">avatar_removal</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-5">[</span><span class="p" data-group-id="5830390968-5">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">banner_removal</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-6">[</span><span class="p" data-group-id="5830390968-6">]</span><span class="w">
+
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p">,</span><span class="w">
+  </span><span class="ss">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;example.com&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">federation_publisher_modules</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-7">[</span><span class="nc">ActivityPub.Federator.APPublisher</span><span class="p" data-group-id="5830390968-7">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">federation_reachability_timeout_days</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="ss">federating</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+  </span><span class="ss">rewrite_policy</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-8">[</span><span class="p" data-group-id="5830390968-8">]</span><span class="w">
+
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:http</span><span class="p">,</span><span class="w">
+  </span><span class="ss">proxy_url</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">user_agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Your app name&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">send_user_agent</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+  </span><span class="ss">adapter</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-9">[</span><span class="w">
+    </span><span class="ss">ssl_options</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-10">[</span><span class="w">
+      </span><span class="c1"># Workaround for remote server certificate chain issues</span><span class="w">
+      </span><span class="ss">partial_chain</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">:hackney_connect</span><span class="o">.</span><span class="n">partial_chain</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="c1"># We don&#39;t support TLS v1.3 yet</span><span class="w">
+      </span><span class="ss">versions</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5830390968-11">[</span><span class="ss">:tlsv1</span><span class="p">,</span><span class="w"> </span><span class="ss">:&quot;tlsv1.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:&quot;tlsv1.2&quot;</span><span class="p" data-group-id="5830390968-11">]</span><span class="w">
+    </span><span class="p" data-group-id="5830390968-10">]</span><span class="w">
+  </span><span class="p" data-group-id="5830390968-9">]</span></code></pre><ol start="7"><li><p>Change the hostname value in the instance config block to your instance's hostname </p></li><li><p>If you don't already have Oban set up, follow the <a href="https://hexdocs.pm/oban/installation.html#content">Oban installation intructions</a> and add the AP queues:</p></li></ol><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:my_app</span><span class="p">,</span><span class="w"> </span><span class="nc">Oban</span><span class="p">,</span><span class="w"> </span><span class="ss">queues</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4311822034-1">[</span><span class="ss">federator_incoming</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="ss">federator_outgoing</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="ss">remote_fetcher</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="4311822034-1">]</span></code></pre><p>Now you should be able to compile and run your app and move over to integration.</p><p>This module is the entrypoint to the ActivityPub API for processing incoming and outgoing federated objects (normalising, saving the the Object storage, passing them to the adapter, and queueing outgoing activities to be pushed out).</p><p>In general, the functions in this module take object-like map.
+That includes a struct as the input for actor parameters.  Use the functions in the <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html"><code class="inline">ActivityPub.Actor</code></a> module (<a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#get_cached/1"><code class="inline">ActivityPub.Actor.get_cached/1</code></a> for example) to retrieve those.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#accept/1" data-no-tooltip translate="no">accept(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates and federates an Accept activity via the data passed through <code class="inline">params</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#accept_activity/1" data-no-tooltip translate="no">accept_activity(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#announce/1" data-no-tooltip translate="no">announce(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#block/1" data-no-tooltip translate="no">block(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/1" data-no-tooltip translate="no">create(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates and federates a Create activity via the data passed through <code class="inline">params</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/3" data-no-tooltip translate="no">delete(object, is_local?, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#flag/1" data-no-tooltip translate="no">flag(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#follow/1" data-no-tooltip translate="no">follow(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates and federates a Follow activity.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#like/1" data-no-tooltip translate="no">like(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Record a Like</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#move/4" data-no-tooltip translate="no">move(origin, target, local \\ true, recursing \\ false)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reject/1" data-no-tooltip translate="no">reject(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates and federates a Reject activity via the data passed through <code class="inline">params</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unannounce/1" data-no-tooltip translate="no">unannounce(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unblock/1" data-no-tooltip translate="no">unblock(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unfollow/1" data-no-tooltip translate="no">unfollow(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates and federates an Unfollow activity.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unlike/1" data-no-tooltip translate="no">unlike(params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update/1" data-no-tooltip translate="no">update(params)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="accept/1">
+
+  <div class="detail-header">
+    <a href="#accept/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">accept(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L155" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> accept(%{
+  :to =&gt; [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()],
+  :actor =&gt; <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>(),
+  :object =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  optional(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()
+}) :: {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Object.html#t:t/0">ActivityPub.Object.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Generates and federates an Accept activity via the data passed through <code class="inline">params</code>.</p>
+  </section>
+</section>
+<section class="detail" id="accept_activity/1">
+
+  <div class="detail-header">
+    <a href="#accept_activity/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">accept_activity(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L161" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="announce/1">
+
+  <div class="detail-header">
+    <a href="#announce/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">announce(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L277" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="block/1">
+
+  <div class="detail-header">
+    <a href="#block/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">block(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L383" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create/1">
+
+  <div class="detail-header">
+    <a href="#create/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L65" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> create(%{
+  :to =&gt; [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()],
+  :actor =&gt; <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>(),
+  :context =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  :object =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(),
+  optional(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()
+}) :: {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Object.html#t:t/0">ActivityPub.Object.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Generates and federates a Create activity via the data passed through <code class="inline">params</code>.</p>
+  </section>
+</section>
+<section class="detail" id="delete/3">
+
+    <span id="delete/2"></span>
+
+  <div class="detail-header">
+    <a href="#delete/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(object, is_local?, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L427" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="flag/1">
+
+  <div class="detail-header">
+    <a href="#flag/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">flag(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L509" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> flag(%{
+  :actor =&gt; <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>(),
+  :context =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  :account =&gt; <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>(),
+  :statuses =&gt; [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()],
+  :content =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  optional(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()
+}) :: {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Object.html#t:t/0">ActivityPub.Object.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="follow/1">
+
+  <div class="detail-header">
+    <a href="#follow/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">follow(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L105" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates and federates a Follow activity.</p><p>Note: the follow should be reflected as a Follow on the host database side only after receiving an <code class="inline">Accept</code> activity in response (though you could register it as a Request if your app has that concept)</p>
+  </section>
+</section>
+<section class="detail" id="like/1">
+
+  <div class="detail-header">
+    <a href="#like/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">like(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L218" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Record a Like</p>
+  </section>
+</section>
+<section class="detail" id="move/4">
+
+    <span id="move/2"></span>
+
+    <span id="move/3"></span>
+
+  <div class="detail-header">
+    <a href="#move/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">move(origin, target, local \\ true, recursing \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L530" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="reject/1">
+
+  <div class="detail-header">
+    <a href="#reject/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reject(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L186" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> reject(%{to: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()], actor: <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Actor.html#t:t/0">ActivityPub.Actor.t</a>(), object: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}) ::
+  {:ok, <a href="https://hexdocs.pm/activity_pub/0.1.0/ActivityPub.Object.html#t:t/0">ActivityPub.Object.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Generates and federates a Reject activity via the data passed through <code class="inline">params</code>.</p>
+  </section>
+</section>
+<section class="detail" id="unannounce/1">
+
+  <div class="detail-header">
+    <a href="#unannounce/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unannounce(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L313" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="unblock/1">
+
+  <div class="detail-header">
+    <a href="#unblock/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unblock(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L409" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="unfollow/1">
+
+  <div class="detail-header">
+    <a href="#unfollow/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unfollow(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L126" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates and federates an Unfollow activity.</p>
+  </section>
+</section>
+<section class="detail" id="unlike/1">
+
+  <div class="detail-header">
+    <a href="#unlike/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unlike(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L247" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update/1">
+
+  <div class="detail-header">
+    <a href="#update/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/activity_pub.ex#L345" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
