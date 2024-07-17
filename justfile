@@ -93,8 +93,7 @@ init services="db": _pre-init
 	just setup
 	echo "Setup done."
 
-@_pre-config select_flavour=FLAVOUR:
-	rm -rf ./priv/repo/*
+@_pre-config select_flavour=FLAVOUR: db-clean-migrations
 	-rm ./config/deps.flavour.* 2> /dev/null
 	-rm ./config/flavour_* 2> /dev/null
 	just _pre-setup $select_flavour
@@ -149,10 +148,10 @@ setup-dev:
 	just _ln-spark-deps
 	just deps-get
 
-extension-post-install:
+extension-post-install: 
 	just _ext-migrations-copy
 
-_ext-migrations-copy:
+_ext-migrations-copy: db-clean-migrations
 	just mix bonfire.extension.copy_migrations --force
 
 setup-prod:
@@ -299,10 +298,15 @@ update: init update-repo
 # Update the app and Bonfire extensions in ./deps
 update-app: update-repo update-deps
 
-_pre-update-deps:
+@db-clean-migrations:
+	rm -rf ./flavours/*/priv/repo/migrations/*
+	rm -rf ./priv/repo/*
+	rm -rf deps/bonfire/priv/repo/*
+	rm -rf extensions/bonfire/priv/repo/*
+
+_pre-update-deps: db-clean-migrations
 	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@rm -rf deps/*/assets/yarn.lock
-	@rm -rf deps/bonfire/priv/repo
 
 # Update Bonfire extensions in ./deps
 update-deps: _pre-update-deps
