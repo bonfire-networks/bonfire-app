@@ -395,9 +395,9 @@ deps-clean dep:
 
 js-deps-get: js-ext-deps _assets-ln
 
-@js-ext-deps yarn_args='':
+@js-ext-deps yrn_args='':
 	chmod +x ./config/deps.js.sh
-	just cmd ./config/deps.js.sh $yarn_args
+	just cmd ./config/deps.js.sh $yrn_args
 
 @_assets-ln:
 	{{ if path_exists("extensions/bonfire_ui_common")=="true" { "ln -sf extensions/bonfire_ui_common/assets && echo Assets served from the local UI.Common extension will be used" } else {"ln -sf deps/bonfire_ui_common/assets "} }}
