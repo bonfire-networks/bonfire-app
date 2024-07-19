@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.113">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.114">
 
 
-    <title>EctoSparkles — Bonfire v0.9.10-cooperation-beta.113</title>
+    <title>EctoSparkles — Bonfire v0.9.10-cooperation-beta.114</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-F7109068.js"></script>
+    <script src="dist/sidebar_items-2879C577.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-cooperation-beta.113
+          v0.9.10-cooperation-beta.114
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@ Pages
       </a>
 
     <span translate="no">EctoSparkles</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.113)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.114)</small>
 
   </h1>
 
@@ -214,11 +214,11 @@ You could make it run faster by using a combination of join/preload, but that re
 </h2>
 <pre><code class="makeup elixir" translate="no"><span class="kn">import</span><span class="w"> </span><span class="nc">Ecto.Query</span><span class="w">
 </span><span class="nc">Invoice</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join</span><span class="p" data-group-id="1442215513-1">(</span><span class="ss">:left</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442215513-2">[</span><span class="n">i</span><span class="p" data-group-id="1442215513-2">]</span><span class="p">,</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="1442215513-3">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="ss">:customer</span><span class="p" data-group-id="1442215513-3">)</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:customer</span><span class="p" data-group-id="1442215513-1">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join</span><span class="p" data-group-id="1442215513-4">(</span><span class="ss">:left</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442215513-5">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p" data-group-id="1442215513-5">]</span><span class="p">,</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="1442215513-6">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="ss">:account</span><span class="p" data-group-id="1442215513-6">)</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:account</span><span class="p" data-group-id="1442215513-4">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join</span><span class="p" data-group-id="1442215513-7">(</span><span class="ss">:left</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442215513-8">[</span><span class="n">i</span><span class="p" data-group-id="1442215513-8">]</span><span class="p">,</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="1442215513-9">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="ss">:lines</span><span class="p" data-group-id="1442215513-9">)</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:lines</span><span class="p" data-group-id="1442215513-7">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">preload</span><span class="p" data-group-id="1442215513-10">(</span><span class="p" data-group-id="1442215513-11">[</span><span class="ss">lines</span><span class="p">:</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="ss">customers</span><span class="p">:</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p" data-group-id="1442215513-11">]</span><span class="p">,</span><span class="w"> </span><span class="ss">lines</span><span class="p">:</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="ss">customer</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1442215513-12">{</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442215513-13">[</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="n">account</span><span class="p" data-group-id="1442215513-13">]</span><span class="p" data-group-id="1442215513-12">}</span><span class="p" data-group-id="1442215513-10">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">all</span><span class="p" data-group-id="1442215513-14">(</span><span class="p" data-group-id="1442215513-14">)</span></code></pre><h2 id="join_preload/2-example-using-join_preload" class="section-heading">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join</span><span class="p" data-group-id="4005976867-1">(</span><span class="ss">:left</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4005976867-2">[</span><span class="n">i</span><span class="p" data-group-id="4005976867-2">]</span><span class="p">,</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="4005976867-3">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="ss">:customer</span><span class="p" data-group-id="4005976867-3">)</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:customer</span><span class="p" data-group-id="4005976867-1">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join</span><span class="p" data-group-id="4005976867-4">(</span><span class="ss">:left</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4005976867-5">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p" data-group-id="4005976867-5">]</span><span class="p">,</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="4005976867-6">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="ss">:account</span><span class="p" data-group-id="4005976867-6">)</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:account</span><span class="p" data-group-id="4005976867-4">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join</span><span class="p" data-group-id="4005976867-7">(</span><span class="ss">:left</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4005976867-8">[</span><span class="n">i</span><span class="p" data-group-id="4005976867-8">]</span><span class="p">,</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="4005976867-9">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="ss">:lines</span><span class="p" data-group-id="4005976867-9">)</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:lines</span><span class="p" data-group-id="4005976867-7">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">preload</span><span class="p" data-group-id="4005976867-10">(</span><span class="p" data-group-id="4005976867-11">[</span><span class="ss">lines</span><span class="p">:</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="ss">customers</span><span class="p">:</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p" data-group-id="4005976867-11">]</span><span class="p">,</span><span class="w"> </span><span class="ss">lines</span><span class="p">:</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="ss">customer</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4005976867-12">{</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4005976867-13">[</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="n">account</span><span class="p" data-group-id="4005976867-13">]</span><span class="p" data-group-id="4005976867-12">}</span><span class="p" data-group-id="4005976867-10">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">all</span><span class="p" data-group-id="4005976867-14">(</span><span class="p" data-group-id="4005976867-14">)</span></code></pre><h2 id="join_preload/2-example-using-join_preload" class="section-heading">
   <a href="#join_preload/2-example-using-join_preload" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
@@ -226,9 +226,9 @@ You could make it run faster by using a combination of join/preload, but that re
 </h2>
 <pre><code class="makeup elixir" translate="no"><span class="kn">import</span><span class="w"> </span><span class="nc">EctoSparkles</span><span class="w">
 </span><span class="nc">Invoice</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join_preload</span><span class="p" data-group-id="3500153372-1">(</span><span class="p" data-group-id="3500153372-2">[</span><span class="ss">:customer</span><span class="p">,</span><span class="w"> </span><span class="ss">:account</span><span class="p" data-group-id="3500153372-2">]</span><span class="p" data-group-id="3500153372-1">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join_preload</span><span class="p" data-group-id="3500153372-3">(</span><span class="p" data-group-id="3500153372-4">[</span><span class="ss">:lines</span><span class="p" data-group-id="3500153372-4">]</span><span class="p" data-group-id="3500153372-3">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">all</span><span class="p" data-group-id="3500153372-5">(</span><span class="p" data-group-id="3500153372-5">)</span></code></pre>
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join_preload</span><span class="p" data-group-id="4492622425-1">(</span><span class="p" data-group-id="4492622425-2">[</span><span class="ss">:customer</span><span class="p">,</span><span class="w"> </span><span class="ss">:account</span><span class="p" data-group-id="4492622425-2">]</span><span class="p" data-group-id="4492622425-1">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">join_preload</span><span class="p" data-group-id="4492622425-3">(</span><span class="p" data-group-id="4492622425-4">[</span><span class="ss">:lines</span><span class="p" data-group-id="4492622425-4">]</span><span class="p" data-group-id="4492622425-3">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">all</span><span class="p" data-group-id="4492622425-5">(</span><span class="p" data-group-id="4492622425-5">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="proload/3">
@@ -254,13 +254,13 @@ You could make it run faster by using a combination of join/preload, but that re
 
   <section class="docstring">
 
-<p>AKA <code class="inline">join_preload++</code>. It's more powerful, but it does it with more (and different!) syntax.</p><p>e.g.</p><pre><code class="makeup elixir" translate="no"><span class="n">proload</span><span class="p" data-group-id="9102466440-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9102466440-2">[</span><span class="w">
+<p>AKA <code class="inline">join_preload++</code>. It's more powerful, but it does it with more (and different!) syntax.</p><p>e.g.</p><pre><code class="makeup elixir" translate="no"><span class="n">proload</span><span class="p" data-group-id="5281273628-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5281273628-2">[</span><span class="w">
   </span><span class="ss">:verb</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost_count</span><span class="p">,</span><span class="w"> </span><span class="ss">:like_count</span><span class="p">,</span><span class="w"> </span><span class="ss">:replied</span><span class="p">,</span><span class="w">
   </span><span class="c1"># relations under object will have their aliases prefixed with object_, i.e.</span><span class="w">
   </span><span class="c1"># :object_message, :object_post, :object_post_content</span><span class="w">
   </span><span class="c1"># the original names will still be used for the associations.</span><span class="w">
-  </span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9102466440-3">{</span><span class="s">&quot;object_&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9102466440-4">[</span><span class="ss">:message</span><span class="p">,</span><span class="w"> </span><span class="ss">:post</span><span class="p">,</span><span class="w"> </span><span class="ss">:post_content</span><span class="p" data-group-id="9102466440-4">]</span><span class="p" data-group-id="9102466440-3">}</span><span class="w">
-</span><span class="p" data-group-id="9102466440-2">]</span><span class="p" data-group-id="9102466440-1">)</span></code></pre>
+  </span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5281273628-3">{</span><span class="s">&quot;object_&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5281273628-4">[</span><span class="ss">:message</span><span class="p">,</span><span class="w"> </span><span class="ss">:post</span><span class="p">,</span><span class="w"> </span><span class="ss">:post_content</span><span class="p" data-group-id="5281273628-4">]</span><span class="p" data-group-id="5281273628-3">}</span><span class="w">
+</span><span class="p" data-group-id="5281273628-2">]</span><span class="p" data-group-id="5281273628-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="reusable_join/5">
