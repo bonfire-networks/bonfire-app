@@ -204,7 +204,7 @@ You should now be able to run the app with:
 just dev
 ```
 
-Read more about the available `just` commands in the [`just` commands](./just-commands) page.
+Read more about the available `just` commands in the [`just` commands](./topics/JUST.md) page.
 
 ## Onboarding
 

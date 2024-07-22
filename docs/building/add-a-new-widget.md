@@ -1,6 +1,6 @@
 # Add a new widget
 
-Widgets are reusable components that encapsulate data and provide context-specific information to users based on the pages they are currently visiting. They are typically placed in the right sidebar ( refers to the [Design Guidelines](topics/design_guidelines.md) section to learn more about Bonfire user experience), and developers can define which widgets should appear on each page and in what order. 
+Widgets are reusable components that encapsulate data and provide context-specific information to users based on the pages they are currently visiting. They are typically placed in the right sidebar ( refers to the [Design Guidelines](../topics/DESIGN.md) section to learn more about Bonfire user experience), and developers can define which widgets should appear on each page and in what order. 
 
 Developers can include options for users to enable, disable, or rearrange the order of widgets when possible.
 

@@ -198,13 +198,13 @@ defmodule Bonfire.Umbrella.MixProject do
       # "docs/introduction.md",
       "README.md",
       "docs/HACKING.md",
-      "docs/just-commands.md",
       "docs/DEPLOY.md",
       "docs/topics/ARCHITECTURE.md",
-      "docs/topics/design_guidelines.md",
+      "docs/topics/DESIGN.md",
       "docs/topics/BONFIRE-FLAVOURED-ELIXIR.md",
       "docs/topics/DATABASE.md",
       "docs/topics/BOUNDARIES.md",
+      "docs/topics/JUST.md",
       "docs/topics/GRAPHQL.md",
       "docs/topics/MRF.md",
       "docs/CHANGELOG.md",
@@ -343,7 +343,7 @@ defmodule Bonfire.Umbrella.MixProject do
         extras: Mixer.readme_paths(config()),
         # extra apps to include in module docs
         source_beam: Mixer.docs_beam_paths(config()),
-        # deps: Mixer.doc_dep_urls(config()),
+        deps: Mixer.doc_dep_urls(config()),
         # Note: first match wins
         groups_for_extras: [
           "Getting Started": Path.wildcard("docs/*"),
@@ -382,7 +382,14 @@ defmodule Bonfire.Umbrella.MixProject do
             ~r/^Bonfire.Fail?/,
             ~r/^Bonfire.Files?/,
             ~r/^Bonfire.Mailer?/,
-            ~r/^Needle?/
+            ~r/^Needle?/,
+            ~r/^Exto?/,
+            ~r/^Arrows?/,
+            ~r/^AnimalAvatarGenerator?/,
+            ~r/^EctoSparkles?/,
+            ~r/^Releaser?/,
+            ~r/^Voodoo?/,
+            ~r/^Untangle?/
           ],
           "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
           Federation: [
