@@ -58,27 +58,13 @@ You can choose to run bonfire in a variety of ways, from fully managed via docke
 
 <!-- tabs-open -->
 
-### Total
-
-The entry-way is fully managed via docker-compose, recommended when you're first exploring
-
-#### Dependencies 
-
-- Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
-- Make sure you've set the environment variable to indicate your choice:
-
-```bash
-export WITH_DOCKER=total
-```
-
 ### Easy
 
 The easy way consist in using bare-metal elixir, and docker-managed tooling, database & search index, recommended for active development.
 
 > #### Info {: .info}
 >
-> Note: you can use a tool like [mise](https://mise.jdx.dev/) or asdf to setup the environment (run `mise install` in the root directory).
-
+> Note: the simplest way to handle dependencies is using a tool like [mise](https://mise.jdx.dev/) or asdf to setup the environment (simply run `mise install` in the root directory).
 
 #### Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
@@ -91,6 +77,26 @@ The easy way consist in using bare-metal elixir, and docker-managed tooling, dat
 export WITH_DOCKER=easy
 ```
 
+You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
+
+### All containers
+
+Fully managed via docker-compose, recommended when you're first exploring and don't want to install Elixir.
+
+> NOTE: not recommended on MacOS, as it is significantly slower.
+
+#### Dependencies 
+
+- Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
+- Make sure you've set the environment variable to indicate your choice:
+
+```bash
+export WITH_DOCKER=total
+```
+
+You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
+
+<!-- 
 ### Partial
 The partial way consist in using bare-metal elixir and tooling, and docker-managed database & search index.
 
@@ -110,9 +116,10 @@ The partial way consist in using bare-metal elixir and tooling, and docker-manag
 
 ```bash
 export WITH_DOCKER=partial
-```
+``` 
+-->
 
-### No Docker
+### Bare-metal
 
 > #### Info {: .info}
 >
@@ -120,7 +127,7 @@ export WITH_DOCKER=partial
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
-  - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
+  <!-- - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo -->
   - [yarn](https://yarnpkg.com)
   - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)
   - [Meili Search](https://docs.meilisearch.com/learn/getting_started/installation.html) (optional)
@@ -133,7 +140,9 @@ export WITH_DOCKER=partial
 export WITH_DOCKER=no
 ```
 
-### The nix way 
+You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
+
+### Nix
 
 You can also choose to use nix to setup your development environment.
 
@@ -212,30 +221,29 @@ Read more about the available `just` commands in the [`just` commands](./topics/
 
 The back-end server runs on port 4000 (TCP) by default. Access it by navigating to http://localhost:4000/ in your web browser.
 
-### Creating an Account
+### Creating an account
 
 To create an account, go to http://localhost:4000/signup and enter your email address and password.
-When running the server locally, you won't receive a confirmation email. However, you can find the confirmation link in the server logs.
-Search for a link starting with https://localhost:4000/signup/email/confirm/ in the logs and follow the complete link to confirm your account.
+When running the server locally and signing up for the first time, you won't need a confirmation email. However, for any future signups know you can find the confirmation link in the server logs.
 
-### Admin Permissions
+### Admin permissions
 
 The first user registered on the platform is automatically granted Admin permissions.
 
-### Successful Onboarding
+### Successful onboarding
 
 After successfully creating and confirming your account, you should see an empty dashboard.
 
 That's it! You have now successfully onboarded and can start using the application.
 
-## The Bonfire Environment
+## The Bonfire environment
 
 We like to think of bonfire as a comfortable way of developing software - there are a lot of conveniences built in once you know how they all work. The gotcha is that while you don't know them, it can be a bit overwhelming. Don't worry, we've got your back.
 
-- [Architecture](./ARCHITECTURE.md) - an overview of the stack and code structure.
-- [Bonfire-flavoured Elixir](./BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way we write Elixir.
-- [Bonfire's Database: an Introduction](./DATABASE.md) - an overview of how our database is designed.
-- [Boundaries](./BOUNDARIES.md) - an introduction to our access control system.
+- [Architecture](./topics/ARCHITECTURE.md) - an overview of the stack and code structure.
+- [Bonfire-flavoured Elixir](./topics/BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way we write Elixir.
+- [Bonfire's Database: an Introduction](./topics/DATABASE.md) - an overview of how our database is designed.
+- [Boundaries](./topics/BOUNDARIES.md) - an introduction to our access control system.
 
 Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
@@ -245,7 +253,7 @@ The code is somewhat documented inline. You can generate HTML docs (using `Exdoc
 
 ## Additional information
 
-- `messctl` is a little utility for programmatically updating the .deps files from which the final elixir dependencies list is compiled by the mess script. The only use of it is in the dep-\* tasks of the Makefile. It is used by some of the project developers and the build does not rely on it.
+<!-- - `messctl` is a little utility for programmatically updating the .deps files from which the final elixir dependencies list is compiled by the mess script. The only use of it is in the dep-\* tasks of the Makefile. It is used by some of the project developers and the build does not rely on it. -->
 
 - `./extensions/` is used to hack on local copies of Bonfire extensions. You can clone an extension from its git repo and use the local version during development, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 
@@ -318,3 +326,7 @@ config :bonfire, Bonfire.Common.Repo,
   timeout: 60_000,
   [...]
 ```
+
+### Compilation errors like `(ArgumentError) could not load module Needle.ULID due to reason :unavailable` or `(ArgumentError) could not load module Poison.Encoder due to reason :unavailable`
+
+This seems to be an issue with the order of compilation, you can usually work around it by cleaning the deps it complains about, eg: `just deps-clean needle_ulid` or `just deps-clean poison` or `just deps-clean jason`
