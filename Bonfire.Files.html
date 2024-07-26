@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.114">
+    <meta name="project" content="Bonfire v0.9.10-cooperation-beta.115">
 
 
-    <title>Bonfire.Files — Bonfire v0.9.10-cooperation-beta.114</title>
+    <title>Bonfire.Files — Bonfire v0.9.10-cooperation-beta.115</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-2879C577.js"></script>
+    <script src="dist/sidebar_items-A987D02D.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-cooperation-beta.114
+          v0.9.10-cooperation-beta.115
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Files</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.114)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-cooperation-beta.115)</small>
 
   </h1>
 
@@ -143,14 +143,11 @@ along with creating a <a href="https://github.com/bonfire-networks/needle" title
   <span class="text">TODO's</span>
 </h2>
 <ul><li>Generate docs</li><li>More tests</li></ul><p>This module contains general functions for handling files, and also an Ecto schema which is a multimixin for storing one or more media attached to a Pointable object.</p><p>An uploader definition must be provided for each upload, or will be automatically chosen based on the file type.</p><p>A few definitions exist as defaults inside of this namespace, but you can also define
-your own - a <a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.Definition.html"><code class="inline">Bonfire.Files.Definition</code></a> is an extension of <a href="https://hexdocs.pm/waffle/1.1.9/Waffle.Definition.html"><code class="inline">Waffle.Definition</code></a>,
+your own - a <a href="./Bonfire.Files.Definition.html"><code class="inline">Bonfire.Files.Definition</code></a> is an extension of <a href="https://hexdocs.pm/waffle/1.1.9/Waffle.Definition.html"><code class="inline">Waffle.Definition</code></a>,
 however the <code class="inline">allowed_media_types/0</code> and <code class="inline">max_file_size/0</code> callback are added,
 with which you need to define what media types are accepted for these types of uploads.
-(You can also return <code class="inline">:all</code> to accept all media types).</p><p>To use the uploader:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="2194332168-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">media</span><span class="p" data-group-id="2194332168-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Files</span><span class="o">.</span><span class="n">upload</span><span class="p" data-group-id="2194332168-2">(</span><span class="nc">MyUploader</span><span class="p">,</span><span class="w"> </span><span class="n">creator_or_context</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2194332168-3">%{</span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./150.png&quot;</span><span class="p" data-group-id="2194332168-3">}</span><span class="p" data-group-id="2194332168-2">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">media</span><span class="o">.</span><span class="n">media_type</span><span class="w">
-</span><span class="s">&quot;image/png&quot;</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Files</span><span class="o">.</span><span class="n">remote_url</span><span class="p" data-group-id="2194332168-4">(</span><span class="nc">MyUploader</span><span class="p">,</span><span class="w"> </span><span class="n">media</span><span class="p" data-group-id="2194332168-4">)</span><span class="w">
-</span><span class="s">&quot;/uploads/my/01F3AY6JV30G06BY4DR9BTW5EH&quot;</span></code></pre>
+(You can also return <code class="inline">:all</code> to accept all media types).</p><p>To use the uploader:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="5161437820-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">media</span><span class="p" data-group-id="5161437820-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Files</span><span class="o">.</span><span class="n">upload</span><span class="p" data-group-id="5161437820-2">(</span><span class="nc">MyUploader</span><span class="p">,</span><span class="w"> </span><span class="n">creator_or_context</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5161437820-3">%{</span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./150.png&quot;</span><span class="p" data-group-id="5161437820-3">}</span><span class="p" data-group-id="5161437820-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">media</span><span class="o">.</span><span class="n">media_type</span></code></pre><p>  &quot;image/png&quot;</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Files</span><span class="o">.</span><span class="n">remote_url</span><span class="p" data-group-id="0025623064-1">(</span><span class="nc">MyUploader</span><span class="p">,</span><span class="w"> </span><span class="n">media</span><span class="p" data-group-id="0025623064-1">)</span></code></pre><p>  &quot;/uploads/my/01F3AY6JV30G06BY4DR9BTW5EH&quot;</p>
     </section>
 
 </div>
@@ -283,7 +280,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">ap_publish_activity(medias)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L406" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L404" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -305,7 +302,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">ap_receive_attachments(creator, attachments)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L460" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L458" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -327,7 +324,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">data_url(content, mime_type)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L394" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L392" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -349,7 +346,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">extract_metadata(path)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L377" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L375" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -371,7 +368,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">file_extension(path)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L201" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L199" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -393,7 +390,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">file_extension_only(path)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L205" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L203" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -415,7 +412,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">full_url(module, media)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L399" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L397" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -439,7 +436,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">normalise_size(size, default \\ 8)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L555" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L553" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -465,7 +462,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">remote_url(module \\ nil, media, version \\ :default)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L283" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L281" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -491,7 +488,7 @@ the upload.</p></div>
     </a>
     <h1 class="signature" translate="no">upload(module, creator_or_context, file, attrs \\ %{}, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L60" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L58" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -515,7 +512,7 @@ the upload.</p>
     </a>
     <h1 class="signature" translate="no">validate(other, allowed_media_types, max_file_size)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L146" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_files/blob/main/lib/files.ex#L144" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
