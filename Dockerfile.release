@@ -135,7 +135,7 @@ RUN MIX_ENV=prod mix bonfire.extension.copy_migrations --force --to priv/repo/mi
 COPY --link LICENSE ./
 COPY --link README.md ./
 COPY --link docs docs
-RUN cp deps/bonfire_ui_common/assets/static/images/bonfire-icon.png assets/static/images/bonfire-icon.png
+RUN mkdir -p assets/static/images/ && cp deps/bonfire_ui_common/assets/static/images/bonfire-icon.png assets/static/images/bonfire-icon.png
 RUN ls -la ./
 
 # generate exdocs so they can be included in the code archive
