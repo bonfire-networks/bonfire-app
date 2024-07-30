@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.121">
+
+
+    <title>Bonfire.API.GraphQL.QueryHelper — Bonfire v0.9.10-classic-beta.121</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-A85C7918.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.121
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.API.GraphQL.QueryHelper</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.121)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Helpful functions for preparing to query or test Absinthe applications.</p><p>These functions make it trivially easy to generate very large, comprehensive queries for our types in Absinthe that will resolve every field in that type (and any number of subtypes as well to a given level of depth)</p><p>Adapted from <a href="https://github.com/devonestes/assertions">https://github.com/devonestes/assertions</a> (MIT license)</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#apply_overrides/2" data-no-tooltip translate="no">apply_overrides(fields, override_fun)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#camelize/1" data-no-tooltip translate="no">camelize(type)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#do_format_fields/3" data-no-tooltip translate="no">do_format_fields(type, arg2, schema)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#document_for/4" data-no-tooltip translate="no">document_for(schema, type, nesting \\ 1, override_fun \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a document containing the fields in a type and any sub-types down to a limited depth of
+nesting (default <code class="inline">3</code>).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fields_for/3" data-no-tooltip translate="no">fields_for(schema, type, nesting)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns all fields in a type and any sub-types down to a limited depth of nesting (default <code class="inline">3</code>).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_fields/4" data-no-tooltip translate="no">format_fields(fields, type, left_pad, schema)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_fields/3" data-no-tooltip translate="no">get_fields(type, schema, nesting)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_debug_api/4" data-no-tooltip translate="no">maybe_debug_api(q, obj, debug, msg \\ &quot;The below GraphQL query had some errors in the response&quot;)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#padding/1" data-no-tooltip translate="no">padding(left_pad)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_with_id/4" data-no-tooltip translate="no">query_with_id(schema, type, nesting \\ 1, override_fun \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#run_query_id/6" data-no-tooltip translate="no">run_query_id(id, schema, type, nesting \\ 1, override_fun \\ nil, debug \\ nil)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="apply_overrides/2">
+
+  <div class="detail-header">
+    <a href="#apply_overrides/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">apply_overrides(fields, override_fun)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L248" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="camelize/1">
+
+  <div class="detail-header">
+    <a href="#camelize/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">camelize(type)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L260" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="do_format_fields/3">
+
+  <div class="detail-header">
+    <a href="#do_format_fields/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">do_format_fields(type, arg2, schema)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L237" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="document_for/4">
+
+    <span id="document_for/2"></span>
+
+    <span id="document_for/3"></span>
+
+  <div class="detail-header">
+    <a href="#document_for/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">document_for(schema, type, nesting \\ 1, override_fun \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L84" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> document_for(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>Returns a document containing the fields in a type and any sub-types down to a limited depth of
+nesting (default <code class="inline">3</code>).</p><p>This is helpful for generating a document to use for testing your GraphQL API. This function
+will always return all fields in the given type, ensuring that there aren't any accidental
+fields with resolver functions that aren't tested in at least some fashion.</p><h2 id="document_for/4-example" class="section-heading">
+  <a href="#document_for/4-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">document_for</span><span class="p" data-group-id="2603359187-1">(</span><span class="ss">:user</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="2603359187-1">)</span><span class="w">
+
+</span><span class="err">`</span><span class="err">`</span><span class="err">`</span><span class="w">
+</span><span class="n">name</span><span class="w">
+</span><span class="n">age</span><span class="w">
+</span><span class="n">posts</span><span class="w"> </span><span class="p" data-group-id="2603359187-2">{</span><span class="w">
+  </span><span class="n">title</span><span class="w">
+  </span><span class="n">subtitle</span><span class="w">
+</span><span class="p" data-group-id="2603359187-2">}</span><span class="w">
+</span><span class="n">comments</span><span class="w"> </span><span class="p" data-group-id="2603359187-3">{</span><span class="w">
+  </span><span class="n">body</span><span class="w">
+</span><span class="p" data-group-id="2603359187-3">}</span><span class="w">
+</span><span class="err">`</span><span class="err">`</span><span class="err">`</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="fields_for/3">
+
+  <div class="detail-header">
+    <a href="#fields_for/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fields_for(schema, type, nesting)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L100" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> fields_for(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) :: [fields] | <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()
+when fields: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), [fields]}</pre>
+
+      </div>
+
+<p>Returns all fields in a type and any sub-types down to a limited depth of nesting (default <code class="inline">3</code>).</p><p>This is helpful for converting a struct or map into an expected response that is a bare map
+and which can be used in some of the other assertions below.</p>
+  </section>
+</section>
+<section class="detail" id="format_fields/4">
+
+  <div class="detail-header">
+    <a href="#format_fields/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_fields(fields, type, left_pad, schema)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L169" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_fields/3">
+
+  <div class="detail-header">
+    <a href="#get_fields/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_fields(type, schema, nesting)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L112" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_debug_api/4">
+
+    <span id="maybe_debug_api/3"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_debug_api/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_debug_api(q, obj, debug, msg \\ &quot;The below GraphQL query had some errors in the response&quot;)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L262" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="padding/1">
+
+  <div class="detail-header">
+    <a href="#padding/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">padding(left_pad)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L257" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_with_id/4">
+
+    <span id="query_with_id/2"></span>
+
+    <span id="query_with_id/3"></span>
+
+  <div class="detail-header">
+    <a href="#query_with_id/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_with_id(schema, type, nesting \\ 1, override_fun \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L45" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> query_with_id(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="run_query_id/6">
+
+    <span id="run_query_id/3"></span>
+
+    <span id="run_query_id/4"></span>
+
+    <span id="run_query_id/5"></span>
+
+  <div class="detail-header">
+    <a href="#run_query_id/6" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">run_query_id(id, schema, type, nesting \\ 1, override_fun \\ nil, debug \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/graphql/query_helper.ex#L21" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> run_query_id(
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
+) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
