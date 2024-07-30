@@ -136,6 +136,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # flavour_path(config_or_flavour)
 
     def forks_path(), do: System.get_env("FORKS_PATH", "extensions/")
+    def forks_paths(), do: [forks_path(), "forks/"]
 
     def compile_disabled? do
       case System.get_env("COMPILE_DISABLED_EXTENSIONS", "prod") do
@@ -281,15 +282,23 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       beam_paths(config, :docs, umbrella_extension_names() || [])
     end
 
-    def readme_paths(config),
-      do:
-        List.wrap(config[:guides]) ++
-          Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++
-          Enum.map(Path.wildcard("docs/DEPENDENCIES/*.md"), &flavour_deps_doc/1) ++
-          Enum.flat_map(
-            deps_names_for(:docs, config) ++ umbrella_extension_paths(),
-            &readme_path/1
-          )
+    def extra_guide_paths(config) do
+      deps = deps_names_for(:docs, config) ++ umbrella_extension_paths()
+
+      List.wrap(config[:guides]) ++
+        Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++
+        Enum.map(Path.wildcard("docs/DEPENDENCIES/*.md"), &flavour_deps_doc/1) ++
+        Enum.flat_map(
+          deps,
+          &readme_path/1
+        ) ++
+        Enum.flat_map(
+          deps,
+          &dep_paths(&1, "docs/*.md")
+        )
+
+      # |> IO.inspect(limit: :infinity)
+    end
 
     defp readme_path(dep) when not is_nil(dep),
       do: dep_paths(dep, "README.md") |> List.first() |> readme_path(dep)
@@ -459,7 +468,9 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def dep_path(dep, force? \\ false)
 
     def dep_path(dep, force?) when is_binary(dep) do
-      path_if_exists(forks_path() <> dep) ||
+      Enum.map(forks_paths(), &path_if_exists(&1 <> dep))
+      |> Enum.reject(&is_nil/1)
+      |> List.first() ||
         (
           path =
             (Mix.Project.deps_path() <> "/" <> dep)
@@ -493,11 +504,15 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       do: Enum.flat_map(extra, &dep_paths(dep, &1))
 
     def dep_paths(dep, extra) when is_binary(extra) do
-      dep_path = dep_path(dep, true)
+      dep_path =
+        dep_path(dep, true)
+
+      # |> IO.inspect()
 
       if dep_path do
-        path = Path.join(dep_path, extra) |> path_if_exists()
-        if path, do: [path], else: []
+        # path = 
+        Path.join(dep_path, extra) |> Path.wildcard()
+        # if path, do: [path], else: []
       else
         []
       end
