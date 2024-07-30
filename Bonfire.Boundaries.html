@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Boundaries — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Boundaries</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Bonfire's boundaries framework provides a flexible way to control user access to specific actions and data. It ensures that users can only see and do what they're authorized to.</p><h2 id="module-glossary" class="section-heading">
+  <a href="#module-glossary" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Glossary</span>
+</h2>
+<table><thead><tr><th style="text-align: left;">Term</th><th style="text-align: left;">Definition</th></tr></thead><tbody><tr><td style="text-align: left;"><strong>User</strong></td><td style="text-align: left;">An individual who interacts with the system.</td></tr><tr><td style="text-align: left;"><strong>Circle</strong></td><td style="text-align: left;">A categorization method for users, allowing users to group other users (e.g., colleagues, friends).</td></tr><tr><td style="text-align: left;"><strong>Verb</strong></td><td style="text-align: left;">An action that a user can perform (e.g., read, reply).</td></tr><tr><td style="text-align: left;"><strong>Permission</strong></td><td style="text-align: left;">A value indicating whether an action is allowed (<code class="inline">true</code>), denied (<code class="inline">false</code>), or <code class="inline">nil</code>.</td></tr><tr><td style="text-align: left;"><strong>Grant</strong></td><td style="text-align: left;">Links a user or circle with a verb and permission.</td></tr><tr><td style="text-align: left;"><strong>ACL</strong></td><td style="text-align: left;">Access Control List, a collection of grants. Also called &quot;boundary&quot; or &quot;boundary preset&quot; in the app.</td></tr><tr><td style="text-align: left;"><strong>Controlled</strong></td><td style="text-align: left;">Links an object to one or more ACLs, to determine access based on the grants.</td></tr><tr><td style="text-align: left;"><strong>Role</strong></td><td style="text-align: left;">A group of verbs linked to a permission.</td></tr></tbody></table><h2 id="module-users-and-circles" class="section-heading">
+  <a href="#module-users-and-circles" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Users and Circles</span>
+</h2>
+<p>Circles are a way of categorizing users. Each user can have their own set of circles to categorize other users. Circles allow a user to group work colleagues differently from friends for example, and to allow different interactions for users in each circle or limit content visibility on a per-item basis.</p><h2 id="module-verbs" class="section-heading">
+  <a href="#module-verbs" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Verbs</span>
+</h2>
+<p>Verbs represent actions users can perform, such as reading a post or replying to a message. Each verb has a unique ID and are defined in configuration.</p><h2 id="module-permissions" class="section-heading">
+  <a href="#module-permissions" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Permissions</span>
+</h2>
+<p>A permission is a decision about whether the action may be performed or not. There are 3 possible values:</p><ul><li><code class="inline">true</code>: yes, the action is allowed</li><li><code class="inline">false</code>: no, the action is explicitly denied (i.e. never permit)</li><li><code class="inline">null</code>/<code class="inline">nil</code>: unknown, the action isn't explicitly allowed (defaults to not allowed) </li></ul><h3 id="module-grants" class="section-heading">
+  <a href="#module-grants" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Grants</span>
+</h3>
+<p>A <code class="inline">Grant</code> links a <code class="inline">subject</code> (user or circle) with a <code class="inline">Verb</code> and a permission. It defines the access rights for a specific user or circle in relation to a particular action.</p><h2 id="module-acls" class="section-heading">
+  <a href="#module-acls" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">ACLs</span>
+</h2>
+<p>An <code class="inline">Acl</code> is a list of <code class="inline">Grant</code>s used to define access permissions for objects. </p><p>Because a user could be in more than one circle and each circle may have a different permission, when a user attempts an action on an object, the system combines all relevant grants to determine the final permission. This combination prioritizes permissions as follows: <code class="inline">false &gt; true &gt; nil</code>, resulting in:</p><table><thead><tr><th style="text-align: left;">input</th><th style="text-align: left;">input</th><th style="text-align: left;">result</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">nil</code></td></tr><tr><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">true</code></td></tr><tr><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">true</code></td></tr><tr><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">true</code></td></tr><tr><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">nil</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">true</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr><tr><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td><td style="text-align: left;"><code class="inline">false</code></td></tr></tbody></table><p>In simpler terms, a final permission is granted only if the combined result is <code class="inline">true</code>. Think of it as requiring an explicit &quot;yes&quot; for permission, while &quot;no&quot; always takes precedence. Notably, <code class="inline">nil</code> acts as a sort of &quot;weak no,&quot; it can be overridden by a <code class="inline">true</code> but not granting access on its own. This approach provides flexibility for implementing features like user blocking (<code class="inline">false</code> is crucial here).</p><p>For efficiency, <code class="inline">nil</code> is the assumed default and not stored in the database.</p><h2 id="module-controlled-applying-boundaries-to-an-object" class="section-heading">
+  <a href="#module-controlled-applying-boundaries-to-an-object" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Controlled - Applying boundaries to an object</span>
+</h2>
+<p>The <code class="inline">Controlled</code> <a href="./DATABASE.md#multimixins">multimixin</a> link an object to one or more ACLs. This allows for applying multiple boundaries to the same object. In case of overlapping permissions, the system combines them following the logic described above.</p><h3 id="module-roles" class="section-heading">
+  <a href="#module-roles" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Roles</span>
+</h3>
+<p>Roles are groups of verbs associated with permissions. While not stored in the database, they are defined at the configuration level to enhance readability and user experience.</p><h2 id="module-practical-example-surprise-birthday-party" class="section-heading">
+  <a href="#module-practical-example-surprise-birthday-party" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Practical example: Surprise birthday party</span>
+</h2>
+<p>Let's illustrate how boundaries work with a real-world example: planning a surprise party without the birthday girl finding out.</p><h3 id="module-1-setting-up-users" class="section-heading">
+  <a href="#module-1-setting-up-users" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">1. Setting up users</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nc">Bonfire.Me.Fake</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">organizer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_user!</span><span class="p" data-group-id="2157080955-1">(</span><span class="p" data-group-id="2157080955-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">birthday_girl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_user!</span><span class="p" data-group-id="2157080955-2">(</span><span class="p" data-group-id="2157080955-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">friends</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2157080955-3">[</span><span class="n">fake_user!</span><span class="p" data-group-id="2157080955-4">(</span><span class="p" data-group-id="2157080955-4">)</span><span class="p">,</span><span class="w"> </span><span class="n">fake_user!</span><span class="p" data-group-id="2157080955-5">(</span><span class="p" data-group-id="2157080955-5">)</span><span class="p" data-group-id="2157080955-3">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2157080955-6">[</span><span class="n">fake_user!</span><span class="p" data-group-id="2157080955-7">(</span><span class="p" data-group-id="2157080955-7">)</span><span class="p">,</span><span class="w"> </span><span class="n">fake_user!</span><span class="p" data-group-id="2157080955-8">(</span><span class="p" data-group-id="2157080955-8">)</span><span class="p" data-group-id="2157080955-6">]</span></code></pre><h3 id="module-2-define-your-circles" class="section-heading">
+  <a href="#module-2-define-your-circles" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">2. Define your Circles</span>
+</h3>
+<p>Organize users into relevant circles (friends and family).</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="kn">alias</span><span class="w"> </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6636150050-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">friends_circle</span><span class="p" data-group-id="6636150050-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Circles</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="6636150050-2">(</span><span class="n">organizer</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6636150050-3">%{</span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6636150050-4">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;friends&quot;</span><span class="p" data-group-id="6636150050-4">}</span><span class="p" data-group-id="6636150050-3">}</span><span class="p" data-group-id="6636150050-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Circles</span><span class="o">.</span><span class="n">add_to_circles</span><span class="p" data-group-id="6636150050-5">(</span><span class="n">friends</span><span class="p">,</span><span class="w"> </span><span class="n">friends_circle</span><span class="p" data-group-id="6636150050-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Circles</span><span class="o">.</span><span class="n">is_encircled_by?</span><span class="p" data-group-id="6636150050-6">(</span><span class="nc">List</span><span class="o">.</span><span class="n">first</span><span class="p" data-group-id="6636150050-7">(</span><span class="n">friends</span><span class="p" data-group-id="6636150050-7">)</span><span class="p">,</span><span class="w"> </span><span class="n">friends_circle</span><span class="p" data-group-id="6636150050-6">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6636150050-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">family_circle</span><span class="p" data-group-id="6636150050-8">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Circles</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="6636150050-9">(</span><span class="n">organizer</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6636150050-10">%{</span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6636150050-11">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;family&quot;</span><span class="p" data-group-id="6636150050-11">}</span><span class="p" data-group-id="6636150050-10">}</span><span class="p" data-group-id="6636150050-9">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Circles</span><span class="o">.</span><span class="n">add_to_circles</span><span class="p" data-group-id="6636150050-12">(</span><span class="n">family</span><span class="p">,</span><span class="w"> </span><span class="n">family_circle</span><span class="p" data-group-id="6636150050-12">)</span></code></pre><h3 id="module-3-create-the-acl-boundary-preset" class="section-heading">
+  <a href="#module-3-create-the-acl-boundary-preset" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">3. Create the ACL (boundary preset)</span>
+</h3>
+<p>This boundary will control access to the surprise party plans.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="kn">alias</span><span class="w"> </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7502721360-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">boundary</span><span class="p" data-group-id="7502721360-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Acls</span><span class="o">.</span><span class="n">simple_create</span><span class="p" data-group-id="7502721360-2">(</span><span class="n">organizer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Surprise party&quot;</span><span class="p" data-group-id="7502721360-2">)</span></code></pre><h3 id="module-4-grant-permissions" class="section-heading">
+  <a href="#module-4-grant-permissions" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">4. Grant permissions</span>
+</h3>
+<p>Allow friends to discover, read, and respond to party plans, while family members can also edit details and send invitations. </p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="kn">alias</span><span class="w"> </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Grants</span><span class="o">.</span><span class="n">grant</span><span class="p" data-group-id="5742040770-1">(</span><span class="n">friends_circle</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">boundary</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5742040770-2">[</span><span class="ss">:see</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="ss">:reply</span><span class="p" data-group-id="5742040770-2">]</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">organizer</span><span class="p" data-group-id="5742040770-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Grants</span><span class="o">.</span><span class="n">grant</span><span class="p" data-group-id="5742040770-3">(</span><span class="n">family_circle</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">boundary</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5742040770-4">[</span><span class="ss">:see</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="ss">:reply</span><span class="p">,</span><span class="w"> </span><span class="ss">:edit</span><span class="p">,</span><span class="w"> </span><span class="ss">:invite</span><span class="p" data-group-id="5742040770-4">]</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">organizer</span><span class="p" data-group-id="5742040770-3">)</span></code></pre><p>Prevent the birthday person from accessing any party information.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Grants</span><span class="o">.</span><span class="n">grant</span><span class="p" data-group-id="3083065408-1">(</span><span class="n">birthday_girl</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">boundary</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3083065408-2">[</span><span class="ss">:see</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p" data-group-id="3083065408-2">]</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">organizer</span><span class="p" data-group-id="3083065408-1">)</span></code></pre><h3 id="module-5-post-about-the-party" class="section-heading">
+  <a href="#module-5-post-about-the-party" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">5. Post about the party</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="kn">alias</span><span class="w"> </span><span class="nc">Bonfire.Posts</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="5657619283-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">party_plan</span><span class="p" data-group-id="5657619283-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Posts</span><span class="o">.</span><span class="n">publish</span><span class="p" data-group-id="5657619283-2">(</span><span class="w">
+        </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">organizer</span><span class="p">,</span><span class="w"> 
+        </span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="n">boundary</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w">
+        </span><span class="ss">post_attrs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5657619283-3">%{</span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5657619283-4">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Surprise party!&quot;</span><span class="p" data-group-id="5657619283-4">}</span><span class="p" data-group-id="5657619283-3">}</span><span class="p" data-group-id="5657619283-2">)</span></code></pre><h3 id="module-6-double-check-applied-boundaries" class="section-heading">
+  <a href="#module-6-double-check-applied-boundaries" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">6. Double-check applied boundaries</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Boundaries</span><span class="o">.</span><span class="n">can?</span><span class="p" data-group-id="3461890709-1">(</span><span class="nc">List</span><span class="o">.</span><span class="n">first</span><span class="p" data-group-id="3461890709-2">(</span><span class="n">friends</span><span class="p" data-group-id="3461890709-2">)</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="n">party_plan</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="3461890709-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Boundaries</span><span class="o">.</span><span class="n">can?</span><span class="p" data-group-id="3461890709-3">(</span><span class="nc">List</span><span class="o">.</span><span class="n">first</span><span class="p" data-group-id="3461890709-4">(</span><span class="n">family</span><span class="p" data-group-id="3461890709-4">)</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="ss">:invite</span><span class="p">,</span><span class="w"> </span><span class="n">party_plan</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="3461890709-3">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Boundaries</span><span class="o">.</span><span class="n">can?</span><span class="p" data-group-id="3461890709-5">(</span><span class="n">birthday_girl</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="ss">:see</span><span class="p">,</span><span class="w"> </span><span class="n">party_plan</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="3461890709-5">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Boundaries</span><span class="o">.</span><span class="n">load_pointer</span><span class="p" data-group-id="3461890709-6">(</span><span class="n">party_plan</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">birthday_girl</span><span class="p" data-group-id="3461890709-6">)</span><span class="w">
+</span><span class="no">nil</span></code></pre><p>By following these steps, the organizer can effectively manage access to ensure the birthday girl cannot see the party plans, while friends and family can.</p><h2 id="module-copyright-and-license" class="section-heading">
+  <a href="#module-copyright-and-license" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Copyright and License</span>
+</h2>
+<p>Copyright (c) 2020 Bonfire Contributors</p><p>This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at <a href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#acls_from_preset_boundary_names/1" data-no-tooltip translate="no">acls_from_preset_boundary_names(presets)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts preset boundary names to ACLs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#boundaries_normalise/1" data-no-tooltip translate="no">boundaries_normalise(text)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Normalizes boundaries represented as text or list.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#boundaries_or_default/2" data-no-tooltip translate="no">boundaries_or_default(to_boundaries, context \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the boundaries or a default set of boundaries based on the provided context.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#can?/4" data-no-tooltip translate="no">can?(subject, verbs, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a subject has permission for specified verb(s) on an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_boundaries/1" data-no-tooltip translate="no">default_boundaries(context \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the default boundaries based on the provided context.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#find_caretaker_stereotype/3" data-no-tooltip translate="no">find_caretaker_stereotype(caretaker, stereotype, from)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Finds a caretaker stereotype based on the specified caretaker and stereotype IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#find_caretaker_stereotypes/3" data-no-tooltip translate="no">find_caretaker_stereotypes(caretaker, stereotypes, from \\ Pointer)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Finds caretaker stereotypes based on the specified caretaker and stereotype IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#find_caretaker_stereotypes_q/3" data-no-tooltip translate="no">find_caretaker_stereotypes_q(caretaker, stereotypes, from)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Query for caretaker stereotypes based on the specified caretaker and stereotype IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_grants_on/1" data-no-tooltip translate="no">list_grants_on(things)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists grants for a given set of objects.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_grants_on/2" data-no-tooltip translate="no">list_grants_on(things, verbs)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists grants for a given set of objects and verbs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_object_acls/2" data-no-tooltip translate="no">list_object_acls(object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists ACLs for a given object </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_object_boundaries/2" data-no-tooltip translate="no">list_object_boundaries(object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists boundaries for a given object </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_pointer/2" data-no-tooltip translate="no">load_pointer(item, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Loads a pointer based on the permissions.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_pointers/2" data-no-tooltip translate="no">load_pointers(items, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Loads pointers based on boundaries and returns a list of permitted pointers.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_pointers!/2" data-no-tooltip translate="no">load_pointers!(items, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Loads pointers based on boundaries and raises an error if not all pointers are permitted.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#pointer_permitted?/2" data-no-tooltip translate="no">pointer_permitted?(item, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a pointer is permitted based on the specified options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preset_boundary_from_acl/2" data-no-tooltip translate="no">preset_boundary_from_acl(acl, object_type \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts an ACL to a preset boundary name based on the object type.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preset_boundary_tuple_from_acl/2" data-no-tooltip translate="no">preset_boundary_tuple_from_acl(acl, object_type \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts an ACL to a preset boundary tuple based on the object type.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preset_name/2" data-no-tooltip translate="no">preset_name(boundaries, include_remote? \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the name of the preset boundary given a list of boundaries or other boundary representation.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#replace_boundaries/4" data-no-tooltip translate="no">replace_boundaries(creator, object, previous_preset, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Replaces boundaries for a given object based on a previous preset.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_boundaries/3" data-no-tooltip translate="no">set_boundaries(creator, object, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets boundaries for a given object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#take_care_of!/2" data-no-tooltip translate="no">take_care_of!(things, user)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Assigns the user as the caretaker of the given object or objects,
+replacing the existing caretaker, if any.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#user_default_boundaries/0" data-no-tooltip translate="no">user_default_boundaries()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the default boundaries for users from config.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#users_grants_on/2" data-no-tooltip translate="no">users_grants_on(users, things)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists grants for a given set of users on a set of objects.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#users_grants_on/3" data-no-tooltip translate="no">users_grants_on(users, things, verbs)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists grants for a given set of users on a set of objects filtered by verbs.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="acls_from_preset_boundary_names/1">
+
+  <div class="detail-header">
+    <a href="#acls_from_preset_boundary_names/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">acls_from_preset_boundary_names(presets)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L232" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts preset boundary names to ACLs.</p>
+  </section>
+</section>
+<section class="detail" id="boundaries_normalise/1">
+
+  <div class="detail-header">
+    <a href="#boundaries_normalise/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">boundaries_normalise(text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L115" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Normalizes boundaries represented as text or list.</p>
+  </section>
+</section>
+<section class="detail" id="boundaries_or_default/2">
+
+    <span id="boundaries_or_default/1"></span>
+
+  <div class="detail-header">
+    <a href="#boundaries_or_default/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">boundaries_or_default(to_boundaries, context \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L71" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the boundaries or a default set of boundaries based on the provided context.</p>
+  </section>
+</section>
+<section class="detail" id="can?/4">
+
+    <span id="can?/3"></span>
+
+  <div class="detail-header">
+    <a href="#can?/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">can?(subject, verbs, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L445" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a subject has permission for specified verb(s) on an object.</p>
+  </section>
+</section>
+<section class="detail" id="default_boundaries/1">
+
+    <span id="default_boundaries/0"></span>
+
+  <div class="detail-header">
+    <a href="#default_boundaries/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">default_boundaries(context \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L90" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the default boundaries based on the provided context.</p>
+  </section>
+</section>
+<section class="detail" id="find_caretaker_stereotype/3">
+
+  <div class="detail-header">
+    <a href="#find_caretaker_stereotype/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find_caretaker_stereotype(caretaker, stereotype, from)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L650" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Finds a caretaker stereotype based on the specified caretaker and stereotype IDs.</p>
+  </section>
+</section>
+<section class="detail" id="find_caretaker_stereotypes/3">
+
+    <span id="find_caretaker_stereotypes/2"></span>
+
+  <div class="detail-header">
+    <a href="#find_caretaker_stereotypes/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find_caretaker_stereotypes(caretaker, stereotypes, from \\ Pointer)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L638" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Finds caretaker stereotypes based on the specified caretaker and stereotype IDs.</p>
+  </section>
+</section>
+<section class="detail" id="find_caretaker_stereotypes_q/3">
+
+  <div class="detail-header">
+    <a href="#find_caretaker_stereotypes_q/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find_caretaker_stereotypes_q(caretaker, stereotypes, from)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L660" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Query for caretaker stereotypes based on the specified caretaker and stereotype IDs.</p>
+  </section>
+</section>
+<section class="detail" id="list_grants_on/1">
+
+  <div class="detail-header">
+    <a href="#list_grants_on/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_grants_on(things)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L155" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists grants for a given set of objects.</p>
+  </section>
+</section>
+<section class="detail" id="list_grants_on/2">
+
+  <div class="detail-header">
+    <a href="#list_grants_on/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_grants_on(things, verbs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L167" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists grants for a given set of objects and verbs.</p><p>eg: <code class="inline">list_grants_on(id, [:see, :read])</code></p>
+  </section>
+</section>
+<section class="detail" id="list_object_acls/2">
+
+    <span id="list_object_acls/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_object_acls/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_object_acls(object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L137" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists ACLs for a given object </p>
+  </section>
+</section>
+<section class="detail" id="list_object_boundaries/2">
+
+    <span id="list_object_boundaries/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_object_boundaries/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_object_boundaries(object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L146" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists boundaries for a given object </p>
+  </section>
+</section>
+<section class="detail" id="load_pointer/2">
+
+  <div class="detail-header">
+    <a href="#load_pointer/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">load_pointer(item, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L576" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Loads a pointer based on the permissions.</p>
+  </section>
+</section>
+<section class="detail" id="load_pointers/2">
+
+  <div class="detail-header">
+    <a href="#load_pointers/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">load_pointers(items, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L595" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Loads pointers based on boundaries and returns a list of permitted pointers.</p>
+  </section>
+</section>
+<section class="detail" id="load_pointers!/2">
+
+  <div class="detail-header">
+    <a href="#load_pointers!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">load_pointers!(items, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L613" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Loads pointers based on boundaries and raises an error if not all pointers are permitted.</p>
+  </section>
+</section>
+<section class="detail" id="pointer_permitted?/2">
+
+  <div class="detail-header">
+    <a href="#pointer_permitted?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pointer_permitted?(item, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L557" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a pointer is permitted based on the specified options.</p>
+  </section>
+</section>
+<section class="detail" id="preset_boundary_from_acl/2">
+
+    <span id="preset_boundary_from_acl/1"></span>
+
+  <div class="detail-header">
+    <a href="#preset_boundary_from_acl/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preset_boundary_from_acl(acl, object_type \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L254" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts an ACL to a preset boundary name based on the object type.</p>
+  </section>
+</section>
+<section class="detail" id="preset_boundary_tuple_from_acl/2">
+
+    <span id="preset_boundary_tuple_from_acl/1"></span>
+
+  <div class="detail-header">
+    <a href="#preset_boundary_tuple_from_acl/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preset_boundary_tuple_from_acl(acl, object_type \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L277" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts an ACL to a preset boundary tuple based on the object type.</p>
+  </section>
+</section>
+<section class="detail" id="preset_name/2">
+
+    <span id="preset_name/1"></span>
+
+  <div class="detail-header">
+    <a href="#preset_name/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preset_name(boundaries, include_remote? \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L30" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the name of the preset boundary given a list of boundaries or other boundary representation.</p>
+  </section>
+</section>
+<section class="detail" id="replace_boundaries/4">
+
+  <div class="detail-header">
+    <a href="#replace_boundaries/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">replace_boundaries(creator, object, previous_preset, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L364" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Replaces boundaries for a given object based on a previous preset.</p>
+  </section>
+</section>
+<section class="detail" id="set_boundaries/3">
+
+  <div class="detail-header">
+    <a href="#set_boundaries/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set_boundaries(creator, object, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L348" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets boundaries for a given object.</p>
+  </section>
+</section>
+<section class="detail" id="take_care_of!/2">
+
+  <div class="detail-header">
+    <a href="#take_care_of!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">take_care_of!(things, user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L410" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Assigns the user as the caretaker of the given object or objects,
+replacing the existing caretaker, if any.</p>
+  </section>
+</section>
+<section class="detail" id="user_default_boundaries/0">
+
+  <div class="detail-header">
+    <a href="#user_default_boundaries/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">user_default_boundaries()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L438" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the default boundaries for users from config.</p>
+  </section>
+</section>
+<section class="detail" id="users_grants_on/2">
+
+  <div class="detail-header">
+    <a href="#users_grants_on/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">users_grants_on(users, things)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L177" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists grants for a given set of users on a set of objects.</p>
+  </section>
+</section>
+<section class="detail" id="users_grants_on/3">
+
+  <div class="detail-header">
+    <a href="#users_grants_on/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">users_grants_on(users, things, verbs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/boundaries.ex#L185" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists grants for a given set of users on a set of objects filtered by verbs.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Needle.Changesets — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Needle.Changesets</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#build_assoc/3" data-no-tooltip translate="no">build_assoc(changeset, assoc_key, rel)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like Ecto.build_assoc/3, but can work with a Changeset</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#built?/1" data-no-tooltip translate="no">built?(arg1)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>True if the schema object's current state is <code class="inline">:built</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/3" data-no-tooltip translate="no">cast(changeset, params, cols)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like <code class="inline">Ecto.Changeset.cast</code> but for Pointables, Virtuals and Mixins.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_assoc/3" data-no-tooltip translate="no">cast_assoc(changeset, assoc_key, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_belongs_to/4" data-no-tooltip translate="no">cast_belongs_to(changeset, assoc_key, assoc, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_has_many/4" data-no-tooltip translate="no">cast_has_many(changeset, assoc_key, assoc, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_has_one/4" data-no-tooltip translate="no">cast_has_one(changeset, assoc_key, assoc, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#config_for/3" data-no-tooltip translate="no">config_for(module, key, default \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#deleted?/1" data-no-tooltip translate="no">deleted?(arg1)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>True if the schema object's current state is <code class="inline">:deleted</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_field/2" data-no-tooltip translate="no">get_field(cs, key)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_verb/1" data-no-tooltip translate="no">insert_verb(thing)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#loaded?/1" data-no-tooltip translate="no">loaded?(arg1)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>True if the schema object's current state is <code class="inline">:loaded</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#merge_child_errors/1" data-no-tooltip translate="no">merge_child_errors(cs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_assoc/3" data-no-tooltip translate="no">put_assoc(changeset, assoc_key, rels)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like <a href="#put_assoc!/3"><code class="inline">put_assoc!/3</code></a> but doesn't raise if the association doesn't exist</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_assoc!/3" data-no-tooltip translate="no">put_assoc!(changeset, assoc_key, rels)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Changeset.html#put_assoc/3"><code class="inline">Ecto.Changeset.put_assoc/3</code></a> but for Pointables, Virtuals and Mixins.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_id_on_mixins/3" data-no-tooltip translate="no">put_id_on_mixins(attrs, mixin_names, pointable)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_new_id/1" data-no-tooltip translate="no">put_new_id(changeset)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#state/1" data-no-tooltip translate="no">state(thing)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the schema object's current state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_data/2" data-no-tooltip translate="no">update_data(changeset, fun)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#valid?/1" data-no-tooltip translate="no">valid?(cs)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>true if the provided changeset or list of changesets is valid.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="build_assoc/3">
+
+  <div class="detail-header">
+    <a href="#build_assoc/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">build_assoc(changeset, assoc_key, rel)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L211" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like Ecto.build_assoc/3, but can work with a Changeset</p>
+  </section>
+</section>
+<section class="detail" id="built?/1">
+
+  <div class="detail-header">
+    <a href="#built?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">built?(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L12" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>True if the schema object's current state is <code class="inline">:built</code></p>
+  </section>
+</section>
+<section class="detail" id="cast/3">
+
+  <div class="detail-header">
+    <a href="#cast/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(changeset, params, cols)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L42" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like <code class="inline">Ecto.Changeset.cast</code> but for Pointables, Virtuals and Mixins.</p><p>If a pointable or virtual, Generates an ID if one is not present.</p>
+  </section>
+</section>
+<section class="detail" id="cast_assoc/3">
+
+    <span id="cast_assoc/2"></span>
+
+  <div class="detail-header">
+    <a href="#cast_assoc/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_assoc(changeset, assoc_key, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L241" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_belongs_to/4">
+
+  <div class="detail-header">
+    <a href="#cast_belongs_to/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_belongs_to(changeset, assoc_key, assoc, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L284" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_has_many/4">
+
+  <div class="detail-header">
+    <a href="#cast_has_many/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_has_many(changeset, assoc_key, assoc, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L280" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_has_one/4">
+
+  <div class="detail-header">
+    <a href="#cast_has_one/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_has_one(changeset, assoc_key, assoc, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L264" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="config_for/3">
+
+    <span id="config_for/2"></span>
+
+  <div class="detail-header">
+    <a href="#config_for/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">config_for(module, key, default \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L453" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="deleted?/1">
+
+  <div class="detail-header">
+    <a href="#deleted?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">deleted?(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L20" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>True if the schema object's current state is <code class="inline">:deleted</code></p>
+  </section>
+</section>
+<section class="detail" id="get_field/2">
+
+  <div class="detail-header">
+    <a href="#get_field/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_field(cs, key)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L486" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="insert_verb/1">
+
+  <div class="detail-header">
+    <a href="#insert_verb/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_verb(thing)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L27" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="loaded?/1">
+
+  <div class="detail-header">
+    <a href="#loaded?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">loaded?(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L16" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>True if the schema object's current state is <code class="inline">:loaded</code></p>
+  </section>
+</section>
+<section class="detail" id="merge_child_errors/1">
+
+  <div class="detail-header">
+    <a href="#merge_child_errors/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">merge_child_errors(cs)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L403" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="put_assoc/3">
+
+  <div class="detail-header">
+    <a href="#put_assoc/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_assoc(changeset, assoc_key, rels)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L99" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like <a href="#put_assoc!/3"><code class="inline">put_assoc!/3</code></a> but doesn't raise if the association doesn't exist</p>
+  </section>
+</section>
+<section class="detail" id="put_assoc!/3">
+
+  <div class="detail-header">
+    <a href="#put_assoc!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_assoc!(changeset, assoc_key, rels)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L88" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Changeset.html#put_assoc/3"><code class="inline">Ecto.Changeset.put_assoc/3</code></a> but for Pointables, Virtuals and Mixins.</p><p>Copies across keys where possible.</p>
+  </section>
+</section>
+<section class="detail" id="put_id_on_mixins/3">
+
+  <div class="detail-header">
+    <a href="#put_id_on_mixins/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_id_on_mixins(attrs, mixin_names, pointable)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L470" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="put_new_id/1">
+
+  <div class="detail-header">
+    <a href="#put_new_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_new_id(changeset)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L74" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="state/1">
+
+  <div class="detail-header">
+    <a href="#state/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">state(thing)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L9" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the schema object's current state.</p>
+  </section>
+</section>
+<section class="detail" id="update_data/2">
+
+  <div class="detail-header">
+    <a href="#update_data/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_data(changeset, fun)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L459" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="valid?/1">
+
+  <div class="detail-header">
+    <a href="#valid?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">valid?(cs)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/changesets.ex#L24" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>true if the provided changeset or list of changesets is valid.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

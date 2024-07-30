@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Text — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Text</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Helpers for handling plain or rich text (markdown, HTML, etc)</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#blank?/1" data-no-tooltip translate="no">blank?(str_or_nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a string is blank.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#camelise/1" data-no-tooltip translate="no">camelise(str)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts a string to CamelCase.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#code_syntax/2" data-no-tooltip translate="no">code_syntax(text, filename)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Highlights code using Makeup or falls back to Phoenix.HTML if unsupported.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#contains?/2" data-no-tooltip translate="no">contains?(string, substring)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a string contains a substring.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#contains_html?/1" data-no-tooltip translate="no">contains_html?(string)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a string contains HTML tags.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#hash/2" data-no-tooltip translate="no">hash(seed, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Hashes the input using a specified algorithm.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_checkboxes/1" data-no-tooltip translate="no">list_checkboxes(text)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists all checkboxes from the text.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_checked_boxes/1" data-no-tooltip translate="no">list_checked_boxes(text)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists checked boxes from the text.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_unchecked_boxes/1" data-no-tooltip translate="no">list_unchecked_boxes(text)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists unchecked boxes from the text.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#make_local_links_live/1" data-no-tooltip translate="no">make_local_links_live(content)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Makes local links within content live.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown_as_html_earmark/2" data-no-tooltip translate="no">markdown_as_html_earmark(content, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown_as_html_mdex/2" data-no-tooltip translate="no">markdown_as_html_mdex(content, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown_checkboxes/1" data-no-tooltip translate="no">markdown_checkboxes(text)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts markdown checkboxes to HTML checkboxes.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_emote/3" data-no-tooltip translate="no">maybe_emote(content, user \\ nil, custom_emoji \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts text to emotes if the Emote module is enabled.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_markdown_to_html/2" data-no-tooltip translate="no">maybe_markdown_to_html(nothing, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts the input content from markdown to HTML if the markdown library is enabled.
+If the content starts with an HTML tag or if the markdown library is not enabled, it skips conversion.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_normalize_html/1" data-no-tooltip translate="no">maybe_normalize_html(html_string)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Normalizes HTML content, handling various edge cases.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_other_custom_emoji/2" data-no-tooltip translate="no">maybe_other_custom_emoji(text, user)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_render_templated/2" data-no-tooltip translate="no">maybe_render_templated(templated_content, data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders templated content if the <a href="https://hexdocs.pm/solid/0.15.2/Solid.html"><code class="inline">Solid</code></a> library is enabled.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_sane_html/1" data-no-tooltip translate="no">maybe_sane_html(content)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sanitizes HTML content to ensure it is safe.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_to_snake/1" data-no-tooltip translate="no">maybe_to_snake(string)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts input to snake_case.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#normalise_links/2" data-no-tooltip translate="no">normalise_links(content, format \\ :markdown)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Normalizes links in the content based on format.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#random_string/1" data-no-tooltip translate="no">random_string(length \\ 10)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random string of a given length.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#regex_list/2" data-no-tooltip translate="no">regex_list(regex, text)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sentence_truncate/3" data-no-tooltip translate="no">sentence_truncate(input, length \\ 250, add_to_end \\ &quot;&quot;)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Truncates a string to a maximum length, ensuring it ends on a sentence boundary.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#slug/1" data-no-tooltip translate="no">slug(text)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a URL-friendly slug from the given text.
+The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-encoded.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#strlen/1" data-no-tooltip translate="no">strlen(x)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the length of the input based on its type.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#text_only/1" data-no-tooltip translate="no">text_only(content)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Extracts text from safe or regular content.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/3" data-no-tooltip translate="no">truncate(text, max_length \\ 250, add_to_end \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Truncates a string to a maximum length, optionally adding a suffix.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#underscore_truncate/2" data-no-tooltip translate="no">underscore_truncate(input, length \\ 250)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Truncates the input string at the last underscore (<code class="inline">_</code>) if its length exceeds the given length.
+If the input string is shorter than or equal to the given length, it returns the string as is.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#upcase_first/1" data-no-tooltip translate="no">upcase_first(arg)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts the first character of a binary to uppercase.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#verb_infinitive/1" data-no-tooltip translate="no">verb_infinitive(verb_conjugated)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts an English conjugated verb to its infinitive form using the <a href="https://hexdocs.pm/verbs/0.6.1/Verbs.html"><code class="inline">Verbs</code></a> library. Currently only supports irregular verbs.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="blank?/1">
+
+  <div class="detail-header">
+    <a href="#blank?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">blank?(str_or_nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L32" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a string is blank.</p><h2 id="blank?/1-examples" class="section-heading">
+  <a href="#blank?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="4446691777-1">(</span><span class="no">nil</span><span class="p" data-group-id="4446691777-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="4446691777-2">(</span><span class="s">&quot;   &quot;</span><span class="p" data-group-id="4446691777-2">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="4446691777-3">(</span><span class="s">&quot;not blank&quot;</span><span class="p" data-group-id="4446691777-3">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="camelise/1">
+
+  <div class="detail-header">
+    <a href="#camelise/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">camelise(str)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L791" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts a string to CamelCase.</p><h2 id="camelise/1-examples" class="section-heading">
+  <a href="#camelise/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">camelise</span><span class="p" data-group-id="2668700375-1">(</span><span class="s">&quot;hello world&quot;</span><span class="p" data-group-id="2668700375-1">)</span><span class="w">
+</span><span class="s">&quot;HelloWorld&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="code_syntax/2">
+
+  <div class="detail-header">
+    <a href="#code_syntax/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">code_syntax(text, filename)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L443" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Highlights code using Makeup or falls back to Phoenix.HTML if unsupported.</p><h2 id="code_syntax/2-examples" class="section-heading">
+  <a href="#code_syntax/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">code_syntax</span><span class="p" data-group-id="7367415052-1">(</span><span class="s">&quot;defmodule Test {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test.ex&quot;</span><span class="p" data-group-id="7367415052-1">)</span><span class="w">
+</span><span class="c1">#=&gt; &quot;&lt;pre&gt;&lt;code class=&quot;highlight&quot;&gt;defmodule Test {}&lt;/code&gt;&lt;/pre&gt;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="contains?/2">
+
+  <div class="detail-header">
+    <a href="#contains?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">contains?(string, substring)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L77" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a string contains a substring.</p><h2 id="contains?/2-examples" class="section-heading">
+  <a href="#contains?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">contains?</span><span class="p" data-group-id="1735632990-1">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p" data-group-id="1735632990-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">contains?</span><span class="p" data-group-id="1735632990-2">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="1735632990-2">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="contains_html?/1">
+
+  <div class="detail-header">
+    <a href="#contains_html?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">contains_html?(string)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L127" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a string contains HTML tags.</p><h2 id="contains_html?/1-examples" class="section-heading">
+  <a href="#contains_html?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">contains_html?</span><span class="p" data-group-id="4690111564-1">(</span><span class="s">&quot;&lt;div&gt;Test&lt;/div&gt;&quot;</span><span class="p" data-group-id="4690111564-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">contains_html?</span><span class="p" data-group-id="4690111564-2">(</span><span class="s">&quot;Just text&quot;</span><span class="p" data-group-id="4690111564-2">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="hash/2">
+
+    <span id="hash/1"></span>
+
+  <div class="detail-header">
+    <a href="#hash/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">hash(seed, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L111" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Hashes the input using a specified algorithm.</p><h2 id="hash/2-examples" class="section-heading">
+  <a href="#hash/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">hash</span><span class="p" data-group-id="9249921898-1">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">algorithm</span><span class="p">:</span><span class="w"> </span><span class="ss">:sha256</span><span class="p" data-group-id="9249921898-1">)</span><span class="w">
+</span><span class="s">&quot;Om6weQ85rIfJTzhWst0sXREOaBFgImGpqSPTuyOtyLc&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">hash</span><span class="p" data-group-id="9249921898-2">(</span><span class="s">&quot;data&quot;</span><span class="p" data-group-id="9249921898-2">)</span><span class="w">
+</span><span class="s">&quot;jXd_OF09_siBXSD3SWAm3A&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_checkboxes/1">
+
+  <div class="detail-header">
+    <a href="#list_checkboxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_checkboxes(text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L762" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists all checkboxes from the text.</p><h2 id="list_checkboxes/1-examples" class="section-heading">
+  <a href="#list_checkboxes/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_checkboxes</span><span class="p" data-group-id="5590708577-1">(</span><span class="err">&quot;</span><span class="o">*</span><span class="w"> </span><span class="p" data-group-id="5590708577-2">[</span><span class="w"> </span><span class="p" data-group-id="5590708577-2">]</span><span class="w"> </span><span class="n">task</span></code></pre><ul><li>[x] done&quot;)
+  [[&quot; &quot;, &quot;task&quot;], [&quot; &quot;, &quot;done&quot;]]</li></ul>
+  </section>
+</section>
+<section class="detail" id="list_checked_boxes/1">
+
+  <div class="detail-header">
+    <a href="#list_checked_boxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_checked_boxes(text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L738" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists checked boxes from the text.</p><h2 id="list_checked_boxes/1-examples" class="section-heading">
+  <a href="#list_checked_boxes/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_checked_boxes</span><span class="p" data-group-id="8529710213-1">(</span><span class="s">&quot;* [x] done&quot;</span><span class="p" data-group-id="8529710213-1">)</span><span class="w">
+</span><span class="p" data-group-id="8529710213-2">[</span><span class="p" data-group-id="8529710213-3">[</span><span class="s">&quot;done&quot;</span><span class="p" data-group-id="8529710213-3">]</span><span class="p" data-group-id="8529710213-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_unchecked_boxes/1">
+
+  <div class="detail-header">
+    <a href="#list_unchecked_boxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_unchecked_boxes(text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L750" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists unchecked boxes from the text.</p><h2 id="list_unchecked_boxes/1-examples" class="section-heading">
+  <a href="#list_unchecked_boxes/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_unchecked_boxes</span><span class="p" data-group-id="6654488859-1">(</span><span class="s">&quot;* [ ] task&quot;</span><span class="p" data-group-id="6654488859-1">)</span><span class="w">
+</span><span class="p" data-group-id="6654488859-2">[</span><span class="p" data-group-id="6654488859-3">[</span><span class="s">&quot;task&quot;</span><span class="p" data-group-id="6654488859-3">]</span><span class="p" data-group-id="6654488859-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="make_local_links_live/1">
+
+  <div class="detail-header">
+    <a href="#make_local_links_live/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">make_local_links_live(content)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L613" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Makes local links within content live.</p><h2 id="make_local_links_live/1-examples" class="section-heading">
+  <a href="#make_local_links_live/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">make_local_links_live</span><span class="p" data-group-id="6824921030-1">(</span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">path</span><span class="s">&quot;&gt;Link&lt;/a&gt;&quot;</span><span class="p" data-group-id="6824921030-1">)</span><span class="w">
+</span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">path</span><span class="s">&quot; data-phx-link=&quot;</span><span class="n">redirect</span><span class="s">&quot; data-phx-link-state=&quot;</span><span class="n">push</span><span class="s">&quot;&gt;Link&lt;/a&gt;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="markdown_as_html_earmark/2">
+
+  <div class="detail-header">
+    <a href="#markdown_as_html_earmark/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown_as_html_earmark(content, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L342" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="markdown_as_html_mdex/2">
+
+  <div class="detail-header">
+    <a href="#markdown_as_html_mdex/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown_as_html_mdex(content, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L308" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="markdown_checkboxes/1">
+
+  <div class="detail-header">
+    <a href="#markdown_checkboxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown_checkboxes(text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L708" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts markdown checkboxes to HTML checkboxes.</p><h2 id="markdown_checkboxes/1-examples" class="section-heading">
+  <a href="#markdown_checkboxes/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">markdown_checkboxes</span><span class="p" data-group-id="1555370258-1">(</span><span class="err">&quot;</span><span class="o">*</span><span class="w"> </span><span class="p" data-group-id="1555370258-2">[</span><span class="w"> </span><span class="p" data-group-id="1555370258-2">]</span><span class="w"> </span><span class="n">task</span></code></pre><ul><li>[x] done&quot;)
+  &quot;&lt;ul&gt;&lt;li&gt;&lt;input type='checkbox'&gt; task&lt;/li&gt;&lt;li&gt;&lt;input type='checkbox' checked='checked'&gt; done&lt;/li&gt;&lt;/ul&gt;&quot;</li></ul>
+  </section>
+</section>
+<section class="detail" id="maybe_emote/3">
+
+    <span id="maybe_emote/1"></span>
+
+    <span id="maybe_emote/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_emote/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_emote(content, user \\ nil, custom_emoji \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L561" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts text to emotes if the Emote module is enabled.</p><h2 id="maybe_emote/3-examples" class="section-heading">
+  <a href="#maybe_emote/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_emote</span><span class="p" data-group-id="1814084391-1">(</span><span class="s">&quot;:smile:&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1814084391-2">[</span><span class="p" data-group-id="1814084391-2">]</span><span class="p" data-group-id="1814084391-1">)</span><span class="w">
+</span><span class="s">&quot;😄&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_markdown_to_html/2">
+
+    <span id="maybe_markdown_to_html/1"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_markdown_to_html/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_markdown_to_html(nothing, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L275" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts the input content from markdown to HTML if the markdown library is enabled.
+If the content starts with an HTML tag or if the markdown library is not enabled, it skips conversion.</p><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="6557427906-1">(</span><span class="s">&quot;*Hello World*&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6557427906-2">[</span><span class="p" data-group-id="6557427906-2">]</span><span class="p" data-group-id="6557427906-1">)</span><span class="w">
+</span><span class="s">&quot;&lt;p&gt;&lt;em&gt;Hello World&lt;/em&gt;&lt;/p&gt;&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="6557427906-3">(</span><span class="s">&quot;&lt;p&gt;Hello&lt;/p&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6557427906-4">[</span><span class="p" data-group-id="6557427906-4">]</span><span class="p" data-group-id="6557427906-3">)</span><span class="w">
+</span><span class="s">&quot;&lt;p&gt;Hello&lt;/p&gt;&quot;</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="6557427906-5">(</span><span class="s">&quot;Not markdown&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6557427906-6">[</span><span class="p" data-group-id="6557427906-6">]</span><span class="p" data-group-id="6557427906-5">)</span><span class="w">
+</span><span class="s">&quot;&lt;p&gt;Not markdown&lt;/p&gt;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_normalize_html/1">
+
+  <div class="detail-header">
+    <a href="#maybe_normalize_html/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_normalize_html(html_string)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L530" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Normalizes HTML content, handling various edge cases.</p><h2 id="maybe_normalize_html/1-examples" class="section-heading">
+  <a href="#maybe_normalize_html/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_normalize_html</span><span class="p" data-group-id="7805601295-1">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="p" data-group-id="7805601295-1">)</span><span class="w">
+</span><span class="s">&quot;Test&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_normalize_html</span><span class="p" data-group-id="7805601295-2">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="7805601295-2">)</span><span class="w">
+</span><span class="s">&quot;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_other_custom_emoji/2">
+
+  <div class="detail-header">
+    <a href="#maybe_other_custom_emoji/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_other_custom_emoji(text, user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L575" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_render_templated/2">
+
+  <div class="detail-header">
+    <a href="#maybe_render_templated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_render_templated(templated_content, data)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L806" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders templated content if the <a href="https://hexdocs.pm/solid/0.15.2/Solid.html"><code class="inline">Solid</code></a> library is enabled.</p><h2 id="maybe_render_templated/2-examples" class="section-heading">
+  <a href="#maybe_render_templated/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_render_templated</span><span class="p" data-group-id="7849767028-1">(</span><span class="s">&quot;Hello {{name}}&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7849767028-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;World&quot;</span><span class="p" data-group-id="7849767028-2">}</span><span class="p" data-group-id="7849767028-1">)</span><span class="w">
+</span><span class="s">&quot;Hello World&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_sane_html/1">
+
+  <div class="detail-header">
+    <a href="#maybe_sane_html/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_sane_html(content)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L486" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sanitizes HTML content to ensure it is safe.</p><p>It is recommended to call this before storing any that data is coming in from the user or from a remote instance</p><h2 id="maybe_sane_html/1-examples" class="section-heading">
+  <a href="#maybe_sane_html/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_sane_html</span><span class="p" data-group-id="8377895691-1">(</span><span class="s">&quot;&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;&quot;</span><span class="p" data-group-id="8377895691-1">)</span><span class="w">
+</span><span class="c1">#=&gt; &quot;alert(&#39;XSS&#39;)&quot; (if HtmlSanitizeEx is enabled)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_to_snake/1">
+
+  <div class="detail-header">
+    <a href="#maybe_to_snake/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_to_snake(string)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L429" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts input to snake_case.</p><h2 id="maybe_to_snake/1-examples" class="section-heading">
+  <a href="#maybe_to_snake/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_to_snake</span><span class="p" data-group-id="6501078374-1">(</span><span class="s">&quot;CamelCase&quot;</span><span class="p" data-group-id="6501078374-1">)</span><span class="w">
+</span><span class="s">&quot;camel_case&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="normalise_links/2">
+
+    <span id="normalise_links/1"></span>
+
+  <div class="detail-header">
+    <a href="#normalise_links/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">normalise_links(content, format \\ :markdown)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L638" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Normalizes links in the content based on format.</p><h2 id="normalise_links/2-examples" class="section-heading">
+  <a href="#normalise_links/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">normalise_links</span><span class="p" data-group-id="8922984432-1">(</span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">actors</span><span class="o">/</span><span class="n">foo</span><span class="s">&quot;&gt;Actor&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:markdown</span><span class="p" data-group-id="8922984432-1">)</span><span class="w">
+</span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">character</span><span class="o">/</span><span class="n">foo</span><span class="s">&quot;&gt;Actor&lt;/a&gt;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="random_string/1">
+
+    <span id="random_string/0"></span>
+
+  <div class="detail-header">
+    <a href="#random_string/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">random_string(length \\ 10)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L94" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random string of a given length.</p><h2 id="random_string/1-examples" class="section-heading">
+  <a href="#random_string/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">random_string</span><span class="p" data-group-id="3302479830-1">(</span><span class="mi">5</span><span class="p" data-group-id="3302479830-1">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">String</span><span class="o">.</span><span class="n">length</span><span class="p" data-group-id="3302479830-2">(</span><span class="p" data-group-id="3302479830-2">)</span><span class="w">
+</span><span class="mi">5</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">random_string</span><span class="p" data-group-id="3302479830-3">(</span><span class="p" data-group-id="3302479830-3">)</span><span class="w">
+</span><span class="c1">#=&gt; a string of length 10</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="regex_list/2">
+
+  <div class="detail-header">
+    <a href="#regex_list/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">regex_list(regex, text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L766" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="sentence_truncate/3">
+
+    <span id="sentence_truncate/1"></span>
+
+    <span id="sentence_truncate/2"></span>
+
+  <div class="detail-header">
+    <a href="#sentence_truncate/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sentence_truncate(input, length \\ 250, add_to_end \\ &quot;&quot;)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L173" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Truncates a string to a maximum length, ensuring it ends on a sentence boundary.</p><h2 id="sentence_truncate/3-examples" class="section-heading">
+  <a href="#sentence_truncate/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">sentence_truncate</span><span class="p" data-group-id="5872173630-1">(</span><span class="s">&quot;Hello world. This is a test.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p" data-group-id="5872173630-1">)</span><span class="w">
+</span><span class="s">&quot;Hello world.&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">sentence_truncate</span><span class="p" data-group-id="5872173630-2">(</span><span class="s">&quot;Hello world. This is a test.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="5872173630-2">)</span><span class="w">
+</span><span class="s">&quot;Hello world....&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="slug/1">
+
+  <div class="detail-header">
+    <a href="#slug/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">slug(text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L408" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a URL-friendly slug from the given text.
+The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-encoded.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="3732207890-1">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p" data-group-id="3732207890-1">)</span><span class="w">
+</span><span class="s">&quot;hello-world!&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="3732207890-2">(</span><span class="s">&quot;Elixir Programming&quot;</span><span class="p" data-group-id="3732207890-2">)</span><span class="w">
+</span><span class="s">&quot;elixir-programming&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="3732207890-3">(</span><span class="s">&quot;Special &amp; Characters&quot;</span><span class="p" data-group-id="3732207890-3">)</span><span class="w">
+</span><span class="s">&quot;special-&amp;-characters&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="strlen/1">
+
+  <div class="detail-header">
+    <a href="#strlen/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">strlen(x)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L57" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the length of the input based on its type.</p><h2 id="strlen/1-examples" class="section-heading">
+  <a href="#strlen/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="2884509802-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="2884509802-1">)</span><span class="w">
+</span><span class="mi">5</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="2884509802-2">(</span><span class="p" data-group-id="2884509802-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="2884509802-3">]</span><span class="p" data-group-id="2884509802-2">)</span><span class="w">
+</span><span class="mi">3</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="2884509802-4">(</span><span class="p" data-group-id="2884509802-5">%{</span><span class="p" data-group-id="2884509802-5">}</span><span class="p" data-group-id="2884509802-4">)</span><span class="w">
+</span><span class="mi">0</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="2884509802-6">(</span><span class="no">nil</span><span class="p" data-group-id="2884509802-6">)</span><span class="w">
+</span><span class="mi">0</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="2884509802-7">(</span><span class="mi">0</span><span class="p" data-group-id="2884509802-7">)</span><span class="w">
+</span><span class="mi">0</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="2884509802-8">(</span><span class="mi">123</span><span class="p" data-group-id="2884509802-8">)</span><span class="w">
+</span><span class="mi">1</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="text_only/1">
+
+  <div class="detail-header">
+    <a href="#text_only/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">text_only(content)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L505" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Extracts text from safe or regular content.</p><h2 id="text_only/1-examples" class="section-heading">
+  <a href="#text_only/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">text_only</span><span class="p" data-group-id="0034219053-1">(</span><span class="s">&quot;&lt;div&gt;Text&lt;/div&gt;&quot;</span><span class="p" data-group-id="0034219053-1">)</span><span class="w">
+</span><span class="s">&quot;Text&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">text_only</span><span class="p" data-group-id="0034219053-2">(</span><span class="p" data-group-id="0034219053-3">{</span><span class="ss">:safe</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;div&gt;Safe Text&lt;/div&gt;&quot;</span><span class="p" data-group-id="0034219053-3">}</span><span class="p" data-group-id="0034219053-2">)</span><span class="w">
+</span><span class="s">&quot;Safe Text&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="truncate/3">
+
+    <span id="truncate/1"></span>
+
+    <span id="truncate/2"></span>
+
+  <div class="detail-header">
+    <a href="#truncate/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truncate(text, max_length \\ 250, add_to_end \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L143" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Truncates a string to a maximum length, optionally adding a suffix.</p><h2 id="truncate/3-examples" class="section-heading">
+  <a href="#truncate/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="1015026922-1">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="1015026922-1">)</span><span class="w">
+</span><span class="s">&quot;Hello&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="1015026922-2">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="1015026922-2">)</span><span class="w">
+</span><span class="s">&quot;He...&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="1015026922-3">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="1015026922-3">)</span><span class="w">
+</span><span class="s">&quot;Hell...&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="underscore_truncate/2">
+
+    <span id="underscore_truncate/1"></span>
+
+  <div class="detail-header">
+    <a href="#underscore_truncate/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">underscore_truncate(input, length \\ 250)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L225" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Truncates the input string at the last underscore (<code class="inline">_</code>) if its length exceeds the given length.
+If the input string is shorter than or equal to the given length, it returns the string as is.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="4272006786-1">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="4272006786-1">)</span><span class="w">
+</span><span class="s">&quot;abc&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="4272006786-2">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="4272006786-2">)</span><span class="w">
+</span><span class="s">&quot;abc_def&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="4272006786-3">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="4272006786-3">)</span><span class="w">
+</span><span class="s">&quot;abc&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="4272006786-4">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="4272006786-4">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="upcase_first/1">
+
+  <div class="detail-header">
+    <a href="#upcase_first/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">upcase_first(arg)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L780" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts the first character of a binary to uppercase.</p><h2 id="upcase_first/1-examples" class="section-heading">
+  <a href="#upcase_first/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">upcase_first</span><span class="p" data-group-id="5390265164-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="5390265164-1">)</span><span class="w">
+</span><span class="s">&quot;Hello&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="verb_infinitive/1">
+
+  <div class="detail-header">
+    <a href="#verb_infinitive/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">verb_infinitive(verb_conjugated)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L843" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts an English conjugated verb to its infinitive form using the <a href="https://hexdocs.pm/verbs/0.6.1/Verbs.html"><code class="inline">Verbs</code></a> library. Currently only supports irregular verbs.</p><h2 id="verb_infinitive/1-examples" class="section-heading">
+  <a href="#verb_infinitive/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">verb_infinitive</span><span class="p" data-group-id="1973940621-1">(</span><span class="s">&quot;running&quot;</span><span class="p" data-group-id="1973940621-1">)</span><span class="w">
+</span><span class="s">&quot;run&quot;</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

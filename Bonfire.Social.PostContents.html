@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.PostContents — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.PostContents</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Query, manipulate, and federate post contents. See also <code class="inline">Bonfire.Social.Posts</code> for directly handling posts.</p><p>Context for <a href="./Bonfire.Data.Social.PostContent.html"><code class="inline">Bonfire.Data.Social.PostContent</code></a> which has the following fields:</p><ul><li>name (eg. title)</li><li>summary (eg. description)</li><li>html_body (NOTE: can also contain markdown or plaintext)</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#all_text_content/1" data-no-tooltip translate="no">all_text_content(attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip translate="no">ap_receive_activity(creator, activity_data, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_attrs_prepare/4" data-no-tooltip translate="no">ap_receive_attrs_prepare(creator, activity_data, post_data, direct_recipients \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#base_query/0" data-no-tooltip translate="no">base_query()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the base query for post contents.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/5" data-no-tooltip translate="no">cast(changeset, attrs, creator, boundary, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Given a changeset, post content attributes, creator, boundary and options, returns a changeset prepared with relevant attributes and associations.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/2" data-no-tooltip translate="no">changeset(cs \\ %PostContent{}, attrs)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a changeset for a PostContent struct.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#diff/2" data-no-tooltip translate="no">diff(previous_version, current_version)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#edit/3" data-no-tooltip translate="no">edit(current_user, id, attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#editor_output_content_type/1" data-no-tooltip translate="no">editor_output_content_type(user)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/2" data-no-tooltip translate="no">get(id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Given a post content ID, returns the corresponding post content.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_versions/1" data-no-tooltip translate="no">get_versions(post_content)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_versions_diffed/1" data-no-tooltip translate="no">get_versions_diffed(post_content)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#indexing_object_format/1" data-no-tooltip translate="no">indexing_object_format(obj)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_detect_languages/2" data-no-tooltip translate="no">maybe_detect_languages(attrs, fields \\ [:name, :summary, :html_body])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_prepare_contents/4" data-no-tooltip translate="no">maybe_prepare_contents(attrs, creator, boundary, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Given post content attributes, creator, boundary, and options, prepares the post contents for processing by detecting languages, mentions, hashtags, and urls.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#merge_with_body_or_nil/2" data-no-tooltip translate="no">merge_with_body_or_nil(attrs, map)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#no_known_output/2" data-no-tooltip translate="no">no_known_output(error, args)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#one/2" data-no-tooltip translate="no">one(filters, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Given a set of filters, returns a single post content matching those filters.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#prepare_text/3" data-no-tooltip translate="no">prepare_text(text, creator, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip translate="no">query(filters, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Given a set of filters, returns an Ecto.Query for matching post contents.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_base/0" data-no-tooltip translate="no">query_base()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#search_query/2" data-no-tooltip translate="no">search_query(text, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Performs a search query on post contents based on the given text.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="all_text_content/1">
+
+  <div class="detail-header">
+    <a href="#all_text_content/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">all_text_content(attrs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L296" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_receive_activity(creator, activity_data, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L531" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ap_receive_attrs_prepare/4">
+
+    <span id="ap_receive_attrs_prepare/3"></span>
+
+  <div class="detail-header">
+    <a href="#ap_receive_attrs_prepare/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_receive_attrs_prepare(creator, activity_data, post_data, direct_recipients \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L566" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="base_query/0">
+
+  <div class="detail-header">
+    <a href="#base_query/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">base_query()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L72" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the base query for post contents.</p><h2 id="base_query/0-examples" class="section-heading">
+  <a href="#base_query/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">base_query</span><span class="p" data-group-id="5175821430-1">(</span><span class="p" data-group-id="5175821430-1">)</span><span class="w">
+</span><span class="p" data-group-id="5175821430-2">#</span><span class="nc" data-group-id="5175821430-2">Ecto.Query</span><span class="p" data-group-id="5175821430-2">&lt;</span><span class="n">from</span><span class="w"> </span><span class="n">p0</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Bonfire.Data.Social.PostContent</span><span class="p" data-group-id="5175821430-2">&gt;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast/5">
+
+  <div class="detail-header">
+    <a href="#cast/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(changeset, attrs, creator, boundary, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L126" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Given a changeset, post content attributes, creator, boundary and options, returns a changeset prepared with relevant attributes and associations.</p><h2 id="cast/5-examples" class="section-heading">
+  <a href="#cast/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4732141088-1">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">html_body</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Content&quot;</span><span class="p" data-group-id="4732141088-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4732141088-2">%</span><span class="nc" data-group-id="4732141088-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="4732141088-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;01FXYZ123ABC&quot;</span><span class="p" data-group-id="4732141088-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">boundary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;public&quot;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4732141088-3">[</span><span class="p" data-group-id="4732141088-3">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4732141088-4">%</span><span class="nc" data-group-id="4732141088-4">Ecto.Changeset</span><span class="p" data-group-id="4732141088-4">{</span><span class="p" data-group-id="4732141088-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">cast</span><span class="p" data-group-id="4732141088-5">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="n">attrs</span><span class="p">,</span><span class="w"> </span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">boundary</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="4732141088-5">)</span><span class="w">
+</span><span class="p" data-group-id="4732141088-6">#</span><span class="nc" data-group-id="4732141088-6">Ecto.Changeset</span><span class="p" data-group-id="4732141088-6">&lt;</span><span class="n">...</span><span class="p" data-group-id="4732141088-6">&gt;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="changeset/2">
+
+    <span id="changeset/1"></span>
+
+  <div class="detail-header">
+    <a href="#changeset/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset(cs \\ %PostContent{}, attrs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L150" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Creates a changeset for a PostContent struct.</p><h2 id="changeset/2-examples" class="section-heading">
+  <a href="#changeset/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9405682953-1">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">html_body</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Content&quot;</span><span class="p" data-group-id="9405682953-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="9405682953-2">(</span><span class="p" data-group-id="9405682953-3">%</span><span class="nc" data-group-id="9405682953-3">Bonfire.Data.Social.PostContent</span><span class="p" data-group-id="9405682953-3">{</span><span class="p" data-group-id="9405682953-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">attrs</span><span class="p" data-group-id="9405682953-2">)</span><span class="w">
+</span><span class="p" data-group-id="9405682953-4">#</span><span class="nc" data-group-id="9405682953-4">Ecto.Changeset</span><span class="p" data-group-id="9405682953-4">&lt;</span><span class="n">...</span><span class="p" data-group-id="9405682953-4">&gt;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="diff/2">
+
+  <div class="detail-header">
+    <a href="#diff/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">diff(previous_version, current_version)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L469" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="edit/3">
+
+  <div class="detail-header">
+    <a href="#edit/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">edit(current_user, id, attrs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L474" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="editor_output_content_type/1">
+
+  <div class="detail-header">
+    <a href="#editor_output_content_type/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">editor_output_content_type(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L383" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federation_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L19" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get/2">
+
+    <span id="get/1"></span>
+
+  <div class="detail-header">
+    <a href="#get/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(id, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L60" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Given a post content ID, returns the corresponding post content.</p><h2 id="get/2-examples" class="section-heading">
+  <a href="#get/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="7645795187-1">(</span><span class="s">&quot;01FXYZ123ABC&quot;</span><span class="p" data-group-id="7645795187-1">)</span><span class="w">
+</span><span class="p" data-group-id="7645795187-2">%</span><span class="nc" data-group-id="7645795187-2">Bonfire.Data.Social.PostContent</span><span class="p" data-group-id="7645795187-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;01FXYZ123ABC&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7645795187-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_versions/1">
+
+  <div class="detail-header">
+    <a href="#get_versions/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_versions(post_content)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L401" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_versions_diffed/1">
+
+  <div class="detail-header">
+    <a href="#get_versions_diffed/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_versions_diffed(post_content)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L429" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="indexing_object_format/1">
+
+  <div class="detail-header">
+    <a href="#indexing_object_format/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">indexing_object_format(obj)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L682" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_detect_languages/2">
+
+    <span id="maybe_detect_languages/1"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_detect_languages/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_detect_languages(attrs, fields \\ [:name, :summary, :html_body])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L309" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_prepare_contents/4">
+
+  <div class="detail-header">
+    <a href="#maybe_prepare_contents/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_prepare_contents(attrs, creator, boundary, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L161" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Given post content attributes, creator, boundary, and options, prepares the post contents for processing by detecting languages, mentions, hashtags, and urls.</p>
+  </section>
+</section>
+<section class="detail" id="merge_with_body_or_nil/2">
+
+  <div class="detail-header">
+    <a href="#merge_with_body_or_nil/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">merge_with_body_or_nil(attrs, map)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L300" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="no_known_output/2">
+
+  <div class="detail-header">
+    <a href="#no_known_output/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">no_known_output(error, args)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L664" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="one/2">
+
+    <span id="one/1"></span>
+
+  <div class="detail-header">
+    <a href="#one/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">one(filters, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L47" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Given a set of filters, returns a single post content matching those filters.</p><h2 id="one/2-examples" class="section-heading">
+  <a href="#one/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">one</span><span class="p" data-group-id="7111748764-1">(</span><span class="p" data-group-id="7111748764-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test Post&quot;</span><span class="p" data-group-id="7111748764-2">}</span><span class="p" data-group-id="7111748764-1">)</span><span class="w">
+</span><span class="p" data-group-id="7111748764-3">%</span><span class="nc" data-group-id="7111748764-3">Bonfire.Data.Social.PostContent</span><span class="p" data-group-id="7111748764-3">{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7111748764-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="prepare_text/3">
+
+  <div class="detail-header">
+    <a href="#prepare_text/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">prepare_text(text, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L337" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+    <span id="query/1"></span>
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(filters, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L34" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Given a set of filters, returns an Ecto.Query for matching post contents.</p><h2 id="query/2-examples" class="section-heading">
+  <a href="#query/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="3324300278-1">(</span><span class="p" data-group-id="3324300278-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test Post&quot;</span><span class="p" data-group-id="3324300278-2">}</span><span class="p" data-group-id="3324300278-1">)</span><span class="w">
+</span><span class="p" data-group-id="3324300278-3">#</span><span class="nc" data-group-id="3324300278-3">Ecto.Query</span><span class="p" data-group-id="3324300278-3">&lt;</span><span class="n">from</span><span class="w"> </span><span class="n">p0</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Bonfire.Data.Social.PostContent</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">p0</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">^</span><span class="s">&quot;Test Post&quot;</span><span class="p" data-group-id="3324300278-3">&gt;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query_base/0">
+
+  <div class="detail-header">
+    <a href="#query_base/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_base()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L662" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="search_query/2">
+
+  <div class="detail-header">
+    <a href="#search_query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">search_query(text, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/post_contents.ex#L84" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Performs a search query on post contents based on the given text.</p><h2 id="search_query/2-examples" class="section-heading">
+  <a href="#search_query/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.PostContents</span><span class="o">.</span><span class="n">search_query</span><span class="p" data-group-id="7761611351-1">(</span><span class="s">&quot;test&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7761611351-2">%{</span><span class="p" data-group-id="7761611351-2">}</span><span class="p" data-group-id="7761611351-1">)</span><span class="w">
+</span><span class="p" data-group-id="7761611351-3">#</span><span class="nc" data-group-id="7761611351-3">Ecto.Query</span><span class="p" data-group-id="7761611351-3">&lt;</span><span class="n">from</span><span class="w"> </span><span class="n">p0</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Bonfire.Data.Social.PostContent</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7761611351-3">&gt;</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

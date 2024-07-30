@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>An extension for <a href="https://bonfire.cafe/">Bonfire</a> that handles:</p><ul><li>Feeds / Timelines</li><li>Activities</li><li>Threads</li><li>Boosting</li><li>Liking</li><li>Flagging</li><li>etc</li></ul><h2 id="module-handy-commands" class="section-heading">
+  <a href="#module-handy-commands" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Handy commands</span>
+</h2>
+<h2 id="module-copyright-and-license" class="section-heading">
+  <a href="#module-copyright-and-license" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Copyright and License</span>
+</h2>
+<p>Copyright (c) 2023 Bonfire Contributors</p><p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Affero General Public License for more details.</p><p>You should have received a copy of the GNU Affero General Public
+License along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#declared_extension/0" data-no-tooltip translate="no">declared_extension()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ExtensionModule.html#c:declared_extension/0"><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federate_outgoing?/1" data-no-tooltip translate="no">federate_outgoing?(subject \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if outgoing federation is enabled for the given subject.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federating?/1" data-no-tooltip translate="no">federating?(subject \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if federation is generally enabled for the given subject.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_local?/2" data-no-tooltip translate="no">is_local?(thing, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Determines if the given thing is local to the current instance.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#mailer/0" data-no-tooltip translate="no">mailer()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the configured mailer module.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#many/3" data-no-tooltip translate="no">many(query, paginate?, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Executes a query and returns results based on the specified options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_federate/5" data-no-tooltip translate="no">maybe_federate(subject, verb, object, activity \\ nil, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Attempts to federate an activity based on the given parameters.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_federate_and_gift_wrap_activity/3" data-no-tooltip translate="no">maybe_federate_and_gift_wrap_activity(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Federates an activity (if enabled) and wraps it with additional metadata.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#repo/0" data-no-tooltip translate="no">repo()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the configured repository module.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="declared_extension/0">
+
+  <div class="detail-header">
+    <a href="#declared_extension/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">declared_extension()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L10" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ExtensionModule.html#c:declared_extension/0"><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="federate_outgoing?/1">
+
+    <span id="federate_outgoing?/0"></span>
+
+  <div class="detail-header">
+    <a href="#federate_outgoing?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federate_outgoing?(subject \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L260" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if outgoing federation is enabled for the given subject.</p><h2 id="federate_outgoing?/1-parameters" class="section-heading">
+  <a href="#federate_outgoing?/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject to check for federation capability (optional).</li></ul><h2 id="federate_outgoing?/1-examples" class="section-heading">
+  <a href="#federate_outgoing?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">federate_outgoing?</span><span class="p" data-group-id="6790965632-1">(</span><span class="p" data-group-id="6790965632-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">federate_outgoing?</span><span class="p" data-group-id="6790965632-2">(</span><span class="n">user</span><span class="p" data-group-id="6790965632-2">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="federating?/1">
+
+    <span id="federating?/0"></span>
+
+  <div class="detail-header">
+    <a href="#federating?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federating?(subject \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L281" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if federation is generally enabled for the given subject.</p><h2 id="federating?/1-parameters" class="section-heading">
+  <a href="#federating?/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject to check for federation capability (optional).</li></ul><h2 id="federating?/1-examples" class="section-heading">
+  <a href="#federating?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">federating?</span><span class="p" data-group-id="2542664618-1">(</span><span class="p" data-group-id="2542664618-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">federating?</span><span class="p" data-group-id="2542664618-2">(</span><span class="n">user</span><span class="p" data-group-id="2542664618-2">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_local?/2">
+
+    <span id="is_local?/1"></span>
+
+  <div class="detail-header">
+    <a href="#is_local?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_local?(thing, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L303" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Determines if the given thing is local to the current instance.</p><h2 id="is_local?/2-parameters" class="section-heading">
+  <a href="#is_local?/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>thing: The object to check for locality.</li><li>opts: Additional options for the check (optional).</li></ul><h2 id="is_local?/2-examples" class="section-heading">
+  <a href="#is_local?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">is_local?</span><span class="p" data-group-id="8568406167-1">(</span><span class="n">local_user</span><span class="p" data-group-id="8568406167-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">is_local?</span><span class="p" data-group-id="8568406167-2">(</span><span class="n">remote_user</span><span class="p" data-group-id="8568406167-2">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="mailer/0">
+
+  <div class="detail-header">
+    <a href="#mailer/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">mailer()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L30" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the configured mailer module.</p>
+  </section>
+</section>
+<section class="detail" id="many/3">
+
+    <span id="many/2"></span>
+
+  <div class="detail-header">
+    <a href="#many/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">many(query, paginate?, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L329" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Executes a query and returns results based on the specified options.</p><p>This function can return query results in various formats, including raw query,
+stream, or paginated results.</p><h2 id="many/3-parameters" class="section-heading">
+  <a href="#many/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>query: The Ecto query to execute.</li><li>paginate?: Boolean indicating whether to paginate results.</li><li>opts: Additional options for query execution.</li></ul><h2 id="many/3-examples" class="section-heading">
+  <a href="#many/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="3461773676-1">(</span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="p" data-group-id="3461773676-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">many</span><span class="p" data-group-id="3461773676-2">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="ss">return</span><span class="p">:</span><span class="w"> </span><span class="ss">:query</span><span class="p" data-group-id="3461773676-2">)</span><span class="w">
+</span><span class="p" data-group-id="3461773676-3">#</span><span class="nc" data-group-id="3461773676-3">Ecto.Query</span><span class="p" data-group-id="3461773676-3">&lt;</span><span class="n">...</span><span class="p" data-group-id="3461773676-3">&gt;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">many</span><span class="p" data-group-id="3461773676-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3461773676-4">)</span><span class="w">
+</span><span class="p" data-group-id="3461773676-5">%{</span><span class="ss">entries</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3461773676-6">[</span><span class="p" data-group-id="3461773676-7">%</span><span class="nc" data-group-id="3461773676-7">User</span><span class="p" data-group-id="3461773676-7">{</span><span class="p" data-group-id="3461773676-7">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="3461773676-6">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3461773676-8">%{</span><span class="n">...</span><span class="p" data-group-id="3461773676-8">}</span><span class="p" data-group-id="3461773676-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_federate/5">
+
+    <span id="maybe_federate/3"></span>
+
+    <span id="maybe_federate/4"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_federate/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_federate(subject, verb, object, activity \\ nil, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L225" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Attempts to federate an activity based on the given parameters.</p><p>This function handles various patterns of activities and objects, attempting to
+federate them according to the specified verb and options.</p><h2 id="maybe_federate/5-parameters" class="section-heading">
+  <a href="#maybe_federate/5-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject initiating the federation.</li><li>verb: The verb describing the activity (e.g., :create, :delete).</li><li>object: The object to be federated.</li><li>activity: The associated activity data (optional).</li><li>opts: Additional options for federation.</li></ul><h2 id="maybe_federate/5-examples" class="section-heading">
+  <a href="#maybe_federate/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3475263620-1">%</span><span class="nc" data-group-id="3475263620-1">User</span><span class="p" data-group-id="3475263620-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3475263620-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3475263620-2">%</span><span class="nc" data-group-id="3475263620-2">Post</span><span class="p" data-group-id="3475263620-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p" data-group-id="3475263620-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">maybe_federate</span><span class="p" data-group-id="3475263620-3">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3475263620-3">)</span><span class="w">
+</span><span class="p" data-group-id="3475263620-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3475263620-5">%</span><span class="nc" data-group-id="3475263620-5">ActivityPub.Object</span><span class="p" data-group-id="3475263620-5">{</span><span class="p" data-group-id="3475263620-5">}</span><span class="p" data-group-id="3475263620-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_federate_and_gift_wrap_activity/3">
+
+    <span id="maybe_federate_and_gift_wrap_activity/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_federate_and_gift_wrap_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_federate_and_gift_wrap_activity(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L53" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Federates an activity (if enabled) and wraps it with additional metadata.</p><p>This function attempts to federate an activity and, if successful, merges the
+federated activity information with the original object.</p><h2 id="maybe_federate_and_gift_wrap_activity/3-parameters" class="section-heading">
+  <a href="#maybe_federate_and_gift_wrap_activity/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject initiating the federation.</li><li>object: The object to be federated.</li><li>opts: Optional parameters for federation.</li></ul><h2 id="maybe_federate_and_gift_wrap_activity/3-examples" class="section-heading">
+  <a href="#maybe_federate_and_gift_wrap_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5618024786-1">%</span><span class="nc" data-group-id="5618024786-1">User</span><span class="p" data-group-id="5618024786-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5618024786-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5618024786-2">%</span><span class="nc" data-group-id="5618024786-2">Post</span><span class="p" data-group-id="5618024786-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p" data-group-id="5618024786-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="5618024786-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">wrapped_object</span><span class="p" data-group-id="5618024786-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">maybe_federate_and_gift_wrap_activity</span><span class="p" data-group-id="5618024786-4">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="5618024786-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Map</span><span class="o">.</span><span class="n">has_key?</span><span class="p" data-group-id="5618024786-5">(</span><span class="n">wrapped_object</span><span class="p">,</span><span class="w"> </span><span class="ss">:activity</span><span class="p" data-group-id="5618024786-5">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="repo/0">
+
+  <div class="detail-header">
+    <a href="#repo/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">repo()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/integration.ex#L25" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the configured repository module.</p><h2 id="repo/0-examples" class="section-heading">
+  <a href="#repo/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social</span><span class="o">.</span><span class="n">repo</span><span class="p" data-group-id="7619701272-1">(</span><span class="p" data-group-id="7619701272-1">)</span><span class="w">
+</span><span class="nc">Bonfire.Common.Repo</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

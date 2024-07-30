@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.Edges — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.Edges</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Shared helpers for modules that implemented Edges to mutate or query them, preload relevant associations, etc.</p><p>This is a shared <a href="https://hexdocs.pm/phoenix/contexts.html">context</a> for <a href="./Bonfire.Data.Edges.Edge.html"><code class="inline">Bonfire.Data.Edges.Edge</code></a>, which has these fields:</p><ul><li>id: primary key which matches the related Activity </li><li>subject: the who (eg. a user)</li><li>table: what kind of action (eg. references Like or Follow in <a href="./Needle.Table.html"><code class="inline">Needle.Table</code></a> ...)</li><li>object: the what (eg. a specific post)</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/5" data-no-tooltip translate="no">changeset(schema, subject, verb, object, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Prepares a changeset for the given schema, subject, verb, object, and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset_base/4" data-no-tooltip translate="no">changeset_base(schema, subject, object, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>TODOC</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset_base_with_creator/4" data-no-tooltip translate="no">changeset_base_with_creator(schema, subject, object, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset_extra/5" data-no-tooltip translate="no">changeset_extra(schema, subject, verb, object, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>TODOC</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset_without_caretaker/5" data-no-tooltip translate="no">changeset_without_caretaker(schema, subject, verb, object, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/3" data-no-tooltip translate="no">count(type, filters_or_object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Counts the edges for the given type, filters or object, and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count_for_subject/4" data-no-tooltip translate="no">count_for_subject(type, subject, object, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Counts the edges for the given type, subject, object, and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_by_both/3" data-no-tooltip translate="no">delete_by_both(me, schema, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes edges by subject, type, and object</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_by_object/1" data-no-tooltip translate="no">delete_by_object(user)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes edges where the given user is the object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_by_subject/1" data-no-tooltip translate="no">delete_by_subject(user)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes edges where the given user is the subject.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#edge_module_query/2" data-no-tooltip translate="no">edge_module_query(schema_or_context, args)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#exists?/4" data-no-tooltip translate="no">exists?(schema_or_context, subject, object, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if an edge exists with the given schema/context, subject, and object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#filters_from_opts/1" data-no-tooltip translate="no">filters_from_opts(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>TODOC</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/4" data-no-tooltip translate="no">get(schema_or_context, subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the edge with either</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/4" data-no-tooltip translate="no">get!(schema_or_context, subject, objects, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert/3" data-no-tooltip translate="no">insert(changeset, subject \\ nil, object \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Inserts a changeset with optional subject and object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert/5" data-no-tooltip translate="no">insert(schema, subject, verb, object, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Inserts a new edge with the given schema, subject, verb, and object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#last/4" data-no-tooltip translate="no">last(schema_or_context, subject, object, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the last edge of a given type, subject, and object from the database.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#last_date/4" data-no-tooltip translate="no">last_date(type, subject, object, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the date of the last edge of a given type, subject, and object from the database.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_edge_assoc/3" data-no-tooltip translate="no">put_edge_assoc(changeset, subject, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_edge_assoc/4" data-no-tooltip translate="no">put_edge_assoc(changeset, schema, subject, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip translate="no">query(filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>TODOC</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_parent/3" data-no-tooltip translate="no">query_parent(query_schema, filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>TODOC</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="changeset/5">
+
+  <div class="detail-header">
+    <a href="#changeset/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset(schema, subject, verb, object, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L113" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Prepares a changeset for the given schema, subject, verb, object, and options.</p><h2 id="changeset/5-examples" class="section-heading">
+  <a href="#changeset/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="9029495692-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9029495692-2">%</span><span class="nc" data-group-id="9029495692-2">User</span><span class="p" data-group-id="9029495692-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9029495692-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9029495692-3">%</span><span class="nc" data-group-id="9029495692-3">Post</span><span class="p" data-group-id="9029495692-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9029495692-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9029495692-4">[</span><span class="p" data-group-id="9029495692-4">]</span><span class="p" data-group-id="9029495692-1">)</span><span class="w">
+</span><span class="p" data-group-id="9029495692-5">%</span><span class="nc" data-group-id="9029495692-5">Ecto.Changeset</span><span class="p" data-group-id="9029495692-5">{</span><span class="p" data-group-id="9029495692-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="changeset_base/4">
+
+  <div class="detail-header">
+    <a href="#changeset_base/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_base(schema, subject, object, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L153" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>TODOC</p>
+  </section>
+</section>
+<section class="detail" id="changeset_base_with_creator/4">
+
+  <div class="detail-header">
+    <a href="#changeset_base_with_creator/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_base_with_creator(schema, subject, object, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L139" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p><h2 id="changeset_base_with_creator/4-examples" class="section-heading">
+  <a href="#changeset_base_with_creator/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="4202390494-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4202390494-2">%</span><span class="nc" data-group-id="4202390494-2">User</span><span class="p" data-group-id="4202390494-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4202390494-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4202390494-3">%</span><span class="nc" data-group-id="4202390494-3">Post</span><span class="p" data-group-id="4202390494-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4202390494-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4202390494-4">[</span><span class="p" data-group-id="4202390494-4">]</span><span class="p" data-group-id="4202390494-1">)</span><span class="w">
+</span><span class="p" data-group-id="4202390494-5">%</span><span class="nc" data-group-id="4202390494-5">Ecto.Changeset</span><span class="p" data-group-id="4202390494-5">{</span><span class="p" data-group-id="4202390494-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="changeset_extra/5">
+
+  <div class="detail-header">
+    <a href="#changeset_extra/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_extra(schema, subject, verb, object, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L145" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>TODOC</p>
+  </section>
+</section>
+<section class="detail" id="changeset_without_caretaker/5">
+
+  <div class="detail-header">
+    <a href="#changeset_without_caretaker/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_without_caretaker(schema, subject, verb, object, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L126" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p><h2 id="changeset_without_caretaker/5-examples" class="section-heading">
+  <a href="#changeset_without_caretaker/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="4670624110-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4670624110-2">%</span><span class="nc" data-group-id="4670624110-2">User</span><span class="p" data-group-id="4670624110-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4670624110-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4670624110-3">%</span><span class="nc" data-group-id="4670624110-3">Post</span><span class="p" data-group-id="4670624110-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4670624110-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4670624110-4">[</span><span class="p" data-group-id="4670624110-4">]</span><span class="p" data-group-id="4670624110-1">)</span><span class="w">
+</span><span class="p" data-group-id="4670624110-5">%</span><span class="nc" data-group-id="4670624110-5">Ecto.Changeset</span><span class="p" data-group-id="4670624110-5">{</span><span class="p" data-group-id="4670624110-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count/3">
+
+    <span id="count/2"></span>
+
+  <div class="detail-header">
+    <a href="#count/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count(type, filters_or_object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L270" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Counts the edges for the given type, filters or object, and options.</p><h2 id="count/3-examples" class="section-heading">
+  <a href="#count/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count</span><span class="p" data-group-id="7169211819-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7169211819-2">%</span><span class="nc" data-group-id="7169211819-2">Post</span><span class="p" data-group-id="7169211819-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7169211819-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7169211819-3">[</span><span class="p" data-group-id="7169211819-3">]</span><span class="p" data-group-id="7169211819-1">)</span><span class="w">
+</span><span class="mi">42</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count_for_subject/4">
+
+  <div class="detail-header">
+    <a href="#count_for_subject/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count_for_subject(type, subject, object, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L298" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Counts the edges for the given type, subject, object, and options.</p><h2 id="count_for_subject/4-examples" class="section-heading">
+  <a href="#count_for_subject/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count_for_subject</span><span class="p" data-group-id="8427000186-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8427000186-2">%</span><span class="nc" data-group-id="8427000186-2">User</span><span class="p" data-group-id="8427000186-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8427000186-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8427000186-3">%</span><span class="nc" data-group-id="8427000186-3">Post</span><span class="p" data-group-id="8427000186-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8427000186-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8427000186-4">[</span><span class="p" data-group-id="8427000186-4">]</span><span class="p" data-group-id="8427000186-1">)</span><span class="w">
+</span><span class="mi">42</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete_by_both/3">
+
+  <div class="detail-header">
+    <a href="#delete_by_both/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_by_both(me, schema, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L609" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes edges by subject, type, and object</p><h2 id="delete_by_both/3-examples" class="section-heading">
+  <a href="#delete_by_both/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_both</span><span class="p" data-group-id="7309707270-1">(</span><span class="p" data-group-id="7309707270-2">%</span><span class="nc" data-group-id="7309707270-2">User</span><span class="p" data-group-id="7309707270-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7309707270-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7309707270-3">%</span><span class="nc" data-group-id="7309707270-3">User</span><span class="p" data-group-id="7309707270-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7309707270-3">}</span><span class="p" data-group-id="7309707270-1">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete_by_object/1">
+
+  <div class="detail-header">
+    <a href="#delete_by_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_by_object(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L595" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes edges where the given user is the object.</p><h2 id="delete_by_object/1-examples" class="section-heading">
+  <a href="#delete_by_object/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_object</span><span class="p" data-group-id="6049335473-1">(</span><span class="p" data-group-id="6049335473-2">%</span><span class="nc" data-group-id="6049335473-2">User</span><span class="p" data-group-id="6049335473-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6049335473-2">}</span><span class="p" data-group-id="6049335473-1">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete_by_subject/1">
+
+  <div class="detail-header">
+    <a href="#delete_by_subject/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_by_subject(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L584" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes edges where the given user is the subject.</p><h2 id="delete_by_subject/1-examples" class="section-heading">
+  <a href="#delete_by_subject/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_subject</span><span class="p" data-group-id="6924442539-1">(</span><span class="p" data-group-id="6924442539-2">%</span><span class="nc" data-group-id="6924442539-2">User</span><span class="p" data-group-id="6924442539-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6924442539-2">}</span><span class="p" data-group-id="6924442539-1">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="edge_module_query/2">
+
+  <div class="detail-header">
+    <a href="#edge_module_query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">edge_module_query(schema_or_context, args)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L333" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="exists?/4">
+
+  <div class="detail-header">
+    <a href="#exists?/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">exists?(schema_or_context, subject, object, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L256" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if an edge exists with the given schema/context, subject, and object.</p><h2 id="exists?/4-examples" class="section-heading">
+  <a href="#exists?/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">exists?</span><span class="p" data-group-id="6370555284-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6370555284-2">%</span><span class="nc" data-group-id="6370555284-2">User</span><span class="p" data-group-id="6370555284-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6370555284-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6370555284-3">%</span><span class="nc" data-group-id="6370555284-3">Post</span><span class="p" data-group-id="6370555284-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6370555284-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6370555284-4">[</span><span class="p" data-group-id="6370555284-4">]</span><span class="p" data-group-id="6370555284-1">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="filters_from_opts/1">
+
+  <div class="detail-header">
+    <a href="#filters_from_opts/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">filters_from_opts(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L444" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>TODOC</p>
+  </section>
+</section>
+<section class="detail" id="get/4">
+
+    <span id="get/3"></span>
+
+  <div class="detail-header">
+    <a href="#get/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(schema_or_context, subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L195" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the edge with either:</p><ul><li>a schema/context, subject, and object(s)</li><li>a schema/context, filters, and options</li></ul><h2 id="get/4-examples" class="section-heading">
+  <a href="#get/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="8326066053-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8326066053-2">%</span><span class="nc" data-group-id="8326066053-2">User</span><span class="p" data-group-id="8326066053-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8326066053-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8326066053-3">%</span><span class="nc" data-group-id="8326066053-3">Post</span><span class="p" data-group-id="8326066053-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8326066053-3">}</span><span class="p" data-group-id="8326066053-1">)</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="8326066053-4">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8326066053-5">[</span><span class="p" data-group-id="8326066053-6">%{</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8326066053-7">%</span><span class="nc" data-group-id="8326066053-7">User</span><span class="p" data-group-id="8326066053-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8326066053-7">}</span><span class="p" data-group-id="8326066053-6">}</span><span class="p" data-group-id="8326066053-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8326066053-8">[</span><span class="p" data-group-id="8326066053-8">]</span><span class="p" data-group-id="8326066053-4">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get!/4">
+
+    <span id="get!/3"></span>
+
+  <div class="detail-header">
+    <a href="#get!/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(schema_or_context, subject, objects, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L208" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="insert/3">
+
+    <span id="insert/1"></span>
+
+    <span id="insert/2"></span>
+
+  <div class="detail-header">
+    <a href="#insert/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert(changeset, subject \\ nil, object \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L65" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Inserts a changeset with optional subject and object.</p><h2 id="insert/3-examples" class="section-heading">
+  <a href="#insert/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert</span><span class="p" data-group-id="2565260714-1">(</span><span class="p" data-group-id="2565260714-2">%</span><span class="nc" data-group-id="2565260714-2">Changeset</span><span class="p" data-group-id="2565260714-2">{</span><span class="p" data-group-id="2565260714-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2565260714-3">%</span><span class="nc" data-group-id="2565260714-3">User</span><span class="p" data-group-id="2565260714-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="2565260714-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2565260714-4">%</span><span class="nc" data-group-id="2565260714-4">Post</span><span class="p" data-group-id="2565260714-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="2565260714-4">}</span><span class="p" data-group-id="2565260714-1">)</span><span class="w">
+</span><span class="p" data-group-id="2565260714-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2565260714-6">%</span><span class="nc" data-group-id="2565260714-6">Edge</span><span class="p" data-group-id="2565260714-6">{</span><span class="p" data-group-id="2565260714-6">}</span><span class="p" data-group-id="2565260714-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="insert/5">
+
+  <div class="detail-header">
+    <a href="#insert/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert(schema, subject, verb, object, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L52" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Inserts a new edge with the given schema, subject, verb, and object.</p><h2 id="insert/5-examples" class="section-heading">
+  <a href="#insert/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">insert</span><span class="p" data-group-id="0656601056-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0656601056-2">%</span><span class="nc" data-group-id="0656601056-2">User</span><span class="p" data-group-id="0656601056-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="0656601056-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0656601056-3">%</span><span class="nc" data-group-id="0656601056-3">Post</span><span class="p" data-group-id="0656601056-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0656601056-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0656601056-4">[</span><span class="p" data-group-id="0656601056-4">]</span><span class="p" data-group-id="0656601056-1">)</span><span class="w">
+</span><span class="p" data-group-id="0656601056-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0656601056-6">%</span><span class="nc" data-group-id="0656601056-6">Edge</span><span class="p" data-group-id="0656601056-6">{</span><span class="p" data-group-id="0656601056-6">}</span><span class="p" data-group-id="0656601056-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="last/4">
+
+  <div class="detail-header">
+    <a href="#last/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">last(schema_or_context, subject, object, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L229" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the last edge of a given type, subject, and object from the database.</p><h2 id="last/4-examples" class="section-heading">
+  <a href="#last/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">last</span><span class="p" data-group-id="2658525144-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2658525144-2">%</span><span class="nc" data-group-id="2658525144-2">User</span><span class="p" data-group-id="2658525144-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="2658525144-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2658525144-3">%</span><span class="nc" data-group-id="2658525144-3">Post</span><span class="p" data-group-id="2658525144-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="2658525144-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2658525144-4">[</span><span class="p" data-group-id="2658525144-4">]</span><span class="p" data-group-id="2658525144-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="last_date/4">
+
+  <div class="detail-header">
+    <a href="#last_date/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">last_date(type, subject, object, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L243" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the date of the last edge of a given type, subject, and object from the database.</p><h2 id="last_date/4-examples" class="section-heading">
+  <a href="#last_date/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">last_date</span><span class="p" data-group-id="1055675824-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1055675824-2">%</span><span class="nc" data-group-id="1055675824-2">User</span><span class="p" data-group-id="1055675824-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1055675824-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1055675824-3">%</span><span class="nc" data-group-id="1055675824-3">Post</span><span class="p" data-group-id="1055675824-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1055675824-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1055675824-4">[</span><span class="p" data-group-id="1055675824-4">]</span><span class="p" data-group-id="1055675824-1">)</span><span class="w">
+</span><span class="ld">~N[2023-07-25 12:34:56]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="put_edge_assoc/3">
+
+  <div class="detail-header">
+    <a href="#put_edge_assoc/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_edge_assoc(changeset, subject, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L161" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="put_edge_assoc/4">
+
+  <div class="detail-header">
+    <a href="#put_edge_assoc/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_edge_assoc(changeset, schema, subject, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L164" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L342" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>TODOC</p>
+  </section>
+</section>
+<section class="detail" id="query_parent/3">
+
+  <div class="detail-header">
+    <a href="#query_parent/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_parent(query_schema, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L349" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>TODOC</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

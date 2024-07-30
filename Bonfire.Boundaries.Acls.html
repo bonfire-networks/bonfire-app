@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Boundaries.Acls — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Boundaries.Acls</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>ACLs represent fully populated access control rules that can be reused.
+Can be reused to secure multiple objects, thus exists independently of any object.</p><p>The table doesn't have any fields of its own:</p><pre><code class="makeup elixir" translate="no"><span class="n">has_many</span><span class="p" data-group-id="9906508021-1">(</span><span class="ss">:grants</span><span class="p">,</span><span class="w"> </span><span class="nc">Grant</span><span class="p" data-group-id="9906508021-1">)</span><span class="w">
+</span><span class="n">has_many</span><span class="p" data-group-id="9906508021-2">(</span><span class="ss">:controlled</span><span class="p">,</span><span class="w"> </span><span class="nc">Controlled</span><span class="p" data-group-id="9906508021-2">)</span></code></pre>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#acl_grants_to_tuples/2" data-no-tooltip translate="no">acl_grants_to_tuples(creator, acls)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#acl_id/1" data-no-tooltip translate="no">acl_id(obj)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#acls/0" data-no-tooltip translate="no">acls()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#acls_from_preset/3" data-no-tooltip translate="no">acls_from_preset(creator, to_boundaries, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#base_acls_from_preset/3" data-no-tooltip translate="no">base_acls_from_preset(creator, preset, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#built_in_ids/0" data-no-tooltip translate="no">built_in_ids()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/3" data-no-tooltip translate="no">cast(changeset, creator, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/3" data-no-tooltip translate="no">changeset(atom, attrs, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/2" data-no-tooltip translate="no">create(attrs \\ %{}, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_exclude_ids/1" data-no-tooltip translate="no">default_exclude_ids(including_custom? \\ true)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(acl, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fully delete the ACL, including permissions/grants and controlled information. This will affect all objects previously shared with this ACL.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#edit/3" data-no-tooltip translate="no">edit(acl, user, params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#exclude_stereotypes/1" data-no-tooltip translate="no">exclude_stereotypes(including_custom? \\ true)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/1" data-no-tooltip translate="no">get(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/1" data-no-tooltip translate="no">get!(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_for_caretaker/3" data-no-tooltip translate="no">get_for_caretaker(id, caretaker, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_for_caretaker_q/3" data-no-tooltip translate="no">get_for_caretaker_q(id, caretaker, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_id/1" data-no-tooltip translate="no">get_id(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_id!/1" data-no-tooltip translate="no">get_id!(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_object_custom_acl/1" data-no-tooltip translate="no">get_object_custom_acl(object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_create_object_custom_acl/2" data-no-tooltip translate="no">get_or_create_object_custom_acl(object, caretaker \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#grant_tuples_from_preset/3" data-no-tooltip translate="no">grant_tuples_from_preset(creator, to_boundaries, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_built_in?/1" data-no-tooltip translate="no">is_built_in?(acl)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_object_custom?/1" data-no-tooltip translate="no">is_object_custom?(acl)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_stereotype?/1" data-no-tooltip translate="no">is_stereotype?(acl)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_stereotyped?/1" data-no-tooltip translate="no">is_stereotyped?(acl)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list/1" data-no-tooltip translate="no">list(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists ACLs we are permitted to see.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_built_ins/1" data-no-tooltip translate="no">list_built_ins(opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my/2" data-no-tooltip translate="no">list_my(user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists the ACLs we are the registered caretakers of that we are
+permitted to see. If any are created without permitting the
+user to see them, they will not be shown.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my_q/2" data-no-tooltip translate="no">list_my_q(user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>query for <code class="inline">list_my</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my_with_counts/2" data-no-tooltip translate="no">list_my_with_counts(user, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_q/1" data-no-tooltip translate="no">list_q(opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#local_acl_ids/1" data-no-tooltip translate="no">local_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_by_ids/2" data-no-tooltip translate="no">maybe_by_ids(query, ids)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_search/2" data-no-tooltip translate="no">maybe_search(query, text)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#opts_for_dropdown/0" data-no-tooltip translate="no">opts_for_dropdown()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#opts_for_list/0" data-no-tooltip translate="no">opts_for_list()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#prepare_cast/3" data-no-tooltip translate="no">prepare_cast(changeset_or_obj, creator, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preset_acl_ids/0" data-no-tooltip translate="no">preset_acl_ids()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preview/2" data-no-tooltip translate="no">preview(creator, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#public_acl_ids/1" data-no-tooltip translate="no">public_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#remote_public_acl_ids/0" data-no-tooltip translate="no">remote_public_acl_ids()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Built-in ACLs for things that should federate</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set/3" data-no-tooltip translate="no">set(object, creator, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#simple_create/2" data-no-tooltip translate="no">simple_create(caretaker, name)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#soft_delete/2" data-no-tooltip translate="no">soft_delete(acl, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Soft-delete the ACL, meaning it will not be displayed anymore, but permissions/grants and controlled information will be preserved. This will not affect objects previously shared with this ACL.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#stereotype_ids/0" data-no-tooltip translate="no">stereotype_ids()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#user_default_acl/1" data-no-tooltip translate="no">user_default_acl(name)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#user_default_acls/0" data-no-tooltip translate="no">user_default_acls()</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="acl_grants_to_tuples/2">
+
+  <div class="detail-header">
+    <a href="#acl_grants_to_tuples/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">acl_grants_to_tuples(creator, acls)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L932" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="acl_id/1">
+
+  <div class="detail-header">
+    <a href="#acl_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">acl_id(obj)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L102" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="acls/0">
+
+  <div class="detail-header">
+    <a href="#acls/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">acls()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L80" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="acls_from_preset/3">
+
+    <span id="acls_from_preset/2"></span>
+
+  <div class="detail-header">
+    <a href="#acls_from_preset/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">acls_from_preset(creator, to_boundaries, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L247" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="base_acls_from_preset/3">
+
+    <span id="base_acls_from_preset/2"></span>
+
+  <div class="detail-header">
+    <a href="#base_acls_from_preset/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">base_acls_from_preset(creator, preset, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L302" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="built_in_ids/0">
+
+  <div class="detail-header">
+    <a href="#built_in_ids/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">built_in_ids()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L724" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast/3">
+
+  <div class="detail-header">
+    <a href="#cast/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(changeset, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L169" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="changeset/3">
+
+  <div class="detail-header">
+    <a href="#changeset/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset(atom, attrs, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L607" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create/2">
+
+    <span id="create/1"></span>
+
+  <div class="detail-header">
+    <a href="#create/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create(attrs \\ %{}, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L596" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="default_exclude_ids/1">
+
+    <span id="default_exclude_ids/0"></span>
+
+  <div class="detail-header">
+    <a href="#default_exclude_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">default_exclude_ids(including_custom? \\ true)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L52" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(acl, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L960" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Fully delete the ACL, including permissions/grants and controlled information. This will affect all objects previously shared with this ACL.</p>
+  </section>
+</section>
+<section class="detail" id="edit/3">
+
+  <div class="detail-header">
+    <a href="#edit/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">edit(acl, user, params)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L941" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="exclude_stereotypes/1">
+
+    <span id="exclude_stereotypes/0"></span>
+
+  <div class="detail-header">
+    <a href="#exclude_stereotypes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">exclude_stereotypes(including_custom? \\ true)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L40" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get/1">
+
+  <div class="detail-header">
+    <a href="#get/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L91" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get!/1">
+
+  <div class="detail-header">
+    <a href="#get!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L93" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_for_caretaker/3">
+
+    <span id="get_for_caretaker/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_for_caretaker/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_for_caretaker(id, caretaker, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L633" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_for_caretaker_q/3">
+
+    <span id="get_for_caretaker_q/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_for_caretaker_q/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_for_caretaker_q(id, caretaker, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L651" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_id/1">
+
+  <div class="detail-header">
+    <a href="#get_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_id(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L99" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_id!/1">
+
+  <div class="detail-header">
+    <a href="#get_id!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_id!(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L100" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_object_custom_acl/1">
+
+  <div class="detail-header">
+    <a href="#get_object_custom_acl/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_object_custom_acl(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L524" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_create_object_custom_acl/2">
+
+    <span id="get_or_create_object_custom_acl/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_or_create_object_custom_acl/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_create_object_custom_acl(object, caretaker \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L537" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="grant_tuples_from_preset/3">
+
+    <span id="grant_tuples_from_preset/2"></span>
+
+  <div class="detail-header">
+    <a href="#grant_tuples_from_preset/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">grant_tuples_from_preset(creator, to_boundaries, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L258" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_built_in?/1">
+
+  <div class="detail-header">
+    <a href="#is_built_in?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_built_in?(acl)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L751" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_object_custom?/1">
+
+  <div class="detail-header">
+    <a href="#is_object_custom?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_object_custom?(acl)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L756" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_stereotype?/1">
+
+  <div class="detail-header">
+    <a href="#is_stereotype?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_stereotype?(acl)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L746" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_stereotyped?/1">
+
+  <div class="detail-header">
+    <a href="#is_stereotyped?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_stereotyped?(acl)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L737" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list/1">
+
+    <span id="list/0"></span>
+
+  <div class="detail-header">
+    <a href="#list/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L673" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists ACLs we are permitted to see.</p>
+  </section>
+</section>
+<section class="detail" id="list_built_ins/1">
+
+    <span id="list_built_ins/0"></span>
+
+  <div class="detail-header">
+    <a href="#list_built_ins/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_built_ins(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L766" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_my/2">
+
+    <span id="list_my/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_my/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L810" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists the ACLs we are the registered caretakers of that we are
+permitted to see. If any are created without permitting the
+user to see them, they will not be shown.</p>
+  </section>
+</section>
+<section class="detail" id="list_my_q/2">
+
+    <span id="list_my_q/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_my_q/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my_q(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L872" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>query for <code class="inline">list_my</code></p>
+  </section>
+</section>
+<section class="detail" id="list_my_with_counts/2">
+
+    <span id="list_my_with_counts/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_my_with_counts/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my_with_counts(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L820" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_q/1">
+
+    <span id="list_q/0"></span>
+
+  <div class="detail-header">
+    <a href="#list_q/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_q(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L682" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="local_acl_ids/1">
+
+    <span id="local_acl_ids/0"></span>
+
+  <div class="detail-header">
+    <a href="#local_acl_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">local_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L74" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_by_ids/2">
+
+  <div class="detail-header">
+    <a href="#maybe_by_ids/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_by_ids(query, ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L695" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_search/2">
+
+  <div class="detail-header">
+    <a href="#maybe_search/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_search(query, text)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L705" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="opts_for_dropdown/0">
+
+  <div class="detail-header">
+    <a href="#opts_for_dropdown/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">opts_for_dropdown()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L781" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="opts_for_list/0">
+
+  <div class="detail-header">
+    <a href="#opts_for_list/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">opts_for_list()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L788" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="prepare_cast/3">
+
+  <div class="detail-header">
+    <a href="#prepare_cast/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">prepare_cast(changeset_or_obj, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L181" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="preset_acl_ids/0">
+
+  <div class="detail-header">
+    <a href="#preset_acl_ids/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preset_acl_ids()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L82" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="preview/2">
+
+  <div class="detail-header">
+    <a href="#preview/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preview(creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L117" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="public_acl_ids/1">
+
+    <span id="public_acl_ids/0"></span>
+
+  <div class="detail-header">
+    <a href="#public_acl_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">public_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L69" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="remote_public_acl_ids/0">
+
+  <div class="detail-header">
+    <a href="#remote_public_acl_ids/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">remote_public_acl_ids()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L66" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Built-in ACLs for things that should federate</p>
+  </section>
+</section>
+<section class="detail" id="set/3">
+
+  <div class="detail-header">
+    <a href="#set/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set(object, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L110" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="simple_create/2">
+
+  <div class="detail-header">
+    <a href="#simple_create/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">simple_create(caretaker, name)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L603" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="soft_delete/2">
+
+  <div class="detail-header">
+    <a href="#soft_delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">soft_delete(acl, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L986" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Soft-delete the ACL, meaning it will not be displayed anymore, but permissions/grants and controlled information will be preserved. This will not affect objects previously shared with this ACL.</p>
+  </section>
+</section>
+<section class="detail" id="stereotype_ids/0">
+
+  <div class="detail-header">
+    <a href="#stereotype_ids/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">stereotype_ids()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L730" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="user_default_acl/1">
+
+  <div class="detail-header">
+    <a href="#user_default_acl/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">user_default_acl(name)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L924" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="user_default_acls/0">
+
+  <div class="detail-header">
+    <a href="#user_default_acls/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">user_default_acls()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L927" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

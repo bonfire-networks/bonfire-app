@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Needle.ULID — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Needle.ULID</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>An Ecto type for ULID strings.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bingenerate/1" data-no-tooltip translate="no">bingenerate(timestamp \\ System.system_time(:millisecond))</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a binary ULID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bintimestamp/1" data-no-tooltip translate="no">bintimestamp(arg)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/1" data-no-tooltip translate="no">cast(value)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts a 26-byte encoded string to ULID or a 16-byte binary unchanged</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast!/1" data-no-tooltip translate="no">cast!(value)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Same as <a href="#cast/1"><code class="inline">cast/1</code></a> but raises <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.CastError.html"><code class="inline">Ecto.CastError</code></a> on invalid arguments.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#dump/1" data-no-tooltip translate="no">dump(encoded)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts a Crockford Base32 encoded ULID into a binary.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#dump!/1" data-no-tooltip translate="no">dump!(encoded)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#embed_as/1" data-no-tooltip translate="no">embed_as(_)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Type.html#c:embed_as/1"><code class="inline">Ecto.Type.embed_as/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#encoded_randomness/1" data-no-tooltip translate="no">encoded_randomness(arg)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the randomness portion of the encoded ulid</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#encoded_timestamp/1" data-no-tooltip translate="no">encoded_timestamp(arg)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the timestamp portion of the encoded ulid</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#equal?/2" data-no-tooltip translate="no">equal?(term1, term2)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Type.html#c:equal?/2"><code class="inline">Ecto.Type.equal?/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#generate/1" data-no-tooltip translate="no">generate(timestamp \\ System.system_time(:millisecond))</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a Crockford Base32 encoded ULID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load/1" data-no-tooltip translate="no">load(bytes)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts a binary ULID into a Crockford Base32 encoded string.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#synthesise!/1" data-no-tooltip translate="no">synthesise!(x)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>translates alphanumerics into a sentinel ulid value</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#timestamp/1" data-no-tooltip translate="no">timestamp(encoded)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the timestamp of an encoded or unencoded ULID</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#type/0" data-no-tooltip translate="no">type()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>The underlying schema type.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="bingenerate/1">
+
+    <span id="bingenerate/0"></span>
+
+  <div class="detail-header">
+    <a href="#bingenerate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">bingenerate(timestamp \\ System.system_time(:millisecond))</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L208" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a binary ULID.</p><p>If a value is provided for <code class="inline">timestamp</code>, the generated ULID will be for the provided timestamp.
+Otherwise, a ULID will be generated for the current time.</p><p>Arguments:</p><ul><li><code class="inline">timestamp</code>: A Unix timestamp with millisecond precision.</li></ul>
+  </section>
+</section>
+<section class="detail" id="bintimestamp/1">
+
+  <div class="detail-header">
+    <a href="#bintimestamp/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">bintimestamp(arg)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L120" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast/1">
+
+  <div class="detail-header">
+    <a href="#cast/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(value)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L130" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts a 26-byte encoded string to ULID or a 16-byte binary unchanged</p>
+  </section>
+</section>
+<section class="detail" id="cast!/1">
+
+  <div class="detail-header">
+    <a href="#cast!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast!(value)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L145" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Same as <a href="#cast/1"><code class="inline">cast/1</code></a> but raises <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.CastError.html"><code class="inline">Ecto.CastError</code></a> on invalid arguments.</p>
+  </section>
+</section>
+<section class="detail" id="dump/1">
+
+  <div class="detail-header">
+    <a href="#dump/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">dump(encoded)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L155" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts a Crockford Base32 encoded ULID into a binary.</p>
+  </section>
+</section>
+<section class="detail" id="dump!/1">
+
+  <div class="detail-header">
+    <a href="#dump!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">dump!(encoded)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L158" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="embed_as/1">
+
+  <div class="detail-header">
+    <a href="#embed_as/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">embed_as(_)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L5" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Type.html#c:embed_as/1"><code class="inline">Ecto.Type.embed_as/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="encoded_randomness/1">
+
+  <div class="detail-header">
+    <a href="#encoded_randomness/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">encoded_randomness(arg)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L113" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the randomness portion of the encoded ulid</p>
+  </section>
+</section>
+<section class="detail" id="encoded_timestamp/1">
+
+  <div class="detail-header">
+    <a href="#encoded_timestamp/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">encoded_timestamp(arg)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L110" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the timestamp portion of the encoded ulid</p>
+  </section>
+</section>
+<section class="detail" id="equal?/2">
+
+  <div class="detail-header">
+    <a href="#equal?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">equal?(term1, term2)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L5" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Type.html#c:equal?/2"><code class="inline">Ecto.Type.equal?/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="generate/1">
+
+    <span id="generate/0"></span>
+
+  <div class="detail-header">
+    <a href="#generate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">generate(timestamp \\ System.system_time(:millisecond))</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L192" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a Crockford Base32 encoded ULID.</p><p>If a value is provided for <code class="inline">timestamp</code>, the generated ULID will be for the provided timestamp.
+Otherwise, a ULID will be generated for the current time.</p><p>Arguments:</p><ul><li><code class="inline">timestamp</code>: A Unix timestamp with millisecond precision.</li></ul>
+  </section>
+</section>
+<section class="detail" id="load/1">
+
+  <div class="detail-header">
+    <a href="#load/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">load(bytes)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L168" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts a binary ULID into a Crockford Base32 encoded string.</p>
+  </section>
+</section>
+<section class="detail" id="synthesise!/1">
+
+  <div class="detail-header">
+    <a href="#synthesise!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">synthesise!(x)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L9" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>translates alphanumerics into a sentinel ulid value</p>
+  </section>
+</section>
+<section class="detail" id="timestamp/1">
+
+  <div class="detail-header">
+    <a href="#timestamp/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">timestamp(encoded)</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L116" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the timestamp of an encoded or unencoded ULID</p>
+  </section>
+</section>
+<section class="detail" id="type/0">
+
+  <div class="detail-header">
+    <a href="#type/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">type()</h1>
+
+      <a href="https://github.com/bonfire-networks/needle_ulid/blob/main/lib/needle_ulid.ex#L125" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>The underlying schema type.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

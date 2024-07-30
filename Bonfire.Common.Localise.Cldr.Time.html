@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Localise.Cldr.Time — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Localise.Cldr.Time</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_string/2" data-no-tooltip translate="no">to_string(time, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Formats a time according to a format string
+as defined in CLDR and described in <a href="http://unicode.org/reports/tr35/tr35-dates.html">TR35</a></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_string!/2" data-no-tooltip translate="no">to_string!(time, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Formats a time according to a format string
+as defined in CLDR and described in <a href="http://unicode.org/reports/tr35/tr35-dates.html">TR35</a>
+or raises an exception.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="to_string/2">
+
+    <span id="to_string/1"></span>
+
+  <div class="detail-header">
+    <a href="#to_string/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_string(time, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> to_string(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Formats a time according to a format string
+as defined in CLDR and described in <a href="http://unicode.org/reports/tr35/tr35-dates.html">TR35</a></p><h2 id="to_string/2-returns" class="section-heading">
+  <a href="#to_string/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><p><code class="inline">{:ok, formatted_time}</code> or</p></li><li><p><code class="inline">{:error, reason}</code>.</p></li></ul><h2 id="to_string/2-arguments" class="section-heading">
+  <a href="#to_string/2-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><code class="inline">time</code> is a <a href="https://hexdocs.pm/elixir/Time.html#t:t/0"><code class="inline">Time.t/0</code></a> struct or any map that contains
+one or more of the keys <code class="inline">:hour</code>, <code class="inline">:minute</code>, <code class="inline">:second</code> and optionally <code class="inline">:microsecond</code>,
+<code class="inline">:time_zone</code>, <code class="inline">:zone_abbr</code>, <code class="inline">:utc_offset</code> and <code class="inline">:std_offset. *</code>options<code class="inline">is a keyword list of options for formatting. ## Options *</code>:format<code class="inline">is one of</code>:short<code class="inline">,</code>:medium<code class="inline">,</code>:long<code class="inline">,</code>:full<code class="inline">, or a format id or a format string. The default is</code>:medium<code class="inline">for full times (that is, times having</code>:hour<code class="inline">,</code>:minute<code class="inline">and</code>:second<code class="inline">fields). The default for partial times is to derive a candidate format from the time and find the best match from the formats returned by</code>Cldr.Time.available_formats/2<code class="inline">. See [here](README.md#date-time-and-datetime-localization-formats) for more information about specifying formats. *</code>:locale<code class="inline">any locale returned by</code>Cldr.known_locale_names/1<code class="inline">. The default is</code>Cldr.get_locale/0<code class="inline">. *</code>:number_system<code class="inline">a number system into which the formatted date digits should be transliterated. *</code>:prefer<code class="inline">is either</code>:unicode<code class="inline">(the default) or</code>:ascii<code class="inline">. A small number of formats have two variants - one using Unicode spaces (typically non-breaking space) and another using only ASCII whitespace. The</code>:ascii<code class="inline">format is primarily to support legacy use cases and is not recommended. See</code>Cldr.Time.available_formats/3<code class="inline">to see which formats have these variants. *</code>period: :variant<code class="inline">will use a variant for the time period and flexible time period if one is available in the locale. For example, in the</code>:en<code class="inline">locale</code>period: :variant` will
+return &quot;pm&quot; instead of &quot;PM&quot;.
+
+## Examples
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(~T[07:35:13.215217])
+  {:ok, &quot;7:35:13 AM&quot;}
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(~T[07:35:13.215217], format: :short)
+  {:ok, &quot;7:35 AM&quot;}
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(~T[07:35:13.215217], format: :short, period: :variant)
+  {:ok, &quot;7:35 am&quot;}
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(~T[07:35:13.215217], format: :medium, locale: :fr)
+  {:ok, &quot;07:35:13&quot;}
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(~T[07:35:13.215217], format: :medium)
+  {:ok, &quot;7:35:13 AM&quot;}
+
+  iex&gt; {:ok, date_time} = DateTime.from_naive(~N[2000-01-01 23:59:59.0], &quot;Etc/UTC&quot;)
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(date_time, format: :long)
+  {:ok, &quot;11:59:59 PM UTC&quot;}
+
+  # A partial time with a best match CLDR-defined format
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(%{hour: 23, minute: 11})
+  {:ok, &quot;11:11 PM&quot;}
+
+  # Sometimes the available time fields can't be mapped to an available
+  # CLDR defined format.
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string(%{minute: 11})
+  {:error,
+   {Cldr.DateTime.UnresolvedFormat, &quot;No available format resolved for :m&quot;}}</li></ul>
+  </section>
+</section>
+<section class="detail" id="to_string!/2">
+
+    <span id="to_string!/1"></span>
+
+  <div class="detail-header">
+    <a href="#to_string!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_string!(time, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> to_string!(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
+
+      </div>
+
+<p>Formats a time according to a format string
+as defined in CLDR and described in <a href="http://unicode.org/reports/tr35/tr35-dates.html">TR35</a>
+or raises an exception.</p><h2 id="to_string!/2-arguments" class="section-heading">
+  <a href="#to_string!/2-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><code class="inline">time</code> is a <a href="https://hexdocs.pm/elixir/Time.html#t:t/0"><code class="inline">Time.t/0</code></a> struct or any map that contains
+one or more of the keys <code class="inline">:hour</code>, <code class="inline">:minute</code>, <code class="inline">:second</code> and optionally <code class="inline">:microsecond</code>,
+<code class="inline">:time_zone</code>, <code class="inline">:zone_abbr</code>, <code class="inline">:utc_offset</code> and <code class="inline">:std_offset. *</code>options<code class="inline">is a keyword list of options for formatting. ## Options *</code>:format<code class="inline">is one of</code>:short<code class="inline">,</code>:medium<code class="inline">,</code>:long<code class="inline">,</code>:full<code class="inline">, or a format id or a format string. The default is</code>:medium<code class="inline">for full times (that is, times having</code>:hour<code class="inline">,</code>:minute<code class="inline">and</code>:second<code class="inline">fields). The default for partial times is to derive a candidate format from the time and find the best match from the formats returned by</code>Cldr.Time.available_formats/2<code class="inline">. See [here](README.md#date-time-and-datetime-localization-formats) for more information about specifying formats. *</code>:locale<code class="inline">any locale returned by</code>Cldr.known_locale_names/1<code class="inline">. The default is</code>Cldr.get_locale/0<code class="inline">. *</code>:number_system<code class="inline">a number system into which the formatted date digits should be transliterated. *</code>:prefer<code class="inline">is either</code>:unicode<code class="inline">(the default) or</code>:ascii<code class="inline">. A small number of formats have two variants - one using Unicode spaces (typically non-breaking space) and another using only ASCII whitespace. The</code>:ascii<code class="inline">format is primarily to support legacy use cases and is not recommended. See</code>Cldr.Time.available_formats/3<code class="inline">to see which formats have these variants. *</code>period: :variant<code class="inline">will use a variant for the time period and flexible time period if one is available in the locale. For example, in the</code>:en<code class="inline">locale</code>period: :variant<code class="inline">will return &quot;pm&quot; instead of &quot;PM&quot;. ## Returns *</code>formatted_time_string` or
+
+* raises an exception.
+
+## Examples
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string!(~T[07:35:13.215217])
+  &quot;7:35:13 AM&quot;
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string!(~T[07:35:13.215217], format: :short)
+  &quot;7:35 AM&quot;
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string!(~T[07:35:13.215217], format: :short, period: :variant)
+  &quot;7:35 am&quot;
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string!(~T[07:35:13.215217], format: :medium, locale: :fr)
+  &quot;07:35:13&quot;
+
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string!(~T[07:35:13.215217], format: :medium)
+  &quot;7:35:13 AM&quot;
+
+  iex&gt; {:ok, datetime} = DateTime.from_naive(~N[2000-01-01 23:59:59.0], &quot;Etc/UTC&quot;)
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string! datetime, format: :long
+  &quot;11:59:59 PM UTC&quot;
+
+  # A partial time with a best match CLDR-defined format
+  iex&gt; Bonfire.Common.Localise.Cldr.Time.to_string!(%{hour: 23, minute: 11})
+  &quot;11:11 PM&quot;</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

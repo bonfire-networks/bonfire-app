@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Localise.Cldr.LocaleDisplay — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Localise.Cldr.LocaleDisplay</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Manages the display name data for language tags
+and presents a public API for rendering
+display names for locales.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#display_name/2" data-no-tooltip translate="no">display_name(language_tag, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a localised display name for a
+locale.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#display_name!/2" data-no-tooltip translate="no">display_name!(language_tag, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a localised display name for a
+locale.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#display_names/1" data-no-tooltip translate="no">display_names(locale)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the localised display names data
+for a locale name.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#time_zone_names/1" data-no-tooltip translate="no">time_zone_names(locale)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the localised time zone names data
+for a locale name.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="display_name/2">
+
+    <span id="display_name/1"></span>
+
+  <div class="detail-header">
+    <a href="#display_name/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">display_name(language_tag, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(since 1.1.0)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> display_name(
+  <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#t:locale_name/0">Cldr.Locale.locale_name</a>() | <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html#t:t/0">Cldr.LanguageTag.t</a>(),
+  <a href="https://hexdocs.pm/ex_cldr_locale_display/1.5.0/Cldr.LocaleDisplay.html#t:display_options/0">Cldr.LocaleDisplay.display_options</a>()
+) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Returns a localised display name for a
+locale.</p><p>UI applications often have a requirement
+to present locale choices to an end user.</p><p>This function takes a <code class="inline">t.Cldr.LanguageTag</code>
+and using the <a href="https://unicode-org.github.io/cldr/ldml/tr35-general.html#locale_display_name_algorithm">CLDR locale display name algorithm</a>
+produces a string suitable for presentation.</p><h2 id="display_name/2-arguments" class="section-heading">
+  <a href="#display_name/2-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><p><code class="inline">language_tag</code> is any <code class="inline">t:Cldr.LanguageTag</code> or
+a binary locale name.</p></li><li><p><code class="inline">options</code> is a keyword list of options.</p></li></ul><h2 id="display_name/2-options" class="section-heading">
+  <a href="#display_name/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><p><code class="inline">:compound_locale</code> is a boolean indicating
+if the combination of language, script and territory
+should be used to resolve a language name.
+The default is <code class="inline">true</code>.</p></li><li><p><code class="inline">:prefer</code> signals the preferred name for
+a subtag when there are alternatives.
+The default is <code class="inline">:default</code>. Few subtags
+provide alternative renderings. Some of
+the alternative preferences are<code class="inline">:short</code>,
+<code class="inline">:long</code>, <code class="inline">:menu</code> and <code class="inline">:variant</code>.</p></li><li><p><code class="inline">:locale</code> is a <code class="inline">t:Cldr.LanguageTag</code> or any valid
+locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#known_locale_names/1"><code class="inline">Cldr.known_locale_names/1</code></a>.</p></li></ul><h2 id="display_name/2-returns" class="section-heading">
+  <a href="#display_name/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><p><code class="inline">{:ok, string}</code> representing a name
+suitable for presentation purposes or</p></li><li><p><code class="inline">{:error, {exception, reason}}</code></p></li></ul><h2 id="display_name/2-examples" class="section-heading">
+  <a href="#display_name/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
+</span><span class="p" data-group-id="6854851231-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;English&quot;</span><span class="p" data-group-id="6854851231-1">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span><span class="w">
+</span><span class="p" data-group-id="6854851231-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;American English&quot;</span><span class="p" data-group-id="6854851231-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">compound_locale</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="w">
+</span><span class="p" data-group-id="6854851231-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;English (United States)&quot;</span><span class="p" data-group-id="6854851231-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="w">
+</span><span class="p" data-group-id="6854851231-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;American English (Gregorian Calendar, Currency: A$)&quot;</span><span class="p" data-group-id="6854851231-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="w">
+</span><span class="p" data-group-id="6854851231-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;anglais américain (calendrier grégorien, devise : A$)&quot;</span><span class="p" data-group-id="6854851231-5">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;nl-BE&quot;</span><span class="w">
+</span><span class="p" data-group-id="6854851231-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Flemish&quot;</span><span class="p" data-group-id="6854851231-6">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;nl-BE&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">compound_locale</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="w">
+</span><span class="p" data-group-id="6854851231-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dutch (Belgium)&quot;</span><span class="p" data-group-id="6854851231-7">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="display_name!/2">
+
+    <span id="display_name!/1"></span>
+
+  <div class="detail-header">
+    <a href="#display_name!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">display_name!(language_tag, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(since 1.1.0)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> display_name!(
+  <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#t:locale_name/0">Cldr.Locale.locale_name</a>() | <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html#t:t/0">Cldr.LanguageTag.t</a>(),
+  <a href="https://hexdocs.pm/ex_cldr_locale_display/1.5.0/Cldr.LocaleDisplay.html#t:display_options/0">Cldr.LocaleDisplay.display_options</a>()
+) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
+
+      </div>
+
+<p>Returns a localised display name for a
+locale.</p><p>UI applications often have a requirement
+to present locale choices to an end user.</p><p>This function takes a <code class="inline">t.Cldr.LanguageTag</code>
+and using the <a href="https://unicode-org.github.io/cldr/ldml/tr35-general.html#locale_display_name_algorithm">CLDR locale display name algorithm</a>
+produces a string suitable for presentation.</p><h2 id="display_name!/2-arguments" class="section-heading">
+  <a href="#display_name!/2-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><p><code class="inline">language_tag</code> is any <code class="inline">t:Cldr.LanguageTag</code> or
+a binary locale name.</p></li><li><p><code class="inline">options</code> is a keyword list of options.</p></li></ul><h2 id="display_name!/2-options" class="section-heading">
+  <a href="#display_name!/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><p><code class="inline">:compound_locale</code> is a boolean indicating
+if the combination of language, script and territory
+should be used to resolve a language name.
+The default is <code class="inline">true</code>.</p></li><li><p><code class="inline">:prefer</code> signals the preferred name for
+a subtag when there are alternatives.
+The default is <code class="inline">:default</code>. Few subtags
+provide alternative renderings. Some of
+the alternative preferences are<code class="inline">:short</code>,
+<code class="inline">:long</code>, <code class="inline">:menu</code> and <code class="inline">:variant</code>.</p></li><li><p><code class="inline">:locale</code> is a <code class="inline">t:Cldr.LanguageTag</code> or any valid
+locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#known_locale_names/1"><code class="inline">Cldr.known_locale_names/1</code></a>.</p></li><li><p><code class="inline">:backend</code> is any module that includes <code class="inline">use Cldr</code> and therefore
+is a <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html"><code class="inline">Cldr</code></a> backend module. The default is <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#default_backend!/0"><code class="inline">Cldr.default_backend!/0</code></a>.</p></li></ul><h2 id="display_name!/2-returns" class="section-heading">
+  <a href="#display_name!/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><p>a string representation of the language tag
+suitable for presentation purposes or</p></li><li><p>raises an exception.</p></li></ul><h2 id="display_name!/2-examples" class="section-heading">
+  <a href="#display_name!/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
+</span><span class="s">&quot;English&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span><span class="w">
+</span><span class="s">&quot;American English&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">compound_locale</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="w">
+</span><span class="s">&quot;English (United States)&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="w"> </span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="w">
+</span><span class="s">&quot;American English (Gregorian Calendar, Currency: A$)&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="w"> </span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="w">
+</span><span class="s">&quot;anglais américain (calendrier grégorien, devise : A$)&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="display_names/1">
+
+  <div class="detail-header">
+    <a href="#display_names/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">display_names(locale)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(since 1.0.0)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> display_names(<a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html#t:t/0">Cldr.LanguageTag.t</a>() | <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#t:locale_name/0">Cldr.Locale.locale_name</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Returns the localised display names data
+for a locale name.</p><h2 id="display_names/1-arguments" class="section-heading">
+  <a href="#display_names/1-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><code class="inline">locale</code> is any language tag returned by
+<code class="inline">Bonfire.Common.Localise.Cldr.LocaleDisplay.new/1</code>
+or a locale name in the list returned by
+<a href="./Bonfire.Common.Localise.Cldr.html#known_locale_names/0"><code class="inline">Bonfire.Common.Localise.Cldr.known_locale_names/0</code></a></li></ul><h2 id="display_names/1-returns" class="section-heading">
+  <a href="#display_names/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li>A map of locale display names</li></ul><h2 id="display_names/1-examples" class="section-heading">
+  <a href="#display_names/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="p">=&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_names</span><span class="p" data-group-id="1994945636-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1994945636-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="time_zone_names/1">
+
+  <div class="detail-header">
+    <a href="#time_zone_names/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">time_zone_names(locale)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(since 1.0.0)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> time_zone_names(<a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html#t:t/0">Cldr.LanguageTag.t</a>() | <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#t:locale_name/0">Cldr.Locale.locale_name</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Returns the localised time zone names data
+for a locale name.</p><h2 id="time_zone_names/1-arguments" class="section-heading">
+  <a href="#time_zone_names/1-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><code class="inline">locale</code> is any language tag returned by
+<code class="inline">Bonfire.Common.Localise.Cldr.LocaleDisplay.new/1</code>
+or a locale name in the list returned by
+<a href="./Bonfire.Common.Localise.Cldr.html#known_locale_names/0"><code class="inline">Bonfire.Common.Localise.Cldr.known_locale_names/0</code></a></li></ul><h2 id="time_zone_names/1-returns" class="section-heading">
+  <a href="#time_zone_names/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li>A map of locale time zone names</li></ul><h2 id="time_zone_names/1-examples" class="section-heading">
+  <a href="#time_zone_names/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="p">=&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">time_zone_names</span><span class="p" data-group-id="4898615776-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="4898615776-1">)</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

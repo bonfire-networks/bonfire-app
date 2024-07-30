@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Localise.Cldr.DateTime.Formatter — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Localise.Cldr.DateTime.Formatter</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Implements the compilation and execution of
+date, time and datetime formats.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format/4" data-no-tooltip translate="no">format(date, format, locale \\ Cldr.get_locale(), options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the formatted and localised date, time or datetime
+for a given <a href="https://hexdocs.pm/elixir/Date.html"><code class="inline">Date</code></a>, <a href="https://hexdocs.pm/elixir/Time.html"><code class="inline">Time</code></a>, <a href="https://hexdocs.pm/elixir/DateTime.html"><code class="inline">DateTime</code></a> or struct with the
+appropriate fields.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#gmt_tz_format/3" data-no-tooltip translate="no">gmt_tz_format(locale, offset, options \\ [])</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="format/4">
+
+    <span id="format/2"></span>
+
+    <span id="format/3"></span>
+
+  <div class="detail-header">
+    <a href="#format/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format(date, format, locale \\ Cldr.get_locale(), options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> format(
+  <a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(),
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#t:locale_reference/0">Cldr.Locale.locale_reference</a>(),
+  <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()
+) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Returns the formatted and localised date, time or datetime
+for a given <a href="https://hexdocs.pm/elixir/Date.html"><code class="inline">Date</code></a>, <a href="https://hexdocs.pm/elixir/Time.html"><code class="inline">Time</code></a>, <a href="https://hexdocs.pm/elixir/DateTime.html"><code class="inline">DateTime</code></a> or struct with the
+appropriate fields.</p><h2 id="format/4-arguments" class="section-heading">
+  <a href="#format/4-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><p><code class="inline">date</code> is a <a href="https://hexdocs.pm/elixir/Date.html"><code class="inline">Date</code></a>, <a href="https://hexdocs.pm/elixir/Time.html"><code class="inline">Time</code></a>, <a href="https://hexdocs.pm/elixir/DateTime.html"><code class="inline">DateTime</code></a> or other struct that
+contains the required date and time fields.</p></li><li><p><code class="inline">format</code> is a valid format string, for example <code class="inline">yy/MM/dd hh:MM</code></p></li><li><p><code class="inline">locale</code> is any valid locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#known_locale_names/0"><code class="inline">Cldr.known_locale_names/0</code></a>
+or a <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html#t:t/0"><code class="inline">Cldr.LanguageTag.t/0</code></a> struct. The default is <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a></p></li><li><p><code class="inline">options</code> is a keyword list of options.</p></li></ul><h2 id="format/4-options" class="section-heading">
+  <a href="#format/4-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:number_system</code>.  The resulting formatted and localised date/time
+string will be transliterated into this number system. Number system
+is anything returned from <a href="./Bonfire.Common.Localise.Cldr.Number.System.html#number_systems_for/1"><code class="inline">Bonfire.Common.Localise.Cldr.Number.System.number_systems_for/1</code></a></li></ul><p><em>NOTE</em> This function is called by <a href="https://hexdocs.pm/ex_cldr_dates_times/2.20.0/Cldr.Date.html#to_string/2"><code class="inline">Cldr.Date.to_string/2</code></a>, <a href="https://hexdocs.pm/ex_cldr_dates_times/2.20.0/Cldr.Time.html#to_string/2"><code class="inline">Cldr.Time.to_string/2</code></a>
+and <a href="https://hexdocs.pm/ex_cldr_dates_times/2.20.0/Cldr.DateTime.html#to_string/2"><code class="inline">Cldr.DateTime.to_string/2</code></a> which is the preferred API.</p><h2 id="format/4-examples" class="section-heading">
+  <a href="#format/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Formatter</span><span class="o">.</span><span class="n">format</span><span class="w"> </span><span class="ld">~U[2017-09-03 10:23:00.0Z]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;yy/MM/dd hh:MM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
+</span><span class="p" data-group-id="6286434786-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;17/09/03 10:09&quot;</span><span class="p" data-group-id="6286434786-1">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="gmt_tz_format/3">
+
+    <span id="gmt_tz_format/2"></span>
+
+  <div class="detail-header">
+    <a href="#gmt_tz_format/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">gmt_tz_format(locale, offset, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

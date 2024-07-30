@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Paginator — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-behaviour">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Paginator</span> <small>behaviour</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Defines a paginator.</p><p>This module adds a <code class="inline">paginate/3</code> function to your <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html"><code class="inline">Ecto.Repo</code></a> so that you can
+paginate through results using opaque cursors.</p><h2 id="module-usage" class="section-heading">
+  <a href="#module-usage" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Usage</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="1637895540-1">do</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w"> </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Paginator</span><span class="w">
+</span><span class="k" data-group-id="1637895540-1">end</span></code></pre><h2 id="module-options" class="section-heading">
+  <a href="#module-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<p><a href="./Paginator.html"><code class="inline">Paginator</code></a> can take any options accepted by <code class="inline">paginate/3</code>. This is useful when
+you want to enforce some options globally across your project.</p><h3 id="module-example" class="section-heading">
+  <a href="#module-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="4246251908-1">do</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w"> </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Paginator</span><span class="p">,</span><span class="w">
+    </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">                           </span><span class="c1"># sets the default limit to 10</span><span class="w">
+    </span><span class="ss">maximum_limit</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">                  </span><span class="c1"># sets the maximum limit to 100</span><span class="w">
+    </span><span class="ss">include_total_count</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">           </span><span class="c1"># include total count by default</span><span class="w">
+    </span><span class="ss">total_count_primary_key_field</span><span class="p">:</span><span class="w"> </span><span class="ss">:uuid</span><span class="w"> </span><span class="c1"># sets the total_count_primary_key_field to uuid for calculate total_count</span><span class="w">
+</span><span class="k" data-group-id="4246251908-1">end</span></code></pre><p>Note that these values can be still be overriden when <code class="inline">paginate/3</code> is called.</p><h3 id="module-use-without-macros" class="section-heading">
+  <a href="#module-use-without-macros" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Use without macros</span>
+</h3>
+<p>If you wish to avoid use of macros or you wish to use a different name for
+the pagination function you can define your own function like so:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="5374078653-1">do</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w"> </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="w">
+
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">my_paginate_function</span><span class="p" data-group-id="5374078653-2">(</span><span class="n">queryable</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="p" data-group-id="5374078653-3">[</span><span class="p" data-group-id="5374078653-3">]</span><span class="p">,</span><span class="w"> </span><span class="n">repo_opts</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="p" data-group-id="5374078653-4">[</span><span class="p" data-group-id="5374078653-4">]</span><span class="p" data-group-id="5374078653-2">)</span><span class="w"> </span><span class="k" data-group-id="5374078653-5">do</span><span class="w">
+    </span><span class="n">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5374078653-6">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="5374078653-6">]</span><span class="w"> </span><span class="c1"># Default options of your choice here</span><span class="w">
+    </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">merge</span><span class="p" data-group-id="5374078653-7">(</span><span class="n">defaults</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5374078653-7">)</span><span class="w">
+    </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="5374078653-8">(</span><span class="n">queryable</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span><span class="w"> </span><span class="bp">__MODULE__</span><span class="p">,</span><span class="w"> </span><span class="n">repo_opts</span><span class="p" data-group-id="5374078653-8">)</span><span class="w">
+  </span><span class="k" data-group-id="5374078653-5">end</span><span class="w">
+</span><span class="k" data-group-id="5374078653-1">end</span></code></pre>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-callbacks summary">
+  <h2>
+    <a href="#callbacks">Callbacks</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:paginate/3" data-no-tooltip translate="no">paginate(queryable, opts, repo_opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetches all the results matching the query within the cursors.</p></div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cursor_for_record/3" data-no-tooltip translate="no">cursor_for_record(record, cursor_fields, fetch_cursor_value_fun \\ &amp;Paginator.default_fetch_cursor_value/2)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a cursor for the supplied record, in the same manner as the
+<code class="inline">before</code> and <code class="inline">after</code> cursors generated by <code class="inline">paginate/3</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_fetch_cursor_value/2" data-no-tooltip translate="no">default_fetch_cursor_value(schema, field)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Default function used to get the value of a cursor field from the supplied
+map. This function can be overriden in the <code class="inline">Paginator.Config</code> using the
+<code class="inline">fetch_cursor_value_fun</code> key.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#paginated_query/2" data-no-tooltip translate="no">paginated_query(queryable, opts)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="callbacks" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#callbacks">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Callbacks</span>
+    </h1>
+    <div class="callbacks-list">
+<section class="detail" id="c:paginate/3">
+
+  <div class="detail-header">
+    <a href="#c:paginate/3" class="detail-link" data-no-tooltip title="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this callback</span>
+    </a>
+    <h1 class="signature" translate="no">paginate(queryable, opts, repo_opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L168" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> paginate(
+  queryable :: <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Query.html#t:t/0">Ecto.Query.t</a>(),
+  opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>(),
+  repo_opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()
+) ::
+  <a href="./Paginator.Page.html#t:t/0">Paginator.Page.t</a>()</pre>
+
+      </div>
+
+<p>Fetches all the results matching the query within the cursors.</p><h2 id="c:paginate/3-options" class="section-heading">
+  <a href="#c:paginate/3-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:after</code> - Fetch the records after this cursor.</li><li><code class="inline">:before</code> - Fetch the records before this cursor.</li><li><code class="inline">:cursor_fields</code> - The fields with sorting direction used to determine the
+cursor. In most cases, this should be the same fields as the ones used for sorting in the query.
+When you use named bindings in your query they can also be provided.</li><li><code class="inline">:fetch_cursor_value_fun</code> function of arity 2 to lookup cursor values on returned records.
+Defaults to <a href="#default_fetch_cursor_value/2"><code class="inline">Paginator.default_fetch_cursor_value/2</code></a></li><li><code class="inline">:include_total_count</code> - Set this to true to return the total number of
+records matching the query. Note that this number will be capped by
+<code class="inline">:total_count_limit</code>. Defaults to <code class="inline">false</code>.</li><li><code class="inline">:total_count_primary_key_field</code> - Running count queries on specified column of the table</li><li><code class="inline">:limit</code> - Limits the number of records returned per page. Note that this
+number will be capped by <code class="inline">:maximum_limit</code>. Defaults to <code class="inline">50</code>.</li><li><code class="inline">:maximum_limit</code> - Sets a maximum cap for <code class="inline">:limit</code>. This option can be useful when <code class="inline">:limit</code>
+is set dynamically (e.g from a URL param set by a user) but you still want to
+enforce a maximum. Defaults to <code class="inline">500</code>.</li><li><code class="inline">:total_count_limit</code> - Running count queries on tables with a large number
+of records is expensive so it is capped by default. Can be set to <code class="inline">:infinity</code>
+in order to count all the records. Defaults to <code class="inline">10,000</code>.</li></ul><h2 id="c:paginate/3-repo-options" class="section-heading">
+  <a href="#c:paginate/3-repo-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Repo options</span>
+</h2>
+<p>This will be passed directly to <code class="inline">Ecto.Repo.all/2</code>, as such any option supported
+by this function can be used here.</p><h2 id="c:paginate/3-simple-example" class="section-heading">
+  <a href="#c:paginate/3-simple-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Simple example</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="8069550719-1">(</span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w"> </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8069550719-2">[</span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="8069550719-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p" data-group-id="8069550719-1">)</span><span class="w">
+
+</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="8069550719-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8069550719-4">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="8069550719-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="8069550719-3">)</span></code></pre><h2 id="c:paginate/3-example-with-using-custom-sort-directions-per-field" class="section-heading">
+  <a href="#c:paginate/3-example-with-using-custom-sort-directions-per-field" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example with using custom sort directions per field</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="8289809493-1">(</span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w"> </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8289809493-2">[</span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">desc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="8289809493-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p" data-group-id="8289809493-1">)</span><span class="w">
+
+</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="8289809493-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8289809493-4">[</span><span class="ss">inserted_at</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="8289809493-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="8289809493-3">)</span></code></pre><h2 id="c:paginate/3-example-with-sorting-on-columns-in-joined-tables" class="section-heading">
+  <a href="#c:paginate/3-example-with-sorting-on-columns-in-joined-tables" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example with sorting on columns in joined tables</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="n">from</span><span class="p" data-group-id="0922234978-1">(</span><span class="w">
+  </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w">
+  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:posts</span><span class="p">,</span><span class="w">
+  </span><span class="ss">join</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="0922234978-2">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="ss">:author</span><span class="p" data-group-id="0922234978-2">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:author</span><span class="p">,</span><span class="w">
+  </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0922234978-3">[</span><span class="ss">author</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p" data-group-id="0922234978-3">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w">
+  </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0922234978-4">[</span><span class="w">
+    </span><span class="p" data-group-id="0922234978-5">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p" data-group-id="0922234978-5">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="0922234978-6">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="0922234978-6">}</span><span class="w">
+  </span><span class="p" data-group-id="0922234978-4">]</span><span class="w">
+</span><span class="p" data-group-id="0922234978-1">)</span><span class="w">
+
+</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0922234978-7">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0922234978-8">[</span><span class="p" data-group-id="0922234978-9">{</span><span class="p" data-group-id="0922234978-10">{</span><span class="ss">:author</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0922234978-10">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0922234978-9">}</span><span class="p">,</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0922234978-8">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0922234978-7">)</span></code></pre><p>When sorting on columns in joined tables it is necessary to use named bindings. In
+this case we name it <code class="inline">author</code>. In the <code class="inline">cursor_fields</code> we refer to this named binding
+and its column name.</p><p>To build the cursor Paginator uses the returned Ecto.Schema. When using a joined
+column the returned Ecto.Schema won't have the value of the joined column
+unless we preload it. E.g. in this case the cursor will be build up from
+<code class="inline">post.id</code> and <code class="inline">post.author.name</code>. This presupposes that the named of the
+binding is the same as the name of the relationship on the original struct.</p><p>One level deep joins are supported out of the box but if we join on a second
+level, e.g. <code class="inline">post.author.company.name</code> a custom function can be supplied to
+handle the cursor value retrieval. This also applies when the named binding
+does not map to the name of the relationship.</p><h2 id="c:paginate/3-example" class="section-heading">
+  <a href="#c:paginate/3-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="n">from</span><span class="p" data-group-id="2334591229-1">(</span><span class="w">
+  </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w">
+  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:posts</span><span class="p">,</span><span class="w">
+  </span><span class="ss">join</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="2334591229-2">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="ss">:author</span><span class="p" data-group-id="2334591229-2">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:author</span><span class="p">,</span><span class="w">
+  </span><span class="ss">join</span><span class="p">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="2334591229-3">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="ss">:company</span><span class="p" data-group-id="2334591229-3">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:company</span><span class="p">,</span><span class="w">
+  </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2334591229-4">[</span><span class="ss">author</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p" data-group-id="2334591229-4">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w">
+  </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2334591229-5">[</span><span class="w">
+    </span><span class="p" data-group-id="2334591229-6">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p" data-group-id="2334591229-6">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="2334591229-7">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="2334591229-7">}</span><span class="w">
+  </span><span class="p" data-group-id="2334591229-5">]</span><span class="w">
+</span><span class="p" data-group-id="2334591229-1">)</span><span class="w">
+
+</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="2334591229-8">(</span><span class="n">query</span><span class="p">,</span><span class="w">
+  </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2334591229-9">[</span><span class="p" data-group-id="2334591229-10">{</span><span class="p" data-group-id="2334591229-11">{</span><span class="ss">:company</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="2334591229-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="2334591229-10">}</span><span class="p">,</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="2334591229-9">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">fetch_cursor_value_fun</span><span class="p">:</span><span class="w"> </span><span class="k" data-group-id="2334591229-12">fn</span><span class="w">
+    </span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2334591229-13">{</span><span class="p" data-group-id="2334591229-14">{</span><span class="ss">:company</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p" data-group-id="2334591229-14">}</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="2334591229-13">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="n">post</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="w">
+
+    </span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">default_fetch_cursor_value</span><span class="p" data-group-id="2334591229-15">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="p" data-group-id="2334591229-15">)</span><span class="w">
+  </span><span class="k" data-group-id="2334591229-12">end</span><span class="p">,</span><span class="w">
+  </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w">
+</span><span class="p" data-group-id="2334591229-8">)</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="cursor_for_record/3">
+
+    <span id="cursor_for_record/2"></span>
+
+  <div class="detail-header">
+    <a href="#cursor_for_record/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cursor_for_record(record, cursor_fields, fetch_cursor_value_fun \\ &amp;Paginator.default_fetch_cursor_value/2)</h1>
+
+      <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L233" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> cursor_for_record(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()}], (<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(),
+                                                       <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()
+                                                       | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()} -&gt;
+                                                         <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>())) ::
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()</pre>
+
+      </div>
+
+<p>Generate a cursor for the supplied record, in the same manner as the
+<code class="inline">before</code> and <code class="inline">after</code> cursors generated by <code class="inline">paginate/3</code>.</p><p>For the cursor to be compatible with <code class="inline">paginate/3</code>, <code class="inline">cursor_fields</code>
+must have the same value as the <code class="inline">cursor_fields</code> option passed to it.</p><h3 id="cursor_for_record/3-example" class="section-heading">
+  <a href="#cursor_for_record/3-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">cursor_for_record</span><span class="p" data-group-id="9611088593-1">(</span><span class="p" data-group-id="9611088593-2">%</span><span class="nc" data-group-id="9611088593-2">Paginator.Customer</span><span class="p" data-group-id="9611088593-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9611088593-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9611088593-3">[</span><span class="ss">:id</span><span class="p" data-group-id="9611088593-3">]</span><span class="p" data-group-id="9611088593-1">)</span><span class="w">
+</span><span class="s">&quot;g3QAAAABZAACaWRhAQ==&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">cursor_for_record</span><span class="p" data-group-id="9611088593-4">(</span><span class="p" data-group-id="9611088593-5">%</span><span class="nc" data-group-id="9611088593-5">Paginator.Customer</span><span class="p" data-group-id="9611088593-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="9611088593-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9611088593-6">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="9611088593-6">]</span><span class="p" data-group-id="9611088593-4">)</span><span class="w">
+</span><span class="s">&quot;g3QAAAACZAACaWRhAWQABG5hbWVtAAAABUFsaWNl&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="default_fetch_cursor_value/2">
+
+  <div class="detail-header">
+    <a href="#default_fetch_cursor_value/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">default_fetch_cursor_value(schema, field)</h1>
+
+      <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L263" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> default_fetch_cursor_value(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()}) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()</pre>
+
+      </div>
+
+<p>Default function used to get the value of a cursor field from the supplied
+map. This function can be overriden in the <code class="inline">Paginator.Config</code> using the
+<code class="inline">fetch_cursor_value_fun</code> key.</p><p>When using named bindings to sort on joined columns it will attempt to get
+the value of joined column by using the named binding as the name of the
+relationship on the original Ecto.Schema.</p><h3 id="default_fetch_cursor_value/2-example" class="section-heading">
+  <a href="#default_fetch_cursor_value/2-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">default_fetch_cursor_value</span><span class="p" data-group-id="6410117303-1">(</span><span class="p" data-group-id="6410117303-2">%</span><span class="nc" data-group-id="6410117303-2">Paginator.Customer</span><span class="p" data-group-id="6410117303-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6410117303-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="6410117303-1">)</span><span class="w">
+</span><span class="mi">1</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">default_fetch_cursor_value</span><span class="p" data-group-id="6410117303-3">(</span><span class="p" data-group-id="6410117303-4">%</span><span class="nc" data-group-id="6410117303-4">Paginator.Customer</span><span class="p" data-group-id="6410117303-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">address</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6410117303-5">%</span><span class="nc" data-group-id="6410117303-5">Paginator.Address</span><span class="p" data-group-id="6410117303-5">{</span><span class="ss">city</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;London&quot;</span><span class="p" data-group-id="6410117303-5">}</span><span class="p" data-group-id="6410117303-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6410117303-6">{</span><span class="ss">:address</span><span class="p">,</span><span class="w"> </span><span class="ss">:city</span><span class="p" data-group-id="6410117303-6">}</span><span class="p" data-group-id="6410117303-3">)</span><span class="w">
+</span><span class="s">&quot;London&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="paginated_query/2">
+
+  <div class="detail-header">
+    <a href="#paginated_query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">paginated_query(queryable, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L199" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

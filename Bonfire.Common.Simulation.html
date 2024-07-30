@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Simulation — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Simulation</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Fake data generators</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_url_base/0" data-no-tooltip translate="no">ap_url_base()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a unique random url for an ap endpoint</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#base64/0" data-no-tooltip translate="no">base64()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates random base64 text</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bool/0" data-no-tooltip translate="no">bool()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random boolean</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#canonical_url/0" data-no-tooltip translate="no">canonical_url()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a random canonical url and makes it unique</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#content_type/0" data-no-tooltip translate="no">content_type()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a random content type</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#content_url/0" data-no-tooltip translate="no">content_url()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a remote url from a set of available ones.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#date_of_birth/0" data-no-tooltip translate="no">date_of_birth()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random date of birth based on an age range of 18-99</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#domain/0" data-no-tooltip translate="no">domain()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random domain name</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#email/0" data-no-tooltip translate="no">email()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random unique email</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#email_user/0" data-no-tooltip translate="no">email_user()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates the first half of an email address</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#falsehood/0" data-no-tooltip translate="no">falsehood()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns false</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#float/0" data-no-tooltip translate="no">float()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a random floating point number</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#future_date/0" data-no-tooltip translate="no">future_date()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a date up to 300 days in the future, not including today</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#future_datetime/0" data-no-tooltip translate="no">future_datetime()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a datetime up to 300 days in the future, not including today</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#future_datetime_iso/0" data-no-tooltip translate="no">future_datetime_iso()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Same as future_datetime, but as an ISO8601 formatted string.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#icon/0" data-no-tooltip translate="no">icon()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks an icon url</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#image/0" data-no-tooltip translate="no">image()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks an image url</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#integer/0" data-no-tooltip translate="no">integer()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a random signed integer</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#license/0" data-no-tooltip translate="no">license()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A random license for content</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#location/0" data-no-tooltip translate="no">location()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a city and country</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#long_count/0" data-no-tooltip translate="no">long_count()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#long_list/1" data-no-tooltip translate="no">long_list(gen)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown/0" data-no-tooltip translate="no">markdown()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_bool/0" data-no-tooltip translate="no">maybe_bool()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a random boolean that can also be nil</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_one_of/1" data-no-tooltip translate="no">maybe_one_of(list)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#med_count/0" data-no-tooltip translate="no">med_count()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#med_list/1" data-no-tooltip translate="no">med_list(gen)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#name/0" data-no-tooltip translate="no">name()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a name</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#neg_integer/0" data-no-tooltip translate="no">neg_integer()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a random negative integer</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#one_of/1" data-no-tooltip translate="no">one_of(gens)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#paragraph/0" data-no-tooltip translate="no">paragraph()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random paragraph</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#password/0" data-no-tooltip translate="no">password()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random password string</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#past_date/0" data-no-tooltip translate="no">past_date()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a date up to 300 days in the past, not including today</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#past_datetime/0" data-no-tooltip translate="no">past_datetime()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a datetime up to 300 days in the past, not including today</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#past_datetime_iso/0" data-no-tooltip translate="no">past_datetime_iso()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Same as past_datetime, but as an ISO8601 formatted string.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#path/0" data-no-tooltip translate="no">path()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a path from a set of available files.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#pos_integer/0" data-no-tooltip translate="no">pos_integer()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generate a random positive integer</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preferred_username/0" data-no-tooltip translate="no">preferred_username()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a unique preferred_username</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#short_count/0" data-no-tooltip translate="no">short_count()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#short_list/1" data-no-tooltip translate="no">short_list(gen)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#signing_key/0" data-no-tooltip translate="no">signing_key()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a fake signing key</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#some/2" data-no-tooltip translate="no">some(count_or_range \\ 1, fun)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Repeats a function count times if count_or_range is a positive integer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#summary/0" data-no-tooltip translate="no">summary()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Picks a summary text paragraph</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#title/0" data-no-tooltip translate="no">title()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truth/0" data-no-tooltip translate="no">truth()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns true</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ulid/0" data-no-tooltip translate="no">ulid()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random unique ulid</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#url/0" data-no-tooltip translate="no">url()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random url</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#username/0" data-no-tooltip translate="no">username()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random username</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#uuid/0" data-no-tooltip translate="no">uuid()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a random unique uuid</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#verb/0" data-no-tooltip translate="no">verb()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A verb to be used for an activity.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#website/0" data-no-tooltip translate="no">website()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A website address</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_url_base/0">
+
+  <div class="detail-header">
+    <a href="#ap_url_base/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_url_base()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L112" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a unique random url for an ap endpoint</p>
+  </section>
+</section>
+<section class="detail" id="base64/0">
+
+  <div class="detail-header">
+    <a href="#base64/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">base64()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L66" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates random base64 text</p>
+  </section>
+</section>
+<section class="detail" id="bool/0">
+
+  <div class="detail-header">
+    <a href="#bool/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">bool()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L26" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random boolean</p>
+  </section>
+</section>
+<section class="detail" id="canonical_url/0">
+
+  <div class="detail-header">
+    <a href="#canonical_url/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">canonical_url()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L122" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a random canonical url and makes it unique</p>
+  </section>
+</section>
+<section class="detail" id="content_type/0">
+
+  <div class="detail-header">
+    <a href="#content_type/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">content_type()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L44" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generate a random content type</p>
+  </section>
+</section>
+<section class="detail" id="content_url/0">
+
+  <div class="detail-header">
+    <a href="#content_url/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">content_url()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L42" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a remote url from a set of available ones.</p>
+  </section>
+</section>
+<section class="detail" id="date_of_birth/0">
+
+  <div class="detail-header">
+    <a href="#date_of_birth/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">date_of_birth()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L50" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random date of birth based on an age range of 18-99</p>
+  </section>
+</section>
+<section class="detail" id="domain/0">
+
+  <div class="detail-header">
+    <a href="#domain/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">domain()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L106" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random domain name</p>
+  </section>
+</section>
+<section class="detail" id="email/0">
+
+  <div class="detail-header">
+    <a href="#email/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">email()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L104" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random unique email</p>
+  </section>
+</section>
+<section class="detail" id="email_user/0">
+
+  <div class="detail-header">
+    <a href="#email_user/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">email_user()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L108" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates the first half of an email address</p>
+  </section>
+</section>
+<section class="detail" id="falsehood/0">
+
+  <div class="detail-header">
+    <a href="#falsehood/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">falsehood()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L24" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns false</p>
+  </section>
+</section>
+<section class="detail" id="float/0">
+
+  <div class="detail-header">
+    <a href="#float/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">float()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L36" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generate a random floating point number</p>
+  </section>
+</section>
+<section class="detail" id="future_date/0">
+
+  <div class="detail-header">
+    <a href="#future_date/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">future_date()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L58" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a date up to 300 days in the future, not including today</p>
+  </section>
+</section>
+<section class="detail" id="future_datetime/0">
+
+  <div class="detail-header">
+    <a href="#future_datetime/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">future_datetime()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L60" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a datetime up to 300 days in the future, not including today</p>
+  </section>
+</section>
+<section class="detail" id="future_datetime_iso/0">
+
+  <div class="detail-header">
+    <a href="#future_datetime_iso/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">future_datetime_iso()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L62" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Same as future_datetime, but as an ISO8601 formatted string.</p>
+  </section>
+</section>
+<section class="detail" id="icon/0">
+
+  <div class="detail-header">
+    <a href="#icon/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">icon()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L79" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks an icon url</p>
+  </section>
+</section>
+<section class="detail" id="image/0">
+
+  <div class="detail-header">
+    <a href="#image/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">image()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L81" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks an image url</p>
+  </section>
+</section>
+<section class="detail" id="integer/0">
+
+  <div class="detail-header">
+    <a href="#integer/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">integer()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L30" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generate a random signed integer</p>
+  </section>
+</section>
+<section class="detail" id="license/0">
+
+  <div class="detail-header">
+    <a href="#license/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">license()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L85" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A random license for content</p>
+  </section>
+</section>
+<section class="detail" id="location/0">
+
+  <div class="detail-header">
+    <a href="#location/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">location()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L89" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a city and country</p>
+  </section>
+</section>
+<section class="detail" id="long_count/0">
+
+  <div class="detail-header">
+    <a href="#long_count/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">long_count()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L128" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="long_list/1">
+
+  <div class="detail-header">
+    <a href="#long_list/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">long_list(gen)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L131" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="markdown/0">
+
+  <div class="detail-header">
+    <a href="#markdown/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L76" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_bool/0">
+
+  <div class="detail-header">
+    <a href="#maybe_bool/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_bool()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L28" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generate a random boolean that can also be nil</p>
+  </section>
+</section>
+<section class="detail" id="maybe_one_of/1">
+
+  <div class="detail-header">
+    <a href="#maybe_one_of/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_one_of(list)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L134" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="med_count/0">
+
+  <div class="detail-header">
+    <a href="#med_count/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">med_count()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L127" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="med_list/1">
+
+  <div class="detail-header">
+    <a href="#med_list/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">med_list(gen)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L130" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="name/0">
+
+  <div class="detail-header">
+    <a href="#name/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">name()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L46" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a name</p>
+  </section>
+</section>
+<section class="detail" id="neg_integer/0">
+
+  <div class="detail-header">
+    <a href="#neg_integer/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">neg_integer()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L34" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generate a random negative integer</p>
+  </section>
+</section>
+<section class="detail" id="one_of/1">
+
+  <div class="detail-header">
+    <a href="#one_of/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">one_of(gens)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L132" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="paragraph/0">
+
+  <div class="detail-header">
+    <a href="#paragraph/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">paragraph()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L64" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random paragraph</p>
+  </section>
+</section>
+<section class="detail" id="password/0">
+
+  <div class="detail-header">
+    <a href="#password/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">password()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L48" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random password string</p>
+  </section>
+</section>
+<section class="detail" id="past_date/0">
+
+  <div class="detail-header">
+    <a href="#past_date/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">past_date()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L52" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a date up to 300 days in the past, not including today</p>
+  </section>
+</section>
+<section class="detail" id="past_datetime/0">
+
+  <div class="detail-header">
+    <a href="#past_datetime/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">past_datetime()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L54" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a datetime up to 300 days in the past, not including today</p>
+  </section>
+</section>
+<section class="detail" id="past_datetime_iso/0">
+
+  <div class="detail-header">
+    <a href="#past_datetime_iso/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">past_datetime_iso()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L56" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Same as past_datetime, but as an ISO8601 formatted string.</p>
+  </section>
+</section>
+<section class="detail" id="path/0">
+
+  <div class="detail-header">
+    <a href="#path/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">path()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L40" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a path from a set of available files.</p>
+  </section>
+</section>
+<section class="detail" id="pos_integer/0">
+
+  <div class="detail-header">
+    <a href="#pos_integer/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pos_integer()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L32" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generate a random positive integer</p>
+  </section>
+</section>
+<section class="detail" id="preferred_username/0">
+
+  <div class="detail-header">
+    <a href="#preferred_username/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preferred_username()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L118" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a unique preferred_username</p>
+  </section>
+</section>
+<section class="detail" id="short_count/0">
+
+  <div class="detail-header">
+    <a href="#short_count/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">short_count()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L126" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="short_list/1">
+
+  <div class="detail-header">
+    <a href="#short_list/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">short_list(gen)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L129" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="signing_key/0">
+
+  <div class="detail-header">
+    <a href="#signing_key/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">signing_key()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L83" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a fake signing key</p>
+  </section>
+</section>
+<section class="detail" id="some/2">
+
+    <span id="some/1"></span>
+
+  <div class="detail-header">
+    <a href="#some/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">some(count_or_range \\ 1, fun)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L142" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Repeats a function count times if count_or_range is a positive integer.</p><p>If count_or_range is a positive range, a random number from this
+range is selected and that value used as a count</p>
+  </section>
+</section>
+<section class="detail" id="summary/0">
+
+  <div class="detail-header">
+    <a href="#summary/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">summary()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L74" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Picks a summary text paragraph</p>
+  </section>
+</section>
+<section class="detail" id="title/0">
+
+  <div class="detail-header">
+    <a href="#title/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">title()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L72" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="truth/0">
+
+  <div class="detail-header">
+    <a href="#truth/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truth()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L22" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns true</p>
+  </section>
+</section>
+<section class="detail" id="ulid/0">
+
+  <div class="detail-header">
+    <a href="#ulid/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ulid()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L102" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random unique ulid</p>
+  </section>
+</section>
+<section class="detail" id="url/0">
+
+  <div class="detail-header">
+    <a href="#url/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">url()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L38" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random url</p>
+  </section>
+</section>
+<section class="detail" id="username/0">
+
+  <div class="detail-header">
+    <a href="#username/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">username()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L115" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random username</p>
+  </section>
+</section>
+<section class="detail" id="uuid/0">
+
+  <div class="detail-header">
+    <a href="#uuid/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">uuid()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L100" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a random unique uuid</p>
+  </section>
+</section>
+<section class="detail" id="verb/0">
+
+  <div class="detail-header">
+    <a href="#verb/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">verb()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L93" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A verb to be used for an activity.</p>
+  </section>
+</section>
+<section class="detail" id="website/0">
+
+  <div class="detail-header">
+    <a href="#website/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">website()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/simulation.ex#L91" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A website address</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

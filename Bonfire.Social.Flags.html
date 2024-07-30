@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.Flags — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.Flags</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Flagging functionality</p><p>This module handles flagging (reporting an activity or object to moderators and/or admins). It includes creating, querying, and managing flags, as well as handling federation through ActivityPub.</p><p>Flags are implemented on top of the <a href="./Bonfire.Data.Edges.Edge.html"><code class="inline">Bonfire.Data.Edges.Edge</code></a> schema (see <a href="./Bonfire.Social.Edges.html"><code class="inline">Bonfire.Social.Edges</code></a> for shared functions)</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_publish_activity/3" data-no-tooltip translate="no">ap_publish_activity(subject, verb, flag)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Publishes a flag activity to ActivityPub.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip translate="no">ap_receive_activity(creator, activity, objects)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Receives a flag activity from ActivityPub for multiple objects.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_flagged/1" data-no-tooltip translate="no">by_flagged(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves flags of a specific flagged object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_flagger/1" data-no-tooltip translate="no">by_flagger(subject)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves flags created by a specific user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#flag/3" data-no-tooltip translate="no">flag(flagger, flagged, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Records a flag.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#flagged?/2" data-no-tooltip translate="no">flagged?(user, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a user has flagged an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip translate="no">get(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a flag by subject and object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/3" data-no-tooltip translate="no">get!(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>  Retrieves a flag by subject and object, raising an error if not found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#instance_moderators/0" data-no-tooltip translate="no">instance_moderators()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves instance moderators.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list/1" data-no-tooltip translate="no">list(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists flags based on given options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_by/2" data-no-tooltip translate="no">list_by(by_user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists flags created by a specific user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my/1" data-no-tooltip translate="no">list_my(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists flags created by the current user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_of/2" data-no-tooltip translate="no">list_of(object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists flags for a specific object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_paginated/2" data-no-tooltip translate="no">list_paginated(filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_preloaded/1" data-no-tooltip translate="no">list_preloaded(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists flags with preloaded associations.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#moderators/1" data-no-tooltip translate="no">moderators(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves moderators for a given object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip translate="no">query(filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unflag/2" data-no-tooltip translate="no">unflag(flagger, flagged)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Removes a flag created by a specific user on an object, if one exists.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_publish_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_publish_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_publish_activity(subject, verb, flag)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L493" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Publishes a flag activity to ActivityPub.</p><h2 id="ap_publish_activity/3-parameters" class="section-heading">
+  <a href="#ap_publish_activity/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">subject</code>: The subject (flagger) of the flag.</li><li><code class="inline">_verb</code>: The verb associated with the flag (unused).</li><li><code class="inline">flag</code>: The flag to publish.</li></ul><h2 id="ap_publish_activity/3-returns" class="section-heading">
+  <a href="#ap_publish_activity/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>The result of the ActivityPub publish operation.</p><h2 id="ap_publish_activity/3-examples" class="section-heading">
+  <a href="#ap_publish_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5595789303-1">%</span><span class="nc" data-group-id="5595789303-1">Bonfire.Data.Identity.User</span><span class="p" data-group-id="5595789303-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="5595789303-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5595789303-2">%</span><span class="nc" data-group-id="5595789303-2">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="5595789303-2">{</span><span class="p" data-group-id="5595789303-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="5595789303-3">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="n">flag</span><span class="p" data-group-id="5595789303-3">)</span><span class="w">
+</span><span class="p" data-group-id="5595789303-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5595789303-5">%</span><span class="nc" data-group-id="5595789303-5">ActivityPub.Object</span><span class="p" data-group-id="5595789303-5">{</span><span class="p" data-group-id="5595789303-5">}</span><span class="p" data-group-id="5595789303-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_receive_activity(creator, activity, objects)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L569" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Receives a flag activity from ActivityPub for multiple objects.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading">
+  <a href="#ap_receive_activity/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">creator</code>: The creator of the flag.</li><li><code class="inline">activity</code>: The ActivityPub activity.</li><li><code class="inline">object</code>: An object or list of objects to be flagged.</li></ul><h2 id="ap_receive_activity/3-returns" class="section-heading">
+  <a href="#ap_receive_activity/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A tuple containing the result of the flag operation.</p><h2 id="ap_receive_activity/3-examples" class="section-heading">
+  <a href="#ap_receive_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9489990710-1">%</span><span class="nc" data-group-id="9489990710-1">Bonfire.Data.Identity.User</span><span class="p" data-group-id="9489990710-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="9489990710-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9489990710-2">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9489990710-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Flag&quot;</span><span class="p" data-group-id="9489990710-3">}</span><span class="p" data-group-id="9489990710-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">objects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9489990710-4">[</span><span class="p" data-group-id="9489990710-5">%{</span><span class="ss">pointer_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="9489990710-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9489990710-6">%{</span><span class="ss">pointer_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post789&quot;</span><span class="p" data-group-id="9489990710-6">}</span><span class="p" data-group-id="9489990710-4">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="9489990710-7">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">objects</span><span class="p" data-group-id="9489990710-7">)</span><span class="w">
+</span><span class="p" data-group-id="9489990710-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9489990710-9">[</span><span class="p" data-group-id="9489990710-10">%</span><span class="nc" data-group-id="9489990710-10">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="9489990710-10">{</span><span class="p" data-group-id="9489990710-10">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9489990710-11">%</span><span class="nc" data-group-id="9489990710-11">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="9489990710-11">{</span><span class="p" data-group-id="9489990710-11">}</span><span class="p" data-group-id="9489990710-9">]</span><span class="p" data-group-id="9489990710-8">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_flagged/1">
+
+  <div class="detail-header">
+    <a href="#by_flagged/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_flagged(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L127" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves flags of a specific flagged object.</p><h2 id="by_flagged/1-parameters" class="section-heading">
+  <a href="#by_flagged/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object</code>: The object to query flags for.</li></ul><h2 id="by_flagged/1-returns" class="section-heading">
+  <a href="#by_flagged/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A list of flags for the given object.</p><h2 id="by_flagged/1-examples" class="section-heading">
+  <a href="#by_flagged/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8120504207-1">%</span><span class="nc" data-group-id="8120504207-1">Bonfire.Data.Social.Post</span><span class="p" data-group-id="8120504207-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="8120504207-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">by_flagged</span><span class="p" data-group-id="8120504207-2">(</span><span class="n">object</span><span class="p" data-group-id="8120504207-2">)</span><span class="w">
+</span><span class="p" data-group-id="8120504207-3">[</span><span class="p" data-group-id="8120504207-4">%</span><span class="nc" data-group-id="8120504207-4">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="8120504207-4">{</span><span class="p" data-group-id="8120504207-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8120504207-3">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_flagger/1">
+
+  <div class="detail-header">
+    <a href="#by_flagger/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_flagger(subject)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L107" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves flags created by a specific user.</p><h2 id="by_flagger/1-parameters" class="section-heading">
+  <a href="#by_flagger/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">subject</code>: The flagger to query flags for.</li></ul><h2 id="by_flagger/1-returns" class="section-heading">
+  <a href="#by_flagger/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A list of flags created by the subject.</p><h2 id="by_flagger/1-examples" class="section-heading">
+  <a href="#by_flagger/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">flagger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4789391276-1">%</span><span class="nc" data-group-id="4789391276-1">Bonfire.Data.Identity.User</span><span class="p" data-group-id="4789391276-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="4789391276-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">by_flagger</span><span class="p" data-group-id="4789391276-2">(</span><span class="n">flagger</span><span class="p" data-group-id="4789391276-2">)</span><span class="w">
+</span><span class="p" data-group-id="4789391276-3">[</span><span class="p" data-group-id="4789391276-4">%</span><span class="nc" data-group-id="4789391276-4">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="4789391276-4">{</span><span class="p" data-group-id="4789391276-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4789391276-3">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federation_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L38" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="flag/3">
+
+    <span id="flag/2"></span>
+
+  <div class="detail-header">
+    <a href="#flag/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">flag(flagger, flagged, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L152" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Records a flag.</p><h2 id="flag/3-parameters" class="section-heading">
+  <a href="#flag/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">flagger</code>: The user creating the flag.</li><li><code class="inline">flagged</code>: The object being flagged.</li><li><code class="inline">opts</code>: Additional options (optional).</li></ul><h2 id="flag/3-returns" class="section-heading">
+  <a href="#flag/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A tuple containing the created flag or an error.</p><h2 id="flag/3-examples" class="section-heading">
+  <a href="#flag/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">flagger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7513346154-1">%</span><span class="nc" data-group-id="7513346154-1">Bonfire.Data.Identity.User</span><span class="p" data-group-id="7513346154-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="7513346154-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">flagged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7513346154-2">%</span><span class="nc" data-group-id="7513346154-2">Bonfire.Data.Social.Post</span><span class="p" data-group-id="7513346154-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="7513346154-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">flag</span><span class="p" data-group-id="7513346154-3">(</span><span class="n">flagger</span><span class="p">,</span><span class="w"> </span><span class="n">flagged</span><span class="p" data-group-id="7513346154-3">)</span><span class="w">
+</span><span class="p" data-group-id="7513346154-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7513346154-5">%</span><span class="nc" data-group-id="7513346154-5">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="7513346154-5">{</span><span class="p" data-group-id="7513346154-5">}</span><span class="p" data-group-id="7513346154-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="flagged?/2">
+
+  <div class="detail-header">
+    <a href="#flagged?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">flagged?(user, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L60" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a user has flagged an object.</p><h2 id="flagged?/2-parameters" class="section-heading">
+  <a href="#flagged?/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">user</code>: The user to check.</li><li><code class="inline">object</code>: The object to check.</li></ul><h2 id="flagged?/2-returns" class="section-heading">
+  <a href="#flagged?/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>Boolean indicating whether the user has flagged the object.</p><h2 id="flagged?/2-examples" class="section-heading">
+  <a href="#flagged?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0493913969-1">%</span><span class="nc" data-group-id="0493913969-1">Bonfire.Data.Identity.User</span><span class="p" data-group-id="0493913969-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="0493913969-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0493913969-2">%</span><span class="nc" data-group-id="0493913969-2">Bonfire.Data.Social.Post</span><span class="p" data-group-id="0493913969-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="0493913969-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">flagged?</span><span class="p" data-group-id="0493913969-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="0493913969-3">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L81" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a flag by subject and object.</p><h2 id="get/3-parameters" class="section-heading">
+  <a href="#get/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">subject</code>: The subject (flagger) of the flag.</li><li><code class="inline">object</code>: The object being flagged.</li><li><code class="inline">opts</code>: Additional options (optional).</li></ul><h2 id="get/3-returns" class="section-heading">
+  <a href="#get/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>The flag if found, otherwise an error tuple.</p><h2 id="get/3-examples" class="section-heading">
+  <a href="#get/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="9843461602-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="9843461602-1">)</span><span class="w">
+</span><span class="p" data-group-id="9843461602-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9843461602-3">%</span><span class="nc" data-group-id="9843461602-3">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="9843461602-3">{</span><span class="p" data-group-id="9843461602-3">}</span><span class="p" data-group-id="9843461602-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get!/3">
+
+    <span id="get!/2"></span>
+
+  <div class="detail-header">
+    <a href="#get!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L87" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>  Retrieves a flag by subject and object, raising an error if not found.</p>
+  </section>
+</section>
+<section class="detail" id="instance_moderators/0">
+
+  <div class="detail-header">
+    <a href="#instance_moderators/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">instance_moderators()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L226" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves instance moderators.</p><h2 id="instance_moderators/0-returns" class="section-heading">
+  <a href="#instance_moderators/0-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A list of instance moderators.</p><h2 id="instance_moderators/0-examples" class="section-heading">
+  <a href="#instance_moderators/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">instance_moderators</span><span class="p" data-group-id="1497634500-1">(</span><span class="p" data-group-id="1497634500-1">)</span><span class="w">
+</span><span class="p" data-group-id="1497634500-2">[</span><span class="p" data-group-id="1497634500-3">%</span><span class="nc" data-group-id="1497634500-3">Bonfire.Data.Identity.User</span><span class="p" data-group-id="1497634500-3">{</span><span class="p" data-group-id="1497634500-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1497634500-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list/1">
+
+  <div class="detail-header">
+    <a href="#list/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L304" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists flags based on given options.</p><h2 id="list/1-parameters" class="section-heading">
+  <a href="#list/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">opts</code>: Options for filtering and pagination.</li></ul><h2 id="list/1-returns" class="section-heading">
+  <a href="#list/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A paginated list of flags.</p><h2 id="list/1-examples" class="section-heading">
+  <a href="#list/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">list</span><span class="p" data-group-id="0475718091-1">(</span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="0475718091-1">)</span><span class="w">
+</span><span class="p" data-group-id="0475718091-2">%{</span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0475718091-3">%{</span><span class="p" data-group-id="0475718091-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0475718091-4">[</span><span class="p" data-group-id="0475718091-5">%</span><span class="nc" data-group-id="0475718091-5">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="0475718091-5">{</span><span class="p" data-group-id="0475718091-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0475718091-4">]</span><span class="p" data-group-id="0475718091-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_by/2">
+
+    <span id="list_by/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_by/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_by(by_user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L412" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists flags created by a specific user.</p><h2 id="list_by/2-parameters" class="section-heading">
+  <a href="#list_by/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">by_user</code>: The user or user ID to filter flags by.</li><li><code class="inline">opts</code>: Options for filtering and pagination (optional).</li></ul><h2 id="list_by/2-returns" class="section-heading">
+  <a href="#list_by/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A paginated list of flags created by the specified user.</p><h2 id="list_by/2-examples" class="section-heading">
+  <a href="#list_by/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="9103448595-1">(</span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="9103448595-1">)</span><span class="w">
+</span><span class="p" data-group-id="9103448595-2">%{</span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9103448595-3">%{</span><span class="p" data-group-id="9103448595-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9103448595-4">[</span><span class="p" data-group-id="9103448595-5">%</span><span class="nc" data-group-id="9103448595-5">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="9103448595-5">{</span><span class="p" data-group-id="9103448595-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9103448595-4">]</span><span class="p" data-group-id="9103448595-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_my/1">
+
+  <div class="detail-header">
+    <a href="#list_my/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L393" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists flags created by the current user.</p><h2 id="list_my/1-parameters" class="section-heading">
+  <a href="#list_my/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">opts</code>: Options for filtering and pagination.</li></ul><h2 id="list_my/1-returns" class="section-heading">
+  <a href="#list_my/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A paginated list of flags created by the current user.</p><h2 id="list_my/1-examples" class="section-heading">
+  <a href="#list_my/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">list_my</span><span class="p" data-group-id="8246489527-1">(</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8246489527-2">%</span><span class="nc" data-group-id="8246489527-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8246489527-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="8246489527-2">}</span><span class="p" data-group-id="8246489527-1">)</span><span class="w">
+</span><span class="p" data-group-id="8246489527-3">%{</span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8246489527-4">%{</span><span class="p" data-group-id="8246489527-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8246489527-5">[</span><span class="p" data-group-id="8246489527-6">%</span><span class="nc" data-group-id="8246489527-6">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="8246489527-6">{</span><span class="p" data-group-id="8246489527-6">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8246489527-5">]</span><span class="p" data-group-id="8246489527-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_of/2">
+
+    <span id="list_of/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_of/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_of(object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L437" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists flags for a specific object.</p><h2 id="list_of/2-parameters" class="section-heading">
+  <a href="#list_of/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object</code>: The object or object ID to filter flags by.</li><li><code class="inline">opts</code>: Options for filtering and pagination (optional).</li></ul><h2 id="list_of/2-returns" class="section-heading">
+  <a href="#list_of/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A paginated list of flags for the specified object.</p><h2 id="list_of/2-examples" class="section-heading">
+  <a href="#list_of/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">list_of</span><span class="p" data-group-id="3265644835-1">(</span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="3265644835-1">)</span><span class="w">
+</span><span class="p" data-group-id="3265644835-2">%{</span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3265644835-3">%{</span><span class="p" data-group-id="3265644835-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3265644835-4">[</span><span class="p" data-group-id="3265644835-5">%</span><span class="nc" data-group-id="3265644835-5">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="3265644835-5">{</span><span class="p" data-group-id="3265644835-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="3265644835-4">]</span><span class="p" data-group-id="3265644835-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_paginated/2">
+
+  <div class="detail-header">
+    <a href="#list_paginated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_paginated(filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L366" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_preloaded/1">
+
+  <div class="detail-header">
+    <a href="#list_preloaded/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_preloaded(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L357" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists flags with preloaded associations.</p><h2 id="list_preloaded/1-parameters" class="section-heading">
+  <a href="#list_preloaded/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">opts</code>: Options for filtering and pagination.</li></ul><h2 id="list_preloaded/1-returns" class="section-heading">
+  <a href="#list_preloaded/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>A paginated list of flags with preloaded associations.</p><h2 id="list_preloaded/1-examples" class="section-heading">
+  <a href="#list_preloaded/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">list_preloaded</span><span class="p" data-group-id="9997235947-1">(</span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="9997235947-1">)</span><span class="w">
+</span><span class="p" data-group-id="9997235947-2">%{</span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9997235947-3">%{</span><span class="p" data-group-id="9997235947-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9997235947-4">[</span><span class="p" data-group-id="9997235947-5">%</span><span class="nc" data-group-id="9997235947-5">Bonfire.Data.Social.Flag</span><span class="p" data-group-id="9997235947-5">{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9997235947-6">%{</span><span class="ss">created</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9997235947-7">%{</span><span class="ss">creator</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9997235947-8">%{</span><span class="p" data-group-id="9997235947-8">}</span><span class="p" data-group-id="9997235947-7">}</span><span class="p" data-group-id="9997235947-6">}</span><span class="p" data-group-id="9997235947-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9997235947-4">]</span><span class="p" data-group-id="9997235947-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="moderators/1">
+
+  <div class="detail-header">
+    <a href="#moderators/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">moderators(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L188" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves moderators for a given object.</p><h2 id="moderators/1-parameters" class="section-heading">
+  <a href="#moderators/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object</code>: The object to find moderators for.</li></ul><h2 id="moderators/1-examples" class="section-heading">
+  <a href="#moderators/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0794219161-1">%</span><span class="nc" data-group-id="0794219161-1">Bonfire.Data.Social.Post</span><span class="p" data-group-id="0794219161-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="0794219161-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">moderators</span><span class="p" data-group-id="0794219161-2">(</span><span class="n">object</span><span class="p" data-group-id="0794219161-2">)</span><span class="w">
+</span><span class="p" data-group-id="0794219161-3">[</span><span class="p" data-group-id="0794219161-4">%</span><span class="nc" data-group-id="0794219161-4">Bonfire.Data.Identity.User</span><span class="p" data-group-id="0794219161-4">{</span><span class="p" data-group-id="0794219161-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0794219161-3">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L462" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L35" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L34" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="unflag/2">
+
+  <div class="detail-header">
+    <a href="#unflag/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unflag(flagger, flagged)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/flags.ex#L274" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Removes a flag created by a specific user on an object, if one exists.</p><h2 id="unflag/2-parameters" class="section-heading">
+  <a href="#unflag/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">flagger</code>: The user who created the flag.</li><li><code class="inline">flagged</code>: The flagged object or ID.</li></ul><h2 id="unflag/2-returns" class="section-heading">
+  <a href="#unflag/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<p>The result of the unflag operation.</p><h2 id="unflag/2-examples" class="section-heading">
+  <a href="#unflag/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">flagger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8840200769-1">%</span><span class="nc" data-group-id="8840200769-1">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8840200769-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="8840200769-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">flagged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8840200769-2">%</span><span class="nc" data-group-id="8840200769-2">Bonfire.Data.Social.Post</span><span class="p" data-group-id="8840200769-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="8840200769-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Flags</span><span class="o">.</span><span class="n">unflag</span><span class="p" data-group-id="8840200769-3">(</span><span class="n">flagger</span><span class="p">,</span><span class="w"> </span><span class="n">flagged</span><span class="p" data-group-id="8840200769-3">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

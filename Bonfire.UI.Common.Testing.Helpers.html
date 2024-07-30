@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.UI.Common.Testing.Helpers — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.UI.Common.Testing.Helpers</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#assert_field_error/3" data-no-tooltip translate="no">assert_field_error(doc, name, error)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#assert_field_good/2" data-no-tooltip translate="no">assert_field_good(doc, name)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#assert_flash/3" data-no-tooltip translate="no">assert_flash(view, kind, message)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#assert_flash_kind/2" data-no-tooltip translate="no">assert_flash_kind(flash, atom)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#assert_flash_message/2" data-no-tooltip translate="no">assert_flash_message(flash, r)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#conn/0" data-no-tooltip translate="no">conn()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#conn/1" data-no-tooltip translate="no">conn(conn)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#conn/2" data-no-tooltip translate="no">conn(conn, filters)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fake_account!/2" data-no-tooltip translate="no">fake_account!(attrs \\ %{}, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fake_admin!/3" data-no-tooltip translate="no">fake_admin!(account \\ %{}, attrs \\ %{}, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fake_user!/3" data-no-tooltip translate="no">fake_user!(account \\ %{}, attrs \\ %{}, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fake_user_and_conn!/1" data-no-tooltip translate="no">fake_user_and_conn!(account \\ fake_account!())</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fancy_fake_user!/2" data-no-tooltip translate="no">fancy_fake_user!(name, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fancy_fake_user_on_test_instance/1" data-no-tooltip translate="no">fancy_fake_user_on_test_instance(opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#find_flash/1" data-no-tooltip translate="no">find_flash(view_or_doc)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#find_form_error/2" data-no-tooltip translate="no">find_form_error(doc, name)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#floki_attr/2" data-no-tooltip translate="no">floki_attr(elem, attr)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#floki_click/3" data-no-tooltip translate="no">floki_click(conn_or_view \\ conn(), path_or_value \\ %{}, value \\ %{})</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#floki_live/2" data-no-tooltip translate="no">floki_live(conn \\ conn(), path \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#floki_redirect/2" data-no-tooltip translate="no">floki_redirect(conn \\ conn(), path \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#floki_response/2" data-no-tooltip translate="no">floki_response(conn, code \\ 200)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#floki_submit/4" data-no-tooltip translate="no">floki_submit(conn_or_view \\ conn(), path_or_event, event_or_value \\ %{}, value \\ %{})</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#live_pubsub_wait/1" data-no-tooltip translate="no">live_pubsub_wait(live_view)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Wait for the LiveView to receive any queued PubSub broadcasts</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#live_sockets_disconnect/1" data-no-tooltip translate="no">live_sockets_disconnect(context)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Disconnect all LiveViews associated with current user or account</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#live_view_stop/1" data-no-tooltip translate="no">live_view_stop(view)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Stop a specific LiveView</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#render_stateful/3" data-no-tooltip translate="no">render_stateful(component, assigns \\ %{}, context \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Render stateful Surface or LiveView components</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#render_stateless/3" data-no-tooltip translate="no">render_stateless(component, assigns \\ [], context \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Render stateless Surface or LiveView components</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#session_conn/1" data-no-tooltip translate="no">session_conn(conn \\ build_conn())</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="assert_field_error/3">
+
+  <div class="detail-header">
+    <a href="#assert_field_error/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">assert_field_error(doc, name, error)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L198" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="assert_field_good/2">
+
+  <div class="detail-header">
+    <a href="#assert_field_good/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">assert_field_good(doc, name)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L192" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="assert_flash/3">
+
+  <div class="detail-header">
+    <a href="#assert_flash/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">assert_flash(view, kind, message)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L163" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="assert_flash_kind/2">
+
+  <div class="detail-header">
+    <a href="#assert_flash_kind/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">assert_flash_kind(flash, atom)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L173" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="assert_flash_message/2">
+
+  <div class="detail-header">
+    <a href="#assert_flash_message/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">assert_flash_message(flash, r)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L183" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="conn/0">
+
+  <div class="detail-header">
+    <a href="#conn/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">conn()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L134" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="conn/1">
+
+  <div class="detail-header">
+    <a href="#conn/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">conn(conn)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L135" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="conn/2">
+
+  <div class="detail-header">
+    <a href="#conn/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">conn(conn, filters)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L138" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fake_account!/2">
+
+    <span id="fake_account!/0"></span>
+
+    <span id="fake_account!/1"></span>
+
+  <div class="detail-header">
+    <a href="#fake_account!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fake_account!(attrs \\ %{}, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L21" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fake_admin!/3">
+
+    <span id="fake_admin!/0"></span>
+
+    <span id="fake_admin!/1"></span>
+
+    <span id="fake_admin!/2"></span>
+
+  <div class="detail-header">
+    <a href="#fake_admin!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fake_admin!(account \\ %{}, attrs \\ %{}, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L61" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fake_user!/3">
+
+    <span id="fake_user!/0"></span>
+
+    <span id="fake_user!/1"></span>
+
+    <span id="fake_user!/2"></span>
+
+  <div class="detail-header">
+    <a href="#fake_user!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fake_user!(account \\ %{}, attrs \\ %{}, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L24" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fake_user_and_conn!/1">
+
+    <span id="fake_user_and_conn!/0"></span>
+
+  <div class="detail-header">
+    <a href="#fake_user_and_conn!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fake_user_and_conn!(account \\ fake_account!())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L67" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fancy_fake_user!/2">
+
+    <span id="fancy_fake_user!/1"></span>
+
+  <div class="detail-header">
+    <a href="#fancy_fake_user!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fancy_fake_user!(name, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L27" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fancy_fake_user_on_test_instance/1">
+
+    <span id="fancy_fake_user_on_test_instance/0"></span>
+
+  <div class="detail-header">
+    <a href="#fancy_fake_user_on_test_instance/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fancy_fake_user_on_test_instance(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L57" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="find_flash/1">
+
+  <div class="detail-header">
+    <a href="#find_flash/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find_flash(view_or_doc)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L153" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="find_form_error/2">
+
+  <div class="detail-header">
+    <a href="#find_form_error/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find_form_error(doc, name)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L189" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="floki_attr/2">
+
+  <div class="detail-header">
+    <a href="#floki_attr/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">floki_attr(elem, attr)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L207" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="floki_click/3">
+
+    <span id="floki_click/0"></span>
+
+    <span id="floki_click/1"></span>
+
+    <span id="floki_click/2"></span>
+
+  <div class="detail-header">
+    <a href="#floki_click/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">floki_click(conn_or_view \\ conn(), path_or_value \\ %{}, value \\ %{})</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L237" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="floki_live/2">
+
+    <span id="floki_live/0"></span>
+
+    <span id="floki_live/1"></span>
+
+  <div class="detail-header">
+    <a href="#floki_live/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">floki_live(conn \\ conn(), path \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L226" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="floki_redirect/2">
+
+    <span id="floki_redirect/0"></span>
+
+    <span id="floki_redirect/1"></span>
+
+  <div class="detail-header">
+    <a href="#floki_redirect/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">floki_redirect(conn \\ conn(), path \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L232" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="floki_response/2">
+
+    <span id="floki_response/1"></span>
+
+  <div class="detail-header">
+    <a href="#floki_response/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">floki_response(conn, code \\ 200)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L217" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="floki_submit/4">
+
+    <span id="floki_submit/1"></span>
+
+    <span id="floki_submit/2"></span>
+
+    <span id="floki_submit/3"></span>
+
+  <div class="detail-header">
+    <a href="#floki_submit/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">floki_submit(conn_or_view \\ conn(), path_or_event, event_or_value \\ %{}, value \\ %{})</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L249" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="live_pubsub_wait/1">
+
+  <div class="detail-header">
+    <a href="#live_pubsub_wait/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">live_pubsub_wait(live_view)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L106" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Wait for the LiveView to receive any queued PubSub broadcasts</p>
+  </section>
+</section>
+<section class="detail" id="live_sockets_disconnect/1">
+
+  <div class="detail-header">
+    <a href="#live_sockets_disconnect/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">live_sockets_disconnect(context)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L122" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Disconnect all LiveViews associated with current user or account</p>
+  </section>
+</section>
+<section class="detail" id="live_view_stop/1">
+
+  <div class="detail-header">
+    <a href="#live_view_stop/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">live_view_stop(view)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L114" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Stop a specific LiveView</p>
+  </section>
+</section>
+<section class="detail" id="render_stateful/3">
+
+    <span id="render_stateful/1"></span>
+
+    <span id="render_stateful/2"></span>
+
+  <div class="detail-header">
+    <a href="#render_stateful/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">render_stateful(component, assigns \\ %{}, context \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L89" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Render stateful Surface or LiveView components</p>
+  </section>
+</section>
+<section class="detail" id="render_stateless/3">
+
+    <span id="render_stateless/1"></span>
+
+    <span id="render_stateless/2"></span>
+
+  <div class="detail-header">
+    <a href="#render_stateless/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">render_stateless(component, assigns \\ [], context \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L76" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Render stateless Surface or LiveView components</p>
+  </section>
+</section>
+<section class="detail" id="session_conn/1">
+
+    <span id="session_conn/0"></span>
+
+  <div class="detail-header">
+    <a href="#session_conn/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">session_conn(conn \\ build_conn())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/testing/helpers.ex#L131" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

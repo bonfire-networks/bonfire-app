@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.FeedActivities — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.FeedActivities</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Helpers to create or query a feed's activities.</p><p>This is the <a href="https://hexdocs.pm/phoenix/contexts.html">context</a> for <a href="./Bonfire.Data.Social.FeedPublish.html"><code class="inline">Bonfire.Data.Social.FeedPublish</code></a>, which has two foreign fields:</p><ul><li>id (of the activity, see <a href="./Bonfire.Social.Activities.html"><code class="inline">Bonfire.Social.Activities</code></a>)</li><li>feed (see <a href="./Bonfire.Social.Feeds.html"><code class="inline">Bonfire.Social.Feeds</code></a>)</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/2" data-no-tooltip translate="no">cast(changeset, feed_ids)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts the changeset to publish an activity to the given feed IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/3" data-no-tooltip translate="no">cast(changeset, creator, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts the changeset to publish an activity to the given creator and feed IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/2" data-no-tooltip translate="no">count(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the count of items in a feed based on given filters and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count_subjects/2" data-no-tooltip translate="no">count_subjects(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the count of distinct subjects in a feed based on given filters and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count_total/0" data-no-tooltip translate="no">count_total()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the total count of activities in feeds.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/1" data-no-tooltip translate="no">delete(filters)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Remove activities from feeds, using specific filters</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(objects, by_field)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Remove one or more activities from all feeds</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#exclude_object_types/1" data-no-tooltip translate="no">exclude_object_types(extras \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed/2" data-no-tooltip translate="no">feed(feed, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a feed by id or ids or a thing/things containing an id/ids.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_contains?/3" data-no-tooltip translate="no">feed_contains?(feed_name, object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_contains_single?/3" data-no-tooltip translate="no">feed_contains_single?(feed_name, filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_ids_and_opts/2" data-no-tooltip translate="no">feed_ids_and_opts(feed_name, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets feed ids and options for the given feed or list of feeds.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_many_paginated/2" data-no-tooltip translate="no">feed_many_paginated(query, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns paginated results for the given query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_name/2" data-no-tooltip translate="no">feed_name(name, current_user_or_socket)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_paginated/2" data-no-tooltip translate="no">feed_paginated(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a page of feed activities (reverse chronological) + pagination metadata </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_with_object/3" data-no-tooltip translate="no">feed_with_object(feed_name, object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feeds_for_activity/1" data-no-tooltip translate="no">feeds_for_activity(id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a list of feed ids this activity was published to from the database.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#filters_from_opts/1" data-no-tooltip translate="no">filters_from_opts(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_feed_ids/1" data-no-tooltip translate="no">get_feed_ids(options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Computes the feed ids for <code class="inline">get_feed_publishes/2</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_feed_publishes/1" data-no-tooltip translate="no">get_feed_publishes(options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates the underlying data for <a href="#put_feed_publishes/2"><code class="inline">put_feed_publishes/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#mark_all_seen/2" data-no-tooltip translate="no">mark_all_seen(feed_id, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Marks all unseen items in a feed as seen for the current user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_feed_publish/5" data-no-tooltip translate="no">maybe_feed_publish(subject, verb_or_activity, object, feeds, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a new local activity or takes an existing one and publishes to specified feeds</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#my_feed/2" data-no-tooltip translate="no">my_feed(opts, home_feed_ids \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user's home feed, a combination of all feeds the user is subscribed to.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#publish/4" data-no-tooltip translate="no">publish(subject, verb_or_activity, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a new local activity and publishes to appropriate feeds
+TODO: make this re-use the changeset-based code like in Epics instead of duplicating logic (currently it is only used in VF extension anyway)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_feed_publishes/2" data-no-tooltip translate="no">put_feed_publishes(changeset, options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Arranges for an insert changeset to also publish to feeds related to some objects.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/3" data-no-tooltip translate="no">query(filters \\ [], opts \\ [], query \\ default_query())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Return a boundarised query for a feed</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_extras_boundarised/2" data-no-tooltip translate="no">query_extras_boundarised(query \\ nil, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>add assocs needed in timelines/feeds</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_object_extras_boundarised/2" data-no-tooltip translate="no">query_object_extras_boundarised(query \\ nil, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>add assocs needed in lists of objects</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#skip_verbs_default/0" data-no-tooltip translate="no">skip_verbs_default()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#the_object/1" data-no-tooltip translate="no">the_object(object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_feed_options/1" data-no-tooltip translate="no">to_feed_options(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts socket, assigns, or options to feed options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unseen_count/2" data-no-tooltip translate="no">unseen_count(feed_id, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the count of unseen items in a feed for the current user.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="cast/2">
+
+  <div class="detail-header">
+    <a href="#cast/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(changeset, feed_ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L58" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts the changeset to publish an activity to the given feed IDs.</p><h2 id="cast/2-examples" class="section-heading">
+  <a href="#cast/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">cast</span><span class="p" data-group-id="9188261126-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="n">feed_ids</span><span class="p" data-group-id="9188261126-1">)</span><span class="w">
+</span><span class="p" data-group-id="9188261126-2">%</span><span class="nc" data-group-id="9188261126-2">Ecto.Changeset</span><span class="p" data-group-id="9188261126-2">{</span><span class="p" data-group-id="9188261126-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast/3">
+
+  <div class="detail-header">
+    <a href="#cast/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(changeset, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L45" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts the changeset to publish an activity to the given creator and feed IDs.</p><h2 id="cast/3-examples" class="section-heading">
+  <a href="#cast/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">cast</span><span class="p" data-group-id="1730382760-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="1730382760-1">)</span><span class="w">
+</span><span class="p" data-group-id="1730382760-2">%</span><span class="nc" data-group-id="1730382760-2">Ecto.Changeset</span><span class="p" data-group-id="1730382760-2">{</span><span class="p" data-group-id="1730382760-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count/2">
+
+    <span id="count/0"></span>
+
+    <span id="count/1"></span>
+
+  <div class="detail-header">
+    <a href="#count/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count(filters \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1707" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the count of items in a feed based on given filters and options.</p><h2 id="count/2-examples" class="section-heading">
+  <a href="#count/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">count</span><span class="p" data-group-id="7374549933-1">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="7374549933-1">)</span><span class="w">
+</span><span class="mi">10</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count_subjects/2">
+
+    <span id="count_subjects/0"></span>
+
+    <span id="count_subjects/1"></span>
+
+  <div class="detail-header">
+    <a href="#count_subjects/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count_subjects(filters \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1726" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the count of distinct subjects in a feed based on given filters and options.</p><h2 id="count_subjects/2-examples" class="section-heading">
+  <a href="#count_subjects/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">count_subjects</span><span class="p" data-group-id="5473881034-1">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5473881034-1">)</span><span class="w">
+</span><span class="mi">3</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count_total/0">
+
+  <div class="detail-header">
+    <a href="#count_total/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count_total()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1740" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the total count of activities in feeds.</p>
+  </section>
+</section>
+<section class="detail" id="delete/1">
+
+  <div class="detail-header">
+    <a href="#delete/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(filters)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1627" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Remove activities from feeds, using specific filters</p><h2 id="delete/1-examples" class="section-heading">
+  <a href="#delete/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7181186319-1">[</span><span class="ss">object_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="7181186319-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="7181186319-2">(</span><span class="n">filters</span><span class="p" data-group-id="7181186319-2">)</span><span class="w">
+</span><span class="p" data-group-id="7181186319-3">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="7181186319-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(objects, by_field)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1605" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Remove one or more activities from all feeds</p><h2 id="delete/2-examples" class="section-heading">
+  <a href="#delete/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="4916656192-1">(</span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:object_id</span><span class="p" data-group-id="4916656192-1">)</span><span class="w">
+</span><span class="p" data-group-id="4916656192-2">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="4916656192-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="exclude_object_types/1">
+
+    <span id="exclude_object_types/0"></span>
+
+  <div class="detail-header">
+    <a href="#exclude_object_types/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">exclude_object_types(extras \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1040" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed/2">
+
+    <span id="feed/1"></span>
+
+  <div class="detail-header">
+    <a href="#feed/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed(feed, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L460" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a feed by id or ids or a thing/things containing an id/ids.</p><h2 id="feed/2-examples" class="section-heading">
+  <a href="#feed/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">feed</span><span class="p" data-group-id="5269539020-1">(</span><span class="s">&quot;feed123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5269539020-2">[</span><span class="p" data-group-id="5269539020-2">]</span><span class="p" data-group-id="5269539020-1">)</span><span class="w">
+</span><span class="p" data-group-id="5269539020-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5269539020-4">[</span><span class="p" data-group-id="5269539020-5">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5269539020-6">%{</span><span class="p" data-group-id="5269539020-6">}</span><span class="p" data-group-id="5269539020-5">}</span><span class="p" data-group-id="5269539020-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5269539020-7">%{</span><span class="p" data-group-id="5269539020-7">}</span><span class="p" data-group-id="5269539020-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">feed</span><span class="p" data-group-id="5269539020-8">(</span><span class="ss">:explore</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5269539020-9">[</span><span class="p" data-group-id="5269539020-9">]</span><span class="p" data-group-id="5269539020-8">)</span><span class="w">
+</span><span class="p" data-group-id="5269539020-10">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5269539020-11">[</span><span class="p" data-group-id="5269539020-12">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5269539020-13">%{</span><span class="p" data-group-id="5269539020-13">}</span><span class="p" data-group-id="5269539020-12">}</span><span class="p" data-group-id="5269539020-11">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5269539020-14">%{</span><span class="p" data-group-id="5269539020-14">}</span><span class="p" data-group-id="5269539020-10">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_contains?/3">
+
+    <span id="feed_contains?/2"></span>
+
+  <div class="detail-header">
+    <a href="#feed_contains?/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_contains?(feed_name, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L638" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_contains_single?/3">
+
+  <div class="detail-header">
+    <a href="#feed_contains_single?/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_contains_single?(feed_name, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L677" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_ids_and_opts/2">
+
+  <div class="detail-header">
+    <a href="#feed_ids_and_opts/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_ids_and_opts(feed_name, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L165" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets feed ids and options for the given feed or list of feeds.</p><h2 id="feed_ids_and_opts/2-examples" class="section-heading">
+  <a href="#feed_ids_and_opts/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="5689616946-1">(</span><span class="n">feed_name</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5689616946-1">)</span><span class="w">
+</span><span class="p" data-group-id="5689616946-2">{</span><span class="n">feed_ids</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5689616946-2">}</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="5689616946-3">(</span><span class="p" data-group-id="5689616946-4">{</span><span class="n">feed_name</span><span class="p">,</span><span class="w"> </span><span class="n">feed_id</span><span class="p" data-group-id="5689616946-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5689616946-3">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="5689616946-5">(</span><span class="ss">:my</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5689616946-6">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="5689616946-6">]</span><span class="p" data-group-id="5689616946-5">)</span><span class="w">
+</span><span class="p" data-group-id="5689616946-7">{</span><span class="p" data-group-id="5689616946-8">[</span><span class="s">&quot;feed_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed_id2&quot;</span><span class="p" data-group-id="5689616946-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5689616946-9">[</span><span class="ss">exclude_verbs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5689616946-10">[</span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost</span><span class="p">,</span><span class="w"> </span><span class="ss">:follow</span><span class="p" data-group-id="5689616946-10">]</span><span class="p" data-group-id="5689616946-9">]</span><span class="p" data-group-id="5689616946-7">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="5689616946-11">(</span><span class="p" data-group-id="5689616946-12">{</span><span class="ss">:notifications</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed_id3&quot;</span><span class="p" data-group-id="5689616946-12">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5689616946-13">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="5689616946-13">]</span><span class="p" data-group-id="5689616946-11">)</span><span class="w">
+</span><span class="p" data-group-id="5689616946-14">{</span><span class="s">&quot;feed_id3&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5689616946-15">[</span><span class="ss">skip_boundary_check</span><span class="p">:</span><span class="w"> </span><span class="ss">:admins</span><span class="p">,</span><span class="w"> </span><span class="ss">include_flags</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">exclude_verbs</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_dedup</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5689616946-16">[</span><span class="ss">:notifications</span><span class="p" data-group-id="5689616946-16">]</span><span class="p" data-group-id="5689616946-15">]</span><span class="p" data-group-id="5689616946-14">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_many_paginated/2">
+
+  <div class="detail-header">
+    <a href="#feed_many_paginated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_many_paginated(query, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L298" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns paginated results for the given query.</p><h2 id="feed_many_paginated/2-examples" class="section-heading">
+  <a href="#feed_many_paginated/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_many_paginated</span><span class="p" data-group-id="8340802157-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="8340802157-1">)</span><span class="w">
+</span><span class="p" data-group-id="8340802157-2">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="n">edges</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">page_info</span><span class="p" data-group-id="8340802157-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_name/2">
+
+  <div class="detail-header">
+    <a href="#feed_name/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_name(name, current_user_or_socket)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L420" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_paginated/2">
+
+    <span id="feed_paginated/0"></span>
+
+    <span id="feed_paginated/1"></span>
+
+  <div class="detail-header">
+    <a href="#feed_paginated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_paginated(filters \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L283" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a page of feed activities (reverse chronological) + pagination metadata </p><p>TODO: consolidate with <a href="#feed/2"><code class="inline">feed/2</code></a></p><h2 id="feed_paginated/2-examples" class="section-heading">
+  <a href="#feed_paginated/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">feed_paginated</span><span class="p" data-group-id="9372281491-1">(</span><span class="p" data-group-id="9372281491-2">[</span><span class="p" data-group-id="9372281491-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9372281491-3">[</span><span class="p" data-group-id="9372281491-3">]</span><span class="p" data-group-id="9372281491-1">)</span><span class="w">
+</span><span class="p" data-group-id="9372281491-4">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9372281491-5">[</span><span class="p" data-group-id="9372281491-6">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9372281491-7">%{</span><span class="p" data-group-id="9372281491-7">}</span><span class="p" data-group-id="9372281491-6">}</span><span class="p" data-group-id="9372281491-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9372281491-8">%{</span><span class="p" data-group-id="9372281491-8">}</span><span class="p" data-group-id="9372281491-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Ecto.Query</span><span class="o">.</span><span class="n">from</span><span class="p" data-group-id="9372281491-9">(</span><span class="n">f</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">FeedPublish</span><span class="p" data-group-id="9372281491-9">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">feed_paginated</span><span class="p" data-group-id="9372281491-10">(</span><span class="p" data-group-id="9372281491-11">[</span><span class="p" data-group-id="9372281491-11">]</span><span class="p">,</span><span class="w"> </span><span class="ss">base_query</span><span class="p">:</span><span class="w"> </span><span class="n">query</span><span class="p" data-group-id="9372281491-10">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_with_object/3">
+
+    <span id="feed_with_object/2"></span>
+
+  <div class="detail-header">
+    <a href="#feed_with_object/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feed_with_object(feed_name, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L624" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feeds_for_activity/1">
+
+  <div class="detail-header">
+    <a href="#feeds_for_activity/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">feeds_for_activity(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L79" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a list of feed ids this activity was published to from the database.</p><p>Currently only used by the ActivityPub integration.</p><h2 id="feeds_for_activity/1-examples" class="section-heading">
+  <a href="#feeds_for_activity/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">feeds_for_activity</span><span class="p" data-group-id="7919095188-1">(</span><span class="p" data-group-id="7919095188-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">id</span><span class="p" data-group-id="7919095188-2">}</span><span class="p" data-group-id="7919095188-1">)</span><span class="w">
+</span><span class="p" data-group-id="7919095188-3">[</span><span class="n">feed_id1</span><span class="p">,</span><span class="w"> </span><span class="n">feed_id2</span><span class="p" data-group-id="7919095188-3">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">feeds_for_activity</span><span class="p" data-group-id="7919095188-4">(</span><span class="n">id</span><span class="p" data-group-id="7919095188-4">)</span><span class="w">
+</span><span class="p" data-group-id="7919095188-5">[</span><span class="n">feed_id1</span><span class="p">,</span><span class="w"> </span><span class="n">feed_id2</span><span class="p" data-group-id="7919095188-5">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">feeds_for_activity</span><span class="p" data-group-id="7919095188-6">(</span><span class="n">activity</span><span class="p" data-group-id="7919095188-6">)</span><span class="w">
+</span><span class="p" data-group-id="7919095188-7">[</span><span class="p" data-group-id="7919095188-7">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="filters_from_opts/1">
+
+  <div class="detail-header">
+    <a href="#filters_from_opts/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">filters_from_opts(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1164" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_feed_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_feed_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_feed_ids(options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1285" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Computes the feed ids for <code class="inline">get_feed_publishes/2</code>.</p><p>Options:</p><ul><li><code class="inline">:inbox</code> - list of users/characters whose inbox we should attempt to insert into.</li><li><code class="inline">:outbox</code> - list of users/characters whose outbox we should attempt to insert into.</li><li><code class="inline">:notifications</code> - list of users/characters whose notifications we should attempt to insert into.</li><li><code class="inline">:feeds</code> - list of ids (or objects containing IDs) of feeds to post to.</li></ul><h2 id="get_feed_ids/1-examples" class="section-heading">
+  <a href="#get_feed_ids/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4323679589-1">[</span><span class="ss">outbox</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4323679589-2">[</span><span class="p" data-group-id="4323679589-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;author123&quot;</span><span class="p" data-group-id="4323679589-3">}</span><span class="p" data-group-id="4323679589-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">inbox</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4323679589-4">[</span><span class="p" data-group-id="4323679589-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mention987&quot;</span><span class="p" data-group-id="4323679589-5">}</span><span class="p" data-group-id="4323679589-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">notifications</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4323679589-6">[</span><span class="p" data-group-id="4323679589-7">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply654&quot;</span><span class="p" data-group-id="4323679589-7">}</span><span class="p" data-group-id="4323679589-6">]</span><span class="p">,</span><span class="w"> </span><span class="ss">feeds</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4323679589-8">[</span><span class="s">&quot;feed456&quot;</span><span class="p" data-group-id="4323679589-8">]</span><span class="p" data-group-id="4323679589-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">get_feed_ids</span><span class="p" data-group-id="4323679589-9">(</span><span class="n">options</span><span class="p" data-group-id="4323679589-9">)</span><span class="w">
+</span><span class="p" data-group-id="4323679589-10">[</span><span class="s">&quot;inbox_feed_id_for_user123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed456&quot;</span><span class="p" data-group-id="4323679589-10">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_feed_publishes/1">
+
+  <div class="detail-header">
+    <a href="#get_feed_publishes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_feed_publishes(options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1255" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Creates the underlying data for <a href="#put_feed_publishes/2"><code class="inline">put_feed_publishes/2</code></a>.</p><p>Options: see <a href="#get_feed_ids/1"><code class="inline">get_feed_ids/1</code></a></p><h2 id="get_feed_publishes/1-examples" class="section-heading">
+  <a href="#get_feed_publishes/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0437537679-1">[</span><span class="ss">feeds</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0437537679-2">[</span><span class="s">&quot;feed123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed456&quot;</span><span class="p" data-group-id="0437537679-2">]</span><span class="p" data-group-id="0437537679-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">get_feed_publishes</span><span class="p" data-group-id="0437537679-3">(</span><span class="n">options</span><span class="p" data-group-id="0437537679-3">)</span><span class="w">
+</span><span class="p" data-group-id="0437537679-4">[</span><span class="p" data-group-id="0437537679-5">%{</span><span class="ss">feed_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;feed123&quot;</span><span class="p" data-group-id="0437537679-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0437537679-6">%{</span><span class="ss">feed_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;feed456&quot;</span><span class="p" data-group-id="0437537679-6">}</span><span class="p" data-group-id="0437537679-4">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="mark_all_seen/2">
+
+  <div class="detail-header">
+    <a href="#mark_all_seen/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">mark_all_seen(feed_id, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1750" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Marks all unseen items in a feed as seen for the current user.</p><h2 id="mark_all_seen/2-examples" class="section-heading">
+  <a href="#mark_all_seen/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">mark_all_seen</span><span class="p" data-group-id="9175162672-1">(</span><span class="n">feed_id</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="9175162672-1">)</span><span class="w">
+</span><span class="p" data-group-id="9175162672-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">number_of_marked_items</span><span class="p" data-group-id="9175162672-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_feed_publish/5">
+
+  <div class="detail-header">
+    <a href="#maybe_feed_publish/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_feed_publish(subject, verb_or_activity, object, feeds, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1408" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Creates a new local activity or takes an existing one and publishes to specified feeds</p><h2 id="maybe_feed_publish/5-examples" class="section-heading">
+  <a href="#maybe_feed_publish/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8068390965-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="8068390965-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">verb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">:create</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8068390965-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="8068390965-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">feeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8068390965-3">[</span><span class="s">&quot;feed789&quot;</span><span class="p" data-group-id="8068390965-3">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8068390965-4">[</span><span class="p" data-group-id="8068390965-4">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">maybe_feed_publish</span><span class="p" data-group-id="8068390965-5">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">verb</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">feeds</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="8068390965-5">)</span><span class="w">
+</span><span class="p" data-group-id="8068390965-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8068390965-7">%</span><span class="nc" data-group-id="8068390965-7">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="8068390965-7">{</span><span class="p" data-group-id="8068390965-7">}</span><span class="p" data-group-id="8068390965-6">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="my_feed/2">
+
+    <span id="my_feed/1"></span>
+
+  <div class="detail-header">
+    <a href="#my_feed/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">my_feed(opts, home_feed_ids \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L248" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user's home feed, a combination of all feeds the user is subscribed to.</p><h2 id="my_feed/2-examples" class="section-heading">
+  <a href="#my_feed/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">my_feed</span><span class="p" data-group-id="5164680048-1">(</span><span class="p" data-group-id="5164680048-2">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="5164680048-3">}</span><span class="p" data-group-id="5164680048-2">]</span><span class="p" data-group-id="5164680048-1">)</span><span class="w">
+</span><span class="p" data-group-id="5164680048-4">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-5">[</span><span class="p" data-group-id="5164680048-6">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-7">%{</span><span class="p" data-group-id="5164680048-7">}</span><span class="p" data-group-id="5164680048-6">}</span><span class="p" data-group-id="5164680048-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-8">%{</span><span class="p" data-group-id="5164680048-8">}</span><span class="p" data-group-id="5164680048-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">my_feed</span><span class="p" data-group-id="5164680048-9">(</span><span class="p" data-group-id="5164680048-10">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-11">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="5164680048-11">}</span><span class="p" data-group-id="5164680048-10">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5164680048-12">[</span><span class="s">&quot;feed_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed_id2&quot;</span><span class="p" data-group-id="5164680048-12">]</span><span class="p" data-group-id="5164680048-9">)</span><span class="w">
+</span><span class="p" data-group-id="5164680048-13">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-14">[</span><span class="p" data-group-id="5164680048-15">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-16">%{</span><span class="p" data-group-id="5164680048-16">}</span><span class="p" data-group-id="5164680048-15">}</span><span class="p" data-group-id="5164680048-14">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5164680048-17">%{</span><span class="p" data-group-id="5164680048-17">}</span><span class="p" data-group-id="5164680048-13">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="publish/4">
+
+    <span id="publish/3"></span>
+
+  <div class="detail-header">
+    <a href="#publish/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">publish(subject, verb_or_activity, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1186" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Creates a new local activity and publishes to appropriate feeds
+TODO: make this re-use the changeset-based code like in Epics instead of duplicating logic (currently it is only used in VF extension anyway)</p><h2 id="publish/4-examples" class="section-heading">
+  <a href="#publish/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1132196276-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="1132196276-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">verb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">:create</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1132196276-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="1132196276-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">publish</span><span class="p" data-group-id="1132196276-3">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">verb</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1132196276-4">[</span><span class="p" data-group-id="1132196276-4">]</span><span class="p" data-group-id="1132196276-3">)</span><span class="w">
+</span><span class="p" data-group-id="1132196276-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1132196276-6">%</span><span class="nc" data-group-id="1132196276-6">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="1132196276-6">{</span><span class="p" data-group-id="1132196276-6">}</span><span class="p" data-group-id="1132196276-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="put_feed_publishes/2">
+
+  <div class="detail-header">
+    <a href="#put_feed_publishes/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_feed_publishes(changeset, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1238" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Arranges for an insert changeset to also publish to feeds related to some objects.</p><p>Options: see <a href="#get_feed_ids/1"><code class="inline">get_feed_ids/1</code></a></p><h2 id="put_feed_publishes/2-examples" class="section-heading">
+  <a href="#put_feed_publishes/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7533030891-1">%</span><span class="nc" data-group-id="7533030891-1">Ecto.Changeset</span><span class="p" data-group-id="7533030891-1">{</span><span class="p" data-group-id="7533030891-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7533030891-2">[</span><span class="ss">feeds</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7533030891-3">[</span><span class="s">&quot;feed123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed456&quot;</span><span class="p" data-group-id="7533030891-3">]</span><span class="p" data-group-id="7533030891-2">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">put_feed_publishes</span><span class="p" data-group-id="7533030891-4">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p" data-group-id="7533030891-4">)</span><span class="w">
+</span><span class="p" data-group-id="7533030891-5">%</span><span class="nc" data-group-id="7533030891-5">Ecto.Changeset</span><span class="p" data-group-id="7533030891-5">{</span><span class="p" data-group-id="7533030891-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query/3">
+
+    <span id="query/0"></span>
+
+    <span id="query/1"></span>
+
+    <span id="query/2"></span>
+
+  <div class="detail-header">
+    <a href="#query/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(filters \\ [], opts \\ [], query \\ default_query())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L875" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Return a boundarised query for a feed</p>
+  </section>
+</section>
+<section class="detail" id="query_extras_boundarised/2">
+
+    <span id="query_extras_boundarised/1"></span>
+
+  <div class="detail-header">
+    <a href="#query_extras_boundarised/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_extras_boundarised(query \\ nil, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L906" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>add assocs needed in timelines/feeds</p>
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L35" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="query_object_extras_boundarised/2">
+
+    <span id="query_object_extras_boundarised/1"></span>
+
+  <div class="detail-header">
+    <a href="#query_object_extras_boundarised/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_object_extras_boundarised(query \\ nil, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L913" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>add assocs needed in lists of objects</p>
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L34" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="skip_verbs_default/0">
+
+  <div class="detail-header">
+    <a href="#skip_verbs_default/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">skip_verbs_default()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L91" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="the_object/1">
+
+  <div class="detail-header">
+    <a href="#the_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">the_object(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1594" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="to_feed_options/1">
+
+  <div class="detail-header">
+    <a href="#to_feed_options/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_feed_options(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L102" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts socket, assigns, or options to feed options.</p><h2 id="to_feed_options/1-examples" class="section-heading">
+  <a href="#to_feed_options/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">assigns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0424427190-1">%{</span><span class="ss">exclude_verbs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0424427190-2">[</span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost</span><span class="p" data-group-id="0424427190-2">]</span><span class="p" data-group-id="0424427190-1">}</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_feed_options</span><span class="p" data-group-id="0424427190-3">(</span><span class="n">assigns</span><span class="p" data-group-id="0424427190-3">)</span><span class="w">
+</span><span class="p" data-group-id="0424427190-4">[</span><span class="ss">exclude_verbs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0424427190-5">[</span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost</span><span class="p">,</span><span class="w"> </span><span class="ss">:follow</span><span class="p" data-group-id="0424427190-5">]</span><span class="p" data-group-id="0424427190-4">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="unseen_count/2">
+
+  <div class="detail-header">
+    <a href="#unseen_count/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unseen_count(feed_id, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_activities.ex#L1693" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the count of unseen items in a feed for the current user.</p><h2 id="unseen_count/2-examples" class="section-heading">
+  <a href="#unseen_count/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unseen_count</span><span class="p" data-group-id="0679850151-1">(</span><span class="n">feed_id</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="0679850151-1">)</span><span class="w">
+</span><span class="mi">5</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

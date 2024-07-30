@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Settings — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Settings</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Helpers to get app/extension settings, or to override a config key.</p><p>This module provides functionality for fetching and updating application and extension settings. The process for fetching settings follows a bottom-up system of overrides:</p><ol><li><p><strong>User-specific settings:</strong> 
+If <code class="inline">opts</code> contains <code class="inline">current_user</code>, settings are fetched from the user's settings.</p></li><li><p><strong>Account-specific settings:</strong> 
+If no settings are found for the user and <code class="inline">opts</code> contains <code class="inline">current_account</code>, settings are fetched from the account's settings.</p></li><li><p><strong>Instance-specific settings:</strong> 
+NOTE: Changes to instance settings are stored both in the database and the OTP app config/application environment, and are loaded from the DB into OTP config at app startup by <a href="./Bonfire.Common.Settings.LoadInstanceConfig.html"><code class="inline">Bonfire.Common.Settings.LoadInstanceConfig</code></a>.</p></li><li><p><strong>Default OTP config:</strong> 
+If no settings are found at the user or account level, instance settings are loaded from OTP application configuration via <a href="./Bonfire.Common.Config.html"><code class="inline">Bonfire.Common.Config</code></a>.</p></li><li><p><strong>Default value:</strong> 
+If no settings are found in the previous steps, the provided <code class="inline">default</code> value is returned.</p></li></ol>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#do_get_in/2" data-no-tooltip translate="no">do_get_in(result, keys_tree)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip translate="no">get(key, default \\ nil, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the setting value for a given config key or nested key path.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/2" data-no-tooltip translate="no">get!(key, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the setting value for a given config key like in <a href="#get/3"><code class="inline">get/3</code></a>, but raises an exception if the key is not found, ensuring that the setting must be present.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_instance_settings/0" data-no-tooltip translate="no">load_instance_settings()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put/3" data-no-tooltip translate="no">put(keys, value, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets a value for a specific key or list of nested keys.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reset_all/0" data-no-tooltip translate="no">reset_all()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Resets all settings.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reset_instance/0" data-no-tooltip translate="no">reset_instance()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Resets settings for the instance scope.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set/2" data-no-tooltip translate="no">set(attrs, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets multiple settings at once.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="do_get_in/2">
+
+  <div class="detail-header">
+    <a href="#do_get_in/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">do_get_in(result, keys_tree)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L143" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/1"></span>
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(key, default \\ nil, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L82" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the setting value for a given config key or nested key path.</p><p>As explained above, this function checks settings in the following order:</p><ol><li><strong>User settings</strong> (if <code class="inline">opts</code> contains <code class="inline">current_user</code>).</li><li><strong>Account settings</strong> (if <code class="inline">opts</code> contains <code class="inline">current_account</code> and no user settings are found).</li><li><strong>Instance settings</strong>.</li><li><strong>OTP application config (includes compile time and runtime config)</strong>.</li><li><strong>Default value</strong> (if no settings are found).</li></ol><h2 id="get/3-examples" class="section-heading">
+  <a href="#get/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-1">(</span><span class="ss">:test_key</span><span class="p" data-group-id="2159691671-1">)</span><span class="w">
+</span><span class="s">&quot;test_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-2">(</span><span class="p" data-group-id="2159691671-3">[</span><span class="ss">:non_existing_extension</span><span class="p">,</span><span class="w"> </span><span class="ss">:sub_key</span><span class="p" data-group-id="2159691671-3">]</span><span class="p" data-group-id="2159691671-2">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-4">(</span><span class="ss">:non_existing_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="2159691671-4">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-5">(</span><span class="ss">:otp_app</span><span class="p" data-group-id="2159691671-5">)</span><span class="w">
+</span><span class="ss">:bonfire</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-6">(</span><span class="p" data-group-id="2159691671-7">[</span><span class="ss">:bonfire_common</span><span class="p">,</span><span class="w"> </span><span class="ss">:otp_app</span><span class="p" data-group-id="2159691671-7">]</span><span class="p" data-group-id="2159691671-6">)</span><span class="w">
+</span><span class="ss">:bonfire</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-8">(</span><span class="p" data-group-id="2159691671-9">[</span><span class="ss">:bonfire_common</span><span class="p">,</span><span class="w"> </span><span class="ss">:otp_app</span><span class="p" data-group-id="2159691671-9">]</span><span class="p" data-group-id="2159691671-8">)</span><span class="w">
+</span><span class="ss">:bonfire</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-10">(</span><span class="p" data-group-id="2159691671-11">[</span><span class="nc">Bonfire.Common.Localise.Cldr</span><span class="p">,</span><span class="w"> </span><span class="ss">:gettext</span><span class="p" data-group-id="2159691671-11">]</span><span class="p" data-group-id="2159691671-10">)</span><span class="w">
+</span><span class="nc">Bonfire.Common.Localise.Gettext</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2159691671-12">(</span><span class="p" data-group-id="2159691671-13">[</span><span class="ss">:bonfire_common</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr</span><span class="p">,</span><span class="w"> </span><span class="ss">:gettext</span><span class="p" data-group-id="2159691671-13">]</span><span class="p" data-group-id="2159691671-12">)</span><span class="w">
+</span><span class="nc">Bonfire.Common.Localise.Gettext</span></code></pre><h2 id="get/3-options" class="section-heading">
+  <a href="#get/3-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:otp_app</code> - Optionally specifies the OTP application for which to fetch settings. If none is specified, it will look at the (first) key and check if it references a known OTP application (i.e. an extension) or a module, in which case it will fetch settings from that application. Otherwise it will look in the configured top-level OTP app (see <code class="inline">Config.top_level_otp_app/0</code>). </li><li><code class="inline">:scope</code> - Optionally defines the scope for settings retrieval (e.g., <code class="inline">:user</code>, <code class="inline">:account</code>, or <code class="inline">:instance</code>).</li></ul>
+  </section>
+</section>
+<section class="detail" id="get!/2">
+
+    <span id="get!/1"></span>
+
+  <div class="detail-header">
+    <a href="#get!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(key, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L133" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the setting value for a given config key like in <a href="#get/3"><code class="inline">get/3</code></a>, but raises an exception if the key is not found, ensuring that the setting must be present.</p><h2 id="get!/2-examples" class="section-heading">
+  <a href="#get!/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get!</span><span class="p" data-group-id="0262678923-1">(</span><span class="ss">:test_key</span><span class="p" data-group-id="0262678923-1">)</span><span class="w">
+</span><span class="s">&quot;test_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get!</span><span class="p" data-group-id="0262678923-2">(</span><span class="ss">:non_existing_key</span><span class="p" data-group-id="0262678923-2">)</span><span class="w">
+</span><span class="gt">** (RuntimeError) Missing setting or configuration value: :non_existing_key</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="load_instance_settings/0">
+
+  <div class="detail-header">
+    <a href="#load_instance_settings/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">load_instance_settings()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L299" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="put/3">
+
+    <span id="put/2"></span>
+
+  <div class="detail-header">
+    <a href="#put/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put(keys, value, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L404" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets a value for a specific key or list of nested keys.</p><p>This function updates the configuration with the provided value. You can specify a single key or a list of nested keys.</p><h2 id="put/3-examples" class="section-heading">
+  <a href="#put/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="c1"># when no scope or current_user are passed in opts:</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">put</span><span class="p" data-group-id="9161613097-1">(</span><span class="ss">:some_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;new_value&quot;</span><span class="p" data-group-id="9161613097-1">)</span><span class="w">
+</span><span class="p" data-group-id="9161613097-2">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You need to be authenticated to change settings.&quot;</span><span class="p" data-group-id="9161613097-2">}</span><span class="w">
+
+</span><span class="c1"># when the scope is :instance but an admin isn&#39;t passed as current_user in opts:</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">put</span><span class="p" data-group-id="9161613097-3">(</span><span class="ss">:some_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;new_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="9161613097-3">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail) You do not have permission to change instance settings. Please contact an admin.</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9161613097-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9161613097-5">%</span><span class="nc" data-group-id="9161613097-5">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="9161613097-5">{</span><span class="p" data-group-id="9161613097-5">}</span><span class="p" data-group-id="9161613097-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">put</span><span class="p" data-group-id="9161613097-6">(</span><span class="ss">:some_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;new_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_boundary_check</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="9161613097-6">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9161613097-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9161613097-8">%</span><span class="nc" data-group-id="9161613097-8">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="9161613097-8">{</span><span class="p" data-group-id="9161613097-8">}</span><span class="p" data-group-id="9161613097-7">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">put</span><span class="p" data-group-id="9161613097-9">(</span><span class="p" data-group-id="9161613097-10">[</span><span class="ss">:top_key</span><span class="p">,</span><span class="w"> </span><span class="ss">:sub_key</span><span class="p" data-group-id="9161613097-10">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;new_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_boundary_check</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;instance&quot;</span><span class="p" data-group-id="9161613097-9">)</span></code></pre><h2 id="put/3-options" class="section-heading">
+  <a href="#put/3-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:otp_app</code> - Specifies the OTP application for which to set settings. If not specified, it decides where to put it using the same logic as <a href="#get/3"><code class="inline">get/3</code></a>.</li><li><code class="inline">:scope</code> - Defines the scope for settings (e.g., <code class="inline">:user</code>, <code class="inline">:account</code>, or <code class="inline">:instance</code>).</li></ul>
+  </section>
+</section>
+<section class="detail" id="reset_all/0">
+
+  <div class="detail-header">
+    <a href="#reset_all/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reset_all()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L491" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Resets all settings.</p><p>This function deletes all settings from the database, including instance-specific settings and user-specific settings for all users. Please be careful!</p><h2 id="reset_all/0-examples" class="section-heading">
+  <a href="#reset_all/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">reset_all</span><span class="p" data-group-id="0338760079-1">(</span><span class="p" data-group-id="0338760079-1">)</span><span class="w">
+</span><span class="p" data-group-id="0338760079-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0338760079-3">%{</span><span class="p" data-group-id="0338760079-3">}</span><span class="p" data-group-id="0338760079-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="reset_instance/0">
+
+  <div class="detail-header">
+    <a href="#reset_instance/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reset_instance()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L471" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Resets settings for the instance scope.</p><p>This function deletes the settings associated with the whole instance and returns the result.</p><h2 id="reset_instance/0-examples" class="section-heading">
+  <a href="#reset_instance/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">reset_instance</span><span class="p" data-group-id="7443469493-1">(</span><span class="p" data-group-id="7443469493-1">)</span><span class="w">
+</span><span class="p" data-group-id="7443469493-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7443469493-3">%</span><span class="nc" data-group-id="7443469493-3">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="7443469493-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;some_id&quot;</span><span class="p" data-group-id="7443469493-3">}</span><span class="p" data-group-id="7443469493-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="set/2">
+
+    <span id="set/1"></span>
+
+  <div class="detail-header">
+    <a href="#set/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set(attrs, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/settings.ex#L441" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets multiple settings at once.</p><p>This function accepts a map or keyword list of settings to be updated. It determines the appropriate scope and updates the settings accordingly.</p><h2 id="set/2-examples" class="section-heading">
+  <a href="#set/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7336342499-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7336342499-2">%</span><span class="nc" data-group-id="7336342499-2">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="7336342499-2">{</span><span class="p" data-group-id="7336342499-2">}</span><span class="p" data-group-id="7336342499-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p" data-group-id="7336342499-3">(</span><span class="p" data-group-id="7336342499-4">%{</span><span class="ss">some_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">another_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;another_value&quot;</span><span class="p" data-group-id="7336342499-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_boundary_check</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="7336342499-3">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7336342499-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7336342499-6">%</span><span class="nc" data-group-id="7336342499-6">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="7336342499-6">{</span><span class="p" data-group-id="7336342499-6">}</span><span class="p" data-group-id="7336342499-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p" data-group-id="7336342499-7">(</span><span class="p" data-group-id="7336342499-8">[</span><span class="ss">some_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">another_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;another_value&quot;</span><span class="p" data-group-id="7336342499-8">]</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_boundary_check</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;instance&quot;</span><span class="p" data-group-id="7336342499-7">)</span></code></pre><h2 id="set/2-options" class="section-heading">
+  <a href="#set/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:otp_app</code> - Specifies the OTP application for which to set settings.</li><li><code class="inline">:scope</code> - Defines the scope for settings (e.g., <code class="inline">:user</code>, <code class="inline">:account</code>, or <code class="inline">:instance</code>).</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,2888 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Repo — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Repo</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Main Ecto Repo.</p><p>Note: functions are defined in <a href="./Bonfire.Common.RepoTemplate.html"><code class="inline">Bonfire.Common.RepoTemplate</code></a></p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#aggregate/3" data-no-tooltip translate="no">aggregate(queryable, aggregate, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:aggregate/3"><code class="inline">Ecto.Repo.aggregate/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#aggregate/4" data-no-tooltip translate="no">aggregate(queryable, aggregate, field, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:aggregate/4"><code class="inline">Ecto.Repo.aggregate/4</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#all/2" data-no-tooltip translate="no">all(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:all/2"><code class="inline">Ecto.Repo.all/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#checked_out?/0" data-no-tooltip translate="no">checked_out?()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:checked_out?/0"><code class="inline">Ecto.Repo.checked_out?/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#checkout/2" data-no-tooltip translate="no">checkout(fun, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:checkout/2"><code class="inline">Ecto.Repo.checkout/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#child_spec/1" data-no-tooltip translate="no">child_spec(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#config/0" data-no-tooltip translate="no">config()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:config/0"><code class="inline">Ecto.Repo.config/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_options/1" data-no-tooltip translate="no">default_options(operation)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:default_options/1"><code class="inline">Ecto.Repo.default_options/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_repo_opts/0" data-no-tooltip translate="no">default_repo_opts()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(struct, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:delete/2"><code class="inline">Ecto.Repo.delete/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete!/2" data-no-tooltip translate="no">delete!(struct, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:delete!/2"><code class="inline">Ecto.Repo.delete!/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_all/2" data-no-tooltip translate="no">delete_all(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:delete_all/2"><code class="inline">Ecto.Repo.delete_all/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_many/1" data-no-tooltip translate="no">delete_many(query)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query to delete all matching records.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#disconnect_all/2" data-no-tooltip translate="no">disconnect_all(interval, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that forces all connections in the
+pool to disconnect within the given interval.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#exists?/2" data-no-tooltip translate="no">exists?(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:exists?/2"><code class="inline">Ecto.Repo.exists?/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#explain/3" data-no-tooltip translate="no">explain(operation, queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that executes an EXPLAIN statement or similar
+depending on the adapter to obtain statistics for the given query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fetch/2" data-no-tooltip translate="no">fetch(queryable, id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for one result where the primary key matches the given id, and return either an {:ok, result} tuple or a {:error, :not_found}.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fetch_all/2" data-no-tooltip translate="no">fetch_all(queryable, id_or_ids)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for multiple results given one or multiple IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fetch_by/2" data-no-tooltip translate="no">fetch_by(queryable, term)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for one result (using a keyword list to specify the key/value to query with), and return either an {:ok, result} tuple or a {:error, :not_found}.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#find/3" data-no-tooltip translate="no">find(q, changeset, field \\ :form)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like <a href="#single/1"><code class="inline">single/1</code></a>, except on failure, adds an error to the changeset.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip translate="no">get(queryable, id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get/3"><code class="inline">Ecto.Repo.get/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/3" data-no-tooltip translate="no">get!(queryable, id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get!/3"><code class="inline">Ecto.Repo.get!/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_by/3" data-no-tooltip translate="no">get_by(queryable, clauses, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get_by/3"><code class="inline">Ecto.Repo.get_by/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_by!/3" data-no-tooltip translate="no">get_by!(queryable, clauses, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get_by!/3"><code class="inline">Ecto.Repo.get_by!/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_dynamic_repo/0" data-no-tooltip translate="no">get_dynamic_repo()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get_dynamic_repo/0"><code class="inline">Ecto.Repo.get_dynamic_repo/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#in_transaction?/0" data-no-tooltip translate="no">in_transaction?()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:in_transaction?/0"><code class="inline">Ecto.Repo.in_transaction?/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert/2" data-no-tooltip translate="no">insert(struct, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert/2"><code class="inline">Ecto.Repo.insert/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert!/2" data-no-tooltip translate="no">insert!(struct, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert!/2"><code class="inline">Ecto.Repo.insert!/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_all/3" data-no-tooltip translate="no">insert_all(schema_or_source, entries, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert_all/3"><code class="inline">Ecto.Repo.insert_all/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_all_or_ignore/2" data-no-tooltip translate="no">insert_all_or_ignore(schema, data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Insert all or ignore a list of maps into a schema.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_or_ignore/1" data-no-tooltip translate="no">insert_or_ignore(cs_or_struct)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Insert or ignore a changeset or struct into a schema.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_or_ignore/2" data-no-tooltip translate="no">insert_or_ignore(schema, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Insert or ignore a map (or iterate over a list of maps) into a schema.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_or_update/2" data-no-tooltip translate="no">insert_or_update(changeset, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert_or_update/2"><code class="inline">Ecto.Repo.insert_or_update/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#insert_or_update!/2" data-no-tooltip translate="no">insert_or_update!(changeset, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert_or_update!/2"><code class="inline">Ecto.Repo.insert_or_update!/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load/2" data-no-tooltip translate="no">load(schema_or_types, data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:load/2"><code class="inline">Ecto.Repo.load/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#make_subquery/1" data-no-tooltip translate="no">make_subquery(query)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#many/2" data-no-tooltip translate="no">many(query, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for multiple results and return the results.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#many_paginated/3" data-no-tooltip translate="no">many_paginated(queryable, opts \\ [], repo_opts \\ default_repo_opts())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for multiple results and return one page of results.
+This uses the main implementation for pagination, which is cursor-based and powered by the <a href="./Paginator.html"><code class="inline">Paginator</code></a> library.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_one/2" data-no-tooltip translate="no">maybe_one(q, fallback \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for one result and return either a result or a fallback value (<code class="inline">nil</code> by default).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_preload/3" data-no-tooltip translate="no">maybe_preload(obj, preloads, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Repo.Preload.html#maybe_preload/3"><code class="inline">Bonfire.Common.Repo.Preload.maybe_preload/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_where_ilike/5" data-no-tooltip translate="no">maybe_where_ilike(query, field, user_query, system_prefix \\ &quot;&quot;, system_suffix \\ &quot;&quot;)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Add an <code class="inline">ilike</code> clause to a query if the user query is safe.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#migrate/0" data-no-tooltip translate="no">migrate()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#one/2" data-no-tooltip translate="no">one(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:one/2"><code class="inline">Ecto.Repo.one/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#one!/2" data-no-tooltip translate="no">one!(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:one!/2"><code class="inline">Ecto.Repo.one!/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#paginate/2" data-no-tooltip translate="no">paginate(pageable, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Different implementation for pagination using Scrivener (used by eg. rauversion).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload/3" data-no-tooltip translate="no">preload(struct_or_structs_or_nil, preloads, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:preload/3"><code class="inline">Ecto.Repo.preload/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_all/2" data-no-tooltip translate="no">preload_all(obj, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Repo.Preload.html#preload_all/2"><code class="inline">Bonfire.Common.Repo.Preload.preload_all/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_mixins/2" data-no-tooltip translate="no">preload_mixins(obj, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Repo.Preload.html#preload_mixins/2"><code class="inline">Bonfire.Common.Repo.Preload.preload_mixins/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#prepare_query/3" data-no-tooltip translate="no">prepare_query(operation, query, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:prepare_query/3"><code class="inline">Ecto.Repo.prepare_query/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put/1" data-no-tooltip translate="no">put(changeset)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like <a href="#insert/1"><code class="inline">insert/1</code></a>, but understands remapping changeset errors to attr
+names from config (and only config, no overrides at present!)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_dynamic_repo/1" data-no-tooltip translate="no">put_dynamic_repo(dynamic)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:put_dynamic_repo/1"><code class="inline">Ecto.Repo.put_dynamic_repo/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_many/1" data-no-tooltip translate="no">put_many(things)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Like <a href="#put/1"><code class="inline">put/1</code></a> but for multiple <code class="inline">changesets</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/3" data-no-tooltip translate="no">query(sql, params \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that executes the given query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query!/3" data-no-tooltip translate="no">query!(sql, params \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that executes the given query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_many/3" data-no-tooltip translate="no">query_many(sql, params \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that executes the given multi-result query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_many!/3" data-no-tooltip translate="no">query_many!(sql, params \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that executes the given multi-result query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reload/2" data-no-tooltip translate="no">reload(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:reload/2"><code class="inline">Ecto.Repo.reload/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reload!/2" data-no-tooltip translate="no">reload!(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:reload!/2"><code class="inline">Ecto.Repo.reload!/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#rollback/1" data-no-tooltip translate="no">rollback(value)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:rollback/1"><code class="inline">Ecto.Repo.rollback/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#single/1" data-no-tooltip translate="no">single(q)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Execute a query for one result and return either an <code class="inline">{:ok, result}</code> or <code class="inline">{:error, :not_found}</code> tuple.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sql/3" data-no-tooltip translate="no">sql(raw_sql, data \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Executes raw SQL query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start_link/1" data-no-tooltip translate="no">start_link(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:start_link/1"><code class="inline">Ecto.Repo.start_link/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#stop/1" data-no-tooltip translate="no">stop(timeout \\ 5000)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:stop/1"><code class="inline">Ecto.Repo.stop/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#stream/2" data-no-tooltip translate="no">stream(queryable, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:stream/2"><code class="inline">Ecto.Repo.stream/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_sql/2" data-no-tooltip translate="no">to_sql(operation, queryable)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A convenience function for SQL-based repositories that translates the given query to SQL.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#trace/1" data-no-tooltip translate="no">trace(fun)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Can be used to log specific queries (by calling function) in production.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#transact_many/1" data-no-tooltip translate="no">transact_many(queries)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#transact_with/2" data-no-tooltip translate="no">transact_with(fun, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Run a transaction, similar to <code class="inline">Repo.transaction/1</code>, but it expects an ok or error
+tuple. If an error tuple is returned, the transaction is aborted.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#transaction/2" data-no-tooltip translate="no">transaction(fun_or_multi, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:transaction/2"><code class="inline">Ecto.Repo.transaction/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update/2" data-no-tooltip translate="no">update(struct, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:update/2"><code class="inline">Ecto.Repo.update/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update!/2" data-no-tooltip translate="no">update!(struct, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:update!/2"><code class="inline">Ecto.Repo.update!/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_all/3" data-no-tooltip translate="no">update_all(queryable, updates, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:update_all/3"><code class="inline">Ecto.Repo.update_all/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#upsert/3" data-no-tooltip translate="no">upsert(cs, keys_or_attrs_to_update \\ nil, conflict_target \\ [:id])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Inserts or updates data in the database with upsert semantics.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#upsert_all/3" data-no-tooltip translate="no">upsert_all(schema, data, conflict_target \\ [:id])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Insert or update all entries with upsert semantics.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="aggregate/3">
+
+    <span id="aggregate/2"></span>
+
+  <div class="detail-header">
+    <a href="#aggregate/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">aggregate(queryable, aggregate, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:aggregate/3"><code class="inline">Ecto.Repo.aggregate/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="aggregate/4">
+
+  <div class="detail-header">
+    <a href="#aggregate/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">aggregate(queryable, aggregate, field, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:aggregate/4"><code class="inline">Ecto.Repo.aggregate/4</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="all/2">
+
+    <span id="all/1"></span>
+
+  <div class="detail-header">
+    <a href="#all/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">all(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:all/2"><code class="inline">Ecto.Repo.all/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="checked_out?/0">
+
+  <div class="detail-header">
+    <a href="#checked_out?/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">checked_out?()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:checked_out?/0"><code class="inline">Ecto.Repo.checked_out?/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="checkout/2">
+
+    <span id="checkout/1"></span>
+
+  <div class="detail-header">
+    <a href="#checkout/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">checkout(fun, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:checkout/2"><code class="inline">Ecto.Repo.checkout/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="child_spec/1">
+
+  <div class="detail-header">
+    <a href="#child_spec/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">child_spec(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="config/0">
+
+  <div class="detail-header">
+    <a href="#config/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">config()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:config/0"><code class="inline">Ecto.Repo.config/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="default_options/1">
+
+  <div class="detail-header">
+    <a href="#default_options/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">default_options(operation)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:default_options/1"><code class="inline">Ecto.Repo.default_options/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="default_repo_opts/0">
+
+  <div class="detail-header">
+    <a href="#default_repo_opts/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">default_repo_opts()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+    <span id="delete/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(struct, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:delete/2"><code class="inline">Ecto.Repo.delete/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="delete!/2">
+
+    <span id="delete!/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete!(struct, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:delete!/2"><code class="inline">Ecto.Repo.delete!/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="delete_all/2">
+
+    <span id="delete_all/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete_all/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_all(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:delete_all/2"><code class="inline">Ecto.Repo.delete_all/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="delete_many/1">
+
+  <div class="detail-header">
+    <a href="#delete_many/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_many(query)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query to delete all matching records.</p><h2 id="delete_many/1-examples" class="section-heading">
+  <a href="#delete_many/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_many</span><span class="p" data-group-id="3812511047-1">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p" data-group-id="3812511047-1">)</span><span class="w">
+</span><span class="p" data-group-id="3812511047-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_count</span><span class="p" data-group-id="3812511047-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="disconnect_all/2">
+
+    <span id="disconnect_all/1"></span>
+
+  <div class="detail-header">
+    <a href="#disconnect_all/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">disconnect_all(interval, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that forces all connections in the
+pool to disconnect within the given interval.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#disconnect_all/3"><code class="inline">Ecto.Adapters.SQL.disconnect_all/3</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="exists?/2">
+
+    <span id="exists?/1"></span>
+
+  <div class="detail-header">
+    <a href="#exists?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">exists?(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:exists?/2"><code class="inline">Ecto.Repo.exists?/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="explain/3">
+
+    <span id="explain/2"></span>
+
+  <div class="detail-header">
+    <a href="#explain/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">explain(operation, queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that executes an EXPLAIN statement or similar
+depending on the adapter to obtain statistics for the given query.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#explain/4"><code class="inline">Ecto.Adapters.SQL.explain/4</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="fetch/2">
+
+  <div class="detail-header">
+    <a href="#fetch/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fetch(queryable, id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> fetch(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()} | {:error, :not_found}</pre>
+
+      </div>
+
+<p>Execute a query for one result where the primary key matches the given id, and return either an {:ok, result} tuple or a {:error, :not_found}.</p><h2 id="fetch/2-examples" class="section-heading">
+  <a href="#fetch/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">fetch</span><span class="p" data-group-id="5588553388-1">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5588553388-1">)</span><span class="w">
+</span><span class="p" data-group-id="5588553388-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5588553388-3">%</span><span class="nc" data-group-id="5588553388-3">User</span><span class="p" data-group-id="5588553388-3">{</span><span class="p" data-group-id="5588553388-3">}</span><span class="p" data-group-id="5588553388-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">fetch</span><span class="p" data-group-id="5588553388-4">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="mi">999</span><span class="p" data-group-id="5588553388-4">)</span><span class="w">
+</span><span class="p" data-group-id="5588553388-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:not_found</span><span class="p" data-group-id="5588553388-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="fetch_all/2">
+
+  <div class="detail-header">
+    <a href="#fetch_all/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fetch_all(queryable, id_or_ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query for multiple results given one or multiple IDs.</p><h2 id="fetch_all/2-examples" class="section-heading">
+  <a href="#fetch_all/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">fetch_all</span><span class="p" data-group-id="9180129714-1">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9180129714-2">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="9180129714-2">]</span><span class="p" data-group-id="9180129714-1">)</span><span class="w">
+</span><span class="p" data-group-id="9180129714-3">[</span><span class="p" data-group-id="9180129714-4">%</span><span class="nc" data-group-id="9180129714-4">User</span><span class="p" data-group-id="9180129714-4">{</span><span class="p" data-group-id="9180129714-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9180129714-5">%</span><span class="nc" data-group-id="9180129714-5">User</span><span class="p" data-group-id="9180129714-5">{</span><span class="p" data-group-id="9180129714-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9180129714-6">%</span><span class="nc" data-group-id="9180129714-6">User</span><span class="p" data-group-id="9180129714-6">{</span><span class="p" data-group-id="9180129714-6">}</span><span class="p" data-group-id="9180129714-3">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">fetch_all</span><span class="p" data-group-id="9180129714-7">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="mi">999</span><span class="p" data-group-id="9180129714-7">)</span><span class="w">
+</span><span class="p" data-group-id="9180129714-8">[</span><span class="p" data-group-id="9180129714-8">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="fetch_by/2">
+
+  <div class="detail-header">
+    <a href="#fetch_by/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fetch_by(queryable, term)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query for one result (using a keyword list to specify the key/value to query with), and return either an {:ok, result} tuple or a {:error, :not_found}.</p><h2 id="fetch_by/2-examples" class="section-heading">
+  <a href="#fetch_by/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">fetch_by</span><span class="p" data-group-id="9019283601-1">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="9019283601-1">)</span><span class="w">
+</span><span class="p" data-group-id="9019283601-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9019283601-3">%</span><span class="nc" data-group-id="9019283601-3">User</span><span class="p" data-group-id="9019283601-3">{</span><span class="p" data-group-id="9019283601-3">}</span><span class="p" data-group-id="9019283601-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">fetch_by</span><span class="p" data-group-id="9019283601-4">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Nonexistent&quot;</span><span class="p" data-group-id="9019283601-4">)</span><span class="w">
+</span><span class="p" data-group-id="9019283601-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:not_found</span><span class="p" data-group-id="9019283601-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="find/3">
+
+    <span id="find/2"></span>
+
+  <div class="detail-header">
+    <a href="#find/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find(q, changeset, field \\ :form)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like <a href="#single/1"><code class="inline">single/1</code></a>, except on failure, adds an error to the changeset.</p><h2 id="find/3-examples" class="section-heading">
+  <a href="#find/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5349054348-1">%</span><span class="nc" data-group-id="5349054348-1">Ecto.Changeset</span><span class="p" data-group-id="5349054348-1">{</span><span class="p" data-group-id="5349054348-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">find</span><span class="p" data-group-id="5349054348-2">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="5349054348-2">)</span><span class="w">
+</span><span class="p" data-group-id="5349054348-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5349054348-4">%</span><span class="nc" data-group-id="5349054348-4">User</span><span class="p" data-group-id="5349054348-4">{</span><span class="p" data-group-id="5349054348-4">}</span><span class="p" data-group-id="5349054348-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5349054348-5">%</span><span class="nc" data-group-id="5349054348-5">Ecto.Changeset</span><span class="p" data-group-id="5349054348-5">{</span><span class="p" data-group-id="5349054348-5">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">find</span><span class="p" data-group-id="5349054348-6">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">999</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="5349054348-6">)</span><span class="w">
+</span><span class="p" data-group-id="5349054348-7">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5349054348-8">%</span><span class="nc" data-group-id="5349054348-8">Ecto.Changeset</span><span class="p" data-group-id="5349054348-8">{</span><span class="p" data-group-id="5349054348-8">}</span><span class="p" data-group-id="5349054348-7">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(queryable, id, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get/3"><code class="inline">Ecto.Repo.get/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get!/3">
+
+    <span id="get!/2"></span>
+
+  <div class="detail-header">
+    <a href="#get!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(queryable, id, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get!/3"><code class="inline">Ecto.Repo.get!/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get_by/3">
+
+    <span id="get_by/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_by/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_by(queryable, clauses, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get_by/3"><code class="inline">Ecto.Repo.get_by/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get_by!/3">
+
+    <span id="get_by!/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_by!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_by!(queryable, clauses, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get_by!/3"><code class="inline">Ecto.Repo.get_by!/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get_dynamic_repo/0">
+
+  <div class="detail-header">
+    <a href="#get_dynamic_repo/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_dynamic_repo()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:get_dynamic_repo/0"><code class="inline">Ecto.Repo.get_dynamic_repo/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="in_transaction?/0">
+
+  <div class="detail-header">
+    <a href="#in_transaction?/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">in_transaction?()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:in_transaction?/0"><code class="inline">Ecto.Repo.in_transaction?/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="insert/2">
+
+    <span id="insert/1"></span>
+
+  <div class="detail-header">
+    <a href="#insert/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert(struct, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert/2"><code class="inline">Ecto.Repo.insert/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="insert!/2">
+
+    <span id="insert!/1"></span>
+
+  <div class="detail-header">
+    <a href="#insert!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert!(struct, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert!/2"><code class="inline">Ecto.Repo.insert!/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="insert_all/3">
+
+    <span id="insert_all/2"></span>
+
+  <div class="detail-header">
+    <a href="#insert_all/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_all(schema_or_source, entries, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert_all/3"><code class="inline">Ecto.Repo.insert_all/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="insert_all_or_ignore/2">
+
+  <div class="detail-header">
+    <a href="#insert_all_or_ignore/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_all_or_ignore(schema, data)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Insert all or ignore a list of maps into a schema.</p><h2 id="insert_all_or_ignore/2-examples" class="section-heading">
+  <a href="#insert_all_or_ignore/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert_all_or_ignore</span><span class="p" data-group-id="0578645734-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0578645734-2">[</span><span class="p" data-group-id="0578645734-3">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p" data-group-id="0578645734-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0578645734-4">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p" data-group-id="0578645734-4">}</span><span class="p" data-group-id="0578645734-2">]</span><span class="p" data-group-id="0578645734-1">)</span><span class="w">
+</span><span class="p" data-group-id="0578645734-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="0578645734-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="insert_or_ignore/1">
+
+  <div class="detail-header">
+    <a href="#insert_or_ignore/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_or_ignore(cs_or_struct)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Insert or ignore a changeset or struct into a schema.</p><h2 id="insert_or_ignore/1-examples" class="section-heading">
+  <a href="#insert_or_ignore/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert_or_ignore</span><span class="p" data-group-id="1685621646-1">(</span><span class="p" data-group-id="1685621646-2">%</span><span class="nc" data-group-id="1685621646-2">Ecto.Changeset</span><span class="p" data-group-id="1685621646-2">{</span><span class="p" data-group-id="1685621646-2">}</span><span class="p" data-group-id="1685621646-1">)</span><span class="w">
+</span><span class="p" data-group-id="1685621646-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="1685621646-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">insert_or_ignore</span><span class="p" data-group-id="1685621646-4">(</span><span class="p" data-group-id="1685621646-5">%</span><span class="nc" data-group-id="1685621646-5">MySchema</span><span class="p" data-group-id="1685621646-5">{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1685621646-5">}</span><span class="p" data-group-id="1685621646-4">)</span><span class="w">
+</span><span class="p" data-group-id="1685621646-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="1685621646-6">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="insert_or_ignore/2">
+
+  <div class="detail-header">
+    <a href="#insert_or_ignore/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_or_ignore(schema, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Insert or ignore a map (or iterate over a list of maps) into a schema.</p><h2 id="insert_or_ignore/2-examples" class="section-heading">
+  <a href="#insert_or_ignore/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert_or_ignore</span><span class="p" data-group-id="2384979734-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2384979734-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="2384979734-2">}</span><span class="p" data-group-id="2384979734-1">)</span><span class="w">
+</span><span class="p" data-group-id="2384979734-3">[</span><span class="p" data-group-id="2384979734-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="2384979734-4">}</span><span class="p" data-group-id="2384979734-3">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">insert_or_ignore</span><span class="p" data-group-id="2384979734-5">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2384979734-6">[</span><span class="p" data-group-id="2384979734-7">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p" data-group-id="2384979734-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2384979734-8">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p" data-group-id="2384979734-8">}</span><span class="p" data-group-id="2384979734-6">]</span><span class="p" data-group-id="2384979734-5">)</span><span class="w">
+</span><span class="p" data-group-id="2384979734-9">[</span><span class="p" data-group-id="2384979734-10">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="2384979734-10">}</span><span class="p" data-group-id="2384979734-9">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="insert_or_update/2">
+
+    <span id="insert_or_update/1"></span>
+
+  <div class="detail-header">
+    <a href="#insert_or_update/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_or_update(changeset, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert_or_update/2"><code class="inline">Ecto.Repo.insert_or_update/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="insert_or_update!/2">
+
+    <span id="insert_or_update!/1"></span>
+
+  <div class="detail-header">
+    <a href="#insert_or_update!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">insert_or_update!(changeset, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:insert_or_update!/2"><code class="inline">Ecto.Repo.insert_or_update!/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="load/2">
+
+  <div class="detail-header">
+    <a href="#load/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">load(schema_or_types, data)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:load/2"><code class="inline">Ecto.Repo.load/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="make_subquery/1">
+
+  <div class="detail-header">
+    <a href="#make_subquery/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">make_subquery(query)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="many/2">
+
+    <span id="many/1"></span>
+
+  <div class="detail-header">
+    <a href="#many/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">many(query, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query for multiple results and return the results.</p><h2 id="many/2-examples" class="section-heading">
+  <a href="#many/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">many</span><span class="p" data-group-id="5197818539-1">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p" data-group-id="5197818539-1">)</span><span class="w">
+</span><span class="p" data-group-id="5197818539-2">[</span><span class="p" data-group-id="5197818539-3">%</span><span class="nc" data-group-id="5197818539-3">User</span><span class="p" data-group-id="5197818539-3">{</span><span class="p" data-group-id="5197818539-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5197818539-4">%</span><span class="nc" data-group-id="5197818539-4">User</span><span class="p" data-group-id="5197818539-4">{</span><span class="p" data-group-id="5197818539-4">}</span><span class="p" data-group-id="5197818539-2">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">many</span><span class="p" data-group-id="5197818539-5">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">return</span><span class="p">:</span><span class="w"> </span><span class="ss">:query</span><span class="p" data-group-id="5197818539-5">)</span><span class="w">
+</span><span class="p" data-group-id="5197818539-6">#</span><span class="nc" data-group-id="5197818539-6">Ecto.Query</span><span class="p" data-group-id="5197818539-6">&lt;</span><span class="n">...</span><span class="p" data-group-id="5197818539-6">&gt;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="many_paginated/3">
+
+    <span id="many_paginated/1"></span>
+
+    <span id="many_paginated/2"></span>
+
+  <div class="detail-header">
+    <a href="#many_paginated/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">many_paginated(queryable, opts \\ [], repo_opts \\ default_repo_opts())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query for multiple results and return one page of results.
+This uses the main implementation for pagination, which is cursor-based and powered by the <a href="./Paginator.html"><code class="inline">Paginator</code></a> library.</p><h2 id="many_paginated/3-examples" class="section-heading">
+  <a href="#many_paginated/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">many_paginated</span><span class="p" data-group-id="1534940192-1">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1534940192-2">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="1534940192-2">]</span><span class="p" data-group-id="1534940192-1">)</span><span class="w">
+</span><span class="p" data-group-id="1534940192-3">%</span><span class="nc" data-group-id="1534940192-3">Paginator.Page</span><span class="p" data-group-id="1534940192-3">{</span><span class="p" data-group-id="1534940192-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_one/2">
+
+    <span id="maybe_one/1"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_one/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_one(q, fallback \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query for one result and return either a result or a fallback value (<code class="inline">nil</code> by default).</p><h2 id="maybe_one/2-examples" class="section-heading">
+  <a href="#maybe_one/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_one</span><span class="p" data-group-id="8267261035-1">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8267261035-1">)</span><span class="w">
+</span><span class="p" data-group-id="8267261035-2">%</span><span class="nc" data-group-id="8267261035-2">User</span><span class="p" data-group-id="8267261035-2">{</span><span class="p" data-group-id="8267261035-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_one</span><span class="p" data-group-id="8267261035-3">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">999</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8267261035-3">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_preload/3">
+
+    <span id="maybe_preload/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_preload/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_preload(obj, preloads, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Repo.Preload.html#maybe_preload/3"><code class="inline">Bonfire.Common.Repo.Preload.maybe_preload/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_where_ilike/5">
+
+    <span id="maybe_where_ilike/3"></span>
+
+    <span id="maybe_where_ilike/4"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_where_ilike/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_where_ilike(query, field, user_query, system_prefix \\ &quot;&quot;, system_suffix \\ &quot;&quot;)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Add an <code class="inline">ilike</code> clause to a query if the user query is safe.</p><h2 id="maybe_where_ilike/5-examples" class="section-heading">
+  <a href="#maybe_where_ilike/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_where_ilike</span><span class="p" data-group-id="6903257778-1">(</span><span class="nc">Needle.Pointer</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="6903257778-1">)</span><span class="w">
+</span><span class="p" data-group-id="6903257778-2">#</span><span class="nc" data-group-id="6903257778-2">Ecto.Query</span><span class="p" data-group-id="6903257778-2">&lt;</span><span class="n">...</span><span class="p" data-group-id="6903257778-2">&gt;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_where_ilike</span><span class="p" data-group-id="6903257778-3">(</span><span class="nc">Needle.Pointer</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Al%ice&quot;</span><span class="p" data-group-id="6903257778-3">)</span><span class="w">
+</span><span class="nc">Needle.Pointer</span><span class="w"> 
+</span><span class="c1"># ^ unchanged due to unsafe query</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="migrate/0">
+
+  <div class="detail-header">
+    <a href="#migrate/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">migrate()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L30" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="one/2">
+
+    <span id="one/1"></span>
+
+  <div class="detail-header">
+    <a href="#one/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">one(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:one/2"><code class="inline">Ecto.Repo.one/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="one!/2">
+
+    <span id="one!/1"></span>
+
+  <div class="detail-header">
+    <a href="#one!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">one!(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:one!/2"><code class="inline">Ecto.Repo.one!/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="paginate/2">
+
+    <span id="paginate/1"></span>
+
+  <div class="detail-header">
+    <a href="#paginate/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">paginate(pageable, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Different implementation for pagination using Scrivener (used by eg. rauversion).</p><h2 id="paginate/2-examples" class="section-heading">
+  <a href="#paginate/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">paginate</span><span class="p" data-group-id="9995650838-1">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">page</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">page_size</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="9995650838-1">)</span><span class="w">
+</span><span class="p" data-group-id="9995650838-2">%</span><span class="nc" data-group-id="9995650838-2">Scrivener.Page</span><span class="p" data-group-id="9995650838-2">{</span><span class="p" data-group-id="9995650838-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="preload/3">
+
+    <span id="preload/2"></span>
+
+  <div class="detail-header">
+    <a href="#preload/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload(struct_or_structs_or_nil, preloads, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:preload/3"><code class="inline">Ecto.Repo.preload/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="preload_all/2">
+
+    <span id="preload_all/1"></span>
+
+  <div class="detail-header">
+    <a href="#preload_all/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload_all(obj, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Repo.Preload.html#preload_all/2"><code class="inline">Bonfire.Common.Repo.Preload.preload_all/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="preload_mixins/2">
+
+    <span id="preload_mixins/1"></span>
+
+  <div class="detail-header">
+    <a href="#preload_mixins/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload_mixins(obj, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Repo.Preload.html#preload_mixins/2"><code class="inline">Bonfire.Common.Repo.Preload.preload_mixins/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="prepare_query/3">
+
+  <div class="detail-header">
+    <a href="#prepare_query/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">prepare_query(operation, query, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:prepare_query/3"><code class="inline">Ecto.Repo.prepare_query/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="put/1">
+
+  <div class="detail-header">
+    <a href="#put/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put(changeset)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like <a href="#insert/1"><code class="inline">insert/1</code></a>, but understands remapping changeset errors to attr
+names from config (and only config, no overrides at present!)</p><h2 id="put/1-examples" class="section-heading">
+  <a href="#put/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8792319300-1">%</span><span class="nc" data-group-id="8792319300-1">Ecto.Changeset</span><span class="p" data-group-id="8792319300-1">{</span><span class="ss">valid?</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="8792319300-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">put</span><span class="p" data-group-id="8792319300-2">(</span><span class="n">changeset</span><span class="p" data-group-id="8792319300-2">)</span><span class="w">
+</span><span class="p" data-group-id="8792319300-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8792319300-4">%</span><span class="nc" data-group-id="8792319300-4">Ecto.Changeset</span><span class="p" data-group-id="8792319300-4">{</span><span class="p" data-group-id="8792319300-4">}</span><span class="p" data-group-id="8792319300-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="put_dynamic_repo/1">
+
+  <div class="detail-header">
+    <a href="#put_dynamic_repo/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_dynamic_repo(dynamic)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:put_dynamic_repo/1"><code class="inline">Ecto.Repo.put_dynamic_repo/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="put_many/1">
+
+  <div class="detail-header">
+    <a href="#put_many/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put_many(things)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Like <a href="#put/1"><code class="inline">put/1</code></a> but for multiple <code class="inline">changesets</code></p><h2 id="put_many/1-examples" class="section-heading">
+  <a href="#put_many/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changesets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9350123438-1">[</span><span class="p" data-group-id="9350123438-2">%{</span><span class="ss">valid?</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9350123438-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9350123438-3">%{</span><span class="ss">valid?</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="9350123438-3">}</span><span class="p" data-group-id="9350123438-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">put_many</span><span class="p" data-group-id="9350123438-4">(</span><span class="n">changesets</span><span class="p" data-group-id="9350123438-4">)</span><span class="w">
+</span><span class="p" data-group-id="9350123438-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9350123438-6">[</span><span class="p" data-group-id="9350123438-7">%{</span><span class="ss">valid?</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="9350123438-7">}</span><span class="p" data-group-id="9350123438-6">]</span><span class="p" data-group-id="9350123438-5">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">changesets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9350123438-8">[</span><span class="p" data-group-id="9350123438-9">%{</span><span class="ss">valid?</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9350123438-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9350123438-10">%{</span><span class="ss">valid?</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9350123438-10">}</span><span class="p" data-group-id="9350123438-8">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">put_many</span><span class="p" data-group-id="9350123438-11">(</span><span class="n">changesets</span><span class="p" data-group-id="9350123438-11">)</span><span class="w">
+</span><span class="p" data-group-id="9350123438-12">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="9350123438-12">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query/3">
+
+    <span id="query/1"></span>
+
+    <span id="query/2"></span>
+
+  <div class="detail-header">
+    <a href="#query/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(sql, params \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that executes the given query.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#query/4"><code class="inline">Ecto.Adapters.SQL.query/4</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="query!/3">
+
+    <span id="query!/1"></span>
+
+    <span id="query!/2"></span>
+
+  <div class="detail-header">
+    <a href="#query!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query!(sql, params \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that executes the given query.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#query!/4"><code class="inline">Ecto.Adapters.SQL.query!/4</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="query_many/3">
+
+    <span id="query_many/1"></span>
+
+    <span id="query_many/2"></span>
+
+  <div class="detail-header">
+    <a href="#query_many/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_many(sql, params \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that executes the given multi-result query.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#query_many/4"><code class="inline">Ecto.Adapters.SQL.query_many/4</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="query_many!/3">
+
+    <span id="query_many!/1"></span>
+
+    <span id="query_many!/2"></span>
+
+  <div class="detail-header">
+    <a href="#query_many!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_many!(sql, params \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that executes the given multi-result query.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#query_many!/4"><code class="inline">Ecto.Adapters.SQL.query_many!/4</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="reload/2">
+
+    <span id="reload/1"></span>
+
+  <div class="detail-header">
+    <a href="#reload/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reload(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:reload/2"><code class="inline">Ecto.Repo.reload/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="reload!/2">
+
+    <span id="reload!/1"></span>
+
+  <div class="detail-header">
+    <a href="#reload!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reload!(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:reload!/2"><code class="inline">Ecto.Repo.reload!/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="rollback/1">
+
+  <div class="detail-header">
+    <a href="#rollback/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">rollback(value)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> rollback(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
+
+      </div>
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:rollback/1"><code class="inline">Ecto.Repo.rollback/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="single/1">
+
+  <div class="detail-header">
+    <a href="#single/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">single(q)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Execute a query for one result and return either an <code class="inline">{:ok, result}</code> or <code class="inline">{:error, :not_found}</code> tuple.</p><h2 id="single/1-examples" class="section-heading">
+  <a href="#single/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">single</span><span class="p" data-group-id="4050417429-1">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4050417429-1">)</span><span class="w">
+</span><span class="p" data-group-id="4050417429-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4050417429-3">%</span><span class="nc" data-group-id="4050417429-3">User</span><span class="p" data-group-id="4050417429-3">{</span><span class="p" data-group-id="4050417429-3">}</span><span class="p" data-group-id="4050417429-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">single</span><span class="p" data-group-id="4050417429-4">(</span><span class="n">from</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">999</span><span class="p" data-group-id="4050417429-4">)</span><span class="w">
+</span><span class="p" data-group-id="4050417429-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:not_found</span><span class="p" data-group-id="4050417429-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="sql/3">
+
+    <span id="sql/1"></span>
+
+    <span id="sql/2"></span>
+
+  <div class="detail-header">
+    <a href="#sql/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sql(raw_sql, data \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Executes raw SQL query.</p><h2 id="sql/3-examples" class="section-heading">
+  <a href="#sql/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">YourModule</span><span class="o">.</span><span class="n">sql</span><span class="p" data-group-id="5184486488-1">(</span><span class="s">&quot;SELECT * FROM pointers&quot;</span><span class="p" data-group-id="5184486488-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+    <span id="start_link/0"></span>
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">start_link(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:start_link/1"><code class="inline">Ecto.Repo.start_link/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="stop/1">
+
+    <span id="stop/0"></span>
+
+  <div class="detail-header">
+    <a href="#stop/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">stop(timeout \\ 5000)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:stop/1"><code class="inline">Ecto.Repo.stop/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="stream/2">
+
+    <span id="stream/1"></span>
+
+  <div class="detail-header">
+    <a href="#stream/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">stream(queryable, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:stream/2"><code class="inline">Ecto.Repo.stream/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="to_sql/2">
+
+  <div class="detail-header">
+    <a href="#to_sql/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_sql(operation, queryable)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A convenience function for SQL-based repositories that translates the given query to SQL.</p><p>See <a href="https://hexdocs.pm/ecto_sql/3.11.3/Ecto.Adapters.SQL.html#to_sql/3"><code class="inline">Ecto.Adapters.SQL.to_sql/3</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="trace/1">
+
+  <div class="detail-header">
+    <a href="#trace/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">trace(fun)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Can be used to log specific queries (by calling function) in production.</p><h2 id="trace/1-examples" class="section-heading">
+  <a href="#trace/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">trace</span><span class="p" data-group-id="7390471780-1">(</span><span class="k" data-group-id="7390471780-2">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">all</span><span class="p" data-group-id="7390471780-3">(</span><span class="nc">User</span><span class="p" data-group-id="7390471780-3">)</span><span class="w"> </span><span class="k" data-group-id="7390471780-2">end</span><span class="p" data-group-id="7390471780-1">)</span><span class="w">
+</span><span class="p" data-group-id="7390471780-4">[</span><span class="p" data-group-id="7390471780-5">%</span><span class="nc" data-group-id="7390471780-5">User</span><span class="p" data-group-id="7390471780-5">{</span><span class="p" data-group-id="7390471780-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7390471780-6">%</span><span class="nc" data-group-id="7390471780-6">User</span><span class="p" data-group-id="7390471780-6">{</span><span class="p" data-group-id="7390471780-6">}</span><span class="p" data-group-id="7390471780-4">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="transact_many/1">
+
+  <div class="detail-header">
+    <a href="#transact_many/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">transact_many(queries)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="transact_with/2">
+
+    <span id="transact_with/1"></span>
+
+  <div class="detail-header">
+    <a href="#transact_with/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">transact_with(fun, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Run a transaction, similar to <code class="inline">Repo.transaction/1</code>, but it expects an ok or error
+tuple. If an error tuple is returned, the transaction is aborted.</p><h2 id="transact_with/2-examples" class="section-heading">
+  <a href="#transact_with/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">transact_with</span><span class="p" data-group-id="7154165091-1">(</span><span class="k" data-group-id="7154165091-2">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p" data-group-id="7154165091-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;success&quot;</span><span class="p" data-group-id="7154165091-3">}</span><span class="w"> </span><span class="k" data-group-id="7154165091-2">end</span><span class="p" data-group-id="7154165091-1">)</span><span class="w">
+</span><span class="s">&quot;success&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">transact_with</span><span class="p" data-group-id="7154165091-4">(</span><span class="k" data-group-id="7154165091-5">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p" data-group-id="7154165091-6">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failure&quot;</span><span class="p" data-group-id="7154165091-6">}</span><span class="w"> </span><span class="k" data-group-id="7154165091-5">end</span><span class="p" data-group-id="7154165091-4">)</span><span class="w">
+</span><span class="gt">** (Ecto.RollbackError) Rolling back the DB transaction, error reason: failure</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="transaction/2">
+
+    <span id="transaction/1"></span>
+
+  <div class="detail-header">
+    <a href="#transaction/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">transaction(fun_or_multi, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:transaction/2"><code class="inline">Ecto.Repo.transaction/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="update/2">
+
+    <span id="update/1"></span>
+
+  <div class="detail-header">
+    <a href="#update/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update(struct, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:update/2"><code class="inline">Ecto.Repo.update/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="update!/2">
+
+    <span id="update!/1"></span>
+
+  <div class="detail-header">
+    <a href="#update!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update!(struct, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:update!/2"><code class="inline">Ecto.Repo.update!/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="update_all/3">
+
+    <span id="update_all/2"></span>
+
+  <div class="detail-header">
+    <a href="#update_all/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_all(queryable, updates, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Repo.html#c:update_all/3"><code class="inline">Ecto.Repo.update_all/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="upsert/3">
+
+    <span id="upsert/1"></span>
+
+    <span id="upsert/2"></span>
+
+  <div class="detail-header">
+    <a href="#upsert/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">upsert(cs, keys_or_attrs_to_update \\ nil, conflict_target \\ [:id])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Inserts or updates data in the database with upsert semantics.</p><ul><li><code class="inline">cs</code> - The changeset or schema to insert or update.</li><li><code class="inline">keys_or_attrs_to_update</code> - A list of keys or a map of attributes to update.</li><li><code class="inline">conflict_target</code> - The column(s) or constraint to check for conflicts, defaults to <code class="inline">[:id]</code>.</li></ul><h2 id="upsert/3-examples" class="section-heading">
+  <a href="#upsert/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">upsert</span><span class="p" data-group-id="9523185994-1">(</span><span class="p" data-group-id="9523185994-2">%</span><span class="nc" data-group-id="9523185994-2">Ecto.Changeset</span><span class="p" data-group-id="9523185994-2">{</span><span class="p" data-group-id="9523185994-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9523185994-3">[</span><span class="ss">:field1</span><span class="p">,</span><span class="w"> </span><span class="ss">:field2</span><span class="p" data-group-id="9523185994-3">]</span><span class="p" data-group-id="9523185994-1">)</span><span class="w">
+</span><span class="p" data-group-id="9523185994-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="9523185994-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">upsert</span><span class="p" data-group-id="9523185994-5">(</span><span class="p" data-group-id="9523185994-6">%</span><span class="nc" data-group-id="9523185994-6">Ecto.Changeset</span><span class="p" data-group-id="9523185994-6">{</span><span class="p" data-group-id="9523185994-6">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9523185994-7">%{</span><span class="ss">field1</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="9523185994-7">}</span><span class="p" data-group-id="9523185994-5">)</span><span class="w">
+</span><span class="p" data-group-id="9523185994-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="9523185994-8">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="upsert_all/3">
+
+    <span id="upsert_all/2"></span>
+
+  <div class="detail-header">
+    <a href="#upsert_all/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">upsert_all(schema, data, conflict_target \\ [:id])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/repo/repo.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Insert or update all entries with upsert semantics.</p><ul><li><code class="inline">schema</code> - The schema or table name to insert or update.</li><li><code class="inline">data</code> - A list of maps containing the data to insert or update.</li><li><code class="inline">conflict_target</code> - The column(s) or constraint to check for conflicts, defaults to <code class="inline">[:id]</code>.</li></ul><h2 id="upsert_all/3-examples" class="section-heading">
+  <a href="#upsert_all/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">upsert_all</span><span class="p" data-group-id="8106264598-1">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8106264598-2">[</span><span class="p" data-group-id="8106264598-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="8106264598-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8106264598-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bob&quot;</span><span class="p" data-group-id="8106264598-4">}</span><span class="p" data-group-id="8106264598-2">]</span><span class="p" data-group-id="8106264598-1">)</span><span class="w">
+</span><span class="p" data-group-id="8106264598-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="8106264598-5">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">upsert_all</span><span class="p" data-group-id="8106264598-6">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8106264598-7">[</span><span class="p" data-group-id="8106264598-8">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice Updated&quot;</span><span class="p" data-group-id="8106264598-8">}</span><span class="p" data-group-id="8106264598-7">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8106264598-9">[</span><span class="ss">:id</span><span class="p" data-group-id="8106264598-9">]</span><span class="p" data-group-id="8106264598-6">)</span><span class="w">
+</span><span class="p" data-group-id="8106264598-10">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_result</span><span class="p" data-group-id="8106264598-10">}</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

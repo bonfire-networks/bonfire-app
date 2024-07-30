@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Extensions — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Extensions</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Helpers for managing Bonfire extensions, e.g., enabling/disabling a module or extension,
+or listing available extensions and their metadata.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#all_deps/0" data-no-tooltip translate="no">all_deps()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a list of all dependencies.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#data/0" data-no-tooltip translate="no">data()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#dep_name/1" data-no-tooltip translate="no">dep_name(dep)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Extracts the dependency name from a <code class="inline">Mix.Dep</code> struct or similar data.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_branch/1" data-no-tooltip translate="no">get_branch(arg1)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the branch name for a dependency.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_code_link/1" data-no-tooltip translate="no">get_code_link(dep)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Constructs a link to the code of a dependency.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_link/1" data-no-tooltip translate="no">get_link(dep)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a link to the package or repository of a dependency.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_version/1" data-no-tooltip translate="no">get_version(dep)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Outputs the current version string for a dependency.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_version_link/1" data-no-tooltip translate="no">get_version_link(dep)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Constructs a link to the version of a dependency.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#global_disable/1" data-no-tooltip translate="no">global_disable(extension)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Disables a given extension globally.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#global_enable/1" data-no-tooltip translate="no">global_enable(extension)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Enables a given extension globally.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#loaded_deps/1" data-no-tooltip translate="no">loaded_deps(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a list of all dependencies in a specific format based on the options provided.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#loaded_deps_names/1" data-no-tooltip translate="no">loaded_deps_names(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a list of all dependency names in a specific format based on the options provided.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="all_deps/0">
+
+  <div class="detail-header">
+    <a href="#all_deps/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">all_deps()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L68" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a list of all dependencies.</p><h2 id="all_deps/0-examples" class="section-heading">
+  <a href="#all_deps/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">all_deps</span><span class="p" data-group-id="8141289386-1">(</span><span class="p" data-group-id="8141289386-1">)</span><span class="w">
+</span><span class="p" data-group-id="8141289386-2">[</span><span class="p" data-group-id="8141289386-3">%</span><span class="nc" data-group-id="8141289386-3">Mix.Dep</span><span class="p" data-group-id="8141289386-3">{</span><span class="n">...</span><span class="p" data-group-id="8141289386-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8141289386-4">%</span><span class="nc" data-group-id="8141289386-4">Mix.Dep</span><span class="p" data-group-id="8141289386-4">{</span><span class="n">...</span><span class="p" data-group-id="8141289386-4">}</span><span class="p" data-group-id="8141289386-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="data/0">
+
+  <div class="detail-header">
+    <a href="#data/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">data()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L70" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="dep_name/1">
+
+  <div class="detail-header">
+    <a href="#dep_name/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">dep_name(dep)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L386" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Extracts the dependency name from a <code class="inline">Mix.Dep</code> struct or similar data.</p><h2 id="dep_name/1-parameters" class="section-heading">
+  <a href="#dep_name/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">dep</code>: The dependency from which to extract the name.</li></ul><h2 id="dep_name/1-examples" class="section-heading">
+  <a href="#dep_name/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">dep_name</span><span class="p" data-group-id="5056922405-1">(</span><span class="p" data-group-id="5056922405-2">%</span><span class="nc" data-group-id="5056922405-2">Mix.Dep</span><span class="p" data-group-id="5056922405-2">{</span><span class="ss">app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="p" data-group-id="5056922405-2">}</span><span class="p" data-group-id="5056922405-1">)</span><span class="w">
+</span><span class="ss">:my_app</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">dep_name</span><span class="p" data-group-id="5056922405-3">(</span><span class="ss">:my_app</span><span class="p" data-group-id="5056922405-3">)</span><span class="w">
+</span><span class="ss">:my_app</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">dep_name</span><span class="p" data-group-id="5056922405-4">(</span><span class="s">&quot;my_app&quot;</span><span class="p" data-group-id="5056922405-4">)</span><span class="w">
+</span><span class="s">&quot;my_app&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_branch/1">
+
+  <div class="detail-header">
+    <a href="#get_branch/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_branch(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L284" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the branch name for a dependency.</p><h2 id="get_branch/1-parameters" class="section-heading">
+  <a href="#get_branch/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">dep</code>: The dependency from which to get the branch.</li></ul><h2 id="get_branch/1-examples" class="section-heading">
+  <a href="#get_branch/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_branch</span><span class="p" data-group-id="6766525725-1">(</span><span class="p" data-group-id="6766525725-2">%{</span><span class="ss">git</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p" data-group-id="6766525725-2">}</span><span class="p" data-group-id="6766525725-1">)</span><span class="w">
+</span><span class="s">&quot;main&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_branch</span><span class="p" data-group-id="6766525725-3">(</span><span class="p" data-group-id="6766525725-4">%{</span><span class="ss">lock</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6766525725-5">{</span><span class="ss">:git</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6766525725-6">[</span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;feature&quot;</span><span class="p" data-group-id="6766525725-6">]</span><span class="p" data-group-id="6766525725-5">}</span><span class="p" data-group-id="6766525725-4">}</span><span class="p" data-group-id="6766525725-3">)</span><span class="w">
+</span><span class="s">&quot;feature&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_code_link/1">
+
+  <div class="detail-header">
+    <a href="#get_code_link/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_code_link(dep)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L334" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Constructs a link to the code of a dependency.</p><h2 id="get_code_link/1-parameters" class="section-heading">
+  <a href="#get_code_link/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">dep</code>: The dependency from which to generate the link.</li></ul><h2 id="get_code_link/1-examples" class="section-heading">
+  <a href="#get_code_link/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_code_link</span><span class="p" data-group-id="8459497834-1">(</span><span class="p" data-group-id="8459497834-2">%{</span><span class="ss">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my_app&quot;</span><span class="p" data-group-id="8459497834-2">}</span><span class="p" data-group-id="8459497834-1">)</span><span class="w">
+</span><span class="s">&quot;/settings/extensions/code/my_app&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_link/1">
+
+  <div class="detail-header">
+    <a href="#get_link/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_link(dep)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L305" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a link to the package or repository of a dependency.</p><h2 id="get_link/1-parameters" class="section-heading">
+  <a href="#get_link/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">dep</code>: The dependency from which to generate the link.</li></ul><h2 id="get_link/1-examples" class="section-heading">
+  <a href="#get_link/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_link</span><span class="p" data-group-id="8489184573-1">(</span><span class="p" data-group-id="8489184573-2">%{</span><span class="ss">hex</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;example_package&quot;</span><span class="p" data-group-id="8489184573-2">}</span><span class="p" data-group-id="8489184573-1">)</span><span class="w">
+</span><span class="s">&quot;https://hex.pm/packages/example_package&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_link</span><span class="p" data-group-id="8489184573-3">(</span><span class="p" data-group-id="8489184573-4">%{</span><span class="ss">git</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/user/repo&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p" data-group-id="8489184573-4">}</span><span class="p" data-group-id="8489184573-3">)</span><span class="w">
+</span><span class="s">&quot;https://github.com/user/repo/tree/main&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_version/1">
+
+  <div class="detail-header">
+    <a href="#get_version/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_version(dep)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L259" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Outputs the current version string for a dependency.</p><h2 id="get_version/1-parameters" class="section-heading">
+  <a href="#get_version/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">dep</code>: The dependency from which to get the version.</li></ul><h2 id="get_version/1-examples" class="section-heading">
+  <a href="#get_version/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_version</span><span class="p" data-group-id="4581456424-1">(</span><span class="p" data-group-id="4581456424-2">%{</span><span class="ss">status</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4581456424-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p" data-group-id="4581456424-3">}</span><span class="p" data-group-id="4581456424-2">}</span><span class="p" data-group-id="4581456424-1">)</span><span class="w">
+</span><span class="s">&quot;1.0.0&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_version</span><span class="p" data-group-id="4581456424-4">(</span><span class="p" data-group-id="4581456424-5">%{</span><span class="ss">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;= 1.0.0&quot;</span><span class="p" data-group-id="4581456424-5">}</span><span class="p" data-group-id="4581456424-4">)</span><span class="w">
+</span><span class="s">&quot;&gt;= 1.0.0&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_version_link/1">
+
+  <div class="detail-header">
+    <a href="#get_version_link/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_version_link(dep)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L353" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Constructs a link to the version of a dependency.</p><h2 id="get_version_link/1-parameters" class="section-heading">
+  <a href="#get_version_link/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">dep</code>: The dependency from which to generate the version link.</li></ul><h2 id="get_version_link/1-examples" class="section-heading">
+  <a href="#get_version_link/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_version_link</span><span class="p" data-group-id="8437352234-1">(</span><span class="p" data-group-id="8437352234-2">%{</span><span class="ss">app</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my_app&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file.ex&quot;</span><span class="p" data-group-id="8437352234-2">}</span><span class="p" data-group-id="8437352234-1">)</span><span class="w">
+</span><span class="s">&quot;/settings/extensions/diff?app=my_app&amp;local=file.ex&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">get_version_link</span><span class="p" data-group-id="8437352234-3">(</span><span class="p" data-group-id="8437352234-4">%{</span><span class="ss">lock</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8437352234-5">{</span><span class="ss">:git</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://github.com/user/repo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8437352234-6">[</span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p" data-group-id="8437352234-6">]</span><span class="p" data-group-id="8437352234-5">}</span><span class="p" data-group-id="8437352234-4">}</span><span class="p" data-group-id="8437352234-3">)</span><span class="w">
+</span><span class="s">&quot;https://github.com/user/repo/compare/abc123...main&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="global_disable/1">
+
+  <div class="detail-header">
+    <a href="#global_disable/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">global_disable(extension)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L27" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Disables a given extension globally.</p><h2 id="global_disable/1-parameters" class="section-heading">
+  <a href="#global_disable/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">extension</code>: The name of the extension to disable.</li></ul><h2 id="global_disable/1-examples" class="section-heading">
+  <a href="#global_disable/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="0795361844-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0795361844-2">%</span><span class="nc" data-group-id="0795361844-2">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="0795361844-2">{</span><span class="ss">json</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0795361844-3">%{</span><span class="ss">bonfire</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0795361844-4">%{</span><span class="ss">my_test_extension</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0795361844-5">%{</span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="ss">:disabled</span><span class="p" data-group-id="0795361844-5">}</span><span class="p" data-group-id="0795361844-4">}</span><span class="p" data-group-id="0795361844-3">}</span><span class="p" data-group-id="0795361844-2">}</span><span class="p" data-group-id="0795361844-1">}</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">global_disable</span><span class="p" data-group-id="0795361844-6">(</span><span class="ss">:my_test_extension</span><span class="p" data-group-id="0795361844-6">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="global_enable/1">
+
+  <div class="detail-header">
+    <a href="#global_enable/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">global_enable(extension)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L41" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Enables a given extension globally.</p><h2 id="global_enable/1-parameters" class="section-heading">
+  <a href="#global_enable/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">extension</code>: The name of the extension to enable.</li></ul><h2 id="global_enable/1-examples" class="section-heading">
+  <a href="#global_enable/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6911336204-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6911336204-2">%</span><span class="nc" data-group-id="6911336204-2">Bonfire.Data.Identity.Settings</span><span class="p" data-group-id="6911336204-2">{</span><span class="ss">json</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6911336204-3">%{</span><span class="ss">bonfire</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6911336204-4">%{</span><span class="ss">my_test_extension</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6911336204-5">%{</span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="6911336204-5">}</span><span class="p" data-group-id="6911336204-4">}</span><span class="p" data-group-id="6911336204-3">}</span><span class="p" data-group-id="6911336204-2">}</span><span class="p" data-group-id="6911336204-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">global_enable</span><span class="p" data-group-id="6911336204-6">(</span><span class="ss">:my_test_extension</span><span class="p" data-group-id="6911336204-6">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="loaded_deps/1">
+
+    <span id="loaded_deps/0"></span>
+
+  <div class="detail-header">
+    <a href="#loaded_deps/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">loaded_deps(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L122" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a list of all dependencies in a specific format based on the options provided.</p><h2 id="loaded_deps/1-parameters" class="section-heading">
+  <a href="#loaded_deps/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">opts</code>: Options to determine the format, e.g., <code class="inline">:flat</code>, <code class="inline">:tree_flat</code>, <code class="inline">:nested</code>.</li></ul><h2 id="loaded_deps/1-examples" class="section-heading">
+  <a href="#loaded_deps/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">loaded_deps</span><span class="p" data-group-id="4419711552-1">(</span><span class="ss">:flat</span><span class="p" data-group-id="4419711552-1">)</span><span class="w">
+</span><span class="p" data-group-id="4419711552-2">[</span><span class="p" data-group-id="4419711552-3">%</span><span class="nc" data-group-id="4419711552-3">Mix.Dep</span><span class="p" data-group-id="4419711552-3">{</span><span class="p" data-group-id="4419711552-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4419711552-4">%</span><span class="nc" data-group-id="4419711552-4">Mix.Dep</span><span class="p" data-group-id="4419711552-4">{</span><span class="p" data-group-id="4419711552-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4419711552-2">]</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">loaded_deps</span><span class="p" data-group-id="4419711552-5">(</span><span class="ss">:tree_flat</span><span class="p" data-group-id="4419711552-5">)</span><span class="w">
+</span><span class="p" data-group-id="4419711552-6">[</span><span class="p" data-group-id="4419711552-7">%</span><span class="nc" data-group-id="4419711552-7">Mix.Dep</span><span class="p" data-group-id="4419711552-7">{</span><span class="p" data-group-id="4419711552-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4419711552-8">%</span><span class="nc" data-group-id="4419711552-8">Mix.Dep</span><span class="p" data-group-id="4419711552-8">{</span><span class="p" data-group-id="4419711552-8">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4419711552-6">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="loaded_deps_names/1">
+
+    <span id="loaded_deps_names/0"></span>
+
+  <div class="detail-header">
+    <a href="#loaded_deps_names/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">loaded_deps_names(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extensions.ex#L169" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a list of all dependency names in a specific format based on the options provided.</p><h2 id="loaded_deps_names/1-parameters" class="section-heading">
+  <a href="#loaded_deps_names/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">opts</code>: Options to determine the format, e.g., <code class="inline">:flat</code>, <code class="inline">:tree_flat</code>, <code class="inline">:nested</code>.</li></ul><h2 id="loaded_deps_names/1-examples" class="section-heading">
+  <a href="#loaded_deps_names/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Extensions</span><span class="o">.</span><span class="n">loaded_deps_names</span><span class="p" data-group-id="7906742943-1">(</span><span class="p" data-group-id="7906742943-1">)</span><span class="w">
+</span><span class="p" data-group-id="7906742943-2">[</span><span class="ss">:dep1</span><span class="p">,</span><span class="w"> </span><span class="ss">:dep2</span><span class="p" data-group-id="7906742943-2">]</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

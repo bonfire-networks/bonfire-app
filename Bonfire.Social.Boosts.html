@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.Boosts — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.Boosts</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Mutate, query, and federate boosts (re-sharing an activity or object).</p><p>Boosts are implemented on top of the <a href="./Bonfire.Data.Edges.Edge.html"><code class="inline">Bonfire.Data.Edges.Edge</code></a> schema (see <a href="./Bonfire.Social.Edges.html"><code class="inline">Bonfire.Social.Edges</code></a> for shared functions)</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_publish_activity/3" data-no-tooltip translate="no">ap_publish_activity(subject, arg2, boost)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Publishes a federated activity for a boost action.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip translate="no">ap_receive_activity(creator, activity, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Receives and processes a federated boost activity.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#boost/3" data-no-tooltip translate="no">boost(booster, boosted, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Boosts an object for a user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#boosted?/2" data-no-tooltip translate="no">boosted?(user, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a user has boosted an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/2" data-no-tooltip translate="no">count(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Counts boosts based on filters and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#date_last_boosted/2" data-no-tooltip translate="no">date_last_boosted(user, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the date of the latest boost by a user for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip translate="no">get(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a boost edge by subject and object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/3" data-no-tooltip translate="no">get!(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>  Retrieves a boost edge, raising an error if not found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_by/2" data-no-tooltip translate="no">list_by(by_user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists boosts by a specific user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my/1" data-no-tooltip translate="no">list_my(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists boosts by the current user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_of/2" data-no-tooltip translate="no">list_of(id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists boosts of a specific object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_paginated/2" data-no-tooltip translate="no">list_paginated(filters, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists boosts with pagination.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_boost/3" data-no-tooltip translate="no">maybe_boost(booster, boosted, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip translate="no">query(filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unboost/3" data-no-tooltip translate="no">unboost(booster, boosted, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Removes a boost from an object for a user, if one exists</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_publish_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_publish_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_publish_activity(subject, arg2, boost)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L328" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Publishes a federated activity for a boost action.</p><h2 id="ap_publish_activity/3-examples" class="section-heading">
+  <a href="#ap_publish_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="0230045833-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="n">boost</span><span class="p" data-group-id="0230045833-1">)</span><span class="w">
+</span><span class="p" data-group-id="0230045833-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_activity</span><span class="p" data-group-id="0230045833-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_receive_activity(creator, activity, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L369" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Receives and processes a federated boost activity.</p><h2 id="ap_receive_activity/3-examples" class="section-heading">
+  <a href="#ap_receive_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="3150728655-1">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3150728655-1">)</span><span class="w">
+</span><span class="p" data-group-id="3150728655-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_boost</span><span class="p" data-group-id="3150728655-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="boost/3">
+
+    <span id="boost/2"></span>
+
+  <div class="detail-header">
+    <a href="#boost/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">boost(booster, boosted, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L120" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Boosts an object for a user.</p><h2 id="boost/3-examples" class="section-heading">
+  <a href="#boost/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">boost</span><span class="p" data-group-id="3940661492-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3940661492-1">)</span><span class="w">
+</span><span class="p" data-group-id="3940661492-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3940661492-3">%</span><span class="nc" data-group-id="3940661492-3">Bonfire.Data.Social.Boost</span><span class="p" data-group-id="3940661492-3">{</span><span class="p" data-group-id="3940661492-3">}</span><span class="p" data-group-id="3940661492-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="boosted?/2">
+
+  <div class="detail-header">
+    <a href="#boosted?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">boosted?(user, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L51" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a user has boosted an object.</p><h2 id="boosted?/2-examples" class="section-heading">
+  <a href="#boosted?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">boosted?</span><span class="p" data-group-id="2403007228-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2403007228-1">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count/2">
+
+    <span id="count/0"></span>
+
+    <span id="count/1"></span>
+
+  <div class="detail-header">
+    <a href="#count/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count(filters \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L69" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Counts boosts based on filters and options.</p><h2 id="count/2-examples" class="section-heading">
+  <a href="#count/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">count</span><span class="p" data-group-id="3589600188-1">(</span><span class="p" data-group-id="3589600188-2">[</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="n">user_id</span><span class="p" data-group-id="3589600188-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3589600188-3">[</span><span class="p" data-group-id="3589600188-3">]</span><span class="p" data-group-id="3589600188-1">)</span><span class="w">
+</span><span class="mi">5</span><span class="w"> </span><span class="c1"># user made 5 boosts, across all objects</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">count</span><span class="p" data-group-id="3589600188-4">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3589600188-4">)</span><span class="w">
+</span><span class="mi">3</span><span class="w"> </span><span class="c1"># user boosted object 3 times</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">count</span><span class="p" data-group-id="3589600188-5">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3589600188-6">[</span><span class="p" data-group-id="3589600188-6">]</span><span class="p" data-group-id="3589600188-5">)</span><span class="w">
+</span><span class="mi">10</span><span class="w"> </span><span class="c1"># object was boosted 5 times, across all users</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="date_last_boosted/2">
+
+  <div class="detail-header">
+    <a href="#date_last_boosted/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">date_last_boosted(user, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L90" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets the date of the latest boost by a user for an object.</p><h2 id="date_last_boosted/2-examples" class="section-heading">
+  <a href="#date_last_boosted/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">date_last_boosted</span><span class="p" data-group-id="8979461395-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="8979461395-1">)</span><span class="w">
+</span><span class="ld">~U[2023-07-29 12:34:56Z]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federation_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L34" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L102" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a boost edge by subject and object.</p><h2 id="get/3-examples" class="section-heading">
+  <a href="#get/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="3453266209-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3453266209-1">)</span><span class="w">
+</span><span class="p" data-group-id="3453266209-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3453266209-3">%</span><span class="nc" data-group-id="3453266209-3">Bonfire.Data.Social.Boost</span><span class="p" data-group-id="3453266209-3">{</span><span class="p" data-group-id="3453266209-3">}</span><span class="p" data-group-id="3453266209-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get!/3">
+
+    <span id="get!/2"></span>
+
+  <div class="detail-header">
+    <a href="#get!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L108" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>  Retrieves a boost edge, raising an error if not found.</p>
+  </section>
+</section>
+<section class="detail" id="list_by/2">
+
+    <span id="list_by/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_by/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_by(by_user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L255" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists boosts by a specific user.</p><h2 id="list_by/2-examples" class="section-heading">
+  <a href="#list_by/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="0167610822-1">(</span><span class="n">user_id</span><span class="p" data-group-id="0167610822-1">)</span><span class="w">
+</span><span class="p" data-group-id="0167610822-2">[</span><span class="p" data-group-id="0167610822-3">%</span><span class="nc" data-group-id="0167610822-3">Bonfire.Data.Social.Boost</span><span class="p" data-group-id="0167610822-3">{</span><span class="p" data-group-id="0167610822-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0167610822-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_my/1">
+
+  <div class="detail-header">
+    <a href="#list_my/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L242" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists boosts by the current user.</p><h2 id="list_my/1-examples" class="section-heading">
+  <a href="#list_my/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">list_my</span><span class="p" data-group-id="9287273835-1">(</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="9287273835-1">)</span><span class="w">
+</span><span class="p" data-group-id="9287273835-2">[</span><span class="p" data-group-id="9287273835-3">%</span><span class="nc" data-group-id="9287273835-3">Bonfire.Data.Social.Boost</span><span class="p" data-group-id="9287273835-3">{</span><span class="p" data-group-id="9287273835-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9287273835-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_of/2">
+
+    <span id="list_of/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_of/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_of(id, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L274" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists boosts of a specific object.</p><h2 id="list_of/2-examples" class="section-heading">
+  <a href="#list_of/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">list_of</span><span class="p" data-group-id="3288699128-1">(</span><span class="n">object_id</span><span class="p" data-group-id="3288699128-1">)</span><span class="w">
+</span><span class="p" data-group-id="3288699128-2">[</span><span class="p" data-group-id="3288699128-3">%</span><span class="nc" data-group-id="3288699128-3">Bonfire.Data.Social.Boost</span><span class="p" data-group-id="3288699128-3">{</span><span class="p" data-group-id="3288699128-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="3288699128-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_paginated/2">
+
+    <span id="list_paginated/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_paginated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_paginated(filters, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L289" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists boosts with pagination.</p><h2 id="list_paginated/2-examples" class="section-heading">
+  <a href="#list_paginated/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">list_paginated</span><span class="p" data-group-id="9740457478-1">(</span><span class="p" data-group-id="9740457478-2">[</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="n">user_id</span><span class="p" data-group-id="9740457478-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9740457478-3">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="9740457478-3">]</span><span class="p" data-group-id="9740457478-1">)</span><span class="w">
+</span><span class="p" data-group-id="9740457478-4">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9740457478-5">[</span><span class="p" data-group-id="9740457478-6">%</span><span class="nc" data-group-id="9740457478-6">Bonfire.Data.Social.Boost</span><span class="p" data-group-id="9740457478-6">{</span><span class="p" data-group-id="9740457478-6">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9740457478-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9740457478-7">%{</span><span class="n">...</span><span class="p" data-group-id="9740457478-7">}</span><span class="p" data-group-id="9740457478-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_boost/3">
+
+    <span id="maybe_boost/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_boost/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_boost(booster, boosted, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L148" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L308" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L31" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L30" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="unboost/3">
+
+    <span id="unboost/2"></span>
+
+  <div class="detail-header">
+    <a href="#unboost/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unboost(booster, boosted, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/boosts.ex#L216" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Removes a boost from an object for a user, if one exists</p><h2 id="unboost/3-examples" class="section-heading">
+  <a href="#unboost/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">unboost</span><span class="p" data-group-id="5052843557-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="5052843557-1">)</span><span class="w">
+</span><span class="p" data-group-id="5052843557-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="5052843557-2">}</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

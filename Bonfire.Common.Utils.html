@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Utils — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Utils</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Various very commonly used utility functions for the Bonfire application.</p><p>This module should contain only a few generic and/or heavily-used functions, and any other functions should be in more specific modules (or in other extensions altogether) for e.g.: </p><ul><li><a href="./Bonfire.Common.Enums.html"><code class="inline">Bonfire.Common.Enums</code></a> for functions around maps, structs, keyword lists, and the like</li><li><a href="./Bonfire.Common.Types.html"><code class="inline">Bonfire.Common.Types</code></a> for object types</li><li><a href="./Bonfire.Common.URIs.html"><code class="inline">Bonfire.Common.URIs</code></a> and <a href="https://hexdocs.pm/linkify/0.5.3/Linkify.html"><code class="inline">Linkify</code></a> for URI handling</li><li><a href="./Bonfire.Common.DatesTimes.html"><code class="inline">Bonfire.Common.DatesTimes</code></a> for date/time helpers</li><li><a href="./Bonfire.Common.E.html"><code class="inline">Bonfire.Common.E</code></a> to extract nested data from an object</li><li><a href="./Bonfire.Common.Errors.html"><code class="inline">Bonfire.Common.Errors</code></a> and <a href="https://hexdocs.pm/bonfire_fail/0.1.0/Bonfire.Fail.html"><code class="inline">Bonfire.Fail</code></a> for error handling</li><li><a href="./Bonfire.Common.Extend.html"><code class="inline">Bonfire.Common.Extend</code></a> for functions around modularity</li><li><a href="./Bonfire.Common.Opts.html"><code class="inline">Bonfire.Common.Opts</code></a> for handling function options</li><li><a href="./Bonfire.Common.Config.html"><code class="inline">Bonfire.Common.Config</code></a> for handling app-wide config</li><li><a href="./Bonfire.Common.Settings.html"><code class="inline">Bonfire.Common.Settings</code></a> for handling account/user/instance level settings</li><li><a href="./Bonfire.Common.HTTP.html"><code class="inline">Bonfire.Common.HTTP</code></a> for HTTP requests</li><li><a href="./Bonfire.Common.Cache.html"><code class="inline">Bonfire.Common.Cache</code></a> for caching</li><li><a href="./Bonfire.Common.Text.html"><code class="inline">Bonfire.Common.Text</code></a> for plain or rich text</li><li><a href="./Bonfire.Common.Localise.html"><code class="inline">Bonfire.Common.Localise</code></a> for app localisation</li><li><a href="./Bonfire.Common.Media.html"><code class="inline">Bonfire.Common.Media</code></a> and <a href="./Bonfire.Files.html"><code class="inline">Bonfire.Files</code></a> for avatars/images/videos/etc</li><li><a href="./Bonfire.Common.Repo.html"><code class="inline">Bonfire.Common.Repo</code></a> and <a href="./Needle.html"><code class="inline">Needle</code></a> for database access</li><li><a href="./Bonfire.Common.PubSub.html"><code class="inline">Bonfire.Common.PubSub</code></a> for pub/sub</li></ul><p>We may also want to consider reusing functions from existing utils libraries when possible and contributing missing ones there, for example:</p><ul><li><a href="https://hexdocs.pm/moar/readme.html">https://hexdocs.pm/moar/readme.html</a></li><li><a href="https://hexdocs.pm/bunch/api-reference.html">https://hexdocs.pm/bunch/api-reference.html</a></li><li><a href="https://hexdocs.pm/swiss/api-reference.html">https://hexdocs.pm/swiss/api-reference.html</a></li><li><a href="https://hexdocs.pm/wuunder_utils/api-reference.html">https://hexdocs.pm/wuunder_utils/api-reference.html</a></li><li><a href="https://github.com/cozy-elixir">https://github.com/cozy-elixir</a></li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#apply_error/3" data-no-tooltip translate="no">apply_error(error, args, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#apply_task/3" data-no-tooltip translate="no">apply_task(function \\ :async, fun, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Runs a function asynchronously in a Task. Simply a shorthand for calling functions in <a href="https://hexdocs.pm/elixir/Task.html"><code class="inline">Task</code></a> and <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> but with support for multi-tenancy in the spawned process. </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#apply_task_supervised/3" data-no-tooltip translate="no">apply_task_supervised(supervisor, fun, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Runs a function asynchronously using <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a>. This is similar to <a href="#apply_task/3"><code class="inline">apply_task/3</code></a> but specifically uses <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> for supervision.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_account/2" data-no-tooltip translate="no">current_account(current_account_or_socket_or_opts, recursing \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the current account from socket, assigns, or options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_account_and_or_user_ids/1" data-no-tooltip translate="no">current_account_and_or_user_ids(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a list of current account IDs and/or user IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_account_auth!/2" data-no-tooltip translate="no">current_account_auth!(context, password)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>(Re)authenticates the current account using the provided password.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_account_id/2" data-no-tooltip translate="no">current_account_id(current_account_or_socket_or_opts, recursing \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the current account ID from socket, assigns, or options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_user/2" data-no-tooltip translate="no">current_user(current_user_or_socket_or_opts, recursing \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the current user from socket, assigns, or options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_user_auth!/2" data-no-tooltip translate="no">current_user_auth!(context, password)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>(Re)authenticates the current user using the provided password.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_user_id/2" data-no-tooltip translate="no">current_user_id(current_user_or_socket_or_opts, recursing \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the current user ID from socket, assigns, or options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#current_user_required!/1" data-no-tooltip translate="no">current_user_required!(context)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Ensures that the current user is present and raises an exception if not logged in.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#declared_extension/0" data-no-tooltip translate="no">declared_extension()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ExtensionModule.html#c:declared_extension/0"><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/2" data-no-tooltip translate="no">e(object, fallback \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/2"><code class="inline">Bonfire.Common.E.e/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/3" data-no-tooltip translate="no">e(object, key1, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/3"><code class="inline">Bonfire.Common.E.e/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/4" data-no-tooltip translate="no">e(object, key1, key2, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/4"><code class="inline">Bonfire.Common.E.e/4</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/5" data-no-tooltip translate="no">e(object, key1, key2, key3, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/5"><code class="inline">Bonfire.Common.E.e/5</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/6" data-no-tooltip translate="no">e(object, key1, key2, key3, key4, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/6"><code class="inline">Bonfire.Common.E.e/6</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/7" data-no-tooltip translate="no">e(object, key1, key2, key3, key4, key5, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/7"><code class="inline">Bonfire.Common.E.e/7</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#e/8" data-no-tooltip translate="no">e(object, key1, key2, key3, key4, key5, key6, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.E.html#e/8"><code class="inline">Bonfire.Common.E.e/8</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#empty?/1" data-no-tooltip translate="no">empty?(v)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if the given value is <code class="inline">nil</code>, an empty enumerable, or an empty string.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe/2" data-no-tooltip translate="no">maybe(val, change_fn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Applies the given function if the first parameter is not <code class="inline">nil</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_apply/4" data-no-tooltip translate="no">maybe_apply(module, fun, args \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>  Helper for calling hypothetical functions another modules. </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_apply_fallback/3" data-no-tooltip translate="no">maybe_apply_fallback(error, args, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_from_opts/3" data-no-tooltip translate="no">maybe_from_opts(opts, key, fallback \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the value of a key from options keyword list or map, or a fallback if not present or empty.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#nothing?/1" data-no-tooltip translate="no">nothing?(v)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if the given value is <code class="inline">nil</code>, <code class="inline">false</code>, <code class="inline">0</code>, or an empty value (using <a href="#empty?/1"><code class="inline">empty?/1</code></a>).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ok_unwrap/2" data-no-tooltip translate="no">ok_unwrap(val, fallback \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Unwraps an <code class="inline">{:ok, val}</code> tuple, returning the value. If not OK, returns a fallback value (default is <code class="inline">nil</code>).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#round_nearest/1" data-no-tooltip translate="no">round_nearest(num)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Rounds a number and uses <a href="./Bonfire.Common.Localise.Cldr.Number.html#to_string/2"><code class="inline">Bonfire.Common.Localise.Cldr.Number.to_string/2</code></a> function to format into a human readable string.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#round_nearest/2" data-no-tooltip translate="no">round_nearest(num, target)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Rounds a number to the nearest specified target. </p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_options/1" data-no-tooltip translate="no">to_options(user_or_socket_or_opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts a map, user, socket, tuple, etc, to a keyword list for standardised use as function options.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="apply_error/3">
+
+  <div class="detail-header">
+    <a href="#apply_error/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">apply_error(error, args, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L775" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="apply_task/3">
+
+    <span id="apply_task/1"></span>
+
+    <span id="apply_task/2"></span>
+
+  <div class="detail-header">
+    <a href="#apply_task/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">apply_task(function \\ :async, fun, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L817" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Runs a function asynchronously in a Task. Simply a shorthand for calling functions in <a href="https://hexdocs.pm/elixir/Task.html"><code class="inline">Task</code></a> and <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> but with support for multi-tenancy in the spawned process. </p><ul><li><p><a href="https://hexdocs.pm/elixir/Task.html#async/1"><code class="inline">Task.async/1</code></a> the caller creates a new process links and monitors it. Once the task action finishes, a message is sent to the caller with the result. <a href="https://hexdocs.pm/elixir/Task.html#await/2"><code class="inline">Task.await/2</code></a> is used to read the message sent by the task. When using <code class="inline">async</code>, you <em>must</em> <code class="inline">await</code> a reply as they are always sent. </p></li><li><p><a href="https://hexdocs.pm/elixir/Task.html#start_link/1"><code class="inline">Task.start_link/1</code></a> is suggested instead if you are not expecting a reply. It starts a statically supervised task as part of a supervision tree, linked to the calling process (meaning it will be stopped when the caller stops). </p></li><li><p><a href="https://hexdocs.pm/elixir/Task.html#start/1"><code class="inline">Task.start/1</code></a> can be used for fire-and-forget tasks, like side-effects, when you have no interest on its results nor if it completes successfully (because if the server is shut down it won't be restarted).</p></li></ul><p>For more serious tasks, consider using <a href="https://hexdocs.pm/oban/2.18.0/Oban.html"><code class="inline">Oban</code></a> or <a href="#apply_task_supervised/3"><code class="inline">apply_task_supervised/3</code></a> for supervised tasks when possible:</p><ul><li><p><a href="https://hexdocs.pm/elixir/Task.Supervisor.html#start_child/2"><code class="inline">Task.Supervisor.start_child/2</code></a> allows you to start a fire-and-forget task when you don't care about its results or if it completes successfully or not.</p></li><li><p><a href="https://hexdocs.pm/elixir/Task.Supervisor.html#async/2"><code class="inline">Task.Supervisor.async/2</code></a> + <a href="https://hexdocs.pm/elixir/Task.html#await/2"><code class="inline">Task.await/2</code></a> allows you to execute tasks concurrently and retrieve its result. If the task fails, the caller will also fail.</p></li></ul><h2 id="apply_task/3-parameters" class="section-heading">
+  <a href="#apply_task/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">function</code>: The type of task to start (e.g. <code class="inline">:async</code>, <code class="inline">:start_link</code>, or <code class="inline">:start</code>).</li><li><code class="inline">fun</code>: The function to execute async.</li><li><code class="inline">opts</code>: Options for task execution, including:<ul><li><code class="inline">:module</code> - The module to use for task execution (defaults to <a href="https://hexdocs.pm/elixir/Task.html"><code class="inline">Task</code></a>).</li></ul></li></ul><h2 id="apply_task/3-examples" class="section-heading">
+  <a href="#apply_task/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">apply_task</span><span class="p" data-group-id="2333873544-1">(</span><span class="ss">:async</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2333873544-2">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="2333873544-3">(</span><span class="s">&quot;Async task&quot;</span><span class="p" data-group-id="2333873544-3">)</span><span class="w"> </span><span class="k" data-group-id="2333873544-2">end</span><span class="p" data-group-id="2333873544-1">)</span><span class="w">
+</span><span class="c1"># Output: &quot;Async task&quot;</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="p" data-group-id="2333873544-4">{</span><span class="n">apply_task</span><span class="p" data-group-id="2333873544-5">(</span><span class="ss">:start</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2333873544-6">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="2333873544-7">(</span><span class="s">&quot;Fire-and-forget task&quot;</span><span class="p" data-group-id="2333873544-7">)</span><span class="w"> </span><span class="k" data-group-id="2333873544-6">end</span><span class="p" data-group-id="2333873544-5">)</span><span class="w">
+</span><span class="c1"># Output: &quot;Fire-and-forget task&quot;</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">apply_task</span><span class="p" data-group-id="2333873544-8">(</span><span class="ss">:start_link</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2333873544-9">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="2333873544-10">(</span><span class="s">&quot;Supervised task&quot;</span><span class="p" data-group-id="2333873544-10">)</span><span class="w"> </span><span class="k" data-group-id="2333873544-9">end</span><span class="p" data-group-id="2333873544-8">)</span><span class="w">
+</span><span class="c1"># Output: &quot;Supervised task&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="apply_task_supervised/3">
+
+    <span id="apply_task_supervised/2"></span>
+
+  <div class="detail-header">
+    <a href="#apply_task_supervised/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">apply_task_supervised(supervisor, fun, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L855" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Runs a function asynchronously using <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a>. This is similar to <a href="#apply_task/3"><code class="inline">apply_task/3</code></a> but specifically uses <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> for supervision.</p><h2 id="apply_task_supervised/3-parameters" class="section-heading">
+  <a href="#apply_task_supervised/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">module</code>: The supervisor module to use for task execution</li><li><code class="inline">fun</code>: The function to execute async</li><li><code class="inline">opts</code>: Options for task execution, including:<ul><li><code class="inline">:function</code> - The <a href="https://hexdocs.pm/elixir/Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> function to use for task execution (defaults to <code class="inline">:async</code>).</li></ul></li></ul><h2 id="apply_task_supervised/3-examples" class="section-heading">
+  <a href="#apply_task_supervised/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">apply_task_supervised</span><span class="p" data-group-id="0323574487-1">(</span><span class="nc">MySupervisor</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="0323574487-2">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="0323574487-3">(</span><span class="s">&quot;Supervised async task&quot;</span><span class="p" data-group-id="0323574487-3">)</span><span class="w"> </span><span class="k" data-group-id="0323574487-2">end</span><span class="p" data-group-id="0323574487-1">)</span><span class="w">
+</span><span class="gt">** (EXIT) no process: the process is not alive or there&#39;s no process currently associated with the given name, possibly because its application isn&#39;t started</span><span class="w">
+</span><span class="c1"># because `MySupervisor` is not defined and/or started ^</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_account/2">
+
+    <span id="current_account/1"></span>
+
+  <div class="detail-header">
+    <a href="#current_account/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_account(current_account_or_socket_or_opts, recursing \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L366" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the current account from socket, assigns, or options.</p><p>This function traverses various possible structures to find and return the current account.</p><h2 id="current_account/2-examples" class="section-heading">
+  <a href="#current_account/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account</span><span class="p" data-group-id="8382186002-1">(</span><span class="p" data-group-id="8382186002-2">%{</span><span class="ss">current_account</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account1&quot;</span><span class="p" data-group-id="8382186002-3">}</span><span class="p" data-group-id="8382186002-2">}</span><span class="p" data-group-id="8382186002-1">)</span><span class="w">
+</span><span class="p" data-group-id="8382186002-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account1&quot;</span><span class="p" data-group-id="8382186002-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account</span><span class="p" data-group-id="8382186002-5">(</span><span class="p" data-group-id="8382186002-6">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-7">%{</span><span class="ss">current_account</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-8">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account2&quot;</span><span class="p" data-group-id="8382186002-8">}</span><span class="p" data-group-id="8382186002-7">}</span><span class="p" data-group-id="8382186002-6">}</span><span class="p" data-group-id="8382186002-5">)</span><span class="w">
+</span><span class="p" data-group-id="8382186002-9">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account2&quot;</span><span class="p" data-group-id="8382186002-9">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account</span><span class="p" data-group-id="8382186002-10">(</span><span class="p" data-group-id="8382186002-11">%{</span><span class="ss">socket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-12">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-13">%{</span><span class="ss">current_account</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-14">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account3&quot;</span><span class="p" data-group-id="8382186002-14">}</span><span class="p" data-group-id="8382186002-13">}</span><span class="p" data-group-id="8382186002-12">}</span><span class="p" data-group-id="8382186002-11">}</span><span class="p" data-group-id="8382186002-10">)</span><span class="w">
+</span><span class="p" data-group-id="8382186002-15">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account3&quot;</span><span class="p" data-group-id="8382186002-15">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account</span><span class="p" data-group-id="8382186002-16">(</span><span class="p" data-group-id="8382186002-17">[</span><span class="ss">current_account</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8382186002-18">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account4&quot;</span><span class="p" data-group-id="8382186002-18">}</span><span class="p" data-group-id="8382186002-17">]</span><span class="p" data-group-id="8382186002-16">)</span><span class="w">
+</span><span class="p" data-group-id="8382186002-19">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account4&quot;</span><span class="p" data-group-id="8382186002-19">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_account_and_or_user_ids/1">
+
+  <div class="detail-header">
+    <a href="#current_account_and_or_user_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_account_and_or_user_ids(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L558" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a list of current account IDs and/or user IDs.</p><p>This function returns a keyword list with the current account IDs and/or user IDs.</p><h2 id="current_account_and_or_user_ids/1-examples" class="section-heading">
+  <a href="#current_account_and_or_user_ids/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_and_or_user_ids</span><span class="p" data-group-id="7252320492-1">(</span><span class="p" data-group-id="7252320492-2">%{</span><span class="ss">current_account_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="7252320492-2">}</span><span class="p" data-group-id="7252320492-1">)</span><span class="w">
+</span><span class="p" data-group-id="7252320492-3">[</span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="7252320492-3">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_and_or_user_ids</span><span class="p" data-group-id="7252320492-4">(</span><span class="p" data-group-id="7252320492-5">%{</span><span class="ss">current_account</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7252320492-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="7252320492-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7252320492-7">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="7252320492-7">}</span><span class="p" data-group-id="7252320492-5">}</span><span class="p" data-group-id="7252320492-4">)</span><span class="w">
+</span><span class="p" data-group-id="7252320492-8">[</span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="7252320492-8">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_and_or_user_ids</span><span class="p" data-group-id="7252320492-9">(</span><span class="p" data-group-id="7252320492-10">%{</span><span class="ss">current_account_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="7252320492-10">}</span><span class="p" data-group-id="7252320492-9">)</span><span class="w">
+</span><span class="p" data-group-id="7252320492-11">[</span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="7252320492-11">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_and_or_user_ids</span><span class="p" data-group-id="7252320492-12">(</span><span class="p" data-group-id="7252320492-13">%{</span><span class="ss">current_user_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="7252320492-13">}</span><span class="p" data-group-id="7252320492-12">)</span><span class="w">
+</span><span class="p" data-group-id="7252320492-14">[</span><span class="ss">user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="7252320492-14">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_and_or_user_ids</span><span class="p" data-group-id="7252320492-15">(</span><span class="p" data-group-id="7252320492-16">%{</span><span class="p" data-group-id="7252320492-16">}</span><span class="p" data-group-id="7252320492-15">)</span><span class="w">
+</span><span class="p" data-group-id="7252320492-17">[</span><span class="p" data-group-id="7252320492-17">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_account_auth!/2">
+
+  <div class="detail-header">
+    <a href="#current_account_auth!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_account_auth!(context, password)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L336" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>(Re)authenticates the current account using the provided password.</p><p>Raises an exception if the credentials are invalid.</p><h2 id="current_account_auth!/2-examples" class="section-heading">
+  <a href="#current_account_auth!/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_auth!</span><span class="p" data-group-id="2276440778-1">(</span><span class="p" data-group-id="2276440778-2">%{</span><span class="ss">current_account</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2276440778-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="2276440778-3">}</span><span class="p" data-group-id="2276440778-2">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wrong-password&quot;</span><span class="p" data-group-id="2276440778-1">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail.Auth) We couldn&#39;t find an account with the details you provided.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_account_id/2">
+
+    <span id="current_account_id/1"></span>
+
+  <div class="detail-header">
+    <a href="#current_account_id/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_account_id(current_account_or_socket_or_opts, recursing \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L473" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the current account ID from socket, assigns, or options.</p><p>This function traverses various possible structures to find and return the current account ID.</p><h2 id="current_account_id/2-examples" class="section-heading">
+  <a href="#current_account_id/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_id</span><span class="p" data-group-id="4715790625-1">(</span><span class="p" data-group-id="4715790625-2">%{</span><span class="ss">current_account_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="4715790625-2">}</span><span class="p" data-group-id="4715790625-1">)</span><span class="w">
+</span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_id</span><span class="p" data-group-id="4715790625-3">(</span><span class="p" data-group-id="4715790625-4">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4715790625-5">%{</span><span class="ss">current_account_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="4715790625-5">}</span><span class="p" data-group-id="4715790625-4">}</span><span class="p" data-group-id="4715790625-3">)</span><span class="w">
+</span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_id</span><span class="p" data-group-id="4715790625-6">(</span><span class="p" data-group-id="4715790625-7">%{</span><span class="ss">socket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4715790625-8">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4715790625-9">%{</span><span class="ss">current_account_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="4715790625-9">}</span><span class="p" data-group-id="4715790625-8">}</span><span class="p" data-group-id="4715790625-7">}</span><span class="p" data-group-id="4715790625-6">)</span><span class="w">
+</span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_account_id</span><span class="p" data-group-id="4715790625-10">(</span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span><span class="p" data-group-id="4715790625-10">)</span><span class="w">
+</span><span class="s">&quot;2CC0VNTSARE1S01AT10NGR0VPS&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_user/2">
+
+    <span id="current_user/1"></span>
+
+  <div class="detail-header">
+    <a href="#current_user/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_user(current_user_or_socket_or_opts, recursing \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L134" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the current user from socket, assigns, or options.</p><p>This function traverses various possible structures to find and return the current user (or current user ID if that's all that's available). </p><h2 id="current_user/2-examples" class="section-heading">
+  <a href="#current_user/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="9839054977-1">(</span><span class="p" data-group-id="9839054977-2">%{</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p" data-group-id="9839054977-3">}</span><span class="p" data-group-id="9839054977-2">}</span><span class="p" data-group-id="9839054977-1">)</span><span class="w">
+</span><span class="p" data-group-id="9839054977-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p" data-group-id="9839054977-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="9839054977-5">(</span><span class="p" data-group-id="9839054977-6">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-7">%{</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-8">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user2&quot;</span><span class="p" data-group-id="9839054977-8">}</span><span class="p" data-group-id="9839054977-7">}</span><span class="p" data-group-id="9839054977-6">}</span><span class="p" data-group-id="9839054977-5">)</span><span class="w">
+</span><span class="p" data-group-id="9839054977-9">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user2&quot;</span><span class="p" data-group-id="9839054977-9">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="9839054977-10">(</span><span class="p" data-group-id="9839054977-11">%{</span><span class="ss">socket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-12">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-13">%{</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-14">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user3&quot;</span><span class="p" data-group-id="9839054977-14">}</span><span class="p" data-group-id="9839054977-13">}</span><span class="p" data-group-id="9839054977-12">}</span><span class="p" data-group-id="9839054977-11">}</span><span class="p" data-group-id="9839054977-10">)</span><span class="w">
+</span><span class="p" data-group-id="9839054977-15">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user3&quot;</span><span class="p" data-group-id="9839054977-15">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="9839054977-16">(</span><span class="p" data-group-id="9839054977-17">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9839054977-18">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user4&quot;</span><span class="p" data-group-id="9839054977-18">}</span><span class="p" data-group-id="9839054977-17">]</span><span class="p" data-group-id="9839054977-16">)</span><span class="w">
+</span><span class="p" data-group-id="9839054977-19">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user4&quot;</span><span class="p" data-group-id="9839054977-19">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="9839054977-20">(</span><span class="p" data-group-id="9839054977-21">%{</span><span class="ss">current_user_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="9839054977-21">}</span><span class="p" data-group-id="9839054977-20">)</span><span class="w">
+</span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_user_auth!/2">
+
+  <div class="detail-header">
+    <a href="#current_user_auth!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_user_auth!(context, password)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L316" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>(Re)authenticates the current user using the provided password.</p><p>Raises an exception if the credentials are invalid.</p><h2 id="current_user_auth!/2-examples" class="section-heading">
+  <a href="#current_user_auth!/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_auth!</span><span class="p" data-group-id="5793311488-1">(</span><span class="p" data-group-id="5793311488-2">%{</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5793311488-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p" data-group-id="5793311488-3">}</span><span class="p" data-group-id="5793311488-2">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password123&quot;</span><span class="p" data-group-id="5793311488-1">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail.Auth) We couldn&#39;t find an account with the details you provided. </span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_user_id/2">
+
+    <span id="current_user_id/1"></span>
+
+  <div class="detail-header">
+    <a href="#current_user_id/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_user_id(current_user_or_socket_or_opts, recursing \\ false)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L235" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the current user ID from socket, assigns, or options.</p><p>This function traverses various possible structures to find and return the current user ID.</p><h2 id="current_user_id/2-examples" class="section-heading">
+  <a href="#current_user_id/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_id</span><span class="p" data-group-id="3748909066-1">(</span><span class="p" data-group-id="3748909066-2">%{</span><span class="ss">current_user_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="3748909066-2">}</span><span class="p" data-group-id="3748909066-1">)</span><span class="w">
+</span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_id</span><span class="p" data-group-id="3748909066-3">(</span><span class="p" data-group-id="3748909066-4">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3748909066-5">%{</span><span class="ss">current_user_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="3748909066-5">}</span><span class="p" data-group-id="3748909066-4">}</span><span class="p" data-group-id="3748909066-3">)</span><span class="w">
+</span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_id</span><span class="p" data-group-id="3748909066-6">(</span><span class="p" data-group-id="3748909066-7">%{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3748909066-8">%{</span><span class="ss">__context__</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3748909066-9">%{</span><span class="ss">current_user_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="3748909066-9">}</span><span class="p" data-group-id="3748909066-8">}</span><span class="p" data-group-id="3748909066-7">}</span><span class="p" data-group-id="3748909066-6">)</span><span class="w">
+</span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_id</span><span class="p" data-group-id="3748909066-10">(</span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="p" data-group-id="3748909066-10">)</span><span class="w">
+</span><span class="s">&quot;5EVSER1S0STENS1B1YHVMAN01D&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_id</span><span class="p" data-group-id="3748909066-11">(</span><span class="s">&quot;invalid id&quot;</span><span class="p" data-group-id="3748909066-11">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="current_user_required!/1">
+
+  <div class="detail-header">
+    <a href="#current_user_required!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">current_user_required!(context)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L302" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Ensures that the current user is present and raises an exception if not logged in.</p><h2 id="current_user_required!/1-examples" class="section-heading">
+  <a href="#current_user_required!/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_required!</span><span class="p" data-group-id="3059681034-1">(</span><span class="p" data-group-id="3059681034-2">%{</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3059681034-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p" data-group-id="3059681034-3">}</span><span class="p" data-group-id="3059681034-2">}</span><span class="p" data-group-id="3059681034-1">)</span><span class="w">
+</span><span class="p" data-group-id="3059681034-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p" data-group-id="3059681034-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user_required!</span><span class="p" data-group-id="3059681034-5">(</span><span class="p" data-group-id="3059681034-6">%{</span><span class="p" data-group-id="3059681034-6">}</span><span class="p" data-group-id="3059681034-5">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail.Auth) You need to log in first. </span></code></pre>
+  </section>
+</section>
+<section class="detail" id="declared_extension/0">
+
+  <div class="detail-header">
+    <a href="#declared_extension/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">declared_extension()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L88" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ExtensionModule.html#c:declared_extension/0"><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/2">
+
+    <span id="e/1"></span>
+
+  <div class="detail-header">
+    <a href="#e/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, fallback \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L94" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/2"><code class="inline">Bonfire.Common.E.e/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/3">
+
+  <div class="detail-header">
+    <a href="#e/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L95" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/3"><code class="inline">Bonfire.Common.E.e/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/4">
+
+  <div class="detail-header">
+    <a href="#e/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L96" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/4"><code class="inline">Bonfire.Common.E.e/4</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/5">
+
+  <div class="detail-header">
+    <a href="#e/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L97" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/5"><code class="inline">Bonfire.Common.E.e/5</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/6">
+
+  <div class="detail-header">
+    <a href="#e/6" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L98" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/6"><code class="inline">Bonfire.Common.E.e/6</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/7">
+
+  <div class="detail-header">
+    <a href="#e/7" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, key5, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L99" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/7"><code class="inline">Bonfire.Common.E.e/7</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="e/8">
+
+  <div class="detail-header">
+    <a href="#e/8" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, key5, key6, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L100" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.E.html#e/8"><code class="inline">Bonfire.Common.E.e/8</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="empty?/1">
+
+  <div class="detail-header">
+    <a href="#empty?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">empty?(v)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L883" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if the given value is <code class="inline">nil</code>, an empty enumerable, or an empty string.</p><h2 id="empty?/1-parameters" class="section-heading">
+  <a href="#empty?/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">v</code>: The value to check.</li></ul><h2 id="empty?/1-examples" class="section-heading">
+  <a href="#empty?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">empty?</span><span class="p" data-group-id="8534051420-1">(</span><span class="no">nil</span><span class="p" data-group-id="8534051420-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">empty?</span><span class="p" data-group-id="8534051420-2">(</span><span class="s">&quot;&quot;</span><span class="p" data-group-id="8534051420-2">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">empty?</span><span class="p" data-group-id="8534051420-3">(</span><span class="p" data-group-id="8534051420-4">[</span><span class="p" data-group-id="8534051420-4">]</span><span class="p" data-group-id="8534051420-3">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">empty?</span><span class="p" data-group-id="8534051420-5">(</span><span class="p" data-group-id="8534051420-6">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="8534051420-6">]</span><span class="p" data-group-id="8534051420-5">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">empty?</span><span class="p" data-group-id="8534051420-7">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="8534051420-7">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe/2">
+
+  <div class="detail-header">
+    <a href="#maybe/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe(val, change_fn)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L938" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Applies the given function if the first parameter is not <code class="inline">nil</code>.</p><h2 id="maybe/2-parameters" class="section-heading">
+  <a href="#maybe/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">val</code>: The value to check.</li><li><code class="inline">change_fn</code>: A function to apply if <code class="inline">val</code> is not <code class="inline">nil</code>.</li></ul><h2 id="maybe/2-examples" class="section-heading">
+  <a href="#maybe/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe</span><span class="p" data-group-id="2474261156-1">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2474261156-2">fn</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k" data-group-id="2474261156-2">end</span><span class="p" data-group-id="2474261156-1">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe</span><span class="p" data-group-id="2474261156-3">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2474261156-4">fn</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k" data-group-id="2474261156-4">end</span><span class="p" data-group-id="2474261156-3">)</span><span class="w">
+</span><span class="mi">6</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_apply/4">
+
+    <span id="maybe_apply/2"></span>
+
+    <span id="maybe_apply/3"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_apply/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_apply(module, fun, args \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L598" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>  Helper for calling hypothetical functions another modules. </p><p>Attempts to apply a function from a specified module with the given arguments and returns the result. </p><p>Returns an error if the function is not defined,  unless a fallback function was provided to be invoked, or a fallback value to be returned.</p><h2 id="maybe_apply/4-parameters" class="section-heading">
+  <a href="#maybe_apply/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">module</code>: The module to check for the function.</li><li><code class="inline">funs</code>: A list of function names (atoms) to try.</li><li><code class="inline">args</code>: Arguments to pass to the function.</li><li><code class="inline">opts</code>: Options for error handling and fallback. Options include:<ul><li><code class="inline">:fallback_fun</code> - A function to call if the primary function is not found.</li><li><code class="inline">:fallback_return</code> - A default return value if the function cannot be applied.</li></ul></li></ul><h2 id="maybe_apply/4-examples" class="section-heading">
+  <a href="#maybe_apply/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_apply</span><span class="p" data-group-id="2004359068-1">(</span><span class="nc">Enum</span><span class="p">,</span><span class="w"> </span><span class="ss">:map</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-2">[</span><span class="p" data-group-id="2004359068-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="2004359068-3">]</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p" data-group-id="2004359068-4">(</span><span class="ni">&amp;1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="2004359068-4">)</span><span class="p" data-group-id="2004359068-2">]</span><span class="p" data-group-id="2004359068-1">)</span><span class="w">
+</span><span class="p" data-group-id="2004359068-5">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p" data-group-id="2004359068-5">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_apply</span><span class="p" data-group-id="2004359068-6">(</span><span class="nc">Enum</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-7">[</span><span class="ss">:nonexistent_fun</span><span class="p" data-group-id="2004359068-7">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-8">[</span><span class="p" data-group-id="2004359068-8">]</span><span class="p" data-group-id="2004359068-6">)</span><span class="w">
+</span><span class="p" data-group-id="2004359068-9">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;None of the functions [:nonexistent_fun] are defined at Elixir.Enum with arity 0&quot;</span><span class="p" data-group-id="2004359068-9">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_apply</span><span class="p" data-group-id="2004359068-10">(</span><span class="nc">Enum</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-11">[</span><span class="ss">:nonexistent_fun</span><span class="p" data-group-id="2004359068-11">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-12">[</span><span class="p" data-group-id="2004359068-12">]</span><span class="p">,</span><span class="w"> </span><span class="ss">fallback_fun</span><span class="p">:</span><span class="w"> </span><span class="k" data-group-id="2004359068-13">fn</span><span class="w"> </span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="c">_args</span><span class="p">,</span><span class="w"> </span><span class="c">_opts</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">raise</span><span class="w"> </span><span class="s">&quot;Failed&quot;</span><span class="w"> </span><span class="k" data-group-id="2004359068-13">end</span><span class="p" data-group-id="2004359068-10">)</span><span class="w">
+</span><span class="gt">** (RuntimeError) Failed</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_apply</span><span class="p" data-group-id="2004359068-14">(</span><span class="nc">SomeModule</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-15">[</span><span class="ss">:some_fun</span><span class="p" data-group-id="2004359068-15">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2004359068-16">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="2004359068-16">]</span><span class="p">,</span><span class="w"> </span><span class="ss">fallback_return</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Failed&quot;</span><span class="p" data-group-id="2004359068-14">)</span><span class="w">
+</span><span class="c1"># Output: [warning] maybe_apply: No such module (Elixir.SomeModule) could be loaded. - with args: ([1, 2, 3])</span><span class="w">
+</span><span class="s">&quot;Failed&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_apply_fallback/3">
+
+  <div class="detail-header">
+    <a href="#maybe_apply_fallback/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_apply_fallback(error, args, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L727" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_from_opts/3">
+
+    <span id="maybe_from_opts/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_from_opts/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_from_opts(opts, key, fallback \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L110" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the value of a key from options keyword list or map, or a fallback if not present or empty.</p>
+  </section>
+</section>
+<section class="detail" id="nothing?/1">
+
+  <div class="detail-header">
+    <a href="#nothing?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">nothing?(v)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L919" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if the given value is <code class="inline">nil</code>, <code class="inline">false</code>, <code class="inline">0</code>, or an empty value (using <a href="#empty?/1"><code class="inline">empty?/1</code></a>).</p><h2 id="nothing?/1-parameters" class="section-heading">
+  <a href="#nothing?/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">v</code>: The value to check.</li></ul><h2 id="nothing?/1-examples" class="section-heading">
+  <a href="#nothing?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">nothing?</span><span class="p" data-group-id="1293384505-1">(</span><span class="no">nil</span><span class="p" data-group-id="1293384505-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">nothing?</span><span class="p" data-group-id="1293384505-2">(</span><span class="no">false</span><span class="p" data-group-id="1293384505-2">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">nothing?</span><span class="p" data-group-id="1293384505-3">(</span><span class="mi">0</span><span class="p" data-group-id="1293384505-3">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">nothing?</span><span class="p" data-group-id="1293384505-4">(</span><span class="s">&quot;&quot;</span><span class="p" data-group-id="1293384505-4">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">nothing?</span><span class="p" data-group-id="1293384505-5">(</span><span class="p" data-group-id="1293384505-6">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1293384505-6">]</span><span class="p" data-group-id="1293384505-5">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">nothing?</span><span class="p" data-group-id="1293384505-7">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="1293384505-7">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="ok_unwrap/2">
+
+    <span id="ok_unwrap/1"></span>
+
+  <div class="detail-header">
+    <a href="#ok_unwrap/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ok_unwrap(val, fallback \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L967" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Unwraps an <code class="inline">{:ok, val}</code> tuple, returning the value. If not OK, returns a fallback value (default is <code class="inline">nil</code>).</p><h2 id="ok_unwrap/2-parameters" class="section-heading">
+  <a href="#ok_unwrap/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">val</code>: The value or tuple to unwrap.</li><li><code class="inline">fallback</code>: The fallback value if the tuple is an error.</li></ul><h2 id="ok_unwrap/2-examples" class="section-heading">
+  <a href="#ok_unwrap/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">ok_unwrap</span><span class="p" data-group-id="5067941386-1">(</span><span class="p" data-group-id="5067941386-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p" data-group-id="5067941386-2">}</span><span class="p" data-group-id="5067941386-1">)</span><span class="w">
+</span><span class="mi">42</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ok_unwrap</span><span class="p" data-group-id="5067941386-3">(</span><span class="p" data-group-id="5067941386-4">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;something went wrong&quot;</span><span class="p" data-group-id="5067941386-4">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="5067941386-3">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ok_unwrap</span><span class="p" data-group-id="5067941386-5">(</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="5067941386-5">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ok_unwrap</span><span class="p" data-group-id="5067941386-6">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="5067941386-6">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="round_nearest/1">
+
+  <div class="detail-header">
+    <a href="#round_nearest/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">round_nearest(num)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L989" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Rounds a number and uses <a href="./Bonfire.Common.Localise.Cldr.Number.html#to_string/2"><code class="inline">Bonfire.Common.Localise.Cldr.Number.to_string/2</code></a> function to format into a human readable string.</p><h2 id="round_nearest/1-examples" class="section-heading">
+  <a href="#round_nearest/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">round_nearest</span><span class="p" data-group-id="8923007746-1">(</span><span class="mi">1234</span><span class="p" data-group-id="8923007746-1">)</span><span class="w">
+</span><span class="s">&quot;1K&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">round_nearest</span><span class="p" data-group-id="8923007746-2">(</span><span class="mi">1600000</span><span class="p" data-group-id="8923007746-2">)</span><span class="w">
+</span><span class="s">&quot;2M&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="round_nearest/2">
+
+  <div class="detail-header">
+    <a href="#round_nearest/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">round_nearest(num, target)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L1023" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Rounds a number to the nearest specified target. </p><h2 id="round_nearest/2-parameters" class="section-heading">
+  <a href="#round_nearest/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">num</code>: The number to round.</li><li><code class="inline">target</code>: The target to round to (optional).</li></ul><h2 id="round_nearest/2-examples" class="section-heading">
+  <a href="#round_nearest/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">round_nearest</span><span class="p" data-group-id="1062370622-1">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="1062370622-1">)</span><span class="w">
+</span><span class="mi">1230</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">round_nearest</span><span class="p" data-group-id="1062370622-2">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p" data-group-id="1062370622-2">)</span><span class="w">
+</span><span class="mi">1200</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">round_nearest</span><span class="p" data-group-id="1062370622-3">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p" data-group-id="1062370622-3">)</span><span class="w">
+</span><span class="mi">1000</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="to_options/1">
+
+  <div class="detail-header">
+    <a href="#to_options/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_options(user_or_socket_or_opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/utils.ex#L105" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts a map, user, socket, tuple, etc, to a keyword list for standardised use as function options.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

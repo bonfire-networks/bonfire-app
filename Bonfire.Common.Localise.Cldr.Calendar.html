@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Localise.Cldr.Calendar — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Localise.Cldr.Calendar</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Data functions to retrieve localised calendar
+information.</p><p><a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html"><code class="inline">Cldr</code></a> defines formats for several calendars, the names of which
+are returned by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#known_calendars/0"><code class="inline">Cldr.known_calendars/0</code></a>.</p><p>Currently this implementation only supports the <code class="inline">:gregorian</code>,
+<code class="inline">:persian</code>, <code class="inline">:coptic</code> and <code class="inline">ethiopic</code> calendars.</p><p>The <code class="inline">:gregorian</code> calendar aligns with the proleptic Gregorian calendar
+defined by Elixir, <a href="https://hexdocs.pm/elixir/Calendar.ISO.html"><code class="inline">Calendar.ISO</code></a>.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#calendar_from_locale/1" data-no-tooltip translate="no">calendar_from_locale(locale)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Return the calendar module for a locale.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#calendar_from_territory/1" data-no-tooltip translate="no">calendar_from_territory(territory)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the calendar module preferred for
+a territory.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cyclic_years/2" data-no-tooltip translate="no">cyclic_years(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#day_periods/2" data-no-tooltip translate="no">day_periods(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#days/2" data-no-tooltip translate="no">days(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#eras/2" data-no-tooltip translate="no">eras(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#localize/1" data-no-tooltip translate="no">localize(date)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Localize a date by converting it to calendar
+introspected from the provided or default locale.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#localize/2" data-no-tooltip translate="no">localize(datetime, options)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#localize/3" data-no-tooltip translate="no">localize(datetime, part, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a localized string for a part of
+a <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#month_patterns/2" data-no-tooltip translate="no">month_patterns(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#months/2" data-no-tooltip translate="no">months(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#quarters/2" data-no-tooltip translate="no">quarters(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#strftime_options!/2" data-no-tooltip translate="no">strftime_options!(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a keyword list of options than can be applied to
+<code class="inline">NimbleStrftime.format/3</code>.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="calendar_from_locale/1">
+
+  <div class="detail-header">
+    <a href="#calendar_from_locale/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">calendar_from_locale(locale)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Return the calendar module for a locale.</p><h2 id="calendar_from_locale/1-arguments" class="section-heading">
+  <a href="#calendar_from_locale/1-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><code class="inline">:locale</code> is any locale or locale name validated
+by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#validate_locale/2"><code class="inline">Cldr.validate_locale/2</code></a>.  The default is
+<code class="inline">Cldr.get_locale()</code> which returns the locale
+set for the current process</li></ul><h2 id="calendar_from_locale/1-returns" class="section-heading">
+  <a href="#calendar_from_locale/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><p><code class="inline">{:ok, calendar_module}</code> or</p></li><li><p><code class="inline">{:error, {exception, reason}}</code></p></li></ul><h2 id="calendar_from_locale/1-examples" class="section-heading">
+  <a href="#calendar_from_locale/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">calendar_from_locale</span><span class="w"> </span><span class="s">&quot;en-GB&quot;</span><span class="w">
+</span><span class="p" data-group-id="9144015932-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Cldr.Calendar.GB</span><span class="p" data-group-id="9144015932-1">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">calendar_from_locale</span><span class="w"> </span><span class="s">&quot;en-GB-u-ca-gregory&quot;</span><span class="w">
+</span><span class="p" data-group-id="9144015932-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Cldr.Calendar.Gregorian</span><span class="p" data-group-id="9144015932-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">calendar_from_locale</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
+</span><span class="p" data-group-id="9144015932-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Cldr.Calendar.US</span><span class="p" data-group-id="9144015932-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">calendar_from_locale</span><span class="w"> </span><span class="s">&quot;fa-IR&quot;</span><span class="w">
+</span><span class="p" data-group-id="9144015932-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Cldr.Calendar.Persian</span><span class="p" data-group-id="9144015932-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="calendar_from_territory/1">
+
+  <div class="detail-header">
+    <a href="#calendar_from_territory/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">calendar_from_territory(territory)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the calendar module preferred for
+a territory.</p><h2 id="calendar_from_territory/1-arguments" class="section-heading">
+  <a href="#calendar_from_territory/1-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><code class="inline">territory</code> is any valid ISO3166-2 code as
+an <code class="inline">String.t</code> or upcased <code class="inline">atom()</code></li></ul><h2 id="calendar_from_territory/1-returns" class="section-heading">
+  <a href="#calendar_from_territory/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><p><code class="inline">{:ok, calendar_module}</code> or</p></li><li><p><code class="inline">{:error, {exception, reason}}</code></p></li></ul><h2 id="calendar_from_territory/1-examples" class="section-heading">
+  <a href="#calendar_from_territory/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">calendar_from_territory</span><span class="p" data-group-id="7721518029-1">(</span><span class="ss">:US</span><span class="p" data-group-id="7721518029-1">)</span><span class="w">
+</span><span class="p" data-group-id="7721518029-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Cldr.Calendar.US</span><span class="p" data-group-id="7721518029-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">calendar_from_territory</span><span class="w"> </span><span class="ss">:XX</span><span class="w">
+</span><span class="p" data-group-id="7721518029-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7721518029-4">{</span><span class="nc">Cldr.UnknownTerritoryError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;The territory :XX is unknown&quot;</span><span class="p" data-group-id="7721518029-4">}</span><span class="p" data-group-id="7721518029-3">}</span></code></pre><h2 id="calendar_from_territory/1-notes" class="section-heading">
+  <a href="#calendar_from_territory/1-notes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Notes</span>
+</h2>
+<p>The overwhelming majority of territories have
+<code class="inline">:gregorian</code> as their first preferred calendar
+and therefore <a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.Gregorian.html"><code class="inline">Cldr.Calendar.Gregorian</code></a>
+will be returned for most territories.</p><p>Returning any other calendar module would require:</p><ol><li><p>That another calendar is preferred over <code class="inline">:gregorian</code>
+for a territory</p></li><li><p>That a calendar module is available to support
+that calendar.</p></li></ol><p>As an example, Iran (territory <code class="inline">:IR</code>) prefers the
+<code class="inline">:persian</code> calendar. If the optional library
+<a href="https://hex.pm/packages/ex_cldr_calendars_persian">ex_cldr_calendars_persian</a>
+is installed, the calendar module <code class="inline">Cldr.Calendar.Persian</code> will
+be returned. If it is not installed, <a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.Gregorian.html"><code class="inline">Cldr.Calendar.Gregorian</code></a>
+will be returned as <code class="inline">:gregorian</code> is the second preference
+for <code class="inline">:IR</code>.</p>
+  </section>
+</section>
+<section class="detail" id="cyclic_years/2">
+
+    <span id="cyclic_years/0"></span>
+
+    <span id="cyclic_years/1"></span>
+
+  <div class="detail-header">
+    <a href="#cyclic_years/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cyclic_years(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="day_periods/2">
+
+    <span id="day_periods/0"></span>
+
+    <span id="day_periods/1"></span>
+
+  <div class="detail-header">
+    <a href="#day_periods/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">day_periods(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="days/2">
+
+    <span id="days/0"></span>
+
+    <span id="days/1"></span>
+
+  <div class="detail-header">
+    <a href="#days/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">days(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="eras/2">
+
+    <span id="eras/0"></span>
+
+    <span id="eras/1"></span>
+
+  <div class="detail-header">
+    <a href="#eras/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">eras(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="localize/1">
+
+  <div class="detail-header">
+    <a href="#localize/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">localize(date)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(since 1.25.0)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> localize(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/Date.html#t:t/0">Date.t</a>()}
+  | {:error, :incompatible_calendars}
+  | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Localize a date by converting it to calendar
+introspected from the provided or default locale.</p><h3 id="localize/1-arguments" class="section-heading">
+  <a href="#localize/1-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h3>
+<ul><li><p><code class="inline">date</code> is any <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a>.</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0"><code class="inline">Keyword.t/0</code></a> list of options. The default is
+<code class="inline">[]</code>.</p></li></ul><h3 id="localize/1-options" class="section-heading">
+  <a href="#localize/1-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h3>
+<ul><li><code class="inline">:locale</code> is any valid locale name in the list returned by
+<a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#known_locale_names/1"><code class="inline">Cldr.known_locale_names/1</code></a> or a <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html"><code class="inline">Cldr.LanguageTag</code></a> struct
+returned by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#new!/2"><code class="inline">Cldr.Locale.new!/2</code></a>. The default is <code class="inline">Cldr.get_locale()</code>.</li></ul><h3 id="localize/1-returns" class="section-heading">
+  <a href="#localize/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h3>
+<ul><li><code class="inline">{:ok, date}</code> where <code class="inline">date</code> is converted into the calendar
+associated with the current or provided locale.</li></ul><h3 id="localize/1-examples" class="section-heading">
+  <a href="#localize/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2022-06-09]</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="w">
+</span><span class="p" data-group-id="4487652272-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4487652272-2">%</span><span class="nc" data-group-id="4487652272-2">Date</span><span class="p" data-group-id="4487652272-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2022</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="ss">calendar</span><span class="p">:</span><span class="w"> </span><span class="nc">Cldr.Calendar.FR</span><span class="p" data-group-id="4487652272-2">}</span><span class="p" data-group-id="4487652272-1">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="localize/2">
+
+  <div class="detail-header">
+    <a href="#localize/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">localize(datetime, options)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> localize(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>() | <a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:part/0">Cldr.Calendar.part</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/Date.html#t:t/0">Date.t</a>()}
+  | {:error, :incompatible_calendars}
+  | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="localize/3">
+
+  <div class="detail-header">
+    <a href="#localize/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">localize(datetime, part, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(since 1.25.0)</span>
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> localize(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/ex_cldr_calendars/1.26.0/Cldr.Calendar.html#t:part/0">Cldr.Calendar.part</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()
+  | {:error, :incompatible_calendars}
+  | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Returns a localized string for a part of
+a <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a>.</p><h3 id="localize/3-arguments" class="section-heading">
+  <a href="#localize/3-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h3>
+<ul><li><p><code class="inline">date</code> is any <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a>.</p></li><li><p><code class="inline">part</code> is one of <code class="inline">:era</code>, <code class="inline">:quarter</code>, <code class="inline">:month</code>,
+<code class="inline">:day_of_week</code> or <code class="inline">:days_of_week</code>.</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0"><code class="inline">Keyword.t/0</code></a> list of options.</p></li></ul><h3 id="localize/3-options" class="section-heading">
+  <a href="#localize/3-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h3>
+<ul><li><p><code class="inline">:locale</code> is any valid locale name in the list returned by
+<a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#known_locale_names/1"><code class="inline">Cldr.known_locale_names/1</code></a> or a <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.LanguageTag.html"><code class="inline">Cldr.LanguageTag</code></a> struct
+returned by <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.Locale.html#new!/2"><code class="inline">Cldr.Locale.new!/2</code></a>. The default is <code class="inline">Cldr.get_locale()</code>.</p></li><li><p><code class="inline">:format</code> is one of <code class="inline">:wide</code>, <code class="inline">:abbreviated</code> or <code class="inline">:narrow</code>. The
+default is <code class="inline">:abbreviated</code>.</p></li><li><p><code class="inline">:era</code> will, if set to <code class="inline">:variant</code> will localize the era using
+the variant data. In the <code class="inline">:en</code> locale, this will produce <code class="inline">CE</code> and
+<code class="inline">BCE</code> rather than the default <code class="inline">AD</code> and <code class="inline">BC</code>.</p></li></ul><h3 id="localize/3-returns" class="section-heading">
+  <a href="#localize/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h3>
+<ul><li><p>A string representing the localized date part, or</p></li><li><p>A list of strings representing the days of the week for
+when <code class="inline">part</code> is <code class="inline">:days_of_week</code>. The days are in week order for
+the given date's calendar, or</p></li><li><p><code class="inline">{error, {exception, reason}}</code> if an error is detected</p></li></ul><h3 id="localize/3-examples" class="section-heading">
+  <a href="#localize/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-01-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:era</span><span class="w">
+</span><span class="s">&quot;AD&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-01-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:era</span><span class="p">,</span><span class="w"> </span><span class="ss">era</span><span class="p">:</span><span class="w"> </span><span class="ss">:variant</span><span class="w">
+</span><span class="s">&quot;CE&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-01-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:day_of_week</span><span class="w">
+</span><span class="s">&quot;Tue&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[0001-01-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:day_of_week</span><span class="w">
+</span><span class="s">&quot;Mon&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-01-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:days_of_week</span><span class="w">
+</span><span class="p" data-group-id="6933595617-1">[</span><span class="p" data-group-id="6933595617-2">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Mon&quot;</span><span class="p" data-group-id="6933595617-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6933595617-3">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Tue&quot;</span><span class="p" data-group-id="6933595617-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6933595617-4">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Wed&quot;</span><span class="p" data-group-id="6933595617-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6933595617-5">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Thu&quot;</span><span class="p" data-group-id="6933595617-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6933595617-6">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fri&quot;</span><span class="p" data-group-id="6933595617-6">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6933595617-7">{</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sat&quot;</span><span class="p" data-group-id="6933595617-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6933595617-8">{</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sun&quot;</span><span class="p" data-group-id="6933595617-8">}</span><span class="p" data-group-id="6933595617-1">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:era</span><span class="w">
+</span><span class="s">&quot;AD&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:quarter</span><span class="w">
+</span><span class="s">&quot;Q2&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:month</span><span class="w">
+</span><span class="s">&quot;Jun&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:day_of_week</span><span class="w">
+</span><span class="s">&quot;Sat&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:day_of_week</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:wide</span><span class="w">
+</span><span class="s">&quot;Saturday&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:day_of_week</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:narrow</span><span class="w">
+</span><span class="s">&quot;S&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Calendar</span><span class="o">.</span><span class="n">localize</span><span class="w"> </span><span class="ld">~D[2019-06-01]</span><span class="p">,</span><span class="w"> </span><span class="ss">:day_of_week</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ar&quot;</span><span class="w">
+</span><span class="s">&quot;السبت&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="month_patterns/2">
+
+    <span id="month_patterns/0"></span>
+
+    <span id="month_patterns/1"></span>
+
+  <div class="detail-header">
+    <a href="#month_patterns/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">month_patterns(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="months/2">
+
+    <span id="months/0"></span>
+
+    <span id="months/1"></span>
+
+  <div class="detail-header">
+    <a href="#months/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">months(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="quarters/2">
+
+    <span id="quarters/0"></span>
+
+    <span id="quarters/1"></span>
+
+  <div class="detail-header">
+    <a href="#quarters/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">quarters(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), calendar \\ :gregorian)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="strftime_options!/2">
+
+    <span id="strftime_options!/0"></span>
+
+    <span id="strftime_options!/1"></span>
+
+  <div class="detail-header">
+    <a href="#strftime_options!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">strftime_options!(locale \\ Bonfire.Common.Localise.Cldr.get_locale(), options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a keyword list of options than can be applied to
+<code class="inline">NimbleStrftime.format/3</code>.</p><p>The hex package <a href="https://hex.pm/packages/nimble_strftime">nimble_strftime</a>
+provides a <code class="inline">format/3</code> function to format dates, times and datetimes.
+It takes a set of options that can return day, month and am/pm names.</p><p><code class="inline">strftime_options!</code> returns a keyword list than can be used as these
+options to return localised names for days, months and am/pm.</p><h2 id="strftime_options!/2-arguments" class="section-heading">
+  <a href="#strftime_options!/2-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><p><code class="inline">locale</code> is any locale returned by <code class="inline">MyApp.Cldr.known_locale_names/0</code>. The
+default is <code class="inline">MyApp.Cldr.get_locale/0</code></p></li><li><p><code class="inline">options</code> is a set of keyword options. The default is <code class="inline">[]</code></p></li></ul><h2 id="strftime_options!/2-options" class="section-heading">
+  <a href="#strftime_options!/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:calendar</code> is the name of any known CLDR calendar. The default
+is <code class="inline">:gregorian</code>.</li></ul><h2 id="strftime_options!/2-example" class="section-heading">
+  <a href="#strftime_options!/2-example" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="ss">iex</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options!</span><span class="p" data-group-id="9483582132-1">(</span><span class="p" data-group-id="9483582132-1">)</span><span class="w">
+</span><span class="p" data-group-id="9483582132-2">[</span><span class="w">
+  </span><span class="ss">am_pm_names</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9483582132-3">#</span><span class="nc" data-group-id="9483582132-3">Function</span><span class="p" data-group-id="9483582132-3">&lt;</span><span class="mf">0.32021692</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options</span><span class="o">/</span><span class="mi">2</span><span class="p" data-group-id="9483582132-3">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">month_names</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9483582132-4">#</span><span class="nc" data-group-id="9483582132-4">Function</span><span class="p" data-group-id="9483582132-4">&lt;</span><span class="mf">1.32021692</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options</span><span class="o">/</span><span class="mi">2</span><span class="p" data-group-id="9483582132-4">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">abbreviated_month_names</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9483582132-5">#</span><span class="nc" data-group-id="9483582132-5">Function</span><span class="p" data-group-id="9483582132-5">&lt;</span><span class="mf">2.32021692</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options</span><span class="o">/</span><span class="mi">2</span><span class="p" data-group-id="9483582132-5">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">day_of_week_names</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9483582132-6">#</span><span class="nc" data-group-id="9483582132-6">Function</span><span class="p" data-group-id="9483582132-6">&lt;</span><span class="mf">3.32021692</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options</span><span class="o">/</span><span class="mi">2</span><span class="p" data-group-id="9483582132-6">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">abbreviated_day_of_week_names</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9483582132-7">#</span><span class="nc" data-group-id="9483582132-7">Function</span><span class="p" data-group-id="9483582132-7">&lt;</span><span class="mf">4.32021692</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options</span><span class="o">/</span><span class="mi">2</span><span class="p" data-group-id="9483582132-7">&gt;</span><span class="w">
+</span><span class="p" data-group-id="9483582132-2">]</span></code></pre><h2 id="strftime_options!/2-typical-usage" class="section-heading">
+  <a href="#strftime_options!/2-typical-usage" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Typical usage</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="ss">iex</span><span class="p">:</span><span class="w"> </span><span class="nc">NimbleStrftime</span><span class="o">.</span><span class="n">format</span><span class="p" data-group-id="1090647569-1">(</span><span class="nc">Date</span><span class="o">.</span><span class="n">utc_today</span><span class="p" data-group-id="1090647569-2">(</span><span class="p" data-group-id="1090647569-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MyApp.Cldr.Calendar</span><span class="o">.</span><span class="n">strftime_options!</span><span class="p" data-group-id="1090647569-3">(</span><span class="p" data-group-id="1090647569-3">)</span><span class="p" data-group-id="1090647569-1">)</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

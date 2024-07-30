@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Boundaries.Circles — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Boundaries.Circles</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#add_to_circles/2" data-no-tooltip translate="no">add_to_circles(subjects, circles)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#built_in_ids/0" data-no-tooltip translate="no">built_in_ids()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/2" data-no-tooltip translate="no">changeset(circle \\ %Circle{}, attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/3" data-no-tooltip translate="no">changeset(atom, circle, params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#circle_ids/1" data-no-tooltip translate="no">circle_ids(subjects)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#circles/0" data-no-tooltip translate="no">circles()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/2" data-no-tooltip translate="no">create(user, attrs)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Create a circle for the provided user (and with the user in the circle?)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(circle, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fully delete the circle, including membership and boundary information. This will affect all objects previously shared with members of this circle.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#edit/3" data-no-tooltip translate="no">edit(circle, user, params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#empty_circles/1" data-no-tooltip translate="no">empty_circles(circles)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/1" data-no-tooltip translate="no">get(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/1" data-no-tooltip translate="no">get!(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_by_name/2" data-no-tooltip translate="no">get_by_name(name, caretaker)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_for_caretaker/3" data-no-tooltip translate="no">get_for_caretaker(id, caretaker, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_id/1" data-no-tooltip translate="no">get_id(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_id!/1" data-no-tooltip translate="no">get_id!(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_create/2" data-no-tooltip translate="no">get_or_create(name, caretaker \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_stereotype_circles/2" data-no-tooltip translate="no">get_stereotype_circles(subject, stereotypes)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_tuple/1" data-no-tooltip translate="no">get_tuple(slug)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_built_in?/1" data-no-tooltip translate="no">is_built_in?(circle)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_encircled_by?/2" data-no-tooltip translate="no">is_encircled_by?(subject, circle)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists the circles that we are permitted to see.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_encircled_by_q/2" data-no-tooltip translate="no">is_encircled_by_q(subject, circles)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_stereotype?/1" data-no-tooltip translate="no">is_stereotype?(acl)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_built_ins/0" data-no-tooltip translate="no">list_built_ins()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_by_ids/1" data-no-tooltip translate="no">list_by_ids(ids)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my/2" data-no-tooltip translate="no">list_my(user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists the circles we are the registered caretakers of that we are
+permitted to see. If any circles are created without permitting the
+user to see them, they will not be shown.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my_defaults/1" data-no-tooltip translate="no">list_my_defaults(user \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my_with_counts/2" data-no-tooltip translate="no">list_my_with_counts(user, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my_with_global/2" data-no-tooltip translate="no">list_my_with_global(user, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_visible/2" data-no-tooltip translate="no">list_visible(user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists the circles that we are permitted to see.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_encircled_by/3" data-no-tooltip translate="no">preload_encircled_by(subject, circles, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/1" data-no-tooltip translate="no">query(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>query for <code class="inline">list_visible</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_my/2" data-no-tooltip translate="no">query_my(caretaker, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>query for <code class="inline">list_my</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_my_by_id/3" data-no-tooltip translate="no">query_my_by_id(id, caretaker, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>query for <code class="inline">get</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_visible/2" data-no-tooltip translate="no">query_visible(user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>query for <code class="inline">list_visible</code></p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#remove_from_circles/2" data-no-tooltip translate="no">remove_from_circles(subject, circles)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#stereotype_ids/0" data-no-tooltip translate="no">stereotype_ids()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#stereotypes/1" data-no-tooltip translate="no">stereotypes(atom)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_circle_ids/1" data-no-tooltip translate="no">to_circle_ids(subjects)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="add_to_circles/2">
+
+  <div class="detail-header">
+    <a href="#add_to_circles/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">add_to_circles(subjects, circles)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L456" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="built_in_ids/0">
+
+  <div class="detail-header">
+    <a href="#built_in_ids/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">built_in_ids()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L44" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="changeset/2">
+
+    <span id="changeset/1"></span>
+
+  <div class="detail-header">
+    <a href="#changeset/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset(circle \\ %Circle{}, attrs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L165" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="changeset/3">
+
+  <div class="detail-header">
+    <a href="#changeset/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset(atom, circle, params)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L180" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="circle_ids/1">
+
+  <div class="detail-header">
+    <a href="#circle_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">circle_ids(subjects)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L104" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="circles/0">
+
+  <div class="detail-header">
+    <a href="#circles/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">circles()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L32" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create/2">
+
+  <div class="detail-header">
+    <a href="#create/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create(user, attrs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L136" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Create a circle for the provided user (and with the user in the circle?)</p>
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(circle, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L503" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Fully delete the circle, including membership and boundary information. This will affect all objects previously shared with members of this circle.</p>
+  </section>
+</section>
+<section class="detail" id="edit/3">
+
+  <div class="detail-header">
+    <a href="#edit/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">edit(circle, user, params)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L437" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="empty_circles/1">
+
+  <div class="detail-header">
+    <a href="#empty_circles/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">empty_circles(circles)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L493" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get/1">
+
+  <div class="detail-header">
+    <a href="#get/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L59" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get!/1">
+
+  <div class="detail-header">
+    <a href="#get!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L62" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_by_name/2">
+
+  <div class="detail-header">
+    <a href="#get_by_name/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_by_name(name, caretaker)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L248" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_for_caretaker/3">
+
+    <span id="get_for_caretaker/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_for_caretaker/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_for_caretaker(id, caretaker, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L228" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_id/1">
+
+  <div class="detail-header">
+    <a href="#get_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_id(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L67" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_id!/1">
+
+  <div class="detail-header">
+    <a href="#get_id!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_id!(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L69" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_create/2">
+
+    <span id="get_or_create/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_or_create/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_create(name, caretaker \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L423" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_stereotype_circles/2">
+
+  <div class="detail-header">
+    <a href="#get_stereotype_circles/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_stereotype_circles(subject, stereotypes)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L252" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_tuple/1">
+
+  <div class="detail-header">
+    <a href="#get_tuple/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_tuple(slug)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L71" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_built_in?/1">
+
+  <div class="detail-header">
+    <a href="#is_built_in?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_built_in?(circle)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L50" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_encircled_by?/2">
+
+  <div class="detail-header">
+    <a href="#is_encircled_by?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_encircled_by?(subject, circle)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L191" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists the circles that we are permitted to see.</p>
+  </section>
+</section>
+<section class="detail" id="is_encircled_by_q/2">
+
+  <div class="detail-header">
+    <a href="#is_encircled_by_q/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_encircled_by_q(subject, circles)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L203" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_stereotype?/1">
+
+  <div class="detail-header">
+    <a href="#is_stereotype?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_stereotype?(acl)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L55" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_built_ins/0">
+
+  <div class="detail-header">
+    <a href="#list_built_ins/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_built_ins()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L86" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_by_ids/1">
+
+  <div class="detail-header">
+    <a href="#list_by_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_by_ids(ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L94" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_my/2">
+
+    <span id="list_my/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_my/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L280" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists the circles we are the registered caretakers of that we are
+permitted to see. If any circles are created without permitting the
+user to see them, they will not be shown.</p>
+  </section>
+</section>
+<section class="detail" id="list_my_defaults/1">
+
+    <span id="list_my_defaults/0"></span>
+
+  <div class="detail-header">
+    <a href="#list_my_defaults/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my_defaults(user \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L81" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_my_with_counts/2">
+
+    <span id="list_my_with_counts/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_my_with_counts/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my_with_counts(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L294" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_my_with_global/2">
+
+    <span id="list_my_with_global/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_my_with_global/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my_with_global(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L283" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_visible/2">
+
+    <span id="list_visible/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_visible/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_visible(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L272" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists the circles that we are permitted to see.</p>
+  </section>
+</section>
+<section class="detail" id="preload_encircled_by/3">
+
+    <span id="preload_encircled_by/2"></span>
+
+  <div class="detail-header">
+    <a href="#preload_encircled_by/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload_encircled_by(subject, circles, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L219" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query/1">
+
+    <span id="query/0"></span>
+
+  <div class="detail-header">
+    <a href="#query/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L314" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>query for <code class="inline">list_visible</code></p>
+  </section>
+</section>
+<section class="detail" id="query_my/2">
+
+    <span id="query_my/1"></span>
+
+  <div class="detail-header">
+    <a href="#query_my/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_my(caretaker, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L397" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>query for <code class="inline">list_my</code></p>
+  </section>
+</section>
+<section class="detail" id="query_my_by_id/3">
+
+    <span id="query_my_by_id/2"></span>
+
+  <div class="detail-header">
+    <a href="#query_my_by_id/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_my_by_id(id, caretaker, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L414" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>query for <code class="inline">get</code></p>
+  </section>
+</section>
+<section class="detail" id="query_visible/2">
+
+    <span id="query_visible/1"></span>
+
+  <div class="detail-header">
+    <a href="#query_visible/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_visible(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L370" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>query for <code class="inline">list_visible</code></p>
+  </section>
+</section>
+<section class="detail" id="remove_from_circles/2">
+
+  <div class="detail-header">
+    <a href="#remove_from_circles/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">remove_from_circles(subject, circles)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L478" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="stereotype_ids/0">
+
+  <div class="detail-header">
+    <a href="#stereotype_ids/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">stereotype_ids()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L34" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="stereotypes/1">
+
+  <div class="detail-header">
+    <a href="#stereotypes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">stereotypes(atom)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L41" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="to_circle_ids/1">
+
+  <div class="detail-header">
+    <a href="#to_circle_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_circle_ids(subjects)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/circles.ex#L115" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Config — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Config</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Helpers to get app/extension OTP config, or to override a config key. Basically a wrapper of <a href="https://hexdocs.pm/elixir/Application.html#get_env/3"><code class="inline">Application.get_env/3</code></a> and <a href="https://hexdocs.pm/elixir/Application.html#put_env/3"><code class="inline">Application.put_env/3</code></a>.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#compilation_error/1" data-no-tooltip translate="no">compilation_error(error)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(key, otp_app \\ top_level_otp_app())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes the configuration value for a key in a specific OTP app or extension.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#endpoint_module/0" data-no-tooltip translate="no">endpoint_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the Phoenix endpoint module for the application.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#env/0" data-no-tooltip translate="no">env()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the environment configuration for the application.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip translate="no">get(key_or_keys, default \\ nil, otp_app \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a configuration value for a key, optionally from a specific OTP app or extension.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/2" data-no-tooltip translate="no">get!(key, otp_app \\ top_level_otp_app())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the configuration value for a key and raises an error if the value is not found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_ext/1" data-no-tooltip translate="no">get_ext(module_or_otp_app)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves all configuration keys and values for a specific Bonfire extension or OTP app.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_ext/3" data-no-tooltip translate="no">get_ext(module_or_otp_app, key, default \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a configuration value for a specific Bonfire extension or OTP app key.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_ext!/1" data-no-tooltip translate="no">get_ext!(module_or_otp_app)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves all configuration keys and values for a specific Bonfire extension or OTP app and raises an error if no configuration is found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_ext!/2" data-no-tooltip translate="no">get_ext!(module_or_otp_app, key)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the configuration value for a specific Bonfire extension or OTP app key and raises an error if the value is not found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#keys_tree/1" data-no-tooltip translate="no">keys_tree(keys)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Constructs a key path for configuration settings, which always starts with an app or extension name. It starts with the main OTP app or extension and includes additional keys as specified.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#module_enabled?/1" data-no-tooltip translate="no">module_enabled?(module)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Extend.html#module_enabled?/1"><code class="inline">Bonfire.Common.Extend.module_enabled?/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put/1" data-no-tooltip translate="no">put(tree)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put/3" data-no-tooltip translate="no">put(key, value, otp_app \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets the configuration value for a key or key tree in a specific OTP app or extension.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#repo/0" data-no-tooltip translate="no">repo()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves the Ecto repository module for the application.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#require_extension_config!/1" data-no-tooltip translate="no">require_extension_config!(extension)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Raises an error if the specified Bonfire extension is not configured.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#top_level_otp_app/0" data-no-tooltip translate="no">top_level_otp_app()</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="compilation_error/1">
+
+  <div class="detail-header">
+    <a href="#compilation_error/1" class="detail-link" data-no-tooltip title="Link to this macro">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <h1 class="signature" translate="no">compilation_error(error)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L18" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(macro)</span>
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+    <span id="delete/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(key, otp_app \\ top_level_otp_app())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L351" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes the configuration value for a key in a specific OTP app or extension.</p><p>This function removes the configuration value for the given key from the specified OTP app or extension.</p><h2 id="delete/2-examples" class="section-heading">
+  <a href="#delete/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete</span><span class="p" data-group-id="2439456126-1">(</span><span class="ss">:key</span><span class="p" data-group-id="2439456126-1">)</span><span class="w">
+</span><span class="ss">:ok</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">delete</span><span class="p" data-group-id="2439456126-2">(</span><span class="p" data-group-id="2439456126-3">[</span><span class="ss">:nested</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p" data-group-id="2439456126-3">]</span><span class="p">,</span><span class="w"> </span><span class="ss">:my_app</span><span class="p" data-group-id="2439456126-2">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="endpoint_module/0">
+
+  <div class="detail-header">
+    <a href="#endpoint_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">endpoint_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L442" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the Phoenix endpoint module for the application.</p><p>This function first attempts to fetch the Phoenix endpoint module from the <code class="inline">:phoenix_endpoint_module</code> key in the process dictionary. If not found, it retrieves the value from the application configuration, defaulting to <a href="./Bonfire.Web.Endpoint.html"><code class="inline">Bonfire.Web.Endpoint</code></a> if not configured.</p><h2 id="endpoint_module/0-examples" class="section-heading">
+  <a href="#endpoint_module/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">endpoint_module</span><span class="p" data-group-id="6221645279-1">(</span><span class="p" data-group-id="6221645279-1">)</span><span class="w">
+</span><span class="nc">Bonfire.Web.Endpoint</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="env/0">
+
+  <div class="detail-header">
+    <a href="#env/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">env()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L457" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the environment configuration for the application.</p><p>This function returns the value of the <code class="inline">:env</code> configuration key for the application.</p><h2 id="env/0-examples" class="section-heading">
+  <a href="#env/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">env</span><span class="p" data-group-id="0243157604-1">(</span><span class="p" data-group-id="0243157604-1">)</span><span class="w">
+</span><span class="ss">:test</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/1"></span>
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(key_or_keys, default \\ nil, otp_app \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L118" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a configuration value for a key, optionally from a specific OTP app or extension.</p><p>This function can handle single keys or nested key trees and returns the configuration value associated with the key(s). It falls back to a default value if the key is not found.</p><h2 id="get/3-examples" class="section-heading">
+  <a href="#get/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="0357018601-1">(</span><span class="ss">:test_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="0357018601-1">)</span><span class="w">
+</span><span class="s">&quot;test_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="0357018601-2">(</span><span class="p" data-group-id="0357018601-3">[</span><span class="ss">:nested</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p" data-group-id="0357018601-3">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:bonfire</span><span class="p" data-group-id="0357018601-2">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="0357018601-4">(</span><span class="ss">:missing_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="0357018601-4">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get!/2">
+
+    <span id="get!/1"></span>
+
+  <div class="detail-header">
+    <a href="#get!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(key, otp_app \\ top_level_otp_app())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L176" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the configuration value for a key and raises an error if the value is not found.</p><h2 id="get!/2-examples" class="section-heading">
+  <a href="#get!/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get!</span><span class="p" data-group-id="8399553269-1">(</span><span class="ss">:test_key</span><span class="p" data-group-id="8399553269-1">)</span><span class="w">
+</span><span class="s">&quot;test_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get!</span><span class="p" data-group-id="8399553269-2">(</span><span class="ss">:missing_key</span><span class="p" data-group-id="8399553269-2">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Common.Config.Error) Missing configuration value: [:bonfire, :missing_key]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_ext/1">
+
+  <div class="detail-header">
+    <a href="#get_ext/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_ext(module_or_otp_app)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L199" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves all configuration keys and values for a specific Bonfire extension or OTP app.</p><h2 id="get_ext/1-examples" class="section-heading">
+  <a href="#get_ext/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get_ext</span><span class="p" data-group-id="0634937742-1">(</span><span class="ss">:my_extension</span><span class="p" data-group-id="0634937742-1">)</span><span class="w">
+</span><span class="p" data-group-id="0634937742-2">[</span><span class="ss">key1</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">key2</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p" data-group-id="0634937742-2">]</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_ext</span><span class="p" data-group-id="0634937742-3">(</span><span class="ss">:another_extension</span><span class="p" data-group-id="0634937742-3">)</span><span class="w">
+</span><span class="p" data-group-id="0634937742-4">[</span><span class="p" data-group-id="0634937742-4">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_ext/3">
+
+    <span id="get_ext/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_ext/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_ext(module_or_otp_app, key, default \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L60" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a configuration value for a specific Bonfire extension or OTP app key.</p><p>This function attempts to get the configuration value for the given key from the specified extension or OTP app. If the key is not found, it falls back to checking the top-level Bonfire app configuration.</p><h2 id="get_ext/3-examples" class="section-heading">
+  <a href="#get_ext/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_ext</span><span class="p" data-group-id="2089632241-1">(</span><span class="ss">:bonfire_common</span><span class="p">,</span><span class="w"> </span><span class="ss">:test_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="2089632241-1">)</span><span class="w">
+</span><span class="s">&quot;test_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_ext</span><span class="p" data-group-id="2089632241-2">(</span><span class="ss">:my_extension</span><span class="p">,</span><span class="w"> </span><span class="ss">:missing_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="p" data-group-id="2089632241-2">)</span><span class="w">
+</span><span class="s">&quot;default&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_ext!/1">
+
+  <div class="detail-header">
+    <a href="#get_ext!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_ext!(module_or_otp_app)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L218" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves all configuration keys and values for a specific Bonfire extension or OTP app and raises an error if no configuration is found.</p><h2 id="get_ext!/1-examples" class="section-heading">
+  <a href="#get_ext!/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_ext!</span><span class="p" data-group-id="7123479580-1">(</span><span class="ss">:bonfire_common</span><span class="p" data-group-id="7123479580-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">is_list</span><span class="p" data-group-id="7123479580-2">(</span><span class="n">config</span><span class="p" data-group-id="7123479580-2">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">!=</span><span class="p" data-group-id="7123479580-3">[</span><span class="p" data-group-id="7123479580-3">]</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_ext!</span><span class="p" data-group-id="7123479580-4">(</span><span class="ss">:non_existent_extension</span><span class="p" data-group-id="7123479580-4">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Common.Config.Error) Empty configuration for extension: non_existent_extension</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_ext!/2">
+
+  <div class="detail-header">
+    <a href="#get_ext!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_ext!(module_or_otp_app, key)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L88" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the configuration value for a specific Bonfire extension or OTP app key and raises an error if the value is not found.</p><p>This function attempts to get the configuration value for the given key from the specified extension or OTP app. If the key is not present or the value is nil, it raises a compilation error.</p><h2 id="get_ext!/2-examples" class="section-heading">
+  <a href="#get_ext!/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_ext!</span><span class="p" data-group-id="8908644925-1">(</span><span class="ss">:bonfire_common</span><span class="p">,</span><span class="w"> </span><span class="ss">:test_key</span><span class="p" data-group-id="8908644925-1">)</span><span class="w">
+</span><span class="s">&quot;test_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_ext!</span><span class="p" data-group-id="8908644925-2">(</span><span class="ss">:my_extension</span><span class="p">,</span><span class="w"> </span><span class="ss">:missing_key</span><span class="p" data-group-id="8908644925-2">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Common.Config.Error) Missing configuration value: [:my_extension, :missing_key]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="keys_tree/1">
+
+  <div class="detail-header">
+    <a href="#keys_tree/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">keys_tree(keys)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L385" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Constructs a key path for configuration settings, which always starts with an app or extension name. It starts with the main OTP app or extension and includes additional keys as specified.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">keys_tree</span><span class="p" data-group-id="6263577069-1">(</span><span class="p" data-group-id="6263577069-2">[</span><span class="ss">:bonfire_me</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="p" data-group-id="6263577069-2">]</span><span class="p" data-group-id="6263577069-1">)</span><span class="w">
+</span><span class="p" data-group-id="6263577069-3">[</span><span class="ss">:bonfire_me</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="p" data-group-id="6263577069-3">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">keys_tree</span><span class="p" data-group-id="6263577069-4">(</span><span class="nc">Bonfire.Me.Users</span><span class="p" data-group-id="6263577069-4">)</span><span class="w">
+</span><span class="p" data-group-id="6263577069-5">[</span><span class="ss">:bonfire_me</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="p" data-group-id="6263577069-5">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">keys_tree</span><span class="p" data-group-id="6263577069-6">(</span><span class="ss">:bonfire_me</span><span class="p" data-group-id="6263577069-6">)</span><span class="w">
+</span><span class="p" data-group-id="6263577069-7">[</span><span class="ss">:bonfire_me</span><span class="p" data-group-id="6263577069-7">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">keys_tree</span><span class="p" data-group-id="6263577069-8">(</span><span class="ss">:random_atom</span><span class="p" data-group-id="6263577069-8">)</span><span class="w">
+</span><span class="p" data-group-id="6263577069-9">[</span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:random_atom</span><span class="p" data-group-id="6263577069-9">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt;</span><span class="n">keys_tree</span><span class="p" data-group-id="6263577069-10">(</span><span class="p" data-group-id="6263577069-11">[</span><span class="ss">:random_atom</span><span class="p">,</span><span class="w"> </span><span class="ss">:sub_key</span><span class="p" data-group-id="6263577069-11">]</span><span class="p" data-group-id="6263577069-10">)</span><span class="w">
+</span><span class="p" data-group-id="6263577069-12">[</span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:random_atom</span><span class="p">,</span><span class="w"> </span><span class="ss">:sub_key</span><span class="p" data-group-id="6263577069-12">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="module_enabled?/1">
+
+  <div class="detail-header">
+    <a href="#module_enabled?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">module_enabled?(module)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L24" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Extend.html#module_enabled?/1"><code class="inline">Bonfire.Common.Extend.module_enabled?/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="put/1">
+
+  <div class="detail-header">
+    <a href="#put/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put(tree)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L274" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="put/3">
+
+    <span id="put/2"></span>
+
+  <div class="detail-header">
+    <a href="#put/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">put(key, value, otp_app \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L249" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets the configuration value for a key or key tree in a specific OTP app or extension.</p><p>This function allows you to set the configuration value for the specified key(s) in the given OTP app or extension. It supports nested configurations.</p><h2 id="put/3-examples" class="section-heading">
+  <a href="#put/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">put</span><span class="p" data-group-id="6762022387-1">(</span><span class="ss">:test_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_value&quot;</span><span class="p" data-group-id="6762022387-1">)</span><span class="w">
+</span><span class="ss">:ok</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">put</span><span class="p" data-group-id="6762022387-2">(</span><span class="p" data-group-id="6762022387-3">[</span><span class="ss">:nested</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p" data-group-id="6762022387-3">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:my_app</span><span class="p" data-group-id="6762022387-2">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="repo/0">
+
+  <div class="detail-header">
+    <a href="#repo/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">repo()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L429" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves the Ecto repository module for the application.</p><p>This function first attempts to fetch the Ecto repository module from the <code class="inline">:ecto_repo_module</code> key in the process dictionary. If not found, it retrieves the value from the application configuration, and defaults to <a href="./Bonfire.Common.Repo.html"><code class="inline">Bonfire.Common.Repo</code></a> if not configured.</p><h2 id="repo/0-examples" class="section-heading">
+  <a href="#repo/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">repo</span><span class="p" data-group-id="6195280429-1">(</span><span class="p" data-group-id="6195280429-1">)</span><span class="w">
+</span><span class="nc">Bonfire.Common.Repo</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="require_extension_config!/1">
+
+  <div class="detail-header">
+    <a href="#require_extension_config!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">require_extension_config!(extension)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L37" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Raises an error if the specified Bonfire extension is not configured.</p><p>This function checks whether the configuration for a given Bonfire extension exists. If the configuration is missing, it raises a compilation error with a message indicating how to set up the configuration file.</p><h2 id="require_extension_config!/1-examples" class="section-heading">
+  <a href="#require_extension_config!/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">require_extension_config!</span><span class="p" data-group-id="3147093869-1">(</span><span class="ss">:some_extension</span><span class="p" data-group-id="3147093869-1">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Common.Config.Error) You have not configured the `some_extension` Bonfire extension, please `cp ./deps/some_extension/config/some_extension.exs ./config/some_extension.exs` in your Bonfire app repository and then customise the copied config as necessary</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="top_level_otp_app/0">
+
+  <div class="detail-header">
+    <a href="#top_level_otp_app/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">top_level_otp_app()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/config.ex#L10" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

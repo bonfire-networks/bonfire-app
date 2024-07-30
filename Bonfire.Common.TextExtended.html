@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.TextExtended — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.TextExtended</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#blank?/1" data-no-tooltip translate="no">blank?(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the length of the input based on its type.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#camelise/1" data-no-tooltip translate="no">camelise(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#camelise/1"><code class="inline">Bonfire.Common.Text.camelise/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#code_syntax/2" data-no-tooltip translate="no">code_syntax(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#code_syntax/2"><code class="inline">Bonfire.Common.Text.code_syntax/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#contains?/2" data-no-tooltip translate="no">contains?(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#contains?/2"><code class="inline">Bonfire.Common.Text.contains?/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#contains_html?/1" data-no-tooltip translate="no">contains_html?(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#contains_html?/1"><code class="inline">Bonfire.Common.Text.contains_html?/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#hash/1" data-no-tooltip translate="no">hash(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#hash/1"><code class="inline">Bonfire.Common.Text.hash/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#hash/2" data-no-tooltip translate="no">hash(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#hash/2"><code class="inline">Bonfire.Common.Text.hash/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_checkboxes/1" data-no-tooltip translate="no">list_checkboxes(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#list_checkboxes/1"><code class="inline">Bonfire.Common.Text.list_checkboxes/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_checked_boxes/1" data-no-tooltip translate="no">list_checked_boxes(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#list_checked_boxes/1"><code class="inline">Bonfire.Common.Text.list_checked_boxes/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_unchecked_boxes/1" data-no-tooltip translate="no">list_unchecked_boxes(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#list_unchecked_boxes/1"><code class="inline">Bonfire.Common.Text.list_unchecked_boxes/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#make_local_links_live/1" data-no-tooltip translate="no">make_local_links_live(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#make_local_links_live/1"><code class="inline">Bonfire.Common.Text.make_local_links_live/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown_as_html_earmark/2" data-no-tooltip translate="no">markdown_as_html_earmark(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#markdown_as_html_earmark/2"><code class="inline">Bonfire.Common.Text.markdown_as_html_earmark/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown_as_html_mdex/2" data-no-tooltip translate="no">markdown_as_html_mdex(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#markdown_as_html_mdex/2"><code class="inline">Bonfire.Common.Text.markdown_as_html_mdex/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#markdown_checkboxes/1" data-no-tooltip translate="no">markdown_checkboxes(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#markdown_checkboxes/1"><code class="inline">Bonfire.Common.Text.markdown_checkboxes/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_emote/1" data-no-tooltip translate="no">maybe_emote(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_emote/1"><code class="inline">Bonfire.Common.Text.maybe_emote/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_emote/2" data-no-tooltip translate="no">maybe_emote(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_emote/2"><code class="inline">Bonfire.Common.Text.maybe_emote/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_emote/3" data-no-tooltip translate="no">maybe_emote(xA, xB, xC)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_emote/3"><code class="inline">Bonfire.Common.Text.maybe_emote/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_markdown_to_html/1" data-no-tooltip translate="no">maybe_markdown_to_html(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_markdown_to_html/1"><code class="inline">Bonfire.Common.Text.maybe_markdown_to_html/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_markdown_to_html/2" data-no-tooltip translate="no">maybe_markdown_to_html(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_markdown_to_html/2"><code class="inline">Bonfire.Common.Text.maybe_markdown_to_html/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_normalize_html/1" data-no-tooltip translate="no">maybe_normalize_html(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_normalize_html/1"><code class="inline">Bonfire.Common.Text.maybe_normalize_html/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_other_custom_emoji/2" data-no-tooltip translate="no">maybe_other_custom_emoji(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_other_custom_emoji/2"><code class="inline">Bonfire.Common.Text.maybe_other_custom_emoji/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_render_templated/2" data-no-tooltip translate="no">maybe_render_templated(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_render_templated/2"><code class="inline">Bonfire.Common.Text.maybe_render_templated/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_sane_html/1" data-no-tooltip translate="no">maybe_sane_html(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_sane_html/1"><code class="inline">Bonfire.Common.Text.maybe_sane_html/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_to_snake/1" data-no-tooltip translate="no">maybe_to_snake(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#maybe_to_snake/1"><code class="inline">Bonfire.Common.Text.maybe_to_snake/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#normalise_links/1" data-no-tooltip translate="no">normalise_links(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#normalise_links/1"><code class="inline">Bonfire.Common.Text.normalise_links/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#normalise_links/2" data-no-tooltip translate="no">normalise_links(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#normalise_links/2"><code class="inline">Bonfire.Common.Text.normalise_links/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#random_string/0" data-no-tooltip translate="no">random_string()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#random_string/0"><code class="inline">Bonfire.Common.Text.random_string/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#random_string/1" data-no-tooltip translate="no">random_string(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#random_string/1"><code class="inline">Bonfire.Common.Text.random_string/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#regex_list/2" data-no-tooltip translate="no">regex_list(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#regex_list/2"><code class="inline">Bonfire.Common.Text.regex_list/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sentence_truncate/1" data-no-tooltip translate="no">sentence_truncate(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#sentence_truncate/1"><code class="inline">Bonfire.Common.Text.sentence_truncate/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sentence_truncate/2" data-no-tooltip translate="no">sentence_truncate(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#sentence_truncate/2"><code class="inline">Bonfire.Common.Text.sentence_truncate/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sentence_truncate/3" data-no-tooltip translate="no">sentence_truncate(xA, xB, xC)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#sentence_truncate/3"><code class="inline">Bonfire.Common.Text.sentence_truncate/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#slug/1" data-no-tooltip translate="no">slug(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#slug/1"><code class="inline">Bonfire.Common.Text.slug/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#strlen/1" data-no-tooltip translate="no">strlen(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#strlen/1"><code class="inline">Bonfire.Common.Text.strlen/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#text_only/1" data-no-tooltip translate="no">text_only(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#text_only/1"><code class="inline">Bonfire.Common.Text.text_only/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/1" data-no-tooltip translate="no">truncate(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#truncate/1"><code class="inline">Bonfire.Common.Text.truncate/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/2" data-no-tooltip translate="no">truncate(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#truncate/2"><code class="inline">Bonfire.Common.Text.truncate/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/3" data-no-tooltip translate="no">truncate(xA, xB, xC)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#truncate/3"><code class="inline">Bonfire.Common.Text.truncate/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#underscore_truncate/1" data-no-tooltip translate="no">underscore_truncate(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#underscore_truncate/1"><code class="inline">Bonfire.Common.Text.underscore_truncate/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#underscore_truncate/2" data-no-tooltip translate="no">underscore_truncate(xA, xB)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#underscore_truncate/2"><code class="inline">Bonfire.Common.Text.underscore_truncate/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#upcase_first/1" data-no-tooltip translate="no">upcase_first(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#upcase_first/1"><code class="inline">Bonfire.Common.Text.upcase_first/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#verb_infinitive/1" data-no-tooltip translate="no">verb_infinitive(xA)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>See <a href="./Bonfire.Common.Text.html#verb_infinitive/1"><code class="inline">Bonfire.Common.Text.verb_infinitive/1</code></a>.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="blank?/1">
+
+    <span id="blank?/0"></span>
+
+  <div class="detail-header">
+    <a href="#blank?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">blank?(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L5" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the length of the input based on its type.</p><h2 id="blank?/1-examples" class="section-heading">
+  <a href="#blank?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1480264486-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="1480264486-1">)</span><span class="w">
+</span><span class="mi">5</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1480264486-2">(</span><span class="p" data-group-id="1480264486-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1480264486-3">]</span><span class="p" data-group-id="1480264486-2">)</span><span class="w">
+</span><span class="mi">3</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1480264486-4">(</span><span class="p" data-group-id="1480264486-5">%{</span><span class="p" data-group-id="1480264486-5">}</span><span class="p" data-group-id="1480264486-4">)</span><span class="w">
+</span><span class="mi">0</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1480264486-6">(</span><span class="no">nil</span><span class="p" data-group-id="1480264486-6">)</span><span class="w">
+</span><span class="mi">0</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1480264486-7">(</span><span class="mi">0</span><span class="p" data-group-id="1480264486-7">)</span><span class="w">
+</span><span class="mi">0</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1480264486-8">(</span><span class="mi">123</span><span class="p" data-group-id="1480264486-8">)</span><span class="w">
+</span><span class="mi">1</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="camelise/1">
+
+  <div class="detail-header">
+    <a href="#camelise/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">camelise(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#camelise/1"><code class="inline">Bonfire.Common.Text.camelise/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="code_syntax/2">
+
+  <div class="detail-header">
+    <a href="#code_syntax/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">code_syntax(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#code_syntax/2"><code class="inline">Bonfire.Common.Text.code_syntax/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="contains?/2">
+
+  <div class="detail-header">
+    <a href="#contains?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">contains?(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#contains?/2"><code class="inline">Bonfire.Common.Text.contains?/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="contains_html?/1">
+
+  <div class="detail-header">
+    <a href="#contains_html?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">contains_html?(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#contains_html?/1"><code class="inline">Bonfire.Common.Text.contains_html?/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="hash/1">
+
+  <div class="detail-header">
+    <a href="#hash/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">hash(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#hash/1"><code class="inline">Bonfire.Common.Text.hash/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="hash/2">
+
+  <div class="detail-header">
+    <a href="#hash/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">hash(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#hash/2"><code class="inline">Bonfire.Common.Text.hash/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="list_checkboxes/1">
+
+  <div class="detail-header">
+    <a href="#list_checkboxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_checkboxes(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#list_checkboxes/1"><code class="inline">Bonfire.Common.Text.list_checkboxes/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="list_checked_boxes/1">
+
+  <div class="detail-header">
+    <a href="#list_checked_boxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_checked_boxes(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#list_checked_boxes/1"><code class="inline">Bonfire.Common.Text.list_checked_boxes/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="list_unchecked_boxes/1">
+
+  <div class="detail-header">
+    <a href="#list_unchecked_boxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_unchecked_boxes(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#list_unchecked_boxes/1"><code class="inline">Bonfire.Common.Text.list_unchecked_boxes/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="make_local_links_live/1">
+
+  <div class="detail-header">
+    <a href="#make_local_links_live/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">make_local_links_live(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#make_local_links_live/1"><code class="inline">Bonfire.Common.Text.make_local_links_live/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="markdown_as_html_earmark/2">
+
+  <div class="detail-header">
+    <a href="#markdown_as_html_earmark/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown_as_html_earmark(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#markdown_as_html_earmark/2"><code class="inline">Bonfire.Common.Text.markdown_as_html_earmark/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="markdown_as_html_mdex/2">
+
+  <div class="detail-header">
+    <a href="#markdown_as_html_mdex/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown_as_html_mdex(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#markdown_as_html_mdex/2"><code class="inline">Bonfire.Common.Text.markdown_as_html_mdex/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="markdown_checkboxes/1">
+
+  <div class="detail-header">
+    <a href="#markdown_checkboxes/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">markdown_checkboxes(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#markdown_checkboxes/1"><code class="inline">Bonfire.Common.Text.markdown_checkboxes/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_emote/1">
+
+  <div class="detail-header">
+    <a href="#maybe_emote/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_emote(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_emote/1"><code class="inline">Bonfire.Common.Text.maybe_emote/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_emote/2">
+
+  <div class="detail-header">
+    <a href="#maybe_emote/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_emote(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_emote/2"><code class="inline">Bonfire.Common.Text.maybe_emote/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_emote/3">
+
+  <div class="detail-header">
+    <a href="#maybe_emote/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_emote(xA, xB, xC)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_emote/3"><code class="inline">Bonfire.Common.Text.maybe_emote/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_markdown_to_html/1">
+
+  <div class="detail-header">
+    <a href="#maybe_markdown_to_html/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_markdown_to_html(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_markdown_to_html/1"><code class="inline">Bonfire.Common.Text.maybe_markdown_to_html/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_markdown_to_html/2">
+
+  <div class="detail-header">
+    <a href="#maybe_markdown_to_html/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_markdown_to_html(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_markdown_to_html/2"><code class="inline">Bonfire.Common.Text.maybe_markdown_to_html/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_normalize_html/1">
+
+  <div class="detail-header">
+    <a href="#maybe_normalize_html/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_normalize_html(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_normalize_html/1"><code class="inline">Bonfire.Common.Text.maybe_normalize_html/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_other_custom_emoji/2">
+
+  <div class="detail-header">
+    <a href="#maybe_other_custom_emoji/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_other_custom_emoji(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_other_custom_emoji/2"><code class="inline">Bonfire.Common.Text.maybe_other_custom_emoji/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_render_templated/2">
+
+  <div class="detail-header">
+    <a href="#maybe_render_templated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_render_templated(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_render_templated/2"><code class="inline">Bonfire.Common.Text.maybe_render_templated/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_sane_html/1">
+
+  <div class="detail-header">
+    <a href="#maybe_sane_html/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_sane_html(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_sane_html/1"><code class="inline">Bonfire.Common.Text.maybe_sane_html/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_to_snake/1">
+
+  <div class="detail-header">
+    <a href="#maybe_to_snake/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_to_snake(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#maybe_to_snake/1"><code class="inline">Bonfire.Common.Text.maybe_to_snake/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="normalise_links/1">
+
+  <div class="detail-header">
+    <a href="#normalise_links/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">normalise_links(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#normalise_links/1"><code class="inline">Bonfire.Common.Text.normalise_links/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="normalise_links/2">
+
+  <div class="detail-header">
+    <a href="#normalise_links/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">normalise_links(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#normalise_links/2"><code class="inline">Bonfire.Common.Text.normalise_links/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="random_string/0">
+
+  <div class="detail-header">
+    <a href="#random_string/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">random_string()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#random_string/0"><code class="inline">Bonfire.Common.Text.random_string/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="random_string/1">
+
+  <div class="detail-header">
+    <a href="#random_string/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">random_string(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#random_string/1"><code class="inline">Bonfire.Common.Text.random_string/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="regex_list/2">
+
+  <div class="detail-header">
+    <a href="#regex_list/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">regex_list(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#regex_list/2"><code class="inline">Bonfire.Common.Text.regex_list/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="sentence_truncate/1">
+
+  <div class="detail-header">
+    <a href="#sentence_truncate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sentence_truncate(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#sentence_truncate/1"><code class="inline">Bonfire.Common.Text.sentence_truncate/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="sentence_truncate/2">
+
+  <div class="detail-header">
+    <a href="#sentence_truncate/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sentence_truncate(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#sentence_truncate/2"><code class="inline">Bonfire.Common.Text.sentence_truncate/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="sentence_truncate/3">
+
+  <div class="detail-header">
+    <a href="#sentence_truncate/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sentence_truncate(xA, xB, xC)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#sentence_truncate/3"><code class="inline">Bonfire.Common.Text.sentence_truncate/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="slug/1">
+
+  <div class="detail-header">
+    <a href="#slug/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">slug(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#slug/1"><code class="inline">Bonfire.Common.Text.slug/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="strlen/1">
+
+  <div class="detail-header">
+    <a href="#strlen/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">strlen(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#strlen/1"><code class="inline">Bonfire.Common.Text.strlen/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="text_only/1">
+
+  <div class="detail-header">
+    <a href="#text_only/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">text_only(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#text_only/1"><code class="inline">Bonfire.Common.Text.text_only/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="truncate/1">
+
+  <div class="detail-header">
+    <a href="#truncate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truncate(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#truncate/1"><code class="inline">Bonfire.Common.Text.truncate/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="truncate/2">
+
+  <div class="detail-header">
+    <a href="#truncate/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truncate(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#truncate/2"><code class="inline">Bonfire.Common.Text.truncate/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="truncate/3">
+
+  <div class="detail-header">
+    <a href="#truncate/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truncate(xA, xB, xC)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#truncate/3"><code class="inline">Bonfire.Common.Text.truncate/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="underscore_truncate/1">
+
+  <div class="detail-header">
+    <a href="#underscore_truncate/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">underscore_truncate(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#underscore_truncate/1"><code class="inline">Bonfire.Common.Text.underscore_truncate/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="underscore_truncate/2">
+
+  <div class="detail-header">
+    <a href="#underscore_truncate/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">underscore_truncate(xA, xB)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#underscore_truncate/2"><code class="inline">Bonfire.Common.Text.underscore_truncate/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="upcase_first/1">
+
+  <div class="detail-header">
+    <a href="#upcase_first/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">upcase_first(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#upcase_first/1"><code class="inline">Bonfire.Common.Text.upcase_first/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="verb_infinitive/1">
+
+  <div class="detail-header">
+    <a href="#verb_infinitive/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">verb_infinitive(xA)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend_override_wip/sample_extend.ex#L3" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>See <a href="./Bonfire.Common.Text.html#verb_infinitive/1"><code class="inline">Bonfire.Common.Text.verb_infinitive/1</code></a>.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

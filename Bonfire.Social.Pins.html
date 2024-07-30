@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.Pins — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.Pins</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Mutate or query pins (which make an activity or object appear at the beginning of feeds or other lists).</p><p>This module provides functionality to manage and query pins, including creating, deleting, and listing pins. </p><p>Pins are implemented on top of the <a href="./Bonfire.Data.Edges.Edge.html"><code class="inline">Bonfire.Data.Edges.Edge</code></a> schema (see <a href="./Bonfire.Social.Edges.html"><code class="inline">Bonfire.Social.Edges</code></a> for shared functions)</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_publish_activity/3" data-no-tooltip translate="no">ap_publish_activity(subject, verb, pin)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Publishes an ActivityPub activity for a pin.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_pinned/2" data-no-tooltip translate="no">by_pinned(object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists pins of a specific object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_pinner/2" data-no-tooltip translate="no">by_pinner(subject, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists pins by a specific subject.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip translate="no">get(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a Pin edge between a subject and an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/3" data-no-tooltip translate="no">get!(subject, object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>  Similar to <a href="#get/3"><code class="inline">get/3</code></a>, but raises an error if the Pin edge is not found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_by/2" data-no-tooltip translate="no">list_by(by_user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists pins by a specific user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_instance_pins/1" data-no-tooltip translate="no">list_instance_pins(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists pins for the instance.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_my/1" data-no-tooltip translate="no">list_my(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists pins for the current user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_of/2" data-no-tooltip translate="no">list_of(object, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists pinners of a specific object or objects.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#pin/4" data-no-tooltip translate="no">pin(pinner, object, scope \\ nil, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a pin for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#pinned?/2" data-no-tooltip translate="no">pinned?(scope, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if an object is pinned by the instance.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip translate="no">query(filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#rank_pin/3" data-no-tooltip translate="no">rank_pin(pin, scope, position)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets the rank/position of a pin within a specific scope.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#unpin/3" data-no-tooltip translate="no">unpin(user, object, scope \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Removes a pin for an object.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_publish_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_publish_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_publish_activity(subject, verb, pin)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L457" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Publishes an ActivityPub activity for a pin.</p><h2 id="ap_publish_activity/3-parameters" class="section-heading">
+  <a href="#ap_publish_activity/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject of the pin activity.</li><li>verb: The verb of the activity (not used - currently pins are federated out as likes)</li><li>pin: The <code class="inline">Pin</code> object.</li></ul><h2 id="ap_publish_activity/3-examples" class="section-heading">
+  <a href="#ap_publish_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="0286069489-1">(</span><span class="p" data-group-id="0286069489-2">%</span><span class="nc" data-group-id="0286069489-2">User</span><span class="p" data-group-id="0286069489-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="0286069489-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0286069489-3">%</span><span class="nc" data-group-id="0286069489-3">Pin</span><span class="p" data-group-id="0286069489-3">{</span><span class="p" data-group-id="0286069489-3">}</span><span class="p" data-group-id="0286069489-1">)</span><span class="w">
+</span><span class="p" data-group-id="0286069489-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0286069489-5">%</span><span class="nc" data-group-id="0286069489-5">ActivityPub.Object</span><span class="p" data-group-id="0286069489-5">{</span><span class="p" data-group-id="0286069489-5">}</span><span class="p" data-group-id="0286069489-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_pinned/2">
+
+    <span id="by_pinned/1"></span>
+
+  <div class="detail-header">
+    <a href="#by_pinned/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_pinned(object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L126" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists pins of a specific object.</p><h2 id="by_pinned/2-parameters" class="section-heading">
+  <a href="#by_pinned/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>object: The object that was pinned.</li><li>opts: Additional options for the query (optional).</li></ul><h2 id="by_pinned/2-examples" class="section-heading">
+  <a href="#by_pinned/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">by_pinned</span><span class="p" data-group-id="2694069619-1">(</span><span class="p" data-group-id="2694069619-2">%</span><span class="nc" data-group-id="2694069619-2">Post</span><span class="p" data-group-id="2694069619-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="2694069619-2">}</span><span class="p" data-group-id="2694069619-1">)</span><span class="w">
+</span><span class="p" data-group-id="2694069619-3">[</span><span class="p" data-group-id="2694069619-4">%</span><span class="nc" data-group-id="2694069619-4">Pin</span><span class="p" data-group-id="2694069619-4">{</span><span class="p" data-group-id="2694069619-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2694069619-3">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_pinner/2">
+
+    <span id="by_pinner/1"></span>
+
+  <div class="detail-header">
+    <a href="#by_pinner/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_pinner(subject, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L106" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists pins by a specific subject.</p><h2 id="by_pinner/2-parameters" class="section-heading">
+  <a href="#by_pinner/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject (usually a user) who created the pins.</li><li>opts: Additional options for the query (optional).</li></ul><h2 id="by_pinner/2-examples" class="section-heading">
+  <a href="#by_pinner/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">by_pinner</span><span class="p" data-group-id="4634285938-1">(</span><span class="p" data-group-id="4634285938-2">%</span><span class="nc" data-group-id="4634285938-2">User</span><span class="p" data-group-id="4634285938-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="4634285938-2">}</span><span class="p" data-group-id="4634285938-1">)</span><span class="w">
+</span><span class="p" data-group-id="4634285938-3">[</span><span class="p" data-group-id="4634285938-4">%</span><span class="nc" data-group-id="4634285938-4">Pin</span><span class="p" data-group-id="4634285938-4">{</span><span class="p" data-group-id="4634285938-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4634285938-3">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federation_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L40" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L83" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a Pin edge between a subject and an object.</p><h2 id="get/3-parameters" class="section-heading">
+  <a href="#get/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>subject: The subject (usually a user) of the Pin edge.</li><li>object: The object that was pinned.</li><li>opts: Additional options for the query (optional).</li></ul><h2 id="get/3-examples" class="section-heading">
+  <a href="#get/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="3968700028-1">(</span><span class="p" data-group-id="3968700028-2">%</span><span class="nc" data-group-id="3968700028-2">User</span><span class="p" data-group-id="3968700028-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="3968700028-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3968700028-3">%</span><span class="nc" data-group-id="3968700028-3">Post</span><span class="p" data-group-id="3968700028-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="3968700028-3">}</span><span class="p" data-group-id="3968700028-1">)</span><span class="w">
+</span><span class="p" data-group-id="3968700028-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3968700028-5">%</span><span class="nc" data-group-id="3968700028-5">Pin</span><span class="p" data-group-id="3968700028-5">{</span><span class="p" data-group-id="3968700028-5">}</span><span class="p" data-group-id="3968700028-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get!/3">
+
+    <span id="get!/2"></span>
+
+  <div class="detail-header">
+    <a href="#get!/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L89" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>  Similar to <a href="#get/3"><code class="inline">get/3</code></a>, but raises an error if the Pin edge is not found.</p>
+  </section>
+</section>
+<section class="detail" id="list_by/2">
+
+    <span id="list_by/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_by/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_by(by_user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L381" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists pins by a specific user.</p><h2 id="list_by/2-parameters" class="section-heading">
+  <a href="#list_by/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>by_user: The user whose pins to list.</li><li>opts: Additional options for the query (optional).</li></ul><h2 id="list_by/2-examples" class="section-heading">
+  <a href="#list_by/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="7891321716-1">(</span><span class="p" data-group-id="7891321716-2">%</span><span class="nc" data-group-id="7891321716-2">User</span><span class="p" data-group-id="7891321716-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="7891321716-2">}</span><span class="p" data-group-id="7891321716-1">)</span><span class="w">
+</span><span class="p" data-group-id="7891321716-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7891321716-4">[</span><span class="p" data-group-id="7891321716-5">%</span><span class="nc" data-group-id="7891321716-5">Pin</span><span class="p" data-group-id="7891321716-5">{</span><span class="p" data-group-id="7891321716-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7891321716-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7891321716-6">%{</span><span class="p" data-group-id="7891321716-6">}</span><span class="p" data-group-id="7891321716-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_instance_pins/1">
+
+  <div class="detail-header">
+    <a href="#list_instance_pins/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_instance_pins(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L362" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists pins for the instance.</p><h2 id="list_instance_pins/1-parameters" class="section-heading">
+  <a href="#list_instance_pins/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>opts: Additional options for the query.</li></ul><h2 id="list_instance_pins/1-examples" class="section-heading">
+  <a href="#list_instance_pins/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">list_instance_pins</span><span class="p" data-group-id="4159777457-1">(</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="4159777457-1">)</span><span class="w">
+</span><span class="p" data-group-id="4159777457-2">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4159777457-3">[</span><span class="p" data-group-id="4159777457-4">%</span><span class="nc" data-group-id="4159777457-4">Pin</span><span class="p" data-group-id="4159777457-4">{</span><span class="p" data-group-id="4159777457-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4159777457-3">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4159777457-5">%{</span><span class="p" data-group-id="4159777457-5">}</span><span class="p" data-group-id="4159777457-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_my/1">
+
+  <div class="detail-header">
+    <a href="#list_my/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_my(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L345" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists pins for the current user.</p><h2 id="list_my/1-parameters" class="section-heading">
+  <a href="#list_my/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>opts: Additional options for the query.</li></ul><h2 id="list_my/1-examples" class="section-heading">
+  <a href="#list_my/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">list_my</span><span class="p" data-group-id="1648702103-1">(</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1648702103-2">%</span><span class="nc" data-group-id="1648702103-2">User</span><span class="p" data-group-id="1648702103-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="1648702103-2">}</span><span class="p" data-group-id="1648702103-1">)</span><span class="w">
+</span><span class="p" data-group-id="1648702103-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1648702103-4">[</span><span class="p" data-group-id="1648702103-5">%</span><span class="nc" data-group-id="1648702103-5">Pin</span><span class="p" data-group-id="1648702103-5">{</span><span class="p" data-group-id="1648702103-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1648702103-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1648702103-6">%{</span><span class="p" data-group-id="1648702103-6">}</span><span class="p" data-group-id="1648702103-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_of/2">
+
+    <span id="list_of/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_of/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_of(object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L419" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists pinners of a specific object or objects.</p><h2 id="list_of/2-parameters" class="section-heading">
+  <a href="#list_of/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>object: The object or objects to find pinners for.</li><li>opts: Additional options for the query (optional).</li></ul><h2 id="list_of/2-examples" class="section-heading">
+  <a href="#list_of/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">list_of</span><span class="p" data-group-id="4361054219-1">(</span><span class="p" data-group-id="4361054219-2">%</span><span class="nc" data-group-id="4361054219-2">Post</span><span class="p" data-group-id="4361054219-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="4361054219-2">}</span><span class="p" data-group-id="4361054219-1">)</span><span class="w">
+</span><span class="p" data-group-id="4361054219-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4361054219-4">[</span><span class="p" data-group-id="4361054219-5">%</span><span class="nc" data-group-id="4361054219-5">Pin</span><span class="p" data-group-id="4361054219-5">{</span><span class="p" data-group-id="4361054219-5">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4361054219-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4361054219-6">%{</span><span class="p" data-group-id="4361054219-6">}</span><span class="p" data-group-id="4361054219-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="pin/4">
+
+    <span id="pin/2"></span>
+
+    <span id="pin/3"></span>
+
+  <div class="detail-header">
+    <a href="#pin/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pin(pinner, object, scope \\ nil, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L148" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Creates a pin for an object.</p><h2 id="pin/4-parameters" class="section-heading">
+  <a href="#pin/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>pinner: The user creating the pin.</li><li>object: The object to be pinned.</li><li>scope: The scope of the pin (eg. <code class="inline">:instance</code>, optional).</li><li>opts: Additional options for creating the pin (optional).</li></ul><h2 id="pin/4-examples" class="section-heading">
+  <a href="#pin/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">pin</span><span class="p" data-group-id="1735256065-1">(</span><span class="p" data-group-id="1735256065-2">%</span><span class="nc" data-group-id="1735256065-2">User</span><span class="p" data-group-id="1735256065-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="1735256065-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1735256065-3">%</span><span class="nc" data-group-id="1735256065-3">Post</span><span class="p" data-group-id="1735256065-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="1735256065-3">}</span><span class="p" data-group-id="1735256065-1">)</span><span class="w">
+</span><span class="p" data-group-id="1735256065-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1735256065-5">%</span><span class="nc" data-group-id="1735256065-5">Pin</span><span class="p" data-group-id="1735256065-5">{</span><span class="p" data-group-id="1735256065-5">}</span><span class="p" data-group-id="1735256065-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">pin</span><span class="p" data-group-id="1735256065-6">(</span><span class="p" data-group-id="1735256065-7">%</span><span class="nc" data-group-id="1735256065-7">User</span><span class="p" data-group-id="1735256065-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="1735256065-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1735256065-8">%</span><span class="nc" data-group-id="1735256065-8">Post</span><span class="p" data-group-id="1735256065-8">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="1735256065-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="1735256065-6">)</span><span class="w">
+</span><span class="p" data-group-id="1735256065-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1735256065-10">%</span><span class="nc" data-group-id="1735256065-10">Pin</span><span class="p" data-group-id="1735256065-10">{</span><span class="p" data-group-id="1735256065-10">}</span><span class="p" data-group-id="1735256065-9">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="pinned?/2">
+
+  <div class="detail-header">
+    <a href="#pinned?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pinned?(scope, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L62" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if an object is pinned by the instance.</p><h2 id="pinned?/2-parameters" class="section-heading">
+  <a href="#pinned?/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>scope: The scope to check for pinning (eg. <code class="inline">:instance</code> or a user)</li><li>object: The object to check for pinning.</li></ul><h2 id="pinned?/2-examples" class="section-heading">
+  <a href="#pinned?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">pinned?</span><span class="p" data-group-id="8265809972-1">(</span><span class="ss">:instance</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8265809972-2">%</span><span class="nc" data-group-id="8265809972-2">Post</span><span class="p" data-group-id="8265809972-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post123&quot;</span><span class="p" data-group-id="8265809972-2">}</span><span class="p" data-group-id="8265809972-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">pinned?</span><span class="p" data-group-id="8265809972-3">(</span><span class="p" data-group-id="8265809972-4">%</span><span class="nc" data-group-id="8265809972-4">User</span><span class="p" data-group-id="8265809972-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="8265809972-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8265809972-5">%</span><span class="nc" data-group-id="8265809972-5">Post</span><span class="p" data-group-id="8265809972-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="8265809972-5">}</span><span class="p" data-group-id="8265809972-3">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query(filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L309" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L37" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="rank_pin/3">
+
+  <div class="detail-header">
+    <a href="#rank_pin/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">rank_pin(pin, scope, position)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L269" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets the rank/position of a pin within a specific scope.</p><h2 id="rank_pin/3-parameters" class="section-heading">
+  <a href="#rank_pin/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>pin: The pin to be ranked.</li><li>scope: The scope for ranking (eg. <code class="inline">:instance</code>).</li><li>position: The desired position/rank for the pin.</li></ul><h2 id="rank_pin/3-examples" class="section-heading">
+  <a href="#rank_pin/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">rank_pin</span><span class="p" data-group-id="9846889525-1">(</span><span class="s">&quot;pin123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9846889525-1">)</span><span class="w">
+</span><span class="p" data-group-id="9846889525-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9846889525-3">%</span><span class="nc" data-group-id="9846889525-3">Bonfire.Data.Assort.Ranked</span><span class="p" data-group-id="9846889525-3">{</span><span class="p" data-group-id="9846889525-3">}</span><span class="p" data-group-id="9846889525-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">rank_pin</span><span class="p" data-group-id="9846889525-4">(</span><span class="s">&quot;pin123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9846889525-5">%</span><span class="nc" data-group-id="9846889525-5">User</span><span class="p" data-group-id="9846889525-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user456&quot;</span><span class="p" data-group-id="9846889525-5">}</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9846889525-4">)</span><span class="w">
+</span><span class="p" data-group-id="9846889525-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9846889525-7">%</span><span class="nc" data-group-id="9846889525-7">Bonfire.Data.Assort.Ranked</span><span class="p" data-group-id="9846889525-7">{</span><span class="p" data-group-id="9846889525-7">}</span><span class="p" data-group-id="9846889525-6">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L36" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="unpin/3">
+
+    <span id="unpin/2"></span>
+
+  <div class="detail-header">
+    <a href="#unpin/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">unpin(user, object, scope \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/pins.ex#L226" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Removes a pin for an object.</p><h2 id="unpin/3-parameters" class="section-heading">
+  <a href="#unpin/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>user: The user removing the pin.</li><li>object: The object to be unpinned.</li><li>scope: The scope of the pin (eg. <code class="inline">:instance</code>, optional).</li></ul><h2 id="unpin/3-examples" class="section-heading">
+  <a href="#unpin/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">unpin</span><span class="p" data-group-id="5424855860-1">(</span><span class="p" data-group-id="5424855860-2">%</span><span class="nc" data-group-id="5424855860-2">User</span><span class="p" data-group-id="5424855860-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="5424855860-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5424855860-3">%</span><span class="nc" data-group-id="5424855860-3">Post</span><span class="p" data-group-id="5424855860-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="5424855860-3">}</span><span class="p" data-group-id="5424855860-1">)</span><span class="w">
+</span><span class="p" data-group-id="5424855860-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="5424855860-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Pins</span><span class="o">.</span><span class="n">unpin</span><span class="p" data-group-id="5424855860-5">(</span><span class="p" data-group-id="5424855860-6">%</span><span class="nc" data-group-id="5424855860-6">User</span><span class="p" data-group-id="5424855860-6">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="5424855860-6">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5424855860-7">%</span><span class="nc" data-group-id="5424855860-7">Post</span><span class="p" data-group-id="5424855860-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="5424855860-7">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="5424855860-5">)</span><span class="w">
+</span><span class="p" data-group-id="5424855860-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="5424855860-8">}</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

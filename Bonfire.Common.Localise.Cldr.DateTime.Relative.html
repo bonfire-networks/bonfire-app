@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Common.Localise.Cldr.DateTime.Relative — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.Localise.Cldr.DateTime.Relative</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_string/2" data-no-tooltip translate="no">to_string(time, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
+number, <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a> or <code class="inline">t:Datetime.t/0</code>.  Returns <code class="inline">{:error, reason}</code> when errors
+are detected.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_string!/2" data-no-tooltip translate="no">to_string!(time, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
+number, Date or Datetime or raises an exception on error.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="to_string/2">
+
+    <span id="to_string/1"></span>
+
+  <div class="detail-header">
+    <a href="#to_string/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_string(time, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> to_string(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | <a href="https://hexdocs.pm/elixir/Date.html#t:t/0">Date.t</a>() | <a href="https://hexdocs.pm/elixir/DateTime.html#t:t/0">DateTime.t</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
+
+      </div>
+
+<p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
+number, <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a> or <code class="inline">t:Datetime.t/0</code>.  Returns <code class="inline">{:error, reason}</code> when errors
+are detected.</p><ul><li><p><code class="inline">relative</code> is a number or Date/Datetime representing the time distance from <code class="inline">now</code> or from
+options[:relative_to]</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html"><code class="inline">Keyword</code></a> list of options which are:</p></li></ul><h2 id="to_string/2-options" class="section-heading">
+  <a href="#to_string/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><p><code class="inline">:locale</code> is the locale in which the binary is formatted.
+The default is <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a></p></li><li><p><code class="inline">:format</code> is the format of the binary.  Style may be <code class="inline">:default</code>, <code class="inline">:narrow</code> or <code class="inline">:short</code></p></li><li><p><code class="inline">:unit</code> is the time unit for the formatting.  The allowable units are <code class="inline">:second</code>, <code class="inline">:minute</code>,
+<code class="inline">:hour</code>, <code class="inline">:day</code>, <code class="inline">:week</code>, <code class="inline">:month</code>, <code class="inline">:year</code>, <code class="inline">:mon</code>, <code class="inline">:tue</code>, <code class="inline">:wed</code>, <code class="inline">:thu</code>, <code class="inline">:fri</code>, <code class="inline">:sat</code>,
+<code class="inline">:sun</code>, <code class="inline">:quarter</code></p></li><li><p><code class="inline">:relative_to</code> is the baseline Date or Datetime from which the difference from <code class="inline">relative</code> is
+calculated when <code class="inline">relative</code> is a Date or a DateTime. The default for a Date is <code class="inline">Date.utc_today</code>,
+for a DateTime it is <code class="inline">DateTime.utc_now</code></p></li></ul><h3 id="to_string/2-notes" class="section-heading">
+  <a href="#to_string/2-notes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Notes</span>
+</h3>
+<p>When <code class="inline">options[:unit]</code> is not specified, <code class="inline">MyApp.Cldr.DateTime.Relative.to_string/2</code>
+attempts to identify the appropriate unit based upon the magnitude of <code class="inline">relative</code>.
+For example, given a parameter of less than <code class="inline">60</code>, then <a href="#to_string/2"><code class="inline">to_string/2</code></a> will
+assume <code class="inline">:seconds</code> as the unit.  See <code class="inline">unit_from_relative_time/1</code>.</p><h2 id="to_string/2-examples" class="section-heading">
+  <a href="#to_string/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-1">(</span><span class="o">-</span><span class="mi">1</span><span class="p" data-group-id="7969640969-1">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1 second ago&quot;</span><span class="p" data-group-id="7969640969-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-3">(</span><span class="mi">1</span><span class="p" data-group-id="7969640969-3">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 1 second&quot;</span><span class="p" data-group-id="7969640969-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-5">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:day</span><span class="p" data-group-id="7969640969-5">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tomorrow&quot;</span><span class="p" data-group-id="7969640969-6">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-7">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:day</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="7969640969-7">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;demain&quot;</span><span class="p" data-group-id="7969640969-8">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-9">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:day</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:narrow</span><span class="p" data-group-id="7969640969-9">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-10">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tomorrow&quot;</span><span class="p" data-group-id="7969640969-10">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-11">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:year</span><span class="p" data-group-id="7969640969-11">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-12">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 1,234 years&quot;</span><span class="p" data-group-id="7969640969-12">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-13">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:year</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="7969640969-13">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-14">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dans 1 234 ans&quot;</span><span class="p" data-group-id="7969640969-14">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-15">(</span><span class="mi">31</span><span class="p" data-group-id="7969640969-15">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-16">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 31 seconds&quot;</span><span class="p" data-group-id="7969640969-16">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-17">(</span><span class="ld">~D[2017-04-29]</span><span class="p">,</span><span class="w"> </span><span class="ss">relative_to</span><span class="p">:</span><span class="w"> </span><span class="ld">~D[2017-04-26]</span><span class="p" data-group-id="7969640969-17">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-18">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 3 days&quot;</span><span class="p" data-group-id="7969640969-18">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-19">(</span><span class="mi">310</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="7969640969-19">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-20">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dans 5 min&quot;</span><span class="p" data-group-id="7969640969-20">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-21">(</span><span class="mi">310</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:narrow</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="7969640969-21">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-22">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;+5 min&quot;</span><span class="p" data-group-id="7969640969-22">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
+</span><span class="p" data-group-id="7969640969-23">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 2 Wed.&quot;</span><span class="p" data-group-id="7969640969-23">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="w">
+</span><span class="p" data-group-id="7969640969-24">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;next Wed.&quot;</span><span class="p" data-group-id="7969640969-24">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="w">
+</span><span class="p" data-group-id="7969640969-25">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;last Wed.&quot;</span><span class="p" data-group-id="7969640969-25">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="w">
+</span><span class="p" data-group-id="7969640969-26">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;last Wednesday&quot;</span><span class="p" data-group-id="7969640969-26">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:quarter</span><span class="w">
+</span><span class="p" data-group-id="7969640969-27">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;last quarter&quot;</span><span class="p" data-group-id="7969640969-27">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:mon</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="w">
+</span><span class="p" data-group-id="7969640969-28">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lundi dernier&quot;</span><span class="p" data-group-id="7969640969-28">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="7969640969-29">(</span><span class="ld">~D[2017-04-29]</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:ziggeraut</span><span class="p" data-group-id="7969640969-29">)</span><span class="w">
+</span><span class="p" data-group-id="7969640969-30">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7969640969-31">{</span><span class="nc">Cldr.DateTime.UnknownTimeUnit</span><span class="p">,</span><span class="w">
+ </span><span class="s">&quot;Unknown time unit :ziggeraut.  Valid time units are [:day, :fri, :hour, :minute, :mon, :month, :quarter, :sat, :second, :sun, :thu, :tue, :wed, :week, :year]&quot;</span><span class="p" data-group-id="7969640969-31">}</span><span class="p" data-group-id="7969640969-30">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="to_string!/2">
+
+    <span id="to_string!/1"></span>
+
+  <div class="detail-header">
+    <a href="#to_string!/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_string!(time, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> to_string!(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | <a href="https://hexdocs.pm/elixir/Date.html#t:t/0">Date.t</a>() | <a href="https://hexdocs.pm/elixir/DateTime.html#t:t/0">DateTime.t</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
+number, Date or Datetime or raises an exception on error.</p><h2 id="to_string!/2-arguments" class="section-heading">
+  <a href="#to_string!/2-arguments" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Arguments</span>
+</h2>
+<ul><li><p><code class="inline">relative</code> is a number or Date/Datetime representing the time distance from <code class="inline">now</code> or from
+options[:relative_to].</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html"><code class="inline">Keyword</code></a> list of options.</p></li></ul><h2 id="to_string!/2-options" class="section-heading">
+  <a href="#to_string!/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><p><code class="inline">:locale</code> is the locale in which the binary is formatted.
+The default is <a href="https://hexdocs.pm/ex_cldr/2.40.0/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a></p></li><li><p><code class="inline">:format</code> is the format of the binary.  Style may be <code class="inline">:default</code>, <code class="inline">:narrow</code> or <code class="inline">:short</code>.
+The default is <code class="inline">:default</code></p></li><li><p><code class="inline">:unit</code> is the time unit for the formatting.  The allowable units are <code class="inline">:second</code>, <code class="inline">:minute</code>,
+<code class="inline">:hour</code>, <code class="inline">:day</code>, <code class="inline">:week</code>, <code class="inline">:month</code>, <code class="inline">:year</code>, <code class="inline">:mon</code>, <code class="inline">:tue</code>, <code class="inline">:wed</code>, <code class="inline">:thu</code>, <code class="inline">:fri</code>, <code class="inline">:sat</code>,
+<code class="inline">:sun</code>, <code class="inline">:quarter</code></p></li><li><p><code class="inline">:relative_to</code> is the baseline Date or Datetime from which the difference from <code class="inline">relative</code> is
+calculated when <code class="inline">relative</code> is a Date or a DateTime. The default for a Date is <code class="inline">Date.utc_today</code>,
+for a DateTime it is <code class="inline">DateTime.utc_now</code></p></li></ul><p>See <a href="#to_string/2"><code class="inline">to_string/2</code></a></p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

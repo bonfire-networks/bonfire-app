@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Social.Objects — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.Objects</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Generic helpers for querying and mutating objects.</p><p>This module provides functions for working with social objects, including:</p><ul><li>Casting common associations when creating objects</li><li>Reading and querying objects</li><li>Deleting objects</li><li>Publishing and setting boundaries</li><li>Handling ActivityPub federation</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_maybe_delete/2" data-no-tooltip translate="no">ap_maybe_delete(creator, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip translate="no">ap_receive_activity(creator, activity, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#as_permitted_for/3" data-no-tooltip translate="no">as_permitted_for(q, opts \\ [], verbs \\ [:see, :read])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#care_closures/1" data-no-tooltip translate="no">care_closures(ids)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves care closures for the given IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#care_taken/1" data-no-tooltip translate="no">care_taken(ids)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a list of objects that are taken care of by the given caretaker IDs.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/4" data-no-tooltip translate="no">cast(changeset, attrs, creator, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts various attributes for an object changeset.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_acl/3" data-no-tooltip translate="no">cast_acl(changeset, creator, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_basic/4" data-no-tooltip translate="no">cast_basic(changeset, attrs, creator, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts basic attributes for an object changeset.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_caretaker/2" data-no-tooltip translate="no">cast_caretaker(changeset, caretaker)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_creator/2" data-no-tooltip translate="no">cast_creator(changeset, creator)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_creator_caretaker/2" data-no-tooltip translate="no">cast_creator_caretaker(changeset, user)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_mini/4" data-no-tooltip translate="no">cast_mini(changeset, attrs, creator, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts minimal attributes for an object changeset.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_publish/4" data-no-tooltip translate="no">cast_publish(changeset, attrs, creator, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts attributes for publishing an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast_sensitivity/2" data-no-tooltip translate="no">cast_sensitivity(changeset, sensitive?)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts the object sensitivity on a changeset.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset_named/2" data-no-tooltip translate="no">changeset_named(object \\ %{}, attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(object, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes an object if the current users (provided in opts) has permission to, along with related associations (such as mixins).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_apply_error/2" data-no-tooltip translate="no">delete_apply_error(error, args)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_caretaken/1" data-no-tooltip translate="no">delete_caretaken(main)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes objects that are taken care of by the given main object(s).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#do_delete/2" data-no-tooltip translate="no">do_delete(objects, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#filter/3" data-no-tooltip translate="no">filter(atom, user, query)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_paginated/2" data-no-tooltip translate="no">list_paginated(filters, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists objects in a paginated manner.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_query/2" data-no-tooltip translate="no">list_query(type_or_query \\ nil, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_generic_delete/3" data-no-tooltip translate="no">maybe_generic_delete(type, object, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Attempts a generic deletion of an object, to be used when no specific delete function is defined for a schema.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_preload_activity_object/2" data-no-tooltip translate="no">maybe_preload_activity_object(pointer, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#object_creator/1" data-no-tooltip translate="no">object_creator(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the creator of an object (if preloaded)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#permalink/1" data-no-tooltip translate="no">permalink(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the permalink for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_creator/1" data-no-tooltip translate="no">preload_creator(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Preloads the creator for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_reply_creator/1" data-no-tooltip translate="no">preload_reply_creator(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Preloads the reply creator for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#publish/5" data-no-tooltip translate="no">publish(creator, verb, thing, opts_or_attrs \\ nil, for_module \\ __MODULE__)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Publishes an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_base/1" data-no-tooltip translate="no">query_base(type \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a basic query over undeleted pointable objects in the system,
+optionally limited to one or more types.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#read/2" data-no-tooltip translate="no">read(object_id, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Reads an object by its ID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#reset_preset_boundary/5" data-no-tooltip translate="no">reset_preset_boundary(creator, thing, previous_preset, opts_or_attrs \\ [], for_module \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Resets the preset boundary for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#run_epic/3" data-no-tooltip translate="no">run_epic(type, options \\ [], on \\ :object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Runs an epic for a given type and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_boundaries/4" data-no-tooltip translate="no">set_boundaries(creator, thing, opts_or_attrs \\ [], for_module \\ __MODULE__)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets boundaries for an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_name/3" data-no-tooltip translate="no">set_name(id, name, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets the name/title of an object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_sensitivity/2" data-no-tooltip translate="no">set_sensitivity(pointer, arg2)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sets the sensitivity of an existing object.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_maybe_delete/2">
+
+  <div class="detail-header">
+    <a href="#ap_maybe_delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_maybe_delete(creator, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L866" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_receive_activity(creator, activity, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L853" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="as_permitted_for/3">
+
+    <span id="as_permitted_for/1"></span>
+
+    <span id="as_permitted_for/2"></span>
+
+  <div class="detail-header">
+    <a href="#as_permitted_for/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">as_permitted_for(q, opts \\ [], verbs \\ [:see, :read])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L374" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="care_closures/1">
+
+  <div class="detail-header">
+    <a href="#care_closures/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">care_closures(ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L625" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves care closures for the given IDs.</p><h2 id="care_closures/1-parameters" class="section-heading">
+  <a href="#care_closures/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">ids</code>: A list of IDs to find care closures for.</li></ul><h2 id="care_closures/1-examples" class="section-heading">
+  <a href="#care_closures/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">care_closures</span><span class="p" data-group-id="8860407336-1">(</span><span class="p" data-group-id="8860407336-2">[</span><span class="s">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;id2&quot;</span><span class="p" data-group-id="8860407336-2">]</span><span class="p" data-group-id="8860407336-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="care_taken/1">
+
+  <div class="detail-header">
+    <a href="#care_taken/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">care_taken(ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L640" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a list of objects that are taken care of by the given caretaker IDs.</p><h2 id="care_taken/1-parameters" class="section-heading">
+  <a href="#care_taken/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">ids</code>: A list of caretaker IDs.</li></ul><h2 id="care_taken/1-examples" class="section-heading">
+  <a href="#care_taken/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">care_taken</span><span class="p" data-group-id="8058263598-1">(</span><span class="p" data-group-id="8058263598-2">[</span><span class="s">&quot;caretaker1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;caretaker2&quot;</span><span class="p" data-group-id="8058263598-2">]</span><span class="p" data-group-id="8058263598-1">)</span><span class="w">
+</span><span class="p" data-group-id="8058263598-3">[</span><span class="p" data-group-id="8058263598-4">%</span><span class="nc" data-group-id="8058263598-4">Object</span><span class="p" data-group-id="8058263598-4">{</span><span class="p" data-group-id="8058263598-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8058263598-5">%</span><span class="nc" data-group-id="8058263598-5">Object</span><span class="p" data-group-id="8058263598-5">{</span><span class="p" data-group-id="8058263598-5">}</span><span class="p" data-group-id="8058263598-3">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast/4">
+
+  <div class="detail-header">
+    <a href="#cast/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast(changeset, attrs, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L61" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts various attributes for an object changeset.</p><p>Handles casting:</p><ul><li>Creator</li><li>Caretaker</li><li>Threaded replies (when present)</li><li>Tags/Mentions (when present)</li><li>ACLs</li><li>Activity</li></ul><h2 id="cast/4-examples" class="section-heading">
+  <a href="#cast/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast</span><span class="p" data-group-id="3313816683-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3313816683-2">%{</span><span class="p" data-group-id="3313816683-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3313816683-3">[</span><span class="p" data-group-id="3313816683-3">]</span><span class="p" data-group-id="3313816683-1">)</span><span class="w">
+</span><span class="p" data-group-id="3313816683-4">%</span><span class="nc" data-group-id="3313816683-4">Ecto.Changeset</span><span class="p" data-group-id="3313816683-4">{</span><span class="p" data-group-id="3313816683-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast_acl/3">
+
+  <div class="detail-header">
+    <a href="#cast_acl/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_acl(changeset, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L140" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_basic/4">
+
+  <div class="detail-header">
+    <a href="#cast_basic/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_basic(changeset, attrs, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L90" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts basic attributes for an object changeset.</p><p>Handles casting:</p><ul><li>Creator</li><li>Caretaker</li><li>ACLs</li></ul><h2 id="cast_basic/4-examples" class="section-heading">
+  <a href="#cast_basic/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast_basic</span><span class="p" data-group-id="7948701496-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7948701496-2">%{</span><span class="p" data-group-id="7948701496-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7948701496-3">[</span><span class="p" data-group-id="7948701496-3">]</span><span class="p" data-group-id="7948701496-1">)</span><span class="w">
+</span><span class="p" data-group-id="7948701496-4">%</span><span class="nc" data-group-id="7948701496-4">Ecto.Changeset</span><span class="p" data-group-id="7948701496-4">{</span><span class="p" data-group-id="7948701496-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast_caretaker/2">
+
+  <div class="detail-header">
+    <a href="#cast_caretaker/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_caretaker(changeset, caretaker)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L167" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_creator/2">
+
+  <div class="detail-header">
+    <a href="#cast_creator/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_creator(changeset, creator)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L158" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_creator_caretaker/2">
+
+  <div class="detail-header">
+    <a href="#cast_creator_caretaker/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_creator_caretaker(changeset, user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L176" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cast_mini/4">
+
+  <div class="detail-header">
+    <a href="#cast_mini/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_mini(changeset, attrs, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L110" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts minimal attributes for an object changeset.</p><p>Handles casting:</p><ul><li>ACLs</li></ul><h2 id="cast_mini/4-examples" class="section-heading">
+  <a href="#cast_mini/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast_mini</span><span class="p" data-group-id="8657611842-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8657611842-2">%{</span><span class="p" data-group-id="8657611842-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8657611842-3">[</span><span class="p" data-group-id="8657611842-3">]</span><span class="p" data-group-id="8657611842-1">)</span><span class="w">
+</span><span class="p" data-group-id="8657611842-4">%</span><span class="nc" data-group-id="8657611842-4">Ecto.Changeset</span><span class="p" data-group-id="8657611842-4">{</span><span class="p" data-group-id="8657611842-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast_publish/4">
+
+  <div class="detail-header">
+    <a href="#cast_publish/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_publish(changeset, attrs, creator, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L131" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts attributes for publishing an object.</p><p>Handles casting:</p><ul><li>ACLs</li><li>Activity</li><li>Feed Publishes</li></ul><h2 id="cast_publish/4-examples" class="section-heading">
+  <a href="#cast_publish/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast_publish</span><span class="p" data-group-id="7798119223-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7798119223-2">%{</span><span class="p" data-group-id="7798119223-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7798119223-3">[</span><span class="p" data-group-id="7798119223-3">]</span><span class="p" data-group-id="7798119223-1">)</span><span class="w">
+</span><span class="p" data-group-id="7798119223-4">%</span><span class="nc" data-group-id="7798119223-4">Ecto.Changeset</span><span class="p" data-group-id="7798119223-4">{</span><span class="p" data-group-id="7798119223-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="cast_sensitivity/2">
+
+  <div class="detail-header">
+    <a href="#cast_sensitivity/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">cast_sensitivity(changeset, sensitive?)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L817" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts the object sensitivity on a changeset.</p><h2 id="cast_sensitivity/2-examples" class="section-heading">
+  <a href="#cast_sensitivity/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast_sensitivity</span><span class="p" data-group-id="6170099030-1">(</span><span class="p" data-group-id="6170099030-2">%</span><span class="nc" data-group-id="6170099030-2">Changeset</span><span class="p" data-group-id="6170099030-2">{</span><span class="p" data-group-id="6170099030-2">}</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="6170099030-1">)</span><span class="w">
+</span><span class="p" data-group-id="6170099030-3">%</span><span class="nc" data-group-id="6170099030-3">Changeset</span><span class="p" data-group-id="6170099030-3">{</span><span class="p" data-group-id="6170099030-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="changeset_named/2">
+
+    <span id="changeset_named/1"></span>
+
+  <div class="detail-header">
+    <a href="#changeset_named/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_named(object \\ %{}, attrs)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L368" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(object, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L389" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes an object if the current users (provided in opts) has permission to, along with related associations (such as mixins).</p><h2 id="delete/2-examples" class="section-heading">
+  <a href="#delete/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete</span><span class="p" data-group-id="7325807925-1">(</span><span class="p" data-group-id="7325807925-2">%</span><span class="nc" data-group-id="7325807925-2">Object</span><span class="p" data-group-id="7325807925-2">{</span><span class="p" data-group-id="7325807925-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="7325807925-1">)</span><span class="w">
+</span><span class="p" data-group-id="7325807925-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7325807925-4">%</span><span class="nc" data-group-id="7325807925-4">Object</span><span class="p" data-group-id="7325807925-4">{</span><span class="p" data-group-id="7325807925-4">}</span><span class="p" data-group-id="7325807925-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete_apply_error/2">
+
+  <div class="detail-header">
+    <a href="#delete_apply_error/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_apply_error(error, args)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L675" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="delete_caretaken/1">
+
+  <div class="detail-header">
+    <a href="#delete_caretaken/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete_caretaken(main)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L582" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes objects that are taken care of by the given main object(s).</p><p>This function recursively deletes caretakers and their objects, except for the original object (i.e if Alice is a user who takes care of some posts but also a group that in turn takes care of some posts or boosts, it will delete all of those except Alice herself).</p><h2 id="delete_caretaken/1-parameters" class="section-heading">
+  <a href="#delete_caretaken/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">main</code>: The main object or list of objects to start the deletion from.</li></ul><h2 id="delete_caretaken/1-examples" class="section-heading">
+  <a href="#delete_caretaken/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_caretaken</span><span class="p" data-group-id="0177326021-1">(</span><span class="p" data-group-id="0177326021-2">%</span><span class="nc" data-group-id="0177326021-2">Object</span><span class="p" data-group-id="0177326021-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main_id&quot;</span><span class="p" data-group-id="0177326021-2">}</span><span class="p" data-group-id="0177326021-1">)</span><span class="w">
+</span><span class="p" data-group-id="0177326021-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0177326021-4">[</span><span class="p" data-group-id="0177326021-5">%</span><span class="nc" data-group-id="0177326021-5">Object</span><span class="p" data-group-id="0177326021-5">{</span><span class="p" data-group-id="0177326021-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0177326021-6">%</span><span class="nc" data-group-id="0177326021-6">Object</span><span class="p" data-group-id="0177326021-6">{</span><span class="p" data-group-id="0177326021-6">}</span><span class="p" data-group-id="0177326021-4">]</span><span class="p" data-group-id="0177326021-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="do_delete/2">
+
+    <span id="do_delete/1"></span>
+
+  <div class="detail-header">
+    <a href="#do_delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">do_delete(objects, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L425" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federation_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L40" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="filter/3">
+
+  <div class="detail-header">
+    <a href="#filter/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">filter(atom, user, query)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L310" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_paginated/2">
+
+    <span id="list_paginated/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_paginated/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_paginated(filters, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L285" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Lists objects in a paginated manner.</p><h2 id="list_paginated/2-examples" class="section-heading">
+  <a href="#list_paginated/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_paginated</span><span class="p" data-group-id="5261929337-1">(</span><span class="p" data-group-id="5261929337-2">[</span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="5261929337-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5261929337-3">[</span><span class="p" data-group-id="5261929337-3">]</span><span class="p" data-group-id="5261929337-1">)</span><span class="w">
+</span><span class="p" data-group-id="5261929337-4">%</span><span class="nc" data-group-id="5261929337-4">Page</span><span class="p" data-group-id="5261929337-4">{</span><span class="p" data-group-id="5261929337-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_query/2">
+
+    <span id="list_query/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_query(type_or_query \\ nil, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L295" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_generic_delete/3">
+
+    <span id="maybe_generic_delete/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_generic_delete/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_generic_delete(type, object, options \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L529" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Attempts a generic deletion of an object, to be used when no specific delete function is defined for a schema.</p><h2 id="maybe_generic_delete/3-parameters" class="section-heading">
+  <a href="#maybe_generic_delete/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">type</code>: The type of the object to delete.</li><li><code class="inline">object</code>: The object to delete.</li><li><code class="inline">options</code>: A keyword list of options for the deletion.</li></ul><h2 id="maybe_generic_delete/3-examples" class="section-heading">
+  <a href="#maybe_generic_delete/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_generic_delete</span><span class="p" data-group-id="2804328279-1">(</span><span class="nc">MyApp.SomeType</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2804328279-2">%</span><span class="nc" data-group-id="2804328279-2">MyApp.SomeType</span><span class="p" data-group-id="2804328279-2">{</span><span class="p" data-group-id="2804328279-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2804328279-3">[</span><span class="p" data-group-id="2804328279-3">]</span><span class="p" data-group-id="2804328279-1">)</span><span class="w">
+</span><span class="p" data-group-id="2804328279-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2804328279-5">%</span><span class="nc" data-group-id="2804328279-5">MyApp.SomeType</span><span class="p" data-group-id="2804328279-5">{</span><span class="p" data-group-id="2804328279-5">}</span><span class="p" data-group-id="2804328279-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_preload_activity_object/2">
+
+  <div class="detail-header">
+    <a href="#maybe_preload_activity_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_preload_activity_object(pointer, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L205" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="object_creator/1">
+
+  <div class="detail-header">
+    <a href="#object_creator/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">object_creator(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L262" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets the creator of an object (if preloaded)</p><h2 id="object_creator/1-examples" class="section-heading">
+  <a href="#object_creator/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object_creator</span><span class="p" data-group-id="9464217885-1">(</span><span class="p" data-group-id="9464217885-2">%</span><span class="nc" data-group-id="9464217885-2">Object</span><span class="p" data-group-id="9464217885-2">{</span><span class="p" data-group-id="9464217885-2">}</span><span class="p" data-group-id="9464217885-1">)</span><span class="w">
+</span><span class="p" data-group-id="9464217885-3">%</span><span class="nc" data-group-id="9464217885-3">User</span><span class="p" data-group-id="9464217885-3">{</span><span class="p" data-group-id="9464217885-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="permalink/1">
+
+  <div class="detail-header">
+    <a href="#permalink/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">permalink(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L887" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets the permalink for an object.</p><h2 id="permalink/1-examples" class="section-heading">
+  <a href="#permalink/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">permalink</span><span class="p" data-group-id="2589902607-1">(</span><span class="p" data-group-id="2589902607-2">%{</span><span class="ss">canonical_uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://example.com/object/123&quot;</span><span class="p" data-group-id="2589902607-2">}</span><span class="p" data-group-id="2589902607-1">)</span><span class="w">
+</span><span class="s">&quot;https://example.com/object/123&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="preload_creator/1">
+
+  <div class="detail-header">
+    <a href="#preload_creator/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload_creator(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L247" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Preloads the creator for an object.</p><h2 id="preload_creator/1-examples" class="section-heading">
+  <a href="#preload_creator/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">preload_creator</span><span class="p" data-group-id="8130863571-1">(</span><span class="p" data-group-id="8130863571-2">%</span><span class="nc" data-group-id="8130863571-2">Object</span><span class="p" data-group-id="8130863571-2">{</span><span class="p" data-group-id="8130863571-2">}</span><span class="p" data-group-id="8130863571-1">)</span><span class="w">
+</span><span class="p" data-group-id="8130863571-3">%</span><span class="nc" data-group-id="8130863571-3">Object</span><span class="p" data-group-id="8130863571-3">{</span><span class="p" data-group-id="8130863571-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="preload_reply_creator/1">
+
+  <div class="detail-header">
+    <a href="#preload_reply_creator/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload_reply_creator(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L227" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Preloads the reply creator for an object.</p><h2 id="preload_reply_creator/1-examples" class="section-heading">
+  <a href="#preload_reply_creator/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">preload_reply_creator</span><span class="p" data-group-id="0754051752-1">(</span><span class="p" data-group-id="0754051752-2">%</span><span class="nc" data-group-id="0754051752-2">Object</span><span class="p" data-group-id="0754051752-2">{</span><span class="p" data-group-id="0754051752-2">}</span><span class="p" data-group-id="0754051752-1">)</span><span class="w">
+</span><span class="p" data-group-id="0754051752-3">%</span><span class="nc" data-group-id="0754051752-3">Object</span><span class="p" data-group-id="0754051752-3">{</span><span class="ss">replied</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0754051752-4">%{</span><span class="ss">reply_to</span><span class="p">:</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0754051752-4">}</span><span class="p" data-group-id="0754051752-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="publish/5">
+
+    <span id="publish/3"></span>
+
+    <span id="publish/4"></span>
+
+  <div class="detail-header">
+    <a href="#publish/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">publish(creator, verb, thing, opts_or_attrs \\ nil, for_module \\ __MODULE__)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L691" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Publishes an object.</p><h2 id="publish/5-examples" class="section-heading">
+  <a href="#publish/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">publish</span><span class="p" data-group-id="2358579931-1">(</span><span class="p" data-group-id="2358579931-2">%</span><span class="nc" data-group-id="2358579931-2">User</span><span class="p" data-group-id="2358579931-2">{</span><span class="p" data-group-id="2358579931-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2358579931-3">%</span><span class="nc" data-group-id="2358579931-3">Object</span><span class="p" data-group-id="2358579931-3">{</span><span class="p" data-group-id="2358579931-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2358579931-4">[</span><span class="p" data-group-id="2358579931-4">]</span><span class="p">,</span><span class="w"> </span><span class="bp">__MODULE__</span><span class="p" data-group-id="2358579931-1">)</span><span class="w">
+</span><span class="p" data-group-id="2358579931-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2358579931-6">%</span><span class="nc" data-group-id="2358579931-6">Activity</span><span class="p" data-group-id="2358579931-6">{</span><span class="p" data-group-id="2358579931-6">}</span><span class="p" data-group-id="2358579931-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query_base/1">
+
+    <span id="query_base/0"></span>
+
+  <div class="detail-header">
+    <a href="#query_base/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_base(type \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L334" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a basic query over undeleted pointable objects in the system,
+optionally limited to one or more types.</p>
+  </section>
+</section>
+<section class="detail" id="read/2">
+
+    <span id="read/1"></span>
+
+  <div class="detail-header">
+    <a href="#read/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">read(object_id, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L191" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Reads an object by its ID.</p><h2 id="read/2-examples" class="section-heading">
+  <a href="#read/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">read</span><span class="p" data-group-id="9694987298-1">(</span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9694987298-2">[</span><span class="p" data-group-id="9694987298-2">]</span><span class="p" data-group-id="9694987298-1">)</span><span class="w">
+</span><span class="p" data-group-id="9694987298-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9694987298-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9694987298-5">%{</span><span class="p" data-group-id="9694987298-5">}</span><span class="p" data-group-id="9694987298-4">}</span><span class="p" data-group-id="9694987298-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="reset_preset_boundary/5">
+
+    <span id="reset_preset_boundary/3"></span>
+
+    <span id="reset_preset_boundary/4"></span>
+
+  <div class="detail-header">
+    <a href="#reset_preset_boundary/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">reset_preset_boundary(creator, thing, previous_preset, opts_or_attrs \\ [], for_module \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L783" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Resets the preset boundary for an object.</p><h2 id="reset_preset_boundary/5-examples" class="section-heading">
+  <a href="#reset_preset_boundary/5-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">reset_preset_boundary</span><span class="p" data-group-id="2249536516-1">(</span><span class="p" data-group-id="2249536516-2">%</span><span class="nc" data-group-id="2249536516-2">User</span><span class="p" data-group-id="2249536516-2">{</span><span class="p" data-group-id="2249536516-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2249536516-3">%</span><span class="nc" data-group-id="2249536516-3">Object</span><span class="p" data-group-id="2249536516-3">{</span><span class="p" data-group-id="2249536516-3">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;public&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2249536516-4">[</span><span class="p" data-group-id="2249536516-4">]</span><span class="p">,</span><span class="w"> </span><span class="bp">__MODULE__</span><span class="p" data-group-id="2249536516-1">)</span><span class="w">
+</span><span class="p" data-group-id="2249536516-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2249536516-6">%</span><span class="nc" data-group-id="2249536516-6">Boundary</span><span class="p" data-group-id="2249536516-6">{</span><span class="p" data-group-id="2249536516-6">}</span><span class="p" data-group-id="2249536516-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="run_epic/3">
+
+    <span id="run_epic/1"></span>
+
+    <span id="run_epic/2"></span>
+
+  <div class="detail-header">
+    <a href="#run_epic/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">run_epic(type, options \\ [], on \\ :object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L664" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Runs an epic for a given type and options.</p><h2 id="run_epic/3-parameters" class="section-heading">
+  <a href="#run_epic/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">type</code>: The type of epic to run.</li><li><code class="inline">options</code>: A keyword list of options for the epic.</li><li><code class="inline">on</code>: The key in the epic's assigns to return (default: <code class="inline">:object</code>).</li></ul><h2 id="run_epic/3-examples" class="section-heading">
+  <a href="#run_epic/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">run_epic</span><span class="p" data-group-id="8241228784-1">(</span><span class="ss">:delete</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8241228784-2">[</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8241228784-3">%</span><span class="nc" data-group-id="8241228784-3">Object</span><span class="p" data-group-id="8241228784-3">{</span><span class="p" data-group-id="8241228784-3">}</span><span class="p" data-group-id="8241228784-2">]</span><span class="p" data-group-id="8241228784-1">)</span><span class="w">
+</span><span class="p" data-group-id="8241228784-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8241228784-5">%</span><span class="nc" data-group-id="8241228784-5">Object</span><span class="p" data-group-id="8241228784-5">{</span><span class="p" data-group-id="8241228784-5">}</span><span class="p" data-group-id="8241228784-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="set_boundaries/4">
+
+    <span id="set_boundaries/2"></span>
+
+    <span id="set_boundaries/3"></span>
+
+  <div class="detail-header">
+    <a href="#set_boundaries/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set_boundaries(creator, thing, opts_or_attrs \\ [], for_module \\ __MODULE__)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L732" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets boundaries for an object.</p><h2 id="set_boundaries/4-examples" class="section-heading">
+  <a href="#set_boundaries/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">set_boundaries</span><span class="p" data-group-id="0229537926-1">(</span><span class="p" data-group-id="0229537926-2">%</span><span class="nc" data-group-id="0229537926-2">User</span><span class="p" data-group-id="0229537926-2">{</span><span class="p" data-group-id="0229537926-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0229537926-3">%</span><span class="nc" data-group-id="0229537926-3">Object</span><span class="p" data-group-id="0229537926-3">{</span><span class="p" data-group-id="0229537926-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0229537926-4">[</span><span class="p" data-group-id="0229537926-4">]</span><span class="p">,</span><span class="w"> </span><span class="bp">__MODULE__</span><span class="p" data-group-id="0229537926-1">)</span><span class="w">
+</span><span class="p" data-group-id="0229537926-5">[</span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;public&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">to_circles</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0229537926-6">[</span><span class="p" data-group-id="0229537926-6">]</span><span class="p">,</span><span class="w"> </span><span class="ss">to_feeds</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0229537926-7">[</span><span class="p" data-group-id="0229537926-7">]</span><span class="p" data-group-id="0229537926-5">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="set_name/3">
+
+  <div class="detail-header">
+    <a href="#set_name/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set_name(id, name, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L355" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets the name/title of an object.</p><h2 id="set_name/3-examples" class="section-heading">
+  <a href="#set_name/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">set_name</span><span class="p" data-group-id="4940446255-1">(</span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;New Name&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4940446255-2">[</span><span class="p" data-group-id="4940446255-2">]</span><span class="p" data-group-id="4940446255-1">)</span><span class="w">
+</span><span class="p" data-group-id="4940446255-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4940446255-4">%</span><span class="nc" data-group-id="4940446255-4">Object</span><span class="p" data-group-id="4940446255-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4940446255-5">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Name&quot;</span><span class="p" data-group-id="4940446255-5">}</span><span class="p" data-group-id="4940446255-4">}</span><span class="p" data-group-id="4940446255-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="set_sensitivity/2">
+
+  <div class="detail-header">
+    <a href="#set_sensitivity/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set_sensitivity(pointer, arg2)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/objects.ex#L834" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Sets the sensitivity of an existing object.</p><h2 id="set_sensitivity/2-examples" class="section-heading">
+  <a href="#set_sensitivity/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">set_sensitivity</span><span class="p" data-group-id="5132382719-1">(</span><span class="p" data-group-id="5132382719-2">%</span><span class="nc" data-group-id="5132382719-2">Object</span><span class="p" data-group-id="5132382719-2">{</span><span class="ss">sensitive</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5132382719-3">%{</span><span class="p" data-group-id="5132382719-3">}</span><span class="p" data-group-id="5132382719-2">}</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="5132382719-1">)</span><span class="w">
+</span><span class="p" data-group-id="5132382719-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5132382719-5">%</span><span class="nc" data-group-id="5132382719-5">Object</span><span class="p" data-group-id="5132382719-5">{</span><span class="p" data-group-id="5132382719-5">}</span><span class="p" data-group-id="5132382719-4">}</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

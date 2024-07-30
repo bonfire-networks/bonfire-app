@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Me.Users — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Me.Users</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:changeset_extra/0" data-no-tooltip translate="no">changeset_extra()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:changeset_name/0" data-no-tooltip translate="no">changeset_name()</a>
+
+      </div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip translate="no">ap_receive_activity(creator, activity, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_account/1" data-no-tooltip translate="no">by_account(account)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets users by account.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_account!/1" data-no-tooltip translate="no">by_account!(account)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_ap_id/1" data-no-tooltip translate="no">by_ap_id(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_ap_id!/1" data-no-tooltip translate="no">by_ap_id!(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_canonical_uri/1" data-no-tooltip translate="no">by_canonical_uri(uri)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user by canonical URI.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_id/2" data-no-tooltip translate="no">by_id(id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user by ID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_user_and_account/2" data-no-tooltip translate="no">by_user_and_account(username_or_user_id, account_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user by username or user ID and account ID, useful for switch-user functionality.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_username/2" data-no-tooltip translate="no">by_username(username, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user by username.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_username!/1" data-no-tooltip translate="no">by_username!(username)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user by username, raising an error if not found.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/4" data-no-tooltip translate="no">changeset(name, user \\ %User{}, params, extra)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#check_active/1" data-no-tooltip translate="no">check_active(users)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if users are active.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#check_active!/1" data-no-tooltip translate="no">check_active!(users)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/1" data-no-tooltip translate="no">count(show \\ :local)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/2" data-no-tooltip translate="no">create(params_or_changeset, extra \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create_remote/1" data-no-tooltip translate="no">create_remote(params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a remote user</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Use <a href="#enqueue_delete/1"><code class="inline">enqueue_delete/1</code></a> instead</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#enqueue_delete/1" data-no-tooltip translate="no">enqueue_delete(user)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fetch_current/1" data-no-tooltip translate="no">fetch_current(id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Fetches the current user by ID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#flatten/1" data-no-tooltip translate="no">flatten(user)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_actor/1" data-no-tooltip translate="no">format_actor(user)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_current/1" data-no-tooltip translate="no">get_current(id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the current user by ID.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_current/2" data-no-tooltip translate="no">get_current(id, account_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_only_in_account/1" data-no-tooltip translate="no">get_only_in_account(account)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#indexing_object_format/1" data-no-tooltip translate="no">indexing_object_format(u)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_active?/1" data-no-tooltip translate="no">is_active?(user)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a user is active.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_first_user?/0" data-no-tooltip translate="no">is_first_user?()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list/1" data-no-tooltip translate="no">list(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_admins/0" data-no-tooltip translate="no">list_admins()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_boundarised_query/1" data-no-tooltip translate="no">list_boundarised_query(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_paginated/1" data-no-tooltip translate="no">list_paginated(opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#make_admin/1" data-no-tooltip translate="no">make_admin(username)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Grants a user superpowers.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#make_user/3" data-no-tooltip translate="no">make_user(attrs, account, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_count/1" data-no-tooltip translate="no">maybe_count(show \\ :local)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_index_user/1" data-no-tooltip translate="no">maybe_index_user(object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#remote_fetcher/0" data-no-tooltip translate="no">remote_fetcher()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#revoke_admin/1" data-no-tooltip translate="no">revoke_admin(username)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Revokes a user's superpowers.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A User represents a visible identity within the system belonging to an Account (see <a href="./Bonfire.Me.Accounts.html"><code class="inline">Bonfire.Me.Accounts</code></a>) and having a Profile (see <a href="./Bonfire.Me.Profiles.html"><code class="inline">Bonfire.Me.Profiles</code></a>) and a Character identified by a username (see <a href="./Bonfire.Me.Characters.html"><code class="inline">Bonfire.Me.Characters</code></a>).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#search/2" data-no-tooltip translate="no">search(search, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Searches for users.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#search_query/2" data-no-tooltip translate="no">search_query(search, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Query for searching for users.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update/3" data-no-tooltip translate="no">update(user, params, extra \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_local_actor/2" data-no-tooltip translate="no">update_local_actor(user, params)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_remote_actor/2" data-no-tooltip translate="no">update_remote_actor(user, params)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Updates a remote user</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Types</span>
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:changeset_extra/0">
+
+  <div class="detail-header">
+    <a href="#t:changeset_extra/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_extra()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L29" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> changeset_extra() :: Bonfire.Data.Identity.Account.t() | :remote</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:changeset_name/0">
+
+  <div class="detail-header">
+    <a href="#t:changeset_name/0" class="detail-link" data-no-tooltip title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">changeset_name()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L28" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> changeset_name() :: :create</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_receive_activity(creator, activity, object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L499" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="by_account/1">
+
+  <div class="detail-header">
+    <a href="#by_account/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_account(account)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L150" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets users by account.</p><h2 id="by_account/1-examples" class="section-heading">
+  <a href="#by_account/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_account</span><span class="p" data-group-id="8807412503-1">(</span><span class="p" data-group-id="8807412503-2">%</span><span class="nc" data-group-id="8807412503-2">Bonfire.Data.Identity.Account</span><span class="p" data-group-id="8807412503-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;account_id&quot;</span><span class="p" data-group-id="8807412503-2">}</span><span class="p" data-group-id="8807412503-1">)</span><span class="w">
+</span><span class="p" data-group-id="8807412503-3">[</span><span class="p" data-group-id="8807412503-4">%</span><span class="nc" data-group-id="8807412503-4">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8807412503-4">{</span><span class="p" data-group-id="8807412503-4">}</span><span class="p" data-group-id="8807412503-3">]</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_account!</span><span class="p" data-group-id="8807412503-5">(</span><span class="s">&quot;account_id&quot;</span><span class="p" data-group-id="8807412503-5">)</span><span class="w">
+</span><span class="p" data-group-id="8807412503-6">[</span><span class="p" data-group-id="8807412503-7">%</span><span class="nc" data-group-id="8807412503-7">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8807412503-7">{</span><span class="p" data-group-id="8807412503-7">}</span><span class="p" data-group-id="8807412503-6">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_account!/1">
+
+  <div class="detail-header">
+    <a href="#by_account!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_account!(account)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L158" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L487" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="by_ap_id!/1">
+
+  <div class="detail-header">
+    <a href="#by_ap_id!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_ap_id!(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L493" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="by_canonical_uri/1">
+
+  <div class="detail-header">
+    <a href="#by_canonical_uri/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_canonical_uri(uri)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L120" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user by canonical URI.</p><h2 id="by_canonical_uri/1-examples" class="section-heading">
+  <a href="#by_canonical_uri/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_canonical_uri</span><span class="p" data-group-id="6675440624-1">(</span><span class="s">&quot;http://example.com&quot;</span><span class="p" data-group-id="6675440624-1">)</span><span class="w">
+</span><span class="p" data-group-id="6675440624-2">%</span><span class="nc" data-group-id="6675440624-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="6675440624-2">{</span><span class="p" data-group-id="6675440624-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_id/2">
+
+    <span id="by_id/1"></span>
+
+  <div class="detail-header">
+    <a href="#by_id/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_id(id, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L88" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user by ID.</p><h2 id="by_id/2-examples" class="section-heading">
+  <a href="#by_id/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_id</span><span class="p" data-group-id="5600838293-1">(</span><span class="s">&quot;user_id&quot;</span><span class="p" data-group-id="5600838293-1">)</span><span class="w">
+</span><span class="p" data-group-id="5600838293-2">%</span><span class="nc" data-group-id="5600838293-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="5600838293-2">{</span><span class="p" data-group-id="5600838293-2">}</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_id</span><span class="p" data-group-id="5600838293-3">(</span><span class="p" data-group-id="5600838293-4">[</span><span class="s">&quot;user_id&quot;</span><span class="p" data-group-id="5600838293-4">]</span><span class="p" data-group-id="5600838293-3">)</span><span class="w">
+</span><span class="p" data-group-id="5600838293-5">%</span><span class="nc" data-group-id="5600838293-5">Bonfire.Data.Identity.User</span><span class="p" data-group-id="5600838293-5">{</span><span class="p" data-group-id="5600838293-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_user_and_account/2">
+
+  <div class="detail-header">
+    <a href="#by_user_and_account/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_user_and_account(username_or_user_id, account_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L176" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user by username or user ID and account ID, useful for switch-user functionality.</p><h2 id="by_user_and_account/2-examples" class="section-heading">
+  <a href="#by_user_and_account/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_user_and_account</span><span class="p" data-group-id="9024744522-1">(</span><span class="s">&quot;username&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;account_id&quot;</span><span class="p" data-group-id="9024744522-1">)</span><span class="w">
+</span><span class="p" data-group-id="9024744522-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9024744522-3">%</span><span class="nc" data-group-id="9024744522-3">Bonfire.Data.Identity.User</span><span class="p" data-group-id="9024744522-3">{</span><span class="p" data-group-id="9024744522-3">}</span><span class="p" data-group-id="9024744522-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_username/2">
+
+    <span id="by_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#by_username/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_username(username, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L104" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user by username.</p><h2 id="by_username/2-examples" class="section-heading">
+  <a href="#by_username/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_username</span><span class="p" data-group-id="0568179275-1">(</span><span class="s">&quot;username&quot;</span><span class="p" data-group-id="0568179275-1">)</span><span class="w">
+</span><span class="p" data-group-id="0568179275-2">%</span><span class="nc" data-group-id="0568179275-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="0568179275-2">{</span><span class="p" data-group-id="0568179275-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="by_username!/1">
+
+  <div class="detail-header">
+    <a href="#by_username!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">by_username!(username)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L136" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user by username, raising an error if not found.</p><h2 id="by_username!/1-examples" class="section-heading">
+  <a href="#by_username!/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">by_username!</span><span class="p" data-group-id="5912802595-1">(</span><span class="s">&quot;username&quot;</span><span class="p" data-group-id="5912802595-1">)</span><span class="w">
+</span><span class="p" data-group-id="5912802595-2">%</span><span class="nc" data-group-id="5912802595-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="5912802595-2">{</span><span class="p" data-group-id="5912802595-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="changeset/4">
+
+    <span id="changeset/3"></span>
+
+  <div class="detail-header">
+    <a href="#changeset/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">changeset(name, user \\ %User{}, params, extra)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L572" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> changeset(
+  name :: <a href="#t:changeset_name/0">changeset_name</a>(),
+  user :: Bonfire.Data.Identity.User.t(),
+  params :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(),
+  extra :: Bonfire.Data.Identity.Account.t() | :remote
+) :: <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.Changeset.html#t:t/0">Ecto.Changeset.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="check_active/1">
+
+  <div class="detail-header">
+    <a href="#check_active/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">check_active(users)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L206" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if users are active.</p><h2 id="check_active/1-examples" class="section-heading">
+  <a href="#check_active/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">check_active</span><span class="p" data-group-id="8432626909-1">(</span><span class="p" data-group-id="8432626909-2">[</span><span class="n">user1</span><span class="p" data-group-id="8432626909-2">]</span><span class="p" data-group-id="8432626909-1">)</span><span class="w">
+</span><span class="p" data-group-id="8432626909-3">[</span><span class="p" data-group-id="8432626909-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8432626909-5">%</span><span class="nc" data-group-id="8432626909-5">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8432626909-5">{</span><span class="p" data-group-id="8432626909-5">}</span><span class="p" data-group-id="8432626909-4">}</span><span class="p" data-group-id="8432626909-3">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">check_active</span><span class="p" data-group-id="8432626909-6">(</span><span class="n">user</span><span class="p" data-group-id="8432626909-6">)</span><span class="w">
+</span><span class="p" data-group-id="8432626909-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8432626909-8">%</span><span class="nc" data-group-id="8432626909-8">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8432626909-8">{</span><span class="p" data-group-id="8432626909-8">}</span><span class="p" data-group-id="8432626909-7">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="check_active!/1">
+
+  <div class="detail-header">
+    <a href="#check_active!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">check_active!(users)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L212" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="count/1">
+
+    <span id="count/0"></span>
+
+  <div class="detail-header">
+    <a href="#count/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count(show \\ :local)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L694" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create/2">
+
+    <span id="create/1"></span>
+
+  <div class="detail-header">
+    <a href="#create/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create(params_or_changeset, extra \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L288" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create_remote/1">
+
+  <div class="detail-header">
+    <a href="#create_remote/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create_remote(params)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L510" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Creates a remote user</p>
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+    <span id="delete/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(user, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L437" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Use <a href="#enqueue_delete/1"><code class="inline">enqueue_delete/1</code></a> instead</p>
+  </section>
+</section>
+<section class="detail" id="enqueue_delete/1">
+
+  <div class="detail-header">
+    <a href="#enqueue_delete/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">enqueue_delete(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L423" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">federation_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L36" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="fetch_current/1">
+
+  <div class="detail-header">
+    <a href="#fetch_current/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">fetch_current(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L69" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Fetches the current user by ID.</p><h2 id="fetch_current/1-examples" class="section-heading">
+  <a href="#fetch_current/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">fetch_current</span><span class="p" data-group-id="8786662187-1">(</span><span class="s">&quot;user_id&quot;</span><span class="p" data-group-id="8786662187-1">)</span><span class="w">
+</span><span class="p" data-group-id="8786662187-2">%</span><span class="nc" data-group-id="8786662187-2">Bonfire.Data.Identity.User</span><span class="p" data-group-id="8786662187-2">{</span><span class="p" data-group-id="8786662187-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="flatten/1">
+
+  <div class="detail-header">
+    <a href="#flatten/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">flatten(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L278" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="format_actor/1">
+
+  <div class="detail-header">
+    <a href="#format_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_actor(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L534" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_current/1">
+
+  <div class="detail-header">
+    <a href="#get_current/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_current(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L54" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets the current user by ID.</p><h2 id="get_current/1-examples" class="section-heading">
+  <a href="#get_current/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">get_current</span><span class="p" data-group-id="3287960644-1">(</span><span class="no">nil</span><span class="p" data-group-id="3287960644-1">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">get_current</span><span class="p" data-group-id="3287960644-2">(</span><span class="s">&quot;user_id&quot;</span><span class="p" data-group-id="3287960644-2">)</span><span class="w">
+</span><span class="p" data-group-id="3287960644-3">%</span><span class="nc" data-group-id="3287960644-3">Bonfire.Data.Identity.User</span><span class="p" data-group-id="3287960644-3">{</span><span class="p" data-group-id="3287960644-3">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_current/2">
+
+  <div class="detail-header">
+    <a href="#get_current/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_current(id, account_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L56" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_only_in_account/1">
+
+  <div class="detail-header">
+    <a href="#get_only_in_account/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_only_in_account(account)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L399" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="indexing_object_format/1">
+
+  <div class="detail-header">
+    <a href="#indexing_object_format/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">indexing_object_format(u)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L672" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_active?/1">
+
+  <div class="detail-header">
+    <a href="#is_active?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_active?(user)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L193" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a user is active.</p><h2 id="is_active?/1-examples" class="section-heading">
+  <a href="#is_active?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">is_active?</span><span class="p" data-group-id="8058505992-1">(</span><span class="n">user</span><span class="p" data-group-id="8058505992-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_first_user?/0">
+
+  <div class="detail-header">
+    <a href="#is_first_user?/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_first_user?()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L701" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list/1">
+
+  <div class="detail-header">
+    <a href="#list/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L260" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_admins/0">
+
+  <div class="detail-header">
+    <a href="#list_admins/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_admins()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L251" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_boundarised_query/1">
+
+  <div class="detail-header">
+    <a href="#list_boundarised_query/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_boundarised_query(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L253" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_paginated/1">
+
+    <span id="list_paginated/0"></span>
+
+  <div class="detail-header">
+    <a href="#list_paginated/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list_paginated(opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L268" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="make_admin/1">
+
+  <div class="detail-header">
+    <a href="#make_admin/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">make_admin(username)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L353" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Grants a user superpowers.</p>
+  </section>
+</section>
+<section class="detail" id="make_user/3">
+
+    <span id="make_user/2"></span>
+
+  <div class="detail-header">
+    <a href="#make_user/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">make_user(attrs, account, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L705" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_count/1">
+
+    <span id="maybe_count/0"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_count/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_count(show \\ :local)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L696" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_index_user/1">
+
+  <div class="detail-header">
+    <a href="#maybe_index_user/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_index_user(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L685" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">query_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L33" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="remote_fetcher/0">
+
+  <div class="detail-header">
+    <a href="#remote_fetcher/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">remote_fetcher()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L39" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="revoke_admin/1">
+
+  <div class="detail-header">
+    <a href="#revoke_admin/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">revoke_admin(username)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L373" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Revokes a user's superpowers.</p>
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_module()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L32" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>A User represents a visible identity within the system belonging to an Account (see <a href="./Bonfire.Me.Accounts.html"><code class="inline">Bonfire.Me.Accounts</code></a>) and having a Profile (see <a href="./Bonfire.Me.Profiles.html"><code class="inline">Bonfire.Me.Profiles</code></a>) and a Character identified by a username (see <a href="./Bonfire.Me.Characters.html"><code class="inline">Bonfire.Me.Characters</code></a>).</p>
+  </section>
+</section>
+<section class="detail" id="search/2">
+
+    <span id="search/1"></span>
+
+  <div class="detail-header">
+    <a href="#search/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">search(search, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L228" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Searches for users.</p><h2 id="search/2-examples" class="section-heading">
+  <a href="#search/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">search</span><span class="p" data-group-id="0845344592-1">(</span><span class="s">&quot;username&quot;</span><span class="p" data-group-id="0845344592-1">)</span><span class="w">
+</span><span class="p" data-group-id="0845344592-2">[</span><span class="p" data-group-id="0845344592-3">%</span><span class="nc" data-group-id="0845344592-3">Bonfire.Data.Identity.User</span><span class="p" data-group-id="0845344592-3">{</span><span class="p" data-group-id="0845344592-3">}</span><span class="p" data-group-id="0845344592-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="search_query/2">
+
+    <span id="search_query/1"></span>
+
+  <div class="detail-header">
+    <a href="#search_query/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">search_query(search, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L248" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Query for searching for users.</p><h2 id="search_query/2-examples" class="section-heading">
+  <a href="#search_query/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Me.Users</span><span class="o">.</span><span class="n">search_query</span><span class="p" data-group-id="9302369479-1">(</span><span class="s">&quot;search_term&quot;</span><span class="p" data-group-id="9302369479-1">)</span><span class="w">
+</span><span class="p" data-group-id="9302369479-2">%</span><span class="nc" data-group-id="9302369479-2">Ecto.Query</span><span class="p" data-group-id="9302369479-2">{</span><span class="p" data-group-id="9302369479-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="update/3">
+
+    <span id="update/2"></span>
+
+  <div class="detail-header">
+    <a href="#update/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update(user, params, extra \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L411" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update_local_actor/2">
+
+  <div class="detail-header">
+    <a href="#update_local_actor/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_local_actor(user, params)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L544" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update_remote_actor/2">
+
+  <div class="detail-header">
+    <a href="#update_remote_actor/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">update_remote_actor(user, params)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/users/users.ex#L528" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Updates a remote user</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

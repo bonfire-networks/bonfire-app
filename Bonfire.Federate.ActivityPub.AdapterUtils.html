@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.123">
+
+
+    <title>Bonfire.Federate.ActivityPub.AdapterUtils — Bonfire v0.9.10-classic-beta.123</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-003663BF.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.123
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L2" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Federate.ActivityPub.AdapterUtils</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.123)</small>
+
+  </h1>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#all_actors/1" data-no-tooltip translate="no">all_actors(activity)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#all_recipients/2" data-no-tooltip translate="no">all_recipients(activity, fields \\ [:to, :bto, :cc, :bcc, :audience])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_base_url/0" data-no-tooltip translate="no">ap_base_url()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#character_module/1" data-no-tooltip translate="no">character_module(struct)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#character_to_actor/1" data-no-tooltip translate="no">character_to_actor(character)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create_author_object/1" data-no-tooltip translate="no">create_author_object(map)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create_remote_actor/1" data-no-tooltip translate="no">create_remote_actor(actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create_service_character/1" data-no-tooltip translate="no">create_service_character(username \\ service_character_username())</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#determine_recipients/2" data-no-tooltip translate="no">determine_recipients(actor, comment)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#determine_recipients/3" data-no-tooltip translate="no">determine_recipients(actor, comment, parent)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#determine_recipients/4" data-no-tooltip translate="no">determine_recipients(actor, comment, to, cc)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_actor/2" data-no-tooltip translate="no">format_actor(user_etc, type \\ &quot;Person&quot;)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_actor_by_ap_id/2" data-no-tooltip translate="no">get_actor_by_ap_id(ap_id, local_instance \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_actor_username/1" data-no-tooltip translate="no">get_actor_username(obj)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_author/1" data-no-tooltip translate="no">get_author(author)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_by_url_ap_id_or_username/2" data-no-tooltip translate="no">get_by_url_ap_id_or_username(q, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_character/1" data-no-tooltip translate="no">get_character(q)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_character_by_ap_id/1" data-no-tooltip translate="no">get_character_by_ap_id(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_character_by_ap_id!/1" data-no-tooltip translate="no">get_character_by_ap_id!(ap_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>without :ok / :error tuple</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_character_by_id/2" data-no-tooltip translate="no">get_character_by_id(id, opts \\ [skip_boundary_check: true])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_character_by_username/1" data-no-tooltip translate="no">get_character_by_username(character)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_context_ap_id/1" data-no-tooltip translate="no">get_context_ap_id(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_creator_ap_id/1" data-no-tooltip translate="no">get_creator_ap_id(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_different_creator_ap_id/1" data-no-tooltip translate="no">get_different_creator_ap_id(character)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_in_reply_to/1" data-no-tooltip translate="no">get_in_reply_to(comment)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_local_actor_by_ap_id/1" data-no-tooltip translate="no">get_local_actor_by_ap_id(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_local_character_by_ap_id/2" data-no-tooltip translate="no">get_local_character_by_ap_id(ap_id, local_instance \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_object_ap_id/1" data-no-tooltip translate="no">get_object_ap_id(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_object_ap_id!/1" data-no-tooltip translate="no">get_object_ap_id!(object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_object_or_actor_by_ap_id!/1" data-no-tooltip translate="no">get_object_or_actor_by_ap_id!(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_create_service_character/0" data-no-tooltip translate="no">get_or_create_service_character()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_fetch_and_create_by_uri/2" data-no-tooltip translate="no">get_or_fetch_and_create_by_uri(q, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_fetch_and_create_by_username/2" data-no-tooltip translate="no">get_or_fetch_and_create_by_username(q, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_or_fetch_character_by_ap_id/1" data-no-tooltip translate="no">get_or_fetch_character_by_ap_id(actor_or_ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_pointer_id_by_ap_id/1" data-no-tooltip translate="no">get_pointer_id_by_ap_id(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#id_or_object_id/1" data-no-tooltip translate="no">id_or_object_id(id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_follow?/1" data-no-tooltip translate="no">is_follow?(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_local?/2" data-no-tooltip translate="no">is_local?(thing, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_local_collection?/1" data-no-tooltip translate="no">is_local_collection?(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_local_collection_or_built_in?/1" data-no-tooltip translate="no">is_local_collection_or_built_in?(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#local_actor_ids/1" data-no-tooltip translate="no">local_actor_ids(actors)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#log/1" data-no-tooltip translate="no">log(l)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_add_aliases/2" data-no-tooltip translate="no">maybe_add_aliases(user_etc, aliases)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_apply_or/4" data-no-tooltip translate="no">maybe_apply_or(module, fun, args, fallback_fn \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_attach_property_value/2" data-no-tooltip translate="no">maybe_attach_property_value(key, url)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_create_banner_object/2" data-no-tooltip translate="no">maybe_create_banner_object(url, actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_create_icon_object/2" data-no-tooltip translate="no">maybe_create_icon_object(url, actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_create_image_object/2" data-no-tooltip translate="no">maybe_create_image_object(url, actor)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_fix_image_object/1" data-no-tooltip translate="no">maybe_fix_image_object(url)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_format_image_object_from_path/1" data-no-tooltip translate="no">maybe_format_image_object_from_path(url)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_pointer_id_for_ap_id/1" data-no-tooltip translate="no">maybe_pointer_id_for_ap_id(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_peered/1" data-no-tooltip translate="no">preload_peered(object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#public_uri/0" data-no-tooltip translate="no">public_uri()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#return_pointable/2" data-no-tooltip translate="no">return_pointable(f, opts \\ [skip_boundary_check: true])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#return_pointer/2" data-no-tooltip translate="no">return_pointer(id, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#service_character_id/0" data-no-tooltip translate="no">service_character_id()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#service_character_username/0" data-no-tooltip translate="no">service_character_username()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#the_ap_id/1" data-no-tooltip translate="no">the_ap_id(ap_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#validate_url/1" data-no-tooltip translate="no">validate_url(str)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="all_actors/1">
+
+  <div class="detail-header">
+    <a href="#all_actors/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">all_actors(activity)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L244" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="all_recipients/2">
+
+    <span id="all_recipients/1"></span>
+
+  <div class="detail-header">
+    <a href="#all_recipients/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">all_recipients(activity, fields \\ [:to, :bto, :cc, :bcc, :audience])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L266" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ap_base_url/0">
+
+  <div class="detail-header">
+    <a href="#ap_base_url/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ap_base_url()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L27" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="character_module/1">
+
+  <div class="detail-header">
+    <a href="#character_module/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">character_module(struct)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1060" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="character_to_actor/1">
+
+  <div class="detail-header">
+    <a href="#character_to_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">character_to_actor(character)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L716" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create_author_object/1">
+
+  <div class="detail-header">
+    <a href="#create_author_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create_author_object(map)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1186" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create_remote_actor/1">
+
+  <div class="detail-header">
+    <a href="#create_remote_actor/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create_remote_actor(actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L922" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create_service_character/1">
+
+    <span id="create_service_character/0"></span>
+
+  <div class="detail-header">
+    <a href="#create_service_character/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create_service_character(username \\ service_character_username())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1293" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="determine_recipients/2">
+
+  <div class="detail-header">
+    <a href="#determine_recipients/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">determine_recipients(actor, comment)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1079" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="determine_recipients/3">
+
+  <div class="detail-header">
+    <a href="#determine_recipients/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">determine_recipients(actor, comment, parent)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1085" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="determine_recipients/4">
+
+  <div class="detail-header">
+    <a href="#determine_recipients/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">determine_recipients(actor, comment, to, cc)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1106" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="format_actor/2">
+
+    <span id="format_actor/1"></span>
+
+  <div class="detail-header">
+    <a href="#format_actor/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_actor(user_etc, type \\ &quot;Person&quot;)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L755" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_actor_by_ap_id/2">
+
+    <span id="get_actor_by_ap_id/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_actor_by_ap_id/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_by_ap_id(ap_id, local_instance \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L407" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_actor_username/1">
+
+  <div class="detail-header">
+    <a href="#get_actor_username/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_actor_username(obj)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L158" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_author/1">
+
+  <div class="detail-header">
+    <a href="#get_author/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_author(author)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1200" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_by_url_ap_id_or_username/2">
+
+    <span id="get_by_url_ap_id_or_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_by_url_ap_id_or_username/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_by_url_ap_id_or_username(q, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L488" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_character/1">
+
+  <div class="detail-header">
+    <a href="#get_character/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_character(q)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L519" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_character_by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_character_by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_character_by_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L428" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_character_by_ap_id!/1">
+
+  <div class="detail-header">
+    <a href="#get_character_by_ap_id!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_character_by_ap_id!(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L480" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>without :ok / :error tuple</p>
+  </section>
+</section>
+<section class="detail" id="get_character_by_id/2">
+
+    <span id="get_character_by_id/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_character_by_id/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_character_by_id(id, opts \\ [skip_boundary_check: true])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L192" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_character_by_username/1">
+
+  <div class="detail-header">
+    <a href="#get_character_by_username/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_character_by_username(character)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L168" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_context_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_context_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_context_ap_id(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L702" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_creator_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_creator_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_creator_ap_id(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L681" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_different_creator_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_different_creator_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_different_creator_ap_id(character)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L695" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_in_reply_to/1">
+
+  <div class="detail-header">
+    <a href="#get_in_reply_to/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_in_reply_to(comment)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1128" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_local_actor_by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_local_actor_by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_local_actor_by_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L422" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_local_character_by_ap_id/2">
+
+    <span id="get_local_character_by_ap_id/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_local_character_by_ap_id/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_local_character_by_ap_id(ap_id, local_instance \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L208" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_object_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_object_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_object_ap_id(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1144" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_object_ap_id!/1">
+
+  <div class="detail-header">
+    <a href="#get_object_ap_id!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_object_ap_id!(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1164" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_object_or_actor_by_ap_id!/1">
+
+  <div class="detail-header">
+    <a href="#get_object_or_actor_by_ap_id!/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_object_or_actor_by_ap_id!(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L670" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_create_service_character/0">
+
+  <div class="detail-header">
+    <a href="#get_or_create_service_character/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_create_service_character()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1300" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_fetch_and_create_by_uri/2">
+
+    <span id="get_or_fetch_and_create_by_uri/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_or_fetch_and_create_by_uri/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_fetch_and_create_by_uri(q, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L540" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_fetch_and_create_by_username/2">
+
+    <span id="get_or_fetch_and_create_by_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_or_fetch_and_create_by_username/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_fetch_and_create_by_username(q, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L507" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_or_fetch_character_by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_or_fetch_character_by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_or_fetch_character_by_ap_id(actor_or_ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L391" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_pointer_id_by_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#get_pointer_id_by_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_pointer_id_by_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1171" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="id_or_object_id/1">
+
+  <div class="detail-header">
+    <a href="#id_or_object_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">id_or_object_id(id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L283" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_follow?/1">
+
+  <div class="detail-header">
+    <a href="#is_follow?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_follow?(arg1)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L345" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_local?/2">
+
+    <span id="is_local?/1"></span>
+
+  <div class="detail-header">
+    <a href="#is_local?/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_local?(thing, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L32" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_local_collection?/1">
+
+  <div class="detail-header">
+    <a href="#is_local_collection?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_local_collection?(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L225" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="is_local_collection_or_built_in?/1">
+
+  <div class="detail-header">
+    <a href="#is_local_collection_or_built_in?/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">is_local_collection_or_built_in?(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L219" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="local_actor_ids/1">
+
+  <div class="detail-header">
+    <a href="#local_actor_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">local_actor_ids(actors)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L357" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="log/1">
+
+  <div class="detail-header">
+    <a href="#log/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">log(l)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L22" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_add_aliases/2">
+
+  <div class="detail-header">
+    <a href="#maybe_add_aliases/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_add_aliases(user_etc, aliases)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1040" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_apply_or/4">
+
+    <span id="maybe_apply_or/3"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_apply_or/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_apply_or(module, fun, args, fallback_fn \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L738" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_attach_property_value/2">
+
+  <div class="detail-header">
+    <a href="#maybe_attach_property_value/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_attach_property_value(key, url)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1249" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_create_banner_object/2">
+
+  <div class="detail-header">
+    <a href="#maybe_create_banner_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_create_banner_object(url, actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1221" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_create_icon_object/2">
+
+  <div class="detail-header">
+    <a href="#maybe_create_icon_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_create_icon_object(url, actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1269" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_create_image_object/2">
+
+  <div class="detail-header">
+    <a href="#maybe_create_image_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_create_image_object(url, actor)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1227" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_fix_image_object/1">
+
+  <div class="detail-header">
+    <a href="#maybe_fix_image_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_fix_image_object(url)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1208" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_format_image_object_from_path/1">
+
+  <div class="detail-header">
+    <a href="#maybe_format_image_object_from_path/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_format_image_object_from_path(url)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1233" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_pointer_id_for_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#maybe_pointer_id_for_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_pointer_id_for_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L373" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="preload_peered/1">
+
+  <div class="detail-header">
+    <a href="#preload_peered/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preload_peered(object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L126" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="public_uri/0">
+
+  <div class="detail-header">
+    <a href="#public_uri/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">public_uri()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L20" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="return_pointable/2">
+
+    <span id="return_pointable/1"></span>
+
+  <div class="detail-header">
+    <a href="#return_pointable/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">return_pointable(f, opts \\ [skip_boundary_check: true])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L580" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="return_pointer/2">
+
+  <div class="detail-header">
+    <a href="#return_pointer/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">return_pointer(id, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L648" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="service_character_id/0">
+
+  <div class="detail-header">
+    <a href="#service_character_id/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">service_character_id()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1290" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="service_character_username/0">
+
+  <div class="detail-header">
+    <a href="#service_character_username/0" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">service_character_username()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1291" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="the_ap_id/1">
+
+  <div class="detail-header">
+    <a href="#the_ap_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">the_ap_id(ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L228" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="validate_url/1">
+
+  <div class="detail-header">
+    <a href="#validate_url/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">validate_url(str)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L660" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
