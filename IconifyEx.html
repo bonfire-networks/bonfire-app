@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.127">
+
+
+    <title>Iconify for Phoenix — Bonfire v0.9.10-classic-beta.127</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-79017788.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
+
+  </head>
+  <body data-type="extras" class="page-extra">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.10-classic-beta.127
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+
+    <span>Iconify for Phoenix</span>
+  </h1>
+
+<p>Phoenix helpers for using 100,000+ SVG icons from 100+ icon sets compiled by <a href="https://icon-sets.iconify.design">Iconify</a> (visit that site to browse the sets available and preview the icons)</p><p>It copies only the icons you use from the iconify library into your project, preparing them on-the-fly when you first use an icon in a view or component (either at compile time if using the Surface component, or on the first run during development).</p><p>It can be configured to embed the icons one of three ways:</p><ul><li><code class="inline">css</code> (default): generate a single CSS file containing SVGs of all the icons used </li><li><code class="inline">img</code> (default for emojis): to create SVG files in your static assets, used to be included with <code class="inline">img</code> tags and loaded over HTTP (you may want to include <a href="https://github.com/iconfu/svg-inject">svg-inject</a> on your site to enable styling of the SVGs, e.g. to change their colour)</li><li><code class="inline">inline</code>: to generate a Phoenix Component for each icon used, used to embed the icons as <code class="inline">svg</code> tags inline in the HTML of your views (meaning the SVG will be included in LiveView diffs)</li><li><code class="inline">set</code>: to generate an SVG sprite set for each family, and reference icons with a <code class="inline">use</code> tag inside of inline SVGs.</li></ul><p>There is also an optional integration of <a href="https://github.com/BartOtten/phoenix_live_favicon">phoenix_live_favicon</a> so you can set an icon (or emoji) as favicon on a page with <code class="inline">Iconify.maybe_set_favicon(socket, icon_name_or_emoji)</code>.</p><h2 id="installation" class="section-heading">
+  <a href="#installation" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Installation</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="8006994965-1">do</span><span class="w">
+  </span><span class="p" data-group-id="8006994965-2">[</span><span class="w">
+    </span><span class="p" data-group-id="8006994965-3">{</span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.0&quot;</span><span class="p" data-group-id="8006994965-3">}</span><span class="w">
+  </span><span class="p" data-group-id="8006994965-2">]</span><span class="w">
+</span><span class="k" data-group-id="8006994965-1">end</span></code></pre><p>You then need to fetch the latest <a href="https://github.com/iconify/icon-sets">iconify icon sets</a> by running:</p><pre><code class="makeup bash" translate="no"><span class="">cd deps/iconify_ex/assets &amp;&amp; yarn
+</span></code></pre><h2 id="usage" class="section-heading">
+  <a href="#usage" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Usage</span>
+</h2>
+<ol><li><p>Add <code class="inline">import Iconify</code> in your Phoenix or LiveView module where you want to use it (or just once in the macros in your Web module). </p></li><li><p>Set one of these options in config to choose which approach you want to use (see above for explanations):</p></li></ol><ul><li><code class="inline">config :iconify_ex, :mode, :css</code> </li><li><code class="inline">config :iconify_ex, :mode, :img</code> </li><li><code class="inline">config :iconify_ex, :mode, :inline</code> </li><li><code class="inline">config :iconify_ex, :mode, :set</code> </li></ul><p>If using CSS mode, you'll need to set some default styles that apply to all icons, either by adding something like this to your app's main CSS:</p><pre><code class="css">[iconify] {
+  background-color: currentColor;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+}</code></pre><ol start="3"><li>In all three cases, usage is simple and remains the same:</li></ol><p>Embed an icon using default classes (copy the icon name from the <a href="https://icon-sets.iconify.design">iconify website</a>):</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="7790440041-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="7790440041-1">/&gt;</span></code></pre><p>Specify custom classes:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="2370727970-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="na">class</span><span class="o">=</span><span class="s">&quot;w-8</span><span class="w"> </span><span class="s">h-8</span><span class="w"> </span><span class="s">text-base-content&quot;</span><span class="w"> </span><span class="p" data-group-id="2370727970-1">/&gt;</span><span class="w"> </span></code></pre><p>Or if you use <a href="https://surface-ui.org">Surface</a>, it is highly recommended to use the macro component which means icons will be prepared at compile time rather than runtime:</p><p>Add <code class="inline">alias Iconify.Icon</code> to your Web module, and then:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="2998027800-1">&lt;</span><span class="s">#Icon</span><span class="w"> </span><span class="s">iconify</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="2998027800-1">/&gt;</span></code></pre><p>If your icon is dynamic, you'll still want to use the first form:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="6589152179-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">{@my_icon}</span><span class="w"> </span><span class="p" data-group-id="6589152179-1">/&gt;</span></code></pre><p>Note: when using the CSS mode, there's sometimes a race condition that adds an icon several times. Until a fix is found you can run something like <code class="inline">sort -u -o icons_dir/icons.css icons_dir/icons.css</code> to clean up the CSS file.</p>
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="EctoSparkles.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+EctoSparkles
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="Paginator.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Paginator
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
