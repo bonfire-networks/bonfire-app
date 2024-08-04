@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Mailer — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Mailer — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,13 +132,13 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Mailer</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p>An library for <a href="https://bonfire.cafe/">Bonfire</a> that contains:</p><ul><li>Sending email (using <a href="https://github.com/thoughtbot/bamboo">Bamboo</a>)</li><li>Checking hypothetical email or domain validity</li></ul><h2 id="module-handy-commands" class="section-heading">
+<p>An library for <a href="https://bonfire.cafe/">Bonfire</a> that contains:</p><ul><li>Sending email using <a href="https://github.com/thoughtbot/bamboo">Bamboo</a>, which supports SMTP and a multitude of <a href="https://hexdocs.pm/bamboo/readme.html#available-adapters">email delivery providers (some of which require an extra dependency)</a></li><li>Checking hypothetical email or domain validity</li></ul><h2 id="module-handy-commands" class="section-heading">
   <a href="#module-handy-commands" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
@@ -179,6 +179,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
         <a href="#config/0" data-no-tooltip translate="no">config()</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Retrieves the configuration for the Bonfire.Mailer module.</p></div>
 
     </div>
 
@@ -236,13 +238,17 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
+        <div class="summary-synopsis"><p>Return a standard error tuple for errors that occur during email sending.</p></div>
+
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#send/4" data-no-tooltip translate="no">send(email, to, mode, opts \\ [])</a>
+        <a href="#send/4" data-no-tooltip translate="no">send(email, to, mode \\ :async, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Sends an email with specified mode (immediate or async).</p></div>
 
     </div>
 
@@ -252,6 +258,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
+        <div class="summary-synopsis"><p>Sends a feedback email to the application maintainers (to the email address configured at <code class="inline">:bonfire_mailer, Bonfire.Mailer, :feedback_to</code>)</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -260,6 +268,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
+        <div class="summary-synopsis"><p>Sends an email asynchronously.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -267,6 +277,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
         <a href="#send_now/3" data-no-tooltip translate="no">send_now(email, to, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Sends an email immediately.</p></div>
 
     </div>
 
@@ -292,7 +304,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">config()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L13" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L21" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -302,7 +314,14 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Retrieves the configuration for the Bonfire.Mailer module.</p><h2 id="config/0-examples" class="section-heading">
+  <a href="#config/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">config</span><span class="p" data-group-id="5771771183-1">(</span><span class="p" data-group-id="5771771183-1">)</span><span class="w">
+</span><span class="p" data-group-id="5771771183-2">[</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="5771771183-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="deliver/1">
@@ -454,7 +473,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">do_send(arg1, mail)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L44" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L95" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -478,7 +497,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">handle_error(error, stacktrace \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L65" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L143" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -488,10 +507,25 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Return a standard error tuple for errors that occur during email sending.</p><h2 id="handle_error/2-parameters" class="section-heading">
+  <a href="#handle_error/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>error: The error that occurred.</li><li>stacktrace: The stacktrace of the error (optional).</li></ul><h2 id="handle_error/2-examples" class="section-heading">
+  <a href="#handle_error/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">handle_error</span><span class="p" data-group-id="6604689798-1">(</span><span class="p" data-group-id="6604689798-2">%</span><span class="nc" data-group-id="6604689798-2">Bamboo.ApiError</span><span class="p" data-group-id="6604689798-2">{</span><span class="ss">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Some API Error&quot;</span><span class="p" data-group-id="6604689798-2">}</span><span class="p" data-group-id="6604689798-1">)</span><span class="w">
+</span><span class="p" data-group-id="6604689798-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:mailer_api_error</span><span class="p" data-group-id="6604689798-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="send/4">
+
+    <span id="send/2"></span>
 
     <span id="send/3"></span>
 
@@ -500,9 +534,9 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">send(email, to, mode, opts \\ [])</h1>
+    <h1 class="signature" translate="no">send(email, to, mode \\ :async, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L23" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L74" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -512,7 +546,20 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Sends an email with specified mode (immediate or async).</p><h2 id="send/4-parameters" class="section-heading">
+  <a href="#send/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>email: The email content to be sent.</li><li>to: The recipient's email address.</li><li>mode: The sending mode (:now or :async).</li><li>opts: Optional parameters for sending the email.</li></ul><h2 id="send/4-examples" class="section-heading">
+  <a href="#send/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send</span><span class="p" data-group-id="6287208922-1">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;recipient@example.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:now</span><span class="p" data-group-id="6287208922-1">)</span><span class="w">
+</span><span class="p" data-group-id="6287208922-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6287208922-3">%</span><span class="nc" data-group-id="6287208922-3">Bamboo.Email</span><span class="p" data-group-id="6287208922-3">{</span><span class="p" data-group-id="6287208922-3">}</span><span class="p" data-group-id="6287208922-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="send_app_feedback/3">
@@ -526,7 +573,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">send_app_feedback(type \\ &quot;feedback&quot;, subject, body)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L52" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L117" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -536,7 +583,20 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Sends a feedback email to the application maintainers (to the email address configured at <code class="inline">:bonfire_mailer, Bonfire.Mailer, :feedback_to</code>)</p><h2 id="send_app_feedback/3-parameters" class="section-heading">
+  <a href="#send_app_feedback/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>type: The type of feedback (default: &quot;feedback&quot;).</li><li>subject: The subject of the feedback email.</li><li>body: The body content of the feedback email.</li></ul><h2 id="send_app_feedback/3-examples" class="section-heading">
+  <a href="#send_app_feedback/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send_app_feedback</span><span class="p" data-group-id="0663032507-1">(</span><span class="s">&quot;bug&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error report&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Found a bug in the system&quot;</span><span class="p" data-group-id="0663032507-1">)</span><span class="w">
+</span><span class="p" data-group-id="0663032507-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0663032507-3">%</span><span class="nc" data-group-id="0663032507-3">Bamboo.Email</span><span class="p" data-group-id="0663032507-3">{</span><span class="p" data-group-id="0663032507-3">}</span><span class="p" data-group-id="0663032507-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="send_async/3">
@@ -550,7 +610,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">send_async(email, to, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L19" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L55" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -560,7 +620,20 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Sends an email asynchronously.</p><h2 id="send_async/3-parameters" class="section-heading">
+  <a href="#send_async/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>email: The email content to be sent.</li><li>to: The recipient's email address.</li><li>opts: Optional parameters for sending the email.</li></ul><h2 id="send_async/3-examples" class="section-heading">
+  <a href="#send_async/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send_async</span><span class="p" data-group-id="3335007552-1">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;recipient@example.com&quot;</span><span class="p" data-group-id="3335007552-1">)</span><span class="w">
+</span><span class="p" data-group-id="3335007552-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3335007552-3">%</span><span class="nc" data-group-id="3335007552-3">Bamboo.Email</span><span class="p" data-group-id="3335007552-3">{</span><span class="p" data-group-id="3335007552-3">}</span><span class="p" data-group-id="3335007552-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="send_now/3">
@@ -574,7 +647,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">send_now(email, to, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L15" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L37" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -584,7 +657,20 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Sends an email immediately.</p><h2 id="send_now/3-parameters" class="section-heading">
+  <a href="#send_now/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>email: The email content to be sent.</li><li>to: The recipient's email address.</li><li>opts: Optional parameters for sending the email.</li></ul><h2 id="send_now/3-examples" class="section-heading">
+  <a href="#send_now/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send_now</span><span class="p" data-group-id="3686353821-1">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;recipient@example.com&quot;</span><span class="p" data-group-id="3686353821-1">)</span><span class="w">
+</span><span class="p" data-group-id="3686353821-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3686353821-3">%</span><span class="nc" data-group-id="3686353821-3">Bamboo.Email</span><span class="p" data-group-id="3686353821-3">{</span><span class="p" data-group-id="3686353821-3">}</span><span class="p" data-group-id="3686353821-2">}</span></code></pre>
   </section>
 </section>
 

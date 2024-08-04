@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Me.Mails — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Me.Mails — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,10 +132,14 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Me.Mails</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
+
+    <section id="moduledoc">
+<p>Handles email sending functionality for accounts and users</p>
+    </section>
 
 </div>
 
@@ -157,6 +161,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Sends a confirmation email based on the specified action.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -164,6 +170,8 @@ Pages
         <a href="#forgot_password/1" data-no-tooltip translate="no">forgot_password(account)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Sends a password reset email.</p></div>
 
     </div>
 
@@ -180,6 +188,8 @@ Pages
         <a href="#signup_confirm_email/1" data-no-tooltip translate="no">signup_confirm_email(account)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Sends a confirmation email for user signup.</p></div>
 
     </div>
 
@@ -207,7 +217,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">confirm_email(account, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L14" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L35" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -217,7 +227,24 @@ Pages
 
   <section class="docstring">
 
+<p>Sends a confirmation email based on the specified action.</p><h2 id="confirm_email/2-parameters" class="section-heading">
+  <a href="#confirm_email/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">account</code>: The <code class="inline">%Account{}</code> struct for the user.</li><li><code class="inline">opts</code>: Options including <code class="inline">:confirm_action</code>, which determines the type of email to send.</li></ul><h2 id="confirm_email/2-examples" class="section-heading">
+  <a href="#confirm_email/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Mails</span><span class="o">.</span><span class="n">confirm_email</span><span class="p" data-group-id="7782137543-1">(</span><span class="p" data-group-id="7782137543-2">%</span><span class="nc" data-group-id="7782137543-2">Account</span><span class="p" data-group-id="7782137543-2">{</span><span class="p" data-group-id="7782137543-2">}</span><span class="p" data-group-id="7782137543-1">)</span><span class="w">
+</span><span class="c1"># sends signup confirmation</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Mails</span><span class="o">.</span><span class="n">confirm_email</span><span class="p" data-group-id="7782137543-3">(</span><span class="p" data-group-id="7782137543-4">%</span><span class="nc" data-group-id="7782137543-4">Account</span><span class="p" data-group-id="7782137543-4">{</span><span class="p" data-group-id="7782137543-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">confirm_action</span><span class="p">:</span><span class="w"> </span><span class="ss">:forgot_password</span><span class="p" data-group-id="7782137543-3">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Mails</span><span class="o">.</span><span class="n">confirm_email</span><span class="p" data-group-id="7782137543-5">(</span><span class="p" data-group-id="7782137543-6">%</span><span class="nc" data-group-id="7782137543-6">Account</span><span class="p" data-group-id="7782137543-6">{</span><span class="p" data-group-id="7782137543-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">confirm_action</span><span class="p">:</span><span class="w"> </span><span class="ss">:forgot_password</span><span class="p" data-group-id="7782137543-5">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="forgot_password/1">
@@ -229,7 +256,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">forgot_password(account)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L52" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L96" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -239,7 +266,20 @@ Pages
 
   <section class="docstring">
 
-
+<p>Sends a password reset email.</p><h2 id="forgot_password/1-parameters" class="section-heading">
+  <a href="#forgot_password/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">account</code>: The <code class="inline">%Account{}</code> struct for the user.</li></ul><h2 id="forgot_password/1-examples" class="section-heading">
+  <a href="#forgot_password/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Mails</span><span class="o">.</span><span class="n">forgot_password</span><span class="p" data-group-id="2822462977-1">(</span><span class="p" data-group-id="2822462977-2">%</span><span class="nc" data-group-id="2822462977-2">Account</span><span class="p" data-group-id="2822462977-2">{</span><span class="ss">email</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2822462977-3">%{</span><span class="ss">confirm_token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;token&quot;</span><span class="p" data-group-id="2822462977-3">}</span><span class="p" data-group-id="2822462977-2">}</span><span class="p" data-group-id="2822462977-1">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
 <section class="detail" id="render/3">
@@ -253,7 +293,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">render(email, template, assigns \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L2" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L6" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -275,7 +315,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">signup_confirm_email(account)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L22" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/mails/mails.ex#L54" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -285,7 +325,19 @@ Pages
 
   <section class="docstring">
 
-
+<p>Sends a confirmation email for user signup.</p><h2 id="signup_confirm_email/1-parameters" class="section-heading">
+  <a href="#signup_confirm_email/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">account</code>: The <code class="inline">%Account{}</code> struct for the user.</li></ul><h2 id="signup_confirm_email/1-examples" class="section-heading">
+  <a href="#signup_confirm_email/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Mails</span><span class="o">.</span><span class="n">signup_confirm_email</span><span class="p" data-group-id="3724441262-1">(</span><span class="p" data-group-id="3724441262-2">%</span><span class="nc" data-group-id="3724441262-2">Account</span><span class="p" data-group-id="3724441262-2">{</span><span class="ss">email</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3724441262-3">%{</span><span class="ss">confirm_token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;token&quot;</span><span class="p" data-group-id="3724441262-3">}</span><span class="p" data-group-id="3724441262-2">}</span><span class="p" data-group-id="3724441262-1">)</span></code></pre>
   </section>
 </section>
 

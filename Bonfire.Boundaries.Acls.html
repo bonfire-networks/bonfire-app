@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Boundaries.Acls — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Boundaries.Acls — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,15 +132,13 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Boundaries.Acls</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p>ACLs represent fully populated access control rules that can be reused.
-Can be reused to secure multiple objects, thus exists independently of any object.</p><p>The table doesn't have any fields of its own:</p><pre><code class="makeup elixir" translate="no"><span class="n">has_many</span><span class="p" data-group-id="2219181949-1">(</span><span class="ss">:grants</span><span class="p">,</span><span class="w"> </span><span class="nc">Grant</span><span class="p" data-group-id="2219181949-1">)</span><span class="w">
-</span><span class="n">has_many</span><span class="p" data-group-id="2219181949-2">(</span><span class="ss">:controlled</span><span class="p">,</span><span class="w"> </span><span class="nc">Controlled</span><span class="p" data-group-id="2219181949-2">)</span></code></pre>
+<p>Provides functionality for managing Access Control Lists (ACLs) in the Bonfire system.</p><p>An <code class="inline">Acl</code> is a list of <code class="inline">Grant</code>s used to define access permissions for objects. It represents fully populated access control rules that can be reused. It can be used to secure multiple objects and exists independently of any object.</p><blockquote><p>ACLs (also referred to as &quot;preset boundaries&quot;) enable you to make a list of circles and users and then grant specific roles or permissions to each of those. For example, you might create a &quot;Fitness&quot; ACL and grant the &quot;Participate&quot; role to your gym buddies, allowing them to interact with your fitness-related content, while granting the &quot;Interact&quot; role to your family and friends, who can view and react to your posts but not comment on them.</p></blockquote><p>The corresponding Ecto schema is <a href="./Bonfire.Data.AccessControl.Acl.html"><code class="inline">Bonfire.Data.AccessControl.Acl</code></a> which is defined in a <a href="https://github.com/bonfire-networks/bonfire_data_access_control">seperate repo</a>.</p>
     </section>
 
 </div>
@@ -179,6 +177,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>  Returns a list of special built-in ACLs (e.g., guest, local, activity_pub).</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -203,6 +203,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Returns a list of built-in ACL IDs.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -210,6 +212,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
         <a href="#cast/3" data-no-tooltip translate="no">cast(changeset, creator, opts)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Casts ACLs (existing ones or creating some on-the-fly) and Controlled on an object.</p></div>
 
     </div>
 
@@ -227,6 +231,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Creates a new ACL.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -234,6 +240,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
         <a href="#default_exclude_ids/1" data-no-tooltip translate="no">default_exclude_ids(including_custom? \\ true)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns a list of default IDs to exclude from queries.</p></div>
 
     </div>
 
@@ -253,6 +261,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Edits an existing ACL.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -260,6 +270,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
         <a href="#exclude_stereotypes/1" data-no-tooltip translate="no">exclude_stereotypes(including_custom? \\ true)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns a list of stereotype IDs to exclude from queries.</p></div>
 
     </div>
 
@@ -269,6 +281,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves an ACL by its slug.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -277,6 +291,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves an ACL by its slug, raising an error if not found.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -284,6 +300,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
         <a href="#get_for_caretaker/3" data-no-tooltip translate="no">get_for_caretaker(id, caretaker, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Retrieves an ACL for a caretaker.</p></div>
 
     </div>
 
@@ -300,6 +318,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
         <a href="#get_id/1" data-no-tooltip translate="no">get_id(slug)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Retrieves an ACL ID by its slug.</p></div>
 
     </div>
 
@@ -341,6 +361,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Checks if an ACL is built-in.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -348,6 +370,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
         <a href="#is_object_custom?/1" data-no-tooltip translate="no">is_object_custom?(acl)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Checks if an ACL is a custom ACL for an object.</p></div>
 
     </div>
 
@@ -365,6 +389,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Checks if an ACL is stereotyped.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -373,7 +399,7 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
-        <div class="summary-synopsis"><p>Lists ACLs we are permitted to see.</p></div>
+        <div class="summary-synopsis"><p>Lists ACLs the current user is permitted to see.</p></div>
 
     </div>
 
@@ -383,6 +409,8 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
+        <div class="summary-synopsis"><p>Lists built-in ACLs.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -391,9 +419,7 @@ Can be reused to secure multiple objects, thus exists independently of any objec
 
       </div>
 
-        <div class="summary-synopsis"><p>Lists the ACLs we are the registered caretakers of that we are
-permitted to see. If any are created without permitting the
-user to see them, they will not be shown.</p></div>
+        <div class="summary-synopsis"><p>Lists ACLs for a specific user.</p></div>
 
     </div>
 
@@ -413,19 +439,13 @@ user to see them, they will not be shown.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Lists ACLs for a specific user with grant counts (how many rules ).</p></div>
+
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#list_q/1" data-no-tooltip translate="no">list_q(opts \\ [])</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#local_acl_ids/1" data-no-tooltip translate="no">local_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</a>
 
       </div>
 
@@ -453,6 +473,8 @@ user to see them, they will not be shown.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Returns options to use when querying for ACLs to show in a dropdown in the UI.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -460,6 +482,8 @@ user to see them, they will not be shown.</p></div>
         <a href="#opts_for_list/0" data-no-tooltip translate="no">opts_for_list()</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns options to use when querying for ACLs to show in a list.</p></div>
 
     </div>
 
@@ -481,17 +505,21 @@ user to see them, they will not be shown.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#preview/2" data-no-tooltip translate="no">preview(creator, opts)</a>
+        <a href="#preset_acl_ids/2" data-no-tooltip translate="no">preset_acl_ids(preset, preset_acls \\ Config.get!(:preset_acls_match))</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns a list of ACL IDs for a preset (eg. &quot;local&quot; and &quot;public&quot;).</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#public_acl_ids/1" data-no-tooltip translate="no">public_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</a>
+        <a href="#preview/2" data-no-tooltip translate="no">preview(creator, opts)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Previews ACLs as they would be set based on provided opts.</p></div>
 
     </div>
 
@@ -501,7 +529,7 @@ user to see them, they will not be shown.</p></div>
 
       </div>
 
-        <div class="summary-synopsis"><p>Built-in ACLs for things that should federate</p></div>
+        <div class="summary-synopsis"><p>Returns a list of ACL IDs for remote public access.</p></div>
 
     </div>
 
@@ -511,6 +539,8 @@ user to see them, they will not be shown.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Sets ACLs (existing ones or creating some on-the-fly) and Controlled on an object.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -518,6 +548,8 @@ user to see them, they will not be shown.</p></div>
         <a href="#simple_create/2" data-no-tooltip translate="no">simple_create(caretaker, name)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Creates a simple ACL with a name.</p></div>
 
     </div>
 
@@ -536,6 +568,8 @@ user to see them, they will not be shown.</p></div>
         <a href="#stereotype_ids/0" data-no-tooltip translate="no">stereotype_ids()</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns a list of stereotype ACL IDs.</p></div>
 
     </div>
 
@@ -577,7 +611,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">acl_grants_to_tuples(creator, acls)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L932" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1133" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -599,7 +633,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">acl_id(obj)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L102" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L151" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -621,7 +655,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">acls()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L80" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L114" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -631,7 +665,7 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>  Returns a list of special built-in ACLs (e.g., guest, local, activity_pub).</p>
   </section>
 </section>
 <section class="detail" id="acls_from_preset/3">
@@ -645,7 +679,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">acls_from_preset(creator, to_boundaries, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L247" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L329" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -669,7 +703,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">base_acls_from_preset(creator, preset, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L302" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L384" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -691,7 +725,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">built_in_ids()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L724" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L843" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -701,7 +735,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Returns a list of built-in ACL IDs.</p><h2 id="built_in_ids/0-examples" class="section-heading">
+  <a href="#built_in_ids/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">built_in_ids</span><span class="p" data-group-id="4540728141-1">(</span><span class="p" data-group-id="4540728141-1">)</span><span class="w">
+</span><span class="p" data-group-id="4540728141-2">[</span><span class="s">&quot;BUILT_IN_ACL_ID1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BUILT_IN_ACL_ID2&quot;</span><span class="p" data-group-id="4540728141-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="cast/3">
@@ -713,7 +754,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">cast(changeset, creator, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L169" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L251" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -723,7 +764,13 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Casts ACLs (existing ones or creating some on-the-fly) and Controlled on an object.</p><h2 id="cast/3-examples" class="section-heading">
+  <a href="#cast/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">cast</span><span class="p" data-group-id="2183481777-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2183481777-2">[</span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;local&quot;</span><span class="p" data-group-id="2183481777-2">]</span><span class="p" data-group-id="2183481777-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset/3">
@@ -735,7 +782,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">changeset(atom, attrs, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L607" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L705" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -759,7 +806,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">create(attrs \\ %{}, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L596" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L686" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -769,7 +816,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Creates a new ACL.</p><h2 id="create/2-examples" class="section-heading">
+  <a href="#create/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="5546863970-1">(</span><span class="p" data-group-id="5546863970-2">%{</span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5546863970-3">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New ACL&quot;</span><span class="p" data-group-id="5546863970-3">}</span><span class="p" data-group-id="5546863970-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5546863970-1">)</span><span class="w">
+</span><span class="p" data-group-id="5546863970-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5546863970-5">%</span><span class="nc" data-group-id="5546863970-5">Acl</span><span class="p" data-group-id="5546863970-5">{</span><span class="p" data-group-id="5546863970-5">}</span><span class="p" data-group-id="5546863970-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="default_exclude_ids/1">
@@ -783,7 +837,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">default_exclude_ids(including_custom? \\ true)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L52" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L70" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -793,7 +847,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Returns a list of default IDs to exclude from queries.</p><h2 id="default_exclude_ids/1-examples" class="section-heading">
+  <a href="#default_exclude_ids/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">default_exclude_ids</span><span class="p" data-group-id="6553353713-1">(</span><span class="p" data-group-id="6553353713-1">)</span><span class="w">
+</span><span class="p" data-group-id="6553353713-2">[</span><span class="s">&quot;2HEYS11ENCEDMES0CAN0TSEEME&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;7HECVST0MAC1F0RAN0BJECTETC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;71MAYADM1N1STERMY0WNSTVFFS&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0H0STEDCANTSEE0RD0ANYTH1NG&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1S11ENCEDTHEMS0CAN0TP1NGME&quot;</span><span class="p" data-group-id="6553353713-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete/2">
@@ -805,7 +866,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">delete(acl, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L960" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1171" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -827,7 +888,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">edit(acl, user, params)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L941" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1151" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -837,7 +898,15 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Edits an existing ACL.</p><h2 id="edit/3-examples" class="section-heading">
+  <a href="#edit/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">edit</span><span class="p" data-group-id="8431941562-1">(</span><span class="n">acl_id</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8431941562-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated ACL&quot;</span><span class="p" data-group-id="8431941562-2">}</span><span class="p" data-group-id="8431941562-1">)</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">edit</span><span class="p" data-group-id="8431941562-3">(</span><span class="p" data-group-id="8431941562-4">%</span><span class="nc" data-group-id="8431941562-4">Acl</span><span class="p" data-group-id="8431941562-4">{</span><span class="p" data-group-id="8431941562-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8431941562-5">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated ACL&quot;</span><span class="p" data-group-id="8431941562-5">}</span><span class="p" data-group-id="8431941562-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="exclude_stereotypes/1">
@@ -851,7 +920,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">exclude_stereotypes(including_custom? \\ true)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L40" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L50" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -861,7 +930,17 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Returns a list of stereotype IDs to exclude from queries.</p><h2 id="exclude_stereotypes/1-examples" class="section-heading">
+  <a href="#exclude_stereotypes/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">exclude_stereotypes</span><span class="p" data-group-id="9297470988-1">(</span><span class="p" data-group-id="9297470988-1">)</span><span class="w">
+</span><span class="p" data-group-id="9297470988-2">[</span><span class="s">&quot;2HEYS11ENCEDMES0CAN0TSEEME&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;7HECVST0MAC1F0RAN0BJECTETC&quot;</span><span class="p" data-group-id="9297470988-2">]</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">exclude_stereotypes</span><span class="p" data-group-id="9297470988-3">(</span><span class="no">false</span><span class="p" data-group-id="9297470988-3">)</span><span class="w">
+</span><span class="p" data-group-id="9297470988-4">[</span><span class="s">&quot;2HEYS11ENCEDMES0CAN0TSEEME&quot;</span><span class="p" data-group-id="9297470988-4">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get/1">
@@ -873,7 +952,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get(slug)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L91" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L126" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -883,7 +962,16 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Retrieves an ACL by its slug.</p><h2 id="get/1-examples" class="section-heading">
+  <a href="#get/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="0385650879-1">(</span><span class="ss">:instance_care</span><span class="p" data-group-id="0385650879-1">)</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="0385650879-2">(</span><span class="ss">:non_existent</span><span class="p" data-group-id="0385650879-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get!/1">
@@ -895,7 +983,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get!(slug)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L93" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L131" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -905,7 +993,7 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Retrieves an ACL by its slug, raising an error if not found.</p>
   </section>
 </section>
 <section class="detail" id="get_for_caretaker/3">
@@ -919,7 +1007,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get_for_caretaker(id, caretaker, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L633" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L739" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -929,7 +1017,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Retrieves an ACL for a caretaker.</p><h2 id="get_for_caretaker/3-examples" class="section-heading">
+  <a href="#get_for_caretaker/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">get_for_caretaker</span><span class="p" data-group-id="0943348021-1">(</span><span class="s">&quot;ACL_ID&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="0943348021-1">)</span><span class="w">
+</span><span class="p" data-group-id="0943348021-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0943348021-3">%</span><span class="nc" data-group-id="0943348021-3">Acl</span><span class="p" data-group-id="0943348021-3">{</span><span class="p" data-group-id="0943348021-3">}</span><span class="p" data-group-id="0943348021-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_for_caretaker_q/3">
@@ -943,7 +1038,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get_for_caretaker_q(id, caretaker, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L651" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L757" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -965,7 +1060,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get_id(slug)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L99" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L148" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -975,7 +1070,17 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Retrieves an ACL ID by its slug.</p><h2 id="get_id/1-examples" class="section-heading">
+  <a href="#get_id/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">get_id</span><span class="p" data-group-id="5643520168-1">(</span><span class="ss">:instance_care</span><span class="p" data-group-id="5643520168-1">)</span><span class="w">
+</span><span class="s">&quot;01SETT1NGSF0R10CA11NSTANCE&quot;</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">get_id</span><span class="p" data-group-id="5643520168-2">(</span><span class="ss">:non_existent</span><span class="p" data-group-id="5643520168-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_id!/1">
@@ -987,7 +1092,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get_id!(slug)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L100" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L149" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1009,7 +1114,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get_object_custom_acl(object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L524" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L606" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1033,7 +1138,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">get_or_create_object_custom_acl(object, caretaker \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L537" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L619" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1057,7 +1162,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">grant_tuples_from_preset(creator, to_boundaries, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L258" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L340" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1079,7 +1184,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">is_built_in?(acl)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L751" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L903" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1089,7 +1194,17 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Checks if an ACL is built-in.</p><h2 id="is_built_in?/1-examples" class="section-heading">
+  <a href="#is_built_in?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_built_in?</span><span class="p" data-group-id="0506891897-1">(</span><span class="s">&quot;BUILT_IN_ACL_ID&quot;</span><span class="p" data-group-id="0506891897-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_built_in?</span><span class="p" data-group-id="0506891897-2">(</span><span class="s">&quot;CUSTOM_ACL_ID&quot;</span><span class="p" data-group-id="0506891897-2">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
   </section>
 </section>
 <section class="detail" id="is_object_custom?/1">
@@ -1101,7 +1216,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">is_object_custom?(acl)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L756" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L919" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1111,7 +1226,17 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Checks if an ACL is a custom ACL for an object.</p><h2 id="is_object_custom?/1-examples" class="section-heading">
+  <a href="#is_object_custom?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_object_custom?</span><span class="p" data-group-id="3509486058-1">(</span><span class="p" data-group-id="3509486058-2">%</span><span class="nc" data-group-id="3509486058-2">Acl</span><span class="p" data-group-id="3509486058-2">{</span><span class="ss">stereotyped</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3509486058-3">%{</span><span class="ss">stereotype_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CUSTOM_ACL_ID&quot;</span><span class="p" data-group-id="3509486058-3">}</span><span class="p" data-group-id="3509486058-2">}</span><span class="p" data-group-id="3509486058-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_object_custom?</span><span class="p" data-group-id="3509486058-4">(</span><span class="p" data-group-id="3509486058-5">%</span><span class="nc" data-group-id="3509486058-5">Acl</span><span class="p" data-group-id="3509486058-5">{</span><span class="p" data-group-id="3509486058-5">}</span><span class="p" data-group-id="3509486058-4">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
   </section>
 </section>
 <section class="detail" id="is_stereotype?/1">
@@ -1123,7 +1248,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">is_stereotype?(acl)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L746" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L887" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1145,7 +1270,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">is_stereotyped?(acl)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L737" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L878" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1155,7 +1280,20 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
+<p>Checks if an ACL is stereotyped.</p><h2 id="is_stereotyped?/1-examples" class="section-heading">
+  <a href="#is_stereotyped?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_stereotyped?</span><span class="p" data-group-id="4322849760-1">(</span><span class="p" data-group-id="4322849760-2">%</span><span class="nc" data-group-id="4322849760-2">Acl</span><span class="p" data-group-id="4322849760-2">{</span><span class="ss">stereotyped</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4322849760-3">%{</span><span class="ss">stereotype_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STEREOTYPE_ID&quot;</span><span class="p" data-group-id="4322849760-3">}</span><span class="p" data-group-id="4322849760-2">}</span><span class="p" data-group-id="4322849760-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_stereotyped?</span><span class="p" data-group-id="4322849760-4">(</span><span class="s">&quot;STEREOTYPE_ID&quot;</span><span class="p" data-group-id="4322849760-4">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">is_stereotyped?</span><span class="p" data-group-id="4322849760-5">(</span><span class="p" data-group-id="4322849760-6">%</span><span class="nc" data-group-id="4322849760-6">Acl</span><span class="p" data-group-id="4322849760-6">{</span><span class="p" data-group-id="4322849760-6">}</span><span class="p" data-group-id="4322849760-5">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list/1">
@@ -1169,7 +1307,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">list(opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L673" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L784" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1179,7 +1317,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-<p>Lists ACLs we are permitted to see.</p>
+<p>Lists ACLs the current user is permitted to see.</p><h2 id="list/1-examples" class="section-heading">
+  <a href="#list/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">list</span><span class="p" data-group-id="7653275081-1">(</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="7653275081-1">)</span><span class="w">
+</span><span class="p" data-group-id="7653275081-2">[</span><span class="p" data-group-id="7653275081-3">%</span><span class="nc" data-group-id="7653275081-3">Acl</span><span class="p" data-group-id="7653275081-3">{</span><span class="p" data-group-id="7653275081-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7653275081-4">%</span><span class="nc" data-group-id="7653275081-4">Acl</span><span class="p" data-group-id="7653275081-4">{</span><span class="p" data-group-id="7653275081-4">}</span><span class="p" data-group-id="7653275081-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_built_ins/1">
@@ -1193,7 +1338,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">list_built_ins(opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L766" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L937" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1203,7 +1348,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-
+<p>Lists built-in ACLs.</p><h2 id="list_built_ins/1-examples" class="section-heading">
+  <a href="#list_built_ins/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">list_built_ins</span><span class="p" data-group-id="6944255121-1">(</span><span class="p" data-group-id="6944255121-1">)</span><span class="w">
+</span><span class="p" data-group-id="6944255121-2">[</span><span class="p" data-group-id="6944255121-3">%</span><span class="nc" data-group-id="6944255121-3">Acl</span><span class="p" data-group-id="6944255121-3">{</span><span class="p" data-group-id="6944255121-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6944255121-4">%</span><span class="nc" data-group-id="6944255121-4">Acl</span><span class="p" data-group-id="6944255121-4">{</span><span class="p" data-group-id="6944255121-4">}</span><span class="p" data-group-id="6944255121-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my/2">
@@ -1217,7 +1369,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">list_my(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L810" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1003" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1227,9 +1379,16 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-<p>Lists the ACLs we are the registered caretakers of that we are
+<p>Lists ACLs for a specific user.</p><p>Includes the ACLs we are the registered caretakers of that we are
 permitted to see. If any are created without permitting the
-user to see them, they will not be shown.</p>
+user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="section-heading">
+  <a href="#list_my/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">list_my</span><span class="p" data-group-id="8373933762-1">(</span><span class="n">user</span><span class="p" data-group-id="8373933762-1">)</span><span class="w">
+</span><span class="p" data-group-id="8373933762-2">[</span><span class="p" data-group-id="8373933762-3">%</span><span class="nc" data-group-id="8373933762-3">Acl</span><span class="p" data-group-id="8373933762-3">{</span><span class="p" data-group-id="8373933762-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8373933762-4">%</span><span class="nc" data-group-id="8373933762-4">Acl</span><span class="p" data-group-id="8373933762-4">{</span><span class="p" data-group-id="8373933762-4">}</span><span class="p" data-group-id="8373933762-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my_q/2">
@@ -1243,7 +1402,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">list_my_q(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L872" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1073" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1267,7 +1426,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">list_my_with_counts(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L820" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1021" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1277,7 +1436,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-
+<p>Lists ACLs for a specific user with grant counts (how many rules ).</p><h2 id="list_my_with_counts/2-examples" class="section-heading">
+  <a href="#list_my_with_counts/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">list_my_with_counts</span><span class="p" data-group-id="5579968214-1">(</span><span class="n">user</span><span class="p" data-group-id="5579968214-1">)</span><span class="w">
+</span><span class="p" data-group-id="5579968214-2">[</span><span class="p" data-group-id="5579968214-3">%{</span><span class="ss">acl</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5579968214-4">%</span><span class="nc" data-group-id="5579968214-4">Acl</span><span class="p" data-group-id="5579968214-4">{</span><span class="p" data-group-id="5579968214-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">grants_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="5579968214-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5579968214-5">%{</span><span class="ss">acl</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5579968214-6">%</span><span class="nc" data-group-id="5579968214-6">Acl</span><span class="p" data-group-id="5579968214-6">{</span><span class="p" data-group-id="5579968214-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">grants_count</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5579968214-5">}</span><span class="p" data-group-id="5579968214-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_q/1">
@@ -1291,31 +1457,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">list_q(opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L682" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="local_acl_ids/1">
-
-    <span id="local_acl_ids/0"></span>
-
-  <div class="detail-header">
-    <a href="#local_acl_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">local_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L74" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L793" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1337,7 +1479,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">maybe_by_ids(query, ids)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L695" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L806" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1359,7 +1501,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">maybe_search(query, text)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L705" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L816" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1381,7 +1523,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">opts_for_dropdown()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L781" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L960" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1391,7 +1533,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-
+<p>Returns options to use when querying for ACLs to show in a dropdown in the UI.</p><h2 id="opts_for_dropdown/0-examples" class="section-heading">
+  <a href="#opts_for_dropdown/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">opts_for_dropdown</span><span class="p" data-group-id="9105323903-1">(</span><span class="p" data-group-id="9105323903-1">)</span><span class="w">
+</span><span class="p" data-group-id="9105323903-2">[</span><span class="ss">exclude_ids</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9105323903-3">[</span><span class="n">...</span><span class="p" data-group-id="9105323903-3">]</span><span class="p">,</span><span class="w"> </span><span class="ss">extra_ids_to_include</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9105323903-4">[</span><span class="n">...</span><span class="p" data-group-id="9105323903-4">]</span><span class="p" data-group-id="9105323903-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="opts_for_list/0">
@@ -1403,7 +1552,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">opts_for_list()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L788" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L975" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1413,7 +1562,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-
+<p>Returns options to use when querying for ACLs to show in a list.</p><h2 id="opts_for_list/0-examples" class="section-heading">
+  <a href="#opts_for_list/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">opts_for_list</span><span class="p" data-group-id="0793925343-1">(</span><span class="p" data-group-id="0793925343-1">)</span><span class="w">
+</span><span class="p" data-group-id="0793925343-2">[</span><span class="ss">exclude_ids</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0793925343-3">[</span><span class="n">...</span><span class="p" data-group-id="0793925343-3">]</span><span class="p" data-group-id="0793925343-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="prepare_cast/3">
@@ -1425,7 +1581,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">prepare_cast(changeset_or_obj, creator, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L181" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L263" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1447,7 +1603,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">preset_acl_ids()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L82" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L102" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1458,6 +1614,30 @@ user to see them, they will not be shown.</p>
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="preset_acl_ids/2">
+
+    <span id="preset_acl_ids/1"></span>
+
+  <div class="detail-header">
+    <a href="#preset_acl_ids/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">preset_acl_ids(preset, preset_acls \\ Config.get!(:preset_acls_match))</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L97" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a list of ACL IDs for a preset (eg. &quot;local&quot; and &quot;public&quot;).</p>
   </section>
 </section>
 <section class="detail" id="preview/2">
@@ -1469,7 +1649,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">preview(creator, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L117" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L192" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1479,31 +1659,23 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
+<p>Previews ACLs as they would be set based on provided opts.</p><h2 id="preview/2-examples" class="section-heading">
+  <a href="#preview/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">preview</span><span class="p" data-group-id="3677796845-1">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3677796845-2">[</span><span class="w">
+  </span><span class="ss">preview_for_id</span><span class="p">:</span><span class="w"> </span><span class="n">object_id</span><span class="p">,</span><span class="w">
+  </span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mentions&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">to_circles</span><span class="p">:</span><span class="w"> </span><span class="n">mentioned_users_or_custom_circles</span><span class="w">
+</span><span class="p" data-group-id="3677796845-2">]</span><span class="p" data-group-id="3677796845-1">)</span><span class="w">
 
-  </section>
-</section>
-<section class="detail" id="public_acl_ids/1">
-
-    <span id="public_acl_ids/0"></span>
-
-  <div class="detail-header">
-    <a href="#public_acl_ids/1" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">public_acl_ids(preset_acls \\ Config.get!(:preset_acls_match))</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L69" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">preview</span><span class="p" data-group-id="3677796845-3">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3677796845-4">[</span><span class="w">
+  </span><span class="ss">preview_for_id</span><span class="p">:</span><span class="w"> </span><span class="n">object_id</span><span class="p">,</span><span class="w">
+  </span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;clone_context&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">context_id</span><span class="p">:</span><span class="w"> </span><span class="n">context_object_id</span><span class="w">
+</span><span class="p" data-group-id="3677796845-4">]</span><span class="p" data-group-id="3677796845-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="remote_public_acl_ids/0">
@@ -1515,7 +1687,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">remote_public_acl_ids()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L66" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L91" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1525,7 +1697,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-<p>Built-in ACLs for things that should federate</p>
+<p>Returns a list of ACL IDs for remote public access.</p><h2 id="remote_public_acl_ids/0-examples" class="section-heading">
+  <a href="#remote_public_acl_ids/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">remote_public_acl_ids</span><span class="p" data-group-id="3269364407-1">(</span><span class="p" data-group-id="3269364407-1">)</span><span class="w">
+</span><span class="p" data-group-id="3269364407-2">[</span><span class="s">&quot;5REM0TEPE0P1E1NTERACTREACT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;5REM0TEPE0P1E1NTERACTREP1Y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;7REM0TEACT0RSCANC0NTR1BVTE&quot;</span><span class="p" data-group-id="3269364407-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="set/3">
@@ -1537,7 +1716,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">set(object, creator, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L110" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L167" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1547,7 +1726,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-
+<p>Sets ACLs (existing ones or creating some on-the-fly) and Controlled on an object.</p><h2 id="set/3-examples" class="section-heading">
+  <a href="#set/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">set</span><span class="p" data-group-id="0526541608-1">(</span><span class="p" data-group-id="0526541608-2">%{</span><span class="p" data-group-id="0526541608-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0526541608-3">[</span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;local&quot;</span><span class="p" data-group-id="0526541608-3">]</span><span class="p" data-group-id="0526541608-1">)</span><span class="w">
+</span><span class="p" data-group-id="0526541608-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:granted</span><span class="p" data-group-id="0526541608-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="simple_create/2">
@@ -1559,7 +1745,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">simple_create(caretaker, name)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L603" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L701" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1569,7 +1755,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-
+<p>Creates a simple ACL with a name.</p><h2 id="simple_create/2-examples" class="section-heading">
+  <a href="#simple_create/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">simple_create</span><span class="p" data-group-id="8769778787-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;My ACL&quot;</span><span class="p" data-group-id="8769778787-1">)</span><span class="w">
+</span><span class="p" data-group-id="8769778787-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8769778787-3">%</span><span class="nc" data-group-id="8769778787-3">Acl</span><span class="p" data-group-id="8769778787-3">{</span><span class="p" data-group-id="8769778787-3">}</span><span class="p" data-group-id="8769778787-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="soft_delete/2">
@@ -1581,7 +1774,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">soft_delete(acl, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L986" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1197" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1603,7 +1796,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">stereotype_ids()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L730" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L857" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1613,7 +1806,14 @@ user to see them, they will not be shown.</p>
 
   <section class="docstring">
 
-
+<p>Returns a list of stereotype ACL IDs.</p><h2 id="stereotype_ids/0-examples" class="section-heading">
+  <a href="#stereotype_ids/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Acls</span><span class="o">.</span><span class="n">stereotype_ids</span><span class="p" data-group-id="0766390454-1">(</span><span class="p" data-group-id="0766390454-1">)</span><span class="w">
+</span><span class="p" data-group-id="0766390454-2">[</span><span class="s">&quot;STEREOTYPE_ACL_ID1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;STEREOTYPE_ACL_ID2&quot;</span><span class="p" data-group-id="0766390454-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="user_default_acl/1">
@@ -1625,7 +1825,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">user_default_acl(name)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L924" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1125" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1647,7 +1847,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">user_default_acls()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L927" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/acls.ex#L1128" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>

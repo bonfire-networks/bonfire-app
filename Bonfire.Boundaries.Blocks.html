@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Boundaries.Blocks — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Boundaries.Blocks — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,10 +132,16 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Boundaries.Blocks</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
+
+    <section id="moduledoc">
+<p>Handles blocking of users and instances</p><p>This module provides functions to block and unblock users or instances, check
+if a user or instance is blocked, and manage block lists. It also includes
+federation support for ActivityPub.</p>
+    </section>
 
 </div>
 
@@ -157,6 +163,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Handles incoming Block activities from ActivityPub federation.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -164,6 +172,8 @@ Pages
         <a href="#block/3" data-no-tooltip translate="no">block(user_or_instance_to_block, block_type \\ nil, scope)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Blocks, silences, or ghosts a user or instance.</p></div>
 
     </div>
 
@@ -183,7 +193,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Block something for everyone on the instance (only for admins)</p></div>
+        <div class="summary-synopsis"><p>Blocks a user or instance for everyone on the instance (for admin/mod use only).</p></div>
 
     </div>
 
@@ -201,9 +211,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Checks if a <code class="inline">user_or_instance</code> is blocked
-Pass a <code class="inline">block_type</code> (eg <code class="inline">:silence</code> or <code class="inline">:ghost</code>)
-Pass a <code class="inline">current_user</code> in <code class="inline">opts</code> or check <code class="inline">:instance_wide</code></p></div>
+        <div class="summary-synopsis"><p>Checks if a user or instance is blocked.</p></div>
 
     </div>
 
@@ -213,6 +221,8 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
       </div>
 
+        <div class="summary-synopsis"><p>Lists blocked users or instances for a given block type and scope </p></div>
+
     </div>
 
     <div class="summary-row">
@@ -220,6 +230,8 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
         <a href="#remote_instance_block/3" data-no-tooltip translate="no">remote_instance_block(display_hostname, block_type, scope)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Blocks a remote instance.</p></div>
 
     </div>
 
@@ -229,6 +241,8 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
       </div>
 
+        <div class="summary-synopsis"><p>Converts provided block types (eg. <code class="inline">:ghost</code> or <code class="inline">:silence</code>) into a list of internal block types.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -237,6 +251,8 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
       </div>
 
+        <div class="summary-synopsis"><p>Unblocks a user or instance.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -244,6 +260,8 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
         <a href="#unblock_all/2" data-no-tooltip translate="no">unblock_all(block_type \\ nil, scope)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Unblocks <em>all</em> users or instances for a given block type and scope (only used for debugging purposes)</p></div>
 
     </div>
 
@@ -277,7 +295,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">ap_receive_activity(blocker, activity, blocked)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L329" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L444" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -287,7 +305,13 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
-
+<p>Handles incoming Block activities from ActivityPub federation.</p><h2 id="ap_receive_activity/3-examples" class="section-heading">
+  <a href="#ap_receive_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="3706062124-1">(</span><span class="n">blocker</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">blocked</span><span class="p" data-group-id="3706062124-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="block/3">
@@ -301,7 +325,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">block(user_or_instance_to_block, block_type \\ nil, scope)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L45" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L118" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -311,7 +335,49 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
-
+<p>Blocks, silences, or ghosts a user or instance.</p><h2 id="block/3-block-a-user-for-current-user" class="section-heading">
+  <a href="#block/3-block-a-user-for-current-user" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Block a user for current user</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">block</span><span class="p" data-group-id="8651246911-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">blocker</span><span class="p" data-group-id="8651246911-1">)</span><span class="w">
+</span><span class="p" data-group-id="8651246911-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="8651246911-2">}</span></code></pre><h2 id="block/3-block-a-user-for-everyone-on-the-instance-as-an-admin-mod" class="section-heading">
+  <a href="#block/3-block-a-user-for-everyone-on-the-instance-as-an-admin-mod" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Block a user for everyone on the instance (as an admin/mod)</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">block</span><span class="p" data-group-id="0726911405-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="0726911405-1">)</span><span class="w">
+</span><span class="p" data-group-id="0726911405-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="0726911405-2">}</span></code></pre><h2 id="block/3-silence-a-user-for-current-user" class="section-heading">
+  <a href="#block/3-silence-a-user-for-current-user" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Silence a user for current user</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">block</span><span class="p" data-group-id="9551722961-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">blocker</span><span class="p" data-group-id="9551722961-1">)</span><span class="w">
+</span><span class="p" data-group-id="9551722961-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="9551722961-2">}</span></code></pre><h2 id="block/3-silence-a-user-for-everyone-on-the-instance-as-an-admin-mod" class="section-heading">
+  <a href="#block/3-silence-a-user-for-everyone-on-the-instance-as-an-admin-mod" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Silence a user for everyone on the instance (as an admin/mod)</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">block</span><span class="p" data-group-id="2170133314-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="2170133314-1">)</span><span class="w">
+</span><span class="p" data-group-id="2170133314-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="2170133314-2">}</span></code></pre><h2 id="block/3-ghost-a-user-for-current-user" class="section-heading">
+  <a href="#block/3-ghost-a-user-for-current-user" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Ghost a user for current user</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">block</span><span class="p" data-group-id="7497913516-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">blocker</span><span class="p" data-group-id="7497913516-1">)</span><span class="w">
+</span><span class="p" data-group-id="7497913516-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="7497913516-2">}</span></code></pre><h2 id="block/3-ghost-a-user-for-everyone-on-the-instance-as-an-admin-mod" class="section-heading">
+  <a href="#block/3-ghost-a-user-for-everyone-on-the-instance-as-an-admin-mod" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Ghost a user for everyone on the instance (as an admin/mod)</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">block</span><span class="p" data-group-id="2194227531-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="2194227531-1">)</span><span class="w">
+</span><span class="p" data-group-id="2194227531-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="2194227531-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="federation_module/0">
@@ -323,7 +389,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">federation_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L10" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L18" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -347,7 +413,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">instance_wide_block(user_or_instance_to_block, block_type \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L34" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L61" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -357,7 +423,14 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
-<p>Block something for everyone on the instance (only for admins)</p>
+<p>Blocks a user or instance for everyone on the instance (for admin/mod use only).</p><h2 id="instance_wide_block/2-examples" class="section-heading">
+  <a href="#instance_wide_block/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">instance_wide_block</span><span class="p" data-group-id="7304754530-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:ghost</span><span class="p" data-group-id="7304754530-1">)</span><span class="w">
+</span><span class="p" data-group-id="7304754530-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="7304754530-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="instance_wide_circles/1">
@@ -369,7 +442,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">instance_wide_circles(block_types)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L261" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L369" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -395,7 +468,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">is_blocked?(user_or_instance, block_type \\ :any, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L182" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L280" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -405,9 +478,17 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
-<p>Checks if a <code class="inline">user_or_instance</code> is blocked
-Pass a <code class="inline">block_type</code> (eg <code class="inline">:silence</code> or <code class="inline">:ghost</code>)
-Pass a <code class="inline">current_user</code> in <code class="inline">opts</code> or check <code class="inline">:instance_wide</code></p>
+<p>Checks if a user or instance is blocked.</p><h2 id="is_blocked?/3-examples" class="section-heading">
+  <a href="#is_blocked?/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">is_blocked?</span><span class="p" data-group-id="0157490731-1">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">checker</span><span class="p" data-group-id="0157490731-1">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">is_blocked?</span><span class="p" data-group-id="0157490731-2">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="0157490731-2">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list/2">
@@ -419,7 +500,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">list(block_type, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L209" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L317" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -429,7 +510,17 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
+<p>Lists blocked users or instances for a given block type and scope </p><h2 id="list/2-examples" class="section-heading">
+  <a href="#list/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">list</span><span class="p" data-group-id="8445494754-1">(</span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="8445494754-1">)</span><span class="w">
+</span><span class="p" data-group-id="8445494754-2">[</span><span class="p" data-group-id="8445494754-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="ss">:ghost</span><span class="p" data-group-id="8445494754-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8445494754-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="ss">:ghost</span><span class="p" data-group-id="8445494754-4">}</span><span class="p" data-group-id="8445494754-2">]</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">list</span><span class="p" data-group-id="8445494754-5">(</span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="8445494754-5">)</span><span class="w">
+</span><span class="p" data-group-id="8445494754-6">[</span><span class="p" data-group-id="8445494754-7">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="ss">:silence</span><span class="p" data-group-id="8445494754-7">}</span><span class="p" data-group-id="8445494754-6">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="remote_instance_block/3">
@@ -441,7 +532,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">remote_instance_block(display_hostname, block_type, scope)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L38" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L78" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -451,7 +542,21 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
-
+<p>Blocks a remote instance.</p><h2 id="remote_instance_block/3-block-for-current-user" class="section-heading">
+  <a href="#remote_instance_block/3-block-for-current-user" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Block for current user</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">remote_instance_block</span><span class="p" data-group-id="6326185365-1">(</span><span class="s">&quot;example.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="n">current_user</span><span class="p" data-group-id="6326185365-1">)</span><span class="w">
+</span><span class="p" data-group-id="6326185365-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="6326185365-2">}</span></code></pre><h2 id="remote_instance_block/3-block-for-everyone-on-the-instance-as-an-admin-mod" class="section-heading">
+  <a href="#remote_instance_block/3-block-for-everyone-on-the-instance-as-an-admin-mod" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Block for everyone on the instance (as an admin/mod)</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">remote_instance_block</span><span class="p" data-group-id="2377084181-1">(</span><span class="s">&quot;example.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="2377084181-1">)</span><span class="w">
+</span><span class="p" data-group-id="2377084181-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Blocked&quot;</span><span class="p" data-group-id="2377084181-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="types_blocked/1">
@@ -463,7 +568,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">types_blocked(types)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L15" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L37" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -473,7 +578,20 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
+<p>Converts provided block types (eg. <code class="inline">:ghost</code> or <code class="inline">:silence</code>) into a list of internal block types.</p><h2 id="types_blocked/1-examples" class="section-heading">
+  <a href="#types_blocked/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">types_blocked</span><span class="p" data-group-id="3747891632-1">(</span><span class="p" data-group-id="3747891632-2">[</span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p" data-group-id="3747891632-2">]</span><span class="p" data-group-id="3747891632-1">)</span><span class="w">
+</span><span class="p" data-group-id="3747891632-3">[</span><span class="ss">:ghost_them</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence_them</span><span class="p" data-group-id="3747891632-3">]</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">types_blocked</span><span class="p" data-group-id="3747891632-4">(</span><span class="ss">:ghost</span><span class="p" data-group-id="3747891632-4">)</span><span class="w">
+</span><span class="p" data-group-id="3747891632-5">[</span><span class="ss">:ghost_them</span><span class="p" data-group-id="3747891632-5">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">types_blocked</span><span class="p" data-group-id="3747891632-6">(</span><span class="no">nil</span><span class="p" data-group-id="3747891632-6">)</span><span class="w">
+</span><span class="p" data-group-id="3747891632-7">[</span><span class="ss">:silence_them</span><span class="p">,</span><span class="w"> </span><span class="ss">:ghost_them</span><span class="p" data-group-id="3747891632-7">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="unblock/3">
@@ -487,7 +605,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">unblock(user_or_instance_to_block, block_type \\ nil, scope)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L99" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L183" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -497,7 +615,17 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
+<p>Unblocks a user or instance.</p><h2 id="unblock/3-examples" class="section-heading">
+  <a href="#unblock/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">unblock</span><span class="p" data-group-id="0894033174-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">unblocker</span><span class="p" data-group-id="0894033174-1">)</span><span class="w">
+</span><span class="p" data-group-id="0894033174-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unblocked&quot;</span><span class="p" data-group-id="0894033174-2">}</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">unblock</span><span class="p" data-group-id="0894033174-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:silence</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="0894033174-3">)</span><span class="w">
+</span><span class="p" data-group-id="0894033174-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unblocked&quot;</span><span class="p" data-group-id="0894033174-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="unblock_all/2">
@@ -511,7 +639,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">unblock_all(block_type \\ nil, scope)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L103" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L195" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -521,7 +649,14 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
 
   <section class="docstring">
 
-
+<p>Unblocks <em>all</em> users or instances for a given block type and scope (only used for debugging purposes)</p><h2 id="unblock_all/2-examples" class="section-heading">
+  <a href="#unblock_all/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Blocks</span><span class="o">.</span><span class="n">unblock_all</span><span class="p" data-group-id="7351249572-1">(</span><span class="ss">:ghost</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance_wide</span><span class="p" data-group-id="7351249572-1">)</span><span class="w">
+</span><span class="p" data-group-id="7351249572-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;All unblocked&quot;</span><span class="p" data-group-id="7351249572-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="user_block_circles/2">
@@ -533,7 +668,7 @@ Pass a <code class="inline">current_user</code> in <code class="inline">opts</co
     </a>
     <h1 class="signature" translate="no">user_block_circles(current_user, block_type)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L285" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/blocks.ex#L393" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>

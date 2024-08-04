@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Me.Accounts.SecondFactors — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Me.Accounts.SecondFactors — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Me.Accounts.SecondFactors</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
@@ -161,10 +161,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Sets or updates the TOTP secret.
-The secret is a random 20 bytes binary that is used to generate the QR Code to
-enable 2FA using auth applications. It will only be updated if the OTP code
-sent is valid.</p></div>
+        <div class="summary-synopsis"><p> Creates or updates a TOTP changeset.</p></div>
 
     </div>
 
@@ -184,13 +181,17 @@ sent is valid.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Checks if second-factor authentication (TOTP) is enabled on the instance.</p></div>
+
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#format_secret/1" data-no-tooltip translate="no">format_secret(secret)</a>
+        <a href="#format_secret/1" data-no-tooltip translate="no">format_secret(secret \\ new())</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Formats a TOTP secret into a human-readable format.</p></div>
 
     </div>
 
@@ -200,7 +201,7 @@ sent is valid.</p></div>
 
       </div>
 
-        <div class="summary-synopsis"><p>Gets the %AuthSecondFactor{} entry, if any.</p></div>
+        <div class="summary-synopsis"><p>Retrieves the second factor record for an account, if any.</p></div>
 
     </div>
 
@@ -210,6 +211,8 @@ sent is valid.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Tries to authenticates an account using the provided parameters.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -217,6 +220,8 @@ sent is valid.</p></div>
         <a href="#maybe_cast_totp_changeset/3" data-no-tooltip translate="no">maybe_cast_totp_changeset(changeset, params, opts)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Conditionally casts a TOTP changeset based on parameters and options.</p></div>
 
     </div>
 
@@ -226,6 +231,8 @@ sent is valid.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Generates a new TOTP secret if second-factor authentication is enabled.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -233,6 +240,8 @@ sent is valid.</p></div>
         <a href="#new_qrcode/1" data-no-tooltip translate="no">new_qrcode(opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Generates a QR code for the TOTP URI.</p></div>
 
     </div>
 
@@ -249,6 +258,8 @@ sent is valid.</p></div>
         <a href="#new_uri/1" data-no-tooltip translate="no">new_uri(secret \\ nil)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Generates a new TOTP URI for use in an authentication app.</p></div>
 
     </div>
 
@@ -288,7 +299,7 @@ sent is valid.</p></div>
     </a>
     <h1 class="signature" translate="no">changeset(totp \\ %AuthSecondFactor{}, attrs, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L115" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L178" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -298,17 +309,14 @@ sent is valid.</p></div>
 
   <section class="docstring">
 
-<p>Sets or updates the TOTP secret.
-The secret is a random 20 bytes binary that is used to generate the QR Code to
-enable 2FA using auth applications. It will only be updated if the OTP code
-sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
+<p> Creates or updates a TOTP changeset.</p><p>  The secret will only be updated if the OTP code sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
   <a href="#changeset/3-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="6404717819-1">(</span><span class="p" data-group-id="6404717819-2">%</span><span class="nc" data-group-id="6404717819-2">AuthSecondFactor</span><span class="p" data-group-id="6404717819-2">{</span><span class="ss">secret</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6404717819-3">&lt;&lt;</span><span class="n">...</span><span class="p" data-group-id="6404717819-3">&gt;&gt;</span><span class="p" data-group-id="6404717819-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456&quot;</span><span class="p" data-group-id="6404717819-1">)</span><span class="w">
-</span><span class="p" data-group-id="6404717819-4">%</span><span class="nc" data-group-id="6404717819-4">Ecto.Changeset</span><span class="p" data-group-id="6404717819-4">{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6404717819-5">%</span><span class="nc" data-group-id="6404717819-5">AuthSecondFactor</span><span class="p" data-group-id="6404717819-5">{</span><span class="p" data-group-id="6404717819-5">}</span><span class="p" data-group-id="6404717819-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="5575022423-1">(</span><span class="p" data-group-id="5575022423-2">%</span><span class="nc" data-group-id="5575022423-2">AuthSecondFactor</span><span class="p" data-group-id="5575022423-2">{</span><span class="p" data-group-id="5575022423-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5575022423-3">%{</span><span class="ss">secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;new_secret&quot;</span><span class="p" data-group-id="5575022423-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5575022423-4">[</span><span class="p" data-group-id="5575022423-4">]</span><span class="p" data-group-id="5575022423-1">)</span><span class="w">
+</span><span class="p" data-group-id="5575022423-5">%</span><span class="nc" data-group-id="5575022423-5">Ecto.Changeset</span><span class="p" data-group-id="5575022423-5">{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5575022423-6">%</span><span class="nc" data-group-id="5575022423-6">AuthSecondFactor</span><span class="p" data-group-id="5575022423-6">{</span><span class="p" data-group-id="5575022423-6">}</span><span class="p" data-group-id="5575022423-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete_account_totp/1">
@@ -320,7 +328,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">delete_account_totp(account_totp)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L162" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L231" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -330,7 +338,15 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-<p>Disables the TOTP configuration for the given account.</p>
+<p>Disables the TOTP configuration for the given account.</p><h2 id="delete_account_totp/1-examples" class="section-heading">
+  <a href="#delete_account_totp/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">delete_account_totp</span><span class="p" data-group-id="2753637166-1">(</span><span class="p" data-group-id="2753637166-2">%</span><span class="nc" data-group-id="2753637166-2">AuthSecondFactor</span><span class="p" data-group-id="2753637166-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;some_id&quot;</span><span class="p" data-group-id="2753637166-2">}</span><span class="p" data-group-id="2753637166-1">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">delete_account_totp</span><span class="p" data-group-id="2753637166-3">(</span><span class="s">&quot;some_id&quot;</span><span class="p" data-group-id="2753637166-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="enabled?/0">
@@ -342,7 +358,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">enabled?()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L12" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L21" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -352,19 +368,28 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-
+<p>Checks if second-factor authentication (TOTP) is enabled on the instance.</p><h2 id="enabled?/0-examples" class="section-heading">
+  <a href="#enabled?/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">enabled?</span><span class="p" data-group-id="6328475178-1">(</span><span class="p" data-group-id="6328475178-1">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
   </section>
 </section>
 <section class="detail" id="format_secret/1">
+
+    <span id="format_secret/0"></span>
 
   <div class="detail-header">
     <a href="#format_secret/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">format_secret(secret)</h1>
+    <h1 class="signature" translate="no">format_secret(secret \\ new())</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L45" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L91" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -374,7 +399,14 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-
+<p>Formats a TOTP secret into a human-readable format.</p><h2 id="format_secret/1-examples" class="section-heading">
+  <a href="#format_secret/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">format_secret</span><span class="p" data-group-id="9382135003-1">(</span><span class="s">&quot;JBSWY3DPEHPK3PXP&quot;</span><span class="p" data-group-id="9382135003-1">)</span><span class="w">
+</span><span class="s">&quot;JBSW Y3DP EHPK 3PXP&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_account_totp/1">
@@ -386,7 +418,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">get_account_totp(account)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L57" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L111" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -396,7 +428,17 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-<p>Gets the %AuthSecondFactor{} entry, if any.</p>
+<p>Retrieves the second factor record for an account, if any.</p><h2 id="get_account_totp/1-examples" class="section-heading">
+  <a href="#get_account_totp/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">get_account_totp</span><span class="p" data-group-id="1257002538-1">(</span><span class="p" data-group-id="1257002538-2">%{</span><span class="ss">auth_second_factor</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1257002538-3">%</span><span class="nc" data-group-id="1257002538-3">AuthSecondFactor</span><span class="p" data-group-id="1257002538-3">{</span><span class="p" data-group-id="1257002538-3">}</span><span class="p" data-group-id="1257002538-2">}</span><span class="p" data-group-id="1257002538-1">)</span><span class="w">
+</span><span class="p" data-group-id="1257002538-4">%</span><span class="nc" data-group-id="1257002538-4">AuthSecondFactor</span><span class="p" data-group-id="1257002538-4">{</span><span class="p" data-group-id="1257002538-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">get_account_totp</span><span class="p" data-group-id="1257002538-5">(</span><span class="s">&quot;some_id&quot;</span><span class="p" data-group-id="1257002538-5">)</span><span class="w">
+</span><span class="p" data-group-id="1257002538-6">%</span><span class="nc" data-group-id="1257002538-6">AuthSecondFactor</span><span class="p" data-group-id="1257002538-6">{</span><span class="p" data-group-id="1257002538-6">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_authenticate/2">
@@ -408,7 +450,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">maybe_authenticate(account, params)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L205" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L290" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -418,7 +460,14 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-
+<p>Tries to authenticates an account using the provided parameters.</p><h2 id="maybe_authenticate/2-examples" class="section-heading">
+  <a href="#maybe_authenticate/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">maybe_authenticate</span><span class="p" data-group-id="6828200616-1">(</span><span class="s">&quot;account_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6828200616-2">%{</span><span class="s">&quot;auth_second_factor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="6828200616-3">%{</span><span class="s">&quot;code&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123456&quot;</span><span class="p" data-group-id="6828200616-3">}</span><span class="p" data-group-id="6828200616-2">}</span><span class="p" data-group-id="6828200616-1">)</span><span class="w">
+</span><span class="p" data-group-id="6828200616-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:valid_totp</span><span class="p" data-group-id="6828200616-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_cast_totp_changeset/3">
@@ -430,7 +479,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">maybe_cast_totp_changeset(changeset, params, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L71" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L133" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -440,7 +489,14 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-
+<p>Conditionally casts a TOTP changeset based on parameters and options.</p><h2 id="maybe_cast_totp_changeset/3-examples" class="section-heading">
+  <a href="#maybe_cast_totp_changeset/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">maybe_cast_totp_changeset</span><span class="p" data-group-id="7721318949-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7721318949-2">%{</span><span class="ss">auth_second_factor</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7721318949-3">%{</span><span class="ss">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456&quot;</span><span class="p" data-group-id="7721318949-3">}</span><span class="p" data-group-id="7721318949-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7721318949-4">[</span><span class="p" data-group-id="7721318949-4">]</span><span class="p" data-group-id="7721318949-1">)</span><span class="w">
+</span><span class="p" data-group-id="7721318949-5">%</span><span class="nc" data-group-id="7721318949-5">Ecto.Changeset</span><span class="p" data-group-id="7721318949-5">{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7721318949-6">%</span><span class="nc" data-group-id="7721318949-6">AuthSecondFactor</span><span class="p" data-group-id="7721318949-6">{</span><span class="p" data-group-id="7721318949-6">}</span><span class="p" data-group-id="7721318949-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="new/0">
@@ -452,7 +508,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">new()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L17" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L36" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -462,7 +518,14 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-
+<p>Generates a new TOTP secret if second-factor authentication is enabled.</p><p> The secret is a random 20 bytes binary that is used to generate the QR Code to enable 2FA using auth applications. </p><h2 id="new/0-examples" class="section-heading">
+  <a href="#new/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="6139411194-1">(</span><span class="p" data-group-id="6139411194-1">)</span><span class="w">
+</span><span class="s">&quot;JBSWY3DPEHPK3PXP&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="new_qrcode/1">
@@ -476,7 +539,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">new_qrcode(opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L37" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L75" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -486,7 +549,14 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-
+<p>Generates a QR code for the TOTP URI.</p><h2 id="new_qrcode/1-examples" class="section-heading">
+  <a href="#new_qrcode/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">new_qrcode</span><span class="p" data-group-id="3768132403-1">(</span><span class="p" data-group-id="3768132403-1">)</span><span class="w">
+</span><span class="s">&quot;&lt;svg&gt;...&lt;/svg&gt;&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="new_struct/1">
@@ -500,7 +570,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">new_struct(secret \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L134" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L197" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -524,7 +594,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">new_uri(secret \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L21" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L51" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -534,7 +604,17 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
+<p>Generates a new TOTP URI for use in an authentication app.</p><h2 id="new_uri/1-examples" class="section-heading">
+  <a href="#new_uri/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">new_uri</span><span class="p" data-group-id="6936421323-1">(</span><span class="p" data-group-id="6936421323-1">)</span><span class="w">
+</span><span class="s">&quot;otpauth://totp/bonfire:AccountName?secret=APYWY3DPEHPK3PXV&amp;issuer=Issuer&quot;</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">new_uri</span><span class="p" data-group-id="6936421323-2">(</span><span class="s">&quot;JBSWY3DPEHPK3PXP&quot;</span><span class="p" data-group-id="6936421323-2">)</span><span class="w">
+</span><span class="s">&quot;otpauth://totp/bonfire:AccountName?secret=JBSWY3DPEHPK3PXP&amp;issuer=Issuer&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="validate_account_totp/2">
@@ -546,7 +626,7 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
     </a>
     <h1 class="signature" translate="no">validate_account_totp(totp, code)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L178" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/accounts/second_factors.ex#L255" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -556,7 +636,17 @@ sent is valid.</p><h2 id="changeset/3-examples" class="section-heading">
 
   <section class="docstring">
 
-<p>Validates if the given TOTP code is valid.</p>
+<p>Validates if the given TOTP code is valid.</p><h2 id="validate_account_totp/2-examples" class="section-heading">
+  <a href="#validate_account_totp/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">validate_account_totp</span><span class="p" data-group-id="9182506784-1">(</span><span class="p" data-group-id="9182506784-2">%</span><span class="nc" data-group-id="9182506784-2">AuthSecondFactor</span><span class="p" data-group-id="9182506784-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;some_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JBSWY3DPEHPK3PXP&quot;</span><span class="p" data-group-id="9182506784-2">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123456&quot;</span><span class="p" data-group-id="9182506784-1">)</span><span class="w">
+</span><span class="ss">:valid_totp</span><span class="w">
+
+ </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Me.Accounts.SecondFactors</span><span class="o">.</span><span class="n">validate_account_totp</span><span class="p" data-group-id="9182506784-3">(</span><span class="s">&quot;some_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123456&quot;</span><span class="p" data-group-id="9182506784-3">)</span><span class="w">
+</span><span class="ss">:valid_totp</span></code></pre>
   </section>
 </section>
 

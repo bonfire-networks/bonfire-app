@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Social.Graph.Aliases — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Social.Graph.Aliases — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,10 +132,16 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Social.Graph.Aliases</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
+
+    <section id="moduledoc">
+<p>Implements aliases (i.e. &quot;also known as&quot;) for characters in Bonfire.</p><p>This module provides functionality for managing aliases, including adding,
+removing, and querying aliases. It also implements ActivityPub federation
+for the &quot;Move&quot; activity.</p>
+    </section>
 
 </div>
 
@@ -157,7 +163,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Alias someone/something. </p></div>
+        <div class="summary-synopsis"><p>Adds an alias to a user, linking it to a another character.</p></div>
 
     </div>
 
@@ -167,6 +173,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves all aliases for a given object (i.e target).</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -174,6 +182,8 @@ Pages
         <a href="#all_by_subject/2" data-no-tooltip translate="no">all_by_subject(user, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Retrieves all aliases for a given subject.</p></div>
 
     </div>
 
@@ -183,6 +193,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves all aliased objects for a given subject.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -190,6 +202,8 @@ Pages
         <a href="#all_subjects_by_object/2" data-no-tooltip translate="no">all_subjects_by_object(object, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Retrieves all alias subjects for a given object (i.e target).</p></div>
 
     </div>
 
@@ -199,6 +213,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Checks if a local user is also known as the target.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -206,6 +222,8 @@ Pages
         <a href="#ap_publish_activity/3" data-no-tooltip translate="no">ap_publish_activity(subject, arg2, target)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Publishes an ActivityPub activity for a move operation.</p></div>
 
     </div>
 
@@ -215,6 +233,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Processes an incoming ActivityPub Move activity.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -222,6 +242,8 @@ Pages
         <a href="#exists?/2" data-no-tooltip translate="no">exists?(subject, target)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Checks if an alias relationship exists between a subject and a target.</p></div>
 
     </div>
 
@@ -241,6 +263,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves an alias between a subject and an object, if one exists</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -253,17 +277,11 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#insert/3" data-no-tooltip translate="no">insert(subject, object, options)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
         <a href="#list_aliased/2" data-no-tooltip translate="no">list_aliased(user, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Lists entities who aliased a a given user.</p></div>
 
     </div>
 
@@ -273,6 +291,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Lists aliases for a given user.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -280,6 +300,8 @@ Pages
         <a href="#list_my_aliased/2" data-no-tooltip translate="no">list_my_aliased(current_user, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Lists entities who aliased the current user.</p></div>
 
     </div>
 
@@ -289,6 +311,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Lists aliases for the current user.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -297,13 +321,7 @@ Pages
 
       </div>
 
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#move_following/2" data-no-tooltip translate="no">move_following(origin, target)</a>
-
-      </div>
+        <div class="summary-synopsis"><p>Initiates a move operation for migrating a local user to another instance.</p></div>
 
     </div>
 
@@ -330,6 +348,8 @@ Pages
         <a href="#remove/2" data-no-tooltip translate="no">remove(user, target)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Removes an alias relationship between a user and a target.</p></div>
 
     </div>
 
@@ -367,7 +387,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">add(user, target, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L49" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L81" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -377,7 +397,14 @@ Pages
 
   <section class="docstring">
 
-<p>Alias someone/something. </p>
+<p>Adds an alias to a user, linking it to a another character.</p><h2 id="add/3-examples" class="section-heading">
+  <a href="#add/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="8147402430-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="8147402430-1">)</span><span class="w">
+</span><span class="p" data-group-id="8147402430-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8147402430-3">%</span><span class="nc" data-group-id="8147402430-3">Alias</span><span class="p" data-group-id="8147402430-3">{</span><span class="p" data-group-id="8147402430-3">}</span><span class="p" data-group-id="8147402430-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="all_by_object/2">
@@ -391,7 +418,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">all_by_object(object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L224" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L292" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -401,7 +428,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Retrieves all aliases for a given object (i.e target).</p><h2 id="all_by_object/2-examples" class="section-heading">
+  <a href="#all_by_object/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">all_by_object</span><span class="p" data-group-id="9820170033-1">(</span><span class="n">object</span><span class="p" data-group-id="9820170033-1">)</span><span class="w">
+</span><span class="p" data-group-id="9820170033-2">[</span><span class="p" data-group-id="9820170033-3">%</span><span class="nc" data-group-id="9820170033-3">Alias</span><span class="p" data-group-id="9820170033-3">{</span><span class="p" data-group-id="9820170033-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9820170033-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="all_by_subject/2">
@@ -415,7 +449,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">all_by_subject(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L210" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L260" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -425,7 +459,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Retrieves all aliases for a given subject.</p><h2 id="all_by_subject/2-examples" class="section-heading">
+  <a href="#all_by_subject/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">all_by_subject</span><span class="p" data-group-id="8027232078-1">(</span><span class="n">user</span><span class="p" data-group-id="8027232078-1">)</span><span class="w">
+</span><span class="p" data-group-id="8027232078-2">[</span><span class="p" data-group-id="8027232078-3">%</span><span class="nc" data-group-id="8027232078-3">Alias</span><span class="p" data-group-id="8027232078-3">{</span><span class="p" data-group-id="8027232078-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8027232078-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="all_objects_by_subject/2">
@@ -439,7 +480,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">all_objects_by_subject(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L219" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L278" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -449,7 +490,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Retrieves all aliased objects for a given subject.</p><h2 id="all_objects_by_subject/2-examples" class="section-heading">
+  <a href="#all_objects_by_subject/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">all_objects_by_subject</span><span class="p" data-group-id="2876647757-1">(</span><span class="n">user</span><span class="p" data-group-id="2876647757-1">)</span><span class="w">
+</span><span class="p" data-group-id="2876647757-2">[</span><span class="p" data-group-id="2876647757-3">%</span><span class="nc" data-group-id="2876647757-3">Object</span><span class="p" data-group-id="2876647757-3">{</span><span class="p" data-group-id="2876647757-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2876647757-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="all_subjects_by_object/2">
@@ -463,7 +511,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">all_subjects_by_object(object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L232" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L309" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -473,7 +521,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Retrieves all alias subjects for a given object (i.e target).</p><h2 id="all_subjects_by_object/2-examples" class="section-heading">
+  <a href="#all_subjects_by_object/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">all_subjects_by_object</span><span class="p" data-group-id="1828731845-1">(</span><span class="n">object</span><span class="p" data-group-id="1828731845-1">)</span><span class="w">
+</span><span class="p" data-group-id="1828731845-2">[</span><span class="p" data-group-id="1828731845-3">%</span><span class="nc" data-group-id="1828731845-3">Subject</span><span class="p" data-group-id="1828731845-3">{</span><span class="p" data-group-id="1828731845-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1828731845-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="also_known_as?/2">
@@ -485,7 +540,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">also_known_as?(local_ap_id, target)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L350" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L484" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -495,7 +550,17 @@ Pages
 
   <section class="docstring">
 
+<p>Checks if a local user is also known as the target.</p><h2 id="also_known_as?/2-examples" class="section-heading">
+  <a href="#also_known_as?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">also_known_as?</span><span class="p" data-group-id="6281421740-1">(</span><span class="s">&quot;http://example.com/user&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="6281421740-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">also_known_as?</span><span class="p" data-group-id="6281421740-2">(</span><span class="p" data-group-id="6281421740-3">%</span><span class="nc" data-group-id="6281421740-3">User</span><span class="p" data-group-id="6281421740-3">{</span><span class="p" data-group-id="6281421740-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="6281421740-2">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
   </section>
 </section>
 <section class="detail" id="ap_publish_activity/3">
@@ -507,7 +572,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">ap_publish_activity(subject, arg2, target)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L365" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L507" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -517,7 +582,13 @@ Pages
 
   <section class="docstring">
 
-
+<p>Publishes an ActivityPub activity for a move operation.</p><h2 id="ap_publish_activity/3-examples" class="section-heading">
+  <a href="#ap_publish_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="1815988376-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="ss">:move</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="1815988376-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="ap_receive_activity/3">
@@ -529,7 +600,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">ap_receive_activity(subject, activity, origin_object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L376" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L527" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -539,7 +610,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Processes an incoming ActivityPub Move activity.</p><h2 id="ap_receive_activity/3-examples" class="section-heading">
+  <a href="#ap_receive_activity/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="2106335728-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">origin_object</span><span class="p" data-group-id="2106335728-1">)</span><span class="w">
+</span><span class="p" data-group-id="2106335728-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:moved</span><span class="p" data-group-id="2106335728-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="exists?/2">
@@ -551,7 +629,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">exists?(subject, target)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L36" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L53" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -561,7 +639,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Checks if an alias relationship exists between a subject and a target.</p><h2 id="exists?/2-examples" class="section-heading">
+  <a href="#exists?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">exists?</span><span class="p" data-group-id="5853932002-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="5853932002-1">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
   </section>
 </section>
 <section class="detail" id="federation_module/0">
@@ -573,7 +658,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">federation_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L30" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L38" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -597,7 +682,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">get(subject, object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L40" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L66" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -607,7 +692,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Retrieves an alias between a subject and an object, if one exists</p><h2 id="get/3-examples" class="section-heading">
+  <a href="#get/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="3151561783-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3151561783-1">)</span><span class="w">
+</span><span class="p" data-group-id="3151561783-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3151561783-3">%</span><span class="nc" data-group-id="3151561783-3">Alias</span><span class="p" data-group-id="3151561783-3">{</span><span class="p" data-group-id="3151561783-3">}</span><span class="p" data-group-id="3151561783-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get!/3">
@@ -621,29 +713,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">get!(subject, object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L43" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="insert/3">
-
-  <div class="detail-header">
-    <a href="#insert/3" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">insert(subject, object, options)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L312" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L69" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -667,7 +737,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_aliased(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L288" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L401" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -677,7 +747,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Lists entities who aliased a a given user.</p><h2 id="list_aliased/2-examples" class="section-heading">
+  <a href="#list_aliased/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">list_aliased</span><span class="p" data-group-id="7862128182-1">(</span><span class="n">user</span><span class="p" data-group-id="7862128182-1">)</span><span class="w">
+</span><span class="p" data-group-id="7862128182-2">[</span><span class="p" data-group-id="7862128182-3">%</span><span class="nc" data-group-id="7862128182-3">AliasedEntity</span><span class="p" data-group-id="7862128182-3">{</span><span class="p" data-group-id="7862128182-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7862128182-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_aliases/2">
@@ -691,7 +768,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_aliases(user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L270" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L365" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -701,7 +778,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Lists aliases for a given user.</p><h2 id="list_aliases/2-examples" class="section-heading">
+  <a href="#list_aliases/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">list_aliases</span><span class="p" data-group-id="4019071310-1">(</span><span class="n">user</span><span class="p" data-group-id="4019071310-1">)</span><span class="w">
+</span><span class="p" data-group-id="4019071310-2">[</span><span class="p" data-group-id="4019071310-3">%</span><span class="nc" data-group-id="4019071310-3">Alias</span><span class="p" data-group-id="4019071310-3">{</span><span class="p" data-group-id="4019071310-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4019071310-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my_aliased/2">
@@ -715,7 +799,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_my_aliased(current_user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L281" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L385" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -725,7 +809,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Lists entities who aliased the current user.</p><h2 id="list_my_aliased/2-examples" class="section-heading">
+  <a href="#list_my_aliased/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">list_my_aliased</span><span class="p" data-group-id="2708582688-1">(</span><span class="n">current_user</span><span class="p" data-group-id="2708582688-1">)</span><span class="w">
+</span><span class="p" data-group-id="2708582688-2">[</span><span class="p" data-group-id="2708582688-3">%</span><span class="nc" data-group-id="2708582688-3">AliasedEntity</span><span class="p" data-group-id="2708582688-3">{</span><span class="p" data-group-id="2708582688-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2708582688-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my_aliases/2">
@@ -739,7 +830,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_my_aliases(current_user, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L261" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L347" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -749,7 +840,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Lists aliases for the current user.</p><h2 id="list_my_aliases/2-examples" class="section-heading">
+  <a href="#list_my_aliases/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">list_my_aliases</span><span class="p" data-group-id="6473633659-1">(</span><span class="n">current_user</span><span class="p" data-group-id="6473633659-1">)</span><span class="w">
+</span><span class="p" data-group-id="6473633659-2">[</span><span class="p" data-group-id="6473633659-3">%</span><span class="nc" data-group-id="6473633659-3">Alias</span><span class="p" data-group-id="6473633659-3">{</span><span class="p" data-group-id="6473633659-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="6473633659-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="move/2">
@@ -761,7 +859,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">move(subject, target)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L319" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L441" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -771,29 +869,14 @@ Pages
 
   <section class="docstring">
 
-
-  </section>
-</section>
-<section class="detail" id="move_following/2">
-
-  <div class="detail-header">
-    <a href="#move_following/2" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">move_following(origin, target)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L406" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
+<p>Initiates a move operation for migrating a local user to another instance.</p><h2 id="move/2-examples" class="section-heading">
+  <a href="#move/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">move</span><span class="p" data-group-id="5374806807-1">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="5374806807-1">)</span><span class="w">
+</span><span class="p" data-group-id="5374806807-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:moved</span><span class="p" data-group-id="5374806807-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query/2">
@@ -805,7 +888,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">query(filters, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L257" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L334" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -827,7 +910,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">query_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L27" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L35" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -849,7 +932,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">remove(user, target)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L187" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L227" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -859,7 +942,13 @@ Pages
 
   <section class="docstring">
 
-
+<p>Removes an alias relationship between a user and a target.</p><h2 id="remove/2-examples" class="section-heading">
+  <a href="#remove/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Graph.Aliases</span><span class="o">.</span><span class="n">remove</span><span class="p" data-group-id="4123607509-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p" data-group-id="4123607509-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="schema_module/0">
@@ -871,7 +960,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">schema_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L26" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/aliases.ex#L34" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>

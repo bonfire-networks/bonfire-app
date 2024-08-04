@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.124">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.126">
 
 
-    <title>Bonfire.Ecto — Bonfire v0.9.10-classic-beta.124</title>
+    <title>Bonfire.Ecto — Bonfire v0.9.10-classic-beta.126</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-25EDD931.js"></script>
+    <script src="dist/sidebar_items-4FF971C6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.124
+          v0.9.10-classic-beta.126
         </div>
       </div>
     </div>
@@ -132,13 +132,40 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Ecto</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.124)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.126)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p><a href="./Bonfire.Ecto.html"><code class="inline">Bonfire.Ecto</code></a> contains <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.html"><code class="inline">Ecto</code></a> transactional support as acts for <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a></p><!-- **TODO: Add description** --><!-- ## Installation --><!-- If [available in Hex](https://hex.pm/docs/publish), the package can be installed --><!-- by adding `bonfire_ecto` to your list of dependencies in `mix.exs`: --><!-- ```elixir --><!-- def deps do --><!--   [ --><!--     {:bonfire_ecto, "~> 0.1.0"} --><!--   ] --><!-- end --><!-- ``` --><!-- Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc) --><!-- and published on [HexDocs](https://hexdocs.pm). Once published, the docs can --><!-- be found at [https://hexdocs.pm/bonfire_ecto](https://hexdocs.pm/bonfire_ecto). -->
+<p><a href="./Bonfire.Ecto.html"><code class="inline">Bonfire.Ecto</code></a> contains <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.html"><code class="inline">Ecto</code></a> transactional support as acts for <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a></p><h2 id="module-introduction" class="section-heading">
+  <a href="#module-introduction" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Introduction</span>
+</h2>
+<p><a href="./Bonfire.Ecto.html"><code class="inline">Bonfire.Ecto</code></a> is designed to facilitate complex Ecto transaction handling within an Elixir application that uses <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> to execute a sequence of operations (or <code class="inline">Acts</code>). These modules provide a structured way to manage database transactions as a series of acts and managing them within an <code class="inline">Epic</code>, offering flexibility and control over database interactions, ensuring that transactions are executed efficiently.</p><h3 id="module-modules-overview" class="section-heading">
+  <a href="#module-modules-overview" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Modules Overview</span>
+</h3>
+<ol><li><p><a href="./Bonfire.Ecto.Acts.Begin.html"><code class="inline">Bonfire.Ecto.Acts.Begin</code></a></p><ul><li>Responsible for initiating a transaction if certain conditions are met. It ensures that the transaction is only started when it is sensible to do so, based on the current state of the <code class="inline">Epic</code>.</li></ul></li><li><p><a href="./Bonfire.Ecto.Acts.Work.html"><code class="inline">Bonfire.Ecto.Acts.Work</code></a></p><ul><li>Handles queued database operations within a transaction. Operations are queued using the <a href="./Bonfire.Ecto.Acts.Work.html#add/2"><code class="inline">Bonfire.Ecto.Acts.Work.add/2</code></a> function and executed if there are no errors in the <code class="inline">Epic</code> or changesets.</li></ul></li><li><p><a href="./Bonfire.Ecto.Acts.Commit.html"><code class="inline">Bonfire.Ecto.Acts.Commit</code></a></p><ul><li>A placeholder marker used by <a href="./Bonfire.Ecto.Acts.Begin.html"><code class="inline">Bonfire.Ecto.Acts.Begin</code></a> to identify when to commit the transaction.</li></ul></li></ol><h3 id="module-usage" class="section-heading">
+  <a href="#module-usage" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Usage</span>
+</h3>
+<h4>1. Initial Setup</h4><p>Ensure that you have <a href="https://hexdocs.pm/ecto/3.11.2/Ecto.html"><code class="inline">Ecto</code></a> and <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> installed and configured in your application, and then install this linrary.</p><h4>2. Using <a href="./Bonfire.Ecto.Acts.Begin.html"><code class="inline">Bonfire.Ecto.Acts.Begin</code></a></h4><p>Refer to <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> docs to define some <code class="inline">Act</code>s and <code class="inline">Epic</code>s: <a href="https://github.com/bonfire-networks/bonfire_epics">https://github.com/bonfire-networks/bonfire_epics</a></p><h4>3. Queue database operation(s) in an Act</h4><p>Queue operations by calling the <a href="./Bonfire.Ecto.Acts.Work.html#add/2"><code class="inline">Bonfire.Ecto.Acts.Work.add/2</code></a> function, providing the epic and a key representing the changeset to be processed.</p><pre><code class="makeup elixir" translate="no"><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="4332106654-1">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_changeset</span><span class="p" data-group-id="4332106654-1">)</span></code></pre><h4>3. Add the three <a href="./Bonfire.Ecto.html"><code class="inline">Bonfire.Ecto</code></a> Acts to your Epic</h4><pre><code class="makeup elixir" translate="no"><span class="w">    </span><span class="c1"># First come the Acts that prepare the changeset and call `Bonfire.Ecto.Acts.Work.add/2` to queue it</span><span class="w">
+
+    </span><span class="c1"># Open a Postgres transaction and actually do the insertions in DB</span><span class="w">
+    </span><span class="nc">Bonfire.Ecto.Acts.Begin</span><span class="p">,</span><span class="w">
+
+    </span><span class="c1"># Run our inserts</span><span class="w">
+    </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="p">,</span><span class="w">
+    </span><span class="nc">Bonfire.Ecto.Acts.Commit</span><span class="p">,</span><span class="w">
+
+    </span><span class="c1"># Then can come some Acts that process the result of the transaction </span></code></pre>
     </section>
 
 </div>
