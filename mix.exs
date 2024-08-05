@@ -83,6 +83,9 @@ defmodule Bonfire.Umbrella.MixProject do
                   # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
                   {:observer_cli, "~> 1.7", only: [:dev, :test]},
 
+                  # for extension install + mix tasks that do patching 
+                  {:igniter, "~> 0.3", only: [:dev, :test]},
+
                   # tests
                   # {:floki, ">= 0.0.0", only: [:dev, :test]},
                   # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
