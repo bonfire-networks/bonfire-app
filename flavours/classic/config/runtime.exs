@@ -6,7 +6,7 @@ import Config
 
 System.get_env("MIX_QUIET") || IO.puts("🔥 Welcome to Bonfire!")
 
-flavour = System.get_env("FLAVOUR", "classic")
+# flavour = System.get_env("FLAVOUR", "classic")
 host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
@@ -25,13 +25,11 @@ repos =
     do: repos ++ [Bonfire.Common.TestInstanceRepo],
     else: repos
 
-hosts =
-  "#{host}#{System.get_env("EXTRA_DOMAINS")}"
-  |> String.replace(["`", " "], "")
-  |> String.split(",")
-  |> Enum.map(&"//#{&1}")
-
-# |> IO.inspect()
+# hosts =
+#   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
+#   |> String.replace(["`", " "], "")
+#   |> String.split(",")
+#   |> Enum.map(&"//#{&1}")
 
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
@@ -114,7 +112,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     host: host,
     port: public_port
   ],
-  # check_origin: hosts, # FIXME
+  # check_origin: hosts, # FIXME?
   check_origin: false,
   adapter:
     if(use_cowboy?,
