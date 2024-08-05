@@ -552,10 +552,10 @@ test *args='':
 # 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation $@
 
 test-backend *args='':
-	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --include backend $@
+	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend $@
 
 test-ui *args='':
-	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --include ui $@
+	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --exclude todo --include ui $@
 
 # Run only stale tests
 test-stale *args='':
