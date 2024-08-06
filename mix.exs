@@ -84,7 +84,14 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:observer_cli, "~> 1.7", only: [:dev, :test]},
 
                   # for extension install + mix tasks that do patching 
-                  {:igniter, "~> 0.3", only: [:dev, :test]},
+                  {
+                    :igniter,
+                    # "~> 0.3", 
+                    # path: "forks/igniter",
+                    git: "https://github.com/ash-project/igniter",
+                    only: [:dev, :test],
+                    override: true
+                  },
 
                   # tests
                   # {:floki, ">= 0.0.0", only: [:dev, :test]},
