@@ -78,7 +78,7 @@
 | exsync                       | BSD 3-Clause; Unrecognized license | 0.2.4      | https://hex.pm/packages/exsync                                   |
 | faker                        | MIT                                | 0.17.0     | https://hex.pm/packages/faker                                    |
 | fast_ngram                   | MIT                                | 1.2.0      | https://hex.pm/packages/fast_ngram                               |
-| fetch_favicon                | MIT                                | 0.1.3      | https://hex.pm/packages/fetch_favicon                            |
+| faviconic                | MIT                                | 0.1.3      | https://hex.pm/packages/faviconic                            |
 | file_info                    | MIT                                | 0.0.4      | https://hex.pm/packages/file_info                                |
 | file_system                  | WTFPL                              | 0.2.10     | https://hex.pm/packages/file_system                              |
 | flame_on                     | MIT                                | 0.5.0      | https://hex.pm/packages/flame_on                                 |

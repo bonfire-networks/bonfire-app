@@ -113,7 +113,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:ex_unit_notifier, "~> 1.0", only: :test},
                   {:wallaby, "~> 0.30", runtime: false, only: :test},
                   {:credo, "~> 1.7.5", only: :test, override: true},
-                  # used in furlex
+                  # used in unfurl
                   # {:bypass, "~> 2.1", only: :test},
                   {:assert_value, ">= 0.0.0", only: [:dev, :test]},
                   {:mneme, ">= 0.0.0", only: [:dev, :test]},
@@ -184,7 +184,7 @@ defmodule Bonfire.Umbrella.MixProject do
     "ecto_sparkles",
     "arrows",
     "linkify",
-    "fetch_favicon"
+    "faviconic"
     # "paper_trail"
   ]
   @test_ui [
@@ -235,10 +235,10 @@ defmodule Bonfire.Umbrella.MixProject do
         "voodoo",
         "entrepot",
         "waffle",
-        "furlex",
+        "unfurl",
         # "zest",
         "iconify",
-        "fetch_favicon",
+        "faviconic",
         "paper_trail"
       ],
       test_federation: @test_federation,

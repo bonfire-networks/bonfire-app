@@ -308,12 +308,13 @@ You should *not* have to modify the files above. Instead, overload any settings 
 
 ## Running the app
 
+> NOTE: If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database before migrations can run: `CREATE EXTENSION IF NOT EXISTS citext;`
+
 By default, the backend listens on port 4000 (TCP), so you can access it on http://localhost:4000/ (if you are on the same machine). In case of an error it will restart automatically.
 
 Once you've signed up, you will automatically be an instance admin if you were the first to register.
 
-> NOTE: If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database before migrations can run: `CREATE EXTENSION IF NOT EXISTS citext;`
-
+> You can sign up via CLI by entering something like this in your app's Elixir console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
 
 
 ## Handy commands
@@ -350,8 +351,6 @@ There are some useful database-related release tasks under `EctoSparkles.Migrato
 You can also directly call some functions in the code from the command line, for example:
 - to migrate: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Common.Repo.migrate'`
 - to just yourself an admin: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Me.Users.make_admin("my_username")'`
-
-
 
 ## Admin tools
 
