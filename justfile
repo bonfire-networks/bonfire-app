@@ -711,10 +711,19 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 @rel-tag label='latest':
 	just rel-tag-commit $APP_BUILD {{label}}
 
-@rel-tag-commit build label='latest': _rel-init
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}
-	docker tag $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
+@rel-tag-commit build label='latest': 
+	just rel-tag-version-commit $APP_VSN {{build}} {{label}}
+
+@rel-tag-version version label='latest':
+	just rel-tag-version-commit {{version}} $APP_BUILD {{label}}
+
+@rel-tag-version-commit version build label='latest': _rel-init
+	just rel-tag-version-commit-flavour {{version}} $APP_BUILD $FLAVOUR {{label}}
+
+@rel-tag-version-commit-flavour version build flavour label='latest': _rel-init
+	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-{{flavour}}-{{arch()}}
+	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:release-{{flavour}}-{{version}}-{{build}}-{{arch()}}
+	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:{{label}}-{{flavour}}-{{arch()}}
 
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest':
@@ -723,8 +732,11 @@ rel-push label='latest':
 	@just rel-push-only $APP_BUILD {{label}}
 
 rel-push-only build label='latest':
+	just rel-push-only-version $APP_VSN {{build}}
+
+rel-push-only-version version build label='latest':
 	@echo "Pushing to $APP_DOCKER_REPO"
-	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-{{version}}-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
 # @just rel-push-only-alt {{build}} {{label}}
 
 rel-push-only-alt build label='latest':
