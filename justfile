@@ -869,7 +869,7 @@ xref-dot:
 exh *args='':
 	just cmd "exh -S mix $@"
 
-licenses:
+deps-licenses:
 	@mkdir -p docs/DEPENDENCIES/
 	just mix-remote licenses && mv DEPENDENCIES.md docs/DEPENDENCIES/$FLAVOUR.md
 

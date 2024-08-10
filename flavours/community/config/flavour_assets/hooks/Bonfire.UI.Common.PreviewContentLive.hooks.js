@@ -35,18 +35,19 @@ let PreviewActivity = {
 
         if (window.liveSocket) {
 
-          if (!e.target.closest('#preview_content')) {
-            // if we're not already in preview_content (i.e. for feed in extra_contents, because it's in a different LV), don't use this and just redirect
-            console.log("fallback to navigate")
-            let uri = this.el.dataset.href || (trigger !== undefined && trigger.getAttribute('href'))
-            if (uri) {
-              this.pushEvent(
-                "navigate",
-                { to: uri }
-              )
-            }
+          // if (!e.target.closest('#preview_content')) {
+          //   // NOTE: sticky feed, see https://github.com/bonfire-networks/bonfire-app/issues/901
+          //   // if we're not already in preview_content (i.e. for feed in extra_contents, because it's in a different LV), don't use this and just redirect
+          //   console.log("not in preview_content div, fallback to navigate")
+          //   let uri = this.el.dataset.href || (trigger !== undefined && trigger.getAttribute('href'))
+          //   if (uri) {
+          //     this.pushEvent(
+          //       "navigate",
+          //       { to: uri }
+          //     )
+          //   }
 
-          } else { 
+          // } else { 
             console.log("push event to load up the PreviewContent")
 
             // const feed = document.querySelector(".feed")
@@ -89,7 +90,7 @@ let PreviewActivity = {
 
             e.preventDefault();
           
-          }
+          // }
 
         } else {
 
@@ -219,9 +220,9 @@ let ClosePreview = {
 
       } else {
 
-        if (the_extra_contents) {
+        const preview_content = document.getElementById("preview_content")
+        if (preview_content) {
           console.log("click - attempt going back to main view")
-          const preview_content = document.getElementById("preview_content")
           const main = document.getElementById("inner_inner") || document.getElementById("inner")
           preview_content.classList.add("hidden")
           main.classList.remove("hidden")

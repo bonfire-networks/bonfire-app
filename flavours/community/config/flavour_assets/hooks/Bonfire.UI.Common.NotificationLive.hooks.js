@@ -12,6 +12,15 @@ export default {
       console.debug("notification permission is already granted ")
     }
     this.handleEvent("notify", ({ title, message, url, icon }) => sendNotification(title, message, url, icon));
+
+    const notificationElement = this.el;
+    setTimeout(() => {
+      notificationElement.style.transition = "opacity 0.5s ease-out";
+      notificationElement.style.opacity = "0";
+      setTimeout(() => {
+        notificationElement.remove();
+      }, 500);
+    }, 5000);
   }
 }
 
