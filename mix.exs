@@ -148,7 +148,7 @@ defmodule Bonfire.Umbrella.MixProject do
           umbrella_root?: @use_local_forks,
           umbrella_path: @umbrella_path
         )
-  |> Mixer.log(limit: :infinity)
+        |> Mixer.log(limit: :infinity)
 
   @extra_release_apps @deps
                       |> Enum.filter(fn
