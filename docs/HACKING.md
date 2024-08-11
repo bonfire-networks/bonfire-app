@@ -190,6 +190,8 @@ just config
 
 Then you can edit the config for the current flavour in `./.env`
 
+> For example, you can set `TEST_LOG_LEVEL=debug` in your `.env` to show full debug logs when running unit tests.
+
 The only required config to startup bonfire are the secrets for sessions/cookies (`SECRET_KEY_BASE`, `SIGNING_SALT`, `ENCRYPTION_SALT`), you can generate strings for these by running:
 
 ```sh
