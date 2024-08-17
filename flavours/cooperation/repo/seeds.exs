@@ -1,5 +1,6 @@
 import Bonfire.Me.Fake
 import Bonfire.Social.Fake
+import Bonfire.Posts.Fake
 
 System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
