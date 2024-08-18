@@ -261,9 +261,10 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps_to_update(config) do
       deps(config, :update)
       |> deps_names()
-      |> log(
-        "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
-      )
+
+      # |> log(
+      #   "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
+      # )
     end
 
     # Specifies which paths to include in docs
