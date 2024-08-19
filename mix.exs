@@ -85,9 +85,9 @@ defmodule Bonfire.Umbrella.MixProject do
                   # for extension install + mix tasks that do patching 
                   {
                     :igniter,
-                    # "~> 0.3", 
+                    "~> 0.3.20", 
                     # path: "forks/igniter",
-                    git: "https://github.com/ash-project/igniter",
+                    # git: "https://github.com/ash-project/igniter",
                     only: [:dev, :test],
                     override: true
                   },
