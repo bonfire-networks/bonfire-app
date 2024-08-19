@@ -30,6 +30,7 @@ config :bonfire_umbrella, Bonfire.Common.Repo,
 
 local_deps =
   Mess.read_umbrella(
+    # Path.expand("config/"),
     config_dir: "config/",
     use_local_forks?: System.get_env("WITH_FORKS", "1") == "1"
   )

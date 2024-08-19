@@ -151,7 +151,7 @@ if not Code.ensure_loaded?(Mess) do
         |> Enum.flat_map(&maybe_read(&1, :path))
         |> Enum.flat_map(&dep_spec(&1, opts))
       else
-        IO.warn("did not load #{path}")
+        if opts[:use_local_forks?], do: IO.warn("could not load #{path}")
         []
       end
     end

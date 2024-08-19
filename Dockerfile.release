@@ -56,8 +56,8 @@ RUN mix deps.get --only prod
 COPY --link data/current_flavour/config/deps.flavour.* ./config/
 RUN ls -la config/* 
 
-RUN mix deps.get --only prod
-# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+# RUN mix deps.get --only prod
+RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 # # ^ useful in case of spotty connectivity
 
 ## add extra deps 
