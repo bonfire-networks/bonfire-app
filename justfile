@@ -29,6 +29,7 @@ APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":latest-" +FLAVOUR)
 DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:12-3.3" } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:12-3.3-alpine") }
 # DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "supabase/postgres")
+# ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_VERSION', "1.17") +"-erlang-"+env_var_or_default('ERLANG_VERSION', "27")+"-alpine-"+env_var_or_default('ERLANG_VERSION', "3.20")
 
 # GRAPH_DB_URL := if WITH_DOCKER != "total" { env_var_or_default('GRAPH_DB_URL', "bolt://localhost:7687") } else { env_var_or_default('GRAPH_DB_URL', "bolt://graph:7687") } 
 
@@ -196,17 +197,17 @@ dev-proxy-iex:
 	just dev-profile-iex proxy
 
 dev-profile profile: docker-stop-web
-	docker compose --profile $profile up -d
+	just docker-compose --profile $profile up -d
 	docker logs bonfire_web -f
 
 dev-profile-iex profile:
-	docker compose --profile $profile exec web iex --sname extra --remsh localenv
+	just docker-compose --profile $profile exec web iex --sname extra --remsh localenv
 
 dev-federate:
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web
-	docker compose $args run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
+	just docker-compose $args run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
 
 # Generate docs from code & readmes
 docs:
@@ -239,7 +240,7 @@ dev-test:
 
 # Run the app in dev mode, as a background service
 dev-bg: init
-	{{ if WITH_DOCKER == "total" { "just docker-stop-web && docker compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
+	{{ if WITH_DOCKER == "total" { "just docker-stop-web && just docker-compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
 db-migrate:
@@ -262,7 +263,7 @@ db-upgrade-dev version="15": db-dump-dev
 	just _db-upgrade-dev {{version}}
 
 _db-upgrade-dev version="15": docker-stop
-	DB_DOCKER_IMAGE=pgautoupgrade/pgautoupgrade:{{version}}-alpine PGAUTO_ONESHOT=yes docker compose up db 
+	DB_DOCKER_IMAGE=pgautoupgrade/pgautoupgrade:{{version}}-alpine PGAUTO_ONESHOT=yes just docker-compose up db 
 
 db-dump-dev: 
 	just services db
@@ -272,7 +273,7 @@ dev-search-reset: dev-search-reset-docker
 	rm -rf data/search/dev
 
 dev-search-reset-docker:
-	{{ if WITH_DOCKER != "no" { "docker compose rm -s -v search" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "just docker-compose rm -s -v search" } else {""} }}
 
 # Rollback previous DB migration (caution: this means DATA LOSS)
 db-rollback:
@@ -417,53 +418,54 @@ dep-clean dep:
 
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 dep-clone-local dep repo:
-	git clone $repo $EXT_PATH$dep 2> /dev/null || (cd $EXT_PATH$dep ; git pull)
-	just dep-go-local dep=$dep
+	git clone {{repo}} {{EXT_PATH}}{{dep}} 2> /dev/null || (cd {{EXT_PATH}}{{dep}} ; git pull)
+	echo "Remember to add this to ./config/deps.flavour.path: {{dep}} = \"{{EXT_PATH}}{{dep}}\""
+# just dep-go-local dep=$dep
 
 # Clone all bonfire deps / extensions
 deps-clone-local-all:
 	curl -s https://api.github.com/orgs/bonfire-networks/repos?per_page=500 | ruby -rrubygems -e 'require "json"; JSON.load(STDIN.read).each { |repo| %x[just dep.clone.local dep="#{repo["name"]}" repo="#{repo["ssh_url"]}" ]}'
 
 # Switch to using a local path, eg: just dep.go.local needle
-dep-go-local dep:
-	just dep-go-local-path $dep $EXT_PATH$dep
+# dep-go-local dep:
+# 	just dep-go-local-path $dep $EXT_PATH$dep
 
 # Switch to using a local path, specifying the path, eg: just dep.go.local dep=needle path=./libs/needle
-dep-go-local-path dep path:
-	just dep-local add $dep $path
-	just dep-local enable $dep $path
+# dep-go-local-path dep path:
+# 	just dep-local add $dep $path
+# 	just dep-local enable $dep $path
 
 # Switch to using a git repo, eg: just dep.go.git needle https://github.com/bonfire-networks/needle (specifying the repo is optional if previously specified)
-dep-go-git dep repo:
-	-just dep-git add $dep $repo
-	just dep-git enable $dep NA
-	just dep-local disable $dep NA
+# dep-go-git dep repo:
+# 	-just dep-git add $dep $repo
+# 	just dep-git enable $dep NA
+# 	just dep-local disable $dep NA
 
 # Switch to using a library from hex.pm, eg: just dep.go.hex dep="needle" version="_> 0.2" (specifying the version is optional if previously specified)
-dep-go-hex dep version:
-	-just dep-hex add dep=$dep version=$version
-	just dep-hex enable $dep NA
-	just dep-git disable $dep NA
-	just dep-local disable $dep NA
+# dep-go-hex dep version:
+# 	-just dep-hex add dep=$dep version=$version
+# 	just dep-hex enable $dep NA
+# 	just dep-git disable $dep NA
+# 	just dep-local disable $dep NA
 
 # add/enable/disable/delete a hex dep with messctl command, eg: `just dep-hex enable needle 0.2`
-dep-hex command dep version:
-	just messctl "$command $dep $version"
-	just mix "deps.clean $dep"
+# dep-hex command dep version:
+# 	just messctl "$command $dep $version"
+# 	just mix "deps.clean $dep"
 
 # add/enable/disable/delete a git dep with messctl command, eg: `just dep-hex enable needle https://github.com/bonfire-networks/needle
-dep-git command dep repo:
-	just messctl "$command $dep $repo config/deps.git"
-	just mix "deps.clean $dep"
+# dep-git command dep repo:
+# 	just messctl "$command $dep $repo config/deps.git"
+# 	just mix "deps.clean $dep"
 
 # add/enable/disable/delete a local dep with messctl command, eg: `just dep-hex enable needle ./libs/needle`
-dep-local command dep path:
-	just messctl "$command $dep $path config/deps.path"
-	just mix "deps.clean $dep"
+# dep-local command dep path:
+# 	just messctl "$command $dep $path config/deps.path"
+# 	just mix "deps.clean $dep"
 
 # Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `just messctl help`)
-messctl *args='': init
-	{{ if WITH_DOCKER == "no" { "messctl $@" } else { "docker compose run web messctl $@" } }}
+# messctl *args='': init
+# 	{{ if WITH_DOCKER == "no" { "messctl $@" } else { "just docker-compose run web messctl $@" } }}
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
@@ -620,11 +622,11 @@ load_testing:
 	TEST_INSTANCE=yes just mix bonfire.load_testing
 
 # dev-test-watch: init ## Run tests
-# 	docker compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
+# 	just docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
 # Create or reset the test DB
 test-db-reset: init db-pre-migrations
-	{{ if WITH_DOCKER == "total" { "docker compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
@@ -748,42 +750,42 @@ rel-push-only-alt build label='latest':
 rel-run services="db proxy": _rel-init docker-stop-web 
 	just rel-services $services
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
 rel-run-bg services="db proxy": _rel-init docker-stop-web
 	just rel-services $services
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
 
 # Stop the running release
 rel-stop:
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE stop
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE stop
 
 rel-update: update-repo-pull
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE pull
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE pull
 	@echo Remember to run migrations on your DB...
 
 rel-logs:
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE logs
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE logs
 
 # Stop the running release
 rel-down: rel-stop
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
 rel-shell services="db proxy": _rel-init docker-stop-web 
 	just rel-services $services
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
 rel-shell-bg services="db proxy": _rel-init 
 	just rel-services $services
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
 rel-db-shell-bg: _rel-init 
 	just rel-services db
-	@docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
+	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
 
 rel-db-dump: _rel-init 
 	just rel-services db
@@ -794,37 +796,34 @@ rel-db-restore: _rel-init
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
 rel-services services="db":
-	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && docker compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d $services" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d $services" } else {""} }}
 
 #### DOCKER-SPECIFIC COMMANDS ####
-
-dc *args='':
-	docker compose $@
 
 # Start background docker services (eg. db and search backends).
 @services services="db":
 	{{ if MIX_ENV == "prod" { "just rel-services $services" } else { "just dev-services $services" } }}
 
 @dev-services services="db":
-	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && docker compose up -d $services) || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just docker-compose up -d $services) || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
 @build: init
 	mkdir -p deps
-	{{ if WITH_DOCKER != "no" { "docker compose pull || echo Oops, could not download the Docker images!" } else { "just mix hex_setup" } }}
-	{{ if WITH_DOCKER == "total" { "export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE=${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION} && docker compose build" } else { "echo ." } }}
+	{{ if WITH_DOCKER != "no" { "just docker-compose pull || echo Oops, could not download the Docker images!" } else { "just mix hex_setup" } }}
+	{{ if WITH_DOCKER == "total" { "just docker-compose build" } else { "echo ." } }}
 
 # Build the docker image
 rebuild: init
-	{{ if WITH_DOCKER != "no" { "mkdir -p deps && docker compose build --no-cache" } else { "echo Skip building container..." } }}
+	{{ if WITH_DOCKER != "no" { "mkdir -p deps && just docker-compose build --no-cache" } else { "echo Skip building container..." } }}
 
 _db-dump docker_compose compose_args="": 
 	-mv data/db_dump.sql data/db_dump.archive.sql
-	docker compose -f {{docker_compose}} {{compose_args}} exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
+	just docker-compose -f {{docker_compose}} {{compose_args}} exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
 @cmd *args='': init docker-stop-web
-	{{ if WITH_DOCKER == "total" { "echo Run $@ in docker && docker compose run --name $WEB_CONTAINER --service-ports web $@" } else {" echo Run $@ && $@"} }}
+	{{ if WITH_DOCKER == "total" { "echo Run $@ in docker && just docker-compose run --name $WEB_CONTAINER --service-ports web $@" } else {" echo Run $@ && $@"} }}
 
 cwd *args:
 	cd {{invocation_directory()}}; $@
@@ -841,10 +840,13 @@ shell:
 	-docker rm $WEB_CONTAINER
 
 @docker *args='':
-	docker $@
+	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && docker $@
 
 @docker-compose *args='':
-	docker compose $@
+	just docker compose $@
+
+@docker-stop:
+	just docker-compose stop
 
 #### MISC COMMANDS ####
 
@@ -870,7 +872,7 @@ shell:
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
 mix-remote *args='': init
 	echo % WITH_FORKS=0 mix $@
-	{{ if WITH_DOCKER == "total" { "docker compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
 
 xref-dot:
 	just mix xref graph --format dot --include-siblings
@@ -995,5 +997,3 @@ with-docker-switch old_dir new_dir:
 	mv data/{{ new_dir }}/_build ./ 
 	mv data/{{ new_dir }}/node_modules assets/
 
-@docker-stop:
-	docker compose stop
