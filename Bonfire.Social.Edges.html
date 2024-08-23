@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.135">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.136">
 
 
-    <title>Bonfire.Social.Edges — Bonfire v0.9.10-classic-beta.135</title>
+    <title>Bonfire.Social.Edges — Bonfire v0.9.10-classic-beta.136</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-085CAE5F.js"></script>
+    <script src="dist/sidebar_items-33B51BF6.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.135
+          v0.9.10-classic-beta.136
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Social.Edges</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.135)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.136)</small>
 
   </h1>
 
@@ -161,7 +161,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Prepares a changeset for the given schema, subject, verb, object, and options.</p></div>
+        <div class="summary-synopsis"><p>Prepares a full changeset for the given schema, subject, verb, object, and options.</p></div>
 
     </div>
 
@@ -171,7 +171,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>TODOC</p></div>
+        <div class="summary-synopsis"><p>Prepares a basic schema, with the schema type as top-level and an Egde assoc</p></div>
 
     </div>
 
@@ -191,7 +191,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>TODOC</p></div>
+        <div class="summary-synopsis"><p>Prepares a changeset with Acls, Activities and FeedActivities</p></div>
 
     </div>
 
@@ -201,7 +201,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p></div>
+        <div class="summary-synopsis"><p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted. Also includes Acls, Activities and FeedActivities.</p></div>
 
     </div>
 
@@ -351,7 +351,7 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#put_edge_assoc/4" data-no-tooltip translate="no">put_edge_assoc(changeset, schema, subject, object)</a>
+        <a href="#put_edge_assoc/4" data-no-tooltip translate="no">put_edge_assoc(changeset, type_of_edge_schema, subject, object)</a>
 
       </div>
 
@@ -409,14 +409,14 @@ Pages
 
   <section class="docstring">
 
-<p>Prepares a changeset for the given schema, subject, verb, object, and options.</p><h2 id="changeset/5-examples" class="section-heading">
+<p>Prepares a full changeset for the given schema, subject, verb, object, and options.</p><h2 id="changeset/5-examples" class="section-heading">
   <a href="#changeset/5-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="5398955951-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5398955951-2">%</span><span class="nc" data-group-id="5398955951-2">User</span><span class="p" data-group-id="5398955951-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5398955951-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5398955951-3">%</span><span class="nc" data-group-id="5398955951-3">Post</span><span class="p" data-group-id="5398955951-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5398955951-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5398955951-4">[</span><span class="p" data-group-id="5398955951-4">]</span><span class="p" data-group-id="5398955951-1">)</span><span class="w">
-</span><span class="p" data-group-id="5398955951-5">%</span><span class="nc" data-group-id="5398955951-5">Ecto.Changeset</span><span class="p" data-group-id="5398955951-5">{</span><span class="p" data-group-id="5398955951-5">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="6115749003-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6115749003-2">%</span><span class="nc" data-group-id="6115749003-2">User</span><span class="p" data-group-id="6115749003-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6115749003-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6115749003-3">%</span><span class="nc" data-group-id="6115749003-3">Post</span><span class="p" data-group-id="6115749003-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6115749003-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6115749003-4">[</span><span class="p" data-group-id="6115749003-4">]</span><span class="p" data-group-id="6115749003-1">)</span><span class="w">
+</span><span class="p" data-group-id="6115749003-5">%</span><span class="nc" data-group-id="6115749003-5">Ecto.Changeset</span><span class="p" data-group-id="6115749003-5">{</span><span class="p" data-group-id="6115749003-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset_base/4">
@@ -428,7 +428,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">changeset_base(schema, subject, object, options)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L153" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L164" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -438,7 +438,7 @@ Pages
 
   <section class="docstring">
 
-<p>TODOC</p>
+<p>Prepares a basic schema, with the schema type as top-level and an Egde assoc</p><p>iex&gt; changeset_base(Like, %User{id: 1}, %Post{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="5285713643-1">%</span><span class="nc" data-group-id="5285713643-1">Ecto.Changeset</span><span class="p" data-group-id="5285713643-1">{</span><span class="p" data-group-id="5285713643-1">}</span></code></pre><p>iex&gt; changeset_base(Follow, %User{id: 1}, %User{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="7683898804-1">%</span><span class="nc" data-group-id="7683898804-1">Ecto.Changeset</span><span class="p" data-group-id="7683898804-1">{</span><span class="p" data-group-id="7683898804-1">}</span></code></pre><p>iex&gt; changeset_base({Request, Follow}, %User{id: 1}, %User{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="9484841708-1">%</span><span class="nc" data-group-id="9484841708-1">Ecto.Changeset</span><span class="p" data-group-id="9484841708-1">{</span><span class="p" data-group-id="9484841708-1">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset_base_with_creator/4">
@@ -466,8 +466,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="4576970168-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4576970168-2">%</span><span class="nc" data-group-id="4576970168-2">User</span><span class="p" data-group-id="4576970168-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4576970168-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4576970168-3">%</span><span class="nc" data-group-id="4576970168-3">Post</span><span class="p" data-group-id="4576970168-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4576970168-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4576970168-4">[</span><span class="p" data-group-id="4576970168-4">]</span><span class="p" data-group-id="4576970168-1">)</span><span class="w">
-</span><span class="p" data-group-id="4576970168-5">%</span><span class="nc" data-group-id="4576970168-5">Ecto.Changeset</span><span class="p" data-group-id="4576970168-5">{</span><span class="p" data-group-id="4576970168-5">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_base_with_creator</span><span class="p" data-group-id="9247485696-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9247485696-2">%</span><span class="nc" data-group-id="9247485696-2">User</span><span class="p" data-group-id="9247485696-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9247485696-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9247485696-3">%</span><span class="nc" data-group-id="9247485696-3">Post</span><span class="p" data-group-id="9247485696-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9247485696-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9247485696-4">[</span><span class="p" data-group-id="9247485696-4">]</span><span class="p" data-group-id="9247485696-1">)</span><span class="w">
+</span><span class="p" data-group-id="9247485696-5">%</span><span class="nc" data-group-id="9247485696-5">Ecto.Changeset</span><span class="p" data-group-id="9247485696-5">{</span><span class="p" data-group-id="9247485696-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset_extra/5">
@@ -489,7 +489,7 @@ Pages
 
   <section class="docstring">
 
-<p>TODOC</p>
+<p>Prepares a changeset with Acls, Activities and FeedActivities</p>
   </section>
 </section>
 <section class="detail" id="changeset_without_caretaker/5">
@@ -511,14 +511,14 @@ Pages
 
   <section class="docstring">
 
-<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p><h2 id="changeset_without_caretaker/5-examples" class="section-heading">
+<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted. Also includes Acls, Activities and FeedActivities.</p><h2 id="changeset_without_caretaker/5-examples" class="section-heading">
   <a href="#changeset_without_caretaker/5-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="4555112879-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4555112879-2">%</span><span class="nc" data-group-id="4555112879-2">User</span><span class="p" data-group-id="4555112879-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4555112879-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4555112879-3">%</span><span class="nc" data-group-id="4555112879-3">Post</span><span class="p" data-group-id="4555112879-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4555112879-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4555112879-4">[</span><span class="p" data-group-id="4555112879-4">]</span><span class="p" data-group-id="4555112879-1">)</span><span class="w">
-</span><span class="p" data-group-id="4555112879-5">%</span><span class="nc" data-group-id="4555112879-5">Ecto.Changeset</span><span class="p" data-group-id="4555112879-5">{</span><span class="p" data-group-id="4555112879-5">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="5537059082-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5537059082-2">%</span><span class="nc" data-group-id="5537059082-2">User</span><span class="p" data-group-id="5537059082-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5537059082-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5537059082-3">%</span><span class="nc" data-group-id="5537059082-3">Post</span><span class="p" data-group-id="5537059082-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5537059082-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5537059082-4">[</span><span class="p" data-group-id="5537059082-4">]</span><span class="p" data-group-id="5537059082-1">)</span><span class="w">
+</span><span class="p" data-group-id="5537059082-5">%</span><span class="nc" data-group-id="5537059082-5">Ecto.Changeset</span><span class="p" data-group-id="5537059082-5">{</span><span class="p" data-group-id="5537059082-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="count/3">
@@ -532,7 +532,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">count(type, filters_or_object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L270" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L287" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -548,7 +548,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count</span><span class="p" data-group-id="8859703315-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8859703315-2">%</span><span class="nc" data-group-id="8859703315-2">Post</span><span class="p" data-group-id="8859703315-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8859703315-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8859703315-3">[</span><span class="p" data-group-id="8859703315-3">]</span><span class="p" data-group-id="8859703315-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count</span><span class="p" data-group-id="8933689342-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8933689342-2">%</span><span class="nc" data-group-id="8933689342-2">Post</span><span class="p" data-group-id="8933689342-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8933689342-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8933689342-3">[</span><span class="p" data-group-id="8933689342-3">]</span><span class="p" data-group-id="8933689342-1">)</span><span class="w">
 </span><span class="mi">42</span></code></pre>
   </section>
 </section>
@@ -561,7 +561,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">count_for_subject(type, subject, object, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L298" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L315" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -577,7 +577,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count_for_subject</span><span class="p" data-group-id="5726150830-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5726150830-2">%</span><span class="nc" data-group-id="5726150830-2">User</span><span class="p" data-group-id="5726150830-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5726150830-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5726150830-3">%</span><span class="nc" data-group-id="5726150830-3">Post</span><span class="p" data-group-id="5726150830-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5726150830-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5726150830-4">[</span><span class="p" data-group-id="5726150830-4">]</span><span class="p" data-group-id="5726150830-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count_for_subject</span><span class="p" data-group-id="6661624671-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6661624671-2">%</span><span class="nc" data-group-id="6661624671-2">User</span><span class="p" data-group-id="6661624671-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6661624671-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6661624671-3">%</span><span class="nc" data-group-id="6661624671-3">Post</span><span class="p" data-group-id="6661624671-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6661624671-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6661624671-4">[</span><span class="p" data-group-id="6661624671-4">]</span><span class="p" data-group-id="6661624671-1">)</span><span class="w">
 </span><span class="mi">42</span></code></pre>
   </section>
 </section>
@@ -590,7 +590,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">delete_by_both(me, schema, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L609" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L626" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -606,7 +606,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_both</span><span class="p" data-group-id="8548747475-1">(</span><span class="p" data-group-id="8548747475-2">%</span><span class="nc" data-group-id="8548747475-2">User</span><span class="p" data-group-id="8548747475-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8548747475-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8548747475-3">%</span><span class="nc" data-group-id="8548747475-3">User</span><span class="p" data-group-id="8548747475-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8548747475-3">}</span><span class="p" data-group-id="8548747475-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_both</span><span class="p" data-group-id="4983292080-1">(</span><span class="p" data-group-id="4983292080-2">%</span><span class="nc" data-group-id="4983292080-2">User</span><span class="p" data-group-id="4983292080-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4983292080-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4983292080-3">%</span><span class="nc" data-group-id="4983292080-3">User</span><span class="p" data-group-id="4983292080-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4983292080-3">}</span><span class="p" data-group-id="4983292080-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -619,7 +619,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">delete_by_object(user)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L595" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L612" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -635,7 +635,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_object</span><span class="p" data-group-id="5883017958-1">(</span><span class="p" data-group-id="5883017958-2">%</span><span class="nc" data-group-id="5883017958-2">User</span><span class="p" data-group-id="5883017958-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5883017958-2">}</span><span class="p" data-group-id="5883017958-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_object</span><span class="p" data-group-id="9437281561-1">(</span><span class="p" data-group-id="9437281561-2">%</span><span class="nc" data-group-id="9437281561-2">User</span><span class="p" data-group-id="9437281561-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9437281561-2">}</span><span class="p" data-group-id="9437281561-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -648,7 +648,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">delete_by_subject(user)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L584" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L601" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -664,7 +664,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_subject</span><span class="p" data-group-id="4933842682-1">(</span><span class="p" data-group-id="4933842682-2">%</span><span class="nc" data-group-id="4933842682-2">User</span><span class="p" data-group-id="4933842682-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4933842682-2">}</span><span class="p" data-group-id="4933842682-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_subject</span><span class="p" data-group-id="2142806269-1">(</span><span class="p" data-group-id="2142806269-2">%</span><span class="nc" data-group-id="2142806269-2">User</span><span class="p" data-group-id="2142806269-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="2142806269-2">}</span><span class="p" data-group-id="2142806269-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -677,7 +677,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">edge_module_query(schema_or_context, args)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L333" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L350" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -699,7 +699,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">exists?(schema_or_context, subject, object, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L256" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L273" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -715,7 +715,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">exists?</span><span class="p" data-group-id="3219167404-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3219167404-2">%</span><span class="nc" data-group-id="3219167404-2">User</span><span class="p" data-group-id="3219167404-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3219167404-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3219167404-3">%</span><span class="nc" data-group-id="3219167404-3">Post</span><span class="p" data-group-id="3219167404-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3219167404-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3219167404-4">[</span><span class="p" data-group-id="3219167404-4">]</span><span class="p" data-group-id="3219167404-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">exists?</span><span class="p" data-group-id="3039048086-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3039048086-2">%</span><span class="nc" data-group-id="3039048086-2">User</span><span class="p" data-group-id="3039048086-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3039048086-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3039048086-3">%</span><span class="nc" data-group-id="3039048086-3">Post</span><span class="p" data-group-id="3039048086-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3039048086-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3039048086-4">[</span><span class="p" data-group-id="3039048086-4">]</span><span class="p" data-group-id="3039048086-1">)</span><span class="w">
 </span><span class="no">true</span></code></pre>
   </section>
 </section>
@@ -728,7 +728,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">filters_from_opts(assigns)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L444" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L461" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -752,7 +752,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">get(schema_or_context, subject, object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L195" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L212" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -768,9 +768,9 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="5693578303-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5693578303-2">%</span><span class="nc" data-group-id="5693578303-2">User</span><span class="p" data-group-id="5693578303-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5693578303-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5693578303-3">%</span><span class="nc" data-group-id="5693578303-3">Post</span><span class="p" data-group-id="5693578303-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5693578303-3">}</span><span class="p" data-group-id="5693578303-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="4612506313-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4612506313-2">%</span><span class="nc" data-group-id="4612506313-2">User</span><span class="p" data-group-id="4612506313-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4612506313-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4612506313-3">%</span><span class="nc" data-group-id="4612506313-3">Post</span><span class="p" data-group-id="4612506313-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4612506313-3">}</span><span class="p" data-group-id="4612506313-1">)</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="5693578303-4">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5693578303-5">[</span><span class="p" data-group-id="5693578303-6">%{</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5693578303-7">%</span><span class="nc" data-group-id="5693578303-7">User</span><span class="p" data-group-id="5693578303-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5693578303-7">}</span><span class="p" data-group-id="5693578303-6">}</span><span class="p" data-group-id="5693578303-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5693578303-8">[</span><span class="p" data-group-id="5693578303-8">]</span><span class="p" data-group-id="5693578303-4">)</span></code></pre>
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="4612506313-4">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4612506313-5">[</span><span class="p" data-group-id="4612506313-6">%{</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4612506313-7">%</span><span class="nc" data-group-id="4612506313-7">User</span><span class="p" data-group-id="4612506313-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4612506313-7">}</span><span class="p" data-group-id="4612506313-6">}</span><span class="p" data-group-id="4612506313-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4612506313-8">[</span><span class="p" data-group-id="4612506313-8">]</span><span class="p" data-group-id="4612506313-4">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get!/4">
@@ -784,7 +784,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">get!(schema_or_context, subject, objects, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L208" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L225" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -826,8 +826,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert</span><span class="p" data-group-id="4110386502-1">(</span><span class="p" data-group-id="4110386502-2">%</span><span class="nc" data-group-id="4110386502-2">Changeset</span><span class="p" data-group-id="4110386502-2">{</span><span class="p" data-group-id="4110386502-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4110386502-3">%</span><span class="nc" data-group-id="4110386502-3">User</span><span class="p" data-group-id="4110386502-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4110386502-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4110386502-4">%</span><span class="nc" data-group-id="4110386502-4">Post</span><span class="p" data-group-id="4110386502-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4110386502-4">}</span><span class="p" data-group-id="4110386502-1">)</span><span class="w">
-</span><span class="p" data-group-id="4110386502-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4110386502-6">%</span><span class="nc" data-group-id="4110386502-6">Edge</span><span class="p" data-group-id="4110386502-6">{</span><span class="p" data-group-id="4110386502-6">}</span><span class="p" data-group-id="4110386502-5">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert</span><span class="p" data-group-id="9726417884-1">(</span><span class="p" data-group-id="9726417884-2">%</span><span class="nc" data-group-id="9726417884-2">Changeset</span><span class="p" data-group-id="9726417884-2">{</span><span class="p" data-group-id="9726417884-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9726417884-3">%</span><span class="nc" data-group-id="9726417884-3">User</span><span class="p" data-group-id="9726417884-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9726417884-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9726417884-4">%</span><span class="nc" data-group-id="9726417884-4">Post</span><span class="p" data-group-id="9726417884-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9726417884-4">}</span><span class="p" data-group-id="9726417884-1">)</span><span class="w">
+</span><span class="p" data-group-id="9726417884-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9726417884-6">%</span><span class="nc" data-group-id="9726417884-6">Edge</span><span class="p" data-group-id="9726417884-6">{</span><span class="p" data-group-id="9726417884-6">}</span><span class="p" data-group-id="9726417884-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="insert/5">
@@ -855,8 +855,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">insert</span><span class="p" data-group-id="4284858768-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4284858768-2">%</span><span class="nc" data-group-id="4284858768-2">User</span><span class="p" data-group-id="4284858768-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4284858768-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4284858768-3">%</span><span class="nc" data-group-id="4284858768-3">Post</span><span class="p" data-group-id="4284858768-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4284858768-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4284858768-4">[</span><span class="p" data-group-id="4284858768-4">]</span><span class="p" data-group-id="4284858768-1">)</span><span class="w">
-</span><span class="p" data-group-id="4284858768-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4284858768-6">%</span><span class="nc" data-group-id="4284858768-6">Edge</span><span class="p" data-group-id="4284858768-6">{</span><span class="p" data-group-id="4284858768-6">}</span><span class="p" data-group-id="4284858768-5">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">insert</span><span class="p" data-group-id="2772303432-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2772303432-2">%</span><span class="nc" data-group-id="2772303432-2">User</span><span class="p" data-group-id="2772303432-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="2772303432-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2772303432-3">%</span><span class="nc" data-group-id="2772303432-3">Post</span><span class="p" data-group-id="2772303432-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="2772303432-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2772303432-4">[</span><span class="p" data-group-id="2772303432-4">]</span><span class="p" data-group-id="2772303432-1">)</span><span class="w">
+</span><span class="p" data-group-id="2772303432-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2772303432-6">%</span><span class="nc" data-group-id="2772303432-6">Edge</span><span class="p" data-group-id="2772303432-6">{</span><span class="p" data-group-id="2772303432-6">}</span><span class="p" data-group-id="2772303432-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="last/4">
@@ -868,7 +868,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">last(schema_or_context, subject, object, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L229" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L246" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -884,7 +884,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">last</span><span class="p" data-group-id="9963367991-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9963367991-2">%</span><span class="nc" data-group-id="9963367991-2">User</span><span class="p" data-group-id="9963367991-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9963367991-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9963367991-3">%</span><span class="nc" data-group-id="9963367991-3">Post</span><span class="p" data-group-id="9963367991-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9963367991-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9963367991-4">[</span><span class="p" data-group-id="9963367991-4">]</span><span class="p" data-group-id="9963367991-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">last</span><span class="p" data-group-id="4910912830-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4910912830-2">%</span><span class="nc" data-group-id="4910912830-2">User</span><span class="p" data-group-id="4910912830-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4910912830-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4910912830-3">%</span><span class="nc" data-group-id="4910912830-3">Post</span><span class="p" data-group-id="4910912830-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4910912830-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4910912830-4">[</span><span class="p" data-group-id="4910912830-4">]</span><span class="p" data-group-id="4910912830-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="last_date/4">
@@ -896,7 +896,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">last_date(type, subject, object, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L243" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L260" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -912,7 +912,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">last_date</span><span class="p" data-group-id="5540473232-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5540473232-2">%</span><span class="nc" data-group-id="5540473232-2">User</span><span class="p" data-group-id="5540473232-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5540473232-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5540473232-3">%</span><span class="nc" data-group-id="5540473232-3">Post</span><span class="p" data-group-id="5540473232-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5540473232-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5540473232-4">[</span><span class="p" data-group-id="5540473232-4">]</span><span class="p" data-group-id="5540473232-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">last_date</span><span class="p" data-group-id="1157324277-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1157324277-2">%</span><span class="nc" data-group-id="1157324277-2">User</span><span class="p" data-group-id="1157324277-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1157324277-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1157324277-3">%</span><span class="nc" data-group-id="1157324277-3">Post</span><span class="p" data-group-id="1157324277-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1157324277-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1157324277-4">[</span><span class="p" data-group-id="1157324277-4">]</span><span class="p" data-group-id="1157324277-1">)</span><span class="w">
 </span><span class="ld">~N[2023-07-25 12:34:56]</span></code></pre>
   </section>
 </section>
@@ -925,7 +925,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">put_edge_assoc(changeset, subject, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L161" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L172" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -945,9 +945,9 @@ Pages
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">put_edge_assoc(changeset, schema, subject, object)</h1>
+    <h1 class="signature" translate="no">put_edge_assoc(changeset, type_of_edge_schema, subject, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L164" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L175" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -969,7 +969,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">query(filters, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L342" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L359" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -991,7 +991,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">query_parent(query_schema, filters, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L349" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L366" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
