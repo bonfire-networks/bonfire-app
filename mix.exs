@@ -82,7 +82,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
                   {:observer_cli, "~> 1.7", only: [:dev, :test]},
 
-                  # for extension install + mix tasks that do patching 
+                  # for extension install + mix tasks that do patching
                   {
                     :igniter,
                     "~> 0.3.20",
@@ -196,7 +196,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.135",
+    version: "0.9.10-beta.136",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: @flavour,
     default_flavour: @default_flavour,
