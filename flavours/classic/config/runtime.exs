@@ -104,6 +104,11 @@ config :bonfire,
 phx_server = System.get_env("PHX_SERVER")
 use_cowboy? = System.get_env("PLUG_SERVER") != "bandit"
 
+if System.get_env("DISABLE_LOG") == "yes" do
+  # to suppress non-captured logs in tests (eg. in setup_all)
+  config :logger, backends: []
+end
+
 config :bonfire, Bonfire.Web.Endpoint,
   server:
     phx_server not in no? and

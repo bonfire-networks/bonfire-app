@@ -153,11 +153,6 @@ config :logger, :console,
   # Do not include metadata or timestamps
   format: "[$level] $message\n"
 
-if System.get_env("DISABLE_LOG") == "yes" do
-  # to suppress non-captured logs in tests (eg. in setup_all)
-  config :logger, backends: []
-end
-
 config :phoenix, :stacktrace_depth, 60
 
 config :phoenix, :plug_init_mode, :runtime
