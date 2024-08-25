@@ -23,6 +23,8 @@ config :bonfire_search,
 
 ## Other general test config
 
+log_level = String.to_existing_atom(System.get_env("TEST_LOG_LEVEL", "info"))
+
 truncate =
   case System.get_env("TEST_LOG_TRUNCATE", "2000") do
     "0" -> :infinity
@@ -30,8 +32,11 @@ truncate =
   end
 
 config :logger,
-  level: String.to_existing_atom(System.get_env("TEST_LOG_LEVEL", "info")),
+  level: log_level,
   truncate: truncate
+
+config :surface,
+  log_level: log_level
 
 config :logger, :console, truncate: truncate
 

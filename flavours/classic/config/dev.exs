@@ -133,18 +133,30 @@ end
 
 config :bonfire, Bonfire.Web.Endpoint, phoenix_profiler: [server: Bonfire.Web.Profiler]
 
-config :surface,
-  log_level: :debug
+log_level = String.to_existing_atom(System.get_env("DEV_LOG_LEVEL", "debug"))
+
+truncate =
+  case System.get_env("DEV_LOG_TRUNCATE", "2000") do
+    "0" -> :infinity
+    truncate -> String.to_integer(truncate)
+  end
 
 config :logger,
-  level: :debug,
-  # level: :info,
-  # level: :warning,
-  truncate: :infinity
+  level: log_level,
+  truncate: truncate
+
+config :surface,
+  log_level: log_level
 
 config :logger, :console,
+  truncate: truncate,
   # Do not include metadata or timestamps
   format: "[$level] $message\n"
+
+if System.get_env("DISABLE_LOG") == "yes" do
+  # to suppress non-captured logs in tests (eg. in setup_all)
+  config :logger, backends: []
+end
 
 config :phoenix, :stacktrace_depth, 60
 
