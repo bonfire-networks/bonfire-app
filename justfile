@@ -504,7 +504,7 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 
 contrib-forks-publish: update-forks
 
-contrib-rel-push: contrib-release rel-build-release rel-push
+contrib-rel-push: contrib-release rel-build-locked rel-push
 
 # Count lines of code (requires cloc: `brew install cloc`)
 cloc:
@@ -657,7 +657,7 @@ rel-rebuild:
 	just rel-build {{EXT_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
-rel-build-release ARGS="":
+rel-build-locked ARGS="":
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build remote {{ ARGS }}
 

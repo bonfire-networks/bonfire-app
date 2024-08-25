@@ -89,7 +89,7 @@ Building your own Docker image is useful if you want to make code changes or add
 
 There is a `justfile` with relevant commands (make sure set the `MIX_ENV=prod` env variable):
 
-- `just rel-build-release` which builds the docker image of the latest release
+- `just rel-build-locked` which builds the docker image of the latest release
 - `just rel-build` which builds the docker image, including local changes to any cloned extensions in `./extensions/` 
 - `just rel-tag` adds the "latest" tag to your last build, so that it will be used when running
 
