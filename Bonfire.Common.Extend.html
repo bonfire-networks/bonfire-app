@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.136">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.137">
 
 
-    <title>Bonfire.Common.Extend — Bonfire v0.9.10-classic-beta.136</title>
+    <title>Bonfire.Common.Extend — Bonfire v0.9.10-classic-beta.137</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-33B51BF6.js"></script>
+    <script src="dist/sidebar_items-039A0767.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.136
+          v0.9.10-classic-beta.137
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Common.Extend</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.136)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.137)</small>
 
   </h1>
 
@@ -161,6 +161,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves the OTP application associated with a given module.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -178,6 +180,8 @@ Pages
         <a href="#disabled_value?/1" data-no-tooltip translate="no">disabled_value?(value)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Checks if a value indicates that a module or extension is disabled.</p></div>
 
     </div>
 
@@ -197,7 +201,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Checks if an Elixir module or extension/OTP app is present and not part of a disabled Bonfire extension.</p></div>
+        <div class="summary-synopsis"><p>Checks if an Elixir module or extension/OTP app is present and not disabled.</p></div>
 
     </div>
 
@@ -247,6 +251,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Retrieves the AST of a specific function from a module.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -285,6 +291,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Generates an updated reverse router based on enabled/disabled extensions.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -293,7 +301,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Whether an Elixir module or extension / OTP app has configuration keys set up</p></div>
+        <div class="summary-synopsis"><p>Checks whether an Elixir module or extension / OTP app has any configuration available.</p></div>
 
     </div>
 
@@ -302,6 +310,8 @@ Pages
         <a href="#import_if_enabled/2" data-no-tooltip translate="no">import_if_enabled(module, fallback_module \\ nil)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Conditionally imports a module if it's enabled, with an optional fallback.</p></div>
 
     </div>
 
@@ -317,9 +327,21 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#loaded_applications/0" data-no-tooltip translate="no">loaded_applications()</a>
+        <a href="#loaded_applications_map/1" data-no-tooltip translate="no">loaded_applications_map(opts \\ [cache: false])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns a map of loaded applications with their versions and descriptions.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#loaded_applications_names/1" data-no-tooltip translate="no">loaded_applications_names(opts \\ [cache: false])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a map of loaded applications names as keys.</p></div>
 
     </div>
 
@@ -329,6 +351,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Inspects a macro by expanding it and converting it to a string.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -336,6 +360,8 @@ Pages
         <a href="#maybe_extension_loaded/1" data-no-tooltip translate="no">maybe_extension_loaded(module_or_otp_app)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns the OTP app name for a module or extension.</p></div>
 
     </div>
 
@@ -345,6 +371,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Returns the OTP app name for a module or extension if available, and nil otherwise.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -353,7 +381,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Given an Elixir module, returns the module if it is present and not disabled, or its replacement if configured.</p></div>
+        <div class="summary-synopsis"><p>Given an Elixir module, returns the module if available and not disabled, or its replacement if configured.</p></div>
 
     </div>
 
@@ -373,6 +401,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Checks if a module exists and returns it, otherwise returns nil.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -380,6 +410,8 @@ Pages
         <a href="#maybe_schema_or_pointer/1" data-no-tooltip translate="no">maybe_schema_or_pointer(schema_module)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns the given schema module if it exists, otherwise returns <a href="./Needle.Pointer.html"><code class="inline">Needle.Pointer</code></a>.</p></div>
 
     </div>
 
@@ -409,6 +441,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Checks if a module implements a specific behaviour.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -416,6 +450,8 @@ Pages
         <a href="#module_behaviours/1" data-no-tooltip translate="no">module_behaviours(module)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Returns a list of behaviours implemented by a module.</p></div>
 
     </div>
 
@@ -455,7 +491,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Whether an Elixir module or extension/OTP app is present and not disabled.</p></div>
+        <div class="summary-synopsis"><p>Checks if an Elixir module or the extension/OTP app it belongs to is present and not disabled. </p></div>
 
     </div>
 
@@ -465,7 +501,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Checks if an Elixir module exists.</p></div>
+        <div class="summary-synopsis"><p>Checks if an Elixir module exists and can be loaded.</p></div>
 
     </div>
 
@@ -549,6 +585,8 @@ Pages
 
       </div>
 
+        <div class="summary-synopsis"><p>Conditionally requires a module if it's enabled, with an optional fallback.</p></div>
+
     </div>
 
     <div class="summary-row">
@@ -557,15 +595,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Returns the text given raw data.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#split_lines/1" data-no-tooltip translate="no">split_lines(string)</a>
-
-      </div>
+        <div class="summary-synopsis"><p>Returns a string given raw code data.</p></div>
 
     </div>
 
@@ -584,6 +614,8 @@ Pages
         <a href="#use_if_enabled/2" data-no-tooltip translate="no">use_if_enabled(module, fallback_module \\ nil)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Conditionally uses a module if it's enabled, with an optional fallback.</p></div>
 
     </div>
 
@@ -619,7 +651,17 @@ Pages
 
   <section class="docstring">
 
+<p>Retrieves the OTP application associated with a given module.</p><h2 id="application_for_module/1-examples" class="section-heading">
+  <a href="#application_for_module/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">application_for_module</span><span class="p" data-group-id="5226756043-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="5226756043-1">)</span><span class="w">
+</span><span class="ss">:bonfire_common</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="n">application_for_module</span><span class="p" data-group-id="5226756043-2">(</span><span class="nc">SomeUnknownModule</span><span class="p" data-group-id="5226756043-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
   </section>
 </section>
 <section class="detail" id="beam_file_from_object_code/1">
@@ -631,7 +673,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">beam_file_from_object_code(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L758" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L942" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -647,7 +689,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">beam_file_from_object_code</span><span class="p" data-group-id="7280348217-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="7280348217-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">beam_file_from_object_code</span><span class="p" data-group-id="6191305888-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="6191305888-1">)</span><span class="w">
 </span><span class="s">&quot;/path/ebin/Elixir.Bonfire.Common.beam&quot;</span></code></pre>
   </section>
 </section>
@@ -660,7 +702,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">disabled_value?(value)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L276" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L301" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -670,7 +712,20 @@ Pages
 
   <section class="docstring">
 
+<p>Checks if a value indicates that a module or extension is disabled.</p><h2 id="disabled_value?/1-examples" class="section-heading">
+  <a href="#disabled_value?/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">disabled_value?</span><span class="p" data-group-id="5257582759-1">(</span><span class="ss">:disabled</span><span class="p" data-group-id="5257582759-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="n">disabled_value?</span><span class="p" data-group-id="5257582759-2">(</span><span class="no">false</span><span class="p" data-group-id="5257582759-2">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">disabled_value?</span><span class="p" data-group-id="5257582759-3">(</span><span class="ss">disabled</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="5257582759-3">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
   </section>
 </section>
 <section class="detail" id="extend_module/1">
@@ -682,7 +737,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">extend_module(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L20" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L24" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -715,7 +770,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">extension_enabled?(module_or_otp_app, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L234" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L245" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -725,16 +780,22 @@ Pages
 
   <section class="docstring">
 
-<p>Checks if an Elixir module or extension/OTP app is present and not part of a disabled Bonfire extension.</p><h2 id="extension_enabled?/2-examples" class="section-heading">
+<p>Checks if an Elixir module or extension/OTP app is present and not disabled.</p><p>For modules, checks also that the extension/OTP app it belongs is not disabled.</p><h2 id="extension_enabled?/2-examples" class="section-heading">
   <a href="#extension_enabled?/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="7778733654-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="7778733654-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="1020983032-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="1020983032-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="7778733654-2">(</span><span class="ss">:non_existent_extension</span><span class="p" data-group-id="7778733654-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="1020983032-2">(</span><span class="ss">:bonfire_common</span><span class="p" data-group-id="1020983032-2">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="1020983032-3">(</span><span class="nc">SomeOtherModule</span><span class="p" data-group-id="1020983032-3">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="1020983032-4">(</span><span class="ss">:non_existent_extension</span><span class="p" data-group-id="1020983032-4">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -747,7 +808,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">extension_loaded?(module_or_otp_app)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L294" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L319" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -769,7 +830,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">fetch_docs_as_markdown(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L973" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1178" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -791,7 +852,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">fetch_docs_as_markdown</span><span class="p" data-group-id="6527799707-1">(</span><span class="nc">SomeModule</span><span class="p" data-group-id="6527799707-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">fetch_docs_as_markdown</span><span class="p" data-group-id="8677421527-1">(</span><span class="nc">SomeModule</span><span class="p" data-group-id="8677421527-1">)</span><span class="w">
 </span><span class="s">&quot;This is the moduledoc for SomeModule&quot;</span></code></pre>
   </section>
 </section>
@@ -804,7 +865,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">fetch_docs_as_markdown(module, function)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L988" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1193" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -832,7 +893,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">file_code(code_file)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L608" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L792" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -848,7 +909,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">file_code</span><span class="p" data-group-id="5808684557-1">(</span><span class="s">&quot;mix.ex&quot;</span><span class="p" data-group-id="5808684557-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">file_code</span><span class="p" data-group-id="9827615312-1">(</span><span class="s">&quot;mix.ex&quot;</span><span class="p" data-group-id="9827615312-1">)</span><span class="w">
 </span><span class="s">&quot;defmodule ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -863,7 +924,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">function_ast(module, fun, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L893" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1092" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -873,7 +934,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Retrieves the AST of a specific function from a module.</p><h2 id="function_ast/3-examples" class="section-heading">
+  <a href="#function_ast/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">function_ast</span><span class="p" data-group-id="5678605712-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_function</span><span class="p" data-group-id="5678605712-1">)</span><span class="w">
+</span><span class="p" data-group-id="5678605712-2">[</span><span class="p" data-group-id="5678605712-3">{</span><span class="ss">:def</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5678605712-4">[</span><span class="n">...</span><span class="p" data-group-id="5678605712-4">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5678605712-5">[</span><span class="n">...</span><span class="p" data-group-id="5678605712-5">]</span><span class="p" data-group-id="5678605712-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5678605712-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="function_code/3">
@@ -887,7 +955,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">function_code(module, fun, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L802" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L986" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -903,7 +971,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">function_code</span><span class="p" data-group-id="8504869626-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_function</span><span class="p" data-group-id="8504869626-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">function_code</span><span class="p" data-group-id="3459038109-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_function</span><span class="p" data-group-id="3459038109-1">)</span><span class="w">
 </span><span class="s">&quot;def some_function do ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -918,7 +986,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">function_line_number(module, fun, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L865" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1056" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -934,7 +1002,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">function_line_number</span><span class="p" data-group-id="0565310101-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_function</span><span class="p" data-group-id="0565310101-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">function_line_number</span><span class="p" data-group-id="8846854848-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_function</span><span class="p" data-group-id="8846854848-1">)</span><span class="w">
 </span><span class="mi">10</span></code></pre>
   </section>
 </section>
@@ -949,7 +1017,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">function_line_numbers(module, fun, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L813" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1004" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -959,7 +1027,14 @@ Pages
 
   <section class="docstring">
 
-<p>Return the numbers (as a tuple) of the first and last lines of a function's definition in a module</p>
+<p>Return the numbers (as a tuple) of the first and last lines of a function's definition in a module</p><h2 id="function_line_numbers/3-examples" class="section-heading">
+  <a href="#function_line_numbers/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">function_line_numbers</span><span class="p" data-group-id="5799302567-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_function</span><span class="p" data-group-id="5799302567-1">)</span><span class="w">
+</span><span class="p" data-group-id="5799302567-2">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="5799302567-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="generate_reverse_router!/0">
@@ -971,7 +1046,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">generate_reverse_router!()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L487" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L655" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -981,7 +1056,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Generates an updated reverse router based on enabled/disabled extensions.</p><h2 id="generate_reverse_router!/0-examples" class="section-heading">
+  <a href="#generate_reverse_router!/0-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">generate_reverse_router!</span><span class="p" data-group-id="9895155720-1">(</span><span class="p" data-group-id="9895155720-1">)</span><span class="w">
+</span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
 <section class="detail" id="has_extension_config?/1">
@@ -993,7 +1075,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">has_extension_config?(module_or_otp_app)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L378" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L484" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1003,7 +1085,7 @@ Pages
 
   <section class="docstring">
 
-<p>Whether an Elixir module or extension / OTP app has configuration keys set up</p>
+<p>Checks whether an Elixir module or extension / OTP app has any configuration available.</p>
   </section>
 </section>
 <section class="detail" id="import_if_enabled/2">
@@ -1017,7 +1099,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">import_if_enabled(module, fallback_module \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L427" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L577" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1029,7 +1111,17 @@ Pages
 
   <section class="docstring">
 
-
+<p>Conditionally imports a module if it's enabled, with an optional fallback.</p><h2 id="import_if_enabled/2-examples" class="section-heading">
+  <a href="#import_if_enabled/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyModule</span><span class="w"> </span><span class="k" data-group-id="5686821548-1">do</span><span class="w">
+  </span><span class="n">import_if_enabled</span><span class="w"> </span><span class="nc">SomeExtension</span><span class="w">
+  </span><span class="c1"># or</span><span class="w">
+  </span><span class="n">import_if_enabled</span><span class="w"> </span><span class="nc">SomeExtension</span><span class="p">,</span><span class="w"> </span><span class="nc">FallbackModule</span><span class="w">
+</span><span class="k" data-group-id="5686821548-1">end</span></code></pre>
   </section>
 </section>
 <section class="detail" id="inject_function/3">
@@ -1043,7 +1135,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">inject_function(module, fun, target_module \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L924" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1123" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1059,19 +1151,21 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">inject_function</span><span class="p" data-group-id="3474793029-1">(</span><span class="nc">Common.TextExtended</span><span class="p">,</span><span class="w"> </span><span class="ss">:blank?</span><span class="p" data-group-id="3474793029-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">inject_function</span><span class="p" data-group-id="3004876345-1">(</span><span class="nc">Common.TextExtended</span><span class="p">,</span><span class="w"> </span><span class="ss">:blank?</span><span class="p" data-group-id="3004876345-1">)</span></code></pre>
   </section>
 </section>
-<section class="detail" id="loaded_applications/0">
+<section class="detail" id="loaded_applications_map/1">
+
+    <span id="loaded_applications_map/0"></span>
 
   <div class="detail-header">
-    <a href="#loaded_applications/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#loaded_applications_map/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">loaded_applications()</h1>
+    <h1 class="signature" translate="no">loaded_applications_map(opts \\ [cache: false])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L414" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1081,7 +1175,43 @@ Pages
 
   <section class="docstring">
 
+<p>Returns a map of loaded applications with their versions and descriptions.</p><h2 id="loaded_applications_map/1-examples" class="section-heading">
+  <a href="#loaded_applications_map/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6266640319-1">%{</span><span class="ss">bonfire_common</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6266640319-2">{</span><span class="s">&quot;0.1.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Common utilities for Bonfire&quot;</span><span class="p" data-group-id="6266640319-2">}</span><span class="w"> </span><span class="p" data-group-id="6266640319-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loaded_applications_map</span><span class="p" data-group-id="6266640319-3">(</span><span class="p" data-group-id="6266640319-3">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="loaded_applications_names/1">
 
+    <span id="loaded_applications_names/0"></span>
+
+  <div class="detail-header">
+    <a href="#loaded_applications_names/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">loaded_applications_names(opts \\ [cache: false])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L400" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a map of loaded applications names as keys.</p><h2 id="loaded_applications_names/1-examples" class="section-heading">
+  <a href="#loaded_applications_names/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7102866055-1">%{</span><span class="ss">bonfire_common</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="7102866055-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loaded_applications_map</span><span class="p" data-group-id="7102866055-2">(</span><span class="p" data-group-id="7102866055-2">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="macro_inspect/1">
@@ -1093,7 +1223,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">macro_inspect(fun)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L957" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L1164" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1103,7 +1233,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Inspects a macro by expanding it and converting it to a string.</p><h2 id="macro_inspect/1-examples" class="section-heading">
+  <a href="#macro_inspect/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">macro_inspect</span><span class="p" data-group-id="2740396078-1">(</span><span class="k" data-group-id="2740396078-2">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">quote</span><span class="w"> </span><span class="ss">do</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k" data-group-id="2740396078-2">end</span><span class="p" data-group-id="2740396078-1">)</span><span class="w">
+</span><span class="s">&quot;1 + 1&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_extension_loaded/1">
@@ -1115,7 +1252,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_extension_loaded(module_or_otp_app)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L300" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L339" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1125,7 +1262,20 @@ Pages
 
   <section class="docstring">
 
+<p>Returns the OTP app name for a module or extension.</p><h2 id="maybe_extension_loaded/1-examples" class="section-heading">
+  <a href="#maybe_extension_loaded/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_extension_loaded</span><span class="p" data-group-id="5133828482-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="5133828482-1">)</span><span class="w">
+</span><span class="ss">:bonfire_common</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_extension_loaded</span><span class="p" data-group-id="5133828482-2">(</span><span class="ss">:bonfire_common</span><span class="p" data-group-id="5133828482-2">)</span><span class="w">
+</span><span class="ss">:bonfire_common</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_extension_loaded</span><span class="p" data-group-id="5133828482-3">(</span><span class="ss">:non_existent_app</span><span class="p" data-group-id="5133828482-3">)</span><span class="w">
+</span><span class="ss">:non_existent_app</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_extension_loaded!/1">
@@ -1147,7 +1297,17 @@ Pages
 
   <section class="docstring">
 
+<p>Returns the OTP app name for a module or extension if available, and nil otherwise.</p><h2 id="maybe_extension_loaded!/1-examples" class="section-heading">
+  <a href="#maybe_extension_loaded!/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_extension_loaded!</span><span class="p" data-group-id="9476575322-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="9476575322-1">)</span><span class="w">
+</span><span class="ss">:bonfire_common</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_extension_loaded!</span><span class="p" data-group-id="9476575322-2">(</span><span class="ss">:non_existent_app</span><span class="p" data-group-id="9476575322-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_module/2">
@@ -1161,7 +1321,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_module(module, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L122" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L125" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1171,24 +1331,24 @@ Pages
 
   <section class="docstring">
 
-<p>Given an Elixir module, returns the module if it is present and not disabled, or its replacement if configured.</p><h2 id="maybe_module/2-examples" class="section-heading">
+<p>Given an Elixir module, returns the module if available and not disabled, or its replacement if configured.</p><p>Checks both that module and the extension / OTP app it belongs to are available <em>and</em> not disabled (eg. by configuring something like <code class="inline">config :bonfire_common, Bonfire.Common.Text, modularity: :disabled</code>)</p><p>Important note: you should make sure to use the returned module after calling this function, as it can be different from the one you intended to call, as this allows for swapping out modules in config or user settings (eg. by configuring something like <code class="inline">config :bonfire_common, Bonfire.Common.Text, modularity: MyCustomExtension.Text</code>) </p><h2 id="maybe_module/2-examples" class="section-heading">
   <a href="#maybe_module/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="2042059362-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="2042059362-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="4860056036-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="4860056036-1">)</span><span class="w">
 </span><span class="nc">Bonfire.Common</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Config</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="2042059362-2">(</span><span class="nc">DisabledModule</span><span class="p">,</span><span class="w"> </span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="ss">:disabled</span><span class="p" data-group-id="2042059362-2">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="2042059362-3">(</span><span class="nc">DisabledModule</span><span class="p" data-group-id="2042059362-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Config</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="4860056036-2">(</span><span class="nc">DisabledModule</span><span class="p">,</span><span class="w"> </span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="ss">:disabled</span><span class="p" data-group-id="4860056036-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="4860056036-3">(</span><span class="nc">DisabledModule</span><span class="p" data-group-id="4860056036-3">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Config</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="2042059362-4">(</span><span class="p" data-group-id="2042059362-5">[</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="2042059362-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="nc">Bonfire.Common.TextExtended</span><span class="p" data-group-id="2042059362-4">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="2042059362-6">(</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="2042059362-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Config</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="4860056036-4">(</span><span class="p" data-group-id="4860056036-5">[</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="4860056036-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="nc">Bonfire.Common.TextExtended</span><span class="p" data-group-id="4860056036-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="4860056036-6">(</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="4860056036-6">)</span><span class="w">
 </span><span class="nc">Bonfire.Common.TextExtended</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Config</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="2042059362-7">(</span><span class="p" data-group-id="2042059362-8">[</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="2042059362-8">]</span><span class="p">,</span><span class="w"> </span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="2042059362-7">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="2042059362-9">(</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="2042059362-9">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Config</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="4860056036-7">(</span><span class="p" data-group-id="4860056036-8">[</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="4860056036-8">]</span><span class="p">,</span><span class="w"> </span><span class="ss">modularity</span><span class="p">:</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="4860056036-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module</span><span class="p" data-group-id="4860056036-9">(</span><span class="nc">Bonfire.Common.Text</span><span class="p" data-group-id="4860056036-9">)</span><span class="w">
 </span><span class="nc">Bonfire.Common.Text</span></code></pre>
   </section>
 </section>
@@ -1203,7 +1363,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_module!(module, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L181" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L184" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1219,10 +1379,10 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module!</span><span class="p" data-group-id="2906786583-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="2906786583-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module!</span><span class="p" data-group-id="7679845018-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="7679845018-1">)</span><span class="w">
 </span><span class="nc">Bonfire.Common</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module!</span><span class="p" data-group-id="2906786583-2">(</span><span class="nc">SomeDisabledModule</span><span class="p" data-group-id="2906786583-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module!</span><span class="p" data-group-id="7679845018-2">(</span><span class="nc">SomeDisabledModule</span><span class="p" data-group-id="7679845018-2">)</span><span class="w">
 </span><span class="gt">** (RuntimeError) Module Elixir.SomeDisabledModule is disabled and no replacement was configured</span></code></pre>
   </section>
 </section>
@@ -1235,7 +1395,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_module_loaded(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L385" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L502" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1245,7 +1405,17 @@ Pages
 
   <section class="docstring">
 
+<p>Checks if a module exists and returns it, otherwise returns nil.</p><h2 id="maybe_module_loaded/1-examples" class="section-heading">
+  <a href="#maybe_module_loaded/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module_loaded</span><span class="p" data-group-id="9937517297-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="9937517297-1">)</span><span class="w">
+</span><span class="nc">Bonfire.Common</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_module_loaded</span><span class="p" data-group-id="9937517297-2">(</span><span class="nc">NonExistentModule</span><span class="p" data-group-id="9937517297-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_schema_or_pointer/1">
@@ -1257,7 +1427,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_schema_or_pointer(schema_module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L389" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L517" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1267,7 +1437,17 @@ Pages
 
   <section class="docstring">
 
+<p>Returns the given schema module if it exists, otherwise returns <a href="./Needle.Pointer.html"><code class="inline">Needle.Pointer</code></a>.</p><h2 id="maybe_schema_or_pointer/1-examples" class="section-heading">
+  <a href="#maybe_schema_or_pointer/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_schema_or_pointer</span><span class="p" data-group-id="1943114101-1">(</span><span class="nc">SomeSchema</span><span class="p" data-group-id="1943114101-1">)</span><span class="w">
+</span><span class="nc">SomeSchema</span><span class="w">
 
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_schema_or_pointer</span><span class="p" data-group-id="1943114101-2">(</span><span class="nc">NonExistentSchema</span><span class="p" data-group-id="1943114101-2">)</span><span class="w">
+</span><span class="nc">Needle.Pointer</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_ast_normalize/3">
@@ -1281,7 +1461,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_ast_normalize(module, ast, target \\ :ast)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L723" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L907" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1297,7 +1477,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_ast_normalize</span><span class="p" data-group-id="2276679518-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p" data-group-id="2276679518-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_ast_normalize</span><span class="p" data-group-id="8894790519-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p" data-group-id="8894790519-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_beam_code/2">
@@ -1311,7 +1491,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_beam_code(module, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L664" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L848" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1327,7 +1507,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6730018333-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="6730018333-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module_beam_code</span><span class="p" data-group-id="6730018333-2">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="6730018333-2">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3346432922-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="3346432922-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module_beam_code</span><span class="p" data-group-id="3346432922-2">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="3346432922-2">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_behaviour?/2">
@@ -1339,7 +1519,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_behaviour?(module, behaviour)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L492" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L668" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1349,7 +1529,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Checks if a module implements a specific behaviour.</p><h2 id="module_behaviour?/2-examples" class="section-heading">
+  <a href="#module_behaviour?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_behaviour?</span><span class="p" data-group-id="1259364763-1">(</span><span class="nc">MyModule</span><span class="p">,</span><span class="w"> </span><span class="nc">SomeBehaviour</span><span class="p" data-group-id="1259364763-1">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_behaviours/1">
@@ -1361,7 +1548,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_behaviours(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L496" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L680" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1371,7 +1558,14 @@ Pages
 
   <section class="docstring">
 
-
+<p>Returns a list of behaviours implemented by a module.</p><h2 id="module_behaviours/1-examples" class="section-heading">
+  <a href="#module_behaviours/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_behaviours</span><span class="p" data-group-id="8370941656-1">(</span><span class="nc">MyModule</span><span class="p" data-group-id="8370941656-1">)</span><span class="w">
+</span><span class="p" data-group-id="8370941656-2">[</span><span class="nc">SomeBehaviour</span><span class="p">,</span><span class="w"> </span><span class="nc">AnotherBehaviour</span><span class="p" data-group-id="8370941656-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_code/2">
@@ -1385,7 +1579,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_code(module, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L651" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L835" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1401,7 +1595,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_code</span><span class="p" data-group-id="2338562725-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="2338562725-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_code</span><span class="p" data-group-id="4936494071-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="4936494071-1">)</span><span class="w">
 </span><span class="s">&quot;defmodule Bonfire.Common do ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -1416,7 +1610,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_code_from_ast(module, ast, target \\ :ast)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L711" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L895" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1432,7 +1626,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_code_from_ast</span><span class="p" data-group-id="8369890313-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p" data-group-id="8369890313-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_code_from_ast</span><span class="p" data-group-id="1475245178-1">(</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="n">ast</span><span class="p" data-group-id="1475245178-1">)</span><span class="w">
 </span><span class="s">&quot;defmodule Bonfire.Common do ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -1445,7 +1639,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_code_from_object_code(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L686" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L870" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1461,7 +1655,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_code_from_object_code</span><span class="p" data-group-id="8752759503-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="8752759503-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_code_from_object_code</span><span class="p" data-group-id="7015191960-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="7015191960-1">)</span><span class="w">
 </span><span class="s">&quot;defmodule Bonfire.Common do ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -1476,7 +1670,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_enabled?(module, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L199" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L202" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1486,16 +1680,16 @@ Pages
 
   <section class="docstring">
 
-<p>Whether an Elixir module or extension/OTP app is present and not disabled.</p><h2 id="module_enabled?/2-examples" class="section-heading">
+<p>Checks if an Elixir module or the extension/OTP app it belongs to is present and not disabled. </p><h2 id="module_enabled?/2-examples" class="section-heading">
   <a href="#module_enabled?/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">module_enabled?</span><span class="p" data-group-id="4104200460-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="4104200460-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">module_enabled?</span><span class="p" data-group-id="7420446504-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="7420446504-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">module_enabled?</span><span class="p" data-group-id="4104200460-2">(</span><span class="nc">SomeDisabledModule</span><span class="p" data-group-id="4104200460-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">module_enabled?</span><span class="p" data-group-id="7420446504-2">(</span><span class="nc">SomeDisabledModule</span><span class="p" data-group-id="7420446504-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -1518,16 +1712,16 @@ Pages
 
   <section class="docstring">
 
-<p>Checks if an Elixir module exists.</p><h2 id="module_exists?/1-examples" class="section-heading">
+<p>Checks if an Elixir module exists and can be loaded.</p><h2 id="module_exists?/1-examples" class="section-heading">
   <a href="#module_exists?/1-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="8079770264-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="8079770264-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">module_exists?</span><span class="p" data-group-id="4905000827-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="4905000827-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">extension_enabled?</span><span class="p" data-group-id="8079770264-2">(</span><span class="nc">SomeOtherModule</span><span class="p" data-group-id="8079770264-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">module_exists?</span><span class="p" data-group-id="4905000827-2">(</span><span class="nc">SomeOtherModule</span><span class="p" data-group-id="4905000827-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -1540,7 +1734,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_file(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L512" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L696" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1556,7 +1750,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_file</span><span class="p" data-group-id="3669961507-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="3669961507-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_file</span><span class="p" data-group-id="3121385149-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="3121385149-1">)</span><span class="w">
 </span><span class="s">&quot;/path/lib/common.ex&quot;</span></code></pre>
   </section>
 </section>
@@ -1571,7 +1765,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_file_code(module, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L542" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L726" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1587,7 +1781,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_file_code</span><span class="p" data-group-id="1387633570-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="1387633570-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_file_code</span><span class="p" data-group-id="1070257985-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="1070257985-1">)</span><span class="w">
 </span><span class="s">&quot;defmodule Bonfire.Common do ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -1600,7 +1794,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_file_from_object_code(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L741" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L925" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1616,7 +1810,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_file_from_object_code</span><span class="p" data-group-id="5184104711-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="5184104711-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_file_from_object_code</span><span class="p" data-group-id="1797228946-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="1797228946-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_object_byte_code/1">
@@ -1628,7 +1822,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_object_byte_code(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L773" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L957" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1644,8 +1838,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_object_byte_code</span><span class="p" data-group-id="7447391333-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="7447391333-1">)</span><span class="w">
-</span><span class="p" data-group-id="7447391333-2">&lt;&lt;</span><span class="n">...</span><span class="p" data-group-id="7447391333-2">&gt;&gt;</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">module_object_byte_code</span><span class="p" data-group-id="0725491692-1">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="0725491692-1">)</span><span class="w">
+</span><span class="p" data-group-id="0725491692-2">&lt;&lt;</span><span class="n">...</span><span class="p" data-group-id="0725491692-2">&gt;&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="module_object_code_tuple/1">
@@ -1657,7 +1851,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">module_object_code_tuple(module)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L790" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L974" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1673,7 +1867,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3743232156-1">{</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="c">_bytecode</span><span class="p">,</span><span class="w"> </span><span class="c">_path</span><span class="p" data-group-id="3743232156-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module_object_code_tuple</span><span class="p" data-group-id="3743232156-2">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="3743232156-2">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="1737336775-1">{</span><span class="nc">Bonfire.Common</span><span class="p">,</span><span class="w"> </span><span class="c">_bytecode</span><span class="p">,</span><span class="w"> </span><span class="c">_path</span><span class="p" data-group-id="1737336775-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module_object_code_tuple</span><span class="p" data-group-id="1737336775-2">(</span><span class="nc">Bonfire.Common</span><span class="p" data-group-id="1737336775-2">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="quoted_import_if_enabled/3">
@@ -1689,7 +1883,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">quoted_import_if_enabled(module, fallback_module \\ nil, caller \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L430" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L580" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1715,7 +1909,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">quoted_require_if_enabled(module, fallback_module \\ nil, caller \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L460" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L621" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1741,7 +1935,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">quoted_use_if_enabled(module, fallback_module \\ nil, caller \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L396" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L535" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1765,7 +1959,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">require_if_enabled(module, fallback_module \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L457" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L618" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1777,7 +1971,17 @@ Pages
 
   <section class="docstring">
 
-
+<p>Conditionally requires a module if it's enabled, with an optional fallback.</p><h2 id="require_if_enabled/2-examples" class="section-heading">
+  <a href="#require_if_enabled/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyModule</span><span class="w"> </span><span class="k" data-group-id="0582310465-1">do</span><span class="w">
+  </span><span class="n">require_if_enabled</span><span class="w"> </span><span class="nc">SomeExtension</span><span class="w">
+  </span><span class="c1"># or</span><span class="w">
+  </span><span class="n">require_if_enabled</span><span class="w"> </span><span class="nc">SomeExtension</span><span class="p">,</span><span class="w"> </span><span class="nc">FallbackModule</span><span class="w">
+</span><span class="k" data-group-id="0582310465-1">end</span></code></pre>
   </section>
 </section>
 <section class="detail" id="return_file/1">
@@ -1789,7 +1993,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">return_file(raw)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L592" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L776" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1799,29 +2003,7 @@ Pages
 
   <section class="docstring">
 
-<p>Returns the text given raw data.</p>
-  </section>
-</section>
-<section class="detail" id="split_lines/1">
-
-  <div class="detail-header">
-    <a href="#split_lines/1" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">split_lines(string)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L961" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
+<p>Returns a string given raw code data.</p>
   </section>
 </section>
 <section class="detail" id="tar_file_code/1">
@@ -1833,7 +2015,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">tar_file_code(code_file)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L629" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L813" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1849,7 +2031,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">tar_file_code</span><span class="p" data-group-id="8526796666-1">(</span><span class="s">&quot;/mix.exs&quot;</span><span class="p" data-group-id="8526796666-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">tar_file_code</span><span class="p" data-group-id="4505631851-1">(</span><span class="s">&quot;/mix.exs&quot;</span><span class="p" data-group-id="4505631851-1">)</span><span class="w">
 </span><span class="s">&quot;defmodule ... end&quot;</span></code></pre>
   </section>
 </section>
@@ -1864,7 +2046,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">use_if_enabled(module, fallback_module \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L393" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/extend.ex#L532" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1876,7 +2058,17 @@ Pages
 
   <section class="docstring">
 
-
+<p>Conditionally uses a module if it's enabled, with an optional fallback.</p><h2 id="use_if_enabled/2-examples" class="section-heading">
+  <a href="#use_if_enabled/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyModule</span><span class="w"> </span><span class="k" data-group-id="4232989897-1">do</span><span class="w">
+  </span><span class="n">use_if_enabled</span><span class="w"> </span><span class="nc">SomeExtension</span><span class="w">
+  </span><span class="c1"># or</span><span class="w">
+  </span><span class="n">use_if_enabled</span><span class="w"> </span><span class="nc">SomeExtension</span><span class="p">,</span><span class="w"> </span><span class="nc">FallbackModule</span><span class="w">
+</span><span class="k" data-group-id="4232989897-1">end</span></code></pre>
   </section>
 </section>
 

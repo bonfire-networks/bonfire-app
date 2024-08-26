@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.136">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.137">
 
 
-    <title>Bonfire.Common.E — Bonfire v0.9.10-classic-beta.136</title>
+    <title>Bonfire.Common.E — Bonfire v0.9.10-classic-beta.137</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-33B51BF6.js"></script>
+    <script src="dist/sidebar_items-039A0767.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.136
+          v0.9.10-classic-beta.137
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Common.E</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.136)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.137)</small>
 
   </h1>
 
@@ -161,13 +161,11 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Returns a value if it is not empty, or a fallback value if it is empty.</p></div>
-
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#e/3" data-no-tooltip translate="no">e(map, key, fallback)</a>
+        <a href="#e/3" data-no-tooltip translate="no">e(object, key1, fallback)</a>
 
       </div>
 
@@ -181,8 +179,6 @@ If additional arguments are provided, it searches for nested data structures, wi
         <a href="#e/4" data-no-tooltip translate="no">e(object, key1, key2, fallback)</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>Returns a value from a nested map, or a fallback if not present</p></div>
 
     </div>
 
@@ -218,6 +214,69 @@ If additional arguments are provided, it searches for nested data structures, wi
 
     </div>
 
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/2" data-no-tooltip translate="no">ed(val, fallback \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a value if it is not empty, or a fallback value if it is empty.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/3" data-no-tooltip translate="no">ed(map, key, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Extracts a value from a map or other data structure, or returns a fallback if not present or empty.
+If additional arguments are provided, it searches for nested data structures, with the last argument always being the fallback.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/4" data-no-tooltip translate="no">ed(object, key1, key2, fallback)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a value from a nested map, or a fallback if not present</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/5" data-no-tooltip translate="no">ed(object, key1, key2, key3, fallback)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/6" data-no-tooltip translate="no">ed(object, key1, key2, key3, key4, fallback)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/7" data-no-tooltip translate="no">ed(object, key1, key2, key3, key4, key5, fallback)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ed/8" data-no-tooltip translate="no">ed(object, key1, key2, key3, key4, key5, key6, fallback)</a>
+
+      </div>
+
+    </div>
+
 </div>
 
   </section>
@@ -242,135 +301,6 @@ If additional arguments are provided, it searches for nested data structures, wi
     </a>
     <h1 class="signature" translate="no">e(val, fallback \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L26" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-<p>Returns a value if it is not empty, or a fallback value if it is empty.</p><p>This function delegates to <a href="./Bonfire.Common.Enums.html#filter_empty/2"><code class="inline">Bonfire.Common.Enums.filter_empty/2</code></a> to determine if <code class="inline">val</code> is empty and returns <code class="inline">fallback</code> if so.</p><h2 id="e/2-examples" class="section-heading">
-  <a href="#e/2-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="3682880524-1">(</span><span class="s">&quot;non-empty value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3682880524-1">)</span><span class="w">
-</span><span class="s">&quot;non-empty value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="3682880524-2">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3682880524-2">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="3682880524-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3682880524-3">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="e/3">
-
-  <div class="detail-header">
-    <a href="#e/3" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">e(map, key, fallback)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L82" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-<p>Extracts a value from a map or other data structure, or returns a fallback if not present or empty.
-If additional arguments are provided, it searches for nested data structures, with the last argument always being the fallback.</p><h2 id="e/3-examples" class="section-heading">
-  <a href="#e/3-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-1">(</span><span class="p" data-group-id="8045679237-2">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-1">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-3">(</span><span class="p" data-group-id="8045679237-4">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8045679237-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-3">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-5">(</span><span class="p" data-group-id="8045679237-6">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:missing_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-5">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-7">(</span><span class="p" data-group-id="8045679237-8">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-9">%</span><span class="nc" data-group-id="8045679237-9">Ecto.Association.NotLoaded</span><span class="p" data-group-id="8045679237-9">{</span><span class="p" data-group-id="8045679237-9">}</span><span class="p" data-group-id="8045679237-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-7">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-10">(</span><span class="p" data-group-id="8045679237-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8045679237-12">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-12">}</span><span class="p" data-group-id="8045679237-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-10">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-13">(</span><span class="p" data-group-id="8045679237-14">%{</span><span class="ss">__context__</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-15">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;context_value&quot;</span><span class="p" data-group-id="8045679237-15">}</span><span class="p" data-group-id="8045679237-14">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-13">)</span><span class="w">
-</span><span class="s">&quot;context_value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-16">(</span><span class="p" data-group-id="8045679237-17">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-18">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-18">}</span><span class="p" data-group-id="8045679237-17">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-16">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-19">(</span><span class="p" data-group-id="8045679237-20">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-21">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-22">%</span><span class="nc" data-group-id="8045679237-22">Ecto.Association.NotLoaded</span><span class="p" data-group-id="8045679237-22">{</span><span class="p" data-group-id="8045679237-22">}</span><span class="p" data-group-id="8045679237-21">}</span><span class="p" data-group-id="8045679237-20">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-19">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-23">(</span><span class="p" data-group-id="8045679237-24">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-25">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-25">}</span><span class="p" data-group-id="8045679237-24">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8045679237-26">[</span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p" data-group-id="8045679237-26">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-23">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-27">(</span><span class="p" data-group-id="8045679237-28">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-29">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8045679237-29">}</span><span class="p" data-group-id="8045679237-28">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-27">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-30">(</span><span class="p" data-group-id="8045679237-31">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-32">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-33">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-33">}</span><span class="p" data-group-id="8045679237-32">}</span><span class="p" data-group-id="8045679237-31">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-30">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-34">(</span><span class="p" data-group-id="8045679237-35">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-36">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-37">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-37">}</span><span class="p" data-group-id="8045679237-36">}</span><span class="p" data-group-id="8045679237-35">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-34">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-38">(</span><span class="p" data-group-id="8045679237-39">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-40">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-41">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-42">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-42">}</span><span class="p" data-group-id="8045679237-41">}</span><span class="p" data-group-id="8045679237-40">}</span><span class="p" data-group-id="8045679237-39">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-38">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-43">(</span><span class="p" data-group-id="8045679237-44">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-45">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-46">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-47">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-47">}</span><span class="p" data-group-id="8045679237-46">}</span><span class="p" data-group-id="8045679237-45">}</span><span class="p" data-group-id="8045679237-44">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="ss">:e</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-43">)</span><span class="w">
-</span><span class="s">&quot;fallback&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="8045679237-48">(</span><span class="p" data-group-id="8045679237-49">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-50">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-51">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-52">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8045679237-53">%{</span><span class="ss">e</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8045679237-53">}</span><span class="p" data-group-id="8045679237-52">}</span><span class="p" data-group-id="8045679237-51">}</span><span class="p" data-group-id="8045679237-50">}</span><span class="p" data-group-id="8045679237-49">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="ss">:e</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="8045679237-48">)</span><span class="w">
-</span><span class="s">&quot;value&quot;</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="e/4">
-
-  <div class="detail-header">
-    <a href="#e/4" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">e(object, key1, key2, fallback)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L152" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-<p>Returns a value from a nested map, or a fallback if not present</p>
-  </section>
-</section>
-<section class="detail" id="e/5">
-
-  <div class="detail-header">
-    <a href="#e/5" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">e(object, key1, key2, key3, fallback)</h1>
-
       <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L160" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
@@ -384,20 +314,141 @@ If additional arguments are provided, it searches for nested data structures, wi
 
   </section>
 </section>
-<section class="detail" id="e/6">
+<section class="detail" id="e/3">
 
   <div class="detail-header">
-    <a href="#e/6" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#e/3" class="detail-link" data-no-tooltip title="Link to this macro">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
+      <span class="sr-only">Link to this macro</span>
     </a>
-    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, fallback)</h1>
+    <h1 class="signature" translate="no">e(object, key1, fallback)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L167" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L68" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
 
+
+      <span class="note">(macro)</span>
+
+  </div>
+
+  <section class="docstring">
+
+<p>Extracts a value from a map or other data structure, or returns a fallback if not present or empty.
+If additional arguments are provided, it searches for nested data structures, with the last argument always being the fallback.</p><h2 id="e/3-examples" class="section-heading">
+  <a href="#e/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-1">(</span><span class="p" data-group-id="1583737160-2">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-1">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-3">(</span><span class="p" data-group-id="1583737160-4">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="1583737160-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-3">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-5">(</span><span class="p" data-group-id="1583737160-6">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:missing_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-5">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-7">(</span><span class="p" data-group-id="1583737160-8">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-9">%</span><span class="nc" data-group-id="1583737160-9">Ecto.Association.NotLoaded</span><span class="p" data-group-id="1583737160-9">{</span><span class="p" data-group-id="1583737160-9">}</span><span class="p" data-group-id="1583737160-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-7">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-10">(</span><span class="p" data-group-id="1583737160-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1583737160-12">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-12">}</span><span class="p" data-group-id="1583737160-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-10">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-13">(</span><span class="p" data-group-id="1583737160-14">%{</span><span class="ss">__context__</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-15">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;context_value&quot;</span><span class="p" data-group-id="1583737160-15">}</span><span class="p" data-group-id="1583737160-14">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-13">)</span><span class="w">
+</span><span class="s">&quot;context_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-16">(</span><span class="p" data-group-id="1583737160-17">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-18">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-18">}</span><span class="p" data-group-id="1583737160-17">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-16">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-19">(</span><span class="p" data-group-id="1583737160-20">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-21">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-22">%</span><span class="nc" data-group-id="1583737160-22">Ecto.Association.NotLoaded</span><span class="p" data-group-id="1583737160-22">{</span><span class="p" data-group-id="1583737160-22">}</span><span class="p" data-group-id="1583737160-21">}</span><span class="p" data-group-id="1583737160-20">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-19">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-23">(</span><span class="p" data-group-id="1583737160-24">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-25">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="1583737160-25">}</span><span class="p" data-group-id="1583737160-24">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-23">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-26">(</span><span class="p" data-group-id="1583737160-27">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-28">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-29">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-29">}</span><span class="p" data-group-id="1583737160-28">}</span><span class="p" data-group-id="1583737160-27">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-26">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-30">(</span><span class="p" data-group-id="1583737160-31">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-32">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-33">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-33">}</span><span class="p" data-group-id="1583737160-32">}</span><span class="p" data-group-id="1583737160-31">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-30">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-34">(</span><span class="p" data-group-id="1583737160-35">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-36">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-37">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-38">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-38">}</span><span class="p" data-group-id="1583737160-37">}</span><span class="p" data-group-id="1583737160-36">}</span><span class="p" data-group-id="1583737160-35">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-34">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-39">(</span><span class="p" data-group-id="1583737160-40">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-41">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-42">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-43">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-43">}</span><span class="p" data-group-id="1583737160-42">}</span><span class="p" data-group-id="1583737160-41">}</span><span class="p" data-group-id="1583737160-40">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="ss">:ed</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-39">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">e</span><span class="p" data-group-id="1583737160-44">(</span><span class="p" data-group-id="1583737160-45">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-46">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-47">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-48">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1583737160-49">%{</span><span class="ss">e</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1583737160-49">}</span><span class="p" data-group-id="1583737160-48">}</span><span class="p" data-group-id="1583737160-47">}</span><span class="p" data-group-id="1583737160-46">}</span><span class="p" data-group-id="1583737160-45">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="ss">:e</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="1583737160-44">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="e/4">
+
+  <div class="detail-header">
+    <a href="#e/4" class="detail-link" data-no-tooltip title="Link to this macro">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L79" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(macro)</span>
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="e/5">
+
+  <div class="detail-header">
+    <a href="#e/5" class="detail-link" data-no-tooltip title="Link to this macro">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L90" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(macro)</span>
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="e/6">
+
+  <div class="detail-header">
+    <a href="#e/6" class="detail-link" data-no-tooltip title="Link to this macro">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L101" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(macro)</span>
 
   </div>
 
@@ -409,13 +460,192 @@ If additional arguments are provided, it searches for nested data structures, wi
 <section class="detail" id="e/7">
 
   <div class="detail-header">
-    <a href="#e/7" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#e/7" class="detail-link" data-no-tooltip title="Link to this macro">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
+      <span class="sr-only">Link to this macro</span>
     </a>
     <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, key5, fallback)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L174" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L112" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(macro)</span>
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="e/8">
+
+  <div class="detail-header">
+    <a href="#e/8" class="detail-link" data-no-tooltip title="Link to this macro">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, key5, key6, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L125" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+      <span class="note">(macro)</span>
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ed/2">
+
+    <span id="ed/1"></span>
+
+  <div class="detail-header">
+    <a href="#ed/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ed(val, fallback \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L156" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a value if it is not empty, or a fallback value if it is empty.</p><p>This function delegates to <a href="./Bonfire.Common.Enums.html#filter_empty/2"><code class="inline">Bonfire.Common.Enums.filter_empty/2</code></a> to determine if <code class="inline">val</code> is empty and returns <code class="inline">fallback</code> if so.</p><h2 id="ed/2-examples" class="section-heading">
+  <a href="#ed/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3739063162-1">(</span><span class="s">&quot;non-empty value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3739063162-1">)</span><span class="w">
+</span><span class="s">&quot;non-empty value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3739063162-2">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3739063162-2">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3739063162-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3739063162-3">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="ed/3">
+
+  <div class="detail-header">
+    <a href="#ed/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ed(map, key, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L216" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Extracts a value from a map or other data structure, or returns a fallback if not present or empty.
+If additional arguments are provided, it searches for nested data structures, with the last argument always being the fallback.</p><h2 id="ed/3-examples" class="section-heading">
+  <a href="#ed/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-1">(</span><span class="p" data-group-id="3208259202-2">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-1">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-3">(</span><span class="p" data-group-id="3208259202-4">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3208259202-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-3">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-5">(</span><span class="p" data-group-id="3208259202-6">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:missing_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-5">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-7">(</span><span class="p" data-group-id="3208259202-8">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-9">%</span><span class="nc" data-group-id="3208259202-9">Ecto.Association.NotLoaded</span><span class="p" data-group-id="3208259202-9">{</span><span class="p" data-group-id="3208259202-9">}</span><span class="p" data-group-id="3208259202-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-7">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-10">(</span><span class="p" data-group-id="3208259202-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3208259202-12">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-12">}</span><span class="p" data-group-id="3208259202-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-10">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-13">(</span><span class="p" data-group-id="3208259202-14">%{</span><span class="ss">__context__</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-15">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;context_value&quot;</span><span class="p" data-group-id="3208259202-15">}</span><span class="p" data-group-id="3208259202-14">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-13">)</span><span class="w">
+</span><span class="s">&quot;context_value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-16">(</span><span class="p" data-group-id="3208259202-17">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-18">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-18">}</span><span class="p" data-group-id="3208259202-17">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-16">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-19">(</span><span class="p" data-group-id="3208259202-20">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-21">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-22">%</span><span class="nc" data-group-id="3208259202-22">Ecto.Association.NotLoaded</span><span class="p" data-group-id="3208259202-22">{</span><span class="p" data-group-id="3208259202-22">}</span><span class="p" data-group-id="3208259202-21">}</span><span class="p" data-group-id="3208259202-20">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-19">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-23">(</span><span class="p" data-group-id="3208259202-24">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-25">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-25">}</span><span class="p" data-group-id="3208259202-24">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3208259202-26">[</span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p" data-group-id="3208259202-26">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-23">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-27">(</span><span class="p" data-group-id="3208259202-28">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-29">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3208259202-29">}</span><span class="p" data-group-id="3208259202-28">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-27">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-30">(</span><span class="p" data-group-id="3208259202-31">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-32">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-33">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-33">}</span><span class="p" data-group-id="3208259202-32">}</span><span class="p" data-group-id="3208259202-31">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-30">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-34">(</span><span class="p" data-group-id="3208259202-35">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-36">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-37">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-37">}</span><span class="p" data-group-id="3208259202-36">}</span><span class="p" data-group-id="3208259202-35">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-34">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-38">(</span><span class="p" data-group-id="3208259202-39">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-40">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-41">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-42">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-42">}</span><span class="p" data-group-id="3208259202-41">}</span><span class="p" data-group-id="3208259202-40">}</span><span class="p" data-group-id="3208259202-39">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-38">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-43">(</span><span class="p" data-group-id="3208259202-44">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-45">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-46">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-47">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-47">}</span><span class="p" data-group-id="3208259202-46">}</span><span class="p" data-group-id="3208259202-45">}</span><span class="p" data-group-id="3208259202-44">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="ss">:ed</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-43">)</span><span class="w">
+</span><span class="s">&quot;fallback&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ed</span><span class="p" data-group-id="3208259202-48">(</span><span class="p" data-group-id="3208259202-49">%{</span><span class="ss">a</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-50">%{</span><span class="ss">b</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-51">%{</span><span class="ss">c</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-52">%{</span><span class="ss">d</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3208259202-53">%{</span><span class="ss">e</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3208259202-53">}</span><span class="p" data-group-id="3208259202-52">}</span><span class="p" data-group-id="3208259202-51">}</span><span class="p" data-group-id="3208259202-50">}</span><span class="p" data-group-id="3208259202-49">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:c</span><span class="p">,</span><span class="w"> </span><span class="ss">:d</span><span class="p">,</span><span class="w"> </span><span class="ss">:e</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback&quot;</span><span class="p" data-group-id="3208259202-48">)</span><span class="w">
+</span><span class="s">&quot;value&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="ed/4">
+
+  <div class="detail-header">
+    <a href="#ed/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ed(object, key1, key2, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L287" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a value from a nested map, or a fallback if not present</p>
+  </section>
+</section>
+<section class="detail" id="ed/5">
+
+  <div class="detail-header">
+    <a href="#ed/5" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ed(object, key1, key2, key3, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L295" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -428,16 +658,60 @@ If additional arguments are provided, it searches for nested data structures, wi
 
   </section>
 </section>
-<section class="detail" id="e/8">
+<section class="detail" id="ed/6">
 
   <div class="detail-header">
-    <a href="#e/8" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ed/6" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">e(object, key1, key2, key3, key4, key5, key6, fallback)</h1>
+    <h1 class="signature" translate="no">ed(object, key1, key2, key3, key4, fallback)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L181" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L302" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ed/7">
+
+  <div class="detail-header">
+    <a href="#ed/7" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ed(object, key1, key2, key3, key4, key5, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L309" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ed/8">
+
+  <div class="detail-header">
+    <a href="#ed/8" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">ed(object, key1, key2, key3, key4, key5, key6, fallback)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/e.ex#L316" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>

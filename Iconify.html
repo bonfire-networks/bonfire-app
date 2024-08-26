@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.136">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.137">
 
 
-    <title>Iconify — Bonfire v0.9.10-classic-beta.136</title>
+    <title>Iconify — Bonfire v0.9.10-classic-beta.137</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-33B51BF6.js"></script>
+    <script src="dist/sidebar_items-039A0767.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.136
+          v0.9.10-classic-beta.137
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Iconify</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.136)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.137)</small>
 
   </h1>
 
@@ -144,24 +144,27 @@ Pages
   </a>
   <span class="text">Installation</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="6262503519-1">do</span><span class="w">
-  </span><span class="p" data-group-id="6262503519-2">[</span><span class="w">
-    </span><span class="p" data-group-id="6262503519-3">{</span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.0&quot;</span><span class="p" data-group-id="6262503519-3">}</span><span class="w">
-  </span><span class="p" data-group-id="6262503519-2">]</span><span class="w">
-</span><span class="k" data-group-id="6262503519-1">end</span></code></pre><p>You then need to fetch the latest <a href="https://github.com/iconify/icon-sets">iconify icon sets</a> by running:</p><pre><code class="makeup bash" translate="no"><span class="">cd deps/iconify_ex/assets &amp;&amp; yarn
+<pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="9059137375-1">do</span><span class="w">
+  </span><span class="p" data-group-id="9059137375-2">[</span><span class="w">
+    </span><span class="p" data-group-id="9059137375-3">{</span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.0&quot;</span><span class="p" data-group-id="9059137375-3">}</span><span class="w">
+  </span><span class="p" data-group-id="9059137375-2">]</span><span class="w">
+</span><span class="k" data-group-id="9059137375-1">end</span></code></pre><p>After running <a href="https://hexdocs.pm/mix/Mix.Tasks.Deps.Get.html"><code class="inline">mix deps.get</code></a> you need to fetch the latest <a href="https://github.com/iconify/icon-sets">iconify icon sets</a> by running something like:</p><pre><code class="makeup bash" translate="no"><span class="">cd deps/iconify_ex/assets &amp;&amp; yarn &amp;&amp; cd -
 </span></code></pre><h2 id="module-usage" class="section-heading">
   <a href="#module-usage" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Usage</span>
 </h2>
-<ol><li><p>Add <code class="inline">import Iconify</code> in your Phoenix or LiveView module where you want to use it (or just once in the macros in your Web module). </p></li><li><p>Set one of these options in config to choose which approach you want to use (see above for explanations):</p></li></ol><ul><li><code class="inline">config :iconify_ex, :mode, :css</code> </li><li><code class="inline">config :iconify_ex, :mode, :img</code> </li><li><code class="inline">config :iconify_ex, :mode, :inline</code> </li><li><code class="inline">config :iconify_ex, :mode, :set</code> </li></ul><p>If using CSS mode, you'll need to set some default styles that apply to all icons, either by adding something like this to your app's main CSS:</p><pre><code class="css">[iconify] {
+<ol><li><p>Add <code class="inline">import Iconify</code> in your Phoenix or LiveView module where you want to use it (or just once in the macros in your Web module). </p></li><li><p>Set one of these options in config to choose which approach you want to use (see above for explanations):</p></li></ol><ul><li><code class="inline">config :iconify_ex, :mode, :css</code> </li><li><code class="inline">config :iconify_ex, :mode, :img</code> </li><li><code class="inline">config :iconify_ex, :mode, :inline</code> </li><li><code class="inline">config :iconify_ex, :mode, :set</code> </li></ul><p>If using CSS mode, you'll need to include the CSS file in your layout (e.g. <code class="inline">&lt;link phx-track-static rel=&quot;stylesheet&quot; href={~p&quot;/images/icons/icons.css&quot;} /&gt;</code> in your app's equivalent of <code class="inline">lib/my_app_web/components/layouts/root.html.heex</code>) and set some default styles that will be applied to all icons, by adding something like this to your app's main CSS (e.g. <code class="inline">assets/css/app.css</code>):</p><pre><code class="css">[iconify] {
   background-color: currentColor;
   -webkit-mask-size: cover;
   mask-size: cover;
   min-width: 0.5rem;
   min-height: 0.5rem;
-}</code></pre><ol start="3"><li>In all three cases, usage is simple and remains the same:</li></ol><p>Embed an icon using default classes (copy the icon name from the <a href="https://icon-sets.iconify.design">iconify website</a>):</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="8722498933-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="8722498933-1">/&gt;</span></code></pre><p>Specify custom classes:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="9794190817-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="na">class</span><span class="o">=</span><span class="s">&quot;w-8</span><span class="w"> </span><span class="s">h-8</span><span class="w"> </span><span class="s">text-base-content&quot;</span><span class="w"> </span><span class="p" data-group-id="9794190817-1">/&gt;</span><span class="w"> </span></code></pre><p>Or if you use <a href="https://surface-ui.org">Surface</a>, it is highly recommended to use the macro component which means icons will be prepared at compile time rather than runtime:</p><p>Add <code class="inline">alias Iconify.Icon</code> to your Web module, and then:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="9979902871-1">&lt;</span><span class="s">#Icon</span><span class="w"> </span><span class="s">iconify</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="9979902871-1">/&gt;</span></code></pre><p>If your icon is dynamic, you'll still want to use the first form:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="1255208743-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">{@my_icon}</span><span class="w"> </span><span class="p" data-group-id="1255208743-1">/&gt;</span></code></pre><p>Note: when using the CSS mode, there's sometimes a race condition that adds an icon several times. Until a fix is found you can run something like <code class="inline">sort -u -o icons_dir/icons.css icons_dir/icons.css</code> to clean up the CSS file.</p>
+}</code></pre><p>Other configurations include:</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:fallback_icon</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;heroicons-solid:question-mark-circle&quot;</span><span class="w"> </span><span class="c1"># when an icon is not found</span><span class="w">
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_modules_path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./lib/web/icons&quot;</span><span class="w"> </span><span class="c1"># for :inline mode</span><span class="w">
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_static_path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./priv/static/images/icons&quot;</span><span class="w"> </span><span class="c1"># where CSS and images are stored</span><span class="w">
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_static_url</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/images/icons/&quot;</span><span class="w"> </span><span class="c1"># where CSS and images are served from</span></code></pre><ol start="3"><li>In all three cases, usage is the same (meaning you can easily switch between modes at any time) by including a component:</li></ol><p>Embed an icon using default classes (copy the icon name from the <a href="https://icon-sets.iconify.design">iconify website</a>):</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="8984850863-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="8984850863-1">/&gt;</span></code></pre><p>Specify custom classes:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="2861912781-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="na">class</span><span class="o">=</span><span class="s">&quot;w-8</span><span class="w"> </span><span class="s">h-8</span><span class="w"> </span><span class="s">text-base-content&quot;</span><span class="w"> </span><span class="p" data-group-id="2861912781-1">/&gt;</span><span class="w"> </span></code></pre><p>Or if you use <a href="https://surface-ui.org">Surface</a>, it is highly recommended to use the macro component which means icons will be prepared at compile time rather than runtime:</p><p>Add <code class="inline">alias Iconify.Icon</code> to your Web module, and then:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="9134852378-1">&lt;</span><span class="s">#Icon</span><span class="w"> </span><span class="s">iconify</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="9134852378-1">/&gt;</span></code></pre><p>If your icon is dynamic, you'll still want to use the first form:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="9992518712-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">{@my_icon}</span><span class="w"> </span><span class="p" data-group-id="9992518712-1">/&gt;</span></code></pre><p>Note: when using the CSS mode, there's sometimes a race condition that adds an icon several times. Until a fix is found you can run something like <code class="inline">sort -u -o icons_dir/icons.css icons_dir/icons.css</code> to clean up the CSS file.</p>
     </section>
 
 </div>
@@ -296,6 +299,14 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#maybe_phx_live_set_dynamic/3" data-no-tooltip translate="no">maybe_phx_live_set_dynamic(socket, icon, type \\ &quot;svg&quot;)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#maybe_set_favicon/2" data-no-tooltip translate="no">maybe_set_favicon(socket, icon)</a>
 
       </div>
@@ -386,7 +397,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">add_icon_to_css(icon_css_name, svg_code)</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L529" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L531" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -408,7 +419,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">dev_env?()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L152" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L153" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -430,7 +441,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">emoji?(icon)</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L217" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L219" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -446,9 +457,9 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">emoji?</span><span class="p" data-group-id="6845893651-1">(</span><span class="s">&quot;twemoji:smile&quot;</span><span class="p" data-group-id="6845893651-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">emoji?</span><span class="p" data-group-id="0947506199-1">(</span><span class="s">&quot;twemoji:smile&quot;</span><span class="p" data-group-id="0947506199-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">emoji?</span><span class="p" data-group-id="6845893651-2">(</span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="6845893651-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">emoji?</span><span class="p" data-group-id="0947506199-2">(</span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="0947506199-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -477,7 +488,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">fallback_icon</span><span class="p" data-group-id="7479616241-1">(</span><span class="p" data-group-id="7479616241-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">fallback_icon</span><span class="p" data-group-id="4539723201-1">(</span><span class="p" data-group-id="4539723201-1">)</span><span class="w">
 </span><span class="s">&quot;heroicons-solid:question-mark-circle&quot;</span></code></pre>
   </section>
 </section>
@@ -490,7 +501,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">generate_css_from_components()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1234" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1250" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -506,7 +517,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">generate_css_from_components</span><span class="p" data-group-id="4232849972-1">(</span><span class="p" data-group-id="4232849972-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">generate_css_from_components</span><span class="p" data-group-id="2771142291-1">(</span><span class="p" data-group-id="2771142291-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -519,7 +530,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">generate_css_from_static_files()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1199" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1215" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -535,7 +546,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">generate_css_from_static_files</span><span class="p" data-group-id="1399392181-1">(</span><span class="p" data-group-id="1399392181-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">generate_css_from_static_files</span><span class="p" data-group-id="0734606609-1">(</span><span class="p" data-group-id="0734606609-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -548,7 +559,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">generate_sets_from_components()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1173" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1189" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -564,8 +575,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">generate_sets_from_components</span><span class="p" data-group-id="3300641022-1">(</span><span class="p" data-group-id="3300641022-1">)</span><span class="w">
-</span><span class="p" data-group-id="3300641022-2">[</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="3300641022-2">]</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">generate_sets_from_components</span><span class="p" data-group-id="4094746031-1">(</span><span class="p" data-group-id="4094746031-1">)</span><span class="w">
+</span><span class="p" data-group-id="4094746031-2">[</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4094746031-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="iconify/1">
@@ -593,8 +604,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">assigns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1424548114-1">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;w-6 h-6&quot;</span><span class="p" data-group-id="1424548114-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">iconify</span><span class="p" data-group-id="1424548114-2">(</span><span class="n">assigns</span><span class="p" data-group-id="1424548114-2">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">assigns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9765104894-1">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;w-6 h-6&quot;</span><span class="p" data-group-id="9765104894-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">iconify</span><span class="p" data-group-id="9765104894-2">(</span><span class="n">assigns</span><span class="p" data-group-id="9765104894-2">)</span><span class="w">
 </span><span class="c1"># Returns rendered icon HTML</span></code></pre>
   </section>
 </section>
@@ -607,7 +618,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_all_existing()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1158" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1174" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -623,11 +634,11 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">list_all_existing</span><span class="p" data-group-id="2087772857-1">(</span><span class="p" data-group-id="2087772857-1">)</span><span class="w">
-</span><span class="p" data-group-id="2087772857-2">%{</span><span class="w">
-  </span><span class="s">&quot;HeroiconsSolid&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2087772857-3">[</span><span class="nc">Iconify.HeroiconsSolid.User</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2087772857-3">]</span><span class="p">,</span><span class="w">
-  </span><span class="s">&quot;HeroiconsOutline&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2087772857-4">[</span><span class="nc">Iconify.HeroiconsOutline.User</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2087772857-4">]</span><span class="w">
-</span><span class="p" data-group-id="2087772857-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">list_all_existing</span><span class="p" data-group-id="0982890060-1">(</span><span class="p" data-group-id="0982890060-1">)</span><span class="w">
+</span><span class="p" data-group-id="0982890060-2">%{</span><span class="w">
+  </span><span class="s">&quot;HeroiconsSolid&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0982890060-3">[</span><span class="nc">Iconify.HeroiconsSolid.User</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0982890060-3">]</span><span class="p">,</span><span class="w">
+  </span><span class="s">&quot;HeroiconsOutline&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0982890060-4">[</span><span class="nc">Iconify.HeroiconsOutline.User</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0982890060-4">]</span><span class="w">
+</span><span class="p" data-group-id="0982890060-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_components/0">
@@ -639,7 +650,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_components()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1098" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1114" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -655,11 +666,11 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">list_components</span><span class="p" data-group-id="5608173910-1">(</span><span class="p" data-group-id="5608173910-1">)</span><span class="w">
-</span><span class="p" data-group-id="5608173910-2">%{</span><span class="w">
-  </span><span class="s">&quot;HeroiconsSolid&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5608173910-3">[</span><span class="nc">Iconify.HeroiconsSolid.User</span><span class="p">,</span><span class="w"> </span><span class="nc">Iconify.HeroiconsSolid.Star</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5608173910-3">]</span><span class="p">,</span><span class="w">
-  </span><span class="s">&quot;HeroiconsOutline&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5608173910-4">[</span><span class="nc">Iconify.HeroiconsOutline.User</span><span class="p">,</span><span class="w"> </span><span class="nc">Iconify.HeroiconsOutline.Star</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5608173910-4">]</span><span class="w">
-</span><span class="p" data-group-id="5608173910-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">list_components</span><span class="p" data-group-id="5032171986-1">(</span><span class="p" data-group-id="5032171986-1">)</span><span class="w">
+</span><span class="p" data-group-id="5032171986-2">%{</span><span class="w">
+  </span><span class="s">&quot;HeroiconsSolid&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5032171986-3">[</span><span class="nc">Iconify.HeroiconsSolid.User</span><span class="p">,</span><span class="w"> </span><span class="nc">Iconify.HeroiconsSolid.Star</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5032171986-3">]</span><span class="p">,</span><span class="w">
+  </span><span class="s">&quot;HeroiconsOutline&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5032171986-4">[</span><span class="nc">Iconify.HeroiconsOutline.User</span><span class="p">,</span><span class="w"> </span><span class="nc">Iconify.HeroiconsOutline.Star</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5032171986-4">]</span><span class="w">
+</span><span class="p" data-group-id="5032171986-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_icons_in_css/0">
@@ -671,7 +682,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">list_icons_in_css()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1126" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1142" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -687,11 +698,11 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">list_icons_in_css</span><span class="p" data-group-id="8027203891-1">(</span><span class="p" data-group-id="8027203891-1">)</span><span class="w">
-</span><span class="p" data-group-id="8027203891-2">%{</span><span class="w">
-  </span><span class="s">&quot;HeroiconsSolid&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="8027203891-3">[</span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;star&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8027203891-3">]</span><span class="p">,</span><span class="w">
-  </span><span class="s">&quot;HeroiconsOutline&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="8027203891-4">[</span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;star&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8027203891-4">]</span><span class="w">
-</span><span class="p" data-group-id="8027203891-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">list_icons_in_css</span><span class="p" data-group-id="8764812954-1">(</span><span class="p" data-group-id="8764812954-1">)</span><span class="w">
+</span><span class="p" data-group-id="8764812954-2">%{</span><span class="w">
+  </span><span class="s">&quot;HeroiconsSolid&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="8764812954-3">[</span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;star&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8764812954-3">]</span><span class="p">,</span><span class="w">
+  </span><span class="s">&quot;HeroiconsOutline&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="8764812954-4">[</span><span class="s">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;star&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8764812954-4">]</span><span class="w">
+</span><span class="p" data-group-id="8764812954-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="manual/2">
@@ -721,8 +732,32 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">manual</span><span class="p" data-group-id="6181990771-1">(</span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">mode</span><span class="p">:</span><span class="w"> </span><span class="ss">:css</span><span class="p" data-group-id="6181990771-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">manual</span><span class="p" data-group-id="5584998132-1">(</span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">mode</span><span class="p">:</span><span class="w"> </span><span class="ss">:css</span><span class="p" data-group-id="5584998132-1">)</span><span class="w">
 </span><span class="c1"># Returns rendered icon HTML or data</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_phx_live_set_dynamic/3">
+
+    <span id="maybe_phx_live_set_dynamic/2"></span>
+
+  <div class="detail-header">
+    <a href="#maybe_phx_live_set_dynamic/3" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">maybe_phx_live_set_dynamic(socket, icon, type \\ &quot;svg&quot;)</h1>
+
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1024" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 <section class="detail" id="maybe_set_favicon/2">
@@ -734,7 +769,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_set_favicon(socket, icon)</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L996" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1000" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -750,9 +785,9 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2450348944-1">%</span><span class="nc" data-group-id="2450348944-1">Phoenix.LiveView.Socket</span><span class="p" data-group-id="2450348944-1">{</span><span class="p" data-group-id="2450348944-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">maybe_set_favicon</span><span class="p" data-group-id="2450348944-2">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;heroicons-solid:star&quot;</span><span class="p" data-group-id="2450348944-2">)</span><span class="w">
-</span><span class="p" data-group-id="2450348944-3">%</span><span class="nc" data-group-id="2450348944-3">Phoenix.LiveView.Socket</span><span class="p" data-group-id="2450348944-3">{</span><span class="p" data-group-id="2450348944-3">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0479977658-1">%</span><span class="nc" data-group-id="0479977658-1">Phoenix.LiveView.Socket</span><span class="p" data-group-id="0479977658-1">{</span><span class="p" data-group-id="0479977658-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">maybe_set_favicon</span><span class="p" data-group-id="0479977658-2">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;heroicons-solid:star&quot;</span><span class="p" data-group-id="0479977658-2">)</span><span class="w">
+</span><span class="p" data-group-id="0479977658-3">%</span><span class="nc" data-group-id="0479977658-3">Phoenix.LiveView.Socket</span><span class="p" data-group-id="0479977658-3">{</span><span class="p" data-group-id="0479977658-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="path/0">
@@ -764,7 +799,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">path()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L162" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L163" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -780,7 +815,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">path</span><span class="p" data-group-id="7193913649-1">(</span><span class="p" data-group-id="7193913649-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">path</span><span class="p" data-group-id="5322618523-1">(</span><span class="p" data-group-id="5322618523-1">)</span><span class="w">
 </span><span class="s">&quot;./lib/web/icons&quot;</span></code></pre>
   </section>
 </section>
@@ -811,29 +846,29 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="0887558408-1">{</span><span class="ss">:css</span><span class="p">,</span><span class="w"> </span><span class="c">_function</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-2">%{</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6857917482-1">{</span><span class="ss">:css</span><span class="p">,</span><span class="w"> </span><span class="c">_function</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-2">%{</span><span class="w">
   </span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;w-4 h-4&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">icon_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="w">
-</span><span class="p" data-group-id="0887558408-2">}</span><span class="p" data-group-id="0887558408-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-3">(</span><span class="p" data-group-id="0887558408-4">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="0887558408-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:css</span><span class="p" data-group-id="0887558408-3">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-2">}</span><span class="p" data-group-id="6857917482-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-3">(</span><span class="p" data-group-id="6857917482-4">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="6857917482-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:css</span><span class="p" data-group-id="6857917482-3">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-5">(</span><span class="p" data-group-id="0887558408-6">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="0887558408-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:inline</span><span class="p" data-group-id="0887558408-5">)</span><span class="w">
-</span><span class="p" data-group-id="0887558408-7">{</span><span class="ss">:inline</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-8">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="0887558408-8">}</span><span class="p" data-group-id="0887558408-7">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-5">(</span><span class="p" data-group-id="6857917482-6">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="6857917482-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:inline</span><span class="p" data-group-id="6857917482-5">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-7">{</span><span class="ss">:inline</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-8">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="6857917482-8">}</span><span class="p" data-group-id="6857917482-7">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-9">(</span><span class="p" data-group-id="0887558408-10">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="0887558408-10">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:img</span><span class="p" data-group-id="0887558408-9">)</span><span class="w">
-</span><span class="p" data-group-id="0887558408-11">{</span><span class="ss">:img</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-12">%{</span><span class="ss">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/images/icons/heroicons-solid/user.svg&quot;</span><span class="p" data-group-id="0887558408-12">}</span><span class="p" data-group-id="0887558408-11">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-9">(</span><span class="p" data-group-id="6857917482-10">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="6857917482-10">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:img</span><span class="p" data-group-id="6857917482-9">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-11">{</span><span class="ss">:img</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-12">%{</span><span class="ss">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/images/icons/heroicons-solid/user.svg&quot;</span><span class="p" data-group-id="6857917482-12">}</span><span class="p" data-group-id="6857917482-11">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-13">(</span><span class="p" data-group-id="0887558408-14">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="0887558408-14">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:set</span><span class="p" data-group-id="0887558408-13">)</span><span class="w">
-</span><span class="p" data-group-id="0887558408-15">{</span><span class="ss">:set</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-16">%{</span><span class="ss">href</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/images/icons/heroicons-solid.svg#user&quot;</span><span class="p" data-group-id="0887558408-16">}</span><span class="p" data-group-id="0887558408-15">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-13">(</span><span class="p" data-group-id="6857917482-14">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:user&quot;</span><span class="p" data-group-id="6857917482-14">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:set</span><span class="p" data-group-id="6857917482-13">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-15">{</span><span class="ss">:set</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-16">%{</span><span class="ss">href</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/images/icons/heroicons-solid.svg#user&quot;</span><span class="p" data-group-id="6857917482-16">}</span><span class="p" data-group-id="6857917482-15">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-17">(</span><span class="p" data-group-id="0887558408-18">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;twemoji:rabbit&quot;</span><span class="p" data-group-id="0887558408-18">}</span><span class="p" data-group-id="0887558408-17">)</span><span class="w">
-</span><span class="p" data-group-id="0887558408-19">{</span><span class="ss">:img</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-20">%{</span><span class="ss">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/images/icons/twemoji/rabbit.svg&quot;</span><span class="p" data-group-id="0887558408-20">}</span><span class="p" data-group-id="0887558408-19">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-17">(</span><span class="p" data-group-id="6857917482-18">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;twemoji:rabbit&quot;</span><span class="p" data-group-id="6857917482-18">}</span><span class="p" data-group-id="6857917482-17">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-19">{</span><span class="ss">:img</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-20">%{</span><span class="ss">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/images/icons/twemoji/rabbit.svg&quot;</span><span class="p" data-group-id="6857917482-20">}</span><span class="p" data-group-id="6857917482-19">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-21">(</span><span class="p" data-group-id="0887558408-22">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;non-existent-icon&quot;</span><span class="p" data-group-id="0887558408-22">}</span><span class="p" data-group-id="0887558408-21">)</span><span class="w">
-</span><span class="p" data-group-id="0887558408-23">{</span><span class="ss">:css</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-24">%{</span><span class="ss">icon_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:question-mark-circle&quot;</span><span class="p" data-group-id="0887558408-24">}</span><span class="p" data-group-id="0887558408-23">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-21">(</span><span class="p" data-group-id="6857917482-22">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;non-existent-icon&quot;</span><span class="p" data-group-id="6857917482-22">}</span><span class="p" data-group-id="6857917482-21">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-23">{</span><span class="ss">:css</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-24">%{</span><span class="ss">icon_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;heroicons-solid:question-mark-circle&quot;</span><span class="p" data-group-id="6857917482-24">}</span><span class="p" data-group-id="6857917482-23">}</span><span class="w">
 
- </span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="0887558408-25">(</span><span class="p" data-group-id="0887558408-26">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;svg&gt;...&lt;/svg&gt;&quot;</span><span class="p" data-group-id="0887558408-26">}</span><span class="p" data-group-id="0887558408-25">)</span><span class="w">
-</span><span class="p" data-group-id="0887558408-27">{</span><span class="ss">:inline</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0887558408-28">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;svg&gt;...&lt;/svg&gt;&quot;</span><span class="p" data-group-id="0887558408-28">}</span><span class="p" data-group-id="0887558408-27">}</span></code></pre>
+ </span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare</span><span class="p" data-group-id="6857917482-25">(</span><span class="p" data-group-id="6857917482-26">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;svg&gt;...&lt;/svg&gt;&quot;</span><span class="p" data-group-id="6857917482-26">}</span><span class="p" data-group-id="6857917482-25">)</span><span class="w">
+</span><span class="p" data-group-id="6857917482-27">{</span><span class="ss">:inline</span><span class="p">,</span><span class="w"> </span><span class="c">_fun</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6857917482-28">%{</span><span class="ss">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;svg&gt;...&lt;/svg&gt;&quot;</span><span class="p" data-group-id="6857917482-28">}</span><span class="p" data-group-id="6857917482-27">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="prepare_entire_icon_family/2">
@@ -847,7 +882,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">prepare_entire_icon_family(family_name, mode \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1074" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L1090" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -863,7 +898,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare_entire_icon_family</span><span class="p" data-group-id="8479795171-1">(</span><span class="s">&quot;heroicons-solid&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:inline</span><span class="p" data-group-id="8479795171-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">prepare_entire_icon_family</span><span class="p" data-group-id="1035856935-1">(</span><span class="s">&quot;heroicons-solid&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:inline</span><span class="p" data-group-id="1035856935-1">)</span><span class="w">
 </span><span class="c1"># creates a Phoenix.Component module file for each icon in the set</span></code></pre>
   </section>
 </section>
@@ -876,7 +911,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">static_path()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L172" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L173" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -892,7 +927,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">static_path</span><span class="p" data-group-id="6182950659-1">(</span><span class="p" data-group-id="6182950659-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">static_path</span><span class="p" data-group-id="9637266684-1">(</span><span class="p" data-group-id="9637266684-1">)</span><span class="w">
 </span><span class="s">&quot;./assets/static/images/icons&quot;</span></code></pre>
   </section>
 </section>
@@ -905,7 +940,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">static_url()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L188" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L189" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -921,7 +956,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">static_url</span><span class="p" data-group-id="1956547894-1">(</span><span class="p" data-group-id="1956547894-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">static_url</span><span class="p" data-group-id="2937418607-1">(</span><span class="p" data-group-id="2937418607-1">)</span><span class="w">
 </span><span class="s">&quot;/images/icons&quot;</span></code></pre>
   </section>
 </section>
@@ -934,7 +969,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">using_svg_inject?()</h1>
 
-      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L203" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/iconify_ex/blob/main/lib/iconify.ex#L205" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -950,7 +985,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">using_svg_inject?</span><span class="p" data-group-id="2609300697-1">(</span><span class="p" data-group-id="2609300697-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Iconify</span><span class="o">.</span><span class="n">using_svg_inject?</span><span class="p" data-group-id="8281210054-1">(</span><span class="p" data-group-id="8281210054-1">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>

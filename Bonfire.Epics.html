@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.136">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.137">
 
 
-    <title>Bonfire.Epics — Bonfire v0.9.10-classic-beta.136</title>
+    <title>Bonfire.Epics — Bonfire v0.9.10-classic-beta.137</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-33B51BF6.js"></script>
+    <script src="dist/sidebar_items-039A0767.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.136
+          v0.9.10-classic-beta.137
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Epics</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.136)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.137)</small>
 
   </h1>
 
@@ -156,7 +156,7 @@ Pages
   </a>
   <span class="text">1. How to write an Act</span>
 </h2>
-<p>Write a module with a <code class="inline">run/2</code> function that takes an Epic and an Act, performs a specific task, and returns an Epic.</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Bonfire.Label.Acts.LabelObject</span><span class="w"> </span><span class="k" data-group-id="1678399295-1">do</span><span class="w">
+<p>Write a module with a <code class="inline">run/2</code> function that takes an Epic and an Act, performs a specific task, and returns an Epic.</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Bonfire.Label.Acts.LabelObject</span><span class="w"> </span><span class="k" data-group-id="4283591612-1">do</span><span class="w">
   </span><span class="na">@moduledoc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
   Takes an object and label and returns a changeset for labeling that object. 
   Implements `Bonfire.Epics.Act`.
@@ -174,47 +174,47 @@ Pages
   </span><span class="kn">import</span><span class="w"> </span><span class="nc">Bonfire.Epics</span><span class="w">
 
   </span><span class="na">@doc</span><span class="w"> </span><span class="no">false</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">run</span><span class="p" data-group-id="1678399295-2">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">act</span><span class="p" data-group-id="1678399295-2">)</span><span class="w"> </span><span class="k" data-group-id="1678399295-3">do</span><span class="w">
-    </span><span class="n">current_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="1678399295-4">(</span><span class="n">epic</span><span class="o">.</span><span class="n">assigns</span><span class="p" data-group-id="1678399295-5">[</span><span class="ss">:options</span><span class="p" data-group-id="1678399295-5">]</span><span class="p" data-group-id="1678399295-4">)</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">run</span><span class="p" data-group-id="4283591612-2">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">act</span><span class="p" data-group-id="4283591612-2">)</span><span class="w"> </span><span class="k" data-group-id="4283591612-3">do</span><span class="w">
+    </span><span class="n">current_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Utils</span><span class="o">.</span><span class="n">current_user</span><span class="p" data-group-id="4283591612-4">(</span><span class="n">epic</span><span class="o">.</span><span class="n">assigns</span><span class="p" data-group-id="4283591612-5">[</span><span class="ss">:options</span><span class="p" data-group-id="4283591612-5">]</span><span class="p" data-group-id="4283591612-4">)</span><span class="w">
 
-    </span><span class="k">cond</span><span class="w"> </span><span class="k" data-group-id="1678399295-6">do</span><span class="w">
-      </span><span class="n">epic</span><span class="o">.</span><span class="n">errors</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p" data-group-id="1678399295-7">[</span><span class="p" data-group-id="1678399295-7">]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-        </span><span class="n">maybe_debug</span><span class="p" data-group-id="1678399295-8">(</span><span class="w">
+    </span><span class="k">cond</span><span class="w"> </span><span class="k" data-group-id="4283591612-6">do</span><span class="w">
+      </span><span class="n">epic</span><span class="o">.</span><span class="n">errors</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p" data-group-id="4283591612-7">[</span><span class="p" data-group-id="4283591612-7">]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+        </span><span class="n">maybe_debug</span><span class="p" data-group-id="4283591612-8">(</span><span class="w">
           </span><span class="n">epic</span><span class="p">,</span><span class="w">
           </span><span class="n">act</span><span class="p">,</span><span class="w">
-          </span><span class="n">length</span><span class="p" data-group-id="1678399295-9">(</span><span class="n">epic</span><span class="o">.</span><span class="n">errors</span><span class="p" data-group-id="1678399295-9">)</span><span class="p">,</span><span class="w">
+          </span><span class="n">length</span><span class="p" data-group-id="4283591612-9">(</span><span class="n">epic</span><span class="o">.</span><span class="n">errors</span><span class="p" data-group-id="4283591612-9">)</span><span class="p">,</span><span class="w">
           </span><span class="s">&quot;Skipping due to epic errors&quot;</span><span class="w">
-        </span><span class="p" data-group-id="1678399295-8">)</span><span class="w">
+        </span><span class="p" data-group-id="4283591612-8">)</span><span class="w">
 
         </span><span class="n">epic</span><span class="w">
 
-      </span><span class="ow">not</span><span class="w"> </span><span class="p" data-group-id="1678399295-10">(</span><span class="n">is_struct</span><span class="p" data-group-id="1678399295-11">(</span><span class="n">current_user</span><span class="p" data-group-id="1678399295-11">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">is_binary</span><span class="p" data-group-id="1678399295-12">(</span><span class="n">current_user</span><span class="p" data-group-id="1678399295-12">)</span><span class="p" data-group-id="1678399295-10">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-        </span><span class="n">maybe_debug</span><span class="p" data-group-id="1678399295-13">(</span><span class="w">
+      </span><span class="ow">not</span><span class="w"> </span><span class="p" data-group-id="4283591612-10">(</span><span class="n">is_struct</span><span class="p" data-group-id="4283591612-11">(</span><span class="n">current_user</span><span class="p" data-group-id="4283591612-11">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">is_binary</span><span class="p" data-group-id="4283591612-12">(</span><span class="n">current_user</span><span class="p" data-group-id="4283591612-12">)</span><span class="p" data-group-id="4283591612-10">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+        </span><span class="n">maybe_debug</span><span class="p" data-group-id="4283591612-13">(</span><span class="w">
           </span><span class="n">epic</span><span class="p">,</span><span class="w">
           </span><span class="n">act</span><span class="p">,</span><span class="w">
           </span><span class="n">current_user</span><span class="p">,</span><span class="w">
           </span><span class="s">&quot;Skipping due to missing current_user&quot;</span><span class="w">
-        </span><span class="p" data-group-id="1678399295-13">)</span><span class="w">
+        </span><span class="p" data-group-id="4283591612-13">)</span><span class="w">
 
         </span><span class="n">epic</span><span class="w">
 
       </span><span class="no">true</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-        </span><span class="n">as</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="1678399295-14">(</span><span class="n">act</span><span class="o">.</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="ss">:as</span><span class="p" data-group-id="1678399295-14">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="1678399295-15">(</span><span class="n">act</span><span class="o">.</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="ss">:on</span><span class="p">,</span><span class="w"> </span><span class="ss">:label</span><span class="p" data-group-id="1678399295-15">)</span><span class="w">
-        </span><span class="n">object_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="1678399295-16">(</span><span class="n">act</span><span class="o">.</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="ss">:object</span><span class="p">,</span><span class="w"> </span><span class="ss">:object</span><span class="p" data-group-id="1678399295-16">)</span><span class="w">
+        </span><span class="n">as</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="4283591612-14">(</span><span class="n">act</span><span class="o">.</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="ss">:as</span><span class="p" data-group-id="4283591612-14">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="4283591612-15">(</span><span class="n">act</span><span class="o">.</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="ss">:on</span><span class="p">,</span><span class="w"> </span><span class="ss">:label</span><span class="p" data-group-id="4283591612-15">)</span><span class="w">
+        </span><span class="n">object_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="4283591612-16">(</span><span class="n">act</span><span class="o">.</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="ss">:object</span><span class="p">,</span><span class="w"> </span><span class="ss">:object</span><span class="p" data-group-id="4283591612-16">)</span><span class="w">
 
-        </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="1678399295-17">(</span><span class="n">epic</span><span class="o">.</span><span class="n">assigns</span><span class="p" data-group-id="1678399295-18">[</span><span class="ss">:options</span><span class="p" data-group-id="1678399295-18">]</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1678399295-19">[</span><span class="p" data-group-id="1678399295-19">]</span><span class="p" data-group-id="1678399295-17">)</span><span class="w">
-        </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="1678399295-20">(</span><span class="n">epic</span><span class="o">.</span><span class="n">assigns</span><span class="p" data-group-id="1678399295-21">[</span><span class="ss">:options</span><span class="p" data-group-id="1678399295-21">]</span><span class="p">,</span><span class="w"> </span><span class="n">object_key</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="1678399295-20">)</span><span class="w">
+        </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="4283591612-17">(</span><span class="n">epic</span><span class="o">.</span><span class="n">assigns</span><span class="p" data-group-id="4283591612-18">[</span><span class="ss">:options</span><span class="p" data-group-id="4283591612-18">]</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4283591612-19">[</span><span class="p" data-group-id="4283591612-19">]</span><span class="p" data-group-id="4283591612-17">)</span><span class="w">
+        </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="4283591612-20">(</span><span class="n">epic</span><span class="o">.</span><span class="n">assigns</span><span class="p" data-group-id="4283591612-21">[</span><span class="ss">:options</span><span class="p" data-group-id="4283591612-21">]</span><span class="p">,</span><span class="w"> </span><span class="n">object_key</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="4283591612-20">)</span><span class="w">
 
-        </span><span class="nc">Bonfire.Label.Labelling</span><span class="o">.</span><span class="n">label_object</span><span class="p" data-group-id="1678399295-22">(</span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w">
+        </span><span class="nc">Bonfire.Label.Labelling</span><span class="o">.</span><span class="n">label_object</span><span class="p" data-group-id="4283591612-22">(</span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w">
           </span><span class="ss">return</span><span class="p">:</span><span class="w"> </span><span class="ss">:changeset</span><span class="p">,</span><span class="w">
           </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">current_user</span><span class="w">
-        </span><span class="p" data-group-id="1678399295-22">)</span><span class="w">
-        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="1678399295-23">(</span><span class="ss">:action</span><span class="p">,</span><span class="w"> </span><span class="ss">:insert</span><span class="p" data-group-id="1678399295-23">)</span><span class="w">
-        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Bonfire.Epics.Epic</span><span class="o">.</span><span class="n">assign</span><span class="p" data-group-id="1678399295-24">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1678399295-24">)</span><span class="w">
-        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="1678399295-25">(</span><span class="ss">:label</span><span class="p" data-group-id="1678399295-25">)</span><span class="w">
-    </span><span class="k" data-group-id="1678399295-6">end</span><span class="w">
-  </span><span class="k" data-group-id="1678399295-3">end</span><span class="w">
-</span><span class="k" data-group-id="1678399295-1">end</span></code></pre><h2 id="module-2-how-to-define-an-epic" class="section-heading">
+        </span><span class="p" data-group-id="4283591612-22">)</span><span class="w">
+        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="4283591612-23">(</span><span class="ss">:action</span><span class="p">,</span><span class="w"> </span><span class="ss">:insert</span><span class="p" data-group-id="4283591612-23">)</span><span class="w">
+        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Bonfire.Epics.Epic</span><span class="o">.</span><span class="n">assign</span><span class="p" data-group-id="4283591612-24">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4283591612-24">)</span><span class="w">
+        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="4283591612-25">(</span><span class="ss">:label</span><span class="p" data-group-id="4283591612-25">)</span><span class="w">
+    </span><span class="k" data-group-id="4283591612-6">end</span><span class="w">
+  </span><span class="k" data-group-id="4283591612-3">end</span><span class="w">
+</span><span class="k" data-group-id="4283591612-1">end</span></code></pre><h2 id="module-2-how-to-define-an-epic" class="section-heading">
   <a href="#module-2-how-to-define-an-epic" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
@@ -226,27 +226,27 @@ Pages
   </a>
   <span class="text">Simple Epic where each Act executes sequentially</span>
 </h3>
-<pre><code class="makeup elixir" translate="no"><span class="w">     </span><span class="na">@page_act_opts</span><span class="w"> </span><span class="p" data-group-id="7902054869-1">[</span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:page</span><span class="p">,</span><span class="w"> </span><span class="ss">attrs</span><span class="p">:</span><span class="w"> </span><span class="ss">:page_attrs</span><span class="p" data-group-id="7902054869-1">]</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="w">     </span><span class="na">@page_act_opts</span><span class="w"> </span><span class="p" data-group-id="1845858212-1">[</span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:page</span><span class="p">,</span><span class="w"> </span><span class="ss">attrs</span><span class="p">:</span><span class="w"> </span><span class="ss">:page_attrs</span><span class="p" data-group-id="1845858212-1">]</span><span class="w">
 
      </span><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire_pages</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Pages</span><span class="p">,</span><span class="w">
-      </span><span class="ss">epics</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7902054869-2">[</span><span class="w">
-        </span><span class="ss">create</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7902054869-3">[</span><span class="w">
+      </span><span class="ss">epics</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1845858212-2">[</span><span class="w">
+        </span><span class="ss">create</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1845858212-3">[</span><span class="w">
           </span><span class="c1"># Create a changeset for insertion</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-4">{</span><span class="nc">Bonfire.Pages.Acts.Page.Create</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-4">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-4">{</span><span class="nc">Bonfire.Pages.Acts.Page.Create</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-4">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># with a sanitised body and tags extracted,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-5">{</span><span class="nc">Bonfire.Social.Acts.PostContents</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-5">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-5">{</span><span class="nc">Bonfire.Social.Acts.PostContents</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-5">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># a caretaker,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-6">{</span><span class="nc">Bonfire.Me.Acts.Caretaker</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-6">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-6">{</span><span class="nc">Bonfire.Me.Acts.Caretaker</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-6">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># and a creator,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-7">{</span><span class="nc">Bonfire.Me.Acts.Creator</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-7">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-7">{</span><span class="nc">Bonfire.Me.Acts.Creator</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-7">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># and possibly fetch contents of URLs,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-8">{</span><span class="nc">Bonfire.Files.Acts.URLPreviews</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-8">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-8">{</span><span class="nc">Bonfire.Files.Acts.URLPreviews</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-8">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># possibly with uploaded files,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-9">{</span><span class="nc">Bonfire.Files.Acts.AttachMedia</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-9">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-9">{</span><span class="nc">Bonfire.Files.Acts.AttachMedia</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-9">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># with extracted tags fully hooked up,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-10">{</span><span class="nc">Bonfire.Tag.Acts.Tag</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-10">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-10">{</span><span class="nc">Bonfire.Tag.Acts.Tag</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-10">}</span><span class="p">,</span><span class="w">
           </span><span class="c1"># and the appropriate boundaries established,</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-11">{</span><span class="nc">Bonfire.Boundaries.Acts.SetBoundaries</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-11">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="1845858212-11">{</span><span class="nc">Bonfire.Boundaries.Acts.SetBoundaries</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-11">}</span><span class="p">,</span><span class="w">
 
           </span><span class="c1"># Now we open a Postgres transaction and actually do the insertions in DB</span><span class="w">
           </span><span class="nc">Bonfire.Ecto.Acts.Begin</span><span class="p">,</span><span class="w">
@@ -255,55 +255,55 @@ Pages
           </span><span class="nc">Bonfire.Ecto.Acts.Commit</span><span class="p">,</span><span class="w">
 
           </span><span class="c1"># Enqueue for indexing by meilisearch</span><span class="w">
-          </span><span class="p" data-group-id="7902054869-12">{</span><span class="nc">Bonfire.Search.Acts.Queue</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="7902054869-12">}</span><span class="w">
-        </span><span class="p" data-group-id="7902054869-3">]</span><span class="w">
-      </span><span class="p" data-group-id="7902054869-2">]</span></code></pre><h3 id="module-advanced-epic-where-some-acts-execute-in-parallel" class="section-heading">
+          </span><span class="p" data-group-id="1845858212-12">{</span><span class="nc">Bonfire.Search.Acts.Queue</span><span class="p">,</span><span class="w"> </span><span class="na">@page_act_opts</span><span class="p" data-group-id="1845858212-12">}</span><span class="w">
+        </span><span class="p" data-group-id="1845858212-3">]</span><span class="w">
+      </span><span class="p" data-group-id="1845858212-2">]</span></code></pre><h3 id="module-advanced-epic-where-some-acts-execute-in-parallel" class="section-heading">
   <a href="#module-advanced-epic-where-some-acts-execute-in-parallel" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Advanced Epic, where some Acts execute in parallel</span>
 </h3>
 <pre><code class="makeup elixir" translate="no"><span class="w">    </span><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire_posts</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Posts</span><span class="p">,</span><span class="w">
-      </span><span class="ss">epics</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3609695414-1">[</span><span class="w">
-        </span><span class="ss">publish</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3609695414-2">[</span><span class="w">
+      </span><span class="ss">epics</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9779302116-1">[</span><span class="w">
+        </span><span class="ss">publish</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9779302116-2">[</span><span class="w">
           </span><span class="c1"># Create a changeset for insertion</span><span class="w">
           </span><span class="nc">Bonfire.Posts.Acts.Posts.Publish</span><span class="p">,</span><span class="w">
           </span><span class="c1"># These next 3 Acts are run in parallel</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-3">[</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-3">[</span><span class="w">
             </span><span class="c1"># with a sanitised body and tags extracted,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-4">{</span><span class="nc">Bonfire.Social.Acts.PostContents</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-4">{</span><span class="nc">Bonfire.Social.Acts.PostContents</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-4">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># assign a caretaker,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-5">{</span><span class="nc">Bonfire.Me.Acts.Caretaker</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-5">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-5">{</span><span class="nc">Bonfire.Me.Acts.Caretaker</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-5">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># record the creator,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-6">{</span><span class="nc">Bonfire.Me.Acts.Creator</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-6">}</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-3">]</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-6">{</span><span class="nc">Bonfire.Me.Acts.Creator</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-6">}</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-3">]</span><span class="p">,</span><span class="w">
           </span><span class="c1"># These next 4 Acts are run in parallel (they run after the previous 3 because they depend on the outputs of those Acts)</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-7">[</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-7">[</span><span class="w">
             </span><span class="c1"># possibly fetch contents of URLs,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-8">{</span><span class="nc">Bonfire.Files.Acts.URLPreviews</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-8">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-8">{</span><span class="nc">Bonfire.Files.Acts.URLPreviews</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-8">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># possibly occurring in a thread,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-9">{</span><span class="nc">Bonfire.Social.Acts.Threaded</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-9">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-9">{</span><span class="nc">Bonfire.Social.Acts.Threaded</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-9">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># with extracted tags/mentions fully hooked up,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-10">{</span><span class="nc">Bonfire.Tag.Acts.Tag</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-10">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-10">{</span><span class="nc">Bonfire.Tag.Acts.Tag</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-10">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># maybe set as sensitive,</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-11">{</span><span class="nc">Bonfire.Social.Acts.Sensitivity</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-11">}</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-7">]</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-11">{</span><span class="nc">Bonfire.Social.Acts.Sensitivity</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-11">}</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-7">]</span><span class="p">,</span><span class="w">
           </span><span class="c1"># These next 3 Acts are run in parallel (they run after the previous 4 because they depend on the outputs of those Acts)</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-12">[</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-12">[</span><span class="w">
             </span><span class="c1"># possibly with uploaded/linked media (optionally depends on URLPreviews),</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-13">{</span><span class="nc">Bonfire.Files.Acts.AttachMedia</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-13">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-13">{</span><span class="nc">Bonfire.Files.Acts.AttachMedia</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-13">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># with appropriate boundaries established (depends on Threaded),</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-14">{</span><span class="nc">Bonfire.Boundaries.Acts.SetBoundaries</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-14">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-14">{</span><span class="nc">Bonfire.Boundaries.Acts.SetBoundaries</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-14">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># summarised by an activity (possibly appearing in feeds),</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-15">{</span><span class="nc">Bonfire.Social.Acts.Activity</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-15">}</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-12">]</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-15">{</span><span class="nc">Bonfire.Social.Acts.Activity</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-15">}</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-12">]</span><span class="p">,</span><span class="w">
 
           </span><span class="c1"># Now we open a Postgres transaction and actually do the insertions in DB</span><span class="w">
           </span><span class="nc">Bonfire.Ecto.Acts.Begin</span><span class="p">,</span><span class="w">
@@ -312,27 +312,27 @@ Pages
           </span><span class="nc">Bonfire.Ecto.Acts.Commit</span><span class="p">,</span><span class="w">
 
           </span><span class="c1"># Preload data &amp; Publish live feed updates via (in-memory) PubSub</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-16">{</span><span class="nc">Bonfire.Social.Acts.LivePush</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-16">}</span><span class="p">,</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-16">{</span><span class="nc">Bonfire.Social.Acts.LivePush</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-16">}</span><span class="p">,</span><span class="w">
 
           </span><span class="c1"># These steps are run in parallel</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-17">[</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-17">[</span><span class="w">
             </span><span class="c1"># Enqueue for indexing by meilisearch</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-18">{</span><span class="nc">Bonfire.Search.Acts.Queue</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-18">}</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-18">{</span><span class="nc">Bonfire.Search.Acts.Queue</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-18">}</span><span class="p">,</span><span class="w">
 
             </span><span class="c1"># Prepare JSON for federation and add to queue (oban).</span><span class="w">
-            </span><span class="p" data-group-id="3609695414-19">{</span><span class="nc">Bonfire.Social.Acts.Federate</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-19">}</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-17">]</span><span class="p">,</span><span class="w">
+            </span><span class="p" data-group-id="9779302116-19">{</span><span class="nc">Bonfire.Social.Acts.Federate</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-19">}</span><span class="w">
+          </span><span class="p" data-group-id="9779302116-17">]</span><span class="p">,</span><span class="w">
 
           </span><span class="c1"># Once the activity/object exists (depends on federation being done)</span><span class="w">
-          </span><span class="p" data-group-id="3609695414-20">{</span><span class="nc">Bonfire.Tags.Acts.AutoBoost</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3609695414-20">}</span><span class="w">
-        </span><span class="p" data-group-id="3609695414-2">]</span><span class="w">
-      </span><span class="p" data-group-id="3609695414-1">]</span></code></pre><h2 id="module-3-how-to-run-an-epic" class="section-heading">
+          </span><span class="p" data-group-id="9779302116-20">{</span><span class="nc">Bonfire.Tags.Acts.AutoBoost</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9779302116-20">}</span><span class="w">
+        </span><span class="p" data-group-id="9779302116-2">]</span><span class="w">
+      </span><span class="p" data-group-id="9779302116-1">]</span></code></pre><h2 id="module-3-how-to-run-an-epic" class="section-heading">
   <a href="#module-3-how-to-run-an-epic" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">3. How to run an Epic</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="nc">Bonfire.Epics</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="0711191729-1">(</span><span class="nc">Bonfire.Posts</span><span class="p">,</span><span class="w"> </span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="0711191729-1">)</span></code></pre><h2 id="module-copyright-and-license" class="section-heading">
+<pre><code class="makeup elixir" translate="no"><span class="nc">Bonfire.Epics</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="9883406486-1">(</span><span class="nc">Bonfire.Posts</span><span class="p">,</span><span class="w"> </span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="9883406486-1">)</span></code></pre><h2 id="module-copyright-and-license" class="section-heading">
   <a href="#module-copyright-and-license" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
@@ -501,8 +501,8 @@ and still print the message if only <code class="inline">:debug</code> is set</p
   <span class="text">Examples</span>
 </h2>
 <pre><code class="makeup elixir" translate="no"><span class="c1"># runs an Epic defined in config at `config :bonfire_posts, Bonfire.Posts, epics: [publish: [...]]`</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Epics</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="3278585031-1">(</span><span class="nc">Bonfire.Posts</span><span class="p">,</span><span class="w"> </span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3278585031-2">[</span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="3278585031-2">]</span><span class="p" data-group-id="3278585031-1">)</span><span class="w">
-</span><span class="p" data-group-id="3278585031-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3278585031-4">%{</span><span class="p" data-group-id="3278585031-4">}</span><span class="p" data-group-id="3278585031-3">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Epics</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="5610478227-1">(</span><span class="nc">Bonfire.Posts</span><span class="p">,</span><span class="w"> </span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5610478227-2">[</span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="5610478227-2">]</span><span class="p" data-group-id="5610478227-1">)</span><span class="w">
+</span><span class="p" data-group-id="5610478227-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5610478227-4">%{</span><span class="p" data-group-id="5610478227-4">}</span><span class="p" data-group-id="5610478227-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="smart/4">
