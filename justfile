@@ -471,7 +471,7 @@ deps-clone-local-all:
 #### CONTRIBUTION RELATED COMMANDS ####
 
 _pre-push-hooks: _pre-contrib-hooks
-	just mix format
+	just mix format.all
 	just icons-uniq
 	just deps-clean bonfire
 #	just mix changelog

@@ -457,6 +457,15 @@ defmodule Bonfire.Umbrella.MixProject do
       "ecto.migrate": ["bonfire.seeds"],
       "ecto.reset": ["ecto.drop --force", "ecto.setup"],
       "test.with-db": ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "format.assets": [
+        "format",
+        "cmd --cd assets/ yarn format.js",
+        "cmd --cd assets/ yarn format.css"
+      ],
+      "format.all": [
+        "format",
+        "format.assets"
+      ],
       sobelow: ["cmd mix sobelow"]
     ]
   end
