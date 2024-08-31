@@ -148,7 +148,7 @@ setup-dev:
 	just deps-clean-unused
 	WITH_GIT_DEPS=0 just mix deps.get
 	just _ln-spark-deps
-	just deps-get
+	just deps-fetch
 
 extension-post-install: 
 	just _ext-migrations-copy
@@ -158,7 +158,7 @@ _ext-migrations-copy: db-clean-migrations
 
 setup-prod:
 	just build
-	just deps-get --only prod
+	just deps-fetch --only prod
 	just _deps-post-get
 
 # Prepare environment and dependencies
@@ -293,7 +293,7 @@ update: init update-repo
 	just update-deps
 	just mix deps.get
 	just _deps-post-get
-	just js-deps-get
+	just js-deps-fetch
 #   just mix compile
 #	just db-migrate
 
@@ -363,12 +363,16 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 	@chmod +x git-publish.sh
 	find $path -mindepth $mindepth -maxdepth $maxdepth -type d -exec ./git-publish.sh {} $cmd \;
 
-# Fetch locked version of non-forked deps
-@deps-get *args='':
-	just mix deps.get $@
+# Fetch locked versions of deps (Elixir and JS), including ones also cloned locally
+@deps-fetch *args='':
+	just deps-get $@
 	-just mix-remote deps.get $@ || echo "Oops, could not download mix deps"
 	just _deps-post-get
-	just js-deps-get
+	just js-deps-fetch
+
+# Fetch locked versions of Elixir deps (except ones also cloned locally)
+@deps-get *args='':
+	just mix deps.get $@
 
 @_deps-post-get: extension-post-install
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
@@ -395,7 +399,7 @@ deps-clean dep:
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
-js-deps-get: js-ext-deps _assets-ln
+js-deps-fetch: js-ext-deps _assets-ln
 
 @js-ext-deps yrn_args='':
 	chmod +x ./config/deps.js.sh
