@@ -2,7 +2,7 @@ import Config
 
 config :bonfire_social, Bonfire.Social.Pins, modularity: :enabled
 
-config :bonfire_label, modularity: :disabled
+# config :bonfire_label, modularity: :disabled
 
 config :bonfire_boundaries, Bonfire.Boundaries.Web.SetBoundariesLive, modularity: :disabled
 config :bonfire_boundaries, Bonfire.Boundaries.Web.PreviewBoundariesLive, modularity: :disabled
