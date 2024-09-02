@@ -725,7 +725,7 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	just rel-tag-version-commit {{version}} $APP_BUILD {{label}}
 
 @rel-tag-version-commit version build label='latest': _rel-init
-	just rel-tag-version-commit-flavour {{version}} $APP_BUILD $FLAVOUR {{label}}
+	just rel-tag-version-commit-flavour {{version}} {{build}} $FLAVOUR {{label}}
 
 @rel-tag-version-commit-flavour version build flavour label='latest': _rel-init
 	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-{{flavour}}-{{arch()}}
