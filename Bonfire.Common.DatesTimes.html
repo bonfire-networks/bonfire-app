@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.140">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.141">
 
 
-    <title>Bonfire.Common.DatesTimes — Bonfire v0.9.10-classic-beta.140</title>
+    <title>Bonfire.Common.DatesTimes — Bonfire v0.9.10-classic-beta.141</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-BA2A623E.js"></script>
+    <script src="dist/sidebar_items-85B03711.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.140
+          v0.9.10-classic-beta.141
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Common.DatesTimes</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.140)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.141)</small>
 
   </h1>
 
@@ -157,7 +157,7 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#available_format_keys/1" data-no-tooltip translate="no">available_format_keys(locale \\ Cldr.get_locale())</a>
+        <a href="#available_format_keys/2" data-no-tooltip translate="no">available_format_keys(scope \\ DateTime, locale \\ Cldr.get_locale())</a>
 
       </div>
 
@@ -167,7 +167,7 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#available_formats/1" data-no-tooltip translate="no">available_formats(locale \\ Cldr.get_locale())</a>
+        <a href="#available_formats/2" data-no-tooltip translate="no">available_formats(scope \\ DateTime, locale \\ Cldr.get_locale())</a>
 
       </div>
 
@@ -202,6 +202,16 @@ Pages
       </div>
 
         <div class="summary-synopsis"><p>Formats a <a href="https://hexdocs.pm/elixir/DateTime.html"><code class="inline">DateTime</code></a> struct or date into a string using <a href="https://hexdocs.pm/ex_cldr_dates_times/2.20.3/Cldr.DateTime.html#to_string/2"><code class="inline">Cldr.DateTime.to_string/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_date/2" data-no-tooltip translate="no">format_date(date, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Formats a <a href="https://hexdocs.pm/elixir/Date.html"><code class="inline">Date</code></a> struct or date into a string using <a href="https://hexdocs.pm/ex_cldr_dates_times/2.20.3/Cldr.Date.html#to_string/2"><code class="inline">Cldr.Date.to_string/2</code></a>.</p></div>
 
     </div>
 
@@ -277,6 +287,16 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#to_date/1" data-no-tooltip translate="no">to_date(date)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts various formats into a <a href="https://hexdocs.pm/elixir/DateTime.html"><code class="inline">DateTime</code></a> struct.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#to_date_time/1" data-no-tooltip translate="no">to_date_time(date_time)</a>
 
       </div>
@@ -298,18 +318,20 @@ Pages
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="available_format_keys/1">
+<section class="detail" id="available_format_keys/2">
 
     <span id="available_format_keys/0"></span>
 
+    <span id="available_format_keys/1"></span>
+
   <div class="detail-header">
-    <a href="#available_format_keys/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#available_format_keys/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">available_format_keys(locale \\ Cldr.get_locale())</h1>
+    <h1 class="signature" translate="no">available_format_keys(scope \\ DateTime, locale \\ Cldr.get_locale())</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L84" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L109" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -319,28 +341,30 @@ Pages
 
   <section class="docstring">
 
-<p>Returns a list of available format keys for the given locale.</p><h2 id="available_format_keys/1-examples" class="section-heading">
-  <a href="#available_format_keys/1-examples" class="hover-link">
+<p>Returns a list of available format keys for the given locale.</p><h2 id="available_format_keys/2-examples" class="section-heading">
+  <a href="#available_format_keys/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">available_format_keys</span><span class="p" data-group-id="0848106663-1">(</span><span class="p" data-group-id="0848106663-1">)</span><span class="w">
-</span><span class="p" data-group-id="0848106663-2">[</span><span class="ss">:short</span><span class="p">,</span><span class="w"> </span><span class="ss">:medium</span><span class="p">,</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">:full</span><span class="p" data-group-id="0848106663-2">]</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">available_format_keys</span><span class="p" data-group-id="3490013778-1">(</span><span class="p" data-group-id="3490013778-1">)</span><span class="w">
+</span><span class="p" data-group-id="3490013778-2">[</span><span class="ss">:short</span><span class="p">,</span><span class="w"> </span><span class="ss">:medium</span><span class="p">,</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">:full</span><span class="p" data-group-id="3490013778-2">]</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
-<section class="detail" id="available_formats/1">
+<section class="detail" id="available_formats/2">
 
     <span id="available_formats/0"></span>
 
+    <span id="available_formats/1"></span>
+
   <div class="detail-header">
-    <a href="#available_formats/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#available_formats/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">available_formats(locale \\ Cldr.get_locale())</h1>
+    <h1 class="signature" translate="no">available_formats(scope \\ DateTime, locale \\ Cldr.get_locale())</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L97" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L124" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -350,14 +374,14 @@ Pages
 
   <section class="docstring">
 
-<p>Returns a keyword list of available date/time formats for the given locale.</p><h2 id="available_formats/1-examples" class="section-heading">
-  <a href="#available_formats/1-examples" class="hover-link">
+<p>Returns a keyword list of available date/time formats for the given locale.</p><h2 id="available_formats/2-examples" class="section-heading">
+  <a href="#available_formats/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">available_formats</span><span class="p" data-group-id="8600329796-1">(</span><span class="p" data-group-id="8600329796-1">)</span><span class="w">
-</span><span class="p" data-group-id="8600329796-2">[</span><span class="ss">short</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Short&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">medium</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Medium&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">long</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Long&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">full</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Full&quot;</span><span class="p" data-group-id="8600329796-2">]</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">available_formats</span><span class="p" data-group-id="3440906773-1">(</span><span class="p" data-group-id="3440906773-1">)</span><span class="w">
+</span><span class="p" data-group-id="3440906773-2">[</span><span class="ss">short</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Short&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">medium</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Medium&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">long</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Long&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">full</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Full&quot;</span><span class="p" data-group-id="3440906773-2">]</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
 <section class="detail" id="date_from_now/2">
@@ -387,10 +411,10 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">date_from_now</span><span class="p" data-group-id="9027668367-1">(</span><span class="p" data-group-id="9027668367-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;01FJ6G6V9E7Y3A6HZ5F2M3K4RY&quot;</span><span class="p" data-group-id="9027668367-2">}</span><span class="p" data-group-id="9027668367-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">date_from_now</span><span class="p" data-group-id="7516365748-1">(</span><span class="p" data-group-id="7516365748-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;01FJ6G6V9E7Y3A6HZ5F2M3K4RY&quot;</span><span class="p" data-group-id="7516365748-2">}</span><span class="p" data-group-id="7516365748-1">)</span><span class="w">
 </span><span class="s">&quot;25 days ago&quot;</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">date_from_now</span><span class="p" data-group-id="9027668367-3">(</span><span class="s">&quot;01FJ6G6V9E7Y3A6HZ5F2M3K4RY&quot;</span><span class="p" data-group-id="9027668367-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">date_from_now</span><span class="p" data-group-id="7516365748-3">(</span><span class="s">&quot;01FJ6G6V9E7Y3A6HZ5F2M3K4RY&quot;</span><span class="p" data-group-id="7516365748-3">)</span><span class="w">
 </span><span class="s">&quot;25 days ago&quot;</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
@@ -403,7 +427,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">date_from_pointer(object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L223" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L363" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -419,8 +443,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">date_from_pointer</span><span class="p" data-group-id="2572200709-1">(</span><span class="s">&quot;01FJ6G6V9E7Y3A6HZ5F2M3K4RY&quot;</span><span class="p" data-group-id="2572200709-1">)</span><span class="w">
-</span><span class="p" data-group-id="2572200709-2">%</span><span class="nc" data-group-id="2572200709-2">DateTime</span><span class="p" data-group-id="2572200709-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2572200709-2">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">date_from_pointer</span><span class="p" data-group-id="8432516996-1">(</span><span class="s">&quot;01FJ6G6V9E7Y3A6HZ5F2M3K4RY&quot;</span><span class="p" data-group-id="8432516996-1">)</span><span class="w">
+</span><span class="p" data-group-id="8432516996-2">%</span><span class="nc" data-group-id="8432516996-2">DateTime</span><span class="p" data-group-id="8432516996-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8432516996-2">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
 <section class="detail" id="format/2">
@@ -450,7 +474,38 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">format</span><span class="p" data-group-id="2710487447-1">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">now!</span><span class="p" data-group-id="2710487447-2">(</span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="2710487447-2">)</span><span class="p" data-group-id="2710487447-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">format</span><span class="p" data-group-id="1263732307-1">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">now!</span><span class="p" data-group-id="1263732307-2">(</span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="1263732307-2">)</span><span class="p" data-group-id="1263732307-1">)</span><span class="w">
+</span><span class="s">&quot;Jul 25, 2024, 11:08:21 AM&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="format_date/2">
+
+    <span id="format_date/1"></span>
+
+  <div class="detail-header">
+    <a href="#format_date/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">format_date(date, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L84" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Formats a <a href="https://hexdocs.pm/elixir/Date.html"><code class="inline">Date</code></a> struct or date into a string using <a href="https://hexdocs.pm/ex_cldr_dates_times/2.20.3/Cldr.Date.html#to_string/2"><code class="inline">Cldr.Date.to_string/2</code></a>.</p><h2 id="format_date/2-examples" class="section-heading">
+  <a href="#format_date/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">format</span><span class="p" data-group-id="5655740492-1">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">now!</span><span class="p" data-group-id="5655740492-2">(</span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="5655740492-2">)</span><span class="p" data-group-id="5655740492-1">)</span><span class="w">
 </span><span class="s">&quot;Jul 25, 2024, 11:08:21 AM&quot;</span></code></pre>
   </section>
 </section>
@@ -463,7 +518,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">future?(dt)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L333" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L473" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -479,10 +534,10 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">future?</span><span class="p" data-group-id="8759765833-1">(</span><span class="p" data-group-id="8759765833-2">%</span><span class="nc" data-group-id="8759765833-2">Date</span><span class="p" data-group-id="8759765833-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">3020</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8759765833-2">}</span><span class="p" data-group-id="8759765833-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">future?</span><span class="p" data-group-id="1859401839-1">(</span><span class="p" data-group-id="1859401839-2">%</span><span class="nc" data-group-id="1859401839-2">Date</span><span class="p" data-group-id="1859401839-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">3020</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1859401839-2">}</span><span class="p" data-group-id="1859401839-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">future?</span><span class="p" data-group-id="8759765833-3">(</span><span class="p" data-group-id="8759765833-4">%</span><span class="nc" data-group-id="8759765833-4">Date</span><span class="p" data-group-id="8759765833-4">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2023</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8759765833-4">}</span><span class="p" data-group-id="8759765833-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">future?</span><span class="p" data-group-id="1859401839-3">(</span><span class="p" data-group-id="1859401839-4">%</span><span class="nc" data-group-id="1859401839-4">Date</span><span class="p" data-group-id="1859401839-4">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2023</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1859401839-4">}</span><span class="p" data-group-id="1859401839-3">)</span><span class="w">
 </span><span class="no">false</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
@@ -495,7 +550,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">maybe_generate_ulid(date_time_or_string)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L245" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L385" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -511,10 +566,10 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_generate_ulid</span><span class="p" data-group-id="8690329619-1">(</span><span class="p" data-group-id="8690329619-2">%</span><span class="nc" data-group-id="8690329619-2">Date</span><span class="p" data-group-id="8690329619-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8690329619-2">}</span><span class="p" data-group-id="8690329619-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_generate_ulid</span><span class="p" data-group-id="4239924859-1">(</span><span class="p" data-group-id="4239924859-2">%</span><span class="nc" data-group-id="4239924859-2">Date</span><span class="p" data-group-id="4239924859-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="4239924859-2">}</span><span class="p" data-group-id="4239924859-1">)</span><span class="w">
 </span><span class="s">&quot;01J3KJZZ00X1EXD6TZYD3PPDR6&quot;</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_generate_ulid</span><span class="p" data-group-id="8690329619-3">(</span><span class="s">&quot;2024-07-25&quot;</span><span class="p" data-group-id="8690329619-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_generate_ulid</span><span class="p" data-group-id="4239924859-3">(</span><span class="s">&quot;2024-07-25&quot;</span><span class="p" data-group-id="4239924859-3">)</span><span class="w">
 </span><span class="s">&quot;01J3KJZZ00X1EXD6TZYD3PPDR6&quot;</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
@@ -527,7 +582,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">now()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L271" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L411" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -543,8 +598,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p" data-group-id="0506518285-1">(</span><span class="p" data-group-id="0506518285-1">)</span><span class="w">
-</span><span class="p" data-group-id="0506518285-2">%</span><span class="nc" data-group-id="0506518285-2">DateTime</span><span class="p" data-group-id="0506518285-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0506518285-2">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p" data-group-id="1219139589-1">(</span><span class="p" data-group-id="1219139589-1">)</span><span class="w">
+</span><span class="p" data-group-id="1219139589-2">%</span><span class="nc" data-group-id="1219139589-2">DateTime</span><span class="p" data-group-id="1219139589-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1219139589-2">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
 <section class="detail" id="past/2">
@@ -558,7 +613,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">past(amount_to_remove, unit \\ :second)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L281" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L421" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -574,8 +629,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">past</span><span class="p" data-group-id="8830431108-1">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ss">:day</span><span class="p" data-group-id="8830431108-1">)</span><span class="w">
-</span><span class="p" data-group-id="8830431108-2">%</span><span class="nc" data-group-id="8830431108-2">DateTime</span><span class="p" data-group-id="8830431108-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8830431108-2">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">past</span><span class="p" data-group-id="6807090716-1">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ss">:day</span><span class="p" data-group-id="6807090716-1">)</span><span class="w">
+</span><span class="p" data-group-id="6807090716-2">%</span><span class="nc" data-group-id="6807090716-2">DateTime</span><span class="p" data-group-id="6807090716-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="6807090716-2">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
 <section class="detail" id="past?/1">
@@ -587,7 +642,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">past?(dt)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L314" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L454" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -603,10 +658,10 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">past?</span><span class="p" data-group-id="2542141399-1">(</span><span class="p" data-group-id="2542141399-2">%</span><span class="nc" data-group-id="2542141399-2">Date</span><span class="p" data-group-id="2542141399-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">3020</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="2542141399-2">}</span><span class="p" data-group-id="2542141399-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">past?</span><span class="p" data-group-id="5938439176-1">(</span><span class="p" data-group-id="5938439176-2">%</span><span class="nc" data-group-id="5938439176-2">Date</span><span class="p" data-group-id="5938439176-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">3020</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="5938439176-2">}</span><span class="p" data-group-id="5938439176-1">)</span><span class="w">
 </span><span class="no">false</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">past?</span><span class="p" data-group-id="2542141399-3">(</span><span class="p" data-group-id="2542141399-4">%</span><span class="nc" data-group-id="2542141399-4">Date</span><span class="p" data-group-id="2542141399-4">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2023</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p" data-group-id="2542141399-4">}</span><span class="p" data-group-id="2542141399-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">past?</span><span class="p" data-group-id="5938439176-3">(</span><span class="p" data-group-id="5938439176-4">%</span><span class="nc" data-group-id="5938439176-4">Date</span><span class="p" data-group-id="5938439176-4">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2023</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p" data-group-id="5938439176-4">}</span><span class="p" data-group-id="5938439176-3">)</span><span class="w">
 </span><span class="no">true</span><span class="w">   </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
@@ -637,7 +692,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">relative_date</span><span class="p" data-group-id="8842777831-1">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">now!</span><span class="p" data-group-id="8842777831-2">(</span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="8842777831-2">)</span><span class="p" data-group-id="8842777831-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">relative_date</span><span class="p" data-group-id="0817061745-1">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">now!</span><span class="p" data-group-id="0817061745-2">(</span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="0817061745-2">)</span><span class="p" data-group-id="0817061745-1">)</span><span class="w">
 </span><span class="s">&quot;now&quot;</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
@@ -652,7 +707,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">remove(dt, amount_to_remove, unit \\ :second)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L291" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L431" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -668,8 +723,46 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">remove</span><span class="p" data-group-id="4526687406-1">(</span><span class="p" data-group-id="4526687406-2">%</span><span class="nc" data-group-id="4526687406-2">Date</span><span class="p" data-group-id="4526687406-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="4526687406-2">}</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ss">:day</span><span class="p" data-group-id="4526687406-1">)</span><span class="w">
-</span><span class="p" data-group-id="4526687406-3">%</span><span class="nc" data-group-id="4526687406-3">DateTime</span><span class="p" data-group-id="4526687406-3">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4526687406-3">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">remove</span><span class="p" data-group-id="9078395363-1">(</span><span class="p" data-group-id="9078395363-2">%</span><span class="nc" data-group-id="9078395363-2">Date</span><span class="p" data-group-id="9078395363-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="9078395363-2">}</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ss">:day</span><span class="p" data-group-id="9078395363-1">)</span><span class="w">
+</span><span class="p" data-group-id="9078395363-3">%</span><span class="nc" data-group-id="9078395363-3">DateTime</span><span class="p" data-group-id="9078395363-3">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9078395363-3">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="to_date/1">
+
+  <div class="detail-header">
+    <a href="#to_date/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to_date(date)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L265" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts various formats into a <a href="https://hexdocs.pm/elixir/DateTime.html"><code class="inline">DateTime</code></a> struct.</p><h2 id="to_date/1-examples" class="section-heading">
+  <a href="#to_date/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">to_date</span><span class="p" data-group-id="3351585169-1">(</span><span class="p" data-group-id="3351585169-2">%</span><span class="nc" data-group-id="3351585169-2">Date</span><span class="p" data-group-id="3351585169-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3351585169-2">}</span><span class="p" data-group-id="3351585169-1">)</span><span class="w">
+</span><span class="p" data-group-id="3351585169-3">%</span><span class="nc" data-group-id="3351585169-3">Date</span><span class="p" data-group-id="3351585169-3">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3351585169-3">}</span><span class="w"> 
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_date</span><span class="p" data-group-id="3351585169-4">(</span><span class="s">&quot;2024-07-25&quot;</span><span class="p" data-group-id="3351585169-4">)</span><span class="w">
+</span><span class="p" data-group-id="3351585169-5">%</span><span class="nc" data-group-id="3351585169-5">Date</span><span class="p" data-group-id="3351585169-5">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3351585169-5">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_date</span><span class="p" data-group-id="3351585169-6">(</span><span class="mi">1656115200000</span><span class="p" data-group-id="3351585169-6">)</span><span class="w">
+</span><span class="p" data-group-id="3351585169-7">%</span><span class="nc" data-group-id="3351585169-7">Date</span><span class="p" data-group-id="3351585169-7">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3351585169-7">}</span><span class="w">  
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_date_time</span><span class="p" data-group-id="3351585169-8">(</span><span class="p" data-group-id="3351585169-9">%{</span><span class="s">&quot;day&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;month&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;year&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2024</span><span class="p" data-group-id="3351585169-9">}</span><span class="p" data-group-id="3351585169-8">)</span><span class="w">
+</span><span class="p" data-group-id="3351585169-10">%</span><span class="nc" data-group-id="3351585169-10">Date</span><span class="p" data-group-id="3351585169-10">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3351585169-10">}</span><span class="w">  </span></code></pre>
   </section>
 </section>
 <section class="detail" id="to_date_time/1">
@@ -681,7 +774,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">to_date_time(date_time)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L132" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/dates_times.ex#L177" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -697,14 +790,17 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="5972881615-1">(</span><span class="p" data-group-id="5972881615-2">%</span><span class="nc" data-group-id="5972881615-2">Date</span><span class="p" data-group-id="5972881615-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="5972881615-2">}</span><span class="p" data-group-id="5972881615-1">)</span><span class="w">
-</span><span class="p" data-group-id="5972881615-3">%</span><span class="nc" data-group-id="5972881615-3">DateTime</span><span class="p" data-group-id="5972881615-3">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5972881615-3">}</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="4797647264-1">(</span><span class="p" data-group-id="4797647264-2">%</span><span class="nc" data-group-id="4797647264-2">Date</span><span class="p" data-group-id="4797647264-2">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="4797647264-2">}</span><span class="p" data-group-id="4797647264-1">)</span><span class="w">
+</span><span class="p" data-group-id="4797647264-3">%</span><span class="nc" data-group-id="4797647264-3">DateTime</span><span class="p" data-group-id="4797647264-3">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4797647264-3">}</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="5972881615-4">(</span><span class="s">&quot;2024-07-25&quot;</span><span class="p" data-group-id="5972881615-4">)</span><span class="w">
-</span><span class="p" data-group-id="5972881615-5">%</span><span class="nc" data-group-id="5972881615-5">DateTime</span><span class="p" data-group-id="5972881615-5">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5972881615-5">}</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="4797647264-4">(</span><span class="s">&quot;2024-07-25&quot;</span><span class="p" data-group-id="4797647264-4">)</span><span class="w">
+</span><span class="p" data-group-id="4797647264-5">%</span><span class="nc" data-group-id="4797647264-5">DateTime</span><span class="p" data-group-id="4797647264-5">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4797647264-5">}</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="5972881615-6">(</span><span class="mi">1656115200000</span><span class="p" data-group-id="5972881615-6">)</span><span class="w">
-</span><span class="p" data-group-id="5972881615-7">%</span><span class="nc" data-group-id="5972881615-7">DateTime</span><span class="p" data-group-id="5972881615-7">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5972881615-7">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="4797647264-6">(</span><span class="mi">1656115200000</span><span class="p" data-group-id="4797647264-6">)</span><span class="w">
+</span><span class="p" data-group-id="4797647264-7">%</span><span class="nc" data-group-id="4797647264-7">DateTime</span><span class="p" data-group-id="4797647264-7">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4797647264-7">}</span><span class="w">  </span><span class="c1"># Example output</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_date_time</span><span class="p" data-group-id="4797647264-8">(</span><span class="p" data-group-id="4797647264-9">%{</span><span class="s">&quot;day&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;month&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;year&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2024</span><span class="p" data-group-id="4797647264-9">}</span><span class="p" data-group-id="4797647264-8">)</span><span class="w">
+</span><span class="p" data-group-id="4797647264-10">%</span><span class="nc" data-group-id="4797647264-10">DateTime</span><span class="p" data-group-id="4797647264-10">{</span><span class="ss">year</span><span class="p">:</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="ss">month</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="ss">day</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4797647264-10">}</span><span class="w">  </span><span class="c1"># Example output</span></code></pre>
   </section>
 </section>
 
