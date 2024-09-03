@@ -100,7 +100,7 @@ You will find the codebase uses this a lot, though the debugs are frequently com
 
 `Bonfire.Fail` is an `Exception` handler, which you can use to stop the show anywhere in the code, e.g:
 
-`id = ulid(object) || raise(Bonfire.Fail, :not_found)` 
+`id = uid(object) || raise(Bonfire.Fail, :not_found)` 
 
 You can use this special exception when you want to redirect the user to the login page rather than just show an error:
 `user = current_user(assigns) || raise(Bonfire.Fail.Auth, :needs_login)` 
