@@ -216,6 +216,7 @@ defmodule Bonfire.Umbrella.MixProject do
       docs: [
         "bonfire",
         "needle",
+        "pride",
         "paginator",
         "ecto_shorts",
         "ecto_sparkles",
