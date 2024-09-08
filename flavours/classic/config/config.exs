@@ -147,7 +147,7 @@ config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 
 config :surface, :compiler, warn_on_undefined_props: false
 
-config :needle_uid, pride_enabled: true
+config :needle_uid, pride_enabled: false
 
 config :paper_trail,
   item_type: Needle.UID,
