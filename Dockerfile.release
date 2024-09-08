@@ -116,8 +116,8 @@ COPY --link lib lib
 # COPY --link assets assets
 # RUN ls -la assets/static
 
-# workaround for compilation errors
-RUN MIX_ENV=prod mix deps.clean needle_ulid jason poison --build
+# workaround for compilation errors (eg. "could not load module Needle.UID due to reason :unavailable")
+RUN MIX_ENV=prod mix deps.clean needle_uid jason poison --build
 
 # compile protocols (attempted fix for 'could not load module Poison.Encoder due to reason :unavailable')
 # RUN MIX_ENV=prod mix compile.protocols
