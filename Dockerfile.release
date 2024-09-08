@@ -38,8 +38,8 @@ COPY --link mix.lock ./
 # COPY --link data/current_flavour/config/deps*hex ./config/ 
 # COPY --parents --link flavours/*/config/deps*hex ./
 
-RUN mix deps.get --only prod
-# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+# RUN mix deps.get --only prod
+RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 
 # RUN ls -la config/*
 # # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
@@ -56,8 +56,8 @@ RUN mix deps.get --only prod
 COPY --link data/current_flavour/config/deps.flavour.* ./config/
 RUN ls -la config/* 
 
-# RUN mix deps.get --only prod
-RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
+RUN mix deps.get --only prod
+# RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 # # ^ useful in case of spotty connectivity
 
 ## add extra deps 
@@ -118,9 +118,11 @@ COPY --link lib lib
 
 # workaround for compilation errors (eg. "could not load module Needle.UID due to reason :unavailable")
 RUN MIX_ENV=prod mix deps.clean needle_uid jason poison --build
+RUN MIX_ENV=prod mix deps.compile --include-children needle_uid paper_trail
 
 # compile protocols (attempted fix for 'could not load module Poison.Encoder due to reason :unavailable')
 # RUN MIX_ENV=prod mix compile.protocols
+
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
 
