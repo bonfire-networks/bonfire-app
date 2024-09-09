@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.141">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.142">
 
 
-    <title>Needle.Pointer — Bonfire v0.9.10-classic-beta.141</title>
+    <title>Needle.Pointer — Bonfire v0.9.10-classic-beta.142</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-85B03711.js"></script>
+    <script src="dist/sidebar_items-A5B2B267.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.141
+          v0.9.10-classic-beta.142
         </div>
       </div>
     </div>
@@ -132,13 +132,13 @@ Pages
       </a>
 
     <span translate="no">Needle.Pointer</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.141)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.142)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p>A Pointer is any object that can be referenced by its id.</p><p>Pointer is a simple table consisting of three fields:</p><ul><li>id - the database-unique id for this pointer in ULID format.</li><li>table_id - a type tag, references <code class="inline">Table</code>.</li><li>deleted_at - timestamp of when the object was deleted, null by default.</li></ul><p>To reference <code class="inline">any</code> object, simply reference <code class="inline">Pointer</code>:</p><pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">Needle.Pointer</span><span class="w">
+<p>A Pointer is any object that can be referenced by its id.</p><p>Pointer is a simple table consisting of three fields:</p><ul><li>id - the database-unique id for this pointer in UID format.</li><li>table_id - a type tag, references <code class="inline">Table</code>.</li><li>deleted_at - timestamp of when the object was deleted, null by default.</li></ul><p>To reference <code class="inline">any</code> object, simply reference <code class="inline">Pointer</code>:</p><pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">Needle.Pointer</span><span class="w">
 </span><span class="n">belongs_to</span><span class="w"> </span><span class="ss">:object</span><span class="p">,</span><span class="w"> </span><span class="nc">Pointer</span></code></pre><p>To define a new object type there are two options, you should choose one:</p><ul><li><code class="inline">Virtual</code> - an object type with a view over <code class="inline">Pointer</code> limited by type.</li><li><code class="inline">Pointable</code> - an object type with a table which is kept synchronised with <code class="inline">Pointer</code>.</li></ul><p>For most purposes, you should use a <code class="inline">Virtual</code>. Pointable exists mostly to support existing code.
 The major difference in practice is that you cannot add new fields to a virtual. Most of the time
 you will want to store such extra fields in one or more mixins anyway so they may be reused.</p><p>See <code class="inline">Mixin</code> for more information about mixins.</p>
@@ -160,7 +160,7 @@ you will want to store such extra fields in one or more mixins anyway so they ma
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#create/2" data-no-tooltip translate="no">create(id \\ Needle.ULID.generate(), table)</a>
+        <a href="#create/2" data-no-tooltip translate="no">create(id \\ Needle.UID.generate(), table)</a>
 
       </div>
 
@@ -214,7 +214,7 @@ you will want to store such extra fields in one or more mixins anyway so they ma
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">create(id \\ Needle.ULID.generate(), table)</h1>
+    <h1 class="signature" translate="no">create(id \\ Needle.UID.generate(), table)</h1>
 
       <a href="https://github.com/bonfire-networks/needle/blob/main/lib/pointer.ex#L47" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
