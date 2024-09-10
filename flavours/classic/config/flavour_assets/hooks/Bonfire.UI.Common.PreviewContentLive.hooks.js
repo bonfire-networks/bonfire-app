@@ -30,7 +30,6 @@ let PreviewActivity = {
 			// this was used to expand long posts by clicking on them, now replaced with a 'Read more' button
 			// let previewable_activity = e.target.closest('.previewable_activity')
 			// anchor == trigger || (!anchor && previewable_activity && ( previewable_activity.classList.contains('previewable_expanded') || this.isTruncated(previewable_activity.querySelector('.previewable_truncate')) == false)
-
 			if (
 				(trigger || !window.liveSocket) &&
 				(!anchor || anchor.classList.contains("preview_activity_link")) &&
@@ -41,7 +40,8 @@ let PreviewActivity = {
 				!e.target.closest("button") &&
 				!e.target.closest("figure") &&
 				!e.target.closest(".dropdown") &&
-				!e.target.closest("[data-id=activity_actions]")
+				!e.target.closest("[data-id=activity_actions]") &&
+				!e.target.closest("[data-id=labelled_widget]")
 			) {
 				let uri =
 					this.el.dataset.href ||
