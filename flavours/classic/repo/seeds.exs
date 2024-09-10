@@ -1,6 +1,7 @@
 # Script for populating the database. You can run it with `mix ecto.seeds`
 #
 
+use Bonfire.Common.E
 import Bonfire.Me.Fake
 import Bonfire.Social.Fake
 import Bonfire.Posts.Fake
@@ -24,28 +25,31 @@ users = for _ <- 1..3, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
 
 # start fake threads
-for _ <- 1..10 do
-  thread = fake_post!(random_user.())
-  comment = fake_comment!(random_user.(), thread)
-  comment = fake_comment!(random_user.(), comment)
-end
+threads =
+  for _ <- 1..10 do
+    thread = fake_post!(random_user.())
+    comment = fake_comment!(random_user.(), thread)
+    comment = fake_comment!(random_user.(), comment)
+    thread
+  end ++
+    for i <- 1..4 do
+      fake_post!(random_user.(), "public", %{
+        post_content: %{
+          html_body: "test #{i} with #hashtag"
+        }
+      })
+    end ++
+    for i <- 1..4 do
+      mention = random_user.()
 
-# for _ <- 1..3 do
-#  user = random_user.()
-#  thread = fake_thread!(user)
-#  comment = fake_comment!(user, thread)
-#  # reply to it
-#  reply = fake_comment!(random_user.(), thread, %{in_reply_to_id: comment.id})
-#  subreply = fake_comment!(random_user.(), thread, %{in_reply_to_id: reply.id})
-#  subreply2 = fake_comment!(random_user.(), thread, %{in_reply_to_id: subreply.id})
-# end
-#
-## more fake threads
-# for _ <- 1..2 do
-#  user = random_user.()
-#  thread = fake_thread!(user)
-#  comment = fake_comment!(user, thread)
-# end
+      fake_post!(random_user.(), "public", %{
+        post_content: %{
+          html_body: "@#{e(mention, :character, :username, nil)} test mention #{i}"
+        }
+      })
+    end
+
+# random_thread = fn -> Faker.Util.pick(threads) end
 
 # define some tags/categories
 if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Classify.Simulate)) do
@@ -57,9 +61,6 @@ end
 
 # define some geolocations
 if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Geolocate.Simulate)) do
-  for _ <- 1..2,
-      do: Bonfire.Geolocate.Simulate.fake_geolocation!(random_user.())
-
   for _ <- 1..2,
       do: Bonfire.Geolocate.Simulate.fake_geolocation!(random_user.())
 end
