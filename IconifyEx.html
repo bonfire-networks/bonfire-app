@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.147">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.148">
 
 
-    <title>Iconify for Phoenix — Bonfire v0.9.10-classic-beta.147</title>
+    <title>Iconify for Phoenix — Bonfire v0.9.10-classic-beta.148</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-A5B2B267.js"></script>
+    <script src="dist/sidebar_items-B61BA9DA.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.147
+          v0.9.10-classic-beta.148
         </div>
       </div>
     </div>
@@ -141,11 +141,11 @@ Pages
   </a>
   <span class="text">Installation</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="8768456457-1">do</span><span class="w">
-  </span><span class="p" data-group-id="8768456457-2">[</span><span class="w">
-    </span><span class="p" data-group-id="8768456457-3">{</span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.0&quot;</span><span class="p" data-group-id="8768456457-3">}</span><span class="w">
-  </span><span class="p" data-group-id="8768456457-2">]</span><span class="w">
-</span><span class="k" data-group-id="8768456457-1">end</span></code></pre><p>After running <a href="https://hexdocs.pm/mix/Mix.Tasks.Deps.Get.html"><code class="inline">mix deps.get</code></a> you need to fetch the latest <a href="https://github.com/iconify/icon-sets">iconify icon sets</a> by running something like:</p><pre><code class="makeup bash" translate="no"><span class="">cd deps/iconify_ex/assets &amp;&amp; yarn &amp;&amp; cd -
+<pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="3518936140-1">do</span><span class="w">
+  </span><span class="p" data-group-id="3518936140-2">[</span><span class="w">
+    </span><span class="p" data-group-id="3518936140-3">{</span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.0&quot;</span><span class="p" data-group-id="3518936140-3">}</span><span class="w">
+  </span><span class="p" data-group-id="3518936140-2">]</span><span class="w">
+</span><span class="k" data-group-id="3518936140-1">end</span></code></pre><p>After running <a href="https://hexdocs.pm/mix/Mix.Tasks.Deps.Get.html"><code class="inline">mix deps.get</code></a> you need to fetch the latest <a href="https://github.com/iconify/icon-sets">iconify icon sets</a> by running something like:</p><pre><code class="makeup bash" translate="no"><span class="">cd deps/iconify_ex/assets &amp;&amp; yarn &amp;&amp; cd -
 </span></code></pre><h2 id="usage" class="section-heading">
   <a href="#usage" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
@@ -161,7 +161,7 @@ Pages
 }</code></pre><p>Other configurations include:</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:fallback_icon</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;heroicons-solid:question-mark-circle&quot;</span><span class="w"> </span><span class="c1"># when an icon is not found</span><span class="w">
 </span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_modules_path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./lib/web/icons&quot;</span><span class="w"> </span><span class="c1"># for :inline mode</span><span class="w">
 </span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_static_path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./priv/static/images/icons&quot;</span><span class="w"> </span><span class="c1"># where CSS and images are stored</span><span class="w">
-</span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_static_url</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/images/icons/&quot;</span><span class="w"> </span><span class="c1"># where CSS and images are served from</span></code></pre><ol start="3"><li>In all three cases, usage is the same (meaning you can easily switch between modes at any time) by including a component:</li></ol><p>Embed an icon using default classes (copy the icon name from the <a href="https://icon-sets.iconify.design">iconify website</a>):</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="4578017776-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="4578017776-1">/&gt;</span></code></pre><p>Specify custom classes:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="6278837692-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="na">class</span><span class="o">=</span><span class="s">&quot;w-8</span><span class="w"> </span><span class="s">h-8</span><span class="w"> </span><span class="s">text-base-content&quot;</span><span class="w"> </span><span class="p" data-group-id="6278837692-1">/&gt;</span><span class="w"> </span></code></pre><p>Or if you use <a href="https://surface-ui.org">Surface</a>, it is highly recommended to use the macro component which means icons will be prepared at compile time rather than runtime:</p><p>Add <code class="inline">alias Iconify.Icon</code> to your Web module, and then:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="5279973753-1">&lt;</span><span class="s">#Icon</span><span class="w"> </span><span class="s">iconify</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="5279973753-1">/&gt;</span></code></pre><p>If your icon is dynamic, you'll still want to use the first form:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="1446646097-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">{@my_icon}</span><span class="w"> </span><span class="p" data-group-id="1446646097-1">/&gt;</span></code></pre><p>Note: when using the CSS mode, there's sometimes a race condition that adds an icon several times. Until a fix is found you can run something like <code class="inline">sort -u -o icons_dir/icons.css icons_dir/icons.css</code> to clean up the CSS file.</p>
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:iconify_ex</span><span class="p">,</span><span class="w"> </span><span class="ss">:generated_icon_static_url</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/images/icons/&quot;</span><span class="w"> </span><span class="c1"># where CSS and images are served from</span></code></pre><ol start="3"><li>In all three cases, usage is the same (meaning you can easily switch between modes at any time) by including a component:</li></ol><p>Embed an icon using default classes (copy the icon name from the <a href="https://icon-sets.iconify.design">iconify website</a>):</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="6720878291-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="6720878291-1">/&gt;</span></code></pre><p>Specify custom classes:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="7294974452-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="na">class</span><span class="o">=</span><span class="s">&quot;w-8</span><span class="w"> </span><span class="s">h-8</span><span class="w"> </span><span class="s">text-base-content&quot;</span><span class="w"> </span><span class="p" data-group-id="7294974452-1">/&gt;</span><span class="w"> </span></code></pre><p>Or if you use <a href="https://surface-ui.org">Surface</a>, it is highly recommended to use the macro component which means icons will be prepared at compile time rather than runtime:</p><p>Add <code class="inline">alias Iconify.Icon</code> to your Web module, and then:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="1098675752-1">&lt;</span><span class="s">#Icon</span><span class="w"> </span><span class="s">iconify</span><span class="o">=</span><span class="s">&quot;heroicons-solid:collection&quot;</span><span class="w"> </span><span class="p" data-group-id="1098675752-1">/&gt;</span></code></pre><p>If your icon is dynamic, you'll still want to use the first form:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="2382471032-1">&lt;</span><span class="s">.iconify</span><span class="w"> </span><span class="s">icon</span><span class="o">=</span><span class="s">{@my_icon}</span><span class="w"> </span><span class="p" data-group-id="2382471032-1">/&gt;</span></code></pre><p>Note: when using the CSS mode, there's sometimes a race condition that adds an icon several times. Until a fix is found you can run something like <code class="inline">sort -u -o icons_dir/icons.css icons_dir/icons.css</code> to clean up the CSS file.</p>
 </div>
 
 <div class="bottom-actions" id="bottom-actions">
