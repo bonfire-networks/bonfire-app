@@ -476,8 +476,9 @@ deps-clone-local-all:
 
 _pre-push-hooks: _pre-contrib-hooks
 	just icons-uniq
-	just mix format.all 
+	just mix format 
 	just deps-clean bonfire
+# just mix format.all  # FIXME
 #	just mix changelog
 
 _pre-contrib-hooks:
