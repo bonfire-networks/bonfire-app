@@ -14,7 +14,8 @@ config :bonfire,
   pagination_hard_max_limit: 2,
   skip_all_boundary_checks: false
 
-config :bonfire_mailer, Bonfire.Mailer, adapter: Bamboo.TestAdapter
+config :bonfire_mailer, Bonfire.Mailer.Bamboo, adapter: Bamboo.TestAdapter
+config :bonfire_mailer, Bonfire.Mailer.Swoosh, adapter: Swoosh.Adapters.Test
 
 config :bonfire_common, Bonfire.Common.AntiSpam, service: Bonfire.Common.AntiSpam.Mock
 

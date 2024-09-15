@@ -10,6 +10,7 @@ FROM hexpm/elixir:${ELIXIR_DOCKER_IMAGE} as builder
 ARG FLAVOUR
 ARG FLAVOUR_PATH
 ARG FORKS_TO_COPY_PATH
+ARG ENABLE_AI
 ARG ENABLE_IMAGE_VIX
 
 # necessary utils + dependencies 
@@ -20,7 +21,7 @@ RUN sh deps-alpine-build.sh
 
 # RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
 
-ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ ENABLE_IMAGE_VIX=$ENABLE_IMAGE_VIX
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ ENABLE_AI=$ENABLE_AI ENABLE_IMAGE_VIX=$ENABLE_IMAGE_VIX
 WORKDIR $HOME
 
 # Prepare elixir deps 

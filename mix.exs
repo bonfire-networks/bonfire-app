@@ -41,9 +41,21 @@ defmodule Bonfire.Umbrella.MixProject do
                      else: []
                    )
 
+  @maybe_ai if(System.get_env("ENABLE_AI") != "0",
+              do: [
+                {:bumblebee, "~> 0.5.0"},
+                {:nx, "~> 0.7.0"},
+                {:exla, "~> 0.7.0"},
+                {:axon, "~> 0.6.1", override: true},
+                {:table_rex, "~> 4.0.0", override: true}
+              ],
+              else: []
+            )
+
   @extra_deps @main_deps ++
                 @maybe_api_deps ++
                 @maybe_image_vix ++
+                @maybe_ai ++
                 [
                   {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
 
