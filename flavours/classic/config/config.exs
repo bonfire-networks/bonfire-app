@@ -182,7 +182,8 @@ config :mime,
            "application/gzip" => ["gz", "gzip"],
            "application/zip" => ["zip"],
            "application/vnd.rar" => ["rar"],
-           "application/x-7z-compressed" => ["7z"]
+           "application/x-7z-compressed" => ["7z"],
+           "text/plain" => ["txt", "text", "log", "asc"]
          },
          Bonfire.Files.MimeTypes.supported_media()
        )
