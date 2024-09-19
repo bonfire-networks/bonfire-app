@@ -359,7 +359,8 @@ defmodule Bonfire.Umbrella.MixProject do
             Path.wildcard("docs/topics/*") ++
               Path.wildcard("{extensions,deps,forks}/*/docs/*.md") ++
               Path.wildcard(
-                "{extensions,deps,forks}/{needle,bonfire_boundaries,bonfire_api_graphql}/*.md"
+                "{deps,forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
+                # "{forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
               ),
           "Flavours of Bonfire": Path.wildcard("flavours/*/*.md"),
           "Data schemas": Path.wildcard("{extensions,deps,forks}/bonfire_data_*/*.md"),
