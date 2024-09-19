@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.148">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.156">
 
 
-    <title>Bonfire.Mailer — Bonfire v0.9.10-classic-beta.148</title>
+    <title>Bonfire.Mailer — Bonfire v0.9.10-classic-beta.156</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-B61BA9DA.js"></script>
+    <script src="dist/sidebar_items-4535CF76.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.148
+          v0.9.10-classic-beta.156
         </div>
       </div>
     </div>
@@ -132,25 +132,107 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Mailer</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.148)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.156)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p>An library for <a href="https://bonfire.cafe/">Bonfire</a> that contains:</p><ul><li>Sending email using <a href="https://github.com/thoughtbot/bamboo">Bamboo</a>, which supports SMTP and a multitude of <a href="https://hexdocs.pm/bamboo/readme.html#available-adapters">email delivery providers (some of which require an extra dependency)</a></li><li>Checking hypothetical email or domain validity</li></ul><h2 id="module-handy-commands" class="section-heading">
-  <a href="#module-handy-commands" class="hover-link">
+<p>Email delivery is a crucial component of many web applications, including your Bonfire instance. It's used for various purposes such as:</p><ul><li>Sending signup confirmation emails</li><li>Delivering password reset links</li><li>Notifying users of new messages or activities</li><li>Sending alerts to administrators or moderators</li></ul><p>To set up email delivery for your Bonfire instance, you'll need to choose an email delivery method and configure it properly. This guide will help you through that process.</p><h2 id="module-before-you-begin" class="section-heading">
+  <a href="#module-before-you-begin" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Handy commands</span>
+  <span class="text">Before You Begin</span>
 </h2>
-<h2 id="module-copyright-and-license" class="section-heading">
+<ol><li><p><strong>Choose Email Delivery Method and/or Provider</strong>: You may choose to sign up with one of the email service providers listed in this guide. Each provider has its own pricing, features, and delivery rates.</p></li><li><p><strong>Domain Configuration</strong>: To ensure reliable email delivery and avoid spam filters, you should configure your <a href="https://www.cloudflare.com/en-gb/learning/email-security/dmarc-dkim-spf/">email-related DNS settings</a> for your instance's domain name. This typically involves setting up:</p><ul><li>MX (Mail Exchanger) records</li><li>SPF (Sender Policy Framework) records</li><li>DKIM (DomainKeys Identified Mail) records</li><li>DMARC (Domain-based Message Authentication, Reporting, and Conformance) records</li></ul></li></ol><p>Your chosen email provider should provide instructions on how to set these up for your domain.</p><ol start="3"><li><strong>Environment Variables</strong>: Bonfire uses environment variables for configuration. You'll need to set these variables in your deployment environment or in a <code class="inline">.env</code> file if you're running Bonfire locally or using Co-op Cloud.</li></ol><p>For all email delivery methods, you'll need to set the following environment variables:</p><ul><li><code class="inline">MAIL_BACKEND</code> environment variable to choose your email delivery method or provider. </li><li><code class="inline">MAIL_DOMAIN</code> or <code class="inline">HOSTNAME</code>: Your domain name</li><li><code class="inline">MAIL_FROM</code>: The email address from which emails will be sent</li></ul><h2 id="module-choosing-an-email-delivery-method" class="section-heading">
+  <a href="#module-choosing-an-email-delivery-method" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Choosing an Email Delivery Method</span>
+</h2>
+<h2 id="module-1-default-behaviour-direct-smtp-delivery" class="section-heading">
+  <a href="#module-1-default-behaviour-direct-smtp-delivery" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">1. Default Behaviour: Direct SMTP Delivery</span>
+</h2>
+<p>If no specific email configuration is set, Bonfire will attempt to deliver emails directly to the recipients' SMTP servers. Here's what you need to know about this default behaviour:</p><ul><li><p><strong>What it means</strong>: Your server will try to connect directly to the recipient's email server (e.g. a provider such as Gmail or an organisation's own mail server) to deliver the email.</p></li><li><p><strong>Pros</strong>: It requires no additional configuration and can work for basic setups.</p></li><li><p><strong>Cons</strong>: This method is often unreliable and prone to several issues:</p><ol><li><strong>Spam Filters</strong>: Emails sent this way are more likely to be marked as spam or rejected entirely.</li><li><strong>Deliverability</strong>: Many recipient servers may flat-out reject IP addresses not properly set up for email sending.</li><li><strong>DNS Configuration</strong>: Without proper DNS records (SPF, DKIM, DMARK, etc.), your emails are more likely to be treated as suspicious.</li><li><strong>IP Reputation</strong>: If your server's IP address isn't established as a legitimate email sender, deliverability will suffer.</li></ol></li><li><p><strong>Important</strong>: While this default method can work for testing or in very small-scale scenarios, it is strongly recommended to configure a proper email delivery service for any production use of Bonfire. If you want to try this method anyway, make sure to configure <a href="https://www.cloudflare.com/en-gb/learning/email-security/dmarc-dkim-spf/">SPF, DKIM, DMARK, etc.</a> for your instance domain name and IP address.</p></li></ul><h3 id="module-2-managed-email-service-providers" class="section-heading">
+  <a href="#module-2-managed-email-service-providers" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">2. Managed Email Service Providers</span>
+</h3>
+<p>These providers offer comprehensive email delivery services, usually featuring analytics, bounce handling, high deliverability rates, etc.</p><blockquote><p>Note: the information about free tiers and pricing are only meant to serve as a rough indication of the options available and may be outdated or inaccurate (we'd welcome PRs with any updates of course). Please check with each provider's website for more details.</p></blockquote><h4>Brevo (formerly Sendinblue)</h4><ul><li>Website: <a href="https://www.brevo.com/">brevo.com</a></li><li>Free Tier: 300 emails per day, then pay-as-you-go or $15+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">brevo</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_brevo_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Mailjet</h4><ul><li>Website: <a href="https://www.mailjet.com/">mailjet.com</a></li><li>Free Tier: 200 emails per day (up to 6,000 emails per month), then $17+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">mailjet</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_mailjet_api_key</span><span class="w">
+</span><span class="nc">MAIL_PRIVATE_KEY</span><span class="o">=</span><span class="n">your_mailjet_secret_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>SMTP2GO</h4><ul><li>Website: <a href="https://www.smtp2go.com/">smtp2go.com</a></li><li>Free Tier: 200 emails per day (up to 1,000 emails per month), then $10+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="nc">SMTP2GO</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_smtp2go_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Mailtrap</h4><ul><li>Website: <a href="https://mailtrap.io/">mailtrap.io</a></li><li>Free Tier: 200 emails per day (up to 1,000 emails per month), then $15+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">mailtrap</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_mailtrap_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Mailgun</h4><ul><li>Website: <a href="https://www.mailgun.com/">www.mailgun.com</a></li><li>Free Tier: 100 emails per day, then $15+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">mailgun</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_mailgun_api_key</span><span class="w">
+</span><span class="nc">MAIL_BASE_URI</span><span class="o">=</span><span class="n">https</span><span class="ss">://</span><span class="n">api</span><span class="o">.</span><span class="n">eu</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">v3</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre>Note: The <code class="inline">MAIL_BASE_URI</code> depends on your Mailgun registration region. The default is set to EU, adjust if necessary.</li></ul><h4>Postmark</h4><ul><li>Website: <a href="https://postmarkapp.com/">postmarkapp.com</a></li><li>Free Tier: 100 emails per month, then $15+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">postmark</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_postmark_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Twilio SendGrid</h4><ul><li>Website: <a href="https://sendgrid.com/">sendgrid.com</a></li><li>Free Tier: 100 emails per day, then $20+/month<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">sendgrid</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_sendgrid_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Zoho ZeptoMail</h4><ul><li>Website: <a href="https://www.zoho.com/zeptomail/">zoho.com</a></li><li>First 10,000 emails are free, then €2,50 per 10,000 emails<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">zepto</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_zeptomail_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Gmail</h4><ul><li>Website: <a href="https://developers.google.com/gmail/api">gmail.com</a></li><li>Free Tier: 500 emails per day<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">gmail</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_gmail_api_key</span><span class="w"> 
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span><span class="w">
+</span><span class="c1"># ^ OAuth2 access token with `gmail.compose` scope</span></code></pre>Note: Using Gmail for sending application email is generally not recommended for production use.</li></ul><h4>Scaleway</h4><ul><li>Website: <a href="https://www.scaleway.com/en/transactional-email-tem/">scaleway.com</a></li><li>No free tier, pay-as-you-go pricing (€0.25/1,000 emails sent)<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">scaleway</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_scaleway_api_key</span><span class="w">
+</span><span class="nc">MAIL_PROJECT_ID</span><span class="o">=</span><span class="n">your_scaleway_project_id</span><span class="w">
+</span><span class="nc">MAIL_PRIVATE_KEY</span><span class="o">=</span><span class="n">your_scaleway_secret_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>MailPace</h4><ul><li>Website: <a href="https://mailpace.com/">mailpace.com</a></li><li>No free tier, starts at £2.50 per month for up to 1,000 emails<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">mailpace</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_mailpace_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Mandrill (Mailchimp Transactional)</h4><ul><li>Website: <a href="https://mailchimp.com/features/transactional-email/">mailchimp.com</a></li><li>No free tier, pay-as-you-go pricing<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">mandrill</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_mandrill_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Bird / SparkPost</h4><ul><li>Website: <a href="https://bird.com/api/email">bird.com</a></li><li>No free tier, pay-as-you-go pricing<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">sparkpost</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_sparkpost_api_key</span><span class="w">
+</span><span class="nc">MAIL_BASE_URI</span><span class="o">=</span><span class="n">https</span><span class="ss">://</span><span class="n">api</span><span class="o">.</span><span class="n">eu</span><span class="o">.</span><span class="n">sparkpost</span><span class="o">.</span><span class="n">com</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre>Note: The <code class="inline">MAIL_BASE_URI</code> depends on your SparkPost registration region. The default is set to EU, adjust if necessary.</li></ul><h4>Sendcloud (China)</h4><ul><li>Website: <a href="https://www.sendcloud.net/">sendcloud.net</a></li><li>Free Tier: 10 emails per day<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">sendcloud</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_sendcloud_api_key</span><span class="w">
+</span><span class="nc">MAIL_USER</span><span class="o">=</span><span class="n">your_sendcloud_api_user</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>SocketLabs</h4><ul><li>Website: <a href="https://www.socketlabs.com/">socketlabs.com</a></li><li>No free tier<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">socketlabs</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_socketlabs_api_key</span><span class="w">
+</span><span class="nc">MAIL_SERVER</span><span class="o">=</span><span class="n">your_socketlabs_server_id</span><span class="w">
+</span><span class="nc">MAIL_PRIVATE_KEY</span><span class="o">=</span><span class="n">your_socketlabs_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Campaign Monitor</h4><ul><li>Website: <a href="https://www.campaignmonitor.com/">campaignmonitor.com</a></li><li>No free tier, pay-as-you-go pricing<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">campaign_monitor</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_campaign_monitor_api_key</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h4>Amazon AWS SES</h4><ul><li>Website: <a href="https://aws.amazon.com/ses/">aws.amazon.com</a></li><li>Free Tier: 3,000 message / month (only for the first 12 months, and extra AWS charges may still apply)</li></ul><p>Amazon SES can be configured in two ways:</p><ol><li><p>Using existing AWS credentials (if already configured for S3 file storage, you can simplify configuration and use the same AWS credentials for both file storage and email delivery):</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre><p>Note: This method will automatically use the credentials set by <code class="inline">UPLOADS_S3_ACCESS_KEY_ID</code> and <code class="inline">UPLOADS_S3_SECRET_ACCESS_KEY</code>. No additional configuration is needed if these are already set up for a Bonfire extension (such as <a href="./Bonfire.Files.html"><code class="inline">Bonfire.Files</code></a>) which uses S3 file storage.</p></li><li><p>Using dedicated credentials, if you don't use AWS for S3 file storage or you want to use different AWS accounts for file storage and email delivery:</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_aws_access_key_id</span><span class="w">
+</span><span class="nc">MAIL_PRIVATE_KEY</span><span class="o">=</span><span class="n">your_aws_secret_access_key</span><span class="w">
+</span><span class="nc">MAIL_REGION</span><span class="o">=</span><span class="n">your_aws_region</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ol><p>Note: </p><ul><li>If not specified, <code class="inline">MAIL_REGION</code> defaults to &quot;eu-west-1&quot;.</li></ul><h3 id="module-3-direct-email-sending-methods" class="section-heading">
+  <a href="#module-3-direct-email-sending-methods" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">3. Direct Email Sending Methods</span>
+</h3>
+<p>These methods involve sending emails directly or through your own mail server. They require more setup and maintenance but offer more control.</p><h4>Default: Direct SMTP Delivery</h4><ul><li>When no specific email configuration is set, Bonfire will attempt to deliver emails directly to the recipients' SMTP servers.</li><li>No additional configuration is needed as this is the default behaviour, but it's not recommended for production use due to deliverability issues (<a href="#module-default-behaviour-direct-smtp-delivery">see above</a>).</li></ul><h4>SMTP</h4><p>SMTP (Simple Mail Transfer Protocol) is the standard method for sending emails across the internet. It's like the postal service for digital messages, ensuring your emails reach their destination regardless of the systems involved. While many opt for using a dedicated email delivery provider (see above), if you already run your own email server or use a provider that's not listed above which provides you with SMTP credentials, you can configure Bonfire to use that:</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">smtp</span><span class="w">
+</span><span class="nc">MAIL_SERVER</span><span class="o">=</span><span class="n">your_smtp_server</span><span class="w">
+</span><span class="nc">MAIL_PORT</span><span class="o">=</span><span class="mi">587</span><span class="w">
+</span><span class="nc">MAIL_USER</span><span class="o">=</span><span class="n">your_smtp_username</span><span class="w">
+</span><span class="nc">MAIL_PASSWORD</span><span class="o">=</span><span class="n">your_smtp_password</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre><p>Notes: </p><ul><li><code class="inline">MAIL_PORT</code> defaults to 587 if not specified.</li></ul><h4>Sendmail</h4><ul><li>Built into many Unix-like operating systems<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">sendmail</span><span class="w">
+</span><span class="nc">MAIL_SERVER</span><span class="o">=</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sendmail</span><span class="w">
+</span><span class="c1"># MAIL_ARGS=</span><span class="w">
+</span><span class="nc">MAIL_QMAIL</span><span class="o">=</span><span class="n">true_or_false</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><p>Notes: </p><ul><li><code class="inline">MAIL_SERVER</code> defaults to <code class="inline">/usr/bin/sendmail</code> if not specified.</li><li><code class="inline">MAIL_ARGS</code> defaults to <code class="inline">-N delay,failure,success</code> if not specified.</li><li>While sendmail can send mail directly (similar to the default behaviour), it can be set up to hand off emails to a local or remote SMTP server for delivery.</li><li>Using sendmail usually provides more control and logging capabilities compared to the default direct SMTP delivery.</li></ul><h4>Postal</h4><ul><li>Self-hosted email delivery platform</li><li>Website: <a href="https://docs.postalserver.io">postalserver.io</a><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">postal</span><span class="w">
+</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_postal_api_key</span><span class="w">
+</span><span class="nc">MAIL_BASE_URI</span><span class="o">=</span><span class="n">https</span><span class="ss">://</span><span class="n">your_postal_server_api</span><span class="o">.</span><span class="n">uri</span><span class="o">/</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">your</span><span class="na">@email</span><span class="o">.</span><span class="n">address</span></code></pre></li></ul><h2 id="module-copyright-and-license" class="section-heading">
   <a href="#module-copyright-and-license" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Copyright and License</span>
 </h2>
-<p>Copyright (c) 2020 Bonfire, VoxPublica, and CommonsPub Contributors</p><p>This program is free software: you can redistribute it and/or modify
+<p>Copyright (c) 2024 Bonfire Contributors</p><p>This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but
@@ -176,17 +258,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#config/0" data-no-tooltip translate="no">config()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Retrieves the configuration for the Bonfire.Mailer module.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#deliver/1" data-no-tooltip translate="no">deliver(email)</a>
+        <a href="#app_name/0" data-no-tooltip translate="no">app_name()</a>
 
       </div>
 
@@ -194,41 +266,31 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#deliver_later/2" data-no-tooltip translate="no">deliver_later(email, opts \\ [])</a>
+        <a href="#deliver_async/1" data-no-tooltip translate="no">deliver_async(email)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:deliver_async/1"><code class="inline">Bonfire.Mailer.Behaviour.deliver_async/1</code></a>.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#deliver_later!/2" data-no-tooltip translate="no">deliver_later!(email, opts \\ [])</a>
+        <a href="#deliver_inline/1" data-no-tooltip translate="no">deliver_inline(email)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:deliver_inline/1"><code class="inline">Bonfire.Mailer.Behaviour.deliver_inline/1</code></a>.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#deliver_now/2" data-no-tooltip translate="no">deliver_now(email, opts \\ [])</a>
+        <a href="#from/2" data-no-tooltip translate="no">from(email, address)</a>
 
       </div>
 
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#deliver_now!/2" data-no-tooltip translate="no">deliver_now!(email, opts \\ [])</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#do_send/2" data-no-tooltip translate="no">do_send(arg1, mail)</a>
-
-      </div>
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:from/2"><code class="inline">Bonfire.Mailer.Behaviour.from/2</code></a>.</p></div>
 
     </div>
 
@@ -238,7 +300,25 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
-        <div class="summary-synopsis"><p>Return a standard error tuple for errors that occur during email sending.</p></div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#html_body/2" data-no-tooltip translate="no">html_body(email, body)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:html_body/2"><code class="inline">Bonfire.Mailer.Behaviour.html_body/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#new/1" data-no-tooltip translate="no">new(data \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:new/1"><code class="inline">Bonfire.Mailer.Behaviour.new/1</code></a>.</p></div>
 
     </div>
 
@@ -248,17 +328,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
-        <div class="summary-synopsis"><p>Sends an email with specified mode (immediate or async).</p></div>
-
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#send_app_feedback/3" data-no-tooltip translate="no">send_app_feedback(type \\ &quot;feedback&quot;, subject, body)</a>
+        <a href="#send_app_feedback/3" data-no-tooltip translate="no">send_app_feedback(subject, body, opts \\ [])</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>Sends a feedback email to the application maintainers (to the email address configured at <code class="inline">:bonfire_mailer, Bonfire.Mailer, :feedback_to</code>)</p></div>
 
     </div>
 
@@ -268,8 +344,6 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
-        <div class="summary-synopsis"><p>Sends an email asynchronously.</p></div>
-
     </div>
 
     <div class="summary-row">
@@ -278,7 +352,45 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       </div>
 
-        <div class="summary-synopsis"><p>Sends an email immediately.</p></div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start/2" data-no-tooltip translate="no">start(_, _)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/elixir/Application.html#c:start/2"><code class="inline">Application.start/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#subject/2" data-no-tooltip translate="no">subject(email, subject)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:subject/2"><code class="inline">Bonfire.Mailer.Behaviour.subject/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#text_body/2" data-no-tooltip translate="no">text_body(email, body)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:text_body/2"><code class="inline">Bonfire.Mailer.Behaviour.text_body/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to/2" data-no-tooltip translate="no">to(email, address)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:to/2"><code class="inline">Bonfire.Mailer.Behaviour.to/2</code></a>.</p></div>
 
     </div>
 
@@ -295,75 +407,16 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="config/0">
+<section class="detail" id="app_name/0">
 
   <div class="detail-header">
-    <a href="#config/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#app_name/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">config()</h1>
+    <h1 class="signature" translate="no">app_name()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L22" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-<p>Retrieves the configuration for the Bonfire.Mailer module.</p><h2 id="config/0-examples" class="section-heading">
-  <a href="#config/0-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">config</span><span class="p" data-group-id="5409616766-1">(</span><span class="p" data-group-id="5409616766-1">)</span><span class="w">
-</span><span class="p" data-group-id="5409616766-2">[</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="5409616766-2">]</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="deliver/1">
-
-  <div class="detail-header">
-    <a href="#deliver/1" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">deliver(email)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L4" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> deliver(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
-
-      </div>
-
-
-  </section>
-</section>
-<section class="detail" id="deliver_later/2">
-
-    <span id="deliver_later/1"></span>
-
-  <div class="detail-header">
-    <a href="#deliver_later/2" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">deliver_later(email, opts \\ [])</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L4" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L54" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -376,18 +429,16 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   </section>
 </section>
-<section class="detail" id="deliver_later!/2">
-
-    <span id="deliver_later!/1"></span>
+<section class="detail" id="deliver_async/1">
 
   <div class="detail-header">
-    <a href="#deliver_later!/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#deliver_async/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">deliver_later!(email, opts \\ [])</h1>
+    <h1 class="signature" translate="no">deliver_async(email)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L4" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L33" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -397,21 +448,19 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:deliver_async/1"><code class="inline">Bonfire.Mailer.Behaviour.deliver_async/1</code></a>.</p>
   </section>
 </section>
-<section class="detail" id="deliver_now/2">
-
-    <span id="deliver_now/1"></span>
+<section class="detail" id="deliver_inline/1">
 
   <div class="detail-header">
-    <a href="#deliver_now/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#deliver_inline/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">deliver_now(email, opts \\ [])</h1>
+    <h1 class="signature" translate="no">deliver_inline(email)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L4" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L32" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -421,30 +470,19 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> deliver_now(<a href="https://hexdocs.pm/bamboo/2.3.0/Bamboo.Email.html#t:t/0">Bamboo.Email.t</a>(), <a href="https://hexdocs.pm/elixir/Enum.html#t:t/0">Enum.t</a>()) ::
-  {:ok, <a href="https://hexdocs.pm/bamboo/2.3.0/Bamboo.Email.html#t:t/0">Bamboo.Email.t</a>()}
-  | {:ok, <a href="https://hexdocs.pm/bamboo/2.3.0/Bamboo.Email.html#t:t/0">Bamboo.Email.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/Exception.html#t:t/0">Exception.t</a>() | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}</pre>
-
-      </div>
-
-
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:deliver_inline/1"><code class="inline">Bonfire.Mailer.Behaviour.deliver_inline/1</code></a>.</p>
   </section>
 </section>
-<section class="detail" id="deliver_now!/2">
-
-    <span id="deliver_now!/1"></span>
+<section class="detail" id="from/2">
 
   <div class="detail-header">
-    <a href="#deliver_now!/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#from/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">deliver_now!(email, opts \\ [])</h1>
+    <h1 class="signature" translate="no">from(email, address)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L4" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L28" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -454,36 +492,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> deliver_now!(<a href="https://hexdocs.pm/bamboo/2.3.0/Bamboo.Email.html#t:t/0">Bamboo.Email.t</a>(), <a href="https://hexdocs.pm/elixir/Enum.html#t:t/0">Enum.t</a>()) ::
-  <a href="https://hexdocs.pm/bamboo/2.3.0/Bamboo.Email.html#t:t/0">Bamboo.Email.t</a>() | {<a href="https://hexdocs.pm/bamboo/2.3.0/Bamboo.Email.html#t:t/0">Bamboo.Email.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
-
-      </div>
-
-
-  </section>
-</section>
-<section class="detail" id="do_send/2">
-
-  <div class="detail-header">
-    <a href="#do_send/2" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">do_send(arg1, mail)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L96" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:from/2"><code class="inline">Bonfire.Mailer.Behaviour.from/2</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="handle_error/2">
@@ -497,7 +506,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">handle_error(error, stacktrace \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L144" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L85" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -507,20 +516,53 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Return a standard error tuple for errors that occur during email sending.</p><h2 id="handle_error/2-parameters" class="section-heading">
-  <a href="#handle_error/2-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li>error: The error that occurred.</li><li>stacktrace: The stacktrace of the error (optional).</li></ul><h2 id="handle_error/2-examples" class="section-heading">
-  <a href="#handle_error/2-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">handle_error</span><span class="p" data-group-id="3222507404-1">(</span><span class="p" data-group-id="3222507404-2">%</span><span class="nc" data-group-id="3222507404-2">Bamboo.ApiError</span><span class="p" data-group-id="3222507404-2">{</span><span class="ss">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Some API Error&quot;</span><span class="p" data-group-id="3222507404-2">}</span><span class="p" data-group-id="3222507404-1">)</span><span class="w">
-</span><span class="p" data-group-id="3222507404-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:mailer_api_error</span><span class="p" data-group-id="3222507404-3">}</span></code></pre>
+
+  </section>
+</section>
+<section class="detail" id="html_body/2">
+
+  <div class="detail-header">
+    <a href="#html_body/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">html_body(email, body)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L31" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:html_body/2"><code class="inline">Bonfire.Mailer.Behaviour.html_body/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="new/1">
+
+    <span id="new/0"></span>
+
+  <div class="detail-header">
+    <a href="#new/1" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">new(data \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L26" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:new/1"><code class="inline">Bonfire.Mailer.Behaviour.new/1</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="send/4">
@@ -536,7 +578,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">send(email, to, mode \\ :async, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L75" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L41" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -546,20 +588,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Sends an email with specified mode (immediate or async).</p><h2 id="send/4-parameters" class="section-heading">
-  <a href="#send/4-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li>email: The email content to be sent.</li><li>to: The recipient's email address.</li><li>mode: The sending mode (:now or :async).</li><li>opts: Optional parameters for sending the email.</li></ul><h2 id="send/4-examples" class="section-heading">
-  <a href="#send/4-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send</span><span class="p" data-group-id="2611301858-1">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;recipient@example.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:now</span><span class="p" data-group-id="2611301858-1">)</span><span class="w">
-</span><span class="p" data-group-id="2611301858-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2611301858-3">%</span><span class="nc" data-group-id="2611301858-3">Bamboo.Email</span><span class="p" data-group-id="2611301858-3">{</span><span class="p" data-group-id="2611301858-3">}</span><span class="p" data-group-id="2611301858-2">}</span></code></pre>
+
   </section>
 </section>
 <section class="detail" id="send_app_feedback/3">
@@ -571,9 +600,9 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">send_app_feedback(type \\ &quot;feedback&quot;, subject, body)</h1>
+    <h1 class="signature" translate="no">send_app_feedback(subject, body, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L118" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L44" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -583,20 +612,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Sends a feedback email to the application maintainers (to the email address configured at <code class="inline">:bonfire_mailer, Bonfire.Mailer, :feedback_to</code>)</p><h2 id="send_app_feedback/3-parameters" class="section-heading">
-  <a href="#send_app_feedback/3-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li>type: The type of feedback (default: &quot;feedback&quot;).</li><li>subject: The subject of the feedback email.</li><li>body: The body content of the feedback email.</li></ul><h2 id="send_app_feedback/3-examples" class="section-heading">
-  <a href="#send_app_feedback/3-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send_app_feedback</span><span class="p" data-group-id="4201945276-1">(</span><span class="s">&quot;bug&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error report&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Found a bug in the system&quot;</span><span class="p" data-group-id="4201945276-1">)</span><span class="w">
-</span><span class="p" data-group-id="4201945276-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4201945276-3">%</span><span class="nc" data-group-id="4201945276-3">Bamboo.Email</span><span class="p" data-group-id="4201945276-3">{</span><span class="p" data-group-id="4201945276-3">}</span><span class="p" data-group-id="4201945276-2">}</span></code></pre>
+
   </section>
 </section>
 <section class="detail" id="send_async/3">
@@ -610,7 +626,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">send_async(email, to, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L56" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L38" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -620,20 +636,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Sends an email asynchronously.</p><h2 id="send_async/3-parameters" class="section-heading">
-  <a href="#send_async/3-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li>email: The email content to be sent.</li><li>to: The recipient's email address.</li><li>opts: Optional parameters for sending the email.</li></ul><h2 id="send_async/3-examples" class="section-heading">
-  <a href="#send_async/3-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send_async</span><span class="p" data-group-id="9804371074-1">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;recipient@example.com&quot;</span><span class="p" data-group-id="9804371074-1">)</span><span class="w">
-</span><span class="p" data-group-id="9804371074-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9804371074-3">%</span><span class="nc" data-group-id="9804371074-3">Bamboo.Email</span><span class="p" data-group-id="9804371074-3">{</span><span class="p" data-group-id="9804371074-3">}</span><span class="p" data-group-id="9804371074-2">}</span></code></pre>
+
   </section>
 </section>
 <section class="detail" id="send_now/3">
@@ -647,7 +650,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     </a>
     <h1 class="signature" translate="no">send_now(email, to, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L38" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L35" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -657,20 +660,95 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Sends an email immediately.</p><h2 id="send_now/3-parameters" class="section-heading">
-  <a href="#send_now/3-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li>email: The email content to be sent.</li><li>to: The recipient's email address.</li><li>opts: Optional parameters for sending the email.</li></ul><h2 id="send_now/3-examples" class="section-heading">
-  <a href="#send_now/3-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer</span><span class="o">.</span><span class="n">send_now</span><span class="p" data-group-id="2590195874-1">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;recipient@example.com&quot;</span><span class="p" data-group-id="2590195874-1">)</span><span class="w">
-</span><span class="p" data-group-id="2590195874-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2590195874-3">%</span><span class="nc" data-group-id="2590195874-3">Bamboo.Email</span><span class="p" data-group-id="2590195874-3">{</span><span class="p" data-group-id="2590195874-3">}</span><span class="p" data-group-id="2590195874-2">}</span></code></pre>
+
+  </section>
+</section>
+<section class="detail" id="start/2">
+
+  <div class="detail-header">
+    <a href="#start/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">start(_, _)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L17" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/elixir/Application.html#c:start/2"><code class="inline">Application.start/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="subject/2">
+
+  <div class="detail-header">
+    <a href="#subject/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">subject(email, subject)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L29" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:subject/2"><code class="inline">Bonfire.Mailer.Behaviour.subject/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="text_body/2">
+
+  <div class="detail-header">
+    <a href="#text_body/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">text_body(email, body)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L30" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:text_body/2"><code class="inline">Bonfire.Mailer.Behaviour.text_body/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="to/2">
+
+  <div class="detail-header">
+    <a href="#to/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">to(email, address)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L27" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Mailer.Behaviour.html#c:to/2"><code class="inline">Bonfire.Mailer.Behaviour.to/2</code></a>.</p>
   </section>
 </section>
 
