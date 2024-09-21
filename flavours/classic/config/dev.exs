@@ -86,10 +86,11 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
 
   # filename patterns that should trigger hots reloads of components/CSS/etc (only within the above dirs)
   hot_patterns = [
-    ~r"(_live|_view)\.ex$",
+    ~r"(_live|_view|_styles)\.ex$",
     ~r{(live|views|pages|components)/.*(ex|css)$},
-    ~r".*(heex|leex|sface|hooks.js)$",
-    ~r"priv/catalogue/.*(ex)$"
+    ~r".*(heex|leex|sface|neex|hooks.js)$",
+    ~r"priv/catalogue/.*(ex)$",
+    ~r"priv/static/*.styles$"
   ]
 
   # filename patterns that should trigger full page reloads (only within the above dirs)
@@ -184,3 +185,7 @@ config :versioce, :changelog,
 
 # config :source_inspector, :enabled, true
 config :phoenix_live_view, debug_heex_annotations: true
+
+config :live_view_native_stylesheet,
+  annotations: true,
+  pretty: true

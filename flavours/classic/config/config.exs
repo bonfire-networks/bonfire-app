@@ -183,7 +183,58 @@ config :mime,
            "application/zip" => ["zip"],
            "application/vnd.rar" => ["rar"],
            "application/x-7z-compressed" => ["7z"],
-           "text/plain" => ["txt", "text", "log", "asc"]
+           "text/plain" => ["txt", "text", "log", "asc"],
+           "application/gzip" => ["gz", "gzip"],
+           "text/swiftui" => ["swiftui"],
+           "text/jetpack" => ["jetpack"],
+           "video/mpeg" => ["mpeg", "m1v", "m2v", "mpa", "mpe", "mpg"],
+           "audio/wav" => ["wav"],
+           "video/3gpp" => ["3gp"],
+           "application/x-mobipocket-ebook" => ["prc", "mobi"],
+           "application/x-bzip2" => ["bzip2"],
+           "text/csv" => ["csv"],
+           "image/svg+xml" => ["svg"],
+           "audio/mpeg" => ["mpa", "mp2"],
+           "application/epub+zip" => ["epub"],
+           "application/x-matroska" => ["mkv"],
+           "application/jrd+json" => ["jrd+json"],
+           "image/webp" => ["webp"],
+           "application/json" => ["json"],
+           "image/gif" => ["gif"],
+           "text/tab-separated-values" => ["tsv"],
+           "image/png" => ["png"],
+           "audio/webm" => ["webm"],
+           "audio/opus" => ["opus"],
+           "application/rtf" => ["rtf"],
+           "application/ld+json" => ["ld+json"],
+           "video/webm" => ["webm"],
+           "application/ics" => ["vcs", "ics"],
+           "video/mp4" => ["mp4", "mp4v", "mpg4"],
+           "audio/mp4" => ["m4a", "mp4"],
+           "application/x-7z-compressed" => ["7z"],
+           "audio/mp3" => ["mp3"],
+           "text/markdown" => ["md", "mkd", "markdown", "livemd"],
+           "audio/flac" => ["flac"],
+           "application/activity+json" => ["activity+json"],
+           "audio/m4a" => ["m4a"],
+           "image/jpeg" => ["jpg", "jpeg"],
+           "audio/x-m4a" => ["m4a"],
+           "video/3gpp2" => ["3g2"],
+           "application/vnd.rar" => ["rar"],
+           "video/x-msvideo" => ["avi"],
+           "application/pdf" => ["pdf"],
+           "audio/ogg" => ["ogg", "oga"],
+           "text/plain" => ["txt", "text", "log", "asc"],
+           "text/styles" => ["styles"],
+           "application/zip" => ["zip"],
+           "video/quicktime" => ["mov", "qt"],
+           "audio/aac" => ["aac"],
+           "application/x-bzip" => ["bzip"],
+           "video/x-matroska" => ["mkv"],
+           "text/x-vcard" => ["vcf"],
+           "video/ogg" => ["ogg", "ogv"],
+           "image/apng" => ["apng"],
+           "application/x-tar" => ["tar"]
          },
          Bonfire.Files.MimeTypes.supported_media()
        )
@@ -219,6 +270,24 @@ config :sentry,
   ],
   context_lines: 15,
   tags: %{app_version: Mix.Project.config()[:version]}
+
+config :phoenix_template, :format_encoders, swiftui: Phoenix.HTML.Engine
+# jetpack: Phoenix.HTML.Engine
+config :live_view_native,
+  plugins: [
+    LiveViewNative.SwiftUI
+    # LiveViewNative.Jetpack
+  ]
+
+config :phoenix, :template_engines, neex: LiveViewNative.Engine
+
+config :live_view_native_stylesheet,
+  content: [
+    swiftui: [
+      "*_swiftui_styles.ex"
+    ]
+  ],
+  output: "priv/static/assets"
 
 if Bonfire.Mixer.compile_disabled?() do
   for dep <-
