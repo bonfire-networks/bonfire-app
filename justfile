@@ -28,7 +28,7 @@ APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":latest-" +FLAVOUR)
 DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "16-3.4") 
-DB_DOCKER_IMAGE := if arch() == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { env_var_or_default('DB_DOCKER_IMAGE', "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine") }
+DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if arch() == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine" })
 # DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "supabase/postgres")
 # ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_VERSION', "1.17") +"-erlang-"+env_var_or_default('ERLANG_VERSION', "27")+"-alpine-"+env_var_or_default('ERLANG_VERSION', "3.20")
 
