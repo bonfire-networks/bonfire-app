@@ -9,13 +9,14 @@ on:
 
 jobs:
   test:
-    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
     runs-on: ubuntu-latest
+    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}} with Docker ${{matrix.with_docker}}
     strategy:
       fail-fast: false
       matrix:
         flavour: ['classic'] # 'community', 'cooperation'
-        otp: ['27.1', '25.2.3'] 
+        otp: ['27.1', '25.2.3']
+        with_docker: ['easy']
         elixir: ['1.17.3'] # '1.14.5' 
         test_only: ['backend', 'ui'] # 'federation' - FIXME: federation results in  (Ecto.ConstraintError) constraint error when attempting to insert struct: "bonfire_data_access_control_encircle_circle_id_fkey" (foreign_key_constraint) in `fake_user` 
         # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
@@ -23,7 +24,7 @@ jobs:
       FLAVOUR: ${{matrix.flavour}}
       MIX_TEST_ONLY: ${{matrix.test_only}}
       MIX_ENV: test
-      WITH_DOCKER: partial
+      WITH_DOCKER: ${{matrix.with_docker}}
       CI: true
       TEST_LOG_TRUNCATE: 340
       TEST_LOG_LEVEL: error
