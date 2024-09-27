@@ -10,28 +10,24 @@ function ns(hooks, nameSpace) {
   return updatedHooks
 }
 
-import * as c1 from "./Bonfire.Editor.Milkdown.hooks"
-import * as c2 from "./Bonfire.UI.Common.ViewCodeLive.hooks"
-import * as c3 from "./Bonfire.UI.Common.LazyImage.hooks"
-import * as c4 from "./Bonfire.UI.Common.PreviewContentLive.hooks"
-import * as c5 from "./Bonfire.UI.Common.NotificationLive.hooks"
-import * as c6 from "./Bonfire.UI.Common.LoadMoreLive.hooks"
-import * as c7 from "./Bonfire.UI.Common.ChangeLocaleLive.hooks"
-import * as c8 from "./Bonfire.UI.Common.ChangeThemesLive.hooks"
-import * as c9 from "./Bonfire.UI.Common.ComposerLive.hooks"
-import * as c10 from "./Bonfire.UI.Social.Activity.DateAgoLive.hooks"
+import * as c1 from "./Bonfire.UI.Common.ViewCodeLive.hooks.js"
+import * as c2 from "./Bonfire.UI.Common.LazyImage.hooks.js"
+import * as c3 from "./Bonfire.UI.Common.PreviewContentLive.hooks.js"
+import * as c4 from "./Bonfire.UI.Common.NotificationLive.hooks.js"
+import * as c5 from "./Bonfire.UI.Common.LoadMoreLive.hooks.js"
+import * as c6 from "./Bonfire.UI.Common.ChangeLocaleLive.hooks.js"
+import * as c7 from "./Bonfire.UI.Common.ChangeThemesLive.hooks.js"
+import * as c8 from "./Bonfire.UI.Common.ComposerLive.hooks.js"
 
 let hooks = Object.assign(
-  ns(c1, "Bonfire.Editor.Milkdown"),
-  ns(c2, "Bonfire.UI.Common.ViewCodeLive"),
-  ns(c3, "Bonfire.UI.Common.LazyImage"),
-  ns(c4, "Bonfire.UI.Common.PreviewContentLive"),
-  ns(c5, "Bonfire.UI.Common.NotificationLive"),
-  ns(c6, "Bonfire.UI.Common.LoadMoreLive"),
-  ns(c7, "Bonfire.UI.Common.ChangeLocaleLive"),
-  ns(c8, "Bonfire.UI.Common.ChangeThemesLive"),
-  ns(c9, "Bonfire.UI.Common.ComposerLive"),
-  ns(c10, "Bonfire.UI.Social.Activity.DateAgoLive")
+  ns(c1, "Bonfire.UI.Common.ViewCodeLive"),
+  ns(c2, "Bonfire.UI.Common.LazyImage"),
+  ns(c3, "Bonfire.UI.Common.PreviewContentLive"),
+  ns(c4, "Bonfire.UI.Common.NotificationLive"),
+  ns(c5, "Bonfire.UI.Common.LoadMoreLive"),
+  ns(c6, "Bonfire.UI.Common.ChangeLocaleLive"),
+  ns(c7, "Bonfire.UI.Common.ChangeThemesLive"),
+  ns(c8, "Bonfire.UI.Common.ComposerLive")
 )
 
 export default hooks
