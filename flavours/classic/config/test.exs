@@ -66,8 +66,10 @@ config :bonfire_umbrella, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-config :tesla,
-  adapter: if(federate?, do: {Tesla.Adapter.Finch, name: Bonfire.Finch}, else: Tesla.Mock)
+if !federate? do
+  config :tesla,
+    adapter: Tesla.Mock
+end
 
 #  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE 
 config :activity_pub, :instance, federating: true

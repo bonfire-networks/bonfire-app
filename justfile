@@ -611,11 +611,11 @@ test-federation-in-extensions *args=ap_ext: test-federation-dance-positions
 	just test-watch $@
 
 test-federation-dance *args='': test-federation-dance-positions
-	TEST_INSTANCE=yes just test --only test_instance $@
+	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance $@
 	just test-federation-dance-positions
 
 test-federation-dance-unsigned *args='': test-federation-dance-positions
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes just test --only test_instance $@
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance $@
 	just test-federation-dance-positions
 
 test-federation-dance-positions:
@@ -633,6 +633,7 @@ load_testing:
 # Create or reset the test DB
 test-db-reset: init db-pre-migrations
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
@@ -970,6 +971,7 @@ nix-db-init: (nix-db "start")
 tunnel: tunnel-localhost-run
 
 @tunnel-localhost-run:
+	echo "NOTE: you'll need to copy the generated domain name that will be printed below into HOSTNAME in your .env"
 	ssh -R 80:localhost:4000 localhost.run
 
 # this requires `cargo install tunnelto` (the homebrew version of tunnelto doesn't work)
