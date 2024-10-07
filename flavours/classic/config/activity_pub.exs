@@ -34,15 +34,6 @@ config :activity_pub, :mrf_simple,
 
 config :http_signatures, adapter: ActivityPub.Safety.Signatures
 
-# config :tesla, adapter: Tesla.Adapter.Hackney
-config :tesla,
-       :adapter,
-       {Tesla.Adapter.Finch,
-        name: Bonfire.Finch,
-        pools: %{
-          :default => [conn_opts: [case_sensitive_headers: true]]
-        }}
-
 config :activity_pub, :http,
   proxy_url: nil,
   user_agent: "Bonfire ActivityPub federation",

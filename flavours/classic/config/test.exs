@@ -10,8 +10,7 @@ import_config "activity_pub_test.exs"
 config :bonfire,
   # should match limit hardcoded in tests
   default_pagination_limit: 2,
-  # should match limit hardcoded in tests
-  pagination_hard_max_limit: 2,
+  pagination_hard_max_limit: 20,
   skip_all_boundary_checks: false
 
 config :bonfire_mailer, Bonfire.Mailer.Bamboo, adapter: Bamboo.TestAdapter
@@ -47,7 +46,7 @@ if !test_instance? and System.get_env("CAPTURE_LOG") != "no" do
 end
 
 # Configure your database
-# db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION")}"
+# db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION") || 0}"
 #
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.

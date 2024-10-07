@@ -177,7 +177,7 @@ IO.puts("Note: Starting database connection pool of #{pool_size}")
 database =
   case config_env() do
     :test ->
-      "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION")}"
+      "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION") || 0}"
 
     :dev ->
       System.get_env("POSTGRES_DB", "bonfire_dev")

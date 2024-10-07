@@ -595,6 +595,7 @@ test-federation: test-federation-dance-positions
 	just test-stale {{ ap_integration }}
 	just test-stale {{ ap_ext }}
 	just test-federation-dance-positions
+	just test-db-federation-dance-reset
 	TEST_INSTANCE=yes just test-stale --only test_instance
 	just test-federation-dance-positions
 
@@ -610,15 +611,15 @@ test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/b
 test-federation-in-extensions *args=ap_ext: test-federation-dance-positions
 	just test-watch $@
 
-test-federation-dance *args='': test-federation-dance-positions
+test-federation-dance *args='': test-federation-dance-positions test-db-federation-dance-reset
 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance $@
 	just test-federation-dance-positions
 
-test-federation-dance-unsigned *args='': test-federation-dance-positions
+test-federation-dance-unsigned *args='': test-federation-dance-positions test-db-federation-dance-reset
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance $@
 	just test-federation-dance-positions
 
-test-federation-dance-positions:
+test-federation-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 test-federation-live-DRAGONS *args='':
@@ -631,10 +632,12 @@ load_testing:
 # 	just docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
 # Create or reset the test DB
-test-db-reset: init db-pre-migrations
+test-db-reset: init db-pre-migrations test-db-federation-dance-reset
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
-	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
+test-db-federation-dance-reset: init db-pre-migrations
+	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
+	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
 _rel-init:
