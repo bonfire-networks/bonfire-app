@@ -12,8 +12,8 @@ struct ContentView: View {
         // #LiveView(.automatic(development: .custom(URL(string: "http://localhost:4000/")!), production: .custom(URL(string: "https://campground.bonfire.cafe/")!)))
         #LiveView(
             .automatic(
-                development: .localhost(path: "/"),
-                production: URL(string: "https://example.com")!
+                development: .localhost(port: 4000, path: "/"),
+                production: URL(string: "https://campground.bonfire.cafe")!
             ),
             addons: [
                .liveForm
