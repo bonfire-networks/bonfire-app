@@ -90,7 +90,7 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
     ~r{(live|views|pages|components)/.*(ex|css)$},
     ~r".*(heex|leex|sface|neex|hooks.js)$",
     ~r"priv/catalogue/.*(ex)$",
-    ~r"priv/static/*.styles$"
+    ~r"priv/static/.*styles$"
   ]
 
   # filename patterns that should trigger full page reloads (only within the above dirs)

@@ -33,7 +33,7 @@ defmodule Bonfire.Umbrella.MixProject do
                     else: []
                   )
 
-  @maybe_image_vix if(System.get_env("ENABLE_IMAGE_VIX") != "0",
+  @maybe_image_vix if(System.get_env("WITH_IMAGE_VIX") != "0",
                      do: [
                        {:image, "~> 0.37", runtime: true, override: true},
                        {:evision, "~> 0.1", runtime: true, override: true}

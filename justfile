@@ -396,6 +396,7 @@ deps-clean dep:
 	just deps-clean plug
 	just deps-clean phoenix_html
 	just deps-clean bonfire_ui_common
+	just deps-clean bonfire
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
