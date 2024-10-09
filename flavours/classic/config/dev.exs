@@ -105,11 +105,7 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
 
   config :bonfire, Bonfire.Web.Endpoint,
     code_reloader: enable_reloader?,
-<<<<<<< HEAD
-    # TEMP
-=======
     # TEMP until this is available https://github.com/surface-ui/surface/pull/755
->>>>>>> ae711bd65b (https://github.com/bonfire-networks/bonfire-app)
     reloadable_compilers: [:leex, :elixir],
     # reloadable_compilers: [:leex, :elixir, :surface],
     reloadable_apps: [:bonfire] ++ local_dep_names,
