@@ -471,20 +471,20 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def dep_path(dep, force? \\ false)
 
-    def dep_path(dep, force?) when is_binary(dep) do
-      Enum.map(forks_paths(), &path_if_exists(&1 <> dep))
+    def dep_path(dep, force?) when is_binary(dep) or is_atom(dep) do
+      Enum.map(forks_paths(), &path_if_exists("#{&1}#{dep}"))
       |> Enum.reject(&is_nil/1)
       |> List.first() ||
         (
           path =
-            (Mix.Project.deps_path() <> "/" <> dep)
+            (Mix.Project.deps_path() <> "/#{dep}")
             |> Path.expand(File.cwd!())
 
           if force?, do: path, else: path_if_exists(path) || "."
         )
     end
 
-    def dep_path(dep, force?) do
+    def dep_path(dep, force?) when is_tuple(dep) do
       spec = elem(dep, 1)
 
       path =

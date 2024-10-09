@@ -22,3 +22,7 @@ config :bonfire_umbrella, Bonfire.Common.Repo,
 config :activity_pub, :instance, federating: true
 
 # config :surface, :compiler, warn_on_undefined_props: false
+
+config :live_view_native_stylesheet,
+  annotations: false,
+  pretty: false

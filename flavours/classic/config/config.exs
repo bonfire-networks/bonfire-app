@@ -6,6 +6,11 @@ flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 project_root = File.cwd!()
 as_desktop_app? = System.get_env("AS_DESKTOP_APP") in ["1", "true"]
 env = config_env()
+
+bonfire_deps =
+  Bonfire.Mixer.deps_for(:bonfire)
+  |> Bonfire.Mixer.deps_names_list(true)
+
 #### Basic configuration
 
 # You probably won't want to touch these. You might override some in
@@ -274,8 +279,7 @@ config :sentry,
   # TODO? see https://hexdocs.pm/sentry/upgrade-10-x.html#actively-package-your-source-code
   # NOTE: enabling `enable_source_code_context` errors with `Found two source files in different source root paths with the same relative path`
   enable_source_code_context: false,
-  root_source_code_paths:
-    [project_root] ++ Bonfire.Mixer.dep_paths(Bonfire.Mixer.deps_names_for(:bonfire)),
+  root_source_code_paths: [project_root] ++ Bonfire.Mixer.dep_paths(bonfire_deps),
   source_code_exclude_patterns: [
     ~r/\/flavours\//,
     ~r/\/extensions\//,
@@ -298,12 +302,16 @@ config :live_view_native,
 config :phoenix, :template_engines, neex: LiveViewNative.Engine
 
 config :live_view_native_stylesheet,
-  content: [
-    swiftui: [
-      "*_swiftui_styles.ex"
+  content:
+    [
+      # swiftui: ["lib/**/*swiftui*"] ++ 
+      #   for dep <- bonfire_deps do
+      #     if Mix.Project.deps_paths[dep], do: {dep, "lib/**/*swiftui*"}        
+      #   end
+      #   |> Enum.reject(&is_nil/1)
     ]
-  ],
-  output: "priv/static/assets"
+    |> IO.inspect(limit: :infinity),
+  output: "assets/static/assets"
 
 if Bonfire.Mixer.compile_disabled?() do
   for dep <-
