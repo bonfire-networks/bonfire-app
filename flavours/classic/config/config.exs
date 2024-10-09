@@ -304,11 +304,12 @@ config :phoenix, :template_engines, neex: LiveViewNative.Engine
 config :live_view_native_stylesheet,
   content:
     [
-      # swiftui: ["lib/**/*swiftui*"] ++ 
-      #   for dep <- bonfire_deps do
-      #     if Mix.Project.deps_paths[dep], do: {dep, "lib/**/*swiftui*"}        
-      #   end
-      #   |> Enum.reject(&is_nil/1)
+      swiftui:
+        (["lib/**/*swiftui*"] ++
+           for dep <- bonfire_deps do
+             if Mix.Project.deps_paths()[dep], do: {dep, "lib/**/*swiftui*"}
+           end)
+        |> Enum.reject(&is_nil/1)
     ]
     |> IO.inspect(limit: :infinity),
   output: "assets/static/assets"
