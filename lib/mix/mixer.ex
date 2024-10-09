@@ -544,23 +544,6 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       ]
     end
 
-    def deps_tree do
-      if function_exported?(Mix.Project, :deps_tree, 0) do
-        Mix.Project.deps_tree()
-      end
-    end
-
-    def deps_tree_flat(tree \\ deps_tree())
-
-    def deps_tree_flat(tree) when is_map(tree) do
-      # note that you should call the compile-time cached list in Bonfire.Application
-      (Map.values(tree) ++ Map.keys(tree))
-      |> List.flatten()
-      |> Enum.uniq()
-    end
-
-    def deps_tree_flat(_), do: nil
-
     def list_deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
       deps_by_size(sort_by, paths)
       |> log(limit: :infinity)
@@ -569,7 +552,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     def deps_by_size(sort_by \\ :app, paths \\ Mix.Project.deps_paths()) do
-      deps_tree()
+      Bonfire.Common.Extend.deps_tree()
       |> Enum.map(fn {app, deps} ->
         app_size =
           paths
