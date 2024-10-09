@@ -105,7 +105,8 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
 
   config :bonfire, Bonfire.Web.Endpoint,
     code_reloader: enable_reloader?,
-    reloadable_compilers: [:leex, :elixir, :surface],
+    reloadable_compilers: [:leex, :elixir], # TEMP
+    # reloadable_compilers: [:leex, :elixir, :surface],
     reloadable_apps: [:bonfire] ++ local_dep_names,
     live_reload: [
       patterns: patterns ++ hot_patterns,
