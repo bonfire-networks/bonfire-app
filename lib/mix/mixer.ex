@@ -395,11 +395,18 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         |> String.replace("%{line}", "#{line}")
 
     # Specifies which paths to include when running tests
-    def test_paths(config),
-      do: [
+    def test_paths(config) do
+      testable_paths =
+        test_deps(config)
+        |> Enum.flat_map(&dep_paths(&1, "test"))
+
+      # |> IO.inspect(label: "testable_paths")
+
+      [
         "test"
-        | Enum.flat_map(test_deps(config), &dep_paths(&1, "test"))
+        | testable_paths
       ]
+    end
 
     def test_deps(config) do
       case System.get_env("MIX_TEST_ONLY") do
@@ -427,18 +434,86 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     # Specifies which paths to compile per environment
-    def elixirc_paths(config, :test),
-      do: [
+    def elixirc_paths(config, :test) do
+      paths_to_test = cli_args_paths_to_test()
+
+      testable_deps =
+        test_deps(config)
+        |> Enum.flat_map(&dep_paths/1)
+
+      testable_paths =
+        case find_matching_paths(paths_to_test, testable_deps) do
+          [] -> testable_deps
+          testable_paths -> testable_paths
+        end
+
+      [
         # "lib",
         "test/support"
-        | Enum.flat_map(
-            test_deps(config),
-            &dep_paths(&1, "test/support")
-          )
+        | dep_paths(testable_paths, "test/support")
+        # |> IO.inspect(label: "elixirc_paths")
+      ]
+    end
+
+    def elixirc_paths(_, env), do: catalogues(env)
+
+    def cli_args_paths_to_test do
+      # NOTE: must be kept up to date with @switches in https://github.com/elixir-lang/elixir/blob/main/lib/mix/lib/mix/tasks/test.ex
+      switches = [
+        all_warnings: :boolean,
+        breakpoints: :boolean,
+        force: :boolean,
+        color: :boolean,
+        cover: :boolean,
+        export_coverage: :string,
+        trace: :boolean,
+        max_cases: :integer,
+        max_failures: :integer,
+        include: :keep,
+        exclude: :keep,
+        seed: :integer,
+        only: :keep,
+        compile: :boolean,
+        start: :boolean,
+        timeout: :integer,
+        raise: :boolean,
+        deps_check: :boolean,
+        archives_check: :boolean,
+        elixir_version_check: :boolean,
+        failed: :boolean,
+        stale: :boolean,
+        listen_on_stdin: :boolean,
+        formatter: :keep,
+        slowest: :integer,
+        slowest_modules: :integer,
+        partitions: :integer,
+        preload_modules: :boolean,
+        warnings_as_errors: :boolean,
+        profile_require: :string,
+        exit_status: :integer,
+        repeat_until_failure: :integer
       ]
 
-    # ++ ["lib"]
-    def elixirc_paths(_, env), do: catalogues(env)
+      {_opts, wildcards_to_test, _} = System.argv() |> OptionParser.parse(strict: switches)
+
+      wildcards_to_test
+      |> Enum.map(&(&1 |> Path.expand() |> Path.wildcard() |> Path.relative_to_cwd()))
+
+      # |> IO.inspect(label: "paths_to_test")
+    end
+
+    def find_matching_paths(paths_to_test, testable_deps) do
+      testable_deps_set = MapSet.new(testable_deps)
+
+      Enum.flat_map(paths_to_test, fn filter_path ->
+        Enum.filter(testable_deps_set, fn dep_path ->
+          filter_path == dep_path or String.starts_with?(filter_path, dep_path) or
+            String.starts_with?(dep_path, filter_path)
+        end)
+      end)
+      |> Enum.uniq()
+      |> Enum.reject(&is_nil/1)
+    end
 
     def include_dep?(type, dep, config_or_prefixes)
 
@@ -472,7 +547,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def dep_path(dep, force? \\ false)
 
     def dep_path(dep, force?) when is_binary(dep) or is_atom(dep) do
-      Enum.map(forks_paths(), &path_if_exists("#{&1}#{dep}"))
+      Enum.map(forks_paths() ++ [""], &path_if_exists("#{&1}#{dep}"))
       |> Enum.reject(&is_nil/1)
       |> List.first() ||
         (
