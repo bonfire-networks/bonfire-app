@@ -43,10 +43,10 @@ defmodule Bonfire.Umbrella.MixProject do
 
   @maybe_ai if(System.get_env("ENABLE_AI") != "0",
               do: [
-                {:bumblebee, "~> 0.5.0"},
-                {:nx, "~> 0.7.0"},
-                {:exla, "~> 0.7.0"},
-                {:axon, "~> 0.6.1", override: true},
+                {:bumblebee, "~> 0.6.0"},
+                {:nx, "~> 0.9.0"},
+                {:exla, "~> 0.9.1"},
+                {:axon, "~> 0.7.0", override: true},
                 {:table_rex, "~> 4.0.0", override: true}
               ],
               else: []
@@ -244,12 +244,12 @@ defmodule Bonfire.Umbrella.MixProject do
         "verbs",
         "voodoo",
         "entrepot",
-        "waffle",
+        # "waffle",
         "unfurl",
         # "zest",
         "iconify",
-        "faviconic",
-        "paper_trail"
+        "faviconic"
+        # "paper_trail"
       ],
       test_federation: @test_federation,
       test_backend: @test_backend,
@@ -264,7 +264,8 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_classify",
         "bonfire_geolocate",
         "bonfire_quantify",
-        "bonfire_valueflows"
+        "bonfire_valueflows",
+        "article_"
       ],
       api: [
         "bonfire_api_graphql",
