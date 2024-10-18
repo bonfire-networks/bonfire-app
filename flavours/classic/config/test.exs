@@ -93,6 +93,10 @@ config :phoenix_test, :endpoint, Bonfire.Web.Endpoint
 
 config :pbkdf2_elixir, :rounds, 1
 
+config :argon2_elixir,
+  t_cost: 1,
+  m_cost: 8
+
 config :mix_test_interactive,
   clear: true
 

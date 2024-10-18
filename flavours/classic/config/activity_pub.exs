@@ -32,7 +32,7 @@ config :activity_pub, :mrf_simple,
   avatar_removal: [],
   banner_removal: []
 
-config :http_signatures, adapter: ActivityPub.Safety.Signatures
+config :http_signatures, adapter: ActivityPub.Safety.HTTP.Signatures
 
 config :activity_pub, :http,
   proxy_url: nil,
