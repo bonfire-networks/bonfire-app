@@ -326,11 +326,11 @@ update-deps-bonfire:
 
 # Update every single dependency (use with caution)
 update-deps-all: _pre-update-deps
+	just update-deps-js
+	just _assets-ln
 	just update-forks
 	COMPILE_DISABLED_EXTENSIONS=all just mix-remote "deps.update --all"
 	just _deps-post-get
-	just update-deps-js
-	just _assets-ln
 	just js-ext-deps outdated
 	-just mix "hex.outdated --all"
 
@@ -341,10 +341,13 @@ update-deps-js:
 
 # Update a specify dep (eg. `just update.dep needle`)
 update-dep dep: _pre-update-deps
-	just update-fork $dep pull
-	COMPILE_DISABLED_EXTENSIONS=all just mix-remote "deps.update $dep"
+	just update-dep-simple $dep 
 	just _deps-post-get
 	./js-deps-get.sh $dep
+
+update-dep-simple dep: 
+	just update-fork $dep pull
+	COMPILE_DISABLED_EXTENSIONS=all just mix-remote "deps.update $dep"
 
 # Pull the latest commits from all forks
 @update-forks:
