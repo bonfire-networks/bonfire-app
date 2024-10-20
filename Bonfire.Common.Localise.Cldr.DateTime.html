@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.156">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.160">
 
 
-    <title>Bonfire.Common.Localise.Cldr.DateTime — Bonfire v0.9.10-classic-beta.156</title>
+    <title>Bonfire.Common.Localise.Cldr.DateTime — Bonfire v0.9.10-classic-beta.160</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-4535CF76.js"></script>
+    <script src="dist/sidebar_items-7A93CEFA.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.156
+          v0.9.10-classic-beta.160
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Common.Localise.Cldr.DateTime</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.156)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.160)</small>
 
   </h1>
 
@@ -210,7 +210,7 @@ returning a formatted string or raising on error.</p></div>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> to_string(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.1/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+          <pre translate="no"><span class="attribute">@spec</span> to_string(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.2/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
   {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, {<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}}</pre>
 
       </div>
@@ -233,7 +233,7 @@ and <code class="inline">:calendar</code> fields.</p></li><li><p><code class="in
 </h2>
 <ul><li><p><code class="inline">:format</code> is one of <code class="inline">:short</code>, <code class="inline">:medium</code>, <code class="inline">:long</code>, <code class="inline">:full</code> or a format string or
 any of the keys in the map returned by <code class="inline">Cldr.DateTime.date_time_formats/3</code>.
-The default is <code class="inline">:medium</code>. See <a href="Grumble.html#date-time-and-datetime-localization-formats">here</a>
+The default is <code class="inline">:medium</code>. See <a href="Bonfire.Upcycle.html#date-time-and-datetime-localization-formats">here</a>
 for more information about specifying formats.</p></li><li><p><code class="inline">:date_format</code> is any one of <code class="inline">:short</code>, <code class="inline">:medium</code>, <code class="inline">:long</code>, <code class="inline">:full</code>. If defined,
 this option is used to format the date part of the date time. This option is
 only acceptable if the <code class="inline">:format</code> option is not specified, or is specified as either
@@ -266,19 +266,19 @@ return &quot;pm&quot; instead of &quot;PM&quot;.</p></li></ul><h2 id="to_string/
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3298872970-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">datetime</span><span class="p" data-group-id="3298872970-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">from_naive</span><span class="p" data-group-id="3298872970-2">(</span><span class="ld">~N[2000-01-01 23:59:59.0]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="3298872970-2">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9412141575-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">datetime</span><span class="p" data-group-id="9412141575-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">from_naive</span><span class="p" data-group-id="9412141575-2">(</span><span class="ld">~N[2000-01-01 23:59:59.0]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="9412141575-2">)</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="n">datetime</span><span class="w">
-</span><span class="p" data-group-id="3298872970-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jan 1, 2000, 11:59:59 PM&quot;</span><span class="p" data-group-id="3298872970-3">}</span><span class="w">
+</span><span class="p" data-group-id="9412141575-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jan 1, 2000, 11:59:59 PM&quot;</span><span class="p" data-group-id="9412141575-3">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
-</span><span class="p" data-group-id="3298872970-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jan 1, 2000, 11:59:59 PM&quot;</span><span class="p" data-group-id="3298872970-4">}</span><span class="w">
+</span><span class="p" data-group-id="9412141575-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jan 1, 2000, 11:59:59 PM&quot;</span><span class="p" data-group-id="9412141575-4">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
-</span><span class="p" data-group-id="3298872970-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;January 1, 2000, 11:59:59 PM UTC&quot;</span><span class="p" data-group-id="3298872970-5">}</span><span class="w">
+</span><span class="p" data-group-id="9412141575-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;January 1, 2000, 11:59:59 PM UTC&quot;</span><span class="p" data-group-id="9412141575-5">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:hms</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
-</span><span class="p" data-group-id="3298872970-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;11:59:59 PM&quot;</span><span class="p" data-group-id="3298872970-6">}</span><span class="w">
+</span><span class="p" data-group-id="9412141575-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;11:59:59 PM&quot;</span><span class="p" data-group-id="9412141575-6">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:full</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
-</span><span class="p" data-group-id="3298872970-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Saturday, January 1, 2000, 11:59:59 PM GMT&quot;</span><span class="p" data-group-id="3298872970-7">}</span><span class="w">
+</span><span class="p" data-group-id="9412141575-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Saturday, January 1, 2000, 11:59:59 PM GMT&quot;</span><span class="p" data-group-id="9412141575-7">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:full</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="w">
-</span><span class="p" data-group-id="3298872970-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;samedi 1 janvier 2000, 23:59:59 UTC&quot;</span><span class="p" data-group-id="3298872970-8">}</span></code></pre>
+</span><span class="p" data-group-id="9412141575-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;samedi 1 janvier 2000, 23:59:59 UTC&quot;</span><span class="p" data-group-id="9412141575-8">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="to_string!/2">
@@ -304,7 +304,7 @@ return &quot;pm&quot; instead of &quot;PM&quot;.</p></li></ul><h2 id="to_string/
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> to_string!(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.1/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+          <pre translate="no"><span class="attribute">@spec</span> to_string!(<a href="https://hexdocs.pm/ex_cldr_calendars/1.26.2/Cldr.Calendar.html#t:any_date_time/0">Cldr.Calendar.any_date_time</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
   <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
 
       </div>
@@ -328,7 +328,7 @@ and <code class="inline">:calendar</code> fields.</p></li><li><p><code class="in
 </h2>
 <ul><li><p><code class="inline">:format</code> is one of <code class="inline">:short</code>, <code class="inline">:medium</code>, <code class="inline">:long</code>, <code class="inline">:full</code> or a format string or
 any of the keys in the map returned by <code class="inline">Cldr.DateTime.date_time_formats/3</code>.
-The default is <code class="inline">:medium</code>. See <a href="Grumble.html#date-time-and-datetime-localization-formats">here</a>
+The default is <code class="inline">:medium</code>. See <a href="Bonfire.Upcycle.html#date-time-and-datetime-localization-formats">here</a>
 for more information about specifying formats.</p></li><li><p><code class="inline">:date_format</code> is any one of <code class="inline">:short</code>, <code class="inline">:medium</code>, <code class="inline">:long</code>, <code class="inline">:full</code>. If defined,
 this option is used to format the date part of the date time. This option is
 only acceptable if the <code class="inline">:format</code> option is not specified, or is specified as either
@@ -361,14 +361,14 @@ return &quot;pm&quot; instead of &quot;PM&quot;.</p></li></ul><h2 id="to_string!
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7398473645-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">date_time</span><span class="p" data-group-id="7398473645-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">from_naive</span><span class="p" data-group-id="7398473645-2">(</span><span class="ld">~N[2000-01-01 23:59:59.0]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="7398473645-2">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="7398473645-3">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="7398473645-3">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3790716524-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">date_time</span><span class="p" data-group-id="3790716524-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">from_naive</span><span class="p" data-group-id="3790716524-2">(</span><span class="ld">~N[2000-01-01 23:59:59.0]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Etc/UTC&quot;</span><span class="p" data-group-id="3790716524-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="3790716524-3">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="3790716524-3">)</span><span class="w">
 </span><span class="s">&quot;Jan 1, 2000, 11:59:59 PM&quot;</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="7398473645-4">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="7398473645-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="3790716524-4">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="3790716524-4">)</span><span class="w">
 </span><span class="s">&quot;January 1, 2000, 11:59:59 PM UTC&quot;</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="7398473645-5">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:full</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="7398473645-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="3790716524-5">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:full</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="3790716524-5">)</span><span class="w">
 </span><span class="s">&quot;Saturday, January 1, 2000, 11:59:59 PM GMT&quot;</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="7398473645-6">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:full</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:fr</span><span class="p" data-group-id="7398473645-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime</span><span class="o">.</span><span class="n">to_string!</span><span class="p" data-group-id="3790716524-6">(</span><span class="n">date_time</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:full</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="ss">:fr</span><span class="p" data-group-id="3790716524-6">)</span><span class="w">
 </span><span class="s">&quot;samedi 1 janvier 2000, 23:59:59 UTC&quot;</span></code></pre>
   </section>
 </section>

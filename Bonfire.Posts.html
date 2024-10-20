@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.156">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.160">
 
 
-    <title>Bonfire.Posts — Bonfire v0.9.10-classic-beta.156</title>
+    <title>Bonfire.Posts — Bonfire v0.9.10-classic-beta.160</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-4535CF76.js"></script>
+    <script src="dist/sidebar_items-7A93CEFA.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.156
+          v0.9.10-classic-beta.160
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Posts</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.156)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.160)</small>
 
   </h1>
 
@@ -186,7 +186,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#ap_receive_activity/4" data-no-tooltip translate="no">ap_receive_activity(creator, activity, object, circles \\ [])</a>
+        <a href="#ap_receive_activity/3" data-no-tooltip translate="no">ap_receive_activity(creator, ap_activity, ap_object)</a>
 
       </div>
 
@@ -418,20 +418,18 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="0934280818-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="0934280818-1">)</span><span class="w">
-</span><span class="p" data-group-id="0934280818-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0934280818-3">%</span><span class="nc" data-group-id="0934280818-3">ActivityPub.Activity</span><span class="p" data-group-id="0934280818-3">{</span><span class="p" data-group-id="0934280818-3">}</span><span class="p" data-group-id="0934280818-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="7845269939-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="7845269939-1">)</span><span class="w">
+</span><span class="p" data-group-id="7845269939-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7845269939-3">%</span><span class="nc" data-group-id="7845269939-3">ActivityPub.Activity</span><span class="p" data-group-id="7845269939-3">{</span><span class="p" data-group-id="7845269939-3">}</span><span class="p" data-group-id="7845269939-2">}</span></code></pre>
   </section>
 </section>
-<section class="detail" id="ap_receive_activity/4">
-
-    <span id="ap_receive_activity/3"></span>
+<section class="detail" id="ap_receive_activity/3">
 
   <div class="detail-header">
-    <a href="#ap_receive_activity/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">ap_receive_activity(creator, activity, object, circles \\ [])</h1>
+    <h1 class="signature" translate="no">ap_receive_activity(creator, ap_activity, ap_object)</h1>
 
       <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L620" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
@@ -443,26 +441,26 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Receives an incoming ActivityPub post.</p><h2 id="ap_receive_activity/4-parameters" class="section-heading">
-  <a href="#ap_receive_activity/4-parameters" class="hover-link">
+<p>Receives an incoming ActivityPub post.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading">
+  <a href="#ap_receive_activity/3-parameters" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Parameters</span>
 </h2>
-<ul><li><code class="inline">creator</code>: The creator of the post.</li><li><code class="inline">activity</code>: The ActivityPub activity.</li><li><code class="inline">object</code>: The ActivityPub object.</li><li><code class="inline">circles</code>: The circles to publish to (default: <code class="inline">[]</code>).</li></ul><h2 id="ap_receive_activity/4-returns" class="section-heading">
-  <a href="#ap_receive_activity/4-returns" class="hover-link">
+<ul><li><code class="inline">creator</code>: The creator of the post.</li><li><code class="inline">activity</code>: The ActivityPub activity.</li><li><code class="inline">object</code>: The ActivityPub object.</li><li><code class="inline">circles</code>: The circles to publish to (default: <code class="inline">[]</code>).</li></ul><h2 id="ap_receive_activity/3-returns" class="section-heading">
+  <a href="#ap_receive_activity/3-returns" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Returns</span>
 </h2>
-<p><code class="inline">{:ok, post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="ap_receive_activity/4-examples" class="section-heading">
-  <a href="#ap_receive_activity/4-examples" class="hover-link">
+<p><code class="inline">{:ok, post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="ap_receive_activity/3-examples" class="section-heading">
+  <a href="#ap_receive_activity/3-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="3136628253-1">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3136628253-1">)</span><span class="w">
-</span><span class="p" data-group-id="3136628253-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3136628253-3">%</span><span class="nc" data-group-id="3136628253-3">Post</span><span class="p" data-group-id="3136628253-3">{</span><span class="p" data-group-id="3136628253-3">}</span><span class="p" data-group-id="3136628253-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="0669255668-1">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="0669255668-1">)</span><span class="w">
+</span><span class="p" data-group-id="0669255668-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0669255668-3">%</span><span class="nc" data-group-id="0669255668-3">Post</span><span class="p" data-group-id="0669255668-3">{</span><span class="p" data-group-id="0669255668-3">}</span><span class="p" data-group-id="0669255668-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset/4">
@@ -506,7 +504,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="1361640035-1">(</span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1361640035-2">%{</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Post&quot;</span><span class="p" data-group-id="1361640035-2">}</span><span class="p" data-group-id="1361640035-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="8688771659-1">(</span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8688771659-2">%{</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Post&quot;</span><span class="p" data-group-id="8688771659-2">}</span><span class="p" data-group-id="8688771659-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="count_total/0">
@@ -570,8 +568,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="5302787609-1">(</span><span class="n">post</span><span class="p" data-group-id="5302787609-1">)</span><span class="w">
-</span><span class="p" data-group-id="5302787609-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5302787609-3">%</span><span class="nc" data-group-id="5302787609-3">Post</span><span class="p" data-group-id="5302787609-3">{</span><span class="p" data-group-id="5302787609-3">}</span><span class="p" data-group-id="5302787609-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="8935550353-1">(</span><span class="n">post</span><span class="p" data-group-id="8935550353-1">)</span><span class="w">
+</span><span class="p" data-group-id="8935550353-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8935550353-3">%</span><span class="nc" data-group-id="8935550353-3">Post</span><span class="p" data-group-id="8935550353-3">{</span><span class="p" data-group-id="8935550353-3">}</span><span class="p" data-group-id="8935550353-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="draft/2">
@@ -663,8 +661,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">indexing_object_format</span><span class="p" data-group-id="8088121933-1">(</span><span class="n">post</span><span class="p" data-group-id="8088121933-1">)</span><span class="w">
-</span><span class="p" data-group-id="8088121933-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">index_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bonfire.Data.Social.Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8088121933-3">%{</span><span class="p" data-group-id="8088121933-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">created</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8088121933-4">%{</span><span class="p" data-group-id="8088121933-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">tags</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8088121933-5">[</span><span class="p" data-group-id="8088121933-5">]</span><span class="p" data-group-id="8088121933-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">indexing_object_format</span><span class="p" data-group-id="8194330468-1">(</span><span class="n">post</span><span class="p" data-group-id="8194330468-1">)</span><span class="w">
+</span><span class="p" data-group-id="8194330468-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">index_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bonfire.Data.Social.Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8194330468-3">%{</span><span class="p" data-group-id="8194330468-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">created</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8194330468-4">%{</span><span class="p" data-group-id="8194330468-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">tags</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8194330468-5">[</span><span class="p" data-group-id="8194330468-5">]</span><span class="p" data-group-id="8194330468-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_by/2">
@@ -706,8 +704,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="0357317516-1">(</span><span class="n">user</span><span class="p" data-group-id="0357317516-1">)</span><span class="w">
-</span><span class="p" data-group-id="0357317516-2">[</span><span class="p" data-group-id="0357317516-3">%</span><span class="nc" data-group-id="0357317516-3">Post</span><span class="p" data-group-id="0357317516-3">{</span><span class="p" data-group-id="0357317516-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0357317516-4">%</span><span class="nc" data-group-id="0357317516-4">Post</span><span class="p" data-group-id="0357317516-4">{</span><span class="p" data-group-id="0357317516-4">}</span><span class="p" data-group-id="0357317516-2">]</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="1355482590-1">(</span><span class="n">user</span><span class="p" data-group-id="1355482590-1">)</span><span class="w">
+</span><span class="p" data-group-id="1355482590-2">[</span><span class="p" data-group-id="1355482590-3">%</span><span class="nc" data-group-id="1355482590-3">Post</span><span class="p" data-group-id="1355482590-3">{</span><span class="p" data-group-id="1355482590-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1355482590-4">%</span><span class="nc" data-group-id="1355482590-4">Post</span><span class="p" data-group-id="1355482590-4">{</span><span class="p" data-group-id="1355482590-4">}</span><span class="p" data-group-id="1355482590-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_paginated/2">
@@ -749,8 +747,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_paginated</span><span class="p" data-group-id="3266646256-1">(</span><span class="p" data-group-id="3266646256-2">[</span><span class="p" data-group-id="3266646256-2">]</span><span class="p" data-group-id="3266646256-1">)</span><span class="w">
-</span><span class="p" data-group-id="3266646256-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3266646256-4">[</span><span class="p" data-group-id="3266646256-5">%</span><span class="nc" data-group-id="3266646256-5">Post</span><span class="p" data-group-id="3266646256-5">{</span><span class="p" data-group-id="3266646256-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3266646256-6">%</span><span class="nc" data-group-id="3266646256-6">Post</span><span class="p" data-group-id="3266646256-6">{</span><span class="p" data-group-id="3266646256-6">}</span><span class="p" data-group-id="3266646256-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3266646256-7">%{</span><span class="p" data-group-id="3266646256-7">}</span><span class="p" data-group-id="3266646256-3">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_paginated</span><span class="p" data-group-id="0522537469-1">(</span><span class="p" data-group-id="0522537469-2">[</span><span class="p" data-group-id="0522537469-2">]</span><span class="p" data-group-id="0522537469-1">)</span><span class="w">
+</span><span class="p" data-group-id="0522537469-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0522537469-4">[</span><span class="p" data-group-id="0522537469-5">%</span><span class="nc" data-group-id="0522537469-5">Post</span><span class="p" data-group-id="0522537469-5">{</span><span class="p" data-group-id="0522537469-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0522537469-6">%</span><span class="nc" data-group-id="0522537469-6">Post</span><span class="p" data-group-id="0522537469-6">{</span><span class="p" data-group-id="0522537469-6">}</span><span class="p" data-group-id="0522537469-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0522537469-7">%{</span><span class="p" data-group-id="0522537469-7">}</span><span class="p" data-group-id="0522537469-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="prepare_post_attrs/1">
@@ -812,16 +810,16 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">publish</span><span class="p" data-group-id="0089933926-1">(</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">publish</span><span class="p" data-group-id="8829317934-1">(</span><span class="w">
   </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p">,</span><span class="w"> 
   </span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;public&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">post_attrs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0089933926-2">%{</span><span class="w">
-    </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0089933926-3">%{</span><span class="w">
+  </span><span class="ss">post_attrs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8829317934-2">%{</span><span class="w">
+    </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8829317934-3">%{</span><span class="w">
       </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test post title&quot;</span><span class="p">,</span><span class="w">
       </span><span class="ss">html_body</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;p&gt;epic html message&lt;/p&gt;&quot;</span><span class="w">
-    </span><span class="p" data-group-id="0089933926-3">}</span><span class="w">
-  </span><span class="p" data-group-id="0089933926-2">}</span><span class="p" data-group-id="0089933926-1">)</span><span class="w">
-</span><span class="p" data-group-id="0089933926-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0089933926-5">%</span><span class="nc" data-group-id="0089933926-5">Post</span><span class="p" data-group-id="0089933926-5">{</span><span class="p" data-group-id="0089933926-5">}</span><span class="p" data-group-id="0089933926-4">}</span></code></pre>
+    </span><span class="p" data-group-id="8829317934-3">}</span><span class="w">
+  </span><span class="p" data-group-id="8829317934-2">}</span><span class="p" data-group-id="8829317934-1">)</span><span class="w">
+</span><span class="p" data-group-id="8829317934-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8829317934-5">%</span><span class="nc" data-group-id="8829317934-5">Post</span><span class="p" data-group-id="8829317934-5">{</span><span class="p" data-group-id="8829317934-5">}</span><span class="p" data-group-id="8829317934-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query/2">
@@ -865,8 +863,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="0223384563-1">(</span><span class="p" data-group-id="0223384563-2">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="0223384563-2">]</span><span class="p" data-group-id="0223384563-1">)</span><span class="w">
-</span><span class="p" data-group-id="0223384563-3">#</span><span class="nc" data-group-id="0223384563-3">Ecto.Query</span><span class="p" data-group-id="0223384563-3">&lt;</span><span class="p" data-group-id="0223384563-3">&gt;</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="5130365366-1">(</span><span class="p" data-group-id="5130365366-2">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="5130365366-2">]</span><span class="p" data-group-id="5130365366-1">)</span><span class="w">
+</span><span class="p" data-group-id="5130365366-3">#</span><span class="nc" data-group-id="5130365366-3">Ecto.Query</span><span class="p" data-group-id="5130365366-3">&lt;</span><span class="p" data-group-id="5130365366-3">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_module/0">
@@ -930,8 +928,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query_paginated</span><span class="p" data-group-id="3465639637-1">(</span><span class="p" data-group-id="3465639637-2">[</span><span class="p" data-group-id="3465639637-2">]</span><span class="p" data-group-id="3465639637-1">)</span><span class="w">
-</span><span class="p" data-group-id="3465639637-3">#</span><span class="nc" data-group-id="3465639637-3">Ecto.Query</span><span class="p" data-group-id="3465639637-3">&lt;</span><span class="p" data-group-id="3465639637-3">&gt;</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query_paginated</span><span class="p" data-group-id="4596345129-1">(</span><span class="p" data-group-id="4596345129-2">[</span><span class="p" data-group-id="4596345129-2">]</span><span class="p" data-group-id="4596345129-1">)</span><span class="w">
+</span><span class="p" data-group-id="4596345129-3">#</span><span class="nc" data-group-id="4596345129-3">Ecto.Query</span><span class="p" data-group-id="4596345129-3">&lt;</span><span class="p" data-group-id="4596345129-3">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="read/2">
@@ -973,8 +971,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">read</span><span class="p" data-group-id="7349536512-1">(</span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="7349536512-1">)</span><span class="w">
-</span><span class="p" data-group-id="7349536512-2">%</span><span class="nc" data-group-id="7349536512-2">Post</span><span class="p" data-group-id="7349536512-2">{</span><span class="p" data-group-id="7349536512-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">read</span><span class="p" data-group-id="1803546031-1">(</span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="1803546031-1">)</span><span class="w">
+</span><span class="p" data-group-id="1803546031-2">%</span><span class="nc" data-group-id="1803546031-2">Post</span><span class="p" data-group-id="1803546031-2">{</span><span class="p" data-group-id="1803546031-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="run_epic/3">
@@ -1018,8 +1016,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="9028206950-1">(</span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9028206950-2">[</span><span class="p" data-group-id="9028206950-2">]</span><span class="p" data-group-id="9028206950-1">)</span><span class="w">
-</span><span class="p" data-group-id="9028206950-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9028206950-4">%</span><span class="nc" data-group-id="9028206950-4">Post</span><span class="p" data-group-id="9028206950-4">{</span><span class="p" data-group-id="9028206950-4">}</span><span class="p" data-group-id="9028206950-3">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="0912354265-1">(</span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0912354265-2">[</span><span class="p" data-group-id="0912354265-2">]</span><span class="p" data-group-id="0912354265-1">)</span><span class="w">
+</span><span class="p" data-group-id="0912354265-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0912354265-4">%</span><span class="nc" data-group-id="0912354265-4">Post</span><span class="p" data-group-id="0912354265-4">{</span><span class="p" data-group-id="0912354265-4">}</span><span class="p" data-group-id="0912354265-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="schema_module/0">
@@ -1083,8 +1081,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">search</span><span class="p" data-group-id="6643262657-1">(</span><span class="s">&quot;example&quot;</span><span class="p" data-group-id="6643262657-1">)</span><span class="w">
-</span><span class="p" data-group-id="6643262657-2">[</span><span class="p" data-group-id="6643262657-3">%</span><span class="nc" data-group-id="6643262657-3">Post</span><span class="p" data-group-id="6643262657-3">{</span><span class="p" data-group-id="6643262657-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6643262657-4">%</span><span class="nc" data-group-id="6643262657-4">Post</span><span class="p" data-group-id="6643262657-4">{</span><span class="p" data-group-id="6643262657-4">}</span><span class="p" data-group-id="6643262657-2">]</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">search</span><span class="p" data-group-id="8929008040-1">(</span><span class="s">&quot;example&quot;</span><span class="p" data-group-id="8929008040-1">)</span><span class="w">
+</span><span class="p" data-group-id="8929008040-2">[</span><span class="p" data-group-id="8929008040-3">%</span><span class="nc" data-group-id="8929008040-3">Post</span><span class="p" data-group-id="8929008040-3">{</span><span class="p" data-group-id="8929008040-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8929008040-4">%</span><span class="nc" data-group-id="8929008040-4">Post</span><span class="p" data-group-id="8929008040-4">{</span><span class="p" data-group-id="8929008040-4">}</span><span class="p" data-group-id="8929008040-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="search_query/2">

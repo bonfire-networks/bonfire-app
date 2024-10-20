@@ -5,21 +5,21 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.156">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.160">
 
 
-    <title>mix papertrail.install — Bonfire v0.9.10-classic-beta.156</title>
+    <title>ActivityPub.Safety.Encryption — Bonfire v0.9.10-classic-beta.160</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-4535CF76.js"></script>
+    <script src="dist/sidebar_items-7A93CEFA.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
   </head>
-  <body data-type="tasks" class="page-task">
+  <body data-type="modules" class="page-module">
     <script>
 
       try {
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.156
+          v0.9.10-classic-beta.160
         </div>
       </div>
     </div>
@@ -126,16 +126,20 @@ Pages
 <div id="top-content">
   <h1>
 
-      <a href="https://github.com/bonfire-networks/paper_trail/blob/main/lib/mix/tasks/papertrail/install.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/encryption.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
 
-    <span translate="no">mix papertrail.install</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.156)</small>
+    <span translate="no">ActivityPub.Safety.Encryption</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.160)</small>
 
   </h1>
 
+
+    <section id="moduledoc">
+<p>Provides encryption and decryption functionality using RSA keys managed by ActivityPub.Safety.Keys.</p><p>NOTE: not used at the moment, simply intended as a proof-of-concept</p>
+    </section>
 
 </div>
 
@@ -153,11 +157,21 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#run/1" data-no-tooltip translate="no">run(args)</a>
+        <a href="#decrypt/2" data-no-tooltip translate="no">decrypt(encrypted_data, actor)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/mix/Mix.Task.html#c:run/1"><code class="inline">Mix.Task.run/1</code></a>.</p></div>
+        <div class="summary-synopsis"><p>Decrypts data for a given actor using their private key.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#encrypt/2" data-no-tooltip translate="no">encrypt(data, ap_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Encrypts data for a given actor using their public key.</p></div>
 
     </div>
 
@@ -174,16 +188,16 @@ Pages
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="run/1">
+<section class="detail" id="decrypt/2">
 
   <div class="detail-header">
-    <a href="#run/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#decrypt/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">run(args)</h1>
+    <h1 class="signature" translate="no">decrypt(encrypted_data, actor)</h1>
 
-      <a href="https://github.com/bonfire-networks/paper_trail/blob/main/lib/mix/tasks/papertrail/install.ex#L9" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/encryption.ex#L46" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -193,7 +207,53 @@ Pages
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="https://hexdocs.pm/mix/Mix.Task.html#c:run/1"><code class="inline">Mix.Task.run/1</code></a>.</p>
+<p>Decrypts data for a given actor using their private key.</p><h2 id="decrypt/2-parameters" class="section-heading">
+  <a href="#decrypt/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>encrypted_data: The data to decrypt (binary)</li><li>actor: The Actor struct with private keys</li></ul><h2 id="decrypt/2-returns" class="section-heading">
+  <a href="#decrypt/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li> on success</li><li> on failure</li></ul>
+  </section>
+</section>
+<section class="detail" id="encrypt/2">
+
+  <div class="detail-header">
+    <a href="#encrypt/2" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">encrypt(data, ap_id)</h1>
+
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/encryption.ex#L23" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Encrypts data for a given actor using their public key.</p><h2 id="encrypt/2-parameters" class="section-heading">
+  <a href="#encrypt/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li>data: The data to encrypt (binary or string)</li><li>actor: The Actor struct or AP ID of the recipient</li></ul><h2 id="encrypt/2-returns" class="section-heading">
+  <a href="#encrypt/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li> on success</li><li> on failure</li></ul>
   </section>
 </section>
 

@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.156">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.160">
 
 
-    <title>Bonfire.Boundaries.Grants — Bonfire v0.9.10-classic-beta.156</title>
+    <title>Bonfire.Boundaries.Grants — Bonfire v0.9.10-classic-beta.160</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-4535CF76.js"></script>
+    <script src="dist/sidebar_items-7A93CEFA.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.156
+          v0.9.10-classic-beta.160
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Boundaries.Grants</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.156)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.160)</small>
 
   </h1>
 
@@ -154,6 +154,16 @@ Pages
   <h2>
     <a href="#functions">Functions</a>
   </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#change_role/4" data-no-tooltip translate="no">change_role(subject, acl_id, role, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Edit grants of an ACL based on a role.</p></div>
+
+    </div>
 
     <div class="summary-row">
       <div class="summary-signature">
@@ -191,7 +201,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Edits or adds grants to an ACL based on a role.</p></div>
+        <div class="summary-synopsis"><p>Adds grants to an ACL based on a role.</p></div>
 
     </div>
 
@@ -257,6 +267,16 @@ user to see them, they will not be shown.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#remove_role/4" data-no-tooltip translate="no">remove_role(subject, acl_id, role, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Adds grants to an ACL based on a role.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#remove_subject_from_acl/2" data-no-tooltip translate="no">remove_subject_from_acl(subject, acls)</a>
 
       </div>
@@ -297,7 +317,7 @@ user to see them, they will not be shown.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#upsert_or_delete/2" data-no-tooltip translate="no">upsert_or_delete(attrs, opts)</a>
+        <a href="#upsert_or_delete/2" data-no-tooltip translate="no">upsert_or_delete(attrs, arg2)</a>
 
       </div>
 
@@ -328,6 +348,37 @@ user to see them, they will not be shown.</p></div>
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
+<section class="detail" id="change_role/4">
+
+    <span id="change_role/3"></span>
+
+  <div class="detail-header">
+    <a href="#change_role/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">change_role(subject, acl_id, role, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L288" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Edit grants of an ACL based on a role.</p><h2 id="change_role/4-examples" class="section-heading">
+  <a href="#change_role/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">change_role</span><span class="p" data-group-id="4986921111-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4986921111-2">[</span><span class="p" data-group-id="4986921111-2">]</span><span class="p" data-group-id="4986921111-1">)</span><span class="w">
+</span><span class="p" data-group-id="4986921111-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4986921111-4">%</span><span class="nc" data-group-id="4986921111-4">Grant</span><span class="p" data-group-id="4986921111-4">{</span><span class="p" data-group-id="4986921111-4">}</span><span class="p" data-group-id="4986921111-3">}</span></code></pre>
+  </section>
+</section>
 <section class="detail" id="create/2">
 
     <span id="create/1"></span>
@@ -355,8 +406,8 @@ user to see them, they will not be shown.</p></div>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="3576714159-1">(</span><span class="p" data-group-id="3576714159-2">%{</span><span class="ss">subject_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">acl_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">verb_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="3576714159-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3576714159-3">[</span><span class="p" data-group-id="3576714159-3">]</span><span class="p" data-group-id="3576714159-1">)</span><span class="w">
-</span><span class="p" data-group-id="3576714159-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3576714159-5">%</span><span class="nc" data-group-id="3576714159-5">Grant</span><span class="p" data-group-id="3576714159-5">{</span><span class="p" data-group-id="3576714159-5">}</span><span class="p" data-group-id="3576714159-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="5253426527-1">(</span><span class="p" data-group-id="5253426527-2">%{</span><span class="ss">subject_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">acl_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">verb_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="5253426527-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5253426527-3">[</span><span class="p" data-group-id="5253426527-3">]</span><span class="p" data-group-id="5253426527-1">)</span><span class="w">
+</span><span class="p" data-group-id="5253426527-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5253426527-5">%</span><span class="nc" data-group-id="5253426527-5">Grant</span><span class="p" data-group-id="5253426527-5">{</span><span class="p" data-group-id="5253426527-5">}</span><span class="p" data-group-id="5253426527-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get/1">
@@ -384,7 +435,7 @@ user to see them, they will not be shown.</p></div>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="0543324418-1">(</span><span class="ss">:guests_may_see_read</span><span class="p" data-group-id="0543324418-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="4942326080-1">(</span><span class="ss">:guests_may_see_read</span><span class="p" data-group-id="4942326080-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="grant/5">
@@ -398,7 +449,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">grant(subject_id, acl_id, verb, value, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L132" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L147" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -414,7 +465,7 @@ user to see them, they will not be shown.</p></div>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grant</span><span class="p" data-group-id="8739882166-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="8739882166-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grant</span><span class="p" data-group-id="1032752336-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="1032752336-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="grant_role/4">
@@ -428,7 +479,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">grant_role(subject, acl_id, role, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L201" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L219" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -438,14 +489,14 @@ user to see them, they will not be shown.</p></div>
 
   <section class="docstring">
 
-<p>Edits or adds grants to an ACL based on a role.</p><h2 id="grant_role/4-examples" class="section-heading">
+<p>Adds grants to an ACL based on a role.</p><h2 id="grant_role/4-examples" class="section-heading">
   <a href="#grant_role/4-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grant_role</span><span class="p" data-group-id="7982687548-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7982687548-2">[</span><span class="p" data-group-id="7982687548-2">]</span><span class="p" data-group-id="7982687548-1">)</span><span class="w">
-</span><span class="p" data-group-id="7982687548-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7982687548-4">%</span><span class="nc" data-group-id="7982687548-4">Grant</span><span class="p" data-group-id="7982687548-4">{</span><span class="p" data-group-id="7982687548-4">}</span><span class="p" data-group-id="7982687548-3">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grant_role</span><span class="p" data-group-id="6898582836-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6898582836-2">[</span><span class="p" data-group-id="6898582836-2">]</span><span class="p" data-group-id="6898582836-1">)</span><span class="w">
+</span><span class="p" data-group-id="6898582836-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6898582836-4">%</span><span class="nc" data-group-id="6898582836-4">Grant</span><span class="p" data-group-id="6898582836-4">{</span><span class="p" data-group-id="6898582836-4">}</span><span class="p" data-group-id="6898582836-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="grants/0">
@@ -473,8 +524,8 @@ user to see them, they will not be shown.</p></div>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grants</span><span class="p" data-group-id="4180412615-1">(</span><span class="p" data-group-id="4180412615-1">)</span><span class="w">
-</span><span class="p" data-group-id="4180412615-2">%{</span><span class="p" data-group-id="4180412615-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grants</span><span class="p" data-group-id="1948836482-1">(</span><span class="p" data-group-id="1948836482-1">)</span><span class="w">
+</span><span class="p" data-group-id="1948836482-2">%{</span><span class="p" data-group-id="1948836482-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="grants_to_tuples/2">
@@ -486,7 +537,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">grants_to_tuples(creator, grants)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L430" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L503" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -502,8 +553,8 @@ user to see them, they will not be shown.</p></div>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grants_to_tuples</span><span class="p" data-group-id="4758712764-1">(</span><span class="p" data-group-id="4758712764-2">%</span><span class="nc" data-group-id="4758712764-2">User</span><span class="p" data-group-id="4758712764-2">{</span><span class="p" data-group-id="4758712764-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4758712764-3">%{</span><span class="ss">grants</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4758712764-4">[</span><span class="p" data-group-id="4758712764-5">%</span><span class="nc" data-group-id="4758712764-5">Grant</span><span class="p" data-group-id="4758712764-5">{</span><span class="p" data-group-id="4758712764-5">}</span><span class="p" data-group-id="4758712764-4">]</span><span class="p" data-group-id="4758712764-3">}</span><span class="p" data-group-id="4758712764-1">)</span><span class="w">
-</span><span class="p" data-group-id="4758712764-6">[</span><span class="p" data-group-id="4758712764-7">{</span><span class="p" data-group-id="4758712764-8">%</span><span class="nc" data-group-id="4758712764-8">User</span><span class="p" data-group-id="4758712764-8">{</span><span class="p" data-group-id="4758712764-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_role</span><span class="p" data-group-id="4758712764-7">}</span><span class="p" data-group-id="4758712764-6">]</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">grants_to_tuples</span><span class="p" data-group-id="6652920645-1">(</span><span class="p" data-group-id="6652920645-2">%</span><span class="nc" data-group-id="6652920645-2">User</span><span class="p" data-group-id="6652920645-2">{</span><span class="p" data-group-id="6652920645-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6652920645-3">%{</span><span class="ss">grants</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6652920645-4">[</span><span class="p" data-group-id="6652920645-5">%</span><span class="nc" data-group-id="6652920645-5">Grant</span><span class="p" data-group-id="6652920645-5">{</span><span class="p" data-group-id="6652920645-5">}</span><span class="p" data-group-id="6652920645-4">]</span><span class="p" data-group-id="6652920645-3">}</span><span class="p" data-group-id="6652920645-1">)</span><span class="w">
+</span><span class="p" data-group-id="6652920645-6">[</span><span class="p" data-group-id="6652920645-7">{</span><span class="p" data-group-id="6652920645-8">%</span><span class="nc" data-group-id="6652920645-8">User</span><span class="p" data-group-id="6652920645-8">{</span><span class="p" data-group-id="6652920645-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_role</span><span class="p" data-group-id="6652920645-7">}</span><span class="p" data-group-id="6652920645-6">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list/1">
@@ -515,7 +566,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">list(opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L259" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L332" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -537,7 +588,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">list_for_acl(acl, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L288" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L361" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -559,7 +610,7 @@ user to see them, they will not be shown.</p></div>
     </a>
     <h1 class="signature" translate="no">list_my(user)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L276" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L349" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -583,7 +634,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">list_q(opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L265" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L338" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -596,6 +647,37 @@ user to see them, they will not be shown.</p>
 
   </section>
 </section>
+<section class="detail" id="remove_role/4">
+
+    <span id="remove_role/3"></span>
+
+  <div class="detail-header">
+    <a href="#remove_role/4" class="detail-link" data-no-tooltip title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">remove_role(subject, acl_id, role, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L253" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Adds grants to an ACL based on a role.</p><h2 id="remove_role/4-examples" class="section-heading">
+  <a href="#remove_role/4-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">remove_role</span><span class="p" data-group-id="7273374802-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7273374802-2">[</span><span class="p" data-group-id="7273374802-2">]</span><span class="p" data-group-id="7273374802-1">)</span><span class="w">
+</span><span class="p" data-group-id="7273374802-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7273374802-4">%</span><span class="nc" data-group-id="7273374802-4">Grant</span><span class="p" data-group-id="7273374802-4">{</span><span class="p" data-group-id="7273374802-4">}</span><span class="p" data-group-id="7273374802-3">}</span></code></pre>
+  </section>
+</section>
 <section class="detail" id="remove_subject_from_acl/2">
 
   <div class="detail-header">
@@ -605,7 +687,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">remove_subject_from_acl(subject, acls)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L241" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L314" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -621,8 +703,8 @@ user to see them, they will not be shown.</p>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">remove_subject_from_acl</span><span class="p" data-group-id="9179200521-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9179200521-2">[</span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_789&quot;</span><span class="p" data-group-id="9179200521-2">]</span><span class="p" data-group-id="9179200521-1">)</span><span class="w">
-</span><span class="p" data-group-id="9179200521-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9179200521-4">%{</span><span class="p" data-group-id="9179200521-4">}</span><span class="p" data-group-id="9179200521-3">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">remove_subject_from_acl</span><span class="p" data-group-id="0909511367-1">(</span><span class="s">&quot;subject_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0909511367-2">[</span><span class="s">&quot;acl_456&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acl_789&quot;</span><span class="p" data-group-id="0909511367-2">]</span><span class="p" data-group-id="0909511367-1">)</span><span class="w">
+</span><span class="p" data-group-id="0909511367-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0909511367-4">%{</span><span class="p" data-group-id="0909511367-4">}</span><span class="p" data-group-id="0909511367-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="subject_grants/1">
@@ -634,7 +716,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">subject_grants(grants)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L310" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L383" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -656,7 +738,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">subject_verb_grants(grants)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L350" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L423" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -672,8 +754,8 @@ user to see them, they will not be shown.</p>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">subject_verb_grants</span><span class="p" data-group-id="1078811154-1">(</span><span class="p" data-group-id="1078811154-2">[</span><span class="p" data-group-id="1078811154-3">%</span><span class="nc" data-group-id="1078811154-3">Grant</span><span class="p" data-group-id="1078811154-3">{</span><span class="p" data-group-id="1078811154-3">}</span><span class="p" data-group-id="1078811154-2">]</span><span class="p" data-group-id="1078811154-1">)</span><span class="w">
-</span><span class="p" data-group-id="1078811154-4">%{</span><span class="p" data-group-id="1078811154-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">subject_verb_grants</span><span class="p" data-group-id="0684822193-1">(</span><span class="p" data-group-id="0684822193-2">[</span><span class="p" data-group-id="0684822193-3">%</span><span class="nc" data-group-id="0684822193-3">Grant</span><span class="p" data-group-id="0684822193-3">{</span><span class="p" data-group-id="0684822193-3">}</span><span class="p" data-group-id="0684822193-2">]</span><span class="p" data-group-id="0684822193-1">)</span><span class="w">
+</span><span class="p" data-group-id="0684822193-4">%{</span><span class="p" data-group-id="0684822193-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="subjects/1">
@@ -685,7 +767,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">subjects(grants)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L298" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L371" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -705,7 +787,7 @@ user to see them, they will not be shown.</p>
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">upsert_or_delete(attrs, opts)</h1>
+    <h1 class="signature" translate="no">upsert_or_delete(attrs, arg2)</h1>
 
       <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L97" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
@@ -723,11 +805,11 @@ user to see them, they will not be shown.</p>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">upsert_or_delete</span><span class="p" data-group-id="2400513946-1">(</span><span class="p" data-group-id="2400513946-2">%{</span><span class="ss">acl_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">subject_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">verb_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="2400513946-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2400513946-3">[</span><span class="p" data-group-id="2400513946-3">]</span><span class="p" data-group-id="2400513946-1">)</span><span class="w">
-</span><span class="p" data-group-id="2400513946-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2400513946-5">%</span><span class="nc" data-group-id="2400513946-5">Grant</span><span class="p" data-group-id="2400513946-5">{</span><span class="p" data-group-id="2400513946-5">}</span><span class="p" data-group-id="2400513946-4">}</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">upsert_or_delete</span><span class="p" data-group-id="8544240857-1">(</span><span class="p" data-group-id="8544240857-2">%{</span><span class="ss">acl_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">subject_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">verb_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="8544240857-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8544240857-3">[</span><span class="p" data-group-id="8544240857-3">]</span><span class="p" data-group-id="8544240857-1">)</span><span class="w">
+</span><span class="p" data-group-id="8544240857-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8544240857-5">%</span><span class="nc" data-group-id="8544240857-5">Grant</span><span class="p" data-group-id="8544240857-5">{</span><span class="p" data-group-id="8544240857-5">}</span><span class="p" data-group-id="8544240857-4">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">upsert_or_delete</span><span class="p" data-group-id="2400513946-6">(</span><span class="p" data-group-id="2400513946-7">%{</span><span class="ss">acl_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">subject_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">verb_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="2400513946-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2400513946-8">[</span><span class="p" data-group-id="2400513946-8">]</span><span class="p" data-group-id="2400513946-6">)</span><span class="w">
-</span><span class="p" data-group-id="2400513946-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_deleted</span><span class="p" data-group-id="2400513946-9">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">upsert_or_delete</span><span class="p" data-group-id="8544240857-6">(</span><span class="p" data-group-id="8544240857-7">%{</span><span class="ss">acl_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">subject_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">verb_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8544240857-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8544240857-8">[</span><span class="p" data-group-id="8544240857-8">]</span><span class="p" data-group-id="8544240857-6">)</span><span class="w">
+</span><span class="p" data-group-id="8544240857-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="c">_deleted</span><span class="p" data-group-id="8544240857-9">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="verb_subject_grant/1">
@@ -739,7 +821,7 @@ user to see them, they will not be shown.</p>
     </a>
     <h1 class="signature" translate="no">verb_subject_grant(grants)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L390" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/grants.ex#L463" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -755,8 +837,8 @@ user to see them, they will not be shown.</p>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">verb_subject_grant</span><span class="p" data-group-id="2748935727-1">(</span><span class="p" data-group-id="2748935727-2">[</span><span class="p" data-group-id="2748935727-3">%</span><span class="nc" data-group-id="2748935727-3">Grant</span><span class="p" data-group-id="2748935727-3">{</span><span class="p" data-group-id="2748935727-3">}</span><span class="p" data-group-id="2748935727-2">]</span><span class="p" data-group-id="2748935727-1">)</span><span class="w">
-</span><span class="p" data-group-id="2748935727-4">%{</span><span class="p" data-group-id="2748935727-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Grants</span><span class="o">.</span><span class="n">verb_subject_grant</span><span class="p" data-group-id="3743451689-1">(</span><span class="p" data-group-id="3743451689-2">[</span><span class="p" data-group-id="3743451689-3">%</span><span class="nc" data-group-id="3743451689-3">Grant</span><span class="p" data-group-id="3743451689-3">{</span><span class="p" data-group-id="3743451689-3">}</span><span class="p" data-group-id="3743451689-2">]</span><span class="p" data-group-id="3743451689-1">)</span><span class="w">
+</span><span class="p" data-group-id="3743451689-4">%{</span><span class="p" data-group-id="3743451689-4">}</span></code></pre>
   </section>
 </section>
 
