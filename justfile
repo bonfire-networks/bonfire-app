@@ -670,10 +670,14 @@ rel-rebuild:
 # Build the Docker image (NOT including changes to local forks)
 rel-build ARGS="":
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
-	@just rel-build remote {{ ARGS }}
+	@just rel-build-with-opts remote {{ ARGS }}
+
+rel-build-with-clones ARGS="":
+	@echo "Please note that the build will include changes in forks that haven't been committed and pushed."
+	@just rel-build-with-opts local {{ ARGS }}
 
 # Build the release
-rel-build-with-clones USE_EXT="local" ARGS="":
+rel-build-with-opts USE_EXT ARGS="":
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
