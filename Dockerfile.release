@@ -40,6 +40,11 @@ COPY --link mix.lock ./
 # COPY --link data/current_flavour/config/deps*hex ./config/ 
 # COPY --parents --link flavours/*/config/deps*hex ./
 
+# Optionally include local forks
+COPY --link data/current_flavour/config/deps*path ./config/ 
+RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./flavours/*/config/deps*path ; else echo "Include locally forked extensions." ; fi 
+COPY --link ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
+
 # RUN mix deps.get --only prod
 RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=120 mix deps.get --only prod
 
@@ -76,9 +81,6 @@ RUN ls -la config/* && ls flavours/*/config/*
 # we need config before compiling Bonfire extensions
 COPY --link data/current_flavour/config/ ./config/
 
-# Optionally include local forks
-RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./flavours/*/config/deps*path ; else echo "Include locally forked extensions." ; fi 
-COPY --link ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
 
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
 # RUN mix bonfire.deps.update

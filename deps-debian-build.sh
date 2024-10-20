@@ -7,10 +7,11 @@ chmod +x ./deps-debian.sh
 ./deps-debian.sh
 
 # dev deps
-apt-get install -q -y --no-install-recommends gcc sqlite3 npm rustc cargo 
+apt-get install -q -y --no-install-recommends sqlite3 npm 
+# rustc cargo gcc g++ make
 
 # deps of tools
-apt-get install -q -y --no-install-recommends autoconf dpkg-dev gcc g++ make libncurses-dev unixodbc-dev libssl-dev libsctp-dev libodbc1 libssl1.1 libsctp1 
+apt-get install -q -y --no-install-recommends autoconf dpkg-dev  libncurses-dev unixodbc-dev libssl-dev libsctp-dev libodbc1 libssl1.1 libsctp1 
 
 # tools
 # NOTE: using mise because bullseye elixir version is too old

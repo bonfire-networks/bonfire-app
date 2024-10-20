@@ -112,7 +112,6 @@ More details at https://bonfirenetworks.org",
     title: true,
     summary: true
   ],
-  invites_component: Bonfire.Invite.Links.Web.InvitesLive,
   # smart_input_activities: [
   #   post: "Compose a post",
   #   category: "Create a topic",
