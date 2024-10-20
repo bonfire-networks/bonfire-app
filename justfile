@@ -715,6 +715,9 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR=$FLAVOUR \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
+		--build-arg WITH_IMAGE_VIX=$WITH_IMAGE_VIX \
+		--build-arg WITH_LV_NATIVE=$WITH_LV_NATIVE \
+		--build-arg ENABLE_AI=$ENABLE_AI \
 		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
 		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
