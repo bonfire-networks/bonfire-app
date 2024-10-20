@@ -510,7 +510,7 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 
 contrib-forks-publish: update-forks
 
-contrib-rel-push: contrib-release rel-build-locked rel-push
+contrib-rel-push: contrib-release rel-build rel-push
 
 # Count lines of code (requires cloc: `brew install cloc`)
 cloc:
@@ -658,6 +658,7 @@ rel-config: config _rel-init _rel-prepare
 @_rel-prepare: _rel-config-prepare
 	mkdir -p extensions/
 	mkdir -p forks/
+	mkdir -p deps/
 	mkdir -p data/uploads/
 	mkdir -p data/null/
 	touch data/current_flavour/config/deps.path
@@ -667,12 +668,12 @@ rel-rebuild:
 	just rel-build {{EXT_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local forks)
-rel-build-locked ARGS="":
+rel-build ARGS="":
 	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build remote {{ ARGS }}
 
 # Build the release
-rel-build USE_EXT="local" ARGS="":
+rel-build-with-clones USE_EXT="local" ARGS="":
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
