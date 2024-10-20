@@ -4,5 +4,8 @@
 chmod +x ./deps-alpine.sh
 ./deps-alpine.sh
 
-apk add --update --no-cache just elixir tar file mailcap make build-base libc-dev sqlite npm yarn
+# NOTE: we don't install erlang/elixir here because we assume that we're running this script in an environment (eg docker image) that already has these installed
+# apk add --update --no-cache elixir erlang
+
+apk add --update --no-cache just tar file mailcap make build-base libc-dev sqlite npm yarn
 # rust cargo gcc

@@ -360,3 +360,5 @@ import_config "native.exs"
 
 # finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{env}.exs"
+
+IO.puts("Compile-time config ready")
