@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.167">
+    <meta name="project" content="Bonfire v0.9.10-classic-beta.168">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v0.9.10-classic-beta.167</title>
+    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v0.9.10-classic-beta.168</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.167
+          v0.9.10-classic-beta.168
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.167)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.168)</small>
 
   </h1>
 
@@ -140,9 +140,9 @@ Pages
     <section id="moduledoc">
 <p>Functions to implement the spellout rule-based-number-format rules of CLDR.</p><p>As CLDR notes, the data is incomplete or non-existent for many languages.  It
 is considered complete for English however.</p><p>The standard public API for RBNF is via the <a href="https://hexdocs.pm/ex_cldr_numbers/2.33.3/Cldr.Number.html#to_string/2"><code class="inline">Cldr.Number.to_string/2</code></a> function.</p><p>The functions on this module are defined at compile time based upon the RBNF rules
-defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="1075557347-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1075557347-1">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="1075557347-2">(</span><span class="p" data-group-id="1075557347-2">)</span><span class="w">
-</span><span class="p" data-group-id="1075557347-3">[</span><span class="w">
+defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="1629424503-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1629424503-1">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="1629424503-2">(</span><span class="p" data-group-id="1629424503-2">)</span><span class="w">
+</span><span class="p" data-group-id="1629424503-3">[</span><span class="w">
   </span><span class="ss">:spellout_cardinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_cardinal_verbose</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_numbering</span><span class="p">,</span><span class="w">
@@ -150,9 +150,9 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
   </span><span class="ss">:spellout_numbering_year</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal_verbose</span><span class="w">
-</span><span class="p" data-group-id="1075557347-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="5280346298-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="5280346298-1">)</span><span class="w">
-</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5683136042-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="5683136042-1">)</span><span class="w">
-</span><span class="p" data-group-id="5683136042-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="5683136042-2">}</span></code></pre>
+</span><span class="p" data-group-id="1629424503-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="0190951888-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="0190951888-1">)</span><span class="w">
+</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="3741332710-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="3741332710-1">)</span><span class="w">
+</span><span class="p" data-group-id="3741332710-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="3741332710-2">}</span></code></pre>
     </section>
 
 </div>
