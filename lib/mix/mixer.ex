@@ -47,7 +47,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps do
       if function_exported?(Mix.Project, :config, 0),
         do: Mix.Project.config()[:deps],
-        else: Bonfire.Application.deps()
+        else: Bonfire.Application.config()[:deps]
     end
 
     def deps_names_for(type, config \\ mix_config()) do
