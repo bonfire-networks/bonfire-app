@@ -287,13 +287,9 @@ db-rollback-all:
 #### UPDATE COMMANDS ####
 
 # Update the dev app and all dependencies/extensions/forks, and run migrations
-update: init update-repo
-	just prepare
-	just update-forks
-	just update-deps
+update: init update-repo prepare js-deps-fetch update-forks update-deps
 	just mix deps.get
 	just _deps-post-get
-	just js-deps-fetch
 #   just mix compile
 #	just db-migrate
 
