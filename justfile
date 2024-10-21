@@ -580,6 +580,10 @@ test-watch *args='':
 	@echo "Testing $@..."
 	MIX_ENV=test just mix test.watch --stale --exclude mneme $@
 
+test-watch-full *args='':
+	@echo "Testing $@..."
+	MIX_ENV=test just mix test.watch --exclude mneme $@
+
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive *args='':
 	@MIX_ENV=test just mix test.interactive --stale $@
