@@ -171,11 +171,11 @@ prepare:
 	MIX_ENV=dev just dev-run "db" {{args}}
 
 @dev-extra:
-	iex --sname extra --remsh localenv
+	iex --sname extra --cookie $ERLANG_COOKIE --remsh localenv@127.0.0.1
 
 dev-run services="db" *args='': 
 	@just init $services
-	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --sname localenv -S mix phx.server $args" } }}
+	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --name localenv@127.0.0.1 --cookie $ERLANG_COOKIE -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
 @dev-remote: init
@@ -202,7 +202,7 @@ dev-profile profile: docker-stop-web
 	docker logs bonfire_web -f
 
 dev-profile-iex profile:
-	just docker-compose --profile $profile exec web iex --sname extra --remsh localenv
+	just docker-compose --profile $profile exec web iex --sname extra --remsh localenv@127.0.0.1
 
 dev-federate:
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
