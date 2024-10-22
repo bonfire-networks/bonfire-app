@@ -382,8 +382,8 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 	mkdir -p data/uploads
 	-cd priv/static/data && ln -s ../../../data/uploads
 
-deps-clean dep:
-	just mix deps.clean $dep --build
+deps-clean *args='':
+	just mix deps.clean --build $@ 
 
 @deps-clean-data:
 	just mix bonfire.deps.clean.data
