@@ -8,8 +8,14 @@ as_desktop_app? = System.get_env("AS_DESKTOP_APP") in ["1", "true"]
 env = config_env()
 
 bonfire_deps =
-  Bonfire.Mixer.deps_for(:bonfire)
-  |> Bonfire.Mixer.deps_names_list(true)
+  if Code.ensure_loaded?(Bonfire.Mixer),
+    do:
+      Bonfire.Mixer.deps_for(:bonfire)
+      |> Bonfire.Mixer.deps_names_list(true),
+    else: []
+
+dep_paths =
+  if Code.ensure_loaded?(Bonfire.Mixer), do: Bonfire.Mixer.dep_paths(bonfire_deps), else: []
 
 #### Basic configuration
 
@@ -184,7 +190,7 @@ Code.eval_file(
   cond do
     File.exists?("extensions/bonfire_files/lib/mime_types.ex") -> "extensions/bonfire_files/lib/"
     File.exists?("deps/bonfire_files/lib/mime_types.ex") -> "deps/bonfire_files/lib/"
-    true -> "config/"
+    true -> Path.dirname(__ENV__.file)
   end
 )
 
@@ -279,7 +285,7 @@ config :sentry,
   # TODO? see https://hexdocs.pm/sentry/upgrade-10-x.html#actively-package-your-source-code
   # NOTE: enabling `enable_source_code_context` errors with `Found two source files in different source root paths with the same relative path`
   enable_source_code_context: false,
-  root_source_code_paths: [project_root] ++ Bonfire.Mixer.dep_paths(bonfire_deps),
+  root_source_code_paths: [project_root] ++ dep_paths,
   source_code_exclude_patterns: [
     ~r/\/flavours\//,
     ~r/\/extensions\//,
@@ -314,7 +320,7 @@ config :live_view_native_stylesheet,
     |> IO.inspect(limit: :infinity),
   output: "assets/static/assets"
 
-if Bonfire.Mixer.compile_disabled?() do
+if Code.ensure_loaded?(Bonfire.Mixer) and Bonfire.Mixer.compile_disabled?() do
   for dep <-
         Bonfire.Mixer.mess_other_flavour_dep_names(flavour)
         |> Bonfire.Mixer.log(

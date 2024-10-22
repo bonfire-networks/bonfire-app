@@ -29,11 +29,14 @@ config :bonfire_umbrella, Bonfire.Common.Repo,
   stacktrace: true
 
 local_deps =
-  Mess.read_umbrella(
-    # Path.expand("config/"),
-    config_dir: "config/",
-    use_local_forks?: System.get_env("WITH_FORKS", "1") == "1"
-  )
+  if Code.ensure_loaded?(Mess),
+    do:
+      Mess.read_umbrella(
+        # Path.expand("config/"),
+        config_dir: "config/",
+        use_local_forks?: System.get_env("WITH_FORKS", "1") == "1"
+      ),
+    else: []
 
 # if System.get_env("WITH_FORKS", "1") == "1" , do:
 # Mess.deps(
@@ -101,7 +104,8 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
     ~r"(live_handler|live_handlers|routes)\.ex$"
   ]
 
-  Bonfire.Mixer.log(patterns, "Watching these filenames for live reloading in the browser")
+  if Code.ensure_loaded?(Bonfire.Mixer),
+    do: Bonfire.Mixer.log(patterns, "Watching these filenames for live reloading in the browser")
 
   config :bonfire, Bonfire.Web.Endpoint,
     code_reloader: enable_reloader?,
