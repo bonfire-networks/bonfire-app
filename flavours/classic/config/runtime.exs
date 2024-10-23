@@ -338,6 +338,8 @@ config :ecto_sparkles,
   slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
   queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
 
+# config :untangle, level: :error
+
 # start prod-only config
 if config_env() == :prod do
   config :bonfire_umbrella, Bonfire.Common.Repo,

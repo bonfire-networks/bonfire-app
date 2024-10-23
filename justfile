@@ -491,7 +491,7 @@ icons-uniq:
 	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
 
 # Push all changes to the app and extensions in ./forks
-contrib: _pre-push-hooks contrib-forks-publish git-publish
+contrib: _pre-push-hooks contrib-forks-publish _pre-push-hooks git-publish
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
 contrib-release: _pre-push-hooks contrib-forks-publish update contrib-app-release
