@@ -59,6 +59,13 @@ Throughout the documentation, we'll make sure to provide links to relevant resou
 
 If you have questions about anything related to Bonfire, you're always welcome to ask our community on [Matrix](https://matrix.to/#/#bonfire-networks:matrix.org), [Slack](https://join.slack.com/t/elixir-lang/shared_invite/zt-2ko4792lz-28XosraCTaYZKOyuZ80hrg), [Elixir Forum](https://elixirforum.com) and the [Fediverse](https://indieweb.social/@bonfire) or send us an email at team@bonfire.cafe.
 
+## Funding
+
+This project has received funded through [NGI0 Discovery](https://nlnet.nl/discovery) and [NGI0 Entrust](https://nlnet.nl/entrust), funds established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/Bonfire-Framework) (also for [previous](https://nlnet.nl/project/Bonfire-FederatedGroups) [projects](https://nlnet.nl/project/Bonfire) )
+
+[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
+[<img src="https://nlnet.nl/image/logos/NGI0Entrust_tag.svg" alt="NGI Zero Logo" width="20%" />](https://nlnet.nl/entrust)
+[<img src="https://nlnet.nl/image/logos/NGI0Discovery_tag.svg" alt="NGI Zero Logo" width="20%" />](https://nlnet.nl/discovery)
 
 ## Copyright and License
 
