@@ -61,7 +61,7 @@ If you have questions about anything related to Bonfire, you're always welcome t
 
 ## Funding
 
-This project has received funded through [NGI0 Discovery](https://nlnet.nl/discovery) and [NGI0 Entrust](https://nlnet.nl/entrust), funds established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/Bonfire-Framework) (also for [previous](https://nlnet.nl/project/Bonfire-FederatedGroups) [projects](https://nlnet.nl/project/Bonfire) )
+This project has received funding from [NGI0 Discovery](https://nlnet.nl/discovery) and [NGI0 Entrust](https://nlnet.nl/entrust), funds established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) programme. Learn more at the [NLnet project page](https://nlnet.nl/project/Bonfire-Framework) (also for [previous](https://nlnet.nl/project/Bonfire-FederatedGroups) [projects](https://nlnet.nl/project/Bonfire) )
 
 [<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
 [<img src="https://nlnet.nl/image/logos/NGI0Entrust_tag.svg" alt="NGI Zero Logo" width="20%" />](https://nlnet.nl/entrust)
