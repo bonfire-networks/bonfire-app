@@ -6,8 +6,19 @@ import Bonfire.Me.Fake
 import Bonfire.Social.Fake
 import Bonfire.Posts.Fake
 
+# num_users = 100
+# num_objects = 100000
+# num_sub_objects = 50
+num_users = 3
+num_objects = 10
+num_sub_objects = 10
+
 System.put_env("INVITE_ONLY", "false")
 System.put_env("SEARCH_INDEXING_DISABLED", "true")
+
+Application.put_env(:bonfire_common, Bonfire.Common.AntiSpam,
+  service: Bonfire.Common.AntiSpam.Mock
+)
 
 # if the user has configured an admin user for the seeds, insert it.
 case {System.get_env("ADMIN_USER", "root"), System.get_env("ADMIN_PASSWORD", "")} do
@@ -21,61 +32,76 @@ case {System.get_env("ADMIN_USER", "root"), System.get_env("ADMIN_PASSWORD", "")
 end
 
 # create some users
-users = for _ <- 1..3, do: fake_user!()
+users = for _ <- 1..num_users, do: fake_user!()
 random_user = fn -> Faker.Util.pick(users) end
 
 # start fake threads
 threads =
-  for _ <- 1..10 do
-    thread = fake_post!(random_user.())
-    comment = fake_comment!(random_user.(), thread)
-    comment = fake_comment!(random_user.(), comment)
-    thread
-  end ++
-    for i <- 1..4 do
-      fake_post!(random_user.(), "public", %{
-        post_content: %{
-          html_body: "test #{i} with #hashtag"
-        }
-      })
-    end ++
-    for i <- 1..4 do
-      mention = random_user.()
+  for i <- 1..num_objects do
+    thread =
+      case Faker.Util.pick(1..3) do
+        1 ->
+          fake_post!(random_user.())
 
-      fake_post!(random_user.(), "public", %{
-        post_content: %{
-          html_body: "@#{e(mention, :character, :username, nil)} test mention #{i}"
-        }
-      })
-    end
+        2 ->
+          fake_post!(random_user.(), "public", %{
+            post_content: %{
+              summary: "test #{i} with #hashtag"
+            }
+          })
+
+        3 ->
+          fake_post!(random_user.(), "public", %{
+            post_content: %{
+              summary: "@#{e(random_user.(), :character, :username, nil)} test mention #{i}"
+            }
+          })
+      end
+
+    comments = for i <- 1..num_sub_objects, do: fake_comment!(random_user.(), thread)
+
+    _sub_comment =
+      for i <- 1..num_sub_objects, do: fake_comment!(random_user.(), Faker.Util.pick(comments))
+
+    thread
+  end
 
 # random_thread = fn -> Faker.Util.pick(threads) end
 
 # define some tags/categories
-if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Classify.Simulate)) do
-  for _ <- 1..2 do
+if(
+  Bonfire.Common.Extend.extension_enabled?(Bonfire.UI.Groups) or
+    Bonfire.Common.Extend.extension_enabled?(Bonfire.UI.Topics)
+) do
+  for _ <- 1..num_objects do
     category = Bonfire.Classify.Simulate.fake_category!(random_user.())
-    _subcategory = Bonfire.Classify.Simulate.fake_category!(random_user.(), category)
+
+    for i <- 1..num_sub_objects do
+      subcategory = Bonfire.Classify.Simulate.fake_category!(random_user.(), category)
+
+      for i <- 1..num_sub_objects do
+        _subsubcategory = Bonfire.Classify.Simulate.fake_category!(random_user.(), subcategory)
+      end
+    end
   end
 end
 
 # define some geolocations
 if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Geolocate.Simulate)) do
-  for _ <- 1..2,
+  for _ <- 1..num_objects,
       do: Bonfire.Geolocate.Simulate.fake_geolocation!(random_user.())
 end
 
 # define some units
 if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Quantify.Simulate)) do
-  for _ <- 1..2 do
-    _unit1 = Bonfire.Quantify.Simulate.fake_unit!(random_user.())
-    _unit2 = Bonfire.Quantify.Simulate.fake_unit!(random_user.())
+  for _ <- 1..num_objects do
+    Bonfire.Quantify.Simulate.fake_unit!(random_user.())
   end
 end
 
 # conduct some fake economic activities
 if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
-  for _ <- 1..2 do
+  for _ <- 1..num_objects do
     user = random_user.()
     action_id = ValueFlows.Simulate.action_id()
 
@@ -84,7 +110,7 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
     _proposal = ValueFlows.Simulate.fake_proposal!(user)
   end
 
-  for _ <- 1..2 do
+  for _ <- 1..num_objects do
     user = random_user.()
 
     _process_spec = ValueFlows.Simulate.fake_process_specification!(user)
@@ -105,10 +131,12 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
 
     # define some geolocations
     if(Bonfire.Common.Extend.extension_enabled?(Bonfire.Geolocate.Simulate)) do
-      places = for _ <- 1..2, do: Bonfire.Geolocate.Simulate.fake_geolocation!(random_user.())
+      places =
+        for _ <- 1..num_objects, do: Bonfire.Geolocate.Simulate.fake_geolocation!(random_user.())
+
       random_place = fn -> Faker.Util.pick(places) end
 
-      for _ <- 1..2 do
+      for _ <- 1..num_objects do
         # define some intents with geolocation
         _intent =
           ValueFlows.Simulate.fake_intent!(
@@ -157,7 +185,7 @@ if(Bonfire.Common.Extend.extension_enabled?(ValueFlows.Simulate)) do
       unit1 = Bonfire.Quantify.Simulate.fake_unit!(random_user.())
       unit2 = Bonfire.Quantify.Simulate.fake_unit!(random_user.())
 
-      for _ <- 1..2 do
+      for _ <- 1..num_objects do
         action_id = ValueFlows.Simulate.action_id()
         # define some intents with measurements
         intent =

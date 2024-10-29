@@ -842,7 +842,10 @@ rebuild: init
 
 _db-dump docker_compose compose_args="": 
 	-mv data/db_dump.sql data/db_dump.archive.sql
-	just docker-compose -f {{docker_compose}} {{compose_args}} exec db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD pg_dump --username $POSTGRES_USER $POSTGRES_DB" > data/db_dump.sql
+	just _db-shell {{docker_compose}} pg_dump {{compose_args}} " > data/db_dump.sql"
+
+_db-shell docker_compose cmd="psql" compose_args="" extra_args="": 
+	just docker-compose -f {{docker_compose}} {{compose_args}} exec --user $POSTGRES_USER db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD {{cmd}} --username $POSTGRES_USER" {{extra_args}}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
 @cmd *args='': init docker-stop-web
@@ -863,7 +866,7 @@ shell:
 	-docker rm $WEB_CONTAINER
 
 @docker *args='':
-	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && docker $@
+	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && docker $@
 
 @docker-compose *args='':
 	just docker compose $@
