@@ -349,7 +349,7 @@ const createEditor = async (_this, hidden_input, composer$) => {
 				attributes: {
 					placeholder: "Type your text here...",
 					class:
-						"editor prose prose-sm h-full p-2 focus:outline-none composer w-full max-w-full",
+						"editor prose prose-sm h-full p-2 focus:outline-none composer w-full max-w-full prose-p:first-of-type:mt-0",
 					spellcheck: "false",
 				},
 			}));
