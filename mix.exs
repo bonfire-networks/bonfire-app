@@ -89,8 +89,7 @@ defmodule Bonfire.Umbrella.MixProject do
                     "~> 0.5.0",
                     # git: "https://gitlab.com/mayel/archeometer", 
                     # NOTE: exqlite not working in CI
-                    only: [:dev],
-                    runtime: false
+                    only: [:dev], runtime: false
                   },
                   {:recode, "~> 0.4", only: :dev},
                   # API client needed for changelog generation
@@ -107,8 +106,7 @@ defmodule Bonfire.Umbrella.MixProject do
                     "~> 0.3.20",
                     # path: "forks/igniter",
                     # git: "https://github.com/ash-project/igniter",
-                    only: [:dev, :test],
-                    override: true
+                    only: [:dev, :test], override: true
                   },
 
                   # tests
@@ -118,8 +116,7 @@ defmodule Bonfire.Umbrella.MixProject do
                     :phoenix_test,
                     "~> 0.3",
                     # git: "https://github.com/germsvel/phoenix_test",
-                    only: :test,
-                    runtime: false
+                    only: :test, runtime: false
                   },
                   {:mock, "~> 0.3", only: :test},
                   {:mox, "~> 1.0", only: :test},
