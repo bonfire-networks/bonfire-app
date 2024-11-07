@@ -217,15 +217,17 @@ docs:
 
 # Analyse the codebase and generate some reports. Requires Graphviz and SQLite
 arch:
-	just mix arch.explore.static
-	just mix arch.explore.xrefs
-	just mix arch.explore.apps
-	-MIX_ENV=test just mix arch.explore.coverage
-	just mix arch.dsm
-	just mix arch.report.html
-	mkdir -p reports/dev/static/html/data/
-	just mix arch.apps.xref --format mermaid --out reports/dev/static/html/data/apps.mermaid
-	just mix arch.apps.xref --format svg --out reports/dev/static/html/data/apps.svg
+	just mix arch.collect --no-coverage --include-deps 'bonfire' --include-deps 'bonfire_*' --include-deps 'activity_pub'
+	just mix arch.report --format livemd
+# just mix arch.explore.static
+# just mix arch.explore.xrefs
+# just mix arch.explore.apps
+# -MIX_ENV=test just mix arch.explore.coverage
+# just mix arch.dsm
+# just mix arch.report.html
+# mkdir -p reports/dev/static/html/data/
+# just mix arch.apps.xref --format mermaid --out reports/dev/static/html/data/apps.mermaid
+# just mix arch.apps.xref --format svg --out reports/dev/static/html/data/apps.svg
 # just mix arch.xref --format svg --out reports/dev/static/modules.png Bonfire.Web.Router Bonfire.UI.Social.Routes Bonfire.UI.Me.Routes
 
 # Compile the app + extensions

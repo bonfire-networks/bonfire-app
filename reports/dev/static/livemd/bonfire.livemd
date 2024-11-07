@@ -1,0 +1,307 @@
+<!-- livebook:{"autosave_interval_s":30} -->
+
+# Archeometer - bonfire
+
+```elixir
+# Dependencies
+
+Mix.install([
+  {:archeometer, "~> 0.5"},
+  {:kino_vega_lite, "~> 0.1.11"}
+])
+
+# Utility functons
+
+defmodule LiveBookUtils do
+  def to_data_table(result) do
+    Enum.zip(result.headers, Enum.zip(result.rows) |> Enum.map(&Tuple.to_list(&1)))
+    |> Kino.DataTable.new()
+  end
+
+  def list_to_data_table(list, col_name) do
+    Kino.DataTable.new(%{col_name => list})
+  end
+end
+
+# Setup database
+
+db = "/Users/me/Code/Bonfire/bonfire-app/archeometer_bonfire.db"
+Application.put_env(:archeometer, :default_db, db)
+
+# Application name and default namespace
+
+app_name = "bonfire"
+default_ns = "*"
+```
+
+## Setup DSL
+
+In order to use the **Archeometer** toolkit, we need some aliases and imports
+
+```elixir
+alias Archeometer.Schema.{App, AppXRef, Module, Function, XRef, Behaviour}
+alias Archeometer.Analysis.{DSM, Treemap, Clustering}
+alias Archeometer.Analysis.Xref, as: XRefAnalysis
+alias Archeometer.Analysis.Apps.Xref, as: AppXRefAnalysis
+alias Archeometer.Graphs.Graphviz
+alias Archeometer.Repo
+import Archeometer.Query
+```
+
+## Size
+
+Top 10 largest modules, measured by LoC (Lines of Code).
+
+```elixir
+Repo.all(
+  from(m in Module,
+    select: [
+      name: m.name,
+      num_lines: m.num_lines
+    ],
+    #where: m.app.name == ^app_name,
+    order_by: [desc: num_lines]
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+This treemap represents a hierarchical decomposition of modules. The area of each module representing its relative size.
+
+```elixir
+Treemap.treemap(:size, app: app_name, namespace: default_ns)
+|> Treemap.SVGRender.render()
+```
+
+## Size
+
+## Complexity
+
+Top 10 modules with the most complexity
+
+```elixir
+Repo.all(
+  from(m in Module,
+    select: [
+      name: m.name,
+      aggregated_cc: sum(m.functions.cc),
+      average_cc: round(sum(m.functions.cc) * 1.0 / count(m.functions.id), 2)
+    ],
+    group_by: m.name,
+    order_by: [desc: average_cc],
+   # where: m.app.name == ^app_name,
+    limit: 10
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+Top 10 functions with the most complexity.
+
+```elixir
+Repo.all(
+  from(f in Function,
+    select: [
+      module_name: f.module.name,
+      fun_name: f.name,
+      fun_arity: f.num_args,
+      fun_cc: f.cc
+    ],
+    order_by: [desc: fun_cc],
+    #where: f.module.app.name == ^app_name,
+    limit: 10
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+## Core Modules
+
+Modules with the most dependencies.
+
+```elixir
+Repo.all(
+  from(x in XRef,
+    select: [
+      name: x.caller.name,
+      num_callees: count(x.callee.name)
+    ],
+    group_by: x.caller.id,
+    order_by: [desc: num_callees],
+    #where: x.caller.app.name == ^app_name,
+    limit: 10
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+Possibly the intersection between the biggest modules and those with the most dependencies gives us a hint about the core modules.
+
+```elixir
+biggest_modules =
+  Repo.all(
+    from(m in Module,
+      select: [
+        name: m.name
+      ],
+      order_by: [desc: m.num_lines],
+      #where: m.app.name == ^app_name,
+      #limit: 10
+    )
+  )
+
+most_dependencies_modules =
+  Repo.all(
+    from(x in XRef,
+      select: [
+        name: x.caller.name
+      ],
+      group_by: x.caller.id,
+      order_by: [desc: count(x.callee.name)],
+     # where: x.caller.app.name == ^app_name,
+     # limit: 10
+    )
+  )
+
+result = intersection(biggest_modules, most_dependencies_modules)
+LiveBookUtils.to_data_table(result)
+```
+
+This is de dependency graph between the (hypothetically) core modules.
+
+```elixir
+result.rows
+|> Enum.map(&hd/1)
+|> XRefAnalysis.gen_graph("svg")
+```
+
+## Dependency Cycles
+
+Colored squares respresent groups of modules with cyclic dependencies between them
+(open image in another tab if it is too small).
+
+```elixir
+{:ok, dsm, modules} = DSM.gen_dsm(app_name, default_ns, db, true)
+triangularized_dsm = DSM.triangularize(dsm)
+dsm_svg = DSM.SVGRender.render(triangularized_dsm, modules)
+```
+
+To get the largest group of cyclic dependencies, you could use the following code.
+
+```elixir
+largest_cycle = DSM.largest_cyclic_deps_group(app_name, db)
+LiveBookUtils.list_to_data_table(largest_cycle, "name")
+```
+
+```elixir
+XRefAnalysis.gen_graph(largest_cycle, "svg", db)
+```
+
+## Building Blocks
+
+Modules most used within the application.
+
+```elixir
+Repo.all(
+  from(x in XRef,
+    select: [
+      name: x.callee.name,
+      num_callers: count(x.caller.name)
+    ],
+    group_by: x.callee.name,
+    order_by: [desc: num_callers],
+    #where: x.callee.app.name == ^app_name,
+    limit: 10
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+## Public API
+
+Modules with the most public functions.
+
+```elixir
+Repo.all(
+  from(f in Function,
+    select: [
+      name: f.module.name,
+      num_funs: count(f.id)
+    ],
+    #where: f.module.app.name == ^app_name,
+    where: f.type == "def",
+    group_by: f.module.id,
+    order_by: [desc: num_funs]
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+## Ecto
+
+These are the Ecto schemas defined in the application.
+
+```elixir
+result =
+  Repo.all(
+    from(m in Module,
+      #where: m.app.name == ^app_name,
+      where: m.has_ecto_schema,
+      select: [name: m.name],
+      order_by: [asc: name]
+    )
+  )
+
+LiveBookUtils.to_data_table(result)
+```
+
+This is the dependency graph of the Ecto schemas.
+(If detail is too small, you can right-click and open it in other tab).
+
+```elixir
+result.rows
+|> Enum.map(&hd/1)
+|> XRefAnalysis.gen_graph("svg")
+```
+
+## OTP
+
+These are the modules implementing OTP behaviours.
+
+```elixir
+otp_behaviours = ["Application", "Agent", "GenServer", "GenEvent", "Supervisor"]
+
+Repo.all(
+  from(b in Behaviour,
+    select: [
+      otp_behaviour: b.name,
+      module: b.module.name
+    ],
+    where: b.name in ^otp_behaviours,
+    #where: b.module.app.name == ^app_name,
+    order_by: otp_behaviour
+  )
+)
+|> LiveBookUtils.to_data_table()
+```
+
+## Test Coverage
+
+Modules with the least coverage.
+
+```elixir
+Repo.all(
+  from(m in Module,
+    select: [
+      name: m.name,
+      num_lines: m.num_lines,
+      coverage: round(m.coverage, 2),
+      uncovered_lines: round(m.num_lines * (1 - m.coverage), 0)
+    ],
+    order_by: [desc: uncovered_lines],
+    #where: m.app.name == ^app_name,
+    where: m.coverage < 0.5
+  )
+)
+|> LiveBookUtils.to_data_table()
+```

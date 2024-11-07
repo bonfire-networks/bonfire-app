@@ -1,0 +1,82 @@
+<!-- livebook:{"autosave_interval_s":30} -->
+
+# Archeometer - Project Index
+
+```elixir
+# Dependencies
+
+Mix.install([
+  {:archeometer, "~> 0.5"},
+  {:kino_vega_lite, "~> 0.1.11"}
+])
+
+# Utility functons
+
+defmodule LiveBookUtils do
+  def to_data_table(result) do
+    Enum.zip(result.headers, Enum.zip(result.rows) |> Enum.map(&Tuple.to_list(&1)))
+    |> Kino.DataTable.new()
+  end
+
+  def list_to_data_table(list, col_name) do
+    Kino.DataTable.new(%{col_name => list})
+  end
+end
+
+# Setup database
+
+db = "/Users/me/Code/Bonfire/bonfire-app/archeometer_bonfire.db"
+Application.put_env(:archeometer, :default_db, db)
+```
+
+## Setup DSL
+
+In order to use the **Archeometer** toolkit, we need some aliases and imports
+
+```elixir
+alias Archeometer.Schema.{App, AppXRef, Module, Function, XRef, Behaviour}
+alias Archeometer.Analysis.{DSM, Treemap, Clustering}
+alias Archeometer.Analysis.Xref, as: XRefAnalysis
+alias Archeometer.Analysis.Apps.Xref, as: AppXRefAnalysis
+alias Archeometer.Graphs.Graphviz
+alias Archeometer.Repo
+import Archeometer.Query
+```
+
+## Project structure
+
+List of applications, their size (measured in lines of code) and their module count.
+
+```elixir
+result =
+  Repo.all(
+    from(a in App,
+      select: [
+        name: a.name,
+        num_mods: count(a.modules.id),
+        num_lines: sum(a.modules.num_lines),
+        num_ecto_schemas: sum(a.modules.has_ecto_schema)
+      ],
+      group_by: a.name,
+      order_by: [desc: num_mods]
+    )
+  )
+
+LiveBookUtils.to_data_table(result)
+```
+
+The total number of lines of code is
+
+```elixir
+result.rows
+|> Enum.map(&Enum.at(&1, 2))
+|> Enum.sum()
+```
+
+Dependency graph between applications
+(open image in another tab if it is too small).
+
+```elixir
+AppXRefAnalysis.gen_graph("svg")
+```
+

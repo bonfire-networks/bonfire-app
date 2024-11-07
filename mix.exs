@@ -84,7 +84,13 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:versioce, "~> 2.0.0", only: :dev},
                   # needed for changelog generation
                   {:git_cli, "~> 0.3.0", only: :dev},
-                  # {:archeometer, git: "https://gitlab.com/mayel/archeometer", only: [:dev, :test]}, # "~> 0.1.0" # disabled because exqlite not working in CI
+                  {
+                    :archeometer,
+                    "~> 0.5.0",
+                    # git: "https://gitlab.com/mayel/archeometer", 
+                    # NOTE: exqlite not working in CI
+                    only: [:dev], runtime: false
+                  },
                   {:recode, "~> 0.4", only: :dev},
                   # API client needed for changelog generation
                   {:neuron, "~> 5.0", only: :dev, override: true},
@@ -122,11 +128,15 @@ defmodule Bonfire.Umbrella.MixProject do
                   {:ex_unit_summary, "~> 0.1.0", only: :test},
                   {:ex_unit_notifier, "~> 1.0", only: :test},
                   {:wallaby, "~> 0.30", runtime: false, only: :test},
-                  {:credo, "~> 1.7.5", only: :test, override: true},
+                  #  for phoenix_live_reload/credo compat with archeometer
+                  {:file_system, "~> 1.0", override: true},
+                  # "~> 1.6.7", # version used by archeometer
+                  {:credo, "~> 1.7.10", only: [:dev, :test], override: true},
+                  # NOTE: not compatible with the credo version needed for archeometer
+                  {:mneme, ">= 0.0.0", only: [:dev, :test]},
                   # used in unfurl
                   # {:bypass, "~> 2.1", only: :test},
                   {:assert_value, ">= 0.0.0", only: [:dev, :test]},
-                  {:mneme, ">= 0.0.0", only: [:dev, :test]},
 
                   # Benchmarking utilities
                   {:benchee, "~> 1.1", override: true},
