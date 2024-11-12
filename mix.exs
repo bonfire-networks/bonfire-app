@@ -82,6 +82,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
                   # changelog generation
                   {:versioce, "~> 2.0.0", only: :dev},
+                  {:jungle, git: "https://github.com/bonfire-networks/jungle", only: :dev},
                   # needed for changelog generation
                   {:git_cli, "~> 0.3.0", only: :dev},
                   {

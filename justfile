@@ -350,7 +350,7 @@ update-dep-simple dep:
 
 # Pull the latest commits from all forks
 @update-forks:
-	(jungle git fetch && just update-forks-all rebase) || (echo "Jungle not available, will fetch one by one instead." && just update-forks-all pull)
+	(just git-fetch-all && just update-forks-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull)
 
 update-forks-all cmd='pull':
 	just update-fork-path $EXT_PATH $cmd
@@ -367,14 +367,14 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 
 # Fetch locked versions of deps (Elixir and JS), including ones also cloned locally
 @deps-fetch *args='':
-	just deps-get $@
-	-just mix-remote deps.get $@ || echo "Oops, could not download mix deps"
+	just deps-get {{args}}
+	-just mix-remote deps.get {{args}} || echo "Oops, could not download mix deps"
 	just _deps-post-get
 	just js-deps-fetch
 
 # Fetch locked versions of Elixir deps (except ones also cloned locally)
 @deps-get *args='':
-	just mix deps.get $@
+	just mix deps.get {{args}}
 
 @_deps-post-get: extension-post-install
 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
@@ -386,7 +386,7 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
 	-cd priv/static/data && ln -s ../../../data/uploads
 
 deps-clean *args='':
-	just mix deps.clean --build $@ 
+	just mix deps.clean --build {{args}}
 
 @deps-clean-data:
 	just mix bonfire.deps.clean.data
@@ -473,7 +473,7 @@ deps-clone-local-all:
 
 # Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `just messctl help`)
 # messctl *args='': init
-# 	{{ if WITH_DOCKER == "no" { "messctl $@" } else { "just docker-compose run web messctl $@" } }}
+# 	{{ if WITH_DOCKER == "no" { "messctl $args" } else { "just docker-compose run web messctl $args" } }}
 
 #### CONTRIBUTION RELATED COMMANDS ####
 
@@ -507,9 +507,7 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 
 # Increment the app version number
 @contrib-app-release-increment:
-	mkdir -p lib/mix
-	cd lib/mix/ && (ln -sf ../../extensions/bonfire_common/lib/mix_tasks tasks || ln -sf ../../deps/bonfire_common/lib/mix_tasks tasks)
-	cd lib/mix/tasks/release/ && mix escript.build && ./release ../../../../../ $APP_VSN_EXTRA
+	just escript_common release "./ $APP_VSN_EXTRA"
 
 contrib-forks-publish: update-forks
 
@@ -518,6 +516,11 @@ contrib-rel-push: contrib-release rel-build rel-push
 # Count lines of code (requires cloc: `brew install cloc`)
 cloc:
 	cloc lib config extensions/*/lib extensions/*/test test
+
+# Fetch latest remote commits from all extensions/forks git repos (does not checkout or rebase though)
+git-fetch-all:
+	just escript_dep jungle
+# jungle git fetch || just escript_dep jungle # ^ experimental: replaced racket script with escript
 
 # Run the git add command on each fork
 git-forks-add: deps-git-fix
@@ -556,42 +559,42 @@ deps-git-fix:
 
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
 test *args='':
-	@echo "Testing $@..."
-	MIX_ENV=test just mix test $@
+	@echo "Testing $args..."
+	MIX_ENV=test just mix test $args
 
 # test-federation *args='':
-# 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation $@
+# 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation $args
 
 test-backend *args='':
-	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend $@
+	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend $args
 
 test-ui *args='':
-	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --exclude todo --include ui $@
+	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --exclude todo --include ui $args
 
 # Run only stale tests
 test-stale *args='':
-	@echo "Testing $@..."
-	MIX_ENV=test just mix test --stale $@
+	@echo "Testing {{args}}..."
+	MIX_ENV=test just mix test --stale {{args}}
 
 # Run tests (ignoring changes in local forks)
 test-remote *args='':
-	@echo "Testing $@..."
-	MIX_ENV=test just mix-remote test $@
+	@echo "Testing {{args}}..."
+	MIX_ENV=test just mix-remote test {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch *args='':
-	@echo "Testing $@..."
-	MIX_ENV=test just mix mneme.watch --stale $@
-# MIX_ENV=test just mix test.watch --stale --exclude mneme $@
+	@echo "Testing {{args}}..."
+	MIX_ENV=test just mix mneme.watch --stale {{args}}
+# MIX_ENV=test just mix test.watch --stale --exclude mneme {{args}}
 
 test-watch-full *args='':
-	@echo "Testing $@..."
-	MIX_ENV=test just mix mneme.watch $@
-# MIX_ENV=test just mix test.watch --exclude mneme $@
+	@echo "Testing {{args}}..."
+	MIX_ENV=test just mix mneme.watch {{args}}
+# MIX_ENV=test just mix test.watch --exclude mneme {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive *args='':
-	@MIX_ENV=test just mix test.interactive --stale $@
+	@MIX_ENV=test just mix test.interactive --stale {{args}}
 
 ap_lib := "forks/activity_pub/test/activity_pub"
 ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration"
@@ -609,30 +612,30 @@ test-federation: test-federation-dance-positions
 	just test-federation-dance-positions
 
 test-federation-lib *args=ap_lib: test-federation-dance-positions
-	just test-watch $@
+	just test-watch {{args}}
 
 test-federation-bonfire *args=ap_integration: test-federation-dance-positions
-	just test-watch $@
+	just test-watch {{args}}
 
 test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": test-federation-dance-positions
-	just test-watch $@
+	just test-watch {{args}}
 
 test-federation-in-extensions *args=ap_ext: test-federation-dance-positions
-	just test-watch $@
+	just test-watch {{args}}
 
 test-federation-dance *args='': test-federation-dance-positions test-db-federation-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance $@
+	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
 	just test-federation-dance-positions
 
 test-federation-dance-unsigned *args='': test-federation-dance-positions test-db-federation-dance-reset
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance $@
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
 	just test-federation-dance-positions
 
 test-federation-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 test-federation-live-DRAGONS *args='':
-	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test --only live_federation $@
+	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test --only live_federation {{args}}
 
 load_testing:
 	TEST_INSTANCE=yes just mix bonfire.load_testing
@@ -853,13 +856,13 @@ _db-shell docker_compose cmd="psql" compose_args="" extra_args="":
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
 @cmd *args='': init docker-stop-web
-	{{ if WITH_DOCKER == "total" { "echo Run $@ in docker && just docker-compose run --name $WEB_CONTAINER --service-ports web $@" } else {" echo Run $@ && $@"} }}
+	{{ if WITH_DOCKER == "total" { "echo Run $args in docker && just docker-compose run --name $WEB_CONTAINER --service-ports web $args" } else {" echo Run $args && $args"} }}
 
 cwd *args:
-	cd {{invocation_directory()}}; $@
+	cd {{invocation_directory()}}; {{args}}
 
 cwd-test *args:
-	cd {{invocation_directory()}}; MIX_ENV=test mix test $@ 
+	cd {{invocation_directory()}}; MIX_ENV=test mix test {{args}}
 
 # Open the shell of the web container, in dev mode
 shell:
@@ -870,10 +873,10 @@ shell:
 	-docker rm $WEB_CONTAINER
 
 @docker *args='':
-	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && docker $@
+	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && docker {{args}}
 
 @docker-compose *args='':
-	just docker compose $@
+	just docker compose {{args}}
 
 @docker-stop:
 	just docker-compose stop
@@ -882,27 +885,27 @@ shell:
 
 # Open an interactive console
 @imix *args='':
-	just cmd iex -S mix $@
+	just cmd iex -S mix {{args}}
 
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update needle"`
 @mix *args='':
-	echo % mix $@
-	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $@" } else { "just cmd mix $@" } }}
+	echo % mix {{args}}
+	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $args" } else { "just cmd mix $args" } }}
 
 @mix-eval *args='': init
-	echo % mix eval "$@"
-	{{ if MIX_ENV == "prod" {"echo Skip"} else { 'mix eval "$@"' } }}
+	echo % mix eval "{{args}}"
+	{{ if MIX_ENV == "prod" {"echo Skip"} else { 'mix eval "$args"' } }}
 
 @mix-maybe-prod *args='':
-	{{ if WITH_DOCKER != "no" { "echo Ignoring mix commands when using docker in prod" } else { "just mix-maybe-prod-pre-release $@" } }}
+	{{ if WITH_DOCKER != "no" { "echo Ignoring mix commands when using docker in prod" } else { "just mix-maybe-prod-pre-release $args" } }}
 
 @mix-maybe-prod-pre-release *args='':
-	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $@" } }}
+	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $args" } }}
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
 mix-remote *args='': init
-	echo % WITH_FORKS=0 mix $@
-	{{ if WITH_DOCKER == "total" { "just docker-compose run -e WITH_FORKS=0 web mix $@" } else {"WITH_FORKS=0 mix $@"} }}
+	echo % WITH_FORKS=0 mix {{args}}
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e WITH_FORKS=0 web mix $args" } else {"WITH_FORKS=0 mix $args"} }}
 
 xref-dot:
 	just mix xref graph --format dot --include-siblings
@@ -911,7 +914,7 @@ xref-dot:
 
 # Run a specific exh command, see https://github.com/rowlandcodes/exhelp
 exh *args='':
-	just cmd "exh -S mix $@"
+	just cmd "exh -S mix {{args}}"
 
 deps-licenses:
 	@mkdir -p docs/DEPENDENCIES/
@@ -966,14 +969,30 @@ localise-extract:
 	just rand
 
 @mix-secrets: 
-	{{ if path_exists("lib/mix/tasks")=="true" { "echo ." } else {"just ln-mix-tasks"} }}
-	cd lib/mix/tasks/secrets/ && mix escript.build 
-	./lib/mix/tasks/secrets/secrets --file .env
+	just escript_common secrets --file .env
 # ./lib/mix/tasks/secrets/secrets 128 3
 
+@escript_common name *args='':
+	-rm lib/mix/tasks
+	{{ if path_exists("lib/mix/tasks")=="true" { "echo ." } else {"just ln-mix-tasks"} }}
+	just escript lib/mix/tasks {{name}} {{args}}
+
+@escript_ext name *args='':
+	{{ if path_exists("extensions/"+name)=="true" { "just escript extensions/ $name $args" } else {"just escript_dep $name $args"} }}
+
+@escript_dep name *args='':
+	just dep-check {{name}}
+	{{ if path_exists("forks/"+name)=="true" { "just escript forks/ $name $args" } else {"just escript deps/$name $name $args"} }}
+
+@escript path name *args='':
+	cd {{path}}/{{name}}/ && (stat {{name}} || mix escript.build) 
+	{{path}}/{{name}}/{{name}} {{args}}
+
+@dep-check name:
+	{{ if path_exists("forks/"+name)=="true" { "echo ." } else {"just deps-get"} }}
+
 @ln-mix-tasks:
-	just mix deps.get
-	cd lib/mix/ && {{ if path_exists("../../extensions/bonfire_common/lib/mix_tasks")=="true" { "ln -sf ../../extensions/bonfire_common/lib/mix_tasks tasks" } else {"ln -sf ../../deps/bonfire_common/lib/mix_tasks tasks"} }}
+	mkdir -p lib/mix && cd lib/mix/ && {{ if path_exists("extensions/bonfire_common/lib/mix_tasks")=="true" { "echo Link to bonfire_common to dev clone && ln -sf ../../extensions/bonfire_common/lib/mix_tasks tasks" } else {"echo Link to bonfire_common to mix deps && just deps-get && ln -sf ../../deps/bonfire_common/lib/mix_tasks tasks"} }}
 
 @rand:
 	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}

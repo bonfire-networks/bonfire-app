@@ -14,8 +14,8 @@ function maybe_rebase {
 }
 
 function rebase {
-    # if jungle is available and we can assume fetches were already done by just and so we rebase, otherwise we rebase pull
-    command -v jungle && git rebase || git pull --rebase || fail "Please resolve conflicts before continuing." 
+    # if rebasing we assume that jungle already fetched, so we try to directly rebase
+    git rebase || fail "Please resolve conflicts before continuing." 
 }
 
 function fail {
