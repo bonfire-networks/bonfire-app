@@ -314,10 +314,10 @@ update-deps: _pre-update-deps
 	just mix-remote updates
 
 update-repo: _pre-contrib-hooks
-	@chmod +x git-publish.sh && ./git-publish.sh . pull || git pull
+	just git-publish . pull || git pull
 
 update-repo-pull:
-	@chmod +x git-publish.sh && ./git-publish.sh . pull only
+	just git-publish . pull only
 
 # Update to the latest Bonfire extensions in ./deps
 update-deps-bonfire:
@@ -350,20 +350,20 @@ update-dep-simple dep:
 
 # Pull the latest commits from all forks
 @update-forks:
-	(just git-fetch-all && just update-forks-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull)
+	(just git-fetch-all && just update-forks-all rebase pr) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull pr)
 
-update-forks-all cmd='pull':
+update-forks-all cmd='pull' extra='pr':
 	just update-fork-path $EXT_PATH $cmd
 	just update-fork-path $EXTRA_FORKS_PATH $cmd
 
 # Pull the latest commits from all forks
-update-fork dep cmd='pull' mindepth='0' maxdepth='0':
-	-just update-fork-path $EXT_PATH/$dep $cmd $mindepth $maxdepth
-	-just update-fork-path $EXTRA_FORKS_PATH/$dep $cmd $mindepth $maxdepth
+update-fork dep cmd='pull' extra='pr' mindepth='0' maxdepth='0':
+	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}} {{extra}} {{mindepth}} {{maxdepth}}
+	-just update-fork-path $EXTRA_FORKS_PATH/{{dep}} {{cmd}} {{extra}} {{mindepth}} {{maxdepth}}
 
-update-fork-path path cmd='pull' mindepth='0' maxdepth='1':
+update-fork-path path cmd='pull' extra='pr' mindepth='0' maxdepth='1':
 	@chmod +x git-publish.sh
-	find $path -mindepth $mindepth -maxdepth $maxdepth -type d -exec ./git-publish.sh {} $cmd \;
+	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} {{cmd}} {{extra}} \;
 
 # Fetch locked versions of deps (Elixir and JS), including ones also cloned locally
 @deps-fetch *args='':
@@ -551,9 +551,9 @@ deps-git-fix:
 @git-conflicts:
 	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
-@git-publish:
+@git-publish dir='.' cmd='pull' extra='pr':
 	chmod +x git-publish.sh
-	./git-publish.sh
+	./git-publish.sh {{dir}} {{cmd}} {{extra}}
 
 #### TESTING RELATED COMMANDS ####
 

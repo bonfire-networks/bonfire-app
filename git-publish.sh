@@ -2,20 +2,44 @@
 DIR="${1:-$PWD}" 
 
 function maybe_rebase {
-    if [[ $1 == 'pull' ]] 
-    then
+    if [[ $1 == 'pull' ]]; then
         git pull --rebase || fail "Please resolve conflicts before continuing." 
     fi
 
-    if [[ $1 == 'rebase' ]] 
-    then
-        rebase
+    if [[ $1 == 'rebase' ]]; then
+        # if rebasing we assume that jungle already fetched, so we try to directly rebase
+        git rebase || fail "Please resolve conflicts before continuing." 
     fi
 }
 
-function rebase {
-    # if rebasing we assume that jungle already fetched, so we try to directly rebase
-    git rebase || fail "Please resolve conflicts before continuing." 
+function commit {
+    if [[ $1 == 'pr' ]]; then
+        echo "Here are the changes you made:"
+        git diff HEAD
+        branch_and_commit
+    else
+        git commit --verbose --all 
+    fi
+}
+
+function branch_and_commit {
+    read -p "Enter a description of these changes for the commit and related PR (leave empty to skip these changes for now) and press enter:" comment
+    if [[ -n "$comment" ]]; then
+        name=${comment// /_}
+        sanitized_name=${name//[^a-zA-Z0-9\-_]/}
+        (git checkout -b "PR-${sanitized_name}" || branch_and_commit) && git commit --all -m "$comment" && gh pr create --fill 
+    else
+        fail "No comment entered, skipping these changes..."
+    fi
+}
+
+function post_commit {
+    # merge/rebase local changes
+    maybe_rebase $1
+
+    if [[ $2 != 'only' ]]; then
+        git push && echo "Published changes!" 
+    fi
 }
 
 function fail {
@@ -30,34 +54,25 @@ cd $DIR
 
 git config core.fileMode false
 
-# add all changes (including untracked files)
-git add --all .
 
 set +e  # Grep succeeds with nonzero exit codes to show results.
 
-if LC_ALL=en_GB git status | grep -q -E 'Changes|modified|ahead'
-then
-    set -e
+if [ -z "$(git status --porcelain)" ]; then
+    # there are no changes
 
-    # if there are changes, commit them (needed before being able to rebase)
-    git diff-index --quiet HEAD || git commit --verbose --all || echo Skipped...
-
-    # if [[ $2 == 'pull' ]] 
-    # then
-    #     git fetch
-    # fi
-
-    # merge/rebase local changes
-    maybe_rebase $2
-
-    if [[ $3 != 'only' ]] 
-    then
-        git push && echo "Published changes!" 
-    fi
-
-else
     set -e
     echo "No local changes to push"
 
     maybe_rebase $2
+
+else
+    # there are changes
+    set -e
+
+    # add all changes (including untracked files)
+    git add --all .
+
+    # if there are changes, commit them (needed before being able to rebase)
+    (commit $3 && post_commit $2 $3) || echo "Skipped..."
+
 fi
