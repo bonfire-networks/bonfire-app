@@ -350,18 +350,18 @@ update-dep-simple dep:
 
 # Pull the latest commits from all forks
 @update-forks:
-	(just git-fetch-all && just update-forks-all rebase pr) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull pr)
+	(just git-fetch-all && just update-forks-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull)
 
-update-forks-all cmd='pull' extra='pr':
+update-forks-all cmd='pull' extra='':
 	just update-fork-path $EXT_PATH $cmd
 	just update-fork-path $EXTRA_FORKS_PATH $cmd
 
 # Pull the latest commits from all forks
-update-fork dep cmd='pull' extra='pr' mindepth='0' maxdepth='0':
+update-fork dep cmd='pull' extra='' mindepth='0' maxdepth='0':
 	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}} {{extra}} {{mindepth}} {{maxdepth}}
 	-just update-fork-path $EXTRA_FORKS_PATH/{{dep}} {{cmd}} {{extra}} {{mindepth}} {{maxdepth}}
 
-update-fork-path path cmd='pull' extra='pr' mindepth='0' maxdepth='1':
+update-fork-path path cmd='pull' extra='' mindepth='0' maxdepth='1':
 	@chmod +x git-publish.sh
 	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} {{cmd}} {{extra}} \;
 
@@ -551,7 +551,7 @@ deps-git-fix:
 @git-conflicts:
 	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
-@git-publish dir='.' cmd='pull' extra='pr':
+@git-publish dir='.' cmd='pull' extra='':
 	chmod +x git-publish.sh
 	./git-publish.sh {{dir}} {{cmd}} {{extra}}
 
