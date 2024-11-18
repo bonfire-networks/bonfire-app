@@ -432,38 +432,38 @@ const createEditor = async (_this, hidden_input, composer$) => {
 	//   });
 	// })
 
-	bold_btn.addEventListener("click", (e) => {
-		e.preventDefault();
-		editor.action((ctx) => {
-			const commandManager = ctx.get(commandsCtx);
-			const view = ctx.get(editorViewCtx);
-			const state = view.state;
-			const { from, to } = state.selection;
-			const isActive = state.schema.marks.strong.isInSet(
-				state.doc.rangeHasMark(from, to, state.schema.marks.strong),
-			);
+	// bold_btn.addEventListener("click", (e) => {
+	// 	e.preventDefault();
+	// 	editor.action((ctx) => {
+	// 		const commandManager = ctx.get(commandsCtx);
+	// 		const view = ctx.get(editorViewCtx);
+	// 		const state = view.state;
+	// 		const { from, to } = state.selection;
+	// 		const isActive = state.schema.marks.strong.isInSet(
+	// 			state.doc.rangeHasMark(from, to, state.schema.marks.strong),
+	// 		);
 
-			commandManager.call(toggleStrongCommand.key);
-			view.focus();
+	// 		commandManager.call(toggleStrongCommand.key);
+	// 		view.focus();
 
-			// Update button class based on the current state
-			// if (isActive) {
-			//   bold_btn.classList.remove('btn-active');
-			// } else {
-			//   bold_btn.classList.add('btn-active');
-			// }
-		});
-	});
+	// 		// Update button class based on the current state
+	// 		// if (isActive) {
+	// 		//   bold_btn.classList.remove('btn-active');
+	// 		// } else {
+	// 		//   bold_btn.classList.add('btn-active');
+	// 		// }
+	// 	});
+	// });
 
-	italic_btn.addEventListener("click", (e) => {
-		e.preventDefault();
-		editor.action((ctx) => {
-			const commandManager = ctx.get(commandsCtx);
-			const view = ctx.get(editorViewCtx);
-			commandManager.call(toggleEmphasisCommand.key);
-			view.focus();
-		});
-	});
+	// italic_btn.addEventListener("click", (e) => {
+	// 	e.preventDefault();
+	// 	editor.action((ctx) => {
+	// 		const commandManager = ctx.get(commandsCtx);
+	// 		const view = ctx.get(editorViewCtx);
+	// 		commandManager.call(toggleEmphasisCommand.key);
+	// 		view.focus();
+	// 	});
+	// });
 
 	// quote_btn.addEventListener('click', (e) => {
 	//   e.preventDefault();

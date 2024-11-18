@@ -86,8 +86,8 @@ config:
 setup:
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 
-init services="db": _pre-init 
-	@just services $services
+init services="db search": _pre-init 
+	@just services "{{services}}"
 	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
 
 @config-basic select_flavour=FLAVOUR:
@@ -169,13 +169,13 @@ prepare:
 
 # Run the app in development
 @dev *args='':
-	MIX_ENV=dev just dev-run "db" {{args}}
+	MIX_ENV=dev just dev-run "db search" {{args}}
 
 @dev-extra:
 	iex --sname extra --cookie $ERLANG_COOKIE --remsh localenv@127.0.0.1
 
-dev-run services="db" *args='': 
-	@just init $services
+dev-run services="db search" *args='': 
+	@just init "{{services}}"
 	{{ if WITH_DOCKER == "total" { "just dev-docker $args" } else { "iex --name localenv@127.0.0.1 --cookie $ERLANG_COOKIE -S mix phx.server $args" } }}
 # TODO: pass args to docker as well
 
@@ -183,7 +183,7 @@ dev-run services="db" *args='':
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
 @dev-app:
-	just init db
+	just init
 	cd rel/app/macos && ./run.sh
 
 dev-search: 
@@ -778,13 +778,13 @@ rel-push-only-alt build label='latest':
 
 # Run the app in Docker & starts a new `iex` console
 rel-run services="db proxy": _rel-init docker-stop-web 
-	just rel-services $services
+	just rel-services "{{services}}"
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
 	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
 rel-run-bg services="db proxy": _rel-init docker-stop-web
-	just rel-services $services
+	just rel-services "{{services}}"
 	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
 
 # Stop the running release
@@ -804,12 +804,12 @@ rel-down: rel-stop
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
 rel-shell services="db proxy": _rel-init docker-stop-web 
-	just rel-services $services
+	just rel-services "{{services}}"
 	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
 rel-shell-bg services="db proxy": _rel-init 
-	just rel-services $services
+	just rel-services "{{services}}"
 	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
@@ -825,17 +825,17 @@ rel-db-restore: _rel-init
 	just rel-services db
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
-rel-services services="db":
+rel-services services="db search":
 	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d $services" } else {""} }}
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
 # Start background docker services (eg. db and search backends).
-@services services="db":
-	{{ if MIX_ENV == "prod" { "just rel-services $services" } else { "just dev-services $services" } }}
+@services services="db search":
+	{{ if MIX_ENV == "prod" { "just rel-services \"$services\"" } else { "just dev-services \"$services\"" } }}
 
-@dev-services services="db":
-	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just docker-compose up -d $services) || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+@dev-services services="db search":
+	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just docker-compose up -d \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
 @build: init
