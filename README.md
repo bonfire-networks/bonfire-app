@@ -37,7 +37,7 @@ This repo includes configurations to run a few main [flavours of Bonfire](https:
 
 ## How to get the most out of the documentation
 
-- **Developers**: You'll probably be interested in understanding how to build on Bonfire. The [dev setup](/docs/DEPLOY.md) will guide you through the installation of bonfire on your local machine. In the [Just commands](/docs/topics/JUST.md) page you will gain familiarities with the basic Bonfire CLI commands. From there you may want to continue [developing a new extension](/docs/building/create-a-new-extension.md), or learning more about the internals and the [Bonfire architecture](/docs/topics/ARCHITECTURE.md).
+- **Developers**: You'll probably be interested in understanding how to build on Bonfire. The [dev setup](/docs/HACKING.md) will guide you through the installation of bonfire on your local machine. In the [Just commands](/docs/topics/JUST.md) page you will gain familiarities with the basic Bonfire CLI commands. From there you may want to continue [developing a new extension](/docs/building/create-a-new-extension.md), or learning more about the internals and the [Bonfire architecture](/docs/topics/ARCHITECTURE.md).
 
 - **Users**: Whether you are a user who is looking for an existing digital place to join, or want to understand more about how Bonfire works and how to get the most out of it, the [Community Manual](https://bonfirenetworks.org/#TODO) is a good place to start. There you can learn about how to customize your experience, what boundaries are and how to experience a new and safer way to interact with federated social networks.
 
