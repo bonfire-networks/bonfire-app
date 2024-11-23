@@ -319,7 +319,7 @@ config :live_view_native_stylesheet,
            end)
         |> Enum.reject(&is_nil/1)
     ]
-    |> IO.inspect(limit: :infinity),
+    |> Bonfire.Mixer.log("SwiftUI stylesheet paths"),
   output: "assets/static/assets"
 
 if Code.ensure_loaded?(Bonfire.Mixer) and Bonfire.Mixer.compile_disabled?() do
