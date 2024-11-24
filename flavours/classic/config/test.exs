@@ -18,8 +18,8 @@ config :bonfire_mailer, Bonfire.Mailer.Swoosh, adapter: Swoosh.Adapters.Test
 
 config :bonfire_common, Bonfire.Common.AntiSpam, service: Bonfire.Common.AntiSpam.Mock
 
-config :bonfire_search,
-  modularity: :disabled
+# use DB based search in tests by default
+config :bonfire_search, adapter: nil
 
 ## Other general test config
 
