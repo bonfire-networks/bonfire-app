@@ -2,7 +2,7 @@ import Config
 
 # see Bonfire.Search.RuntimeConfig for env vars configured at runtime
 config :bonfire_search,
-  adapter: Bonfire.Search.Meili
+  adapter: Bonfire.Search.MeiliLib
 
 # for use by API client
 # config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch}
