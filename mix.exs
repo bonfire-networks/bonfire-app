@@ -71,7 +71,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   #
                   # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
                   # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
-                  {:ex_doc, "~> 0.34.0", runtime: false},
+                  {:ex_doc, "~> 0.35.1", runtime: false},
                   {:ecto_erd, "~> 0.4", only: :dev},
                   {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
                   # {:ecto_dev_logger, "~> 0.7", only: :dev},
