@@ -584,13 +584,16 @@ test-remote *args='':
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch *args='':
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix mneme.watch --stale {{args}}
-# MIX_ENV=test just mix test.watch --stale --exclude mneme {{args}}
+	MIX_ENV=test just mix test.watch --stale --exclude mneme {{args}}
+
+test-watch-mneme *args='':
+	@echo "Testing {{args}}..."
+	MIX_ENV=test just mix mneme.watch --stale --include mneme {{args}}
 
 test-watch-full *args='':
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix mneme.watch {{args}}
-# MIX_ENV=test just mix test.watch --exclude mneme {{args}}
+	MIX_ENV=test just mix test.watch --exclude mneme {{args}}
+# MIX_ENV=test just mix mneme.watch {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive *args='':
