@@ -710,7 +710,7 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 _rel-compile-assets USE_EXT="local" ARGS="": 
 	-rm -rf priv/static
 	yarn -v || npm install --global yarn
-	git checkout HEAD -- "flavours/classic/config/flavour_assets/hooks/"
+	git checkout HEAD -- "flavours/*/config/flavour_assets/hooks/*"
 	just js-ext-deps
 	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
