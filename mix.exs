@@ -41,7 +41,7 @@ defmodule Bonfire.Umbrella.MixProject do
                      else: []
                    )
 
-  @maybe_ai if(System.get_env("ENABLE_AI") != "0",
+  @maybe_ai if(System.get_env("WITH_AI") != "0",
               do: [
                 {:bumblebee, "~> 0.6.0"},
                 {:nx, "~> 0.9.0"},

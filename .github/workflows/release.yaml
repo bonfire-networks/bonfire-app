@@ -24,7 +24,7 @@ jobs:
       ERLANG_VERSION: "27.1.2"
       ELIXIR_VERSION: "1.17.3"
       # TODO: read these ^ from .tool-versions.env
-      ENABLE_AI: "0"
+      WITH_AI: "0"
       WITH_LV_NATIVE: "0"
       WITH_IMAGE_VIX: "0"
       # ^ TEMP workaround for evision_nif crash on app start
@@ -96,7 +96,7 @@ jobs:
           #  ghcr.io/bonfire-networks/bonfire-app:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
           #  ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
           build-args: |
-            "ENABLE_AI=${{ env.ENABLE_AI }}"
+            "WITH_AI=${{ env.WITH_AI }}"
             "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
             "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
             "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
@@ -118,7 +118,7 @@ jobs:
       WITH_DOCKER: no
       MIX_ENV: prod
       TERM: linux
-      ENABLE_AI: 0
+      WITH_AI: 0
       WITH_LV_NATIVE: 0
     steps:
       - 
