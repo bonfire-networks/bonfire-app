@@ -24,10 +24,12 @@
 
   # set desired line length for both Elixir's code formatter and this one
   # (only affects opening tags in Surface)
-  line_length: 98
+  line_length: 98,
 
   # heex_line_length: 84,
 
   # or, set line length only for Surface code (overrides `line_length`)
-  # surface_line_length: 84
+  # surface_line_length: 84,
+
+  migrate_eex_to_curly_interpolation: false
 ]
