@@ -81,7 +81,7 @@ config:
 	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
 	just _pre-config $select_flavour
 	just _pre-setup-env $select_flavour
-	printf "\nNow make sure to finish the flavour setup with 'just setup-dev'. You can also edit your config for flavour '$select_flavour' in /.env and ./config/ more generally.\n"
+	printf "\nNow make sure to finish the flavour setup with 'just setup'. You can also edit your config for flavour '$select_flavour' in /.env and ./config/ more generally.\n"
 
 setup:
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}

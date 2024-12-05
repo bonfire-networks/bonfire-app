@@ -132,7 +132,7 @@ Running a custom build without Docker.
 
 - Postgres (or Postgis) version 12 or newer
 - [just](https://github.com/casey/just#packages)
-- Elixir version 1.15+ with OTP 25+ (see the `Dockerfile` to double check the versions we're currently using). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf. **Note: Source versions of Elixir >1.17 and <1.17.3 have bugs that can freeze compilation when using pathex, which bonfire does.** Many distros have patched around this, but in some, such as Gentoo, they have not, but 1.17.3 fixes this.
+- Elixir version 1.15+ with OTP 25+ (see the `.tool-versions` to double check the versions we're currently using). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf. **Note: Source versions of Elixir >=1.17 and <1.17.3 have bugs that can freeze compilation when using the Pathex library, which bonfire does,** so please use 1.16 or 1.17.3+.
 
 2. Clone this repository and change into the directory:
 
@@ -150,7 +150,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 4. Run `just config` to initialise some default config and then edit the config in the `./.env` file (see [prepare the config](#preparing-the-config-in-env) for details about what to edit).
  
-5. Run `just setup` (not setup-dev as suggested by the output of the `just config` step).
+5. Run `just setup-prod`
 
 6. Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. Note that you will need `just` to pass in the `.env` file to the executable, like so: `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Alternatively, this file can be sourced by `source .env` instead. We will be using the `bin/bonfire` executable as called from `just` from here on. 
 
@@ -174,11 +174,11 @@ You may also want to put this in the appropriate place in your system so your ch
 
 The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker compose setup).
 
-Caddyserver and other servers can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
+Some web servers (like Caddy or Traefik) can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
 
-If you've built from source, you should point the nginx root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
+There is an example nginx configuration provided at `flavours/classic/config/deploy/nginx.conf` and one for Caddy at `flavours/classic/config/deploy/Caddyfile2-https`
 
-There is an example nginx configuration provided at `flavours/classic/config/deploy/nginx.conf`
+> NOTE: If you've built from source, you should point the web server root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
 
 ### Nix
 
