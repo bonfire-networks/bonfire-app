@@ -162,7 +162,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 - If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
 
-- You may also need to enable the `postgis` extension manually by running `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
+- You may also need to enable the `postgis` extension manually by running `CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;` on your database with elevated privileges.
 
 - You can check if your instance is configured correctly and get to the iex console by running `bin/bonfire start`
 
