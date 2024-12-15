@@ -43,7 +43,8 @@ services:
     user: $UID:$GID
   db:
     image: ${DB_DOCKER_IMAGE}
-    # volumes:
+    volumes:
+      - db-data:/var/lib/postgresql/data
       # - ./data/postgres/dev:/var/lib/postgresql/data:z
       # - /etc/passwd:/etc/passwd:ro 
     ports:
@@ -60,11 +61,12 @@ services:
   search:
     profiles:
       - search
-    image: getmeili/meilisearch:latest
+    image: getmeili/meilisearch:v1
     ports:
       - "7700:7700"
-    # volumes:
-      # - "./data/search/dev:/data.ms"
+    volumes:  
+      - "search-data:/meili_data"
+      # - "./data/search/dev:/meili_data"
       # - /etc/passwd:/etc/passwd:ro 
     env_file:
       - config/dev/.env
@@ -116,6 +118,8 @@ services:
   #     - mzdata:/mzdata
 
 volumes:
+  db-data:
+  search-data:
   caddy_data:
     # external: true
   caddy_config:

@@ -49,7 +49,7 @@ services:
     image: ${DB_DOCKER_IMAGE}
     restart: always
     volumes:
-      - "./data/postgres/prod:/var/lib/postgresql/data"
+      - "db-data:/var/lib/postgresql/data"
     # ports:
     #   - "5432:5432"
     # shm_size: 1000
@@ -58,15 +58,17 @@ services:
   search:
     profiles:
       - search
-    image: getmeili/meilisearch:latest
+    image: getmeili/meilisearch:v1
     # ports:
       # - "7700:7700"
     volumes:
-      - "./data/search/prod:/data.ms"
+      - "search-data:/meili_data"
     env_file:
       - config/prod/.env
 
 volumes:
+  db-data:
+  search-data:
   caddy_data:
     # external: true
   caddy_config:
