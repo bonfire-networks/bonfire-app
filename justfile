@@ -605,36 +605,40 @@ ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
 ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
-test-federation: test-federation-dance-positions
+test-federation: _test-dance-positions
 	just test-stale {{ ap_lib }}
 	just test-stale {{ ap_integration }}
 	just test-stale {{ ap_ext }}
-	just test-federation-dance-positions
-	just test-db-federation-dance-reset
+	just _test-dance-positions
+	just _test-db-dance-reset
 	TEST_INSTANCE=yes just test-stale --only test_instance
-	just test-federation-dance-positions
+	just _test-dance-positions
 
-test-federation-lib *args=ap_lib: test-federation-dance-positions
+test-federation-lib *args=ap_lib: _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-bonfire *args=ap_integration: test-federation-dance-positions
+test-federation-bonfire *args=ap_integration: _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": test-federation-dance-positions
+test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-in-extensions *args=ap_ext: test-federation-dance-positions
+test-federation-in-extensions *args=ap_ext: _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-dance *args='': test-federation-dance-positions test-db-federation-dance-reset
+test-federation-dance *args='': _test-dance-positions _test-db-dance-reset
 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
-	just test-federation-dance-positions
+	just _test-dance-positions
 
-test-federation-dance-unsigned *args='': test-federation-dance-positions test-db-federation-dance-reset
+test-federation-dance-unsigned *args='': _test-dance-positions _test-db-dance-reset
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
-	just test-federation-dance-positions
+	just _test-dance-positions
 
-test-federation-dance-positions: 
+test-openid-dance *args='extensions/bonfire_open_id/test': _test-dance-positions _test-db-dance-reset
+	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}} 
+	just _test-dance-positions
+
+_test-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 test-federation-live-DRAGONS *args='':
@@ -647,10 +651,10 @@ load_testing:
 # 	just docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
 # Create or reset the test DB
-test-db-reset: init db-pre-migrations test-db-federation-dance-reset
+test-db-reset: init db-pre-migrations _test-db-dance-reset
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 
-test-db-federation-dance-reset: init db-pre-migrations
+_test-db-dance-reset: init db-pre-migrations
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
