@@ -27,3 +27,6 @@ config :activity_pub, :instance, federating: false
 config :live_view_native_stylesheet,
   annotations: false,
   pretty: false
+
+# temporarily disable the following  
+config :bonfire_ui_social, Bonfire.UI.Social.WidgetFeedLive, modularity: :disabled
