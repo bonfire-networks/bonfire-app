@@ -89,7 +89,7 @@ if not Code.ensure_loaded?(Mess) do
     defp maybe_filter_invalid_paths(deps, _opts) do
       Enum.reject(deps, fn dep ->
         dep_opts = elem(dep, 1)
-        is_list(dep_opts) and dep_opts[:path] && not File.exists?("#{dep_opts[:path]}/mix.exs")
+        (is_list(dep_opts) and dep_opts[:path]) && not File.exists?("#{dep_opts[:path]}/mix.exs")
       end)
     end
 

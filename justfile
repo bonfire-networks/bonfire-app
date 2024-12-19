@@ -388,6 +388,9 @@ update-fork-path path cmd='pull' extra='' mindepth='0' maxdepth='1':
 deps-clean *args='':
 	just mix deps.clean --build {{args}}
 
+@deps-clean-bonfire:
+	just mix bonfire.deps.clean
+
 @deps-clean-data:
 	just mix bonfire.deps.clean.data
 
