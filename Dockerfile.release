@@ -21,7 +21,8 @@ RUN sh deps-alpine-build.sh
 
 # RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
 
-ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ ENABLE_AI=$ENABLE_AI ENABLE_IMAGE_VIX=$ENABLE_IMAGE_VIX
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ ENABLE_AI=$ENABLE_AI ENABLE_IMAGE_VIX=$ENABLE_IMAGE_VIX XLA_BUILD=true
+# Note: XLA_BUILD is set to true to compile XLA (use for some AI features) to avoid an error like "no precompiled XLA archive available for this target: x86_64-linux-musl-cpu" (or aarch64-linux-musl-cpu)
 WORKDIR $HOME
 
 # Prepare elixir deps 
