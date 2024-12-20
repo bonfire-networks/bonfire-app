@@ -145,6 +145,7 @@ config :surface_catalogue,
   subtitle: "Surface Components Documentation & Examples"
 
 config :iconify_ex,
+  env: config_env(),
   generated_icon_app: :bonfire_ui_common,
   mode: :css,
   using_svg_inject: true,
