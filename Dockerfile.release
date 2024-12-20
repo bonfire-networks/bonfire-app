@@ -10,8 +10,8 @@ FROM hexpm/elixir:${ELIXIR_DOCKER_IMAGE} as builder
 ARG FLAVOUR
 ARG FLAVOUR_PATH
 ARG FORKS_TO_COPY_PATH
-ARG ENABLE_AI
-ARG ENABLE_IMAGE_VIX
+ARG WITH_AI
+ARG WITH_IMAGE_VIX
 
 # necessary utils + dependencies 
 COPY --link deps-alpine.sh ./
@@ -21,8 +21,9 @@ RUN sh deps-alpine-build.sh
 
 # RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
 
-ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ ENABLE_AI=$ENABLE_AI ENABLE_IMAGE_VIX=$ENABLE_IMAGE_VIX XLA_BUILD=true
-# Note: XLA_BUILD is set to true to compile XLA (use for some AI features) to avoid an error like "no precompiled XLA archive available for this target: x86_64-linux-musl-cpu" (or aarch64-linux-musl-cpu)
+ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ WITH_AI=$WITH_AI WITH_IMAGE_VIX=$WITH_IMAGE_VIX 
+# XLA_BUILD=true
+# Note: we may want to set XLA_BUILD to true to compile XLA (use for some AI features) to avoid an error like "no precompiled XLA archive available for this target: x86_64-linux-musl-cpu" (or aarch64-linux-musl-cpu), but this requires the bazel build tool not available in alpine repos yet 
 WORKDIR $HOME
 
 # Prepare elixir deps 
