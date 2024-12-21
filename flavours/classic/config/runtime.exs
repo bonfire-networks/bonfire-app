@@ -85,7 +85,7 @@ cute_gifs_dir = System.get_env("CUTE_GIFS_DIR", "data/uploads/cute-gifs/")
 config :bonfire,
   # how many nested replies to show
   thread_default_max_depth: 7,
-  feed_live_update_many_preloads: :async_actions,
+  feed_live_update_many_preload_mode: :async_actions,
   host: host,
   default_cache_hours: String.to_integer(System.get_env("BONFIRE_CACHE_HOURS", "3")),
   app_name: System.get_env("APP_NAME", "Bonfire"),
