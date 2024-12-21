@@ -1,10 +1,13 @@
 import Config
 
+yes? = ~w(true yes 1)
+no? = ~w(false no 0)
+
 default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
 flavour_path = System.get_env("FLAVOUR_PATH", "flavours/" <> flavour)
 project_root = File.cwd!()
-as_desktop_app? = System.get_env("AS_DESKTOP_APP") in ["1", "true"]
+as_desktop_app? = System.get_env("AS_DESKTOP_APP") in yes?
 env = config_env()
 
 bonfire_deps =
@@ -34,7 +37,7 @@ config :bonfire,
   flavour_path: flavour_path,
   app_name: System.get_env("APP_NAME", "Bonfire"),
   repo_module: repo,
-  use_pathex: System.get_env("WITH_PATHEX") != "0",
+  use_pathex: System.get_env("WITH_PATHEX") not in no?,
   web_module: Bonfire.UI.Common.Web,
   endpoint_module: if(as_desktop_app?, do: Bonfire.Desktop.Endpoint, else: Bonfire.Web.Endpoint),
   mailer_module: Bonfire.Mailer,
@@ -322,7 +325,7 @@ if Code.ensure_loaded?(Bonfire.Mixer) and Bonfire.Mixer.compile_disabled?() do
   end
 end
 
-if System.get_env("WITH_API_GRAPHQL") != "yes" do
+if System.get_env("WITH_API_GRAPHQL") not in yes? do
   config :bonfire_api_graphql,
     modularity: :disabled
 else
