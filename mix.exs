@@ -92,7 +92,7 @@ defmodule Bonfire.Umbrella.MixProject do
                     # NOTE: exqlite not working in CI
                     only: [:dev], runtime: false
                   },
-                  {:recode, "~> 0.4", only: :dev},
+                  # {:recode, "~> 0.4", only: :dev},
                   # API client needed for changelog generation
                   {:neuron, "~> 5.0", only: :dev, override: true},
                   # note: cannot use only: dev
@@ -104,7 +104,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   # for extension install + mix tasks that do patching
                   {
                     :igniter,
-                    "~> 0.3.20",
+                    "~> 0.5",
                     # path: "forks/igniter",
                     # git: "https://github.com/ash-project/igniter",
                     only: [:dev, :test], override: true
@@ -134,7 +134,7 @@ defmodule Bonfire.Umbrella.MixProject do
                   # "~> 1.6.7", # version used by archeometer
                   {:credo, "~> 1.7.10", only: [:dev, :test], override: true},
                   # NOTE: not compatible with the credo version needed for archeometer
-                  {:mneme, ">= 0.0.0", only: [:dev, :test]},
+                  {:mneme, ">= 0.10.0", only: [:dev, :test]},
                   # used in unfurl
                   # {:bypass, "~> 2.1", only: :test},
                   {:assert_value, ">= 0.0.0", only: [:dev, :test]},
