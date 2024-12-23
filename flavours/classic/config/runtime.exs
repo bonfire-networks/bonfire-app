@@ -233,14 +233,20 @@ config :bonfire, Oban,
     {Oban.Plugins.Cron,
      crontab:
        [
-         #  generate static pages for guests every 10 min
-         {"*/10 * * * *", Bonfire.UI.Common.StaticGenerator, max_attempts: 3},
          {"@daily", ActivityPub.Pruner.PruneDatabaseWorker, max_attempts: 1}
        ] ++
+         if Bonfire.Common.Extend.module_enabled?(Bonfire.UI.Common.StaticGenerator) do
+           #  generate static pages for guests every X min
+           interval = if config_env() == :prod, do: 10, else: 60
+           IO.puts("Static pages will be generated and cached every #{interval} minutes.")
+
+           [{"*/#{interval} * * * *", Bonfire.UI.Common.StaticGenerator, max_attempts: 3}]
+         else
+           IO.puts("Static pages will not be cached")
+           []
+         end ++
          if Bonfire.Common.Extend.extension_enabled?(:bonfire_open_science) do
-           IO.puts(
-             "Open science publications will be fetched for all users at regular intervals."
-           )
+           IO.puts("Open science publications will be fetched for all users once an hour.")
 
            [{"@hourly", Bonfire.OpenScience.APIs}]
          else

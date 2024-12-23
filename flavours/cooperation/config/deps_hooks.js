@@ -11,8 +11,8 @@ let ExtensionHooks = {};
 // import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
 // import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
 
-import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
-import { TooltipHooks } from "./../../../deps/bonfire_ui_common/assets/js/tooltip"
+// import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
+// import { TooltipHooks } from "./../../../deps/bonfire_ui_common/assets/js/tooltip"
 // import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
 
 // import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
@@ -31,6 +31,6 @@ import { EncryptHooks } from "./../../../deps/bonfire_encrypt/assets/js/extensio
 // import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
 import LiveSelect from "./../../../deps/live_select/priv/static/live_select.min.js"
 
-Object.assign(ExtensionHooks, CopyHooks, TooltipHooks, LiveSelect, GeolocateHooks, KanbanHooks, EncryptHooks) // EditorCkHooks, EditorQuillHooks
+Object.assign(ExtensionHooks,  LiveSelect, GeolocateHooks, KanbanHooks, EncryptHooks) // EditorCkHooks, EditorQuillHooks
  
 export { ExtensionHooks }

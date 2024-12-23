@@ -9,9 +9,9 @@ let ExtensionHooks = {};
 // import { NotificationsHooks } from "./../../../deps/bonfire_ui_common/assets/js/notifications"
 // import { ResponsiveTabsHooks } from "./../../../deps/bonfire_ui_common/assets/js/responsive_tabs"
 // import { ThemeHooks } from "./../../../deps/bonfire_ui_common/assets/js/theme"
-import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
+// import { CopyHooks } from "./../../../deps/bonfire_ui_common/assets/js/copy"
 // import { PopupHooks } from "./../../../deps/bonfire_ui_common/assets/js/popup"
-import { TooltipHooks } from "./../../../deps/bonfire_ui_common/assets/js/tooltip"
+// import { TooltipHooks } from "./../../../deps/bonfire_ui_common/assets/js/tooltip"
 // import { FeedHooks } from "./../../../deps/bonfire_ui_common/assets/js/feed"
 // import { InfiniteScrollHooks } from "./../../../deps/bonfire_ui_common/assets/js/infinite_scroll"
 // import { ImageHooks } from "./../../../deps/bonfire_ui_common/assets/js/image"
@@ -31,6 +31,6 @@ import { TooltipHooks } from "./../../../deps/bonfire_ui_common/assets/js/toolti
 // import LiveSelect from "./../../../deps/live_select/assets/js/live_select"
 import LiveSelect from "./../../../deps/live_select/priv/static/live_select.min.js"
 
-Object.assign(ExtensionHooks, CopyHooks, TooltipHooks, LiveSelect) // EditorCkHooks, EditorQuillHooks
+Object.assign(ExtensionHooks, LiveSelect) // CopyHooks, TooltipHooks, EditorCkHooks, EditorQuillHooks
 
 export { ExtensionHooks }
