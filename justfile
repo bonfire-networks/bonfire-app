@@ -209,11 +209,11 @@ dev-federate:
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
 
 dev-docker *args='': docker-stop-web
-	just docker-compose $args run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
+	just docker-compose {{args}} run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
 
 # Generate docs from code & readmes
-docs:
-	just mix docs
+docs *args='':
+	just mix docs {{args}}
 
 # Analyse the codebase and generate some reports. Requires Graphviz and SQLite
 arch:
@@ -232,12 +232,12 @@ arch:
 
 # Compile the app + extensions
 compile *args='':
-	just mix bonfire.extension.compile $args
-	just mix compile $args
+	just mix bonfire.extension.compile {{args}}
+	just mix compile {{args}}
 
 # Force the app + extensions to recompile
 recompile *args='':
-	just compile --force $args
+	just compile --force {{args}}
 
 dev-test:
 	@MIX_ENV=test PHX_SERVER=yes just dev-run
@@ -562,17 +562,17 @@ deps-git-fix:
 
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
 test *args='':
-	@echo "Testing $args..."
-	MIX_ENV=test just mix test $args
+	@echo "Testing {{args}}..."
+	MIX_ENV=test just mix test {{args}}
 
 # test-federation *args='':
-# 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation $args
+# 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation {{args}}
 
 test-backend *args='':
-	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend $args
+	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend {{args}}
 
 test-ui *args='':
-	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --exclude todo --include ui $args
+	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --exclude todo --include ui {{args}}
 
 # Run only stale tests
 test-stale *args='':
