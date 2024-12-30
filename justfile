@@ -923,6 +923,12 @@ xref-dot:
 	(awk '{if (!a[$0]++ && $1 != "}") print}' extensions/*/xref_graph.dot; echo }) > docs/xref_graph.dot
 	dot -Tsvg docs/xref_graph.dot -o docs/xref_graph.svg
 
+db-schema-ecto-image format="dot" image_format="svg":
+	just db-schema-ecto {{ format }} && dot -T{{ image_format }} docs/db_schema_ecto_erd.{{ format }} -o docs/db_schema_ecto_erd.{{ image_format }} 
+
+db-schema-ecto format="dot":
+	just mix ecto.gen.erd --output-path=docs/db_schema_ecto_erd.{{ format }}
+
 # Run a specific exh command, see https://github.com/rowlandcodes/exhelp
 exh *args='':
 	just cmd "exh -S mix {{args}}"
