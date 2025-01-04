@@ -152,22 +152,6 @@ config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo,
 # config :tzdata, :autoupdate, :disabled
 # config :elixir, :time_zone_database, Tz.TimeZoneDatabase # FIXME: disabled for now because crashes on Yunohost / Debian 11
 
-finch_conn_opts = [case_sensitive_headers: true]
-
-finch_pools = %{
-  :default => [size: 42, count: 2, conn_opts: finch_conn_opts],
-  "https://icons.duckduckgo.com" => [
-    conn_opts: [transport_opts: [size: 8, timeout: 3_000, conn_opts: finch_conn_opts]]
-  ],
-  "https://www.google.com/s2/favicons" => [
-    conn_opts: [transport_opts: [size: 8, timeout: 3_000, conn_opts: finch_conn_opts]]
-  ]
-}
-
-# config :tesla, adapter: Tesla.Adapter.Hackney
-config :bonfire, :finch_pools, finch_pools
-config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
-
 config :logger,
   handle_otp_reports: true,
   handle_sasl_reports: true

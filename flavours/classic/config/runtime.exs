@@ -141,26 +141,36 @@ config :bonfire, Bonfire.Web.Endpoint,
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
 
-case System.get_env("SENTRY_DSN", "") do
-  "" ->
-    config :sentry, modularity: :disabled
+# HTTP client(s) configuration
 
-  dsn ->
-    IO.puts("NOTE: errors will be reported to Sentry.")
+proxy =
+  case System.get_env("HTTP_PROXY_URL") do
+    nil ->
+      nil
 
-    config :sentry,
-      dsn: dsn,
-      integrations: [
-        oban: [
-          capture_errors: true,
-          cron: [enabled: true]
-        ]
-      ]
+    uri ->
+      uri =
+        uri
+        |> URI.parse()
 
-    if System.get_env("SENTRY_NAME") do
-      config :sentry, server_name: System.get_env("SENTRY_NAME")
-    end
-end
+      {String.to_existing_atom(uri.scheme), uri.host, uri.port, []}
+  end
+
+finch_conn_opts = [case_sensitive_headers: true, proxy: proxy]
+
+finch_pools = %{
+  :default => [size: 42, count: 2, conn_opts: finch_conn_opts],
+  "https://icons.duckduckgo.com" => [
+    conn_opts: [transport_opts: [size: 8, timeout: 3_000, conn_opts: finch_conn_opts]]
+  ],
+  "https://www.google.com/s2/favicons" => [
+    conn_opts: [transport_opts: [size: 8, timeout: 3_000, conn_opts: finch_conn_opts]]
+  ]
+}
+
+# config :tesla, adapter: Tesla.Adapter.Hackney
+config :bonfire, :finch_pools, finch_pools
+config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
 
 pool_size =
   case System.get_env("POOL_SIZE") do
@@ -207,6 +217,10 @@ config :paginator, Paginator.Repo, pool_size: pool_size
 repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
 config :bonfire_umbrella, Bonfire.Common.Repo, priv: repo_path
 config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, priv: repo_path
+
+config :ecto_sparkles,
+  slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
+  queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
 
 config :bonfire, Oban,
   repo: Bonfire.Common.Repo,
@@ -340,9 +354,28 @@ else
     modularity: :disabled
 end
 
-config :ecto_sparkles,
-  slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
-  queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
+# Error reporting
+
+case System.get_env("SENTRY_DSN", "") do
+  "" ->
+    config :sentry, modularity: :disabled
+
+  dsn ->
+    IO.puts("NOTE: errors will be reported to Sentry.")
+
+    config :sentry,
+      dsn: dsn,
+      integrations: [
+        oban: [
+          capture_errors: true,
+          cron: [enabled: true]
+        ]
+      ]
+
+    if System.get_env("SENTRY_NAME") do
+      config :sentry, server_name: System.get_env("SENTRY_NAME")
+    end
+end
 
 # config :untangle, level: :error
 
