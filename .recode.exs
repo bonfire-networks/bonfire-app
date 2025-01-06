@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 [
   version: "0.7.3",
   # Can also be set/reset with `--autocorrect`/`--no-autocorrect`.

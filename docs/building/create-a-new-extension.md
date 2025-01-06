@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Create a new extension
     
 Extensions in Bonfire are powerful tools that allow you to extend the functionality and features of your application.

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 # if Code.ensure_loaded?(ExSync) && function_exported?(ExSync, :register_group_leader, 0) do
 #   ExSync.register_group_leader()
 # end

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Bonfire Changelog
 
 ## [0.3.5-beta (2022-09-23)]
