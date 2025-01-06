@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Make changes to an extension
   
 This tutorial guides you through the process of editing an existing Bonfire extension. We'll cover how to clone, enable, and contribute to an extension, ensuring you can test and implement your changes effectively.

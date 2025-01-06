@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Just commands
 
 Welcome to this guide on navigating the world of Bonfire development, is crafted especially for people taking their first steps in Bonfire or looking to refine their workflow.
