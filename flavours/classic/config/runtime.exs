@@ -143,20 +143,21 @@ config :bonfire, Bonfire.Web.Endpoint,
 
 # HTTP client(s) configuration
 
-proxy =
-  case System.get_env("HTTP_PROXY_URL") do
-    nil ->
-      nil
+finch_conn_opts = [case_sensitive_headers: true]
 
-    uri ->
-      uri =
-        uri
-        |> URI.parse()
+finch_conn_opts =
+  finch_conn_opts ++
+    case System.get_env("HTTP_PROXY_URL") do
+      nil ->
+        []
 
-      {String.to_existing_atom(uri.scheme), uri.host, uri.port, []}
-  end
+      uri ->
+        uri =
+          uri
+          |> URI.parse()
 
-finch_conn_opts = [case_sensitive_headers: true, proxy: proxy]
+        [proxy: {String.to_existing_atom(uri.scheme), uri.host, uri.port, []}]
+    end
 
 finch_pools = %{
   :default => [size: 42, count: 2, conn_opts: finch_conn_opts],
