@@ -70,6 +70,9 @@ if !federate? do
     adapter: Tesla.Mock
 end
 
+# Configure Req.Test stubs
+config :bonfire_rss, :req_options, plug: {Req.Test, Bonfire.RSS}
+
 #  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE 
 config :activity_pub, :instance, federating: true
 
