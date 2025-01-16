@@ -224,6 +224,7 @@ config :ecto_sparkles,
   queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
 
 config :bonfire, Oban,
+  notifier: Oban.Notifiers.PG,
   repo: Bonfire.Common.Repo,
   # avoid extra PubSub chatter as we don't need that much precision
   insert_trigger: false,
@@ -274,6 +275,7 @@ config :activity_pub, :oban_queues,
   retries: [federator_incoming: 2, federator_outgoing: 3, remote_fetcher: 1]
 
 config :activity_pub, Oban,
+  notifier: Oban.Notifiers.PG,
   # to avoid running it twice
   queues: false,
   repo: Bonfire.Common.Repo
