@@ -63,7 +63,7 @@ Bonfire.Common.Utils.maybe_apply(Bonfire.Social.Graph, :maybe_applications, [],
 ```elixir
 <StatefulComponent
     :if={current_user(@__context__)}
-    module={maybe_component(Bonfire.UI.Boundaries.Web.MyCirclesLive, @__context__)}
+    module={maybe_component(Bonfire.UI.Boundaries.MyCirclesLive, @__context__)}
     id="circles"
 scope={@scope}
 />
