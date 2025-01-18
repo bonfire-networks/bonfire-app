@@ -126,7 +126,7 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
         cd: Path.expand("assets", File.cwd!())
       ],
       yarn: [
-        "watch.tailwindcss",
+        "watch.css",
         cd: Path.expand("assets", File.cwd!())
       ],
       yarn: [
