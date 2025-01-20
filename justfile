@@ -641,6 +641,10 @@ test-openid-dance *args='extensions/bonfire_open_id/test': _test-dance-positions
 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}} 
 	just _test-dance-positions
 
+# test-boostomatic-dance *args='extensions/boostomatic/test': _test-dance-positions _test-db-dance-reset
+# 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only live_federation {{args}} 
+# 	just _test-dance-positions
+
 _test-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
