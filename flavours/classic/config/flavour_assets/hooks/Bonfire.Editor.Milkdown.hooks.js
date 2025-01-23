@@ -7,14 +7,11 @@ import {
 	editorViewOptionsCtx,
 	Editor,
 	editorViewCtx,
-	commandsCtx,
 	rootCtx,
 } from "@milkdown/kit/core";
 import { $prose, replaceAll, insert } from "@milkdown/utils";
 import {
 	commonmark,
-	toggleStrongCommand,
-	toggleEmphasisCommand,
 } from "@milkdown/kit/preset/commonmark";
 import { gfm } from "@milkdown/kit/preset/gfm";
 import { emoji } from "@milkdown/plugin-emoji";
@@ -211,28 +208,30 @@ function emojisPluginView() {
 // }
 
 function getFeedItems(queryText, prefix) {
-	// console.log(prefix)
-	if (queryText && queryText.length > 0) {
-		return new Promise((resolve) => {
-			// this requires the bonfire_tag extension
-			fetch("/api/tag/autocomplete/ck5/" + prefix + "/" + queryText)
-				.then((response) => response.json())
-				.then((data) => {
-					console.log("data");
-					console.log(data);
-					let values = data.map((item) => ({
-						id: item.id,
-						value: item.name,
-						icon: item.icon,
-					}));
-					resolve(values);
-				})
-				.catch((error) => {
-					console.error("There has been a problem with the tag search:", error);
-					resolve([]);
-				});
-		});
-	} else return [];
+  if (!queryText?.length) return Promise.resolve([]);
+
+  return fetch("/api/tag/autocomplete/ck5/" + prefix + "/" + queryText)
+    .then(response => {
+      console.log(response); // Add this line to log the response to the console for debugging purposes in the browser dev tools pan
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data); // Add this line to log the data to the console for debugging purposes in the browser dev tools pan
+      console.log("qui")
+      return data.map(item => ({
+        id: item.id,
+        value: item.name,
+        icon: item.icon,
+      }));
+    })
+    .catch(error => {
+      console.error("Tag search error:", error);
+      return [];
+    });
 }
 
 const mentionItemRenderer = (item, text) => {
@@ -314,8 +313,39 @@ const mentionSlash = slashFactory("mentions-slash");
 const emojisSlash = slashFactory("emojis-slash");
 // const slash = slashFactory('slash');
 // let isUpdatingMarkdown = false;
+const setupPicker = (editor, trigger) => {
+  if (!trigger) {
+    console.warn("Emoji button not found");
+    return { picker: null, cleanup: () => {} };
+  }
+  
+  const picker = createPopup(
+    {},
+    {
+      referenceElement: trigger,
+      triggerElement: trigger,
+      emojiSize: "1.75rem",
+      className: "z-[99999999999999999999]",
+    }
+  );
+
+  const toggleHandler = () => picker.toggle();
+  trigger.addEventListener("click", toggleHandler);
+  
+  return {
+    picker,
+    cleanup: () => {
+      trigger.removeEventListener("click", toggleHandler);
+      picker.destroy();
+    }
+  };
+};
 
 const createEditor = async (_this, hidden_input, composer$) => {
+  if (!hidden_input || !composer$) {
+    throw new Error("Required elements not found");
+  }
+
 	const editor = await Editor.make()
 		.config((ctx) => {
 			ctx.set(rootCtx, "#editor");
@@ -368,47 +398,21 @@ const createEditor = async (_this, hidden_input, composer$) => {
 		.create();
 
 	const trigger = document.querySelector(".emoji-button");
+  const { picker, cleanup: cleanupPicker } = setupPicker(editor, trigger);
+  
+  if (picker) {
+    picker.addEventListener("emoji:select", (event) => {
+      editor.action((ctx) => {
+        const view = ctx.get(editorViewCtx);
+        view.dispatch(view.state.tr.insertText(event.emoji + " "));
+        view.focus();
+      });
+    });
+  }
 
-	trigger.addEventListener("click", () => {
-		picker.toggle();
-	});
-
-	const picker = createPopup(
-		{},
-		{
-			referenceElement: trigger,
-			triggerElement: trigger,
-			emojiSize: "1.75rem",
-			className: "z-[99999999999999999999]",
-		},
-	);
-
-	picker.addEventListener("emoji:select", (event) => {
-		console.log(event.emoji);
-		editor.action((ctx) => {
-			const view = ctx.get(editorViewCtx);
-			const { state } = view;
-			const { selection } = state;
-			view.dispatch(view.state.tr.insertText(event.emoji + " "));
-			view.focus();
-		});
-	});
-
-	const submit_btn = document.getElementById("submit_btn");
-	const heading_btn = document.getElementById("heading_btn");
-	const bold_btn = document.getElementById("bold_btn");
-	const italic_btn = document.getElementById("italic_btn");
-
-	// const quote_btn = document.getElementById('quote_btn');
-	// const strike_btn = document.getElementById('strike_btn');
-	// const table_btn = document.getElementById('table_btn');
 	_this.handleEvent("smart_input:reset", ({ text }) => {
 		editor.action(replaceAll(""));
 	});
-
-	// submit_btn.addEventListener('click', (e) => {
-	//   editor.action(replaceAll(''))
-	// })
 
 	_this.handleEvent("mention_suggestions", ({ text }) => {
 		// replace the current text with the text from the event
@@ -535,44 +539,54 @@ const createEditor = async (_this, hidden_input, composer$) => {
 		}
 	});
 
-	return editor;
+	return {
+    editor,
+    cleanup: () => {
+      cleanupPicker?.();
+      composer$.removeEventListener("click", handleComposerClicks);
+      editor?.destroy();
+    }
 };
+}
 
 export default {
-	mounted() {
-		console.log("ssss");
-		window.addEventListener("bonfire:focus-composer", (event) => {
-			const composerContainer = document.querySelector("#composer_container");
-			if (composerContainer) {
-				const contentEditableDiv =
-					composerContainer.querySelector("[contenteditable]");
-				if (contentEditableDiv) {
-					contentEditableDiv.focus();
-					// Place the cursor at the end of the content
-					const range = document.createRange();
-					const selection = window.getSelection();
-					range.selectNodeContents(contentEditableDiv);
-					range.collapse(false);
-					selection.removeAllRanges();
-					selection.addRange(range);
-				}
-			}
-		});
-		const hidden_input = document.getElementById("editor_hidden_input");
-		const composer$ = this.el.querySelector("#editor");
-		createEditor(this, hidden_input, composer$);
-	},
+  mounted() {
+    const hidden_input = document.getElementById("editor_hidden_input");
+    const composer$ = this.el.querySelector("#editor");
 
-	destroyed() {
-		// Clean up event listener when the component is destroyed
-		window.removeEventListener(
-			"bonfire:focus-composer",
-			this.focusComposerHandler,
-		);
+    this.focusComposerHandler = (event) => {
+      const contentEditableDiv = this.el.querySelector("[contenteditable]");
+      if (!contentEditableDiv) return;
+      
+      contentEditableDiv.focus();
+      const range = document.createRange();
+      const selection = window.getSelection();
+      range.selectNodeContents(contentEditableDiv);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    };
 
-		// Clean up editor if necessary
-		// if (this.editor && typeof this.editor.destroy === 'function') {
-		//   this.editor.destroy();
-		// }
-	},
+    window.addEventListener("bonfire:focus-composer", this.focusComposerHandler);
+
+    createEditor(this, hidden_input, composer$)
+      .then(({ editor, cleanup }) => {
+        this.editor = editor;
+        this.cleanup = cleanup;
+      })
+      .catch(error => {
+        console.error("Failed to create editor:", error);
+      });
+  },
+
+  destroyed() {
+    if (this.cleanup) {
+      this.cleanup();
+    }
+    
+    window.removeEventListener(
+      "bonfire:focus-composer",
+      this.focusComposerHandler,
+    );
+  },
 };
