@@ -543,7 +543,6 @@ const createEditor = async (_this, hidden_input, composer$) => {
     editor,
     cleanup: () => {
       cleanupPicker?.();
-      composer$.removeEventListener("click", handleComposerClicks);
       editor?.destroy();
     }
 };
