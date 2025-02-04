@@ -1,0 +1,49 @@
+{
+  "id": "cafe.bonfire",
+  "title": "Bonfire",
+  "author": "Bonfire Networks",
+  "version": "1.0.0",
+  "tagline": "Federated networking",
+  "description": "Bonfire is an open-source federated networking toolkit",
+  "httpPort": 4000,
+  "manifestVersion": 2,
+  "healthCheckPath": "/",
+  "addons": {
+    "postgresql": {},
+    "localstorage": {},
+    "docker": {
+      "containers": {
+        "search": {
+          "image": "getmeili/meilisearch:v1.11",
+          "memoryLimit": 512000000,
+          "mounts": {
+            "meili_data": {
+              "destination": "/meili_data",
+              "type": "volume"
+            }
+          },
+          "ports": ["7700"]
+        }
+      }
+    }
+  },
+  "memoryLimit": 1073741824,
+  "website": "https://bonfirenetworks.org",
+  "icon": "file://icon.png",
+  "tags": [
+    "social",
+    "federated",
+    "network",
+    "activitypub",
+    "community"
+  ],
+  "postInstallMessage": "Bonfire has been installed successfully. Please configure your instance settings through the web interface.",
+  "configurePath": "/settings/instance",
+  "logPaths": [
+    "/app/logs/app.log"
+  ],
+  "minBoxVersion": "7.0.0",
+  "env": {
+    "SEARCH_MEILI_INSTANCE": "http://search:7700"
+  }
+}
