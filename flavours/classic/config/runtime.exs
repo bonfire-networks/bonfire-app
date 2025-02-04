@@ -35,7 +35,7 @@ repos =
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
 ##
 
-System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") ||
+System.get_env("DATABASE_URL") || System.get_env("POSTGRESQL_URL")  || System.get_env("POSTGRES_PASSWORD") || System.get_env("POSTGRESQL_PASSWORD") ||
   System.get_env("MIX_QUIET") || System.get_env("CI") ||
   raise """
   Environment variables for database are missing.
@@ -47,16 +47,16 @@ System.get_env("DATABASE_URL") || System.get_env("POSTGRES_PASSWORD") ||
 maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
 
 repo_connection_config =
-  if System.get_env("DATABASE_URL") do
+  if db_url = (System.get_env("DATABASE_URL") || System.get_env("POSTGRESQL_URL")) do
     [
-      url: System.get_env("DATABASE_URL"),
+      url: db_url,
       socket_options: maybe_repo_ipv6
     ]
   else
     [
-      username: System.get_env("POSTGRES_USER", "postgres"),
-      password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-      hostname: System.get_env("POSTGRES_HOST", "localhost"),
+      username: System.get_env("POSTGRES_USER") || System.get_env("POSTGRESQL_USERNAME", "postgres"),
+      password: System.get_env("POSTGRES_PASSWORD") || System.get_env("POSTGRESQL_PASSWORD", "postgres"),
+      hostname: System.get_env("POSTGRES_HOST") || System.get_env("POSTGRESQL_HOST", "localhost"),
       socket_options: maybe_repo_ipv6
     ]
   end
@@ -194,7 +194,7 @@ database =
       System.get_env("POSTGRES_DB", "bonfire_dev")
 
     _ ->
-      System.get_env("POSTGRES_DB", "bonfire")
+      System.get_env("POSTGRES_DB") || System.get_env("POSTGRESQL_DATABASE", "bonfire")
   end
 
 config :bonfire, ecto_repos: repos
