@@ -2,7 +2,7 @@
 
 > #### Info {: .info}
 >
-> These instructions are for hacking on Bonfire. If you wish to deploy in production, please refer to our [Hosting Guide](./deploy.html) instead.
+> These instructions are for hacking on Bonfire. If you wish to deploy in production, please refer to our [Hosting Guide](./DEPLOY.md) instead.
 
 
 Hello, potential contributor! :-)
