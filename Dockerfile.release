@@ -147,8 +147,8 @@ RUN mkdir -p priv/repo/migrations
 RUN MIX_ENV=prod mix bonfire.extension.copy_migrations --force --to priv/repo/migrations
 
 # docs/guides
-COPY --link LICENSE ./
 COPY --link README.md ./
+COPY --link LICENSES LICENSES
 COPY --link docs docs
 RUN mkdir -p assets/static/images/ && cp deps/bonfire_ui_common/assets/static/images/bonfire-icon.png assets/static/images/bonfire-icon.png
 RUN ls -la ./
@@ -170,7 +170,7 @@ RUN MIX_ENV=prod CI=1 mix phx.digest
 RUN ls -la priv/static
 RUN ls -la priv/static/assets
 
-RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/static/source.tar.gz  --exclude=priv/static/data --exclude=*/*/assets/static/data --exclude=deps/*/cache -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo priv/static mix.exs mix.lock LICENSE || echo "Could not prepare code archive"
+RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/static/source.tar.gz  --exclude=priv/static/data --exclude=*/*/assets/static/data --exclude=deps/*/cache -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo priv/static mix.exs mix.lock LICENSES || echo "Could not prepare code archive"
 
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
