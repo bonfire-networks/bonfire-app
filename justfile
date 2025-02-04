@@ -1068,3 +1068,7 @@ with-docker-switch old_dir new_dir:
 	mv data/{{ new_dir }}/_build ./ 
 	mv data/{{ new_dir }}/node_modules assets/
 
+cloudron-secrets-generate location:
+	cloudron env set --app {{location}} SECRET_KEY_BASE="$(just rand)"
+	cloudron env set --app {{location}} SIGNING_SALT="$(just rand)"
+	cloudron env set --app {{location}} ENCRYPTION_SALT="$(just rand)"
