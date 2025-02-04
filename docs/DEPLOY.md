@@ -7,7 +7,7 @@ A short guide to running Bonfire in a production environment and setting up a di
 > Bonfire is currently beta software. While it's fun to play with it, we would not recommend running any production instances yet (meaning not using it for your primary fediverse identity) because it's not quite ready for that today. 
 
 
-_These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Installation guide](./hacking.html) instead._
+_These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Installation guide](./HACKING.md) instead._
 
 
 ## Security Warning
