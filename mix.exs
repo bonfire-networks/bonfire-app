@@ -369,8 +369,11 @@ defmodule Bonfire.Umbrella.MixProject do
         groups_for_extras: [
           "Getting Started": Path.wildcard("docs/*.md"),
           "Building on Bonfire": Path.wildcard("docs/building/*.md"),
-          "Licenses": Path.wildcard("LICENSES/*") ++ Path.wildcard("{extensions,deps,forks}/*/LICENSES/*") ++ Path.wildcard("{extensions,deps,forks}/*/LICENSE"),
-          "Concepts":
+          Licenses:
+            Path.wildcard("LICENSES/*") ++
+              Path.wildcard("{extensions,deps,forks}/*/LICENSES/*") ++
+              Path.wildcard("{extensions,deps,forks}/*/LICENSE"),
+          Concepts:
             Path.wildcard("docs/topics/*") ++
               Path.wildcard("{extensions,deps,forks}/*/docs/*.md") ++
               Path.wildcard(

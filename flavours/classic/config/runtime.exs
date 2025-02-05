@@ -57,9 +57,12 @@ repo_connection_config =
     ]
   else
     [
-      username: System.get_env("POSTGRES_USER") || System.get_env("CLOUDRON_POSTGRESQL_USERNAME", "postgres"),
+      username:
+        System.get_env("POSTGRES_USER") ||
+          System.get_env("CLOUDRON_POSTGRESQL_USERNAME", "postgres"),
       password: db_pw || "postgres",
-      hostname: System.get_env("POSTGRES_HOST") || System.get_env("CLOUDRON_POSTGRESQL_HOST", "localhost"),
+      hostname:
+        System.get_env("POSTGRES_HOST") || System.get_env("CLOUDRON_POSTGRESQL_HOST", "localhost"),
       socket_options: maybe_repo_ipv6
     ]
   end
