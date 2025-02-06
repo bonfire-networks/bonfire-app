@@ -57,6 +57,15 @@ defmodule Bonfire.Umbrella.MixProject do
                 @maybe_image_vix ++
                 @maybe_ai ++
                 [
+                  {
+                    :mess,
+                    # git: "https://github.com/bonfire-networks/mess", 
+                    path: "forks/mess", only: [:dev, :test], override: true
+                  },
+                  {:jungle,
+                   git: "https://github.com/bonfire-networks/jungle",
+                   only: [:dev, :test],
+                   override: true},
                   {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
 
                   # compilation
@@ -82,7 +91,6 @@ defmodule Bonfire.Umbrella.MixProject do
                   # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
                   # changelog generation
                   {:versioce, "~> 2.0.0", only: :dev},
-                  {:jungle, git: "https://github.com/bonfire-networks/jungle", only: :dev},
                   # needed for changelog generation
                   {:git_cli, "~> 0.3.0", only: :dev},
                   {
