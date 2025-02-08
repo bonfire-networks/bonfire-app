@@ -9,14 +9,10 @@ const ReactionPicker = {
     // const button = this.el.querySelector('.reaction-button');
     const picker = this.el.querySelector('emoji-picker');
     const objectId = this.el.dataset.objectId;
-    console.log("CAZZZOOOOO")
-    console.log(objectId)
-    // Toggle picker visibility
-    // button.addEventListener('click', () => {
-    //   picker.classList.toggle('hidden');
-    // });
 
     // Handle emoji selection
+    queueMicrotask(() => {
+
     picker.addEventListener('emoji-click', event => {
       const emoji = event.detail.unicode;
       
@@ -26,16 +22,8 @@ const ReactionPicker = {
         id: objectId
       });
       
-      // Hide the picker after selection
-      picker.classList.add('hidden');
     });
-
-    // Close picker when clicking outside
-    // document.addEventListener('click', (event) => {
-    //   if (!this.el.contains(event.target)) {
-    //     picker.classList.add('hidden');
-    //   }
-    // });
+  })
   }
 };
 
