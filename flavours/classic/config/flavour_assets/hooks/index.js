@@ -20,7 +20,8 @@ import * as c7 from "./Bonfire.UI.Common.LoadMoreLive.hooks.js"
 import * as c8 from "./Bonfire.UI.Common.ChangeLocaleLive.hooks.js"
 import * as c9 from "./Bonfire.UI.Common.ChangeThemesLive.hooks.js"
 import * as c10 from "./Bonfire.UI.Common.ComposerLive.hooks.js"
-import * as c11 from "./Bonfire.UI.Social.Activity.DateAgoLive.hooks.js"
+import * as c11 from "./Bonfire.UI.Reactions.EmojiReactionsLive.hooks.js"
+import * as c12 from "./Bonfire.UI.Social.Activity.DateAgoLive.hooks.js"
 
 let hooks = Object.assign(
   ns(c1, "Bonfire.Editor.Milkdown"),
@@ -33,7 +34,8 @@ let hooks = Object.assign(
   ns(c8, "Bonfire.UI.Common.ChangeLocaleLive"),
   ns(c9, "Bonfire.UI.Common.ChangeThemesLive"),
   ns(c10, "Bonfire.UI.Common.ComposerLive"),
-  ns(c11, "Bonfire.UI.Social.Activity.DateAgoLive")
+  ns(c11, "Bonfire.UI.Reactions.EmojiReactionsLive"),
+  ns(c12, "Bonfire.UI.Social.Activity.DateAgoLive")
 )
 
 export default hooks
