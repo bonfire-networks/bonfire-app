@@ -17,11 +17,13 @@ import { gfm } from "@milkdown/kit/preset/gfm";
 import { emoji } from "@milkdown/plugin-emoji";
 import { listener, listenerCtx } from "@milkdown/kit/plugin/listener";
 import { SlashProvider, slashFactory } from "@milkdown/kit/plugin/slash";
-import { gemoji } from "gemoji";
+// import { gemoji } from "gemoji";
 import { clipboard } from "@milkdown/kit/plugin/clipboard";
-import { createPopup } from "@picmo/popup-picker";
+// import { createPopup } from "@picmo/popup-picker";
 import { Plugin, PluginKey } from "@milkdown/kit/prose/state";
 import { Decoration, DecorationSet } from "@milkdown/kit/prose/view";
+import 'emoji-picker-element';
+
 
 const PlaceholderPlugin = new Plugin({
 	key: new PluginKey("milkdown-placeholder"),
@@ -120,68 +122,79 @@ function mentionsPluginView(view) {
 	};
 }
 
-function emojisPluginView() {
-	const content = document.createElement("ul");
-	content.tabIndex = 1;
+// function emojisPluginView() {
+// 	const content = document.createElement("ul");
+// 	content.tabIndex = 1;
 
-	content.className =
-		"milkdown-menu absolute m-0 p-0 menu w-72 bg-base-100 border border-base-content/10 shadow-lg";
-	let list = "";
+// 	content.className =
+// 		"milkdown-menu absolute m-0 p-0 menu w-72 bg-base-100 border border-base-content/10 shadow-lg";
+// 	let list = "";
 
-	const provider = new SlashProvider({
-		content,
-		shouldShow: (view, prevState) => {
-			// get the current content of the editor
-			const { state } = view;
-			const { doc } = state;
-			const currentText = doc.textContent;
+// 	const provider = new SlashProvider({
+// 		content,
+// 		shouldShow: (view, prevState) => {
+// 			// get the current content of the editor
+// 			const { state } = view;
+// 			const { doc } = state;
+// 			const currentText = doc.textContent;
 
-			if (currentText === "") {
-				return false;
-			}
+// 			if (currentText === "") {
+// 				return false;
+// 			}
 
-			const emojis = currentText.match(EMOJI_REGEX);
-			// Display the menu if the last character is `@` followed by 2 chars.
-			if (emojis) {
-				// get the characters that follows the `@` in currentText
-				const text = emojis[1].split(":").pop();
-				const index = gemoji.findIndex((emoji) => {
-					return emoji.names.some((name) => name.includes(text));
-				});
-				list = "";
-				if (index > 0) {
-					// Add max 4 items to the menu
-					gemoji
-						.filter((emoji) => {
-							return emoji.names.some((name) => name.includes(text));
-						})
-						.slice(0, 6)
-						.map((emoji) => {
-							list += emojiItemRenderer(emoji, text);
-						});
+// 			const emojis = currentText.match(EMOJI_REGEX);
+// 			// Display the menu if the last character is `@` followed by 2 chars.
+// 			if (emojis) {
+// 				// get the characters that follows the `@` in currentText
+// 				const text = emojis[1].split(":").pop();
+// 				const index = gemoji.findIndex((emoji) => {
+// 					return emoji.names.some((name) => name.includes(text));
+// 				});
+// 				list = "";
+// 				if (index > 0) {
+// 					// Add max 4 items to the menu
+// 					gemoji
+// 						.filter((emoji) => {
+// 							return emoji.names.some((name) => name.includes(text));
+// 						})
+// 						.slice(0, 6)
+// 						.map((emoji) => {
+// 							list += emojiItemRenderer(emoji, text);
+// 						});
 
-					content.innerHTML = list;
-					return true;
-				} else {
-					content.innerHTML = "";
-					return false;
-				}
-			}
-			return false;
-		},
-		trigger: ":",
-	});
+// 					content.innerHTML = list;
 
-	return {
-		update: (updatedView, prevState) => {
-			provider.update(updatedView, prevState);
-		},
-		destroy: () => {
-			provider.destroy();
-			content.remove();
-		},
-	};
-}
+// 					// Add click event listener to close modal when emoji is clicked
+// 					content.querySelectorAll('.emoji_btn').forEach(btn => {
+// 						btn.addEventListener('click', () => {
+// 							const picker = document.querySelector('emoji-picker');
+// 							if (picker) {
+// 								picker.style.display = 'none';
+// 							}
+// 						});
+// 					});
+
+// 					return true;
+// 				} else {
+// 					content.innerHTML = "";
+// 					return false;
+// 				}
+// 			}
+// 			return false;
+// 		},
+// 		trigger: ":",
+// 	});
+
+// 	return {
+// 		update: (updatedView, prevState) => {
+// 			provider.update(updatedView, prevState);
+// 		},
+// 		destroy: () => {
+// 			provider.destroy();
+// 			content.remove();
+// 		},
+// 	};
+// }
 
 // function slashPluginView(view) {
 //   const content = document.createElement('ul');
@@ -251,16 +264,16 @@ const mentionItemRenderer = (item, text) => {
     </li>`;
 };
 
-const emojiItemRenderer = (item, text) => {
-	return `
-    <li class="rounded-none">
-      <button type="button" data-text="${text}" data-emoji=${item.emoji} class="emoji_btn gap-3 rounded-none w-full flex items-center">
-        <div class="pointer-events-none flex items-baseline w-full gap-2">
-          <span>${item.emoji}</span>  <span class="truncate max-w-[220px]">:${item.names[0]}:</span>
-        </div>
-      </button>
-    </li>`;
-};
+// const emojiItemRenderer = (item, text) => {
+// 	return `
+//     <li class="rounded-none">
+//       <button type="button" data-text="${text}" data-emoji=${item.emoji} class="emoji_btn gap-3 rounded-none w-full flex items-center">
+//         <div class="pointer-events-none flex items-baseline w-full gap-2">
+//           <span>${item.emoji}</span>  <span class="truncate max-w-[220px]">:${item.names[0]}:</span>
+//         </div>
+//       </button>
+//     </li>`;
+// };
 
 // const slashItemRenderer = () => {
 //   return `
@@ -310,36 +323,42 @@ const emojiItemRenderer = (item, text) => {
 // }
 
 const mentionSlash = slashFactory("mentions-slash");
-const emojisSlash = slashFactory("emojis-slash");
+// const emojisSlash = slashFactory("emojis-slash");
 // const slash = slashFactory('slash');
 // let isUpdatingMarkdown = false;
-const setupPicker = (editor, trigger) => {
-  if (!trigger) {
-    console.warn("Emoji button not found");
-    return { picker: null, cleanup: () => {} };
-  }
-  
-  const picker = createPopup(
-    {},
-    {
-      referenceElement: trigger,
-      triggerElement: trigger,
-      emojiSize: "1.75rem",
-      className: "z-[99999999999999999999]",
-    }
-  );
+// const setupPicker = (editor, trigger, el) => {
+// 	if (!trigger) {
+// 	  console.warn("Emoji button not found");
+// 	  return { picker: null, cleanup: () => {} };
+// 	}
+// 	const picker = el.querySelector('emoji-picker');
 
-  const toggleHandler = () => picker.toggle();
-  trigger.addEventListener("click", toggleHandler);
   
-  return {
-    picker,
-    cleanup: () => {
-      trigger.removeEventListener("click", toggleHandler);
-      picker.destroy();
-    }
-  };
-};
+// 	// Add event listeners
+// 	picker.addEventListener('emoji-click', event => {
+// 	  editor.action((ctx) => {
+// 		const view = ctx.get(editorViewCtx);
+// 		view.dispatch(view.state.tr.insertText(event.detail.unicode + " "));
+// 		view.focus();
+// 	  });
+// 	  picker.style.display = 'none';
+// 	});
+  
+// 	// Close picker when clicking outside
+// 	document.addEventListener('click', (e) => {
+// 	  if (!picker.contains(e.target) && !trigger.contains(e.target)) {
+// 		picker.style.display = 'none';
+// 	  }
+// 	});
+	
+// 	return {
+// 	  picker,
+// 	  cleanup: () => {
+// 		trigger.removeEventListener("click", togglePicker);
+// 		picker.remove();
+// 	  }
+// 	};
+//   };
 
 const createEditor = async (_this, hidden_input, composer$) => {
   if (!hidden_input || !composer$) {
@@ -350,12 +369,21 @@ const createEditor = async (_this, hidden_input, composer$) => {
 		.config((ctx) => {
 			ctx.set(rootCtx, "#editor");
 			ctx.set(defaultValueCtx, markdown);
+			ctx.set(editorViewOptionsCtx, { 
+				editable: () => true,
+				handlePaste: (view, event) => {
+					event.preventDefault();
+					const text = event.clipboardData.getData('text/plain');
+					view.dispatch(view.state.tr.insertText(text));
+					return true;
+				}
+			});
 			ctx.set(mentionSlash.key, {
 				view: mentionsPluginView,
 			});
-			ctx.set(emojisSlash.key, {
-				view: emojisPluginView,
-			});
+			// ctx.set(emojisSlash.key, {
+			// 	view: emojisPluginView,
+			// });
 			ctx.get(listenerCtx).markdownUpdated((ctx, markdown, prevMarkdown) => {
 				const transformedMarkdown = markdown
 					.replace(/!\[(.*?)\]\(.*?\)/g, "$1")
@@ -385,30 +413,39 @@ const createEditor = async (_this, hidden_input, composer$) => {
 			}));
 		})
 		//.config(nord)
+		.use(clipboard)
 		.use(commonmark)
 		// .use(remarkInlineLinkPlugin)
 		.use(gfm)
 		.use(emoji)
 		.use(listener)
 		.use(mentionSlash)
-		.use(emojisSlash)
-		.use(clipboard)
+		// .use(emojisSlash)
 		.use(placeholder)
 		// .use(slash)
 		.create();
 
-	const trigger = document.querySelector(".emoji-button");
-  const { picker, cleanup: cleanupPicker } = setupPicker(editor, trigger);
+	// const trigger = document.querySelector(".emoji-button");
+//   const { picker, cleanup: cleanupPicker } = setupPicker(editor, trigger);
+  	const picker = document.querySelector('emoji-picker');
+	
+	picker.addEventListener('emoji-click', event => {
+		editor.action((ctx) => {
+		  const view = ctx.get(editorViewCtx);
+		  view.dispatch(view.state.tr.insertText(event.detail.unicode + " "));
+		  view.focus();
+		});
+		picker.style.display = 'none';
+	  });
+
+    // picker.addEventListener("emoji:select", (event) => {
+    //   editor.action((ctx) => {
+    //     const view = ctx.get(editorViewCtx);
+    //     view.dispatch(view.state.tr.insertText(event.emoji + " "));
+    //     view.focus();
+    //   });
+    // });
   
-  if (picker) {
-    picker.addEventListener("emoji:select", (event) => {
-      editor.action((ctx) => {
-        const view = ctx.get(editorViewCtx);
-        view.dispatch(view.state.tr.insertText(event.emoji + " "));
-        view.focus();
-      });
-    });
-  }
 
 	_this.handleEvent("smart_input:reset", ({ text }) => {
 		editor.action(replaceAll(""));
