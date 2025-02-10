@@ -11,8 +11,11 @@ import {
 } from "@milkdown/kit/core";
 import { $prose, replaceAll, insert } from "@milkdown/utils";
 import {
-	commonmark,
+	commonmark, headingAttr, paragraphAttr 
 } from "@milkdown/kit/preset/commonmark";
+import { configureLinkTooltip, linkTooltipPlugin } from '@milkdown/kit/component/link-tooltip';
+
+// import { history } from "@milkdown/kit/plugin/history";
 import { gfm } from "@milkdown/kit/preset/gfm";
 import { emoji } from "@milkdown/plugin-emoji";
 import { listener, listenerCtx } from "@milkdown/kit/plugin/listener";
@@ -23,7 +26,7 @@ import { clipboard } from "@milkdown/kit/plugin/clipboard";
 import { Plugin, PluginKey } from "@milkdown/kit/prose/state";
 import { Decoration, DecorationSet } from "@milkdown/kit/prose/view";
 import 'emoji-picker-element';
-
+import { Picker } from 'emoji-picker-element';
 
 const PlaceholderPlugin = new Plugin({
 	key: new PluginKey("milkdown-placeholder"),
@@ -51,13 +54,13 @@ const placeholder = $prose(() => PlaceholderPlugin);
 const MIN_PREFIX_LENGTH = 2;
 const VALID_CHARS = "[\\w\\+_\\-:]";
 const MENTION_PREFIX = "(?:@)";
-const EMOJI_PREFIX = "(?::)";
+// const EMOJI_PREFIX = "(?::)";
 const MENTION_REGEX = new RegExp(
 	`(?:\\s|^)(${MENTION_PREFIX}${VALID_CHARS}{${MIN_PREFIX_LENGTH},})$`,
 );
-const EMOJI_REGEX = new RegExp(
-	`(?:\\s|^)(${EMOJI_PREFIX}${VALID_CHARS}{${MIN_PREFIX_LENGTH},})$`,
-);
+// const EMOJI_REGEX = new RegExp(
+// 	`(?:\\s|^)(${EMOJI_PREFIX}${VALID_CHARS}{${MIN_PREFIX_LENGTH},})$`,
+// );
 
 import "@milkdown/theme-nord/style.css";
 
@@ -325,40 +328,66 @@ const mentionItemRenderer = (item, text) => {
 const mentionSlash = slashFactory("mentions-slash");
 // const emojisSlash = slashFactory("emojis-slash");
 // const slash = slashFactory('slash');
-// let isUpdatingMarkdown = false;
-// const setupPicker = (editor, trigger, el) => {
-// 	if (!trigger) {
-// 	  console.warn("Emoji button not found");
-// 	  return { picker: null, cleanup: () => {} };
-// 	}
-// 	const picker = el.querySelector('emoji-picker');
+let currentPicker = null;
 
-  
-// 	// Add event listeners
-// 	picker.addEventListener('emoji-click', event => {
-// 	  editor.action((ctx) => {
-// 		const view = ctx.get(editorViewCtx);
-// 		view.dispatch(view.state.tr.insertText(event.detail.unicode + " "));
-// 		view.focus();
-// 	  });
-// 	  picker.style.display = 'none';
-// 	});
-  
-// 	// Close picker when clicking outside
-// 	document.addEventListener('click', (e) => {
-// 	  if (!picker.contains(e.target) && !trigger.contains(e.target)) {
-// 		picker.style.display = 'none';
-// 	  }
-// 	});
-	
-// 	return {
-// 	  picker,
-// 	  cleanup: () => {
-// 		trigger.removeEventListener("click", togglePicker);
-// 		picker.remove();
-// 	  }
-// 	};
-//   };
+const initEmojiPicker = (editor) => {
+  const pickerContainer = document.querySelector('.emoji-picker-in-composer');
+  if (!pickerContainer) return;
+
+  // Clean up any existing picker
+  if (currentPicker) {
+    currentPicker.remove();
+    currentPicker = null;
+  }
+
+  // Get custom emojis from data attribute
+  let customEmoji = [];
+  try {
+    const emojisData = pickerContainer.getAttribute('data-emojis');
+    if (emojisData) {
+      customEmoji = JSON.parse(emojisData);
+    }
+  } catch (e) {
+    console.error('Failed to parse custom emojis:', e);
+  }
+  console.log(customEmoji)
+  console.log("CAZZ")
+  currentPicker = new Picker({
+    locale: 'en',
+    customEmoji,
+    referenceElement: pickerContainer,
+    triggerElement: pickerContainer,
+    emojiSize: "1.75rem",
+  });
+
+  pickerContainer.appendChild(currentPicker);
+
+  // Handle emoji selection
+  currentPicker.addEventListener('emoji-click', event => {
+    const { unicode, emoji } = event.detail;
+    
+    editor.action((ctx) => {
+      const view = ctx.get(editorViewCtx);
+      
+      // Use shortcode only when unicode is missing
+      const text = !unicode && emoji?.shortcodes?.[0] 
+        ? emoji.shortcodes[0]
+        : unicode || '';
+      
+      if (!text) {
+        console.warn('No valid emoji text to insert');
+        return;
+      }
+
+      try {
+        view.dispatch(view.state.tr.insertText(text + " "));
+        view.focus();
+      } catch (error) {
+        console.error('Failed to insert emoji:', error);
+      }
+    });
+  });
+};
 
 const createEditor = async (_this, hidden_input, composer$) => {
   if (!hidden_input || !composer$) {
@@ -369,15 +398,28 @@ const createEditor = async (_this, hidden_input, composer$) => {
 		.config((ctx) => {
 			ctx.set(rootCtx, "#editor");
 			ctx.set(defaultValueCtx, markdown);
-			ctx.set(editorViewOptionsCtx, { 
-				editable: () => true,
-				handlePaste: (view, event) => {
-					event.preventDefault();
-					const text = event.clipboardData.getData('text/plain');
-					view.dispatch(view.state.tr.insertText(text));
-					return true;
-				}
+			ctx.set(headingAttr.key, (node) => {
+			const level = node.attrs.level;
+				if (level === 1) return { class: 'text-xl', "data-el-type": 'h3' };
+				if (level === 2) return { class: 'text-xl', "data-el-type": 'h3' };
 			});
+			ctx.set(paragraphAttr.key, () => ({ class: 'text-base' }));
+			ctx.update(editorViewOptionsCtx, (prev) => ({
+				...prev,
+				attributes: { class: 'milkdown-editor mx-auto outline-none', spellcheck: 'false' },
+			  }));
+			// ctx.set(editorViewOptionsCtx, { 
+			// 	editable: () => true,
+			// 	handlePaste: (view, event) => {
+			// 		event.preventDefault();
+			// 		const text = event.clipboardData.getData('text/plain');
+			// 		console.log(text);
+			// 		view.dispatch(view.state.tr.insertText(text));
+			// 		return true;
+			// 	}
+			// });
+			
+			ctx.set(paragraphAttr.key, () => ({ class: 'text-base' }));
 			ctx.set(mentionSlash.key, {
 				view: mentionsPluginView,
 			});
@@ -413,10 +455,12 @@ const createEditor = async (_this, hidden_input, composer$) => {
 			}));
 		})
 		//.config(nord)
+		.config(configureLinkTooltip)
 		.use(clipboard)
 		.use(commonmark)
-		// .use(remarkInlineLinkPlugin)
 		.use(gfm)
+		.use(linkTooltipPlugin)
+		// .use(remarkInlineLinkPlugin)
 		.use(emoji)
 		.use(listener)
 		.use(mentionSlash)
@@ -425,28 +469,8 @@ const createEditor = async (_this, hidden_input, composer$) => {
 		// .use(slash)
 		.create();
 
-	// const trigger = document.querySelector(".emoji-button");
-//   const { picker, cleanup: cleanupPicker } = setupPicker(editor, trigger);
-  	const picker = document.querySelector('emoji-picker');
-	
-	picker.addEventListener('emoji-click', event => {
-		editor.action((ctx) => {
-		  const view = ctx.get(editorViewCtx);
-		  view.dispatch(view.state.tr.insertText(event.detail.unicode + " "));
-		  view.focus();
-		});
-		picker.style.display = 'none';
-	  });
-
-    // picker.addEventListener("emoji:select", (event) => {
-    //   editor.action((ctx) => {
-    //     const view = ctx.get(editorViewCtx);
-    //     view.dispatch(view.state.tr.insertText(event.emoji + " "));
-    //     view.focus();
-    //   });
-    // });
-  
-
+	initEmojiPicker(editor);
+	console.log("nisciuno")
 	_this.handleEvent("smart_input:reset", ({ text }) => {
 		editor.action(replaceAll(""));
 	});
@@ -579,7 +603,10 @@ const createEditor = async (_this, hidden_input, composer$) => {
 	return {
     editor,
     cleanup: () => {
-      cleanupPicker?.();
+      if (currentPicker) {
+        currentPicker.remove();
+        currentPicker = null;
+      }
       editor?.destroy();
     }
 };

@@ -10,12 +10,8 @@ const ReactionPicker = {
     const picker = this.el.querySelector('emoji-picker');
     const objectId = this.el.dataset.objectId;
 
-    // Handle emoji selection
-    queueMicrotask(() => {
-
     picker.addEventListener('emoji-click', event => {
       const emoji = event.detail.unicode;
-      
       // Send the reaction to the server
       this.pushEvent("Bonfire.Social.Likes:add_reaction", {
         emoji: emoji,
@@ -23,7 +19,6 @@ const ReactionPicker = {
       });
       
     });
-  })
   }
 };
 
