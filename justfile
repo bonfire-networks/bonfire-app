@@ -158,10 +158,14 @@ extension-post-install:
 _ext-migrations-copy: db-clean-migrations
 	just mix bonfire.extension.copy_migrations --force
 
+# FIXME: how should we know if user wants to use a prebuilt image or build their own? 
 setup-prod:
+	{{ if WITH_DOCKER != "no" { "just rel-docker-compose pull || echo Oops, could not download the Docker images!" } else { "just setup-prod-build" } }}
+
+setup-prod-build:
 	just build
 	just deps-fetch --only prod
-	just _deps-post-get
+	just _deps-post-get  
 
 # Prepare environment and dependencies
 prepare:
@@ -793,45 +797,45 @@ rel-push-only-alt build label='latest':
 	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{ARCH}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{ARCH}}
 
 # Run the app in Docker & starts a new `iex` console
-rel-run services="db proxy": _rel-init docker-stop-web 
+rel-run services="db proxy": _rel-init docker-stop-web  
 	just rel-services "{{services}}"
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
+	@just rel-docker-compose run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
 rel-run-bg services="db proxy": _rel-init docker-stop-web
 	just rel-services "{{services}}"
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d
+	@just rel-docker-compose up -d
 
 # Stop the running release
 rel-stop:
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE stop
+	@just rel-docker-compose stop
 
 rel-update: update-repo-pull
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE pull
+	@just rel-docker-compose pull
 	@echo Remember to run migrations on your DB...
 
 rel-logs:
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE logs
+	@just rel-docker-compose logs
 
 # Stop the running release
 rel-down: rel-stop
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE down
+	@just rel-docker-compose down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-rel-shell services="db proxy": _rel-init docker-stop-web 
+rel-shell services="db proxy": _rel-init docker-stop-web
 	just rel-services "{{services}}"
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
+	@just rel-docker-compose run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
 rel-shell-bg services="db proxy": _rel-init 
 	just rel-services "{{services}}"
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec web /bin/bash
+	@just rel-docker-compose exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
 rel-db-shell-bg: _rel-init 
 	just rel-services db
-	@just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE exec db /bin/bash
+	@just rel-docker-compose exec db /bin/bash
 
 rel-db-dump: _rel-init 
 	just rel-services db
@@ -842,7 +846,10 @@ rel-db-restore: _rel-init
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
 rel-services services="db search":
-	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE up -d $services" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just rel-docker-compose up -d $services" } else {""} }}
+
+rel-docker-compose *args:
+	just rel-docker-compose {{args}}
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
