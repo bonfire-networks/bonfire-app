@@ -35,7 +35,7 @@ Install using [Co-op Cloud](https://coopcloud.tech) (recommended) which is an al
 1. Install [Abra](https://docs.coopcloud.tech/abra/) on your machine
 2. [Set up a server with co-op cloud](https://docs.coopcloud.tech/operators/) 
 3. Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the instructions there, including editing the config in the env file at `~/.abra/servers/your_server/your_app.env` (see [prepare the config](#preparing-the-config-in-env) for details about what to edit)
-4. Run the abra deploy command and [done!](#running-the-app)
+4. Run the abra deploy command and done!
 
 
 ### Docker containers
@@ -109,26 +109,17 @@ Finally, try [running the app](#running-with-docker)!
 
 #### Running with Docker
 
-- Start the docker containers with docker-compose:
+1. Before running the app for the first time, but after having [prepared the config](#preparing-the-config-in-env), you should run `just setup` which will get the instance ready.
 
-```
-just rel-run
-```
+2. The you can start the docker containers with docker-compose: `just rel-run`
 
-Run this at the prompt: 
+You can run this at the prompt `bin/bonfire remote` to enter Elixir's iex environment. Once there in case migrations have not run automatically you can run `Bonfire.Common.Repo.migrate` to initialise your database.
 
-`bin/bonfire remote` to enter Elixir's iex environment
-`Bonfire.Common.Repo.migrate` to initialise your database
+3. The backend should now be running at [http://localhost:4000/](http://localhost:4000/). [Yay, you're up and running!](#notes-on-running-the-app)
 
-The backend should now be running at [http://localhost:4000/](http://localhost:4000/). [Yay, you're up and running!](#running-the-app)
+4. If that worked, start the app as a daemon to it stays running in the background: `just rel-run-bg`
 
-- If that worked, start the app as a daemon next time:
-
-```
-just rel-run-bg
-```
-
-(Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index.)
+> Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index.
 
 
 ### Bare-metal
@@ -175,7 +166,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 - The migrations should automatically run on first boot, but if you run into troubles the migration command is: `Bonfire.Common.Repo.migrate()` in the iex console. 
 
-- To run the instance as a daemon, use `bin/bonfire start daemon`. [Yay, you're up and running!](#running-the-app)
+- To run the instance as a daemon, use `bin/bonfire start daemon`. [Yay, you're up and running!](#notes-on-running-the-app)
 
 8. Adding HTTPS
 
@@ -319,7 +310,7 @@ In the `./config/` (which is a symbolic link to the config of the flavour you ch
 You should *not* have to modify the files above. Instead, overload any settings from the above files using env variables or in `./.env`. If any settings in the `.exs` config files are not available in env or in the instance settings UI, please open an issue or PR.
 
 
-## Running the app
+## Notes on running the app
 
 > NOTE: If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database before migrations can run: `CREATE EXTENSION IF NOT EXISTS citext;`
 
@@ -327,7 +318,7 @@ By default, the backend listens on port 4000 (TCP), so you can access it on http
 
 Once you've signed up, you will automatically be an instance admin if you were the first to register.
 
-> You can sign up via CLI by entering something like this in your app's Elixir console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
+> You can also sign up via CLI (accessed via `just rel-shell`) by entering something like this in your app's Elixir console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
 
 
 ## Handy commands
