@@ -26,10 +26,11 @@ APP_NAME := "bonfire"
 APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
 APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 
-APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO+":latest-" +FLAVOUR)
+ARCH := arch()
+APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO + ":latest-" + FLAVOUR + "-" + ARCH)
 DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "17-3.5") 
 # NOTE: we currently only use features available in Postgres 12+, though a more recent version is recommended if possible
-DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if arch() == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine" })
+DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if ARCH == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine" })
 # DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "supabase/postgres")
 # ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_VERSION', "1.17") +"-erlang-"+env_var_or_default('ERLANG_VERSION', "27")+"-alpine-"+env_var_or_default('ERLANG_VERSION', "3.20")
 
@@ -88,7 +89,7 @@ setup:
 
 init services="db search": _pre-init 
 	@just services "{{services}}"
-	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{arch()}}"
+	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{ARCH}}"
 
 @config-basic select_flavour=FLAVOUR:
 	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
@@ -738,7 +739,7 @@ rel-mix USE_EXT="local" ARGS="":
 	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="":
-	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{arch()}} with image $ELIXIR_DOCKER_IMAGE."
+	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{ARCH}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR=$FLAVOUR \
 		--build-arg FLAVOUR_PATH=data/current_flavour \
@@ -748,9 +749,9 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
 		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
-		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}}  \
+		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{ARCH}}  \
 		-f $APP_REL_DOCKERFILE .
-	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{arch()}}
+	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{ARCH}}
 	@echo "Remember to run just rel-tag or just rel-push"
 
 
@@ -768,9 +769,9 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	just rel-tag-version-commit-flavour {{version}} {{build}} $FLAVOUR {{label}}
 
 @rel-tag-version-commit-flavour version build flavour label='latest': _rel-init
-	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO:{{label}}-{{flavour}}-{{arch()}}
-	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:release-{{flavour}}-{{version}}-{{build}}-{{arch()}}
-	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{arch()}} $APP_DOCKER_REPO_ALT:{{label}}-{{flavour}}-{{arch()}}
+	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}} $APP_DOCKER_REPO:{{label}}-{{flavour}}-{{ARCH}}
+	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}} $APP_DOCKER_REPO_ALT:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}}
+	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}} $APP_DOCKER_REPO_ALT:{{label}}-{{flavour}}-{{ARCH}}
 
 # Add latest tag to last build and push to Docker Hub
 rel-push label='latest':
@@ -783,13 +784,13 @@ rel-push-only build label='latest':
 
 rel-push-only-version version build label='latest':
 	@echo "Pushing to $APP_DOCKER_REPO"
-	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-{{version}}-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{arch()}}
+	@docker login && docker push $APP_DOCKER_REPO:release-$FLAVOUR-{{version}}-{{build}}-{{ARCH}} && docker push $APP_DOCKER_REPO:{{label}}-$FLAVOUR-{{ARCH}}
 # @just rel-push-only-alt {{build}} {{label}}
 
 rel-push-only-alt build label='latest':
 	@echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
 	@echo "Pushing to $APP_DOCKER_REPO_ALT"
-	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{arch()}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{arch()}}
+	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{ARCH}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{ARCH}}
 
 # Run the app in Docker & starts a new `iex` console
 rel-run services="db proxy": _rel-init docker-stop-web 
