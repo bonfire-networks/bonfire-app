@@ -26,7 +26,8 @@ APP_NAME := "bonfire"
 APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
 APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 
-ARCH := arch()
+ARCH_JUST := arch()
+ARCH := if ARCH_JUST == "x86_64" { "amd64" } else { ARCH_JUST }
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO + ":latest-" + FLAVOUR + "-" + ARCH)
 DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "17-3.5") 
 # NOTE: we currently only use features available in Postgres 12+, though a more recent version is recommended if possible
