@@ -84,9 +84,6 @@ config:
 	just _pre-setup-env $select_flavour
 	printf "\nNow make sure to finish the flavour setup with 'just setup'. You can also edit your config for flavour '$select_flavour' in /.env and ./config/ more generally.\n"
 
-setup:
-	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
-
 init services="db search": _pre-init 
 	@just services "{{services}}"
 	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{ARCH}}"
@@ -96,6 +93,11 @@ init services="db search": _pre-init
 	just _pre-config $select_flavour
 	just setup
 	echo "Setup done."
+
+setup:
+	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
+
+#### COMMON COMMANDS ####
 
 @_pre-config select_flavour=FLAVOUR: db-clean-migrations
 	-rm ./config/deps.flavour.* 2> /dev/null
@@ -139,9 +141,6 @@ _ln-spark-deps:
 	mkdir -p priv/static/public
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
 # ulimit -n 524288
-
-
-#### COMMON COMMANDS ####
 
 setup-dev:
 	just build
@@ -849,7 +848,7 @@ rel-services services="db search":
 	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just rel-docker-compose up -d $services" } else {""} }}
 
 rel-docker-compose *args:
-	just rel-docker-compose {{args}}
+	just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE {{args}}
 
 #### DOCKER-SPECIFIC COMMANDS ####
 
