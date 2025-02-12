@@ -472,13 +472,13 @@ const createEditor = async (_this, hidden_input, composer$) => {
 		.create();
 
 	initEmojiPicker(editor);
-	console.log("nisciuno")
 	_this.handleEvent("smart_input:reset", ({ text }) => {
 		editor.action(replaceAll(""));
 	});
 
 	_this.handleEvent("mention_suggestions", ({ text }) => {
 		// replace the current text with the text from the event
+		console.log("test")
 		editor.action(replaceAll(""));
 		if (text != null) {
 			editor.action((ctx) => {
