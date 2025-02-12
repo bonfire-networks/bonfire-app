@@ -350,8 +350,6 @@ const initEmojiPicker = (editor) => {
   } catch (e) {
     console.error('Failed to parse custom emojis:', e);
   }
-  console.log(customEmoji)
-  console.log("CAZZ")
   currentPicker = new Picker({
     locale: 'en',
     customEmoji,
@@ -400,8 +398,12 @@ const createEditor = async (_this, hidden_input, composer$) => {
 			ctx.set(defaultValueCtx, markdown);
 			ctx.set(headingAttr.key, (node) => {
 			const level = node.attrs.level;
-				if (level === 1) return { class: 'text-xl', "data-el-type": 'h3' };
-				if (level === 2) return { class: 'text-xl', "data-el-type": 'h3' };
+				if (level === 1) return { class: 'text-xl', "data-el-type": 'h3', id: null };
+				if (level === 2) return { class: 'text-xl', "data-el-type": 'h3', id: null };
+				if (level === 3) return { class: 'text-xl', "data-el-type": 'h3', id: null };
+				if (level === 4) return { class: 'text-xl', "data-el-type": 'h3', id: null };
+				if (level === 5) return { class: 'text-xl', "data-el-type": 'h4', id: null };
+				if (level === 6) return { class: 'text-xl', "data-el-type": 'h4', id: null };
 			});
 			ctx.set(paragraphAttr.key, () => ({ class: 'text-base' }));
 			ctx.update(editorViewOptionsCtx, (prev) => ({
@@ -449,7 +451,7 @@ const createEditor = async (_this, hidden_input, composer$) => {
 				attributes: {
 					placeholder: "Type your text here...",
 					class:
-						"editor prose prose-sm h-full p-2 focus:outline-none composer w-full max-w-full prose-p:first-of-type:mt-0",
+						"editor prose prose-sm h-full p-2 focus:outline-none composer w-full max-w-full prose-p:first-of-type:mt-0 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-a:hover:underline prose-p:mb-0 prose-p:mt-0 prose-h1:mb-0 prose-h2:my-0 prose-h3:mb-0 prose-h4:mb-0",
 					spellcheck: "false",
 				},
 			}));
