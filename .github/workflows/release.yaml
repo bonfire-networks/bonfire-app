@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        flavour: ["classic", "community"] # , "cooperation"]
+        flavour: ["ember", "social"] # "community" , "cooperation"]
         platforms: ["linux/amd64"] #, "linux/arm/v7,linux/arm64,linux/amd64"] # , "linux/arm64"
         include:
           - platforms: "linux/amd64"
@@ -83,8 +83,6 @@ jobs:
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
-        env:
-          FLAVOUR_PATH: data/current_flavour
         with:
           context: .
           file: Dockerfile.release
@@ -109,7 +107,7 @@ jobs:
     name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
     strategy:
       matrix:
-        flavour: ["classic"] # , "cooperation"]
+        flavour: ["ember", "social"] 
     runs-on: ubuntu-latest
     container: debian:bullseye
     # container: debian:bullseye-slim
@@ -175,18 +173,18 @@ jobs:
         with:
           # TODO: figure out why Surface compiler is failing to create assets and remove the workaround (of using the ones already in the repo)
           run: |
-            ls -la data/current_flavour/config/flavour_assets/
-            ls -la data/current_flavour/config/flavour_assets/hooks/
-            cp -r data/current_flavour/config/flavour_assets data/current_flavour/config/flavour_assets_bak
+            ls -la data/current_flavour/assets/
+            ls -la data/current_flavour/assets/hooks/
+            cp -r data/current_flavour/assets data/current_flavour/flavour_assets_bak
             just _rel-compile-OTP remote
-            rm -rf data/current_flavour/config/flavour_assets 
-            mv data/current_flavour/config/flavour_assets_bak data/current_flavour/config/flavour_assets 
+            rm -rf data/current_flavour/assets 
+            mv data/current_flavour/flavour_assets_bak data/current_flavour/assets 
             just _rel-compile-assets remote
             just _rel-release-OTP remote
             cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
           post: |
-            ls -la data/current_flavour/config/flavour_assets/
-            ls -la data/current_flavour/config/flavour_assets/hooks/
+            ls -la data/current_flavour/assets/
+            ls -la data/current_flavour/assets/hooks/
       - name: Release to github
         uses: softprops/action-gh-release@v2
         with:
@@ -207,7 +205,7 @@ jobs:
   #   # Run steps on a matrix of several arch/distro combinations
   #   strategy:
   #     matrix:
-  #       flavour: ["classic"] # , "cooperation"]
+  #       flavour: ["ember"] # , "cooperation"]
   #       arch: ["aarch64"] # "armv7"] # NOTE: run-on-arch-action does not support amd64
   #       distro: ["bullseye"] 
   #       include:

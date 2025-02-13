@@ -1,1 +1,1 @@
-Bonfire.Testing.configure_start_test(migrate: true)
+Bonfire.Common.Testing.configure_start_test(migrate: true)

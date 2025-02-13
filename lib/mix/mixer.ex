@@ -119,10 +119,6 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps_recompile(deps \\ deps_names(:bonfire)),
       do: Mix.Task.run("bonfire.dep.compile", ["--force"] ++ List.wrap(deps))
 
-    # def flavour_path(path) when is_binary(path), do: path
-    def flavour_path(config \\ mix_config()),
-      do: System.get_env("FLAVOUR_PATH", "flavours/" <> flavour(config))
-
     def flavour(config \\ mix_config())
 
     def flavour(default_flavour) when is_binary(default_flavour),
@@ -132,8 +128,6 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def config_path(path \\ nil, filename),
       do: Path.expand(Path.join([path || "config", filename]))
-
-    # flavour_path(config_or_flavour)
 
     def forks_path(), do: System.get_env("FORKS_PATH", "extensions/")
     def forks_paths(), do: [forks_path(), "forks/"]
@@ -155,42 +149,42 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       # |> log(label: "messy")
     end
 
-    def mess_other_flavour_deps(current_flavour \\ System.get_env("FLAVOUR", "classic")) do
-      current_flavour_sources =
-        mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
+    # def mess_other_flavour_deps(current_flavour \\ System.get_env("FLAVOUR", "ember")) do
+    #   current_flavour_sources =
+    #     mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
 
-      current_flavour_deps =
-        enum_mess_sources(current_flavour_sources)
-        # |> log(label: "current_mess_sources")
-        |> Mess.deps([], [])
-        |> deps_names_list()
+    #   current_flavour_deps =
+    #     enum_mess_sources(current_flavour_sources)
+    #     # |> log(label: "current_mess_sources")
+    #     |> Mess.deps([], [])
+    #     |> deps_names_list()
 
-      # |> log(label: "current_flavour_deps", limit: :infinity)
+    #   # |> log(label: "current_flavour_deps", limit: :infinity)
 
-      other_flavours_sources = other_flavour_sources(current_flavour_sources, current_flavour)
-      # |> log(label: "other_flavours_sources")
+    #   other_flavours_sources = other_flavour_sources(current_flavour_sources, current_flavour)
+    #   # |> log(label: "other_flavours_sources")
 
-      Mess.deps(other_flavours_sources, [], [])
-      # |> log(label: "other_flavours_deps")
-      |> Enum.reject(fn
-        {dep, _} -> dep in current_flavour_deps
-        {dep, _, _} -> dep in current_flavour_deps
-      end)
-      |> log("other_flavour_deps")
-    end
+    #   Mess.deps(other_flavours_sources, [], [])
+    #   # |> log(label: "other_flavours_deps")
+    #   |> Enum.reject(fn
+    #     {dep, _} -> dep in current_flavour_deps
+    #     {dep, _, _} -> dep in current_flavour_deps
+    #   end)
+    #   |> log("other_flavour_deps")
+    # end
 
-    def mess_other_flavour_dep_names(current_flavour \\ System.get_env("FLAVOUR", "classic")) do
-      mess_other_flavour_deps(current_flavour)
-      |> deps_names_list()
-    end
+    # def mess_other_flavour_dep_names(current_flavour \\ System.get_env("FLAVOUR", "ember")) do
+    #   mess_other_flavour_deps(current_flavour)
+    #   |> deps_names_list()
+    # end
 
     defp maybe_all_flavour_sources(
            existing_sources,
            current_flavour,
            "1" = _WITH_ALL_FLAVOUR_DEPS
          ) do
-      enum_mess_sources(existing_sources) ++
-        [disabled: other_flavour_sources(existing_sources, current_flavour)]
+      # ++ [disabled: other_flavour_sources(existing_sources, current_flavour)]
+      enum_mess_sources(existing_sources)
 
       # |> log("all_flavour_sources")
     end
@@ -199,27 +193,27 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       enum_mess_sources(existing_sources)
     end
 
-    def other_flavour_sources(
-          existing_sources \\ mess_source_files(
-            System.get_env("WITH_FORKS", "1"),
-            System.get_env("WITH_GIT_DEPS", "1")
-          ),
-          current_flavour \\ System.get_env("FLAVOUR", "classic")
-        ) do
-      flavour_paths =
-        for path <- "flavours/*/config/" |> Path.wildcard() do
-          path
-        end
-        |> Enum.reject(&(&1 == "flavours/#{current_flavour}/config"))
+    # def other_flavour_sources(
+    #       existing_sources \\ mess_source_files(
+    #         System.get_env("WITH_FORKS", "1"),
+    #         System.get_env("WITH_GIT_DEPS", "1")
+    #       ),
+    #       current_flavour \\ System.get_env("FLAVOUR", "ember")
+    #     ) do
+    #   flavour_paths =
+    #     for path <- "flavours/*/config/" |> Path.wildcard() do
+    #       path
+    #     end
+    #     |> Enum.reject(&(&1 == "flavours/#{current_flavour}/config"))
 
-      # |> log(label: "creams")
+    #   # |> log(label: "creams")
 
-      Enum.map(
-        flavour_paths,
-        &(List.first(existing_sources)
-          |> enum_mess_sources(&1))
-      )
-    end
+    #   Enum.map(
+    #     flavour_paths,
+    #     &(List.first(existing_sources)
+    #       |> enum_mess_sources(&1))
+    #   )
+    # end
 
     defp enum_mess_sources(sublist, path \\ nil)
 
@@ -233,20 +227,27 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     defp mess_source_files("0" = _not_WITH_FORKS, "0" = _not_WITH_GIT_DEPS),
-      do: [[hex: "deps.flavour.hex"], [hex: "deps.hex"]]
+      do: [[hex: "current_flavour/deps.hex"], [hex: "deps.hex"]]
 
     defp mess_source_files("0" = _not_WITH_FORKS, "1" = _WITH_GIT_DEPS),
-      do: [[git: "deps.flavour.git", hex: "deps.flavour.hex"], [git: "deps.git", hex: "deps.hex"]]
+      do: [
+        [git: "current_flavour/deps.git", hex: "current_flavour/deps.hex"],
+        [git: "deps.git", hex: "deps.hex"]
+      ]
 
     defp mess_source_files("1" = _WITH_FORKS, "0" = _not_WITH_GIT_DEPS),
       do: [
-        [path: "deps.flavour.path", hex: "deps.flavour.hex"],
+        [path: "current_flavour/deps.path", hex: "current_flavour/deps.hex"],
         [path: "deps.path", hex: "deps.hex"]
       ]
 
     defp mess_source_files("1" = _WITH_FORKS, "1" = _WITH_GIT_DEPS),
       do: [
-        [path: "deps.flavour.path", git: "deps.flavour.git", hex: "deps.flavour.hex"],
+        [
+          path: "current_flavour/deps.path",
+          git: "current_flavour/deps.git",
+          hex: "current_flavour/deps.hex"
+        ],
         [path: "deps.path", git: "deps.git", hex: "deps.hex"]
       ]
 
@@ -264,7 +265,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       |> deps_names()
 
       # |> log(
-      #   "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} with configuration from #{flavour_path(config)} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
+      #   "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
       # )
     end
 
@@ -288,8 +289,8 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def extra_guide_paths(config) do
       deps = deps_names_for(:docs, config) ++ umbrella_extension_paths()
 
+      # Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++
       List.wrap(config[:guides]) ++
-        Enum.map(Path.wildcard("flavours/*/README.md"), &flavour_readme/1) ++
         Enum.map(Path.wildcard("docs/DEPENDENCIES/*.md"), &flavour_deps_doc/1) ++
         Enum.flat_map(
           deps,
@@ -448,14 +449,25 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         end
 
       [
-        # "lib",
+        "lib",
         "test/support"
         | dep_paths(testable_paths, "test/support")
         # |> IO.inspect(label: "elixirc_paths")
       ]
     end
 
-    def elixirc_paths(_, env), do: catalogues(env)
+    def elixirc_paths(_, env),
+      do:
+        [
+          "lib"
+        ] ++ catalogues(env)
+
+    def catalogues(_env) do
+      [
+        "deps/surface/priv/catalogue",
+        dep_path("bonfire_ui_common") <> "/priv/catalogue"
+      ]
+    end
 
     def cli_args_paths_to_test do
       # NOTE: must be kept up to date with @switches in https://github.com/elixir-lang/elixir/blob/main/lib/mix/lib/mix/tasks/test.ex
@@ -602,7 +614,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def version(config) do
       config[:version]
       |> String.split("-", parts: 2)
-      |> List.insert_at(1, flavour(config))
+      |> List.insert_at(1, flavour(config) |> String.replace("_", "-"))
       |> Enum.join("-")
     end
 
@@ -612,13 +624,6 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def compilers(_) do
       Mix.compilers() ++ [:surface]
-    end
-
-    def catalogues(_env) do
-      [
-        "deps/surface/priv/catalogue",
-        dep_path("bonfire_ui_common") <> "/priv/catalogue"
-      ]
     end
 
     def deps_tree do

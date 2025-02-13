@@ -68,9 +68,9 @@ git clone --depth 1 https://github.com/bonfire-networks/bonfire-app.git bonfire 
 
 3. Specify what flavour you want to run in production:
 
-The first thing to do is choose what flavour of Bonfire (eg. classic, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `classic` flavour:
+The first thing to do is choose what flavour of Bonfire (eg. ember, social, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `social` flavour:
 
-- `export MIX_ENV=prod FLAVOUR=classic WITH_DOCKER=yes` 
+- `export MIX_ENV=prod FLAVOUR=social WITH_DOCKER=yes` 
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
@@ -140,9 +140,9 @@ git clone --depth 1 https://github.com/bonfire-networks/bonfire-app.git bonfire 
 
 3. Specify what flavour you want to run in production:
 
-The first thing to do is choose what flavour of Bonfire (eg. classic, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `classic` flavour:
+The first thing to do is choose what flavour of Bonfire (eg. ember, social, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `social` flavour:
 
-- `export FLAVOUR=classic MIX_ENV=prod WITH_DOCKER=no` 
+- `export FLAVOUR=social MIX_ENV=prod WITH_DOCKER=no` 
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
@@ -174,7 +174,7 @@ The common and convenient way for adding HTTPS is by using a reverse proxy like 
 
 Some web servers (like Caddy or Traefik) can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
 
-There is an example nginx configuration provided at `flavours/classic/config/deploy/nginx.conf` and one for Caddy at `flavours/classic/config/deploy/Caddyfile2-https`
+There is an example nginx configuration provided at `config/deploy/nginx.conf` and one for Caddy at `config/deploy/Caddyfile2-https`
 
 > NOTE: If you've built from source, you should point the web server root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
 

@@ -9,8 +9,8 @@ set export
 ## Main configs - override these using env vars
 
 # what flavour do we want?
-FLAVOUR := env_var_or_default('FLAVOUR', "classic")
-FLAVOUR_PATH := env_var_or_default('FLAVOUR_PATH', "flavours/" + FLAVOUR)
+FLAVOUR := env_var_or_default('FLAVOUR', "ember")
+# FLAVOUR_PATH := env_var_or_default('FLAVOUR_PATH', "flavours/" + FLAVOUR)
 
 # do we want to use Docker? set as env var:
 # - WITH_DOCKER=total : use docker for everything (default)
@@ -47,7 +47,6 @@ APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD := env_var_or_default('APP_BUILD', `git rev-parse --short HEAD || echo unknown`)
-CONFIG_PATH := FLAVOUR_PATH + "/config"
 UID := `id -u`
 GID := `id -g`
 PUBLIC_PORT := env_var_or_default('PUBLIC_PORT', '4000')
@@ -81,37 +80,59 @@ config:
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
 @flavour select_flavour:
 	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
-	just _pre-config $select_flavour
-	just _pre-setup-env $select_flavour
-	printf "\nNow make sure to finish the flavour setup with 'just setup'. You can also edit your config for flavour '$select_flavour' in /.env and ./config/ more generally.\n"
+	just _config_flavour {{select_flavour}}
+	just _pre-setup {{select_flavour}}
+	printf "\nYou can edit your config for flavour '{{select_flavour}}' in /.env\n"
+	printf "\nAnd make sure to finish the flavour setup with 'just setup'.\n" 
+# FIXME: figure out how to re-read the .env so the flavour etc are correct without having to split into two commands.
 
 init services="db search": _pre-init 
 	@just services "{{services}}"
-	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - $FLAVOUR_PATH - {{os_family()}}/{{os()}} on {{ARCH}}"
+	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - {{os_family()}}/{{os()}} on {{ARCH}}"
 
 @config-basic select_flavour=FLAVOUR:
 	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
-	just _pre-config $select_flavour
-	just setup
-	echo "Setup done."
+	just _config_flavour $select_flavour
+# just setup
+# echo "Setup done."
 
 setup:
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 
 #### COMMON COMMANDS ####
 
-@_pre-config select_flavour=FLAVOUR: db-clean-migrations
-	-rm ./config/deps.flavour.* 2> /dev/null
-	-rm ./config/flavour_* 2> /dev/null
-	just _pre-setup $select_flavour
+@_config_flavour flavour='ember': db-clean-migrations
+	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
+	-rm ./config/deps.* 2> /dev/null
+	-rm ./config/current_flavour/deps.* 2> /dev/null
+	just _ln-deps-defs {{flavour}}
+	just _ln-from-dep ember config/ "*" config/
+	mkdir -p ./config/prod/ 
+	mkdir -p ./config/dev/
+	test -f .env || just _config_flavour-env-init {{flavour}} config config
+	echo "FLAVOUR=$flavour" >> config/$ENV_ENV/.env
+	rm .env
+	ln -sf ./config/$ENV_ENV/.env ./.env 
+# test -f ./flavours/{{flavour}}/config/$ENV_ENV/.env || just _config_flavour-env-init {{flavour}} flavours/{{flavour}}/config flavours/{{flavour}}/config || just _config_flavour-env-init {{flavour}} flavours/classic/config flavours/{{flavour}}/config
 
-@_pre-setup flavour='classic':
-	mkdir -p config
-	mkdir -p ./flavours/$flavour/config/prod/
-	mkdir -p ./flavours/$flavour/config/dev/
-	touch ./flavours/$flavour/config/deps.flavour.path
-	just _ln-spark-deps	
-	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
+@_config_flavour-env-init flavour from to:
+	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env 
+
+@_flavour_install select_flavour:
+	just mix {{select_flavour}}.install
+
+_ln-deps-defs flavour='ember':
+	just _ln-from-dep ember "" "deps.*" config/ 
+	mkdir -p config/current_flavour
+	just _ln-from-dep {{flavour}} "" "deps.*" config/current_flavour ../..
+
+_ln-from-dep dep source_dir="" source_wildcard="*" target_dir="config/" cwd_rel_to_target="..":
+	cd {{target_dir}} && (find {{cwd_rel_to_target}}/extensions/{{dep}}/{{source_dir}} -maxdepth 1 -type f -name "{{source_wildcard}}" -exec ln -sfn {} ./ \; || find {{cwd_rel_to_target}}/deps/{{dep}}/{{source_dir}} -maxdepth 1 -type f -name "{{source_wildcard}}" -exec ln -sfn {} ./ \; || echo "Could not symlink the {{dep}} dep") && ls -la ./
+
+#	mkdir -p config
+#	touch ./flavours/$flavour/config/current_flavour/deps.path
+#	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
+@_pre-setup flavour='ember':
 	touch ./config/deps.path
 	mkdir -p data
 	mkdir -p data/uploads/
@@ -121,26 +142,14 @@ setup:
 	mkdir -p forks/
 	touch .erlang.cookie && chmod 644 .erlang.cookie
 
-_ln-spark-deps:
-	cd config && (find ../extensions/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || find ../deps/bonfire/ -type f -name "deps.*" -exec ln -sfn {} ./ \; || echo "Could not symlink the bonfire deps") && ls -la ./
-
-@_pre-setup-env flavour='classic':
-	echo "Using flavour '$flavour' at flavours/$flavour with env '$MIX_ENV' with vars from ./flavours/$flavour/config/$ENV_ENV/.env "
-	test -f ./flavours/$flavour/config/$ENV_ENV/.env || just _pre-setup-env-init flavours/$flavour/config flavours/$flavour/config || just _pre-setup-env-init flavours/classic/config flavours/$flavour/config
-	-rm .env
-	ln -sf ./config/$ENV_ENV/.env ./.env
-
-@_pre-setup-env-init from to:
-	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env && echo "FLAVOUR=$flavour" >> {{to}}/$ENV_ENV/.env
-
 @_pre-init: _assets-ln
+	echo "Using $MIX_ENV env, with flavour: $FLAVOUR"
 	mkdir -p data
 	mkdir -p ./priv/repo/
-	-cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
-	rm -rf ./data/current_flavour
-	ln -sf ../$FLAVOUR_PATH ./data/current_flavour
 	mkdir -p priv/static/public
-	echo "Using $MIX_ENV env, with flavour: $FLAVOUR at path: $FLAVOUR_PATH"
+# rm -rf ./data/current_flavour
+# cd data && ln -sf ../config/current_flavour 
+# -cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
 # ulimit -n 524288
 
 setup-dev:
@@ -149,10 +158,11 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	WITH_GIT_DEPS=0 just mix deps.get
-	just _ln-spark-deps
+	just _ln-deps-defs
 	just deps-fetch
+	just _flavour_install {{FLAVOUR}}
 
-extension-post-install: 
+extension-post-install:  
 	just _ext-migrations-copy
 
 _ext-migrations-copy: db-clean-migrations
@@ -166,6 +176,7 @@ setup-prod-build:
 	just build
 	just deps-fetch --only prod
 	just _deps-post-get  
+	just _flavour_install {{FLAVOUR}}
 
 # Prepare environment and dependencies
 prepare:
@@ -305,10 +316,10 @@ update: init update-repo prepare update-forks update-deps js-deps-fetch
 update-app: update-repo update-deps
 
 @db-clean-migrations:
-	rm -rf ./flavours/*/priv/repo/migrations/*
 	rm -rf ./priv/repo/*
-	rm -rf deps/bonfire/priv/repo/*
-	rm -rf extensions/bonfire/priv/repo/*
+# rm -rf ./flavours/*/priv/repo/migrations/*
+# rm -rf deps/bonfire/priv/repo/*
+# rm -rf extensions/bonfire/priv/repo/*
 
 _pre-update-deps: db-clean-migrations
 	@rm -rf deps/*/assets/pnpm-lock.yaml
@@ -382,13 +393,13 @@ update-fork-path path cmd='pull' extra='' mindepth='0' maxdepth='1':
 	just mix deps.get {{args}}
 
 @_deps-post-get: extension-post-install
-	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
-	-cd deps/bonfire/priv && ln -sf ../../../priv/repo
-	-cd extensions/bonfire/priv && ln -sf ../../../priv/repo
-	mkdir -p priv/static/data
 	mkdir -p data
 	mkdir -p data/uploads
+	mkdir -p priv/static/data
 	-cd priv/static/data && ln -s ../../../data/uploads
+# 	ln -sf ../../../priv/static extensions/bonfire/priv/static || ln -sf ../../../priv/static deps/bonfire/priv/static || echo "Could not find a priv/static dir to use"
+# -cd deps/bonfire/priv && ln -sf ../../../priv/repo
+# -cd extensions/bonfire/priv && ln -sf ../../../priv/repo 
 
 deps-clean *args='':
 	just mix deps.clean --build {{args}}
@@ -406,7 +417,7 @@ deps-clean *args='':
 	just deps-clean plug
 	just deps-clean phoenix_html
 	just deps-clean bonfire_ui_common
-	just deps-clean bonfire
+#	just deps-clean bonfire
 
 #### DEPENDENCY & EXTENSION RELATED COMMANDS ####
 
@@ -430,12 +441,12 @@ deps-unlock-unused:
 
 dep-clean dep:
 	@just mix "deps.clean $dep --build"
-	@just mix "deps.clean bonfire --build"
+# @just mix "deps.clean bonfire --build"
 
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 dep-clone-local dep repo:
 	git clone {{repo}} {{EXT_PATH}}{{dep}} 2> /dev/null || (cd {{EXT_PATH}}{{dep}} ; git pull)
-	echo "Remember to add this to ./config/deps.flavour.path: {{dep}} = \"{{EXT_PATH}}{{dep}}\""
+	echo "Remember to add this to ./config/current_flavour/deps.path: {{dep}} = \"{{EXT_PATH}}{{dep}}\""
 # just dep-go-local dep=$dep
 
 # Clone all bonfire deps / extensions
@@ -488,15 +499,15 @@ deps-clone-local-all:
 _pre-push-hooks: _pre-contrib-hooks
 	just icons-uniq
 	just mix format 
-	just deps-clean bonfire
+# just deps-clean bonfire
 # just mix format.all  # FIXME
-#	just mix changelog
+# just mix changelog
 
 _pre-contrib-hooks:
-	-ex +%s,/extensions/,/deps/,e -scwq config/deps_hooks.js
+	-ex +%s,/extensions/,/deps/,e -scwq config/deps.hooks.js
 	rm -rf forks/*/data/uploads/favicons/
 	rm -rf extensions/*/data/uploads/favicons/
-# -sed -i '' 's,/extensions/,/deps/,' config/deps_hooks.js
+# -sed -i '' 's,/extensions/,/deps/,' config/deps.hooks.js
 
 icons-uniq:
 	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
@@ -527,7 +538,7 @@ cloc:
 
 # Fetch latest remote commits from all extensions/forks git repos (does not checkout or rebase though)
 git-fetch-all:
-	just escript_dep jungle
+# just escript_dep jungle
 # jungle git fetch || just escript_dep jungle # ^ experimental: replaced racket script with escript
 
 # Run the git add command on each fork
@@ -680,10 +691,10 @@ rel-config: config _rel-init _rel-prepare
 @_rel-config-prepare:
 	rm -rf data/current_flavour
 	mkdir -p data
-	rm -rf flavours/*/config/*/dev
-	cp -rfL flavours/classic data/current_flavour
-	cp -rfL $FLAVOUR_PATH/* data/current_flavour/
-	cp -rfL extensions/bonfire/deps.* data/current_flavour/config/ || cp -rfL deps/bonfire/deps.* data/current_flavour/config/ || echo "Could not copy the deps definitions from the bonfire dep"
+	cp -rfL config/ data/config
+#	rm -rf flavours/*/config/*/dev
+#	cp -rfL $FLAVOUR_PATH/* data/current_flavour/
+# cp -rfL extensions/bonfire/deps.* data/current_flavour/ || cp -rfL deps/bonfire/deps.* data/current_flavour/ || echo "Could not copy the deps definitions from the bonfire dep"
 
 # copy current flavour's config, without using symlinks
 @_rel-prepare: _rel-config-prepare
@@ -692,7 +703,7 @@ rel-config: config _rel-init _rel-prepare
 	mkdir -p deps/
 	mkdir -p data/uploads/
 	mkdir -p data/null/
-	touch data/current_flavour/config/deps.path
+# touch data/current_flavour/deps.path
 
 # Build the Docker image (with no caching)
 rel-rebuild:
@@ -726,7 +737,7 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 _rel-compile-assets USE_EXT="local" ARGS="": 
 	-rm -rf priv/static
 	yarn -v || npm install --global yarn
-	git checkout HEAD -- "flavours/*/config/flavour_assets/hooks/*"
+	git checkout HEAD -- "config/current_flavour/assets/hooks/*"
 	just js-ext-deps
 	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
@@ -746,7 +757,6 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{ARCH}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR=$FLAVOUR \
-		--build-arg FLAVOUR_PATH=data/current_flavour \
 		--build-arg WITH_IMAGE_VIX=$WITH_IMAGE_VIX \
 		--build-arg WITH_LV_NATIVE=$WITH_LV_NATIVE \
 		--build-arg WITH_AI=$WITH_AI \

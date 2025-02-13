@@ -5,207 +5,227 @@ defmodule Bonfire.Umbrella.MixProject do
   use Mix.Project
   alias Bonfire.Mixer
 
-  @default_flavour "classic"
-  @flavour System.get_env("FLAVOUR") || @default_flavour
+  default_flavour = "ember"
+  flavour = System.get_env("FLAVOUR") || default_flavour
+  flavour_atom = String.to_atom(flavour)
 
   # we only behave as an umbrella im dev/test env
-  @use_local_forks System.get_env("WITH_FORKS", "1") == "1"
+  use_local_forks? = System.get_env("WITH_FORKS", "1") == "1"
   ext_forks_path = Mixer.forks_path()
 
-  @use_umbrella? Mix.env() == :dev and @use_local_forks and System.get_env("AS_UMBRELLA") == "1" and
-                   File.exists?("#{ext_forks_path}/bonfire")
-  @umbrella_path if @use_umbrella?, do: ext_forks_path, else: nil
+  bonfire_local? = File.exists?("#{ext_forks_path}/ember")
+  flavour_local? = File.exists?("#{ext_forks_path}/#{flavour}")
 
-  if @use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
+  use_umbrella? =
+    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") == "1" and
+      bonfire_local?
+
+  @umbrella_path if use_umbrella?, do: ext_forks_path, else: nil
+
+  if use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
   # including it by default breaks Dockerfile.release but not including it like this breaks CI...
-  @main_deps [{:bonfire, git: "https://github.com/bonfire-networks/bonfire"}]
+  main_deps = [
+    if(bonfire_local?,
+      do: {:ember, path: "#{ext_forks_path}/ember", override: true},
+      else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
+    ),
+    if(flavour_local?,
+      do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
+      else: {flavour_atom, git: "https://github.com/bonfire-networks/#{flavour}", override: true}
+    )
+  ]
 
-  @maybe_api_deps if(System.get_env("WITH_API_GRAPHQL") == "yes",
-                    do: [
-                      {:absinthe, "~> 1.7"},
-                      {:bonfire_api_graphql,
-                       git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
-                      {:absinthe_client,
-                       git: "https://github.com/bonfire-networks/absinthe_client"}
-                      # {:apical, git: "https://github.com/bonfire-networks/apical"}
-                    ],
-                    else: []
-                  )
+  maybe_api_deps =
+    if(System.get_env("WITH_API_GRAPHQL") == "yes",
+      do: [
+        {:absinthe, "~> 1.7"},
+        {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
+        {:absinthe_client, git: "https://github.com/bonfire-networks/absinthe_client"}
+        # {:apical, git: "https://github.com/bonfire-networks/apical"}
+      ],
+      else: []
+    )
 
-  @maybe_image_vix if(System.get_env("WITH_IMAGE_VIX") != "0",
-                     do: [
-                       {:image, "~> 0.37", runtime: true, override: true},
-                       {:evision, "~> 0.1", runtime: true, override: true}
-                     ],
-                     else: []
-                   )
+  maybe_image_vix =
+    if(System.get_env("WITH_IMAGE_VIX") != "0",
+      do: [
+        {:image, "~> 0.37", runtime: true, override: true},
+        {:evision, "~> 0.1", runtime: true, override: true}
+      ],
+      else: []
+    )
 
-  @maybe_ai if(System.get_env("WITH_AI") != "0",
-              do: [
-                {:bumblebee, "~> 0.6.0"},
-                {:nx, "~> 0.9.0"},
-                {:exla, "~> 0.9.1"},
-                {:axon, "~> 0.7.0", override: true},
-                {:table_rex, "~> 4.0.0", override: true}
-              ],
-              else: []
-            )
+  maybe_ai_deps =
+    if(System.get_env("WITH_AI") != "0",
+      do: [
+        {:bumblebee, "~> 0.6.0"},
+        {:nx, "~> 0.9.0"},
+        {:exla, "~> 0.9.1"},
+        {:axon, "~> 0.7.0", override: true},
+        {:table_rex, "~> 4.0.0", override: true}
+      ],
+      else: []
+    )
 
-  @extra_deps @main_deps ++
-                @maybe_api_deps ++
-                @maybe_image_vix ++
-                @maybe_ai ++
-                [
-                  {
-                    :mess,
-                    # git: "https://github.com/bonfire-networks/mess", 
-                    path: "forks/mess", only: [:dev, :test], override: true
-                  },
-                  {:jungle,
-                   git: "https://github.com/bonfire-networks/jungle",
-                   only: [:dev, :test],
-                   override: true},
-                  {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
+  extra_deps =
+    main_deps ++
+      maybe_api_deps ++
+      maybe_image_vix ++
+      maybe_ai_deps ++
+      [
+        {
+          :mess,
+          # git: "https://github.com/bonfire-networks/mess", 
+          path: "forks/mess", only: [:dev, :test], override: true
+        },
+        {:jungle,
+         git: "https://github.com/bonfire-networks/jungle", only: [:dev, :test], override: true},
+        {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
 
-                  # compilation
-                  # {:tria, github: "hissssst/tria"},
+        # compilation
+        # {:tria, github: "hissssst/tria"},
 
-                  ## password hashing - builtin vs nif
-                  {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
-                  {:argon2_elixir, "~> 4.0", only: [:prod]},
+        ## password hashing - builtin vs nif
+        {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
+        {:argon2_elixir, "~> 4.0", only: [:prod]},
 
-                  ## dev conveniences
-                  {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
-                  #
-                  # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
-                  # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
-                  {:ex_doc, "~> 0.35.1", runtime: false},
-                  {:ecto_erd, "~> 0.4", only: :dev},
-                  {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
-                  # {:ecto_dev_logger, "~> 0.7", only: :dev},
-                  # flame graphs in live_dashboard
-                  {:flame_on, "~> 0.7"},
-                  {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
-                  {:periscope, "~> 0.4", only: :dev},
-                  # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
-                  # changelog generation
-                  {:versioce, "~> 2.0.0", only: :dev},
-                  # needed for changelog generation
-                  {:git_cli, "~> 0.3.0", only: :dev},
-                  {
-                    :archeometer,
-                    "~> 0.5.0",
-                    # git: "https://gitlab.com/mayel/archeometer", 
-                    # NOTE: exqlite not working in CI
-                    only: [:dev], runtime: false
-                  },
-                  # {:recode, "~> 0.4", only: :dev},
-                  # API client needed for changelog generation
-                  {:neuron, "~> 5.0", only: :dev, override: true},
-                  # note: cannot use only: dev
-                  # {:phoenix_profiler, "~> 0.2.0"},
-                  # "~> 0.1.0", path: "forks/one_plus_n_detector",
-                  # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
-                  {:observer_cli, "~> 1.7", only: [:dev, :test]},
+        ## dev conveniences
+        {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
+        #
+        # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
+        # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
+        {:ex_doc, "~> 0.35.1", runtime: false},
+        {:ecto_erd, "~> 0.4", only: :dev},
+        {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
+        # {:ecto_dev_logger, "~> 0.7", only: :dev},
+        # flame graphs in live_dashboard
+        {:flame_on, "~> 0.7"},
+        {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
+        {:periscope, "~> 0.4", only: :dev},
+        # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
+        # changelog generation
+        {:versioce, "~> 2.0.0", only: :dev},
+        # needed for changelog generation
+        {:git_cli, "~> 0.3.0", only: :dev},
+        {
+          :archeometer,
+          "~> 0.5.0",
+          # git: "https://gitlab.com/mayel/archeometer", 
+          # NOTE: exqlite not working in CI
+          only: [:dev], runtime: false
+        },
+        # {:recode, "~> 0.4", only: :dev},
+        # API client needed for changelog generation
+        {:neuron, "~> 5.0", only: :dev, override: true},
+        # note: cannot use only: dev
+        # {:phoenix_profiler, "~> 0.2.0"},
+        # "~> 0.1.0", path: "forks/one_plus_n_detector",
+        # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
+        {:observer_cli, "~> 1.7", only: [:dev, :test]},
 
-                  # for extension install + mix tasks that do patching
-                  {
-                    :igniter,
-                    "~> 0.5",
-                    # path: "forks/igniter",
-                    # git: "https://github.com/ash-project/igniter",
-                    only: [:dev, :test], override: true
-                  },
+        # for extension install + mix tasks that do patching
+        {
+          :igniter,
+          "~> 0.5",
+          # path: "forks/igniter",
+          # git: "https://github.com/ash-project/igniter",
+          # only: [:dev, :test], 
+          override: true
+        },
 
-                  # tests
-                  # {:floki, ">= 0.0.0", only: [:dev, :test]},
-                  # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
-                  {
-                    :phoenix_test,
-                    "~> 0.3",
-                    # git: "https://github.com/germsvel/phoenix_test",
-                    only: :test, runtime: false
-                  },
-                  {:mock, "~> 0.3", only: :test},
-                  {:mox, "~> 1.0", only: :test},
-                  {:bypass, "~> 2.1", only: :test},
-                  {:ex_machina, "~> 2.7", only: [:dev, :test]},
-                  {:zest, "~> 0.1.0"},
-                  {:grumble, "~> 0.1.3", only: [:test], override: true},
-                  {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
-                  {:mix_test_interactive, "~> 4.0", only: :test, runtime: false},
-                  {:ex_unit_summary, "~> 0.1.0", only: :test},
-                  {:ex_unit_notifier, "~> 1.0", only: :test},
-                  {:wallaby, "~> 0.30", runtime: false, only: :test},
-                  #  for phoenix_live_reload/credo compat with archeometer
-                  {:file_system, "~> 1.0", override: true},
-                  # "~> 1.6.7", # version used by archeometer
-                  {:credo, "~> 1.7.10", only: [:dev, :test], override: true},
-                  # NOTE: not compatible with the credo version needed for archeometer
-                  {:mneme, ">= 0.10.0", only: [:dev, :test]},
-                  # used in unfurl
-                  # {:bypass, "~> 2.1", only: :test},
-                  {:assert_value, ">= 0.0.0", only: [:dev, :test]},
+        # tests
+        # {:floki, ">= 0.0.0", only: [:dev, :test]},
+        # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
+        {
+          :phoenix_test,
+          "~> 0.3",
+          # git: "https://github.com/germsvel/phoenix_test",
+          only: :test, runtime: false
+        },
+        {:mock, "~> 0.3", only: :test},
+        {:mox, "~> 1.0", only: :test},
+        {:bypass, "~> 2.1", only: :test},
+        {:ex_machina, "~> 2.7", only: [:dev, :test]},
+        {:zest, "~> 0.1.0"},
+        {:grumble, "~> 0.1.3", only: [:test], override: true},
+        {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
+        {:mix_test_interactive, "~> 4.0", only: :test, runtime: false},
+        {:ex_unit_summary, "~> 0.1.0", only: :test},
+        {:ex_unit_notifier, "~> 1.0", only: :test},
+        {:wallaby, "~> 0.30", runtime: false, only: :test},
+        #  for phoenix_live_reload/credo compat with archeometer
+        {:file_system, "~> 1.0", override: true},
+        # "~> 1.6.7", # version used by archeometer
+        {:credo, "~> 1.7.10", only: [:dev, :test], override: true},
+        # NOTE: not compatible with the credo version needed for archeometer
+        {:mneme, ">= 0.10.0", only: [:dev, :test]},
+        # used in unfurl
+        # {:bypass, "~> 2.1", only: :test},
+        {:assert_value, ">= 0.0.0", only: [:dev, :test]},
 
-                  # Benchmarking utilities
-                  {:benchee, "~> 1.1", override: true},
-                  {:benchee_html, "~> 1.0", only: [:dev, :test]},
-                  # for Telemetry store
-                  {:circular_buffer, "~> 0.4", only: :dev},
-                  # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
+        # Benchmarking utilities
+        {:benchee, "~> 1.1", override: true},
+        {:benchee_html, "~> 1.0", only: [:dev, :test]},
+        # for Telemetry store
+        {:circular_buffer, "~> 0.4", only: :dev},
+        # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
-                  # logging
-                  {:sentry, "~> 10.0", only: [:dev, :prod], override: true},
+        # logging
+        {:sentry, "~> 10.0", only: [:dev, :prod], override: true},
 
-                  # list dependencies & licenses
-                  # {
-                  #   :licensir,
-                  #   only: :dev,
-                  #   runtime: false,
-                  #   git: "https://github.com/bonfire-networks/licensir",
-                  #   # path: "./forks/licensir"
-                  # },
+        # list dependencies & licenses
+        # {
+        #   :licensir,
+        #   only: :dev,
+        #   runtime: false,
+        #   git: "https://github.com/bonfire-networks/licensir",
+        #   # path: "./forks/licensir"
+        # },
 
-                  # security auditing
-                  # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
-                  {:sobelow, "~> 0.13.0", only: :dev}
-                ]
+        # security auditing
+        # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
+        {:sobelow, "~> 0.13.0", only: :dev}
+      ]
 
-  @deps Mixer.mess_sources(@flavour)
-        |> Mess.deps(@extra_deps,
-          use_local_forks?: @use_local_forks,
-          use_umbrella?: @use_umbrella?,
-          umbrella_root?: @use_local_forks,
-          umbrella_path: @umbrella_path
-        )
-        |> Mixer.log(limit: :infinity)
+  deps =
+    Mixer.mess_sources(flavour)
+    |> Mixer.log(label: "mess sources", limit: :infinity)
+    |> Mess.deps(extra_deps,
+      use_local_forks?: use_local_forks?,
+      use_umbrella?: use_umbrella?,
+      umbrella_root?: use_local_forks?,
+      umbrella_path: @umbrella_path
+    )
+    |> Mixer.log(label: "top level deps", limit: :infinity)
 
-  @extra_release_apps @deps
-                      |> Enum.filter(fn
-                        {_dep, opts} when is_list(opts) ->
-                          opts[:runtime] == false and
-                            (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
+  extra_release_apps =
+    deps
+    |> Enum.filter(fn
+      {_dep, opts} when is_list(opts) ->
+        opts[:runtime] == false and
+          (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
 
-                        {_dep, _, opts} ->
-                          opts[:runtime] == false and
-                            (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
+      {_dep, _, opts} ->
+        opts[:runtime] == false and
+          (is_nil(opts[:only]) or :prod in List.wrap(opts[:only]))
 
-                        _ ->
-                          false
-                      end)
-                      # Mixer.other_flavour_sources()
-                      |> Mixer.deps_names_list()
-                      |> Enum.reject(&(&1 in [:bonfire, :ex_doc]))
-                      # ++ [:phoenix_live_head, :phoenix_live_favicon] # to avoid error with ex_doc being set to :load
-                      |> Enum.map(&{&1, :load})
-                      |> Mixer.log("disabled extensions to still include in release")
+      _ ->
+        false
+    end)
+    # Mixer.other_flavour_sources()
+    |> Mixer.deps_names_list()
+    |> Enum.reject(&(&1 in [:bonfire, :ex_doc]))
+    # ++ [:phoenix_live_head, :phoenix_live_favicon] # to avoid error with ex_doc being set to :load
+    |> Enum.map(&{&1, :load})
+    |> Mixer.log("disabled extensions to still include in release")
 
-  @test_federation [
+  test_federation = [
     "activity_pub",
     "bonfire_federate_"
   ]
-  @test_backend [
+
+  test_backend = [
     "bonfire_",
     "needle",
     # "paginator",
@@ -216,7 +236,8 @@ defmodule Bonfire.Umbrella.MixProject do
     "faviconic"
     # "paper_trail"
   ]
-  @test_ui [
+
+  test_ui = [
     "bonfire_ui_",
     "bonfire_boundaries",
     "bonfire_search",
@@ -230,8 +251,8 @@ defmodule Bonfire.Umbrella.MixProject do
     # note that the flavour will automatically be added where the dash appears
     version: "0.9.10-beta.178",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
-    flavour: @flavour,
-    default_flavour: @default_flavour,
+    flavour: flavour,
+    default_flavour: default_flavour,
     logo: "assets/static/images/bonfire-icon.png",
     guides:
       [
@@ -272,10 +293,10 @@ defmodule Bonfire.Umbrella.MixProject do
         "faviconic"
         # "paper_trail"
       ],
-      test_federation: @test_federation,
-      test_backend: @test_backend,
-      test_ui: @test_ui,
-      test: @test_backend ++ @test_federation ++ @test_ui,
+      test_federation: test_federation,
+      test_backend: test_backend,
+      test_ui: test_ui,
+      test: test_backend ++ test_federation ++ test_ui,
       data: [
         "bonfire_data_",
         "bonfire_data_edges",
@@ -316,8 +337,8 @@ defmodule Bonfire.Umbrella.MixProject do
         "activity_pub"
       ]
     ],
-    deps: @deps,
-    disabled_extensions: @extra_release_apps
+    deps: deps,
+    disabled_extensions: extra_release_apps
     # |> Mixer.log(limit: :infinity)
   ]
 
@@ -327,7 +348,7 @@ defmodule Bonfire.Umbrella.MixProject do
   def project do
     [
       name: "Bonfire",
-      app: :bonfire_umbrella,
+      app: :bonfire,
       apps_path: @umbrella_path,
       version: Mixer.version(config()),
       elixir: config()[:elixir],
@@ -388,7 +409,6 @@ defmodule Bonfire.Umbrella.MixProject do
                 "{deps,forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
                 # "{forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
               ),
-          "Flavours of Bonfire": Path.wildcard("flavours/*/*.md"),
           "Data schemas": Path.wildcard("{extensions,deps,forks}/bonfire_data_*/*.md"),
           "UI extensions": Path.wildcard("{extensions,deps,forks}/bonfire_ui_*/*.md"),
           "Bonfire utilities":
@@ -455,7 +475,13 @@ defmodule Bonfire.Umbrella.MixProject do
     ]
   end
 
-  # def application, do: Bonfire.MixProject.application()
+  def application do
+    # Bonfire.MixProject.application()
+    [
+      mod: {Bonfire.Application, []},
+      extra_applications: [:logger, :runtime_tools]
+    ]
+  end
 
   def cli do
     [
@@ -490,7 +516,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "deps.compile " <> Mixer.deps_to_update(config())
       ],
       "ecto.seeds": [
-        "run #{Mixer.flavour_path(config())}/repo/seeds.exs"
+        "run priv/repo/seeds.exs"
       ],
       updates: ["deps.get", "bonfire.deps.update"],
       upgrade: ["updates", "ecto.migrate"],

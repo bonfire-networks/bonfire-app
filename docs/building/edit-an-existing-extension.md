@@ -26,13 +26,13 @@ just dep-clone-local bonfire_social https://github.com/bonfire-networks/bonfire_
 
 ## Enable the extension
 
-After cloning, choose to use the local version by editing `./config/deps.flavour.path` (create the file in the `./flavours/[flavour]/config/` directory if it doesn’t exist). 
+After cloning, choose to use the local version by editing `./config/current_flavour/deps.path` (create the file if it doesn’t exist). 
 The format to follow is the following: `dep_name = "dep_path"`.
-To disable a local extension, comment or delete its line in `./config/deps.flavour.path`.
+To disable a local extension, comment or delete its line in `./config/current_flavour/deps.path`.
 Use just dev to run the app with changes hot-reloading.
 
 ```
-# ./config/deps.flavour.path
+# ./config/current_flavour/deps.path
 bonfire_me = "./extensions/bonfire_me"
 # bonfire_boundaries = "./extensions/bonfire_boundaries" # disabled local copy
 ```

@@ -24,18 +24,13 @@ just dep-clone-local **[extension name]** **[extension url]**
 
 This command (eg. `just dep-clone-local bonfire_ui_social https://github.com/bonfire-app/bonfire_ui_social`) will create a local copy of the extension in `./extensions/bonfire_ui_social`.
 
-If the extension is enabled locally, you will see an entry in `config/deps.flavour.path` with the path to the local extension: 
+If the extension is enabled locally, you will see an entry in `config/current_flavour/deps.path` with the path to the local extension: 
 
 ```
 bonfire_ui_social = "extensions/bonfire_ui_social"
 ```
 
-If you want to disable the extension, you can remove the entry from `config/deps.flavour.path`
-
-> #### Info {: .info}
->
-> `config/deps.flavour.path` is a symlink of the file `flavours/[flavour]/deps.flavour.path`. Ensure this file exist in the flavour you are working on, or create one to begin use your extensions locally.
-
+If you want to disable the extension, you can remove the entry from `config/current_flavour/deps.path`.
 
 When the extension is enabled, Bonfire will use the code in `extensions/` instead of the one in `deps/`.
 

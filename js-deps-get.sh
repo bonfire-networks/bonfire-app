@@ -14,14 +14,18 @@ for dep in $DEPS ; do
 		echo "Install JS deps from extension 'extensions/$dep' with args '$2'"
 		$TOOL $2
 		cd ../../../
+	else
+		if cd "forks/$dep/assets" 2>/dev/null ; then
+			echo "Install JS deps from extension 'forks/$dep' with args '$2'"
+			$TOOL $2
+			cd ../../../
+		else
+			# TODO: we should only attempt to install from `deps/*` if the extension is not cloned in `extensions/*` or `forks/*`, but this risks the JS deps not being available if we later switch to using the upstream dep, so maybe we should read WITH_FORKS env for this
+			echo "Extension '$dep' is not cloned, trying to install from 'deps/$dep'"
+		fi
 	fi
 
-	if cd "forks/$dep/assets" 2>/dev/null ; then
-		echo "Install JS deps from extension 'forks/$dep' with args '$2'"
-		$TOOL $2
-		cd ../../../
-	fi
-
+	
 	if cd "deps/$dep/assets" 2>/dev/null ; then
 		echo "Install JS deps from extension 'deps/$dep' with args '$2'"
 		$TOOL $2

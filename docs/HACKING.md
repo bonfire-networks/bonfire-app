@@ -41,19 +41,20 @@ $ cd bonfire
 
 Bonfire is a flexible platform that powers a variety of social networks. The first thing you have to choose is which app (or "flavour") you want to hack on:
 
-- `classic` ("Bonfire Social", a basic social network that interoperates with the fediverse)
+- `ember` (just the basics)
+- `social` (a classical social network that interoperates with the fediverse)
 - `community` (for topics and groups)
 - `open-science` (for next-gen scientific communities)
 - `coordination` (for coordinating around tasks and projects)
 - `cooperation` (for building cooperative economic networks)
 
-Note that at the current time, the core team are focusing most of their efforts on the `classic` flavour and this is where we **recommend** you start.
+Note that at the current time, the core team are focusing most of their efforts on the `social` flavour and this is where we **recommend** you start.
 
 
-So for example if you want to run the `classic` flavour run:
+So for example if you want to run the `social` flavour run:
 
 ```sh
-export FLAVOUR=classic
+export FLAVOUR=social
 ``` 
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)

@@ -26,7 +26,7 @@ To add a new routes to the Router, you need to add include it to the main Router
 
 > #### Info {: .info}
 >
-> At the moment, you need a workaround to be able to enable the `bonfire` dependency locally: clone it in your `./extensions` folder and then add it to your` deps.flavour.path` file.
+> At the moment, you need a workaround to be able to enable the `bonfire` dependency locally: clone it in your `./extensions` folder and then add it to your` current_flavour/deps.path` file.
 
 Once you have the `bonfire` dep enabled locally, include your new extension router with `use_if_enabled(Project.ExtensionName.Web.Routes)` in the [Bonfire.Web.Router.Routes](https://github.com/bonfire-networks/bonfire/blob/main/lib/web/router.ex) file.
 

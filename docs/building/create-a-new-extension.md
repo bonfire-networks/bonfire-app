@@ -22,7 +22,7 @@ just mix bonfire.extension.new *your_extension_name*
 
 This command creates a new directory in `./extensions` named `*your_extension_name*`, complete with all the necessary files and scaffolding.
 
-2. Add your extension to `./config/deps.flavour.path` (on a new line, it should look similar to `your_extension_name = "extensions/your_extension_name"`) to enable it locally.
+2. Add your extension to `./config/current_flavour/deps.path` (on a new line, it should look similar to `your_extension_name = "extensions/your_extension_name"`) to enable it locally.
 
 3. Once your new extension is set up, you're ready to dive into coding. Consider these possible steps to enhance your extension:
 
