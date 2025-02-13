@@ -1,0 +1,1 @@
+../extensions/ember/config//mime_types.ex

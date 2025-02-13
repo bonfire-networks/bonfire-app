@@ -1,0 +1,39 @@
+# config for Caddy v2
+
+:80 # comment this line and uncomment the next 4 to enable HTTPS/SSL 
+# :443
+# tls {
+#  on_demand
+# }
+
+route /data/uploads/* {
+  
+  root * /frontend/
+
+  # fallback to index (for single page site)
+  try_files {path} 
+
+  # serve static files
+  file_server 
+}
+
+route * {
+  
+  # backend proxying
+  reverse_proxy web:4000 
+
+}
+
+# options
+encode gzip
+log
+handle_errors {
+	@502 expression `{http.error.status_code} == 502`
+	handle @502 {
+    respond 503 {
+      body "Hello, unfortunately this instance seems to be down. Please try again in a few minutes!"
+      close
+    }
+	}
+}
+

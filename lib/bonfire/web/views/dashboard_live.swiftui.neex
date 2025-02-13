@@ -1,0 +1,289 @@
+<VStack>
+
+  <.main_header
+    page_title={@page_title}
+    show_search={@selected_tab=="search"}
+    style={if @selected_tab in ["home", "notifications"], do: "main_header", else: "simple_header"}
+    >
+    <:toolbar_trailing>
+      <%= case @toolbar_trailing do %>
+      <% :home_toolbar_trailing -> %>
+        <.home_toolbar_trailing />
+      <% :notifications_toolbar_trailing -> %>
+        <.notifications_toolbar_trailing />
+      <% :search_toolbar_trailing -> %>
+        <.search_toolbar_trailing />
+      <% :profile_toolbar_trailing -> %>
+        <.profile_toolbar_trailing />
+      <% :direct_messages_toolbar_trailing -> %>
+        <.direct_messages_toolbar_trailing />
+      <% _ -> %>
+    <% end %>
+    </:toolbar_trailing>
+
+    <:navigation_menu>
+      <%= case @navigation_menu do %>
+      
+      <% :profile_navigation_menu -> %>
+      <VStack></VStack>
+      <% _ -> %>
+        <.navigation_menu />
+    <% end %>
+    </:navigation_menu>
+    <:header_menu>
+       <%= case @header_menu do %>
+      <% :home_header_menu -> %>
+        <.home_header_menu />
+      <% :notifications_header_menu -> %>
+        <.notifications_header_menu />
+      <% :search_header_menu -> %>
+      <% _ -> %>
+    <% end %>
+    </:header_menu>
+  </.main_header>
+  
+
+  
+<.tab_bar phx-change="select_tab" selection={@selected_tab}>
+  <.tab tag={:home} name="" icon_system_name="square.stack">
+
+     <VStack alignment="top" style="padding(.top, 0);">
+      
+     <ScrollView
+     style={[
+            "scrollTargetBehavior(.viewAligned)",
+            "scrollIndicators(.hidden)",
+            "safeAreaPadding(.vertical, 0)",
+            "listRowInsets(EdgeInsets())",
+            "listRowSpacing(0)",
+            "listRowBackground(:none)",
+            "padding(.vertical, 0)"
+          ]}
+    >
+    <LazyVStack alignment="top" style="scrollTargetLayout()">
+      <VStack :for={i <- 1..30}>
+      <.activity  />
+      <Divider />
+      </VStack>
+    </LazyVStack>
+    </ScrollView>
+    </VStack>
+  </.tab>
+  <.tab tag={:notifications} name="" icon_system_name="bell">
+    <ScrollView
+      style={[
+        "scrollTargetBehavior(.viewAligned)",
+        "scrollIndicators(.hidden)",
+        "safeAreaPadding(.vertical, 0)",
+        "listRowInsets(EdgeInsets())",
+        "listRowSpacing(0)",
+        "listRowBackground(:none)",
+        "padding(.vertical, 0)"
+      ]}
+    >
+      <LazyVStack alignment="top" style="scrollTargetLayout()">
+        <.activity_notification type="like" />
+        <Divider/>
+        <.activity_notification type="boost" />
+        <Divider/>
+        <.activity_notification type="follow" />
+        <Divider/>
+        <.activity type="mention" />
+        <Divider/>
+        <VStack :for={i <- 1..30}>
+          <.activity_notification />
+        <Divider/>
+        </VStack>
+      </LazyVStack>
+    </ScrollView>
+  </.tab>
+  <.tab tag={:search} name="" icon_system_name="magnifyingglass">
+  <VStack>
+  <VStack>
+    <VStack style="pickerStyle(.segmented); padding(.leading, 16); padding(.trailing, 16); padding(.top, 8);">
+      <Picker selection={:car} phx-change="transport-changed">
+        <Text template={:label}>Transportation</Text>
+        <Group template={:content}>
+            <Text tag="car">Posts</Text>
+            <Text tag="bus">Hashtags</Text>
+            <Text tag="tram">News</Text>
+        </Group>
+    </Picker>
+    </VStack>
+    <HStack style="padding(.leading, 16); padding(.trailing, 16); padding(.bottom, 8); padding(.top, 8);">
+      <Text style="font(.subheadline);">This are some of the posts that are trending now in your federated network.</Text>
+      <Spacer/>
+      <Button style="controlSize(.small); foregroundStyle(.gray); padding(.leading, 24); buttonStyle(.plain);">
+        <.icon name="xmark.circle.fill" />
+      </Button>
+    </HStack>
+    <Divider/>
+    </VStack>
+    <ScrollView
+      style={[
+        "scrollTargetBehavior(.viewAligned)",
+        "scrollIndicators(.hidden)",
+        "safeAreaPadding(.vertical, 0)",
+        "listRowInsets(EdgeInsets())",
+        "listRowSpacing(0)",
+        "listRowBackground(:none)",
+        "padding(.vertical, 0)"
+      ]}>
+
+      
+      <VStack alignment="leading" :for={i <- 1..10}>
+        <.activity />
+        <Divider/>
+      </VStack>
+      </ScrollView>
+    </VStack>
+  </.tab>
+
+
+  <.tab tag={:direct_messages} name="" icon_system_name="tray">
+  <VStack>
+  <VStack>
+    <Button
+      phx-click="go_to_search"
+      style={[
+      "padding(.leading, 16); padding(.trailing, 16); padding(.top, 8); padding(.bottom, 8)",
+      "frame(maxWidth: .infinity)",
+      "foregroundStyle(.gray)",
+      "buttonStyle(.bordered)"]}>
+      <HStack style="frame(maxWidth: .infinity)">
+      <.icon name="magnifyingglass" />
+      <Text>Search in your direct messages</Text>
+      </HStack>
+    </Button>
+    <%!-- <HStack style="padding(.leading, 16); padding(.trailing, 16); padding(.bottom, 8); padding(.top, 8);">
+      <Text style="font(.subheadline);">This are some of the posts that are trending now in your federated network.</Text>
+      <Spacer/>
+      <Button style="controlSize(.small); foregroundStyle(.gray); padding(.leading, 24); buttonStyle(.plain);">
+        <.icon name="xmark.circle.fill" />
+      </Button>
+    </HStack> --%>
+    <Divider/>
+    </VStack>
+    <ScrollView
+      style={[
+        "scrollTargetBehavior(.viewAligned)",
+        "scrollIndicators(.hidden)",
+        "safeAreaPadding(.vertical, 0)",
+        "listRowInsets(EdgeInsets())",
+        "listRowSpacing(0)",
+        "listRowBackground(:none)",
+        "padding(.vertical, 0)"
+      ]}>
+
+      
+      <VStack alignment="leading" :for={i <- 1..10}>
+        <.activity type="mention"/>
+        <Divider/>
+      </VStack>
+      </ScrollView>
+    </VStack>
+  </.tab>
+  <.tab tag={:profile} name="" icon_system_name="person.crop.circle">
+    <Bonfire.UI.Me.ProfileLive.SwiftUI.render />
+  </.tab>
+</.tab_bar> 
+
+  <.modal id="filters" show={@show_search_filters} on_cancel="dismiss_filters">
+    <VStack class="detents:medium:large ultrathinmaterial dragindicator:visible" template={:content}>
+    <HStack style="padding(.leading, 24); padding(.trailing, 24); padding(.top, 24); padding(.bottom, 0);">
+      <Spacer/>
+      <Text style="font(.headline); fontWeight(.bold)">Filters</Text>
+      <Spacer/>
+      <Button phx-click="dismiss_filters">
+        <Label systemImage="xmark"></Label>
+      </Button>
+    </HStack>
+    <VStack alignment="leading">
+      <List style="scrollContentBackground(.hidden); " >
+        <Section>
+          <Text style="font(.headline)">Group #1</Text>
+          <Text style="font(.body)">Item #1</Text>
+          <Text style="font(.footnote)">The first group ends here</Text>
+        </Section>
+        <Section>
+          <Text style="font(.headline)">Group #2</Text>
+          <Text style="font(.body)">Item #1</Text>
+          <Text style="font(.footnote)">The first group ends here</Text>
+        </Section>
+      </List>
+    </VStack>
+    </VStack>
+  </.modal>
+</VStack>
+
+
+<%!-- <VStack>
+  <VStack 
+	style={[
+	  "navigationTitle(:title)",
+	  "toolbar(content: :toolbar)",
+	  "navigationBarTitleDisplayMode(.inline)"
+	  ]}>
+	<ToolbarItem template="toolbar" placement="principal">
+    <Button
+      phx-click="go_to_search"
+      style={[
+      "frame(maxWidth: .infinity)",
+      "controlSize(.small)",
+      "foregroundStyle(.gray)",
+      "buttonStyle(.bordered)"]}>
+      <HStack style="frame(maxWidth: .infinity)">
+      <.icon name="magnifyingglass" />
+      <Text>Search</Text>
+      </HStack>
+    </Button>
+  </ToolbarItem>
+	<ToolbarItemGroup template="toolbar" placement="navigationBarTrailing">
+	  <Button>
+		<.icon name="line.3.horizontal.decrease.circle" />
+	  </Button>
+	</ToolbarItemGroup>
+	<ToolbarItem template="toolbar" placement="navigation">
+		<.icon name="person.crop.circle" />
+	</ToolbarItem>
+  <VStack template="content">
+    <.button>
+      <Label systemImage="house">Home</Label>
+    </.button>
+    <.button>
+    <Label systemImage="eye">Following</Label>
+    </.button>
+    <.button>
+    <Label systemImage="person.2">Local</Label>
+    </.button>
+    <.button>
+    <Label systemImage="globe">Remote</Label>
+    </.button>
+    <Divider/>
+    <.button phx-click="show_filters">
+      <Label systemImage="line.3.horizontal.decrease.circle">Filters</Label>
+    </.button>
+  </VStack>
+</VStack>
+  <.tab_bar phx-change="select_tab" selection={@selected_tab}>
+    <.tab tag={:home} name="" icon_system_name="square.stack">
+      <Text>Home</Text>
+    </.tab>
+
+	<.tab tag={:notifications} name="" icon_system_name="bell">
+		<Text>Notifications</Text>
+	</.tab>
+	
+	<.tab tag={:search} name="" icon_system_name="magnifyingglass">
+		<Text>Search</Text>
+	</.tab>
+	
+	<.tab tag={:direct_messages} name="" icon_system_name="tray">
+		<Text>DMs</Text>
+	</.tab>
+	
+	<.tab tag={:profile} name="" icon_system_name="person.crop.circle">
+		<Text>Profile</Text>
+	</.tab>
+</.tab_bar>
+</VStack> --%>

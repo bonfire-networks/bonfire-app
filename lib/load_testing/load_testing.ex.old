@@ -1,0 +1,109 @@
+if Code.ensure_loaded?(Chaperon.Scenario) do
+  defmodule Bonfire.Federate.ActivityPub.LoadTesting do
+    defmodule Scenario do 
+      use Chaperon.Scenario
+
+    #   def init(session) do
+    #     session
+    #     |> ok
+    #   end
+
+      def run(session) do
+        session
+        |> publish_loop
+      end
+
+    # def teardown(session) do
+        # We can also define a `teardown/1` function which then gets called with our
+        # session after we successfully ran our `run/1` defined above.
+        # This is useful for cleaning up resources or performing other logic after
+        # we've run our load test scenario.
+        # Note that any actions in this code will not be traced and no metrics for
+        # them will be recorded in the final metrics histogram output.
+    # end
+
+      def publish_loop(session) do
+        session
+        |> publish_loop(session.config.publications_per_loop)
+      end
+
+      def publish_loop(session, 0) do
+        session
+        <~ publish
+      end
+
+      def publish_loop(session, publications) do
+        session
+        |> loop(:publish, session.config.duration)
+        |> publish_loop(publications - 1)
+      end
+
+      def publish(session) do
+        session
+        |> delay(:rand.uniform(session.config.base_interval))
+        ~> publish(session.config.channel)
+      end
+
+      def publish(session, channel) do
+        ts = Chaperon.Timing.timestamp()
+
+        session
+        |> post(
+          channel,
+          json: %{
+            "id" => "#{ActivityPub.Utils.ap_base_url()}/#{ts}",
+            "hello" => "world",
+            "time" => ts
+          },
+          headers: %{"X-Firehose-Persist" => true}
+        )
+      end
+    end
+    # submodule ends
+
+    use Chaperon.LoadTest
+    alias ActivityPub.Config
+    alias Bonfire.Common.TestInstanceRepo
+
+    def default_config do
+
+       remote_base_url = TestInstanceRepo.apply( ActivityPub.Federator.Adapter.base_url() )
+
+      do: %{
+        # scenario_timeout: 12_000,
+        merge_scenario_sessions: true,
+        base_url: remote_base_url,
+        timeout: :infinity,
+        channel: "#{System.get_env("AP_BASE_PATH", "/pub")}/shared_inbox"
+      }
+    end
+
+    def scenarios,
+      do: [
+        {Scenario, "p1",
+         %{
+           delay: 1 |> seconds,
+           duration: 1 |> seconds,
+           base_interval: 50,
+           publications_per_loop: 5
+         }},
+        {Scenario, "p2",
+         %{
+           delay: 4 |> seconds,
+           duration: 10 |> seconds,
+           base_interval: 250,
+           publications_per_loop: 1
+         }}
+      ]
+
+    @doc "
+    Run with ENV var: TEST_INSTANCE=yes to be able to test federation"
+    def run(_enable_federation? \\ true) do 
+        # orig = Config.get([:instance, :federating])
+        # Config.put([:instance, :federating], enable_federation?)
+        Chaperon.run_load_test(__MODULE__)
+        # Config.put([:instance, :federating], orig)
+    end
+
+  end
+end

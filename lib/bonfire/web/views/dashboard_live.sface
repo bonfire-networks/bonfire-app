@@ -1,0 +1,32 @@
+<section data-id="user_dashboard" class="">
+  <!-- TODO: use WidgetsLive here, so the list and order can be changed in config & user settings -->
+  {#case @default_feed}
+    {#match :my}
+      <StatefulComponent
+        module={maybe_component(Bonfire.UI.Social.FeedLive, e(@__context__, :socket, nil))}
+        id={ComponentID.new(
+          Bonfire.UI.Social.FeedLive,
+          Bonfire.Social.Feeds.my_feed_id(:inbox, e(@__context__, :socket, nil)),
+          __MODULE__
+        )}
+        feed_id={Bonfire.Social.Feeds.my_feed_id(:inbox, e(@__context__, :socket, nil))}
+        feed_name={:my}
+        feed_title={l("My Following")}
+        hide_tabs
+      />
+    {#match :curated}
+      <!-- TODO: cache -->
+      <StatefulComponent
+        module={maybe_component(Bonfire.UI.Social.FeedLive, e(@__context__, :socket, nil))}
+        id={ComponentID.new(Bonfire.UI.Social.FeedLive, :curated, __MODULE__)}
+        feed_id={:curated}
+        feed_name={:curated}
+        feed_title={l("Curated Activities")}
+        hide_tabs
+      />
+    {#match :popular}
+      <StatelessComponent module={maybe_component(Bonfire.UI.Social.WidgetDiscussionsLive, @__context__)} />
+    {#match _}
+      <StatelessComponent module={maybe_component(Bonfire.UI.Social.WidgetDiscussionsLive, @__context__)} />
+  {/case}
+</section>

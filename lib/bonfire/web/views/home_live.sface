@@ -1,0 +1,64 @@
+<div class="lg:p-0 w-full h-full flex-1 flex flex-col max-w-[640px] mx-auto">
+  <section class="mb-4 flex flex-col gap-6 border border-base-content/10 shadow-lg bg-base-100 pb-8 rounded-box">
+    <div
+      :if={Config.get([:ui, :theme, :instance_image], nil)}
+      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+      class="bg-center bg-no-repeat h-[220px] bg-cover bg-white w-full rounded-t-box"
+    >
+    </div>
+    <div class="flex px-4 flex-col gap-3">
+      <h2 class="text-4xl font-semibold">{Config.get([:ui, :theme, :instance_name], Bonfire.Application.name())}</h2>
+      <!-- <h3 class="text-xl font-medium mt-2">{Config.get([:ui, :theme, :instance_tagline])}</h3> -->
+      <h3 class="md:text-base text-base-content/90">{Config.get([:ui, :theme, :instance_description])}</h3>
+    </div>
+
+    <div class="flex items-center justify-center px-4 gap-4">
+      <LinkLive to={~p"/about"} class="btn btn-sm lg:btn-md btn-secondary btn-soft flex-1">
+        {l("About")}
+      </LinkLive>
+      <LinkLive to={~p"/conduct"} class="btn btn-sm lg:btn-md btn-secondary btn-soft flex-1">
+        {l("Conduct")}
+      </LinkLive>
+      <LinkLive to={~p"/users"} class="btn btn-sm lg:btn-md btn-secondary btn-soft flex-1">
+        {l("Members")}
+      </LinkLive>
+    </div>
+  </section>
+
+  <section class="">
+    <div class="w-full border border-base-content/10 shadow-lg bg-base-100 lg:!mt-0 rounded-box">
+      <div class="font-semibold h-[50px] flex items-center px-4">
+        {#case @feed_name}
+          {#match :curated}
+            {l("Top discussions")}
+          {#match _}
+            {l("Recent activities")}
+        {/case}
+      </div>
+      <StatefulComponent
+        module={maybe_component(Bonfire.UI.Social.FeedLive, @__context__)}
+        :if={@feed_component_id}
+        id={@feed_component_id}
+        hide_tabs
+        feed_id={@feed_id}
+        feed_name={@feed_name}
+        feed_ids={@feed_ids}
+        top_page="Explore"
+        page_title={@page_title}
+        feed={@feed}
+        page_info={@page_info}
+        loading={@loading}
+        time_limit={30}
+      />
+      <!-- cache_strategy={:guest_cache} -->
+    </div>
+    <!-- <div class="lg:flex hidden flex-col gap-4 w-full col-span-2">
+      {!-- <StatelessComponent module={maybe_component(Bonfire.UI.Common.WidgetInstanceInfoLive, @__context__)} /> --}
+      <StatelessComponent module={maybe_component(Bonfire.Tag.Web.WidgetTagsLive, @__context__)} />
+      <StatelessComponent module={maybe_component(Bonfire.UI.Me.WidgetAdminsLive, @__context__)} />
+      <div>
+        <Bonfire.UI.Common.ImpressumLive />
+      </div>
+    </div> -->
+  </section>
+</div>

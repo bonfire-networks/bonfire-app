@@ -1,0 +1,62 @@
+<section class="max-w-[640px] mx-auto mt-0 grid items-start gap-4">
+  <div class={
+    "flex flex-col shadow rounded-xl bg-base-100 gap-2",
+    "shadow-sm rounded-xl border border-base-content/10": !current_user_id(@__context__)
+  }>
+    <div
+      style={"background-image: url(#{Config.get([:ui, :theme, :instance_image], nil)})"}
+      class={
+        "bg-center h-[320px] bg-no-repeat bg-cover bg-white",
+        "rounded-t-xl": !current_user_id(@__context__)
+      }
+    >
+    </div>
+    <div class="p-4 flex flex-col gap-3">
+      <h1 class="text-xl font-bold">{Config.get([:ui, :theme, :instance_welcome, :title], "Welcome to #{Bonfire.Application.name()}")}</h1>
+      <article class="prose max-w-max">{templated_or_remote_markdown(Config.get([:ui, :theme, :instance_welcome, :description], ""))}</article>
+    </div>
+  </div>
+
+  <!-- <div
+    class={
+      "p-4",
+      "border rounded-xl border-base-content/10": !current_user_id(@__context__)
+    }
+    :if={Config.get([Bonfire.Web.Views.AboutLive, :include, :users], true)}
+  >
+    <h2 class="text-lg font-semibold">{l("Network")}</h2>
+    <div class="flex flex-col mt-3 gap-2">
+      <div
+        :for={user <- @users}
+        class="p-4 border rounded-lg shadow bg-base-100 border-base-content/10"
+      >
+        <StatelessComponent
+          module={maybe_component(Bonfire.UI.Me.ProfileItemLive)}
+          character={e(user, :character, nil) || e(user, :activity, :subject, :character, nil)}
+          profile={e(user, :profile, nil) || e(user, :activity, :subject, :profile, nil)}
+          show_summary
+          wrapper_class="flex items-start gap-3 profile-item group justify-between gap-6"
+          avatar_class="w-16 h-16"
+          show_controls={[:follow]}
+        />
+      </div>
+    </div>
+
+    <Bonfire.UI.Common.LoadMoreLive
+      :if={@page_info}
+      live_handler={__MODULE__}
+      page_info={@page_info}
+      hide_guest_fallback
+    />
+  </div> -->
+
+  <div
+    :if={Config.get([Bonfire.Web.Views.AboutLive, :include, :preferences], true)}
+    class="px-4 p-4 bg-base-100 rounded-xl shadow"
+  >
+    <StatelessComponent
+      selected_tab={@selected_tab}
+      module={maybe_component(Bonfire.UI.Me.SettingsViewsLive.InstanceSummaryLive, @__context__)}
+    />
+  </div>
+</section>
