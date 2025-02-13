@@ -173,18 +173,18 @@ jobs:
         with:
           # TODO: figure out why Surface compiler is failing to create assets and remove the workaround (of using the ones already in the repo)
           run: |
-            ls -la data/current_flavour/assets/
-            ls -la data/current_flavour/assets/hooks/
-            cp -r data/current_flavour/assets data/current_flavour/flavour_assets_bak
+            ls -la data/config/current_flavour/assets/
+            ls -la data/config/current_flavour/assets/hooks/
+            cp -r data/config/current_flavour/assets data/config/current_flavour/flavour_assets_bak
             just _rel-compile-OTP remote
-            rm -rf data/current_flavour/assets 
-            mv data/current_flavour/flavour_assets_bak data/current_flavour/assets 
+            rm -rf data/config/current_flavour/assets 
+            mv data/config/current_flavour/flavour_assets_bak data/config/current_flavour/assets 
             just _rel-compile-assets remote
             just _rel-release-OTP remote
             cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
           post: |
-            ls -la data/current_flavour/assets/
-            ls -la data/current_flavour/assets/hooks/
+            ls -la data/config/current_flavour/assets/
+            ls -la data/config/current_flavour/assets/hooks/
       - name: Release to github
         uses: softprops/action-gh-release@v2
         with:

@@ -195,8 +195,8 @@ cp_symlinks dir:
 	mkdir -p data
 	mkdir -p ./priv/repo/
 	mkdir -p priv/static/public
-# rm -rf ./data/current_flavour
-# cd data && ln -sf ../config/current_flavour 
+	rm -rf ./data/config
+	cd data && ln -sf ../config
 # -cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
 # ulimit -n 524288
 
@@ -736,7 +736,7 @@ rel-config: config _rel-init _rel-prepare
 
 # copy current flavour's config, without using symlinks
 @_rel-config-prepare: config_follow_symlinks
-	rm -rf data/current_flavour
+	rm -rf data/config
 	mkdir -p data
 	cp -rfL config/ data/config
 # TODO: ^ no need anymore thanks to config_follow_symlinks?
