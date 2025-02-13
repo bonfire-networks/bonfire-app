@@ -69,9 +69,11 @@ jobs:
       run: mix local.hex --force
     - name: Install rebar
       run: mix local.rebar --force
+    - name: Fetch initial deps
+      run: just deps-get
     - name: Prepare environment
       run: just config 
-    - name: Set up deps
+    - name: Set things up 
       run: just setup-dev
     - name: Run tests
       run: just test-${{matrix.test_only}}

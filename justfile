@@ -105,6 +105,7 @@ setup:
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
 	-rm ./config/deps.* 2> /dev/null
 	-rm ./config/current_flavour/deps.* 2> /dev/null
+	just _ln-deps-defs ember
 	just _ln-deps-defs {{flavour}}
 	just _ln-from-dep ember config/ "*" config/
 	mkdir -p ./config/prod/ 
@@ -157,8 +158,7 @@ setup-dev:
 	just deps-clean-data
 	just deps-clean-api
 	just deps-clean-unused
-	WITH_GIT_DEPS=0 just mix deps.get
-	just _ln-deps-defs
+	WITH_GIT_DEPS=0 just deps-get
 	just deps-fetch
 	just _flavour_install {{FLAVOUR}}
 
@@ -307,7 +307,7 @@ db-rollback-all:
 
 # Update the dev app and all dependencies/extensions/forks, and run migrations
 update: init update-repo prepare update-forks update-deps js-deps-fetch
-	just mix deps.get
+	just deps-get
 	just _deps-post-get
 #   just mix compile
 #	just db-migrate
