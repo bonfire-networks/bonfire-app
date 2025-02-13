@@ -105,9 +105,7 @@ setup:
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
 	-rm ./config/deps.* 2> /dev/null
 	-rm ./config/current_flavour/deps.* 2> /dev/null
-	just _ln-deps-defs ember
-	just _ln-deps-defs {{flavour}}
-	just _ln-from-dep ember config/ "*" config/
+	just _configs-ln {{flavour}}
 	mkdir -p ./config/prod/ 
 	mkdir -p ./config/dev/
 	test -f .env || just _config_flavour-env-init {{flavour}} config config
@@ -122,13 +120,62 @@ setup:
 @_flavour_install select_flavour:
 	just mix {{select_flavour}}.install
 
-_ln-deps-defs flavour='ember':
+_configs-ln flavour='ember':
+	just _ln-from-dep ember config/ "*" config/
+	just _ln-dep-defs {{flavour}}
+
+# _configs-cp flavour='ember':
+# 	just _cp-from-dep ember config/ "*" config/
+# 	just _cp-dep-defs {{flavour}}
+
+_ln-dep-defs flavour='ember':
 	just _ln-from-dep ember "" "deps.*" config/ 
 	mkdir -p config/current_flavour
 	just _ln-from-dep {{flavour}} "" "deps.*" config/current_flavour ../..
 
+# _cp-dep-defs flavour='ember':
+# 	just _cp-from-dep ember "" "deps.*" config/ 
+# 	mkdir -p config/current_flavour
+# 	just _cp-from-dep {{flavour}} "" "deps.*" config/current_flavour ../..
+
 _ln-from-dep dep source_dir="" source_wildcard="*" target_dir="config/" cwd_rel_to_target="..":
-	cd {{target_dir}} && (find {{cwd_rel_to_target}}/extensions/{{dep}}/{{source_dir}} -maxdepth 1 -type f -name "{{source_wildcard}}" -exec ln -sfn {} ./ \; || find {{cwd_rel_to_target}}/deps/{{dep}}/{{source_dir}} -maxdepth 1 -type f -name "{{source_wildcard}}" -exec ln -sfn {} ./ \; || echo "Could not symlink the {{dep}} dep") && ls -la ./
+	cd {{target_dir}} && (find {{cwd_rel_to_target}}/extensions/{{dep}}/{{source_dir}} -maxdepth 1 -type f -name "{{source_wildcard}}" -exec ln -sfn {} ./ \; || find {{cwd_rel_to_target}}/deps/{{dep}}/{{source_dir}} -maxdepth 1 -type f -name "{{source_wildcard}}" -exec ln -sfn {} ./ \; || echo "Could not symlink from the {{dep}} dep") && ls -la ./
+
+# _cp-from-dep dep source_dir="" source_wildcard="*" target_dir="config/" cwd_rel_to_target="..":
+# 	cd {{target_dir}} && (cp -r {{cwd_rel_to_target}}/extensions/{{dep}}/{{source_dir}}/{{source_wildcard}} ./ || cp -r {{cwd_rel_to_target}}/deps/{{dep}}/{{source_dir}}/{{source_wildcard}} ./ || echo "Could not copy from the {{dep}} dep") && ls -la ./
+
+config_follow_symlinks:
+	just cp_symlinks config
+
+cp_symlinks dir:
+	#!/usr/bin/env bash
+	set -euxo pipefail
+	# Function to process symbolic links in a directory
+	process_links() {
+		local dir="$1"
+		cd "$dir" || return
+
+		# Find symbolic links in the current directory
+		find . -maxdepth 1 -type l | while read -r link; do
+			target=$(readlink "$link")
+			rm "$link"
+			cp -r "$target" "$link" || echo "Source file may not exist: $target"
+		done
+
+		# Recursively process subdirectories
+		find . -maxdepth 1 -type d ! -name '.' | while read -r subdir; do
+			echo "Processing subdirectory: $subdir"
+			process_links "$(realpath "$subdir")"
+			cd "$dir"
+		done
+
+		# List all files in the directory after processing
+		ls -la .
+	}
+
+	# Start processing from the given directory
+	process_links "$(realpath "{{dir}}")"
+
 
 #	mkdir -p config
 #	touch ./flavours/$flavour/config/current_flavour/deps.path
@@ -503,7 +550,7 @@ _pre-push-hooks: _pre-contrib-hooks
 # just mix format.all  # FIXME
 # just mix changelog
 
-_pre-contrib-hooks:
+_pre-contrib-hooks: config_follow_symlinks
 	-ex +%s,/extensions/,/deps/,e -scwq config/deps.hooks.js
 	rm -rf forks/*/data/uploads/favicons/
 	rm -rf extensions/*/data/uploads/favicons/
@@ -688,10 +735,11 @@ _rel-init:
 rel-config: config _rel-init _rel-prepare
 
 # copy current flavour's config, without using symlinks
-@_rel-config-prepare:
+@_rel-config-prepare: config_follow_symlinks
 	rm -rf data/current_flavour
 	mkdir -p data
 	cp -rfL config/ data/config
+# TODO: ^ no need anymore thanks to config_follow_symlinks?
 #	rm -rf flavours/*/config/*/dev
 #	cp -rfL $FLAVOUR_PATH/* data/current_flavour/
 # cp -rfL extensions/bonfire/deps.* data/current_flavour/ || cp -rfL deps/bonfire/deps.* data/current_flavour/ || echo "Could not copy the deps definitions from the bonfire dep"
