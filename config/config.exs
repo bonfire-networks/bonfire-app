@@ -1,5 +1,7 @@
 import Config
 
+IO.puts("Preparing compile-time config...")
+
 yes? = ~w(true yes 1)
 no? = ~w(false no 0)
 
@@ -27,6 +29,8 @@ dep_paths =
 repo = Bonfire.Common.Repo
 
 import_config "config_basics_extra.exs"
+
+IO.puts("Basic compile-time prepared")
 
 config :bonfire,
   otp_app: :bonfire,
@@ -247,6 +251,8 @@ config :mime,
 # define which is preferred when more than one
 config :mime, :extensions, Bonfire.Files.MimeTypes.unique_extension_for_mime()
 
+IO.puts("Mime types prepared")
+
 config :os_mon,
   disk_space_check_interval: 60,
   memory_check_interval: 15,
@@ -323,6 +329,8 @@ for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   import_config config
 end
 
+IO.puts("Extensions compile-time configs prepared")
+
 # include configs for the current flavour (augmenting or overriding the previous ones)
 flavour_config = "flavour_#{flavour}.exs" |> Path.expand(__DIR__)
 
@@ -335,6 +343,8 @@ else
   System.get_env("MIX_QUIET") ||
     IO.puts("You could put any flavour-specific config at `#{flavour_config}`")
 end
+
+IO.puts("Flavours compile-time configs prepared")
 
 # federation library
 import_config "activity_pub.exs"
