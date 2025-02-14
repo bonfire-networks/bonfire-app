@@ -50,6 +50,7 @@ defmodule Bonfire.Umbrella.MixProject do
       []
     end
 
+  # TODO: move to ember?
   maybe_api_deps =
     if(System.get_env("WITH_API_GRAPHQL") == "yes",
       do: [
@@ -61,6 +62,7 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
+  # TODO: move to bonfire_files?
   maybe_image_vix =
     if(System.get_env("WITH_IMAGE_VIX") != "0",
       do: [
@@ -70,6 +72,7 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
+  # TODO: move to ember?
   maybe_ai_deps =
     if(System.get_env("WITH_AI") != "0",
       do: [
@@ -88,6 +91,7 @@ defmodule Bonfire.Umbrella.MixProject do
       maybe_image_vix ++
       maybe_ai_deps ++
       [
+        # TODO: move most of these deps to ember or elsewhere?
         {
           :mess,
           # git: "https://github.com/bonfire-networks/mess", 
@@ -263,7 +267,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.178",
+    version: "0.9.10-beta.179",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
