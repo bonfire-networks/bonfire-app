@@ -105,7 +105,7 @@ setup:
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
 	-rm ./config/deps.* 2> /dev/null
 	-rm ./config/current_flavour/deps.* 2> /dev/null
-	just _configs-ln {{flavour}}
+	just config_make_symlinks {{flavour}}
 	mkdir -p ./config/prod/ 
 	mkdir -p ./config/dev/
 	test -f .env || just _config_flavour-env-init {{flavour}} config config
@@ -120,7 +120,7 @@ setup:
 @_flavour_install select_flavour:
 	just mix {{select_flavour}}.install
 
-_configs-ln flavour='ember':
+config_make_symlinks flavour='ember':
 	just _ln-from-dep ember config/ "*" config/
 	just _ln-dep-defs {{flavour}}
 
