@@ -151,6 +151,8 @@ jobs:
         run: |
           chmod +x deps-debian-build.sh && ./deps-debian-build.sh
           echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
+          mix local.hex --force
+          mix local.rebar --force
       - 
         name: Check tools
         run: |
@@ -161,11 +163,12 @@ jobs:
           just --version
           yarn -v
       - 
+        name: Prepare env
+        run: |
+          just rel-config
+      - 
         name: Install Bonfire deps 
         run: |
-          mix local.hex --force
-          mix local.rebar --force
-          just rel-config
           just mix "deps.get --only prod"
       - 
         name: Build app
@@ -173,18 +176,18 @@ jobs:
         with:
           # TODO: figure out why Surface compiler is failing to create assets and remove the workaround (of using the ones already in the repo)
           run: |
-            ls -la data/config/current_flavour/assets/
-            ls -la data/config/current_flavour/assets/hooks/
-            cp -r data/config/current_flavour/assets data/config/current_flavour/flavour_assets_bak
-            just _rel-compile-OTP remote
-            rm -rf data/config/current_flavour/assets 
-            mv data/config/current_flavour/flavour_assets_bak data/config/current_flavour/assets 
+            # ls -la data/config/current_flavour/assets/
+            # ls -la data/config/current_flavour/assets/hooks/
+            # cp -r data/config/current_flavour/assets data/config/current_flavour/flavour_assets_bak
+            # just _rel-compile-OTP remote
+            # rm -rf data/config/current_flavour/assets 
+            # mv data/config/current_flavour/flavour_assets_bak data/config/current_flavour/assets 
             just _rel-compile-assets remote
             just _rel-release-OTP remote
             cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
-          post: |
-            ls -la data/config/current_flavour/assets/
-            ls -la data/config/current_flavour/assets/hooks/
+          # post: |
+          #   ls -la data/config/current_flavour/assets/
+          #   ls -la data/config/current_flavour/assets/hooks/
       - name: Release to github
         uses: softprops/action-gh-release@v2
         with:

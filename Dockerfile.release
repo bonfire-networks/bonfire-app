@@ -65,7 +65,7 @@ COPY --link deps ./deps
 # RUN mix deps.get --only prod
 
 # add ember dep sources
-COPY --link data/config/deps.* ./config/
+COPY --link config/deps.* ./config/
 RUN ls -la config/* 
 
 # RUN mix deps.get --only prod
@@ -73,7 +73,7 @@ RUN ls -la config/*
 # # ^ useful in case of spotty connectivity
 
 ## add extra deps 
-COPY --link data/config ./config
+COPY --link config ./config
 RUN ls -la ./config
 # TODO: from other flavours
 # COPY --parents --link flavours/*/config/* ./

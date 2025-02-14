@@ -51,7 +51,7 @@ end
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :bonfire_umbrella, Bonfire.Common.Repo,
+config :bonfire, Bonfire.Common.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   # show_sensitive_data_on_connection_error: true,
   # database: db,

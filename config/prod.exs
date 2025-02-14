@@ -15,7 +15,7 @@ config :logger, level: :info
 
 config :bonfire, Bonfire.Web.Endpoint, server: true
 
-config :bonfire_umbrella, Bonfire.Common.Repo,
+config :bonfire, Bonfire.Common.Repo,
   # in releases migrations are not in a flavour-specific directory
   priv: "priv/repo"
 

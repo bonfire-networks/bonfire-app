@@ -4,6 +4,8 @@
 # remember to add this file to your .gitignore.
 import Config
 
+IO.puts("Preparing runtime config...")
+
 System.get_env("MIX_QUIET") || IO.puts("🔥 Welcome to Bonfire!")
 
 # flavour = System.get_env("FLAVOUR", "classic")
@@ -204,26 +206,26 @@ database =
   end
 
 config :bonfire, ecto_repos: repos
-config :bonfire_umbrella, ecto_repos: repos
+config :bonfire, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos
 
-config :bonfire_umbrella, Bonfire.Common.Repo, repo_connection_config
-config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, repo_connection_config
+config :bonfire, Bonfire.Common.Repo, repo_connection_config
+config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
 config :beacon, Beacon.Repo, repo_connection_config
 
-config :bonfire_umbrella, Bonfire.Common.Repo, database: database
+config :bonfire, Bonfire.Common.Repo, database: database
 config :beacon, Beacon.Repo, database: database
 config :paginator, Paginator.Repo, database: database
 
-config :bonfire_umbrella, Bonfire.Common.Repo, pool_size: pool_size
-config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, pool_size: pool_size
+config :bonfire, Bonfire.Common.Repo, pool_size: pool_size
+config :bonfire, Bonfire.Common.TestInstanceRepo, pool_size: pool_size
 config :beacon, Beacon.Repo, pool_size: pool_size
 config :paginator, Paginator.Repo, pool_size: pool_size
 
 repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
-config :bonfire_umbrella, Bonfire.Common.Repo, priv: repo_path
-config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo, priv: repo_path
+config :bonfire, Bonfire.Common.Repo, priv: repo_path
+config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
 
 config :ecto_sparkles,
   slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
@@ -390,7 +392,7 @@ end
 
 # start prod-only config
 if config_env() == :prod do
-  config :bonfire_umbrella, Bonfire.Common.Repo,
+  config :bonfire, Bonfire.Common.Repo,
     # ssl: true,
     # database: System.get_env("POSTGRES_DB", "bonfire"),
     # Note: keep this disabled if using ecto_dev_logger or EctoSparkles.Log instead #
@@ -401,7 +403,7 @@ end
 
 # start prod and dev only config
 if config_env() != :test do
-  config :bonfire_umbrella, Bonfire.Common.Repo,
+  config :bonfire, Bonfire.Common.Repo,
     # The timeout for establishing new connections (default: 5000)
     connect_timeout: String.to_integer(System.get_env("DB_CONNECT_TIMEOUT", "10000")),
     # The time in milliseconds (as an integer) to wait for the query call to finish (default: 15_000)
@@ -434,3 +436,5 @@ if api_key = System.get_env("OPEN_WEATHER_MAP_API_KEY") do
     # minutes to cache
     ttl: 14 * 60_000
 end
+
+IO.puts("Runtime config ready")
