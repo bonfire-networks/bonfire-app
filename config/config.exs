@@ -34,7 +34,7 @@ IO.puts("Basic compile-time config prepared")
 
 config :bonfire,
   otp_app: :bonfire,
-  umbrella_otp_app: :bonfire_umbrella,
+  umbrella_otp_app: :bonfire,
   env: env,
   project_path: project_root,
   flavour: flavour,
@@ -127,7 +127,7 @@ config :phoenix_gon, :json_library, Jason
 
 repos = [repo]
 config :bonfire, ecto_repos: repos
-config :bonfire_umbrella, ecto_repos: repos
+config :bonfire, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos
 config :rauversion_extension, :repo_module, repo
@@ -141,9 +141,9 @@ config :rauversion_extension, :default_layout_module, Bonfire.UI.Common.LayoutVi
 config :rauversion_extension, :user_table, "pointers_pointer"
 config :rauversion_extension, :user_key_type, :uuid
 
-config :bonfire_umbrella, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
+config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
 
-config :bonfire_umbrella, Bonfire.Common.TestInstanceRepo,
+config :bonfire, Bonfire.Common.TestInstanceRepo,
   types: Bonfire.Geolocate.PostgresTypes,
   database: "bonfire_test_dance_instance_#{System.get_env("MIX_TEST_PARTITION") || 0}"
 
