@@ -26,11 +26,11 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # including it by default breaks Dockerfile.release but not including it like this breaks CI...
   main_deps = [
-    if(bonfire_local?,
+    if(bonfire_local? and System.get_env("WITH_GIT_DEPS", "1") == "1",
       do: {:ember, path: "#{ext_forks_path}/ember", override: true},
       else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
     ),
-    if(flavour !=default_flavour and flavour_local? and System.get_env("WITH_FLAVOUR", "1") == "1",
+    if(flavour !=default_flavour and flavour_local? and System.get_env("WITH_GIT_DEPS", "1") == "1",
       do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
       else: {flavour_atom, git: "https://github.com/bonfire-networks/#{flavour}", override: true}
     )
