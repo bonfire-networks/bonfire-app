@@ -185,6 +185,7 @@ jobs:
             # just _rel-compile-OTP remote
             # rm -rf data/config/current_flavour/assets 
             # mv data/config/current_flavour/flavour_assets_bak data/config/current_flavour/assets 
+            just deps-get
             just _rel-compile-assets remote
             just _rel-release-OTP remote
             cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
