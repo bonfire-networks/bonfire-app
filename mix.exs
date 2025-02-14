@@ -85,11 +85,24 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
+  maybe_arch_deps = if(System.get_env("CI") != "true", # NOTE: exqlite not working in CI
+      do: [
+        {
+          :archeometer,
+          "~> 0.5.0",
+          # git: "https://gitlab.com/mayel/archeometer", 
+          only: [:dev], runtime: false
+        }
+      ],
+      else: []
+    ) 
+
   extra_deps =
     main_deps ++
       maybe_api_deps ++
       maybe_image_vix ++
       maybe_ai_deps ++
+      maybe_arch_deps ++
       [
         # TODO: move most of these deps to ember or elsewhere?
         {
@@ -126,13 +139,6 @@ defmodule Bonfire.Umbrella.MixProject do
         {:versioce, "~> 2.0.0", only: :dev},
         # needed for changelog generation
         {:git_cli, "~> 0.3.0", only: :dev},
-        {
-          :archeometer,
-          "~> 0.5.0",
-          # git: "https://gitlab.com/mayel/archeometer", 
-          # NOTE: exqlite not working in CI
-          only: [:dev], runtime: false
-        },
         # {:recode, "~> 0.4", only: :dev},
         # API client needed for changelog generation
         {:neuron, "~> 5.0", only: :dev, override: true},
@@ -267,7 +273,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "0.9.10-beta.192",
+    version: "0.9.11-beta.1",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
