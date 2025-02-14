@@ -206,6 +206,7 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	WITH_GIT_DEPS=0 just mix deps.get
+	just config_make_symlinks {{FLAVOUR}}
 	just deps-fetch
 	just _flavour_install {{FLAVOUR}}
 
