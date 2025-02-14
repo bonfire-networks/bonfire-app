@@ -435,8 +435,8 @@ update-fork-path path cmd='pull' extra='' mindepth='0' maxdepth='1':
 @deps-fetch *args='':
 	just deps-get {{args}}
 	-just mix-remote deps.get {{args}} || echo "Oops, could not download mix deps"
-	just _deps-post-get
 	just js-deps-fetch
+	just _deps-post-get
 
 # Fetch locked versions of Elixir deps (except ones also cloned locally)
 @deps-get *args='':
