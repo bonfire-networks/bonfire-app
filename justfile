@@ -79,8 +79,9 @@ config:
 	@just flavour $FLAVOUR
 
 # Initialise a specific flavour, with its env files, and create some required folders, files and softlinks
-@flavour select_flavour:
+@flavour select_flavour: 
 	echo "Switching to flavour '$select_flavour' in $MIX_ENV env..."
+	just _reset_flavour
 	just _config_flavour {{select_flavour}}
 	just _pre-setup {{select_flavour}}
 	printf "\nYou can edit your config for flavour '{{select_flavour}}' in /.env\n"
@@ -101,11 +102,12 @@ setup:
 	{{ if MIX_ENV == "prod" { "just setup-prod" } else { "just setup-dev" } }}
 
 #### COMMON COMMANDS ####
+@_reset_flavour:
+	-rm ./config/deps.* 2> /dev/null
+	-rm ./config/current_flavour/deps.* 2> /dev/null
 
 @_config_flavour flavour='ember': db-clean-migrations
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
-	-rm ./config/deps.* 2> /dev/null
-	-rm ./config/current_flavour/deps.* 2> /dev/null
 	just config_make_symlinks {{flavour}}
 	mkdir -p ./config/prod/ 
 	mkdir -p ./config/dev/
