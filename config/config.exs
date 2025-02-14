@@ -283,15 +283,6 @@ config :sentry,
 
 # native app
 if System.get_env("WITH_LV_NATIVE") in ["1", "true"] do
-  config :phoenix_template, :format_encoders, swiftui: Phoenix.HTML.Engine
-  # jetpack: Phoenix.HTML.Engine
-  config :live_view_native,
-    plugins: [
-      LiveViewNative.SwiftUI
-      # LiveViewNative.Jetpack
-    ]
-
-  config :phoenix, :template_engines, neex: LiveViewNative.Engine
 
   config :live_view_native_stylesheet,
     content:
@@ -307,11 +298,22 @@ if System.get_env("WITH_LV_NATIVE") in ["1", "true"] do
     output: "assets/static/assets"
 
   import_config "native.exs"
+  
   IO.puts("Native app config prepared")
 else
   config :live_view_native,
       modularity: :disabled
+
+  IO.puts("Native app config skipped")
 end
+
+# NOTE: putting this here to avoid (LiveViewNative.PluginError) error in CI even when disabled
+config :live_view_native,
+  plugins: [
+    LiveViewNative.SwiftUI
+    # LiveViewNative.Jetpack
+  ]
+
 
 # TODO: refactor
 # if Code.ensure_loaded?(Bonfire.Mixer) and Code.ensure_loaded?(Hex) and Bonfire.Mixer.compile_disabled?() do
