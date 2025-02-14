@@ -206,6 +206,8 @@ setup-dev:
 	just deps-clean-api
 	just deps-clean-unused
 	WITH_GIT_DEPS=0 just mix deps.get
+	test -d extensions/ember || (mkdir -p extensions && git clone https://github.com/bonfire-networks/ember extensions/ember || echo "Could not clone the Ember extension")
+	test -d extensions/{{FLAVOUR}} || (mkdir -p extensions && git clone https://github.com/bonfire-networks/{{FLAVOUR}} extensions/{{FLAVOUR}} && echo ember = "extensions/{{FLAVOUR}}"
 	just config_make_symlinks {{FLAVOUR}}
 	just deps-fetch
 	just _flavour_install {{FLAVOUR}}
