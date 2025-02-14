@@ -166,7 +166,12 @@ config :logger, :console,
 
 config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 
-config :surface, :compiler, warn_on_undefined_props: false
+config :surface, :compiler,
+  warn_on_undefined_props: false,
+  hooks_output_dir: "config/current_flavour/assets/hooks/",
+  css_output_file: "config/current_flavour/assets/components.css",
+  variants_output_file: "config/current_flavour/assets/variants.js",
+  enable_variants: true
 
 config :needle_uid, pride_enabled: false
 config :pride, use_rust: true

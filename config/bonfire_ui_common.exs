@@ -179,10 +179,4 @@ config :surface, :components, [
   {Bonfire.UI.Common.TabsLive, propagate_context_to_slots: true}
 ]
 
-config :surface, :compiler,
-  hooks_output_dir: "data/current_flavour/assets/hooks/",
-  css_output_file: "data/current_flavour/assets/components.css",
-  variants_output_file: "data/current_flavour/assets/variants.js",
-  enable_variants: true
-
 # variants_prefix: "s-"
