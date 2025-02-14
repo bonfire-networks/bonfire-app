@@ -308,6 +308,9 @@ if System.get_env("WITH_LV_NATIVE") in ["1", "true"] do
 
   import_config "native.exs"
   IO.puts("Native app config prepared")
+else
+  config :live_view_native,
+      modularity: :disabled
 end
 
 # TODO: refactor
