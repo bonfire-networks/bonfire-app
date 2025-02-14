@@ -351,7 +351,14 @@ defmodule Bonfire.Umbrella.MixProject do
         "activity_pub"
       ],
       update: [
-        "ember", "social", "community", "coordination", "cooperation", "upcycle", "open_science", "federated_archives"
+        "ember",
+        "social",
+        "community",
+        "coordination",
+        "cooperation",
+        "upcycle",
+        "open_science",
+        "federated_archives"
       ]
     ],
     deps: deps,

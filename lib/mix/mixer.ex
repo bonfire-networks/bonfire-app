@@ -263,6 +263,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     def deps_to_update(config) do
       deps(config, :update)
       |> deps_names()
+
       # |> log(
       #   "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
       # )
@@ -526,12 +527,13 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       |> Enum.reject(&is_nil/1)
     end
 
-
     def include_dep?(:update, dep, prefixes) when is_tuple(dep),
-      do: unpinned_git_dep?(dep) || String.starts_with?(
-        dep_name(dep),
-        prefixes
-      )
+      do:
+        unpinned_git_dep?(dep) ||
+          String.starts_with?(
+            dep_name(dep),
+            prefixes
+          )
 
     # defp include_dep?(:docs = type, dep, deps_prefixes), do: String.starts_with?(dep_name(dep), deps_prefixes || @config[:deps_prefixes][type]) || git_dep?(dep)
     def include_dep?(_type, dep, prefixes) do
