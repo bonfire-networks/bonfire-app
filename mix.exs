@@ -25,20 +25,26 @@ defmodule Bonfire.Umbrella.MixProject do
   if use_umbrella?, do: IO.puts("NOTE: Running as umbrella...")
 
   # including it by default breaks Dockerfile.release but not including it like this breaks CI...
-  main_deps = 
-    if System.get_env("WITH_GIT_DEPS", "1") == "1" do 
-    [if(bonfire_local?,
-      do: {:ember, path: "#{ext_forks_path}/ember", override: true},
-      else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
-    )] ++ 
-     if flavour !=default_flavour do
-      [if(flavour_local?,
-        do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
-        else: {flavour_atom, git: "https://github.com/bonfire-networks/#{flavour}", override: true}
-      )]
-    else
-      []
-    end
+  main_deps =
+    if System.get_env("WITH_GIT_DEPS", "1") == "1" do
+      [
+        if(bonfire_local?,
+          do: {:ember, path: "#{ext_forks_path}/ember", override: true},
+          else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
+        )
+      ] ++
+        if flavour != default_flavour do
+          [
+            if(flavour_local?,
+              do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
+              else:
+                {flavour_atom,
+                 git: "https://github.com/bonfire-networks/#{flavour}", override: true}
+            )
+          ]
+        else
+          []
+        end
     else
       []
     end
