@@ -20,6 +20,7 @@ FLAVOUR := env_var_or_default('FLAVOUR', "ember")
 WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 
 MIX_ENV := env_var_or_default('MIX_ENV', "dev")
+CI := env_var_or_default('CI', "false")
 
 APP_NAME := "bonfire"
 
@@ -118,7 +119,7 @@ setup:
 	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env 
 
 @_flavour_install select_flavour:
-	just mix {{select_flavour}}.install
+	{{ if CI == "true" { "just mix "+select_flavour+".install --yes" } else { "just mix "+select_flavour+".install" } }}
 
 config_make_symlinks flavour='ember':
 	just _ln-from-dep ember config/ "*" config/
@@ -798,7 +799,7 @@ _rel-release-OTP USE_EXT="local" ARGS="":
 
 rel-mix USE_EXT="local" ARGS="":
 	@echo {{ ARGS }}
-	@MIX_ENV=prod CI=1 just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
+	@MIX_ENV=prod CI=true just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image
 @rel-build-docker USE_EXT="local" ARGS="": _rel-init _rel-prepare assets-prepare
