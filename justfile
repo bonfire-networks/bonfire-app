@@ -106,9 +106,9 @@ setup:
 	-rm ./config/deps.* 2> /dev/null
 	-rm ./config/current_flavour/deps.* 2> /dev/null
 
-@_config_flavour flavour='ember': db-clean-migrations
+@_config_flavour flavour=FLAVOUR: db-clean-migrations
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
-	just config_make_symlinks {{flavour}}
+	just flavour_make_symlinks {{flavour}}
 	mkdir -p ./config/prod/ 
 	mkdir -p ./config/dev/
 	test -f .env || just _config_flavour-env-init {{flavour}} config config
@@ -123,20 +123,22 @@ setup:
 @_flavour_install select_flavour:
 	{{ if CI == "true" { "just mix "+select_flavour+".install --yes" } else { "just mix "+select_flavour+".install" } }}
 
-config_make_symlinks flavour='ember':
+flavour_make_symlinks flavour=FLAVOUR:
 	just _ln-from-dep ember config/ "*" config/
+	mkdir -p config/current_flavour
+	cd config/current_flavour && ln -sf ../../extensions/{{flavour}}/assets || ln -sf ../../deps/{{flavour}}/assets || echo "Could not find a assets dir to use for {{flavour}}"
 	just _ln-dep-defs {{flavour}}
 
-# _configs-cp flavour='ember':
+# _configs-cp flavour=FLAVOUR:
 # 	just _cp-from-dep ember config/ "*" config/
 # 	just _cp-dep-defs {{flavour}}
 
-_ln-dep-defs flavour='ember':
+_ln-dep-defs flavour=FLAVOUR:
 	just _ln-from-dep ember "" "deps.*" config/ 
 	mkdir -p config/current_flavour
 	just _ln-from-dep {{flavour}} "" "deps.*" config/current_flavour ../..
 
-# _cp-dep-defs flavour='ember':
+# _cp-dep-defs flavour=FLAVOUR:
 # 	just _cp-from-dep ember "" "deps.*" config/ 
 # 	mkdir -p config/current_flavour
 # 	just _cp-from-dep {{flavour}} "" "deps.*" config/current_flavour ../..
@@ -183,7 +185,7 @@ cp_symlinks dir:
 #	mkdir -p config
 #	touch ./flavours/$flavour/config/current_flavour/deps.path
 #	cd config && ln -sfn ../flavours/classic/config/* ./ && ln -sfn ../flavours/$flavour/config/* ./
-@_pre-setup flavour='ember':
+@_pre-setup flavour=FLAVOUR:
 	touch ./config/deps.path
 	mkdir -p data
 	mkdir -p data/uploads/
@@ -210,7 +212,7 @@ setup-dev:
 	just deps-clean-unused
 	WITH_GIT_DEPS=0 just mix deps.get
 	just _clone_flavour_apps
-	just config_make_symlinks {{FLAVOUR}}
+	just flavour_make_symlinks {{FLAVOUR}}
 	just deps-fetch
 	just _flavour_install {{FLAVOUR}}
 
@@ -794,10 +796,10 @@ _rel-build-OTP USE_EXT="local" ARGS="":
 _rel-compile-OTP USE_EXT="local" ARGS="": 
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 
+#git checkout HEAD -- "config/current_flavour/assets/hooks/*"
 _rel-compile-assets USE_EXT="local" ARGS="": 
 	-rm -rf priv/static
 	yarn -v || npm install --global yarn
-	git checkout HEAD -- "config/current_flavour/assets/hooks/*"
 	just js-ext-deps
 	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
