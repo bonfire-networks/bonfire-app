@@ -424,10 +424,10 @@ update-forks-all cmd='pull' extra='':
 
 # Pull the latest commits from all forks
 update-fork dep cmd='pull' extra='' mindepth='0' maxdepth='0':
-	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}} {{extra}} {{mindepth}} {{maxdepth}}
-	-just update-fork-path $EXTRA_FORKS_PATH/{{dep}} {{cmd}} {{extra}} {{mindepth}} {{maxdepth}}
+	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
+	-just update-fork-path $EXTRA_FORKS_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
 
-update-fork-path path cmd='pull' extra='' mindepth='0' maxdepth='1':
+update-fork-path path cmd='pull' mindepth='0' maxdepth='1' extra='':
 	@chmod +x git-publish.sh
 	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} {{cmd}} {{extra}} \;
 
