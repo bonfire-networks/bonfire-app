@@ -11,6 +11,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # we only behave as an umbrella im dev/test env
   use_local_forks? = System.get_env("WITH_FORKS", "1") == "1"
+  include_git_deps? = System.get_env("WITH_GIT_DEPS", "1") == "1"
   ext_forks_path = Mixer.forks_path()
 
   bonfire_local? = File.exists?("#{ext_forks_path}/ember")
@@ -26,16 +27,16 @@ defmodule Bonfire.Umbrella.MixProject do
 
   # including it by default breaks Dockerfile.release but not including it like this breaks CI...
   main_deps =
-    if System.get_env("WITH_GIT_DEPS", "1") == "1" do
+    if include_git_deps? do
       [
-        if(bonfire_local?,
+        if(bonfire_local? and use_local_forks?,
           do: {:ember, path: "#{ext_forks_path}/ember", override: true},
           else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
         )
       ] ++
         if flavour != default_flavour do
           [
-            if(flavour_local?,
+            if(flavour_local? and use_local_forks?,
               do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
               else:
                 {flavour_atom,
@@ -348,6 +349,9 @@ defmodule Bonfire.Umbrella.MixProject do
       localise_self: [
         # FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
         "activity_pub"
+      ],
+      update: [
+        "ember", "social", "community", "coordination", "cooperation", "upcycle", "open_science", "federated_archives"
       ]
     ],
     deps: deps,
