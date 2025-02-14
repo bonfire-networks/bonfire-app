@@ -30,7 +30,7 @@ defmodule Bonfire.Umbrella.MixProject do
       do: {:ember, path: "#{ext_forks_path}/ember", override: true},
       else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
     ),
-    if(flavour_local?,
+    if(flavour !=default_flavour and flavour_local? and System.get_env("WITH_FLAVOUR", "1") == "1",
       do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
       else: {flavour_atom, git: "https://github.com/bonfire-networks/#{flavour}", override: true}
     )

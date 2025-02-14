@@ -205,7 +205,7 @@ setup-dev:
 	just deps-clean-data
 	just deps-clean-api
 	just deps-clean-unused
-	WITH_GIT_DEPS=0 just deps-get
+	WITH_GIT_DEPS=0 WITH_FLAVOUR=0 just deps-get
 	just deps-fetch
 	just _flavour_install {{FLAVOUR}}
 
