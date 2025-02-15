@@ -108,7 +108,6 @@ setup:
 
 @_config_flavour flavour=FLAVOUR: db-clean-migrations
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
-	just flavour_make_symlinks {{flavour}}
 	mkdir -p ./config/prod/ 
 	mkdir -p ./config/dev/
 	test -f .env || just _config_flavour-env-init {{flavour}} config config
