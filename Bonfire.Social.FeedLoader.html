@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
+
+
+    <title>Bonfire.Social.FeedLoader — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.11-social-beta.3
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Social.FeedLoader</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Determines the appropriate filters, joins, and/or preloads for feed queries based.</p><p>Entrypoint for <a href="./Bonfire.Social.Feeds.html"><code class="inline">Bonfire.Social.Feeds</code></a> and <a href="./Bonfire.Social.FeedActivities.html"><code class="inline">Bonfire.Social.FeedActivities</code></a>, and <a href="./Bonfire.Social.Activities.html"><code class="inline">Bonfire.Social.Activities</code></a>.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#contextual_preloads_from_filters/3" data-no-tooltip translate="no">contextual_preloads_from_filters(feed_filters, context, context_rules \\ preloads_by_context_rules())</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/2" data-no-tooltip translate="no">count(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the count of items in a feed based on given filters and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count_subjects/2" data-no-tooltip translate="no">count_subjects(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the count of distinct subjects in a feed based on given filters and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_feed_name/1" data-no-tooltip translate="no">default_feed_name(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed/2" data-no-tooltip translate="no">feed(name_or_filters \\ nil, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed/3" data-no-tooltip translate="no">feed(feed_name, filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a feed based on filters and options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_contains?/3" data-no-tooltip translate="no">feed_contains?(feed_name, object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_contains_single?/3" data-no-tooltip translate="no">feed_contains_single?(feed_name, filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_filtered/3" data-no-tooltip translate="no">feed_filtered(feed_name, filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_ids_and_opts/2" data-no-tooltip translate="no">feed_ids_and_opts(feed_name, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets feed ids and options for the given feed or list of feeds.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_many_paginated/3" data-no-tooltip translate="no">feed_many_paginated(query, filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns paginated results for the given query.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_name_or_default/2" data-no-tooltip translate="no">feed_name_or_default(name, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_paginated/2" data-no-tooltip translate="no">feed_paginated(filters \\ %{}, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a page of feed activities (reverse chronological) + pagination metadata</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#feed_with_object/3" data-no-tooltip translate="no">feed_with_object(feed_name, object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#filter_already_preloaded/2" data-no-tooltip translate="no">filter_already_preloaded(preloads, already_preloaded)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#map_activity_preloads/3" data-no-tooltip translate="no">map_activity_preloads(preloads, already_preloaded \\ [], preload_presets \\ preload_presets())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Maps high-level preload keys to their corresponding detailed preload lists.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#matches_filter?/2" data-no-tooltip translate="no">matches_filter?(rule_match_criteria, feed_filters)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Match feed filters against rule criteria.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#my_feed/2" data-no-tooltip translate="no">my_feed(opts, home_feed_ids \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a user's home feed, a combination of all feeds the user is subscribed to.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#parameterize_filters/3" data-no-tooltip translate="no">parameterize_filters(filters, parameters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Parameterizes the filters by replacing parameterized values with values from <code class="inline">opts</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_presets/0" data-no-tooltip translate="no">preload_presets()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preloads_by_context_rules/0" data-no-tooltip translate="no">preloads_by_context_rules()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preloads_from_filters/2" data-no-tooltip translate="no">preloads_from_filters(feed_filters, filter_rules \\ preloads_from_filters_rules())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Computes the list of preloads to apply based on the provided filters.
+Returns a list of preload atoms.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preloads_from_filters_rules/0" data-no-tooltip translate="no">preloads_from_filters_rules()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#prepare_filters_and_opts/2" data-no-tooltip translate="no">prepare_filters_and_opts(filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts socket, assigns, or options to feed options.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preset_feed_filters/2" data-no-tooltip translate="no">preset_feed_filters(name, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets an aliased feed's filters by name, with optional parameters.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/3" data-no-tooltip translate="no">query(filters \\ [], opts \\ [], query \\ default_query())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Return a boundarised query for a feed</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_extras_boundarised/3" data-no-tooltip translate="no">query_extras_boundarised(query \\ nil, filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>add assocs needed in timelines/feeds</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_object_extras_boundarised/3" data-no-tooltip translate="no">query_object_extras_boundarised(query \\ nil, filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>add assocs needed in lists of objects</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#replace_parameters/3" data-no-tooltip translate="no">replace_parameters(value, filters, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Replaces parameters in the filter value with the actual values from <code class="inline">opts</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#skip_types_default/0" data-no-tooltip translate="no">skip_types_default()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#skip_verbs_default/0" data-no-tooltip translate="no">skip_verbs_default()</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="contextual_preloads_from_filters/3">
+
+    <span id="contextual_preloads_from_filters/2"></span>
+
+  <div class="detail-header">
+    <a href="#contextual_preloads_from_filters/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">contextual_preloads_from_filters(feed_filters, context, context_rules \\ preloads_by_context_rules())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1364" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="count/2">
+
+    <span id="count/0"></span>
+
+    <span id="count/1"></span>
+
+  <div class="detail-header">
+    <a href="#count/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">count(filters \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1062" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the count of items in a feed based on given filters and options.</p><h2 id="count/2-examples" class="section-heading">
+  <a href="#count/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count</span><span class="p" data-group-id="1530597288-1">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="1530597288-1">)</span><span class="w">
+</span><span class="mi">10</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count_subjects/2">
+
+    <span id="count_subjects/0"></span>
+
+    <span id="count_subjects/1"></span>
+
+  <div class="detail-header">
+    <a href="#count_subjects/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">count_subjects(filters \\ [], opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1081" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the count of distinct subjects in a feed based on given filters and options.</p><h2 id="count_subjects/2-examples" class="section-heading">
+  <a href="#count_subjects/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count_subjects</span><span class="p" data-group-id="4897250778-1">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="4897250778-1">)</span><span class="w">
+</span><span class="mi">3</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="default_feed_name/1">
+
+  <div class="detail-header">
+    <a href="#default_feed_name/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">default_feed_name(opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L597" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed/2">
+
+    <span id="feed/0"></span>
+
+    <span id="feed/1"></span>
+
+  <div class="detail-header">
+    <a href="#feed/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed(name_or_filters \\ nil, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L59" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> feed(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="feed/3">
+
+  <div class="detail-header">
+    <a href="#feed/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed(feed_name, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L51" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a feed based on filters and options.</p><h2 id="feed/3-parameters" class="section-heading">
+  <a href="#feed/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">name_or_filters</code> - A map of filter parameters (see <code class="inline">FeedFilters</code> for the list of supported filters) or a feed name atom/string if no other filters are needed</li><li><code class="inline">opts</code> - Options that aren't filter-related</li></ul><h2 id="feed/3-examples" class="section-heading">
+  <a href="#feed/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="0307530096-1">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0307530096-2">%</span><span class="nc" data-group-id="0307530096-2">Paginator.PageInfo</span><span class="p" data-group-id="0307530096-2">{</span><span class="p" data-group-id="0307530096-2">}</span><span class="p" data-group-id="0307530096-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">feed</span><span class="p" data-group-id="0307530096-3">(</span><span class="ss">:explore</span><span class="p" data-group-id="0307530096-3">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="0307530096-4">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0307530096-5">%</span><span class="nc" data-group-id="0307530096-5">Paginator.PageInfo</span><span class="p" data-group-id="0307530096-5">{</span><span class="p" data-group-id="0307530096-5">}</span><span class="p" data-group-id="0307530096-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">feed</span><span class="p" data-group-id="0307530096-6">(</span><span class="p" data-group-id="0307530096-7">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="ss">:explore</span><span class="p" data-group-id="0307530096-7">}</span><span class="p" data-group-id="0307530096-6">)</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">feed</span><span class="p" data-group-id="0307530096-8">(</span><span class="s">&quot;feed123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0307530096-9">[</span><span class="p" data-group-id="0307530096-9">]</span><span class="p" data-group-id="0307530096-8">)</span><span class="w">
+</span><span class="p" data-group-id="0307530096-10">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0307530096-11">[</span><span class="p" data-group-id="0307530096-12">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0307530096-13">%{</span><span class="p" data-group-id="0307530096-13">}</span><span class="p" data-group-id="0307530096-12">}</span><span class="p" data-group-id="0307530096-11">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0307530096-14">%</span><span class="nc" data-group-id="0307530096-14">Paginator.PageInfo</span><span class="p" data-group-id="0307530096-14">{</span><span class="p" data-group-id="0307530096-14">}</span><span class="p" data-group-id="0307530096-10">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_contains?/3">
+
+    <span id="feed_contains?/2"></span>
+
+  <div class="detail-header">
+    <a href="#feed_contains?/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_contains?(feed_name, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L972" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_contains_single?/3">
+
+  <div class="detail-header">
+    <a href="#feed_contains_single?/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_contains_single?(feed_name, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1036" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_filtered/3">
+
+  <div class="detail-header">
+    <a href="#feed_filtered/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_filtered(feed_name, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L189" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_ids_and_opts/2">
+
+  <div class="detail-header">
+    <a href="#feed_ids_and_opts/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_ids_and_opts(feed_name, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L536" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets feed ids and options for the given feed or list of feeds.</p><h1>TODO: this should be replaced by feed presets</h1><h2 id="feed_ids_and_opts/2-examples" class="section-heading">
+  <a href="#feed_ids_and_opts/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="6851777354-1">(</span><span class="n">feed_name</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="6851777354-1">)</span><span class="w">
+</span><span class="p" data-group-id="6851777354-2">{</span><span class="n">feed_ids</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="6851777354-2">}</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="6851777354-3">(</span><span class="p" data-group-id="6851777354-4">{</span><span class="n">feed_name</span><span class="p">,</span><span class="w"> </span><span class="n">feed_id</span><span class="p" data-group-id="6851777354-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="6851777354-3">)</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="6851777354-5">(</span><span class="ss">:my</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6851777354-6">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="6851777354-6">]</span><span class="p" data-group-id="6851777354-5">)</span><span class="w">
+</span><span class="p" data-group-id="6851777354-7">{</span><span class="p" data-group-id="6851777354-8">[</span><span class="s">&quot;feed_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed_id2&quot;</span><span class="p" data-group-id="6851777354-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6851777354-9">[</span><span class="ss">exclude_activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6851777354-10">[</span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost</span><span class="p">,</span><span class="w"> </span><span class="ss">:follow</span><span class="p" data-group-id="6851777354-10">]</span><span class="p" data-group-id="6851777354-9">]</span><span class="p" data-group-id="6851777354-7">}</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_ids_and_opts</span><span class="p" data-group-id="6851777354-11">(</span><span class="p" data-group-id="6851777354-12">{</span><span class="ss">:notifications</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed_id3&quot;</span><span class="p" data-group-id="6851777354-12">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6851777354-13">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="6851777354-13">]</span><span class="p" data-group-id="6851777354-11">)</span><span class="w">
+</span><span class="p" data-group-id="6851777354-14">{</span><span class="s">&quot;feed_id3&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6851777354-15">[</span><span class="ss">include_flags</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">exclude_activity_types</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="ss">show_objects_only_once</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6851777354-16">[</span><span class="ss">:notifications</span><span class="p" data-group-id="6851777354-16">]</span><span class="p" data-group-id="6851777354-15">]</span><span class="p" data-group-id="6851777354-14">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_many_paginated/3">
+
+  <div class="detail-header">
+    <a href="#feed_many_paginated/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_many_paginated(query, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L302" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns paginated results for the given query.</p><h2 id="feed_many_paginated/3-examples" class="section-heading">
+  <a href="#feed_many_paginated/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">feed_many_paginated</span><span class="p" data-group-id="6732795639-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="6732795639-1">)</span><span class="w">
+</span><span class="p" data-group-id="6732795639-2">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="n">edges</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">page_info</span><span class="p" data-group-id="6732795639-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_name_or_default/2">
+
+  <div class="detail-header">
+    <a href="#feed_name_or_default/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_name_or_default(name, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L610" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="feed_paginated/2">
+
+    <span id="feed_paginated/0"></span>
+
+    <span id="feed_paginated/1"></span>
+
+  <div class="detail-header">
+    <a href="#feed_paginated/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_paginated(filters \\ %{}, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L284" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a page of feed activities (reverse chronological) + pagination metadata</p><p>TODO: consolidate with <a href="#feed/2"><code class="inline">feed/2</code></a>?</p><h2 id="feed_paginated/2-examples" class="section-heading">
+  <a href="#feed_paginated/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9616390294-1">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9616390294-2">%{</span><span class="p" data-group-id="9616390294-2">}</span><span class="p" data-group-id="9616390294-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">feed_paginated</span><span class="p" data-group-id="9616390294-3">(</span><span class="p" data-group-id="9616390294-4">[</span><span class="p" data-group-id="9616390294-4">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9616390294-5">[</span><span class="p" data-group-id="9616390294-5">]</span><span class="p" data-group-id="9616390294-3">)</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Ecto.Query</span><span class="o">.</span><span class="n">from</span><span class="p" data-group-id="9616390294-6">(</span><span class="n">f</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Bonfire.Data.Social.FeedPublish</span><span class="p" data-group-id="9616390294-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9616390294-7">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9616390294-8">%{</span><span class="p" data-group-id="9616390294-8">}</span><span class="p" data-group-id="9616390294-7">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">feed_paginated</span><span class="p" data-group-id="9616390294-9">(</span><span class="p" data-group-id="9616390294-10">[</span><span class="p" data-group-id="9616390294-10">]</span><span class="p">,</span><span class="w"> </span><span class="ss">base_query</span><span class="p">:</span><span class="w"> </span><span class="n">query</span><span class="p" data-group-id="9616390294-9">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="feed_with_object/3">
+
+    <span id="feed_with_object/2"></span>
+
+  <div class="detail-header">
+    <a href="#feed_with_object/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">feed_with_object(feed_name, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L496" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="filter_already_preloaded/2">
+
+  <div class="detail-header">
+    <a href="#filter_already_preloaded/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">filter_already_preloaded(preloads, already_preloaded)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1639" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="map_activity_preloads/3">
+
+    <span id="map_activity_preloads/1"></span>
+
+    <span id="map_activity_preloads/2"></span>
+
+  <div class="detail-header">
+    <a href="#map_activity_preloads/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">map_activity_preloads(preloads, already_preloaded \\ [], preload_presets \\ preload_presets())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1595" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Maps high-level preload keys to their corresponding detailed preload lists.</p><h2 id="map_activity_preloads/3-examples" class="section-heading">
+  <a href="#map_activity_preloads/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="c1"># Single preload key</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_activity_preloads</span><span class="p" data-group-id="5929357608-1">(</span><span class="p" data-group-id="5929357608-2">[</span><span class="ss">:feed</span><span class="p" data-group-id="5929357608-2">]</span><span class="p" data-group-id="5929357608-1">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="5929357608-3">(</span><span class="p" data-group-id="5929357608-3">)</span><span class="w">
+</span><span class="p" data-group-id="5929357608-4">[</span><span class="w">
+  </span><span class="ss">:with_creator</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_media</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_replied</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_subject</span><span class="w">
+</span><span class="p" data-group-id="5929357608-4">]</span><span class="w">
+
+</span><span class="c1"># Multiple preload keys</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_activity_preloads</span><span class="p" data-group-id="5929357608-5">(</span><span class="p" data-group-id="5929357608-6">[</span><span class="ss">:feed</span><span class="p">,</span><span class="w"> </span><span class="ss">:notifications</span><span class="p" data-group-id="5929357608-6">]</span><span class="p" data-group-id="5929357608-5">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="5929357608-7">(</span><span class="p" data-group-id="5929357608-7">)</span><span class="w">
+</span><span class="p" data-group-id="5929357608-8">[</span><span class="ss">:notifications</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_creator</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_replied</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_subject</span><span class="p" data-group-id="5929357608-8">]</span><span class="w">
+
+</span><span class="c1"># With :all key it includes all defined preloads</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_activity_preloads</span><span class="p" data-group-id="5929357608-9">(</span><span class="p" data-group-id="5929357608-10">[</span><span class="ss">:all</span><span class="p" data-group-id="5929357608-10">]</span><span class="p" data-group-id="5929357608-9">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="5929357608-11">(</span><span class="p" data-group-id="5929357608-11">)</span><span class="w">
+</span><span class="p" data-group-id="5929357608-12">[</span><span class="w">
+  </span><span class="ss">:maybe_with_labelled</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:tags</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_creator</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_media</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_parent</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_post_content</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_replied</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_seen</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_subject</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_thread_name</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_verb</span><span class="w">
+</span><span class="p" data-group-id="5929357608-12">]</span><span class="w">
+
+</span><span class="c1"># With unknown key</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_activity_preloads</span><span class="p" data-group-id="5929357608-13">(</span><span class="p" data-group-id="5929357608-14">[</span><span class="ss">:unknown_key</span><span class="p" data-group-id="5929357608-14">]</span><span class="p" data-group-id="5929357608-13">)</span><span class="w">
+</span><span class="p" data-group-id="5929357608-15">[</span><span class="ss">:unknown_key</span><span class="p" data-group-id="5929357608-15">]</span><span class="w">
+
+</span><span class="c1"># Empty list returns empty list</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_activity_preloads</span><span class="p" data-group-id="5929357608-16">(</span><span class="p" data-group-id="5929357608-17">[</span><span class="p" data-group-id="5929357608-17">]</span><span class="p" data-group-id="5929357608-16">)</span><span class="w">
+</span><span class="p" data-group-id="5929357608-18">[</span><span class="p" data-group-id="5929357608-18">]</span><span class="w">
+
+</span><span class="c1"># Removes duplicates when preload lists overlap</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_activity_preloads</span><span class="p" data-group-id="5929357608-19">(</span><span class="p" data-group-id="5929357608-20">[</span><span class="ss">:posts</span><span class="p">,</span><span class="w"> </span><span class="ss">:posts_with_thread</span><span class="p" data-group-id="5929357608-20">]</span><span class="p" data-group-id="5929357608-19">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="5929357608-21">(</span><span class="p" data-group-id="5929357608-21">)</span><span class="w">
+</span><span class="p" data-group-id="5929357608-22">[</span><span class="w">
+  </span><span class="ss">:with_post_content</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_replied</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_subject</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_thread_name</span><span class="w">
+</span><span class="p" data-group-id="5929357608-22">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="matches_filter?/2">
+
+  <div class="detail-header">
+    <a href="#matches_filter?/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">matches_filter?(rule_match_criteria, feed_filters)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1470" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Match feed filters against rule criteria.</p><h2 id="matches_filter?/2-examples" class="section-heading">
+  <a href="#matches_filter?/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-1">(</span><span class="p" data-group-id="2201188220-2">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p" data-group-id="2201188220-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-3">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-3">}</span><span class="p" data-group-id="2201188220-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-4">(</span><span class="p" data-group-id="2201188220-5">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2201188220-6">[</span><span class="s">&quot;post&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;comment&quot;</span><span class="p" data-group-id="2201188220-6">]</span><span class="p" data-group-id="2201188220-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-7">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2201188220-8">[</span><span class="s">&quot;comment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reaction&quot;</span><span class="p" data-group-id="2201188220-8">]</span><span class="p" data-group-id="2201188220-7">}</span><span class="p" data-group-id="2201188220-4">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-9">(</span><span class="p" data-group-id="2201188220-10">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-10">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-11">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2201188220-12">[</span><span class="s">&quot;comment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-12">]</span><span class="p" data-group-id="2201188220-11">}</span><span class="p" data-group-id="2201188220-9">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-13">(</span><span class="p" data-group-id="2201188220-14">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="2201188220-14">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-15">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2201188220-16">[</span><span class="s">&quot;comment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-16">]</span><span class="p" data-group-id="2201188220-15">}</span><span class="p" data-group-id="2201188220-13">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-17">(</span><span class="p" data-group-id="2201188220-18">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-18">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-19">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2201188220-20">[</span><span class="ss">:comment</span><span class="p">,</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="2201188220-20">]</span><span class="p" data-group-id="2201188220-19">}</span><span class="p" data-group-id="2201188220-17">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-21">(</span><span class="p" data-group-id="2201188220-22">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2201188220-23">[</span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-23">]</span><span class="p" data-group-id="2201188220-22">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-24">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-24">}</span><span class="p" data-group-id="2201188220-21">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-25">(</span><span class="p" data-group-id="2201188220-26">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-26">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-27">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;comment&quot;</span><span class="p" data-group-id="2201188220-27">}</span><span class="p" data-group-id="2201188220-25">)</span><span class="w">
+</span><span class="no">false</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">matches_filter?</span><span class="p" data-group-id="2201188220-28">(</span><span class="p" data-group-id="2201188220-29">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="p" data-group-id="2201188220-29">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2201188220-30">%{</span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="2201188220-30">}</span><span class="p" data-group-id="2201188220-28">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="my_feed/2">
+
+    <span id="my_feed/1"></span>
+
+  <div class="detail-header">
+    <a href="#my_feed/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">my_feed(opts, home_feed_ids \\ nil)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L447" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Gets a user's home feed, a combination of all feeds the user is subscribed to.</p><h1>TODO: should just be an alias to <code class="inline">feed(:my, opts)</code></h1><h2 id="my_feed/2-examples" class="section-heading">
+  <a href="#my_feed/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">my_feed</span><span class="p" data-group-id="7277694015-1">(</span><span class="p" data-group-id="7277694015-2">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="7277694015-3">}</span><span class="p" data-group-id="7277694015-2">]</span><span class="p" data-group-id="7277694015-1">)</span><span class="w">
+</span><span class="p" data-group-id="7277694015-4">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-5">[</span><span class="p" data-group-id="7277694015-6">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-7">%{</span><span class="p" data-group-id="7277694015-7">}</span><span class="p" data-group-id="7277694015-6">}</span><span class="p" data-group-id="7277694015-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-8">%{</span><span class="p" data-group-id="7277694015-8">}</span><span class="p" data-group-id="7277694015-4">}</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Social.FeedActivities</span><span class="o">.</span><span class="n">my_feed</span><span class="p" data-group-id="7277694015-9">(</span><span class="p" data-group-id="7277694015-10">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-11">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="7277694015-11">}</span><span class="p" data-group-id="7277694015-10">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7277694015-12">[</span><span class="s">&quot;feed_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;feed_id2&quot;</span><span class="p" data-group-id="7277694015-12">]</span><span class="p" data-group-id="7277694015-9">)</span><span class="w">
+</span><span class="p" data-group-id="7277694015-13">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-14">[</span><span class="p" data-group-id="7277694015-15">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-16">%{</span><span class="p" data-group-id="7277694015-16">}</span><span class="p" data-group-id="7277694015-15">}</span><span class="p" data-group-id="7277694015-14">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7277694015-17">%{</span><span class="p" data-group-id="7277694015-17">}</span><span class="p" data-group-id="7277694015-13">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="parameterize_filters/3">
+
+  <div class="detail-header">
+    <a href="#parameterize_filters/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">parameterize_filters(filters, parameters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1244" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Parameterizes the filters by replacing parameterized values with values from <code class="inline">opts</code>.</p><h2 id="parameterize_filters/3-examples" class="section-heading">
+  <a href="#parameterize_filters/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="c1"># 1: Parameterizing a simple filter</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">parameterize_filters</span><span class="p" data-group-id="8440063873-1">(</span><span class="p" data-group-id="8440063873-2">%{</span><span class="p" data-group-id="8440063873-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8440063873-3">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-4">[</span><span class="ss">:me</span><span class="p" data-group-id="8440063873-4">]</span><span class="p" data-group-id="8440063873-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8440063873-5">}</span><span class="p" data-group-id="8440063873-1">)</span><span class="w">
+</span><span class="p" data-group-id="8440063873-6">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-7">[</span><span class="p" data-group-id="8440063873-8">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8440063873-8">}</span><span class="p" data-group-id="8440063873-7">]</span><span class="p" data-group-id="8440063873-6">}</span><span class="w">
+
+</span><span class="c1"># 2: Parameterizing multiple filters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">parameterize_filters</span><span class="p" data-group-id="8440063873-9">(</span><span class="p" data-group-id="8440063873-10">%{</span><span class="p" data-group-id="8440063873-10">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8440063873-11">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-12">[</span><span class="ss">:me</span><span class="p" data-group-id="8440063873-12">]</span><span class="p">,</span><span class="w"> </span><span class="ss">tags</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-13">[</span><span class="ss">:hashtag</span><span class="p" data-group-id="8440063873-13">]</span><span class="p" data-group-id="8440063873-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-14">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8440063873-14">}</span><span class="p">,</span><span class="w"> </span><span class="ss">hashtag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;elixir&quot;</span><span class="p" data-group-id="8440063873-9">)</span><span class="w">
+</span><span class="p" data-group-id="8440063873-15">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-16">[</span><span class="p" data-group-id="8440063873-17">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8440063873-17">}</span><span class="p" data-group-id="8440063873-16">]</span><span class="p">,</span><span class="w"> </span><span class="ss">tags</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-18">[</span><span class="s">&quot;elixir&quot;</span><span class="p" data-group-id="8440063873-18">]</span><span class="p" data-group-id="8440063873-15">}</span><span class="w">
+
+</span><span class="c1"># 3: Parameterizing with undefined options</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">parameterize_filters</span><span class="p" data-group-id="8440063873-19">(</span><span class="p" data-group-id="8440063873-20">%{</span><span class="p" data-group-id="8440063873-20">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8440063873-21">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="ss">:me</span><span class="p" data-group-id="8440063873-21">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8440063873-19">)</span><span class="w">
+</span><span class="p" data-group-id="8440063873-22">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8440063873-22">}</span><span class="w">
+
+</span><span class="c1"># 4: Handling filters that don&#39;t require parameterization</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">parameterize_filters</span><span class="p" data-group-id="8440063873-23">(</span><span class="p" data-group-id="8440063873-24">%{</span><span class="ss">activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-25">[</span><span class="s">&quot;like&quot;</span><span class="p" data-group-id="8440063873-25">]</span><span class="p" data-group-id="8440063873-24">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8440063873-26">%{</span><span class="p" data-group-id="8440063873-26">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bob&quot;</span><span class="p" data-group-id="8440063873-23">)</span><span class="w">
+</span><span class="p" data-group-id="8440063873-27">%{</span><span class="ss">activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8440063873-28">[</span><span class="s">&quot;like&quot;</span><span class="p" data-group-id="8440063873-28">]</span><span class="p" data-group-id="8440063873-27">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="preload_presets/0">
+
+  <div class="detail-header">
+    <a href="#preload_presets/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">preload_presets()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1534" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="preloads_by_context_rules/0">
+
+  <div class="detail-header">
+    <a href="#preloads_by_context_rules/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">preloads_by_context_rules()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1359" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="preloads_from_filters/2">
+
+    <span id="preloads_from_filters/1"></span>
+
+  <div class="detail-header">
+    <a href="#preloads_from_filters/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">preloads_from_filters(feed_filters, filter_rules \\ preloads_from_filters_rules())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1428" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Computes the list of preloads to apply based on the provided filters.
+Returns a list of preload atoms.</p><p>Uses rules defined in configuration rather than code.</p><p>Multiple rules can match and their preloads will be merged, with exclusions applied last.</p><h2 id="preloads_from_filters/2-examples" class="section-heading">
+  <a href="#preloads_from_filters/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0165021424-1">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remote&quot;</span><span class="p" data-group-id="0165021424-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preloads_from_filters</span><span class="p" data-group-id="0165021424-2">(</span><span class="n">filters</span><span class="p" data-group-id="0165021424-2">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="0165021424-3">(</span><span class="p" data-group-id="0165021424-3">)</span><span class="w">
+</span><span class="p" data-group-id="0165021424-4">[</span><span class="ss">:with_creator</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_peered</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_subject</span><span class="p" data-group-id="0165021424-4">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0165021424-5">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="ss">:remote</span><span class="p" data-group-id="0165021424-5">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preloads_from_filters</span><span class="p" data-group-id="0165021424-6">(</span><span class="n">filters</span><span class="p" data-group-id="0165021424-6">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="0165021424-7">(</span><span class="p" data-group-id="0165021424-7">)</span><span class="w">
+</span><span class="p" data-group-id="0165021424-8">[</span><span class="ss">:with_creator</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_peered</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_subject</span><span class="p" data-group-id="0165021424-8">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0165021424-9">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0165021424-10">[</span><span class="s">&quot;remote&quot;</span><span class="p" data-group-id="0165021424-10">]</span><span class="p" data-group-id="0165021424-9">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preloads_from_filters</span><span class="p" data-group-id="0165021424-11">(</span><span class="n">filters</span><span class="p" data-group-id="0165021424-11">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="0165021424-12">(</span><span class="p" data-group-id="0165021424-12">)</span><span class="w">
+</span><span class="p" data-group-id="0165021424-13">[</span><span class="ss">:with_creator</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_peered</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_subject</span><span class="p" data-group-id="0165021424-13">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0165021424-14">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0165021424-15">[</span><span class="ss">:remote</span><span class="p" data-group-id="0165021424-15">]</span><span class="p" data-group-id="0165021424-14">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preloads_from_filters</span><span class="p" data-group-id="0165021424-16">(</span><span class="n">filters</span><span class="p" data-group-id="0165021424-16">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="0165021424-17">(</span><span class="p" data-group-id="0165021424-17">)</span><span class="w">
+</span><span class="p" data-group-id="0165021424-18">[</span><span class="ss">:with_creator</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_peered</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_subject</span><span class="p" data-group-id="0165021424-18">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0165021424-19">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0165021424-20">[</span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="0165021424-20">]</span><span class="p" data-group-id="0165021424-19">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preloads_from_filters</span><span class="p" data-group-id="0165021424-21">(</span><span class="n">filters</span><span class="p" data-group-id="0165021424-21">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="0165021424-22">(</span><span class="p" data-group-id="0165021424-22">)</span><span class="w">
+</span><span class="p" data-group-id="0165021424-23">[</span><span class="ss">:with_creator</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p" data-group-id="0165021424-23">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0165021424-24">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;unknown&quot;</span><span class="p" data-group-id="0165021424-24">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preloads_from_filters</span><span class="p" data-group-id="0165021424-25">(</span><span class="n">filters</span><span class="p" data-group-id="0165021424-25">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="0165021424-26">(</span><span class="p" data-group-id="0165021424-26">)</span><span class="w">
+</span><span class="p" data-group-id="0165021424-27">[</span><span class="w">
+  </span><span class="ss">:with_creator</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_media</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_peered</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w">
+  </span><span class="ss">:with_subject</span><span class="w">
+</span><span class="p" data-group-id="0165021424-27">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="preloads_from_filters_rules/0">
+
+  <div class="detail-header">
+    <a href="#preloads_from_filters_rules/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">preloads_from_filters_rules()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1354" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="prepare_filters_and_opts/2">
+
+  <div class="detail-header">
+    <a href="#prepare_filters_and_opts/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">prepare_filters_and_opts(filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L810" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Converts socket, assigns, or options to feed options.</p><h2 id="prepare_filters_and_opts/2-examples" class="section-heading">
+  <a href="#prepare_filters_and_opts/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">assigns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3680305786-1">%{</span><span class="ss">exclude_activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3680305786-2">[</span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost</span><span class="p" data-group-id="3680305786-2">]</span><span class="p" data-group-id="3680305786-1">}</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_feed_options</span><span class="p" data-group-id="3680305786-3">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="n">assigns</span><span class="p" data-group-id="3680305786-3">)</span><span class="w">
+</span><span class="p" data-group-id="3680305786-4">[</span><span class="ss">exclude_activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3680305786-5">[</span><span class="ss">:flag</span><span class="p">,</span><span class="w"> </span><span class="ss">:boost</span><span class="p">,</span><span class="w"> </span><span class="ss">:follow</span><span class="p" data-group-id="3680305786-5">]</span><span class="p" data-group-id="3680305786-4">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="preset_feed_filters/2">
+
+    <span id="preset_feed_filters/1"></span>
+
+  <div class="detail-header">
+    <a href="#preset_feed_filters/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">preset_feed_filters(name, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1180" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> preset_feed_filters(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()}</pre>
+
+      </div>
+
+<p>Gets an aliased feed's filters by name, with optional parameters.</p><h2 id="preset_feed_filters/2-examples" class="section-heading">
+  <a href="#preset_feed_filters/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="c1"># 1: Retrieve a preset feed without parameters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6744966144-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-2">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="ss">:local</span><span class="p">,</span><span class="w"> </span><span class="ss">exclude_activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6744966144-3">[</span><span class="ss">:like</span><span class="p" data-group-id="6744966144-3">]</span><span class="p" data-group-id="6744966144-2">}</span><span class="p" data-group-id="6744966144-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-4">(</span><span class="ss">:local</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-5">[</span><span class="p" data-group-id="6744966144-5">]</span><span class="p" data-group-id="6744966144-4">)</span><span class="w">
+
+</span><span class="c1"># 1: Retrieve a preset feed without parameters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6744966144-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-7">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="ss">:local</span><span class="p">,</span><span class="w"> </span><span class="ss">exclude_activity_types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6744966144-8">[</span><span class="ss">:like</span><span class="p" data-group-id="6744966144-8">]</span><span class="p" data-group-id="6744966144-7">}</span><span class="p" data-group-id="6744966144-6">}</span><span class="w"> </span><span class="o">=</span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-9">(</span><span class="ss">:local</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-10">[</span><span class="p" data-group-id="6744966144-10">]</span><span class="p" data-group-id="6744966144-9">)</span><span class="w">
+
+</span><span class="c1"># 2: Retrieve a preset feed with parameters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6744966144-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-12">%{</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-12">}</span><span class="p" data-group-id="6744966144-11">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-13">(</span><span class="ss">:user_activities</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-14">[</span><span class="ss">by</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-14">]</span><span class="p" data-group-id="6744966144-13">)</span><span class="w">
+
+</span><span class="c1"># 3: Feed not found (error case)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-15">(</span><span class="s">&quot;unknown_feed&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-16">[</span><span class="p" data-group-id="6744966144-16">]</span><span class="p" data-group-id="6744966144-15">)</span><span class="w">
+</span><span class="p" data-group-id="6744966144-17">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:not_found</span><span class="p" data-group-id="6744966144-17">}</span><span class="w">
+
+</span><span class="c1"># 4: Preset feed with parameterized filters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6744966144-18">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-19">%{</span><span class="ss">activity_types</span><span class="p">:</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6744966144-20">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-20">}</span><span class="p" data-group-id="6744966144-19">}</span><span class="p" data-group-id="6744966144-18">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-21">(</span><span class="ss">:liked_by_me</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6744966144-22">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-22">}</span><span class="p" data-group-id="6744966144-21">)</span><span class="w">
+
+</span><span class="c1"># 5: Feed with `current_user_required` should check for current user</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6744966144-23">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-24">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="ss">:messages</span><span class="p" data-group-id="6744966144-24">}</span><span class="p" data-group-id="6744966144-23">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-25">(</span><span class="ss">:messages</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6744966144-26">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-26">}</span><span class="p" data-group-id="6744966144-25">)</span><span class="w">
+
+</span><span class="c1"># 6: Feed with `current_user_required` and no current user</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-27">(</span><span class="ss">:messages</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-28">[</span><span class="p" data-group-id="6744966144-28">]</span><span class="p" data-group-id="6744966144-27">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail.Auth) You need to log in first.</span><span class="w">
+
+</span><span class="c1"># 7: Custom feed with additional parameters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6744966144-29">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-30">%{</span><span class="ss">activity_types</span><span class="p">:</span><span class="w"> </span><span class="ss">:follow</span><span class="p">,</span><span class="w"> </span><span class="ss">objects</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-30">}</span><span class="p" data-group-id="6744966144-29">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">preset_feed_filters</span><span class="p" data-group-id="6744966144-31">(</span><span class="ss">:user_followers</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6744966144-32">[</span><span class="ss">by</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="6744966144-32">]</span><span class="p" data-group-id="6744966144-31">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="query/3">
+
+    <span id="query/0"></span>
+
+    <span id="query/1"></span>
+
+    <span id="query/2"></span>
+
+  <div class="detail-header">
+    <a href="#query/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">query(filters \\ [], opts \\ [], query \\ default_query())</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L733" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Return a boundarised query for a feed</p>
+  </section>
+</section>
+<section class="detail" id="query_extras_boundarised/3">
+
+    <span id="query_extras_boundarised/2"></span>
+
+  <div class="detail-header">
+    <a href="#query_extras_boundarised/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">query_extras_boundarised(query \\ nil, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L759" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>add assocs needed in timelines/feeds</p>
+  </section>
+</section>
+<section class="detail" id="query_object_extras_boundarised/3">
+
+    <span id="query_object_extras_boundarised/2"></span>
+
+  <div class="detail-header">
+    <a href="#query_object_extras_boundarised/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">query_object_extras_boundarised(query \\ nil, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L769" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>add assocs needed in lists of objects</p>
+  </section>
+</section>
+<section class="detail" id="replace_parameters/3">
+
+  <div class="detail-header">
+    <a href="#replace_parameters/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">replace_parameters(value, filters, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L1318" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Replaces parameters in the filter value with the actual values from <code class="inline">opts</code>.</p><h2 id="replace_parameters/3-examples" class="section-heading">
+  <a href="#replace_parameters/3-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="c1"># Replacing a `me` parameter with the current user</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-1">(</span><span class="ss">:me</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-2">%{</span><span class="p" data-group-id="8931705190-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8931705190-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-3">}</span><span class="p" data-group-id="8931705190-1">)</span><span class="w">
+</span><span class="p" data-group-id="8931705190-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-4">}</span><span class="w">
+
+</span><span class="c1"># Replacing a `:current_user` parameter with the current user only if available</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-5">(</span><span class="ss">:current_user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-6">%{</span><span class="p" data-group-id="8931705190-6">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8931705190-5">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="c1"># Replacing a `by` parameter with the a value from the filters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-7">(</span><span class="ss">:by</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-8">%{</span><span class="ss">by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8931705190-9">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-9">}</span><span class="p" data-group-id="8931705190-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-10">[</span><span class="p" data-group-id="8931705190-10">]</span><span class="p" data-group-id="8931705190-7">)</span><span class="w">
+</span><span class="p" data-group-id="8931705190-11">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-11">}</span><span class="w">
+
+</span><span class="c1"># Replacing a `by` parameter with the a value from the opts</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-12">(</span><span class="ss">:by</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-13">%{</span><span class="p" data-group-id="8931705190-13">}</span><span class="p">,</span><span class="w"> </span><span class="ss">by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8931705190-14">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-14">}</span><span class="p" data-group-id="8931705190-12">)</span><span class="w">
+</span><span class="p" data-group-id="8931705190-15">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-15">}</span><span class="w">
+
+</span><span class="c1"># Replacing a `:by` parameter with the current user as a fallback</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-16">(</span><span class="ss">:by</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-17">%{</span><span class="p" data-group-id="8931705190-17">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8931705190-18">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-18">}</span><span class="p" data-group-id="8931705190-16">)</span><span class="w">
+</span><span class="p" data-group-id="8931705190-19">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="8931705190-19">}</span><span class="w">
+
+</span><span class="c1"># Failing with `:current_user_required` parameter if we have no current user</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-20">(</span><span class="ss">:current_user_required</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-21">%{</span><span class="p" data-group-id="8931705190-21">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8931705190-20">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail.Auth) You need to log in first.</span><span class="w">
+
+</span><span class="c1"># Handling a parameter that is in the opts</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-22">(</span><span class="ss">:type</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-23">%{</span><span class="p" data-group-id="8931705190-23">}</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="8931705190-22">)</span><span class="w">
+</span><span class="s">&quot;post&quot;</span><span class="w">
+
+</span><span class="c1"># Handling a parameter that is in the filters</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-24">(</span><span class="ss">:type</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-25">%{</span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="8931705190-25">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-26">[</span><span class="p" data-group-id="8931705190-26">]</span><span class="p" data-group-id="8931705190-24">)</span><span class="w">
+</span><span class="s">&quot;post&quot;</span><span class="w">
+
+</span><span class="c1"># Handling a parameter that is in the filters with string key</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-27">(</span><span class="ss">:type</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-28">%{</span><span class="s">&quot;type&quot;</span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="p" data-group-id="8931705190-28">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-29">[</span><span class="p" data-group-id="8931705190-29">]</span><span class="p" data-group-id="8931705190-27">)</span><span class="w">
+</span><span class="s">&quot;post&quot;</span><span class="w">
+
+</span><span class="c1"># # Handling a string key parameter that is in the filters</span><span class="w">
+</span><span class="c1"># iex&gt; replace_parameters(&quot;type&quot;, %{type: &quot;post&quot;}, [])</span><span class="w">
+</span><span class="c1"># &quot;post&quot;</span><span class="w">
+
+</span><span class="c1"># # Handling a string key parameter that is in the opts - FIXME</span><span class="w">
+</span><span class="c1"># iex&gt; replace_parameters(&quot;type&quot;, %{}, type: &quot;post&quot;)</span><span class="w">
+</span><span class="c1"># &quot;post&quot;</span><span class="w">
+
+</span><span class="c1"># Handling a parameter that is not in the opts</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">replace_parameters</span><span class="p" data-group-id="8931705190-30">(</span><span class="ss">:unknown</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8931705190-31">%{</span><span class="p" data-group-id="8931705190-31">}</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bob&quot;</span><span class="p" data-group-id="8931705190-30">)</span><span class="w">
+</span><span class="ss">:unknown</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="skip_types_default/0">
+
+  <div class="detail-header">
+    <a href="#skip_types_default/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">skip_types_default()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L187" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="skip_verbs_default/0">
+
+  <div class="detail-header">
+    <a href="#skip_verbs_default/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">skip_verbs_default()</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/feed_loader.ex#L186" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

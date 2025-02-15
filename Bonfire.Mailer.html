@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.169">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
 
 
-    <title>Bonfire.Mailer — Bonfire v0.9.10-classic-beta.169</title>
-    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+    <title>Bonfire.Mailer — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-7A93CEFA.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
     <script src="docs_config.js"></script>
-    <script async src="dist/html-YIPIRHGU.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.169
+          v0.9.11-social-beta.3
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Mailer</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.169)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
 
   </h1>
 
@@ -204,7 +204,7 @@ Pages
 </span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre></li></ul><h4>Campaign Monitor</h4><ul><li>Website: <a href="https://www.campaignmonitor.com/">campaignmonitor.com</a></li><li>No free tier, pay-as-you-go pricing<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">campaign_monitor</span><span class="w">
 </span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_campaign_monitor_api_key</span><span class="w">
 </span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre></li></ul><h4>Amazon AWS SES</h4><ul><li>Website: <a href="https://aws.amazon.com/ses/">aws.amazon.com</a></li><li>Free Tier: 3,000 message / month (only for the first 12 months, and extra AWS charges may still apply)</li></ul><p>Amazon SES can be configured in two ways:</p><ol><li><p>Using existing AWS credentials (if already configured for S3 file storage, you can simplify configuration and use the same AWS credentials for both file storage and email delivery):</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
-</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre><p>Note: This method will automatically use the credentials set by <code class="inline">UPLOADS_S3_ACCESS_KEY_ID</code> and <code class="inline">UPLOADS_S3_SECRET_ACCESS_KEY</code>. No additional configuration is needed if these are already set up for a Bonfire extension (such as <a href="./Bonfire.Files.html"><code class="inline">Bonfire.Files</code></a>) which uses S3 file storage.</p></li><li><p>Using dedicated credentials, if you don't use AWS for S3 file storage or you want to use different AWS accounts for file storage and email delivery:</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre><p>Note: This method will automatically use the credentials set by <code class="inline">UPLOADS_S3_ACCESS_KEY_ID</code> and <code class="inline">UPLOADS_S3_SECRET_ACCESS_KEY</code>. No additional configuration is needed if these are already set up for a Bonfire extension (such as <a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.html"><code class="inline">Bonfire.Files</code></a>) which uses S3 file storage.</p></li><li><p>Using dedicated credentials, if you don't use AWS for S3 file storage or you want to use different AWS accounts for file storage and email delivery:</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
 </span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_aws_access_key_id</span><span class="w">
 </span><span class="nc">MAIL_PRIVATE_KEY</span><span class="o">=</span><span class="n">your_aws_secret_access_key</span><span class="w">
 </span><span class="nc">MAIL_REGION</span><span class="o">=</span><span class="n">your_aws_region</span><span class="w">
@@ -410,15 +410,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="app_name/0">
 
   <div class="detail-header">
-    <a href="#app_name/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#app_name/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">app_name()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L52" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L52" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -432,15 +430,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="deliver_async/1">
 
   <div class="detail-header">
-    <a href="#deliver_async/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#deliver_async/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">deliver_async(email)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L33" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L33" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -454,15 +450,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="deliver_inline/1">
 
   <div class="detail-header">
-    <a href="#deliver_inline/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#deliver_inline/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">deliver_inline(email)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L32" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L32" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -476,15 +470,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="from/2">
 
   <div class="detail-header">
-    <a href="#from/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#from/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">from(email, address)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L28" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L28" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -500,15 +492,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     <span id="handle_error/1"></span>
 
   <div class="detail-header">
-    <a href="#handle_error/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#handle_error/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">handle_error(error, stacktrace \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L86" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L86" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -522,15 +512,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="html_body/2">
 
   <div class="detail-header">
-    <a href="#html_body/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#html_body/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">html_body(email, body)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L31" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L31" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -546,15 +534,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     <span id="new/0"></span>
 
   <div class="detail-header">
-    <a href="#new/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#new/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">new(data \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L26" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L26" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -572,15 +558,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     <span id="send/3"></span>
 
   <div class="detail-header">
-    <a href="#send/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#send/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">send(email, to, mode \\ :async, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L41" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L41" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -596,15 +580,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     <span id="send_app_feedback/2"></span>
 
   <div class="detail-header">
-    <a href="#send_app_feedback/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#send_app_feedback/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">send_app_feedback(subject, body, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L44" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L44" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -620,15 +602,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     <span id="send_async/2"></span>
 
   <div class="detail-header">
-    <a href="#send_async/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#send_async/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">send_async(email, to, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L38" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L38" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -644,15 +624,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
     <span id="send_now/2"></span>
 
   <div class="detail-header">
-    <a href="#send_now/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#send_now/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">send_now(email, to, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L35" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L35" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -666,15 +644,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="start/2">
 
   <div class="detail-header">
-    <a href="#start/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#start/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">start(_, _)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L17" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L17" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -688,15 +664,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="subject/2">
 
   <div class="detail-header">
-    <a href="#subject/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#subject/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">subject(email, subject)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L29" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L29" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -710,15 +684,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="text_body/2">
 
   <div class="detail-header">
-    <a href="#text_body/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#text_body/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">text_body(email, body)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L30" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L30" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -732,15 +704,13 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 <section class="detail" id="to/2">
 
   <div class="detail-header">
-    <a href="#to/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#to/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">to(email, address)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L27" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/mailer.ex#L27" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -772,7 +742,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

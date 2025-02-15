@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.169">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
 
 
-    <title>Bonfire.Boundaries.Roles — Bonfire v0.9.10-classic-beta.169</title>
-    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+    <title>Bonfire.Boundaries.Roles — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-7A93CEFA.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
     <script src="docs_config.js"></script>
-    <script async src="dist/html-YIPIRHGU.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.169
+          v0.9.11-social-beta.3
         </div>
       </div>
     </div>
@@ -132,13 +132,13 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Boundaries.Roles</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.169)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p> Roles are groups of verbs associated with permissions. While not stored in the database, they are defined at the configuration level to enhance readability and user experience.</p><p>Here are some preset roles and their associated actions:</p><ul><li><strong>Read</strong>: can discover the content in lists (like feeds) and read it; request permission for another verb (e.g., request to follow).</li><li><strong>Interact</strong>: can read, plus like an object (and notify the author); follow a user or thread; boost an object (and notify the author); pin something to highlight it.</li><li><strong>Participate</strong>: can interact, plus reply to an activity or post; mention a user or object (and notify them); send a message.</li><li><strong>Contribute</strong>: can participate, plus create a post or other object; tag a user or object or publish in a topic.</li><li><strong>Caretaker</strong>: can perform all of the above actions and more, including actions like deletion.</li></ul><p>There are also negative roles, indicating actions which you specifically do not want to allow a particular circle or user to do, such as:</p><ul><li><strong>Cannot Read</strong>: not discoverable in lists or readable, and also can't interact or participate.</li><li><strong>Cannot Interact</strong>: cannot perform any actions related to interaction, including liking, following, boosting, and pinning, and also can't participate.</li><li><strong>Cannot Participate</strong>: cannot perform any actions related to participation, including replying, mentioning, and sending messages.</li></ul><p>Negative permissions always take precedence over positive or undefined permissions. For example, For example, if you share something giving permission to anyone to read and reply to it, and you assign the <em>Cannot Participate</em> role to your <em>Likely to troll</em> circle, the people in that circle will be able to read the content but will not be able to reply to it.</p><blockquote><p>Note that these negative roles do not grant any additional permissions. Assigning the Cannot Participate role to someone who wouldn't otherwise be able to read the content does not mean they will now have the ability to do so. Negative roles simply limit or override any permissions defined elsewhere, ensuring that the specified actions are explicitly restricted.</p></blockquote>
+<p> Roles are groups of verbs associated with permissions. While not stored in the database, they are defined at the configuration level to enhance readability and user experience.</p><p>Here are some preset roles and their associated actions:</p><ul><li><strong>Read</strong>: can discover the content in lists (like feeds) and read it; request permission for another verb (e.g., request to follow).</li><li><strong>Interact</strong>: can read, plus like an object (and notify the author); follow a user or thread; boost an object (and notify the author); pin something to highlight it.</li><li><strong>Participate</strong>: can interact, plus reply to an activity or post; mention a user or object (and notify them); send a message.</li><li><strong>Contribute</strong>: can participate, plus create a post or other object; tag a user or object or publish in a topic.</li><li><strong>Caretaker</strong>: can perform all of the above actions and more, including actions like deletion.</li></ul><p>There are also negative roles, indicating actions which you specifically do not want to allow a particular circle or user to do, such as:</p><ul><li><strong>Cannot Read</strong>: not discoverable in lists or readable, and also can't interact or participate.</li><li><strong>Cannot Interact</strong>: cannot perform any actions related to interaction, including liking, following, boosting, and pinning, and also can't participate.</li><li><strong>Cannot Participate</strong>: cannot perform any actions related to participation, including replying, mentioning, and sending messages.</li></ul><p>Negative permissions always take precedence over positive or undefined permissions. For example, if you share something giving permission to anyone to read and reply to it, and you assign the <em>Cannot Participate</em> role to your <em>Likely to troll</em> circle, the people in that circle will be able to read the content but will not be able to reply to it.</p><blockquote><p>Note that these negative roles do not grant any additional permissions. Assigning the Cannot Participate role to someone who wouldn't otherwise be able to read the content does not mean they will now have the ability to do so. Negative roles simply limit or override any permissions defined elsewhere, ensuring that the specified actions are explicitly restricted.</p></blockquote>
     </section>
 
 </div>
@@ -171,7 +171,7 @@ Pages
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates a role with given attributes and options.</p></div>
+        <div class="summary-synopsis"><p>Creates a role with given attributes and options. </p></div>
 
     </div>
 
@@ -187,11 +187,29 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip translate="no">delete(old_name, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#edit_details/4" data-no-tooltip translate="no">edit_details(old_name, new_name, usage, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Edit a role with a given name and usage</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#edit_verb_permission/4" data-no-tooltip translate="no">edit_verb_permission(role_name, verb, value, opts)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Edits a verb permission for a role </p></div>
+        <div class="summary-synopsis"><p>Edits a verb permission for a role</p></div>
 
     </div>
 
@@ -309,15 +327,13 @@ Pages
     <span id="cannot_role_from_verb/4"></span>
 
   <div class="detail-header">
-    <a href="#cannot_role_from_verb/5" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#cannot_role_from_verb/5" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">cannot_role_from_verb(verbs, verb_field \\ :verb, all_role_verbs \\ role_verbs(:all), role_for_all \\ :read, verbs_field \\ :cannot_verbs)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L195" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L195" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -331,21 +347,19 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cannot_role_from_verb</span><span class="p" data-group-id="1013222827-1">(</span><span class="n">verbs</span><span class="p" data-group-id="1013222827-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cannot_role_from_verb</span><span class="p" data-group-id="3770083120-1">(</span><span class="n">verbs</span><span class="p" data-group-id="3770083120-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="create/2">
 
   <div class="detail-header">
-    <a href="#create/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#create/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">create(attrs, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L327" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L323" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -353,27 +367,19 @@ Pages
 
   <section class="docstring">
 
-<p>Creates a role with given attributes and options.</p><h2 id="create/2-examples" class="section-heading">
-  <a href="#create/2-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create</span><span class="p" data-group-id="4060778459-1">(</span><span class="n">attrs</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="4060778459-1">)</span></code></pre>
+<p>Creates a role with given attributes and options. </p>
   </section>
 </section>
 <section class="detail" id="create/3">
 
   <div class="detail-header">
-    <a href="#create/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#create/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">create(name, usage, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L344" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L341" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -381,28 +387,67 @@ Pages
 
   <section class="docstring">
 
-<p>Creates a role with a given name, usage, and options.</p><h2 id="create/3-examples" class="section-heading">
-  <a href="#create/3-examples" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Examples</span>
-</h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create</span><span class="p" data-group-id="0377962067-1">(</span><span class="s">&quot;Admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0377962067-1">)</span><span class="w">
-</span><span class="c1"># creates an admin role with the provided options</span></code></pre>
+<p>Creates a role with a given name, usage, and options.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create</span><span class="p" data-group-id="7745012553-1">(</span><span class="s">&quot;Mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:ops</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="7745012553-1">)</span><span class="w">
+</span><span class="c1"># creates a Mod role for the instance, that will not be shown in the dropdown when creating content</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">create</span><span class="p" data-group-id="7745012553-2">(</span><span class="s">&quot;Contributor&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">current_user</span><span class="p" data-group-id="7745012553-2">)</span><span class="w">
+</span><span class="c1"># creates a Contributor role for the user</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">delete(old_name, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L375" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="edit_details/4">
+
+  <div class="detail-header">
+    <a href="#edit_details/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">edit_details(old_name, new_name, usage, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L356" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Edit a role with a given name and usage</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">edit_details</span><span class="p" data-group-id="1290087125-1">(</span><span class="s">&quot;Mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Moderator&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:ops</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="1290087125-1">)</span><span class="w">
+</span><span class="c1"># renames the moderator role for the instance, and ensure it will not be shown in the dropdown when creating content</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">edit_details</span><span class="p" data-group-id="1290087125-2">(</span><span class="s">&quot;Contributor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Editor&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">current_user</span><span class="p" data-group-id="1290087125-2">)</span><span class="w">
+</span><span class="c1"># renames the contributor role for the user</span></code></pre>
   </section>
 </section>
 <section class="detail" id="edit_verb_permission/4">
 
   <div class="detail-header">
-    <a href="#edit_verb_permission/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#edit_verb_permission/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">edit_verb_permission(role_name, verb, value, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L368" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L393" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -410,19 +455,19 @@ Pages
 
   <section class="docstring">
 
-<p>Edits a verb permission for a role </p><h2 id="edit_verb_permission/4-examples" class="section-heading">
+<p>Edits a verb permission for a role</p><h2 id="edit_verb_permission/4-examples" class="section-heading">
   <a href="#edit_verb_permission/4-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">edit_verb_permission</span><span class="p" data-group-id="0608602906-1">(</span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0608602906-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">edit_verb_permission</span><span class="p" data-group-id="1612430372-1">(</span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="1612430372-1">)</span><span class="w">
 </span><span class="c1"># updates the read permission for the admin role to true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">edit_verb_permission</span><span class="p" data-group-id="0608602906-2">(</span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0608602906-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">edit_verb_permission</span><span class="p" data-group-id="1612430372-2">(</span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="1612430372-2">)</span><span class="w">
 </span><span class="c1"># updates the read permission for the admin role to false</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">edit_verb_permission</span><span class="p" data-group-id="0608602906-3">(</span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0608602906-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">edit_verb_permission</span><span class="p" data-group-id="1612430372-3">(</span><span class="ss">:admin</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="1612430372-3">)</span><span class="w">
 </span><span class="c1"># resets the read permission for the admin role to default</span></code></pre>
   </section>
 </section>
@@ -431,15 +476,13 @@ Pages
     <span id="get/1"></span>
 
   <div class="detail-header">
-    <a href="#get/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#get/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">get(role_name, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L63" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L63" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -453,22 +496,20 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="1898995025-1">(</span><span class="ss">:admin</span><span class="p" data-group-id="1898995025-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="7950052465-1">(</span><span class="ss">:admin</span><span class="p" data-group-id="7950052465-1">)</span><span class="w">
 </span><span class="c1"># returns admin role details</span></code></pre>
   </section>
 </section>
 <section class="detail" id="preset_boundary_role_from_acl/1">
 
   <div class="detail-header">
-    <a href="#preset_boundary_role_from_acl/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#preset_boundary_role_from_acl/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">preset_boundary_role_from_acl(summary)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L299" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L299" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -482,23 +523,21 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">preset_boundary_role_from_acl</span><span class="p" data-group-id="9274688989-1">(</span><span class="p" data-group-id="9274688989-2">%{</span><span class="ss">verbs</span><span class="p">:</span><span class="w"> </span><span class="n">verbs</span><span class="p" data-group-id="9274688989-2">}</span><span class="p" data-group-id="9274688989-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">preset_boundary_role_from_acl</span><span class="p" data-group-id="0193971767-1">(</span><span class="p" data-group-id="0193971767-2">%{</span><span class="ss">verbs</span><span class="p">:</span><span class="w"> </span><span class="n">verbs</span><span class="p" data-group-id="0193971767-2">}</span><span class="p" data-group-id="0193971767-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">preset_boundary_role_from_acl</span><span class="p" data-group-id="9274688989-3">(</span><span class="n">verbs</span><span class="p" data-group-id="9274688989-3">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">preset_boundary_role_from_acl</span><span class="p" data-group-id="0193971767-3">(</span><span class="n">verbs</span><span class="p" data-group-id="0193971767-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="reset_instance_roles/0">
 
   <div class="detail-header">
-    <a href="#reset_instance_roles/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#reset_instance_roles/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">reset_instance_roles()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L420" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L445" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -512,15 +551,13 @@ Pages
 <section class="detail" id="role_from_grants/2">
 
   <div class="detail-header">
-    <a href="#role_from_grants/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#role_from_grants/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">role_from_grants(grants, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L136" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L136" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -534,7 +571,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">role_from_grants</span><span class="p" data-group-id="1492223460-1">(</span><span class="n">grants</span><span class="p" data-group-id="1492223460-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">role_from_grants</span><span class="p" data-group-id="3659182313-1">(</span><span class="n">grants</span><span class="p" data-group-id="3659182313-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="role_from_verb/5">
@@ -548,15 +585,13 @@ Pages
     <span id="role_from_verb/4"></span>
 
   <div class="detail-header">
-    <a href="#role_from_verb/5" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#role_from_verb/5" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">role_from_verb(verbs, verb_field \\ :verb, all_role_verbs \\ role_verbs(:all), role_for_all \\ :administer, verbs_field \\ :can_verbs)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L212" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L212" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -570,7 +605,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">role_from_verb</span><span class="p" data-group-id="4361003090-1">(</span><span class="n">verbs</span><span class="p" data-group-id="4361003090-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">role_from_verb</span><span class="p" data-group-id="6445701763-1">(</span><span class="n">verbs</span><span class="p" data-group-id="6445701763-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="role_verbs/2">
@@ -580,15 +615,13 @@ Pages
     <span id="role_verbs/1"></span>
 
   <div class="detail-header">
-    <a href="#role_verbs/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#role_verbs/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">role_verbs(usage \\ :all, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L43" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L43" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -602,11 +635,11 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">role_verbs</span><span class="p" data-group-id="0331312672-1">(</span><span class="ss">:all</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="0331312672-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">role_verbs</span><span class="p" data-group-id="9526619614-1">(</span><span class="ss">:all</span><span class="p">,</span><span class="w"> </span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="9526619614-1">)</span><span class="w">
 </span><span class="c1"># returns all instance-level role verbs</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">role_verbs</span><span class="p" data-group-id="0331312672-2">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="0331312672-2">)</span><span class="w">
-</span><span class="c1"># returns my role verbs </span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">role_verbs</span><span class="p" data-group-id="9526619614-2">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="9526619614-2">)</span><span class="w">
+</span><span class="c1"># returns my role verbs</span></code></pre>
   </section>
 </section>
 <section class="detail" id="roles_for_dropdown/2">
@@ -614,15 +647,13 @@ Pages
     <span id="roles_for_dropdown/1"></span>
 
   <div class="detail-header">
-    <a href="#roles_for_dropdown/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#roles_for_dropdown/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">roles_for_dropdown(usage \\ nil, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L99" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L99" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -636,21 +667,19 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">roles_for_dropdown</span><span class="p" data-group-id="0453153364-1">(</span><span class="ss">:ops</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="0453153364-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">roles_for_dropdown</span><span class="p" data-group-id="1521312709-1">(</span><span class="ss">:ops</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="1521312709-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="split_tuples_can_cannot/1">
 
   <div class="detail-header">
-    <a href="#split_tuples_can_cannot/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#split_tuples_can_cannot/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">split_tuples_can_cannot(tuples)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L433" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L458" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -664,7 +693,7 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">split_tuples_can_cannot</span><span class="p" data-group-id="7297255072-1">(</span><span class="n">tuples</span><span class="p" data-group-id="7297255072-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">split_tuples_can_cannot</span><span class="p" data-group-id="9916778457-1">(</span><span class="n">tuples</span><span class="p" data-group-id="9916778457-1">)</span><span class="w">
 </span><span class="c1"># splits tuples into can and cannot categories</span></code></pre>
   </section>
 </section>
@@ -673,15 +702,13 @@ Pages
     <span id="verbs_for_role/1"></span>
 
   <div class="detail-header">
-    <a href="#verbs_for_role/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#verbs_for_role/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">verbs_for_role(role, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L255" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/contexts/roles.ex#L255" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -695,8 +722,8 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verbs_for_role</span><span class="p" data-group-id="4050458912-1">(</span><span class="ss">:admin</span><span class="p" data-group-id="4050458912-1">)</span><span class="w">
-</span><span class="p" data-group-id="4050458912-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">positive_verbs</span><span class="p">,</span><span class="w"> </span><span class="n">negative_verbs</span><span class="p" data-group-id="4050458912-2">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verbs_for_role</span><span class="p" data-group-id="8392610529-1">(</span><span class="ss">:admin</span><span class="p" data-group-id="8392610529-1">)</span><span class="w">
+</span><span class="p" data-group-id="8392610529-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">positive_verbs</span><span class="p">,</span><span class="w"> </span><span class="n">negative_verbs</span><span class="p" data-group-id="8392610529-2">}</span></code></pre>
   </section>
 </section>
 
@@ -720,7 +747,7 @@ Pages
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

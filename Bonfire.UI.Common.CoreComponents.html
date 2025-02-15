@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
+
+
+    <title>Bonfire.UI.Common.CoreComponents — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.11-social-beta.3
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.UI.Common.CoreComponents</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>Provides core UI components.</p><p>At first glance, this module may seem daunting, but its goal is to provide
+core building blocks for your application, such as modals, tables, and
+forms. The components consist mostly of markup and are well-documented
+with doc strings and declarative assigns. You may customize and style
+them in any way you want, based on your application growth and needs.</p><p>The default components use Tailwind CSS, a utility-first CSS framework.
+See the <a href="https://tailwindcss.com">Tailwind CSS documentation</a> to learn
+how to customize them or feel free to swap in another framework altogether.</p><p>Icons are provided by <a href="https://heroicons.com">heroicons</a>. See <code class="inline">icon/1</code> for usage.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#back/1" data-no-tooltip translate="no">back(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a back navigation link.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#button/1" data-no-tooltip translate="no">button(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a button.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#error_msg/1" data-no-tooltip translate="no">error_msg(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates a generic error message.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#flash/1" data-no-tooltip translate="no">flash(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders flash notices.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#flash_group/1" data-no-tooltip translate="no">flash_group(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Shows the flash group with standard titles and content.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#header/1" data-no-tooltip translate="no">header(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a header with title.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#hide/2" data-no-tooltip translate="no">hide(js \\ %JS{}, selector)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#hide_modal/2" data-no-tooltip translate="no">hide_modal(js \\ %JS{}, id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#input/1" data-no-tooltip translate="no">input(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders an input with label and error messages.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#label/1" data-no-tooltip translate="no">label(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a label.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list/1" data-no-tooltip translate="no">list(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a data list.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#modal/1" data-no-tooltip translate="no">modal(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a modal.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#show/2" data-no-tooltip translate="no">show(js \\ %JS{}, selector)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#show_modal/2" data-no-tooltip translate="no">show_modal(js \\ %JS{}, id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#simple_form/1" data-no-tooltip translate="no">simple_form(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a simple form.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#table/1" data-no-tooltip translate="no">table(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders a table with generic styling.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="back/1">
+
+  <div class="detail-header">
+    <a href="#back/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">back(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L607" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a back navigation link.</p><h2 id="back/1-examples" class="section-heading">
+  <a href="#back/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">back</span><span class="w"> </span><span class="n">navigate</span><span class="o">=</span><span class="p" data-group-id="9413138346-1">{</span><span class="sx">~p&quot;/posts&quot;</span><span class="p" data-group-id="9413138346-1">}</span><span class="o">&gt;</span><span class="nc">Back</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">posts</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">back</span><span class="o">&gt;</span></code></pre><h2 id="back/1-attributes" class="section-heading">
+  <a href="#back/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">navigate</code> (<code class="inline">:any</code>) (required)</li></ul><h2 id="back/1-slots" class="section-heading">
+  <a href="#back/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li></ul>
+  </section>
+</section>
+<section class="detail" id="button/1">
+
+  <div class="detail-header">
+    <a href="#button/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">button(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L451" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a button.</p><h2 id="button/1-examples" class="section-heading">
+  <a href="#button/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">button</span><span class="o">&gt;</span><span class="nc">Send</span><span class="o">!</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">button</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">.</span><span class="n">button</span><span class="w"> </span><span class="n">phx</span><span class="o">-</span><span class="n">click</span><span class="o">=</span><span class="s">&quot;go&quot;</span><span class="w"> </span><span class="n">class</span><span class="o">=</span><span class="s">&quot;ml-2&quot;</span><span class="o">&gt;</span><span class="nc">Send</span><span class="o">!</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">button</span><span class="o">&gt;</span></code></pre><h2 id="button/1-attributes" class="section-heading">
+  <a href="#button/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">type</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">class</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li>Global attributes are accepted. Supports all globals plus: <code class="inline">[&quot;disabled&quot;, &quot;form&quot;, &quot;name&quot;, &quot;value&quot;]</code>.</li></ul><h2 id="button/1-slots" class="section-heading">
+  <a href="#button/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li></ul>
+  </section>
+</section>
+<section class="detail" id="error_msg/1">
+
+  <div class="detail-header">
+    <a href="#error_msg/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">error_msg(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L428" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Generates a generic error message.</p><h2 id="error_msg/1-slots" class="section-heading">
+  <a href="#error_msg/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li></ul>
+  </section>
+</section>
+<section class="detail" id="flash/1">
+
+  <div class="detail-header">
+    <a href="#flash/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">flash(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L109" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders flash notices.</p><h2 id="flash/1-examples" class="section-heading">
+  <a href="#flash/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">flash</span><span class="w"> </span><span class="n">kind</span><span class="o">=</span><span class="p" data-group-id="0316125473-1">{</span><span class="ss">:info</span><span class="p" data-group-id="0316125473-1">}</span><span class="w"> </span><span class="n">flash</span><span class="o">=</span><span class="p" data-group-id="0316125473-2">{</span><span class="na">@flash</span><span class="p" data-group-id="0316125473-2">}</span><span class="w"> </span><span class="o">/</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">.</span><span class="n">flash</span><span class="w"> </span><span class="n">kind</span><span class="o">=</span><span class="p" data-group-id="0316125473-3">{</span><span class="ss">:info</span><span class="p" data-group-id="0316125473-3">}</span><span class="w"> </span><span class="n">phx</span><span class="o">-</span><span class="n">mounted</span><span class="o">=</span><span class="p" data-group-id="0316125473-4">{</span><span class="n">show</span><span class="p" data-group-id="0316125473-5">(</span><span class="s">&quot;#flash&quot;</span><span class="p" data-group-id="0316125473-5">)</span><span class="p" data-group-id="0316125473-4">}</span><span class="o">&gt;</span><span class="nc">Welcome</span><span class="w"> </span><span class="nc">Back</span><span class="o">!</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">flash</span><span class="o">&gt;</span></code></pre><h2 id="flash/1-attributes" class="section-heading">
+  <a href="#flash/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">id</code> (<code class="inline">:string</code>) - the optional id of flash container.</li><li><code class="inline">flash</code> (<code class="inline">:map</code>) - the map of flash messages to display. Defaults to <code class="inline">%{}</code>.</li><li><code class="inline">title</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">kind</code> (<code class="inline">:atom</code>) - used for styling and flash lookup.Must be one of <code class="inline">:info</code>, or <code class="inline">:error</code>.</li><li>Global attributes are accepted. the arbitrary HTML attributes to add to the flash container.</li></ul><h2 id="flash/1-slots" class="section-heading">
+  <a href="#flash/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> - the optional inner block that renders the flash message.</li></ul>
+  </section>
+</section>
+<section class="detail" id="flash_group/1">
+
+  <div class="detail-header">
+    <a href="#flash_group/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">flash_group(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L148" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Shows the flash group with standard titles and content.</p><h2 id="flash_group/1-examples" class="section-heading">
+  <a href="#flash_group/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">flash_group</span><span class="w"> </span><span class="n">flash</span><span class="o">=</span><span class="p" data-group-id="1353777987-1">{</span><span class="na">@flash</span><span class="p" data-group-id="1353777987-1">}</span><span class="w"> </span><span class="o">/</span><span class="o">&gt;</span></code></pre><h2 id="flash_group/1-attributes" class="section-heading">
+  <a href="#flash_group/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">flash</code> (<code class="inline">:map</code>) (required) - the map of flash messages.</li><li><code class="inline">id</code> (<code class="inline">:string</code>) - the optional id of flash container. Defaults to <code class="inline">&quot;flash-group&quot;</code>.</li></ul>
+  </section>
+</section>
+<section class="detail" id="header/1">
+
+  <div class="detail-header">
+    <a href="#header/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">header(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L476" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a header with title.</p><h2 id="header/1-attributes" class="section-heading">
+  <a href="#header/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">class</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li></ul><h2 id="header/1-slots" class="section-heading">
+  <a href="#header/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li><li><code class="inline">subtitle</code></li><li><code class="inline">actions</code></li></ul>
+  </section>
+</section>
+<section class="detail" id="hide/2">
+
+    <span id="hide/1"></span>
+
+  <div class="detail-header">
+    <a href="#hide/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">hide(js \\ %JS{}, selector)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L645" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="hide_modal/2">
+
+    <span id="hide_modal/1"></span>
+
+  <div class="detail-header">
+    <a href="#hide_modal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">hide_modal(js \\ %JS{}, id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L679" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="input/1">
+
+  <div class="detail-header">
+    <a href="#input/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">input(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L291" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders an input with label and error messages.</p><p>A <a href="https://hexdocs.pm/phoenix_html/4.2.0/Phoenix.HTML.FormField.html"><code class="inline">Phoenix.HTML.FormField</code></a> may be passed as argument,
+which is used to retrieve the input name, id, and values.
+Otherwise all attributes may be passed explicitly.</p><h2 id="input/1-types" class="section-heading">
+  <a href="#input/1-types" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Types</span>
+</h2>
+<p>This function accepts all HTML input types, considering that:</p><ul><li><p>You may also set <code class="inline">type=&quot;select&quot;</code> to render a <code class="inline">&lt;select&gt;</code> tag</p></li><li><p><code class="inline">type=&quot;checkbox&quot;</code> is used exclusively to render boolean values</p></li><li><p>For live file uploads, see <a href="https://hexdocs.pm/phoenix_live_view/1.0.4/Phoenix.Component.html#live_file_input/1"><code class="inline">Phoenix.Component.live_file_input/1</code></a></p></li></ul><p>See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input</a>
+for more information. Unsupported types, such as hidden and radio,
+are best written directly in your templates.</p><h2 id="input/1-examples" class="section-heading">
+  <a href="#input/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">input</span><span class="w"> </span><span class="n">field</span><span class="o">=</span><span class="p" data-group-id="4914464419-1">{</span><span class="na">@form</span><span class="p" data-group-id="4914464419-2">[</span><span class="ss">:email</span><span class="p" data-group-id="4914464419-2">]</span><span class="p" data-group-id="4914464419-1">}</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="w"> </span><span class="o">/</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">.</span><span class="n">input</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s">&quot;my-input&quot;</span><span class="w"> </span><span class="n">errors</span><span class="o">=</span><span class="p" data-group-id="4914464419-3">{</span><span class="p" data-group-id="4914464419-4">[</span><span class="s">&quot;oh no!&quot;</span><span class="p" data-group-id="4914464419-4">]</span><span class="p" data-group-id="4914464419-3">}</span><span class="w"> </span><span class="o">/</span><span class="o">&gt;</span></code></pre><h2 id="input/1-attributes" class="section-heading">
+  <a href="#input/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">id</code> (<code class="inline">:any</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">name</code> (<code class="inline">:any</code>)</li><li><code class="inline">label</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">value</code> (<code class="inline">:any</code>)</li><li><code class="inline">class</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">label_class</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">type</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">&quot;text&quot;</code>.</li><li><code class="inline">field</code> (<a href="https://hexdocs.pm/phoenix_html/4.2.0/Phoenix.HTML.FormField.html"><code class="inline">Phoenix.HTML.FormField</code></a>) - a form field struct retrieved from the form, for example: <code class="inline">@form[:email]</code>.</li><li><code class="inline">errors</code> (<code class="inline">:list</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">checked</code> (<code class="inline">:boolean</code>) - the checked flag for checkbox inputs.</li><li><code class="inline">prompt</code> (<code class="inline">:string</code>) - the prompt for select inputs. Defaults to <code class="inline">nil</code>.</li><li><code class="inline">options</code> (<code class="inline">:list</code>) - the options to pass to <a href="https://hexdocs.pm/phoenix_html/4.2.0/Phoenix.HTML.Form.html#options_for_select/2"><code class="inline">Phoenix.HTML.Form.options_for_select/2</code></a>.</li><li><code class="inline">multiple</code> (<code class="inline">:boolean</code>) - the multiple flag for select inputs. Defaults to <code class="inline">false</code>.</li><li>Global attributes are accepted. Supports all globals plus: <code class="inline">[&quot;accept&quot;, &quot;autocomplete&quot;, &quot;capture&quot;, &quot;cols&quot;, &quot;disabled&quot;, &quot;form&quot;, &quot;list&quot;, &quot;max&quot;, &quot;maxlength&quot;, &quot;min&quot;, &quot;minlength&quot;, &quot;multiple&quot;, &quot;pattern&quot;, &quot;placeholder&quot;, &quot;readonly&quot;, &quot;required&quot;, &quot;rows&quot;, &quot;size&quot;, &quot;step&quot;]</code>.</li></ul>
+  </section>
+</section>
+<section class="detail" id="label/1">
+
+  <div class="detail-header">
+    <a href="#label/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">label(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L415" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a label.</p><h2 id="label/1-attributes" class="section-heading">
+  <a href="#label/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">for</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">class</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li></ul><h2 id="label/1-slots" class="section-heading">
+  <a href="#label/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li></ul>
+  </section>
+</section>
+<section class="detail" id="list/1">
+
+  <div class="detail-header">
+    <a href="#list/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">list(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L584" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a data list.</p><h2 id="list/1-examples" class="section-heading">
+  <a href="#list/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">list</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="ss">:item</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Title&quot;</span><span class="o">&gt;</span><span class="p" data-group-id="5936745285-1">{</span><span class="na">@post</span><span class="o">.</span><span class="n">title</span><span class="p" data-group-id="5936745285-1">}</span><span class="o">&lt;</span><span class="o">/</span><span class="ss">:item</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="ss">:item</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Views&quot;</span><span class="o">&gt;</span><span class="p" data-group-id="5936745285-2">{</span><span class="na">@post</span><span class="o">.</span><span class="n">views</span><span class="p" data-group-id="5936745285-2">}</span><span class="o">&lt;</span><span class="o">/</span><span class="ss">:item</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">list</span><span class="o">&gt;</span></code></pre><h2 id="list/1-slots" class="section-heading">
+  <a href="#list/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">item</code> (required) - Accepts attributes:<ul><li><code class="inline">title</code> (<code class="inline">:string</code>) (required)</li></ul></li></ul>
+  </section>
+</section>
+<section class="detail" id="modal/1">
+
+  <div class="detail-header">
+    <a href="#modal/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">modal(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L45" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a modal.</p><h2 id="modal/1-examples" class="section-heading">
+  <a href="#modal/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">modal</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="s">&quot;confirm-modal&quot;</span><span class="o">&gt;</span><span class="w">
+  </span><span class="nc">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">modal</span><span class="o">.</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">modal</span><span class="o">&gt;</span></code></pre><p>JS commands may be passed to the <code class="inline">:on_cancel</code> to configure
+the closing/cancel event, for example:</p><pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">modal</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="s">&quot;confirm&quot;</span><span class="w"> </span><span class="n">on_cancel</span><span class="o">=</span><span class="p" data-group-id="6600008430-1">{</span><span class="nc">JS</span><span class="o">.</span><span class="n">navigate</span><span class="p" data-group-id="6600008430-2">(</span><span class="sx">~p&quot;/posts&quot;</span><span class="p" data-group-id="6600008430-2">)</span><span class="p" data-group-id="6600008430-1">}</span><span class="o">&gt;</span><span class="w">
+  </span><span class="nc">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="n">modal</span><span class="o">.</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">modal</span><span class="o">&gt;</span></code></pre><h2 id="modal/1-attributes" class="section-heading">
+  <a href="#modal/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">id</code> (<code class="inline">:string</code>) (required)</li><li><code class="inline">show</code> (<code class="inline">:boolean</code>) - Defaults to <code class="inline">false</code>.</li><li><code class="inline">on_cancel</code> (<a href="https://hexdocs.pm/phoenix_live_view/1.0.4/Phoenix.LiveView.JS.html"><code class="inline">Phoenix.LiveView.JS</code></a>) - Defaults to <code class="inline">%Phoenix.LiveView.JS{ops: []}</code>.</li></ul><h2 id="modal/1-slots" class="section-heading">
+  <a href="#modal/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li></ul>
+  </section>
+</section>
+<section class="detail" id="show/2">
+
+    <span id="show/1"></span>
+
+  <div class="detail-header">
+    <a href="#show/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">show(js \\ %JS{}, selector)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L623" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="show_modal/2">
+
+    <span id="show_modal/1"></span>
+
+  <div class="detail-header">
+    <a href="#show_modal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">show_modal(js \\ %JS{}, id)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L666" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="simple_form/1">
+
+  <div class="detail-header">
+    <a href="#simple_form/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">simple_form(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L206" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a simple form.</p><h2 id="simple_form/1-examples" class="section-heading">
+  <a href="#simple_form/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">simple_form</span><span class="w"> </span><span class="k">for</span><span class="o">=</span><span class="p" data-group-id="8904117843-1">{</span><span class="na">@form</span><span class="p" data-group-id="8904117843-1">}</span><span class="w"> </span><span class="n">phx</span><span class="o">-</span><span class="n">change</span><span class="o">=</span><span class="s">&quot;validate&quot;</span><span class="w"> </span><span class="n">phx</span><span class="o">-</span><span class="n">submit</span><span class="o">=</span><span class="s">&quot;save&quot;</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="o">.</span><span class="n">input</span><span class="w"> </span><span class="n">field</span><span class="o">=</span><span class="p" data-group-id="8904117843-2">{</span><span class="na">@form</span><span class="p" data-group-id="8904117843-3">[</span><span class="ss">:email</span><span class="p" data-group-id="8904117843-3">]</span><span class="p" data-group-id="8904117843-2">}</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s">&quot;Email&quot;</span><span class="o">/</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="o">.</span><span class="n">input</span><span class="w"> </span><span class="n">field</span><span class="o">=</span><span class="p" data-group-id="8904117843-4">{</span><span class="na">@form</span><span class="p" data-group-id="8904117843-5">[</span><span class="ss">:username</span><span class="p" data-group-id="8904117843-5">]</span><span class="p" data-group-id="8904117843-4">}</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s">&quot;Username&quot;</span><span class="w"> </span><span class="o">/</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="ss">:actions</span><span class="o">&gt;</span><span class="w">
+    </span><span class="o">&lt;</span><span class="o">.</span><span class="n">button</span><span class="o">&gt;</span><span class="nc">Save</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">button</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="o">/</span><span class="ss">:actions</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">simple_form</span><span class="o">&gt;</span></code></pre><h2 id="simple_form/1-attributes" class="section-heading">
+  <a href="#simple_form/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">for</code> (<code class="inline">:any</code>) (required) - the data structure for the form.</li><li><code class="inline">as</code> (<code class="inline">:any</code>) - the server side parameter to collect all input under. Defaults to <code class="inline">nil</code>.</li><li><code class="inline">action_class</code> (<code class="inline">:string</code>) - Defaults to <code class="inline">nil</code>.</li><li><code class="inline">opts</code> (<code class="inline">:list</code>) - Extra attributes.</li><li>Global attributes are accepted. the arbitrary HTML attributes to apply to the form tag. Supports all globals plus: <code class="inline">[&quot;autocomplete&quot;, &quot;name&quot;, &quot;rel&quot;, &quot;action&quot;, &quot;enctype&quot;, &quot;method&quot;, &quot;novalidate&quot;, &quot;target&quot;, &quot;multipart&quot;]</code>.</li></ul><h2 id="simple_form/1-slots" class="section-heading">
+  <a href="#simple_form/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">inner_block</code> (required)</li><li><code class="inline">actions</code> - the slot for form actions, such as a submit button.</li></ul>
+  </section>
+</section>
+<section class="detail" id="table/1">
+
+  <div class="detail-header">
+    <a href="#table/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">table(assigns)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/components/core_components.ex#L517" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Renders a table with generic styling.</p><h2 id="table/1-examples" class="section-heading">
+  <a href="#table/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="o">&lt;</span><span class="o">.</span><span class="n">table</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="s">&quot;users&quot;</span><span class="w"> </span><span class="n">rows</span><span class="o">=</span><span class="p" data-group-id="9976825960-1">{</span><span class="na">@users</span><span class="p" data-group-id="9976825960-1">}</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="ss">:col</span><span class="w"> </span><span class="ss">:let</span><span class="o">=</span><span class="p" data-group-id="9976825960-2">{</span><span class="n">user</span><span class="p" data-group-id="9976825960-2">}</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s">&quot;id&quot;</span><span class="o">&gt;</span><span class="p" data-group-id="9976825960-3">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="9976825960-3">}</span><span class="o">&lt;</span><span class="o">/</span><span class="ss">:col</span><span class="o">&gt;</span><span class="w">
+  </span><span class="o">&lt;</span><span class="ss">:col</span><span class="w"> </span><span class="ss">:let</span><span class="o">=</span><span class="p" data-group-id="9976825960-4">{</span><span class="n">user</span><span class="p" data-group-id="9976825960-4">}</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="o">&gt;</span><span class="p" data-group-id="9976825960-5">{</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p" data-group-id="9976825960-5">}</span><span class="o">&lt;</span><span class="o">/</span><span class="ss">:col</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="o">/</span><span class="o">.</span><span class="n">table</span><span class="o">&gt;</span></code></pre><h2 id="table/1-attributes" class="section-heading">
+  <a href="#table/1-attributes" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Attributes</span>
+</h2>
+<ul><li><code class="inline">id</code> (<code class="inline">:string</code>) (required)</li><li><code class="inline">rows</code> (<code class="inline">:list</code>) (required)</li><li><code class="inline">row_id</code> (<code class="inline">:any</code>) - the function for generating the row id. Defaults to <code class="inline">nil</code>.</li><li><code class="inline">row_click</code> (<code class="inline">:any</code>) - the function for handling phx-click on each row. Defaults to <code class="inline">nil</code>.</li><li><code class="inline">row_item</code> (<code class="inline">:any</code>) - the function for mapping each row before calling the :col and :action slots. Defaults to <code class="inline">&amp;Function.identity/1</code>.</li></ul><h2 id="table/1-slots" class="section-heading">
+  <a href="#table/1-slots" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Slots</span>
+</h2>
+<ul><li><code class="inline">col</code> (required) - Accepts attributes:<ul><li><code class="inline">label</code> (<code class="inline">:string</code>)</li></ul></li><li><code class="inline">action</code> - the slot for showing user actions in the last table column.</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

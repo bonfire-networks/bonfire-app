@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.169">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
 
 
-    <title>Bonfire.Social.Activities — Bonfire v0.9.10-classic-beta.169</title>
-    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+    <title>Bonfire.Social.Activities — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-7A93CEFA.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
     <script src="docs_config.js"></script>
-    <script async src="dist/html-YIPIRHGU.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.169
+          v0.9.11-social-beta.3
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Social.Activities</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.169)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
 
   </h1>
 
@@ -177,6 +177,24 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#activity_under_media/1" data-no-tooltip translate="no">activity_under_media(top_object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Processes and structures activity data within a media.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#activity_under_media/2" data-no-tooltip translate="no">activity_under_media(activity, media)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#activity_under_object/1" data-no-tooltip translate="no">activity_under_object(top_object)</a>
 
       </div>
@@ -188,14 +206,6 @@ Pages
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#activity_under_object/2" data-no-tooltip translate="no">activity_under_object(activity, object)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#activity_with_object_from_assigns/1" data-no-tooltip translate="no">activity_with_object_from_assigns(assigns)</a>
 
       </div>
 
@@ -348,7 +358,15 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#maybe_join_creator/2" data-no-tooltip translate="no">maybe_join_creator(query, exclude_user_ids)</a>
+        <a href="#maybe_filter/3" data-no-tooltip translate="no">maybe_filter(query, filters, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_join_creator/2" data-no-tooltip translate="no">maybe_join_creator(query, skip_loading_user_ids)</a>
 
       </div>
 
@@ -358,7 +376,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#maybe_join_subject/2" data-no-tooltip translate="no">maybe_join_subject(query, exclude_user_ids)</a>
+        <a href="#maybe_join_subject/2" data-no-tooltip translate="no">maybe_join_subject(query, skip_loading_user_ids)</a>
 
       </div>
 
@@ -608,15 +626,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="activity_preloads/2">
 
   <div class="detail-header">
-    <a href="#activity_preloads/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#activity_preloads/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">activity_preloads(query_or_object_or_objects, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L399" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L369" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -630,22 +646,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">activity_preloads</span><span class="p" data-group-id="5036076881-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5036076881-2">[</span><span class="p" data-group-id="5036076881-2">]</span><span class="p" data-group-id="5036076881-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="0452262788-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0452262788-2">[</span><span class="p" data-group-id="0452262788-2">]</span><span class="p" data-group-id="0452262788-1">)</span><span class="w">
 </span><span class="c1"># Query with applied activity preloads</span></code></pre>
   </section>
 </section>
 <section class="detail" id="activity_preloads/3">
 
   <div class="detail-header">
-    <a href="#activity_preloads/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#activity_preloads/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">activity_preloads(query_or_object_or_objects, preloads, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L452" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L422" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -659,16 +673,16 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="2610671915-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-2">[</span><span class="p" data-group-id="2610671915-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-3">[</span><span class="p" data-group-id="2610671915-3">]</span><span class="p" data-group-id="2610671915-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6038074349-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-2">[</span><span class="p" data-group-id="6038074349-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-3">[</span><span class="p" data-group-id="6038074349-3">]</span><span class="p" data-group-id="6038074349-1">)</span><span class="w">
 </span><span class="c1"># Original query, with no extra joins/preloads</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="2610671915-4">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-5">[</span><span class="p" data-group-id="2610671915-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-6">[</span><span class="p" data-group-id="2610671915-6">]</span><span class="p" data-group-id="2610671915-4">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6038074349-4">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-5">[</span><span class="p" data-group-id="6038074349-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-6">[</span><span class="p" data-group-id="6038074349-6">]</span><span class="p" data-group-id="6038074349-4">)</span><span class="w">
 </span><span class="c1"># Original object, with no extra assocs preloads</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="2610671915-7">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-8">[</span><span class="ss">:with_creator</span><span class="p" data-group-id="2610671915-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-9">[</span><span class="p" data-group-id="2610671915-9">]</span><span class="p" data-group-id="2610671915-7">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6038074349-7">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-8">[</span><span class="ss">:with_creator</span><span class="p" data-group-id="6038074349-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-9">[</span><span class="p" data-group-id="6038074349-9">]</span><span class="p" data-group-id="6038074349-7">)</span><span class="w">
 </span><span class="c1"># Object or query with extra assocs preloads</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="2610671915-10">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2610671915-11">[</span><span class="ss">:feed</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:maybe_with_labelled</span><span class="p" data-group-id="2610671915-11">]</span><span class="p" data-group-id="2610671915-10">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6038074349-10">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6038074349-11">[</span><span class="ss">:feed</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:maybe_with_labelled</span><span class="p" data-group-id="6038074349-11">]</span><span class="p" data-group-id="6038074349-10">)</span><span class="w">
 </span><span class="c1"># Object or query several extra assoc preloads</span></code></pre><p> Other possible preloads:</p><pre><code class="makeup elixir" translate="no"><span class="ss">:default</span><span class="w">
 </span><span class="ss">:all</span><span class="w">
 </span><span class="ss">:feed</span><span class="w">
@@ -685,7 +699,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 </span><span class="ss">:with_subject</span><span class="w">
 </span><span class="ss">:with_verb</span><span class="w">
 </span><span class="ss">:with_object</span><span class="w">
-</span><span class="ss">:with_object_posts</span><span class="w">
+</span><span class="ss">:with_post_content</span><span class="w">
 </span><span class="ss">:with_object_more</span><span class="w">
 </span><span class="ss">:with_replied</span><span class="w">
 </span><span class="ss">:with_thread_name</span><span class="w">
@@ -698,18 +712,62 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 </span><span class="ss">:maybe_with_labelled</span></code></pre>
   </section>
 </section>
+<section class="detail" id="activity_under_media/1">
+
+  <div class="detail-header">
+    <a href="#activity_under_media/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">activity_under_media(top_object)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1521" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Processes and structures activity data within a media.</p><h2 id="activity_under_media/1-examples" class="section-heading">
+  <a href="#activity_under_media/1-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="8138120739-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8138120739-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8138120739-2">}</span><span class="p" data-group-id="8138120739-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_under_media</span><span class="p" data-group-id="8138120739-3">(</span><span class="p" data-group-id="8138120739-4">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8138120739-5">%</span><span class="nc" data-group-id="8138120739-5">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="8138120739-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">media</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8138120739-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8138120739-6">}</span><span class="p" data-group-id="8138120739-5">}</span><span class="p" data-group-id="8138120739-4">}</span><span class="p" data-group-id="8138120739-3">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="activity_under_media/2">
+
+  <div class="detail-header">
+    <a href="#activity_under_media/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">activity_under_media(activity, media)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1553" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="activity_under_object/1">
 
   <div class="detail-header">
-    <a href="#activity_under_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#activity_under_object/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">activity_under_object(top_object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1241" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1483" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -723,44 +781,19 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">activity_under_object</span><span class="p" data-group-id="2836907691-1">(</span><span class="p" data-group-id="2836907691-2">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2836907691-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2836907691-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="2836907691-4">}</span><span class="p" data-group-id="2836907691-3">}</span><span class="p" data-group-id="2836907691-2">}</span><span class="p" data-group-id="2836907691-1">)</span><span class="w">
-</span><span class="p" data-group-id="2836907691-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2836907691-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="2836907691-6">}</span><span class="p" data-group-id="2836907691-5">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3073965739-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3073965739-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3073965739-2">}</span><span class="p" data-group-id="3073965739-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_under_object</span><span class="p" data-group-id="3073965739-3">(</span><span class="p" data-group-id="3073965739-4">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3073965739-5">%</span><span class="nc" data-group-id="3073965739-5">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="3073965739-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3073965739-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3073965739-6">}</span><span class="p" data-group-id="3073965739-5">}</span><span class="p" data-group-id="3073965739-4">}</span><span class="p" data-group-id="3073965739-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="activity_under_object/2">
 
   <div class="detail-header">
-    <a href="#activity_under_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#activity_under_object/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">activity_under_object(activity, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1265" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1507" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="activity_with_object_from_assigns/1">
-
-  <div class="detail-header">
-    <a href="#activity_with_object_from_assigns/1" class="detail-link" data-no-tooltip title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">activity_with_object_from_assigns(assigns)</h1>
-
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1269" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -774,15 +807,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="all_verb_names/0">
 
   <div class="detail-header">
-    <a href="#all_verb_names/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#all_verb_names/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">all_verb_names()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1527" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1784" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -796,15 +827,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="all_verb_names_extra/0">
 
   <div class="detail-header">
-    <a href="#all_verb_names_extra/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#all_verb_names_extra/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">all_verb_names_extra()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1545" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1802" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -822,15 +851,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="as_permitted_for/2"></span>
 
   <div class="detail-header">
-    <a href="#as_permitted_for/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#as_permitted_for/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">as_permitted_for(q, opts \\ [], verbs \\ [:see, :read])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L116" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L117" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -844,22 +871,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">as_permitted_for</span><span class="p" data-group-id="0987410679-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0987410679-2">[</span><span class="p" data-group-id="0987410679-2">]</span><span class="p" data-group-id="0987410679-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">as_permitted_for</span><span class="p" data-group-id="7011914572-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7011914572-2">[</span><span class="p" data-group-id="7011914572-2">]</span><span class="p" data-group-id="7011914572-1">)</span><span class="w">
 </span><span class="c1"># Filtered query</span></code></pre>
   </section>
 </section>
 <section class="detail" id="build_assoc/3">
 
   <div class="detail-header">
-    <a href="#build_assoc/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#build_assoc/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">build_assoc(thing, verb, subject)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L88" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L89" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -873,15 +898,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="build_assoc/4">
 
   <div class="detail-header">
-    <a href="#build_assoc/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#build_assoc/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">build_assoc(thing, verb, subject, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L91" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L92" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -895,15 +918,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="by_subject_verb_object_q/3">
 
   <div class="detail-header">
-    <a href="#by_subject_verb_object_q/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#by_subject_verb_object_q/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">by_subject_verb_object_q(subject, verb, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L254" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L257" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -917,15 +938,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="cast/4">
 
   <div class="detail-header">
-    <a href="#cast/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#cast/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">cast(changeset, verb, creator, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L60" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L61" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -939,22 +958,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">cast</span><span class="p" data-group-id="5659627555-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5659627555-2">%</span><span class="nc" data-group-id="5659627555-2">User</span><span class="p" data-group-id="5659627555-2">{</span><span class="p" data-group-id="5659627555-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">feed_ids</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5659627555-3">[</span><span class="p" data-group-id="5659627555-3">]</span><span class="p" data-group-id="5659627555-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">cast</span><span class="p" data-group-id="5410569851-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5410569851-2">%</span><span class="nc" data-group-id="5410569851-2">User</span><span class="p" data-group-id="5410569851-2">{</span><span class="p" data-group-id="5410569851-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">feed_ids</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5410569851-3">[</span><span class="p" data-group-id="5410569851-3">]</span><span class="p" data-group-id="5410569851-1">)</span><span class="w">
 </span><span class="c1"># Changeset with associations set</span></code></pre>
   </section>
 </section>
 <section class="detail" id="count_total/0">
 
   <div class="detail-header">
-    <a href="#count_total/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#count_total/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">count_total()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1571" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1828" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -970,15 +987,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="create/3"></span>
 
   <div class="detail-header">
-    <a href="#create/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#create/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">create(subject, verb, object, activity_id \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L137" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L138" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -993,22 +1008,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">create</span><span class="p" data-group-id="4271062309-1">(</span><span class="p" data-group-id="4271062309-2">%</span><span class="nc" data-group-id="4271062309-2">User</span><span class="p" data-group-id="4271062309-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4271062309-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4271062309-3">%</span><span class="nc" data-group-id="4271062309-3">Post</span><span class="p" data-group-id="4271062309-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4271062309-3">}</span><span class="p" data-group-id="4271062309-1">)</span><span class="w">
-</span><span class="p" data-group-id="4271062309-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4271062309-5">%</span><span class="nc" data-group-id="4271062309-5">Activity</span><span class="p" data-group-id="4271062309-5">{</span><span class="p" data-group-id="4271062309-5">}</span><span class="p" data-group-id="4271062309-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">create</span><span class="p" data-group-id="9586162408-1">(</span><span class="p" data-group-id="9586162408-2">%</span><span class="nc" data-group-id="9586162408-2">User</span><span class="p" data-group-id="9586162408-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="9586162408-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9586162408-3">%</span><span class="nc" data-group-id="9586162408-3">Post</span><span class="p" data-group-id="9586162408-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="9586162408-3">}</span><span class="p" data-group-id="9586162408-1">)</span><span class="w">
+</span><span class="p" data-group-id="9586162408-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9586162408-5">%</span><span class="nc" data-group-id="9586162408-5">Activity</span><span class="p" data-group-id="9586162408-5">{</span><span class="p" data-group-id="9586162408-5">}</span><span class="p" data-group-id="9586162408-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete/1">
 
   <div class="detail-header">
-    <a href="#delete/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#delete/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">delete(id)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L216" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L217" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1022,28 +1035,26 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="6220371042-1">(</span><span class="n">activity</span><span class="p" data-group-id="6220371042-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="3273226704-1">(</span><span class="n">activity</span><span class="p" data-group-id="3273226704-1">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="6220371042-2">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="6220371042-2">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="3273226704-2">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3273226704-2">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="6220371042-3">(</span><span class="p" data-group-id="6220371042-4">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="6220371042-4">]</span><span class="p" data-group-id="6220371042-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="3273226704-3">(</span><span class="p" data-group-id="3273226704-4">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3273226704-4">]</span><span class="p" data-group-id="3273226704-3">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete_by_object/1">
 
   <div class="detail-header">
-    <a href="#delete_by_object/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#delete_by_object/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">delete_by_object(id)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L243" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L246" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1057,22 +1068,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_object</span><span class="p" data-group-id="8870788808-1">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="8870788808-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_object</span><span class="p" data-group-id="9896641664-1">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="9896641664-1">)</span><span class="w">
 </span><span class="c1"># Number of deleted objects</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete_by_subject_verb_object/3">
 
   <div class="detail-header">
-    <a href="#delete_by_subject_verb_object/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#delete_by_subject_verb_object/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">delete_by_subject_verb_object(subject, verb, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L193" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L194" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1086,22 +1095,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_subject_verb_object</span><span class="p" data-group-id="1027350408-1">(</span><span class="p" data-group-id="1027350408-2">%</span><span class="nc" data-group-id="1027350408-2">User</span><span class="p" data-group-id="1027350408-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1027350408-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1027350408-3">%</span><span class="nc" data-group-id="1027350408-3">Post</span><span class="p" data-group-id="1027350408-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1027350408-3">}</span><span class="p" data-group-id="1027350408-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_subject_verb_object</span><span class="p" data-group-id="4868549637-1">(</span><span class="p" data-group-id="4868549637-2">%</span><span class="nc" data-group-id="4868549637-2">User</span><span class="p" data-group-id="4868549637-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4868549637-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4868549637-3">%</span><span class="nc" data-group-id="4868549637-3">Post</span><span class="p" data-group-id="4868549637-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4868549637-3">}</span><span class="p" data-group-id="4868549637-1">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span></code></pre>
   </section>
 </section>
 <section class="detail" id="fetch_cursor_value_fun/2">
 
   <div class="detail-header">
-    <a href="#fetch_cursor_value_fun/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#fetch_cursor_value_fun/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">fetch_cursor_value_fun(replied, list)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1729" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1986" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1115,22 +1122,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">fetch_cursor_value_fun</span><span class="p" data-group-id="5328774527-1">(</span><span class="p" data-group-id="5328774527-2">%{</span><span class="ss">nested_replies_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="5328774527-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:num_replies</span><span class="p" data-group-id="5328774527-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">fetch_cursor_value_fun</span><span class="p" data-group-id="9287937745-1">(</span><span class="p" data-group-id="9287937745-2">%{</span><span class="ss">nested_replies_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="9287937745-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:num_replies</span><span class="p" data-group-id="9287937745-1">)</span><span class="w">
 </span><span class="c1"># returns the cursor value based on the number of replies</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get/2">
 
   <div class="detail-header">
-    <a href="#get/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#get/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">get(id, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1146" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1076" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1144,7 +1149,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get</span><span class="p" data-group-id="2061472700-1">(</span><span class="s">&quot;activity_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2061472700-2">[</span><span class="p" data-group-id="2061472700-2">]</span><span class="p" data-group-id="2061472700-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="4885739447-1">(</span><span class="s">&quot;activity_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4885739447-2">[</span><span class="p" data-group-id="4885739447-2">]</span><span class="p" data-group-id="4885739447-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="load_object/2">
@@ -1152,15 +1157,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="load_object/1"></span>
 
   <div class="detail-header">
-    <a href="#load_object/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#load_object/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">load_object(id_or_pointer, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1373" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1630" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1174,21 +1177,21 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">load_object</span><span class="p" data-group-id="5294010436-1">(</span><span class="s">&quot;object_id&quot;</span><span class="p" data-group-id="5294010436-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">load_object</span><span class="p" data-group-id="5722906294-1">(</span><span class="s">&quot;object_id&quot;</span><span class="p" data-group-id="5722906294-1">)</span></code></pre>
   </section>
 </section>
-<section class="detail" id="maybe_join_creator/2">
+<section class="detail" id="maybe_filter/3">
+
+    <span id="maybe_filter/2"></span>
 
   <div class="detail-header">
-    <a href="#maybe_join_creator/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#maybe_filter/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">maybe_join_creator(query, exclude_user_ids)</h1>
+    <h1 class="signature" translate="no">maybe_filter(query, filters, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L988" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1135" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1196,31 +1199,49 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 
   <section class="docstring">
 
-<p>Optionally joins the creator.</p><p>Performs a query optimization: only includes the creator if different from the subject or current user.</p><p>If <code class="inline">exclude_user_ids</code> is empty, the creator is always included. Otherwise, it is included only if it is different from the users in <code class="inline">exclude_user_ids</code>.</p><h2 id="maybe_join_creator/2-examples" class="section-heading">
+
+  </section>
+</section>
+<section class="detail" id="maybe_join_creator/2">
+
+  <div class="detail-header">
+    <a href="#maybe_join_creator/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">maybe_join_creator(query, skip_loading_user_ids)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L918" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Optionally joins the creator.</p><p>Performs a query optimization: only includes the creator if different from the subject or current user.</p><p>If <code class="inline">skip_loading_user_ids</code> is empty, the creator is always included. Otherwise, it is included only if it is different from the users in <code class="inline">skip_loading_user_ids</code>.</p><h2 id="maybe_join_creator/2-examples" class="section-heading">
   <a href="#maybe_join_creator/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_join_creator</span><span class="p" data-group-id="6956657165-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6956657165-2">[</span><span class="p" data-group-id="6956657165-2">]</span><span class="p" data-group-id="6956657165-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_join_creator</span><span class="p" data-group-id="3688600044-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3688600044-2">[</span><span class="p" data-group-id="3688600044-2">]</span><span class="p" data-group-id="3688600044-1">)</span><span class="w">
 </span><span class="c1"># returns query with creator preloaded if different from the subject</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_join_creator</span><span class="p" data-group-id="6956657165-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6956657165-4">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="6956657165-4">]</span><span class="p" data-group-id="6956657165-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_join_creator</span><span class="p" data-group-id="3688600044-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3688600044-4">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="3688600044-4">]</span><span class="p" data-group-id="3688600044-3">)</span><span class="w">
 </span><span class="c1"># returns query with creator included only if creator.id not in [1, 2, 3]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_join_subject/2">
 
   <div class="detail-header">
-    <a href="#maybe_join_subject/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#maybe_join_subject/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">maybe_join_subject(query, exclude_user_ids)</h1>
+    <h1 class="signature" translate="no">maybe_join_subject(query, skip_loading_user_ids)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L930" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L860" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1228,31 +1249,29 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 
   <section class="docstring">
 
-<p>Optimizes the query to optionally include the subject data.</p><p>If <code class="inline">exclude_user_ids</code> is empty, the subject is always included. Otherwise, it is included only if it is different from the users in <code class="inline">exclude_user_ids</code>.</p><h2 id="maybe_join_subject/2-examples" class="section-heading">
+<p>Optimizes the query to optionally include the subject data.</p><p>If <code class="inline">skip_loading_user_ids</code> is empty, the subject is always included. Otherwise, it is included only if it is different from the users in <code class="inline">skip_loading_user_ids</code>.</p><h2 id="maybe_join_subject/2-examples" class="section-heading">
   <a href="#maybe_join_subject/2-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_join_subject</span><span class="p" data-group-id="4331977243-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4331977243-2">[</span><span class="p" data-group-id="4331977243-2">]</span><span class="p" data-group-id="4331977243-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_join_subject</span><span class="p" data-group-id="6568342426-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6568342426-2">[</span><span class="p" data-group-id="6568342426-2">]</span><span class="p" data-group-id="6568342426-1">)</span><span class="w">
 </span><span class="c1"># returns query with subject preloaded</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_join_subject</span><span class="p" data-group-id="4331977243-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4331977243-4">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="4331977243-4">]</span><span class="p" data-group-id="4331977243-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_join_subject</span><span class="p" data-group-id="6568342426-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6568342426-4">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="6568342426-4">]</span><span class="p" data-group-id="6568342426-3">)</span><span class="w">
 </span><span class="c1"># returns query with subject included only if subject.id not in [1, 2, 3]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_remove_for_deleters_feeds/1">
 
   <div class="detail-header">
-    <a href="#maybe_remove_for_deleters_feeds/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#maybe_remove_for_deleters_feeds/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">maybe_remove_for_deleters_feeds(id)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L248" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L251" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1266,15 +1285,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="maybe_with_labelled/0">
 
   <div class="detail-header">
-    <a href="#maybe_with_labelled/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#maybe_with_labelled/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">maybe_with_labelled()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L873" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L803" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1288,15 +1305,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="object_from_activity/1">
 
   <div class="detail-header">
-    <a href="#object_from_activity/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#object_from_activity/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">object_from_activity(activity)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1310,8 +1325,8 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object_from_activity</span><span class="p" data-group-id="7379396072-1">(</span><span class="p" data-group-id="7379396072-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7379396072-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7379396072-3">}</span><span class="p" data-group-id="7379396072-2">}</span><span class="p" data-group-id="7379396072-1">)</span><span class="w">
-</span><span class="p" data-group-id="7379396072-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7379396072-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object_from_activity</span><span class="p" data-group-id="6612484120-1">(</span><span class="p" data-group-id="6612484120-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6612484120-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6612484120-3">}</span><span class="p" data-group-id="6612484120-2">}</span><span class="p" data-group-id="6612484120-1">)</span><span class="w">
+</span><span class="p" data-group-id="6612484120-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6612484120-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="object_preload_activity/2">
@@ -1319,15 +1334,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="object_preload_activity/1"></span>
 
   <div class="detail-header">
-    <a href="#object_preload_activity/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#object_preload_activity/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">object_preload_activity(object, verb \\ :create)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L285" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L288" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1341,22 +1354,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_activity</span><span class="p" data-group-id="5094532206-1">(</span><span class="p" data-group-id="5094532206-2">%</span><span class="nc" data-group-id="5094532206-2">Post</span><span class="p" data-group-id="5094532206-2">{</span><span class="p" data-group-id="5094532206-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p" data-group-id="5094532206-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_activity</span><span class="p" data-group-id="9537092413-1">(</span><span class="p" data-group-id="9537092413-2">%</span><span class="nc" data-group-id="9537092413-2">Post</span><span class="p" data-group-id="9537092413-2">{</span><span class="p" data-group-id="9537092413-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p" data-group-id="9537092413-1">)</span><span class="w">
 </span><span class="c1"># Object with preloaded activity</span></code></pre>
   </section>
 </section>
 <section class="detail" id="object_preload_create_activity/1">
 
   <div class="detail-header">
-    <a href="#object_preload_create_activity/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#object_preload_create_activity/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">object_preload_create_activity(object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L273" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L276" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1370,22 +1381,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_create_activity</span><span class="p" data-group-id="9043886355-1">(</span><span class="p" data-group-id="9043886355-2">%</span><span class="nc" data-group-id="9043886355-2">Post</span><span class="p" data-group-id="9043886355-2">{</span><span class="p" data-group-id="9043886355-2">}</span><span class="p" data-group-id="9043886355-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_create_activity</span><span class="p" data-group-id="7095447480-1">(</span><span class="p" data-group-id="7095447480-2">%</span><span class="nc" data-group-id="7095447480-2">Post</span><span class="p" data-group-id="7095447480-2">{</span><span class="p" data-group-id="7095447480-2">}</span><span class="p" data-group-id="7095447480-1">)</span><span class="w">
 </span><span class="c1"># Object with preloaded creation activity</span></code></pre>
   </section>
 </section>
 <section class="detail" id="object_under_activity/2">
 
   <div class="detail-header">
-    <a href="#object_under_activity/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#object_under_activity/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">object_under_activity(activity, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1304" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1561" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1399,15 +1408,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="order_cursor_fields/2">
 
   <div class="detail-header">
-    <a href="#order_cursor_fields/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#order_cursor_fields/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">order_cursor_fields(arg1, sort_order)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1763" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2020" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1421,22 +1428,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_cursor_fields</span><span class="p" data-group-id="4184380848-1">(</span><span class="ss">:num_likes</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="4184380848-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_cursor_fields</span><span class="p" data-group-id="0431639299-1">(</span><span class="ss">:num_likes</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0431639299-1">)</span><span class="w">
 </span><span class="c1"># returns cursor fields for ordering by number of likes in ascending order</span></code></pre>
   </section>
 </section>
 <section class="detail" id="order_pagination_opts/2">
 
   <div class="detail-header">
-    <a href="#order_pagination_opts/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#order_pagination_opts/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">order_pagination_opts(sort_by, sort_order)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1713" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1970" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1450,22 +1455,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_pagination_opts</span><span class="p" data-group-id="5774346389-1">(</span><span class="ss">:num_likes</span><span class="p">,</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="5774346389-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_pagination_opts</span><span class="p" data-group-id="4447324417-1">(</span><span class="ss">:num_likes</span><span class="p">,</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="4447324417-1">)</span><span class="w">
 </span><span class="c1"># returns pagination options for ordering by number of likes in descending order</span></code></pre>
   </section>
 </section>
 <section class="detail" id="put_assoc/3">
 
   <div class="detail-header">
-    <a href="#put_assoc/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#put_assoc/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">put_assoc(changeset, verb, subject)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L72" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L73" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1479,15 +1482,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="put_assoc/4">
 
   <div class="detail-header">
-    <a href="#put_assoc/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#put_assoc/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">put_assoc(changeset, verb, subject, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L75" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L76" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1505,15 +1506,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="query/1"></span>
 
   <div class="detail-header">
-    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query(filters \\ [], opts_or_current_user \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1214" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1456" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1527,23 +1526,22 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="9454985722-1">(</span><span class="n">filters</span><span class="p" data-group-id="9454985722-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span><span class="p" data-group-id="8080183411-1">(</span><span class="n">filters</span><span class="p" data-group-id="8080183411-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="9454985722-2">(</span><span class="p" data-group-id="9454985722-3">[</span><span class="ss">my</span><span class="p">:</span><span class="w"> </span><span class="ss">:feed</span><span class="p" data-group-id="9454985722-3">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9454985722-4">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="9454985722-4">]</span><span class="p" data-group-id="9454985722-2">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="8080183411-2">(</span><span class="p" data-group-id="8080183411-3">[</span><span class="ss">my</span><span class="p">:</span><span class="w"> </span><span class="ss">:feed</span><span class="p" data-group-id="8080183411-3">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8080183411-4">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8080183411-4">]</span><span class="p" data-group-id="8080183411-2">)</span><span class="w">
+</span><span class="gt">** (Bonfire.Fail.Auth) You need to log in first. </span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_module/0">
 
   <div class="detail-header">
-    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L49" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L50" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1563,15 +1561,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="query_object_preload_activity/3"></span>
 
   <div class="detail-header">
-    <a href="#query_object_preload_activity/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query_object_preload_activity/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query_object_preload_activity(q, verb \\ :create, object_id_field \\ :id, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L318" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L321" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1585,7 +1581,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_activity</span><span class="p" data-group-id="1405376776-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="ss">:post_id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1405376776-2">[</span><span class="p" data-group-id="1405376776-2">]</span><span class="p" data-group-id="1405376776-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_activity</span><span class="p" data-group-id="3344756906-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="ss">:post_id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3344756906-2">[</span><span class="p" data-group-id="3344756906-2">]</span><span class="p" data-group-id="3344756906-1">)</span><span class="w">
 </span><span class="c1"># Query with preloaded activities</span></code></pre>
   </section>
 </section>
@@ -1594,15 +1590,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="query_object_preload_create_activity/1"></span>
 
   <div class="detail-header">
-    <a href="#query_object_preload_create_activity/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query_object_preload_create_activity/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query_object_preload_create_activity(q, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L305" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L308" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1616,7 +1610,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_create_activity</span><span class="p" data-group-id="0817383780-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0817383780-2">[</span><span class="p" data-group-id="0817383780-2">]</span><span class="p" data-group-id="0817383780-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_create_activity</span><span class="p" data-group-id="6011896386-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6011896386-2">[</span><span class="p" data-group-id="6011896386-2">]</span><span class="p" data-group-id="6011896386-1">)</span><span class="w">
 </span><span class="c1"># Query with preloaded creation activities</span></code></pre>
   </section>
 </section>
@@ -1625,15 +1619,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="query_order/3"></span>
 
   <div class="detail-header">
-    <a href="#query_order/4" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query_order/4" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query_order(query, sort_by, sort_order, with_pins? \\ false)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1581" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1838" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1647,7 +1639,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_order</span><span class="p" data-group-id="1412881588-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:num_replies</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="1412881588-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_order</span><span class="p" data-group-id="0701210451-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:num_replies</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0701210451-1">)</span><span class="w">
 </span><span class="c1"># returns the query ordered by number of replies in ascending order</span></code></pre>
   </section>
 </section>
@@ -1656,15 +1648,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="read/1"></span>
 
   <div class="detail-header">
-    <a href="#read/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#read/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">read(query, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1159" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1089" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1678,10 +1668,10 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">read</span><span class="p" data-group-id="4294815289-1">(</span><span class="n">query</span><span class="p" data-group-id="4294815289-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p" data-group-id="0669863986-1">(</span><span class="n">query</span><span class="p" data-group-id="0669863986-1">)</span><span class="w">
 </span><span class="c1"># returns an activity based on the provided query</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">read</span><span class="p" data-group-id="4294815289-2">(</span><span class="n">object_id</span><span class="p" data-group-id="4294815289-2">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p" data-group-id="0669863986-2">(</span><span class="n">object_id</span><span class="p" data-group-id="0669863986-2">)</span><span class="w">
 </span><span class="c1"># returns an activity for the provided object ID (usually a create activity)</span></code></pre>
   </section>
 </section>
@@ -1690,15 +1680,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="read_query/1"></span>
 
   <div class="detail-header">
-    <a href="#read_query/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#read_query/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">read_query(query, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1165" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1095" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1712,9 +1700,9 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="5006829465-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5006829465-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="2292058847-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="2292058847-1">)</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="5006829465-2">(</span><span class="n">object_id</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5006829465-2">)</span></code></pre>
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="2292058847-2">(</span><span class="n">object_id</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="2292058847-2">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="reply_to_as_permitted_for/3">
@@ -1724,15 +1712,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="reply_to_as_permitted_for/2"></span>
 
   <div class="detail-header">
-    <a href="#reply_to_as_permitted_for/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#reply_to_as_permitted_for/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">reply_to_as_permitted_for(q, opts \\ [], verbs \\ [:see, :read])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L122" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L123" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1746,15 +1732,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="schema_module/0">
 
   <div class="detail-header">
-    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">schema_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L48" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L49" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1768,15 +1752,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="verb_congugate/1">
 
   <div class="detail-header">
-    <a href="#verb_congugate/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#verb_congugate/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">verb_congugate(verb)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1503" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1760" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1790,15 +1772,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 <section class="detail" id="verb_display/1">
 
   <div class="detail-header">
-    <a href="#verb_display/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#verb_display/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">verb_display(verb)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1488" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1745" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1812,21 +1792,19 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_display</span><span class="p" data-group-id="4903639953-1">(</span><span class="s">&quot;create&quot;</span><span class="p" data-group-id="4903639953-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_display</span><span class="p" data-group-id="0506202157-1">(</span><span class="s">&quot;create&quot;</span><span class="p" data-group-id="0506202157-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="verb_id/1">
 
   <div class="detail-header">
-    <a href="#verb_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#verb_id/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">verb_id(verb)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1518" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1775" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1840,7 +1818,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_id</span><span class="p" data-group-id="3355006576-1">(</span><span class="ss">:create</span><span class="p" data-group-id="3355006576-1">)</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_id</span><span class="p" data-group-id="3673683111-1">(</span><span class="ss">:create</span><span class="p" data-group-id="3673683111-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="verb_maybe_modify/2">
@@ -1848,15 +1826,13 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
     <span id="verb_maybe_modify/1"></span>
 
   <div class="detail-header">
-    <a href="#verb_maybe_modify/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#verb_maybe_modify/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">verb_maybe_modify(verb, activity \\ nil)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1412" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1669" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1870,22 +1846,20 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_maybe_modify</span><span class="p" data-group-id="7227017887-1">(</span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7227017887-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7227017887-3">%{</span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7227017887-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7227017887-4">}</span><span class="p" data-group-id="7227017887-3">}</span><span class="p" data-group-id="7227017887-2">}</span><span class="p" data-group-id="7227017887-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_maybe_modify</span><span class="p" data-group-id="0224323578-1">(</span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0224323578-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0224323578-3">%{</span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0224323578-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="0224323578-4">}</span><span class="p" data-group-id="0224323578-3">}</span><span class="p" data-group-id="0224323578-2">}</span><span class="p" data-group-id="0224323578-1">)</span><span class="w">
 </span><span class="s">&quot;Write&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="verb_name/1">
 
   <div class="detail-header">
-    <a href="#verb_name/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#verb_name/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">verb_name(slug)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1396" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1653" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1899,7 +1873,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_name</span><span class="p" data-group-id="7025712189-1">(</span><span class="ss">:create</span><span class="p" data-group-id="7025712189-1">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_name</span><span class="p" data-group-id="1765367103-1">(</span><span class="ss">:create</span><span class="p" data-group-id="1765367103-1">)</span><span class="w">
 </span><span class="s">&quot;Create&quot;</span></code></pre>
   </section>
 </section>
@@ -1924,7 +1898,7 @@ NOTE: you will usually want to use <code class="inline">cast/3</code> instead or
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

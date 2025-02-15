@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.169">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v0.9.10-classic-beta.169</title>
-    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-7A93CEFA.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
     <script src="docs_config.js"></script>
-    <script async src="dist/html-YIPIRHGU.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.169
+          v0.9.11-social-beta.3
         </div>
       </div>
     </div>
@@ -132,17 +132,17 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.169)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
 
   </h1>
 
 
     <section id="moduledoc">
 <p>Functions to implement the spellout rule-based-number-format rules of CLDR.</p><p>As CLDR notes, the data is incomplete or non-existent for many languages.  It
-is considered complete for English however.</p><p>The standard public API for RBNF is via the <a href="https://hexdocs.pm/ex_cldr_numbers/2.33.3/Cldr.Number.html#to_string/2"><code class="inline">Cldr.Number.to_string/2</code></a> function.</p><p>The functions on this module are defined at compile time based upon the RBNF rules
-defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="4763014163-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="4763014163-1">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="4763014163-2">(</span><span class="p" data-group-id="4763014163-2">)</span><span class="w">
-</span><span class="p" data-group-id="4763014163-3">[</span><span class="w">
+is considered complete for English however.</p><p>The standard public API for RBNF is via the <a href="https://hexdocs.pm/ex_cldr_numbers/2.33.5/Cldr.Number.html#to_string/2"><code class="inline">Cldr.Number.to_string/2</code></a> function.</p><p>The functions on this module are defined at compile time based upon the RBNF rules
+defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="3023752077-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="3023752077-1">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="3023752077-2">(</span><span class="p" data-group-id="3023752077-2">)</span><span class="w">
+</span><span class="p" data-group-id="3023752077-3">[</span><span class="w">
   </span><span class="ss">:spellout_cardinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_cardinal_verbose</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_numbering</span><span class="p">,</span><span class="w">
@@ -150,9 +150,9 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
   </span><span class="ss">:spellout_numbering_year</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal_verbose</span><span class="w">
-</span><span class="p" data-group-id="4763014163-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="0231401213-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="0231401213-1">)</span><span class="w">
-</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="1489194817-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="1489194817-1">)</span><span class="w">
-</span><span class="p" data-group-id="1489194817-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="1489194817-2">}</span></code></pre>
+</span><span class="p" data-group-id="3023752077-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="3492683099-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="3492683099-1">)</span><span class="w">
+</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="9730035491-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="9730035491-1">)</span><span class="w">
+</span><span class="p" data-group-id="9730035491-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="9730035491-2">}</span></code></pre>
     </section>
 
 </div>
@@ -793,15 +793,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="after_hundred/2">
 
   <div class="detail-header">
-    <a href="#after_hundred/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#after_hundred/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">after_hundred(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -815,15 +813,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="after_thousand_or_more/2">
 
   <div class="detail-header">
-    <a href="#after_thousand_or_more/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#after_thousand_or_more/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">after_thousand_or_more(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -837,15 +833,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="all_rule_sets/0">
 
   <div class="detail-header">
-    <a href="#all_rule_sets/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#all_rule_sets/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">all_rule_sets()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -859,15 +853,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="and/2">
 
   <div class="detail-header">
-    <a href="#and/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#and/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">number and language_tag</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -881,15 +873,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="and_o/2">
 
   <div class="detail-header">
-    <a href="#and_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#and_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">and_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -903,15 +893,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="cents_f/2">
 
   <div class="detail-header">
-    <a href="#cents_f/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#cents_f/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">cents_f(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -925,15 +913,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="cents_m/2">
 
   <div class="detail-header">
-    <a href="#cents_m/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#cents_m/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">cents_m(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -947,15 +933,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="cents_o/2">
 
   <div class="detail-header">
-    <a href="#cents_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#cents_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">cents_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -969,15 +953,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="commas/2">
 
   <div class="detail-header">
-    <a href="#commas/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#commas/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">commas(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -991,15 +973,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="commas_o/2">
 
   <div class="detail-header">
-    <a href="#commas_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#commas_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">commas_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1013,15 +993,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="et_un/2">
 
   <div class="detail-header">
-    <a href="#et_un/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#et_un/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">et_un(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1035,15 +1013,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="et_une/2">
 
   <div class="detail-header">
-    <a href="#et_une/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#et_une/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">et_une(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1057,15 +1033,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="et_unieme/2">
 
   <div class="detail-header">
-    <a href="#et_unieme/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#et_unieme/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">et_unieme(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1079,15 +1053,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="fem_with_a/2">
 
   <div class="detail-header">
-    <a href="#fem_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#fem_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">fem_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1101,15 +1073,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="fem_with_i/2">
 
   <div class="detail-header">
-    <a href="#fem_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#fem_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">fem_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1123,15 +1093,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="fem_with_o/2">
 
   <div class="detail-header">
-    <a href="#fem_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#fem_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">fem_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1145,15 +1113,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="lenient_parse/2">
 
   <div class="detail-header">
-    <a href="#lenient_parse/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#lenient_parse/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">lenient_parse(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1167,15 +1133,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="mille_o/2">
 
   <div class="detail-header">
-    <a href="#mille_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#mille_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">mille_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1189,15 +1153,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_no_final/2">
 
   <div class="detail-header">
-    <a href="#msc_no_final/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_no_final/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_no_final(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1211,15 +1173,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_with_a/2">
 
   <div class="detail-header">
-    <a href="#msc_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1233,15 +1193,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_with_a_nofinal/2">
 
   <div class="detail-header">
-    <a href="#msc_with_a_nofinal/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_with_a_nofinal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_with_a_nofinal(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1255,15 +1213,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_with_i/2">
 
   <div class="detail-header">
-    <a href="#msc_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1277,15 +1233,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_with_i_nofinal/2">
 
   <div class="detail-header">
-    <a href="#msc_with_i_nofinal/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_with_i_nofinal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_with_i_nofinal(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1299,15 +1253,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_with_o/2">
 
   <div class="detail-header">
-    <a href="#msc_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1321,15 +1273,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msc_with_o_nofinal/2">
 
   <div class="detail-header">
-    <a href="#msc_with_o_nofinal/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msc_with_o_nofinal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msc_with_o_nofinal(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1343,15 +1293,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msco_with_a/2">
 
   <div class="detail-header">
-    <a href="#msco_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msco_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msco_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1365,15 +1313,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msco_with_i/2">
 
   <div class="detail-header">
-    <a href="#msco_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msco_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msco_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1387,15 +1333,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="msco_with_o/2">
 
   <div class="detail-header">
-    <a href="#msco_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#msco_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">msco_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1409,15 +1353,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esima/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esima/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esima/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esima(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1431,15 +1373,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esima_with_a/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esima_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esima_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esima_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1453,15 +1393,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esima_with_i/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esima_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esima_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esima_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1475,15 +1413,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esima_with_o/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esima_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esima_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esima_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1497,15 +1433,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esime/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esime/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esime/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esime(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1519,15 +1453,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esime_with_a/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esime_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esime_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esime_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1541,15 +1473,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esime_with_i/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esime_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esime_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esime_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1563,15 +1493,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esime_with_o/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esime_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esime_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esime_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1585,15 +1513,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimi/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimi/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimi/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimi(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1607,15 +1533,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimi_with_a/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimi_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimi_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimi_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1629,15 +1553,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimi_with_i/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimi_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimi_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimi_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1651,15 +1573,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimi_with_o/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimi_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimi_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimi_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1673,15 +1593,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimo/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimo/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimo/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimo(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1695,15 +1613,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimo_with_a/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimo_with_a/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimo_with_a/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimo_with_a(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1717,15 +1633,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimo_with_i/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimo_with_i/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimo_with_i/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimo_with_i(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1739,15 +1653,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="ordinal_esimo_with_o/2">
 
   <div class="detail-header">
-    <a href="#ordinal_esimo_with_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#ordinal_esimo_with_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">ordinal_esimo_with_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1761,15 +1673,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="r2d_year/2">
 
   <div class="detail-header">
-    <a href="#r2d_year/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#r2d_year/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">r2d_year(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1783,15 +1693,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="rule_sets/0">
 
   <div class="detail-header">
-    <a href="#rule_sets/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#rule_sets/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">rule_sets()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1805,15 +1713,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="rule_sets/1">
 
   <div class="detail-header">
-    <a href="#rule_sets/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#rule_sets/1" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">rule_sets(rbnf_locale_name)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1827,15 +1733,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_cardinal/2">
 
   <div class="detail-header">
-    <a href="#spellout_cardinal/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_cardinal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_cardinal(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1849,15 +1753,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_cardinal_feminine/2">
 
   <div class="detail-header">
-    <a href="#spellout_cardinal_feminine/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_cardinal_feminine/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_cardinal_feminine(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1871,15 +1773,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_cardinal_feminine_cents/2">
 
   <div class="detail-header">
-    <a href="#spellout_cardinal_feminine_cents/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_cardinal_feminine_cents/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_cardinal_feminine_cents(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1893,15 +1793,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_cardinal_masculine/2">
 
   <div class="detail-header">
-    <a href="#spellout_cardinal_masculine/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_cardinal_masculine/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_cardinal_masculine(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1915,15 +1813,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_cardinal_masculine_cents/2">
 
   <div class="detail-header">
-    <a href="#spellout_cardinal_masculine_cents/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_cardinal_masculine_cents/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_cardinal_masculine_cents(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1937,15 +1833,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_cardinal_verbose/2">
 
   <div class="detail-header">
-    <a href="#spellout_cardinal_verbose/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_cardinal_verbose/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_cardinal_verbose(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1959,15 +1853,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_leading/2">
 
   <div class="detail-header">
-    <a href="#spellout_leading/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_leading/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_leading(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -1981,15 +1873,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_numbering/2">
 
   <div class="detail-header">
-    <a href="#spellout_numbering/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_numbering/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_numbering(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2003,15 +1893,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_numbering_cents/2">
 
   <div class="detail-header">
-    <a href="#spellout_numbering_cents/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_numbering_cents/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_numbering_cents(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2025,15 +1913,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_numbering_verbose/2">
 
   <div class="detail-header">
-    <a href="#spellout_numbering_verbose/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_numbering_verbose/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_numbering_verbose(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2047,15 +1933,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_numbering_year/2">
 
   <div class="detail-header">
-    <a href="#spellout_numbering_year/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_numbering_year/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_numbering_year(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2069,15 +1953,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2091,15 +1973,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_feminine/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_feminine/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_feminine/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_feminine(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2113,15 +1993,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_feminine_cont/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_feminine_cont/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_feminine_cont/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_feminine_cont(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2135,15 +2013,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_feminine_conts/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_feminine_conts/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_feminine_conts/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_feminine_conts(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2157,15 +2033,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_feminine_plural/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_feminine_plural/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_feminine_plural/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_feminine_plural(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2179,15 +2053,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_masculine/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_masculine/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_masculine/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_masculine(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2201,15 +2073,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_masculine_adjective/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_masculine_adjective/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_masculine_adjective/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_masculine_adjective(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2223,15 +2093,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_masculine_cont/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_masculine_cont/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_masculine_cont/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_masculine_cont(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2245,15 +2113,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_masculine_conts/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_masculine_conts/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_masculine_conts/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_masculine_conts(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2267,15 +2133,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_masculine_plural/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_masculine_plural/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_masculine_plural/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_masculine_plural(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2289,15 +2153,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="spellout_ordinal_verbose/2">
 
   <div class="detail-header">
-    <a href="#spellout_ordinal_verbose/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#spellout_ordinal_verbose/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">spellout_ordinal_verbose(number, locale)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2311,15 +2173,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="subcents_f/2">
 
   <div class="detail-header">
-    <a href="#subcents_f/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#subcents_f/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">subcents_f(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2333,15 +2193,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="subcents_m/2">
 
   <div class="detail-header">
-    <a href="#subcents_m/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#subcents_m/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">subcents_m(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2355,15 +2213,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="subcents_o/2">
 
   <div class="detail-header">
-    <a href="#subcents_o/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#subcents_o/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">subcents_o(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2377,15 +2233,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="teen/2">
 
   <div class="detail-header">
-    <a href="#teen/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#teen/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">teen(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2399,15 +2253,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="th/2">
 
   <div class="detail-header">
-    <a href="#th/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#th/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">th(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2421,15 +2273,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="tieth/2">
 
   <div class="detail-header">
-    <a href="#tieth/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#tieth/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">tieth(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2443,15 +2293,13 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 <section class="detail" id="x_ty/2">
 
   <div class="detail-header">
-    <a href="#x_ty/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#x_ty/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">x_ty(number, language_tag)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -2483,7 +2331,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

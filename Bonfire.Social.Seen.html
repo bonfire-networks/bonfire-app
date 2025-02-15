@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.169">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
 
 
-    <title>Bonfire.Social.Seen — Bonfire v0.9.10-classic-beta.169</title>
-    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+    <title>Bonfire.Social.Seen — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-7A93CEFA.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
     <script src="docs_config.js"></script>
-    <script async src="dist/html-YIPIRHGU.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.169
+          v0.9.11-social-beta.3
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Social.Seen</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.169)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
 
   </h1>
 
@@ -177,7 +177,15 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#mark_seen/2" data-no-tooltip translate="no">mark_seen(subject, object)</a>
+        <a href="#last_date/2" data-no-tooltip translate="no">last_date(subject, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#mark_seen/3" data-no-tooltip translate="no">mark_seen(subject, object, opts \\ [])</a>
 
       </div>
 
@@ -253,15 +261,13 @@ Pages
     <span id="get/2"></span>
 
   <div class="detail-header">
-    <a href="#get/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#get/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">get(subject, object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L72" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L76" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -281,10 +287,10 @@ Pages
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="6140848622-1">%</span><span class="nc" data-group-id="6140848622-1">User</span><span class="p" data-group-id="6140848622-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="6140848622-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="6140848622-2">%</span><span class="nc" data-group-id="6140848622-2">Post</span><span class="p" data-group-id="6140848622-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="6140848622-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="6140848622-3">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="6140848622-3">)</span><span class="w">
-</span><span class="p" data-group-id="6140848622-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6140848622-5">%</span><span class="nc" data-group-id="6140848622-5">Seen</span><span class="p" data-group-id="6140848622-5">{</span><span class="p" data-group-id="6140848622-5">}</span><span class="p" data-group-id="6140848622-4">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="6314493580-1">%</span><span class="nc" data-group-id="6314493580-1">User</span><span class="p" data-group-id="6314493580-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="6314493580-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="6314493580-2">%</span><span class="nc" data-group-id="6314493580-2">Post</span><span class="p" data-group-id="6314493580-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="6314493580-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="6314493580-3">(</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="6314493580-3">)</span><span class="w">
+</span><span class="p" data-group-id="6314493580-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6314493580-5">%</span><span class="nc" data-group-id="6314493580-5">Seen</span><span class="p" data-group-id="6314493580-5">{</span><span class="p" data-group-id="6314493580-5">}</span><span class="p" data-group-id="6314493580-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get!/3">
@@ -292,15 +298,13 @@ Pages
     <span id="get!/2"></span>
 
   <div class="detail-header">
-    <a href="#get!/3" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#get!/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">get!(subject, object, opts \\ [])</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L78" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L82" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -311,18 +315,16 @@ Pages
 <p>  Similar to <a href="#get/3"><code class="inline">get/3</code></a>, but raises an error if the Seen edge is not found.</p>
   </section>
 </section>
-<section class="detail" id="mark_seen/2">
+<section class="detail" id="last_date/2">
 
   <div class="detail-header">
-    <a href="#mark_seen/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#last_date/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">mark_seen(subject, object)</h1>
+    <h1 class="signature" translate="no">last_date(subject, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L102" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L55" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -330,39 +332,59 @@ Pages
 
   <section class="docstring">
 
-<p>Marks an object as seen by a user.</p><h2 id="mark_seen/2-parameters" class="section-heading">
-  <a href="#mark_seen/2-parameters" class="hover-link">
+
+  </section>
+</section>
+<section class="detail" id="mark_seen/3">
+
+    <span id="mark_seen/2"></span>
+
+  <div class="detail-header">
+    <a href="#mark_seen/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">mark_seen(subject, object, opts \\ [])</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L106" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Marks an object as seen by a user.</p><h2 id="mark_seen/3-parameters" class="section-heading">
+  <a href="#mark_seen/3-parameters" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Parameters</span>
 </h2>
-<ul><li>subject: The user marking the object as seen.</li><li>object: The object(s) or ID(s) being marked as seen.</li></ul><h2 id="mark_seen/2-examples" class="section-heading">
-  <a href="#mark_seen/2-examples" class="hover-link">
+<ul><li>subject: The user marking the object as seen.</li><li>object: The object(s) or ID(s) being marked as seen.</li></ul><h2 id="mark_seen/3-examples" class="section-heading">
+  <a href="#mark_seen/3-examples" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7208584946-1">%</span><span class="nc" data-group-id="7208584946-1">User</span><span class="p" data-group-id="7208584946-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="7208584946-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7208584946-2">%</span><span class="nc" data-group-id="7208584946-2">Post</span><span class="p" data-group-id="7208584946-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="7208584946-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">mark_seen</span><span class="p" data-group-id="7208584946-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="7208584946-3">)</span><span class="w">
-</span><span class="p" data-group-id="7208584946-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7208584946-5">%</span><span class="nc" data-group-id="7208584946-5">Seen</span><span class="p" data-group-id="7208584946-5">{</span><span class="p" data-group-id="7208584946-5">}</span><span class="p" data-group-id="7208584946-4">}</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2054225972-1">%</span><span class="nc" data-group-id="2054225972-1">User</span><span class="p" data-group-id="2054225972-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="2054225972-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2054225972-2">%</span><span class="nc" data-group-id="2054225972-2">Post</span><span class="p" data-group-id="2054225972-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="2054225972-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">mark_seen</span><span class="p" data-group-id="2054225972-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2054225972-3">)</span><span class="w">
+</span><span class="p" data-group-id="2054225972-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2054225972-5">%</span><span class="nc" data-group-id="2054225972-5">Seen</span><span class="p" data-group-id="2054225972-5">{</span><span class="p" data-group-id="2054225972-5">}</span><span class="p" data-group-id="2054225972-4">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">mark_seen</span><span class="p" data-group-id="7208584946-6">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="7208584946-6">)</span><span class="w">
-</span><span class="p" data-group-id="7208584946-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7208584946-8">%</span><span class="nc" data-group-id="7208584946-8">Seen</span><span class="p" data-group-id="7208584946-8">{</span><span class="p" data-group-id="7208584946-8">}</span><span class="p" data-group-id="7208584946-7">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">mark_seen</span><span class="p" data-group-id="2054225972-6">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="2054225972-6">)</span><span class="w">
+</span><span class="p" data-group-id="2054225972-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2054225972-8">%</span><span class="nc" data-group-id="2054225972-8">Seen</span><span class="p" data-group-id="2054225972-8">{</span><span class="p" data-group-id="2054225972-8">}</span><span class="p" data-group-id="2054225972-7">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="mark_unseen/2">
 
   <div class="detail-header">
-    <a href="#mark_unseen/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#mark_unseen/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">mark_unseen(subject, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L156" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L162" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -390,15 +412,13 @@ iex&gt; Bonfire.Social.Seen.mark_unseen(user, object)</p><p>iex&gt; Bonfire.Soci
 <section class="detail" id="query/2">
 
   <div class="detail-header">
-    <a href="#query/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query(filters, opts)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L197" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L203" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -418,24 +438,22 @@ iex&gt; Bonfire.Social.Seen.mark_unseen(user, object)</p><p>iex&gt; Bonfire.Soci
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8920914659-1">[</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8920914659-2">%</span><span class="nc" data-group-id="8920914659-2">User</span><span class="p" data-group-id="8920914659-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="8920914659-2">}</span><span class="p" data-group-id="8920914659-1">]</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8920914659-3">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="8920914659-3">]</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="8920914659-4">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="8920914659-4">)</span><span class="w">
-</span><span class="p" data-group-id="8920914659-5">#</span><span class="nc" data-group-id="8920914659-5">Ecto.Query</span><span class="p" data-group-id="8920914659-5">&lt;</span><span class="n">...</span><span class="p" data-group-id="8920914659-5">&gt;</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9659013292-1">[</span><span class="ss">subjects</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9659013292-2">%</span><span class="nc" data-group-id="9659013292-2">User</span><span class="p" data-group-id="9659013292-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="9659013292-2">}</span><span class="p" data-group-id="9659013292-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9659013292-3">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="9659013292-3">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="9659013292-4">(</span><span class="n">filters</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="9659013292-4">)</span><span class="w">
+</span><span class="p" data-group-id="9659013292-5">#</span><span class="nc" data-group-id="9659013292-5">Ecto.Query</span><span class="p" data-group-id="9659013292-5">&lt;</span><span class="n">...</span><span class="p" data-group-id="9659013292-5">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_module/0">
 
   <div class="detail-header">
-    <a href="#query_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">query_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L34" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L34" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -449,15 +467,13 @@ iex&gt; Bonfire.Social.Seen.mark_unseen(user, object)</p><p>iex&gt; Bonfire.Soci
 <section class="detail" id="schema_module/0">
 
   <div class="detail-header">
-    <a href="#schema_module/0" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">schema_module()</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L33" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L33" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -471,15 +487,13 @@ iex&gt; Bonfire.Social.Seen.mark_unseen(user, object)</p><p>iex&gt; Bonfire.Soci
 <section class="detail" id="seen?/2">
 
   <div class="detail-header">
-    <a href="#seen?/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#seen?/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">seen?(user, object)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L52" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/seen.ex#L52" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -499,9 +513,9 @@ iex&gt; Bonfire.Social.Seen.mark_unseen(user, object)</p><p>iex&gt; Bonfire.Soci
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5980723780-1">%</span><span class="nc" data-group-id="5980723780-1">User</span><span class="p" data-group-id="5980723780-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="5980723780-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5980723780-2">%</span><span class="nc" data-group-id="5980723780-2">Post</span><span class="p" data-group-id="5980723780-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="5980723780-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">seen?</span><span class="p" data-group-id="5980723780-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="5980723780-3">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0190266705-1">%</span><span class="nc" data-group-id="0190266705-1">User</span><span class="p" data-group-id="0190266705-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="0190266705-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0190266705-2">%</span><span class="nc" data-group-id="0190266705-2">Post</span><span class="p" data-group-id="0190266705-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post456&quot;</span><span class="p" data-group-id="0190266705-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Seen</span><span class="o">.</span><span class="n">seen?</span><span class="p" data-group-id="0190266705-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="0190266705-3">)</span><span class="w">
 </span><span class="no">true</span></code></pre>
   </section>
 </section>
@@ -526,7 +540,7 @@ iex&gt; Bonfire.Social.Seen.mark_unseen(user, object)</p><p>iex&gt; Bonfire.Soci
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

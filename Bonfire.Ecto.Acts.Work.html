@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.34.2">
-    <meta name="project" content="Bonfire v0.9.10-classic-beta.169">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
 
 
-    <title>Bonfire.Ecto.Acts.Work — Bonfire v0.9.10-classic-beta.169</title>
-    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
+    <title>Bonfire.Ecto.Acts.Work — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-7A93CEFA.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
     <script src="docs_config.js"></script>
-    <script async src="dist/html-YIPIRHGU.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.10-classic-beta.169
+          v0.9.11-social-beta.3
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Ecto.Acts.Work</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.10-classic-beta.169)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
 
   </h1>
 
@@ -162,7 +162,7 @@ appropriate actions.</p><p>Only runs if there are no epic or changesets errors.<
 
       </div>
 
-        <div class="summary-synopsis"><p>Records that a particular key contains an <a href="https://hexdocs.pm/ecto/3.12.4/Ecto.Changeset.html"><code class="inline">Ecto.Changeset</code></a> that needs to be processed (inserted, updated, upserted, or deleted).</p></div>
+        <div class="summary-synopsis"><p>Records that a particular key contains an <a href="https://hexdocs.pm/ecto/3.12.5/Ecto.Changeset.html"><code class="inline">Ecto.Changeset</code></a> that needs to be processed (inserted, updated, upserted, or deleted).</p></div>
 
     </div>
 
@@ -192,15 +192,13 @@ appropriate actions.</p><p>Only runs if there are no epic or changesets errors.<
 <section class="detail" id="add/2">
 
   <div class="detail-header">
-    <a href="#add/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#add/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">add(epic, key)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_ecto/blob/main/lib/acts/work.ex#L41" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_ecto/blob/main/lib/acts/work.ex#L41" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -208,7 +206,7 @@ appropriate actions.</p><p>Only runs if there are no epic or changesets errors.<
 
   <section class="docstring">
 
-<p>Records that a particular key contains an <a href="https://hexdocs.pm/ecto/3.12.4/Ecto.Changeset.html"><code class="inline">Ecto.Changeset</code></a> that needs to be processed (inserted, updated, upserted, or deleted).</p><p>Call this in earlier acts to queue work for in-transaction processing.</p><p>If you wish to delete, you must ensure you set the changeset's <code class="inline">:action</code> key to <code class="inline">:delete</code>.</p><h2 id="add/2-parameters" class="section-heading">
+<p>Records that a particular key contains an <a href="https://hexdocs.pm/ecto/3.12.5/Ecto.Changeset.html"><code class="inline">Ecto.Changeset</code></a> that needs to be processed (inserted, updated, upserted, or deleted).</p><p>Call this in earlier acts to queue work for in-transaction processing.</p><p>If you wish to delete, you must ensure you set the changeset's <code class="inline">:action</code> key to <code class="inline">:delete</code>.</p><h2 id="add/2-parameters" class="section-heading">
   <a href="#add/2-parameters" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
@@ -220,23 +218,21 @@ appropriate actions.</p><p>Only runs if there are no epic or changesets errors.<
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5757594591-1">%</span><span class="nc" data-group-id="5757594591-1">Epic</span><span class="p" data-group-id="5757594591-1">{</span><span class="p" data-group-id="5757594591-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="5757594591-2">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_changeset</span><span class="p" data-group-id="5757594591-2">)</span><span class="w">
-</span><span class="p" data-group-id="5757594591-3">%</span><span class="nc" data-group-id="5757594591-3">Epic</span><span class="p" data-group-id="5757594591-3">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5757594591-4">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5757594591-5">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="5757594591-5">]</span><span class="p" data-group-id="5757594591-4">}</span><span class="p" data-group-id="5757594591-3">}</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9416570295-1">%</span><span class="nc" data-group-id="9416570295-1">Epic</span><span class="p" data-group-id="9416570295-1">{</span><span class="p" data-group-id="9416570295-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="9416570295-2">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_changeset</span><span class="p" data-group-id="9416570295-2">)</span><span class="w">
+</span><span class="p" data-group-id="9416570295-3">%</span><span class="nc" data-group-id="9416570295-3">Epic</span><span class="p" data-group-id="9416570295-3">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9416570295-4">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="9416570295-5">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="9416570295-5">]</span><span class="p" data-group-id="9416570295-4">}</span><span class="p" data-group-id="9416570295-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="run/2">
 
   <div class="detail-header">
-    <a href="#run/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#run/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">run(epic, act)</h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_ecto/blob/main/lib/acts/work.ex#L67" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/bonfire-networks/bonfire_ecto/blob/main/lib/acts/work.ex#L67" class="icon-action" rel="help" aria-label="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
      </a>
 
 
@@ -257,15 +253,15 @@ and performs the appropriate actions (<code class="inline">:insert</code>, <code
   </a>
   <span class="text">Examples</span>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2118685015-1">%</span><span class="nc" data-group-id="2118685015-1">Epic</span><span class="p" data-group-id="2118685015-1">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-2">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2118685015-3">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="2118685015-3">]</span><span class="p" data-group-id="2118685015-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-4">[</span><span class="p" data-group-id="2118685015-4">]</span><span class="p" data-group-id="2118685015-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2118685015-5">%{</span><span class="p" data-group-id="2118685015-5">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">run</span><span class="p" data-group-id="2118685015-6">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">act</span><span class="p" data-group-id="2118685015-6">)</span><span class="w">
-</span><span class="p" data-group-id="2118685015-7">%</span><span class="nc" data-group-id="2118685015-7">Epic</span><span class="p" data-group-id="2118685015-7">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-8">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2118685015-9">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="2118685015-9">]</span><span class="p" data-group-id="2118685015-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-10">[</span><span class="p" data-group-id="2118685015-10">]</span><span class="p" data-group-id="2118685015-7">}</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0804723990-1">%</span><span class="nc" data-group-id="0804723990-1">Epic</span><span class="p" data-group-id="0804723990-1">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-2">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0804723990-3">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="0804723990-3">]</span><span class="p" data-group-id="0804723990-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-4">[</span><span class="p" data-group-id="0804723990-4">]</span><span class="p" data-group-id="0804723990-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0804723990-5">%{</span><span class="p" data-group-id="0804723990-5">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">run</span><span class="p" data-group-id="0804723990-6">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">act</span><span class="p" data-group-id="0804723990-6">)</span><span class="w">
+</span><span class="p" data-group-id="0804723990-7">%</span><span class="nc" data-group-id="0804723990-7">Epic</span><span class="p" data-group-id="0804723990-7">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-8">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0804723990-9">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="0804723990-9">]</span><span class="p" data-group-id="0804723990-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-10">[</span><span class="p" data-group-id="0804723990-10">]</span><span class="p" data-group-id="0804723990-7">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2118685015-11">%</span><span class="nc" data-group-id="2118685015-11">Epic</span><span class="p" data-group-id="2118685015-11">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-12">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2118685015-13">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="2118685015-13">]</span><span class="p" data-group-id="2118685015-12">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-14">[</span><span class="s">&quot;error&quot;</span><span class="p" data-group-id="2118685015-14">]</span><span class="p" data-group-id="2118685015-11">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2118685015-15">%{</span><span class="p" data-group-id="2118685015-15">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">run</span><span class="p" data-group-id="2118685015-16">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">act</span><span class="p" data-group-id="2118685015-16">)</span><span class="w">
-</span><span class="p" data-group-id="2118685015-17">%</span><span class="nc" data-group-id="2118685015-17">Epic</span><span class="p" data-group-id="2118685015-17">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-18">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2118685015-19">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="2118685015-19">]</span><span class="p" data-group-id="2118685015-18">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2118685015-20">[</span><span class="s">&quot;error&quot;</span><span class="p" data-group-id="2118685015-20">]</span><span class="p" data-group-id="2118685015-17">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0804723990-11">%</span><span class="nc" data-group-id="0804723990-11">Epic</span><span class="p" data-group-id="0804723990-11">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-12">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0804723990-13">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="0804723990-13">]</span><span class="p" data-group-id="0804723990-12">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-14">[</span><span class="s">&quot;error&quot;</span><span class="p" data-group-id="0804723990-14">]</span><span class="p" data-group-id="0804723990-11">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0804723990-15">%{</span><span class="p" data-group-id="0804723990-15">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">run</span><span class="p" data-group-id="0804723990-16">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="n">act</span><span class="p" data-group-id="0804723990-16">)</span><span class="w">
+</span><span class="p" data-group-id="0804723990-17">%</span><span class="nc" data-group-id="0804723990-17">Epic</span><span class="p" data-group-id="0804723990-17">{</span><span class="ss">assigns</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-18">%{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0804723990-19">[</span><span class="ss">:some_changeset</span><span class="p" data-group-id="0804723990-19">]</span><span class="p" data-group-id="0804723990-18">}</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0804723990-20">[</span><span class="s">&quot;error&quot;</span><span class="p" data-group-id="0804723990-20">]</span><span class="p" data-group-id="0804723990-17">}</span></code></pre>
   </section>
 </section>
 
@@ -289,7 +285,7 @@ and performs the appropriate actions (<code class="inline">:insert</code>, <code
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

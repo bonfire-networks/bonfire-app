@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.35.1">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.3">
+
+
+    <title>Bonfire.Common.EnvConfig — Bonfire v0.9.11-social-beta.3</title>
+    <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-F34B4CEE.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-PVRIOB7F.js"></script>
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.11-social-beta.3
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
+
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
+
+
+        <li>
+          <button id="tasks-list-tab-button" role="tab" data-type="tasks" aria-controls="tasks-tab-panel" aria-selected="false" tabindex="-1">
+            <span translate="no">Mix</span> Tasks
+          </button>
+        </li>
+
+    </ul>
+  </div>
+
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
+
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+    <div id="tasks-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="tasks-list-tab-button" hidden>
+      <ul id="tasks-full-list" class="full-list"></ul>
+    </div>
+
+</nav>
+
+<main class="content">
+  <output role="status" id="toast"></output>
+
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/env_config.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Bonfire.Common.EnvConfig</span> 
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.3)</small>
+
+  </h1>
+
+
+    <section id="moduledoc">
+<p>A Want type that reads environment variables and returns them as keyword lists or map(s).</p><h2 id="module-features" class="section-heading">
+  <a href="#module-features" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Features</span>
+</h2>
+<ul><li>Collects environment variables with a specified prefix.</li><li>Allows key transformation via <code class="inline">:transform_keys</code>.</li><li>Supports type casting via <code class="inline">:want_values</code> using the <a href="https://hexdocs.pm/want/1.17.1/Want.html"><code class="inline">Want</code></a> library.</li><li>Supports both single (e.g. <code class="inline">MYAPP_DB_HOST</code>) and a list of configuration groups (e.g. <code class="inline">MYAPP_DB_1_HOST</code>, <code class="inline">MYAPP_DB_2_HOST</code>, etc).</li><li>Returns keyword lists if all keys are atoms, otherwise returns maps.</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cast/2" data-no-tooltip translate="no">cast(input, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Casts environment variables into keyword list(s) or map(s).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_want/3" data-no-tooltip translate="no">maybe_want(input, arg2, want_values)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#parse/2" data-no-tooltip translate="no">parse(input \\ nil, opts)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="cast/2">
+
+  <div class="detail-header">
+    <a href="#cast/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">cast(input, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/env_config.ex#L116" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Casts environment variables into keyword list(s) or map(s).</p><h2 id="cast/2-options" class="section-heading">
+  <a href="#cast/2-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">prefix</code> (required): Prefix for environment variable matching.</li><li><code class="inline">transform_keys</code> (optional): Function to transform keys (e.g., <code class="inline">&amp;String.to_existing_atom/1</code>).</li><li><code class="inline">want_values</code> (optional): Map of key type casts with optional defaults.</li><li><code class="inline">want_unknown_keys</code> (optional): Whether to also include unknown keys when using <code class="inline">want_values</code>.</li><li><code class="inline">indexed_list</code> (optional): Looks for an indexed list of env vars. Default: <code class="inline">false</code>.</li><li><code class="inline">max_index</code> (optional): Maximum index for indexed configs. Default: <code class="inline">1000</code>.</li><li><code class="inline">max_empty_streak</code> (optional): Stops after this many consecutive missing indices. Default: <code class="inline">10</code>.</li></ul><h2 id="cast/2-examples" class="section-heading">
+  <a href="#cast/2-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Examples</span>
+</h2>
+<h3 id="cast/2-basic-usage-usage-as-a-want-custom-type" class="section-heading">
+  <a href="#cast/2-basic-usage-usage-as-a-want-custom-type" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Basic usage (usage as a <a href="https://hexdocs.pm/want/1.17.1/Want.html"><code class="inline">Want</code></a> custom type)</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="5979024577-1">(</span><span class="s">&quot;TESTA_DB_HOST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="5979024577-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">cast</span><span class="p" data-group-id="5979024577-2">(</span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="5979024577-3">(</span><span class="p" data-group-id="5979024577-3">)</span><span class="p">,</span><span class="w"> </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTA_DB&quot;</span><span class="p" data-group-id="5979024577-2">)</span><span class="w"> 
+</span><span class="p" data-group-id="5979024577-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5979024577-5">%{</span><span class="s">&quot;host&quot;</span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="5979024577-5">}</span><span class="p" data-group-id="5979024577-4">}</span><span class="w">
+</span><span class="c1"># iex&gt; Want.cast(System.get_env(), EnvConfig, prefix: &quot;TESTA_DB&quot;) # FIXME: Want doesn&#39;t currently have a way to cast with a custom type at the top-level, only for data within a map or keyword list</span><span class="w">
+</span><span class="c1"># {:ok, %{&quot;host&quot;=&gt; &quot;localhost&quot;}}</span></code></pre><h3 id="cast/2-basic-usage-with-prefix-only-direct-usage" class="section-heading">
+  <a href="#cast/2-basic-usage-with-prefix-only-direct-usage" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Basic usage with prefix only (direct usage)</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="0207705389-1">(</span><span class="s">&quot;TESTA_DB_HOST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="0207705389-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="0207705389-2">(</span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="0207705389-3">(</span><span class="p" data-group-id="0207705389-3">)</span><span class="p">,</span><span class="w"> </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTA_DB&quot;</span><span class="p" data-group-id="0207705389-2">)</span><span class="w"> 
+</span><span class="p" data-group-id="0207705389-4">%{</span><span class="s">&quot;host&quot;</span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="0207705389-4">}</span></code></pre><h3 id="cast/2-basic-usage-with-prefix-only-direct-usage-uses-env-from-system-get_env-by-default" class="section-heading">
+  <a href="#cast/2-basic-usage-with-prefix-only-direct-usage-uses-env-from-system-get_env-by-default" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Basic usage with prefix only (direct usage, uses env from <code class="inline">System.get_env()</code> by default)</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="6940345108-1">(</span><span class="s">&quot;TESTA_DB_HOST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="6940345108-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="6940345108-2">(</span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTA_DB&quot;</span><span class="p" data-group-id="6940345108-2">)</span><span class="w"> 
+</span><span class="p" data-group-id="6940345108-3">%{</span><span class="s">&quot;host&quot;</span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="6940345108-3">}</span></code></pre><h3 id="cast/2-with-key-transformation" class="section-heading">
+  <a href="#cast/2-with-key-transformation" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">With key transformation</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="1361853454-1">(</span><span class="s">&quot;TESTB_DB_HOST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="1361853454-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="1361853454-2">(</span><span class="s">&quot;TESTB_DB_PORT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;5432&quot;</span><span class="p" data-group-id="1361853454-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="1361853454-3">(</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTB_DB&quot;</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">transform_keys</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">String</span><span class="o">.</span><span class="n">to_existing_atom</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="1361853454-3">)</span><span class="w"> 
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="1361853454-4">(</span><span class="p" data-group-id="1361853454-4">)</span><span class="w"> </span><span class="c1"># just to make the test assertion easier</span><span class="w">
+</span><span class="p" data-group-id="1361853454-5">[</span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5432&quot;</span><span class="p" data-group-id="1361853454-5">]</span></code></pre><h3 id="cast/2-with-type-casting-for-specific-keys" class="section-heading">
+  <a href="#cast/2-with-type-casting-for-specific-keys" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">With type casting for specific keys</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="7151245471-1">(</span><span class="s">&quot;TESTC_DB_PORT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;5432&quot;</span><span class="p" data-group-id="7151245471-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="7151245471-2">(</span><span class="s">&quot;TESTC_DB_MAX_CONNECTIONS&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="p" data-group-id="7151245471-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="7151245471-3">(</span><span class="s">&quot;TESTC_DB_SSL&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="p" data-group-id="7151245471-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="7151245471-4">(</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTC_DB&quot;</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">want_values</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7151245471-5">%{</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">    </span><span class="ss">port</span><span class="p">:</span><span class="w"> </span><span class="ss">:integer</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">    </span><span class="ss">max_connections</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7151245471-6">{</span><span class="ss">:integer</span><span class="p">,</span><span class="w"> </span><span class="ss">default</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7151245471-6">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">    </span><span class="ss">ssl</span><span class="p">:</span><span class="w"> </span><span class="ss">:boolean</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="7151245471-5">}</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="7151245471-4">)</span><span class="w"> 
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="7151245471-7">(</span><span class="p" data-group-id="7151245471-7">)</span><span class="w"> </span><span class="c1"># just to make the test assertion easier</span><span class="w">
+</span><span class="p" data-group-id="7151245471-8">[</span><span class="ss">max_connections</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="ss">port</span><span class="p">:</span><span class="w"> </span><span class="mi">5432</span><span class="p">,</span><span class="w"> </span><span class="ss">ssl</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="7151245471-8">]</span></code></pre><h3 id="cast/2-with-type-casting-for-only-some-keys-including-unknown-keys-as-well-returns-a-map-with-mixed-keys" class="section-heading">
+  <a href="#cast/2-with-type-casting-for-only-some-keys-including-unknown-keys-as-well-returns-a-map-with-mixed-keys" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">With type casting for only some keys, including unknown keys as well (returns a map with mixed keys)</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="1163918093-1">(</span><span class="s">&quot;TESTU_DB_PORT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;5432&quot;</span><span class="p" data-group-id="1163918093-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="1163918093-2">(</span><span class="s">&quot;TESTU_DB_MAX_CONNECTIONS&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="p" data-group-id="1163918093-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="1163918093-3">%{</span><span class="s">&quot;max_connections&quot;</span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">port</span><span class="p">:</span><span class="w"> </span><span class="mi">5432</span><span class="p" data-group-id="1163918093-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="1163918093-4">(</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTU_DB&quot;</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">want_unknown_keys</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">want_values</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1163918093-5">%{</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">    </span><span class="ss">port</span><span class="p">:</span><span class="w"> </span><span class="ss">:integer</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="1163918093-5">}</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="1163918093-4">)</span><span class="w"> </span></code></pre><h3 id="cast/2-with-both-transformation-and-type-casting" class="section-heading">
+  <a href="#cast/2-with-both-transformation-and-type-casting" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">With both transformation and type casting</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="9095647665-1">(</span><span class="s">&quot;TESTD_DB_HOST_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="9095647665-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="9095647665-2">(</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTD_DB&quot;</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">transform_keys</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">String</span><span class="o">.</span><span class="n">trim</span><span class="p" data-group-id="9095647665-3">(</span><span class="ni">&amp;1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;_&quot;</span><span class="p" data-group-id="9095647665-3">)</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">want_values</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9095647665-4">%{</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">    </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="ss">:string</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="9095647665-4">}</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="9095647665-2">)</span><span class="w">
+</span><span class="p" data-group-id="9095647665-5">[</span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="9095647665-5">]</span></code></pre><h3 id="cast/2-indexed-list-of-configs" class="section-heading">
+  <a href="#cast/2-indexed-list-of-configs" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Indexed list of configs</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="6513167641-1">(</span><span class="s">&quot;TESTE_DB_0_HOST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="6513167641-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">System</span><span class="o">.</span><span class="n">put_env</span><span class="p" data-group-id="6513167641-2">(</span><span class="s">&quot;TESTE_DB_1_HOST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;remote&quot;</span><span class="p" data-group-id="6513167641-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">EnvConfig</span><span class="o">.</span><span class="n">parse</span><span class="p" data-group-id="6513167641-3">(</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TESTE_DB&quot;</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">want_values</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6513167641-4">%{</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">    </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="ss">:string</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="6513167641-4">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">indexed_list</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="6513167641-3">)</span><span class="w">
+</span><span class="p" data-group-id="6513167641-5">[</span><span class="p" data-group-id="6513167641-6">[</span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p" data-group-id="6513167641-6">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6513167641-7">[</span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remote&quot;</span><span class="p" data-group-id="6513167641-7">]</span><span class="p" data-group-id="6513167641-5">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="maybe_want/3">
+
+  <div class="detail-header">
+    <a href="#maybe_want/3" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">maybe_want(input, arg2, want_values)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/env_config.ex#L210" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="parse/2">
+
+    <span id="parse/1"></span>
+
+  <div class="detail-header">
+    <a href="#parse/2" class="detail-link" data-no-tooltip aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <h1 class="signature" translate="no">parse(input \\ nil, opts)</h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/env_config.ex#L124" class="icon-action" rel="help" aria-label="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.35.1) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
