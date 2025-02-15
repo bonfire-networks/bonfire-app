@@ -121,7 +121,7 @@ setup:
 
 # TODO: use as escript so entire app doesn't need to be compiled?
 @_flavour_install select_flavour:
-	MIX_ENV=dev {{ if CI == "true" { "just mix "+select_flavour+".install --yes" } else { "just mix "+select_flavour+".install" } }}
+	{{ if CI == "true" { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install --yes" } else { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install" } }}
 # NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 
 flavour_make_symlinks flavour=FLAVOUR:
