@@ -1,0 +1,6 @@
+Note: Most of the files in this directory are canonically defined elsewhere (in relevant extension and flavour repos) so should only be edited there and then linked `just flavour_make_symlinks your_choice_of_flavour`. Symlinks should be turned into copies before committing though, which can be done with `just config_follow_symlinks`.
+
+Here are examples of where they are defined:
+- The main [configs are defined in the ember flavour](https://github.com/bonfire-networks/ember/tree/main/config) and main dependencies are listed in its [deps.hex](https://github.com/bonfire-networks/ember/blob/main/deps.hex) and [deps.git](https://github.com/bonfire-networks/ember/blob/main/deps.git)
+- Each other flavour defines a [config file that matches its name](https://github.com/bonfire-networks/social/blob/main/config/social.exs) and lists dependencies in [deps.hex](https://github.com/bonfire-networks/social/blob/main/deps.hex) and [deps.git](https://github.com/bonfire-networks/social/blob/main/deps.git)
+- Each extension also defines a [config file that matches its name](https://github.com/bonfire-networks/bonfire_common/blob/main/config/bonfire_common.exs) and lists dependencies in [deps.hex](https://github.com/bonfire-networks/bonfire_common/blob/main/deps.hex) and [deps.git](https://github.com/bonfire-networks/bonfire_common/blob/main/deps.git)
