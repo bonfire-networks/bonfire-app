@@ -90,7 +90,7 @@ RUN ls -la ./config/current_flavour/
 
 
 # Optionally include local forks
-RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./config/current_flavour/deps*path ; else echo "Include locally forked extensions." ; fi 
+RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./config/current_flavour/deps*path ; else echo "Include locally forked extensions." ; fi || echo "No forks defined"
 COPY --link ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
 
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
