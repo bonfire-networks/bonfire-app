@@ -119,8 +119,10 @@ setup:
 @_config_flavour-env-init flavour from to:
 	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env 
 
+# TODO: use as escript so entire app doesn't need to be compiled?
 @_flavour_install select_flavour:
-	{{ if CI == "true" { "just mix "+select_flavour+".install --yes" } else { "just mix "+select_flavour+".install" } }}
+	MIX_ENV=dev {{ if CI == "true" { "just mix "+select_flavour+".install --yes" } else { "just mix "+select_flavour+".install" } }}
+# NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 
 flavour_make_symlinks flavour=FLAVOUR:
 	just _ln-from-dep ember config/ "*" config/
