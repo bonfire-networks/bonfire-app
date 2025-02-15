@@ -78,7 +78,7 @@ jobs:
         run: sudo apt-get update -y && sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH 
       - 
         name: Pre-build prep 
-        run: just _clone_flavour_apps && just _config_flavour ${{ env.FLAVOUR }} && just _rel-prepare 
+        run: just _clone_flavour_apps && just _config_flavour ${{ env.FLAVOUR }} && just flavour_make_symlinks {{flavour}} && just _rel-prepare 
       -
         name: Build and push
         id: docker_build

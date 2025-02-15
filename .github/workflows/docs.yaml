@@ -26,11 +26,7 @@ jobs:
       - 
         name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), make/build-base/sqlite/graphviz (for arch), and just
         run: apk add bash git tar file make build-base sqlite graphviz just
-      - 
-        name: Install system deps & tools
-        run: |
-          chmod +x deps-alpine-build.sh && ./deps-alpine-build.sh
-          echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
+      
       - 
         name: Checkout
         uses: actions/checkout@v2
@@ -50,6 +46,10 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
         uses: andymckay/cancel-action@0.2
+      - 
+        name: Install system deps & tools
+        run: |
+          chmod +x deps-alpine-build.sh && ./deps-alpine-build.sh
       - name: Install hex
         run: mix local.hex --force
       - name: Install rebar
