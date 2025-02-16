@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.35.1">
-    <meta name="project" content="Bonfire v0.9.11-social-beta.5">
+    <meta name="project" content="Bonfire v0.9.11-social-beta.6">
 
 
-    <title>Bonfire.Ecto — Bonfire v0.9.11-social-beta.5</title>
+    <title>Bonfire.Ecto — Bonfire v0.9.11-social-beta.6</title>
     <link rel="stylesheet" href="dist/html-elixir-P45HOAC7.css" />
 
 
@@ -54,7 +54,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v0.9.11-social-beta.5
+          v0.9.11-social-beta.6
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ Pages
       </a>
 
     <span translate="no">Bonfire.Ecto</span> 
-    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.5)</small>
+    <small class="app-vsn" translate="no">(Bonfire v0.9.11-social-beta.6)</small>
 
   </h1>
 
@@ -156,7 +156,7 @@ Pages
   </a>
   <span class="text">Usage</span>
 </h3>
-<h4>1. Initial Setup</h4><p>Ensure that you have <a href="https://hexdocs.pm/ecto/3.12.5/Ecto.html"><code class="inline">Ecto</code></a> and <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> installed and configured in your application, and then install this linrary.</p><h4>2. Using <a href="./Bonfire.Ecto.Acts.Begin.html"><code class="inline">Bonfire.Ecto.Acts.Begin</code></a></h4><p>Refer to <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> docs to define some <code class="inline">Act</code>s and <code class="inline">Epic</code>s: <a href="https://github.com/bonfire-networks/bonfire_epics">https://github.com/bonfire-networks/bonfire_epics</a></p><h4>3. Queue database operation(s) in an Act</h4><p>Queue operations by calling the <a href="./Bonfire.Ecto.Acts.Work.html#add/2"><code class="inline">Bonfire.Ecto.Acts.Work.add/2</code></a> function, providing the epic and a key representing the changeset to be processed.</p><pre><code class="makeup elixir" translate="no"><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="2003870053-1">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_changeset</span><span class="p" data-group-id="2003870053-1">)</span></code></pre><h4>3. Add the three <a href="./Bonfire.Ecto.html"><code class="inline">Bonfire.Ecto</code></a> Acts to your Epic</h4><pre><code class="makeup elixir" translate="no"><span class="w">    </span><span class="c1"># First come the Acts that prepare the changeset and call `Bonfire.Ecto.Acts.Work.add/2` to queue it</span><span class="w">
+<h4>1. Initial Setup</h4><p>Ensure that you have <a href="https://hexdocs.pm/ecto/3.12.5/Ecto.html"><code class="inline">Ecto</code></a> and <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> installed and configured in your application, and then install this linrary.</p><h4>2. Using <a href="./Bonfire.Ecto.Acts.Begin.html"><code class="inline">Bonfire.Ecto.Acts.Begin</code></a></h4><p>Refer to <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> docs to define some <code class="inline">Act</code>s and <code class="inline">Epic</code>s: <a href="https://github.com/bonfire-networks/bonfire_epics">https://github.com/bonfire-networks/bonfire_epics</a></p><h4>3. Queue database operation(s) in an Act</h4><p>Queue operations by calling the <a href="./Bonfire.Ecto.Acts.Work.html#add/2"><code class="inline">Bonfire.Ecto.Acts.Work.add/2</code></a> function, providing the epic and a key representing the changeset to be processed.</p><pre><code class="makeup elixir" translate="no"><span class="n">epic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="4806955494-1">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">:some_changeset</span><span class="p" data-group-id="4806955494-1">)</span></code></pre><h4>3. Add the three <a href="./Bonfire.Ecto.html"><code class="inline">Bonfire.Ecto</code></a> Acts to your Epic</h4><pre><code class="makeup elixir" translate="no"><span class="w">    </span><span class="c1"># First come the Acts that prepare the changeset and call `Bonfire.Ecto.Acts.Work.add/2` to queue it</span><span class="w">
 
     </span><span class="c1"># Open a Postgres transaction and actually do the insertions in DB</span><span class="w">
     </span><span class="nc">Bonfire.Ecto.Acts.Begin</span><span class="p">,</span><span class="w">
