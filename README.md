@@ -11,7 +11,7 @@
 >
 > This project is in the beta stage - you're welcome to try out it out (specifically the social features in the classic flavour), but APIs may still change and no guarantees are given about stability. You can keep track of progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones?direction=asc&sort=due_date&state=open)
 
-## Main features
+## Main characteristics
 
 1. **Modular architecture**: Bonfire consists of extensions that shape the functionality and user experience of each digital space. Communities can enable or disable these extensions to customize their space according to their needs and vision.
 2. **Extensibility**: Developers can create new extensions to expand the capabilities of digital spaces, such as adding new activities or introducing innovative user experiences for existing functions.
@@ -23,17 +23,23 @@ Bonfire empowers developers and communities to create engaging, customizable, an
 
 ### 🔥 Flavours
 
-This repo includes configurations to run a few main [flavours of Bonfire](https://bonfirenetworks.org/apps/) you can choose from:
-* [Classic](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/classic) for basic social networking (beta)
-* [Community](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/community) with groups and topics functionality (alpha)
-* [Open Science](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/open-science) building the next generation of open science platforms (pre-alpha)
-* [Coordination](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/coordination) for organising work and collaborating around projects and tasks (pre-alpha)
-* [Cooperation](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/cooperation) for cooperative production, distribution, and exchange of economic resources (pre-alpha)
+This repo includes configurations to run a few main [flavours of Bonfire](https://bonfirenetworks.org/apps/) you can choose from. Each flavour (see above) includes different extensions and default settings. 
+
+* [Ember](https://github.com/bonfire-networks/ember) for just the basics
+* [Social](https://github.com/bonfire-networks/social) for classical social networking (beta)
+* [Community](https://github.com/bonfire-networks/community) with groups and topics functionality (alpha)
+* [Open Science](https://github.com/bonfire-networks/open-science) building the next generation of open science platforms (alpha)
+* [Coordination](https://github.com/bonfire-networks/coordination) for organising work and collaborating around projects and tasks (pre-alpha)
+* [Cooperation](https://github.com/bonfire-networks/cooperation) for cooperative production, distribution, and exchange of economic resources (pre-alpha)
 
 <!-- As well as app flavours being built by others, including: 
-* [Haha Academy](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/haha) by haha.academy 
-* [Upcycle](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/upcycle) by MSOE 
-* [Reflow](https://github.com/bonfire-networks/bonfire-app/tree/main/flavours/reflow) by reflowproject.eu and dyne.org -->
+* [Upcycle](https://github.com/bonfire-networks/upcycle) by MSOE 
+-->
+
+### 🧩 Extensions
+
+All of the features and user interface elements in Bonfire are implemented in [extensions](https://bonfirenetworks.org/extensions/), with the code for each being in a separate repository.
+
 
 ## How to get the most out of the documentation
 
