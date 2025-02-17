@@ -239,7 +239,7 @@ setup-prod-build:
 	just _clone_flavour_apps
 	just flavour_make_symlinks {{FLAVOUR}}
 	just deps-fetch --only prod
-	just _deps-post-get  
+	just _deps-post-get 
 	just _flavour_install {{FLAVOUR}}
 
 # Prepare environment and dependencies
