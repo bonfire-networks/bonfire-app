@@ -1034,7 +1034,7 @@ config :bonfire_data_social, PostContent,
 config :bonfire_data_social, Replied,
   code:
     (quote do
-       # multimixins 
+       # multimixins
        unquote_splicing(common.([:activities, :activity, :controlled, :like_count, :boost_count]))
 
        belongs_to(:post, unquote(Post), foreign_key: :id, define_field: false)
@@ -1051,7 +1051,7 @@ config :bonfire_data_social, Replied,
        )
 
        # NOTE: query requires an ON clause to filter by thread
-       #  has_one(:pinned, unquote(Pin), foreign_key: :id, references: :id) 
+       #  has_one(:pinned, unquote(Pin), foreign_key: :id, references: :id)
        # has_one(:pinned_edge, through: [:pinned, :edge])
        #  has_one(:pins_in_thread, unquote(Edge), # FIXME? won't show pins of custom type (eg. answer)
        #    foreign_key: :subject_id,

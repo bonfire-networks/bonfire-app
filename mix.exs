@@ -85,7 +85,9 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
-  maybe_arch_deps = if(System.get_env("CI") != "true", # NOTE: exqlite not working in CI
+  # NOTE: exqlite not working in CI
+  maybe_arch_deps =
+    if(System.get_env("CI") != "true",
       do: [
         {
           :archeometer,
@@ -95,7 +97,7 @@ defmodule Bonfire.Umbrella.MixProject do
         }
       ],
       else: []
-    ) 
+    )
 
   extra_deps =
     main_deps ++
@@ -407,7 +409,7 @@ defmodule Bonfire.Umbrella.MixProject do
           strip_beams: false,
           applications:
             [
-              bonfire: :permanent,
+              bonfire: :permanent
               # if observability fails it shouldn’t take your app down with it - FIXME: getting this in CI: Could not find application :opentelemetry
               # opentelemetry: :temporary
               # opentelemetry_exporter: :temporary,
