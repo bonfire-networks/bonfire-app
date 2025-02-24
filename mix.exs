@@ -80,7 +80,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:nx, "~> 0.9.0"},
         {:exla, "~> 0.9.1"},
         {:axon, "~> 0.7.0", override: true},
-        {:table_rex, "~> 4.0.0", override: true}
+        {:table_rex, "~> 4.1.0", override: true}
       ],
       else: []
     )
