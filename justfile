@@ -120,8 +120,8 @@ setup:
 	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env 
 
 # TODO: use as escript so entire app doesn't need to be compiled?
-@_flavour_install select_flavour:
-	chmod +x ./extensions/{{select_flavour}}/install.sh && ./extensions/{{select_flavour}}/install.sh || chmod +x ./deps/{{select_flavour}}/install.sh && ./deps/{{select_flavour}}/install.sh
+@_flavour_install select_flavour *args='':
+	chmod +x ./extensions/{{select_flavour}}/install.sh && ./extensions/{{select_flavour}}/install.sh {{args}} || chmod +x ./deps/{{select_flavour}}/install.sh && ./deps/{{select_flavour}}/install.sh {{args}}
 #{{ if CI == "true" { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install --yes" } else { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install" } }}
 # NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 
