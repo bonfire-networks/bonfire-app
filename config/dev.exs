@@ -28,16 +28,6 @@ config :bonfire, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-local_deps =
-  if Code.ensure_loaded?(Mess),
-    do:
-      Mess.read_umbrella(
-        # Path.expand("config/"),
-        config_dir: "config/",
-        use_local_forks?: System.get_env("WITH_FORKS", "1") == "1"
-      ),
-    else: []
-
 # if System.get_env("WITH_FORKS", "1") == "1" , do:
 # Mess.deps(
 #   [path: Path.relative_to_cwd("config/deps.path")],
@@ -67,6 +57,15 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
   enable_reloader? = System.get_env("HOT_CODE_RELOAD") != "0" and Mix.target() != :app
 
   config :bonfire, :hot_code_reload, enable_reloader?
+
+  local_deps =
+    if Code.ensure_loaded?(Mess),
+      do:
+        Mess.read_umbrella(
+          config_dir: if(File.exists?("config/deps.git"), do: "config/", else: "./"),
+          use_local_forks?: System.get_env("WITH_FORKS", "1") == "1"
+        ),
+      else: []
 
   local_dep_names = Enum.map(local_deps, &elem(&1, 0))
 
