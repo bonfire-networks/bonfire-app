@@ -103,8 +103,8 @@ setup:
 
 #### COMMON COMMANDS ####
 @_reset_flavour:
-	-rm ./config/deps.* 2> /dev/null
-	-rm ./config/current_flavour/deps.* 2> /dev/null
+	-rm ./config/current_flavour/* 2> /dev/null
+# -rm ./config/deps.* 2> /dev/null
 
 @_config_flavour flavour=FLAVOUR: db-clean-migrations
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
