@@ -389,6 +389,7 @@ case System.get_env("SENTRY_DSN", "") do
 end
 
 # config :untangle, level: :error
+config :untangle, to_io: System.get_env("UNTANGLE_TO_IO") in yes?
 
 # start prod-only config
 if config_env() == :prod do

@@ -9,7 +9,7 @@ import_config "activity_pub_test.exs"
 
 config :bonfire,
   # should match limit hardcoded in tests
-  default_pagination_limit: 2,
+  default_pagination_limit: 3,
   pagination_hard_max_limit: 20,
   skip_all_boundary_checks: false
 
