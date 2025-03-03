@@ -603,7 +603,7 @@ cloc:
 
 # Fetch latest remote commits from all extensions/forks git repos (does not checkout or rebase though)
 git-fetch-all:
-# just escript_dep jungle
+  just escript_dep jungle
 # jungle git fetch || just escript_dep jungle # ^ experimental: replaced racket script with escript
 
 # Run the git add command on each fork
