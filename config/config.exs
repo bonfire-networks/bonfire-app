@@ -348,13 +348,13 @@ end
 IO.puts("Extensions compile-time configs prepared")
 
 # include configs for the current flavour (augmenting or overriding the previous ones)
-flavour_config = "flavour_#{flavour}.exs" |> Path.expand(__DIR__)
+flavour_config = "#{flavour}.exs" |> Path.expand(__DIR__)
 
 if File.exists?(flavour_config) do
   System.get_env("MIX_QUIET") ||
     IO.puts("Include flavour-specific config from `#{flavour_config}`")
 
-  import_config("flavour_#{flavour}.exs")
+  import_config("#{flavour}.exs")
 else
   System.get_env("MIX_QUIET") ||
     IO.puts("You could put any flavour-specific config at `#{flavour_config}`")
