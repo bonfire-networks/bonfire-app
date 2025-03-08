@@ -11,7 +11,8 @@ config :bonfire,
   # should match limit hardcoded in tests
   default_pagination_limit: 2,
   pagination_hard_max_limit: 20,
-  skip_all_boundary_checks: false
+  skip_all_boundary_checks: false,
+  ui: [infinite_scroll: false]
 
 config :bonfire_mailer, Bonfire.Mailer.Bamboo, adapter: Bamboo.TestAdapter
 config :bonfire_mailer, Bonfire.Mailer.Swoosh, adapter: Swoosh.Adapters.Test
