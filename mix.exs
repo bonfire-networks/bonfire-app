@@ -92,7 +92,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {
           :archeometer,
           "~> 0.5.0",
-          # git: "https://gitlab.com/mayel/archeometer", 
+          # git: "https://gitlab.com/mayel/archeometer",
           only: [:dev], runtime: false
         }
       ],
@@ -109,7 +109,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # TODO: move most of these deps to ember or elsewhere?
         {
           :mess,
-          # git: "https://github.com/bonfire-networks/mess", 
+          # git: "https://github.com/bonfire-networks/mess",
           path: "forks/mess", only: [:dev, :test], override: true
         },
         {:jungle,
@@ -156,7 +156,7 @@ defmodule Bonfire.Umbrella.MixProject do
           "~> 0.5",
           # path: "forks/igniter",
           # git: "https://github.com/ash-project/igniter",
-          # only: [:dev, :test], 
+          # only: [:dev, :test],
           override: true
         },
 
