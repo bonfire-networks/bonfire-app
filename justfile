@@ -892,7 +892,7 @@ rel-update: update-repo-pull
 	@echo Remember to run migrations on your DB...
 
 rel-logs:
-	@just rel-docker-compose logs
+	@just rel-docker-compose logs --follow
 
 # Stop the running release
 rel-down: rel-stop
