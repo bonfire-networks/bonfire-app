@@ -124,8 +124,8 @@ defmodule Bonfire.Umbrella.MixProject do
         {:argon2_elixir, "~> 4.0", only: [:prod]},
 
         ## dev conveniences
+        {:live_debugger, "~> 0.1.1", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
-        #
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
         {:ex_doc, "~> 0.35.1", runtime: false},
