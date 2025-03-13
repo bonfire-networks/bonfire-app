@@ -145,7 +145,7 @@ More details at https://bonfirenetworks.org",
 config :bonfire,
   # used by ActivityLive - TODO: autogenerate?
   verb_families: [
-    reply: ["Reply", "Respond"],
+    reply: ["Reply", "Respond", "Annotate"], 
     create: ["Create", "Write"],
     react: ["Like", "Boost", "Flag", "Tag", "Pin"],
     simple_action: ["Assign", "Label", "Schedule"]
