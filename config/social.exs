@@ -14,6 +14,13 @@ config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarksLive, modularity: :d
 config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarkActionLive, modularity: :disabled
 
 config :bonfire, :ui,
+  # Register the social custom themes
+  themes: [
+    "social-dark"
+  ],
+  themes_light: [
+    "social"
+  ],
   default_nav_extensions: [
     :bonfire,
     :bonfire_ui_common,

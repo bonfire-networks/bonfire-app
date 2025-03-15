@@ -38,9 +38,7 @@ config :bonfire, :ui,
     instance_welcome: [
       title: "👋 Welcome",
       description:
-        "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.
-
-More details at https://bonfirenetworks.org",
+        "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level. More details at https://bonfirenetworks.org",
       links: [
         "About Bonfire": "https://bonfirenetworks.org/",
         Forum: "https://socialhub.activitypub.rocks/g/bonfire/activity/posts",
@@ -75,46 +73,34 @@ More details at https://bonfirenetworks.org",
     "Luciole",
     "OpenDyslexic"
   ],
-  themes: [
-    "bonfire",
+  themes_dark: [
     "dark",
     "synthwave",
+    "bonfire_custom",
     "retro",
     "cyberpunk",
     "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "black",
-    "luxury",
-    "dracula",
-    "business",
-    "night",
-    "coffee",
-    "dim",
-    "sunset"
+    "halloween"
   ],
   themes_light: [
     "light",
     "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "retro",
-    "cyberpunk",
-    "valentine",
-    "garden",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "cmyk",
-    "autumn",
-    "acid",
-    "lemonade",
-    "winter",
-    "nord"
+    "bumblebee"
+  ],
+  themes_custom: [
+    [
+      name: "bonfire_custom",
+      default: false,
+      prefersdark: true,
+      color_scheme: "dark",
+      "color-base-100": "oklch(20% 0.02 240)",
+      "color-base-200": "oklch(15% 0.03 240)",
+      "color-base-300": "oklch(10% 0.04 240)",
+      "color-base-content": "oklch(98% 0.05 240)",
+      "color-primary": "oklch(55% 0.3 30)",
+      "color-primary-content": "oklch(98% 0.01 30)",
+      "radius-box": "0.75rem"
+    ]
   ],
   show_trending_tags: [
     disabled: false,
