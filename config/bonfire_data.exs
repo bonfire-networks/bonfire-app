@@ -995,7 +995,8 @@ config :bonfire_data_social, Post,
            :like_count,
            :boost_count,
            :labelled,
-           :sensitive
+           :sensitive,
+           :extra_info
          ])
        )
 
