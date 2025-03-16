@@ -86,3 +86,12 @@ config :bonfire, :ui,
 #      # Bonfire.UI.Social.HashtagsWidgetLive,
 #    ],
 # ]
+
+
+config :bonfire_data_shared_user, modularity: :disabled
+config :bonfire_me, Bonfire.Me.SharedUsers,
+  modularity: :disabled
+
+config :bonfire_me, Bonfire.Me.Users, 
+  max_per_account: 1
+
