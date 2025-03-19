@@ -18,8 +18,8 @@ config :bonfire, :ui,
         "This is a space for archiving, preserving, and sharing knowledge across the fediverse. Join our community to contribute and explore archived content.",
       links: [
         "About Archives": "https://example.org/about",
-        "Documentation": "https://example.org/docs",
-        "Contribute": "https://example.org/contribute"
+        Documentation: "https://example.org/docs",
+        Contribute: "https://example.org/contribute"
       ]
     ]
   ],
@@ -86,12 +86,3 @@ config :bonfire, :ui,
 #      # Bonfire.UI.Social.HashtagsWidgetLive,
 #    ],
 # ]
-
-
-config :bonfire_data_shared_user, modularity: :disabled
-config :bonfire_me, Bonfire.Me.SharedUsers,
-  modularity: :disabled
-
-config :bonfire_me, Bonfire.Me.Users, 
-  max_per_account: 1
-

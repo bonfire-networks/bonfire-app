@@ -38,7 +38,9 @@ config :bonfire, :ui,
     instance_welcome: [
       title: "👋 Welcome",
       description:
-        "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level. More details at https://bonfirenetworks.org",
+        "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.
+
+More details at https://bonfirenetworks.org",
       links: [
         "About Bonfire": "https://bonfirenetworks.org/",
         Forum: "https://socialhub.activitypub.rocks/g/bonfire/activity/posts",
@@ -74,32 +76,36 @@ config :bonfire, :ui,
     "OpenDyslexic"
   ],
   themes_dark: [
+    "federated_archives_dark",
     "dark",
     "synthwave",
-    "bonfire_custom",
     "retro",
     "cyberpunk",
     "valentine",
-    "halloween"
+    "halloween",
+    "garden"
   ],
   themes_light: [
     "light",
     "cupcake",
-    "bumblebee"
+    "bumblebee",
+    "emerald",
+    "corporate"
   ],
   themes_custom: [
     [
-      name: "bonfire_custom",
+      name: "federated_archives_dark",
       default: false,
       prefersdark: true,
       color_scheme: "dark",
-      "color-base-100": "oklch(20% 0.02 240)",
-      "color-base-200": "oklch(15% 0.03 240)",
-      "color-base-300": "oklch(10% 0.04 240)",
-      "color-base-content": "oklch(98% 0.05 240)",
-      "color-primary": "oklch(55% 0.3 30)",
-      "color-primary-content": "oklch(98% 0.01 30)",
-      "radius-box": "0.75rem"
+      "color-base-100": "#303030",
+      "color-base-200": "#333333",
+      "color-base-300": "#262626",
+      "color-base-content": "#f2f1f1",
+      "color-primary": "#B5FF00",
+      "color-primary-content": "#272e16",
+      "radius-box": "2rem",
+      "radius-field": "2rem"
     ]
   ],
   show_trending_tags: [
@@ -131,7 +137,7 @@ config :bonfire, :ui,
 config :bonfire,
   # used by ActivityLive - TODO: autogenerate?
   verb_families: [
-    reply: ["Reply", "Respond", "Annotate"], 
+    reply: ["Reply", "Respond", "Annotate"],
     create: ["Create", "Write"],
     react: ["Like", "Boost", "Flag", "Tag", "Pin"],
     simple_action: ["Assign", "Label", "Schedule"]
