@@ -372,7 +372,7 @@ common_assocs = %{
   edge_emoji:
     quote(
       do:
-        has_one(:emoji, unquote(ExtraInfo), # Note: we're going straight to the mixin instead of the virtual `Bonfire.Data.Social.Emoji`
+        has_one(:emoji, unquote(Pointer), # Note: we can't load the ExtraInfo mixin instead of the virtual `Bonfire.Data.Social.Emoji` because it can also be `Media` for custom emoji
           foreign_key: :id,
           references: :table_id
         )
