@@ -368,6 +368,16 @@ common_assocs = %{
 
   ### Stuff I'm not sure how to categorise yet
 
+
+  edge_emoji:
+    quote(
+      do:
+        has_one(:emoji, unquote(ExtraInfo), # Note: we're going straight to the mixin instead of the virtual `Bonfire.Data.Social.Emoji`
+          foreign_key: :id,
+          references: :table_id
+        )
+    ),
+
   # Used currently only for requesting to follow a user, but more general
   request: quote(do: has_one(:request, unquote(Request), unquote(mixin))),
   ranked:
@@ -423,7 +433,8 @@ edge =
     :object_controlled,
     :object_tags,
     :object_voted,
-    :vote
+    :vote,
+    :edge_emoji
   ])
 
 # FIXME? do we want to boundarise an edge by the object (:object_controlled - eg. the post) or the edge (:controlled - eg. the like)
@@ -778,6 +789,7 @@ config :bonfire_data_social, Activity,
        (unquote_splicing(
           common.([
             :named,
+            :edge,
             :feed_publishes,
             :object_media,
             :object_post_content,
@@ -818,6 +830,17 @@ config :bonfire_data_social, Activity,
          references: :object_id,
          where: [table_id: @follow_ulid]
        )
+
+        # has_one(:like, unquote(Edge),
+        #   foreign_key: :id,
+        #   references: :id,
+        #   where: [verb_id: "11KES11KET0BE11KEDY0VKN0WS"]
+        # )
+
+        has_one(:emoji,
+          through: [:edge, :emoji]
+        )
+
      end)
 
 config :bonfire_data_social, APActivity,
