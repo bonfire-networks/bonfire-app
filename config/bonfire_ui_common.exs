@@ -156,9 +156,9 @@ config :iconify_ex,
   generated_icon_app: :bonfire_ui_common,
   mode: :css,
   using_svg_inject: true,
-  generated_icon_modules_path: "#{dep_path}lib/components/icons",
+  generated_icon_modules_path: "#{dep_path}/lib/components/icons",
   generated_icon_static_url: "/images/icons",
-  generated_icon_static_path: "#{dep_path}assets/static/images/icons"
+  generated_icon_static_path: "#{dep_path}/assets/static/images/icons"
 
 config :surface, :components, [
   {Bonfire.UI.Common.Modular.StatelessComponent, propagate_context_to_slots: true},
