@@ -17,30 +17,13 @@ test_instance = System.get_env("TEST_INSTANCE")
 yes? = ~w(true yes 1)
 no? = ~w(false no 0)
 
-repos =
-  if Code.ensure_loaded?(Beacon.Repo),
-    do: [Bonfire.Common.Repo, Beacon.Repo],
-    else: [Bonfire.Common.Repo]
-
-repos =
-  if test_instance in yes?,
-    do: repos ++ [Bonfire.Common.TestInstanceRepo],
-    else: repos
-
 # hosts =
 #   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
 #   |> String.replace(["`", " "], "")
 #   |> String.split(",")
 #   |> Enum.map(&"//#{&1}")
 
-## load extensions' runtime configs (and behaviours) directly via extension-provided modules
-Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
-##
-
-db_url = System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL")
-db_pw = System.get_env("POSTGRES_PASSWORD") || System.get_env("CLOUDRON_POSTGRESQL_PASSWORD")
-
-db_url || db_pw ||
+System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") || System.get_env("POSTGRES_PASSWORD") || System.get_env("CLOUDRON_POSTGRESQL_PASSWORD") ||
   System.get_env("MIX_QUIET") || System.get_env("CI") ||
   raise """
   Environment variables for database are missing.
@@ -49,25 +32,10 @@ db_url || db_pw ||
   and POSTGRES_USER (default: postgres) and POSTGRES_HOST (default: localhost)
   """
 
-maybe_repo_ipv6 = if System.get_env("ECTO_IPV6") in yes?, do: [:inet6], else: []
+## load extensions' runtime configs (and behaviours) directly via extension-provided modules
+Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
+##
 
-repo_connection_config =
-  if db_url do
-    [
-      url: db_url,
-      socket_options: maybe_repo_ipv6
-    ]
-  else
-    [
-      username:
-        System.get_env("POSTGRES_USER") ||
-          System.get_env("CLOUDRON_POSTGRESQL_USERNAME", "postgres"),
-      password: db_pw || "postgres",
-      hostname:
-        System.get_env("POSTGRES_HOST") || System.get_env("CLOUDRON_POSTGRESQL_HOST", "localhost"),
-      socket_options: maybe_repo_ipv6
-    ]
-  end
 
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
@@ -181,55 +149,6 @@ finch_pools = %{
 config :bonfire, :finch_pools, finch_pools
 config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
 
-pool_size =
-  case System.get_env("POOL_SIZE") do
-    pool when is_binary(pool) and pool not in ["", "0"] ->
-      String.to_integer(pool)
-
-    # default to twice the number of CPU cores
-    _ ->
-      System.schedulers_online() * 2
-  end
-
-IO.puts("Note: Starting database connection pool of #{pool_size}")
-
-database =
-  case config_env() do
-    :test ->
-      "bonfire_test_#{test_instance}_#{System.get_env("MIX_TEST_PARTITION") || 0}"
-
-    :dev ->
-      System.get_env("POSTGRES_DB", "bonfire_dev")
-
-    _ ->
-      System.get_env("POSTGRES_DB") || System.get_env("CLOUDRON_POSTGRESQL_DATABASE") || "bonfire"
-  end
-
-config :bonfire, ecto_repos: repos
-config :bonfire, ecto_repos: repos
-config :paginator, ecto_repos: repos
-config :activity_pub, ecto_repos: repos
-
-config :bonfire, Bonfire.Common.Repo, repo_connection_config
-config :bonfire, Bonfire.Common.TestInstanceRepo, repo_connection_config
-config :beacon, Beacon.Repo, repo_connection_config
-
-config :bonfire, Bonfire.Common.Repo, database: database
-config :beacon, Beacon.Repo, database: database
-config :paginator, Paginator.Repo, database: database
-
-config :bonfire, Bonfire.Common.Repo, pool_size: pool_size
-config :bonfire, Bonfire.Common.TestInstanceRepo, pool_size: pool_size
-config :beacon, Beacon.Repo, pool_size: pool_size
-config :paginator, Paginator.Repo, pool_size: pool_size
-
-repo_path = System.get_env("DB_REPO_PATH", "priv/repo")
-config :bonfire, Bonfire.Common.Repo, priv: repo_path
-config :bonfire, Bonfire.Common.TestInstanceRepo, priv: repo_path
-
-config :ecto_sparkles,
-  slow_query_ms: String.to_integer(System.get_env("DB_SLOW_QUERY_MS", "100")),
-  queries_log_level: String.to_atom(System.get_env("DB_QUERIES_LOG_LEVEL", "debug"))
 
 config :bonfire, Oban,
   notifier: Oban.Notifiers.PG,
@@ -297,6 +216,16 @@ case System.get_env("GRAPH_DB_URL") do
     nil
 
   url ->
+    pool_size =
+  case System.get_env("POOL_SIZE") do
+    pool when is_binary(pool) and pool not in ["", "0"] ->
+      String.to_integer(pool)
+
+    # default to twice the number of CPU cores
+    _ ->
+      System.schedulers_online() * 2
+  end
+  
     config :bolt_sips, Bolt,
       url: url,
       basic_auth: [username: "memgraph", password: "memgraph"],
