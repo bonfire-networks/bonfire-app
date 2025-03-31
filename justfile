@@ -652,9 +652,6 @@ test *args='':
 	@echo "Testing {{args}}..."
 	MIX_ENV=test just mix test {{args}}
 
-# test-federation *args='':
-# 	MIX_TEST_ONLY=federation just test --exclude ui backend --include federation {{args}}
-
 test-backend *args='':
 	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend {{args}}
 
