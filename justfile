@@ -207,7 +207,7 @@ cp_symlinks dir:
 # -cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
 # ulimit -n 524288
 
-setup-dev:
+pre-setup-dev:
 	just build
 	just deps-clean-data
 	just deps-clean-api
@@ -216,6 +216,8 @@ setup-dev:
 	just _clone_flavour_apps
 	just flavour_make_symlinks {{FLAVOUR}}
 	just deps-fetch
+
+setup-dev: pre-setup-dev
 	just _flavour_install {{FLAVOUR}}
 
 extension-post-install:  
