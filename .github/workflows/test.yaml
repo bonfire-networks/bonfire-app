@@ -76,7 +76,7 @@ jobs:
     - name: Prepare environment
       run: just config 
     - name: Set things up 
-      run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes
+      run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
     - name: Run tests
       run: just test-${{matrix.test_only}}
     - name: Check database down migrations 

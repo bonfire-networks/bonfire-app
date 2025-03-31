@@ -215,10 +215,11 @@ pre-setup-dev:
 	WITH_GIT_DEPS=0 just mix deps.get
 	just _clone_flavour_apps
 	just flavour_make_symlinks {{FLAVOUR}}
-	just deps-fetch
+	just deps-fetch-only
 
 setup-dev: pre-setup-dev
 	just _flavour_install {{FLAVOUR}}
+	just _deps-post-get
 
 extension-post-install:  
 	just _ext-migrations-copy
@@ -450,10 +451,13 @@ update-fork-path path cmd='pull' mindepth='0' maxdepth='1' extra='':
 
 # Fetch locked versions of deps (Elixir and JS), including ones also cloned locally
 @deps-fetch *args='':
+	just deps-fetch-only {{args}}
+	just _deps-post-get
+
+@deps-fetch-only *args='':
 	just deps-get {{args}}
 	-just mix-remote deps.get {{args}} || echo "Oops, could not download mix deps"
 	just js-deps-fetch
-	just _deps-post-get
 
 # Fetch locked versions of Elixir deps (except ones also cloned locally)
 @deps-get *args='':
