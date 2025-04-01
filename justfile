@@ -126,6 +126,7 @@ setup:
 # NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 
 flavour_make_symlinks flavour=FLAVOUR:
+	just _ln-from-dep {{flavour}} config/ "*" config/
 	just _ln-from-dep ember config/ "*" config/
 	mkdir -p config/current_flavour
 	cd config/current_flavour && ln -sf ../../extensions/{{flavour}}/assets || ln -sf ../../deps/{{flavour}}/assets || echo "Could not find a assets dir to use for {{flavour}}"

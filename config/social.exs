@@ -10,8 +10,11 @@ config :bonfire_social, Bonfire.Social.Pins, modularity: :disabled
 config :bonfire_boundaries, Bonfire.UI.Boundaries.SetBoundariesLive, modularity: :disabled
 config :bonfire_boundaries, Bonfire.UI.Boundaries.PreviewBoundariesLive, modularity: :disabled
 
-config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarksLive, modularity: :disabled
-config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarkActionLive, modularity: :disabled
+# config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarksLive, modularity: :disabled
+# config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarkActionLive, modularity: :disabled
+
+config :bonfire_ui_social, Bonfire.Social.Pins, modularity: :disabled
+config :bonfire_label, Bonfire.Label.Web.ContentLabelLive, modularity: :disabled
 
 config :bonfire, :ui,
   default_nav_extensions: [

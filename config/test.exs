@@ -46,26 +46,6 @@ if !test_instance? and System.get_env("CAPTURE_LOG") != "no" do
   config :logger, backends: []
 end
 
-# Configure your database
-# db = "bonfire_test#{System.get_env("MIX_TEST_PARTITION") || 0}"
-#
-# The MIX_TEST_PARTITION environment variable can be used
-# to provide built-in test partitioning in CI environment.
-# Run `mix help test` for more information.
-config :bonfire, Bonfire.Common.Repo,
-  pool: Ecto.Adapters.SQL.Sandbox,
-  # show_sensitive_data_on_connection_error: true,
-  # database: db,
-  slow_query_ms: 500,
-  queue_target: 5_000,
-  queue_interval: 2_000,
-  timeout: 50_000,
-  connect_timeout: 10_000,
-  ownership_timeout: 100_000,
-  # log: :info,
-  log: false,
-  stacktrace: true
-
 if !federate? do
   config :tesla,
     adapter: Tesla.Mock
@@ -104,21 +84,9 @@ config :argon2_elixir,
 config :mix_test_interactive,
   clear: true
 
-config :paginator, Paginator.Repo,
-  pool: Ecto.Adapters.SQL.Sandbox,
-  username: System.get_env("POSTGRES_USER", "postgres"),
-  password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-  hostname: System.get_env("POSTGRES_HOST", "localhost")
-
-# database: db
-
 config :exsync,
   src_monitor: false,
   extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
-
-# use Ecto sandbox?
-config :bonfire,
-  sql_sandbox: System.get_env("PHX_SERVER") != "yes" and System.get_env("TEST_INSTANCE") != "yes"
 
 {chromedriver_path, _} = System.cmd("sh", ["-c", "command -v chromedriver"])
 
