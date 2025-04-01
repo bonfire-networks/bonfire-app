@@ -940,13 +940,13 @@ rel-docker-compose *args:
 	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just docker-compose up -d \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
 # Build the docker image
-@build: init
+@build: 
 	mkdir -p deps
 	{{ if WITH_DOCKER != "no" { "just docker-compose pull || echo Oops, could not download the Docker images!" } else { "just mix hex_setup" } }}
 	{{ if WITH_DOCKER == "total" { "just docker-compose build" } else { "echo ." } }}
 
 # Build the docker image
-rebuild: init
+rebuild: 
 	{{ if WITH_DOCKER != "no" { "mkdir -p deps && just docker-compose build --no-cache" } else { "echo Skip building container..." } }}
 
 _db-dump docker_compose compose_args="": 
