@@ -654,10 +654,10 @@ test path='' *args='':
 	@MIX_ENV=test just mix test `just test-convert-path {{path}}` {{args}}
 
 test-backend path='' *args='':
-	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui `just test-default-exludes` --include backend {{args}}
+	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui `just test-default-exludes` {{args}}
 
 test-ui path='' *args='':
-	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend `just test-default-exludes` --include ui {{args}}
+	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend `just test-default-exludes` {{args}}
 
 test-default-exludes:
 	@echo "--exclude federation --exclude live_federation --exclude test_instance --exclude todo --exclude skip --exclude benchmark"
