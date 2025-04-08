@@ -773,8 +773,9 @@ test-convert-path path:
 		line="${BASH_REMATCH[2]}"
 		extension=$(echo "$path" | cut -d'/' -f1)
 	else
-		echo "Invalid input: $input"
-		return 1
+		# Invalid input, just return it
+		echo "$input"
+		exit 1
 	fi
 
 	# Remove 'blob/main/' if present
