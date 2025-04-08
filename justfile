@@ -649,43 +649,43 @@ deps-git-fix:
 #### TESTING RELATED COMMANDS ####
 
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
-test *args='':
-	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test {{args}}
+test path='' *args='':
+	@echo "Testing with {{args}}..."
+	@MIX_ENV=test just mix test `just test-convert-path {{path}}` {{args}}
 
-test-backend *args='':
-	MIX_TEST_ONLY=backend just test --exclude ui --exclude federation --exclude todo --include backend {{args}}
+test-backend path='' *args='':
+	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui --exclude federation --exclude todo --include backend {{args}}
 
-test-ui *args='':
-	MIX_TEST_ONLY=ui just test --exclude backend --exclude federation --exclude todo --include ui {{args}}
+test-ui path='' *args='':
+	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend --exclude federation --exclude todo --include ui {{args}}
 
 # Run only stale tests
-test-stale *args='':
-	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test --stale {{args}}
+test-stale path='' *args='':
+	@echo "Testing with {{args}}..."
+	MIX_ENV=test just mix test  `just test-convert-path {{path}}`  --stale {{args}}
 
 # Run tests (ignoring changes in local forks)
-test-remote *args='':
-	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix-remote test {{args}}
+test-remote path='' *args='':
+	@echo "Testing with {{args}}..."
+	MIX_ENV=test just mix-remote test  `just test-convert-path {{path}}`  {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
-test-watch *args='':
+test-watch path='' *args='':
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch --stale --exclude mneme {{args}}
+	MIX_ENV=test just mix test.watch `just test-convert-path {{path}}`   --stale --exclude mneme {{args}}
 
-test-watch-mneme *args='':
+test-watch-mneme path='' *args='':
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix mneme.watch --stale --include mneme {{args}}
+	MIX_ENV=test just mix mneme.watch  `just test-convert-path {{path}}`  --stale --include mneme {{args}}
 
-test-watch-full *args='':
+test-watch-full path='' *args='':
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch --exclude mneme {{args}}
+	MIX_ENV=test just mix test.watch  `just test-convert-path {{path}}`  --exclude mneme {{args}}
 # MIX_ENV=test just mix mneme.watch {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
-test-interactive *args='':
-	@MIX_ENV=test just mix test.interactive --stale {{args}}
+test-interactive path='' *args='':
+	@MIX_ENV=test just mix test.interactive  `just test-convert-path {{path}}` --stale {{args}}
 
 ap_lib := "forks/activity_pub/test/activity_pub"
 ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration"
@@ -749,6 +749,46 @@ test-db-reset: init db-pre-migrations _test-db-dance-reset
 _test-db-dance-reset: init db-pre-migrations
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
+
+
+test-convert-path path:
+	#!/usr/bin/env bash
+	input={{path}}
+
+	# Extract the path and line number
+	if [[ "$input" =~ https://github.com/[^/]+/([^/]+)/blob/main/([^#]+)#L([0-9]+) ]]; then
+		extension="${BASH_REMATCH[1]}"
+		path="${BASH_REMATCH[2]}"
+		line="${BASH_REMATCH[3]}"
+	elif [[ "$input" =~ [^/]+/([^/]+)/blob/main/([^#]+)#L([0-9]+) ]]; then
+		extension="${BASH_REMATCH[1]}"
+		path="${BASH_REMATCH[2]}"
+		line="${BASH_REMATCH[3]}"
+	elif [[ "$input" =~ ([^#]+)#L([0-9]+) ]]; then
+		path="${BASH_REMATCH[1]}"
+		line="${BASH_REMATCH[2]}"
+		extension=$(echo "$path" | cut -d'/' -f1)
+	elif [[ "$input" =~ ([^:]+):([0-9]+) ]]; then
+		path="${BASH_REMATCH[1]}"
+		line="${BASH_REMATCH[2]}"
+		extension=$(echo "$path" | cut -d'/' -f1)
+	else
+		echo "Invalid input: $input"
+		return 1
+	fi
+
+	# Remove 'blob/main/' if present
+	path="${path/blob\/main\//}"
+
+	# Ensure there is no duplicate "extensions/" prefix and handle any extension
+	if [[ "$path" =~ ^extensions/ ]]; then
+		echo "${path}:${line}"
+	elif [[ "$path" =~ ^${extension}/ ]]; then
+		echo "extensions/${path}:${line}"
+	else
+		echo "extensions/${extension}/${path}:${line}"
+	fi
+
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
 _rel-init:
