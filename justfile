@@ -390,7 +390,7 @@ update-app: update-repo update-deps
 # rm -rf deps/bonfire/priv/repo/*
 # rm -rf extensions/bonfire/priv/repo/*
 
-_pre-update-deps: db-clean-migrations
+_pre-update-deps: 
 	@rm -rf deps/*/assets/pnpm-lock.yaml
 	@rm -rf deps/*/assets/yarn.lock
 
