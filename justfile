@@ -654,10 +654,13 @@ test path='' *args='':
 	@MIX_ENV=test just mix test `just test-convert-path {{path}}` {{args}}
 
 test-backend path='' *args='':
-	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui --exclude federation --exclude todo --include backend {{args}}
+	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui `just test-default-exludes` --include backend {{args}}
 
 test-ui path='' *args='':
-	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend --exclude federation --exclude todo --include ui {{args}}
+	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend `just test-default-exludes` --include ui {{args}}
+
+test-default-exludes:
+	@echo "--exclude federation --exclude live_federation --exclude test_instance --exclude todo --exclude skip --exclude benchmark"
 
 # Run only stale tests
 test-stale path='' *args='':
@@ -672,7 +675,7 @@ test-remote path='' *args='':
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch path='' *args='':
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch `just test-convert-path {{path}}`   --stale --exclude mneme {{args}}
+	MIX_ENV=test just mix test.watch `just test-convert-path {{path}}`   --stale --exclude mneme `just test-default-exludes` {{args}}
 
 test-watch-mneme path='' *args='':
 	@echo "Testing {{args}}..."
