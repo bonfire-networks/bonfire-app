@@ -84,13 +84,14 @@ config:
 	just _reset_flavour
 	just _config_flavour {{select_flavour}}
 	just _pre-setup {{select_flavour}}
-	printf "\nYou can edit your config for flavour '{{select_flavour}}' in /.env\n"
+	printf "\nYou can edit your config for flavour '{{select_flavour}}' in /.env (tip: use 'just secrets' to generate the necessary random strings)\n"
 	printf "\nAnd make sure to finish the flavour setup with 'just setup'.\n" 
 # FIXME: figure out how to re-read the .env so the flavour etc are correct without having to split into two commands.
 
-init services="db search": _pre-init 
-	@just services "{{services}}"
+init services="db search": 
 	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - {{os_family()}}/{{os()}} on {{ARCH}}"
+	@just _pre_init 
+	@just services "{{services}}"
 
 @config-basic select_flavour=FLAVOUR:
 	echo "Setting up flavour '$select_flavour' in $MIX_ENV env..."
@@ -110,13 +111,13 @@ setup:
 	echo "Using flavour '{{flavour}}' with env '$MIX_ENV' with vars from ./config/$ENV_ENV/.env"
 	mkdir -p ./config/prod/ 
 	mkdir -p ./config/dev/
-	test -f .env || just _config_flavour-env-init {{flavour}} config config
+	test -f .env || just _config_flavour_env_init {{flavour}} config config
 	echo "FLAVOUR=$flavour" >> config/$ENV_ENV/.env
 	-rm .env
 	ln -sf ./config/$ENV_ENV/.env ./.env 
-# test -f ./flavours/{{flavour}}/config/$ENV_ENV/.env || just _config_flavour-env-init {{flavour}} flavours/{{flavour}}/config flavours/{{flavour}}/config || just _config_flavour-env-init {{flavour}} flavours/classic/config flavours/{{flavour}}/config
+# test -f ./flavours/{{flavour}}/config/$ENV_ENV/.env || just _config_flavour_env_init {{flavour}} flavours/{{flavour}}/config flavours/{{flavour}}/config || just _config_flavour_env_init {{flavour}} flavours/classic/config flavours/{{flavour}}/config
 
-@_config_flavour-env-init flavour from to:
+@_config_flavour_env_init flavour from to:
 	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env 
 
 # TODO: use as escript so entire app doesn't need to be compiled?
@@ -198,7 +199,7 @@ cp_symlinks dir:
 	mkdir -p forks/
 	touch .erlang.cookie && chmod 644 .erlang.cookie
 
-@_pre-init: _assets-ln
+@_pre_init: _assets-ln
 	echo "Using $MIX_ENV env, with flavour: $FLAVOUR"
 	mkdir -p data
 	mkdir -p ./priv/repo/
@@ -267,8 +268,7 @@ dev-run services="db search" *args='':
 @dev-remote: init
 	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
 
-@dev-app:
-	just init
+@dev-app: init
 	cd rel/app/macos && ./run.sh
 
 dev-search: 
@@ -324,7 +324,7 @@ compile *args='':
 recompile *args='':
 	just compile --force {{args}}
 
-dev-test:
+dev-test: 
 	@MIX_ENV=test PHX_SERVER=yes just dev-run
 
 # Run the app in dev mode, as a background service
@@ -332,11 +332,11 @@ dev-bg: init
 	{{ if WITH_DOCKER == "total" { "just docker-stop-web && just docker-compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
-db-migrate:
+db-migrate: services
 	just mix "ecto.migrate"
 #	just mix "excellent_migrations.migrate"
 
-db-migration-checks:
+db-migration-checks: services
 	just mix "excellent_migrations.migrate"
 
 # Run latest database seeds (eg. inserting required data after adding/upgrading an app/extension)
@@ -344,7 +344,7 @@ db-seeds: db-migrate
 	just mix "ecto.seeds"
 
 # Reset the DB (caution: this means DATA LOSS)
-db-reset: init dev-search-reset db-pre-migrations
+db-reset: services dev-search-reset db-pre-migrations
 	just mix "ecto.reset"
 
 # Backup and then Upgrade the Postgres DB version (NOTE: does not work with Postgis geo extension) using https://github.com/pgautoupgrade/docker-pgautoupgrade 
@@ -365,17 +365,17 @@ dev-search-reset-docker:
 	{{ if WITH_DOCKER != "no" { "just docker-compose rm -s -v search" } else {""} }}
 
 # Rollback previous DB migration (caution: this means DATA LOSS)
-db-rollback:
+db-rollback: services
 	just mix "ecto.rollback"
 
 # Rollback ALL DB migrations (caution: this means DATA LOSS)
-db-rollback-all:
+db-rollback-all: services
 	just mix "ecto.rollback --all"
 
 #### UPDATE COMMANDS ####
 
 # Update the dev app and all dependencies/extensions/forks, and run migrations
-update: init update-repo prepare update-forks update-deps js-deps-fetch
+update: _pre_init update-repo prepare update-forks update-deps js-deps-fetch
 	just deps-get
 	just _deps-post-get
 #   just mix compile
@@ -563,7 +563,7 @@ deps-clone-local-all:
 # 	just mix "deps.clean $dep"
 
 # Utility to manage the deps in deps.hex, deps.git, and deps.path (eg. `just messctl help`)
-# messctl *args='': init
+# messctl *args='': 
 # 	{{ if WITH_DOCKER == "no" { "messctl $args" } else { "just docker-compose run web messctl $args" } }}
 
 #### CONTRIBUTION RELATED COMMANDS ####
@@ -649,45 +649,45 @@ deps-git-fix:
 #### TESTING RELATED COMMANDS ####
 
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
-test path='' *args='':
+test path='' *args='': services
 	@echo "Testing with {{args}}..."
 	@MIX_ENV=test just mix test `just test-convert-path {{path}}` {{args}}
 
-test-backend path='' *args='':
+test-backend path='' *args='': services
 	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui `just test-default-exludes` {{args}}
 
-test-ui path='' *args='':
+test-ui path='' *args='': services
 	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend `just test-default-exludes` {{args}}
 
 test-default-exludes:
 	@echo "--exclude federation --exclude live_federation --exclude test_instance --exclude todo --exclude skip --exclude benchmark"
 
 # Run only stale tests
-test-stale path='' *args='':
+test-stale path='' *args='': services
 	@echo "Testing with {{args}}..."
 	MIX_ENV=test just mix test  `just test-convert-path {{path}}`  --stale {{args}}
 
 # Run tests (ignoring changes in local forks)
-test-remote path='' *args='':
+test-remote path='' *args='': services
 	@echo "Testing with {{args}}..."
 	MIX_ENV=test just mix-remote test  `just test-convert-path {{path}}`  {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
-test-watch path='' *args='':
+test-watch path='' *args='': services
 	@echo "Testing {{args}}..."
 	MIX_ENV=test just mix test.watch `just test-convert-path {{path}}`   --stale --exclude mneme `just test-default-exludes` {{args}}
 
-test-watch-mneme path='' *args='':
+test-watch-mneme path='' *args='': services
 	@echo "Testing {{args}}..."
 	MIX_ENV=test just mix mneme.watch  `just test-convert-path {{path}}`  --stale --include mneme {{args}}
 
-test-watch-full path='' *args='':
+test-watch-full path='' *args='': services
 	@echo "Testing {{args}}..."
 	MIX_ENV=test just mix test.watch  `just test-convert-path {{path}}`  --exclude mneme {{args}}
 # MIX_ENV=test just mix mneme.watch {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
-test-interactive path='' *args='':
+test-interactive path='' *args='': services
 	@MIX_ENV=test just mix test.interactive  `just test-convert-path {{path}}` --stale {{args}}
 
 ap_lib := "forks/activity_pub/test/activity_pub"
@@ -696,7 +696,7 @@ ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
 ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
-test-federation: _test-dance-positions
+test-federation: services _test-dance-positions
 	just test-stale {{ ap_lib }}
 	just test-stale {{ ap_integration }}
 	just test-stale {{ ap_ext }}
@@ -705,27 +705,27 @@ test-federation: _test-dance-positions
 	TEST_INSTANCE=yes just test-stale --only test_instance
 	just _test-dance-positions
 
-test-federation-lib *args=ap_lib: _test-dance-positions
+test-federation-lib *args=ap_lib: services	 _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-bonfire *args=ap_integration: _test-dance-positions
+test-federation-bonfire *args=ap_integration: services _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": _test-dance-positions
+test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": services _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-in-extensions *args=ap_ext: _test-dance-positions
+test-federation-in-extensions *args=ap_ext: services _test-dance-positions
 	just test-watch {{args}}
 
-test-federation-dance *args='': _test-dance-positions _test-db-dance-reset
+test-federation-dance *args='': services _test-dance-positions _test-db-dance-reset
 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
 	just _test-dance-positions
 
-test-federation-dance-unsigned *args='': _test-dance-positions _test-db-dance-reset
+test-federation-dance-unsigned *args='': services _test-dance-positions _test-db-dance-reset
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
 	just _test-dance-positions
 
-test-openid-dance *args='extensions/bonfire_open_id/test': _test-dance-positions _test-db-dance-reset
+test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions _test-db-dance-reset
 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}} 
 	just _test-dance-positions
 
@@ -736,20 +736,20 @@ test-openid-dance *args='extensions/bonfire_open_id/test': _test-dance-positions
 _test-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
-test-federation-live-DRAGONS *args='':
+test-federation-live-DRAGONS *args='': services
 	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test --only live_federation {{args}}
 
-load_testing:
+load_testing: services
 	TEST_INSTANCE=yes just mix bonfire.load_testing
 
-# dev-test-watch: init ## Run tests
+# dev-test-watch: services ## Run tests
 # 	just docker-compose run --service-ports -e MIX_ENV=test web iex -S mix phx.server
 
 # Create or reset the test DB
-test-db-reset: init db-pre-migrations _test-db-dance-reset
+test-db-reset: services db-pre-migrations _test-db-dance-reset
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 
-_test-db-dance-reset: init db-pre-migrations
+_test-db-dance-reset: services db-pre-migrations
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
@@ -795,10 +795,10 @@ test-convert-path path:
 
 
 #### RELEASE RELATED COMMANDS (Docker-specific for now) ####
-_rel-init:
-	MIX_ENV=prod just _pre-init
+_rel_init:
+	MIX_ENV=prod just _pre_init
 
-rel-config: config _rel-init _rel-prepare
+rel-config: config _rel_init _rel-prepare
 
 # copy current flavour's config, without using symlinks
 @_rel-config-prepare: config_follow_symlinks
@@ -837,7 +837,7 @@ rel-build-with-opts USE_EXT ARGS="":
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
-rel-build-OTP USE_EXT="local" ARGS="": _rel-init _rel-prepare
+rel-build-OTP USE_EXT="local" ARGS="": _rel_init _rel-prepare
 	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
 
 _rel-build-OTP USE_EXT="local" ARGS="": 
@@ -864,7 +864,7 @@ rel-mix USE_EXT="local" ARGS="":
 	@MIX_ENV=prod CI=true just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image
-@rel-build-docker USE_EXT="local" ARGS="": _rel-init _rel-prepare assets-prepare
+@rel-build-docker USE_EXT="local" ARGS="": _rel_init _rel-prepare assets-prepare
 	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }}
 
 rel-build-path FORKS_TO_COPY_PATH ARGS="":
@@ -893,10 +893,10 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 @rel-tag-version version label='latest':
 	just rel-tag-version-commit {{version}} $APP_BUILD {{label}}
 
-@rel-tag-version-commit version build label='latest': _rel-init
+@rel-tag-version-commit version build label='latest': _rel_init
 	just rel-tag-version-commit-flavour {{version}} {{build}} $FLAVOUR {{label}}
 
-@rel-tag-version-commit-flavour version build flavour label='latest': _rel-init
+@rel-tag-version-commit-flavour version build flavour label='latest': _rel_init
 	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}} $APP_DOCKER_REPO:{{label}}-{{flavour}}-{{ARCH}}
 	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}} $APP_DOCKER_REPO_ALT:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}}
 	docker tag $APP_DOCKER_REPO:release-{{flavour}}-{{version}}-{{build}}-{{ARCH}} $APP_DOCKER_REPO_ALT:{{label}}-{{flavour}}-{{ARCH}}
@@ -921,13 +921,13 @@ rel-push-only-alt build label='latest':
 	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{ARCH}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{ARCH}}
 
 # Run the app in Docker & starts a new `iex` console
-rel-run services="db proxy": _rel-init docker-stop-web  
+rel-run services="db proxy": _rel_init docker-stop-web  
 	just rel-services "{{services}}"
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
 	@just rel-docker-compose run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
-rel-run-bg services="db proxy": _rel-init docker-stop-web
+rel-run-bg services="db proxy": _rel_init docker-stop-web
 	just rel-services "{{services}}"
 	@just rel-docker-compose up -d
 
@@ -947,25 +947,25 @@ rel-down: rel-stop
 	@just rel-docker-compose down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-rel-shell services="db proxy": _rel-init docker-stop-web
+rel-shell services="db proxy": _rel_init docker-stop-web
 	just rel-services "{{services}}"
 	@just rel-docker-compose run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
-rel-shell-bg services="db proxy": _rel-init 
+rel-shell-bg services="db proxy": _rel_init 
 	just rel-services "{{services}}"
 	@just rel-docker-compose exec web /bin/bash
 
 # Runs a simple shell inside of the DB container, useful to explore the image
-rel-db-shell-bg: _rel-init 
+rel-db-shell-bg: _rel_init 
 	just rel-services db
 	@just rel-docker-compose exec db /bin/bash
 
-rel-db-dump: _rel-init 
+rel-db-dump: _rel_init 
 	just rel-services db
 	just _db-dump $APP_REL_DOCKERCOMPOSE "-p $APP_REL_CONTAINER"
 
-rel-db-restore: _rel-init 
+rel-db-restore: _rel_init 
 	just rel-services db
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
@@ -1002,14 +1002,14 @@ _db-shell docker_compose cmd="psql" compose_args="" extra_args="":
 	just docker-compose -f {{docker_compose}} {{compose_args}} exec --user $POSTGRES_USER db /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD {{cmd}} --username $POSTGRES_USER" {{extra_args}}
 
 # Run a specific command in the container (if used), eg: `just cmd messclt` or `just cmd time` or `just cmd "echo hello"`
-@cmd *args='': init docker-stop-web
-	{{ if WITH_DOCKER == "total" { "echo Run $args in docker && just docker-compose run --name $WEB_CONTAINER --service-ports web $args" } else {" echo Run $args && $args"} }}
+@cmd *args='':  
+	{{ if WITH_DOCKER == "total" { "echo Run $args in docker && just docker-stop-web && just docker-compose run --name $WEB_CONTAINER --service-ports web $args" } else {" echo Run $args && $args"} }}
 
 cwd *args:
 	cd {{invocation_directory()}}; {{args}}
 
 cwd-test *args:
-	cd {{invocation_directory()}}; MIX_ENV=test mix test {{args}}
+	cd {{invocation_directory()}}; MIX_ENV=test just test {{args}}
 
 # Open the shell of the web container, in dev mode
 shell:
@@ -1031,7 +1031,7 @@ shell:
 #### MISC COMMANDS ####
 
 # Open an interactive console
-@imix *args='':
+@imix *args='': services
 	just cmd iex -S mix {{args}}
 
 # Run a specific mix command, eg: `just mix deps.get` or `just mix "deps.update needle"`
@@ -1039,7 +1039,7 @@ shell:
 	echo % mix {{args}}
 	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $args" } else { "just cmd mix $args" } }}
 
-@mix-eval *args='': init
+@mix-eval *args='': 
 	echo % mix eval "{{args}}"
 	{{ if MIX_ENV == "prod" {"echo Skip"} else { 'mix eval "$args"' } }}
 
@@ -1050,7 +1050,7 @@ shell:
 	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $args" } }}
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
-mix-remote *args='': init
+mix-remote *args='': 
 	echo % WITH_FORKS=0 mix {{args}}
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e WITH_FORKS=0 web mix $args" } else {"WITH_FORKS=0 mix $args"} }}
 
