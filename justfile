@@ -649,95 +649,98 @@ deps-git-fix:
 #### TESTING RELATED COMMANDS ####
 
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
-test path='' *args='': services
+test path *args='': services
+	just test_run `just test_convert_path "{{path}}"` {{args}}
+
+test_run *args='': services
 	@echo "Testing with {{args}}..."
-	@MIX_ENV=test just mix test `just test-convert-path {{path}}` {{args}}
+	@MIX_ENV=test just mix test `just test_default_excludes` {{args}}
 
 test-backend path='' *args='': services
-	MIX_TEST_ONLY=backend just test `just test-convert-path {{path}}`  --exclude ui `just test-default-exludes` {{args}}
+	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}`  --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
 
 test-ui path='' *args='': services
-	MIX_TEST_ONLY=ui just test `just test-convert-path {{path}}`  --exclude backend `just test-default-exludes` {{args}}
+	MIX_TEST_ONLY=ui just test_run `just test_convert_path {{path}}`  --exclude backend --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
 
-test-default-exludes:
-	@echo "--exclude federation --exclude live_federation --exclude test_instance --exclude todo --exclude skip --exclude benchmark"
+test_default_excludes:
+	@echo "--exclude live_federation --exclude test_instance --exclude todo --exclude skip --exclude benchmark"
 
 # Run only stale tests
 test-stale path='' *args='': services
 	@echo "Testing with {{args}}..."
-	MIX_ENV=test just mix test  `just test-convert-path {{path}}`  --stale {{args}}
+	MIX_ENV=test just mix test  `just test_convert_path {{path}}`  --stale {{args}}
 
 # Run tests (ignoring changes in local forks)
 test-remote path='' *args='': services
 	@echo "Testing with {{args}}..."
-	MIX_ENV=test just mix-remote test  `just test-convert-path {{path}}`  {{args}}
+	MIX_ENV=test just mix-remote test  `just test_convert_path {{path}}`  {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch path='' *args='': services
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch `just test-convert-path {{path}}`   --stale --exclude mneme `just test-default-exludes` {{args}}
+	MIX_ENV=test just mix test.watch `just test_convert_path {{path}}`   --stale --exclude mneme `just test_default_excludes` {{args}}
 
 test-watch-mneme path='' *args='': services
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix mneme.watch  `just test-convert-path {{path}}`  --stale --include mneme {{args}}
+	MIX_ENV=test just mix mneme.watch  `just test_convert_path {{path}}`  --stale --include mneme {{args}}
 
 test-watch-full path='' *args='': services
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch  `just test-convert-path {{path}}`  --exclude mneme {{args}}
+	MIX_ENV=test just mix test.watch  `just test_convert_path {{path}}`  --exclude mneme {{args}}
 # MIX_ENV=test just mix mneme.watch {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive path='' *args='': services
-	@MIX_ENV=test just mix test.interactive  `just test-convert-path {{path}}` --stale {{args}}
+	@MIX_ENV=test just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
 
-ap_lib := "forks/activity_pub/test/activity_pub"
-ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration"
-ap_boundaries := "extensions/bonfire_federate_activitypub/test/ap_boundaries"
-ap_ext := "extensions/*/test/*federat* extensions/*/test/*/*federat* extensions/*/test/*/*/*federat*"
+ap_lib := "forks/activity_pub/test/activity_pub/"
+ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration/"
+ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
+ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation: services _test-dance-positions
-	just test-stale {{ ap_lib }}
-	just test-stale {{ ap_integration }}
-	just test-stale {{ ap_ext }}
+	just test_run {{ ap_lib }}
+	just test_run {{ ap_etc }}
 	just _test-dance-positions
 	just _test-db-dance-reset
-	TEST_INSTANCE=yes just test-stale --only test_instance
+	TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"
 	just _test-dance-positions
 
-test-federation-lib *args=ap_lib: services	 _test-dance-positions
-	just test-watch {{args}}
+test-federation-lib *args=ap_lib: services _test-dance-positions
+	just test_run {{args}}
 
-test-federation-bonfire *args=ap_integration: services _test-dance-positions
-	just test-watch {{args}}
+test-federation-integration *args=ap_integration: services _test-dance-positions
+	just test_run {{args}}
 
-test-federation-boundaries *args="extensions/bonfire_federate_activitypub/test/boundaries": services _test-dance-positions
-	just test-watch {{args}}
+test-federation-boundaries *args=ap_boundaries: services _test-dance-positions
+	just test_run {{args}}
 
-test-federation-in-extensions *args=ap_ext: services _test-dance-positions
-	just test-watch {{args}}
+test-federation-etc *args=ap_etc: services _test-dance-positions
+	just test_run {{args}}
 
 test-federation-dance *args='': services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
+	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
+# note: also includes oauth
 test-federation-dance-unsigned *args='': services _test-dance-positions _test-db-dance-reset
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}}
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
 test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost just test --only test_instance {{args}} 
+	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
 # test-boostomatic-dance *args='extensions/boostomatic/test': _test-dance-positions _test-db-dance-reset
-# 	TEST_INSTANCE=yes HOSTNAME=localhost just test --only live_federation {{args}} 
+# 	TEST_INSTANCE=yes HOSTNAME=localhost just test_run --only live_federation {{args}} 
 # 	just _test-dance-positions
 
 _test-dance-positions: 
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 test-federation-live-DRAGONS *args='': services
-	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test --only live_federation {{args}}
+	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test_run --only live_federation {{args}}
 
 load_testing: services
 	TEST_INSTANCE=yes just mix bonfire.load_testing
@@ -754,7 +757,7 @@ _test-db-dance-reset: services db-pre-migrations
 	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
 
-test-convert-path path:
+test_convert_path path:
 	#!/usr/bin/env bash
 	input={{path}}
 
@@ -1009,7 +1012,7 @@ cwd *args:
 	cd {{invocation_directory()}}; {{args}}
 
 cwd-test *args:
-	cd {{invocation_directory()}}; MIX_ENV=test just test {{args}}
+	cd {{invocation_directory()}}; MIX_ENV=test just test_run {{args}}
 
 # Open the shell of the web container, in dev mode
 shell:

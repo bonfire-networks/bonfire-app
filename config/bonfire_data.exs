@@ -441,6 +441,7 @@ edge =
 
 edges =
   common.([
+    # :edge,
     :named,
     :extra_info,
     :controlled,
@@ -940,6 +941,10 @@ config :bonfire_data_social, Like,
   code:
     (quote do
        (unquote_splicing(edges))
+
+        has_one(:emoji,
+         through: [:edge, :emoji]
+       )
      end)
 
 # has_one:  [activity: {Activity, foreign_key: :object_id, references: :liked_id}] # requires an ON clause

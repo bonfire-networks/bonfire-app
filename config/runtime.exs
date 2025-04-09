@@ -8,14 +8,16 @@ IO.puts("Preparing runtime config...")
 
 System.get_env("MIX_QUIET") || IO.puts("🔥 Welcome to Bonfire!")
 
+yes? = ~w(true yes 1)
+no? = ~w(false no 0)
+
 # flavour = System.get_env("FLAVOUR", "classic")
 host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
-test_instance = System.get_env("TEST_INSTANCE")
+test_instance? = System.get_env("TEST_INSTANCE") in yes?
+federate? = test_instance? or System.get_env("FEDERATE") in yes?
 
-yes? = ~w(true yes 1)
-no? = ~w(false no 0)
 
 # hosts =
 #   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
@@ -23,7 +25,8 @@ no? = ~w(false no 0)
 #   |> String.split(",")
 #   |> Enum.map(&"//#{&1}")
 
-System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") || System.get_env("POSTGRES_PASSWORD") || System.get_env("CLOUDRON_POSTGRESQL_PASSWORD") ||
+System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") ||
+  System.get_env("POSTGRES_PASSWORD") || System.get_env("CLOUDRON_POSTGRESQL_PASSWORD") ||
   System.get_env("MIX_QUIET") || System.get_env("CI") ||
   raise """
   Environment variables for database are missing.
@@ -35,7 +38,6 @@ System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") || S
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
 ##
-
 
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
@@ -60,7 +62,7 @@ cute_gifs_dir = System.get_env("CUTE_GIFS_DIR", "data/uploads/cute-gifs/")
 
 config :bonfire,
   # how many nested replies to show
-  thread_default_max_depth: 7,
+  thread_default_max_depth: String.to_integer(System.get_env("THREAD_DEPTH", "3")),
   feed_live_update_many_preload_mode: :async_actions,
   host: host,
   default_cache_hours: String.to_integer(System.get_env("BONFIRE_CACHE_HOURS", "3")),
@@ -88,7 +90,7 @@ end
 config :bonfire, Bonfire.Web.Endpoint,
   server:
     phx_server not in no? and
-      (config_env() != :test or test_instance in yes? or phx_server in yes?),
+      (config_env() != :test or test_instance? or phx_server in yes?),
   url: [
     host: host,
     port: public_port
@@ -147,8 +149,10 @@ finch_pools = %{
 
 # config :tesla, adapter: Tesla.Adapter.Hackney
 config :bonfire, :finch_pools, finch_pools
-config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
 
+if config_env() !=:test or federate? do
+  config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
+end
 
 config :bonfire, Oban,
   notifier: Oban.Notifiers.PG,
@@ -217,15 +221,15 @@ case System.get_env("GRAPH_DB_URL") do
 
   url ->
     pool_size =
-  case System.get_env("POOL_SIZE") do
-    pool when is_binary(pool) and pool not in ["", "0"] ->
-      String.to_integer(pool)
+      case System.get_env("POOL_SIZE") do
+        pool when is_binary(pool) and pool not in ["", "0"] ->
+          String.to_integer(pool)
 
-    # default to twice the number of CPU cores
-    _ ->
-      System.schedulers_online() * 2
-  end
-  
+        # default to twice the number of CPU cores
+        _ ->
+          System.schedulers_online() * 2
+      end
+
     config :bolt_sips, Bolt,
       url: url,
       basic_auth: [username: "memgraph", password: "memgraph"],
