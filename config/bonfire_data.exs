@@ -856,7 +856,8 @@ config :bonfire_data_social, APActivity,
             :media,
             :profile,
             :character,
-            :post_content
+            :post_content,
+            :feed_publishes
           ])
         ))
 
