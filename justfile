@@ -699,17 +699,30 @@ ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
 ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
-test-federation: services _test-dance-positions
-	-just test_run {{ ap_lib }}
-	-just test_run {{ ap_etc }}
-	just _test-dance-positions
-	just _test-db-dance-reset
-	-TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"
-	just _test-dance-positions
+test-federation MAYBE_CONTINUE_ON_ERROR="": services _test-dance-positions
+    #!/usr/bin/env bash
+    set +e
+    EXIT_CODE=0
+    
+    # Run commands with or without the `-` prefix based on MAYBE_CONTINUE_ON_ERROR
+    {{MAYBE_CONTINUE_ON_ERROR}}just test_run {{ ap_lib }}; ((EXIT_CODE+=$?))
+    {{MAYBE_CONTINUE_ON_ERROR}}just test_run {{ ap_etc }}; ((EXIT_CODE+=$?))
+    just _test-dance-positions
+    just _test-db-dance-reset
+    {{MAYBE_CONTINUE_ON_ERROR}}TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"; ((EXIT_CODE+=$?))
+    just _test-dance-positions
+    
+    # Output a summary
+    if [ $EXIT_CODE -ne 0 ]; then
+        echo "❌ $EXIT_CODE federation test commands had errors"
+    else
+        echo "✅ All federation tests passed"
+    fi
+    
+    exit $EXIT_CODE
 	
 test-federation-all: 
-	-just test-federation
-	exit $(($? != 0))
+	just test-federation -
 
 test-federation-lib *args=ap_lib: services _test-dance-positions
 	just test_run {{args}}
