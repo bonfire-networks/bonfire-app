@@ -706,6 +706,9 @@ test-federation: services _test-dance-positions
 	just _test-db-dance-reset
 	-TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"
 	just _test-dance-positions
+	
+test-federation-all: 
+	-just test-federation
 	exit $(($? != 0))
 
 test-federation-lib *args=ap_lib: services _test-dance-positions
