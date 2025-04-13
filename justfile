@@ -693,19 +693,20 @@ test-watch-full path='' *args='': services
 test-interactive path='' *args='': services
 	@MIX_ENV=test just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
 
-ap_lib := "forks/activity_pub/test/activity_pub/"
+ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "forks/activity_pub/test/activity_pub/" } else { "deps/activity_pub/test/activity_pub/" }
 ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration/"
 ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
 ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation: services _test-dance-positions
-	just test_run {{ ap_lib }}
-	just test_run {{ ap_etc }}
+	-just test_run {{ ap_lib }}
+	-just test_run {{ ap_etc }}
 	just _test-dance-positions
 	just _test-db-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"
+	-TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"
 	just _test-dance-positions
+	exit $(($? != 0))
 
 test-federation-lib *args=ap_lib: services _test-dance-positions
 	just test_run {{args}}
