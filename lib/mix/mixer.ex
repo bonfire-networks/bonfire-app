@@ -454,7 +454,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         "lib",
         "test/support"
         | dep_paths(testable_paths, "test/support")
-          |> log("elixirc_paths")
+        # |> log("elixirc_paths")
       ]
     end
 
