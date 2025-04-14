@@ -735,10 +735,10 @@ test-federation TEST_CMD="test_run": services _test-dance-positions
 test-federation-all: 
     just test-federation "test_run_continue"
 
-# Run tests but always return success (continue to next command regardless of failures)
+# Run tests but always continue to next command regardless of failures, but return the exit code
 test_run_continue *args='': 
     -just test {{args}}
-    @exit 0
+    @exit $?  # Return the actual exit code 
 
 test-federation-lib *args=ap_lib: services _test-dance-positions
 	just test_run {{args}}
