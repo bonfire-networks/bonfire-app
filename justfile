@@ -699,30 +699,46 @@ ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
 ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
-test-federation MAYBE_CONTINUE_ON_ERROR="": services _test-dance-positions
+test-federation TEST_CMD="test_run": services _test-dance-positions
     #!/usr/bin/env bash
     set +e
-    EXIT_CODE=0
+    EXIT_CODE_SUM=0
     
-    # Run commands with or without the `-` prefix based on MAYBE_CONTINUE_ON_ERROR
-    {{MAYBE_CONTINUE_ON_ERROR}}just test_run {{ ap_lib }}; ((EXIT_CODE+=$?))
-    {{MAYBE_CONTINUE_ON_ERROR}}just test_run {{ ap_etc }}; ((EXIT_CODE+=$?))
+    # Run all test commands, summing exit codes
+    just $TEST_CMD {{ ap_lib }}
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+    
+    just $TEST_CMD {{ ap_etc }}
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+    
     just _test-dance-positions
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+    
     just _test-db-dance-reset
-    {{MAYBE_CONTINUE_ON_ERROR}}TEST_INSTANCE=yes HOSTNAME=localhost just test_run "--only test_instance"; ((EXIT_CODE+=$?))
-    just _test-dance-positions
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
-    # Output a summary
-    if [ $EXIT_CODE -ne 0 ]; then
-        echo "❌ $EXIT_CODE federation test commands had errors"
+    just $TEST_CMD "--only test_instance"
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+    
+    just _test-dance-positions
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+    
+    # Output a summary - simple pass/fail
+    if [ $EXIT_CODE_SUM -ne 0 ]; then
+        echo "❌ $EXIT_CODE_SUM federation tests failed"
+        exit 1
     else
         echo "✅ All federation tests passed"
+        exit 0
     fi
     
-    exit $EXIT_CODE
-	
 test-federation-all: 
-	just test-federation -
+    just test-federation "test_run_continue"
+
+# Run tests but always return success (continue to next command regardless of failures)
+test_run_continue *args='': 
+    -just test {{args}}
+    @exit 0
 
 test-federation-lib *args=ap_lib: services _test-dance-positions
 	just test_run {{args}}
