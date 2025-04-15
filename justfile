@@ -699,7 +699,14 @@ ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
 ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
-test-federation TEST_CMD="test_run": services _test-dance-positions
+test-federation TEST_CMD="test_run": _test-dance-positions
+	just _test-federation_script "test_run"
+	just _test-dance-positions
+    
+test-federation-all: 
+    just _test-federation_script "test_run_continue"
+
+_test-federation_script TEST_CMD="test_run": services 
     #!/usr/bin/env bash
     set +e
     EXIT_CODE_SUM=0
@@ -712,15 +719,9 @@ test-federation TEST_CMD="test_run": services _test-dance-positions
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     just _test-dance-positions
-    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
-    
     just _test-db-dance-reset
-    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     just $TEST_CMD "--only test_instance"
-    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
-    
-    just _test-dance-positions
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     # Output a summary - simple pass/fail
@@ -731,9 +732,6 @@ test-federation TEST_CMD="test_run": services _test-dance-positions
         echo "✅ All federation tests passed"
         exit 0
     fi
-    
-test-federation-all: 
-    just test-federation "test_run_continue"
 
 # Run tests but always continue to next command regardless of failures
 test_run_continue *args='': 

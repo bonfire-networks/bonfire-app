@@ -86,7 +86,7 @@ defmodule Bonfire.Umbrella.MixProject do
     )
 
   # NOTE: exqlite not working in CI
-  maybe_arch_deps =
+  maybe_non_ci_deps =
     if(System.get_env("CI") != "true",
       do: [
         {
@@ -94,7 +94,8 @@ defmodule Bonfire.Umbrella.MixProject do
           "~> 0.5.0",
           # git: "https://gitlab.com/mayel/archeometer",
           only: [:dev], runtime: false
-        }
+        },
+        {:ex_unit_notifier, "~> 1.0", only: :test}
       ],
       else: []
     )
@@ -104,7 +105,7 @@ defmodule Bonfire.Umbrella.MixProject do
       maybe_api_deps ++
       maybe_image_vix ++
       maybe_ai_deps ++
-      maybe_arch_deps ++
+      maybe_non_ci_deps ++
       [
         # TODO: move most of these deps to ember or elsewhere?
         {
@@ -179,7 +180,6 @@ defmodule Bonfire.Umbrella.MixProject do
         {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
         {:mix_test_interactive, "~> 4.0", only: :test, runtime: false},
         {:ex_unit_summary, "~> 0.1.0", only: :test},
-        {:ex_unit_notifier, "~> 1.0", only: :test},
         {:wallaby, "~> 0.30", runtime: false, only: :test},
         #  for phoenix_live_reload/credo compat with archeometer
         {:file_system, "~> 1.0", override: true},
