@@ -721,7 +721,7 @@ _test-federation_script TEST_CMD="test_run": services
     just _test-dance-positions
     just _test-db-dance-reset
     
-    just $TEST_CMD "--only test_instance"
+    TEST_INSTANCE=yes HOSTNAME=localhost just $TEST_CMD "--only test_instance"
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     # Output a summary - simple pass/fail
