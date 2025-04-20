@@ -1,11 +1,26 @@
 name: Maybe release
 on:
-  push:
-    branches: 
-      - main 
+  workflow_run:
+    workflows: ["Test"]
+    types:
+      - completed
+    branches:
+      - main
+
 jobs:
+  check_test_success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      should_release: true
+    steps:
+      - name: Check test workflow success
+        run: echo "Tests passed successfully, proceeding with release..."
 
   docker:
+    # uncomment the below when all tests pass
+    # needs: check_test_success 
+    # if: ${{ needs.check_test_success.outputs.should_release == 'true' }}
     strategy:
       fail-fast: false
       matrix:
@@ -41,7 +56,7 @@ jobs:
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Detect version
+        name: Detect version # TODO: should we do this in test_success in test.yaml so we don't duplicate it in docs and release?
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:

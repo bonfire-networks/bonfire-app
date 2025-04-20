@@ -695,7 +695,8 @@ test-interactive path='' *args='': services
 	@MIX_ENV=test just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
 
 ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "forks/activity_pub/test/activity_pub/" } else { "deps/activity_pub/test/activity_pub/" }
-ap_integration := "extensions/bonfire_federate_activitypub/test/activity_pub_integration/"
+ap_ext := "extensions/bonfire_federate_activitypub/test/"
+ap_integration := ap_ext+"activity_pub_integration/"
 ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
 ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
@@ -722,7 +723,7 @@ _test-federation_script TEST_CMD="test_run": services
     just _test-dance-positions
     just _test-db-dance-reset
     
-    TEST_INSTANCE=yes HOSTNAME=localhost just $TEST_CMD "--only test_instance"
+    TEST_INSTANCE=yes HOSTNAME=localhost just $TEST_CMD "--only test_instance" {{ ap_ext }}
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     # Output a summary - simple pass/fail
@@ -753,7 +754,7 @@ test-federation-boundaries *args=ap_boundaries: services _test-dance-positions
 test-federation-etc *args=ap_etc: services _test-dance-positions
 	just test_run {{args}}
 
-test-federation-dance *args='': services _test-dance-positions _test-db-dance-reset
+test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
 	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 

@@ -1,11 +1,25 @@
 name: Maybe generate docs
 on:
-  push:
-    branches: 
-      - main 
-      
+  workflow_run:
+    workflows: ["Test"]
+    types:
+      - completed
+    branches:
+      - main
+
 jobs:
+  check_test_success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      should_generate_docs: true
+    steps:
+      - name: Check test workflow success
+        run: echo "Tests passed successfully, proceeding with docs generation..."
+
   docs:
+    needs: check_test_success
+    if: ${{ needs.check_test_success.outputs.should_generate_docs == 'true' }}
     name: Generate docs (upon new release)
     runs-on: ubuntu-latest
     container: hexpm/elixir:1.18.3-erlang-27.3.3-alpine-3.21.3
@@ -35,7 +49,7 @@ jobs:
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app # see https://github.com/actions/checkout/issues/760
       - 
-        name: Detect version
+        name: Detect version # TODO: should we do this in test_success in test.yaml so we don't duplicate it in docs and release?
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
