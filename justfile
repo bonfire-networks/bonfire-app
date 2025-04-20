@@ -422,6 +422,7 @@ update-deps-all: _pre-update-deps
 update-deps-js: 
 	just js-ext-deps
 	just js-ext-deps upgrade
+	rm -rf deps/*/*/yarn.lock
 
 # Update a specify dep (eg. `just update.dep needle`)
 update-dep dep: _pre-update-deps
