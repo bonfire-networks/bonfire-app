@@ -18,7 +18,6 @@ public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 test_instance? = System.get_env("TEST_INSTANCE") in yes?
 federate? = test_instance? or System.get_env("FEDERATE") in yes?
 
-
 # hosts =
 #   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
 #   |> String.replace(["`", " "], "")
@@ -150,7 +149,7 @@ finch_pools = %{
 # config :tesla, adapter: Tesla.Adapter.Hackney
 config :bonfire, :finch_pools, finch_pools
 
-if config_env() !=:test or federate? do
+if config_env() != :test or federate? do
   config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
 end
 

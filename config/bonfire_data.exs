@@ -943,7 +943,7 @@ config :bonfire_data_social, Like,
     (quote do
        (unquote_splicing(edges))
 
-        has_one(:emoji,
+       has_one(:emoji,
          through: [:edge, :emoji]
        )
      end)

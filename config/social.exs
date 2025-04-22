@@ -19,7 +19,6 @@ config :bonfire_ui_social, Bonfire.Social.Pins, modularity: :disabled
 config :bonfire_label, Bonfire.Label.Web.ContentLabelLive, modularity: :disabled
 config :bonfire_ui_reactions, Bonfire.UI.Reactions.PinActionLive, modularity: :disabled
 
-
 config :bonfire, :ui,
   default_nav_extensions: [
     :bonfire,
