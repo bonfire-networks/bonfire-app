@@ -695,9 +695,9 @@ test-interactive path='' *args='': services
 	@MIX_ENV=test just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
 
 ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "forks/activity_pub/test/activity_pub/" } else { "deps/activity_pub/test/activity_pub/" }
-ap_ext := "extensions/bonfire_federate_activitypub/test/"
+ap_ext := if path_exists("extensions/bonfire_federate_activitypub/test/")=="true" { "extensions/bonfire_federate_activitypub/test/" } else { "deps/bonfire_federate_activitypub/test/" }
 ap_integration := ap_ext+"activity_pub_integration/"
-ap_boundaries := "extensions/bonfire_federate_activitypub/test/boundaries/"
+ap_boundaries := ap_ext+"boundaries/"
 ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
