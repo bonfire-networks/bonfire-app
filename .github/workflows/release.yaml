@@ -2,25 +2,15 @@ name: Maybe release
 on:
   push:
   workflow_run:
-    workflows: ["Test"]
+    workflows: ["Maybe test"]
     types:
       - completed
     branches:
       - main
 
 jobs:
-  check_test_success:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    outputs:
-      should_release: true
-    steps:
-      - name: Check test workflow success
-        run: echo "Tests passed successfully, proceeding with release..."
-
   docker:
     # uncomment the below when all tests pass
-    needs: check_test_success 
     strategy:
       fail-fast: false
       matrix:
@@ -116,7 +106,7 @@ jobs:
             "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
       -
         name: Push to docker
-        # if: ${{ needs.check_test_success.outputs.should_release == 'true' }} # uncomment this line to only push release to docker when tests pass
+        # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # uncomment this line to only push release to docker when tests pass
         id: docker_push
         uses: docker/build-push-action@v6
         with:
