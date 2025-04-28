@@ -1,10 +1,10 @@
 name: Maybe release
 on:
   push:
-  # workflow_run:
-  #   workflows: ["Test"]
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["Test"]
+    types:
+      - completed
     branches:
       - main
 
@@ -20,8 +20,7 @@ jobs:
 
   docker:
     # uncomment the below when all tests pass
-    # needs: check_test_success 
-    # if: ${{ needs.check_test_success.outputs.should_release == 'true' }}
+    needs: check_test_success 
     strategy:
       fail-fast: false
       matrix:
@@ -80,13 +79,13 @@ jobs:
       #     export-variables: true
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -100,9 +99,26 @@ jobs:
         name: Flavour setup 
         run: just _clone_flavour_apps && just _config_flavour ${{ env.FLAVOUR }} && just _flavour_install ${{ env.FLAVOUR }} --yes && just flavour_make_symlinks ${{ env.FLAVOUR }} && just _rel-prepare 
       -
-        name: Build and push
+        name: Build 
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.release
+          platforms: ${{ matrix.platforms }}
+          load: true
+          push: false
+          build-args: |
+            "WITH_AI=${{ env.WITH_AI }}"
+            "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
+            "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
+            "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
+            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
+      -
+        name: Push to docker
+        # if: ${{ needs.check_test_success.outputs.should_release == 'true' }} # uncomment this line to only push release to docker when tests pass
+        id: docker_build
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.release
@@ -113,12 +129,6 @@ jobs:
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
           #  ghcr.io/bonfire-networks/bonfire-app:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
           #  ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
-          build-args: |
-            "WITH_AI=${{ env.WITH_AI }}"
-            "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
-            "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
-            "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
