@@ -106,7 +106,7 @@ jobs:
             "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
       -
         name: Push to docker
-        # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # uncomment this line to only push release to docker when tests pass
+        # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
         id: docker_push
         uses: docker/build-push-action@v6
         with:
@@ -114,6 +114,12 @@ jobs:
           file: Dockerfile.release
           platforms: ${{ matrix.platforms }}
           push: true
+          build-args: |
+            "WITH_AI=${{ env.WITH_AI }}"
+            "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
+            "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
+            "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
+            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
@@ -214,6 +220,7 @@ jobs:
             # ls -la data/config/current_flavour/assets/
             # ls -la data/config/current_flavour/assets/hooks/
       - name: Release to github
+        if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
         uses: softprops/action-gh-release@v2
         with:
           files: _build/prod/rel/bonfire-*.tar.gz
