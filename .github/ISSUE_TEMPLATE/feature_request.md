@@ -2,8 +2,7 @@
 name: Feature request
 about: Suggest an idea for this project
 title: 'Feature Proposal: '
-labels: New Issue
-assignees: ''
+type: Feature
 
 ---
 
