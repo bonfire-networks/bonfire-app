@@ -125,7 +125,10 @@ defmodule Bonfire.Umbrella.MixProject do
         {:argon2_elixir, "~> 4.0", only: [:prod]},
 
         ## dev conveniences
-        {:tidewave, "~> 0.1", only: :dev},
+        {:tidewave, 
+        "~> 0.1", 
+        # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
+        only: :dev},
         {:live_debugger, "~> 0.1.1", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
