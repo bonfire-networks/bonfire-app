@@ -14,7 +14,7 @@ defmodule Bonfire.Federate.ActivityPub.LoadTesting do
   import Bonfire.UI.Common.Testing.Helpers
   # import Phoenix.ConnTest
   alias Bonfire.Posts.Fake
-  alias Bonfire.Common.Config
+  use Bonfire.Common.Config
   alias Bonfire.Common.TestInstanceRepo
   # import Untangle
 
