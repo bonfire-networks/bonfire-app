@@ -41,7 +41,8 @@ config :surface,
 
 config :logger, :console, truncate: truncate
 
-if !test_instance? and System.get_env("CAPTURE_LOG") != "no" do
+if !test_instance? and System.get_env("CAPTURE_LOG") != "no" and
+     System.get_env("UNTANGLE_TO_IO") != "yes" do
   # to suppress non-captured logs in tests (eg. in setup_all)
   config :logger, backends: []
 end

@@ -36,7 +36,6 @@ config :bonfire, :ui,
     instance_tagline: "Yet another federated digital space",
     instance_description: "This is a bonfire demo instance for testing purposes",
     instance_welcome: [
-      title: "👋 Welcome",
       description:
         "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.
 
