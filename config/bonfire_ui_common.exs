@@ -37,9 +37,7 @@ config :bonfire, :ui,
     instance_description: "This is a bonfire demo instance for testing purposes",
     instance_welcome: [
       description:
-        "Bonfire is a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.
-
-More details at https://bonfirenetworks.org",
+        "Powered by [Bonfire](https://bonfirenetworks.org), a federated social networking toolkit to customise and host your own online space and control your experience at the most granular level.",
       links: [
         "About Bonfire": "https://bonfirenetworks.org/",
         Forum: "https://socialhub.activitypub.rocks/g/bonfire/activity/posts",
