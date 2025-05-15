@@ -83,7 +83,7 @@ jobs:
       - name: Set computed env vars
         run: |
           if [ "${{ matrix.arch }}" = "arm32v7" ]; then
-            export ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}" # e.g. 27 from 27.3.4
+            ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}" # e.g. 27 from 27.3.4
             export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
             export MJML_BUILD="true"
           else
@@ -123,12 +123,12 @@ jobs:
           load: true
           push: false
           build-args: |
-            "WITH_AI=${{ env.WITH_AI }}"
-            "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
-            "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
-            "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}" 
-            "MJML_BUILD=${{env.MJML_BUILD}}"
+            WITH_AI=${{ env.WITH_AI }}
+            WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}
+            WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}
+            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+            ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
+            MJML_BUILD=${{ env.MJML_BUILD }}
       -
         name: Push to docker
         # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
@@ -140,12 +140,12 @@ jobs:
           platforms: ${{ matrix.platforms }}
           push: true
           build-args: |
-            "WITH_AI=${{ env.WITH_AI }}"
-            "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
-            "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
-            "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_DOCKER_IMAGE}}"
-            "MJML_BUILD=${{env.MJML_BUILD}}"
+            WITH_AI=${{ env.WITH_AI }}
+            WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}
+            WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}
+            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+            ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
+            MJML_BUILD=${{ env.MJML_BUILD }}
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
