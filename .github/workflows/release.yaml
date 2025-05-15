@@ -172,9 +172,21 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Create and push manifest
         run: | # NOTE: the list of platforms in the for loop must match the `arch` names corresponding to the `platforms` matrix enabled in the docker job above 
-          docker buildx imagetools create \
-            -t bonfirenetworks/bonfire:latest-${{ matrix.flavour }} \ 
-            $(for platform in amd64 aarch64 arm32v7; do echo bonfirenetworks/bonfire:latest-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g'); done)
+          set -e
+          images=""
+          for platform in amd64 aarch64 arm32v7; do
+            image=bonfirenetworks/bonfire:latest-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g')
+            if docker buildx imagetools inspect $image > /dev/null 2>&1; then
+              images="$images $image"
+            else
+              echo "Skipping missing image: $image"
+            fi
+          done
+          if [ -n "$images" ]; then
+            docker buildx imagetools create -t bonfirenetworks/bonfire:latest-${{ matrix.flavour }} $images
+          else
+            echo "No images found for manifest, skipping."
+          fi
 
   elixir_release_amd64: 
     name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
