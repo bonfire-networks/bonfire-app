@@ -1,28 +1,28 @@
 name: Maybe release
 on:
   push:
-  workflow_run:
-    workflows: ["Maybe test"]
-    types:
-      - completed
-    branches:
-      - main
+  # workflow_run: # uncomment to run after tests have run
+  #   workflows: ["Maybe test"]
+  #   types:
+  #     - completed
+  #   branches:
+  #     - main
 
 jobs:
   docker:
-    # uncomment the below when all tests pass
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
-        flavour: ["ember", "social", "open_science", "federated_archives"] # "community" , "cooperation"]
-        platforms: ["linux/amd64", "linux/arm64"] # , "linux/arm/v7"
+        flavour: ["social", "open_science", "federated_archives"] # "ember","community" , "cooperation"]
+        platforms: ["linux/amd64", "linux/arm64", "linux/arm/v7"] # 
         include:
           - platforms: "linux/amd64"
             tag_extra: "-amd64"
           - platforms: "linux/arm64"
             tag_extra: "-aarch64"
-          - platforms: "linux/arm/v7"
-            tag_extra: "-arm32v7"
+          # - platforms: "linux/arm/v7"
+          #   tag_extra: "-arm32v7"
     name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
@@ -139,7 +139,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavour: ["ember", "social", "open_science", "federated_archives"] # NOTE: should match the list of flavours in the docker job above
+        flavour: ["social", "open_science", "federated_archives"] # NOTE: should match the list of flavours in the docker job above
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -158,7 +158,7 @@ jobs:
     name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
     strategy:
       matrix:
-        flavour: ["ember", "social"] 
+        flavour: ["social"] # "open_science", "federated_archives", "ember", "community", "cooperation"
     runs-on: ubuntu-latest
     container: debian:bullseye
     # container: debian:bullseye-slim
