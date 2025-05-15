@@ -40,17 +40,12 @@ jobs:
       MIX_ENV: prod
     steps:
       - 
-        name: Cancel any already running releases workflows
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
-      - 
         name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Detect version # TODO: should we do this in test_success in test.yaml so we don't duplicate it in docs and release?
+        name: Detect version # TODO: should we do this in test_success in test.yaml so we don't duplicate it in docs and release?
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
@@ -58,9 +53,13 @@ jobs:
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
-        uses: andymckay/cancel-action@0.2
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+          workflow_id: ${{ github.workflow }}
+          ignore_sha: true
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -171,7 +170,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Create and push manifest
-        run: | # NOTE: the list of platforms in the for loop must match the `arch` names corresponding to the `platforms` matrix enabled in the docker job above 
+        run: | # NOTE: the list of platforms in the for loop must match the `arch` names corresponding to the `platforms` matrix enabled in the docker job above 
           set -e
           images=""
           for platform in amd64 aarch64 arm32v7; do
@@ -209,6 +208,8 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
+          workflow_id: ${{ github.workflow }}
+          ignore_sha: true
       - name: Install git # needed for checkout with fetch-depth
         run: apt-get update -q -y && apt-get install -q -y git
       - uses: actions/checkout@v2
@@ -226,7 +227,11 @@ jobs:
       - 
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         name: Cancel workflow if the version has not changed
-        uses: andymckay/cancel-action@0.2
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+          workflow_id: ${{ github.workflow }}
+          ignore_sha: true
       - 
         name: Add path
         run: |
