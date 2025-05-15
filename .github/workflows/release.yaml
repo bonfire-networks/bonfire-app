@@ -18,12 +18,11 @@ jobs:
         platforms: ["linux/amd64", "linux/arm64", "linux/arm/v7"] # 
         include:
           - platforms: "linux/amd64"
-            tag_extra: "-amd64"
+            arch: "amd64"
           - platforms: "linux/arm64"
-            tag_extra: "-aarch64"
+            arch: "aarch64"
           - platforms: "linux/arm/v7"
-            tag_extra: "-arm32v7"
-            ELIXIR_DOCKER_ORG: arm32v7
+            arch: "arm32v7"
     name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
@@ -83,8 +82,12 @@ jobs:
           echo "ERLANG_VERSION=$ERLANG_VERSION" >> $GITHUB_ENV
       - name: Set computed env vars
         run: |
-          export ELIXIR_DOCKER_ORG="${{ matrix.ELIXIR_DOCKER_ORG || 'hexpm' }}"
-          export ELIXIR_DOCKER_IMAGE="$ELIXIR_DOCKER_ORG/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
+          if [ "${{ matrix.arch }}" = "arm32v7" ]; then
+            export ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}" # e.g. 27 from 27.3.4
+            export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
+          else
+            export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
+          fi
           echo "ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE" >> $GITHUB_ENV
       -
         name: Set up QEMU
@@ -138,12 +141,12 @@ jobs:
             "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
             "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
             "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
+            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_DOCKER_IMAGE}}"
           tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
-          #  ghcr.io/bonfire-networks/bonfire-app:latest-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
-          #  ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}${{ matrix.tag_extra }}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
+            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
+          #  ghcr.io/bonfire-networks/bonfire-app:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
+          #  ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -164,7 +167,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Create and push manifest
-        run: | # NOTE: the list of platforms in the for loop must match the `tag_extra` names corresponding to the `platforms` matrix enabled in the docker job above 
+        run: | # NOTE: the list of platforms in the for loop must match the `arch` names corresponding to the `platforms` matrix enabled in the docker job above 
           docker buildx imagetools create \
             -t bonfirenetworks/bonfire:latest-${{ matrix.flavour }} \ 
             $(for platform in amd64 aarch64 arm32v7; do echo bonfirenetworks/bonfire:latest-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g'); done)

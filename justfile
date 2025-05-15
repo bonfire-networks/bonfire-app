@@ -34,7 +34,6 @@ DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "17-3.5")
 # NOTE: we currently only use features available in Postgres 12+, though a more recent version is recommended if possible
 DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if ARCH == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine" })
 # DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "supabase/postgres")
-ELIXIR_DOCKER_ORG := env_var_or_default('ELIXIR_DOCKER_ORG', if ARCH == "arm" { "arm32v7" } else { "hexpm" })
 # ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_DOCKER_IMAGE', env_var_or_default('ELIXIR_VERSION', "1.17") +"-erlang-"+env_var_or_default('ERLANG_VERSION', "27")+"-alpine-"+env_var_or_default('ALPINE_VERSION', "3.20")) # NOTE: done in `docker-cmd` command instead
 
 # GRAPH_DB_URL := if WITH_DOCKER != "total" { env_var_or_default('GRAPH_DB_URL', "bolt://localhost:7687") } else { env_var_or_default('GRAPH_DB_URL', "bolt://graph:7687") } 
@@ -1062,7 +1061,17 @@ shell:
 	just docker-cmd docker {{args}}
 
 @docker-cmd cmd="docker" *args='':
-	export $(./tool-versions-to-env.sh 3 | xargs) && export $(grep -v '^#' .tool-versions.env | xargs) && export ELIXIR_DOCKER_IMAGE="{{ELIXIR_DOCKER_ORG}}/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}" && echo $ELIXIR_DOCKER_IMAGE && {{cmd}} {{args}}
+	#!/usr/bin/env bash
+	export $(./tool-versions-to-env.sh 3 | xargs)
+	export $(grep -v '^#' .tool-versions.env | xargs)
+	if [ "$ARCH" = "arm32v7" ]; then
+		ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}"
+		export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
+	else
+		export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
+	fi
+	echo $ELIXIR_DOCKER_IMAGE
+	{{cmd}} {{args}}
 
 @docker-compose *args='':
 	just docker compose {{args}}
