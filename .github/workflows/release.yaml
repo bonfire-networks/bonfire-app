@@ -21,17 +21,18 @@ jobs:
             tag_extra: "-amd64"
           - platforms: "linux/arm64"
             tag_extra: "-aarch64"
-          # - platforms: "linux/arm/v7"
-          #   tag_extra: "-arm32v7"
+          - platforms: "linux/arm/v7"
+            tag_extra: "-arm32v7"
+            ELIXIR_DOCKER_ORG: arm32v7
     name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
     env:
       FLAVOUR: ${{ matrix.flavour }}
       DOCKER_REPO: bonfire
-      ALPINE_VERSION: "3.21.3" 
-      ERLANG_VERSION: "27.3.4"
-      ELIXIR_VERSION: "1.18.3"
+      # ALPINE_VERSION: "3.21.3" 
+      # ERLANG_VERSION: "27.3.4"
+      # ELIXIR_VERSION: "1.18.3"
       # TODO: read these ^ from .tool-versions.env
       WITH_AI: "0"
       WITH_LV_NATIVE: "0"
@@ -71,6 +72,20 @@ jobs:
       #   uses: falti/dotenv-action@v1.0.4
       #   with:
       #     export-variables: true
+      - name: Load .tool-versions.env
+        run: |
+          set -a
+          source .tool-versions.env
+          set +a
+          # Export each variable to GITHUB_ENV for later steps
+          echo "ALPINE_VERSION=$ALPINE_VERSION" >> $GITHUB_ENV
+          echo "ELIXIR_VERSION=$ELIXIR_VERSION" >> $GITHUB_ENV
+          echo "ERLANG_VERSION=$ERLANG_VERSION" >> $GITHUB_ENV
+      - name: Set computed env vars
+        run: |
+          export ELIXIR_DOCKER_ORG="${ELIXIR_DOCKER_ORG:-hexpm}"
+          export ELIXIR_DOCKER_IMAGE="$ELIXIR_DOCKER_ORG/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
+          echo "ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE" >> $GITHUB_ENV
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -107,7 +122,7 @@ jobs:
             "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
             "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
             "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_VERSION}}-erlang-${{env.ERLANG_VERSION}}-alpine-${{env.ALPINE_VERSION}}"
+            "ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}"      
       -
         name: Push to docker
         # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
@@ -152,7 +167,7 @@ jobs:
         run: | # NOTE: the list of platforms in the for loop must match the `tag_extra` names corresponding to the `platforms` matrix enabled in the docker job above 
           docker buildx imagetools create \
             -t bonfirenetworks/bonfire:latest-${{ matrix.flavour }} \ 
-            $(for platform in amd64 aarch64; do echo bonfirenetworks/bonfire:latest-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g'); done)
+            $(for platform in amd64 aarch64 arm32v7; do echo bonfirenetworks/bonfire:latest-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g'); done)
 
   elixir_release_amd64: 
     name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
