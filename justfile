@@ -915,6 +915,7 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
 		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
 		--build-arg MJML_BUILD=$MJML_BUILD \
+		--build-arg AUTUMN_BUILD=$AUTUMN_BUILD \
 		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{ARCH}}  \
 		-f $APP_REL_DOCKERFILE .
@@ -1069,6 +1070,7 @@ shell:
 		ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}"
 		export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
 		export MJML_BUILD="true"
+		export AUTUMN_BUILD="true"
 	else
 		export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
 	fi

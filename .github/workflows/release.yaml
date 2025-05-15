@@ -53,13 +53,19 @@ jobs:
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - 
-        name: Cancel workflow if the version has not changed
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        name: Cancel previous workflows if version has changed
+        if: steps.version.outputs.current-version != steps.version.outputs.previous-version
         uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
           workflow_id: ${{ github.workflow }}
           ignore_sha: true
+      - 
+        name: Skip workflow if version hasn't changed
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        run: |
+          echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
+          exit 1
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -85,11 +91,13 @@ jobs:
             ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}" # e.g. 27 from 27.3.4
             export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
             export MJML_BUILD="true"
+            export AUTUMN_BUILD="true"
           else
             export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
           fi
           echo "ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE" >> $GITHUB_ENV
           echo "MJML_BUILD=$MJML_BUILD" >> $GITHUB_ENV
+          echo "AUTUMN_BUILD=$AUTUMN_BUILD" >> $GITHUB_ENV
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -128,7 +136,8 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             MJML_BUILD=${{ env.MJML_BUILD }}
-      -
+            AUTUMN_BUILD=${{ env.AUTUMN_BUILD }}
+            -
         name: Push to docker
         # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
         id: docker_push
@@ -145,6 +154,7 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             MJML_BUILD=${{ env.MJML_BUILD }}
+            AUTUMN_BUILD=${{ env.AUTUMN_BUILD }}
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
@@ -225,13 +235,19 @@ jobs:
           create-tag: false # NOTE: can only create tag here if it's a matrix of 1
           version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Cancel workflow if the version has not changed
+        name: Cancel previous workflows if version has changed
+        if: steps.version.outputs.current-version != steps.version.outputs.previous-version
         uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
           workflow_id: ${{ github.workflow }}
           ignore_sha: true
+      - 
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        name: Cancel workflow if the version has not changed
+        run: |
+          echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
+          exit 1
       - 
         name: Add path
         run: |
