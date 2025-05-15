@@ -127,7 +127,8 @@ jobs:
             "WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}"
             "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
             "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
-            "ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}"      
+            "ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}" 
+            "MJML_BUILD=${{env.MJML_BUILD}}"
       -
         name: Push to docker
         # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
@@ -144,7 +145,8 @@ jobs:
             "WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}"
             "ALPINE_VERSION=${{ env.ALPINE_VERSION }}"
             "ELIXIR_DOCKER_IMAGE=${{env.ELIXIR_DOCKER_IMAGE}}"
-          tags: |
+            "MJML_BUILD=${{env.MJML_BUILD}}"
+            tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
           #  ghcr.io/bonfire-networks/bonfire-app:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
