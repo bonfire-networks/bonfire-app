@@ -83,7 +83,7 @@ jobs:
           echo "ERLANG_VERSION=$ERLANG_VERSION" >> $GITHUB_ENV
       - name: Set computed env vars
         run: |
-          export ELIXIR_DOCKER_ORG="${ELIXIR_DOCKER_ORG:-hexpm}"
+          export ELIXIR_DOCKER_ORG="${{ matrix.ELIXIR_DOCKER_ORG || 'hexpm' }}"
           export ELIXIR_DOCKER_IMAGE="$ELIXIR_DOCKER_ORG/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
           echo "ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE" >> $GITHUB_ENV
       -
