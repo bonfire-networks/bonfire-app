@@ -15,10 +15,14 @@ jobs:
       fail-fast: false
       matrix:
         flavour: ["ember", "social", "open_science", "federated_archives"] # "community" , "cooperation"]
-        platforms: ["linux/amd64"] #, "linux/arm/v7,linux/arm64,linux/amd64"] # , "linux/arm64"
+        platforms: ["linux/amd64", "linux/arm64"] # , "linux/arm/v7"
         include:
           - platforms: "linux/amd64"
             tag_extra: "-amd64"
+          - platforms: "linux/arm64"
+            tag_extra: "-aarch64"
+          - platforms: "linux/arm/v7"
+            tag_extra: "-arm32v7"
     name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
@@ -128,6 +132,27 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  docker_multi_arch_image:
+    name: Create and push multi-arch manifest for ${{ matrix.flavour }}
+    needs: docker
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavour: ["ember", "social", "open_science", "federated_archives"] # NOTE: should match the list of flavours in the docker job above
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Create and push manifest
+        run: | # NOTE: the list of platforms in the for loop must match the `tag_extra` names corresponding to the `platforms` matrix enabled in the docker job above 
+          docker buildx imagetools create \
+            -t bonfirenetworks/bonfire:latest-${{ matrix.flavour }} \ 
+            $(for platform in amd64 aarch64; do echo bonfirenetworks/bonfire:latest-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g'); done)
 
   elixir_release_amd64: 
     name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
