@@ -35,3 +35,5 @@ config :ex_cldr,
   default_locale: default_locale,
   default_backend: Bonfire.Common.Localise.Cldr,
   json_library: Jason
+
+config :rustler_precompiled, force_build_all: System.get_env("RUSTLER_BUILD_ALL") in ["true", "1"]
