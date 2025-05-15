@@ -85,10 +85,12 @@ jobs:
           if [ "${{ matrix.arch }}" = "arm32v7" ]; then
             export ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}" # e.g. 27 from 27.3.4
             export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
+            export MJML_BUILD="true"
           else
             export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
           fi
           echo "ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE" >> $GITHUB_ENV
+          echo "MJML_BUILD=$MJML_BUILD" >> $GITHUB_ENV
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
