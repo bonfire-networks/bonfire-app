@@ -4,7 +4,7 @@
 ARG ALPINE_VERSION
 ARG ELIXIR_DOCKER_IMAGE
 
-#### STEP 1 - Build our app
+#### STEP 1 - Build our elixir app
 FROM ${ELIXIR_DOCKER_IMAGE} as builder 
 
 ARG FLAVOUR
@@ -152,7 +152,32 @@ RUN mkdir -p priv/repo/migrations
 # Copy DB/repo migrations from installed extensions
 RUN MIX_ENV=prod mix bonfire.extension.copy_migrations --force --to priv/repo/migrations
 
-# docs/guides
+
+##### STEP 2 - prepare a specialized CSS builder image for architectures that require it
+FROM --platform=linux/amd64 node:24-alpine as assets-builder
+
+WORKDIR /opt/build
+
+# Copy only what's needed for CSS compilation
+COPY --from=builder /opt/app/deps/bonfire_ui_common/assets /opt/build/assets/
+# Ensure priv/static/assets directory exists
+RUN mkdir -p /opt/build/priv/static/assets/
+
+# Install dependencies and build JS and CSS
+RUN cd /opt/build/assets && \
+    yarn && \
+    NODE_ENV=production yarn build 
+
+# Verify the built assets exists
+RUN ls -la /opt/build/priv/static/assets/
+
+##### STEP 3 - Return to the builder image to continue
+FROM builder as final-builder
+
+# Copy the pre-built CSS assets from the assets-builder stage
+COPY --from=assets-builder /opt/build/priv/static/ /opt/app/priv/static/
+
+# Prepare docs/guides
 COPY --link README.md ./
 COPY --link LICENSES LICENSES
 COPY --link docs docs
@@ -169,9 +194,7 @@ RUN mkdir -p forks/
 RUN mkdir -p priv/static/
 # COPY --link priv/extras/ priv/extras/
 
-# prepare static assets
-# COPY --link data/config/current_flavour/deps.hooks.js data/config/current_flavour/deps.hooks.js
-RUN cd ./deps/bonfire_ui_common/assets && yarn && yarn build 
+# Digest the static assets
 RUN MIX_ENV=prod CI=1 mix phx.digest
 RUN ls -la priv/static
 RUN ls -la priv/static/assets
@@ -181,7 +204,7 @@ RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/sta
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
 
-##### STEP 2 - Prepare the server image ####
+##### STEP 4 - Prepare the server image ####
 # From this line onwards, we're in a new image, which will be the image used in production
 FROM alpine:${ALPINE_VERSION}
 
@@ -215,7 +238,7 @@ RUN sh deps-alpine.sh
 #   #^ misc
 
 # copy app build
-COPY --from=builder /opt/app/_build/prod/rel/bonfire /opt/app
+COPY --from=final-builder /opt/app/_build/prod/rel/bonfire /opt/app
 # COPY --from=builder /opt/app/flavours/ /opt/app/flavours/
 RUN ls /opt/app/lib/
 
