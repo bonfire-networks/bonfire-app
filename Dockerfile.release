@@ -158,13 +158,17 @@ FROM --platform=linux/amd64 node:24-alpine as assets-builder
 
 WORKDIR /opt/build
 
-# Copy only what's needed for CSS compilation
-COPY --from=builder /opt/app/deps/bonfire_ui_common/assets /opt/build/assets/
+# Copy only what's needed for CSS and JS compilation
+COPY --from=builder /opt/app/deps/bonfire_ui_common/assets /opt/build/deps/bonfire_ui_common/assets
+COPY --from=builder /opt/app/deps/phoenix /opt/build/deps/phoenix
+COPY --from=builder /opt/app/deps/phoenix_live_view /opt/build/deps/phoenix_live_view
+COPY --from=builder /opt/app/deps/phoenix_live_head /opt/build/deps/phoenix_live_head
+COPY --from=builder /opt/app/config/current_flavour /opt/build/config/current_flavour/
 # Ensure priv/static/assets directory exists
 RUN mkdir -p /opt/build/priv/static/assets/
 
 # Install dependencies and build JS and CSS
-RUN cd /opt/build/assets && \
+RUN cd /opt/build/deps/bonfire_ui_common/assets && \
     yarn && \
     NODE_ENV=production yarn build 
 
