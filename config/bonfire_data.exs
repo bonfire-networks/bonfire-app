@@ -337,7 +337,6 @@ common_assocs = %{
         join_keys: [id: :object_id, media_id: :id],
         on_replace: :delete
       )
-
     end,
 
   # Information that this object tagged other objects.

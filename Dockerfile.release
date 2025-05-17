@@ -158,19 +158,33 @@ FROM --platform=linux/amd64 node:24-alpine as assets-builder
 
 WORKDIR /opt/build
 
-# Copy only what's needed for CSS and JS compilation
+# Copy what's needed for CSS and JS compilation
 COPY --from=builder /opt/app/deps/bonfire_ui_common/assets /opt/build/deps/bonfire_ui_common/assets
+COPY --from=builder /opt/app/deps/bonfire_editor_milkdown/assets /opt/build/deps/bonfire_editor_milkdown/assets
 COPY --from=builder /opt/app/deps/phoenix /opt/build/deps/phoenix
+COPY --from=builder /opt/app/deps/phoenix_html /opt/build/deps/phoenix_html
 COPY --from=builder /opt/app/deps/phoenix_live_view /opt/build/deps/phoenix_live_view
 COPY --from=builder /opt/app/deps/phoenix_live_head /opt/build/deps/phoenix_live_head
+COPY --from=builder /opt/app/deps/live_select /opt/build/deps/live_select
 COPY --from=builder /opt/app/config/current_flavour /opt/build/config/current_flavour/
+# Also copy any extension assets that might be referenced
+COPY --from=builder /opt/app/deps/*/assets/node_modules /opt/build/deps/node_modules
 # Ensure priv/static/assets directory exists
 RUN mkdir -p /opt/build/priv/static/assets/
 
-# Install dependencies and build JS and CSS
+# Create symlinks to dependencies to resolve path issues
+RUN mkdir -p /opt/build/deps/bonfire_ui_common/assets/node_modules && \
+    ln -s /opt/build/deps/node_modules/* /opt/build/deps/bonfire_ui_common/assets/node_modules/ || echo "Symlinks may already exist"
+
+# Make sure we have all dependencies for milkdown editor
+RUN cd /opt/build/deps/bonfire_editor_milkdown/assets && \
+    yarn install
+
+# Install dependencies and build JS and CSS with external modules
 RUN cd /opt/build/deps/bonfire_ui_common/assets && \
     yarn && \
-    NODE_ENV=production yarn build 
+    echo '{"@milkdown/core":"*","@milkdown/plugin-automd":"*","@milkdown/kit":"*"}' > /tmp/external_modules.json && \
+    NODE_ENV=production ESBUILD_EXTERNAL_MODULES=$(cat /tmp/external_modules.json) yarn build 
 
 # Verify the built assets exists
 RUN ls -la /opt/build/priv/static/assets/
