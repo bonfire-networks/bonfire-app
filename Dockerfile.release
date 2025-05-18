@@ -119,9 +119,10 @@ COPY --link js-deps-get.sh ./
 # COPY --link assets/package.json ./assets/
 # COPY --link assets/pnpm-lock.yaml ./assets/
 # COPY --link assets/yarn.lock ./assets/
-RUN chmod +x config/*.sh
 RUN chmod +x ./*.sh
-RUN sh config/deps.js.sh
+RUN chmod +x config/*.sh
+RUN chmod +x config/current_flavour/*.sh
+RUN sh config/current_flavour/deps.js.sh
 # FIXME: should we be installing dev deps here?
 
 # Update mime types
