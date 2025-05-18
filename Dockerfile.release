@@ -160,6 +160,7 @@ WORKDIR /opt/build
 
 # Copy what's needed for CSS and JS compilation
 COPY --from=builder /opt/app/deps/bonfire_ui_common/assets /opt/build/deps/bonfire_ui_common/assets
+# Also copy any extension assets that might be referenced
 COPY --from=builder /opt/app/deps/bonfire_editor_milkdown/assets /opt/build/deps/bonfire_editor_milkdown/assets
 COPY --from=builder /opt/app/deps/phoenix /opt/build/deps/phoenix
 COPY --from=builder /opt/app/deps/phoenix_html /opt/build/deps/phoenix_html
@@ -167,8 +168,7 @@ COPY --from=builder /opt/app/deps/phoenix_live_view /opt/build/deps/phoenix_live
 COPY --from=builder /opt/app/deps/phoenix_live_head /opt/build/deps/phoenix_live_head
 COPY --from=builder /opt/app/deps/live_select /opt/build/deps/live_select
 COPY --from=builder /opt/app/config/current_flavour /opt/build/config/current_flavour/
-# Also copy any extension assets that might be referenced
-COPY --from=builder /opt/app/deps/*/assets/node_modules /opt/build/deps/bonfire_ui_common/assets/node_modules
+# COPY --from=builder /opt/app/deps/*/assets/node_modules /opt/build/deps/bonfire_ui_common/assets/node_modules
 # Ensure priv/static/assets directory exists
 RUN mkdir -p /opt/build/priv/static/assets/
 
