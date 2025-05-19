@@ -86,6 +86,6 @@ else
     echo "Comment: $4"
 
     # if there are changes, commit them (needed before being able to rebase)
-    (commit $4 && post_commit $3 $4) || echo "Skipped..."
+    (commit $3 $4 && post_commit $2 $3) || echo "Skipped..."
 
 fi
