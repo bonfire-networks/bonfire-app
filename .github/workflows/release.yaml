@@ -29,10 +29,6 @@ jobs:
     env:
       FLAVOUR: ${{ matrix.flavour }}
       DOCKER_REPO: bonfire
-      # ALPINE_VERSION: "3.21.3" 
-      # ERLANG_VERSION: "27.3.4"
-      # ELIXIR_VERSION: "1.18.3"
-      # TODO: read these ^ from .tool-versions.env
       WITH_AI: "0"
       WITH_LV_NATIVE: "0"
       WITH_IMAGE_VIX: "0"
@@ -70,21 +66,11 @@ jobs:
       #   name: Get branch names
       #   id: branch-name
       #   uses: tj-actions/branch-names@v4
-      # - name: Set up env
-      #   run: cp .tool-versions.env .env 
-      # - id: dotenv
-      #   uses: falti/dotenv-action@v1.0.4
-      #   with:
-      #     export-variables: true
-      - name: Load .tool-versions.env
+      - name: Load .tool-versions to env
         run: |
-          set -a
-          source .tool-versions.env
-          set +a
-          # Export each variable to GITHUB_ENV for later steps
-          echo "ALPINE_VERSION=$ALPINE_VERSION" >> $GITHUB_ENV
-          echo "ELIXIR_VERSION=$ELIXIR_VERSION" >> $GITHUB_ENV
-          echo "ERLANG_VERSION=$ERLANG_VERSION" >> $GITHUB_ENV
+        ls -la && chmod +x tool-versions-to-env.sh
+        # Run the script to extract versions and save to output
+        ./tool-versions-to-env.sh 2 
       - name: Set computed env vars
         run: |
           if [ "${{ matrix.arch }}" = "arm32v7" ]; then

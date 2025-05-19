@@ -68,7 +68,7 @@ read_tool_versions_write_to_env() {
             if [ "$how_to_echo" -eq 1 ]; then
                 echo "${full_key^^}=${value}" >>"${env_file}"
             elif [ "$how_to_echo" -eq 2 ]; then
-                echo "${full_key}=$value" >>"$GITHUB_OUTPUT"
+                echo "${full_key^^}=$value" >>"$GITHUB_ENV"
             elif [ "$how_to_echo" -eq 3 ]; then
                 # echo "$value"
                 # break

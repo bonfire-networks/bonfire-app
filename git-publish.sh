@@ -16,18 +16,29 @@ function commit {
     if [[ $1 == 'pr' ]]; then
         echo "Here are the changes you made:"
         git diff HEAD
-        branch_and_commit
+        branch_and_commit "$2"
     else
-        git commit --verbose --all 
+        if [[ -n "$2" ]]; then
+            git commit --all -m "$2"
+        else
+            git commit --verbose --all
+        fi
     fi
 }
 
 function branch_and_commit {
-    read -p "Enter a description of these changes for the commit and related PR (leave empty to skip these changes for now) and press enter:" comment
+    provided_comment="$1"
+    
+    if [[ -n "$provided_comment" ]]; then
+        comment="$provided_comment"
+    else
+        read -p "Enter a description of these changes for the commit and related PR (leave empty to skip these changes for now) and press enter:" comment
+    fi
+    
     if [[ -n "$comment" ]]; then
         name=${comment// /_}
         sanitized_name=${name//[^a-zA-Z0-9\-_]/}
-        (git checkout -b "PR-${sanitized_name}" || branch_and_commit) && git commit --all -m "$comment" && gh pr create --fill 
+        (git checkout -b "PR-${sanitized_name}" || branch_and_commit "$comment") && git commit --all -m "$comment" && gh pr create --fill 
     else
         fail "No comment entered, skipping these changes..."
     fi
@@ -72,7 +83,9 @@ else
     # add all changes (including untracked files)
     git add --all .
 
+    echo "Comment: $4"
+
     # if there are changes, commit them (needed before being able to rebase)
-    (commit $3 && post_commit $2 $3) || echo "Skipped..."
+    (commit $4 && post_commit $3 $4) || echo "Skipped..."
 
 fi

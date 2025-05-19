@@ -586,7 +586,8 @@ icons-uniq:
 	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
 
 # Push all changes to the app and extensions in ./forks
-contrib: _pre-push-hooks contrib-forks-publish _pre-push-hooks git-publish
+contrib message='': _pre-push-hooks contrib-forks-publish _pre-push-hooks 
+	just git-publish "." "pull" "commit" {{message}}
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
 contrib-release: _pre-push-hooks contrib-forks-publish update contrib-app-release
@@ -643,9 +644,9 @@ deps-git-fix:
 @git-conflicts:
 	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
-@git-publish dir='.' cmd='pull' extra='':
+@git-publish dir='.' cmd='pull' extra='' message='':
 	chmod +x git-publish.sh
-	./git-publish.sh {{dir}} {{cmd}} {{extra}}
+	./git-publish.sh {{dir}} {{cmd}} {{extra}} {{message}}
 
 #### TESTING RELATED COMMANDS ####
 
@@ -1064,7 +1065,6 @@ shell:
 @docker-cmd cmd="docker" *args='':
 	#!/usr/bin/env bash
 	export $(./tool-versions-to-env.sh 3 | xargs)
-	export $(grep -v '^#' .tool-versions.env | xargs)
 	if [ "$ARCH" = "arm32v7" ]; then
 		ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}"
 		export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
