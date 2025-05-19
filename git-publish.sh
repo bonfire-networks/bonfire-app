@@ -19,8 +19,10 @@ function commit {
         branch_and_commit "$2"
     else
         if [[ -n "$2" ]]; then
+            echo "Comment for the commit: $2"
             git commit --all -m "$2"
         else
+            echo "Enter a comment for the commit:"
             git commit --verbose --all
         fi
     fi
@@ -83,9 +85,7 @@ else
     # add all changes (including untracked files)
     git add --all .
 
-    echo "Comment: $4"
-
     # if there are changes, commit them (needed before being able to rebase)
-    (commit $3 $4 && post_commit $2 $3) || echo "Skipped..."
+    (commit "$3" "$4" && post_commit "$2" "$3") || echo "Skipped..."
 
 fi

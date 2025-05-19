@@ -438,18 +438,18 @@ update-dep-simple dep:
 @update-forks:
 	(just git-fetch-all && just update-forks-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull)
 
-update-forks-all cmd='pull' extra='':
-	just update-fork-path $EXT_PATH $cmd
-	just update-fork-path $EXTRA_FORKS_PATH $cmd
+update-forks-all cmd='pull' extra='' message='':
+	just update-fork-path $EXT_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
+	just update-fork-path $EXTRA_FORKS_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
 
 # Pull the latest commits from all forks
 update-fork dep cmd='pull' extra='' mindepth='0' maxdepth='0':
-	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
+	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}} {{mindepth}} {{maxdepth}} {{extra}}
 	-just update-fork-path $EXTRA_FORKS_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
 
-update-fork-path path cmd='pull' mindepth='0' maxdepth='1' extra='':
+update-fork-path path cmd='pull' mindepth='0' maxdepth='1' extra='' message='':
 	@chmod +x git-publish.sh
-	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} {{cmd}} {{extra}} \;
+	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} "{{cmd}}" "{{extra}}" "{{message}}" \;
 
 # Fetch locked versions of deps (Elixir and JS), including ones also cloned locally
 @deps-fetch *args='':
@@ -586,7 +586,8 @@ icons-uniq:
 	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
 
 # Push all changes to the app and extensions in ./forks
-contrib message='': _pre-push-hooks contrib-forks-publish _pre-push-hooks 
+contrib message='': _pre-push-hooks 
+	just contrib-forks-publish {{message}}
 	just git-publish "." "pull" "commit" {{message}}
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
@@ -602,7 +603,9 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 @contrib-app-release-increment:
 	just escript_common release "./ $APP_VSN_EXTRA"
 
-contrib-forks-publish: update-forks
+contrib-forks-publish message='': 
+	(just git-fetch-all && just update-forks-all rebase "" "{{message}}") || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull "" "{{message}}")
+
 
 contrib-rel-push: contrib-release rel-build rel-push
 
