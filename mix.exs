@@ -131,7 +131,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
           only: :dev
         },
-        {:live_debugger, "~> 0.1.1", only: :dev},
+        {:live_debugger, "~> 0.2.2", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
