@@ -59,7 +59,7 @@ jobs:
   test:
     needs: check_file_changed
     if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
     outputs:
       tests_passed: ${{ steps.set_test_success.outputs.tests_passed }}
@@ -70,13 +70,14 @@ jobs:
         test_only: ['backend', 'ui', 'federation-all'] 
         otp: ['27.3.4'] # '26.2.5', '25.2.3'
         elixir: ['1.18.3'] # '1.14.5' 
+        with_docker: ['partial']
         # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
     env:
       FLAVOUR: ${{matrix.flavour}}
       # MIX_TEST_ONLY: ${{matrix.test_only}}
+      WITH_DOCKER: ${{matrix.with_docker}}
       CI: true
       MIX_ENV: test
-      WITH_DOCKER: partial
       WITH_AI: "0"
       WITH_LV_NATIVE: "0"
       TEST_LOG_TRUNCATE: 340
