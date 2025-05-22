@@ -73,6 +73,12 @@ jobs:
           ./tool-versions-to-env.sh 2 
       - name: Set computed env vars
         run: |
+          # Strip any -otp suffix from ELIXIR_VERSION
+          if [[ "$ELIXIR_VERSION" == *-otp-* ]]; then
+            ELIXIR_VERSION="${ELIXIR_VERSION%%-otp-*}"
+            echo "ELIXIR_VERSION=$ELIXIR_VERSION" >> $GITHUB_ENV
+          fi
+
           if [ "${{ matrix.arch }}" = "arm32v7" ]; then
             ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}" # e.g. 27 from 27.3.4
             export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
