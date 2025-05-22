@@ -115,7 +115,7 @@ defmodule Bonfire.Umbrella.MixProject do
         },
         {:jungle,
          git: "https://github.com/bonfire-networks/jungle", only: [:dev, :test], override: true},
-        {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
+        # {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true}, 
 
         # compilation
         # {:tria, github: "hissssst/tria"},

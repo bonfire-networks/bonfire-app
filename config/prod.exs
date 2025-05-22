@@ -7,8 +7,7 @@ import Config
 # before starting your production server.
 config :bonfire, Bonfire.Web.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
-config :logger,
-  backends: [:console, Sentry.LoggerBackend]
+config :logger, backends: [:console]
 
 # Do not print debug messages in production
 config :logger, level: :info
