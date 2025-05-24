@@ -76,16 +76,14 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_ai_deps =
     if(System.get_env("WITH_AI") != "0",
       do: [
-        {:bumblebee, "~> 0.6.0"},        
+        {:bumblebee, "~> 0.6.0"},
         {:axon, "~> 0.7.0", override: true},
         {:table_rex, "~> 4.0.0", override: true},
         # {:nx, "~> 0.9.0"},
         # {:exla, "~> 0.9.1"},
-        {:exla, # temp workaround: https://github.com/elixir-nx/nx/issues/1599
-        github: "elixir-nx/nx",
-        sparse: "exla", override: true
-       },
-       {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
+        # temp workaround: https://github.com/elixir-nx/nx/issues/1599
+        {:exla, github: "elixir-nx/nx", sparse: "exla", override: true},
+        {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
       ],
       else: []
     )
