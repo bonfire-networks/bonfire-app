@@ -1,3 +1,5 @@
+- See @claude/FEED_STRUCTURE.md to learn about feed overview
+
 ## Core Principles
 
 - **Extension-Based Modularity**: Organize code into specific extension types (common, data, UI) that can be composed.
