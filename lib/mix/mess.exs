@@ -8,9 +8,13 @@ if not Code.ensure_loaded?(Mess) do
     @moduledoc """
     Helper for using dependencies specified in simpler text files in an Elixir mix project.
     """
-    @newline ~r/(?:\r\n|[\r\n])/
-    @parser ~r/^(?<indent>\s*)((?<package>[a-z_][a-z0-9_]+)\s*=\s*"(?<value>[^"]+)")?(?<post>.*)/
-    @git_branch ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
+    # Regex patterns defined as functions to comply with Erlang/OTP 28
+    defp newline, do: ~r/(?:\r\n|[\r\n])/
+
+    defp parser,
+      do: ~r/^(?<indent>\s*)((?<package>[a-z_][a-z0-9_]+)\s*=\s*"(?<value>[^"]+)")?(?<post>.*)/
+
+    defp git_branch, do: ~r/(?<repo>[^#]+)(#(?<branch>.+))?/
     @ext_forks_path System.get_env("FORKS_PATH", "extensions/")
 
     @doc """
@@ -199,13 +203,13 @@ if not Code.ensure_loaded?(Mess) do
     end
 
     defp have_read({:ok, file}, _, kind),
-      do: Enum.map(String.split(file, @newline), &read_line(&1, kind))
+      do: Enum.map(String.split(file, newline()), &read_line(&1, kind))
 
     @doc """
     Parses a line from a dependency file.
     """
     def read_line(line, kind),
-      do: Map.put(Regex.named_captures(@parser, line), :kind, kind)
+      do: Map.put(Regex.named_captures(parser(), line), :kind, kind)
 
     @doc """
     Converts a parsed dependency specification into a proper dependency tuple.
@@ -238,7 +242,7 @@ if not Code.ensure_loaded?(Mess) do
       do: git(v, p, !params[:disabled])
 
     defp git(line, p, runtime) when is_binary(line),
-      do: git(Regex.named_captures(@git_branch, line), p, runtime)
+      do: git(Regex.named_captures(git_branch(), line), p, runtime)
 
     defp git(%{"branch" => "", "repo" => r}, p, runtime),
       do: pkg(p, git: r, override: true, runtime: runtime)

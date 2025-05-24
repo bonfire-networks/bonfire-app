@@ -208,7 +208,12 @@ defmodule Bonfire.Umbrella.MixProject do
         # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
         # logging
-        {:sentry, "~> 10.0", only: [:dev, :prod], override: true},
+        {
+          :sentry,
+          # "~> 10.0", 
+          # temp until 10.9.1+ released
+          git: "https://github.com/getsentry/sentry-elixir", only: [:dev, :prod], override: true
+        },
 
         # list dependencies & licenses
         # {
@@ -394,7 +399,7 @@ defmodule Bonfire.Umbrella.MixProject do
   def config, do: @config
   def deps, do: config()[:deps]
 
-  def project do
+  def project_info do
     [
       name: "Bonfire",
       app: :bonfire,
@@ -432,96 +437,106 @@ defmodule Bonfire.Umbrella.MixProject do
       sources_url: "https://github.com/bonfire-networks",
       source_url: "https://github.com/bonfire-networks/bonfire-app",
       homepage_url: "https://bonfirenetworks.org",
-      docs: [
-        # The first page to display from the docs
-        main: "readme",
-        logo: config()[:logo],
-        output: "docs/exdoc",
-        source_url_pattern: &Mixer.source_url_pattern/2,
-        # extra pages to include
-        extras: Mixer.extra_guide_paths(config()),
-        # extra apps to include in module docs
-        source_beam: Mixer.docs_beam_paths(config()),
-        deps: Mixer.doc_dep_urls(config()),
-        # Note: first match wins
-        groups_for_extras: [
-          "Getting Started": Path.wildcard("docs/*.md"),
-          "Building on Bonfire": Path.wildcard("docs/building/*.md"),
-          Licenses:
-            Path.wildcard("LICENSES/*") ++
-              Path.wildcard("{extensions,deps,forks}/*/LICENSES/*") ++
-              Path.wildcard("{extensions,deps,forks}/*/LICENSE"),
-          Concepts:
-            Path.wildcard("docs/topics/*") ++
-              Path.wildcard("{extensions,deps,forks}/*/docs/*.md") ++
-              Path.wildcard(
-                "{deps,forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
-                # "{forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
-              ),
-          "Data schemas": Path.wildcard("{extensions,deps,forks}/bonfire_data_*/*.md"),
-          "UI extensions": Path.wildcard("{extensions,deps,forks}/bonfire_ui_*/*.md"),
-          "Bonfire utilities":
-            [
-              "bonfire_api_graphql",
-              "bonfire_boundaries",
-              "bonfire_common",
-              "bonfire_ecto",
-              "bonfire_epics",
-              "bonfire_fail",
-              "bonfire_files",
-              "bonfire_mailer"
-            ]
-            |> Enum.flat_map(&Path.wildcard("{extensions,deps,forks}/#{&1}/*.md")),
-          "Feature extensions": Path.wildcard("{extensions,deps,forks}/bonfire_*/*.md"),
-          "Other utilities": Path.wildcard("{extensions,deps,forks}/*/*.md"),
-          Dependencies: Path.wildcard("docs/DEPENDENCIES/*.md")
-        ],
-        groups_for_modules: [
-          # "Concepts": Bonfire.Boundaries,
-          "Data schemas": ~r/^Bonfire.Data.?/,
-          "UI extensions": ~r/^Bonfire.UI.?/,
-          "Bonfire utilities": [
-            ~r/^Bonfire.API?/,
-            ~r/^Bonfire.GraphQL?/,
-            ~r/^Bonfire.Web?/,
-            ~r/^Bonfire.Boundaries?/,
-            ~r/^Bonfire.Common?/,
-            ~r/^Bonfire.Ecto?/,
-            ~r/^Bonfire.Epics?/,
-            ~r/^Bonfire.Fail?/,
-            ~r/^Bonfire.Files?/,
-            ~r/^Bonfire.Mailer?/,
-            ~r/^Needle?/,
-            ~r/^Exto?/,
-            ~r/^Arrows?/,
-            ~r/^AnimalAvatarGenerator?/,
-            ~r/^EctoSparkles?/,
-            ~r/^Releaser?/,
-            ~r/^Voodoo?/,
-            ~r/^Untangle?/
-          ],
-          "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
-          Federation: [
-            ~r/^ActivityPub.?/,
-            ~r/^ActivityPub.?/,
-            ~r/^Nodeinfo.?/,
-            ~r/^NodeinfoWeb.?/
-          ],
-          Icons: ~r/^Iconify.?/,
-          Utilities: ~r/.?/
-        ],
-        nest_modules_by_prefix: [
-          Bonfire.Data,
-          # Bonfire.UI,
-          Bonfire,
-          ActivityPub,
-          ActivityPub.Web,
-          # ValueFlows,
-          Iconify
-        ]
-      ],
       preferred_cli_env: ["mneme.test": :test, "mneme.watch": :test]
     ]
+  end
+
+  def docs do
+    [
+      # The first page to display from the docs
+      main: "readme",
+      logo: config()[:logo],
+      output: "docs/exdoc",
+      source_url_pattern: &Mixer.source_url_pattern/2,
+      # extra pages to include
+      extras: Mixer.extra_guide_paths(config()),
+      # extra apps to include in module docs
+      source_beam: Mixer.docs_beam_paths(config()),
+      deps: Mixer.doc_dep_urls(config()),
+      # Note: first match wins
+      groups_for_extras: [
+        "Getting Started": Path.wildcard("docs/*.md"),
+        "Building on Bonfire": Path.wildcard("docs/building/*.md"),
+        Licenses:
+          Path.wildcard("LICENSES/*") ++
+            Path.wildcard("{extensions,deps,forks}/*/LICENSES/*") ++
+            Path.wildcard("{extensions,deps,forks}/*/LICENSE"),
+        Concepts:
+          Path.wildcard("docs/topics/*") ++
+            Path.wildcard("{extensions,deps,forks}/*/docs/*.md") ++
+            Path.wildcard(
+              "{deps,forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
+              # "{forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
+            ),
+        "Data schemas": Path.wildcard("{extensions,deps,forks}/bonfire_data_*/*.md"),
+        "UI extensions": Path.wildcard("{extensions,deps,forks}/bonfire_ui_*/*.md"),
+        "Bonfire utilities":
+          [
+            "bonfire_api_graphql",
+            "bonfire_boundaries",
+            "bonfire_common",
+            "bonfire_ecto",
+            "bonfire_epics",
+            "bonfire_fail",
+            "bonfire_files",
+            "bonfire_mailer"
+          ]
+          |> Enum.flat_map(&Path.wildcard("{extensions,deps,forks}/#{&1}/*.md")),
+        "Feature extensions": Path.wildcard("{extensions,deps,forks}/bonfire_*/*.md"),
+        "Other utilities": Path.wildcard("{extensions,deps,forks}/*/*.md"),
+        Dependencies: Path.wildcard("docs/DEPENDENCIES/*.md")
+      ],
+      groups_for_modules: [
+        # "Concepts": Bonfire.Boundaries,
+        "Data schemas": ~r/^Bonfire.Data.?/,
+        "UI extensions": ~r/^Bonfire.UI.?/,
+        "Bonfire utilities": [
+          ~r/^Bonfire.API?/,
+          ~r/^Bonfire.GraphQL?/,
+          ~r/^Bonfire.Web?/,
+          ~r/^Bonfire.Boundaries?/,
+          ~r/^Bonfire.Common?/,
+          ~r/^Bonfire.Ecto?/,
+          ~r/^Bonfire.Epics?/,
+          ~r/^Bonfire.Fail?/,
+          ~r/^Bonfire.Files?/,
+          ~r/^Bonfire.Mailer?/,
+          ~r/^Needle?/,
+          ~r/^Exto?/,
+          ~r/^Arrows?/,
+          ~r/^AnimalAvatarGenerator?/,
+          ~r/^EctoSparkles?/,
+          ~r/^Releaser?/,
+          ~r/^Voodoo?/,
+          ~r/^Untangle?/
+        ],
+        "Feature extensions": [~r/^Bonfire.?/, ~r/^ValueFlows.?/],
+        Federation: [
+          ~r/^ActivityPub.?/,
+          ~r/^ActivityPub.?/,
+          ~r/^Nodeinfo.?/,
+          ~r/^NodeinfoWeb.?/
+        ],
+        Icons: ~r/^Iconify.?/,
+        Utilities: ~r/.?/
+      ],
+      nest_modules_by_prefix: [
+        Bonfire.Data,
+        # Bonfire.UI,
+        Bonfire,
+        ActivityPub,
+        ActivityPub.Web,
+        # ValueFlows,
+        Iconify
+      ]
+    ]
+  end
+
+  def project do
+    project_info() ++
+      [
+        docs: docs()
+      ]
   end
 
   def application do
