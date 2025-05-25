@@ -73,7 +73,7 @@ The `Bonfire.UI.Me.ProfileLive` [mount function](https://github.com/bonfire-netw
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(LiveHandler.default_assigns(is_nil(current_user_id(assigns(socket)))))}
+     |> assign(LiveHandler.default_assigns(is_nil(current_user_id(socket))))}
   end
 
 ```
