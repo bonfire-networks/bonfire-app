@@ -238,6 +238,11 @@ end
 if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
      (System.get_env("OTEL_EXPORTER_OTLP_ENDPOINT") || System.get_env("OTEL_LIGHTSTEP_API_KEY") ||
         System.get_env("OTEL_HONEYCOMB_API_KEY")) do
+  # Enable tracing only when we have a configured endpoint
+  config :opentelemetry,
+    span_processor: :batch,
+    traces_exporter: {:opentelemetry_exporter, %{}}
+  
   config :opentelemetry_exporter,
     otlp_protocol: :http_protobuf
 
@@ -293,8 +298,11 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
       }
   end
 else
+  # Ensure OpenTelemetry is properly disabled when no endpoints are configured
   config :opentelemetry,
-    modularity: :disabled
+    modularity: :disabled,
+    span_processor: :simple,
+    traces_exporter: :none
 end
 
 # Error reporting

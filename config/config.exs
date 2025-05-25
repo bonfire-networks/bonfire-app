@@ -286,6 +286,13 @@ config :sentry,
   context_lines: 15,
   tags: %{app_version: Mix.Project.config()[:version]}
 
+# OpenTelemetry base configuration
+# This ensures OpenTelemetry is properly initialized with minimal setup
+# The actual exporter configuration is done in runtime.exs based on env vars
+config :opentelemetry,
+  span_processor: :batch,
+  traces_exporter: :none
+
 # native app
 if System.get_env("WITH_LV_NATIVE") in ["1", "true"] do
   config :live_view_native_stylesheet,
