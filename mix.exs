@@ -210,7 +210,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # logging
         {
           :sentry,
-          "~> 10.10", 
+          "~> 10.10",
           # git: "https://github.com/getsentry/sentry-elixir", 
           only: [:dev, :prod], override: true
         },
