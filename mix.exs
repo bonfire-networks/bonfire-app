@@ -210,9 +210,9 @@ defmodule Bonfire.Umbrella.MixProject do
         # logging
         {
           :sentry,
-          # "~> 10.0", 
-          # temp until 10.9.1+ released
-          git: "https://github.com/getsentry/sentry-elixir", only: [:dev, :prod], override: true
+          "~> 10.10", 
+          # git: "https://github.com/getsentry/sentry-elixir", 
+          only: [:dev, :prod], override: true
         },
 
         # list dependencies & licenses
