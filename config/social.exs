@@ -24,6 +24,9 @@ config :bonfire_ui_boundaries, Bonfire.Boundaries.Locking.LiveHandler, modularit
 config :bonfire_social, Bonfire.Social.Pins, modularity: :disabled
 config :bonfire_ui_reactions, Bonfire.UI.Reactions.PinActionLive, modularity: :disabled
 
+# disable emoji reactions
+config :bonfire_ui_reactions, Bonfire.UI.Reactions.EmojiReactionsLive, modularity: :disabled
+
 config :bonfire, :ui,
   default_nav_extensions: [
     :bonfire,
