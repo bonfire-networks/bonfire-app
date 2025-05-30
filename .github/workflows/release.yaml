@@ -57,13 +57,15 @@ jobs:
           workflow_id: ${{ github.workflow }}
           ignore_sha: true
       - 
-        name: Skip workflow if version hasn't changed
+        name: Skip build if version hasn't changed
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         run: |
           echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
-          # Using special GitHub Actions syntax to skip without failing
           echo "::notice::Skipping workflow as version hasn't changed"
-          exit 78 # FIXME: how to mark a neutral/skipped status in GitHub Actions
+      - 
+        name: Cancel workflow 
+        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
+        uses: andymckay/cancel-action@0.3
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -232,14 +234,6 @@ jobs:
           access_token: ${{ github.token }}
           workflow_id: ${{ github.workflow }}
           ignore_sha: true
-      - 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Skip workflow if the version has not changed
-        run: |
-          echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
-          # Using special GitHub Actions syntax to skip without failing
-          echo "::notice::Skipping workflow as version hasn't changed"
-          exit 78
       - 
         name: Add path
         run: |
