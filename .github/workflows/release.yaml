@@ -61,7 +61,9 @@ jobs:
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
         run: |
           echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
-          exit 1
+          # Using special GitHub Actions syntax to skip without failing
+          echo "::notice::Skipping workflow as version hasn't changed"
+          exit 78
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -232,10 +234,12 @@ jobs:
           ignore_sha: true
       - 
         if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Cancel workflow if the version has not changed
+        name: Skip workflow if the version has not changed
         run: |
           echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
-          exit 1
+          # Using special GitHub Actions syntax to skip without failing
+          echo "::notice::Skipping workflow as version hasn't changed"
+          exit 78
       - 
         name: Add path
         run: |

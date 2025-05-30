@@ -140,9 +140,9 @@ jobs:
 
   # This job summarizes the test results and sets an output for downstream workflows
   test_success:
-    needs: test
+    needs: [test, check_file_changed]
     runs-on: ubuntu-latest
-    if: ${{ always() }}
+    if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' }}
     outputs:
       success: ${{ steps.check_test_success.outputs.all_tests_passed }}
     steps:
@@ -157,3 +157,14 @@ jobs:
             echo "One or more matrix jobs failed"
             echo "all_tests_passed=false" >> $GITHUB_OUTPUT
           fi
+          
+  # This job runs when no tracked files have changed and marks the workflow as skipped
+  mark_skipped:
+    needs: check_file_changed
+    runs-on: ubuntu-latest
+    if: ${{ needs.check_file_changed.outputs.changed == 'false' }}
+    steps:
+      - name: Mark as skipped
+        run: |
+          echo "Tests were skipped because no relevant files changed"
+          exit 78  # Exit code 78 indicates a neutral/skipped status in GitHub Actions
