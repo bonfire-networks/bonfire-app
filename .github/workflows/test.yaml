@@ -158,21 +158,14 @@ jobs:
             echo "all_tests_passed=false" >> $GITHUB_OUTPUT
           fi
           
-  # This job runs when no tracked files have changed and marks the workflow as skipped
-  mark_skipped:
+  # This job runs when no tracked files have changed and cancels the workflow
+  skip_workflow:
     needs: check_file_changed
     runs-on: ubuntu-latest
     if: ${{ needs.check_file_changed.outputs.changed == 'false' }}
     steps:
-      - name: Mark as skipped
-        run: |
-          echo "Tests were skipped because no relevant files changed"
+      - name: Log skipped reason
+        run: echo "No changes detected in tracked files. Cancelling workflow."
       
-      # Use GitHub's status check API to create a "neutral" status
-      - name: Create skipped status
-        uses: Sibz/github-status-action@v1
-        with:
-          authToken: ${{ github.token }}
-          context: 'Tests'
-          state: 'success'
-          description: 'Tests skipped - no relevant files changed'
+      - name: Cancel workflow
+        uses: andymckay/cancel-action@0.3
