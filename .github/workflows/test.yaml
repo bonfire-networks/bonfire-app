@@ -167,4 +167,12 @@ jobs:
       - name: Mark as skipped
         run: |
           echo "Tests were skipped because no relevant files changed"
-          exit 78  # FIXME: how to mark a neutral/skipped status in GitHub Actions
+      
+      # Use GitHub's status check API to create a "neutral" status
+      - name: Create skipped status
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{ github.token }}
+          context: 'Tests'
+          state: 'success'
+          description: 'Tests skipped - no relevant files changed'
