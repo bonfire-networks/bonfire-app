@@ -127,6 +127,10 @@ jobs:
       run: mix local.rebar --force
     # - name: Fetch initial deps
     #   run: just deps-get
+    - 
+      name: Configure Git authentication for GitHub
+      run: |
+        git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
     - name: Prepare environment
       run: just config 
     - name: Set things up 

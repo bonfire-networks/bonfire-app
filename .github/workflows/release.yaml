@@ -107,6 +107,10 @@ jobs:
       - 
         name: Install tools 
         run: sudo apt-get update -y && sudo apt-get install -y cargo && cargo install just && echo "/github/home/.cargo/bin" >> $GITHUB_PATH 
+      - 
+        name: Configure Git authentication for GitHub
+        run: |
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
       # - 
       #   name: Prepare env
       #   run: just config 
@@ -257,6 +261,10 @@ jobs:
           elixir -v
           just --version
           yarn -v
+      - 
+        name: Configure Git authentication for GitHub
+        run: |
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
       - 
         name: Prepare env
         run: |
