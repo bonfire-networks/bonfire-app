@@ -1,11 +1,11 @@
 name: Maybe generate docs
 on:
-  workflow_run:
-    workflows: ["Test"]
-    types:
-      - completed
-    branches:
-      - main
+  # workflow_run:
+  #   workflows: ["Test"]
+  #   types:
+  #     - completed
+  #   branches:
+  #     - main
 
 jobs:
   check_test_success:
@@ -18,8 +18,8 @@ jobs:
         run: echo "Tests passed successfully, proceeding with docs generation..."
 
   docs:
-    needs: check_test_success
-    if: ${{ needs.check_test_success.outputs.should_generate_docs == 'true' }}
+    # needs: check_test_success
+    # if: ${{ needs.check_test_success.outputs.should_generate_docs == 'true' }}
     name: Generate docs (upon new release)
     runs-on: ubuntu-latest
     container: hexpm/elixir:1.18.3-erlang-27.3.4-alpine-3.21.3
