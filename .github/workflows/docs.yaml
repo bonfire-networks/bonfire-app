@@ -76,7 +76,7 @@ jobs:
       - name: Prepare environment
         run: just config 
       - name: Prepare deps
-        run: just setup-dev
+        run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
       # - name: Install dependencies
       #   run: just mix deps.get
       - 
