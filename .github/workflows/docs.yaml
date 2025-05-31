@@ -1,5 +1,6 @@
 name: Maybe generate docs
 on:
+  push:
   # workflow_run:
   #   workflows: ["Test"]
   #   types:
@@ -8,14 +9,14 @@ on:
   #     - main
 
 jobs:
-  check_test_success:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    outputs:
-      should_generate_docs: true
-    steps:
-      - name: Check test workflow success
-        run: echo "Tests passed successfully, proceeding with docs generation..."
+  # check_test_success:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  #   outputs:
+  #     should_generate_docs: true
+  #   steps:
+  #     - name: Check test workflow success
+  #       run: echo "Tests passed successfully, proceeding with docs generation..."
 
   docs:
     # needs: check_test_success
@@ -84,6 +85,10 @@ jobs:
       # - 
       #   name: Generate arch reports
       #   run: just arch && mv reports/dev/static/html ./docs/exdoc/arch
+      - 
+        name: Add version number
+        run: |
+          echo "${{ steps.version.outputs.current-version }}" > ./docs/exdoc/VERSION
       - 
         name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3
