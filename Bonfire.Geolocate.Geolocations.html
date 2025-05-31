@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.1">
+    <meta name="project" content="Bonfire v0.9.12-social-beta.67">
+
+
+    <title>Bonfire.Geolocate.Geolocations — Bonfire v0.9.12-social-beta.67</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-J3PIVQVA.css" />
+
+    <script defer src="dist/sidebar_items-86908C74.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-DPJLHKSM.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.12-social-beta.67
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Geolocate.Geolocations</span> 
+      <small class="app-vsn" translate="no">(Bonfire v0.9.12-social-beta.67)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L6" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_publish_activity/3" data-no-tooltip="" translate="no">ap_publish_activity(subject, activity_name, thing)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip="" translate="no">ap_receive_activity(creator, activity, object)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/2" data-no-tooltip="" translate="no">create(creator, attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/4" data-no-tooltip="" translate="no">create(creator, context, attrs, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cursor/1" data-no-tooltip="" translate="no">cursor(atom)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#extract_coordinates/1" data-no-tooltip="" translate="no">extract_coordinates(geom)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#extract_geojson_geometry/1" data-no-tooltip="" translate="no">extract_geojson_geometry(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip="" translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#indexing_object_format/1" data-no-tooltip="" translate="no">indexing_object_format(u)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#many/1" data-no-tooltip="" translate="no">many(filters \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a list of geolocations by arbitrary filters.
+Used by</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#many!/1" data-no-tooltip="" translate="no">many!(filters \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#many_paginated/1" data-no-tooltip="" translate="no">many_paginated(filters \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#one/1" data-no-tooltip="" translate="no">one(filters)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Retrieves a single geolocation by arbitrary filters.
+Used by</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#populate_coordinates/1" data-no-tooltip="" translate="no">populate_coordinates(objects)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#resolve_mappable_address/1" data-no-tooltip="" translate="no">resolve_mappable_address(attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#search/2" data-no-tooltip="" translate="no">search(search, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#soft_delete/2" data-no-tooltip="" translate="no">soft_delete(geo, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#test_cursor/1" data-no-tooltip="" translate="no">test_cursor(atom)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#thing_add_location/3" data-no-tooltip="" translate="no">thing_add_location(user, thing, mappable_address)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update/3" data-no-tooltip="" translate="no">update(user, geolocation, attrs)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="ap_publish_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_publish_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_publish_activity(subject, activity_name, thing)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L291" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_receive_activity(creator, activity, object)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L302" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create/2">
+
+  <div class="detail-header">
+    <a href="#create/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">create(creator, attrs)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L109" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> create(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), attrs :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()) ::
+  {:ok, <a href="./Bonfire.Geolocate.Geolocation.html#t:t/0">Bonfire.Geolocate.Geolocation.t</a>()} | {:error, Changeset.t()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="create/4">
+
+    <span id="create/3"></span>
+
+  <div class="detail-header">
+    <a href="#create/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">create(creator, context, attrs, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L74" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cursor/1">
+
+  <div class="detail-header">
+    <a href="#cursor/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cursor(atom)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L25" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="extract_coordinates/1">
+
+  <div class="detail-header">
+    <a href="#extract_coordinates/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">extract_coordinates(geom)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L172" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="extract_geojson_geometry/1">
+
+  <div class="detail-header">
+    <a href="#extract_geojson_geometry/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">extract_geojson_geometry(arg1)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L336" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">federation_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L23" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="indexing_object_format/1">
+
+  <div class="detail-header">
+    <a href="#indexing_object_format/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">indexing_object_format(u)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L276" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="many/1">
+
+    <span id="many/0"></span>
+
+  <div class="detail-header">
+    <a href="#many/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">many(filters \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L46" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a list of geolocations by arbitrary filters.
+Used by:</p><ul><li>Various parts of the codebase that need to query for geolocations (inc. tests)</li></ul>
+  </section>
+</section>
+<section class="detail" id="many!/1">
+
+    <span id="many!/0"></span>
+
+  <div class="detail-header">
+    <a href="#many!/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">many!(filters \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L49" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="many_paginated/1">
+
+    <span id="many_paginated/0"></span>
+
+  <div class="detail-header">
+    <a href="#many_paginated/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">many_paginated(filters \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L51" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="one/1">
+
+  <div class="detail-header">
+    <a href="#one/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">one(filters)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L35" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Retrieves a single geolocation by arbitrary filters.
+Used by:</p><ul><li>GraphQL Item queries</li><li>ActivityPub integration</li><li>Various parts of the codebase that need to query for geolocations (inc. tests)</li></ul>
+  </section>
+</section>
+<section class="detail" id="populate_coordinates/1">
+
+  <div class="detail-header">
+    <a href="#populate_coordinates/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">populate_coordinates(objects)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L154" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="resolve_mappable_address/1">
+
+  <div class="detail-header">
+    <a href="#resolve_mappable_address/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">resolve_mappable_address(attrs)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L262" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="search/2">
+
+    <span id="search/1"></span>
+
+  <div class="detail-header">
+    <a href="#search/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">search(search, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L59" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="soft_delete/2">
+
+  <div class="detail-header">
+    <a href="#soft_delete/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">soft_delete(geo, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L145" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> soft_delete(<a href="./Bonfire.Geolocate.Geolocation.html#t:t/0">Bonfire.Geolocate.Geolocation.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) ::
+  {:ok, <a href="./Bonfire.Geolocate.Geolocation.html#t:t/0">Bonfire.Geolocate.Geolocation.t</a>()} | {:error, Changeset.t()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="test_cursor/1">
+
+  <div class="detail-header">
+    <a href="#test_cursor/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">test_cursor(atom)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L26" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="thing_add_location/3">
+
+  <div class="detail-header">
+    <a href="#thing_add_location/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">thing_add_location(user, thing, mappable_address)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L119" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="update/3">
+
+  <div class="detail-header">
+    <a href="#update/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">update(user, geolocation, attrs)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_geolocate/blob/main/lib/geolocations.ex#L132" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> update(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), <a href="./Bonfire.Geolocate.Geolocation.html#t:t/0">Bonfire.Geolocate.Geolocation.t</a>(), attrs :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()) ::
+  {:ok, <a href="./Bonfire.Geolocate.Geolocation.html#t:t/0">Bonfire.Geolocate.Geolocation.t</a>()} | {:error, Changeset.t()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.1) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

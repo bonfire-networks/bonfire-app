@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.1">
+    <meta name="project" content="Bonfire v0.9.12-social-beta.67">
+
+
+    <title>Bonfire.Common.ConfigSettingsRegistry — Bonfire v0.9.12-social-beta.67</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-J3PIVQVA.css" />
+
+    <script defer src="dist/sidebar_items-86908C74.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-DPJLHKSM.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.9.12-social-beta.67
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Common.ConfigSettingsRegistry</span> 
+      <small class="app-vsn" translate="no">(Bonfire v0.9.12-social-beta.67)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L2" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Registry for configuration and settings keys.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#all/0" data-no-tooltip="" translate="no">all()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get all keys (both config and settings)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cached_data/1" data-no-tooltip="" translate="no">cached_data(modules_to_scan \\ ModuleAnalyzer.app_modules_to_scan())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Access the cached data, or re-populate if not available</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#child_spec/1" data-no-tooltip="" translate="no">child_spec(init_arg)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a specification to start this module under a supervisor.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#config/0" data-no-tooltip="" translate="no">config()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get all configuration keys and their metadata</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#evaluate_ast/2" data-no-tooltip="" translate="no">evaluate_ast(ast, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_registry/0" data-no-tooltip="" translate="no">format_registry()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Format the registry for display/documentation</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#init/1" data-no-tooltip="" translate="no">init(_)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">GenServer.init/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#populate/1" data-no-tooltip="" translate="no">populate(modules_to_scan \\ ModuleAnalyzer.app_modules_to_scan())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Rebuild the config/settings registry</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#prepare_data_for_cache/1" data-no-tooltip="" translate="no">prepare_data_for_cache(modules_to_scan \\ ModuleAnalyzer.app_modules_to_scan())</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Prepare data structure for the cache.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#settings/0" data-no-tooltip="" translate="no">settings()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get all settings keys and their metadata</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start_link/1" data-no-tooltip="" translate="no">start_link(_)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="all/0">
+
+  <div class="detail-header">
+    <a href="#all/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">all()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L204" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get all keys (both config and settings)</p>
+  </section>
+</section>
+<section class="detail" id="cached_data/1">
+
+    <span id="cached_data/0"></span>
+
+  <div class="detail-header">
+    <a href="#cached_data/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cached_data(modules_to_scan \\ ModuleAnalyzer.app_modules_to_scan())</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L178" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Access the cached data, or re-populate if not available</p>
+  </section>
+</section>
+<section class="detail" id="child_spec/1">
+
+  <div class="detail-header">
+    <a href="#child_spec/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">child_spec(init_arg)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L6" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a specification to start this module under a supervisor.</p><p>See <a href="https://hexdocs.pm/elixir/Supervisor.html"><code class="inline">Supervisor</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="config/0">
+
+  <div class="detail-header">
+    <a href="#config/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">config()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L194" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get all configuration keys and their metadata</p>
+  </section>
+</section>
+<section class="detail" id="evaluate_ast/2">
+
+  <div class="detail-header">
+    <a href="#evaluate_ast/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">evaluate_ast(ast, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L507" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="format_registry/0">
+
+  <div class="detail-header">
+    <a href="#format_registry/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">format_registry()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L212" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Format the registry for display/documentation</p>
+  </section>
+</section>
+<section class="detail" id="init/1">
+
+  <div class="detail-header">
+    <a href="#init/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">init(_)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L172" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/elixir/GenServer.html#c:init/1"><code class="inline">GenServer.init/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="populate/1">
+
+    <span id="populate/0"></span>
+
+  <div class="detail-header">
+    <a href="#populate/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">populate(modules_to_scan \\ ModuleAnalyzer.app_modules_to_scan())</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L187" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Rebuild the config/settings registry</p>
+  </section>
+</section>
+<section class="detail" id="prepare_data_for_cache/1">
+
+    <span id="prepare_data_for_cache/0"></span>
+
+  <div class="detail-header">
+    <a href="#prepare_data_for_cache/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">prepare_data_for_cache(modules_to_scan \\ ModuleAnalyzer.app_modules_to_scan())</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L18" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Prepare data structure for the cache.</p>
+  </section>
+</section>
+<section class="detail" id="settings/0">
+
+  <div class="detail-header">
+    <a href="#settings/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">settings()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L199" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get all settings keys and their metadata</p>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">start_link(_)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/config_settings/registry.ex#L170" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> start_link(ignored :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()) :: <a href="https://hexdocs.pm/elixir/GenServer.html#t:on_start/0">GenServer.on_start</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.1) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
