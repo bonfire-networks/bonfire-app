@@ -137,7 +137,7 @@ export WITH_DOCKER=partial
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
   <!-- - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo -->
   - [yarn](https://yarnpkg.com)
-  - Postgres 12+ (or rather [Postgis](https://postgis.net/install/) if using the bonfire_geolocate extension)
+  - Postgres 12+ (or preferably 17+) with [Postgis](https://postgis.net/install/) extension
   - [Meili Search](https://docs.meilisearch.com/learn/getting_started/installation.html) (optional)
 
 - If you want search capabilities, you'll also need to setup a Meili server and set the relevant env variables as well.

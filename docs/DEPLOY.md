@@ -128,7 +128,7 @@ Running a custom build without Docker.
 
 1. Install dependencies. 
 
-- Postgres (or Postgis) version 12 or newer
+- Postgres 12+ (or preferably 17+) with [Postgis](https://postgis.net/install/) extension
 - [just](https://github.com/casey/just#packages)
 - Elixir version 1.15+ with OTP 25+ (see the `.tool-versions` to double check the versions we're currently using). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf. **Note: Source versions of Elixir >=1.17 and <1.17.3 have bugs that can freeze compilation when using the Pathex library, which bonfire does,** so please use 1.16 or 1.17.3+ (or you can set `WITH_PATHEX=0` in env to disabled the use of that library).
 
