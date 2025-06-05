@@ -18,9 +18,9 @@ This is a work in progress guide to getting up and running as a developer. Pleas
 
 Happy hacking!
 
-## Status: beta - have fun and provide feedback 🙏
+## Status: release candidate - have fun and provide feedback 🙏
 
-Bonfire is currently beta software. While it's fun to play with it, we would not recommend running any production instances (meaning not using it for your primary fediverse identity) yet because it's not quite ready for that today. 
+The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages. 
 
 ## System Requirements
 
