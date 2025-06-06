@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.1">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1+001">
 
 
-    <title>Bonfire.Mailer.Checker — Bonfire v1.0.0-social-rc.1</title>
+    <title>Bonfire.Mailer.Checker — Bonfire v1.0.0-social-rc.1+001</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.1
+          v1.0.0-social-rc.1+001
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Mailer.Checker</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1+001)</small>
 
     </h1>
 
@@ -223,14 +223,14 @@ Bonfire
       </div>
 
 <p>Checks whether an email domain name is valid, returns a reason if not.</p><p>This function first checks if the domain matches a valid domain format using a regex.
-If the format is valid, it then performs the same checks as <a href="#validate_email/1"><code class="inline">validate_email/1</code></a> on a test email address.</p><h2 id="validate_domain/1-parameters" class="section-heading"><a href="#validate_domain/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>domain: The domain to validate as a binary string.</li></ul><h2 id="validate_domain/1-returns" class="section-heading"><a href="#validate_domain/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">:ok</code> if the domain is valid.</li><li><code class="inline">{:error, :format}</code> if the domain format is invalid.</li><li><code class="inline">{:error, :mx}</code> if the domain has no valid MX records.</li></ul><h2 id="validate_domain/1-examples" class="section-heading"><a href="#validate_domain/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_domain</span><span class="p" data-group-id="5653222437-1">(</span><span class="s">&quot;example.com&quot;</span><span class="p" data-group-id="5653222437-1">)</span><span class="w">
+If the format is valid, it then performs the same checks as <a href="#validate_email/1"><code class="inline">validate_email/1</code></a> on a test email address.</p><h2 id="validate_domain/1-parameters" class="section-heading"><a href="#validate_domain/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>domain: The domain to validate as a binary string.</li></ul><h2 id="validate_domain/1-returns" class="section-heading"><a href="#validate_domain/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">:ok</code> if the domain is valid.</li><li><code class="inline">{:error, :format}</code> if the domain format is invalid.</li><li><code class="inline">{:error, :mx}</code> if the domain has no valid MX records.</li></ul><h2 id="validate_domain/1-examples" class="section-heading"><a href="#validate_domain/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_domain</span><span class="p" data-group-id="1728114749-1">(</span><span class="s">&quot;example.com&quot;</span><span class="p" data-group-id="1728114749-1">)</span><span class="w">
 </span><span class="ss">:ok</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_domain</span><span class="p" data-group-id="5653222437-2">(</span><span class="s">&quot;invalid-domain&quot;</span><span class="p" data-group-id="5653222437-2">)</span><span class="w">
-</span><span class="p" data-group-id="5653222437-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:format</span><span class="p" data-group-id="5653222437-3">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_domain</span><span class="p" data-group-id="1728114749-2">(</span><span class="s">&quot;invalid-domain&quot;</span><span class="p" data-group-id="1728114749-2">)</span><span class="w">
+</span><span class="p" data-group-id="1728114749-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:format</span><span class="p" data-group-id="1728114749-3">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_domain</span><span class="p" data-group-id="5653222437-4">(</span><span class="s">&quot;nonexistent-domain.com&quot;</span><span class="p" data-group-id="5653222437-4">)</span><span class="w">
-</span><span class="p" data-group-id="5653222437-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:mx</span><span class="p" data-group-id="5653222437-5">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_domain</span><span class="p" data-group-id="1728114749-4">(</span><span class="s">&quot;nonexistent-domain.com&quot;</span><span class="p" data-group-id="1728114749-4">)</span><span class="w">
+</span><span class="p" data-group-id="1728114749-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:mx</span><span class="p" data-group-id="1728114749-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="validate_email/1">
@@ -258,14 +258,14 @@ If the format is valid, it then performs the same checks as <a href="#validate_e
 
       </div>
 
-<p>Checks whether an email address is valid, returns a reason if not.</p><p>This function can perform two types of checks:</p><ol><li>Format check: Ensures the email address has a valid format.</li><li>MX record check: Verifies the existence of MX records for the email domain.</li></ol><p>The checks are enabled by default but can be disabled with <code class="inline">check_format: false</code> and <code class="inline">check_mx: false</code> on the <code class="inline">:bonfire_mailer</code> configuration.</p><h2 id="validate_email/1-parameters" class="section-heading"><a href="#validate_email/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>email: The email address to validate as a binary string.</li></ul><h2 id="validate_email/1-returns" class="section-heading"><a href="#validate_email/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">:ok</code> if the email is valid.</li><li><code class="inline">{:error, :format}</code> if the email format is invalid.</li><li><code class="inline">{:error, :mx}</code> if the email domain has no valid MX records.</li></ul><h2 id="validate_email/1-examples" class="section-heading"><a href="#validate_email/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_email</span><span class="p" data-group-id="0946444950-1">(</span><span class="s">&quot;user@example.com&quot;</span><span class="p" data-group-id="0946444950-1">)</span><span class="w">
+<p>Checks whether an email address is valid, returns a reason if not.</p><p>This function can perform two types of checks:</p><ol><li>Format check: Ensures the email address has a valid format.</li><li>MX record check: Verifies the existence of MX records for the email domain.</li></ol><p>The checks are enabled by default but can be disabled with <code class="inline">check_format: false</code> and <code class="inline">check_mx: false</code> on the <code class="inline">:bonfire_mailer</code> configuration.</p><h2 id="validate_email/1-parameters" class="section-heading"><a href="#validate_email/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>email: The email address to validate as a binary string.</li></ul><h2 id="validate_email/1-returns" class="section-heading"><a href="#validate_email/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">:ok</code> if the email is valid.</li><li><code class="inline">{:error, :format}</code> if the email format is invalid.</li><li><code class="inline">{:error, :mx}</code> if the email domain has no valid MX records.</li></ul><h2 id="validate_email/1-examples" class="section-heading"><a href="#validate_email/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_email</span><span class="p" data-group-id="5598268760-1">(</span><span class="s">&quot;user@example.com&quot;</span><span class="p" data-group-id="5598268760-1">)</span><span class="w">
 </span><span class="ss">:ok</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_email</span><span class="p" data-group-id="0946444950-2">(</span><span class="s">&quot;invalid-email&quot;</span><span class="p" data-group-id="0946444950-2">)</span><span class="w">
-</span><span class="p" data-group-id="0946444950-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:format</span><span class="p" data-group-id="0946444950-3">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_email</span><span class="p" data-group-id="5598268760-2">(</span><span class="s">&quot;invalid-email&quot;</span><span class="p" data-group-id="5598268760-2">)</span><span class="w">
+</span><span class="p" data-group-id="5598268760-3">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:format</span><span class="p" data-group-id="5598268760-3">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_email</span><span class="p" data-group-id="0946444950-4">(</span><span class="s">&quot;user@nonexistent-domain.com&quot;</span><span class="p" data-group-id="0946444950-4">)</span><span class="w">
-</span><span class="p" data-group-id="0946444950-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:mx</span><span class="p" data-group-id="0946444950-5">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Mailer.Checker</span><span class="o">.</span><span class="n">validate_email</span><span class="p" data-group-id="5598268760-4">(</span><span class="s">&quot;user@nonexistent-domain.com&quot;</span><span class="p" data-group-id="5598268760-4">)</span><span class="w">
+</span><span class="p" data-group-id="5598268760-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:mx</span><span class="p" data-group-id="5598268760-5">}</span></code></pre>
   </section>
 </section>
 
