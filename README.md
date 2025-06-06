@@ -9,7 +9,7 @@
 
 > #### Info {: .info}
 >
-> This project is in the beta stage - you're welcome to try out it out (specifically the social features in the classic flavour), but APIs may still change and no guarantees are given about stability. You can keep track of progress [in our milestones](https://github.com/bonfire-networks/bonfire-app/milestones?direction=asc&sort=due_date&state=open)
+> The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages. 
 
 ## Main characteristics
 
