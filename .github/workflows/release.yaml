@@ -247,12 +247,8 @@ jobs:
         name: Install system deps & tools
         run: |
           chmod +x deps-debian-build.sh && ./deps-debian-build.sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
           echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
-      - 
-        name: Install mix tools
-        run: |
-          mix local.hex --force
-          mix local.rebar --force
       - 
         name: Check tools
         run: |
@@ -262,6 +258,12 @@ jobs:
           elixir -v
           just --version
           yarn -v
+          mix -v
+      - 
+        name: Install mix tools
+        run: |
+          mix local.hex --force
+          mix local.rebar --force
       - 
         name: Configure Git authentication for GitHub
         run: |

@@ -17,8 +17,10 @@ apt-get install -q -y --no-install-recommends autoconf dpkg-dev  libncurses-dev 
 # tools
 # NOTE: using mise because bullseye elixir version is too old
 curl https://mise.run | sh
-PATH="~/.local/share/mise/shims:~/.local/bin/:$PATH"
-echo 'export PATH="~/.local/share/mise/shims:~/.local/bin/:$PATH"' >> ~/.bash_profile
+
+export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH"
+echo "export PATH=\"\$HOME/.local/share/mise/shims:\$HOME/.local/bin:\$PATH\"" >> ~/.bash_profile
+
 mise plugin-add erlang 
 mise plugin-add elixir 
 mise plugin-add just
