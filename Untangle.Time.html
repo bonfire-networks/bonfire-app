@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.1.5">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1.6">
 
 
-    <title>Untangle.Time — Bonfire v1.0.0-social-rc.1.5</title>
+    <title>Untangle.Time — Bonfire v1.0.0-social-rc.1.6</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.1.5
+          v1.0.0-social-rc.1.6
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Untangle.Time</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.5)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.6)</small>
 
     </h1>
 
@@ -300,15 +300,15 @@ Bonfire
 
   <section class="docstring">
 
-<p>Decorator that measures and logs execution time of functions.</p><p>When applied to a function, this decorator will:</p><ul><li>Measure the function's execution time if the logger level is set to <code class="inline">:debug</code> </li><li>Log the execution time if it exceeds a configured threshold (default: 10,000 microseconds)</li><li>Return the function's result unchanged</li></ul><h2 id="time/3-configuration" class="section-heading"><a href="#time/3-configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Configuration</span></h2><p>The minimum time threshold for logging can be configured in your application:</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:untangle</span><span class="p">,</span><span class="w"> </span><span class="ss">:time_slow_min</span><span class="p">,</span><span class="w"> </span><span class="mi">10_000</span><span class="w">  </span><span class="c1"># microseconds</span></code></pre><h2 id="time/3-examples" class="section-heading"><a href="#time/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Demo</span><span class="w"> </span><span class="k" data-group-id="1591065663-1">do</span><span class="w">
+<p>Decorator that measures and logs execution time of functions.</p><p>When applied to a function, this decorator will:</p><ul><li>Measure the function's execution time if the logger level is set to <code class="inline">:debug</code> </li><li>Log the execution time if it exceeds a configured threshold (default: 10,000 microseconds)</li><li>Return the function's result unchanged</li></ul><h2 id="time/3-configuration" class="section-heading"><a href="#time/3-configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Configuration</span></h2><p>The minimum time threshold for logging can be configured in your application:</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:untangle</span><span class="p">,</span><span class="w"> </span><span class="ss">:time_slow_min</span><span class="p">,</span><span class="w"> </span><span class="mi">10_000</span><span class="w">  </span><span class="c1"># microseconds</span></code></pre><h2 id="time/3-examples" class="section-heading"><a href="#time/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Demo</span><span class="w"> </span><span class="k" data-group-id="0461043093-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Untangle.Time</span><span class="w">
 
-  </span><span class="na">@decorate</span><span class="w"> </span><span class="n">time</span><span class="p" data-group-id="1591065663-2">(</span><span class="p" data-group-id="1591065663-2">)</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">slow_function</span><span class="p" data-group-id="1591065663-3">(</span><span class="n">ms</span><span class="p" data-group-id="1591065663-3">)</span><span class="w"> </span><span class="k" data-group-id="1591065663-4">do</span><span class="w">
-    </span><span class="nc">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p" data-group-id="1591065663-5">(</span><span class="n">ms</span><span class="p" data-group-id="1591065663-5">)</span><span class="w">
+  </span><span class="na">@decorate</span><span class="w"> </span><span class="n">time</span><span class="p" data-group-id="0461043093-2">(</span><span class="p" data-group-id="0461043093-2">)</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">slow_function</span><span class="p" data-group-id="0461043093-3">(</span><span class="n">ms</span><span class="p" data-group-id="0461043093-3">)</span><span class="w"> </span><span class="k" data-group-id="0461043093-4">do</span><span class="w">
+    </span><span class="nc">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p" data-group-id="0461043093-5">(</span><span class="n">ms</span><span class="p" data-group-id="0461043093-5">)</span><span class="w">
     </span><span class="ss">:ok</span><span class="w">
-  </span><span class="k" data-group-id="1591065663-4">end</span><span class="w">
-</span><span class="k" data-group-id="1591065663-1">end</span></code></pre>
+  </span><span class="k" data-group-id="0461043093-4">end</span><span class="w">
+</span><span class="k" data-group-id="0461043093-1">end</span></code></pre>
   </section>
 </section>
 <section class="detail" id="time_process/0">
@@ -380,15 +380,15 @@ Bonfire
 
   <section class="docstring">
 
-<p>Decorator that aggregates execution counts and times across multiple calls.</p><p>When applied to a function, this decorator will:</p><ul><li>Track each call in the process dictionary</li><li>Count the number of executions</li><li>Sum total execution time</li><li>Log detailed statistics when execution time exceeds threshold</li><li>Return the function's result unchanged</li></ul><h2 id="time_process/3-examples" class="section-heading"><a href="#time_process/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Demo</span><span class="w"> </span><span class="k" data-group-id="4627461171-1">do</span><span class="w">
+<p>Decorator that aggregates execution counts and times across multiple calls.</p><p>When applied to a function, this decorator will:</p><ul><li>Track each call in the process dictionary</li><li>Count the number of executions</li><li>Sum total execution time</li><li>Log detailed statistics when execution time exceeds threshold</li><li>Return the function's result unchanged</li></ul><h2 id="time_process/3-examples" class="section-heading"><a href="#time_process/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Demo</span><span class="w"> </span><span class="k" data-group-id="7447942856-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Untangle.Time</span><span class="w">
 
-  </span><span class="na">@decorate</span><span class="w"> </span><span class="n">time_process</span><span class="p" data-group-id="4627461171-2">(</span><span class="p" data-group-id="4627461171-2">)</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">repeated_function</span><span class="p" data-group-id="4627461171-3">(</span><span class="n">ms</span><span class="p" data-group-id="4627461171-3">)</span><span class="w"> </span><span class="k" data-group-id="4627461171-4">do</span><span class="w">
-    </span><span class="nc">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p" data-group-id="4627461171-5">(</span><span class="n">ms</span><span class="p" data-group-id="4627461171-5">)</span><span class="w">
+  </span><span class="na">@decorate</span><span class="w"> </span><span class="n">time_process</span><span class="p" data-group-id="7447942856-2">(</span><span class="p" data-group-id="7447942856-2">)</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">repeated_function</span><span class="p" data-group-id="7447942856-3">(</span><span class="n">ms</span><span class="p" data-group-id="7447942856-3">)</span><span class="w"> </span><span class="k" data-group-id="7447942856-4">do</span><span class="w">
+    </span><span class="nc">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p" data-group-id="7447942856-5">(</span><span class="n">ms</span><span class="p" data-group-id="7447942856-5">)</span><span class="w">
     </span><span class="ss">:ok</span><span class="w">
-  </span><span class="k" data-group-id="4627461171-4">end</span><span class="w">
-</span><span class="k" data-group-id="4627461171-1">end</span></code></pre><p>After multiple calls, logs will include call count and total time.</p>
+  </span><span class="k" data-group-id="7447942856-4">end</span><span class="w">
+</span><span class="k" data-group-id="7447942856-1">end</span></code></pre><p>After multiple calls, logs will include call count and total time.</p>
   </section>
 </section>
 <section class="detail" id="time_tree/0">
@@ -460,21 +460,21 @@ Bonfire
 
   <section class="docstring">
 
-<p>Decorator that measures execution time across a process tree.</p><p>When applied to a function, this decorator will:</p><ul><li>Track execution time of the function in the current process and all processes it spawns</li><li>Log detailed timing statistics when execution completes</li><li>Return the function's result unchanged</li></ul><p>Requires the <a href="https://www.hex.pm/packages/process_tree">ProcessTree</a> library to be added to your app's dependencies.</p><h2 id="time_tree/3-examples" class="section-heading"><a href="#time_tree/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Demo</span><span class="w"> </span><span class="k" data-group-id="7145689466-1">do</span><span class="w">
+<p>Decorator that measures execution time across a process tree.</p><p>When applied to a function, this decorator will:</p><ul><li>Track execution time of the function in the current process and all processes it spawns</li><li>Log detailed timing statistics when execution completes</li><li>Return the function's result unchanged</li></ul><p>Requires the <a href="https://www.hex.pm/packages/process_tree">ProcessTree</a> library to be added to your app's dependencies.</p><h2 id="time_tree/3-examples" class="section-heading"><a href="#time_tree/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Demo</span><span class="w"> </span><span class="k" data-group-id="9761354728-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Untangle.Time</span><span class="w">
 
-  </span><span class="na">@decorate</span><span class="w"> </span><span class="n">time_tree</span><span class="p" data-group-id="7145689466-2">(</span><span class="p" data-group-id="7145689466-2">)</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">spawn_function</span><span class="p" data-group-id="7145689466-3">(</span><span class="n">depth</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7145689466-3">)</span><span class="w"> </span><span class="k" data-group-id="7145689466-4">do</span><span class="w">
-    </span><span class="nc">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p" data-group-id="7145689466-5">(</span><span class="mi">50</span><span class="p" data-group-id="7145689466-5">)</span><span class="w"> 
-    </span><span class="k">if</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k" data-group-id="7145689466-6">do</span><span class="w">
-      </span><span class="nc">Task</span><span class="o">.</span><span class="n">async</span><span class="p" data-group-id="7145689466-7">(</span><span class="k" data-group-id="7145689466-8">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> 
-        </span><span class="nc">Demo</span><span class="o">.</span><span class="n">spawn_function</span><span class="p" data-group-id="7145689466-9">(</span><span class="n">depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7145689466-9">)</span><span class="w">
-      </span><span class="k" data-group-id="7145689466-8">end</span><span class="p" data-group-id="7145689466-7">)</span><span class="w"> 
-      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Task</span><span class="o">.</span><span class="n">await</span><span class="p" data-group-id="7145689466-10">(</span><span class="p" data-group-id="7145689466-10">)</span><span class="w">
-    </span><span class="k" data-group-id="7145689466-6">end</span><span class="w">
+  </span><span class="na">@decorate</span><span class="w"> </span><span class="n">time_tree</span><span class="p" data-group-id="9761354728-2">(</span><span class="p" data-group-id="9761354728-2">)</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">spawn_function</span><span class="p" data-group-id="9761354728-3">(</span><span class="n">depth</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9761354728-3">)</span><span class="w"> </span><span class="k" data-group-id="9761354728-4">do</span><span class="w">
+    </span><span class="nc">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p" data-group-id="9761354728-5">(</span><span class="mi">50</span><span class="p" data-group-id="9761354728-5">)</span><span class="w"> 
+    </span><span class="k">if</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k" data-group-id="9761354728-6">do</span><span class="w">
+      </span><span class="nc">Task</span><span class="o">.</span><span class="n">async</span><span class="p" data-group-id="9761354728-7">(</span><span class="k" data-group-id="9761354728-8">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> 
+        </span><span class="nc">Demo</span><span class="o">.</span><span class="n">spawn_function</span><span class="p" data-group-id="9761354728-9">(</span><span class="n">depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9761354728-9">)</span><span class="w">
+      </span><span class="k" data-group-id="9761354728-8">end</span><span class="p" data-group-id="9761354728-7">)</span><span class="w"> 
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Task</span><span class="o">.</span><span class="n">await</span><span class="p" data-group-id="9761354728-10">(</span><span class="p" data-group-id="9761354728-10">)</span><span class="w">
+    </span><span class="k" data-group-id="9761354728-6">end</span><span class="w">
     </span><span class="ss">:ok</span><span class="w">
-  </span><span class="k" data-group-id="7145689466-4">end</span><span class="w">
-</span><span class="k" data-group-id="7145689466-1">end</span></code></pre>
+  </span><span class="k" data-group-id="9761354728-4">end</span><span class="w">
+</span><span class="k" data-group-id="9761354728-1">end</span></code></pre>
   </section>
 </section>
 
