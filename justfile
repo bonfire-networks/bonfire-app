@@ -28,11 +28,13 @@ APP_DOCKER_REPO := "bonfirenetworks/"+APP_NAME
 APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 
 ARCH_JUST := arch()
+NUM_CPU := num_cpus()
 ARCH := if ARCH_JUST == "x86_64" { "amd64" } else { ARCH_JUST }
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO + ":latest-" + FLAVOUR + "-" + ARCH)
 DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "17-3.5") 
 # NOTE: we currently only use features available in Postgres 12+, though a more recent version is recommended if possible
 DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if ARCH == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine" })
+
 # DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "supabase/postgres")
 # ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_DOCKER_IMAGE', env_var_or_default('ELIXIR_VERSION', "1.17") +"-erlang-"+env_var_or_default('ERLANG_VERSION', "27")+"-alpine-"+env_var_or_default('ALPINE_VERSION', "3.20")) # NOTE: done in `docker-cmd` command instead
 
@@ -48,6 +50,7 @@ APP_REL_CONTAINER := APP_NAME + "_release"
 WEB_CONTAINER := APP_NAME +"_web"
 APP_VSN := `grep -m 1 'version:' mix.exs | cut -d '"' -f2`
 APP_BUILD := env_var_or_default('APP_BUILD', `git rev-parse --short HEAD || echo unknown`)
+MIX_OS_DEPS_COMPILE_PARTITION_COUNT := env_var_or_default('MIX_OS_DEPS_COMPILE_PARTITION_COUNT', `echo $(( ($(sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4)) / 2 ))`)
 UID := `id -u`
 GID := `id -g`
 PUBLIC_PORT := env_var_or_default('PUBLIC_PORT', '4000')
@@ -89,7 +92,7 @@ config:
 # FIXME: figure out how to re-read the .env so the flavour etc are correct without having to split into two commands.
 
 init services="db search": 
-	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - {{os_family()}}/{{os()}} on {{ARCH}}"
+	@echo "Light that fire! $APP_NAME with $FLAVOUR flavour in $MIX_ENV - docker:$WITH_DOCKER - $APP_VSN - $APP_BUILD - {{os_family()}}/{{os()}} on {{ARCH}} - parallelize deps compilation: {{MIX_OS_DEPS_COMPILE_PARTITION_COUNT}}"
 	@just _pre_init 
 	@just services "{{services}}"
 
