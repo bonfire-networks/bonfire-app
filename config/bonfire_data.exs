@@ -174,6 +174,8 @@ common_assocs = %{
         )
     ),
 
+  object_ap_activity: quote(do: has_one(:object_ap_activity, unquote(APActivity), unquote(mixin_updatable))),
+
   # Information about a user or other object that they wish to make available
   profile: quote(do: has_one(:profile, unquote(Profile), unquote(mixin_updatable))),
 
