@@ -187,7 +187,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:zest, "~> 0.1.0"},
         {:grumble, "~> 0.1.3", only: [:test], override: true},
         {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
-        {:mix_test_interactive, "~> 4.0", only: :test, runtime: false},
+        {:mix_test_interactive, "~> 5.0", only: :test, runtime: false},
         {:ex_unit_summary, "~> 0.1.0", only: :test},
         {:wallaby, "~> 0.30", runtime: false, only: :test},
         #  for phoenix_live_reload/credo compat with archeometer
