@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.1.7">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1.8">
 
 
-    <title>Bonfire.Common — Bonfire v1.0.0-social-rc.1.7</title>
+    <title>Bonfire.Common — Bonfire v1.0.0-social-rc.1.8</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
-    <script defer src="dist/sidebar_items-BE8DEA1A.js"></script>
+    <script defer src="dist/sidebar_items-A4305C97.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-DPJLHKSM.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.1.7
+          v1.0.0-social-rc.1.8
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.7)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.8)</small>
 
     </h1>
 
@@ -119,40 +119,6 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#err/1" data-no-tooltip="" translate="no">err(msg)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Logs or raises errors based on environment.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#err/2" data-no-tooltip="" translate="no">err(data, msg)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#flood/1" data-no-tooltip="" translate="no">flood(msg)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#flood/2" data-no-tooltip="" translate="no">flood(data, msg)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
         <a href="#maybe_fallback/2" data-no-tooltip="" translate="no">maybe_fallback(val, fallback)</a>
 
       </div>
@@ -174,114 +140,6 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="err/1">
-
-  <div class="detail-header">
-    <a href="#err/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">err(msg)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/common.ex#L91" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Logs or raises errors based on environment.</p><p>This function handles errors differently depending on the environment:</p><ul><li>In test: raises an exception</li><li>In dev: prints a warning</li><li>In production: logs a warning</li></ul><h2 id="err/1-examples" class="section-heading"><a href="#err/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># With just a message</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="c1"># When in dev/prod (not test), prints a warning and does not raise</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="c1"># Note: Only testing return value here, not side effects</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Process</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="3607611493-1">(</span><span class="p" data-group-id="3607611493-2">[</span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:env</span><span class="p" data-group-id="3607611493-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">:dev</span><span class="p" data-group-id="3607611493-1">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">err</span><span class="p" data-group-id="3607611493-3">(</span><span class="s">&quot;error message&quot;</span><span class="p" data-group-id="3607611493-3">)</span><span class="w">
-</span><span class="c1"># Prints: [warning] error message</span><span class="w">
-</span><span class="no">nil</span><span class="w">
-
-</span><span class="c1"># With just data</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Process</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="3607611493-4">(</span><span class="p" data-group-id="3607611493-5">[</span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:env</span><span class="p" data-group-id="3607611493-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">:dev</span><span class="p" data-group-id="3607611493-4">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">err</span><span class="p" data-group-id="3607611493-6">(</span><span class="p" data-group-id="3607611493-7">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3607611493-7">}</span><span class="p" data-group-id="3607611493-6">)</span><span class="w">
-</span><span class="c1"># Prints: [warning] An error occurred: %{key: &quot;value&quot;}</span><span class="w">
-</span><span class="p" data-group-id="3607611493-8">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3607611493-8">}</span><span class="w">
-
-</span><span class="c1"># With both data and message</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Process</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="3607611493-9">(</span><span class="p" data-group-id="3607611493-10">[</span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:env</span><span class="p" data-group-id="3607611493-10">]</span><span class="p">,</span><span class="w"> </span><span class="ss">:dev</span><span class="p" data-group-id="3607611493-9">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">err</span><span class="p" data-group-id="3607611493-11">(</span><span class="p" data-group-id="3607611493-12">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3607611493-12">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Custom error message&quot;</span><span class="p" data-group-id="3607611493-11">)</span><span class="w">
-</span><span class="c1"># Prints: [warning] Custom error message: %{key: &quot;value&quot;}</span><span class="w">
-</span><span class="p" data-group-id="3607611493-13">%{</span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="3607611493-13">}</span></code></pre><p>In test environment, it raises an exception:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Process</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="8745818830-1">(</span><span class="p" data-group-id="8745818830-2">[</span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:env</span><span class="p" data-group-id="8745818830-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">:test</span><span class="p" data-group-id="8745818830-1">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">err</span><span class="p" data-group-id="8745818830-3">(</span><span class="s">&quot;test error&quot;</span><span class="p" data-group-id="8745818830-3">)</span><span class="w">
-</span><span class="gt">** (RuntimeError) test error</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="err/2">
-
-  <div class="detail-header">
-    <a href="#err/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">err(data, msg)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/common.ex#L94" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="flood/1">
-
-  <div class="detail-header">
-    <a href="#flood/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">flood(msg)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/common.ex#L113" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="flood/2">
-
-  <div class="detail-header">
-    <a href="#flood/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">flood(data, msg)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/common.ex#L116" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
 <section class="detail" id="maybe_fallback/2">
 
   <div class="detail-header">
@@ -301,29 +159,29 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Provides a fallback value or function when the first argument is <code class="inline">nil</code>.</p><ul><li>If the first argument is not <code class="inline">nil</code>, returns the first argument as is.</li><li>If both arguments are <code class="inline">nil</code>, returns <code class="inline">nil</code>.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is a function, calls the function and returns its result.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is not a function, returns the second argument as is.</li></ul><h2 id="maybe_fallback/2-examples" class="section-heading"><a href="#maybe_fallback/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-1">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="7945146356-1">)</span><span class="w">
+<p>Provides a fallback value or function when the first argument is <code class="inline">nil</code>.</p><ul><li>If the first argument is not <code class="inline">nil</code>, returns the first argument as is.</li><li>If both arguments are <code class="inline">nil</code>, returns <code class="inline">nil</code>.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is a function, calls the function and returns its result.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is not a function, returns the second argument as is.</li></ul><h2 id="maybe_fallback/2-examples" class="section-heading"><a href="#maybe_fallback/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-1">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="0699661420-1">)</span><span class="w">
 </span><span class="s">&quot;value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-2">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="7945146356-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-2">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="0699661420-2">)</span><span class="w">
 </span><span class="s">&quot;fallback value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="7945146356-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="0699661420-3">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-4">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="7945146356-5">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="k" data-group-id="7945146356-5">end</span><span class="p" data-group-id="7945146356-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-4">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="0699661420-5">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="k" data-group-id="0699661420-5">end</span><span class="p" data-group-id="0699661420-4">)</span><span class="w">
 </span><span class="mi">3</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-6">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="7945146356-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-6">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="0699661420-6">)</span><span class="w">
 </span><span class="s">&quot;fallback value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-7">(</span><span class="p" data-group-id="7945146356-8">%</span><span class="nc" data-group-id="7945146356-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="7945146356-8">{</span><span class="p" data-group-id="7945146356-8">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="7945146356-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-7">(</span><span class="p" data-group-id="0699661420-8">%</span><span class="nc" data-group-id="0699661420-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="0699661420-8">{</span><span class="p" data-group-id="0699661420-8">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="0699661420-7">)</span><span class="w">
 </span><span class="s">&quot;fallback value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="k">try</span><span class="w"> </span><span class="k" data-group-id="7945146356-9">do</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="n">maybe_fallback</span><span class="p" data-group-id="7945146356-10">(</span><span class="p" data-group-id="7945146356-11">%</span><span class="nc" data-group-id="7945146356-11">Ecto.Association.NotLoaded</span><span class="p" data-group-id="7945146356-11">{</span><span class="p" data-group-id="7945146356-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:nil!</span><span class="p" data-group-id="7945146356-10">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="7945146356-9">rescue</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="k">try</span><span class="w"> </span><span class="k" data-group-id="0699661420-9">do</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="n">maybe_fallback</span><span class="p" data-group-id="0699661420-10">(</span><span class="p" data-group-id="0699661420-11">%</span><span class="nc" data-group-id="0699661420-11">Ecto.Association.NotLoaded</span><span class="p" data-group-id="0699661420-11">{</span><span class="p" data-group-id="0699661420-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:nil!</span><span class="p" data-group-id="0699661420-10">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="0699661420-9">rescue</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;exception raised&quot;</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="7945146356-9">end</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="0699661420-9">end</span><span class="w">
 </span><span class="s">&quot;exception raised&quot;</span></code></pre>
   </section>
 </section>
