@@ -19,7 +19,9 @@
 
 ## Coding Style
 
-- **Follow standard Elixir practices** and let `mix format` take care of formatting (run before committing code).
+- **Follow standard Elixir practices** and let `mix format` take care of formatting (run before committing Elixir code).
+- **Always assume the server is running on port 4000**
+- **Use Tidewave MCP to: run SQL queries, run elixir code, introspect the logs and runtime, fetch doccumentation from hex docs, see all the ecto schemas, and much more**
 - **Use one module per file** unless the module is only used internally by another module.
 - **Use appropriate pipe operators**: Use standard `|>` for function chaining and `~>` from `Arrows` for handling error tuples.
 - **Prefer using full module names or aliases** rather than imports.
