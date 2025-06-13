@@ -242,7 +242,7 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
   config :opentelemetry,
     span_processor: :batch,
     traces_exporter: {:opentelemetry_exporter, %{}}
-  
+
   config :opentelemetry_exporter,
     otlp_protocol: :http_protobuf
 
@@ -328,7 +328,7 @@ case System.get_env("SENTRY_DSN", "") do
     end
 end
 
-config :untangle, 
+config :untangle,
   env: config_env(),
   # level: :error,
   to_io: System.get_env("UNTANGLE_TO_IO") in yes?

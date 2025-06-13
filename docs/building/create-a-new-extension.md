@@ -17,7 +17,7 @@ By the end of this page, you should have a solid understanding of how to develop
 1. To start building your own extension, you can utilise our custom mix generator task. Simply navigate to the Bonfire app root folder in your terminal and type:
         
 ```
-just mix bonfire.extension.new *your_extension_name*
+just mix bonfire.gen.extension *your_extension_name*
 ```
 
 This command creates a new directory in `./extensions` named `*your_extension_name*`, complete with all the necessary files and scaffolding.

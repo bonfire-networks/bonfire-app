@@ -11,10 +11,11 @@ config :logger,
   backends: [:console],
   # Do not print debug messages in production
   level: :info
-  # TODO: to optimise prod:
-  # compile_time_purge_matching: [
-  #   [level_lower_than: :info]
-  # ]
+
+# TODO: to optimise prod:
+# compile_time_purge_matching: [
+#   [level_lower_than: :info]
+# ]
 
 config :bonfire, Bonfire.Web.Endpoint, server: true
 

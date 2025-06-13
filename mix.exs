@@ -51,8 +51,10 @@ defmodule Bonfire.Umbrella.MixProject do
     end
 
   # TODO: move to ember?
+  with_graphql = System.get_env("WITH_API_GRAPHQL")
+
   maybe_api_deps =
-    if(System.get_env("WITH_API_GRAPHQL") == "yes",
+    if(with_graphql && with_graphql != "0",
       do: [
         {:absinthe, "~> 1.7"},
         {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
@@ -63,8 +65,10 @@ defmodule Bonfire.Umbrella.MixProject do
     )
 
   # TODO: move to bonfire_files?
+  with_vix = System.get_env("WITH_IMAGE_VIX")
+
   maybe_image_vix =
-    if(System.get_env("WITH_IMAGE_VIX") != "0",
+    if(with_vix && with_vix != "0",
       do: [
         {:image, "~> 0.37", runtime: true, override: true},
         {:evision, "~> 0.1", runtime: true, override: true}
@@ -73,8 +77,10 @@ defmodule Bonfire.Umbrella.MixProject do
     )
 
   # TODO: move to ember?
+  with_ai = System.get_env("WITH_AI")
+
   maybe_ai_deps =
-    if(System.get_env("WITH_AI") != "0",
+    if(with_ai && with_ai != "0",
       do: [
         {:bumblebee, "~> 0.6.0"},
         {:axon, "~> 0.7.0", override: true},
@@ -84,6 +90,17 @@ defmodule Bonfire.Umbrella.MixProject do
         # temp workaround: https://github.com/elixir-nx/nx/issues/1599
         {:exla, github: "elixir-nx/nx", sparse: "exla", override: true},
         {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
+      ],
+      else: []
+    )
+
+  with_xmpp = System.get_env("WITH_XMPP")
+
+  maybe_xmpp_deps =
+    if(with_xmpp && with_xmpp != "0",
+      do: [
+        {:xmpp, "~> 1.10.1"},
+        {:ejabberd, "~> 25.4"}
       ],
       else: []
     )
@@ -108,6 +125,7 @@ defmodule Bonfire.Umbrella.MixProject do
       maybe_api_deps ++
       maybe_image_vix ++
       maybe_ai_deps ++
+      maybe_xmpp_deps ++
       maybe_non_ci_deps ++
       [
         # TODO: move most of these deps to ember or elsewhere?
@@ -164,7 +182,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # for extension install + mix tasks that do patching
         {
           :igniter,
-          "~> 0.5",
+          "~> 0.6.7",
           # path: "forks/igniter",
           # git: "https://github.com/ash-project/igniter",
           # only: [:dev, :test],
