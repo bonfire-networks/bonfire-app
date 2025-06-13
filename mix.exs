@@ -9,16 +9,19 @@ defmodule Bonfire.Umbrella.MixProject do
   flavour = System.get_env("FLAVOUR") || default_flavour
   flavour_atom = String.to_atom(flavour)
 
+  yes? = ~w(true yes 1)
+  no? = ~w(false no 0)
+
   # we only behave as an umbrella im dev/test env
-  use_local_forks? = System.get_env("WITH_FORKS", "1") == "1"
-  include_git_deps? = System.get_env("WITH_GIT_DEPS", "1") == "1"
+  use_local_forks? = System.get_env("WITH_FORKS", "1") in yes?
+  include_git_deps? = System.get_env("WITH_GIT_DEPS", "1") in yes?
   ext_forks_path = Mixer.forks_path()
 
   bonfire_local? = File.exists?("#{ext_forks_path}/ember")
   flavour_local? = File.exists?("#{ext_forks_path}/#{flavour}")
 
   use_umbrella? =
-    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") == "1" and
+    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") in yes? and
       bonfire_local?
 
   @umbrella_path if use_umbrella?, do: ext_forks_path, else: nil
@@ -54,7 +57,7 @@ defmodule Bonfire.Umbrella.MixProject do
   with_graphql = System.get_env("WITH_API_GRAPHQL")
 
   maybe_api_deps =
-    if(with_graphql && with_graphql != "0",
+    if(with_graphql && with_graphql not in no?,
       do: [
         {:absinthe, "~> 1.7"},
         {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
@@ -68,7 +71,7 @@ defmodule Bonfire.Umbrella.MixProject do
   with_vix = System.get_env("WITH_IMAGE_VIX")
 
   maybe_image_vix =
-    if(with_vix && with_vix != "0",
+    if(with_vix && with_vix not in no?,
       do: [
         {:image, "~> 0.37", runtime: true, override: true},
         {:evision, "~> 0.1", runtime: true, override: true}
@@ -80,7 +83,7 @@ defmodule Bonfire.Umbrella.MixProject do
   with_ai = System.get_env("WITH_AI")
 
   maybe_ai_deps =
-    if(with_ai && with_ai != "0",
+    if(with_ai && with_ai not in no?,
       do: [
         {:bumblebee, "~> 0.6.0"},
         {:axon, "~> 0.7.0", override: true},
@@ -97,17 +100,22 @@ defmodule Bonfire.Umbrella.MixProject do
   with_xmpp = System.get_env("WITH_XMPP")
 
   maybe_xmpp_deps =
-    if(with_xmpp && with_xmpp != "0",
+    if(with_xmpp && with_xmpp not in no?,
       do: [
         {:xmpp, "~> 1.10.1"},
-        {:ejabberd, "~> 25.4"}
+        {:ejabberd, "~> 25.4"},
+        {
+          :bonfire_xmpp,
+          path: "extensions/bonfire_xmpp"
+          # git: "https://github.com/bonfire-networks/jungle"
+        }
       ],
       else: []
     )
 
   # NOTE: exqlite not working in CI
   maybe_non_ci_deps =
-    if(System.get_env("CI") != "true",
+    if(System.get_env("CI") not in yes?,
       do: [
         {
           :archeometer,
@@ -131,8 +139,8 @@ defmodule Bonfire.Umbrella.MixProject do
         # TODO: move most of these deps to ember or elsewhere?
         {
           :mess,
-          # git: "https://github.com/bonfire-networks/mess",
-          path: "forks/mess", only: [:dev, :test], override: true
+          # path: "forks/mess", 
+          git: "https://github.com/bonfire-networks/mess", only: [:dev, :test], override: true
         },
         {:jungle,
          git: "https://github.com/bonfire-networks/jungle", only: [:dev, :test], override: true},
