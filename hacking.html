@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.1.12">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1.13">
 
 
-    <title>Development setup — Bonfire v1.0.0-social-rc.1.12</title>
+    <title>Development setup — Bonfire v1.0.0-social-rc.1.13</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.1.12
+          v1.0.0-social-rc.1.13
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@ When running the server locally and signing up for the first time, you won't nee
 </span></code></pre><h3 id="mix-package-fetch-failed" class="section-heading"><a href="#mix-package-fetch-failed" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">(Mix) Package fetch failed</span></h3><p>Example:</p><pre><code class="makeup elixir" translate="no"><span class="gt">** (Mix) Package fetch failed and no cached copy available (https://repo.hex.pm/tarballs/distillery-2.0.12.tar)</span></code></pre><p>In this case, distillery (as an example of a dependency) made a new release and retired the old release from hex. The new version (<code class="inline">2.0.14</code>) is quite close to the version we were depending on (<code class="inline">2.0.12</code>), so we chose to upgrade:</p><pre><code class="makeup shell" translate="no"><span class="">mix deps.update distillery
 </span></code></pre><p>This respects the version bounds in <code class="inline">mix.exs</code> (<code class="inline">~&gt; 2.0</code>), so increment that if required.</p><h3 id="dbconnection-connectionerror-tcp-recv-closed" class="section-heading"><a href="#dbconnection-connectionerror-tcp-recv-closed" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">(DBConnection.ConnectionError) tcp recv: closed</code></span></h3><p>Example:</p><pre><code class="makeup elixir" translate="no"><span class="gt">** (DBConnection.ConnectionError) tcp recv: closed (the connection was closed by the pool, possibly due to a timeout or because the pool has been terminated)</span></code></pre><p>In this case, the seeds were unable to complete because a query took too long to execute on your machine. You can configure the timeout to be larger in the <code class="inline">dev</code> environment:</p><ol><li>Open <code class="inline">config/dev.exs</code> in your editor.</li><li>Find the database configuration (search for <a href="./Bonfire.Common.Repo.html"><code class="inline">Bonfire.Common.Repo</code></a>).</li><li>Add <code class="inline">timeout: 60_000</code> to the list of options:</li></ol><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Common.Repo</span><span class="p">,</span><span class="w">
   </span><span class="ss">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span><span class="w">
-  </span><span class="p" data-group-id="8869420859-1">[</span><span class="n">...</span><span class="p" data-group-id="8869420859-1">]</span></code></pre><h3 id="compilation-errors-like-argumenterror-could-not-load-module-needle-ulid-due-to-reason-unavailable-or-argumenterror-could-not-load-module-poison-encoder-due-to-reason-unavailable" class="section-heading"><a href="#compilation-errors-like-argumenterror-could-not-load-module-needle-ulid-due-to-reason-unavailable-or-argumenterror-could-not-load-module-poison-encoder-due-to-reason-unavailable" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Compilation errors like <code class="inline">(ArgumentError) could not load module Needle.ULID due to reason :unavailable</code> or <code class="inline">(ArgumentError) could not load module Poison.Encoder due to reason :unavailable</code></span></h3><p>This seems to be an issue with the order of compilation, you can usually work around it by cleaning the deps it complains about, eg: <code class="inline">just deps-clean needle_ulid</code> or <code class="inline">just deps-clean poison</code> or <code class="inline">just deps-clean jason</code></p>
+  </span><span class="p" data-group-id="7697521670-1">[</span><span class="n">...</span><span class="p" data-group-id="7697521670-1">]</span></code></pre><h3 id="compilation-errors-like-argumenterror-could-not-load-module-needle-ulid-due-to-reason-unavailable-or-argumenterror-could-not-load-module-poison-encoder-due-to-reason-unavailable" class="section-heading"><a href="#compilation-errors-like-argumenterror-could-not-load-module-needle-ulid-due-to-reason-unavailable-or-argumenterror-could-not-load-module-poison-encoder-due-to-reason-unavailable" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Compilation errors like <code class="inline">(ArgumentError) could not load module Needle.ULID due to reason :unavailable</code> or <code class="inline">(ArgumentError) could not load module Poison.Encoder due to reason :unavailable</code></span></h3><p>This seems to be an issue with the order of compilation, you can usually work around it by cleaning the deps it complains about, eg: <code class="inline">just deps-clean needle_ulid</code> or <code class="inline">just deps-clean poison</code> or <code class="inline">just deps-clean jason</code></p>
 
 </div>
 
