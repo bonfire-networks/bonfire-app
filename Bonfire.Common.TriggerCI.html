@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.2">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1.12">
+
+
+    <title>Bonfire.Common.TriggerCI — Bonfire v1.0.0-social-rc.1.12</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
+
+    <script defer src="dist/sidebar_items-E0CE8A7D.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-DPJLHKSM.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.0-social-rc.1.12
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Common.TriggerCI</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.12)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/pubsub/trigger_ci.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>WIP: A module for triggering CI/CD rebuilds across different providers.
+Requires explicit provider specification for reliable operation.</p><h2 id="module-provider-compatibility" class="section-heading"><a href="#module-provider-compatibility" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Provider Compatibility</span></h2><h3 id="module-github-actions" class="section-heading"><a href="#module-github-actions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">GitHub Actions</span></h3><p>Requires adding <code class="inline">repository_dispatch</code> trigger to your workflow:</p><pre><code class="makeup elixir" translate="no"><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">Deploy</span><span class="w">
+</span><span class="ss">on</span><span class="p">:</span><span class="w">
+  </span><span class="ss">push</span><span class="p">:</span><span class="w">
+    </span><span class="ss">branches</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3027228205-1">[</span><span class="n">main</span><span class="p" data-group-id="3027228205-1">]</span><span class="w">
+  </span><span class="ss">repository_dispatch</span><span class="p">:</span><span class="w">    </span><span class="c1"># Add this line</span><span class="w">
+    </span><span class="ss">types</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3027228205-2">[</span><span class="n">push</span><span class="p" data-group-id="3027228205-2">]</span><span class="w">         </span><span class="c1"># Add this line</span></code></pre><h3 id="module-gitea-actions" class="section-heading"><a href="#module-gitea-actions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Gitea Actions</span></h3><p>Similar to GitHub Actions - requires adding <code class="inline">repository_dispatch</code> trigger.</p><h3 id="module-drone-ci" class="section-heading"><a href="#module-drone-ci" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Drone CI</span></h3><p>Works with existing <code class="inline">.drone.yml</code> files without modification.
+Triggers a new build on the specified branch.</p><h3 id="module-gitlab-ci" class="section-heading"><a href="#module-gitlab-ci" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">GitLab CI</span></h3><p>Works with existing <code class="inline">.gitlab-ci.yml</code> files without modification.
+Uses pipeline trigger API to simulate a push event.</p><h2 id="module-examples" class="section-heading"><a href="#module-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># GitHub </span><span class="w">
+</span><span class="n">trigger_rebuild</span><span class="p" data-group-id="4922192162-1">(</span><span class="ss">:github</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-website&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ghp_token123&quot;</span><span class="p" data-group-id="4922192162-1">)</span><span class="w">
+</span><span class="c1">#=&gt; {:ok, %{provider: :github, method: :repository_dispatch, status: :success}}</span><span class="w">
+
+</span><span class="c1"># GitLab </span><span class="w">
+</span><span class="n">trigger_rebuild</span><span class="p" data-group-id="4922192162-2">(</span><span class="ss">:gitlab</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-site&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;glpat-token123&quot;</span><span class="p" data-group-id="4922192162-2">)</span><span class="w">
+</span><span class="c1">#=&gt; {:ok, %{provider: :gitlab, method: :pipeline_trigger, status: :success, response: %{...}}}</span><span class="w">
+
+</span><span class="c1"># GitLab - with a self-hosted instance</span><span class="w">
+</span><span class="n">trigger_rebuild</span><span class="p" data-group-id="4922192162-3">(</span><span class="ss">:gitlab</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gitlab.project.org&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my-site&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;glpat-token123&quot;</span><span class="p" data-group-id="4922192162-3">)</span><span class="w">
+
+</span><span class="c1"># Drone - works with any Drone instance</span><span class="w">
+</span><span class="n">trigger_rebuild</span><span class="p" data-group-id="4922192162-4">(</span><span class="ss">:drone</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;drone.project.org&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;api&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;drone_token123&quot;</span><span class="p" data-group-id="4922192162-4">)</span><span class="w">
+</span><span class="c1">#=&gt; {:ok, %{provider: :drone, method: :build_trigger, status: :success, response: %{...}}}</span><span class="w">
+
+</span><span class="c1"># Gitea - works with any Gitea instance  </span><span class="w">
+</span><span class="n">trigger_rebuild</span><span class="p" data-group-id="4922192162-5">(</span><span class="ss">:gitea</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;git.project.org&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;project&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gitea_token123&quot;</span><span class="p" data-group-id="4922192162-5">)</span><span class="w">
+</span><span class="c1">#=&gt; {:ok, %{provider: :gitea, method: :repository_dispatch, status: :success}}</span></code></pre><h2 id="module-setup-instructions" class="section-heading"><a href="#module-setup-instructions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Setup Instructions</span></h2><h3 id="module-gitea" class="section-heading"><a href="#module-gitea" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Gitea</span></h3><ol><li>Create a Personal Access Token</li><li>Add <code class="inline">repository_dispatch: types: [push]</code> to your workflow triggers  </li><li>Use the token with TriggerCI</li></ol><h3 id="module-github" class="section-heading"><a href="#module-github" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">GitHub</span></h3><ol><li>Create a Personal Access Token with <code class="inline">repo</code> scope</li><li>Add <code class="inline">repository_dispatch: types: [push]</code> to your workflow triggers</li><li>Use the token with TriggerCI</li></ol><h3 id="module-gitlab" class="section-heading"><a href="#module-gitlab" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">GitLab</span></h3><ol><li>Go to Project Settings &gt; CI/CD &gt; Pipeline triggers</li><li>Create a new trigger token</li><li>Use the token with TriggerCI (works immediately with existing pipelines)</li></ol><h3 id="module-drone" class="section-heading"><a href="#module-drone" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Drone</span></h3><ol><li>Create a user token in your Drone settings</li><li>Use the token with TriggerCI (works immediately with existing pipelines)</li></ol>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:provider/0" data-no-tooltip="" translate="no">provider()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:repo_info/0" data-no-tooltip="" translate="no">repo_info()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:trigger_options/0" data-no-tooltip="" translate="no">trigger_options()</a>
+
+      </div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#req_options/0" data-no-tooltip="" translate="no">req_options()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#trigger_rebuild/6" data-no-tooltip="" translate="no">trigger_rebuild(provider, host \\ nil, owner, repo_name, token, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Triggers a CI rebuild with explicit provider specification.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Types</span>
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:provider/0">
+
+  <div class="detail-header">
+    <a href="#t:provider/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">provider()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/pubsub/trigger_ci.ex#L78" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> provider() :: :github | :gitlab | :drone | :gitea</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:repo_info/0">
+
+  <div class="detail-header">
+    <a href="#t:repo_info/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">repo_info()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/pubsub/trigger_ci.ex#L79" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> repo_info() :: %{
+  host: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  owner: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  provider: <a href="#t:provider/0">provider</a>()
+}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:trigger_options/0">
+
+  <div class="detail-header">
+    <a href="#t:trigger_options/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">trigger_options()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/pubsub/trigger_ci.ex#L86" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> trigger_options() :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="req_options/0">
+
+  <div class="detail-header">
+    <a href="#req_options/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">req_options()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/pubsub/trigger_ci.ex#L96" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="trigger_rebuild/6">
+
+    <span id="trigger_rebuild/4"></span>
+
+    <span id="trigger_rebuild/5"></span>
+
+  <div class="detail-header">
+    <a href="#trigger_rebuild/6" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">trigger_rebuild(provider, host \\ nil, owner, repo_name, token, options \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/pubsub/trigger_ci.ex#L130" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> trigger_rebuild(
+  <a href="#t:provider/0">provider</a>(),
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  <a href="#t:trigger_options/0">trigger_options</a>()
+) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Triggers a CI rebuild with explicit provider specification.</p><h2 id="trigger_rebuild/6-parameters" class="section-heading"><a href="#trigger_rebuild/6-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">provider</code> - CI provider atom (<code class="inline">:github</code>, <code class="inline">:gitlab</code>, <code class="inline">:drone</code>, <code class="inline">:gitea</code>)</li><li><code class="inline">host</code> - Git host (e.g., &quot;github.com&quot;, &quot;gitlab.example.com&quot;, &quot;drone.company.com&quot;)</li><li><code class="inline">owner</code> - Repository owner/organization</li><li><code class="inline">repo_name</code> - Repository name</li><li><code class="inline">token</code> - Authentication token for the CI provider</li><li><code class="inline">options</code> - Optional keyword list with configuration (see <a href="#t:trigger_options/0"><code class="inline">trigger_options/0</code></a>)</li></ul><h2 id="trigger_rebuild/6-examples" class="section-heading"><a href="#trigger_rebuild/6-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">trigger_rebuild</span><span class="p" data-group-id="8876181999-1">(</span><span class="ss">:github</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;github.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;token&quot;</span><span class="p" data-group-id="8876181999-1">)</span><span class="w">
+</span><span class="p" data-group-id="8876181999-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8876181999-3">%{</span><span class="ss">provider</span><span class="p">:</span><span class="w"> </span><span class="ss">:github</span><span class="p">,</span><span class="w"> </span><span class="ss">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:repository_dispatch</span><span class="p">,</span><span class="w"> </span><span class="ss">status</span><span class="p">:</span><span class="w"> </span><span class="ss">:success</span><span class="p" data-group-id="8876181999-3">}</span><span class="p" data-group-id="8876181999-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">trigger_rebuild</span><span class="p" data-group-id="8876181999-4">(</span><span class="ss">:gitlab</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gitlab.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mayel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;develop&quot;</span><span class="p" data-group-id="8876181999-4">)</span><span class="w">
+</span><span class="p" data-group-id="8876181999-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8876181999-6">%{</span><span class="ss">provider</span><span class="p">:</span><span class="w"> </span><span class="ss">:gitlab</span><span class="p">,</span><span class="w"> </span><span class="ss">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:pipeline_trigger</span><span class="p">,</span><span class="w"> </span><span class="ss">status</span><span class="p">:</span><span class="w"> </span><span class="ss">:success</span><span class="p">,</span><span class="w"> </span><span class="ss">response</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8876181999-7">%{</span><span class="p" data-group-id="8876181999-7">}</span><span class="p" data-group-id="8876181999-6">}</span><span class="p" data-group-id="8876181999-5">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">trigger_rebuild</span><span class="p" data-group-id="8876181999-8">(</span><span class="ss">:unknown</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;owner&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;repo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;token&quot;</span><span class="p" data-group-id="8876181999-8">)</span><span class="w">
+</span><span class="p" data-group-id="8876181999-9">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unsupported provider: unknown&quot;</span><span class="p" data-group-id="8876181999-9">}</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
