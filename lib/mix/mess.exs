@@ -61,6 +61,7 @@ if not Code.ensure_loaded?(Mess) do
 
       opts
       |> Keyword.put_new_lazy(:umbrella_path, fn ->
+        # only set umbrella_path if we're in an umbrella project
         if opts[:use_umbrella?], do: @ext_forks_path, else: nil
       end)
     end
@@ -136,40 +137,89 @@ if not Code.ensure_loaded?(Mess) do
     """
     def maybe_filter_umbrella(deps, opts) do
       cond do
-        opts[:umbrella_root?] ->
-          Enum.reject(deps, fn dep ->
-            dep_opts = elem(dep, 1)
-            is_list(dep_opts) and dep_opts[:from_umbrella]
-          end)
-
         opts[:umbrella_only] ->
+          # only listing umbrella deps
           Enum.filter(deps, fn dep ->
             dep_opts = elem(dep, 1)
-            is_list(dep_opts) and dep_opts[:from_umbrella]
+            is_list(dep_opts) and (dep_opts[:from_umbrella] || dep_opts[:in_umbrella])
+          end)
+
+        opts[:umbrella_root?] ->
+          Bonfire.Mixer.log("running from umbrella root")
+
+          # running from umbrella root: when you're running in umbrella mode (AS_UMBRELLA=1), Mix automatically discovers all the applications in the umbrella and includes them
+
+          umbrella_dep_names = read_umbrella_names(opts)
+
+          Enum.reject(deps, fn dep ->
+            name = elem(dep, 0)
+
+            if name in umbrella_dep_names do
+              # if the dep is in the umbrella, we don't need to remove it
+              true
+            else
+              # check again
+              dep_opts = elem(dep, 1)
+              is_list(dep_opts) and (dep_opts[:from_umbrella] || dep_opts[:in_umbrella])
+            end
           end)
 
         opts[:use_umbrella?] ->
+          # running from an umbrella child app, but not the root: we need to override the deps with the ones from the umbrella
           umbrella_deps = read_umbrella(opts)
+          # |> IO.inspect(label: "umbrella_deps")
 
           deps
-          |> Enum.map(fn dep ->
-            name = elem(dep, 0)
+          |> Enum.map(fn
+            {name, version, dep_opts} ->
+              prepare_umbrella_dep(name, dep_opts, version, umbrella_deps, opts)
 
-            case umbrella_deps[name] do
-              nil ->
-                dep
+            {name, dep_opts} when is_list(dep_opts) ->
+              prepare_umbrella_dep(name, dep_opts, nil, umbrella_deps, opts)
 
-              dep_opts ->
-                if dep_opts[:from_umbrella] do
-                  {name, in_umbrella: true, override: true}
-                else
-                  {name, dep_opts}
-                end
-            end
+            {name, version} ->
+              prepare_umbrella_dep(name, nil, version, umbrella_deps, opts)
           end)
 
         true ->
           deps
+      end
+    end
+
+    defp prepare_umbrella_dep(name, dep_opts, version, umbrella_deps, opts) do
+      #  IO.inspect(opts, label: "opts")
+
+      env = System.get_env("MIX_ENV", "dev") |> String.to_existing_atom()
+
+      if name == opts[:flavour] or name == (opts[:base_flavour] || :ember) do
+        {name, Keyword.merge(dep_opts || [], in_umbrella: true, env: env)}
+      else
+        case umbrella_deps[name] || dep_opts do
+          dep_opts when is_list(dep_opts) ->
+            if dep_opts[:from_umbrella] do
+              # ignore version
+              return_spec(
+                name,
+                nil,
+                dep_opts
+                # Use current environment
+                |> Keyword.merge(in_umbrella: true, env: env)
+              )
+            else
+              return_spec(name, version, dep_opts)
+            end
+
+          dep_opts ->
+            return_spec(name, version, dep_opts)
+        end
+      end
+    end
+
+    defp return_spec(name, version, dep_opts) do
+      if !version do
+        {name, dep_opts || []}
+      else
+        {name, version, dep_opts || []}
       end
     end
 
@@ -179,15 +229,44 @@ if not Code.ensure_loaded?(Mess) do
     def read_umbrella(opts) do
       config_dir = opts[:config_dir] || "../../config/"
       path = "#{config_dir}deps.path"
+      ext_path = Bonfire.Mixer.forks_path()
+
+      opts =
+        opts
+        |> Keyword.put(:umbrella_only, true)
 
       if opts[:use_local_forks?] and File.exists?(path) do
         [path, "#{config_dir}current_flavour/deps.path"]
         |> Enum.flat_map(&maybe_read(&1, :path))
-        |> Enum.flat_map(&dep_spec(&1, opts))
+        |> Enum.flat_map(fn dep ->
+          dep_spec(dep, opts)
+          # |> IO.inspect(label: "dep_spec")
+
+          # path =  if dep !=[], do: Bonfire.Mixer.dep_path(dep)
+
+          # if path && String.contains?(path, ext_path) do
+          #    dep
+          # end || []
+        end)
+        |> IO.inspect(label: "dep_specs")
+        |> maybe_filter_umbrella(opts)
+
+        # |> Enum.reject(&is_nil/1)
       else
         if opts[:use_local_forks?], do: IO.warn("could not load #{path}")
         []
       end
+    end
+
+    def read_umbrella_names(opts) do
+      ([
+         opts[:flavour],
+         opts[:base_flavour] || :ember
+       ] ++
+         (read_umbrella(opts)
+          |> Keyword.keys()))
+      |> Enum.uniq()
+      |> IO.inspect(label: "umbrella apps for #{inspect(opts)}")
     end
 
     @doc """
@@ -219,23 +298,33 @@ if not Code.ensure_loaded?(Mess) do
     def dep_spec(%{"package" => p, "value" => v, :kind => :hex} = params, _opts),
       do: pkg(p, v, override: true, runtime: !params[:disabled])
 
-    def dep_spec(%{"package" => p, "value" => v, :kind => :path} = params, opts) do
+    def dep_spec(%{"package" => p, "value" => v, :kind => :path} = params, opts)
+        when is_binary(v) do
       umbrella_path = opts[:umbrella_path]
 
       if umbrella_path && String.starts_with?(v, umbrella_path) do
-        if opts[:umbrella_root?] do
-          pkg(p,
-            from_umbrella: true,
-            override: true,
-            path: "../../#{v}",
-            runtime: !params[:disabled]
-          )
+        umbrella_only = opts[:umbrella_only]
+
+        if !opts[:umbrella_root?] || umbrella_only do
+          if umbrella_only ||
+               String.contains?(File.cwd!() |> IO.inspect(label: "cwd"), umbrella_path) do
+            # if we're in an umbrella child dep and including another umbrella dep
+            env = System.get_env("MIX_ENV", "dev") |> String.to_existing_atom()
+
+            pkg(p, in_umbrella: true, runtime: !params[:disabled], env: env)
+          end
         else
-          pkg(p, in_umbrella: true, override: true, runtime: !params[:disabled])
+          # When running from umbrella root, don't add these deps at all
+          # Mix will auto-discover them
+          []
+          # pkg(p,
+          #   from_umbrella: true,
+          #   override: true,
+          #   path: "../../#{v}",
+          #   runtime: !params[:disabled]
+          # )
         end
-      else
-        pkg(p, path: v, override: true, runtime: !params[:disabled])
-      end
+      end || pkg(p, path: v, override: true, runtime: !params[:disabled])
     end
 
     def dep_spec(%{"package" => p, "value" => v, :kind => :git} = params, _opts),

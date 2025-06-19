@@ -597,6 +597,9 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       if force?, do: path, else: path_if_exists(path)
     end
 
+    def dep_path(dep, force?) when is_list(dep) and length(dep) == 1,
+      do: Enum.map(dep, &dep_path(&1, force?)) |> List.first()
+
     defp path_if_exists(path), do: if(File.exists?(path), do: path)
 
     def dep_paths(deps, extra \\ "/")

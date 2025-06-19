@@ -1137,11 +1137,9 @@ audit:
 
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract:
-	just mix "bonfire.localise.extract"
+	AS_UMBRELLA=1 just mix gettext.extract --merge
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
-# TODO: copy .pot strings from extensions/deps
-# cp extensions/*/priv/gettext/* priv/localisation/
-# cp forks/*/priv/gettext/* priv/localisation/
+# just mix "bonfire.localise.extract"
 
 @localise-tx-init:
 	pip install transifex-client

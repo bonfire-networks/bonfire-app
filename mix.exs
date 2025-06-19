@@ -5,24 +5,25 @@ defmodule Bonfire.Umbrella.MixProject do
   use Mix.Project
   alias Bonfire.Mixer
 
-  default_flavour = "ember"
+  base_flavour = "ember"
+  base_flavour_atom = String.to_atom(base_flavour)
+  default_flavour = "social"
   flavour = System.get_env("FLAVOUR") || default_flavour
   flavour_atom = String.to_atom(flavour)
 
   yes? = ~w(true yes 1)
   no? = ~w(false no 0)
 
-  # we only behave as an umbrella im dev/test env
+  # we only optionally behave as an umbrella im dev/test env
   use_local_forks? = System.get_env("WITH_FORKS", "1") in yes?
   include_git_deps? = System.get_env("WITH_GIT_DEPS", "1") in yes?
   ext_forks_path = Mixer.forks_path()
 
-  bonfire_local? = File.exists?("#{ext_forks_path}/ember")
+  base_flavour_local? = File.exists?("#{ext_forks_path}/#{base_flavour}")
   flavour_local? = File.exists?("#{ext_forks_path}/#{flavour}")
 
   use_umbrella? =
-    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") in yes? and
-      bonfire_local?
+    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") in yes?
 
   @umbrella_path if use_umbrella?, do: ext_forks_path, else: nil
 
@@ -32,15 +33,25 @@ defmodule Bonfire.Umbrella.MixProject do
   main_deps =
     if include_git_deps? do
       [
-        if(bonfire_local? and use_local_forks?,
-          do: {:ember, path: "#{ext_forks_path}/ember", override: true},
-          else: {:ember, git: "https://github.com/bonfire-networks/ember", override: true}
+        if(base_flavour_local? and use_local_forks?,
+          do:
+            {base_flavour_atom,
+             path: "#{ext_forks_path}/#{base_flavour}",
+             from_umbrella: use_umbrella?,
+             override: true},
+          else:
+            {base_flavour_atom,
+             git: "https://github.com/bonfire-networks/#{base_flavour}", override: true}
         )
       ] ++
         if flavour != default_flavour do
           [
             if(flavour_local? and use_local_forks?,
-              do: {flavour_atom, path: "#{ext_forks_path}/#{flavour}", override: true},
+              do:
+                {flavour_atom,
+                 path: "#{ext_forks_path}/#{flavour}",
+                 from_umbrella: use_umbrella?,
+                 override: true},
               else:
                 {flavour_atom,
                  git: "https://github.com/bonfire-networks/#{flavour}", override: true}
@@ -207,7 +218,7 @@ defmodule Bonfire.Umbrella.MixProject do
           only: :test, runtime: false
         },
         {:mock, "~> 0.3", only: :test},
-        {:mox, "~> 1.0", only: :test},
+        {:mox, "~> 1.0", only: [:dev, :test]},
         {:bypass, "~> 2.1", only: :test},
         {:ex_machina, "~> 2.7", only: [:dev, :test]},
         {:zest, "~> 0.1.0"},
@@ -255,14 +266,22 @@ defmodule Bonfire.Umbrella.MixProject do
         {:sobelow, "~> 0.14.0", only: :dev}
       ]
 
+  @mess_opts [
+    flavour: flavour_atom,
+    config_dir: "config/",
+    base_flavour: base_flavour_atom,
+    use_local_forks?: use_local_forks?,
+    use_umbrella?: use_umbrella?,
+    umbrella_root?: use_local_forks?,
+    umbrella_path: @umbrella_path
+  ]
+
   deps =
     Mixer.mess_sources(flavour)
     |> Mixer.log(label: "mess sources", limit: :infinity)
-    |> Mess.deps(extra_deps,
-      use_local_forks?: use_local_forks?,
-      use_umbrella?: use_umbrella?,
-      umbrella_root?: use_local_forks?,
-      umbrella_path: @umbrella_path
+    |> Mess.deps(
+      extra_deps,
+      @mess_opts
     )
     |> Mixer.log(label: "top level deps", limit: :infinity)
 
@@ -422,6 +441,8 @@ defmodule Bonfire.Umbrella.MixProject do
     # |> Mixer.log(limit: :infinity)
   ]
 
+  @umbrella_apps if use_umbrella?, do: Mess.read_umbrella_names(@mess_opts)
+
   def config, do: @config
   def deps, do: config()[:deps]
 
@@ -429,8 +450,9 @@ defmodule Bonfire.Umbrella.MixProject do
     [
       name: "Bonfire",
       app: :bonfire,
-      apps_path: @umbrella_path,
       version: Mixer.version(config()),
+      apps: @umbrella_apps,
+      apps_path: @umbrella_path,
       elixir: config()[:elixir],
       elixirc_options: [debug_info: true, docs: true],
       elixirc_paths: Mixer.elixirc_paths(config(), Mix.env()),
