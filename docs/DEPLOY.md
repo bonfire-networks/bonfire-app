@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC0-1.0
 
 A short guide to running Bonfire in a production environment and setting up a digital space connected to the fediverse.
 
-> #### Status {: .warning}
+> #### Status {: .info}
 > The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages. 
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Installation guide](./HACKING.md) instead._
@@ -17,12 +17,11 @@ _These instructions are for setting up Bonfire in production. If you want to run
 
 ## Security Warning
 
-We recommend only granting an account to people you trust to minimise the attack surface. Accordingly, Bonfire ships with public registration disabled. The admin panel has an `invite` facility. 
+By default sign ups are by invite only. You can invite people via instance settings, or open up for public registrations (just make sure you have a code of conduct and moderation team in place first). 
 
 ---
 
 ## Step 1 - Decide how you want to deploy and manage the app
-
 
 <!-- tabs-open -->
 
@@ -126,9 +125,11 @@ Running a custom build without Docker.
 
 1. Install dependencies. 
 
-- Postgres 12+ (or preferably 17+) with [Postgis](https://postgis.net/install/) extension
+- Postgres 12+ (but preferably 17+) with [Postgis](https://postgis.net/install/) extension
 - [just](https://github.com/casey/just#packages)
-- Elixir version 1.15+ with OTP 25+ (see the `.tool-versions` to double check the versions we're currently using). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf. **Note: Source versions of Elixir >=1.17 and <1.17.3 have bugs that can freeze compilation when using the Pathex library, which bonfire does,** so please use 1.16 or 1.17.3+ (or you can set `WITH_PATHEX=0` in env to disabled the use of that library).
+- Elixir version 1.15+ with OTP 25+ (see the `.tool-versions` to double check the versions we're currently using). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf. 
+
+**Note: Source versions of Elixir >=1.17 and <1.17.3 have bugs that can freeze compilation when using the Pathex library, which bonfire does,** so please use 1.16 or 1.17.3+ (or you can set `WITH_PATHEX=0` in env to disabled the use of that library).
 
 2. Clone this repository and change into the directory:
 
@@ -273,19 +274,8 @@ The app needs these environment variables to be configured in order to work.
 
 - `FLAVOUR` should reflect your chosen flavour
 - `HOSTNAME` (your domain name, eg: `bonfire.example.com`)
-- `PUBLIC_PORT` (usually 443)
-- `MAIL_DOMAIN` and `MAIL_KEY` and related keys to configure transactional email, for example set `MAIL_BACKEND=mailgun` and sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key (you may also need to set `MAIL_BASE_URI` if your domain is not setup in EU, as the default `MAIL_BASE_URI` is set as `https://api.eu.mailgun.net/v3`). 
-- SMTP is supported as well, through the following env vars 
-```
-MAIL_SERVER (smtp domain of the mail server)
-MAIL_DOMAIN (the bit after the @ in your email)
-MAIL_USER
-MAIL_PASSWORD
-MAIL_FROM
-MAIL_PORT (optional)
-MAIL_SSL (optional)
-```
-- `UPLOADS_S3_BUCKET` and the related API key and secret for uploads. WARNING: If you want to store uploads in an object storage rather than directly on your server (which you probably want, to not run out of space), you need to configure that up front, otherwise URLs will break if you change it later. See `config/runtime.exs` for extra variables to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
+- `MAIL_BACKEND`, `MAIL_DOMAIN` and `MAIL_KEY` and related keys to configure transactional email, for example set `MAIL_BACKEND=mailgun` and sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key (you may also need to set `MAIL_BASE_URI` if your domain is not setup in EU, as the default `MAIL_BASE_URI` is set as `https://api.eu.mailgun.net/v3`). Many other services and approaches (including SMTP) are available, see [the configuration docs](Bonfire.Mailer.html).
+- `UPLOADS_S3_BUCKET` and the related API key and secret for uploads. See `config/runtime.exs` for extra variables available to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
 
 ### Secret keys for which you should put random secrets. 
 You can run `just secrets` to generate some for you.
@@ -303,7 +293,8 @@ In the `./config/` (which is a symbolic link to the config of the flavour you ch
 - `config.exs`: default base configuration, which itself loads many other config files, such as one for each installed Bonfire extension.
 - `prod.exs`: default extra configuration for `MIX_ENV=prod`
 - `runtime.exs`: extra configuration which is loaded at runtime (vs the others which are only loaded once at compile time, i.e. when you build a release)
-- `bonfire_*.exs`: configs specific to different extensions, which are automatically imported by `config.exs`
+- `bonfire_*.exs`: compile-time configs specific to different extensions, which are automatically imported by `config.exs`
+- `[extension]/lib/runtime_config.exs`: runtime configs specific to different extensions, which are automatically imported by `runtime.exs`
 
 You should *not* have to modify the files above. Instead, overload any settings from the above files using env variables or in `./.env`. If any settings in the `.exs` config files are not available in env or in the instance settings UI, please open an issue or PR.
 

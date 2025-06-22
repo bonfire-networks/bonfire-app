@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Development setup
 
-> #### Info {: .info}
+> #### Status {: .info}
 >
 > These instructions are for hacking on Bonfire. If you wish to deploy in production, please refer to our [Hosting Guide](./DEPLOY.md) instead.
 
