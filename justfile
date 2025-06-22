@@ -236,7 +236,9 @@ _clone_flavour_apps:
 _clone_extension name:
 	test -d extensions/{{name}} || (mkdir -p extensions && git clone https://github.com/bonfire-networks/{{name}} extensions/{{name}} || echo "Could not clone the {{name}} extension")
 
-_ext-migrations-copy: db-clean-migrations
+_ext-migrations-copy: 
+	just compile
+	just db-clean-migrations
 	just mix bonfire.extension.copy_migrations --force
 
 # FIXME: how should we know if user wants to use a prebuilt image or build their own? 
