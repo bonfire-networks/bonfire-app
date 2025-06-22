@@ -1234,7 +1234,7 @@ tunnel: tunnel-localhost-run
 	tunnelto --subdomain $TUNNEL_SUBDOMAIN --port ${SERVER_PORT}
 
 @local-tunnel-hostname:
-	echo ${TUNNEL_DOMAIN}
+	echo {{env_var_or_default('TUNNEL_DOMAIN', env_var_or_default('HOSTNAME', "localhost"))}}
 #	echo "${TUNNEL_SUBDOMAIN}.tunnelto.dev"
 # 	just tunnel-pyjamas
 
