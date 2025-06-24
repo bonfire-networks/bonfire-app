@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.1.15">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1.19">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v1.0.0-social-rc.1.15</title>
+    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v1.0.0-social-rc.1.19</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
-    <script defer src="dist/sidebar_items-D384F774.js"></script>
+    <script defer src="dist/sidebar_items-8FDC082B.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-DPJLHKSM.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.1.15
+          v1.0.0-social-rc.1.19
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.15)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.19)</small>
 
     </h1>
 
@@ -95,9 +95,9 @@ Bonfire
     <section id="moduledoc">
 <p>Functions to implement the spellout rule-based-number-format rules of CLDR.</p><p>As CLDR notes, the data is incomplete or non-existent for many languages.  It
 is considered complete for English however.</p><p>The standard public API for RBNF is via the <a href="https://hexdocs.pm/ex_cldr_numbers/2.35.1/Cldr.Number.html#to_string/2"><code class="inline">Cldr.Number.to_string/2</code></a> function.</p><p>The functions on this module are defined at compile time based upon the RBNF rules
-defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="7946010485-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="7946010485-1">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="7946010485-2">(</span><span class="p" data-group-id="7946010485-2">)</span><span class="w">
-</span><span class="p" data-group-id="7946010485-3">[</span><span class="w">
+defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="1125445386-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1125445386-1">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="1125445386-2">(</span><span class="p" data-group-id="1125445386-2">)</span><span class="w">
+</span><span class="p" data-group-id="1125445386-3">[</span><span class="w">
   </span><span class="ss">:spellout_cardinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_cardinal_verbose</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_numbering</span><span class="p">,</span><span class="w">
@@ -105,9 +105,9 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
   </span><span class="ss">:spellout_numbering_year</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal_verbose</span><span class="w">
-</span><span class="p" data-group-id="7946010485-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="1776771314-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1776771314-1">)</span><span class="w">
-</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="9766746941-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="9766746941-1">)</span><span class="w">
-</span><span class="p" data-group-id="9766746941-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="9766746941-2">}</span></code></pre>
+</span><span class="p" data-group-id="1125445386-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="4154362248-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="4154362248-1">)</span><span class="w">
+</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5233495516-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="5233495516-1">)</span><span class="w">
+</span><span class="p" data-group-id="5233495516-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="5233495516-2">}</span></code></pre>
     </section>
 
 </div>
@@ -167,6 +167,110 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#and_o/2" data-no-tooltip="" translate="no">and_o(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal2/2" data-no-tooltip="" translate="no">cardinal2(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal3/2" data-no-tooltip="" translate="no">cardinal3(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal4/2" data-no-tooltip="" translate="no">cardinal4(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal5/2" data-no-tooltip="" translate="no">cardinal5(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal8/2" data-no-tooltip="" translate="no">cardinal8(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal13/2" data-no-tooltip="" translate="no">cardinal13(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_alternate2_2/2" data-no-tooltip="" translate="no">cardinal_alternate2_2(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_alternate2_3/2" data-no-tooltip="" translate="no">cardinal_alternate2_3(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_alternate2_4/2" data-no-tooltip="" translate="no">cardinal_alternate2_4(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_alternate2_5/2" data-no-tooltip="" translate="no">cardinal_alternate2_5(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_alternate2_8/2" data-no-tooltip="" translate="no">cardinal_alternate2_8(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_alternate2_13/2" data-no-tooltip="" translate="no">cardinal_alternate2_13(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cardinal_twenties/2" data-no-tooltip="" translate="no">cardinal_twenties(number, language_tag)</a>
 
       </div>
 
@@ -255,6 +359,54 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#fem_with_o/2" data-no-tooltip="" translate="no">fem_with_o(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#financialnumber2/2" data-no-tooltip="" translate="no">financialnumber2(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#financialnumber3/2" data-no-tooltip="" translate="no">financialnumber3(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#financialnumber4/2" data-no-tooltip="" translate="no">financialnumber4(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#financialnumber5/2" data-no-tooltip="" translate="no">financialnumber5(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#financialnumber8/2" data-no-tooltip="" translate="no">financialnumber8(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#financialnumber13/2" data-no-tooltip="" translate="no">financialnumber13(number, language_tag)</a>
 
       </div>
 
@@ -414,6 +566,62 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#number2/2" data-no-tooltip="" translate="no">number2(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#number3/2" data-no-tooltip="" translate="no">number3(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#number4/2" data-no-tooltip="" translate="no">number4(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#number5/2" data-no-tooltip="" translate="no">number5(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#number8/2" data-no-tooltip="" translate="no">number8(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#number13/2" data-no-tooltip="" translate="no">number13(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#numbering_days/2" data-no-tooltip="" translate="no">numbering_days(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#oe/2" data-no-tooltip="" translate="no">oe(number, language_tag)</a>
 
       </div>
@@ -447,6 +655,78 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#omu/2" data-no-tooltip="" translate="no">omu(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#optional_e/2" data-no-tooltip="" translate="no">optional_e(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_fem_de/2" data-no-tooltip="" translate="no">ord_fem_de(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_fem_nde/2" data-no-tooltip="" translate="no">ord_fem_nde(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_fem_te/2" data-no-tooltip="" translate="no">ord_fem_te(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_fem_teer/2" data-no-tooltip="" translate="no">ord_fem_teer(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_masc_de/2" data-no-tooltip="" translate="no">ord_masc_de(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_masc_nde/2" data-no-tooltip="" translate="no">ord_masc_nde(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_masc_te/2" data-no-tooltip="" translate="no">ord_masc_te(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ord_masc_teer/2" data-no-tooltip="" translate="no">ord_masc_teer(number, language_tag)</a>
 
       </div>
 
@@ -630,6 +910,14 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#spellout_cardinal_alternate2/2" data-no-tooltip="" translate="no">spellout_cardinal_alternate2(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#spellout_cardinal_feminine/2" data-no-tooltip="" translate="no">spellout_cardinal_feminine(number, locale)</a>
 
       </div>
@@ -711,6 +999,22 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#spellout_cardinal_feminine_prepositional/2" data-no-tooltip="" translate="no">spellout_cardinal_feminine_prepositional(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#spellout_cardinal_feminine_with_e/2" data-no-tooltip="" translate="no">spellout_cardinal_feminine_with_e(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#spellout_cardinal_financial/2" data-no-tooltip="" translate="no">spellout_cardinal_financial(number, locale)</a>
 
       </div>
 
@@ -839,6 +1143,14 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#spellout_cardinal_masculine_prepositional/2" data-no-tooltip="" translate="no">spellout_cardinal_masculine_prepositional(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#spellout_cardinal_masculine_with_e/2" data-no-tooltip="" translate="no">spellout_cardinal_masculine_with_e(number, language_tag)</a>
 
       </div>
 
@@ -1014,6 +1326,14 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#spellout_cardinal_reale/2" data-no-tooltip="" translate="no">spellout_cardinal_reale(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#spellout_cardinal_s/2" data-no-tooltip="" translate="no">spellout_cardinal_s(number, locale)</a>
 
       </div>
@@ -1054,7 +1374,23 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#spellout_numbering_days/2" data-no-tooltip="" translate="no">spellout_numbering_days(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#spellout_numbering_m/2" data-no-tooltip="" translate="no">spellout_numbering_m(number, language_tag)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#spellout_numbering_t/2" data-no-tooltip="" translate="no">spellout_numbering_t(number, language_tag)</a>
 
       </div>
 
@@ -1071,6 +1407,14 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#spellout_numbering_year/2" data-no-tooltip="" translate="no">spellout_numbering_year(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#spellout_numbering_year_digits/2" data-no-tooltip="" translate="no">spellout_numbering_year_digits(number, language_tag)</a>
 
       </div>
 
@@ -1678,6 +2022,14 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#spellout_ordinal_reale/2" data-no-tooltip="" translate="no">spellout_ordinal_reale(number, locale)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#spellout_ordinal_s/2" data-no-tooltip="" translate="no">spellout_ordinal_s(number, locale)</a>
 
       </div>
@@ -1973,6 +2325,292 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
   </section>
 </section>
+<section class="detail" id="cardinal2/2">
+
+  <div class="detail-header">
+    <a href="#cardinal2/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal2(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal3/2">
+
+  <div class="detail-header">
+    <a href="#cardinal3/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal3(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal4/2">
+
+  <div class="detail-header">
+    <a href="#cardinal4/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal4(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal5/2">
+
+  <div class="detail-header">
+    <a href="#cardinal5/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal5(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal8/2">
+
+  <div class="detail-header">
+    <a href="#cardinal8/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal8(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal13/2">
+
+  <div class="detail-header">
+    <a href="#cardinal13/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal13(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_alternate2_2/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_alternate2_2/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_alternate2_2(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_alternate2_3/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_alternate2_3/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_alternate2_3(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_alternate2_4/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_alternate2_4/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_alternate2_4(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_alternate2_5/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_alternate2_5/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_alternate2_5(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_alternate2_8/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_alternate2_8/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_alternate2_8(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_alternate2_13/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_alternate2_13/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_alternate2_13(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cardinal_twenties/2">
+
+  <div class="detail-header">
+    <a href="#cardinal_twenties/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cardinal_twenties(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="cents_f/2">
 
   <div class="detail-header">
@@ -2201,6 +2839,138 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">fem_with_o(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="financialnumber2/2">
+
+  <div class="detail-header">
+    <a href="#financialnumber2/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">financialnumber2(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="financialnumber3/2">
+
+  <div class="detail-header">
+    <a href="#financialnumber3/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">financialnumber3(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="financialnumber4/2">
+
+  <div class="detail-header">
+    <a href="#financialnumber4/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">financialnumber4(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="financialnumber5/2">
+
+  <div class="detail-header">
+    <a href="#financialnumber5/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">financialnumber5(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="financialnumber8/2">
+
+  <div class="detail-header">
+    <a href="#financialnumber8/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">financialnumber8(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="financialnumber13/2">
+
+  <div class="detail-header">
+    <a href="#financialnumber13/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">financialnumber13(number, language_tag)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
@@ -2633,6 +3403,160 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
   </section>
 </section>
+<section class="detail" id="number2/2">
+
+  <div class="detail-header">
+    <a href="#number2/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">number2(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="number3/2">
+
+  <div class="detail-header">
+    <a href="#number3/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">number3(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="number4/2">
+
+  <div class="detail-header">
+    <a href="#number4/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">number4(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="number5/2">
+
+  <div class="detail-header">
+    <a href="#number5/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">number5(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="number8/2">
+
+  <div class="detail-header">
+    <a href="#number8/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">number8(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="number13/2">
+
+  <div class="detail-header">
+    <a href="#number13/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">number13(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="numbering_days/2">
+
+  <div class="detail-header">
+    <a href="#numbering_days/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">numbering_days(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="oe/2">
 
   <div class="detail-header">
@@ -2729,6 +3653,204 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">omu(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="optional_e/2">
+
+  <div class="detail-header">
+    <a href="#optional_e/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">optional_e(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_fem_de/2">
+
+  <div class="detail-header">
+    <a href="#ord_fem_de/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_fem_de(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_fem_nde/2">
+
+  <div class="detail-header">
+    <a href="#ord_fem_nde/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_fem_nde(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_fem_te/2">
+
+  <div class="detail-header">
+    <a href="#ord_fem_te/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_fem_te(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_fem_teer/2">
+
+  <div class="detail-header">
+    <a href="#ord_fem_teer/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_fem_teer(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_masc_de/2">
+
+  <div class="detail-header">
+    <a href="#ord_masc_de/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_masc_de(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_masc_nde/2">
+
+  <div class="detail-header">
+    <a href="#ord_masc_nde/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_masc_nde(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_masc_te/2">
+
+  <div class="detail-header">
+    <a href="#ord_masc_te/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_masc_te(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="ord_masc_teer/2">
+
+  <div class="detail-header">
+    <a href="#ord_masc_teer/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ord_masc_teer(number, language_tag)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
@@ -3227,6 +4349,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
   </section>
 </section>
+<section class="detail" id="spellout_cardinal_alternate2/2">
+
+  <div class="detail-header">
+    <a href="#spellout_cardinal_alternate2/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_cardinal_alternate2(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="spellout_cardinal_feminine/2">
 
   <div class="detail-header">
@@ -3455,6 +4599,50 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">spellout_cardinal_feminine_prepositional(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="spellout_cardinal_feminine_with_e/2">
+
+  <div class="detail-header">
+    <a href="#spellout_cardinal_feminine_with_e/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_cardinal_feminine_with_e(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="spellout_cardinal_financial/2">
+
+  <div class="detail-header">
+    <a href="#spellout_cardinal_financial/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_cardinal_financial(number, locale)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
@@ -3807,6 +4995,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">spellout_cardinal_masculine_prepositional(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="spellout_cardinal_masculine_with_e/2">
+
+  <div class="detail-header">
+    <a href="#spellout_cardinal_masculine_with_e/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_cardinal_masculine_with_e(number, language_tag)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
@@ -4283,6 +5493,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
   </section>
 </section>
+<section class="detail" id="spellout_cardinal_reale/2">
+
+  <div class="detail-header">
+    <a href="#spellout_cardinal_reale/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_cardinal_reale(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="spellout_cardinal_s/2">
 
   <div class="detail-header">
@@ -4393,6 +5625,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
 
   </section>
 </section>
+<section class="detail" id="spellout_numbering_days/2">
+
+  <div class="detail-header">
+    <a href="#spellout_numbering_days/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_numbering_days(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="spellout_numbering_m/2">
 
   <div class="detail-header">
@@ -4401,6 +5655,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">spellout_numbering_m(number, language_tag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="spellout_numbering_t/2">
+
+  <div class="detail-header">
+    <a href="#spellout_numbering_t/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_numbering_t(number, language_tag)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
@@ -4445,6 +5721,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">spellout_numbering_year(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="spellout_numbering_year_digits/2">
+
+  <div class="detail-header">
+    <a href="#spellout_numbering_year_digits/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_numbering_year_digits(number, language_tag)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
@@ -6095,6 +7393,28 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
     </a>
     <div class="heading-with-actions">
       <h1 class="signature" translate="no">spellout_ordinal_r(number, locale)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="spellout_ordinal_reale/2">
+
+  <div class="detail-header">
+    <a href="#spellout_ordinal_reale/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">spellout_ordinal_reale(number, locale)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
