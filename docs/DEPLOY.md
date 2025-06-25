@@ -71,7 +71,7 @@ The first thing to do is choose what flavour of Bonfire (eg. ember, social, comm
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
-4. Run `just config` to initialise some default config and then edit the config in the `./.env` file (see [prepare the config](#preparing-the-config-in-env) for details about what to edit).
+4. Run `MIX_ENV=prod just config` to initialise some default config and then edit the config in the `./.env` file (see [prepare the config](#preparing-the-config-in-env) for details about what to edit).
 
 > Now that your tooling is set up, you have the choice of using pre-built images or building your own. For example if your flavour does not have a prebuilt image on Docker Hub, or if you want to customise any of the extensions, you can build one yourself. 
 
