@@ -21,8 +21,8 @@ jobs:
             arch: "amd64"
           - platforms: "linux/arm64"
             arch: "aarch64"
-          - platforms: "linux/arm/v7"
-            arch: "arm32v7"
+          # - platforms: "linux/arm/v7"
+          #   arch: "arm32v7"
     name: ${{ matrix.flavour }} - Docker on ${{ matrix.platforms }} 
     runs-on: ubuntu-latest
     permissions: write-all
@@ -126,8 +126,11 @@ jobs:
           file: Dockerfile.release
           platforms: ${{ matrix.platforms }}
           load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: false
           build-args: |
+            FLAVOUR=${{ env.FLAVOUR }}
             WITH_AI=${{ env.WITH_AI }}
             WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}
             WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}
@@ -143,6 +146,7 @@ jobs:
           context: .
           file: Dockerfile.release
           platforms: ${{ matrix.platforms }}
+          cache-from: type=gha
           push: true
           build-args: |
             FLAVOUR=${{ env.FLAVOUR }}
