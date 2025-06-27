@@ -234,7 +234,10 @@ The back-end server runs on port 4000 (TCP) by default. Access it by navigating 
 ### Creating an account
 
 To create an account, go to http://localhost:4000/signup and enter your email address and password.
-When running the server locally and signing up for the first time, you won't need a confirmation email. However, for any future signups know you can find the confirmation link in the server logs.
+
+You can sign up at that page even though instances are invite-only by default, if you are the first to sign up you'll be able to do so without email confirmation and will automatically be made an instance admin (where you can then generate invite links or enable open sign ups).
+
+However, for any future signups know you can find the confirmation link in the server logs.
 
 > You can also sign up via CLI by entering something like this in your app's Elixir console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
 
