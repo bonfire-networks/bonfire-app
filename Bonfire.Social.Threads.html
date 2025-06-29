@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.1.26">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.1.27">
 
 
-    <title>Bonfire.Social.Threads — Bonfire v1.0.0-social-rc.1.26</title>
+    <title>Bonfire.Social.Threads — Bonfire v1.0.0-social-rc.1.27</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
-    <script defer src="dist/sidebar_items-BB9BF589.js"></script>
+    <script defer src="dist/sidebar_items-FED538BC.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-DPJLHKSM.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.1.26
+          v1.0.0-social-rc.1.27
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Social.Threads</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.26)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.1.27)</small>
 
     </h1>
 
@@ -168,6 +168,14 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#compute_include_path_ids/2" data-no-tooltip="" translate="no">compute_include_path_ids(reply_id, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#count_participants/2" data-no-tooltip="" translate="no">count_participants(thread_id, opts \\ [])</a>
 
       </div>
@@ -189,6 +197,14 @@ Bonfire
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#fetch_thread_id/2" data-no-tooltip="" translate="no">fetch_thread_id(comment_id, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#fetch_thread_path/2" data-no-tooltip="" translate="no">fetch_thread_path(comment_id, opts \\ [])</a>
 
       </div>
 
@@ -246,7 +262,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#list_replies/2" data-no-tooltip="" translate="no">list_replies(thread, opts \\ [])</a>
+        <a href="#list_replies/2" data-no-tooltip="" translate="no">list_replies(thread_or_comment, opts \\ [])</a>
 
       </div>
 
@@ -350,6 +366,14 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#thread_ancestors_path/2" data-no-tooltip="" translate="no">thread_ancestors_path(reply_id, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#unseen_count/2" data-no-tooltip="" translate="no">unseen_count(filters, opts)</a>
 
       </div>
@@ -393,7 +417,7 @@ Bonfire
       <h1 class="signature" translate="no">ap_prepare(object_or_thread_or_reply_to_id, key \\ :thread_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L1040" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L1072" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -402,7 +426,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Prepares a thread or reply for federation with ActivityPub.</p><h2 id="ap_prepare/2-parameters" class="section-heading"><a href="#ap_prepare/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">object_or_thread_or_reply_to_id</code>: The object, thread, or reply ID</li><li><code class="inline">key</code>: The key to use for preparation (<code class="inline">:thread_id</code> or <code class="inline">:reply_to_id</code>, default is <code class="inline">:thread_id</code>)</li></ul><h2 id="ap_prepare/2-examples" class="section-heading"><a href="#ap_prepare/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">ap_prepare</span><span class="p" data-group-id="0602839364-1">(</span><span class="s">&quot;thread_123&quot;</span><span class="p" data-group-id="0602839364-1">)</span><span class="w">
+<p>Prepares a thread or reply for federation with ActivityPub.</p><h2 id="ap_prepare/2-parameters" class="section-heading"><a href="#ap_prepare/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">object_or_thread_or_reply_to_id</code>: The object, thread, or reply ID</li><li><code class="inline">key</code>: The key to use for preparation (<code class="inline">:thread_id</code> or <code class="inline">:reply_to_id</code>, default is <code class="inline">:thread_id</code>)</li></ul><h2 id="ap_prepare/2-examples" class="section-heading"><a href="#ap_prepare/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">ap_prepare</span><span class="p" data-group-id="0240123299-1">(</span><span class="s">&quot;thread_123&quot;</span><span class="p" data-group-id="0240123299-1">)</span><span class="w">
 </span><span class="s">&quot;https://example.com/ap/objects/thread_123&quot;</span></code></pre>
   </section>
 </section>
@@ -418,7 +442,7 @@ Bonfire
       <h1 class="signature" translate="no">arrange_replies(replies, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L927" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L959" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -427,8 +451,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Arranges replies. </p><p>TODOC: how is it different than <a href="#arrange_replies_tree/2"><code class="inline">arrange_replies_tree/2</code></a>?</p><h2 id="arrange_replies/2-parameters" class="section-heading"><a href="#arrange_replies/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">replies</code>: List of replies</li><li><code class="inline">opts</code>: Arrangement options</li></ul><h2 id="arrange_replies/2-examples" class="section-heading"><a href="#arrange_replies/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">arrange_replies</span><span class="p" data-group-id="2378261855-1">(</span><span class="p" data-group-id="2378261855-2">[</span><span class="p" data-group-id="2378261855-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="2378261855-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2378261855-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2378261855-5">[</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="2378261855-5">]</span><span class="p" data-group-id="2378261855-4">}</span><span class="p" data-group-id="2378261855-2">]</span><span class="p" data-group-id="2378261855-1">)</span><span class="w">
-</span><span class="p" data-group-id="2378261855-6">%{</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2378261855-7">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">children</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2378261855-8">%{</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2378261855-9">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2378261855-10">[</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="2378261855-10">]</span><span class="p" data-group-id="2378261855-9">}</span><span class="p" data-group-id="2378261855-8">}</span><span class="p" data-group-id="2378261855-7">}</span><span class="p" data-group-id="2378261855-6">}</span></code></pre>
+<p>Arranges replies. </p><p>TODOC: how is it different than <a href="#arrange_replies_tree/2"><code class="inline">arrange_replies_tree/2</code></a>?</p><h2 id="arrange_replies/2-parameters" class="section-heading"><a href="#arrange_replies/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">replies</code>: List of replies</li><li><code class="inline">opts</code>: Arrangement options</li></ul><h2 id="arrange_replies/2-examples" class="section-heading"><a href="#arrange_replies/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">arrange_replies</span><span class="p" data-group-id="6897355290-1">(</span><span class="p" data-group-id="6897355290-2">[</span><span class="p" data-group-id="6897355290-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="6897355290-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6897355290-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6897355290-5">[</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="6897355290-5">]</span><span class="p" data-group-id="6897355290-4">}</span><span class="p" data-group-id="6897355290-2">]</span><span class="p" data-group-id="6897355290-1">)</span><span class="w">
+</span><span class="p" data-group-id="6897355290-6">%{</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="6897355290-7">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">children</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6897355290-8">%{</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="6897355290-9">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6897355290-10">[</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="6897355290-10">]</span><span class="p" data-group-id="6897355290-9">}</span><span class="p" data-group-id="6897355290-8">}</span><span class="p" data-group-id="6897355290-7">}</span><span class="p" data-group-id="6897355290-6">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="arrange_replies_tree/2">
@@ -443,7 +467,7 @@ Bonfire
       <h1 class="signature" translate="no">arrange_replies_tree(replies, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L906" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L938" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -452,8 +476,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Arranges replies into a tree structure.</p><p>Powered by <a href="https://github.com/bonfire-networks/ecto_materialized_path">https://github.com/bonfire-networks/ecto_materialized_path</a></p><h2 id="arrange_replies_tree/2-parameters" class="section-heading"><a href="#arrange_replies_tree/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">replies</code>: List of replies</li><li><code class="inline">opts</code>: Arrangement options</li></ul><h2 id="arrange_replies_tree/2-examples" class="section-heading"><a href="#arrange_replies_tree/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">arrange_replies_tree</span><span class="p" data-group-id="3901185104-1">(</span><span class="p" data-group-id="3901185104-2">[</span><span class="p" data-group-id="3901185104-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3901185104-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3901185104-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3901185104-4">}</span><span class="p" data-group-id="3901185104-2">]</span><span class="p" data-group-id="3901185104-1">)</span><span class="w">
-</span><span class="p" data-group-id="3901185104-5">%{</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="3901185104-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">direct_replies</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3901185104-7">[</span><span class="p" data-group-id="3901185104-8">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3901185104-8">}</span><span class="p" data-group-id="3901185104-7">]</span><span class="p" data-group-id="3901185104-6">}</span><span class="p" data-group-id="3901185104-5">}</span></code></pre>
+<p>Arranges replies into a tree structure.</p><p>Powered by <a href="https://github.com/bonfire-networks/ecto_materialized_path">https://github.com/bonfire-networks/ecto_materialized_path</a></p><h2 id="arrange_replies_tree/2-parameters" class="section-heading"><a href="#arrange_replies_tree/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">replies</code>: List of replies</li><li><code class="inline">opts</code>: Arrangement options</li></ul><h2 id="arrange_replies_tree/2-examples" class="section-heading"><a href="#arrange_replies_tree/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">arrange_replies_tree</span><span class="p" data-group-id="1046332775-1">(</span><span class="p" data-group-id="1046332775-2">[</span><span class="p" data-group-id="1046332775-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1046332775-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1046332775-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1046332775-4">}</span><span class="p" data-group-id="1046332775-2">]</span><span class="p" data-group-id="1046332775-1">)</span><span class="w">
+</span><span class="p" data-group-id="1046332775-5">%{</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="1046332775-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">direct_replies</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1046332775-7">[</span><span class="p" data-group-id="1046332775-8">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1046332775-8">}</span><span class="p" data-group-id="1046332775-7">]</span><span class="p" data-group-id="1046332775-6">}</span><span class="p" data-group-id="1046332775-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="base_query/0">
@@ -497,8 +521,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Casts a changeset with reply_to and threading info.</p><p>If it's not a reply or the user is not permitted to reply to the thing, a new thread will be created.</p><h2 id="cast/4-parameters" class="section-heading"><a href="#cast/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">changeset</code>: The changeset to be updated</li><li><code class="inline">attrs</code>: Attributes for the reply</li><li><code class="inline">user</code>: The user creating the reply</li><li><code class="inline">_preset_or_custom_boundary</code>: Boundary setting (currently unused)</li></ul><h2 id="cast/4-examples" class="section-heading"><a href="#cast/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast</span><span class="p" data-group-id="9094768843-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9094768843-2">%{</span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="9094768843-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="9094768843-1">)</span><span class="w">
-</span><span class="p" data-group-id="9094768843-3">%</span><span class="nc" data-group-id="9094768843-3">Ecto.Changeset</span><span class="p" data-group-id="9094768843-3">{</span><span class="p" data-group-id="9094768843-3">}</span></code></pre>
+<p>Casts a changeset with reply_to and threading info.</p><p>If it's not a reply or the user is not permitted to reply to the thing, a new thread will be created.</p><h2 id="cast/4-parameters" class="section-heading"><a href="#cast/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">changeset</code>: The changeset to be updated</li><li><code class="inline">attrs</code>: Attributes for the reply</li><li><code class="inline">user</code>: The user creating the reply</li><li><code class="inline">_preset_or_custom_boundary</code>: Boundary setting (currently unused)</li></ul><h2 id="cast/4-examples" class="section-heading"><a href="#cast/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">cast</span><span class="p" data-group-id="3581955631-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3581955631-2">%{</span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="3581955631-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3581955631-1">)</span><span class="w">
+</span><span class="p" data-group-id="3581955631-3">%</span><span class="nc" data-group-id="3581955631-3">Ecto.Changeset</span><span class="p" data-group-id="3581955631-3">{</span><span class="p" data-group-id="3581955631-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset/2">
@@ -525,6 +549,30 @@ Bonfire
 
   </section>
 </section>
+<section class="detail" id="compute_include_path_ids/2">
+
+    <span id="compute_include_path_ids/1"></span>
+
+  <div class="detail-header">
+    <a href="#compute_include_path_ids/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">compute_include_path_ids(reply_id, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L380" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="count_participants/2">
 
     <span id="count_participants/1"></span>
@@ -537,7 +585,7 @@ Bonfire
       <h1 class="signature" translate="no">count_participants(thread_id, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L465" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L490" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -546,7 +594,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Counts participants in a thread.</p><h2 id="count_participants/2-parameters" class="section-heading"><a href="#count_participants/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">thread_id</code>: The ID of the thread</li><li><code class="inline">opts</code>: Additional options, should contain <code class="inline">current_user</code> to check for permission</li></ul><h2 id="count_participants/2-examples" class="section-heading"><a href="#count_participants/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">count_participants</span><span class="p" data-group-id="5013074634-1">(</span><span class="s">&quot;thread_123&quot;</span><span class="p" data-group-id="5013074634-1">)</span><span class="w">
+<p>Counts participants in a thread.</p><h2 id="count_participants/2-parameters" class="section-heading"><a href="#count_participants/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">thread_id</code>: The ID of the thread</li><li><code class="inline">opts</code>: Additional options, should contain <code class="inline">current_user</code> to check for permission</li></ul><h2 id="count_participants/2-examples" class="section-heading"><a href="#count_participants/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">count_participants</span><span class="p" data-group-id="5689978852-1">(</span><span class="s">&quot;thread_123&quot;</span><span class="p" data-group-id="5689978852-1">)</span><span class="w">
 </span><span class="mi">5</span></code></pre>
   </section>
 </section>
@@ -569,8 +617,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Creates a parent replied record within a changeset.</p><h2 id="create_parent_replied/3-parameters" class="section-heading"><a href="#create_parent_replied/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">changeset</code> or <code class="inline">object</code>: The changeset to update</li><li><code class="inline">replied</code>: The replied struct</li><li><code class="inline">replied_attrs</code>: Attributes for the replied record</li></ul><h2 id="create_parent_replied/3-examples" class="section-heading"><a href="#create_parent_replied/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create_parent_replied</span><span class="p" data-group-id="3440701957-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3440701957-2">%</span><span class="nc" data-group-id="3440701957-2">Replied</span><span class="p" data-group-id="3440701957-2">{</span><span class="p" data-group-id="3440701957-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3440701957-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="3440701957-3">}</span><span class="p" data-group-id="3440701957-1">)</span><span class="w">
-</span><span class="p" data-group-id="3440701957-4">%</span><span class="nc" data-group-id="3440701957-4">Ecto.Changeset</span><span class="p" data-group-id="3440701957-4">{</span><span class="p" data-group-id="3440701957-4">}</span></code></pre>
+<p>Creates a parent replied record within a changeset.</p><h2 id="create_parent_replied/3-parameters" class="section-heading"><a href="#create_parent_replied/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">changeset</code> or <code class="inline">object</code>: The changeset to update</li><li><code class="inline">replied</code>: The replied struct</li><li><code class="inline">replied_attrs</code>: Attributes for the replied record</li></ul><h2 id="create_parent_replied/3-examples" class="section-heading"><a href="#create_parent_replied/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create_parent_replied</span><span class="p" data-group-id="0041609245-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0041609245-2">%</span><span class="nc" data-group-id="0041609245-2">Replied</span><span class="p" data-group-id="0041609245-2">{</span><span class="p" data-group-id="0041609245-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0041609245-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="0041609245-3">}</span><span class="p" data-group-id="0041609245-1">)</span><span class="w">
+</span><span class="p" data-group-id="0041609245-4">%</span><span class="nc" data-group-id="0041609245-4">Ecto.Changeset</span><span class="p" data-group-id="0041609245-4">{</span><span class="p" data-group-id="0041609245-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="fetch_thread_id/2">
@@ -597,6 +645,30 @@ Bonfire
 
   </section>
 </section>
+<section class="detail" id="fetch_thread_path/2">
+
+    <span id="fetch_thread_path/1"></span>
+
+  <div class="detail-header">
+    <a href="#fetch_thread_path/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">fetch_thread_path(comment_id, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L363" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="filter/3">
 
   <div class="detail-header">
@@ -607,7 +679,7 @@ Bonfire
       <h1 class="signature" translate="no">filter(arg1, thread_id, query)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L535" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L560" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -638,8 +710,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Finds the object being replied to.</p><h2 id="find_reply_to/2-parameters" class="section-heading"><a href="#find_reply_to/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">attrs</code>: Attributes containing reply information</li><li><code class="inline">user</code>: The user attempting to reply</li></ul><h2 id="find_reply_to/2-returns" class="section-heading"><a href="#find_reply_to/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, reply}</code> if the reply object is found and the user has permission</li><li><code class="inline">{:error, reason}</code> otherwise, where reason may be <code class="inline">:not_found</code> or <code class="inline">:not_permitted</code></li></ul><h2 id="find_reply_to/2-examples" class="section-heading"><a href="#find_reply_to/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">find_reply_to</span><span class="p" data-group-id="5021303735-1">(</span><span class="p" data-group-id="5021303735-2">%{</span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="5021303735-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5021303735-1">)</span><span class="w">
-</span><span class="p" data-group-id="5021303735-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5021303735-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5021303735-4">}</span><span class="p" data-group-id="5021303735-3">}</span></code></pre>
+<p>Finds the object being replied to.</p><h2 id="find_reply_to/2-parameters" class="section-heading"><a href="#find_reply_to/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">attrs</code>: Attributes containing reply information</li><li><code class="inline">user</code>: The user attempting to reply</li></ul><h2 id="find_reply_to/2-returns" class="section-heading"><a href="#find_reply_to/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, reply}</code> if the reply object is found and the user has permission</li><li><code class="inline">{:error, reason}</code> otherwise, where reason may be <code class="inline">:not_found</code> or <code class="inline">:not_permitted</code></li></ul><h2 id="find_reply_to/2-examples" class="section-heading"><a href="#find_reply_to/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">find_reply_to</span><span class="p" data-group-id="4668824021-1">(</span><span class="p" data-group-id="4668824021-2">%{</span><span class="ss">reply_to_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="4668824021-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="4668824021-1">)</span><span class="w">
+</span><span class="p" data-group-id="4668824021-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4668824021-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4668824021-4">}</span><span class="p" data-group-id="4668824021-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="find_thread/2">
@@ -661,8 +733,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Finds the thread for a reply.</p><h2 id="find_thread/2-parameters" class="section-heading"><a href="#find_thread/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">attrs</code>: Attributes containing thread information</li><li><code class="inline">user</code>: The user attempting to access the thread</li></ul><h2 id="find_thread/2-examples" class="section-heading"><a href="#find_thread/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">find_thread</span><span class="p" data-group-id="1229437505-1">(</span><span class="p" data-group-id="1229437505-2">%{</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="1229437505-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="1229437505-1">)</span><span class="w">
-</span><span class="p" data-group-id="1229437505-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1229437505-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1229437505-4">}</span><span class="p" data-group-id="1229437505-3">}</span></code></pre>
+<p>Finds the thread for a reply.</p><h2 id="find_thread/2-parameters" class="section-heading"><a href="#find_thread/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">attrs</code>: Attributes containing thread information</li><li><code class="inline">user</code>: The user attempting to access the thread</li></ul><h2 id="find_thread/2-examples" class="section-heading"><a href="#find_thread/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">find_thread</span><span class="p" data-group-id="7131525799-1">(</span><span class="p" data-group-id="7131525799-2">%{</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="7131525799-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="7131525799-1">)</span><span class="w">
+</span><span class="p" data-group-id="7131525799-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7131525799-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7131525799-4">}</span><span class="p" data-group-id="7131525799-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="init_parent_replied/1">
@@ -684,8 +756,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Initializes a parent replied record.</p><h2 id="init_parent_replied/1-parameters" class="section-heading"><a href="#init_parent_replied/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">replied_attrs</code>: Attributes for the replied record</li></ul><h2 id="init_parent_replied/1-examples" class="section-heading"><a href="#init_parent_replied/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">init_parent_replied</span><span class="p" data-group-id="8267811378-1">(</span><span class="p" data-group-id="8267811378-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="8267811378-2">}</span><span class="p" data-group-id="8267811378-1">)</span><span class="w">
-</span><span class="p" data-group-id="8267811378-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267811378-4">%</span><span class="nc" data-group-id="8267811378-4">Replied</span><span class="p" data-group-id="8267811378-4">{</span><span class="p" data-group-id="8267811378-4">}</span><span class="p" data-group-id="8267811378-3">}</span></code></pre>
+<p>Initializes a parent replied record.</p><h2 id="init_parent_replied/1-parameters" class="section-heading"><a href="#init_parent_replied/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">replied_attrs</code>: Attributes for the replied record</li></ul><h2 id="init_parent_replied/1-examples" class="section-heading"><a href="#init_parent_replied/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">init_parent_replied</span><span class="p" data-group-id="6529464224-1">(</span><span class="p" data-group-id="6529464224-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;789&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;456&quot;</span><span class="p" data-group-id="6529464224-2">}</span><span class="p" data-group-id="6529464224-1">)</span><span class="w">
+</span><span class="p" data-group-id="6529464224-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6529464224-4">%</span><span class="nc" data-group-id="6529464224-4">Replied</span><span class="p" data-group-id="6529464224-4">{</span><span class="p" data-group-id="6529464224-4">}</span><span class="p" data-group-id="6529464224-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_participants/3">
@@ -702,7 +774,7 @@ Bonfire
       <h1 class="signature" translate="no">list_participants(activity_or_object, thread_or_object_id \\ nil, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L377" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L402" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -711,8 +783,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Lists participants of a thread or individual object.</p><h2 id="list_participants/3-parameters" class="section-heading"><a href="#list_participants/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">activity_or_object</code>: The activity or object to list participants for</li><li><code class="inline">thread_or_object_id</code>: Optional thread or object ID</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="list_participants/3-examples" class="section-heading"><a href="#list_participants/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_participants</span><span class="p" data-group-id="1891720719-1">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thread_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="1891720719-1">)</span><span class="w">
-</span><span class="p" data-group-id="1891720719-2">[</span><span class="p" data-group-id="1891720719-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1891720719-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1891720719-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1891720719-4">}</span><span class="p" data-group-id="1891720719-2">]</span></code></pre>
+<p>Lists participants of a thread or individual object.</p><h2 id="list_participants/3-parameters" class="section-heading"><a href="#list_participants/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">activity_or_object</code>: The activity or object to list participants for</li><li><code class="inline">thread_or_object_id</code>: Optional thread or object ID</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="list_participants/3-examples" class="section-heading"><a href="#list_participants/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_participants</span><span class="p" data-group-id="0961759828-1">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thread_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="0961759828-1">)</span><span class="w">
+</span><span class="p" data-group-id="0961759828-2">[</span><span class="p" data-group-id="0961759828-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0961759828-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0961759828-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0961759828-4">}</span><span class="p" data-group-id="0961759828-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_replies/2">
@@ -724,10 +796,10 @@ Bonfire
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">list_replies(thread, opts \\ [])</h1>
+      <h1 class="signature" translate="no">list_replies(thread_or_comment, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L588" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L613" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -736,8 +808,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Lists replies in a thread.</p><h2 id="list_replies/2-parameters" class="section-heading"><a href="#list_replies/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">thread</code>: The thread or thread ID</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="list_replies/2-examples" class="section-heading"><a href="#list_replies/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_replies</span><span class="p" data-group-id="6668849309-1">(</span><span class="s">&quot;thread_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="6668849309-1">)</span><span class="w">
-</span><span class="p" data-group-id="6668849309-2">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6668849309-3">[</span><span class="p" data-group-id="6668849309-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="6668849309-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6668849309-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="6668849309-5">}</span><span class="p" data-group-id="6668849309-3">]</span><span class="p" data-group-id="6668849309-2">}</span></code></pre>
+<p>Lists replies in a thread.</p><h2 id="list_replies/2-parameters" class="section-heading"><a href="#list_replies/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">thread</code>: The thread or thread ID</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="list_replies/2-examples" class="section-heading"><a href="#list_replies/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_replies</span><span class="p" data-group-id="9455677849-1">(</span><span class="s">&quot;thread_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="9455677849-1">)</span><span class="w">
+</span><span class="p" data-group-id="9455677849-2">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9455677849-3">[</span><span class="p" data-group-id="9455677849-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9455677849-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9455677849-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9455677849-5">}</span><span class="p" data-group-id="9455677849-3">]</span><span class="p" data-group-id="9455677849-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="mark_all_seen/2">
@@ -750,7 +822,7 @@ Bonfire
       <h1 class="signature" translate="no">mark_all_seen(filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L869" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L897" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -759,8 +831,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Marks all unseen replies as seen.</p><h2 id="mark_all_seen/2-parameters" class="section-heading"><a href="#mark_all_seen/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filter criteria</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="mark_all_seen/2-examples" class="section-heading"><a href="#mark_all_seen/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">mark_all_seen</span><span class="p" data-group-id="7811320712-1">(</span><span class="p" data-group-id="7811320712-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="7811320712-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="7811320712-1">)</span><span class="w">
-</span><span class="p" data-group-id="7811320712-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7811320712-4">[</span><span class="p" data-group-id="7811320712-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply1&quot;</span><span class="p" data-group-id="7811320712-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7811320712-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply2&quot;</span><span class="p" data-group-id="7811320712-6">}</span><span class="p" data-group-id="7811320712-4">]</span><span class="p" data-group-id="7811320712-3">}</span></code></pre>
+<p>Marks all unseen replies as seen.</p><h2 id="mark_all_seen/2-parameters" class="section-heading"><a href="#mark_all_seen/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filter criteria</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="mark_all_seen/2-examples" class="section-heading"><a href="#mark_all_seen/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">mark_all_seen</span><span class="p" data-group-id="1579118272-1">(</span><span class="p" data-group-id="1579118272-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="1579118272-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="1579118272-1">)</span><span class="w">
+</span><span class="p" data-group-id="1579118272-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1579118272-4">[</span><span class="p" data-group-id="1579118272-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply1&quot;</span><span class="p" data-group-id="1579118272-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1579118272-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reply2&quot;</span><span class="p" data-group-id="1579118272-6">}</span><span class="p" data-group-id="1579118272-4">]</span><span class="p" data-group-id="1579118272-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_re_order_result/2">
@@ -773,7 +845,7 @@ Bonfire
       <h1 class="signature" translate="no">maybe_re_order_result(result, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L569" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L594" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -795,7 +867,7 @@ Bonfire
       <h1 class="signature" translate="no">maybe_with_pins(query, thread_id, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L728" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L756" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -819,7 +891,7 @@ Bonfire
       <h1 class="signature" translate="no">prepare_replies_tree(replies, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L885" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L917" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -841,7 +913,7 @@ Bonfire
       <h1 class="signature" translate="no">query(filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L648" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L674" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -850,8 +922,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Builds a query for thread replies.</p><h2 id="query/2-parameters" class="section-heading"><a href="#query/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filter</code>: Filter criteria (e.g., <code class="inline">[thread_id: &quot;123&quot;]</code>)</li><li><code class="inline">opts</code>: Additional query options</li></ul><h2 id="query/2-examples" class="section-heading"><a href="#query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="6928929269-1">(</span><span class="p" data-group-id="6928929269-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="6928929269-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6928929269-3">[</span><span class="ss">:posts</span><span class="p" data-group-id="6928929269-3">]</span><span class="p" data-group-id="6928929269-1">)</span><span class="w">
-</span><span class="p" data-group-id="6928929269-4">%</span><span class="nc" data-group-id="6928929269-4">Ecto.Query</span><span class="p" data-group-id="6928929269-4">{</span><span class="p" data-group-id="6928929269-4">}</span></code></pre>
+<p>Builds a query for thread replies.</p><h2 id="query/2-parameters" class="section-heading"><a href="#query/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filter</code>: Filter criteria (e.g., <code class="inline">[thread_id: &quot;123&quot;]</code>)</li><li><code class="inline">opts</code>: Additional query options</li></ul><h2 id="query/2-examples" class="section-heading"><a href="#query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="0380731080-1">(</span><span class="p" data-group-id="0380731080-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="0380731080-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0380731080-3">[</span><span class="ss">:posts</span><span class="p" data-group-id="0380731080-3">]</span><span class="p" data-group-id="0380731080-1">)</span><span class="w">
+</span><span class="p" data-group-id="0380731080-4">%</span><span class="nc" data-group-id="0380731080-4">Ecto.Query</span><span class="p" data-group-id="0380731080-4">{</span><span class="p" data-group-id="0380731080-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_module/0">
@@ -886,7 +958,7 @@ Bonfire
       <h1 class="signature" translate="no">re_order_using_subquery(query, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L561" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L586" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -917,8 +989,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Reads a thread by its ID.</p><h2 id="read/2-parameters" class="section-heading"><a href="#read/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">object_id</code>: The ID of the object to read</li><li><code class="inline">opts</code>: should contain <code class="inline">current_user</code> to check for read permissions</li></ul><h2 id="read/2-returns" class="section-heading"><a href="#read/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, object}</code> if the object is found and readable</li><li><code class="inline">{:error, reason}</code> otherwise</li></ul><h2 id="read/2-examples" class="section-heading"><a href="#read/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">read</span><span class="p" data-group-id="2895384890-1">(</span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="2895384890-1">)</span><span class="w">
-</span><span class="p" data-group-id="2895384890-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2895384890-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2895384890-3">}</span><span class="p" data-group-id="2895384890-2">}</span></code></pre>
+<p>Reads a thread by its ID.</p><h2 id="read/2-parameters" class="section-heading"><a href="#read/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">object_id</code>: The ID of the object to read</li><li><code class="inline">opts</code>: should contain <code class="inline">current_user</code> to check for read permissions</li></ul><h2 id="read/2-returns" class="section-heading"><a href="#read/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, object}</code> if the object is found and readable</li><li><code class="inline">{:error, reason}</code> otherwise</li></ul><h2 id="read/2-examples" class="section-heading"><a href="#read/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">read</span><span class="p" data-group-id="5767696059-1">(</span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="5767696059-1">)</span><span class="w">
+</span><span class="p" data-group-id="5767696059-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5767696059-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5767696059-3">}</span><span class="p" data-group-id="5767696059-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="reply_to_ap_object/2">
@@ -931,7 +1003,7 @@ Bonfire
       <h1 class="signature" translate="no">reply_to_ap_object(activity_data, post_data)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L1068" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L1100" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -965,6 +1037,30 @@ Bonfire
 <p>Callback implementation for <a href="./Bonfire.Common.QueryModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.QueryModule.schema_module/0</code></a>.</p>
   </section>
 </section>
+<section class="detail" id="thread_ancestors_path/2">
+
+    <span id="thread_ancestors_path/1"></span>
+
+  <div class="detail-header">
+    <a href="#thread_ancestors_path/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">thread_ancestors_path(reply_id, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L373" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="unseen_count/2">
 
   <div class="detail-header">
@@ -975,7 +1071,7 @@ Bonfire
       <h1 class="signature" translate="no">unseen_count(filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L850" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L878" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -984,7 +1080,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Counts unseen replies.</p><h2 id="unseen_count/2-parameters" class="section-heading"><a href="#unseen_count/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filter criteria</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="unseen_count/2-examples" class="section-heading"><a href="#unseen_count/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unseen_count</span><span class="p" data-group-id="8204739357-1">(</span><span class="p" data-group-id="8204739357-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="8204739357-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="8204739357-1">)</span><span class="w">
+<p>Counts unseen replies.</p><h2 id="unseen_count/2-parameters" class="section-heading"><a href="#unseen_count/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filter criteria</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="unseen_count/2-examples" class="section-heading"><a href="#unseen_count/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unseen_count</span><span class="p" data-group-id="5969853203-1">(</span><span class="p" data-group-id="5969853203-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="5969853203-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5969853203-1">)</span><span class="w">
 </span><span class="mi">5</span></code></pre>
   </section>
 </section>
@@ -998,7 +1094,7 @@ Bonfire
       <h1 class="signature" translate="no">unseen_query(filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L817" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/threads.ex#L845" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1007,8 +1103,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Builds a query for unseen replies.</p><h2 id="unseen_query/2-parameters" class="section-heading"><a href="#unseen_query/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filter criteria</li><li><code class="inline">opts</code>: Additional query options</li></ul><h2 id="unseen_query/2-returns" class="section-heading"><a href="#unseen_query/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, query}</code> if the query can be built</li><li><code class="inline">{:error, reason}</code> otherwise</li></ul><h2 id="unseen_query/2-examples" class="section-heading"><a href="#unseen_query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unseen_query</span><span class="p" data-group-id="3937018137-1">(</span><span class="p" data-group-id="3937018137-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="3937018137-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="3937018137-1">)</span><span class="w">
-</span><span class="p" data-group-id="3937018137-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3937018137-4">%</span><span class="nc" data-group-id="3937018137-4">Ecto.Query</span><span class="p" data-group-id="3937018137-4">{</span><span class="p" data-group-id="3937018137-4">}</span><span class="p" data-group-id="3937018137-3">}</span></code></pre>
+<p>Builds a query for unseen replies.</p><h2 id="unseen_query/2-parameters" class="section-heading"><a href="#unseen_query/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filter criteria</li><li><code class="inline">opts</code>: Additional query options</li></ul><h2 id="unseen_query/2-returns" class="section-heading"><a href="#unseen_query/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, query}</code> if the query can be built</li><li><code class="inline">{:error, reason}</code> otherwise</li></ul><h2 id="unseen_query/2-examples" class="section-heading"><a href="#unseen_query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unseen_query</span><span class="p" data-group-id="6577108783-1">(</span><span class="p" data-group-id="6577108783-2">[</span><span class="ss">thread_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="6577108783-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="6577108783-1">)</span><span class="w">
+</span><span class="p" data-group-id="6577108783-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6577108783-4">%</span><span class="nc" data-group-id="6577108783-4">Ecto.Query</span><span class="p" data-group-id="6577108783-4">{</span><span class="p" data-group-id="6577108783-4">}</span><span class="p" data-group-id="6577108783-3">}</span></code></pre>
   </section>
 </section>
 
