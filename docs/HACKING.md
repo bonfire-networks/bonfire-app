@@ -44,7 +44,7 @@ Bonfire is a flexible platform that powers a variety of social networks. The fir
 - `ember` (just the basics)
 - `social` (a classical social network that interoperates with the fediverse)
 - `community` (for topics and groups)
-- `open-science` (for next-gen scientific communities)
+- `open_science` (for next-gen scientific communities)
 - `coordination` (for coordinating around tasks and projects)
 - `cooperation` (for building cooperative economic networks)
 
