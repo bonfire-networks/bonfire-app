@@ -209,11 +209,11 @@ defmodule Bonfire.Umbrella.MixProject do
         },
 
         # tests
-        # {:floki, ">= 0.0.0", only: [:dev, :test]},
+        # {:floki, "~> 0.37.1", only: [:dev, :test]},
         # {:pages, "~> 0.12", only: :test}, # extends Floki for testing
         {
           :phoenix_test,
-          "~> 0.3",
+          "~> 0.7",
           # git: "https://github.com/germsvel/phoenix_test",
           only: :test, runtime: false
         },
@@ -335,7 +335,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.0-rc.1.28",
+    version: "1.0.0-rc.1.29",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
