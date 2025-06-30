@@ -804,40 +804,45 @@ _test-db-dance-reset: services db-pre-migrations
 test_convert_path path:
 	#!/usr/bin/env bash
 	input={{path}}
+	
+	if [[ "$input" =~ ^https:// ]]; then
+		# Extract the path and line number
+		if [[ "$input" =~ https://github.com/[^/]+/([^/]+)/blob/main/([^#]+)#L([0-9]+) ]]; then
+			extension="${BASH_REMATCH[1]}"
+			path="${BASH_REMATCH[2]}"
+			line="${BASH_REMATCH[3]}"
+		elif [[ "$input" =~ [^/]+/([^/]+)/blob/main/([^#]+)#L([0-9]+) ]]; then
+			extension="${BASH_REMATCH[1]}"
+			path="${BASH_REMATCH[2]}"
+			line="${BASH_REMATCH[3]}"
+		elif [[ "$input" =~ ([^#]+)#L([0-9]+) ]]; then
+			path="${BASH_REMATCH[1]}"
+			line="${BASH_REMATCH[2]}"
+			extension=$(echo "$path" | cut -d'/' -f1)
+		elif [[ "$input" =~ ([^:]+):([0-9]+) ]]; then
+			path="${BASH_REMATCH[1]}"
+			line="${BASH_REMATCH[2]}"
+			extension=$(echo "$path" | cut -d'/' -f1)
+		else
+			# Invalid input, just return it
+			echo "$input"
+			exit 1
+		fi
 
-	# Extract the path and line number
-	if [[ "$input" =~ https://github.com/[^/]+/([^/]+)/blob/main/([^#]+)#L([0-9]+) ]]; then
-		extension="${BASH_REMATCH[1]}"
-		path="${BASH_REMATCH[2]}"
-		line="${BASH_REMATCH[3]}"
-	elif [[ "$input" =~ [^/]+/([^/]+)/blob/main/([^#]+)#L([0-9]+) ]]; then
-		extension="${BASH_REMATCH[1]}"
-		path="${BASH_REMATCH[2]}"
-		line="${BASH_REMATCH[3]}"
-	elif [[ "$input" =~ ([^#]+)#L([0-9]+) ]]; then
-		path="${BASH_REMATCH[1]}"
-		line="${BASH_REMATCH[2]}"
-		extension=$(echo "$path" | cut -d'/' -f1)
-	elif [[ "$input" =~ ([^:]+):([0-9]+) ]]; then
-		path="${BASH_REMATCH[1]}"
-		line="${BASH_REMATCH[2]}"
-		extension=$(echo "$path" | cut -d'/' -f1)
+		# Remove 'blob/main/' if present
+		path="${path/blob\/main\//}"
+
+		# Ensure there is no duplicate "extensions/" prefix and handle any extension
+		if [[ "$path" =~ ^extensions/ ]]; then
+			echo "${path}:${line}"
+		elif [[ "$path" =~ ^${extension}/ ]]; then
+			echo "extensions/${path}:${line}"
+		else
+			echo "extensions/${extension}/${path}:${line}"
+		fi
 	else
-		# Invalid input, just return it
+		# just return it
 		echo "$input"
-		exit 1
-	fi
-
-	# Remove 'blob/main/' if present
-	path="${path/blob\/main\//}"
-
-	# Ensure there is no duplicate "extensions/" prefix and handle any extension
-	if [[ "$path" =~ ^extensions/ ]]; then
-		echo "${path}:${line}"
-	elif [[ "$path" =~ ^${extension}/ ]]; then
-		echo "extensions/${path}:${line}"
-	else
-		echo "extensions/${extension}/${path}:${line}"
 	fi
 
 
