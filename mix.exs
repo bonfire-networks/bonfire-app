@@ -236,6 +236,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # used in unfurl
         # {:bypass, "~> 2.1", only: :test},
         {:assert_value, ">= 0.0.0", only: [:dev, :test]},
+        {:repatch, "~> 1.5", only: :test},
 
         # Benchmarking utilities
         {:benchee, "~> 1.1", override: true},
