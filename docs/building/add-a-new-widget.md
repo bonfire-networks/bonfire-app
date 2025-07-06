@@ -107,7 +107,7 @@ What remains is to include the logic for returning and displaying the weather. W
 The Forecastr library makes use of the Pirate Weather service, so we need a Pirate Weather API KEY. You can generate one on [pirateweather.net](http://pirateweather.net/) and add it at the bottom of your `.env` file:
 
 ```elixir
-PIRATE_WEATHER_API=***********************
+PIRATE_WEATHER_API_KEY=***********************
 
 ```
 
