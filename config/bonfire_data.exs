@@ -130,6 +130,7 @@ alias Bonfire.Tag.Tagged
 
 mixin = [foreign_key: :id, references: :id]
 mixin_updatable = mixin ++ [on_replace: :update]
+mixin_replaceable = mixin ++ [on_replace: :delete_if_exists]
 
 common_assocs = %{
   ### Mixins
@@ -305,7 +306,7 @@ common_assocs = %{
   # Information that this object has some files + the actual files
   media:
     quote do
-      has_many(:files, unquote(Files), unquote(mixin))
+      has_many(:files, unquote(Files), unquote(mixin_replaceable))
 
       many_to_many(:media, unquote(Media),
         join_through: unquote(Files),
