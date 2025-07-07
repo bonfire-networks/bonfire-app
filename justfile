@@ -764,7 +764,7 @@ test-federation-etc *args=ap_etc: services _test-dance-positions
 	just test_run {{args}}
 
 test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
+	TEST_INSTANCE=yes HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
 # note: also includes oauth
