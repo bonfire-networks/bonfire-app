@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.1">
 
 
-    <title>Bonfire.Social.APActivities — Bonfire v1.0.0-social-rc.2</title>
+    <title>Bonfire.Social.APActivities — Bonfire v1.0.0-social-rc.2.1</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
-    <script defer src="dist/sidebar_items-F98E4225.js"></script>
+    <script defer src="dist/sidebar_items-E4AC60B8.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-DPJLHKSM.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2
+          v1.0.0-social-rc.2.1
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Social.APActivities</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.1)</small>
 
     </h1>
 
@@ -113,21 +113,21 @@ It provides functionality to handle ActivityPub activities, particularly for rec
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#ap_receive_activity/3" data-no-tooltip="" translate="no">ap_receive_activity(creator, activity, object)</a>
+        <a href="#ap_receive/4" data-no-tooltip="" translate="no">ap_receive(character, activity, object, public \\ nil)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Receives and processes an ActivityPub activity.</p></div>
+        <div class="summary-synopsis"><p>Creates an <code class="inline">APActivity</code> from the given character, activity, and object.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#create/4" data-no-tooltip="" translate="no">create(character, activity, object, public \\ nil)</a>
+        <a href="#ap_receive_activity/3" data-no-tooltip="" translate="no">ap_receive_activity(creator, activity, object)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates an <code class="inline">APActivity</code> from the given character, activity, and object.</p></div>
+        <div class="summary-synopsis"><p>Receives and processes an ActivityPub activity.</p></div>
 
     </div>
 
@@ -160,6 +160,37 @@ It provides functionality to handle ActivityPub activities, particularly for rec
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
+<section class="detail" id="ap_receive/4">
+
+    <span id="ap_receive/3"></span>
+
+  <div class="detail-header">
+    <a href="#ap_receive/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_receive(character, activity, object, public \\ nil)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/ap_activities.ex#L78" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Creates an <code class="inline">APActivity</code> from the given character, activity, and object.</p><p>This function handles various patterns of input data to create an APActivity.</p><h2 id="ap_receive/4-parameters" class="section-heading"><a href="#ap_receive/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>character: The character (user) creating the activity.</li><li>activity: The activity data.</li><li>object: The object data.</li><li>public: A boolean indicating whether the activity is public (optional).</li></ul><h2 id="ap_receive/4-examples" class="section-heading"><a href="#ap_receive/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1078154584-1">%</span><span class="nc" data-group-id="1078154584-1">Character</span><span class="p" data-group-id="1078154584-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="1078154584-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1078154584-2">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="1078154584-3">%{</span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p" data-group-id="1078154584-3">}</span><span class="p" data-group-id="1078154584-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1078154584-4">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p" data-group-id="1078154584-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_receive</span><span class="p" data-group-id="1078154584-5">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="1078154584-5">)</span><span class="w">
+</span><span class="p" data-group-id="1078154584-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1078154584-7">%</span><span class="nc" data-group-id="1078154584-7">APActivity</span><span class="p" data-group-id="1078154584-7">{</span><span class="p" data-group-id="1078154584-7">}</span><span class="p" data-group-id="1078154584-6">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_receive</span><span class="p" data-group-id="1078154584-8">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="1078154584-8">)</span><span class="w">
+</span><span class="p" data-group-id="1078154584-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1078154584-10">%</span><span class="nc" data-group-id="1078154584-10">APActivity</span><span class="p" data-group-id="1078154584-10">{</span><span class="p" data-group-id="1078154584-10">}</span><span class="p" data-group-id="1078154584-9">}</span></code></pre>
+  </section>
+</section>
 <section class="detail" id="ap_receive_activity/3">
 
   <div class="detail-header">
@@ -179,42 +210,11 @@ It provides functionality to handle ActivityPub activities, particularly for rec
 
   <section class="docstring">
 
-<p>Receives and processes an ActivityPub activity.</p><p>This function is used to handle incoming federated activities.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>creator: The character (user) associated with the activity.</li><li>activity: The ActivityPub activity data.</li><li>object: The object associated with the activity.</li></ul><h2 id="ap_receive_activity/3-examples" class="section-heading"><a href="#ap_receive_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2741284266-1">%</span><span class="nc" data-group-id="2741284266-1">Character</span><span class="p" data-group-id="2741284266-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="2741284266-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2741284266-2">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2741284266-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p" data-group-id="2741284266-3">}</span><span class="p" data-group-id="2741284266-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2741284266-4">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2741284266-5">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, fediverse!&quot;</span><span class="p" data-group-id="2741284266-5">}</span><span class="p" data-group-id="2741284266-4">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.APActivities</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="2741284266-6">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2741284266-6">)</span><span class="w">
-</span><span class="p" data-group-id="2741284266-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2741284266-8">%</span><span class="nc" data-group-id="2741284266-8">APActivity</span><span class="p" data-group-id="2741284266-8">{</span><span class="p" data-group-id="2741284266-8">}</span><span class="p" data-group-id="2741284266-7">}</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="create/4">
-
-    <span id="create/3"></span>
-
-  <div class="detail-header">
-    <a href="#create/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">create(character, activity, object, public \\ nil)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/ap_activities.ex#L78" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Creates an <code class="inline">APActivity</code> from the given character, activity, and object.</p><p>This function handles various patterns of input data to create an APActivity.</p><h2 id="create/4-parameters" class="section-heading"><a href="#create/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>character: The character (user) creating the activity.</li><li>activity: The activity data.</li><li>object: The object associated with the activity.</li><li>public: A boolean indicating whether the activity is public (optional).</li></ul><h2 id="create/4-examples" class="section-heading"><a href="#create/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9285466900-1">%</span><span class="nc" data-group-id="9285466900-1">Character</span><span class="p" data-group-id="9285466900-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="9285466900-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9285466900-2">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="9285466900-3">%{</span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p" data-group-id="9285466900-3">}</span><span class="p" data-group-id="9285466900-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9285466900-4">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p" data-group-id="9285466900-4">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.APActivities</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="9285466900-5">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="9285466900-5">)</span><span class="w">
-</span><span class="p" data-group-id="9285466900-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9285466900-7">%</span><span class="nc" data-group-id="9285466900-7">APActivity</span><span class="p" data-group-id="9285466900-7">{</span><span class="p" data-group-id="9285466900-7">}</span><span class="p" data-group-id="9285466900-6">}</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.APActivities</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="9285466900-8">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9285466900-8">)</span><span class="w">
-</span><span class="p" data-group-id="9285466900-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9285466900-10">%</span><span class="nc" data-group-id="9285466900-10">APActivity</span><span class="p" data-group-id="9285466900-10">{</span><span class="p" data-group-id="9285466900-10">}</span><span class="p" data-group-id="9285466900-9">}</span></code></pre>
+<p>Receives and processes an ActivityPub activity.</p><p>This function is used to handle incoming federated activities.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>creator: The character (user) associated with the activity.</li><li>activity: The ActivityPub activity.</li><li>object: The object associated with the activity.</li></ul><h2 id="ap_receive_activity/3-examples" class="section-heading"><a href="#ap_receive_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0093226588-1">%</span><span class="nc" data-group-id="0093226588-1">Character</span><span class="p" data-group-id="0093226588-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="0093226588-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0093226588-2">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0093226588-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p" data-group-id="0093226588-3">}</span><span class="p" data-group-id="0093226588-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0093226588-4">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0093226588-5">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, fediverse!&quot;</span><span class="p" data-group-id="0093226588-5">}</span><span class="p" data-group-id="0093226588-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.APActivities</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="0093226588-6">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="0093226588-6">)</span><span class="w">
+</span><span class="p" data-group-id="0093226588-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0093226588-8">%</span><span class="nc" data-group-id="0093226588-8">APActivity</span><span class="p" data-group-id="0093226588-8">{</span><span class="p" data-group-id="0093226588-8">}</span><span class="p" data-group-id="0093226588-7">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="filter_by_type/2">
