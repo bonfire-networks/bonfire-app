@@ -1179,12 +1179,16 @@ localise-extract:
 
 # Generate secrets
 @secrets:
-	{{ if MIX_ENV == "prod" { "just rands" } else if WITH_DOCKER=="total" { "just rands" } else { "just mix-secrets" } }}
+	just rands
+#{{ if MIX_ENV == "prod" { "just rands" } else if WITH_DOCKER=="total" { "just rands" } else { "just mix-secrets" } }}
 
 @rands:
-	just rand
-	just rand
-	just rand
+	echo "SECRET_KEY_BASE=$(just rand 128)"
+	echo "SIGNING_SALT=$(just rand 128)"
+	echo "ENCRYPTION_SALT=$(just rand 128)"
+	echo "ERLANG_COOKIE=$(just rand 42)"
+	echo "POSTGRES_PASSWORD=$(just rand 42)"
+	echo "MEILI_MASTER_KEY=$(just rand 42)"
 
 @mix-secrets: 
 	just escript_common secrets --file .env
@@ -1212,8 +1216,8 @@ localise-extract:
 @ln-mix-tasks:
 	mkdir -p lib/mix && cd lib/mix/ && {{ if path_exists("extensions/bonfire_common/lib/mix_tasks")=="true" { "echo Link to bonfire_common to dev clone && ln -sf ../../extensions/bonfire_common/lib/mix_tasks tasks" } else {"echo Link to bonfire_common to mix deps && just deps-get && ln -sf ../../deps/bonfire_common/lib/mix_tasks tasks"} }}
 
-@rand:
-	echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
+@rand length='128':
+	openssl rand -hex {{length}} || echo {{ uuid() }}-{{ uuid() }}-{{ uuid() }}-{{ uuid() }}
 # note: doesn't work in github CI ^
 
 # Start or stop nix postgres server
