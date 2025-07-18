@@ -79,10 +79,14 @@ config :bonfire,
     dir: cute_gifs_dir
   ]
 
+if System.get_env("ENABLE_STATIC_CACHING") not in yes? do
+  config :bonfire_ui_common, Bonfire.UI.Common.StaticGenerator, modularity: :disabled
+end
+
 phx_server = System.get_env("PHX_SERVER")
 use_cowboy? = System.get_env("PLUG_SERVER") != "bandit"
 
-if System.get_env("DISABLE_LOG") == "yes" do
+if System.get_env("DISABLE_LOG") in yes? do
   # to suppress non-captured logs in tests (eg. in setup_all)
   config :logger, backends: []
 end
