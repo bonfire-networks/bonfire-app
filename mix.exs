@@ -150,12 +150,12 @@ defmodule Bonfire.Umbrella.MixProject do
         # TODO: move most of these deps to ember or elsewhere?
         {
           :mess,
-          # path: "forks/mess", 
+          # path: "forks/mess",
           git: "https://github.com/bonfire-networks/mess", only: [:dev, :test], override: true
         },
         {:jungle,
          git: "https://github.com/bonfire-networks/jungle", only: [:dev, :test], override: true},
-        # {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true}, 
+        # {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
 
         # compilation
         # {:tria, github: "hissssst/tria"},
@@ -249,7 +249,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {
           :sentry,
           "~> 10.10",
-          # git: "https://github.com/getsentry/sentry-elixir", 
+          # git: "https://github.com/getsentry/sentry-elixir",
           only: [:dev, :prod], override: true
         },
 
@@ -336,7 +336,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.0-rc.2.1",
+    version: "1.0.0-rc.2.2",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
