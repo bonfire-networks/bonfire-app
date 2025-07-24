@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.2">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.3">
 
 
-    <title>Bonfire.Social.APActivities — Bonfire v1.0.0-social-rc.2.2</title>
+    <title>Bonfire.Social.APActivities — Bonfire v1.0.0-social-rc.2.3</title>
 
     <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
 
-    <script defer src="dist/sidebar_items-E4AC60B8.js"></script>
+    <script defer src="dist/sidebar_items-552D146A.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-DPJLHKSM.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.2
+          v1.0.0-social-rc.2.3
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Social.APActivities</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.2)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.3)</small>
 
     </h1>
 
@@ -133,6 +133,14 @@ It provides functionality to handle ActivityPub activities, particularly for rec
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#fetch_and_create_nested_ap_objects/2" data-no-tooltip="" translate="no">fetch_and_create_nested_ap_objects(object, options \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#filter_by_type/2" data-no-tooltip="" translate="no">filter_by_type(query \\ Object, activity_type)</a>
 
       </div>
@@ -144,6 +152,17 @@ It provides functionality to handle ActivityPub activities, particularly for rec
         <a href="#filter_exclude_type/2" data-no-tooltip="" translate="no">filter_exclude_type(query \\ Object, type)</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#preload_ap_activity_pointers/2" data-no-tooltip="" translate="no">preload_ap_activity_pointers(activities, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Preloads nested objects referenced by pointer_id in APActivity JSON fields.
+This function automatically detects ALL fields containing pointer_ids and bulk loads them to avoid n+1 queries.</p></div>
 
     </div>
 
@@ -181,14 +200,14 @@ It provides functionality to handle ActivityPub activities, particularly for rec
 
   <section class="docstring">
 
-<p>Creates an <code class="inline">APActivity</code> from the given character, activity, and object.</p><p>This function handles various patterns of input data to create an APActivity.</p><h2 id="ap_receive/4-parameters" class="section-heading"><a href="#ap_receive/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>character: The character (user) creating the activity.</li><li>activity: The activity data.</li><li>object: The object data.</li><li>public: A boolean indicating whether the activity is public (optional).</li></ul><h2 id="ap_receive/4-examples" class="section-heading"><a href="#ap_receive/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9624148002-1">%</span><span class="nc" data-group-id="9624148002-1">Character</span><span class="p" data-group-id="9624148002-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="9624148002-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9624148002-2">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="9624148002-3">%{</span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p" data-group-id="9624148002-3">}</span><span class="p" data-group-id="9624148002-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9624148002-4">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p" data-group-id="9624148002-4">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_receive</span><span class="p" data-group-id="9624148002-5">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="9624148002-5">)</span><span class="w">
-</span><span class="p" data-group-id="9624148002-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9624148002-7">%</span><span class="nc" data-group-id="9624148002-7">APActivity</span><span class="p" data-group-id="9624148002-7">{</span><span class="p" data-group-id="9624148002-7">}</span><span class="p" data-group-id="9624148002-6">}</span><span class="w">
+<p>Creates an <code class="inline">APActivity</code> from the given character, activity, and object.</p><p>This function handles various patterns of input data to create an APActivity.</p><h2 id="ap_receive/4-parameters" class="section-heading"><a href="#ap_receive/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>character: The character (user) creating the activity.</li><li>activity: The activity data.</li><li>object: The object data.</li><li>public: A boolean indicating whether the activity is public (optional).</li></ul><h2 id="ap_receive/4-examples" class="section-heading"><a href="#ap_receive/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0495093138-1">%</span><span class="nc" data-group-id="0495093138-1">Character</span><span class="p" data-group-id="0495093138-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="0495093138-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0495093138-2">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0495093138-3">%{</span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p" data-group-id="0495093138-3">}</span><span class="p" data-group-id="0495093138-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0495093138-4">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p" data-group-id="0495093138-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_receive</span><span class="p" data-group-id="0495093138-5">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="0495093138-5">)</span><span class="w">
+</span><span class="p" data-group-id="0495093138-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0495093138-7">%</span><span class="nc" data-group-id="0495093138-7">APActivity</span><span class="p" data-group-id="0495093138-7">{</span><span class="p" data-group-id="0495093138-7">}</span><span class="p" data-group-id="0495093138-6">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_receive</span><span class="p" data-group-id="9624148002-8">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9624148002-8">)</span><span class="w">
-</span><span class="p" data-group-id="9624148002-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9624148002-10">%</span><span class="nc" data-group-id="9624148002-10">APActivity</span><span class="p" data-group-id="9624148002-10">{</span><span class="p" data-group-id="9624148002-10">}</span><span class="p" data-group-id="9624148002-9">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_receive</span><span class="p" data-group-id="0495093138-8">(</span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="0495093138-8">)</span><span class="w">
+</span><span class="p" data-group-id="0495093138-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0495093138-10">%</span><span class="nc" data-group-id="0495093138-10">APActivity</span><span class="p" data-group-id="0495093138-10">{</span><span class="p" data-group-id="0495093138-10">}</span><span class="p" data-group-id="0495093138-9">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="ap_receive_activity/3">
@@ -210,11 +229,35 @@ It provides functionality to handle ActivityPub activities, particularly for rec
 
   <section class="docstring">
 
-<p>Receives and processes an ActivityPub activity.</p><p>This function is used to handle incoming federated activities.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>creator: The character (user) associated with the activity.</li><li>activity: The ActivityPub activity.</li><li>object: The object associated with the activity.</li></ul><h2 id="ap_receive_activity/3-examples" class="section-heading"><a href="#ap_receive_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4725062194-1">%</span><span class="nc" data-group-id="4725062194-1">Character</span><span class="p" data-group-id="4725062194-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="4725062194-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4725062194-2">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4725062194-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p" data-group-id="4725062194-3">}</span><span class="p" data-group-id="4725062194-2">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4725062194-4">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4725062194-5">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, fediverse!&quot;</span><span class="p" data-group-id="4725062194-5">}</span><span class="p" data-group-id="4725062194-4">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.APActivities</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="4725062194-6">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="4725062194-6">)</span><span class="w">
-</span><span class="p" data-group-id="4725062194-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4725062194-8">%</span><span class="nc" data-group-id="4725062194-8">APActivity</span><span class="p" data-group-id="4725062194-8">{</span><span class="p" data-group-id="4725062194-8">}</span><span class="p" data-group-id="4725062194-7">}</span></code></pre>
+<p>Receives and processes an ActivityPub activity.</p><p>This function is used to handle incoming federated activities.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>creator: The character (user) associated with the activity.</li><li>activity: The ActivityPub activity.</li><li>object: The object associated with the activity.</li></ul><h2 id="ap_receive_activity/3-examples" class="section-heading"><a href="#ap_receive_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1316318657-1">%</span><span class="nc" data-group-id="1316318657-1">Character</span><span class="p" data-group-id="1316318657-1">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user123&quot;</span><span class="p" data-group-id="1316318657-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">activity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1316318657-2">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1316318657-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p" data-group-id="1316318657-3">}</span><span class="p" data-group-id="1316318657-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1316318657-4">%{</span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1316318657-5">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello, fediverse!&quot;</span><span class="p" data-group-id="1316318657-5">}</span><span class="p" data-group-id="1316318657-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.APActivities</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="1316318657-6">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="1316318657-6">)</span><span class="w">
+</span><span class="p" data-group-id="1316318657-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1316318657-8">%</span><span class="nc" data-group-id="1316318657-8">APActivity</span><span class="p" data-group-id="1316318657-8">{</span><span class="p" data-group-id="1316318657-8">}</span><span class="p" data-group-id="1316318657-7">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="fetch_and_create_nested_ap_objects/2">
+
+    <span id="fetch_and_create_nested_ap_objects/1"></span>
+
+  <div class="detail-header">
+    <a href="#fetch_and_create_nested_ap_objects/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">fetch_and_create_nested_ap_objects(object, options \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/ap_activities.ex#L234" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 <section class="detail" id="filter_by_type/2">
@@ -263,6 +306,31 @@ It provides functionality to handle ActivityPub activities, particularly for rec
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="preload_ap_activity_pointers/2">
+
+    <span id="preload_ap_activity_pointers/1"></span>
+
+  <div class="detail-header">
+    <a href="#preload_ap_activity_pointers/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">preload_ap_activity_pointers(activities, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/ap_activities.ex#L361" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Preloads nested objects referenced by pointer_id in APActivity JSON fields.
+This function automatically detects ALL fields containing pointer_ids and bulk loads them to avoid n+1 queries.</p>
   </section>
 </section>
 
