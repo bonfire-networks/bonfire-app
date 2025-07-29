@@ -20,41 +20,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: erlef/mix-dependency-submission@v1
   check_file_changed:
-    runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.check_changes.outputs.changed }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2  # Need at least 2 commits to compare changes
-      
-      - name: Check if file changed
-        id: check_changes
-        run: |
-          # Set file path (use input or default to mix.lock)
-          FILE_PATH="${{ github.event.inputs.trigger_file || 'mix.lock' }}"
-          echo "Checking for changes in $FILE_PATH"
-
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            # For pull requests
-            git fetch origin ${{ github.base_ref }} --depth=1
-            if git diff --name-only origin/${{ github.base_ref }} HEAD | grep -q "$FILE_PATH"; then
-              echo "$FILE_PATH was changed in this PR"
-              echo "changed=true" >> $GITHUB_OUTPUT
-            else
-              echo "$FILE_PATH was not changed in this PR"
-              echo "changed=false" >> $GITHUB_OUTPUT
-            fi
-          else
-            # For pushes
-            if git diff --name-only HEAD^ HEAD | grep -q "$FILE_PATH"; then
-              echo "$FILE_PATH was changed in this commit"
-              echo "changed=true" >> $GITHUB_OUTPUT
-            else
-              echo "$FILE_PATH was not changed in this commit"
-              echo "changed=false" >> $GITHUB_OUTPUT
-            fi
-          fi
+    uses: ./.github/workflows/check_file_changed.yaml
+    with:
+      file: mix.lock
 
   test:
     needs: check_file_changed
