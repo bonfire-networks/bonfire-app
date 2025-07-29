@@ -21,9 +21,13 @@ jobs:
     uses: ./.github/workflows/check_file_changed.yaml
     with:
       file: mix.lock
-      
+
+  check_version_changed:
+    uses: ./.github/workflows/check_version_changed.yaml
+
   docs:
-    # needs: check_test_success
+    needs: [check_file_changed, check_version_changed] # check_test_success
+    if: ${{ needs.check_file_changed.outputs.changed == 'true' || needs.check_version_changed.outputs.version_changed == 'true' }}
     # if: ${{ needs.check_test_success.outputs.should_generate_docs == 'true' }}
     name: Generate docs (upon new release)
     runs-on: ubuntu-latest
@@ -50,16 +54,6 @@ jobs:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app
-      - name: Detect version # TODO: should we do this in test_success in test.yaml so we don't duplicate it in docs and release?
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: true
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - if: steps.version.outputs.current-version == steps.version.outputs.previous-version and needs.check_file_changed.outputs.changed == 'false'
-        name: Cancel workflow if the version OR lockfile has not changed
-        uses: andymckay/cancel-action@0.2
       - name: Install system deps & tools
         run: |
           chmod +x deps-alpine-build.sh && ./deps-alpine-build.sh
@@ -88,8 +82,8 @@ jobs:
           git add docs/CHANGELOG.md
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "changelog [skip ci]"
           git push "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF#refs/heads/}
-      - if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        name: Cancel workflow if the version has not changed
+      - name: Cancel workflow if the version has not changed
+        if: needs.check_version_changed.outputs.version_changed == 'false' 
         uses: andymckay/cancel-action@0.2
       - name: Generate docs
         run: just docs

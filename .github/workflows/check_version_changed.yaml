@@ -1,0 +1,31 @@
+name: Check if version changed
+on:
+  workflow_call:
+    outputs:
+      version_changed:
+        description: 'Whether the version in mix.exs has changed'
+        value: ${{ jobs.check.outputs.version_changed }}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.set_version_changed.outputs.version_changed }}
+    steps:
+      - name: Trust my repo
+        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory /__w/bonfire-app/bonfire-app
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - id: set_version_changed
+        run: |
+          if [ "${{ steps.version.outputs.current-version }}" != "${{ steps.version.outputs.previous-version }}" ]; then
+            echo "version_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "version_changed=false" >> $GITHUB_OUTPUT
+          fi
