@@ -29,7 +29,7 @@ jobs:
     needs: [check_file_changed, check_version_changed] # check_test_success
     if: ${{ needs.check_file_changed.outputs.changed == 'true' || needs.check_version_changed.outputs.version_changed == 'true' }}
     # if: ${{ needs.check_test_success.outputs.should_generate_docs == 'true' }}
-    name: Generate docs (upon new release)
+    name: Generate changelog (if lockfile changed) and docs (upon new release)
     runs-on: ubuntu-latest
     container: hexpm/elixir:1.18.3-erlang-27.3.4-alpine-3.21.3
     # TODO: compute this ^ from .tool-versions
@@ -70,8 +70,9 @@ jobs:
         run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
       # - name: Install dependencies
       #   run: just mix deps.get
-      - 
-        name: Generate changelog
+      - name: Generate changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: just mix changelog
       - name: Commit and push changelog
         env:
