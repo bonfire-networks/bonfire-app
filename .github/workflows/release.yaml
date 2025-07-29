@@ -9,7 +9,12 @@ on:
   #     - main
 
 jobs:
+  check_version_changed:
+    uses: ./.github/workflows/check_version_changed.yaml
+
   docker:
+    needs: check_version_changed
+    if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
     continue-on-error: true
     strategy:
       fail-fast: false
@@ -35,37 +40,17 @@ jobs:
       # ^ TEMP workaround for evision_nif crash on app start
       MIX_ENV: prod
     steps:
-      - 
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - 
-        name: Detect version # TODO: should we do this in test_success in test.yaml so we don't duplicate it in docs and release?
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # can't do here because it runs multiple times with the matrix (doing in docs.yaml instead)
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - 
-        name: Cancel previous workflows if version has changed
-        if: steps.version.outputs.current-version != steps.version.outputs.previous-version
+      - name: Cancel any already running releases workflows
         uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
           workflow_id: ${{ github.workflow }}
           ignore_sha: true
-      - 
-        name: Skip build if version hasn't changed
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        run: |
-          echo "Version hasn't changed (${GITHUB_SHA}), skipping this build"
-          echo "::notice::Skipping workflow as version hasn't changed"
-      - 
-        name: Cancel workflow 
-        if: steps.version.outputs.current-version == steps.version.outputs.previous-version
-        uses: andymckay/cancel-action@0.3
       # - 
       #   name: Get branch names
       #   id: branch-name
@@ -199,6 +184,8 @@ jobs:
           fi
 
   elixir_release_amd64: 
+    needs: check_version_changed
+    if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
     name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
     strategy:
       matrix:
@@ -214,8 +201,7 @@ jobs:
       WITH_AI: "0"
       WITH_LV_NATIVE: "0"
     steps:
-      - 
-        name: Cancel any already running releases workflows
+      - name: Cancel any already running releases workflows
         uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
@@ -228,23 +214,7 @@ jobs:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
-      - 
-        name: Maybe tag/release new version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false # NOTE: can only create tag here if it's a matrix of 1
-          version-command: grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - 
-        name: Cancel previous workflows if version has changed
-        if: steps.version.outputs.current-version != steps.version.outputs.previous-version
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
-          workflow_id: ${{ github.workflow }}
-          ignore_sha: true
-      - 
-        name: Add path
+      - name: Add path
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - 
