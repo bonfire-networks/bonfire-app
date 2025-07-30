@@ -46,8 +46,13 @@ jobs:
       EXQLITE_SYSTEM_CFLAGS: -I/usr/include
       EXQLITE_SYSTEM_LDFLAGS: -L/lib -lsqlite3
     steps:
-      - name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), make/build-base/sqlite/graphviz (for arch), just, and gh
-        run: apk add bash git tar file make build-base sqlite graphviz just gh
+      - name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), make/build-base/sqlite/graphviz (for arch), just, and curl
+        run: apk add bash git tar file make build-base sqlite graphviz just curl
+      - name: Install GitHub CLI
+        run: |
+          GH_VERSION=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | grep tag_name | cut -d '"' -f4 | sed 's/^v//')
+          curl -fsSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz | tar -xz
+          mv gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/
       - name: Checkout
         uses: actions/checkout@v2
         with:
