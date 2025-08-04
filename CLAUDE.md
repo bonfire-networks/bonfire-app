@@ -1,4 +1,5 @@
 - See @claude/FEED_STRUCTURE.md to learn about feed overview
+- prepend every mix action with "just"
 
 ## Core Principles
 
@@ -97,3 +98,75 @@
 - **Examples in Docs**: Include examples in documentation (as doctests when possible).
 - **Cautious Refactoring**: Propose bug fixes or optimizations without changing behavior or unrelated code.
 - **Comments**: Write comments only when information cannot be included in docs.
+<!-- usage-rules-start -->
+<!-- usage-rules-header -->
+# Usage Rules
+
+**IMPORTANT**: Consult these usage rules early and often when working with the packages listed below. 
+Before attempting to use any of these packages or to discover if you should use them, review their 
+usage rules to understand the correct patterns, conventions, and best practices.
+<!-- usage-rules-header-end -->
+
+<!-- igniter-start -->
+## igniter usage
+_A code generation and project patching framework_
+
+[igniter usage rules](deps/igniter/usage-rules.md)
+<!-- igniter-end -->
+<!-- usage_rules-start -->
+## usage_rules usage
+_A dev tool for Elixir projects to gather LLM usage rules from dependencies_
+
+[usage_rules usage rules](deps/usage_rules/usage-rules.md)
+<!-- usage_rules-end -->
+<!-- usage_rules:elixir-start -->
+## usage_rules:elixir usage
+[usage_rules:elixir usage rules](deps/usage_rules/usage-rules/elixir.md)
+<!-- usage_rules:elixir-end -->
+<!-- usage_rules:otp-start -->
+## usage_rules:otp usage
+[usage_rules:otp usage rules](deps/usage_rules/usage-rules/otp.md)
+<!-- usage_rules:otp-end -->
+<!-- activity_pub-start -->
+## activity_pub usage
+_activity_pub_
+
+[activity_pub usage rules](deps/activity_pub/usage-rules.md)
+<!-- activity_pub-end -->
+<!-- bonfire_common-start -->
+## bonfire_common usage
+_bonfire_common_
+
+[bonfire_common usage rules](deps/bonfire_common/usage-rules.md)
+<!-- bonfire_common-end -->
+<!-- bonfire_ui_common-start -->
+## bonfire_ui_common usage
+_bonfire_ui_common_
+
+[bonfire_ui_common usage rules](deps/bonfire_ui_common/usage-rules.md)
+<!-- bonfire_ui_common-end -->
+<!-- bonfire_social-start -->
+## bonfire_social usage
+_bonfire_social_
+
+[bonfire_social usage rules](deps/bonfire_social/usage-rules.md)
+<!-- bonfire_social-end -->
+<!-- bonfire_boundaries-start -->
+## bonfire_boundaries usage
+_bonfire_boundaries_
+
+[bonfire_boundaries usage rules](deps/bonfire_boundaries/usage-rules.md)
+<!-- bonfire_boundaries-end -->
+<!-- bonfire_ui_boundaries-start -->
+## bonfire_ui_boundaries usage
+_bonfire_ui_boundaries_
+
+[bonfire_ui_boundaries usage rules](deps/bonfire_ui_boundaries/usage-rules.md)
+<!-- bonfire_ui_boundaries-end -->
+<!-- bonfire_ui_me-start -->
+## bonfire_ui_me usage
+_bonfire_ui_me_
+
+[bonfire_ui_me usage rules](deps/bonfire_ui_me/usage-rules.md)
+<!-- bonfire_ui_me-end -->
+<!-- usage-rules-end -->
