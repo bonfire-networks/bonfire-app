@@ -1007,7 +1007,7 @@ config :bonfire_data_social, Message,
            :post_content,
            :replied,
            :like_count,
-          #  :boost_count,
+           #  :boost_count,
            :sensitive
          ])
        )

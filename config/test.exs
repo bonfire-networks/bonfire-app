@@ -49,13 +49,13 @@ end
 
 if !federate? do
   config :tesla,
-    adapter: {Tesla.Mock, []}
+    adapter: Tesla.Mock
 end
 
 # Configure Req.Test stubs
 config :bonfire_rss, :req_options, plug: {Req.Test, Bonfire.RSS}
 
-#  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE
+#  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE 
 config :activity_pub, :instance, federating: true
 
 oban_mode = if(federate?, do: :inline, else: :manual)
