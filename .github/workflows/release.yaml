@@ -121,8 +121,14 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
-      -
-        name: Push to docker
+      - name: Detect version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+      - name: Push to docker
         # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
         id: docker_push
         uses: docker/build-push-action@v6
