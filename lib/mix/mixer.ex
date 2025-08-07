@@ -640,7 +640,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     # end
 
     def compilers(_) do
-      Mix.compilers() ++ [:surface]
+      [:phoenix_live_view] ++ Mix.compilers() ++ [:surface]
     end
 
     def deps_tree do
