@@ -462,6 +462,7 @@ defmodule Bonfire.Umbrella.MixProject do
       required_deps: config()[:deps_prefixes][:required],
       # consolidate_protocols: false, # for Tria
       compilers: Mixer.compilers(Mix.env()),
+      listeners: [Phoenix.CodeReloader],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
