@@ -6,7 +6,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ support bridging using BridgyFed [#1476](https://github.com/bonfire-networks/bonfire-app/issues/1476) (thanks @mayel)
 - ✨ sign in with Zenodo [#1471](https://github.com/bonfire-networks/bonfire-app/issues/1471) (thanks @mayel)
+- ✨ activities in all feeds dont follow the chronological order anymore (even when it is set in the config) [#1463](https://github.com/bonfire-networks/bonfire-app/issues/1463) (thanks @ivanminutillo and @mayel)
+- ✨ Feature Proposal: merge multiple reactions (likes/boosts) to the same post in notifications feed [#1454](https://github.com/bonfire-networks/bonfire-app/issues/1454) (thanks @mayel)
 - ✨ Open Science: Hide OpenAlex quantitative metrics widget by default [#1453](https://github.com/bonfire-networks/bonfire-app/issues/1453) (thanks @ivanminutillo)
 - ✨ Open Science: better OpenAlex integration [#1452](https://github.com/bonfire-networks/bonfire-app/issues/1452) (thanks @ivanminutillo)
 - ✨ add loading indicator that handles both local/federated search results [#1443](https://github.com/bonfire-networks/bonfire-app/issues/1443) (thanks @ivanminutillo)
@@ -30,8 +33,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
 
 ### Fixed
+- 🐛 Bonfire Social 1.0 RC2 blog post issues [#1469](https://github.com/bonfire-networks/bonfire-app/issues/1469) (thanks @ElectricTea and @mayel)
 - 🐛 Notifications never stop Notificationing (after being checked) [#1466](https://github.com/bonfire-networks/bonfire-app/issues/1466) (thanks @ZELFs and @mayel)
 - 🐛 Get Latest Replies not working [#1451](https://github.com/bonfire-networks/bonfire-app/issues/1451) (thanks @jeffsikes and @mayel)
+- 🐛 Possibility to have duplicate feed names messes with interface (non-critical) [#1450](https://github.com/bonfire-networks/bonfire-app/issues/1450) (thanks @gillesdutilh and @ivanminutillo)
 - 🐛 Remote & only filter is not applied in feed [#1432](https://github.com/bonfire-networks/bonfire-app/issues/1432) (thanks @ivanminutillo)
 - 🐛 "Read more" button is always shown on activities when viewign the feed as guest [#1423](https://github.com/bonfire-networks/bonfire-app/issues/1423) (thanks @ivanminutillo)
 - 🐛 Following/followers are showing only local users ? [#1374](https://github.com/bonfire-networks/bonfire-app/issues/1374) (thanks @ivanminutillo and @mayel)
