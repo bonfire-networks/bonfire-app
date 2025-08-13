@@ -218,6 +218,7 @@ defmodule Bonfire.Umbrella.MixProject do
           only: :test, runtime: false
         },
         {:lazy_html, ">= 0.1.0", only: :test},
+        {:patch, "~> 0.15.0"},
         {:mock, "~> 0.3", only: :test},
         {:mox, "~> 1.0", only: [:dev, :test]},
         {:bypass, "~> 2.1", only: :test},
