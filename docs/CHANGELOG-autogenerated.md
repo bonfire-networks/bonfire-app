@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Open Science: Hide OpenAlex quantitative metrics widget by default [#1453](https://github.com/bonfire-networks/bonfire-app/issues/1453) (thanks @ivanminutillo)
 - ✨ Open Science: better OpenAlex integration [#1452](https://github.com/bonfire-networks/bonfire-app/issues/1452) (thanks @ivanminutillo)
 - ✨ add loading indicator that handles both local/federated search results [#1443](https://github.com/bonfire-networks/bonfire-app/issues/1443) (thanks @ivanminutillo)
+- ✨ make sure pubsub works on notifications feed [#1427](https://github.com/bonfire-networks/bonfire-app/issues/1427) (thanks @mayel and @ivanminutillo)
 - ✨ Properly render GIFs in media preview [#1426](https://github.com/bonfire-networks/bonfire-app/issues/1426) (thanks @ivanminutillo)
 - ✨ Events feed preset [#1301](https://github.com/bonfire-networks/bonfire-app/issues/1301) (thanks @ivanminutillo)
 - ✨ Create SETTINGS_SYSTEM.md [`9e93774`](https://github.com/bonfire-networks/bonfire-app/commit/9e9377418bd86a91aed7be5b344fda010a880aef) (thanks @ivanminutillo)
@@ -30,11 +31,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 📝 ci [`d2e30f6`](https://github.com/bonfire-networks/bonfire-app/commit/d2e30f63fcb2a522f38f8ee8a9023c7970a4159a), [`b8ea137`](https://github.com/bonfire-networks/bonfire-app/commit/b8ea1373743140fa1f48c1950a2e960b4c4ecba4), [`a8fdfc8`](https://github.com/bonfire-networks/bonfire-app/commit/a8fdfc8d19f50bc218483d1769218b4049b0fc46), [`ba65d9b`](https://github.com/bonfire-networks/bonfire-app/commit/ba65d9bba3b5d8bad8b080208c29261bd05374a9), [`45b2916`](https://github.com/bonfire-networks/bonfire-app/commit/45b291640670d4eb6404739688d3d6c50dcac5f3), [`71dad6c`](https://github.com/bonfire-networks/bonfire-app/commit/71dad6c11029b36d2773c56742b00d80ce11d79a), [`3efcf55`](https://github.com/bonfire-networks/bonfire-app/commit/3efcf555df3c13920bc03d3eadcb60595d10edde), [`ce3c315`](https://github.com/bonfire-networks/bonfire-app/commit/ce3c315dce3c76e8b629c2dce2ea7dabd8e902fe), [`7751d99`](https://github.com/bonfire-networks/bonfire-app/commit/7751d9960e1822d88a9bf8c03cfe61c9b26457de), [`b431c37`](https://github.com/bonfire-networks/bonfire-app/commit/b431c374e7d9aee1b5e7148c4a25ab11a17ee8b3), [`623ea89`](https://github.com/bonfire-networks/bonfire-app/commit/623ea8971c46463de38ab5cdc34938114f735b7c), [`be71e0f`](https://github.com/bonfire-networks/bonfire-app/commit/be71e0fb13bf600c225d9c10b3589051bf813684) (thanks @mayel)
+- 📝 mix [`1f5e886`](https://github.com/bonfire-networks/bonfire-app/commit/1f5e88684c9e3ec9fd83e61431cc40ad80aedd91) (thanks @mayel)
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
 
 ### Fixed
 - 🐛 Bonfire Social 1.0 RC2 blog post issues [#1469](https://github.com/bonfire-networks/bonfire-app/issues/1469) (thanks @ElectricTea and @mayel)
 - 🐛 Notifications never stop Notificationing (after being checked) [#1466](https://github.com/bonfire-networks/bonfire-app/issues/1466) (thanks @ZELFs and @mayel)
+- 🐛 Investigate why mentions sometimes are converted in mailto link [#1457](https://github.com/bonfire-networks/bonfire-app/issues/1457) (thanks @ivanminutillo and @mayel)
 - 🐛 Get Latest Replies not working [#1451](https://github.com/bonfire-networks/bonfire-app/issues/1451) (thanks @jeffsikes and @mayel)
 - 🐛 Possibility to have duplicate feed names messes with interface (non-critical) [#1450](https://github.com/bonfire-networks/bonfire-app/issues/1450) (thanks @gillesdutilh and @ivanminutillo)
 - 🐛 Remote & only filter is not applied in feed [#1432](https://github.com/bonfire-networks/bonfire-app/issues/1432) (thanks @ivanminutillo)
