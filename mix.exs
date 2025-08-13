@@ -217,6 +217,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # git: "https://github.com/germsvel/phoenix_test",
           only: :test, runtime: false
         },
+        {:lazy_html, ">= 0.1.0", only: :test},
         {:mock, "~> 0.3", only: :test},
         {:mox, "~> 1.0", only: [:dev, :test]},
         {:bypass, "~> 2.1", only: :test},
