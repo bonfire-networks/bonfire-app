@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ create integration tests for OpenID and OAuth [#1487](https://github.com/bonfire-networks/bonfire-app/issues/1487) (thanks @mayel)
 - ✨ support bridging using BridgyFed [#1476](https://github.com/bonfire-networks/bonfire-app/issues/1476) (thanks @mayel)
 - ✨ sign in with Zenodo [#1471](https://github.com/bonfire-networks/bonfire-app/issues/1471) (thanks @mayel)
+- ✨ create a DOI for a Bonfire object or thread [#1470](https://github.com/bonfire-networks/bonfire-app/issues/1470) (thanks @mayel and @ivanminutillo)
 - ✨ activities in all feeds dont follow the chronological order anymore (even when it is set in the config) [#1463](https://github.com/bonfire-networks/bonfire-app/issues/1463) (thanks @ivanminutillo and @mayel)
 - ✨ Feature Proposal: merge multiple reactions (likes/boosts) to the same post in notifications feed [#1454](https://github.com/bonfire-networks/bonfire-app/issues/1454) (thanks @mayel)
 - ✨ Open Science: Hide OpenAlex quantitative metrics widget by default [#1453](https://github.com/bonfire-networks/bonfire-app/issues/1453) (thanks @ivanminutillo)
@@ -17,11 +18,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ make sure pubsub works on notifications feed [#1427](https://github.com/bonfire-networks/bonfire-app/issues/1427) (thanks @mayel and @ivanminutillo)
 - ✨ Properly render GIFs in media preview [#1426](https://github.com/bonfire-networks/bonfire-app/issues/1426) (thanks @ivanminutillo)
 - ✨ Events feed preset [#1301](https://github.com/bonfire-networks/bonfire-app/issues/1301) (thanks @ivanminutillo)
+- ✨ Post drafts should persist in memory when a user navigate between pages [#403](https://github.com/bonfire-networks/bonfire-app/issues/403) - [PR #1](https://github.com/bonfire-networks/bonfire-app/pull/1), [PR #2](https://github.com/bonfire-networks/bonfire-app/pull/2), [PR #435](https://github.com/bonfire-networks/bonfire-app/pull/435) (thanks @ivanminutillo, @mayel, and @abaez)
 - ✨ Create SETTINGS_SYSTEM.md [`9e93774`](https://github.com/bonfire-networks/bonfire-app/commit/9e9377418bd86a91aed7be5b344fda010a880aef) (thanks @ivanminutillo)
 - ✨ add ENABLE_STATIC_CACHING env config [`d6e8235`](https://github.com/bonfire-networks/bonfire-app/commit/d6e82357fdc8ae82ff4f096932e3ab841547288c) (thanks @mayel)
 - ✨ tests and new version [`421cd41`](https://github.com/bonfire-networks/bonfire-app/commit/421cd41edc4e6dff9976324bc9e4cca19f77c9ff) (thanks @ivanminutillo)
 
 ### Changed
+- 💅 Currently, when users click on like or boost buttons, there's a noticeable delay (several seconds) before the UI reflects the change in state. This creates a poor user experience as users are unsure if their action was registered. [#1483](https://github.com/bonfire-networks/bonfire-app/issues/1483) (thanks @ivanminutillo and @mayel)
 - 📝 As a user I want to edit a post from the composer [#1456](https://github.com/bonfire-networks/bonfire-app/issues/1456) (thanks @ivanminutillo)
 - 🚀 improve feed filters UX [#1431](https://github.com/bonfire-networks/bonfire-app/issues/1431) (thanks @ivanminutillo)
 - 🚀 handle activities addresses to a as:public collection [#1430](https://github.com/bonfire-networks/bonfire-app/issues/1430) (thanks @mayel)
@@ -32,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 📝 mix [`1f5e886`](https://github.com/bonfire-networks/bonfire-app/commit/1f5e88684c9e3ec9fd83e61431cc40ad80aedd91) (thanks @mayel)
+- 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
 
 ### Fixed
