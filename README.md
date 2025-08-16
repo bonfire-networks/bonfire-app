@@ -7,7 +7,7 @@
 
 ![Bonfire wallpaper](https://i.imgur.com/dbRT0Z1.png)
 
-> #### Info {: .info}
+> [!NOTE]
 >
 > The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages. 
 
