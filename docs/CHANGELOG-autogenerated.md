@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ add export/import for circles/lists [#1508](https://github.com/bonfire-networks/bonfire-app/issues/1508) (thanks @mayel)
+- ✨ add export/import for bookmarks [#1507](https://github.com/bonfire-networks/bonfire-app/issues/1507) (thanks @mayel)
+- ✨ add tests for profile migrations [#1503](https://github.com/bonfire-networks/bonfire-app/issues/1503) (thanks @mayel)
 - ✨ create integration tests for OpenID and OAuth [#1487](https://github.com/bonfire-networks/bonfire-app/issues/1487) (thanks @mayel)
 - ✨ support bridging using BridgyFed [#1476](https://github.com/bonfire-networks/bonfire-app/issues/1476) (thanks @mayel)
 - ✨ sign in with Zenodo [#1471](https://github.com/bonfire-networks/bonfire-app/issues/1471) (thanks @mayel)
@@ -17,6 +20,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ add loading indicator that handles both local/federated search results [#1443](https://github.com/bonfire-networks/bonfire-app/issues/1443) (thanks @ivanminutillo)
 - ✨ make sure pubsub works on notifications feed [#1427](https://github.com/bonfire-networks/bonfire-app/issues/1427) (thanks @mayel and @ivanminutillo)
 - ✨ Properly render GIFs in media preview [#1426](https://github.com/bonfire-networks/bonfire-app/issues/1426) (thanks @ivanminutillo)
+- ✨ Add a view to see the status of profile migrations [#1366](https://github.com/bonfire-networks/bonfire-app/issues/1366) (thanks @mayel)
+- ✨ add tests for data import and export [#1322](https://github.com/bonfire-networks/bonfire-app/issues/1322) (thanks @mayel)
 - ✨ Events feed preset [#1301](https://github.com/bonfire-networks/bonfire-app/issues/1301) (thanks @ivanminutillo)
 - ✨ Post drafts should persist in memory when a user navigate between pages [#403](https://github.com/bonfire-networks/bonfire-app/issues/403) - [PR #1](https://github.com/bonfire-networks/bonfire-app/pull/1), [PR #2](https://github.com/bonfire-networks/bonfire-app/pull/2), [PR #435](https://github.com/bonfire-networks/bonfire-app/pull/435) (thanks @ivanminutillo, @mayel, and @abaez)
 - ✨ Create SETTINGS_SYSTEM.md [`9e93774`](https://github.com/bonfire-networks/bonfire-app/commit/9e9377418bd86a91aed7be5b344fda010a880aef) (thanks @ivanminutillo)
@@ -24,6 +29,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ tests and new version [`421cd41`](https://github.com/bonfire-networks/bonfire-app/commit/421cd41edc4e6dff9976324bc9e4cca19f77c9ff) (thanks @ivanminutillo)
 
 ### Changed
+- 📝 buttons & modal to download markdown for posts [#1502](https://github.com/bonfire-networks/bonfire-app/issues/1502) (thanks @mayel)
+- 📝 buttons & modal to subscribe to RSS/Atom feeds [#1501](https://github.com/bonfire-networks/bonfire-app/issues/1501) (thanks @mayel)
+- 📝 Publish to InvenioRDM / Knowledge Commons Works [#1499](https://github.com/bonfire-networks/bonfire-app/issues/1499) (thanks @mayel)
 - 💅 Currently, when users click on like or boost buttons, there's a noticeable delay (several seconds) before the UI reflects the change in state. This creates a poor user experience as users are unsure if their action was registered. [#1483](https://github.com/bonfire-networks/bonfire-app/issues/1483) (thanks @ivanminutillo and @mayel)
 - 📝 As a user I want to edit a post from the composer [#1456](https://github.com/bonfire-networks/bonfire-app/issues/1456) (thanks @ivanminutillo)
 - 🚀 improve feed filters UX [#1431](https://github.com/bonfire-networks/bonfire-app/issues/1431) (thanks @ivanminutillo)
@@ -50,4 +58,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🐛 The character username of a boosted activity has wrong link attached [#1370](https://github.com/bonfire-networks/bonfire-app/issues/1370) (thanks @ivanminutillo and @mayel)
 - 🐛 "Load more" to expand a log post is not working anymore in feeds [#1302](https://github.com/bonfire-networks/bonfire-app/issues/1302) (thanks @ivanminutillo and @mayel)
 - 🐛 Fix markdown on release canidate notice in readme [PR #1494](https://github.com/bonfire-networks/bonfire-app/pull/1494) (thanks @ElectricTea)
+- 🐛 fix for Caddy v2 [`861b1ca`](https://github.com/bonfire-networks/bonfire-app/commit/861b1ca6f5b2db54abfc2d989c25e576a6c9067b) (thanks @mayel)
 
