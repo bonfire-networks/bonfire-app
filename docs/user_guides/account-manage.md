@@ -15,24 +15,29 @@ Bonfire provides data portability, you can export and/or import your data at any
 
 ### Available exports
 
-You can export the following data from **Settings > Export**:
+You can export the following data as CSV files from **Settings > Export**:
 
-- **Followed accounts** - Download a CSV file of all accounts you follow
+- **Following** and **Follow Requests** - All profiles you follow
+- **Followers** - All profiles who follow you
+- **Blocked, silenced and/or ghosted accounts** - List of profiles and domains you've blocked
+- **Posts** and **Messages** - Things you've posted or sent
+<!-- 
 - **Created circles** - Export your custom circles and lists
-- **Blocked accounts** - List of accounts you've blocked
-- **Muted accounts** - Accounts you've muted
-- **Blocked domains** - Domains you've blocked
-- **Bookmarked posts** - Your saved posts
-
-### Importing data
-
-Some of these CSV files (whether exported from a Bonfire instance, or another compatible one such as Mastodon) can be imported at **Settings > Import**. 
+- **Bookmarks** - Your saved posts and activities 
+-->
 
 #### Archive requests
 
 You can request a complete archive of your posts and media once every 7 days. Archives are provided in Activity Streams 2.0 JSON format, which can be read by any compatible software.
 
-> **Note:** Due to technical limitations, Bonfire currently does not support importing posts or media from archives.
+
+### Importing data
+
+Some types of data (whether exported from a Bonfire instance, or another compatible one such as Mastodon) can be imported at **Settings > Import** by uploading CSV files:
+
+- **Following** - Profiles you want to (re-)follow
+- **Blocked, silenced and/or ghosted accounts** - List of profiles and domains you want to block
+
 
 ## Deleting your data
 
