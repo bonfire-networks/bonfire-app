@@ -21,10 +21,9 @@ You can export the following data as CSV files from **Settings > Export**:
 - **Followers** - All profiles who follow you
 - **Blocked, silenced and/or ghosted accounts** - List of profiles and domains you've blocked
 - **Posts** and **Messages** - Things you've posted or sent
-<!-- 
-- **Created circles** - Export your custom circles and lists
+- **Circles** - Export your custom circles and lists, and the list of their members
 - **Bookmarks** - Your saved posts and activities 
--->
+
 
 #### Archive requests
 
@@ -37,6 +36,8 @@ Some types of data (whether exported from a Bonfire instance, or another compati
 
 - **Following** - Profiles you want to (re-)follow
 - **Blocked, silenced and/or ghosted accounts** - List of profiles and domains you want to block
+- **Lists/circles** - Importing lists turns them into circles
+- **Bookmarks** - Any saved posts and activities 
 
 
 ## Deleting your data

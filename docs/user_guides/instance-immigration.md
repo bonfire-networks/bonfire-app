@@ -36,6 +36,7 @@ A step-by-step guide for migrating your account from another fediverse instance 
 - Blocked accounts
 - Muted accounts
 - Bookmarked posts (if your old instance exports them)
+- Lists/circles (if your old instance exports them)
 
 ❌ **Cannot be migrated:**
 - Your posts and media
@@ -55,16 +56,16 @@ The export process varies by software. Here are common locations:
 
 ### From Bonfire (if migration between two Bonfire instances)
 1. Go to **Settings > Export**
-2. Download CSV files for follows, silences, ghosts, etc
+2. Download CSV files for follows, silences, ghosts, bookmarks, circles/lists, etc
 3. Request full archive of activities and uploads
 
 ### From Akkoma
 1. Go to **Settings > Data export**
-2. Export follows, blocks, mutes as available
+2. Export follows, blocks, mutes, bookmarks, lists as available
 
 ### From Misskey & co
 1. Go to **Settings > Import/Export**
-2. Export following list, blocked users, muted users
+2. Export following list, blocked users, muted users, bookmarks, lists
 3. Lists and other data may need to be manually recreated
 
 ### From other instances
@@ -135,14 +136,11 @@ The process varies by software:
 3. **Import blocks and/or silences and ghosts:**
    - Upload CSV files you exported previously
 
-<!-- 
 4. **Import bookmarks:**
    - Upload bookmarks CSV if available from your previous instance 
--->
 
-<!-- 
-5. **Import lists as circles** 
--->
+5. **Import lists as circles:** 
+   - Upload lists/circles CSV if available from your previous instance
 
 ⏱️ **Processing time:** Large lists may take several minutes or hours to process
 

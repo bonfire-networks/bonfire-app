@@ -31,10 +31,8 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
 ✅ **Can be manually imported:**
 - Profiles you follow
 - Blocked, silenced, and ghosted profiles
-<!-- 
 - Bookmarked posts
 - Custom circles/lists 
--->
 
 ❌ **Cannot be migrated:**
 - Your posts and media
@@ -48,10 +46,8 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
 2. Download CSV files for:
    - Following list
    - Blocked, silenced, and ghosted profiles
-   <!-- 
    - Bookmarks
    - Circles/Lists 
-   -->
 3. Request a full archive of your posts for personal backup, which will contain
    - All of the CSV files above
    - Activities in ActivityPub JSON format
@@ -111,7 +107,7 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
    - Choose your merge/overwrite preference
 
 4. **Import other lists:**
-   - Upload any other CSV files (bookmarks, custom lists)
+   - Upload any other CSV files (bookmarks, custom lists/circles)
    - Note: Not all instance types support all import types
 
 ⏱️ **Processing time:** Large lists may take several minutes to process
