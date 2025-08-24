@@ -205,7 +205,7 @@ defmodule MyExtension.Settings.ItemLimitLive do
 end
 ```
 
-### Available Template Types
+### Available Form Template Components Types
 
 - `:toggle` - Simple on/off checkbox
 - `:toggles` - Multiple checkboxes
@@ -217,20 +217,10 @@ end
 
 ## Settings UI Integration
 
-### In Preferences Pages
-
-Settings are automatically discovered and included in preferences pages. The file structure determines organization:
-
-```
-extensions/my_extension/lib/components/settings/
-├── my_setting_live.ex          # Appears in main preferences
-└── preferences/
-    └── advanced_live.ex        # Appears in advanced section
-```
 
 ### Manual Form Integration
 
-For custom forms, use the standardized form pattern:
+For custom forms, use the standardized form components when possible:
 
 ```html
 <form data-scope="my_setting_scope" name="settings" phx-change="Bonfire.Common.Settings:set">
@@ -407,13 +397,13 @@ end
 
 1. **Keys should be hierarchical:**
    ```elixir
-   [MyExtension, :feature, :sub_feature]  # Good
+   [:my_extension, :feature, :sub_feature]  # Good
    [:my_random_key]                       # Avoid
    ```
 
-2. **Use your extension as the top-level key:**
+2. **Use your module or extension as the top-level key:**
    ```elixir
-   [Bonfire.UI.Social, :feed, :default_sort]  # Good
+   [Bonfire.UI.Social.Feed, :default_sort]  # Good
    [:feed, :default_sort]                      # Avoid - conflicts possible
    ```
 
@@ -433,21 +423,20 @@ Settings.get([MyExt, :timeout], current_user: user)
 
 Choose appropriate scopes:
 
-- **User scope** - Personal preferences (theme, language, notifications)
-- **Account scope** - Team/organization settings (branding, policies)
+- **User scope** - Specific preferences for that profile (privacy settings, notifications)
+- **Account scope** - General personal preferences (theme, language)
 - **Instance scope** - System-wide configuration (limits, features)
 
 ### Performance
 
-- Settings are cached in OTP config for instance-level settings
-- User and account settings are loaded from database
-- Avoid frequent setting changes in hot code paths
-- Preload settings associations when passing user/account objects
+- Instance-level settings are cached in OTP config 
+- User and account settings are loaded from database (all loaded once per page rather than queried individually when needed)
+- Preload settings associations when querying user/account objects
 
 ### Security
 
 - Instance settings require admin permissions
-- Never store secrets in settings (use environment variables)
+- Avoid storing secrets in settings (use environment variables)
 - Validate and sanitize user input
 - Consider privacy implications of settings data
 
@@ -539,7 +528,7 @@ Settings keys should follow these patterns:
 
 # Bad patterns - avoid
 [:global_setting]              # Too generic
-["string_key"]                 # Use atoms
+["string_key"]                 # Use atoms where sensible
 [MyExtension, "mixed", :types] # Be consistent
 ```
 
@@ -549,7 +538,7 @@ The Bonfire settings system provides a flexible, hierarchical way to manage conf
 
 Key takeaways:
 
-- Use the hierarchical scope system (user > account > instance)
+- Use the hierarchical scope system (user > account > instance > OTP config > code)
 - Choose between custom components and template components based on complexity
 - Always provide default values and consider performance
 - Test your settings thoroughly and follow security best practices
