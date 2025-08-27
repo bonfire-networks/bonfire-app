@@ -338,7 +338,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.0-rc.2.8",
+    version: "1.0.0-rc.2.9",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
@@ -439,12 +439,14 @@ defmodule Bonfire.Umbrella.MixProject do
         "federated_archives",
         "linkify",
         "unfurl",
+        "untangle",
         "iconify_ex",
         "boruta",
         "ecto_shorts",
         "ecto_materialized_path",
         "phoenix_gon",
-        "http_signatures"
+        "http_signatures",
+        "forecastr"
       ]
     ],
     deps: deps,
