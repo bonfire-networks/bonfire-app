@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ add a setting to change units (eg for wheather) [#1518](https://github.com/bonfire-networks/bonfire-app/issues/1518) (thanks @mayel)
 - ✨ add export/import for circles/lists [#1508](https://github.com/bonfire-networks/bonfire-app/issues/1508) (thanks @mayel)
 - ✨ add export/import for bookmarks [#1507](https://github.com/bonfire-networks/bonfire-app/issues/1507) (thanks @mayel)
 - ✨ add tests for profile migrations [#1503](https://github.com/bonfire-networks/bonfire-app/issues/1503) (thanks @mayel)
