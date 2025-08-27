@@ -84,8 +84,8 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_image_vix =
     if(with_vix && with_vix not in no?,
       do: [
-        {:image, "~> 0.37", runtime: true, override: true},
-        {:evision, "~> 0.1", runtime: true, override: true}
+        {:image, "~> 0.62", runtime: true, override: true},
+        {:evision, "~> 0.2", runtime: true, override: true}
       ],
       else: []
     )
@@ -113,8 +113,8 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_xmpp_deps =
     if(with_xmpp && with_xmpp not in no?,
       do: [
-        {:xmpp, "~> 1.10.1"},
-        {:ejabberd, "~> 25.4"},
+        {:xmpp, "~> 1.11"},
+        {:ejabberd, "~> 25.8"},
         {
           :bonfire_xmpp,
           path: "extensions/bonfire_xmpp"
@@ -171,7 +171,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
           only: :dev
         },
-        {:live_debugger, "~> 0.2.2", only: :dev},
+        {:live_debugger, "~> 0.3.2", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
@@ -250,7 +250,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # logging
         {
           :sentry,
-          "~> 10.10",
+          "~> 11.0",
           # git: "https://github.com/getsentry/sentry-elixir",
           only: [:dev, :prod], override: true
         },
@@ -437,7 +437,14 @@ defmodule Bonfire.Umbrella.MixProject do
         "upcycle",
         "open_science",
         "federated_archives",
-        "linkify"
+        "linkify",
+        "unfurl",
+        "iconify_ex",
+        "boruta",
+        "ecto_shorts",
+        "ecto_materialized_path",
+        "phoenix_gon",
+        "http_signatures"
       ]
     ],
     deps: deps,
