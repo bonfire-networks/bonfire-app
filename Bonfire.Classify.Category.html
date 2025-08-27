@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.8">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.9">
 
 
-    <title>Bonfire.Classify.Category — Bonfire v1.0.0-social-rc.2.8</title>
+    <title>Bonfire.Classify.Category — Bonfire v1.0.0-social-rc.2.9</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
 
-    <script defer src="dist/sidebar_items-49C923F5.js"></script>
+    <script defer src="dist/sidebar_items-F1722F0F.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-DPJLHKSM.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
 
   </head>
   <body>
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.8
+          v1.0.0-social-rc.2.9
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Classify.Category</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.8)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.9)</small>
 
     </h1>
 
@@ -208,6 +208,7 @@ Bonfire
       </a>
       <span class="text">Types</span>
     </h1>
+
     <div class="types-list">
 <section class="detail" id="t:t/0">
 
@@ -232,32 +233,32 @@ Bonfire
 
           <pre translate="no"><span class="attribute">@type</span> t() :: %Bonfire.Classify.Category{
   __meta__: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.Metadata.html#t:t/0">Ecto.Schema.Metadata.t</a>(),
-  activity: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  actor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  canonical_url: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  character: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  controlled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  created: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  deleted_at: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  disabled_at: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  feed_publishes: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
+  activity: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Activity.html#t:t/0">Bonfire.Data.Social.Activity.t</a>()) | nil,
+  actor: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.ActivityPub.Actor.html#t:t/0">Bonfire.Data.ActivityPub.Actor.t</a>()) | nil,
+  canonical_url: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil,
+  character: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Identity.Character.html#t:t/0">Bonfire.Data.Identity.Character.t</a>()) | nil,
+  controlled: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="./Bonfire.Data.AccessControl.Controlled.html#t:t/0">Bonfire.Data.AccessControl.Controlled.t</a>()),
+  created: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Created.html#t:t/0">Bonfire.Data.Social.Created.t</a>()) | nil,
+  creator: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) | nil,
+  deleted_at: <a href="https://hexdocs.pm/elixir/DateTime.html#t:t/0">DateTime.t</a>() | nil,
+  disabled_at: <a href="https://hexdocs.pm/elixir/DateTime.html#t:t/0">DateTime.t</a>() | nil,
+  feed_publishes: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="./Bonfire.Data.Social.FeedPublish.html#t:t/0">Bonfire.Data.Social.FeedPublish.t</a>()),
   id: Needle.UID.t() | nil,
-  is_disabled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  is_public: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  parent_category: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  path: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  peered: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  profile: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  published_at: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  settings: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  summary: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  tag: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  tags: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  tree: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  username: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()
+  is_disabled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
+  is_public: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
+  name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil,
+  parent_category: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) | nil,
+  path: EctoMaterializedPath.UIDs.t() | nil,
+  peered: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.ActivityPub.Peered.html#t:t/0">Bonfire.Data.ActivityPub.Peered.t</a>()) | nil,
+  profile: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Profile.html#t:t/0">Bonfire.Data.Social.Profile.t</a>()) | nil,
+  published_at: <a href="https://hexdocs.pm/elixir/DateTime.html#t:t/0">DateTime.t</a>() | nil,
+  settings: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Identity.Settings.html#t:t/0">Bonfire.Data.Identity.Settings.t</a>()) | nil,
+  summary: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil,
+  tag: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(Needle.Pointer.t()) | nil,
+  tags: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:many_to_many/1">Ecto.Schema.many_to_many</a>(Needle.Pointer.t()),
+  tree: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Classify.Tree.html#t:t/0">Bonfire.Classify.Tree.t</a>()) | nil,
+  type: (:group | :topic | :label) | nil,
+  username: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil
 }</pre>
 
       </div>
@@ -276,6 +277,7 @@ Bonfire
       </a>
       <span class="text">Functions</span>
     </h1>
+
     <div class="functions-list">
 <section class="detail" id="base_create_changeset/2">
 
@@ -502,7 +504,7 @@ Bonfire
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

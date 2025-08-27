@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.8">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.9">
 
 
-    <title>Bonfire.Data.Social.Profile — Bonfire v1.0.0-social-rc.2.8</title>
+    <title>Bonfire.Data.Social.Profile — Bonfire v1.0.0-social-rc.2.9</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
 
-    <script defer src="dist/sidebar_items-49C923F5.js"></script>
+    <script defer src="dist/sidebar_items-F1722F0F.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-DPJLHKSM.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
 
   </head>
   <body>
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.8
+          v1.0.0-social-rc.2.9
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Data.Social.Profile</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.8)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.9)</small>
 
     </h1>
 
@@ -164,6 +164,7 @@ Bonfire
       </a>
       <span class="text">Types</span>
     </h1>
+
     <div class="types-list">
 <section class="detail" id="t:t/0">
 
@@ -188,18 +189,18 @@ Bonfire
 
           <pre translate="no"><span class="attribute">@type</span> t() :: %Bonfire.Data.Social.Profile{
   __meta__: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.Metadata.html#t:t/0">Ecto.Schema.Metadata.t</a>(),
-  controlled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  icon: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  icon_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
+  controlled: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="./Bonfire.Data.AccessControl.Controlled.html#t:t/0">Bonfire.Data.AccessControl.Controlled.t</a>()),
+  icon: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(<a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.Media.html#t:t/0">Bonfire.Files.Media.t</a>()) | nil,
+  icon_id: Needle.UID.t() | nil,
   id: Needle.UID.t() | nil,
-  image: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  image_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  location: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
+  image: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(<a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.Media.html#t:t/0">Bonfire.Files.Media.t</a>()) | nil,
+  image_id: Needle.UID.t() | nil,
+  location: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil,
+  name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil,
   pointer: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(Needle.Pointer.t()) | nil,
-  summary: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  user: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  website: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()
+  summary: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil,
+  user: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(Bonfire.Data.Identity.User.t()) | nil,
+  website: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil
 }</pre>
 
       </div>
@@ -218,6 +219,7 @@ Bonfire
       </a>
       <span class="text">Functions</span>
     </h1>
+
     <div class="functions-list">
 <section class="detail" id="changeset/2">
 
@@ -332,7 +334,7 @@ Bonfire
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

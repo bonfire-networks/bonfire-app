@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.2">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.8">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.9">
 
 
-    <title>Bonfire.Data.Social.Activity — Bonfire v1.0.0-social-rc.2.8</title>
+    <title>Bonfire.Data.Social.Activity — Bonfire v1.0.0-social-rc.2.9</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-KV3YOVJ3.css" />
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
 
-    <script defer src="dist/sidebar_items-49C923F5.js"></script>
+    <script defer src="dist/sidebar_items-F1722F0F.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-DPJLHKSM.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
 
   </head>
   <body>
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.8
+          v1.0.0-social-rc.2.9
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Data.Social.Activity</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.8)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.9)</small>
 
     </h1>
 
@@ -164,6 +164,7 @@ Bonfire
       </a>
       <span class="text">Types</span>
     </h1>
+
     <div class="types-list">
 <section class="detail" id="t:t/0">
 
@@ -188,37 +189,38 @@ Bonfire
 
           <pre translate="no"><span class="attribute">@type</span> t() :: %Bonfire.Data.Social.Activity{
   __meta__: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.Metadata.html#t:t/0">Ecto.Schema.Metadata.t</a>(),
-  activity: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  boost_count: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  caretaker: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  controlled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  created: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  edge: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  emoji: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  federate_activity_pub: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  feed_publishes: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  files: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  follow_count: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
+  activity: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="#t:t/0">t</a>()) | nil,
+  boost_count: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Edges.EdgeTotal.html#t:t/0">Bonfire.Data.Edges.EdgeTotal.t</a>()) | nil,
+  caretaker: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Replied.html#t:t/0">Bonfire.Data.Social.Replied.t</a>()) | nil,
+  controlled: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="./Bonfire.Data.AccessControl.Controlled.html#t:t/0">Bonfire.Data.AccessControl.Controlled.t</a>()),
+  created: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Created.html#t:t/0">Bonfire.Data.Social.Created.t</a>()) | nil,
+  edge: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Edges.Edge.html#t:t/0">Bonfire.Data.Edges.Edge.t</a>()) | nil,
+  emoji: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) | nil,
+  federate_activity_pub: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>() | nil,
+  feed_publishes: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="./Bonfire.Data.Social.FeedPublish.html#t:t/0">Bonfire.Data.Social.FeedPublish.t</a>()),
+  files: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.html#t:t/0">Bonfire.Files.t</a>()),
+  follow_count: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Edges.EdgeTotal.html#t:t/0">Bonfire.Data.Edges.EdgeTotal.t</a>()) | nil,
   id: Needle.UID.t() | nil,
-  labelled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  like_count: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  media: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  named: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  object: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  object_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  object_post_content: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  path: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
+  labelled: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Edges.Edge.html#t:t/0">Bonfire.Data.Edges.Edge.t</a>()) | nil,
+  like_count: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Edges.EdgeTotal.html#t:t/0">Bonfire.Data.Edges.EdgeTotal.t</a>()) | nil,
+  media: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:many_to_many/1">Ecto.Schema.many_to_many</a>(<a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.Media.html#t:t/0">Bonfire.Files.Media.t</a>()),
+  named: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Identity.Named.html#t:t/0">Bonfire.Data.Identity.Named.t</a>()) | nil,
+  object: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(Needle.Pointer.t()) | nil,
+  object_id: Needle.UID.t() | nil,
+  object_post_content:
+    <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.PostContent.html#t:t/0">Bonfire.Data.Social.PostContent.t</a>()) | nil,
+  path: EctoMaterializedPath.UIDs.t() | nil,
   pointer: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(Needle.Pointer.t()) | nil,
-  replied: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  seen: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  sensitive: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  subject: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  subject_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  tagged: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  tags: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  tree: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  verb: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>(),
-  verb_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()
+  replied: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Replied.html#t:t/0">Bonfire.Data.Social.Replied.t</a>()) | nil,
+  seen: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Edges.Edge.html#t:t/0">Bonfire.Data.Edges.Edge.t</a>()) | nil,
+  sensitive: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Data.Social.Sensitive.html#t:t/0">Bonfire.Data.Social.Sensitive.t</a>()) | nil,
+  subject: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(Needle.Pointer.t()) | nil,
+  subject_id: Needle.UID.t() | nil,
+  tagged: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_many/1">Ecto.Schema.has_many</a>(<a href="./Bonfire.Tag.Tagged.html#t:t/0">Bonfire.Tag.Tagged.t</a>()),
+  tags: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:many_to_many/1">Ecto.Schema.many_to_many</a>(Needle.Pointer.t()),
+  tree: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:has_one/1">Ecto.Schema.has_one</a>(<a href="./Bonfire.Classify.Tree.html#t:t/0">Bonfire.Classify.Tree.t</a>()) | nil,
+  verb: <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Schema.html#t:belongs_to/1">Ecto.Schema.belongs_to</a>(<a href="./Bonfire.Data.AccessControl.Verb.html#t:t/0">Bonfire.Data.AccessControl.Verb.t</a>()) | nil,
+  verb_id: Needle.UID.t() | nil
 }</pre>
 
       </div>
@@ -237,6 +239,7 @@ Bonfire
       </a>
       <span class="text">Functions</span>
     </h1>
+
     <div class="functions-list">
 <section class="detail" id="changeset/2">
 
@@ -351,7 +354,7 @@ Bonfire
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.2) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 
