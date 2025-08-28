@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.3">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.9">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.11">
 
 
-    <title>Bonfire.Common — Bonfire v1.0.0-social-rc.2.9</title>
+    <title>Bonfire.Common — Bonfire v1.0.0-social-rc.2.11</title>
 
     <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
 
-    <script defer src="dist/sidebar_items-F1722F0F.js"></script>
+    <script defer src="dist/sidebar_items-A2EA5652.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.9
+          v1.0.0-social-rc.2.11
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.9)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.11)</small>
 
     </h1>
 
@@ -160,29 +160,29 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Provides a fallback value or function when the first argument is <code class="inline">nil</code>.</p><ul><li>If the first argument is not <code class="inline">nil</code>, returns the first argument as is.</li><li>If both arguments are <code class="inline">nil</code>, returns <code class="inline">nil</code>.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is a function, calls the function and returns its result.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is not a function, returns the second argument as is.</li></ul><h2 id="maybe_fallback/2-examples" class="section-heading"><a href="#maybe_fallback/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-1">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="4260949296-1">)</span><span class="w">
+<p>Provides a fallback value or function when the first argument is <code class="inline">nil</code>.</p><ul><li>If the first argument is not <code class="inline">nil</code>, returns the first argument as is.</li><li>If both arguments are <code class="inline">nil</code>, returns <code class="inline">nil</code>.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is a function, calls the function and returns its result.</li><li>If the first argument is <code class="inline">nil</code> and the second argument is not a function, returns the second argument as is.</li></ul><h2 id="maybe_fallback/2-examples" class="section-heading"><a href="#maybe_fallback/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-1">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="5583333274-1">)</span><span class="w">
 </span><span class="s">&quot;value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-2">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="4260949296-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-2">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="5583333274-2">)</span><span class="w">
 </span><span class="s">&quot;fallback value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="4260949296-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="5583333274-3">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-4">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="4260949296-5">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="k" data-group-id="4260949296-5">end</span><span class="p" data-group-id="4260949296-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-4">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="5583333274-5">fn</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="k" data-group-id="5583333274-5">end</span><span class="p" data-group-id="5583333274-4">)</span><span class="w">
 </span><span class="mi">3</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-6">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="4260949296-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-6">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="5583333274-6">)</span><span class="w">
 </span><span class="s">&quot;fallback value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-7">(</span><span class="p" data-group-id="4260949296-8">%</span><span class="nc" data-group-id="4260949296-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="4260949296-8">{</span><span class="p" data-group-id="4260949296-8">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="4260949296-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-7">(</span><span class="p" data-group-id="5583333274-8">%</span><span class="nc" data-group-id="5583333274-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="5583333274-8">{</span><span class="p" data-group-id="5583333274-8">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fallback value&quot;</span><span class="p" data-group-id="5583333274-7">)</span><span class="w">
 </span><span class="s">&quot;fallback value&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="k">try</span><span class="w"> </span><span class="k" data-group-id="4260949296-9">do</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="n">maybe_fallback</span><span class="p" data-group-id="4260949296-10">(</span><span class="p" data-group-id="4260949296-11">%</span><span class="nc" data-group-id="4260949296-11">Ecto.Association.NotLoaded</span><span class="p" data-group-id="4260949296-11">{</span><span class="p" data-group-id="4260949296-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:nil!</span><span class="p" data-group-id="4260949296-10">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="4260949296-9">rescue</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="k">try</span><span class="w"> </span><span class="k" data-group-id="5583333274-9">do</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="n">maybe_fallback</span><span class="p" data-group-id="5583333274-10">(</span><span class="p" data-group-id="5583333274-11">%</span><span class="nc" data-group-id="5583333274-11">Ecto.Association.NotLoaded</span><span class="p" data-group-id="5583333274-11">{</span><span class="p" data-group-id="5583333274-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:nil!</span><span class="p" data-group-id="5583333274-10">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="5583333274-9">rescue</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;exception raised&quot;</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="4260949296-9">end</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="k" data-group-id="5583333274-9">end</span><span class="w">
 </span><span class="s">&quot;exception raised&quot;</span></code></pre>
   </section>
 </section>
