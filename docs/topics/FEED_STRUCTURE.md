@@ -1,4 +1,4 @@
-⏺ Bonfire Feed System Architecture Documentation
+# Bonfire Feed System Architecture Documentation
 
   Table of Contents
 

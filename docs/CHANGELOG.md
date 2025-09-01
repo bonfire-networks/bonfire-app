@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Bonfire Changelog
+# Changelog: releases
 
 ## Bonfire Social [1.0-rc.2 (2025-07-08)]
 

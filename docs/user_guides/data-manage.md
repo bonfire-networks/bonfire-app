@@ -1,6 +1,6 @@
-# Managing your Data on Bonfire
+# Managing your data on Bonfire
 
-Take control of your information and account settings in Bonfire.
+Take control of your information on Bonfire.
 
 ## Table of Contents
 

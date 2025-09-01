@@ -7,6 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Hosting guide
 
+
 A short guide to running Bonfire in a production environment and setting up a digital space connected to the fediverse.
 
 > #### Status {: .info}
@@ -14,10 +15,12 @@ A short guide to running Bonfire in a production environment and setting up a di
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Installation guide](./HACKING.md) instead._
 
+> **Before you begin:**  
+> Make sure you have completed the [Setup Tutorial](./SETUP.md) to prepare your server, domain, mail, and DNS.  
+> This guide assumes your infrastructure is ready and covers installing and configuring Bonfire itself.
 
-## Security Warning
-
-By default sign ups are by invite only. You can invite people via instance settings, or open up for public registrations (just make sure you have a code of conduct and moderation team in place first). 
+> **Warning**
+> By default sign ups are by invite only. You can invite people via instance settings, or open up for public registrations (just make sure you have a code of conduct and moderation team in place first). 
 
 ---
 
@@ -29,10 +32,87 @@ By default sign ups are by invite only. You can invite people via instance setti
 
 Install using [Co-op Cloud](https://coopcloud.tech) (recommended) which is an alternative to corporate cloud services built by tech co-ops, and provides handy tools for setting up and managing many self-hosted free software tools using ready-to-use "recipes". Very useful if you'd like to host Bonfire alongside other open and/or federated projects. 
 
-1. Install [Abra](https://docs.coopcloud.tech/abra/) on your machine
-2. [Set up a server with co-op cloud](https://docs.coopcloud.tech/operators/) 
-3. Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the instructions there, including editing the config in the env file at `~/.abra/servers/your_server/your_app.env` (see [prepare the config](#preparing-the-config-in-env) for details about what to edit)
-4. Run the abra deploy command and done!
+#### 1. Install Coop-Cloud on your server
+
+Follow this [guide to setup Docker and Coop Cloud](https://docs.coopcloud.tech/operators/tutorial/) on your server.
+
+If you have any issues connecting with SSH, here's a [guide for coop-cloud ssh issues](https://docs.coopcloud.tech/abra/trouble/#ssh-connection-issues):
+
+> [!Tip] Protip
+> Ensure .ssh/config file is set up
+> ```
+> Host [yourdomain.net]
+>     HostName [yourdomain.net]
+>     User [root]
+>     IdentityFile ~/.ssh/[your_ssh_key]
+> ```
+
+#### 2. Install Abra on your computer
+
+[Abra](https://docs.coopcloud.tech/abra/) is installed locally on your machine and acts as the remote control to Coop-Cloud, letting you manage software installations more easily from your local machine. 
+
+[Follow the Abra installation guide](https://docs.coopcloud.tech/abra/install/).
+
+##### 2.1. Add your server to Abra
+
+Here's a guide for how to [add your server](https://docs.coopcloud.tech/operators/tutorial/#install-abra) to Abra. This tutorial works well until you need to install the app. When you reach the "Nextcloud" part of the guide, switch back to this guide.
+
+- The command for adding the server is `abra server add [yourdomain.net]` or e.g. `abra server add [social.yourdomain.net]` if using a subdomain
+- To see that it works, check `abra server ls` and you'll get a cute happy message
+
+> [!Tip] Protip
+> Try pinging *traefik.yourdomain.net* to see that it works:
+> `ping traefik.yourdomain.net`
+
+#### 3. Install Traefik
+
+[Traefik](https://doc.traefik.io/traefik/) is a proxy that supports developers with publishing services. This will make it easy to ensure that your bonfire instance is up to date! 
+
+Install by following this [recipie to install Traefik](https://recipes.coopcloud.tech/traefik).
+
+Remember to add a valid email when configuring Traefik to generate a SSL certificate (abra app config traefik.yourdomain) - that's the only field you need to configure for traefik to work
+
+> [!Tip] Protip 
+> You can try using --chaos to tell abra to use the recipe that you have set up locally rather than pulling it from the repository if the traefik setup is stucked
+
+#### 4. Install Bonfire
+
+Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the instructions there. 
+
+- Editing the config file:
+	-  `abra app config [yourdomain.net]`
+	- See [prepare the config](#preparing-the-config-in-env) for details about what to edit, for example you should add the email sending key:
+```
+	MAIL_BACKEND=mailgun
+	MAIL_DOMAIN=[yourdomain.net]
+	MAIL_KEY=[your-mailgun-sending-key]
+	MAIL_FROM=[from@yourdomain.net]
+```
+
+- Deploying: 
+`abra app deploy [yourdomain.net]`
+
+- If redeploying, you can force deploy:
+`abra app deploy [yourdomain.net] --force`
+
+> **Protip**
+> You can turn the `~/abra/servers/yourdomain.net` directory into a git repo and share it (privately!) with collaborators. It's also useful as a backup if you loose access to your machine or want to manager the server from a different place.
+
+#### CoopCloud FAQs
+
+* How to connect to the bonfire app via command line?
+    `abra app run [yourinstance.net] app bin/bonfire remote`
+
+* How to sign up with command line? 
+    * `abra app run [yourinstance.net] app bin/bonfire remote` 
+    * and then in the IEx console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
+
+* How to see logs?
+    * for bonfire logs: `abra app logs [yourinstance.net] app`
+    * to include logs of the DB and web proxy: `abra app logs [yourinstance.net]`
+
+* How to set up backups?
+    * see this coopcloud recipe: https://recipes.coopcloud.tech/backup-bot-two
 
 
 ### Docker containers

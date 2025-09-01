@@ -1,4 +1,5 @@
-PhoenixTest
+# PhoenixTest
+
 PhoenixTest provides a unified way of writing feature tests -- regardless of whether you're testing LiveView pages or static pages.
 
 It also handles navigation between LiveView and static pages seamlessly. So, you don't have to worry about what type of page you're visiting. Just write the tests from the user's perspective.
