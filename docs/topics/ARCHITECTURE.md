@@ -126,7 +126,7 @@ Here is an incomplete sample of some of current extensions and modules:
           - Sometimes LiveHandlers for handling frontend events in the backend (eg `Bonfire.Me.Users.LiveHandler`)
         - Routes (eg `Bonfire.UI.Me.Routes`)
           - Controllers and/or Views (eg `Bonfire.UI.Me.CreateUserController` and `Bonfire.UI.Me.CreateUserLive`)
-        - API (eg `Bonfire.Me.API.GraphQL`), refer to [GraphQL API documentation](./GRAPHQL.md)
+        - API (eg `Bonfire.Me.API.GraphQL`)
           - Schemas
           - Resolvers
         - Sometimes Plugs (eg `Bonfire.Web.Plugs.UserRequired` and `Bonfire.Web.LivePlugs.UserRequired`)
@@ -162,8 +162,6 @@ It also contains some functionality that isn't part of the AP spec but is requir
 - `ActivityPub.Federator.WebFinger` - Implementation of the WebFinger protocol
 - `ActivityPub.Federator.HTTP` - Module for making HTTP requests (wrapper around tesla)
 - `ActivityPub.Instances` - Module for storing reachability information about remote instances
-
-Also refer to [MRF documentation](./MRF.md) to learn how to rewrite or discard messages.
 
 ### `ActivityPub.Web`
 

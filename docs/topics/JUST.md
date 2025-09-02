@@ -32,7 +32,7 @@ Most of these tools are driven by [just](https://github.com/casey/just#just) and
 - This command updates the app along with Bonfire extensions located in `./deps`. It's ideal for updating the app while excluding the extensions currently under development located in `./extensions`.
 
 `just dep-clone *[dep]* *[repo]*`
-- Clone a git dependency and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`. Active extensions need to be added in `./config/deps.path` (see [the tutorial on how to fork an extension](/courses/how_to_fork_extension/)). To switch between local and remote dependencies, simply comment or uncomment the corresponding lines in this file.
+- Clone a git dependency and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`. Active extensions need to be added in `./config/deps.path` (see [the tutorial on how to fork an extension](/building/how_to_fork_extension/)). To switch between local and remote dependencies, simply comment or uncomment the corresponding lines in this file.
 
 `just contrib`
 - Push all changes to the app and extensions in `./forks` and `./extensions`.

@@ -7,4 +7,4 @@ SPDX-License-Identifier: CC0-1.0
 
 # Working with flavour
 
-test
+See also [choosing a flavour](../user_guides/flavours.md)

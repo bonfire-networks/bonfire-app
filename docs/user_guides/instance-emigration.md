@@ -150,7 +150,7 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
 1. Wait at least a week after moving to ensure followers have migrated
 2. **This is permanent and irreversible**
 3. Your old username will become permanently unavailable
-4. If you're sure, follow the instructions to [delete your data, profile, and/or account](account-manage.md#deleting-your-data)
+4. If you're sure, follow the instructions to [delete your data, profile, and/or account](data-manage.md#deleting-your-data)
 
 
 ## Troubleshooting

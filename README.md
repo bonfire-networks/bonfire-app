@@ -45,7 +45,7 @@ All of the features and user interface elements in Bonfire are implemented in [e
 
 - **Developers**: You'll probably be interested in understanding how to build on Bonfire. The [dev setup](/docs/HACKING.md) will guide you through the installation of bonfire on your local machine. In the [Just commands](/docs/topics/JUST.md) page you will gain familiarities with the basic Bonfire CLI commands. From there you may want to continue [developing a new extension](/docs/building/create-a-new-extension.md), or learning more about the internals and the [Bonfire architecture](/docs/topics/ARCHITECTURE.md).
 
-- **Users**: Whether you are a user who is looking for an existing digital place to join, or want to understand more about how Bonfire works and how to get the most out of it, the [Community Manual](/docs/user_guides/index.md) is a good place to start. There you can learn about how to customize your experience, what boundaries are and how to experience a new and safer way to interact with federated social networks.
+- **Users**: Whether you are a user who is looking for an existing digital place to join, or want to understand more about how Bonfire works and how to get the most out of it, the [Community Manual](/docs/user_guides/user-guides.md) is a good place to start. There you can learn about how to customize your experience, what boundaries are and how to experience a new and safer way to interact with federated social networks.
 
 - **Community organisers & sysadmins**: Ready to launch your digital space? We got you covered on our [hosting guide](/docs/DEPLOY.md). 
 
@@ -57,7 +57,7 @@ Bonfire aims to be beginner-friendly, but to keep the documentation focused on t
 - **Phoenix/LiveView** and **Surface**: Bonfire's official web UI is built with the Surface framework, which itself is based on Phoenix LiveView. If you're unfamiliar with them, check out the [Phoenix overview](https://hexdocs.pm/phoenix/overview.html), [Phoenix LiveView guide](https://hexdocs.pm/phoenix_live_view/welcome.html), and [Surface docs](https://surface-ui.org). You may also be interested in the [Phoenix LiveView video course by Pragmatic Studio](https://pragmaticstudio.com/phoenix-liveview).
 - **PostgreSQL**: Bonfire uses PostgreSQL as its primary database. Basic knowledge of SQL and PostgreSQL is helpful.
 
-Bonfire also provides a [GraphQL API](/docs/topics/GRAPHQL.md) for developers who want to build custom frontends.
+Bonfire also provides a [GraphQL API](`Bonfire.API.GraphQL`) for developers who want to build custom frontends.
 
 Throughout the documentation, we'll make sure to provide links to relevant resources when introducing new concepts to help you along the way. We have a strong affinity for Elixir and believe it's a powerful language for building scalable and maintainable social networks.
 

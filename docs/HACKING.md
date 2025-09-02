@@ -257,8 +257,8 @@ We like to think of bonfire as a comfortable way of developing software - there 
 
 - [Architecture](./topics/ARCHITECTURE.md) - an overview of the stack and code structure.
 - [Bonfire-flavoured Elixir](./topics/BONFIRE-FLAVOURED-ELIXIR.md) - an introduction to the way we write Elixir.
-- [Bonfire's Database: an Introduction](./topics/DATABASE.md) - an overview of how our database is designed.
-- [Boundaries](./topics/BOUNDARIES.md) - an introduction to our access control system.
+- [Bonfire's Database: an Introduction](`Needle`) - an overview of how our database is designed.
+- [Boundaries](`Bonfire.Boundaries`) - an introduction to our access control system.
 
 Note: these are still at the early draft stage, we expect to gradually improve documentation over time.
 
