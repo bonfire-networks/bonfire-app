@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+
+
+    <title>How to Create Effective Usage Rules for LLM-Assisted Development — Bonfire v1.0.0-social-rc.2.13</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+
+    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.0-social-rc.2.13
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>How to Create Effective Usage Rules for LLM-Assisted Development</h1>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/building/how_to_create_usage_rules.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>This guide explains best practices for creating <code class="inline">usage-rules.md</code> files that help LLMs understand and correctly use your library or framework without hallucinating incorrect patterns.</p><h2 id="core-principles" class="section-heading"><a href="#core-principles" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Core Principles</span></h2><h3 id="1-start-with-clear-concepts" class="section-heading"><a href="#1-start-with-clear-concepts" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">1. Start with Clear Concepts</span></h3><p>Begin your usage rules by explaining the fundamental concepts and mental models:</p><ul><li>What problem does your library solve?</li><li>What are the core abstractions?</li><li>How do the pieces fit together?</li></ul><pre><code class="markdown">## Core Concepts
+
+### [Main Abstraction]
+[Brief explanation of what it is and why it exists]
+
+### [Supporting Concept]
+[How it relates to the main abstraction]</code></pre><h3 id="2-show-don-t-just-tell" class="section-heading"><a href="#2-show-don-t-just-tell" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">2. Show, Don't Just Tell</span></h3><p>Every concept should be immediately followed by a practical example:</p><pre><code class="markdown">### Creating Activities
+
+Use the Activities module to create and manage activities:
+</code></pre><h1>Create an activity for any verb</h1><p> = Activities.create(user, :post, post)
+{:ok, activity} = Activities.create(user, :follow, target_user)</p><pre><code class="makeup elixir" translate="no"></code></pre><h3 id="3-progress-from-simple-to-complex" class="section-heading"><a href="#3-progress-from-simple-to-complex" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">3. Progress from Simple to Complex</span></h3><p>Structure your examples to build understanding incrementally:</p><ol><li>Basic usage (minimal parameters)</li><li>Common options</li><li>Advanced patterns</li><li>Edge cases</li></ol><h2 id="essential-sections" class="section-heading"><a href="#essential-sections" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Essential Sections</span></h2><h3 id="module-setup" class="section-heading"><a href="#module-setup" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Module Setup</span></h3><p>Always start with how to properly set up and use your modules:</p><pre><code class="markdown">## Core Module Setup
+
+Always use the provided module templates for consistency:
+</code></pre><h1>For general modules</h1><p>use Bonfire.Common</p><h1>For Ecto schemas</h1><p>use Bonfire.Common.Schema</p><pre><code class="makeup elixir" translate="no"></code></pre><h3 id="api-reference-with-context" class="section-heading"><a href="#api-reference-with-context" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">API Reference with Context</span></h3><p>Don't just list functions - explain when and why to use them:</p><pre><code class="markdown">### Safe Data Extraction
+
+Use the `e/3` macro for safe nested data access with fallbacks:
+</code></pre><h1>Extract nested values safely</h1><p>e(user, :profile, :name, &quot;Anonymous&quot;)</p><h1>Works with maps, structs, tuples, and Access behavior</h1><p>settings = e(socket, :assigns, :current_user, :settings, %{})</p><pre><code class="makeup elixir" translate="no"></code></pre><h3 id="error-handling-patterns" class="section-heading"><a href="#error-handling-patterns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Error Handling Patterns</span></h3><p>Show how to handle both success and failure cases:</p><pre><code class="markdown">## Error Handling
+
+### Validation Errors
+
+Changeset errors are automatically promoted to epic errors:
+</code></pre><p>case Posts.create(user, attrs) do
+  {:ok, post} -&gt;</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="7650263522-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Epic</span><span class="o">.</span><span class="n">assign</span><span class="p" data-group-id="7650263522-2">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">:post</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="7650263522-2">)</span><span class="p" data-group-id="7650263522-1">}</span></code></pre><p> -&gt;</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="3487996371-1">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="nc">Epic</span><span class="o">.</span><span class="n">add_error</span><span class="p" data-group-id="3487996371-2">(</span><span class="n">epic</span><span class="p">,</span><span class="w"> </span><span class="ss">act</span><span class="p">:</span><span class="w"> </span><span class="ss">:create_post</span><span class="p">,</span><span class="w"> </span><span class="ss">changeset</span><span class="p">:</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="3487996371-2">)</span><span class="p" data-group-id="3487996371-1">}</span></code></pre><p>end</p><pre><code class="makeup elixir" translate="no"></code></pre><h3 id="anti-patterns-section" class="section-heading"><a href="#anti-patterns-section" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Anti-Patterns Section</span></h3><p>Explicitly show what NOT to do and provide the correct alternative:</p><pre><code class="markdown">## Common Anti-Patterns to Avoid
+
+### ❌ Direct Map Access</code></pre><h1>Bad</h1><p>user.profile.name  # Can raise if nil</p><h1>Good</h1><p>e(user, :profile, :name, &quot;Anonymous&quot;)</p><pre><code class="makeup elixir" translate="no"></code></pre><h2 id="writing-style-guidelines" class="section-heading"><a href="#writing-style-guidelines" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Writing Style Guidelines</span></h2><h3 id="be-concise-but-complete" class="section-heading"><a href="#be-concise-but-complete" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Be Concise but Complete</span></h3><ul><li>Use bullet points for lists</li><li>Keep explanations focused</li><li>Include all necessary context</li><li>Remove redundant information</li></ul><h3 id="use-consistent-formatting" class="section-heading"><a href="#use-consistent-formatting" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Use Consistent Formatting</span></h3><ul><li>Code blocks with language hints</li><li>Clear section headers</li><li>Visual markers (✅ ❌) for do's and don'ts</li><li>Proper indentation and spacing</li></ul><h3 id="include-real-world-patterns" class="section-heading"><a href="#include-real-world-patterns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Include Real-World Patterns</span></h3><p>Show complete workflows, not just isolated functions:</p><pre><code class="markdown">## Complete Epic Patterns
+
+### CRUD Operations
+</code></pre><h1>Create epic</h1><p>config :my_app, :epics,
+  create_article: [</p><pre><code class="makeup elixir" translate="no"><span class="nc">MyApp.Acts.ValidateArticleAct</span><span class="p">,</span><span class="w">
+</span><span class="nc">MyApp.Acts.PrepareArticleAct</span><span class="p">,</span><span class="w">
+</span><span class="p" data-group-id="3483279947-1">{</span><span class="nc">Bonfire.Ecto.Acts.Begin</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483279947-2">[</span><span class="p" data-group-id="3483279947-2">]</span><span class="p" data-group-id="3483279947-1">}</span><span class="p">,</span><span class="w">
+</span><span class="p" data-group-id="3483279947-3">{</span><span class="nc">Bonfire.Ecto.Acts.Work</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483279947-4">[</span><span class="p" data-group-id="3483279947-4">]</span><span class="p" data-group-id="3483279947-3">}</span><span class="p">,</span><span class="w">
+</span><span class="p" data-group-id="3483279947-5">{</span><span class="nc">Bonfire.Ecto.Acts.Commit</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483279947-6">[</span><span class="p" data-group-id="3483279947-6">]</span><span class="p" data-group-id="3483279947-5">}</span><span class="p">,</span><span class="w">
+</span><span class="nc">MyApp.Acts.IndexArticleAct</span></code></pre><p>  ]</p><pre><code class="makeup elixir" translate="no"></code></pre><h2 id="structure-template" class="section-heading"><a href="#structure-template" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Structure Template</span></h2><ol><li><strong>Title and Introduction</strong> - What the library does</li><li><strong>Core Concepts</strong> - Mental models and abstractions</li><li><strong>Setup/Installation</strong> - How to get started</li><li><strong>Basic Usage</strong> - Simple, common patterns</li><li><strong>API Patterns</strong> - Main functions with examples</li><li><strong>Advanced Patterns</strong> - Complex scenarios</li><li><strong>Error Handling</strong> - How to handle failures</li><li><strong>Testing</strong> - How to test code using the library</li><li><strong>Performance</strong> - Optimization tips</li><li><strong>Best Practices</strong> - Recommended patterns</li><li><strong>Anti-Patterns</strong> - What to avoid</li><li><strong>Debugging</strong> - Troubleshooting tips</li><li><strong>Integration</strong> - How to use with other libraries</li></ol><h2 id="llm-specific-considerations" class="section-heading"><a href="#llm-specific-considerations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">LLM-Specific Considerations</span></h2><h3 id="prevent-hallucinations" class="section-heading"><a href="#prevent-hallucinations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Prevent Hallucinations</span></h3><ul><li>Show exact import statements</li><li>Include complete function signatures</li><li>Specify return types and error tuples</li><li>Document all required parameters</li></ul><h3 id="provide-context-clues" class="section-heading"><a href="#provide-context-clues" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Provide Context Clues</span></h3><p>Help LLMs understand when to use your library:</p><pre><code class="markdown"># Use this tool when you need to retrieve and analyze web content
+# IMPORTANT: If an MCP-provided web fetch tool is available, prefer using that</code></pre><h3 id="include-module-paths" class="section-heading"><a href="#include-module-paths" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Include Module Paths</span></h3><p>Always show the full module path in examples:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Acts.ProcessDataAct</span><span class="w"> </span><span class="k" data-group-id="0712079025-1">do</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Bonfire.Epics.Act</span><span class="w">
+  </span><span class="kn">import</span><span class="w"> </span><span class="nc">Bonfire.Ecto</span></code></pre><h3 id="document-integration-points" class="section-heading"><a href="#document-integration-points" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Document Integration Points</span></h3><p>Show how your library connects with others:</p><pre><code class="markdown">## Integration with Other Extensions
+
+### Use Acts from Other Extensions
+</code></pre><p>config :my_app, :epics,
+  create_social_post: [</p><pre><code class="makeup elixir" translate="no"><span class="nc">MyApp.Acts.ValidateContentAct</span><span class="p">,</span><span class="w">
+</span><span class="nc">Bonfire.Social.Acts.PostContentsAct</span><span class="p">,</span><span class="w">
+</span><span class="nc">Bonfire.Social.Acts.FederateAct</span></code></pre><p>  ]</p><pre><code class="makeup elixir" translate="no"></code></pre><h2 id="testing-your-usage-rules" class="section-heading"><a href="#testing-your-usage-rules" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Testing Your Usage Rules</span></h2><h3 id="completeness-check" class="section-heading"><a href="#completeness-check" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Completeness Check</span></h3><ul><li>Can someone implement basic features using only your rules?</li><li>Are all public APIs documented with examples?</li><li>Do examples compile and run?</li></ul><h3 id="clarity-check" class="section-heading"><a href="#clarity-check" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Clarity Check</span></h3><ul><li>Would a developer new to your library understand the concepts?</li><li>Are examples self-contained?</li><li>Is the progression logical?</li></ul><h3 id="llm-compatibility" class="section-heading"><a href="#llm-compatibility" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">LLM Compatibility</span></h3><ul><li>Test with an LLM to see if it generates correct code</li><li>Check for common hallucination patterns</li><li>Ensure the LLM uses your patterns, not generic ones</li></ul><h2 id="example-opening" class="section-heading"><a href="#example-opening" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example Opening</span></h2><p>Here's an effective opening for a usage-rules.md file:</p><pre><code class="markdown"># MyLibrary Usage Rules
+
+MyLibrary provides [specific functionality] for [target use case]. These rules ensure [key benefit] while avoiding [common pitfall].
+
+## Core Concepts
+
+### [Main Concept]
+[One paragraph explanation]
+</code></pre><h1>Simple example showing the concept</h1><pre><code class="makeup elixir" translate="no"><span class="w">
+</span><span class="c1">### Quick Start</span><span class="w">
+</span></code></pre><h1>Minimal working example</h1><p>defmodule MyApp.Example do
+  use MyLibrary</p><p>  def my_function(data) do</p><pre><code class="makeup elixir" translate="no"><span class="nc">MyLibrary</span><span class="o">.</span><span class="n">process</span><span class="p" data-group-id="8020641017-1">(</span><span class="n">data</span><span class="p" data-group-id="8020641017-1">)</span></code></pre><p>  end
+end</p><pre><code class="makeup elixir" translate="no"></code></pre><h2 id="maintenance" class="section-heading"><a href="#maintenance" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Maintenance</span></h2><ul><li>Update usage rules when APIs change</li><li>Add new patterns as they emerge</li><li>Remove deprecated patterns</li><li>Include version compatibility notes</li></ul><p>Remember: Good usage rules make the difference between an LLM that hallucinates generic patterns and one that correctly uses your specific APIs and conventions.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="handle-events-in-your-liveviews.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Handle events in your Live Views with LiveHandlers
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="project-structure.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Project structure
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

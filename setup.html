@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+
+
+    <title>Setup Tutorial — Bonfire v1.0.0-social-rc.2.13</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+
+    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.0-social-rc.2.13
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Setup Tutorial</h1>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/SETUP.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<h2 id="overview" class="section-heading"><a href="#overview" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Overview</span></h2><p>This guideline goes through the steps to set up a server and prerequisites for running a Bonfire instance for your community 🔥 ✨</p><p>The general steps are:</p><ol><li>🖥 Get a Server </li><li>Set up domain-name, mail and DNS<ol><li>👉 Domain name or subdomain on an existing domain </li><li>📧 Set up mail </li><li>🌐 DNS set up </li></ol></li><li>🔥 Install Bonfire</li></ol><h2 id="walkthrough" class="section-heading"><a href="#walkthrough" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Walkthrough</span></h2><h3 id="1-get-a-server" class="section-heading"><a href="#1-get-a-server" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">1. Get a server</span></h3><p>Bonfire can be setup on any server (dedicated/virtual/VPS/docker/homelab). Hetzner is a common choice to set up a <a href="https://www.hetzner.com/sb">dedicated</a> or <a href="https://www.hetzner.com/cloud/">virtual server</a> in EU.  </p><ul><li>Hardware requirement: 8GB+ RAM</li><li>If you don't already have an ssh key, create one on your computer in terminal. The command varies but is usually <code class="inline">ssh keygen</code><ul><li>If you are new to ssh: </li></ul></li><li>Activate firewalls <em>after</em> completing set up to minimize the potential issues for trouble shooting  </li></ul><blockquote><p>[!Tip] Protip
+Save your SSH private and public keys (and password if you set one) in a password manager to minimize the chance of getting locked-out of your server!</p></blockquote><blockquote><p>[!note] Note
+It is also possible to store data (such as uploaded images) in a cloud service rather than directly on your server (through any provider that supports the S3 API), but this isn't necessary to do up front.</p></blockquote><h3 id="2-set-up-a-domain-mail-and-dns" class="section-heading"><a href="#2-set-up-a-domain-mail-and-dns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">2. Set up a domain, Mail and DNS</span></h3><h5>2.1 Domain name</h5><p>The domain name can be a new domain like <em>yourdomain.net</em> that you purchase or a sub-domain of an existing site you already have such as <em>sub.yourdomain.net</em>. All users on your instance will have the domain you select as part of their username, such as <code class="inline">@user@sub.yourdomain.net</code></p><p>In this step we can use a domain name service such as namecheap, which was used in this tutorial.</p><blockquote><p>[!tip] Protip
+ It takes around 24h to propagate among the DNS servers so give yourself plenty of time to account for potential DNS set-up errors.</p></blockquote><h5>2.2 Set up mail - SPF, DMARK, etc</h5><p>Mailgun is one of manny services offering a free email routing service for up to 1 account. See <a href="https://docs.bonfirenetworks.org/Bonfire.Mailer.html">this page for alternatives and how to configure them</a>.</p><blockquote><p>[!Tip] Protip
+Your domain used for the bonfire instance (e.g. yourdomain.net or social.yourdomain.net) must be different from one for the email domain (e.g. email.yourdomain.net)</p></blockquote><p>Follow <a href="https://documentation.mailgun.com/docs/mailgun/quickstart-guide/quickstart/">this guideline</a> for info on how to set up your Mailgun account. </p><blockquote><p>[!tip] Protip
+ On Mailgun the EU / US interfaces are separate, make sure you stick to the same interface (little flag at the top)</p></blockquote><h5>2.3 Add the details to DNS</h5><p>On the DNS service (usually using the domain name provider's dashboard) we will need to set up our details for the server and the email service. </p><p>The following outline is a general list of required details. the values are placeholders to show what it might look like. Brackets, such as <code class="inline">[insert]</code>, indicate that you add your own characters. </p><p>First you need DNS pointing the domain to the server:</p><pre><code class="makeup elixir" translate="no"><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="nc">IPv4</span><span class="o">*</span><span class="o">*</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="n">record</span><span class="w">
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="err">@</span><span class="err">`</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="kn">use</span><span class="w"> </span><span class="err">`</span><span class="n">yourdomain</span><span class="o">.</span><span class="n">net</span><span class="err">`</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="w"> </span><span class="err">`</span><span class="n">social</span><span class="err">`</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">wanted</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="kn">use</span><span class="w"> </span><span class="err">`</span><span class="n">social</span><span class="o">.</span><span class="n">yourdomain</span><span class="o">.</span><span class="n">net</span><span class="err">`</span><span class="w">
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="p" data-group-id="2225376334-1">[</span><span class="nc">XXX.XXX.XXX.XXX</span><span class="p" data-group-id="2225376334-1">]</span><span class="err">`</span><span class="w"> </span><span class="p" data-group-id="2225376334-2">(</span><span class="nc">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">server</span><span class="p" data-group-id="2225376334-2">)</span><span class="w">
+</span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="nc">Wildcard</span><span class="o">*</span><span class="o">*</span><span class="w"> </span><span class="nc">DNS</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="n">record</span><span class="w"> 
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="o">*</span><span class="err">`</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="kn">use</span><span class="w"> </span><span class="err">`</span><span class="n">yourdomain</span><span class="o">.</span><span class="n">net</span><span class="err">`</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="w"> </span><span class="err">`</span><span class="o">*</span><span class="o">.</span><span class="n">social</span><span class="err">`</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">wanted</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="kn">use</span><span class="w"> </span><span class="err">`</span><span class="n">social</span><span class="o">.</span><span class="n">yourdomain</span><span class="o">.</span><span class="n">net</span><span class="err">`</span><span class="w">
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="p" data-group-id="2225376334-3">[</span><span class="nc">XXX.XXX.XXX.XXX</span><span class="p" data-group-id="2225376334-3">]</span><span class="err">`</span><span class="w"> </span><span class="p" data-group-id="2225376334-4">(</span><span class="nc">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">server</span><span class="p" data-group-id="2225376334-4">)</span></code></pre><p>It may looking something like this: 
+<img src="https://hackmd.io/_uploads/B1RVP72Elg.png" alt="Screenshot 2025-06-27 at 15.14.06"/></p><p>For email, use the info provided by the email service you set up (make sure you set up <strong>all</strong> of the different things provided, such as CNAME, DMARK, DKIM, and SPF, otherwise emails may not be delivered or end up in spam), here is an example of what it may look like when using mailgun. </p><pre><code class="makeup elixir" translate="no"><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="nc">CNAME</span><span class="o">*</span><span class="o">*</span><span class="w"> </span><span class="n">record</span><span class="w"> 
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="n">email</span><span class="o">.</span><span class="p" data-group-id="1864860026-1">[</span><span class="n">sub</span><span class="p" data-group-id="1864860026-1">]</span><span class="err">`</span><span class="w">
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="n">eu</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">org</span><span class="o">.</span><span class="err">`</span><span class="w"> 
+</span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="nc">DMARC</span><span class="w"> </span><span class="nc">TXT</span><span class="o">*</span><span class="o">*</span><span class="w"> </span><span class="nc">Record</span><span class="w"> 
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="n">dmarc</span><span class="o">.</span><span class="p" data-group-id="1864860026-2">[</span><span class="n">sub</span><span class="p" data-group-id="1864860026-2">]</span><span class="err">`</span><span class="w">
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="n">v</span><span class="o">=</span><span class="nc">DMARC1</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="o">=</span><span class="n">none</span><span class="p">;</span><span class="w"> </span><span class="n">pct</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">ri</span><span class="o">=</span><span class="mi">3600</span><span class="p">;</span><span class="w"> </span><span class="n">rua</span><span class="o">=</span><span class="n">mailto</span><span class="w"> </span><span class="ss">:fcf2</span><span class="err">`</span><span class="w"> </span><span class="n">etc</span><span class="n">...</span><span class="w">
+</span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="o">*</span><span class="nc">SPF</span><span class="w"> </span><span class="nc">TXT</span><span class="o">*</span><span class="o">*</span><span class="w"> </span><span class="nc">Record</span><span class="w"> 
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">host</span><span class="p">:</span><span class="w">  </span><span class="err">`</span><span class="p" data-group-id="1864860026-3">[</span><span class="n">sub</span><span class="p" data-group-id="1864860026-3">]</span><span class="err">`</span><span class="w">
+    </span><span class="o">-</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="n">v</span><span class="o">=</span><span class="n">spf1</span><span class="w"> </span><span class="n">include</span><span class="nc">:mailgun</span><span class="o">.</span><span class="n">org</span><span class="w"> </span><span class="err">~</span><span class="n">all</span><span class="err">`</span></code></pre><h6>Optionally</h6><ul><li> add IPv6 as AAAA Record (<em>notice, different DNS require different formats for IPv6)</em> - add wildcard DNS as an AAAA record with * as the hostname and the server IPv6</li><li>MX set up if you want to be able to receive emails as well</li></ul><blockquote><p>[!Tip] Protip
+ IPv6 sometimes messes things up. Optionally you can skip IPv6 to start with and add later once IPv4 is securely running.</p></blockquote><h3 id="3-final-step-install-bonfire" class="section-heading"><a href="#3-final-step-install-bonfire" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">3. Final Step: Install Bonfire</span></h3><p>Once you have completed the above steps and your server, domain, mail, and DNS are ready, proceed to the <a href="deploy.html">Hosting Guide</a> for detailed instructions on installing and configuring Bonfire using your preferred method (Co-op Cloud, Docker, bare-metal, etc).</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="hacking.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Development setup
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="howto_add_feed_preset.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+How to Add a New Feed Preset in Bonfire
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

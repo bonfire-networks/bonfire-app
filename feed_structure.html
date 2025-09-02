@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+
+
+    <title>Bonfire Feed System Architecture Documentation — Bonfire v1.0.0-social-rc.2.13</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+
+    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.0-social-rc.2.13
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Bonfire Feed System Architecture Documentation</h1>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/topics/FEED_STRUCTURE.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>  Table of Contents</p><ol><li>#overview</li><li>#core-components</li><li>#data-flow</li><li>#feed-types</li><li>#preloading-system</li><li>#boundary-system</li><li>#common-patterns</li><li>#troubleshooting-guide</li></ol><p>  Overview</p><p>  The Bonfire feed system is a sophisticated, modular architecture that handles activity feeds across different contexts
+  (notifications, flags, social feeds, etc.). It separates concerns between data queries, boundary checks, preloading, and
+  presentation.</p><p>  Key Principles</p><ul><li>Extension-Based Modularity: Different feed types are handled by different extensions</li><li>Configurable Preloading: Data loading is context-aware and performance-optimized</li><li>Boundary Enforcement: Comprehensive permission system controls data visibility</li><li>Dual Query Paths: Activities can be queried directly or through Feed publishes</li></ul><p>  Core Components</p><ol><li>Feed Infrastructure (bonfire_social/lib/feeds.ex)</li></ol><p>  Purpose: Manages feed creation, targeting, and permissions</p><p>  Key Functions:</p><ul><li>feed_preset_if_permitted/2: Checks if user can access specific feed presets</li><li>feed_ids_to_publish/4: Determines which feeds an activity should be published to</li><li>moderators/1: Identifies who should receive moderation notifications</li></ul><p>  Important Concepts:</p><ul><li>Feed Presets: Pre-configured feed definitions with specific filters and permissions</li><li>Feed Publishing: Determines target audiences for activities</li><li>Permission Context: Different feeds have different access requirements</li></ul><ol start="2"><li>Feed Loader (bonfire_social/lib/feed_loader.ex)</li></ol><p>  Purpose: Central orchestrator for feed queries, filtering, and data loading</p><p>  Key Functions:</p><ul><li>feed/2: Main entry point for feed queries</li><li>prepare_feed_filters/3: Validates and processes feed filters</li><li>prepare_filters_and_opts/2: Sets up preloading and boundary options</li><li>activity_preloads/3: Maps high-level preload keys to specific preloads</li></ul><p>  Critical Concepts:</p><ul><li>Deferred Joins: Performance optimization that applies filters before expensive joins</li><li>Filter Rules: Context-based rules that determine what data to preload</li><li>Boundary Integration: Coordinates with permission system</li></ul><ol start="3"><li>Feed Activities (bonfire_social/lib/feed_activities.ex)</li></ol><p>  Purpose: Manages the relationship between activities and feeds through FeedPublish</p><p>  Key Schema: FeedPublish</p><ul><li>feed_id: References any feed (user inbox, notifications, etc.)</li><li>activity_id: References the activity being published</li><li>Acts as join table between feeds and activities</li></ul><ol start="4"><li>Activities (bonfire_social/lib/activities.ex)</li></ol><p>  Purpose: Core activity management and preloading</p><p>  Key Functions:</p><ul><li>activity_preloads/3: Applies context-specific data preloading</li><li>as_permitted_for/3: Applies boundary checks to activities</li><li>prepare_subject_and_creator/2: Ensures user data is properly loaded</li></ul><p>  Critical Schema: Activity</p><ul><li>subject_id: Who performed the action</li><li>verb_id: What type of action (create, like, flag, etc.)</li><li>object_id: What was acted upon</li></ul><ol start="5"><li>Edges (bonfire_social/lib/edges.ex)</li></ol><p>  Purpose: Handles direct relationships between entities (likes, follows, flags)</p><p>  Key Schema: Edge</p><ul><li>subject_id: Who performed the action</li><li>object_id: What was acted upon</li><li>table_id: What type of relationship</li><li>Important: Creates both Edge record AND Activity record</li></ul><p>  Data Flow</p><p>  Activity Creation Flow</p><ol><li>User Action (e.g., flag, like, post)
+↓</li><li>Edge.insert() OR Activities.create()
+↓</li><li>Creates Activity record
+↓</li><li>Determines target feeds (feed_ids_to_publish)
+↓</li><li>Creates FeedPublish records
+↓</li><li>Publishes to feeds (notifications, outbox, etc.)</li></ol><p>  Feed Query Flow</p><ol><li>Feed Request (e.g., :notifications, :flags)
+↓</li><li>Feed Preset Lookup (permissions check)
+↓</li><li>Filter Preparation (context-specific rules)
+↓</li><li>Query Construction (Activities vs Edges)
+↓</li><li>Preload Application (based on context)
+↓</li><li>Boundary Filtering (permission enforcement)
+↓</li><li>Data Presentation</li></ol><p>  Feed Types</p><ol><li>Social Feeds (Activity-based)</li></ol><ul><li>Data Source: Activity joined with FeedPublish</li><li>Query Path: FeedActivities.base_query() → Activities.activity_preloads()</li><li>Examples: :my, :local, :notifications</li><li>Characteristics: Complex preloading, boundary-aware</li></ul><ol start="2"><li>Edge Feeds (Edge-based)</li></ol><ul><li>Data Source: Edge table directly</li><li>Query Path: Edges.query_parent() → direct edge preloads</li><li>Examples: :flags, :likes, :follows</li><li>Characteristics: Simpler queries, direct object relationships</li></ul><ol start="3"><li>Special Feeds</li></ol><ul><li>Custom Queries: Some feeds bypass standard patterns</li><li>Examples: :curated (uses Pins.list_instance_pins)</li><li>Characteristics: Domain-specific optimizations</li></ul><p>  Preloading System</p><p>  Context-Based Preloading Rules</p><p>  The system uses rules defined in runtime_config.ex to determine what data to preload based on feed context:</p><p>  # Example from runtime_config.ex
+  &quot;Notifications Feed (Only for me)&quot; =&gt; %{</p><pre><code class="makeup elixir" translate="no"><span class="ss">match</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7020692553-1">%{</span><span class="ss">feed_name</span><span class="p">:</span><span class="w"> </span><span class="ss">:notifications</span><span class="p" data-group-id="7020692553-1">}</span><span class="p">,</span><span class="w">
+</span><span class="ss">include</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7020692553-2">[</span><span class="ss">:with_seen</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:emoji</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_flagged_user</span><span class="p" data-group-id="7020692553-2">]</span></code></pre><p>  }</p><p>  Preload Types</p><ul><li>:with_creator: Loads object creator (for posts, media)</li><li>:with_subject: Loads activity subject (who performed action)</li><li>:with_object_more: Loads object with profile/character data</li><li>:with_reply_to: Loads replied-to content with boundaries</li><li>:with_seen: Adds seen/unseen status for current user</li></ul><p>  Performance Optimizations</p><ol><li>Deferred Joins: Apply filters before expensive preloads</li><li>User ID Skipping: Avoid loading current user data redundantly</li><li>Context Rules: Only load what's needed for specific contexts</li><li>Pointer Resolution: Special handling for Needle pointers</li></ol><p>  Boundary System</p><p>  Permission Layers</p><ol><li>Feed Access: Can user access this feed type?</li><li>Activity Visibility: Can user see this activity?</li><li>Object Visibility: Can user see the activity's object?</li></ol><p>  Key Concepts</p><ul><li>skip_boundary_check: Bypasses permission checks (for moderators)</li><li>include_flags: Controls flag visibility (:mediate, :admins, true, false)</li><li>Verb Permissions: Different actions require different permissions</li></ul><p>  Permission Patterns</p><p>  # Admin/Moderator Pattern
+  skip_boundary_check = case include_flags do</p><pre><code class="makeup elixir" translate="no"><span class="ss">:admins</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">is_admin?</span><span class="p" data-group-id="2513739374-1">(</span><span class="n">user</span><span class="p" data-group-id="2513739374-1">)</span><span class="w">
+</span><span class="ss">:mediate</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">can?</span><span class="p" data-group-id="2513739374-2">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:mediate</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p" data-group-id="2513739374-2">)</span><span class="w">
+</span><span class="no">true</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">true</span><span class="w">
+</span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">false</span></code></pre><p>  end</p><p>  Troubleshooting Guide</p><p>  Issue: Missing Data in Feeds</p><p>  Symptoms: Objects show in one feed but not another
+  Check:</p><ol><li>Feed Type: Activity-based vs Edge-based queries</li><li>Preload Rules: Different contexts have different preloads</li><li>Boundary Checks: Permission differences between feeds</li><li>Pointer Resolution: User objects need special handling</li></ol><p>  Common Causes:</p><ul><li>Missing preload in feed configuration</li><li>Boundary checks filtering out data</li><li>Incorrect pointer resolution for User objects</li></ul><p>  Issue: Performance Problems</p><p>  Symptoms: Slow feed loading
+  Check:</p><ol><li>Deferred Joins: Enabled for large datasets?</li><li>N+1 Queries: Proper use of proload vs preload</li><li>Context Rules: Loading too much unnecessary data?</li></ol><p>  Issue: Permission Errors</p><p>  Symptoms: Unauthorized access or missing content
+  Check:</p><ol><li>Feed Presets: Correct permission requirements?</li><li>include_flags: Proper moderator permissions?</li><li>Boundary Configuration: Object-level permissions set correctly?</li></ol><p>  Debugging Steps</p><ol><li>Check Feed Preset: Is the feed accessible to the user?</li><li>Verify Filters: Are the correct filters being applied?</li><li>Examine Preloads: Is the necessary data being loaded?</li><li>Test Boundaries: Are permission checks working correctly?</li><li>Compare Query Paths: Activity vs Edge queries for same data</li></ol><p>  Implementation Checklist</p><p>  When working on feed-related features:</p><p>  Before Starting</p><ul><li>Identify feed type (Activity vs Edge based)</li><li>Check existing preload rules for context</li><li>Understand permission requirements</li><li>Review similar implementations</li></ul><p>  During Implementation</p><ul><li>Add appropriate preload rules to runtime_config.ex</li><li>Handle User objects with pointer_query if needed</li><li>Respect boundary check patterns</li><li>Consider performance implications</li><li>Test with different user permission levels</li></ul><p>  Testing</p><ul><li>Test as regular user</li><li>Test as moderator/admin</li><li>Verify preloading works correctly</li><li>Check performance with large datasets</li><li>Ensure boundary checks work as expected</li></ul><p>  This documentation should serve as a comprehensive reference for understanding and working with the Bonfire feed system, eliminating
+  the need for extensive research on each feed-related task.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="design.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Design Guidelines
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="just.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Just commands
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

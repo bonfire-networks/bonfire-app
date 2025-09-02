@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.3">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+
+
+    <title>PhoenixTest — Bonfire v1.0.0-social-rc.2.13</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+
+    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.0-social-rc.2.13
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>PhoenixTest</h1>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/topics/PHOENIX_TEST.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>PhoenixTest provides a unified way of writing feature tests -- regardless of whether you're testing LiveView pages or static pages.</p><p>It also handles navigation between LiveView and static pages seamlessly. So, you don't have to worry about what type of page you're visiting. Just write the tests from the user's perspective.</p><p>Thus, you can test a flow going from static to LiveView pages and back without having to worry about the underlying implementation.</p><p>This is a sample flow:</p><p>test &quot;admin can create a user&quot;, %{conn: conn} do
+  conn
+  |&gt; visit(&quot;/&quot;)
+  |&gt; click_link(&quot;Users&quot;)
+  |&gt; fill_in(&quot;Name&quot;, with: &quot;Aragorn&quot;)
+  |&gt; choose(&quot;Ranger&quot;)
+  |&gt; assert_has(&quot;.user&quot;, text: &quot;Aragorn&quot;)
+end</p><p>Usage
+Now that we have all the setup out of the way, we can create tests like this:</p><h1>test/my_app_web/features/admin_can_create_user_test.exs</h1><p>defmodule MyAppWeb.AdminCanCreateUserTest do
+  use MyAppWeb.ConnCase, async: true</p><p>  test &quot;admin can create user&quot;, %{conn: conn} do</p><pre><code class="makeup elixir" translate="no"><span class="n">conn</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">visit</span><span class="p" data-group-id="5870995658-1">(</span><span class="s">&quot;/&quot;</span><span class="p" data-group-id="5870995658-1">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">click_link</span><span class="p" data-group-id="5870995658-2">(</span><span class="s">&quot;Users&quot;</span><span class="p" data-group-id="5870995658-2">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">fill_in</span><span class="p" data-group-id="5870995658-3">(</span><span class="s">&quot;Name&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">with</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Aragorn&quot;</span><span class="p" data-group-id="5870995658-3">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">fill_in</span><span class="p" data-group-id="5870995658-4">(</span><span class="s">&quot;Email&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">with</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;aragorn@dunedain.com&quot;</span><span class="p" data-group-id="5870995658-4">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">click_button</span><span class="p" data-group-id="5870995658-5">(</span><span class="s">&quot;Create&quot;</span><span class="p" data-group-id="5870995658-5">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assert_has</span><span class="p" data-group-id="5870995658-6">(</span><span class="s">&quot;.user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Aragorn&quot;</span><span class="p" data-group-id="5870995658-6">)</span></code></pre><p>  end
+end
+copy
+Filling out forms
+We can fill out forms by targetting their inputs, selects, etc. by label:</p><p>test &quot;admin can create user&quot;, %{conn: conn} do
+  conn
+  |&gt; visit(&quot;/&quot;)
+  |&gt; click_link(&quot;Users&quot;)
+  |&gt; fill_in(&quot;Name&quot;, with: &quot;Aragorn&quot;)
+  |&gt; select(&quot;Elessar&quot;, from: &quot;Aliases&quot;)
+  |&gt; choose(&quot;Human&quot;) # &lt;- choose a radio option
+  |&gt; check(&quot;Ranger&quot;) # &lt;- check a checkbox
+  |&gt; click_button(&quot;Create&quot;)
+  |&gt; assert_has(&quot;.user&quot;, text: &quot;Aragorn&quot;)
+end
+copy
+For more info, see fill_in/3, select/3, choose/3, check/2, uncheck/2.</p><p>Submitting forms without clicking a button
+Once we've filled out a form, you can click a button with click_button/2 to submit the form. But sometimes you want to emulate what would happen by just pressing &lt;Enter&gt;.</p><p>For that case, you can use submit/1 to submit the form you just filled out.</p><p>session
+|&gt; fill_in(&quot;Name&quot;, with: &quot;Aragorn&quot;)
+|&gt; check(&quot;Ranger&quot;)
+|&gt; submit()
+copy
+For more info, see submit/1.</p><p>Targeting which form to fill out
+If you find yourself in a situation where you have multiple forms with the same labels (even when those labels point to different inputs), then you might have to scope your form-filling.</p><p>To do that, you can scope all of the form helpers using within/3:</p><p>session
+|&gt; within(&quot;#user-form&quot;, fn session -&gt;
+  session
+  |&gt; fill_in(&quot;Name&quot;, with: &quot;Aragorn&quot;)
+  |&gt; check(&quot;Ranger&quot;)
+  |&gt; click_button(&quot;Create&quot;)
+end)</p><p>Functions
+assert_has(session, selector)
+Assert helper to ensure an element with given CSS selector is present. eg. <code class="inline">assert_has(session, &quot;div&quot;)</code> or <code class="inline">assert_has(session, &quot;#my_div&quot;)</code>
+assert_has(session, selector, opts)
+Assert helper to ensure an element with given CSS selector and options. eg: <code class="inline">assert_has(session, &quot;div&quot;, text: &quot;my string&quot;)</code>
+assert_path(session, path)
+Assert helper to verify current request path. Takes an optional query_params map.
+assert_path(session, path, opts)
+Same as assert_path/2 but takes an optional query_params map.
+check(session, label, opts \ [exact: true])
+Check a checkbox.
+check(session, checkbox_selector, label, opts)
+Like check/3 but allows you to specify the checkbox's CSS selector.
+choose(session, label, opts \ [exact: true])
+Choose a radio button option.
+choose(session, radio_selector, label, opts)
+Like choose/3 but you can specify an input's selector (in addition to the label).
+click_button(session, text)
+Perfoms action defined by button with given text (using a substring match). The action is based on attributes present.
+click_button(session, selector, text)
+Performs action defined by button with CSS selector and text.
+click_link(session, text)
+Clicks a link with given text (using a substring match) and performs the action.
+click_link(session, selector, text)
+Clicks a link with given CSS selector and text and performs the action. selector to target the link.
+fill_in(session, label, opts)
+Fills text inputs and textareas, targetting the elements by their labels.
+fill_in(session, input_selector, label, opts)
+Like fill_in/3 but you can specify an input's selector (in addition to the label).
+open_browser(session)
+Open the default browser to display current HTML of session.
+refute_has(session, selector)
+Opposite of assert_has/2 helper. Verifies that element with given CSS selector is not present.
+refute_has(session, selector, opts)
+Opposite of assert_has/3 helper. Verifies that element with given CSS selector and text is not present.
+refute_path(session, path)
+Verifies current request path is NOT the one provided. Takes an optional query_params map for more specificity.
+refute_path(session, path, opts)
+Same as refute_path/2 but takes an optional query_params for more specific refutation.
+select(session, option, opts)
+Selects an option from a select dropdown.
+select(session, select_selector, option, opts)
+Like select/3 but you can specify a select's CSS selector (in addition to the label).
+submit(session)
+Helper to submit a pre-filled form without clicking a button (see fill_in/3, select/3, choose/3, etc. for how to fill a form.)
+uncheck(session, label, opts \ [exact: true])
+Uncheck a checkbox.
+uncheck(session, checkbox_selector, label, opts)
+Like uncheck/3 but allows you to specify the checkbox's CSS selector.
+unwrap(session, fun)
+Escape hatch to give users access to underlying &quot;native&quot; data structure.
+upload(session, label, path, opts \ [exact: true])
+Upload a file.
+upload(session, input_selector, label, path, opts)
+Like upload/4 but you can specify an input's selector (in addition to the label).
+visit(conn, path)
+Entrypoint to create a session.
+within(session, selector, fun)
+Helpers to scope filling out form within a given selector. Use this if you have more than one form on a page with similar labels.</p><h2 id="example-from-the-bonfire-codebase" class="section-heading"><a href="#example-from-the-bonfire-codebase" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example from the Bonfire codebase</span></h2><p>  setup do</p><pre><code class="makeup elixir" translate="no"><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_account!</span><span class="p" data-group-id="7428056098-1">(</span><span class="p" data-group-id="7428056098-1">)</span><span class="w">
+</span><span class="n">me</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_user!</span><span class="p" data-group-id="7428056098-2">(</span><span class="n">account</span><span class="p" data-group-id="7428056098-2">)</span><span class="w">
+
+</span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conn</span><span class="p" data-group-id="7428056098-3">(</span><span class="ss">user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p">,</span><span class="w"> </span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="n">account</span><span class="p" data-group-id="7428056098-3">)</span><span class="w">
+
+</span><span class="p" data-group-id="7428056098-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">conn</span><span class="p">:</span><span class="w"> </span><span class="n">conn</span><span class="p">,</span><span class="w"> </span><span class="ss">account</span><span class="p">:</span><span class="w"> </span><span class="n">account</span><span class="p">,</span><span class="w"> </span><span class="ss">me</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p" data-group-id="7428056098-4">}</span></code></pre><p>  end</p><p>  test &quot;I can add a circle to a preset and specify the role&quot;, %{conn: conn, me: me} do</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="6498509529-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="6498509529-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="6498509529-2">(</span><span class="n">me</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6498509529-3">%{</span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6498509529-4">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bestie&quot;</span><span class="p" data-group-id="6498509529-4">}</span><span class="p" data-group-id="6498509529-3">}</span><span class="p" data-group-id="6498509529-2">)</span><span class="w">
+
+</span><span class="n">conn</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">visit</span><span class="p" data-group-id="6498509529-5">(</span><span class="s">&quot;/boundaries/acls&quot;</span><span class="p" data-group-id="6498509529-5">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">click_button</span><span class="p" data-group-id="6498509529-6">(</span><span class="s">&quot;[data-role=open_modal]&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;New preset&quot;</span><span class="p" data-group-id="6498509529-6">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">fill_in</span><span class="p" data-group-id="6498509529-7">(</span><span class="s">&quot;Enter a name for the boundary preset&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">with</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;friends&quot;</span><span class="p" data-group-id="6498509529-7">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">click_button</span><span class="p" data-group-id="6498509529-8">(</span><span class="s">&quot;[data-role=new_acl_submit]&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p" data-group-id="6498509529-8">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assert_has</span><span class="p" data-group-id="6498509529-9">(</span><span class="s">&quot;[role=banner]&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;friends&quot;</span><span class="p" data-group-id="6498509529-9">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">click_button</span><span class="p" data-group-id="6498509529-10">(</span><span class="s">&quot;[data-role=add-circle-to-acl]&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;bestie&quot;</span><span class="p" data-group-id="6498509529-10">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assert_has</span><span class="p" data-group-id="6498509529-11">(</span><span class="s">&quot;#edit_grants&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bestie&quot;</span><span class="p" data-group-id="6498509529-11">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">choose</span><span class="p" data-group-id="6498509529-12">(</span><span class="s">&quot;Edit&quot;</span><span class="p" data-group-id="6498509529-12">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assert_has</span><span class="p" data-group-id="6498509529-13">(</span><span class="s">&quot;[data-role=toggle_role]&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Edit&quot;</span><span class="p" data-group-id="6498509529-13">)</span></code></pre><p>  end</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="liveview-optimizations.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+LiveView optimizations
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="pubsub_guide.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Bonfire PubSub System Guide
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
