@@ -9,8 +9,6 @@ Bonfire provides powerful search and discovery tools to help you find people, po
 - Filter results by **All types**, **Users**, or **Posts**.
 - Switch between **Public only** and **Private** (e.g. DMs or custom boundaries) tabs to control the scope of your search.
 
-![Bonfire search UI](../assets/search-ui.png)
-
 ## What Can You Search?
 
 - **Users:** Find people by username, display name, or address—on your instance or across the fediverse.
