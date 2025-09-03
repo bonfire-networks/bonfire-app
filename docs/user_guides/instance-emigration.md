@@ -7,6 +7,7 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
 ## Table of Contents
 
 - [Before you move](#before-you-move)
+- [Available exports](#available-exports)
 - [Step 1: Export your data](#step-1-export-your-data)
 - [Step 2: Create your new account](#step-2-create-your-new-account)
 - [Step 3: Set up account aliases](#step-3-set-up-account-aliases)
@@ -19,7 +20,6 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
 
 ### Things to consider
 
-- **Posts cannot be migrated** - Your post history will remain on your old Bonfire instance
 - **Process is irreversible** - Account moves cannot be undone
 - **Different features** - Your new instance may have different capabilities than Bonfire
 
@@ -28,17 +28,36 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
 ✅ **Automatically transferred:**
 - Your followers (if the destination supports ActivityPub moves)
 
-✅ **Can be manually imported:**
-- Profiles you follow
-- Blocked, silenced, and ghosted profiles
-- Bookmarked posts
-- Custom circles/lists 
+✅ **Can be manually exported:**
+- See [Available exports](#available-exports) below for the complete list
 
 ❌ **Cannot be migrated:**
-- Your posts and media
-- Post statistics (likes, boosts, replies)
-- Conversation history
+- Private conversation history 
+- Media files (though references may be preserved)
+- Instance-specific features (circles may become lists, etc.)
 
+## Available exports
+
+You can export the following data from **Settings > Export**:
+
+**Relationship data (CSV format):**
+- **Following** and **Follow Requests** - Everyone you follow or want to follow
+- **Followers** - Everyone who follows you  
+- **Circles** - Your custom groups and their members
+- **Blocked, silenced and/or ghosted accounts** - Privacy and safety settings
+
+**Activity data (CSV format):**
+- **Posts** and **Messages** - Things you've shared
+- **Bookmarks** - Posts you've saved for later
+- **Likes** - Posts you've appreciated
+- **Boosts** - Posts you've shared with your followers
+
+**Complete archives (JSON + files):**
+You can request a complete archive once every 7 days that includes:
+- All the CSV data above
+- Your posts in ActivityStreams format (compatible with other platforms)
+- Your uploaded images and files
+- Your profile information 
 
 ## Step 1: Export your Bonfire data
 
@@ -47,8 +66,10 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
    - Following list
    - Blocked, silenced, and ghosted profiles
    - Bookmarks
+   - Likes
+   - Boosts
    - Circles/Lists 
-3. Request a full archive of your posts for personal backup, which will contain
+3. Also request a full archive of your posts for personal backup, which will contain:
    - All of the CSV files above
    - Activities in ActivityPub JSON format
    - Your uploads
@@ -106,8 +127,9 @@ A step-by-step guide for migrating your account from Bonfire to another fedivers
    - Upload `blocked_accounts.csv` and `muted_accounts.csv`
    - Choose your merge/overwrite preference
 
-4. **Import other lists:**
-   - Upload any other CSV files (bookmarks, custom lists/circles)
+4. **Import other data:**
+   - Upload any other CSV files (bookmarks, likes, boosts, custom lists/circles)
+   - Upload your outbox JSON file to import posts and activities, if supported
    - Note: Not all instance types support all import types
 
 ⏱️ **Processing time:** Large lists may take several minutes to process

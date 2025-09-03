@@ -31,8 +31,6 @@ Welcome to the Bonfire user documentation! These guides are designed to help you
 
 - [Managing your data](./data-manage.md)
     - [Moving your information](./data-manage.md#moving-your-information)
-        - [Available exports](./data-manage.md#available-exports)
-        - [Importing data](./data-manage.md#importing-data)
     - [Deleting your data](./data-manage.md#deleting-your-data)
     - [Frequently Asked Questions](./data-manage.md#frequently-asked-questions)
 - [Moving to a Bonfire instance](./instance-immigration.md)

@@ -10,6 +10,7 @@ A step-by-step guide for migrating your account from another fediverse instance 
 - [Step 1: Export your data from your old instance](#step-1-export-your-data-from-your-old-instance)
 - [Step 2: Create your Bonfire account](#step-2-create-your-bonfire-account)
 - [Step 3: Set up account aliases](#step-3-set-up-account-aliases)
+- [Importing data](#importing-data)
 - [Step 4: Import your data into Bonfire](#step-4-import-your-data-into-bonfire)
 - [Step 5: Move your followers](#step-5-move-your-followers)
 - [Step 6: Clean up your old account](#step-6-clean-up-your-old-account)
@@ -32,18 +33,12 @@ A step-by-step guide for migrating your account from another fediverse instance 
 - Your followers (if your old instance supports ActivityPub moves)
 
 ✅ **Can be manually imported:**
-- Profiles you follow
-- Blocked accounts
-- Muted accounts
-- Bookmarked posts (if your old instance exports them)
-- Lists/circles (if your old instance exports them)
+- See [supported imports](#supported-imports) below for the complete list
 
 ❌ **Cannot be migrated:**
-- Your posts and media
-- Post statistics (likes, boosts, replies)
-- Conversation history
-- Instance-specific features (lists may become circles, etc.)
-
+- Private conversation history 
+- Media files (though references may be preserved)
+- Instance-specific features 
 
 ## Step 1: Export your data from your old instance
 
@@ -52,7 +47,7 @@ The export process varies by software. Here are common locations:
 ### From Mastodon
 1. Go to **Settings > Import and export > Data export**
 2. Download CSV files for follows, blocks, mutes, bookmarks, and lists
-3. Request archive of posts and media
+3. Request full archive of posts and media
 
 ### From Bonfire (if migration between two Bonfire instances)
 1. Go to **Settings > Export**
@@ -125,6 +120,56 @@ The process varies by software:
 5. ✅ Both accounts should now show the other as a verified alias
 
 
+## Importing data
+
+The import system is designed to be flexible and safe. Here's how it works:
+
+**What you can import:**
+- **CSV files** - Relationship and activity data from Bonfire or other platforms like Mastodon
+- **JSON files** - Complete post history and activities (your "outbox")
+
+**How importing works:**
+1. **Upload your file** - Drop a CSV or JSON file in Settings > Import
+2. **Jobs are queued** - Large imports are processed in the background so you can keep using Bonfire
+3. **Smart handling** - The system automatically skips duplicates and handles errors gracefully
+4. **Track progress** - Monitor your import progress in Settings > Import History
+
+### Supported imports
+
+- **Following lists** - People you want to re-follow
+- **Block lists** - Accounts you want to block, silence, or ghost
+- **Bookmarks** - Saved posts (if your old platform exports them)
+- **Likes and Boosts** - Preserve your past interactions (without re-notifying people)
+- **Circles/Lists** - Custom lists become Bonfire circles
+- **Complete post history** - Your entire posting history (including posts and other content you created) with preserved dates and URLs (if your old platform exports a JSON archive of your outbox)
+
+**Import safety:**
+- Duplicates are automatically detected and skipped
+- Invalid data is ignored without breaking the import
+- You can track exactly what succeeded or failed
+- Imports don't affect your existing data
+
+### Data preservation
+
+Bonfire takes special care to preserve your content's original identity when importing posts and other content you created. Here's what happens:
+
+**Your content maintains its original identity:**
+- Posts keep their original timestamps and canonical URLs
+- Replies from different instances remain correctly linked to their parent posts
+- Like and boost counts are maintained as they were
+- Your timeline stays chronologically accurate
+
+**How it works:**
+- Imported posts are boosted to make them visible on your new profile timeline
+- These boosts are not pushed to people's feeds or notifications, so your old content appears on your profile without flooding anyone with historical posts
+
+**What this means for you:**
+- Your posting history appears complete and in the correct chronological order
+- People can still find and interact with your old posts using their original links
+- If people interact (such as like or reply) with your old posts, you will not receive notifications on your new profile
+- Conversations and reply threads remain intact across instances
+- You don't have to worry about annoying your new followers with old content
+
 ## Step 4: Import your data into Bonfire
 
 1. Go to **Settings > Import** in your Bonfire instance
@@ -136,11 +181,14 @@ The process varies by software:
 3. **Import blocks and/or silences and ghosts:**
    - Upload CSV files you exported previously
 
-4. **Import bookmarks:**
+4. **Import other data:**
    - Upload bookmarks CSV if available from your previous instance 
-
-5. **Import lists as circles:** 
+   - Upload likes and boosts CSV if available from your previous instance
    - Upload lists/circles CSV if available from your previous instance
+
+5. **Import posts and activities:**
+   - Upload your outbox JSON export to restore your posts, replies, and other content
+   - Note: Posts are preserved with their original dates and URLs, then boosted to appear in your new profile's timeline without notifying your current followers
 
 ⏱️ **Processing time:** Large lists may take several minutes or hours to process
 
