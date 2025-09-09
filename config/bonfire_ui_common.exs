@@ -154,7 +154,7 @@ config :bonfire,
     reply: ["Reply", "Respond", "Annotate"],
     create: ["Create", "Write"],
     react: ["Like", "Boost", "Flag", "Tag", "Pin"],
-    simple_action: ["Assign", "Label", "Schedule"]
+    simple_action: ["Assign", "Label", "Schedule", "Request", "Request to Quote", "Request to Follow"]
   ]
 
 config :bonfire_ui_common, Bonfire.UI.Common.SmartInputLive,

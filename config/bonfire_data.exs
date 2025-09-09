@@ -799,6 +799,7 @@ config :bonfire_data_social, Activity,
        @like_ulid "11KES11KET0BE11KEDY0VKN0WS"
        @boost_ulid "300STANN0VNCERESHARESH0VTS"
        @follow_ulid "70110WTHE1EADER1EADER1EADE"
+       @annotate_ulid "110VET0ANN0TATEEVERYTH1NGS"
 
        # mixins (note most should be linked to the object rather than the activity)
        (unquote_splicing(
