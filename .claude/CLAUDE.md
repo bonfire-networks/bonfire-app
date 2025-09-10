@@ -1,17 +1,20 @@
-- prepend every mix action with "just"
-
 ## Core Principles
 
-- **Extension-Based Modularity**: Organize code into specific extension types (common, data, UI) that can be composed.
+- Consent-based coding, always think and plan, then check assumptions and present your solution, and only then can you help implementing.
 - Write clean, concise, functional code using small, focused functions.
 - **Explicit Over Implicit**: Prefer clarity over magic.
-- **Single Responsibility**: Each module and function should do one thing well.
+- **Single Responsibility**: Each module, component, and function should do one thing well.
 - **Easy to Change**: Design for maintainability and future change.
 - **YAGNI**: Don't build features until they're needed.
 
 ## Project Structure
 
-- **Extensions in `extensions/` or `deps/`**: Modular components of the system.
+- This is a modular multi-repo web application written in Elixir using Phoenix and Surface web frameworks.
+- Bonfire is *modular*, with *extensions as mix dependencies* which are typically included as path deps during dev, so when looking for a component or module like `<Bonfire.UI.Me.ProfileLinkLive.render> lib/components/profile/links/profile_link_live.sface:1 (bonfire_ui_me)` you should look first in `extensions/bonfire_ui_me/lib/components/profile/links/profile_link_live.sface`
+- When you can't guess the correct path, look first in `lib` and `extensions/*/lib` and `forks/*/lib`, and if not then in `deps/*/lib` - DO NOT grep without specifying a path. For frontend code filter by *.heex, *.sface, *.ex. For backend code filter by *.ex, *.exs.
+- Dependencies are usually defined in files such as `deps.hex`, `deps.git`, and `deps.local` instead of all being listed in `mix.exs`
+- **Extensions are cloned in `extensions/`**: Modular components of the system.
+- **Libraries that are being modified are cloned in `forks/`**
 - **Data schemas in `bonfire_data_*` extensions**: For data persistence and schemas.
 - **Separation of Core and UI**: Keep business logic in core extensions separate from UI components in UI extensions (in `bonfire_ui_*` extensions).
 - **Cross-Cutting Infrastructure**: Place shared functionality or components in common extensions such as `bonfire_common` or `bonfire_ui_common`.
@@ -19,7 +22,7 @@
 
 ## Coding Style
 
-- **Follow standard Elixir practices** and let `mix format` take care of formatting (run before committing Elixir code).
+- **Follow standard Elixir practices** and let `just mix format` take care of formatting (run before committing Elixir code).
 - **Always assume the server is running on port 4000**
 - **Use Tidewave MCP to: run SQL queries, run elixir code, introspect the logs and runtime, fetch doccumentation from hex docs, see all the ecto schemas, and much more**
 - **Use one module per file** unless the module is only used internally by another module.
@@ -57,25 +60,23 @@
 ## Data Validation and Database
 
 - **Use Ecto changesets** for data validation, even outside of database contexts.
-- **Avoid N+1 Queries**: Use our `proload` macro to join and preload associations (e.g., `proload(query, activity: [reply_to: [author: [:profile, :account]]])`.
 - **Implement proper indexing** for performance.
+- **Always** preload Ecto associations (in queries, contexts, or using `update_many` in components to avoid n+1) when they'll be accessed in UI, ie a message that needs to reference the `message.user.email`. Use our `proload` macro to join and preload associations on queries (e.g., `proload(query, activity: [reply_to: [author: [:profile, :account]]])`.
+- `Ecto.Schema` fields always use the `:string` type, even for `:text`, columns, ie: `field :name, :string`
+- By default, Ecto validations only run if a change for the given field exists and the change value is not nil, so such as option is never needed
+- As such, `Ecto.Changeset.validate_number/2` DOES NOT SUPPORT the `:allow_nil` option
+- You **must** use `Ecto.Changeset.get_field(changeset, :field)` to access changeset fields
+- Fields which are set programatically, such as `user_id`, must not be listed in `cast` calls or similar for security purposes. Instead they must be explicitly set when creating the struct
 
 ## UI and Frontend
 
 - **Use Surface UI framework (based on Phoenix LiveView)** for dynamic, real-time interactions.
-- **Implement responsive design** with DaisyUI components and Tailwind CSS.
-- **Function Components**: Create or use function components (with `use Bonfire.UI.Common.Web, :stateless_component`) or stateful components (with `use Bonfire.UI.Common.Web, :stateful_component`) for reusable UI elements.
-- Include components using:
-  ```elixir
-  <StatelessComponent module={maybe_component(Bonfire.UI.MyExtension.MyFunctionComponentLive, @__context__)} />
-  ```
-  or 
-  ```elixir
-  <StatefulComponent id="myid" module={maybe_component(Bonfire.UI.MyExtension.MyLiveComponentLive, @__context__)} />
-  ```
+- **Produce world-class responsive UI designs** using DaisyUI components and TailwindCSS, with a focus on usability, accessibility, progressive enhancement, simple aesthetics, and modern design principles
 - **Localize user-facing strings** with our `l` macro which wraps gettext.
-- **Phoenix helpers**: Put `handle_event` functions in a shared `LiveHandler` module per extension to keep views and components DRY.
 - **Accessibility**: Apply best practices such as **WCAG**.
+- Implement **subtle micro-interactions** (e.g., button hover effects, and smooth transitions), using `Phoenix.LiveView.JS` where possible
+- Ensure **clean typography, spacing, and layout balance** for a refined, premium look
+- Focus on **delightful details** like hover effects, loading states, and smooth page transitions
 
 ## Testing
 
@@ -83,6 +84,7 @@
 - Include doctests for pure functions (even if that means making private functions public) and test suites focused on public context APIs or UI flows.
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
+- Use PhoenixTest for UI testing.
 
 ## Security
 
@@ -98,10 +100,12 @@
 - **Cautious Refactoring**: Propose bug fixes or optimizations without changing behavior or unrelated code.
 - **Comments**: Write comments only when information cannot be included in docs.
 
+## Mix guidelines
 
-
-# Agents.md
-This is a web application written using Phoenix and Surface web frameworks.
+- Prepend every mix action with `just`, eg. `just mix format` instead of `mix format`. You can read the `justfile` for a list of just commands.
+- Read the docs and options before using tasks (by using `just mix help task_name`)
+- To debug test failures, run tests in a specific file with `just test test/my_test.exs` or run all previously failed tests with `just test --failed`
+- `just mix deps.clean --all` is **almost never needed**. **Avoid** using it unless you have good reason
 
 ## Elixir guidelines
 
@@ -162,98 +166,34 @@ This is a web application written using Phoenix and Surface web frameworks.
 - Elixir's builtin OTP primitives like `DynamicSupervisor` and `Registry`, require names in the child spec, such as `{DynamicSupervisor, name: MyApp.MyDynamicSup}`, then you can use `DynamicSupervisor.start_child(MyApp.MyDynamicSup, child_spec)`
 - Use `Task.async_stream(collection, callback, options)` for concurrent enumeration with back-pressure. The majority of times you will want to pass `timeout: :infinity` as option
 
-## Mix guidelines
-
-- Read the docs and options before using tasks (by using `just mix help task_name`)
-- To debug test failures, run tests in a specific file with `just test test/my_test.exs` or run all previously failed tests with `just test --failed`
-- `just mix deps.clean --all` is **almost never needed**. **Avoid** using it unless you have good reason
-
-## Phoenix guidelines
-
-- Remember Phoenix router `scope` blocks include an optional alias which is prefixed for all routes within the scope. **Always** be mindful of this when creating routes within a scope to avoid duplicate module prefixes.
-
-- You **never** need to create your own `alias` for route definitions! The `scope` provides the alias, ie:
-
-      scope "/admin", AppWeb.Admin do
-        pipe_through :browser
-
-        live "/users", UserLive, :index
-      end
-
-  the UserLive route would point to the `AppWeb.Admin.UserLive` module
-
-## Ecto Guidelines
-
-- **Always** preload Ecto associations in queries when they'll be accessed in templates, ie a message that needs to reference the `message.user.email`
-- Remember `import Ecto.Query` and other supporting modules when you write `seeds.exs`
-- `Ecto.Schema` fields always use the `:string` type, even for `:text`, columns, ie: `field :name, :string`
-- `Ecto.Changeset.validate_number/2` **DOES NOT SUPPORT the `:allow_nil` option**. By default, Ecto validations only run if a change for the given field exists and the change value is not nil, so such as option is never needed
-- You **must** use `Ecto.Changeset.get_field(changeset, :field)` to access changeset fields
-- Fields which are set programatically, such as `user_id`, must not be listed in `cast` calls or similar for security purposes. Instead they must be explicitly set when creating the struct
-
 ## Phoenix HTML guidelines
 
-- Phoenix and Surface templates **always** use `~H` or `~S` or .heex or .sface files (known as HEEx), **never** use `~E`
+- **Function Components**: Create or use function components (with `use Bonfire.UI.Common.Web, :stateless_component`) or stateful components (with `use Bonfire.UI.Common.Web, :stateful_component`) for reusable UI elements.
+- Include components using:
+  ```elixir
+  <StatelessComponent module={maybe_component(Bonfire.UI.MyExtension.MyFunctionComponentLive, @__context__)} />
+  ```
+  or 
+  ```elixir
+  <StatefulComponent id="myid" module={maybe_component(Bonfire.UI.MyExtension.MyLiveComponentLive, @__context__)} />
+  ```
+- **Phoenix helpers**: Put `handle_event` functions in a shared `LiveHandler` module per extension to keep views and components DRY.
+- Remember Phoenix router `scope` blocks include an optional alias which is prefixed for all routes within the scope. **Always** be mindful of this when creating routes within a scope to avoid duplicate module prefixes.
+- Phoenix and Surface templates **always** use `~H` or `~S` or .heex or .sface files (known as HEEx), **never** use `~E`. Prefer using Surface with separate `.sface` files by default.
 - **Always** use the imported `Phoenix.Component.form/1` and `Phoenix.Component.inputs_for/1` function to build forms. **Never** use `Phoenix.HTML.form_for` or `Phoenix.HTML.inputs_for` as they are outdated
 - When building forms **always** use the already imported `Phoenix.Component.to_form/2` (`assign(socket, form: to_form(...))` and `<.form for={@form} id="msg-form">`), then access those forms in the template via `@form[:field]`
-- **Always** add unique DOM IDs to key elements (like forms, buttons, etc) when writing templates, these IDs can later be used in tests (`<.form for={@form} id="product-form">`)
+- **Always** add *UNIQUE* DOM IDs to key elements (like forms, buttons, etc) when writing templates, these IDs can later be used in tests (`<.form for={@form} id="signup-form">` or `<.li id={"item-#{id}"}>`)
 - For "app wide" template imports, you can import/alias into the `Bonfire.UI.Common.Web`'s `html_helpers` block, so they will be available to all LiveViews, LiveComponent's, and all modules that do `use Bonfire.UI.Common.Web, :html` 
-
-- HEEx require special tag annotation if you want to insert literal curly's like `{` or `}`. If you want to show a textual code snippet on the page in a `<pre>` or `<code>` block you *must* annotate the parent tag with `phx-no-curly-interpolation`:
-
-      <code phx-no-curly-interpolation>
-        let obj = {key: "val"}
-      </code>
-
-  Within `phx-no-curly-interpolation` annotated tags, you can use `{` and `}` without escaping them, and dynamic Elixir expressions can still be used with `<%= ... %>` syntax
-
-- HEEx class attrs support lists, but you must **always** use list `[...]` syntax. You can use the class list syntax to conditionally add classes, **always do this for multiple class values**:
-
-      <a class={[
-        "px-2 text-white",
-        @some_flag && "py-5",
-        if(@other_condition, do: "border-red-500", else: "border-blue-100"),
-        ...
-      ]}>Text</a>
-
-  and **always** wrap `if`'s inside `{...}` expressions with parens, like done above (`if(@other_condition, do: "...", else: "...")`)
-
-  and **never** do this, since it's invalid (note the missing `[` and `]`):
-
-      <a class={
-        "px-2 text-white",
-        @some_flag && "py-5"
-      }> ...
-      => Raises compile syntax error on invalid HEEx attr syntax
-
 - **Never** use `<% Enum.each %>` or non-for comprehensions for generating template content, instead **always** use `<%= for item <- @collection do %>`
-- HEEx HTML comments use `<%!-- comment --%>`. **Always** use the HEEx HTML comment syntax for template comments
-- Surface HTML comments use `{!-- comment --}`. **Always** use the Surface HTML comment syntax for template comments
-- HEEx allows interpolation via `{...}` and `<%= ... %>`, but the `<%= %>` **only** works within tag bodies. **Always** use the `{...}` syntax.
-
-## UI/UX & design guidelines
-
-- **Produce world-class UI designs** using DaisyUI and TailwindCSS, with a focus on usability, accessibility, progressive enhancement, simple aesthetics, and modern design principles
-- Implement **subtle micro-interactions** (e.g., button hover effects, and smooth transitions), using `Phoenix.LiveView.JS` where possible
-- Ensure **clean typography, spacing, and layout balance** for a refined, premium look
-- Focus on **delightful details** like hover effects, loading states, and smooth page transitions
-
-## Specific guidelines for this app
-
-- Bonfire is modular, with extensions as mix dependencies which are typically included as path deps during dev, so when looking for a component or module like `<Bonfire.UI.Me.ProfileLinkLive.render> lib/components/profile/links/profile_link_live.sface:1 (bonfire_ui_me)` you should look first in `extensions/bonfire_ui_me/lib/components/profile/links/profile_link_live.sface`
-- When you can't guess the correct path, look first in `lib` and `extensions/*/lib` and `forks/*/lib`, and if not then in `deps/*/lib` - DO NOT grep without specifying a path
-- For frontend code filter by *.heex, *.sface, *.ex
-- For backend code filter by *.ex, *.exs
-
-
+- HEEx HTML comments use `<%!-- comment --%>`. **Always** use this syntax for HEEx template comments. Surface HTML comments use `{!-- comment --}`. **Always** use this syntax for Surface template comments.
+- HEEx and Surface allow interpolation via `{...}` instead of the outdated `<%= ... %>`. **Always** use the `{...}` syntax.
 
 <!-- usage-rules-start -->
 <!-- usage-rules-header -->
 # Usage Rules
 
 **IMPORTANT**: Consult these usage rules early and often when working with the packages listed below. 
-Before attempting to use any of these packages or to discover if you should use them, review their 
-usage rules to understand the correct patterns, conventions, and best practices.
+Before attempting to use any of these packages or to discover if you should use them, review their usage rules to understand the correct patterns, conventions, and best practices.
 <!-- usage-rules-header-end -->
 
 <!-- igniter-start -->
