@@ -55,7 +55,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
 - 🚧 ActivityPub Client to Server API [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) [`1e7ae94`](https://github.com/bonfire-networks/activity_pub/commit/1e7ae94704348a764fa57623cd347fce93a9a317) (thanks @mayel)
 - 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
-- 📝 agents/claude worfklow [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @ivanminutillo)
+- 📝 agents/claude worfklow [`47d9826`](https://github.com/bonfire-networks/bonfire-app/commit/47d9826208c73cdf82d51fe0455230f8e29c97f1), [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @mayel and @ivanminutillo)
 - 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
