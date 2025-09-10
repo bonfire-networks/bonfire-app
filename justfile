@@ -664,16 +664,22 @@ test path *args='': services
 
 test_run *args='': services
 	@echo "Testing with {{args}}..."
-	@MIX_ENV=test just mix test `just test_default_excludes` {{args}}
+	@MIX_ENV=test just mix test `just test_minimum_excludes` {{args}} 
 
 test-backend path='' *args='': services
-	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}`  --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
+	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
 
 test-ui path='' *args='': services
 	MIX_TEST_ONLY=ui just test_run `just test_convert_path {{path}}`  --exclude backend --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
 
+test-others path='' *args='': services
+	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude backend --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
+
 test_default_excludes:
-	@echo "--exclude live_federation --exclude test_instance --exclude todo --exclude skip --exclude benchmark"
+	@echo "--exclude live_federation --exclude test_instance `just test_minimum_excludes`"
+
+test_minimum_excludes:
+	@echo "--exclude todo --exclude skip --exclude benchmark"
 
 # Run only stale tests
 test-stale path='' *args='': services
@@ -760,7 +766,7 @@ test-federation-integration *args=ap_integration: services _test-dance-positions
 test-federation-boundaries *args=ap_boundaries: services _test-dance-positions
 	just test_run {{args}}
 
-test-federation-etc *args=ap_etc: services _test-dance-positions
+test-federation-others *args=ap_etc: services _test-dance-positions
 	just test_run {{args}}
 
 test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
