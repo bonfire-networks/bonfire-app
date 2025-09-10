@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
-- ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
+- ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
+- ✨ Automatically send a DM to participants when publishing a DOI that include them as co-authors [#1510](https://github.com/bonfire-networks/bonfire-app/issues/1510) (thanks @ivanminutillo and @mayel)
+- ✨ add tests for profile migrations [#1503](https://github.com/bonfire-networks/bonfire-app/issues/1503) (thanks @mayel)
 - ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
 - ✨ add a setting to change units (eg for wheather) [#1518](https://github.com/bonfire-networks/bonfire-app/issues/1518) (thanks @mayel)
 - ✨ Automatically send a DM to participants when publishing a DOI that include them as co-authors [#1510](https://github.com/bonfire-networks/bonfire-app/issues/1510) (thanks @ivanminutillo and @mayel)
@@ -27,8 +29,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ add loading indicator that handles both local/federated search results [#1443](https://github.com/bonfire-networks/bonfire-app/issues/1443) (thanks @ivanminutillo)
 - ✨ Feature Proposal: UX Suggestion - Add a visual indicator during large uploads [#1433](https://github.com/bonfire-networks/bonfire-app/issues/1433) (thanks @GreenMan-Network and @mayel)
 - ✨ It would be nice if the media gallery had swipe-between on photos and right-left keypad on desktop [#1424](https://github.com/bonfire-networks/bonfire-app/issues/1424) (thanks @ivanminutillo and @mayel)
+- ✨ When a user boosts its own post, the subject is not shown (the subject minimal is shown correctly instead) [#1397](https://github.com/bonfire-networks/bonfire-app/issues/1397) (thanks @ivanminutillo and @mayel)
 - ✨ Add a view to see the status of profile migrations [#1366](https://github.com/bonfire-networks/bonfire-app/issues/1366) (thanks @mayel and @ivanminutillo)
 - ✨ Events feed preset [#1301](https://github.com/bonfire-networks/bonfire-app/issues/1301) (thanks @ivanminutillo)
+- ✨ URL previews are not generated for remote (federated) posts, like they are for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) (thanks @ivanminutillo and @mayel)
 - ✨ support sign up with openid/oauth providers who don't provide the user's email address [#1017](https://github.com/bonfire-networks/bonfire-app/issues/1017) (thanks @mayel)
 - ✨ Post drafts should persist in memory when a user navigate between pages [#403](https://github.com/bonfire-networks/bonfire-app/issues/403) - [PR #1](https://github.com/bonfire-networks/bonfire-app/pull/1), [PR #2](https://github.com/bonfire-networks/bonfire-app/pull/2), [PR #435](https://github.com/bonfire-networks/bonfire-app/pull/435) (thanks @ivanminutillo, @mayel, and @abaez)
 - ✨ Create SETTINGS_SYSTEM.md [`9e93774`](https://github.com/bonfire-networks/bonfire-app/commit/9e9377418bd86a91aed7be5b344fda010a880aef) (thanks @ivanminutillo)
@@ -37,7 +41,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Create usage_rules.md [`66ebe59`](https://github.com/bonfire-networks/activity_pub/commit/66ebe590fd657546814d5915de8c153b348e6466) (thanks @ivanminutillo)
 
 ### Changed
-- 💅 UX enhancement: Show the full handle w/ domain plus a “Copy” button in profile [#1537](https://github.com/bonfire-networks/bonfire-app/issues/1537) (thanks @ivanminutillo)
+- 📝 AGPL is not a good licence for a library [#6](https://github.com/bonfire-networks/activity_pub/issues/6) (thanks @anhgelus and @mayel)
 - 📝 AGPL is not a good licence for a library [#6](https://github.com/bonfire-networks/activity_pub/issues/6) (thanks @anhgelus and @mayel)
 - 🚀 create integration tests for OpenID and OAuth [#1487](https://github.com/bonfire-networks/bonfire-app/issues/1487) (thanks @mayel)
 - 💅 Currently, when users click on like or boost buttons, there's a noticeable delay (several seconds) before the UI reflects the change in state. This creates a poor user experience as users are unsure if their action was registered. [#1483](https://github.com/bonfire-networks/bonfire-app/issues/1483) (thanks @ivanminutillo and @mayel)
@@ -55,14 +59,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
 - 🚧 ActivityPub Client to Server API [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) [`1e7ae94`](https://github.com/bonfire-networks/activity_pub/commit/1e7ae94704348a764fa57623cd347fce93a9a317) (thanks @mayel)
 - 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
-- 📝 agents/claude worfklow [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @ivanminutillo)
+- 📝 agents/claude worfklow [`47d9826`](https://github.com/bonfire-networks/bonfire-app/commit/47d9826208c73cdf82d51fe0455230f8e29c97f1), [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @mayel and @ivanminutillo)
 - 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
 - 🚧 Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) [`a541126`](https://github.com/bonfire-networks/bonfire-app/commit/a54112638a289e3f37dc46a441bb2e3bd0c85175), [`2920184`](https://github.com/bonfire-networks/activity_pub/commit/292018452e415e679b8ae5cb8db1f3eae2f8fdb3) (thanks @mayel)
 - 🚀 update docs [`bc92597`](https://github.com/bonfire-networks/bonfire-app/commit/bc925979392bbc3e56ac94a106ac45799891e6c6) (thanks @mayel)
 - 📝 fix [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
-- 🚧 URL previews are not generated for remote (federated) posts, like they are for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) [`e1b3a56`](https://github.com/bonfire-networks/activity_pub/commit/e1b3a568ff82ca68f1178df80732714a2ae7933b) (thanks @mayel and @ivanminutillo)
+- 📝 oup [`e2c13dc`](https://github.com/bonfire-networks/bonfire-app/commit/e2c13dcfe46e5e2da19b50bbe54e9bf471ddc653) (thanks @mayel)
 - 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) [`97cde01`](https://github.com/bonfire-networks/bonfire-app/commit/97cde01de6927d8294ae34aaa322775219a0345b) (thanks @mayel)
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
 
