@@ -54,25 +54,58 @@ config :activity_pub, ActivityPub.Web.Endpoint,
     layout: false
   ]
 
-config :activity_pub, :json_contexts,
-  actor: [
-    # TODO: expose Aliases in these fields
-    movedTo: "as:movedTo",
-    alsoKnownAs: %{
-      "@id" => "as:alsoKnownAs",
-      "@type" => "@id"
+config :activity_pub, 
+  json_contexts: %{
+    "Accept" => %{
+      "QuoteRequest"=> "https://w3id.org/fep/044f#QuoteRequest"
     },
-    sensitive: "as:sensitive",
-    # TODO
-    manuallyApprovesFollowers: "as:manuallyApprovesFollowers"
-  ],
-  object: [
-    Hashtag: "as:Hashtag",
-    sensitive: "as:sensitive",
-    # "conversation": "ostatus:conversation", # TODO?
-    ValueFlows: "https://w3id.org/valueflows#",
-    om2: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-  ]
+    "QuoteRequest" => %{
+      "QuoteRequest" => "https://w3id.org/fep/044f#QuoteRequest",
+      "quote" => %{
+        "@id" => "https://w3id.org/fep/044f#quote",
+        "@type" => "@id"
+      }
+    },
+    "QuoteAuthorization" => %{
+      "QuoteAuthorization" => "https://w3id.org/fep/044f#QuoteAuthorization",
+      "gts" => "https://gotosocial.org/ns#",
+      "interactingObject" => %{
+        "@id" => "gts:interactingObject",
+        "@type" => "@id"
+      },
+      "interactionTarget" => %{
+        "@id" => "gts:interactionTarget",
+        "@type" => "@id"
+      }
+    },
+    actor: %{
+      # TODO: expose Aliases in these fields
+      "movedTo" => "as:movedTo",
+      "alsoKnownAs" => %{
+        "@id" => "as:alsoKnownAs",
+        "@type" => "@id"
+      },
+      "sensitive" => "as:sensitive",
+      # TODO
+      "manuallyApprovesFollowers"=> "as:manuallyApprovesFollowers"
+  },
+    object: %{
+      "Hashtag" => "as:Hashtag",
+      "sensitive" => "as:sensitive",
+      # "conversation": "ostatus:conversation", # TODO?
+      "ValueFlows" => "https://w3id.org/valueflows#",
+      "om2" => "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "quote" => %{
+        "@id" => "https://w3id.org/fep/044f#quote",
+        "@type" => "@id"
+      },
+      "_misskey_quote" => "https://misskey-hub.net/ns/#_misskey_quote",
+       "quoteAuthorization" => %{
+        "@id" => "https://w3id.org/fep/044f#quoteAuthorization",
+        "@type" => "@id"
+      }
+    }
+  }
 
 config :hammer,
   backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
