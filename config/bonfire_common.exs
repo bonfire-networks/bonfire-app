@@ -5,7 +5,7 @@ default_locale = "en"
 ## Localisation & internationalisation
 # Only compile additional locales in prod or when explicitly requested
 compile_all_locales? = config_env() == :prod or System.get_env("COMPILE_ALL_LOCALES") in ["true", "1"]
-locales = if compile_all_locales?, do: [default_locale, "fr", "es"], else: [default_locale]
+locales = if compile_all_locales?, do: [default_locale, "fr", "es"], else: [default_locale, "es", "fr"]
 
 config :bonfire_common,
   otp_app: :bonfire,
