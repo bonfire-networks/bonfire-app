@@ -1119,7 +1119,7 @@ shell:
 	{{ if WITH_DOCKER != "no" { "echo Ignoring mix commands when using docker in prod" } else { "just mix-maybe-prod-pre-release $args" } }}
 
 @mix-maybe-prod-pre-release *args='':
-	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)" } else { "just cmd mix $args" } }}
+	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo 'Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)'" } else { "just cmd mix $args" } }}
 
 # Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
 mix-remote *args='': 
