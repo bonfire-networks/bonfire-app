@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.3">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.15">
 
 
-    <title>Bonfire.Social.Graph.Import — Bonfire v1.0.0-social-rc.2.13</title>
+    <title>Bonfire.Social.Graph.Import — Bonfire v1.0.0-social-rc.2.15</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="dist/sidebar_items-83CD6E06.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.13
+          v1.0.0-social-rc.2.15
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Social.Graph.Import</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.13)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.15)</small>
 
     </h1>
 
@@ -108,11 +108,31 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#import_from_csv_file/3" data-no-tooltip="" translate="no">import_from_csv_file(arg1, scope, path)</a>
+        <a href="#import_from_csv_file/3" data-no-tooltip="" translate="no">import_from_csv_file(type, scope, path)</a>
 
       </div>
 
         <div class="summary-synopsis"><p>Import follows, ghosts, silences, or blocks from a CSV file.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#import_from_json/4" data-no-tooltip="" translate="no">import_from_json(type, user_id, outbox_data, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Import user's outbox from parsed JSON data.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#import_from_json_file/4" data-no-tooltip="" translate="no">import_from_json_file(type, user_id, path, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Import user's outbox (posts and activities) from a JSON file.</p></div>
 
     </div>
 
@@ -157,10 +177,10 @@ Bonfire
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">import_from_csv_file(arg1, scope, path)</h1>
+      <h1 class="signature" translate="no">import_from_csv_file(type, scope, path)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L28" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L30" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -169,7 +189,56 @@ Bonfire
 
   <section class="docstring">
 
-<p>Import follows, ghosts, silences, or blocks from a CSV file.</p><h2 id="import_from_csv_file/3-examples" class="section-heading"><a href="#import_from_csv_file/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">import_from_csv_file</span><span class="p" data-group-id="1624152045-1">(</span><span class="ss">:following</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path/to/file.csv&quot;</span><span class="p" data-group-id="1624152045-1">)</span></code></pre>
+<p>Import follows, ghosts, silences, or blocks from a CSV file.</p><h2 id="import_from_csv_file/3-examples" class="section-heading"><a href="#import_from_csv_file/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">import_from_csv_file</span><span class="p" data-group-id="2015625954-1">(</span><span class="ss">:following</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path/to/file.csv&quot;</span><span class="p" data-group-id="2015625954-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="import_from_json/4">
+
+    <span id="import_from_json/3"></span>
+
+  <div class="detail-header">
+    <a href="#import_from_json/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">import_from_json(type, user_id, outbox_data, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L67" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Import user's outbox from parsed JSON data.</p>
+  </section>
+</section>
+<section class="detail" id="import_from_json_file/4">
+
+    <span id="import_from_json_file/3"></span>
+
+  <div class="detail-header">
+    <a href="#import_from_json_file/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">import_from_json_file(type, user_id, path, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L54" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Import user's outbox (posts and activities) from a JSON file.</p><h2 id="import_from_json_file/4-examples" class="section-heading"><a href="#import_from_json_file/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">import_from_json_file</span><span class="p" data-group-id="1675504156-1">(</span><span class="s">&quot;user_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path/to/outbox.json&quot;</span><span class="p" data-group-id="1675504156-1">)</span><span class="w">
+</span><span class="p" data-group-id="1675504156-2">%{</span><span class="ss">imported</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="ss">boosted</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="ss">errors</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1675504156-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="perform/1">
@@ -182,7 +251,7 @@ Bonfire
       <h1 class="signature" translate="no">perform(map)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L257" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L317" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -191,10 +260,10 @@ Bonfire
 
   <section class="docstring">
 
-<p>Perform the queued job based on the operation and scope.</p><h2 id="perform/1-examples" class="section-heading"><a href="#perform/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">perform</span><span class="p" data-group-id="4856248206-1">(</span><span class="p" data-group-id="4856248206-2">%{</span><span class="ss">args</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4856248206-3">%{</span><span class="s">&quot;op&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;follows_import&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;identifier&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;id1&quot;</span><span class="p" data-group-id="4856248206-3">}</span><span class="p" data-group-id="4856248206-2">}</span><span class="p" data-group-id="4856248206-1">)</span><span class="w">
+<p>Perform the queued job based on the operation and scope.</p><h2 id="perform/1-examples" class="section-heading"><a href="#perform/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">perform</span><span class="p" data-group-id="0983744714-1">(</span><span class="p" data-group-id="0983744714-2">%{</span><span class="ss">args</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0983744714-3">%{</span><span class="s">&quot;op&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;follows_import&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;user1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;identifier&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;id1&quot;</span><span class="p" data-group-id="0983744714-3">}</span><span class="p" data-group-id="0983744714-2">}</span><span class="p" data-group-id="0983744714-1">)</span><span class="w">
 </span><span class="ss">:ok</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">perform</span><span class="p" data-group-id="4856248206-4">(</span><span class="p" data-group-id="4856248206-5">%{</span><span class="ss">args</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4856248206-6">%{</span><span class="s">&quot;op&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;blocks_import&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;instance_wide&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;identifier&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;id1&quot;</span><span class="p" data-group-id="4856248206-6">}</span><span class="p" data-group-id="4856248206-5">}</span><span class="p" data-group-id="4856248206-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">perform</span><span class="p" data-group-id="0983744714-4">(</span><span class="p" data-group-id="0983744714-5">%{</span><span class="ss">args</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0983744714-6">%{</span><span class="s">&quot;op&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;blocks_import&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;instance_wide&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;identifier&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;id1&quot;</span><span class="p" data-group-id="0983744714-6">}</span><span class="p" data-group-id="0983744714-5">}</span><span class="p" data-group-id="0983744714-4">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -208,7 +277,7 @@ Bonfire
       <h1 class="signature" translate="no">perform(op, identifier, scope)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L293" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social_graph/blob/main/lib/import.ex#L353" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -217,7 +286,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Perform an import operation for the scope.</p><h2 id="perform/3-examples" class="section-heading"><a href="#perform/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">perform</span><span class="p" data-group-id="1117699521-1">(</span><span class="s">&quot;follows_import&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;identifier&quot;</span><span class="p" data-group-id="1117699521-1">)</span></code></pre>
+<p>Perform an import operation for the scope.</p><h2 id="perform/3-examples" class="section-heading"><a href="#perform/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">perform</span><span class="p" data-group-id="5951695710-1">(</span><span class="s">&quot;follows_import&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;identifier&quot;</span><span class="p" data-group-id="5951695710-1">)</span></code></pre>
   </section>
 </section>
 
@@ -241,7 +310,7 @@ Bonfire
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

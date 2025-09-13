@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.3">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.15">
 
 
-    <title>ActivityPub.Federator.Transformer — Bonfire v1.0.0-social-rc.2.13</title>
+    <title>ActivityPub.Federator.Transformer — Bonfire v1.0.0-social-rc.2.15</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="dist/sidebar_items-83CD6E06.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.13
+          v1.0.0-social-rc.2.15
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">ActivityPub.Federator.Transformer</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.13)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.15)</small>
 
     </h1>
 
@@ -181,7 +181,7 @@ and handles incoming objects and activities</p>
 
       </div>
 
-        <div class="summary-synopsis"><p>Modifies an incoming AP object (mastodon format) to our internal format.</p></div>
+        <div class="summary-synopsis"><p>Modifies an incoming AP object (in mastodon or other apps' flexible formats) to our internal simplified AP format.</p></div>
 
     </div>
 
@@ -195,7 +195,7 @@ and handles incoming objects and activities</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#fix_quote_url/2" data-no-tooltip="" translate="no">fix_quote_url(object, options \\ [])</a>
+        <a href="#fix_quote/2" data-no-tooltip="" translate="no">fix_quote(object, options \\ [])</a>
 
       </div>
 
@@ -261,6 +261,14 @@ and handles incoming objects and activities</p>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#maybe_invalidate_reply_to_cache/1" data-no-tooltip="" translate="no">maybe_invalidate_reply_to_cache(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#prepare_outgoing/2" data-no-tooltip="" translate="no">prepare_outgoing(object, opts \\ [])</a>
 
       </div>
@@ -291,7 +299,7 @@ and handles incoming objects and activities</p>
 
       </div>
 
-        <div class="summary-synopsis"><p>Serialized Mastodon-compatible <code class="inline">replies</code> collection containing <em>self-replies</em>.
+        <div class="summary-synopsis"><p>Serialized Mastodon-compatible <code class="inline">replies</code> collection.
 Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
 
     </div>
@@ -328,7 +336,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">add_emoji_tags(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L652" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L718" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -350,7 +358,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_actor(data)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L319" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L357" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -372,7 +380,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_addressing(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L266" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L304" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -394,7 +402,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_attachments(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L416" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L482" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -416,7 +424,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_content_map(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L558" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L624" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -438,7 +446,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_context(object, options)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L390" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L456" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -460,7 +468,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_emoji(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L510" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L576" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -484,7 +492,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_in_reply_to(object, options \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L330" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L368" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -508,7 +516,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_object(object, options \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L226" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L263" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -517,7 +525,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
 
   <section class="docstring">
 
-<p>Modifies an incoming AP object (mastodon format) to our internal format.</p>
+<p>Modifies an incoming AP object (in mastodon or other apps' flexible formats) to our internal simplified AP format.</p>
   </section>
 </section>
 <section class="detail" id="fix_other_object/2">
@@ -530,7 +538,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_other_object(object, options)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L250" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L288" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -542,19 +550,19 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
 
   </section>
 </section>
-<section class="detail" id="fix_quote_url/2">
+<section class="detail" id="fix_quote/2">
 
-    <span id="fix_quote_url/1"></span>
+    <span id="fix_quote/1"></span>
 
   <div class="detail-header">
-    <a href="#fix_quote_url/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#fix_quote/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">fix_quote_url(object, options \\ [])</h1>
+      <h1 class="signature" translate="no">fix_quote(object, options \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L349" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L387" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -576,7 +584,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_replies(data, options)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L670" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L736" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -598,7 +606,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_summary(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L255" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L293" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -620,7 +628,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_tag(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L536" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L602" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -642,7 +650,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">fix_url(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L487" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L553" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -666,7 +674,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">format_input(text, binary, options \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L628" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L694" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -690,7 +698,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">handle_incoming(data, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L790" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L860" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -712,7 +720,29 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">maybe_handle_other_activity(data, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L1380" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L1483" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="maybe_invalidate_reply_to_cache/1">
+
+  <div class="detail-header">
+    <a href="#maybe_invalidate_reply_to_cache/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">maybe_invalidate_reply_to_cache(arg1)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L133" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -762,7 +792,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">preserve_privacy_of_outgoing(other, target_instance_host \\ nil, target_actor_id \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L126" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L167" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -784,7 +814,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">replies(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L777" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L847" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -806,7 +836,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
       <h1 class="signature" translate="no">set_replies(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L737" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L805" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -815,7 +845,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p></div>
 
   <section class="docstring">
 
-<p>Serialized Mastodon-compatible <code class="inline">replies</code> collection containing <em>self-replies</em>.
+<p>Serialized Mastodon-compatible <code class="inline">replies</code> collection.
 Based on Mastodon's ActivityPub::NoteSerializer#replies.</p>
   </section>
 </section>
@@ -829,7 +859,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p>
       <h1 class="signature" translate="no">take_emoji_tags(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L641" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/transformer.ex#L707" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -862,7 +892,7 @@ Based on Mastodon's ActivityPub::NoteSerializer#replies.</p>
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

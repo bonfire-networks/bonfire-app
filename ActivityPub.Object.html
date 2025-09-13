@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.3">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.13">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.15">
 
 
-    <title>ActivityPub.Object — Bonfire v1.0.0-social-rc.2.13</title>
+    <title>ActivityPub.Object — Bonfire v1.0.0-social-rc.2.15</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-BHUPNQFZ.css" />
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-00D79AF4.js"></script>
+    <script defer src="dist/sidebar_items-83CD6E06.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.13
+          v1.0.0-social-rc.2.15
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">ActivityPub.Object</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.13)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.15)</small>
 
     </h1>
 
@@ -194,7 +194,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#fetch_latest_block/2" data-no-tooltip="" translate="no">fetch_latest_block(map1, map2)</a>
+        <a href="#fetch_latest_activity/3" data-no-tooltip="" translate="no">fetch_latest_activity(actor, object, verb \\ &quot;Follow&quot;)</a>
 
       </div>
 
@@ -202,7 +202,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#fetch_latest_follow/2" data-no-tooltip="" translate="no">fetch_latest_follow(follower_id, followed_id)</a>
+        <a href="#fetch_latest_block/2" data-no-tooltip="" translate="no">fetch_latest_block(map1, map2)</a>
 
       </div>
 
@@ -408,7 +408,15 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#query/1" data-no-tooltip="" translate="no">query(list)</a>
+        <a href="#query/1" data-no-tooltip="" translate="no">query(opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#replies_ids/3" data-no-tooltip="" translate="no">replies_ids(object, limit, opts \\ [])</a>
 
       </div>
 
@@ -550,7 +558,7 @@ Bonfire
       <h1 class="signature" translate="no">actor_from_data(actor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L605" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L620" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -572,7 +580,7 @@ Bonfire
       <h1 class="signature" translate="no">actor_id_from_data(id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L634" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L649" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -594,7 +602,7 @@ Bonfire
       <h1 class="signature" translate="no">all(filters)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L486" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L501" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -616,7 +624,7 @@ Bonfire
       <h1 class="signature" translate="no">changeset(attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L402" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L417" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -638,7 +646,7 @@ Bonfire
       <h1 class="signature" translate="no">changeset(object, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L407" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L422" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -660,7 +668,7 @@ Bonfire
       <h1 class="signature" translate="no">common_changeset(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L419" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L434" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -682,7 +690,7 @@ Bonfire
       <h1 class="signature" translate="no">delete(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L744" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L759" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -704,7 +712,7 @@ Bonfire
       <h1 class="signature" translate="no">do_insert(attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L339" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L354" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -726,7 +734,31 @@ Bonfire
       <h1 class="signature" translate="no">do_update_existing(object, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L436" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L451" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="fetch_latest_activity/3">
+
+    <span id="fetch_latest_activity/2"></span>
+
+  <div class="detail-header">
+    <a href="#fetch_latest_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">fetch_latest_activity(actor, object, verb \\ &quot;Follow&quot;)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L865" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -748,29 +780,7 @@ Bonfire
       <h1 class="signature" translate="no">fetch_latest_block(map1, map2)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L915" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="fetch_latest_follow/2">
-
-  <div class="detail-header">
-    <a href="#fetch_latest_follow/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">fetch_latest_follow(follower_id, followed_id)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L850" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L939" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -794,7 +804,7 @@ Bonfire
       <h1 class="signature" translate="no">get_activity_for_object_ap_id(ap_id, verb \\ &quot;Create&quot;)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L185" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L187" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -816,7 +826,7 @@ Bonfire
       <h1 class="signature" translate="no">get_ap_id(_)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L593" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L608" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -882,7 +892,7 @@ Bonfire
       <h1 class="signature" translate="no">get_existing_announce(actor, map)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L895" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L919" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -904,7 +914,7 @@ Bonfire
       <h1 class="signature" translate="no">get_existing_like(actor, object_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L870" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L894" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -926,7 +936,7 @@ Bonfire
       <h1 class="signature" translate="no">get_follow_activity(follow_object, followed)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L834" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L849" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -950,7 +960,7 @@ Bonfire
       <h1 class="signature" translate="no">get_inbox(all_or_instance_or_actor_url, page \\ 1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L783" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L798" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -974,7 +984,7 @@ Bonfire
       <h1 class="signature" translate="no">get_outbox_for_actor(ap_id, page \\ 1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L759" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L774" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -998,7 +1008,7 @@ Bonfire
       <h1 class="signature" translate="no">get_outbox_for_instance(page \\ 1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L773" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L788" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1042,7 +1052,7 @@ Bonfire
       <h1 class="signature" translate="no">hard_delete(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L751" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L766" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1064,7 +1074,7 @@ Bonfire
       <h1 class="signature" translate="no">hashtags(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L937" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L961" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1086,7 +1096,7 @@ Bonfire
       <h1 class="signature" translate="no">invalidate_cache(map)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L386" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L401" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1108,7 +1118,7 @@ Bonfire
       <h1 class="signature" translate="no">is_deleted?(data)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L723" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L738" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1132,7 +1142,7 @@ Bonfire
       <h1 class="signature" translate="no">make_tombstone(map, deleted \\ DateTime.utc_now())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L711" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L726" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1154,7 +1164,7 @@ Bonfire
       <h1 class="signature" translate="no">maybe_fetch(ap_id, arg2)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L581" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L596" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1176,7 +1186,7 @@ Bonfire
       <h1 class="signature" translate="no">maybe_upsert(arg1, existing_object, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L345" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L360" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1198,7 +1208,7 @@ Bonfire
       <h1 class="signature" translate="no">normalise_tos(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L678" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L693" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1224,7 +1234,7 @@ Bonfire
       <h1 class="signature" translate="no">normalize(object, fetch_remote? \\ true, pointer \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L541" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L556" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1246,7 +1256,7 @@ Bonfire
       <h1 class="signature" translate="no">normalize_actors(params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L663" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L678" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1272,7 +1282,7 @@ Bonfire
       <h1 class="signature" translate="no">normalize_params(params, activity_id \\ nil, pointer \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L652" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L667" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1294,7 +1304,7 @@ Bonfire
       <h1 class="signature" translate="no">object_url(id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L819" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L834" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1322,7 +1332,7 @@ Bonfire
       <h1 class="signature" translate="no">prepare_data(data, local \\ false, pointer \\ nil, associated_activity \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L493" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L508" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1341,10 +1351,34 @@ Bonfire
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">query(list)</h1>
+      <h1 class="signature" translate="no">query(opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L160" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L158" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="replies_ids/3">
+
+    <span id="replies_ids/2"></span>
+
+  <div class="detail-header">
+    <a href="#replies_ids/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">replies_ids(object, limit, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L982" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1366,7 +1400,7 @@ Bonfire
       <h1 class="signature" translate="no">self_replies_ids(object, limit)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L958" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L990" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1388,7 +1422,7 @@ Bonfire
       <h1 class="signature" translate="no">set_cache(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L372" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L387" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1410,7 +1444,7 @@ Bonfire
       <h1 class="signature" translate="no">swap_object_with_tombstone(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L736" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L751" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1432,7 +1466,7 @@ Bonfire
       <h1 class="signature" translate="no">update_and_set_cache(changeset)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L446" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L461" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1454,7 +1488,7 @@ Bonfire
       <h1 class="signature" translate="no">update_changeset(object, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L413" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L428" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1476,7 +1510,7 @@ Bonfire
       <h1 class="signature" translate="no">update_existing(object_id, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L426" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L441" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1498,7 +1532,7 @@ Bonfire
       <h1 class="signature" translate="no">update_state(activity, type, state)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L460" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/object.ex#L475" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1531,7 +1565,7 @@ Bonfire
 
       <p class="built-using">
         Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.3) for the
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
 
           <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 
