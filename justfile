@@ -592,8 +592,8 @@ icons-uniq:
 
 # Push all changes to the app and extensions in ./forks
 contrib message='': _pre-push-hooks 
-	just contrib-forks-publish {{message}}
-	just git-publish "." "pull" "commit" {{message}}
+	just contrib-forks-publish "{{message}}"
+	just git-publish "." "pull" "commit" "{{message}}"
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
 contrib-release: _pre-push-hooks contrib-forks-publish update contrib-app-release
