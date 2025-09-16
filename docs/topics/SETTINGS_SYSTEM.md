@@ -445,7 +445,7 @@ Choose appropriate scopes:
 ```elixir
 defmodule MyExtension.SettingsTest do
   use Bonfire.DataCase
-  alias Bonfire.Common.Settings
+  use Bonfire.Common.Settings
 
   test "setting default value" do
     user = fake_user!()
