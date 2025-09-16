@@ -46,8 +46,14 @@ jobs:
       EXQLITE_SYSTEM_CFLAGS: -I/usr/include
       EXQLITE_SYSTEM_LDFLAGS: -L/lib -lsqlite3
     steps:
-      - name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), file (needed for bonfire_files), make/build-base/sqlite/graphviz (for arch), just, and curl
-        run: apk add bash git tar file make build-base sqlite graphviz just curl
+      - name: Install bash (needed for just), git (needed for checkout), tar (needed for cache), make/build-base/sqlite/graphviz (for arch), just, and curl
+        run: apk add bash git tar make build-base sqlite graphviz just curl
+      - 
+        name: Install system deps & tools
+        run: |
+          chmod +x deps-debian-build.sh && ./deps-debian-build.sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
       - name: Install GitHub CLI
         run: |
           GH_VERSION=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | grep tag_name | cut -d '"' -f4 | sed 's/^v//')
