@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) (thanks @mayel)
 - ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
 - ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
 - ✨ add a setting to change units (eg for wheather) [#1518](https://github.com/bonfire-networks/bonfire-app/issues/1518) (thanks @mayel)
@@ -32,8 +33,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ generate URL previews for remote (federated) posts, like we do for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) (thanks @ivanminutillo and @mayel)
 - ✨ support sign up with openid/oauth providers who don't provide the user's email address [#1017](https://github.com/bonfire-networks/bonfire-app/issues/1017) (thanks @mayel)
 - ✨ Post drafts should persist in memory when a user navigate between pages [#403](https://github.com/bonfire-networks/bonfire-app/issues/403) - [PR #1](https://github.com/bonfire-networks/bonfire-app/pull/1), [PR #2](https://github.com/bonfire-networks/bonfire-app/pull/2), [PR #435](https://github.com/bonfire-networks/bonfire-app/pull/435) (thanks @ivanminutillo, @mayel, and @abaez)
-- ✅ tests [`a41c178`](https://github.com/bonfire-networks/bonfire-app/commit/a41c17802c8157261cc5cb1198118bb352fe3570), [`4af99fc`](https://github.com/bonfire-networks/activity_pub/commit/4af99fcc45ce25d5926fccd633d0da83cb8b996a) (thanks @mayel)
+- ✨ Allow reading meilisearch master key secret from file. [PR #1](https://github.com/bonfire-networks/bonfire_search/pull/1) (thanks @fishinthecalculator)
+- ✅ tests [`fbded0c`](https://github.com/bonfire-networks/bonfire-app/commit/fbded0ce045012eb5076133a72e81821e854fe55), [`a41c178`](https://github.com/bonfire-networks/bonfire-app/commit/a41c17802c8157261cc5cb1198118bb352fe3570), [`fcc0e70`](https://github.com/bonfire-networks/activity_pub/commit/fcc0e70f3c51c991f40efa706d70bb5d655525d0), [`189e5e9`](https://github.com/bonfire-networks/activity_pub/commit/189e5e9a0eb066e07278f67a69bcec13b1f33b7e), [`4af99fc`](https://github.com/bonfire-networks/activity_pub/commit/4af99fcc45ce25d5926fccd633d0da83cb8b996a) (thanks @mayel)
 - ✨ Create SETTINGS_SYSTEM.md [`9e93774`](https://github.com/bonfire-networks/bonfire-app/commit/9e9377418bd86a91aed7be5b344fda010a880aef) (thanks @ivanminutillo)
+- ✨ add gcc [`ed3369e`](https://github.com/bonfire-networks/bonfire-app/commit/ed3369e22e873482ac138ed3338671a964cf85b0) (thanks @mayel)
 - ✨ tests and new version [`421cd41`](https://github.com/bonfire-networks/bonfire-app/commit/421cd41edc4e6dff9976324bc9e4cca19f77c9ff) (thanks @ivanminutillo)
 - ✨ add ENABLE_STATIC_CACHING env config [`d6e8235`](https://github.com/bonfire-networks/bonfire-app/commit/d6e82357fdc8ae82ff4f096932e3ab841547288c) (thanks @mayel)
 - ✨ Create usage_rules.md [`66ebe59`](https://github.com/bonfire-networks/activity_pub/commit/66ebe590fd657546814d5915de8c153b348e6466) (thanks @ivanminutillo)
@@ -54,12 +57,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
 - 📝 usage-rules [`22f4f1a`](https://github.com/bonfire-networks/activity_pub/commit/22f4f1aa845f3407ea3cd379e5534765b092f984) (thanks @ivanminutillo)
 - 📝 t [`e62d9ff`](https://github.com/bonfire-networks/bonfire-app/commit/e62d9ff3f4245cedc9489160816b6474fb01a160) (thanks @mayel)
-- 🚧 fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) [`d1a26d4`](https://github.com/bonfire-networks/activity_pub/commit/d1a26d4fe6797019c5956dfe4bd0cd71f7518a97) (thanks @mayel)
 - 📝 mix [`1f5e886`](https://github.com/bonfire-networks/bonfire-app/commit/1f5e88684c9e3ec9fd83e61431cc40ad80aedd91) (thanks @mayel)
 - 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
 - 🚧 Exploring a Bonfire Geosocial Extension [#1444](https://github.com/bonfire-networks/bonfire-app/issues/1444) [`86e95e6`](https://github.com/bonfire-networks/activity_pub/commit/86e95e6b2c6ab609a772791e7da1b6ab87cee382) (thanks @mayel and @ivanminutillo)
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
 - 🚧 ActivityPub Client to Server API [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) [`1e7ae94`](https://github.com/bonfire-networks/activity_pub/commit/1e7ae94704348a764fa57623cd347fce93a9a317) (thanks @mayel)
+- 📝 optimise text/html processing [`55b8995`](https://github.com/bonfire-networks/bonfire-app/commit/55b89959c4f4f3e577db97ae19a924ce66911ecd), [`0ee1f86`](https://github.com/bonfire-networks/activity_pub/commit/0ee1f8644a03f41ee2dfcd813f9c8334c731874c) (thanks @mayel)
 - 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
 - 📝 agents/claude worfklow [`47d9826`](https://github.com/bonfire-networks/bonfire-app/commit/47d9826208c73cdf82d51fe0455230f8e29c97f1), [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @mayel and @ivanminutillo)
 - 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
