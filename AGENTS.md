@@ -11,6 +11,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Single Responsibility**: Each module, component, and function should do one thing well.
 - **Easy to Change**: Design for maintainability and future change.
 - **YAGNI**: Don't build features until they're needed.
+- **DRY**: Avoid duplication through abstraction and reuse, with small pure functions (with doctests) and shared helpers.
 
 ## Project Structure
 
