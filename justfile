@@ -694,7 +694,7 @@ test-remote path='' *args='': services
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
 test-watch path='' *args='': services
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch `just test_convert_path {{path}}`   --stale --exclude mneme `just test_default_excludes` {{args}}
+	MIX_ENV=test TEST_WITH_MNEME=no just mix test.watch `just test_convert_path {{path}}`   --stale --exclude mneme `just test_default_excludes` {{args}}
 
 test-watch-mneme path='' *args='': services
 	@echo "Testing {{args}}..."
@@ -702,7 +702,7 @@ test-watch-mneme path='' *args='': services
 
 test-watch-full path='' *args='': services
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix test.watch  `just test_convert_path {{path}}`  --exclude mneme {{args}}
+	MIX_ENV=test TEST_WITH_MNEME=no just mix test.watch  `just test_convert_path {{path}}`  --exclude mneme {{args}}
 # MIX_ENV=test just mix mneme.watch {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run

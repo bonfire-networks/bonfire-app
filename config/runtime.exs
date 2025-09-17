@@ -35,7 +35,7 @@ System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") ||
   """
 
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
-Bonfire.Common.Config.LoadExtensionsConfig.load_configs(Bonfire.RuntimeConfig)
+Bonfire.Common.Config.LoadExtensionsConfig.load_configs([Bonfire.RuntimeConfig])
 ##
 
 secret_key_base =
@@ -234,9 +234,14 @@ case System.get_env("GRAPH_DB_URL") do
           System.schedulers_online() * 2
       end
 
-    config :bolt_sips, Bolt,
-      url: url,
-      basic_auth: [username: "memgraph", password: "memgraph"],
+    # config :bolt_sips, Bolt,
+    #   url: url,
+    #   basic_auth: [username: "memgraph", password: "memgraph"],
+    #   pool_size: pool_size
+
+    config :boltx, Bolt,
+      uri: url,
+      auth: [username: "memgraph", password: "memgraph"],
       pool_size: pool_size
 end
 

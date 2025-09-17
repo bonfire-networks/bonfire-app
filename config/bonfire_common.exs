@@ -4,8 +4,10 @@ default_locale = "en"
 
 ## Localisation & internationalisation
 # Only compile additional locales in prod or when explicitly requested
-compile_all_locales? = config_env() == :prod or System.get_env("COMPILE_ALL_LOCALES") in ["true", "1"]
-locales = if compile_all_locales?, do: [default_locale, "fr", "es"], else: [default_locale, "es", "fr"]
+compile_all_locales? =
+  config_env() == :prod or System.get_env("COMPILE_ALL_LOCALES") in ["true", "1"]
+
+locales = if compile_all_locales?, do: [default_locale, "fr", "es"], else: [default_locale]
 
 config :bonfire_common,
   otp_app: :bonfire,
@@ -36,7 +38,6 @@ config :bonfire_common, Bonfire.Common.Localise.Cldr,
   force_locale_download: Mix.env() == :prod,
   generate_docs: true
 
-
 config :ex_cldr_units,
   default_backend: Bonfire.Common.Localise.Cldr
 
@@ -44,7 +45,6 @@ config :ex_cldr,
   default_locale: default_locale,
   default_backend: Bonfire.Common.Localise.Cldr,
   json_library: Jason
-
 
 config :bonfire_common, Bonfire.Common.Repo,
   database: System.get_env("POSTGRES_DB", "bonfire_dev"),
@@ -55,5 +55,4 @@ config :bonfire_common, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-  
 config :rustler_precompiled, force_build_all: System.get_env("RUSTLER_BUILD_ALL") in ["true", "1"]

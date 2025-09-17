@@ -54,10 +54,10 @@ config :activity_pub, ActivityPub.Web.Endpoint,
     layout: false
   ]
 
-config :activity_pub, 
+config :activity_pub,
   json_contexts: %{
     "Accept" => %{
-      "QuoteRequest"=> "https://w3id.org/fep/044f#QuoteRequest"
+      "QuoteRequest" => "https://w3id.org/fep/044f#QuoteRequest"
     },
     "QuoteRequest" => %{
       "QuoteRequest" => "https://w3id.org/fep/044f#QuoteRequest",
@@ -87,8 +87,8 @@ config :activity_pub,
       },
       "sensitive" => "as:sensitive",
       # TODO
-      "manuallyApprovesFollowers"=> "as:manuallyApprovesFollowers"
-  },
+      "manuallyApprovesFollowers" => "as:manuallyApprovesFollowers"
+    },
     object: %{
       "Hashtag" => "as:Hashtag",
       "sensitive" => "as:sensitive",
@@ -100,7 +100,7 @@ config :activity_pub,
         "@type" => "@id"
       },
       "_misskey_quote" => "https://misskey-hub.net/ns/#_misskey_quote",
-       "quoteAuthorization" => %{
+      "quoteAuthorization" => %{
         "@id" => "https://w3id.org/fep/044f#quoteAuthorization",
         "@type" => "@id"
       }

@@ -186,7 +186,7 @@ config :versioce, :changelog,
   }
 
 # config :source_inspector, :enabled, true
-config :phoenix_live_view, 
+config :phoenix_live_view,
   debug_attributes: true,
   debug_heex_annotations: true
 
