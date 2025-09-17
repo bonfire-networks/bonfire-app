@@ -416,7 +416,7 @@ The known commands are:
 - `pid`            Prints the operating system PID of the running system via a remote command
 - `version`        Prints the release name and version to be booted
 
-There are some useful database-related release tasks under `EctoSparkles.Migrator.` that can be run in an `iex` console (which you get to with `just rel.shell` followed by `bin/bonfire remote`, assuming the app is already running):
+There are some useful database-related release tasks under `EctoSparkles.Migrator.` that can be run in an `iex` console (which you get to with `just rel-shell` followed by `bin/bonfire remote`, assuming the app is already running):
 
 - `migrate` runs all up migrations
 - `rollback(step)` roll back to step X
