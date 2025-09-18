@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel and @ivanminutillo)
 - ✨ fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) (thanks @mayel)
 - ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
 - ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
@@ -55,6 +56,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🚀 handle activities addressed to a as:public collection [#1430](https://github.com/bonfire-networks/bonfire-app/issues/1430) (thanks @mayel)
 - 🚀 improve display of multiple audio attachments [#1422](https://github.com/bonfire-networks/bonfire-app/issues/1422) (thanks @mayel and @ivanminutillo)
 - 🚀 add tests for data import and export [#1322](https://github.com/bonfire-networks/bonfire-app/issues/1322) (thanks @mayel)
+- 🌏 Federate info about interaction policies based on the boundaries of an object [#979](https://github.com/bonfire-networks/bonfire-app/issues/979) (thanks @mayel)
 - 📝 hide instances from the admin's list of instance-wide circles? [#884](https://github.com/bonfire-networks/bonfire-app/issues/884) (thanks @mayel and @ivanminutillo)
 - 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
 - 📝 usage-rules [`22f4f1a`](https://github.com/bonfire-networks/activity_pub/commit/22f4f1aa845f3407ea3cd379e5534765b092f984) (thanks @ivanminutillo)
@@ -70,7 +72,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
-- 🚧 Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) [`7dcb956`](https://github.com/bonfire-networks/bonfire-app/commit/7dcb956dab7706e1bd027742bdc5deba2dc47fd6), [`a541126`](https://github.com/bonfire-networks/bonfire-app/commit/a54112638a289e3f37dc46a441bb2e3bd0c85175), [`d50326e`](https://github.com/bonfire-networks/activity_pub/commit/d50326e31280419127115c3f1650de64952310d2), [`08fbbcc`](https://github.com/bonfire-networks/activity_pub/commit/08fbbcc3f6bdef38d07027b428eddd6786fe37e9), [`2920184`](https://github.com/bonfire-networks/activity_pub/commit/292018452e415e679b8ae5cb8db1f3eae2f8fdb3) (thanks @mayel)
 - 📝 boltx [`c3d8f9b`](https://github.com/bonfire-networks/bonfire-app/commit/c3d8f9b87ba0cfbbcbb160d5da6caff707b45951) (thanks @mayel)
 - 🚀 update docs [`bc92597`](https://github.com/bonfire-networks/bonfire-app/commit/bc925979392bbc3e56ac94a106ac45799891e6c6) (thanks @mayel)
 - 📝 fix [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
