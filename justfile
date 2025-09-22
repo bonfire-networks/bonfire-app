@@ -672,8 +672,11 @@ test-backend path='' *args='': services
 test-ui path='' *args='': services
 	MIX_TEST_ONLY=ui just test_run `just test_convert_path {{path}}`  --exclude backend --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
 
+test-ui-browser path='' *args='': services
+	MIX_TEST_ONLY=ui just test_run `just test_convert_path {{path}}` --exclude backend --exclude federation --exclude ap_lib `just test_default_excludes` --only browser {{args}}
+
 test-others path='' *args='': services
-	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude backend --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
+	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude backend --exclude ui --exclude federation --exclude ap_lib --exclude browser `just test_default_excludes` {{args}}
 
 test_default_excludes:
 	@echo "--exclude live_federation --exclude test_instance `just test_minimum_excludes`"
