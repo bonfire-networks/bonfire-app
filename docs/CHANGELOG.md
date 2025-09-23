@@ -56,7 +56,6 @@ For a comprehensive list of changes, here's the full changelog:
 - ✨ Create HOWTO_add_feed_preset.md [`b3c8969`](https://github.com/bonfire-networks/bonfire-app/commit/b3c89696286c465c5639de4a742446d95b98e709) (thanks @ivanminutillo)
 
 ### Changed
-- 📝 Usage with `tap` [#1](https://github.com/bonfire-networks/arrows/issues/1) (thanks @jamauro and @mayel)
 - 💅 If an article does not have an image, remove the current preview [#1371](https://github.com/bonfire-networks/bonfire-app/issues/1371) (thanks @ivanminutillo)
 - 💅 disable @ mention autocomplete in DMs [#1351](https://github.com/bonfire-networks/bonfire-app/issues/1351) (thanks @ivanminutillo and @mayel)
 - 💅 longer posts gets truncated but "read more" button is not showing up [#1344](https://github.com/bonfire-networks/bonfire-app/issues/1344) (thanks @ivanminutillo and @mayel)
@@ -70,25 +69,14 @@ For a comprehensive list of changes, here's the full changelog:
 - 🚀 Documentation: Build on Bonfire section [#939](https://github.com/bonfire-networks/bonfire-app/issues/939) (thanks @ivanminutillo and @mayel)
 - 💅 display activitystreams objects correctly in reply_to [#838](https://github.com/bonfire-networks/bonfire-app/issues/838) (thanks @mayel)
 - 🚀 Document data patterns [#170](https://github.com/bonfire-networks/bonfire-app/issues/170) (thanks @mayel)
-- 🚀 update locales + release [`05803fb`](https://github.com/bonfire-networks/bonfire-app/commit/05803fbee6df3f0b45c3dd1ebbf4f0c8f7a7886f) (thanks @mayel)
-- 📝 downgrade otp [`ac5edde`](https://github.com/bonfire-networks/bonfire-app/commit/ac5eddeb993af2999a6fa5944b2db4c7299cd894) (thanks @mayel)
-- 📝 media [`626d606`](https://github.com/bonfire-networks/bonfire-app/commit/626d606fb37fd44409a948e5bcac270cf1fc372d) (thanks @mayel)
 - 📝 attempt fix for image uploads [`f8e7052`](https://github.com/bonfire-networks/bonfire-app/commit/f8e70527df0c20ea718821bf27a5c8a91318af16) (thanks @mayel)
-- 📝 templates [`ca21dc4`](https://github.com/bonfire-networks/bonfire-app/commit/ca21dc4e8c1ec46e5113c16cba4c59784977afcc) (thanks @mayel)
 - 📝 docker compose fix [`dd852eb`](https://github.com/bonfire-networks/bonfire-app/commit/dd852eb2dcf90cf404b1902c23554c070841822d) (thanks @mayel)
-- 📝 themes [`00e3d4e`](https://github.com/bonfire-networks/bonfire-app/commit/00e3d4e4b19d1aa111c94f390ee7850167cf2f49) (thanks @ivanminutillo)
 - 📝 version number needs to be compatible with docker tag formatting [`02ee766`](https://github.com/bonfire-networks/bonfire-app/commit/02ee766804a6602035fb793d539caa69ca474614) (thanks @mayel)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 🚀 update files extension [`4378cde`](https://github.com/bonfire-networks/bonfire-app/commit/4378cde33e5345e58adcb4cc2bc82aba55c52dbd) (thanks @mayel)
 - 🚧 improve oauth/openid login + implement dance tests for them [#1201](https://github.com/bonfire-networks/bonfire-app/issues/1201) [`8c580e6`](https://github.com/bonfire-networks/bonfire-app/commit/8c580e6f411b620b2ee2cc7026af7956911fae0d), [`9ac4782`](https://github.com/bonfire-networks/bonfire-app/commit/9ac4782fd36825ed8497f98aaaf7d1b3c167d638) (thanks @mayel)
 - 📝 attempt fix s3 uploads [`5280ec2`](https://github.com/bonfire-networks/bonfire-app/commit/5280ec22ae1e677f95f4728a0f0feb08c1c37434) (thanks @mayel)
-- 📝 rel 24 [`55af1e3`](https://github.com/bonfire-networks/bonfire-app/commit/55af1e34356bffc861bb19696759a96949c564b5) (thanks @mayel)
 - 🚧 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) [`55c5d72`](https://github.com/bonfire-networks/bonfire-app/commit/55c5d720a19b7b11731bbbbffcd7d6481aaf0da7) (thanks @mayel and @ivanminutillo)
-- 📝 tunnel [`674bd75`](https://github.com/bonfire-networks/bonfire-app/commit/674bd754729e3c08f7bc87e1ddc0c0b54d4a5c6a) (thanks @mayel)
-- 📝 more locales [`e5a0ce1`](https://github.com/bonfire-networks/bonfire-app/commit/e5a0ce1d69e68cb6615f5af377199f4a01992900) (thanks @mayel)
-- 🚀 misc updates [`fa24f2a`](https://github.com/bonfire-networks/bonfire-app/commit/fa24f2a59f36cda240f839b449bfe1604854c1fa) (thanks @mayel)
-- 📝 misc [`c4b27e4`](https://github.com/bonfire-networks/bonfire-app/commit/c4b27e42cc1abe4b199deb8e46e07d8987f6b25b), [`3718c98`](https://github.com/bonfire-networks/bonfire-app/commit/3718c98d5a8a6a4f629b2056148cefff4bc36a33), [`c3720ce`](https://github.com/bonfire-networks/bonfire-app/commit/c3720ce8199f1248964196bead88b4d3f5fabe7c), [`5052e47`](https://github.com/bonfire-networks/bonfire-app/commit/5052e47cd0898940be9a1ff1f05760226cb05775), [`467208a`](https://github.com/bonfire-networks/bonfire-app/commit/467208a7f3860d059fd66af9700416c9db1467e5), [`9bb1134`](https://github.com/bonfire-networks/bonfire-app/commit/9bb1134581d04f824a508fda13ae8cb8d4375665), [`c25aec9`](https://github.com/bonfire-networks/bonfire-app/commit/c25aec9cb80256480974fb6cceef479bf4944199) (thanks @mayel)
-- 🚀 update status in readme [`ba8805d`](https://github.com/bonfire-networks/bonfire-app/commit/ba8805dca2af7330e64b400a18d1190874639c2d) (thanks @mayel)
 
 ### Fixed
 - 🐛 incoming CW on remote posts not being recognised [#1411](https://github.com/bonfire-networks/bonfire-app/issues/1411) (thanks @mayel)
@@ -131,9 +119,7 @@ For a comprehensive list of changes, here's the full changelog:
 - 🐛 Access denied when trying to view an uploaded document (in Scaleway's S3) [#947](https://github.com/bonfire-networks/bonfire-app/issues/947) (thanks @mayel and @ivanminutillo)
 - 🐛 fix aliases on profile [`79ebb16`](https://github.com/bonfire-networks/bonfire-app/commit/79ebb16e742804f20619edada16291315625db8f) (thanks @mayel)
 - 🐛 fix for openid [`ebb0a47`](https://github.com/bonfire-networks/bonfire-app/commit/ebb0a47d3771c963533b1da081bb4365cea9a619) (thanks @mayel)
-- 🐛 fix rel [`30d4597`](https://github.com/bonfire-networks/bonfire-app/commit/30d4597c553c860571663e30d3bd878fb35e32a7) (thanks @mayel)
 - 🐛 fix video upload in feed [`3d2091b`](https://github.com/bonfire-networks/bonfire-app/commit/3d2091be756934869bd17b351cbd2b7993bab1b5) (thanks @mayel)
-- 🐛 fix docs [`a3f4cde`](https://github.com/bonfire-networks/bonfire-app/commit/a3f4cdebd6595bf0baa5554c7bce4092d3a1300c) (thanks @mayel)
 
 ### Security
 - 🚨 auth extra logging [`06842f2`](https://github.com/bonfire-networks/bonfire-app/commit/06842f21461c75cb7cdfc61afa7774d7248d79ca) (thanks @mayel)

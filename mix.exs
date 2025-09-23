@@ -96,7 +96,7 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_ai_deps =
     if(with_ai && with_ai not in no?,
       do: [
-        {:bumblebee, "~> 0.6.0"},
+        {:bumblebee, "~> 0.6.3"},
         {:axon, "~> 0.7.0", override: true},
         {:table_rex, "~> 4.0.0", override: true},
         # {:nx, "~> 0.9.0"},
@@ -338,7 +338,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.0-rc.2.21",
+    version: "1.0.0-rc.2.22",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
