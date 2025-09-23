@@ -7,6 +7,88 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0-rc.3 (unreleased)]
+
+### ✨ What’s new and improved?
+
+- **Consent-based quoting (FEP-044f):** You can now quote posts with user consent, following the new ActivityPub [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md) standard. Bonfire is among the first platforms (alongside Mastodon) to offer this feature in a way that respects user agency and works across the fediverse.
+- **Post import & migration:** You can now bring your posts—and their replies—with you when moving to Bonfire from another instance. Imported posts keep their original dates and links, and are added to your timeline in the right order, so your history looks complete. Replies and threads are preserved, and like/boost counts are kept. This works by automatically "boosting" your old posts (but without flooding people's feeds or notifications with these old activities).
+- **Federation status dashboard:** Easily track your outgoing and incoming federated activities with a new dashboard, making it simpler to monitor federation health and troubleshoot issues.
+- **Migration & data portability:** Instance migration is now more robust. In addition to follows, blocks, and posts, you can now export and import circles/lists, bookmarks, likes, and boosts.
+- **Import & migration dashboard:** A dedicated dashboard helps you follow the progress of data imports and migrations, so you always know what's happening with your data.
+- **Access your data beyond the fediverse:** Subscribe to RSS/Atom feeds or download posts as markdown.
+- **UI & usability upgrades:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive. The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
+- **Links in posts:** Remote posts now get the same rich URL previews as local ones.
+- **User guides:** New guides and documentation make it easier for everyone to get started and explore Bonfire's features.
+
+For a full list of changes, see the changelog below.
+
+### Added
+- ✨ Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel and @ivanminutillo)
+- 🌏 Federate info about interaction policies based on the boundaries of an object [#979](https://github.com/bonfire-networks/bonfire-app/issues/979) (thanks @mayel)
+- ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
+- ✨ fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) (thanks @mayel)
+- ✨ add export/import for circles/lists [#1508](https://github.com/bonfire-networks/bonfire-app/issues/1508) (thanks @mayel)
+- ✨ add export/import for bookmarks [#1507](https://github.com/bonfire-networks/bonfire-app/issues/1507) (thanks @mayel)
+- ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
+- ✨ UI to view the federation processing queue [#1037](https://github.com/bonfire-networks/bonfire-app/issues/1037) (thanks @mayel)
+- 📝 status page to view outgoing and incoming federated activities [#1548](https://github.com/bonfire-networks/bonfire-app/issues/1548) (thanks @mayel)
+- ✨ buttons & modal to subscribe to RSS/Atom feeds [#1501](https://github.com/bonfire-networks/bonfire-app/issues/1501) (thanks @mayel)
+- ✨ buttons & modal to download markdown for posts [#1502](https://github.com/bonfire-networks/bonfire-app/issues/1502) (thanks @mayel)
+- ✨ support bridging using BridgyFed [#1476](https://github.com/bonfire-networks/bonfire-app/issues/1476) (thanks @mayel)
+- ✨ add loading indicator that handles both local/federated search results [#1443](https://github.com/bonfire-networks/bonfire-app/issues/1443) (thanks @ivanminutillo)
+- ✨ generate URL previews for remote (federated) posts, like we do for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) (thanks @ivanminutillo and @mayel)
+- ✨ Add a view to see the status of profile migrations [#1366](https://github.com/bonfire-networks/bonfire-app/issues/1366) (thanks @mayel and @ivanminutillo)
+- ✨ Add a visual indicator during large uploads [#1433](https://github.com/bonfire-networks/bonfire-app/issues/1433) (thanks @GreenMan-Network and @mayel)
+- 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
+- ✨ It would be nice if the media gallery had swipe-between on photos and right-left keypad on desktop [#1424](https://github.com/bonfire-networks/bonfire-app/issues/1424) (thanks @ivanminutillo and @mayel)
+- ✨ add a setting to change units (eg for wheather) [#1518](https://github.com/bonfire-networks/bonfire-app/issues/1518) (thanks @mayel)
+
+### Changed
+- 🚀 improve UX for customising permissions when posting, editing, or defining a boundary (toggling verbs rather than roles) [#1553](https://github.com/bonfire-networks/bonfire-app/issues/1553) (thanks @mayel)
+- 💅 UX enhancement: Show the full handle w/ domain plus a “Copy” button in profile [#1537](https://github.com/bonfire-networks/bonfire-app/issues/1537) (thanks @ivanminutillo)
+- ✨ merge multiple reactions (likes/boosts) to the same post in notifications feed [#1454](https://github.com/bonfire-networks/bonfire-app/issues/1454) (thanks @mayel)
+- 🚀 Default Custom feeds enhancement [#1529](https://github.com/bonfire-networks/bonfire-app/issues/1529) (thanks @ivanminutillo and @mayel)
+- 🚀 create integration tests for OpenID and OAuth [#1487](https://github.com/bonfire-networks/bonfire-app/issues/1487) (thanks @mayel)
+- ✨ support sign up with openid/oauth providers who don't provide the user's email address [#1017](https://github.com/bonfire-networks/bonfire-app/issues/1017) (thanks @mayel)
+- 🚀 improve feed filters UX [#1431](https://github.com/bonfire-networks/bonfire-app/issues/1431) (thanks @ivanminutillo)
+- 🚀 handle activities addressed to a as:public collection [#1430](https://github.com/bonfire-networks/bonfire-app/issues/1430) (thanks @mayel)
+- 🚀 improve display of multiple audio attachments [#1422](https://github.com/bonfire-networks/bonfire-app/issues/1422) (thanks @mayel and @ivanminutillo)
+- ✨ add tests for profile migrations [#1503](https://github.com/bonfire-networks/bonfire-app/issues/1503) (thanks @mayel)
+- 🚀 add tests for data import and export [#1322](https://github.com/bonfire-networks/bonfire-app/issues/1322) (thanks @mayel)
+- 📝 hide instances from the admin's list of instance-wide circles? [#884](https://github.com/bonfire-networks/bonfire-app/issues/884) (thanks @mayel and @ivanminutillo)
+- 📝 optimise text/html processing [`55b8995`](https://github.com/bonfire-networks/bonfire-app/commit/55b89959c4f4f3e577db97ae19a924ce66911ecd), [`0ee1f86`](https://github.com/bonfire-networks/activity_pub/commit/0ee1f8644a03f41ee2dfcd813f9c8334c731874c) (thanks @mayel)
+- 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
+- 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
+- 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
+- ✨ Allow reading meilisearch master key secret from file. [PR #1](https://github.com/bonfire-networks/bonfire_search/pull/1) (thanks @fishinthecalculator)
+- 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) [`97cde01`](https://github.com/bonfire-networks/bonfire-app/commit/97cde01de6927d8294ae34aaa322775219a0345b) (thanks @mayel)
+- 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
+- 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
+
+### Fixed
+- 🐛 fix instance icon/banner uploaded to s3 [#1536](https://github.com/bonfire-networks/bonfire-app/issues/1536) (thanks @mayel)
+- 🐛 Hashtag search is not working with Meilisearch backend [#1497](https://github.com/bonfire-networks/bonfire-app/issues/1497) (thanks @GreenMan-Network and @mayel)
+- 🐛 Article feed is not loading, looping behavior appears [#1496](https://github.com/bonfire-networks/bonfire-app/issues/1496) (thanks @jeffsikes and @mayel)
+- 🐛 Bonfire Social 1.0 RC2 blog post issues [#1469](https://github.com/bonfire-networks/bonfire-app/issues/1469) (thanks @ElectricTea and @mayel)
+- 🐛 Notifications never stop Notificationing (after being checked) [#1466](https://github.com/bonfire-networks/bonfire-app/issues/1466) (thanks @ZELFs and @mayel)
+- 🐛 activities in all feeds dont follow the chronological order anymore (even when it is set in the config) [#1463](https://github.com/bonfire-networks/bonfire-app/issues/1463) (thanks @ivanminutillo and @mayel)
+- 🐛 Investigate why mentions sometimes are converted in mailto link [#1457](https://github.com/bonfire-networks/bonfire-app/issues/1457) (thanks @ivanminutillo and @mayel)
+- 🐛 Get Latest Replies not working [#1451](https://github.com/bonfire-networks/bonfire-app/issues/1451) (thanks @jeffsikes and @mayel)
+- 🐛 Possibility to have duplicate feed names messes with interface (non-critical) [#1450](https://github.com/bonfire-networks/bonfire-app/issues/1450) (thanks @gillesdutilh and @ivanminutillo)
+- 🐛 Remote & only filter is not applied in feed [#1432](https://github.com/bonfire-networks/bonfire-app/issues/1432) (thanks @ivanminutillo)
+- 🐛 make sure pubsub works on notifications feed [#1427](https://github.com/bonfire-networks/bonfire-app/issues/1427) (thanks @mayel and @ivanminutillo)
+- 🐛 Properly render GIFs in media preview [#1426](https://github.com/bonfire-networks/bonfire-app/issues/1426) (thanks @ivanminutillo)
+- 🐛 "Read more" button is always shown on activities when viewign the feed as guest [#1423](https://github.com/bonfire-networks/bonfire-app/issues/1423) (thanks @ivanminutillo)
+- 🐛 When a user boosts its own post, the subject is not shown (the subject minimal is shown correctly instead) [#1397](https://github.com/bonfire-networks/bonfire-app/issues/1397) (thanks @ivanminutillo and @mayel)
+- 🐛 Following/followers are showing only local users ? [#1374](https://github.com/bonfire-networks/bonfire-app/issues/1374) (thanks @ivanminutillo and @mayel)
+- 🐛 The character username of a boosted activity has wrong link attached [#1370](https://github.com/bonfire-networks/bonfire-app/issues/1370) (thanks @ivanminutillo, @mayel, and @WildPowerHammer)
+- 🐛 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) (thanks @ivanminutillo and @mayel)
+- 🐛 "Load more" to expand a log post is not working anymore in feeds [#1302](https://github.com/bonfire-networks/bonfire-app/issues/1302) (thanks @ivanminutillo and @mayel)
+- 🐛 Fix markdown on release canidate notice in readme [PR #1494](https://github.com/bonfire-networks/bonfire-app/pull/1494) (thanks @ElectricTea)
+- 🐛 fix for Caddy v2 [`861b1ca`](https://github.com/bonfire-networks/bonfire-app/commit/861b1ca6f5b2db54abfc2d989c25e576a6c9067b) (thanks @mayel)
+
+
 ## Bonfire Social [1.0-rc.2 (2025-07-08)]
 
 ### ✨ What’s new and improved?
