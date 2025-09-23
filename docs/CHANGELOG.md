@@ -19,7 +19,7 @@ SPDX-License-Identifier: CC0-1.0
 - **Access your data beyond the fediverse:** Subscribe to RSS/Atom feeds or download posts as markdown.
 - **UI & usability improvements:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive. The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
 - **Links in posts:** Remote posts now get the same rich URL previews as local ones.
-- **User guides:** New guides and documentation make it easier for everyone to get started and explore Bonfire's features.
+- **User guides:** [New guides](https://docs.bonfirenetworks.org/user-guides.html) and documentation make it easier for everyone to get started and explore Bonfire's features.
 
 For a full list of changes, see the changelog below.
 
