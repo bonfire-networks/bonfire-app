@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.21">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.22">
 
 
-    <title>EctoSparkles.SanitiseStrings — Bonfire v1.0.0-social-rc.2.21</title>
+    <title>EctoSparkles.SanitiseStrings — Bonfire v1.0.0-social-rc.2.22</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-ED2456AA.js"></script>
+    <script defer src="dist/sidebar_items-63C7CBF1.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.21
+          v1.0.0-social-rc.2.22
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">EctoSparkles.SanitiseStrings</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.21)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.22)</small>
 
     </h1>
 
@@ -93,7 +93,7 @@ Bonfire
 
 
     <section id="moduledoc">
-<p>Provides functions for sanitising input on <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.Changeset.html"><code class="inline">Ecto.Changeset</code></a> string fields.</p>
+<p>Provides functions for sanitising input on <a href="https://hexdocs.pm/ecto/3.13.3/Ecto.Changeset.html"><code class="inline">Ecto.Changeset</code></a> string fields.</p>
     </section>
 
 </div>
@@ -219,22 +219,22 @@ Bonfire
 
   <section class="docstring">
 
-<p>Sanitises all changes in the given changeset that apply to field which are of the <code class="inline">:string</code> <a href="https://hexdocs.pm/ecto/3.13.2/Ecto.html"><code class="inline">Ecto</code></a> type.</p><p>By default it uses the <a href="https://hexdocs.pm/html_sanitize_ex/1.4.3/HtmlSanitizeEx.html#strip_tags/1"><code class="inline">HtmlSanitizeEx.strip_tags/1</code></a> function on any change that satisfies all of the following conditions:</p><ol><li>The field associated with the change is of the type <code class="inline">:string</code>.</li><li>The field associated with the change is not in the blacklisted_fields list of <code class="inline">opts</code> as defined using the <code class="inline">:except</code> key in <code class="inline">opts</code>.
+<p>Sanitises all changes in the given changeset that apply to field which are of the <code class="inline">:string</code> <a href="https://hexdocs.pm/ecto/3.13.3/Ecto.html"><code class="inline">Ecto</code></a> type.</p><p>By default it uses the <a href="https://hexdocs.pm/html_sanitize_ex/1.4.3/HtmlSanitizeEx.html#strip_tags/1"><code class="inline">HtmlSanitizeEx.strip_tags/1</code></a> function on any change that satisfies all of the following conditions:</p><ol><li>The field associated with the change is of the type <code class="inline">:string</code>.</li><li>The field associated with the change is not in the blacklisted_fields list of <code class="inline">opts</code> as defined using the <code class="inline">:except</code> key in <code class="inline">opts</code>.
 Note that this function will change the value in the <code class="inline">:changes</code> map of an
-<code class="inline">%Ecto.Changeset{}</code> struct if the given changes are sanitized.</li></ol><h2 id="strip_all_tags/2-examples" class="section-heading"><a href="#strip_all_tags/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="4613198148-1">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;script&gt;Bad&lt;/script&gt;&quot;</span><span class="p" data-group-id="4613198148-1">}</span><span class="w">
+<code class="inline">%Ecto.Changeset{}</code> struct if the given changes are sanitized.</li></ol><h2 id="strip_all_tags/2-examples" class="section-heading"><a href="#strip_all_tags/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8448179013-1">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;script&gt;Bad&lt;/script&gt;&quot;</span><span class="p" data-group-id="8448179013-1">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="n">result_changeset</span><span class="w"> </span><span class="o">=</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="n">attrs</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">FakeEctoSchema</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="4613198148-2">(</span><span class="p" data-group-id="4613198148-2">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">EctoSparkles.SanitiseStrings</span><span class="o">.</span><span class="n">strip_all_tags</span><span class="p" data-group-id="4613198148-3">(</span><span class="p" data-group-id="4613198148-3">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">FakeEctoSchema</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="8448179013-2">(</span><span class="p" data-group-id="8448179013-2">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">EctoSparkles.SanitiseStrings</span><span class="o">.</span><span class="n">strip_all_tags</span><span class="p" data-group-id="8448179013-3">(</span><span class="p" data-group-id="8448179013-3">)</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="n">result_changeset</span><span class="o">.</span><span class="n">changes</span><span class="w">
-</span><span class="p" data-group-id="4613198148-4">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bad&quot;</span><span class="p" data-group-id="4613198148-4">}</span></code></pre><p>Fields can be exempted from sanitization via the <code class="inline">:except</code> option.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8195160014-1">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;script&gt;Bad&lt;/script&gt;&quot;</span><span class="p" data-group-id="8195160014-1">}</span><span class="w">
+</span><span class="p" data-group-id="8448179013-4">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bad&quot;</span><span class="p" data-group-id="8448179013-4">}</span></code></pre><p>Fields can be exempted from sanitization via the <code class="inline">:except</code> option.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2179615129-1">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;script&gt;Bad&lt;/script&gt;&quot;</span><span class="p" data-group-id="2179615129-1">}</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="n">result_changeset</span><span class="w"> </span><span class="o">=</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="n">attrs</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">FakeEctoSchema</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="8195160014-2">(</span><span class="p" data-group-id="8195160014-2">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">EctoSparkles.SanitiseStrings</span><span class="o">.</span><span class="n">strip_all_tags</span><span class="p" data-group-id="8195160014-3">(</span><span class="ss">except</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8195160014-4">[</span><span class="ss">:string_field</span><span class="p" data-group-id="8195160014-4">]</span><span class="p" data-group-id="8195160014-3">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">FakeEctoSchema</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="2179615129-2">(</span><span class="p" data-group-id="2179615129-2">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">EctoSparkles.SanitiseStrings</span><span class="o">.</span><span class="n">strip_all_tags</span><span class="p" data-group-id="2179615129-3">(</span><span class="ss">except</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2179615129-4">[</span><span class="ss">:string_field</span><span class="p" data-group-id="2179615129-4">]</span><span class="p" data-group-id="2179615129-3">)</span><span class="w">
 </span><span class="gp unselectable">iex&gt; </span><span class="n">result_changeset</span><span class="o">.</span><span class="n">changes</span><span class="w">
-</span><span class="p" data-group-id="8195160014-5">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;script&gt;Bad&lt;/script&gt;&quot;</span><span class="p" data-group-id="8195160014-5">}</span></code></pre><h3 id="strip_all_tags/2-you-can-also-specify-a-specific-scrubber-by-passing-a-function-as-reference" class="section-heading"><a href="#strip_all_tags/2-you-can-also-specify-a-specific-scrubber-by-passing-a-function-as-reference" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">You can also specify a specific scrubber (by passing a function as reference):</span></h3><p>ies&gt; attrs</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">FakeEctoSchema</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="3429377350-1">(</span><span class="p" data-group-id="3429377350-1">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">EctoSparkles.SanitiseStrings</span><span class="o">.</span><span class="n">sanitise_strings</span><span class="p" data-group-id="3429377350-2">(</span><span class="ss">scrubber</span><span class="p">:</span><span class="w"> </span><span class="nc">HtmlSanitizeEx.Scrubber</span><span class="o">.</span><span class="n">html5</span><span class="o">/</span><span class="mi">1</span><span class="p" data-group-id="3429377350-2">)</span></code></pre>
+</span><span class="p" data-group-id="2179615129-5">%{</span><span class="ss">string_field</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;script&gt;Bad&lt;/script&gt;&quot;</span><span class="p" data-group-id="2179615129-5">}</span></code></pre><h3 id="strip_all_tags/2-you-can-also-specify-a-specific-scrubber-by-passing-a-function-as-reference" class="section-heading"><a href="#strip_all_tags/2-you-can-also-specify-a-specific-scrubber-by-passing-a-function-as-reference" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">You can also specify a specific scrubber (by passing a function as reference):</span></h3><p>ies&gt; attrs</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">FakeEctoSchema</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="2457188006-1">(</span><span class="p" data-group-id="2457188006-1">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">EctoSparkles.SanitiseStrings</span><span class="o">.</span><span class="n">sanitise_strings</span><span class="p" data-group-id="2457188006-2">(</span><span class="ss">scrubber</span><span class="p">:</span><span class="w"> </span><span class="nc">HtmlSanitizeEx.Scrubber</span><span class="o">.</span><span class="n">html5</span><span class="o">/</span><span class="mi">1</span><span class="p" data-group-id="2457188006-2">)</span></code></pre>
   </section>
 </section>
 
