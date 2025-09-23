@@ -11,13 +11,13 @@ SPDX-License-Identifier: CC0-1.0
 
 ### ✨ What’s new and improved?
 
-- **Consent-based quoting (FEP-044f):** You can now quote posts with user consent, following the new ActivityPub [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md) standard. Bonfire is among the first platforms (alongside Mastodon) to offer this feature in a way that respects user agency and works across the fediverse.
-- **Post import & migration:** You can now bring your posts—and their replies—with you when moving to Bonfire from another instance. Imported posts keep their original dates and links, and are added to your timeline in the right order, so your history looks complete. Replies and threads are preserved, and like/boost counts are kept. This works by automatically "boosting" your old posts (but without flooding people's feeds or notifications with these old activities).
+- **Consent-based quoting (FEP-044f):** You can now quote posts with user consent, following the new ActivityPub standard extension [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md). Bonfire is among the first platforms (alongside Mastodon) to offer this feature in a way that respects user agency and can work across the fediverse.
+- **Post import & migration:** You can now bring your posts (and their replies) with you when moving to Bonfire from another instance. Imported posts keep their original dates and links, and are added to your timeline in the right order, so your history looks complete. Replies and threads are preserved, and like/boost counts are kept. This works by automatically "boosting" your old posts (but without flooding people's feeds or notifications with old activities).
 - **Federation status dashboard:** Easily track your outgoing and incoming federated activities with a new dashboard, making it simpler to monitor federation health and troubleshoot issues.
 - **Migration & data portability:** Instance migration is now more robust. In addition to follows, blocks, and posts, you can now export and import circles/lists, bookmarks, likes, and boosts.
 - **Import & migration dashboard:** A dedicated dashboard helps you follow the progress of data imports and migrations, so you always know what's happening with your data.
 - **Access your data beyond the fediverse:** Subscribe to RSS/Atom feeds or download posts as markdown.
-- **UI & usability upgrades:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive. The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
+- **UI & usability improvements:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive. The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
 - **Links in posts:** Remote posts now get the same rich URL previews as local ones.
 - **User guides:** New guides and documentation make it easier for everyone to get started and explore Bonfire's features.
 
