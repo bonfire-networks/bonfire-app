@@ -75,6 +75,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
 - 📝 boltx [`c3d8f9b`](https://github.com/bonfire-networks/bonfire-app/commit/c3d8f9b87ba0cfbbcbb160d5da6caff707b45951) (thanks @mayel)
 - 🚀 update docs [`bc92597`](https://github.com/bonfire-networks/bonfire-app/commit/bc925979392bbc3e56ac94a106ac45799891e6c6) (thanks @mayel)
+- 🚧 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) [`274a07e`](https://github.com/bonfire-networks/bonfire-app/commit/274a07ee16c2b1f85f69a5ef4df6b532e2e51c73) (thanks @mayel)
 - 📝 fix [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
 - 📝 oup [`e2c13dc`](https://github.com/bonfire-networks/bonfire-app/commit/e2c13dcfe46e5e2da19b50bbe54e9bf471ddc653) (thanks @mayel)
 - 📝 quote the argument to echo [`5b70d44`](https://github.com/bonfire-networks/bonfire-app/commit/5b70d447fc8dfddd0ae90dc5a71f6c10e8f945b7) (thanks @uhoreg)
