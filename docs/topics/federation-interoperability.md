@@ -57,24 +57,58 @@ Supported object types include `Note`, `Article`, and others as defined in [Acti
 
 Bonfire aims for broad compatibility with major ActivityPub implementations. It supports and regularly tests against:
 
-Mastodon [3], Akomma, GoToSocial [8]
-Misskey and derivatives
-Pixelfed
-Peertube
-Mobilizon
-WriteFreely, Wordpress, Ghost
-Lemmy, kbin, and PieFed
-Castopod, Funkwhale
-BookWyrm
+- Mastodon [3], Akomma, GoToSocial [8]
+- Misskey and derivatives
+- Pixelfed
+- Peertube
+- Mobilizon
+- WriteFreely, Wordpress, and Ghost
+- Lemmy, kbin, and PieFed
+- Castopod, and Funkwhale
+- BookWyrm
 - [And more](https://github.com/bonfire-networks/bonfire-app/wiki/Manual-federation-testing)
 
 ### FEPs and Extensions
 
 Bonfire implements and/or experiments with several [Fediverse Enhancement Proposals (FEPs)][4], including:
 
-- [FEP-1b12][5] (Interaction Policy)
-- [FEP-400e][6] (Private Mentions)
 - [FEP-044f][7] (Quote Posts)
+- [TBD][5] (Interaction Policy)
+
+Partial support or conformity to-be-confirmed (help needed!):
+- FEP-f1d5, FEP-eb22, and/or FEP-0151 (NodeInfo)
+- FEP-2277 (ActivityPub core types)
+- FEP-4adb (Derefencing identifiers through webfinger)
+- FEP-521a (Representing actor's public keys)
+- FEP-5feb (Search indexing consent for actors)
+- FEP-268d (Search consent signals for objects)
+- FEP-d8c2 (OAuth 2.0 profile for the ActivityPub API)
+- FEP-7628, FEP-73cd, and/or FEP-e965 (Move actor)
+- FEP-8967 (Generating link previews for attached links)
+- FEP-c0e0 (Emoji reactions)
+- FEP-9098 (Custom emojis)
+- FEP-f228 (Backfilling conversations)
+- FEP-a974 (All Actor types should be followable)
+- FEP-1311 (Media attachments)
+- FEP-b2b8 (Long-form text)
+- FEP-76ea (Conversation threads)
+- FEP-7458 (Using the replies collection)
+- FEP-c16b (Formatting MFM functions)
+- FEP-eb48 (Hashtags)
+
+Work-in-progres, planned, or exploring (suggestions/feedback welcome!):
+- FEP-1b12 (Group federation)
+- FEP-67ff (FEDERATION.md)
+- FEP-2677 (Identifying the Application Actor)
+- FEP-d556 (Server-level Actor Discovery using WebFinger)
+- FEP-8a8e (A common approach to using the Event object type)
+- FEP-efda (Followable objects)
+- FEP-9967 (Polls)
+- FEP-fe34 (Origin-based security model)
+- FEP-0499 (Delivering to multiple inboxes with a multibox endpoints)
+- FEP-6fcd (Account export container format)
+- FEP-3264 (Federated work coordination)
+- FEP-c5a1 (Todos)
 
 Support for additional FEPs and experimental features not listed here may be implemented and enabled by extensions.
 
@@ -147,14 +181,10 @@ Bonfire supports [AP extensions](#ap-extensions) such as:
 - **PropertyValue**: For profile metadata fields, using the [schema.org PropertyValue][propertyvalue] extension.
 
 As of this writing there is no Bonfire extension currently defining new object types or properties, but extensions can add support for new types or properties. Some extensions are using types and properties defined by specs or FEPs outside of ActivityStreams though, for example enabling the ValueFlows extension adds support for economic objects and activities as defined by the [ValueFlows vocabulary][13]. This should be documented in each extension's docs or right here:
-
+ 
 #### FEPs and Experimental Features
 
-Bonfire can enable support for experimental ActivityPub features and [FEPs](#fep) via extensions. Notable examples include:
-
-- [FEP-1b12][5]: Interaction Policy (fine-grained control over who can interact with a post)
-- [FEP-400e][6]: Private Mentions
-- [FEP-044f][7]: Quote Posts
+Bonfire can enable support for experimental ActivityPub features and [FEPs](#fep) via extensions. See [FEPs and extensions](#feps-and-extensions) for some examples.
 
 Support for additional FEPs or custom types may be added by enabling the relevant extension.
 
@@ -397,7 +427,7 @@ Bonfire provides advanced privacy and interaction controls, supporting both stan
 - Bonfire will respect incoming `interactionPolicy` properties from remote posts, enforcing restrictions locally.
 - Audience enforcement is always based on both addressing fields and interaction policies.
 
-> For more details, see [Bonfire ActivityPub Implementation Docs][9] and [FEP-1b12][5].
+> For more details, see [Bonfire ActivityPub Implementation Docs][9] and [5].
 
 ## 11. Testing & Debugging
 
@@ -524,9 +554,6 @@ A mapping between a local object and its canonical URI.
 ### Canonical URI 
 An activty, object or actor's `id`: an authoritative, globally unique URI.
 
-### ApprovedBy 
-Property indicating an interaction was explicitly approved by the target actor (see FEP-1b12 [5]).
-
 ### Flag 
 The ActivityStreams activity type for reporting moderation issues.
 
@@ -579,8 +606,7 @@ An ActivityStreams object type representing a long-form post. [12]
 [2]: https://datatracker.ietf.org/doc/html/rfc7033 "WebFinger RFC"  
 [3]: https://docs.joinmastodon.org/spec/activitypub/ "Mastodon ActivityPub Docs"  
 [4]: https://codeberg.org/fediverse/fep "Fediverse Enhancement Proposals (FEPs)"  
-[5]: https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md "FEP-1b12: Interaction Policy"  
-[6]: https://codeberg.org/fediverse/fep/src/branch/main/fep/400e/fep-400e.md "FEP-400e: Private Mentions"  
+[5]: https://docs.gotosocial.org/en/v0.19.2/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"  
 [7]: https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md "FEP-044f: Quote Posts"  
 [8]: https://docs.gotosocial.org/en/latest/federation/ "GoToSocial Federation Docs"  
 [9]: https://docs.bonfirenetworks.org/TODO "Bonfire ActivityPub Implementation Docs"  
