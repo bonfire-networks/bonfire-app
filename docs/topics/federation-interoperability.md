@@ -73,7 +73,7 @@ Bonfire aims for broad compatibility with major ActivityPub implementations. It 
 Bonfire implements and/or experiments with several [Fediverse Enhancement Proposals (FEPs)][4], including:
 
 - [FEP-044f][7] (Quote Posts)
-- [TBD][5] (Interaction Policy)
+- [TBD][15] (Interaction Policy)
 
 Partial support or conformity to-be-confirmed (help needed!):
 - [FEP-f1d5][16], [FEP-eb22][17], and/or [FEP-0151][18] (NodeInfo)
@@ -97,7 +97,7 @@ Partial support or conformity to-be-confirmed (help needed!):
 - [FEP-eb48][38] (Hashtags)
 
 Work-in-progres, planned, or exploring (suggestions/feedback welcome!):
-- [FEP-1b12][5] (Group federation)
+- [FEP-1b12][15] (Group federation)
 - [FEP-67ff][39] (FEDERATION.md)
 - [FEP-2677][40] (Identifying the Application Actor)
 - [FEP-d556][41] (Server-level Actor Discovery using WebFinger)
@@ -398,7 +398,7 @@ All block types are enforced at the boundaries level and affect both incoming an
 
 ## 10. Circles, Boundaries & Interaction Policies
 
-Bonfire provides advanced privacy and interaction controls, supporting both standard ActivityPub audience fields and newer proposals like [FEP-1b12](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md) for interaction policies.
+Bonfire provides advanced privacy and interaction controls, supporting both standard ActivityPub audience fields and newer proposals like [FEP-044f][7] for interaction policies.
 
 ### Circles and Boundaries
 
@@ -407,9 +407,9 @@ Bonfire provides advanced privacy and interaction controls, supporting both stan
 - When federating, Bonfire always maps circles and boundaries to ActivityPub addressing fields (in `bto` or `bcc`) as appropriate. Circles are not federated as named groups; only the resolved list of recipients is included in the addressing fields.
 - Remote instances will only see the addressing fields, not the internal circle names or membership. Circle membership is not exposed to other users or to remote servers by default.
 
-### Interaction Policies (FEP-1b12 and related)
+### Interaction Policies 
 
-- Bonfire supports [FEP-1b12](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md) and related proposals for fine-grained interaction control.
+- Bonfire supports [FEP-044f][7] and related proposals for fine-grained interaction control.
 - Posts and objects can include an `interactionPolicy` property, specifying who can like, reply, announce, or quote.
 - Sub-policies include `canLike`, `canReply`, `canAnnounce`, and `canQuote`, each with `automaticApproval` and optionally `manualApproval` fields.
 - Bonfire includes `interactionPolicy` [15] on outgoing posts when appropriate. This property is intended as an FYI for remote instances, so they can disable or hide actions in their UI (and avoid users enacting interactions that will not be properly federated to their intended recipients but could still seen by users of their own instance). 
@@ -418,7 +418,7 @@ Bonfire provides advanced privacy and interaction controls, supporting both stan
 ### Approval Flows
 
 - Both automatic and manual approval flows are supported for local and remote users.
-- When a remote user attempts an interaction that requires manual approval, Bonfire federates a pending request and responds with `Accept` or `Reject` activities as appropriate, following FEP-1b12.
+- When a remote user attempts an interaction that requires manual approval, Bonfire federates a pending request and responds with `Accept` or `Reject` activities as appropriate, following [FEP-044f][7].
 - The `approvedBy` property is used to indicate explicit approval by the post author, and Bonfire supports both auto-accept and manual approval flows.
 
 ### Interop Notes
@@ -427,7 +427,7 @@ Bonfire provides advanced privacy and interaction controls, supporting both stan
 - Bonfire will respect incoming `interactionPolicy` properties from remote posts, enforcing restrictions locally.
 - Audience enforcement is always based on both addressing fields and interaction policies.
 
-> For more details, see [Bonfire ActivityPub Implementation Docs][9] and [5].
+> For more details, see [Bonfire ActivityPub Implementation Docs][9] and [15].
 
 ## 11. Testing & Debugging
 
@@ -558,7 +558,7 @@ An activty, object or actor's `id`: an authoritative, globally unique URI.
 The ActivityStreams activity type for reporting moderation issues.
 
 ### Interaction Policy 
-A set of rules (e.g., canLike, canReply) governing who can interact with a post. [5]
+A set of rules (e.g., canLike, canReply) governing who can interact with a post. [15]
 
 ### Instance
 A single deployment of a federated server (e.g., a Bonfire, Mastodon, or GtS server).
@@ -606,47 +606,47 @@ An ActivityStreams object type representing a long-form post. [12]
 [2]: https://datatracker.ietf.org/doc/html/rfc7033 "WebFinger RFC"  
 [3]: https://docs.joinmastodon.org/spec/activitypub/ "Mastodon ActivityPub Docs"  
 [4]: https://codeberg.org/fediverse/fep "Fediverse Enhancement Proposals (FEPs)"  
-[5]: https://docs.gotosocial.org/en/v0.19.2/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"  
-[7]: https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md "FEP-044f: Quote Posts"  
+[5]: 
+[7]: https://w3id.org/fep/044f "FEP-044f: Consent-respecting Quote Posts"  
 [8]: https://docs.gotosocial.org/en/latest/federation/ "GoToSocial Federation Docs"  
 [9]: https://docs.bonfirenetworks.org/TODO "Bonfire ActivityPub Implementation Docs"  
 [10]: https://datatracker.ietf.org/doc/html/draft-cavage-http-signatures "HTTP Signatures RFC"  
 [11]: https://www.w3.org/TR/activitystreams-core/ "ActivityStreams 2.0 Core Syntax"  
 [12]: https://www.w3.org/TR/activitystreams-vocabulary/ "ActivityStreams 2.0 Vocabulary"
-[13]: https://www.valueflo.ws "ValueFlows"
-[14]: https://www.w3.org/TR/activitypub/#shared-inbox-delivery "ActivityPub Shared Inbox Delivery"
-[15]: https://docs.gotosocial.org/en/v0.19.2/federation/interaction_policy/ "Interaction Policy"
-[16]: https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md "FEP-f1d5: NodeInfo in Fediverse Software"
-[17]: https://codeberg.org/fediverse/fep/src/branch/main/fep/eb22/fep-eb22.md "FEP-eb22: Supported ActivityStreams types with NodeInfo"
-[18]: https://codeberg.org/fediverse/fep/src/branch/main/fep/0151/fep-0151.md "FEP-0151: NodeInfo in Fediverse Software (2025 edition)"
-[19]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md "FEP-2277: ActivityPub core types"
-[20]: https://codeberg.org/fediverse/fep/src/branch/main/fep/4adb/fep-4adb.md "FEP-4adb: Dereferencing identifiers through webfinger"
-[21]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md "FEP-521a: Representing actor's public keys"
-[22]: https://codeberg.org/fediverse/fep/src/branch/main/fep/5feb/fep-5feb.md "FEP-5feb: Search indexing consent for actors"
-[23]: https://codeberg.org/fediverse/fep/src/branch/main/fep/268d/fep-268d.md "FEP-268d: Search consent signals for objects"
-[24]: https://codeberg.org/fediverse/fep/src/branch/main/fep/d8c2/fep-d8c2.md "FEP-d8c2: OAuth 2.0 profile for the ActivityPub API"
-[25]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md "FEP-7628: Move actor"
-[26]: https://codeberg.org/fediverse/fep/src/branch/main/fep/73cd/fep-73cd.md "FEP-73cd: Migration User Stories"
-[27]: https://codeberg.org/fediverse/fep/src/branch/main/fep/e965/fep-e965.md "FEP-e965: Move Activity for Migrations and Announce Activity for Tombstone Events"
-[28]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8967/fep-8967.md "FEP-8967: Generating link previews for attached links"
-[29]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c0e0/fep-c0e0.md "FEP-c0e0: Emoji reactions"
-[30]: https://codeberg.org/fediverse/fep/src/branch/main/fep/9098/fep-9098.md "FEP-9098: Custom emojis"
-[31]: https://codeberg.org/fediverse/fep/src/branch/main/fep/f228/fep-f228.md "FEP-f228: Backfilling conversations"
-[32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/a974/fep-a974.md "FEP-a974: All Actor types should be followable"
-[33]: https://codeberg.org/fediverse/fep/src/branch/main/fep/1311/fep-1311.md "FEP-1311: Media attachments"
-[34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/b2b8/fep-b2b8.md "FEP-b2b8: Long-form text"
-[35]: https://codeberg.org/fediverse/fep/src/branch/main/fep/76ea/fep-76ea.md "FEP-76ea: Conversation threads"
-[36]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7458/fep-7458.md "FEP-7458: Using the replies collection"
-[37]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c16b/fep-c16b.md "FEP-c16b: Formatting MFM functions"
-[38]: https://codeberg.org/fediverse/fep/src/branch/main/fep/eb48/fep-eb48.md "FEP-eb48: Hashtags"
-[39]: https://codeberg.org/fediverse/fep/src/branch/main/fep/67ff/fep-67ff.md "FEP-67ff: FEDERATION.md"
-[40]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2677/fep-2677.md "FEP-2677: Identifying the Application Actor"
-[41]: https://codeberg.org/fediverse/fep/src/branch/main/fep/d556/fep-d556.md "FEP-d556: Server-level Actor Discovery using WebFinger"
-[42]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8a8e/fep-8a8e.md "FEP-8a8e: A common approach to using the Event object type"
-[43]: https://codeberg.org/fediverse/fep/src/branch/main/fep/efda/fep-efda.md "FEP-efda: Followable objects"
-[44]: https://codeberg.org/fediverse/fep/src/branch/main/fep/9967/fep-9967.md "FEP-9967: Polls"
-[45]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md "FEP-fe34: Origin-based security model"
-[46]: https://codeberg.org/fediverse/fep/src/branch/main/fep/0499/fep-0499.md "FEP-0499: Delivering to multiple inboxes with a multibox endpoints"
-[47]: https://codeberg.org/fediverse/fep/src/branch/main/fep/6fcd/fep-6fcd.md "FEP-6fcd: Account export container format"
-[48]: https://codeberg.org/fediverse/fep/src/branch/main/fep/3264/fep-3264.md "FEP-3264: Federated work coordination"
-[49]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c5a1/fep-c5a1.md "FEP-c5a1: Todos"
+[13]: https://www.valueflo.ws "ValueFlows: a vocabulary for the distributed economic networks of the next economy, to coordinate the creation, distribution, and exchange of economic resources"
+[14]: https://www.w3.org/TR/activitypub/#shared-inbox-delivery "Shared Inbox Delivery in ActivityPub"
+[15]: https://docs.gotosocial.org/en/v0.19.2/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"
+[16]: https://w3id.org/fep/f1d5 "FEP-f1d5: NodeInfo in Fediverse Software"
+[17]: https://w3id.org/fep/eb22 "FEP-eb22: Supported ActivityStreams types with NodeInfo"
+[18]: https://w3id.org/fep/0151 "FEP-0151: NodeInfo in Fediverse Software (2025 edition)"
+[19]: https://w3id.org/fep/2277 "FEP-2277: ActivityPub core types"
+[20]: https://w3id.org/fep/4adb "FEP-4adb: Dereferencing identifiers through webfinger"
+[21]: https://w3id.org/fep/521a "FEP-521a: Representing actor's public keys"
+[22]: https://w3id.org/fep/5feb "FEP-5feb: Search indexing consent for actors"
+[23]: https://w3id.org/fep/268d "FEP-268d: Search consent signals for objects"
+[24]: https://w3id.org/fep/d8c2 "FEP-d8c2: OAuth 2.0 profile for the ActivityPub API"
+[25]: https://w3id.org/fep/7628 "FEP-7628: Move actor"
+[26]: https://w3id.org/fep/73cd "FEP-73cd: Migration User Stories"
+[27]: https://w3id.org/fep/e965 "FEP-e965: Move Activity for Migrations and Announce Activity for Tombstone Events"
+[28]: https://w3id.org/fep/8967 "FEP-8967: Generating link previews for attached links"
+[29]: https://w3id.org/fep/c0e0 "FEP-c0e0: Emoji reactions"
+[30]: https://w3id.org/fep/9098 "FEP-9098: Custom emojis"
+[31]: https://w3id.org/fep/f228 "FEP-f228: Backfilling conversations"
+[32]: https://w3id.org/fep/a974 "FEP-a974: All Actor types should be followable"
+[33]: https://w3id.org/fep/1311 "FEP-1311: Media attachments"
+[34]: https://w3id.org/fep/b2b8 "FEP-b2b8: Long-form text"
+[35]: https://w3id.org/fep/76ea "FEP-76ea: Conversation threads"
+[36]: https://w3id.org/fep/7458 "FEP-7458: Using the replies collection"
+[37]: https://w3id.org/fep/c16b "FEP-c16b: Formatting MFM functions"
+[38]: https://w3id.org/fep/eb48 "FEP-eb48: Hashtags"
+[39]: https://w3id.org/fep/67ff "FEP-67ff: FEDERATION.md"
+[40]: https://w3id.org/fep/2677 "FEP-2677: Identifying the Application Actor"
+[41]: https://w3id.org/fep/d556 "FEP-d556: Server-level Actor Discovery using WebFinger"
+[42]: https://w3id.org/fep/8a8e "FEP-8a8e: A common approach to using the Event object type"
+[43]: https://w3id.org/fep/efda "FEP-efda: Followable objects"
+[44]: https://w3id.org/fep/9967 "FEP-9967: Polls"
+[45]: https://w3id.org/fep/fe34 "FEP-fe34: Origin-based security model"
+[46]: https://w3id.org/fep/0499 "FEP-0499: Delivering to multiple inboxes with a multibox endpoints"
+[47]: https://w3id.org/fep/6fcd "FEP-6fcd: Account export container format"
+[48]: https://w3id.org/fep/3264 "FEP-3264: Federated work coordination"
+[49]: https://w3id.org/fep/c5a1 "FEP-c5a1: Todos"
