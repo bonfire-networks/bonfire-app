@@ -30,13 +30,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Feature Proposal: UX Suggestion - Add a visual indicator during large uploads [#1433](https://github.com/bonfire-networks/bonfire-app/issues/1433) (thanks @GreenMan-Network and @mayel)
 - ✨ It would be nice if the media gallery had swipe-between on photos and right-left keypad on desktop [#1424](https://github.com/bonfire-networks/bonfire-app/issues/1424) (thanks @ivanminutillo and @mayel)
 - ✨ Add a view to see the status of profile migrations [#1366](https://github.com/bonfire-networks/bonfire-app/issues/1366) (thanks @mayel and @ivanminutillo)
+- ✨ make sure post deletion works and gets federated [#1361](https://github.com/bonfire-networks/bonfire-app/issues/1361) (thanks @mayel)
 - ✨ Events feed preset [#1301](https://github.com/bonfire-networks/bonfire-app/issues/1301) (thanks @ivanminutillo)
 - ✨ generate URL previews for remote (federated) posts, like we do for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) (thanks @ivanminutillo and @mayel)
 - ✨ UI to view the federation processing queue [#1037](https://github.com/bonfire-networks/bonfire-app/issues/1037) (thanks @mayel)
 - ✨ support sign up with openid/oauth providers who don't provide the user's email address [#1017](https://github.com/bonfire-networks/bonfire-app/issues/1017) (thanks @mayel)
 - ✨ Post drafts should persist in memory when a user navigate between pages [#403](https://github.com/bonfire-networks/bonfire-app/issues/403) - [PR #1](https://github.com/bonfire-networks/bonfire-app/pull/1), [PR #2](https://github.com/bonfire-networks/bonfire-app/pull/2), [PR #435](https://github.com/bonfire-networks/bonfire-app/pull/435) (thanks @ivanminutillo, @mayel, and @abaez)
 - ✨ Allow reading meilisearch master key secret from file. [PR #1](https://github.com/bonfire-networks/bonfire_search/pull/1) (thanks @fishinthecalculator)
-- ✅ tests [`bc18874`](https://github.com/bonfire-networks/bonfire-app/commit/bc188740eec5f72aaf4bd2fd9d585c9e2dd5485f), [`b69277b`](https://github.com/bonfire-networks/bonfire-app/commit/b69277bfed1bd0507a6917082632402fc722b4d1), [`a6f3c0b`](https://github.com/bonfire-networks/bonfire-app/commit/a6f3c0b0e701504dcf4f32672946a76d12db4866), [`fbded0c`](https://github.com/bonfire-networks/bonfire-app/commit/fbded0ce045012eb5076133a72e81821e854fe55), [`a41c178`](https://github.com/bonfire-networks/bonfire-app/commit/a41c17802c8157261cc5cb1198118bb352fe3570), [`eba4bfa`](https://github.com/bonfire-networks/activity_pub/commit/eba4bfa7d44f0bf258748be5980ad8b4cfd1542f), [`fcc0e70`](https://github.com/bonfire-networks/activity_pub/commit/fcc0e70f3c51c991f40efa706d70bb5d655525d0), [`189e5e9`](https://github.com/bonfire-networks/activity_pub/commit/189e5e9a0eb066e07278f67a69bcec13b1f33b7e), [`4af99fc`](https://github.com/bonfire-networks/activity_pub/commit/4af99fcc45ce25d5926fccd633d0da83cb8b996a) (thanks @mayel)
+- ✅ tests [`d988be8`](https://github.com/bonfire-networks/bonfire-app/commit/d988be8ff5428c6e75e68b1206081ad66a440247), [`bc18874`](https://github.com/bonfire-networks/bonfire-app/commit/bc188740eec5f72aaf4bd2fd9d585c9e2dd5485f), [`b69277b`](https://github.com/bonfire-networks/bonfire-app/commit/b69277bfed1bd0507a6917082632402fc722b4d1), [`a6f3c0b`](https://github.com/bonfire-networks/bonfire-app/commit/a6f3c0b0e701504dcf4f32672946a76d12db4866), [`fbded0c`](https://github.com/bonfire-networks/bonfire-app/commit/fbded0ce045012eb5076133a72e81821e854fe55), [`a41c178`](https://github.com/bonfire-networks/bonfire-app/commit/a41c17802c8157261cc5cb1198118bb352fe3570), [`c4db784`](https://github.com/bonfire-networks/activity_pub/commit/c4db784aa606ebb2e2de8df8f4a504d5b9fa1924), [`eba4bfa`](https://github.com/bonfire-networks/activity_pub/commit/eba4bfa7d44f0bf258748be5980ad8b4cfd1542f), [`fcc0e70`](https://github.com/bonfire-networks/activity_pub/commit/fcc0e70f3c51c991f40efa706d70bb5d655525d0), [`189e5e9`](https://github.com/bonfire-networks/activity_pub/commit/189e5e9a0eb066e07278f67a69bcec13b1f33b7e), [`4af99fc`](https://github.com/bonfire-networks/activity_pub/commit/4af99fcc45ce25d5926fccd633d0da83cb8b996a) (thanks @mayel)
 - ✨ Create SETTINGS_SYSTEM.md [`9e93774`](https://github.com/bonfire-networks/bonfire-app/commit/9e9377418bd86a91aed7be5b344fda010a880aef) (thanks @ivanminutillo)
 - ✨ add gcc [`ed3369e`](https://github.com/bonfire-networks/bonfire-app/commit/ed3369e22e873482ac138ed3338671a964cf85b0) (thanks @mayel)
 - ✨ tests and new version [`421cd41`](https://github.com/bonfire-networks/bonfire-app/commit/421cd41edc4e6dff9976324bc9e4cca19f77c9ff) (thanks @ivanminutillo)
@@ -45,6 +46,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ test [`a6210e7`](https://github.com/bonfire-networks/bonfire-app/commit/a6210e74621f80c8684b1ff878dcf0d67f6c44ef) (thanks @ivanminutillo)
 
 ### Changed
+- 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) (thanks @mayel)
 - 🚀 improve UX for customising permissions when posting, editing, or defining a boundary (toggling verbs rather than roles) [#1553](https://github.com/bonfire-networks/bonfire-app/issues/1553) (thanks @mayel)
 - 📝 status page to view outgoing and incoming federated activities [#1548](https://github.com/bonfire-networks/bonfire-app/issues/1548) (thanks @mayel)
 - 💅 UX enhancement: Show the full handle w/ domain plus a “Copy” button in profile [#1537](https://github.com/bonfire-networks/bonfire-app/issues/1537) (thanks @ivanminutillo)
@@ -75,7 +77,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
 - 📝 boltx [`c3d8f9b`](https://github.com/bonfire-networks/bonfire-app/commit/c3d8f9b87ba0cfbbcbb160d5da6caff707b45951) (thanks @mayel)
 - 🚀 update docs [`bc92597`](https://github.com/bonfire-networks/bonfire-app/commit/bc925979392bbc3e56ac94a106ac45799891e6c6) (thanks @mayel)
-- 🚧 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) [`274a07e`](https://github.com/bonfire-networks/bonfire-app/commit/274a07ee16c2b1f85f69a5ef4df6b532e2e51c73) (thanks @mayel)
 - 📝 fix [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
 - 📝 oup [`e2c13dc`](https://github.com/bonfire-networks/bonfire-app/commit/e2c13dcfe46e5e2da19b50bbe54e9bf471ddc653) (thanks @mayel)
 - 📝 quote the argument to echo [`5b70d44`](https://github.com/bonfire-networks/bonfire-app/commit/5b70d447fc8dfddd0ae90dc5a71f6c10e8f945b7) (thanks @uhoreg)
@@ -83,6 +84,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
 
 ### Fixed
+- 🐛 can't upload anymore more than 1 media in posts [#1547](https://github.com/bonfire-networks/bonfire-app/issues/1547) (thanks @ivanminutillo)
 - 🐛 fix instance icon/banner uploaded to s3 [#1536](https://github.com/bonfire-networks/bonfire-app/issues/1536) (thanks @mayel)
 - 🐛 Hashtag search is not working with Meilisearch backend [#1497](https://github.com/bonfire-networks/bonfire-app/issues/1497) (thanks @GreenMan-Network and @mayel)
 - 🐛 Article feed is not loading, looping behavior appears [#1496](https://github.com/bonfire-networks/bonfire-app/issues/1496) (thanks @jeffsikes and @mayel)
