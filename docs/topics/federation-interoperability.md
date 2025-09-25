@@ -8,7 +8,7 @@ Unlike monolithic platforms, Bonfire is designed built as a framework that power
 
 Bonfire strives for maximum interoperability with other ActivityPub-based software such as [Mastodon][3], Pixelfed, Mobilizon, GoToSocial [8], Peertube, and others, while also supporting advanced privacy controls, custom boundaries, and experimental [FEPs](#fep).
 
-This guide documents how Bonfire federates, how it handles ActivityPub objects and activities, and what to expect when integrating with or building on top of Bonfire.
+This guide documents how Bonfire federates, how it handles ActivityPub objects and activities, and what to expect when integrating with or building on top of Bonfire. 
 
 - **Protocols:** [ActivityPub](#activitypub), [WebFinger](#webfinger)
 - **Syntax:** [ActivityStreams Core][11]
@@ -42,6 +42,8 @@ Bonfire implements the [WebFinger][2] protocol for resource discovery:
 
 - Endpoint: `https://your.bonfire.instance/.well-known/webfinger`
 - Query parameter: `resource=acct:username@domain`
+
+WebFinger is essential for interoperability with most ActivityPub implementations, as it allows translating `@user@domain` identifiers into canonical ActivityPub actor URIs. Bonfire ensures that the `rel=self` link and `subject` fields are correct, and supports both `application/activity+json` and `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` content types for maximum compatibility.
 
 WebFinger responses include links to the actor's ActivityPub profile and HTML profile page. See [WebFinger RFC][2] for details.
 
@@ -149,7 +151,16 @@ Bonfire uses the standard ActivityPub addressing fields to determine the audienc
 - `bto`, `bcc`: Blind recipients (not visible to all, used for addressing activities with custom circles or boundaries).
 - `audience`: Additional audience specification (rarely used).
 
-Bonfire enforces audience boundaries and privacy settings based on these fields and local boundaries. See [Boundary](#boundary) and [Access Control](#9-access-control).
+#### Addressing and Visibility Mapping
+
+| Addressing Fields Example                                 | Visibility Level      | Notes                                                                 |
+|----------------------------------------------------------|----------------------|-----------------------------------------------------------------------|
+| `to: Public`                                             | Public               | Visible to everyone, delivered to all followers and public timelines. |
+| `to: followers`                                          | Followers-only       | Only followers can see/interact.                                      |
+| `to: [actor1, actor2]`                                   | Direct (DM)          | Only addressed actors can see/interact.                               |
+| `bto`/`bcc`                                              | Blind recipients     | Recipients not visible to others (used to apply circles/boundaries in outgoing activities).                                     |
+
+Bonfire interprets these fields according to the ActivityPub spec and enforces boundaries and privacy accordingly.
 
 ### Canonical URIs and ID Formats
 
@@ -182,13 +193,140 @@ Bonfire supports [AP extensions](#ap-extensions) such as:
 
 As of this writing there is no Bonfire extension currently defining new object types or properties, but extensions can add support for new types or properties. Some extensions are using types and properties defined by specs or FEPs outside of ActivityStreams though, for example enabling the ValueFlows extension adds support for economic objects and activities as defined by the [ValueFlows vocabulary][13]. This should be documented in each extension's docs or right here:
  
-#### FEPs and Experimental Features
+#### FEPs, Experimental Features, and Handling of Unknown and Custom Types
 
-Bonfire can enable support for experimental ActivityPub features and [FEPs](#fep) via extensions. See [FEPs and extensions](#feps-and-extensions) for some examples.
+Bonfire stores and attempts to render any ActivityStreams object type, even if not natively supported. For unknown types, Bonfire uses the `preview` property if present, or falls back to common properties like `name`, `summary`, or `image`. Mastodon, GoToSocial, and Akkoma-specific extensions and properties are generally ignored unless mapped by a Bonfire extension.
 
-Support for additional FEPs or custom types may be added by enabling the relevant extension.
+##### Extensions from Other Platforms
 
-> For a full list of supported types and extensions, see [ActivityStreams Vocabulary][12] and [Bonfire ActivityPub Implementation Docs][9].
+Bonfire will always store, and depending on what extensions are implemented and enabled, may ignore or use/render Mastodon/GoToSocial/Akkoma-specific extensions such as `toot:Emoji`, `toot:blurhash`, and others. See [AP Extensions](#ap-extensions) for more.
+
+##### Profile Metadata and Attachments
+
+Bonfire represents profile fields using `PropertyValue` objects in the `attachment` array, following the schema.org extension used by Mastodon and GoToSocial. Note that Mastodon uses the context `http://schema.org#` (incorrect), while Bonfire uses the correct `https://schema.org/`. Bonfire will parse both for compatibility.
+
+##### Hashtags, Mentions, and Emojis
+
+Bonfire encodes hashtags, mentions, and custom emojis in the `tag` array, using the `Hashtag`, `Mention`, and `Emoji` types as defined in ActivityStreams and Mastodon extensions. These are rendered in the UI and federated as appropriate.
+
+##### Blurhash
+
+Bonfire creates and displays blurhashes (`blurhash`) for image attachments, as defined by Mastodon and GoToSocial. These properties are used to improve media display and previews in the UI.
+
+##### Providing Source Markdown
+
+Bonfire includes the original source (markdown) of posts in the `source` property of ActivityPub objects, in addition to the rendered HTML in `content`. This allows remote servers and clients to display or edit the original markdown if desired, improving fidelity and interoperability.
+
+###### Example: Outgoing Note with Markdown Source
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "@language": "en",
+      "Hashtag": "as:Hashtag",
+      "ValueFlows": "https://w3id.org/valueflows#",
+      "_misskey_quote": "https://misskey-hub.net/ns/#_misskey_quote",
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "quote": {"@id": "https://w3id.org/fep/044f#quote", "@type": "@id"},
+      "quoteAuthorization": {"@id": "https://w3id.org/fep/044f#quoteAuthorization", "@type": "@id"},
+      "sensitive": "as:sensitive"
+    }
+  ],
+  "attachment": [],
+  "attributedTo": "https://bonfire.cafe/pub/actors/example",
+  "cc": [],
+  "content": "<p>“To oppose something is to maintain it... You must go somewhere else; you must have another goal; then you walk a different road.” <br/> ― Ursula K. Le Guin</p>",
+  "id": "https://bonfire.cafe/pub/objects/01K5EX3HRWJEY51JYK40JFT0MD",
+  "indexable": true,
+  "interactionPolicy": {
+    "canAnnounce": {"automaticApproval": ["https://www.w3.org/ns/activitystreams#Public"]},
+    "canLike": {"automaticApproval": ["https://www.w3.org/ns/activitystreams#Public"]},
+    "canQuote": {
+      "automaticApproval": ["https://bonfire.cafe/pub/actors/example"],
+      "manualApproval": ["https://www.w3.org/ns/activitystreams#Public"]
+    },
+    "canReply": {"automaticApproval": ["https://www.w3.org/ns/activitystreams#Public"]}
+  },
+  "published": "2025-09-18T17:14:13.148Z",
+  "sensitive": false,
+  "source": {
+    "content": "“To oppose something is to maintain it... You must go somewhere else; you must have another goal; then you walk a different road.” \n ― Ursula K. Le Guin",
+    "mediaType": "text/markdown"
+  },
+  "tag": [],
+  "to": ["https://www.w3.org/ns/activitystreams#Public"],
+  "type": "Note"
+}
+```
+
+###### Example: Outgoing Actor with Profile Fields
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "@language": "en",
+      "alsoKnownAs": {"@id": "as:alsoKnownAs", "@type": "@id"},
+      "manuallyApprovesFollowers": "as:manuallyApprovesFollowers",
+      "movedTo": "as:movedTo",
+      "sensitive": "as:sensitive"
+    }
+  ],
+  "alsoKnownAs": ["https://sunbeam.city/users/example"],
+  "attachment": [
+    {
+      "name": "website",
+      "type": "PropertyValue",
+      "value": "<a rel=\"me\" href=\"https://bonfirenetworks.org\">https://bonfirenetworks.org</a>"
+    },
+    {
+      "name": "liberapay",
+      "type": "PropertyValue",
+      "value": "<a rel=\"me\" href=\"https://bonfire.cafe/pub/objects/01K1D97DXFJJ91BYP1WBR71V1A\">https://bonfire.cafe/pub/objects/01K1D97DXFJJ91BYP1WBR71V1A</a>"
+    },
+    {
+      "name": "link",
+      "type": "PropertyValue",
+      "value": "<a rel=\"me\" href=\"https://bonfire.cafe/pub/objects/01K1D967YP3G7FACGAPF61Z80Q\">https://bonfire.cafe/pub/objects/01K1D967YP3G7FACGAPF61Z80Q</a>"
+    }
+  ],
+  "discoverable": true,
+  "endpoints": {
+    "oauthAuthorizationEndpoint": "https://bonfire.cafe/oauth/authorize",
+    "oauthRegistrationEndpoint": "https://bonfire.cafe/api/v1/apps",
+    "oauthTokenEndpoint": "https://bonfire.cafe/oauth/token",
+    "sharedInbox": "https://bonfire.cafe/pub/shared_inbox"
+  },
+  "followers": "https://bonfire.cafe/pub/actors/example/followers",
+  "following": "https://bonfire.cafe/pub/actors/example/following",
+  "icon": {
+    "type": "Image",
+    "url": "https://bonfire.cafe/files/redir/local/data/uploads/01JSC2WAV3P752DW3W0H3847DP/icons/01JSHVHQ5ZNHM95QEKXRW6BN46.png"
+  },
+  "id": "https://bonfire.cafe/pub/actors/example",
+  "image": {
+    "type": "Image",
+    "url": "https://bonfire.cafe/images/bonfires.png"
+  },
+  "inbox": "https://bonfire.cafe/pub/actors/example/inbox",
+  "indexable": true,
+  "name": "Example User",
+  "outbox": "https://bonfire.cafe/pub/actors/example/outbox",
+  "preferredUsername": "example",
+  "publicKey": {
+    "id": "https://bonfire.cafe/pub/actors/example#main-key",
+    "owner": "https://bonfire.cafe/pub/actors/example",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\n...snip...\n-----END PUBLIC KEY-----\n"
+  },
+  "summary": "<p>Tending to @bonfire@bonfire.cafe 🔥</p>",
+  "type": "Person",
+  "updated": "2025-09-25T10:09:52.379596",
+  "url": "https://bonfire.cafe/pub/actors/example"
+}
+```
 
 ## 5. Federation Flows
 
@@ -301,7 +439,7 @@ All ActivityPub server-to-server (S2S) requests to Bonfire endpoints should be s
 
 ### Quirks and Compatibility
 
-- **Query parameters:** Bonfire signs requests including query parameters in the signature string, but will attempt validation both with and without query parameters for compatibility with other implementations.
+- **Query parameters:** Bonfire signs requests including query parameters in the signature string, but will attempt validation both with and without query parameters for compatibility with other implementations (such as Mastodon and GoToSocial). This ensures that signed requests for paginated collections or other endpoints with query parameters are accepted regardless of the remote implementation's signature handling.
 - **keyId format:** Bonfire uses the fragment format for `keyId` (e.g., `https://your.bonfire.instance/pub/actors/alice#main-key`), matching Mastodon and most other platforms.
 - **Public key endpoint:** The `keyId` in the signature header should match the `id` of the `publicKey` object in the actor's JSON.
 
@@ -388,13 +526,21 @@ All block types are enforced at the boundaries level and affect both incoming an
 - **Moderation workflow:**  
   - Reports can be reviewed, actioned, or dismissed by moderators. Actions may include warning, silencing, blocking, labeling, editing, or deleting content or accounts.
 
+### Moderation Activities
+
+Bonfire does not send `Block` activities for S2S federation, but does apply incoming blocks as appropriate. Moderation is mostly handled through Bonfire's boundaries functionality, and the `Flag` activity for reporting, which are processed as moderation reports and placed in instance moderators' queue.
+
+#### Account Migration
+
+Bonfire supports account migration using the `Move` activity, and the `alsoKnownAs` and `movedTo` properties on actors. Migration is only considered valid if both accounts reference each other via `alsoKnownAs`. On receiving a valid `Move`, Bonfire will redirect followers to the new account and update local state accordingly.
+
 ### Interop Notes
 
 - Remote instances can expect Bonfire to process incoming `Flag` activities according to local moderation policy.
 - Bonfire federates moderation actions as appropriate, including `Flag`, `Update`, and `Delete` activities.
 - Bonfire follows the ActivityPub and ActivityStreams conventions for moderation activities, ensuring compatibility with major implementations.
 
-> For more details, see [Bonfire ActivityPub Implementation Docs][9] and the [ActivityStreams Spec][1] for `Flag` and `Block` activities.
+> For more details, see [Bonfire ActivityPub Implementation Docs][9] and the [ActivityStreams Spec][1] for `Flag` activities.
 
 ## 10. Circles, Boundaries & Interaction Policies
 
