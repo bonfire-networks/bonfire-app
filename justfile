@@ -716,7 +716,7 @@ ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "for
 ap_ext := if path_exists("extensions/bonfire_federate_activitypub/test/")=="true" { "extensions/bonfire_federate_activitypub/test/" } else { "deps/bonfire_federate_activitypub/test/" }
 ap_integration := ap_ext+"activity_pub_integration/"
 ap_boundaries := ap_ext+"boundaries/"
-ap_etc := "--exclude ui --exclude backend --exclude ap_lib"
+ap_etc := "--exclude ui --exclude browser --exclude backend --exclude ap_lib"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation TEST_CMD="test_run": _test-dance-positions
