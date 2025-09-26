@@ -19,7 +19,7 @@ This guide documents how Bonfire federates, how it handles ActivityPub objects a
 
 ## 2. Protocol Support & Endpoints
 
-Bonfire supports the core [ActivityPub](#activitypub) server-to-server (S2S) protocol for federation, as well as [WebFinger](#webfinger) for user and resource discovery. This enables Bonfire instances to interoperate with a wide range of other Fediverse software, including [Mastodon][3], Akkoma, Pixelfed, Mobilizon, Wordpress, GoToSocial [8], and many more.
+Bonfire supports the core [ActivityPub](#activitypub) server-to-server (S2S) protocol for federation, as well as [WebFinger](#webfinger) for user and resource discovery. This enables Bonfire instances to interoperate with a wide range of other Fediverse software, including [Mastodon][3], Akkoma [5], Pixelfed, Mobilizon, Wordpress, GoToSocial [8], and many more.
 
 ### ActivityPub Endpoints
 
@@ -752,7 +752,7 @@ An ActivityStreams object type representing a long-form post. [12]
 [2]: https://datatracker.ietf.org/doc/html/rfc7033 "WebFinger RFC"  
 [3]: https://docs.joinmastodon.org/spec/activitypub/ "Mastodon ActivityPub Docs"  
 [4]: https://codeberg.org/fediverse/fep "Fediverse Enhancement Proposals (FEPs)"  
-[5]: 
+[5]: https://docs.akkoma.dev/stable/development/ap_extensions/ "Akkoma ActivityPub Docs"
 [7]: https://w3id.org/fep/044f "FEP-044f: Consent-respecting Quote Posts"  
 [8]: https://docs.gotosocial.org/en/latest/federation/ "GoToSocial Federation Docs"  
 [9]: https://docs.bonfirenetworks.org/TODO "Bonfire ActivityPub Implementation Docs"  
@@ -761,7 +761,7 @@ An ActivityStreams object type representing a long-form post. [12]
 [12]: https://www.w3.org/TR/activitystreams-vocabulary/ "ActivityStreams 2.0 Vocabulary"
 [13]: https://www.valueflo.ws "ValueFlows: a vocabulary for the distributed economic networks of the next economy, to coordinate the creation, distribution, and exchange of economic resources"
 [14]: https://www.w3.org/TR/activitypub/#shared-inbox-delivery "Shared Inbox Delivery in ActivityPub"
-[15]: https://docs.gotosocial.org/en/v0.19.2/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"
+[15]: https://docs.gotosocial.org/en/latest/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"
 [16]: https://w3id.org/fep/f1d5 "FEP-f1d5: NodeInfo in Fediverse Software"
 [17]: https://w3id.org/fep/eb22 "FEP-eb22: Supported ActivityStreams types with NodeInfo"
 [18]: https://w3id.org/fep/0151 "FEP-0151: NodeInfo in Fediverse Software (2025 edition)"
