@@ -114,7 +114,6 @@ To avoid having to toggle a bunch of circles/people every time you post, you can
 To do so, visit the Boundary presets page in your settings. There, you can create a new preset by adding a name and an optional description, then selecting one or more circles or users and assigning permissions for each action.
 
 ![Settings boundary presets](../images/settings-boundary-presets.png)
-![Boundary define](../images/boundary-define.png)
 ![Boundary preset](../images/boundary-preset.png)
 
 Once created, the Boundary will automatically be added to the composer Boundary list. You can control which Boundaries are shown in the composer list, as well as set your default active Boundary in the Boundary extension settings.
