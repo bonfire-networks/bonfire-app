@@ -63,6 +63,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 hide instances from the admin's list of instance-wide circles? [#884](https://github.com/bonfire-networks/bonfire-app/issues/884) (thanks @mayel and @ivanminutillo)
 - 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
 - 📝 usage-rules [`22f4f1a`](https://github.com/bonfire-networks/activity_pub/commit/22f4f1aa845f3407ea3cd379e5534765b092f984) (thanks @ivanminutillo)
+- 🚧 Improve Boundaries Documentation [#973](https://github.com/bonfire-networks/bonfire-app/issues/973) [`94d71a9`](https://github.com/bonfire-networks/bonfire-app/commit/94d71a939edd097f1ca82a17025af79499e7629c) (thanks @mayel and @chobeat)
 - 📝 t [`e62d9ff`](https://github.com/bonfire-networks/bonfire-app/commit/e62d9ff3f4245cedc9489160816b6474fb01a160) (thanks @mayel)
 - 📝 mix [`1f5e886`](https://github.com/bonfire-networks/bonfire-app/commit/1f5e88684c9e3ec9fd83e61431cc40ad80aedd91) (thanks @mayel)
 - 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
