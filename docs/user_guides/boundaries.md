@@ -150,7 +150,7 @@ Understanding the final set of permissions applied to a user who belongs to mult
 
 #### How Boundaries federate
 
-Boundaries in Bonfire are a technical tool for a primarily social mechanism for local control — not global enforcement. They give you powerful tools to decide what you see and how your content is shared, but they can’t (and shouldn’t) dictate what others do on their own terms.
+Boundaries in Bonfire are a technical tool for a primarily social mechanism for local control — not global enforcement. They give you powerful tools to decide what you see and how your content is shared, but they don't pretend to dictate what others do on their own terms.
 
 Think of a boundary like a curtain:
 
@@ -162,23 +162,35 @@ Think of a boundary like a curtain:
 
 This distinction matters in a federated environment, where content flows across independently operated apps and servers. 
 
+When you set boundaries in Bonfire, such as who can reply or quote your posts, Bonfire will always enforce these rules for everyone on your instance. When your posts are shared with other servers (the wider fediverse), Bonfire includes some of your boundaries and interaction preferences (like if you allow your followers, or everyone, or nobody to quote your post) as part of the message it sends out.
+
+Most platforms in the fediverse will respect basic boundaries like who can see your post, but only some support the more advanced interaction controls (such as who can quote or reply). Bonfire uses a new draft standard called "interaction policy" to communicate some of your preferences, such as only allowing certain people to quote your post, or requiring your approval before someone can do so. 
+
+For example, if you set your post so only your friends can quote it, and someone else tries to quote it from another platform, Bonfire will check your settings and only allow it if it matches your policy. If your approval is required, you'll get a request you can accept or reject. As of this writing this should be compatible with GoToSocial and newer version of Mastodon.
+
+If a remote platform supports these interaction policies, it will hide or disable actions (like quoting) for users who aren't allowed. But if it doesn't and someone replies to your post when they weren't allowed, Bonfire will still enforce your choices and block that action from reaching you, fellow users of your instance, or being forwarded to your followers.
+
+In short, boundaries and interaction policies give you more agency and safety, but absolute control isn't possible in a federated world. Bonfire does everything it can to respect your choices and keep you in control.
+
 #### ✅ What boundaries can do
 
-•	Define who can see, reply to, or interact with content within your Bonfire instance.
+•	Give you fine-grained control over who can see, reply to, or interact with content within your Bonfire instance.
 
 •	Deliver a post to specific people (and not to others) on remote servers — e.g. someone in your circle can receive the post, but someone you blocked won’t.
 
 •	Filter or ignore unwanted interactions based on your chosen roles — for example, you won’t see replies from someone you’ve marked as “cannot participate.”
 
+•	Hide or prevent actions like quoting on platforms that support it, with Bonfire still preventing unauthorized interactions from reaching you otherwise.
+
 #### ⚠️ What boundaries can’t do
 
-•	Prevent someone from copying, screenshotting, or reposting something you shared with them.
+•	Stop someone from copying, screenshotting, or reposting something you shared with them.
 
-•	Block someone outside your instance from attempting to interact in a way you disallowed (e.g. replying to a “read-only” post) — their instance may still let them do it (and share it with their followers), though your instance will reject and won’t share it with you or your followers. 
+•	Prevent someone outside your instance from *attempting* to interact in a way you disallowed (e.g. replying to a “read-only” post) — their software may still let them do it (and share it with their followers), though your instance will reject and won’t share it with you or your followers. 
 
-•	Hide public posts from specific people — “cannot read” doesn’t work on content already made public.
+•	Hide *public* posts from specific people — “cannot read” doesn’t always work on content already made public.
 
-•	Guarantee that a remote instance will understand or enforce your permissions, as there is currently no widely supported standard for per-user permissions on federated objects (and even if there were, other apps would need to implement and all instances would need to respect them).
+•	Guarantee that a remote instance will understand or enforce your permissions.
 
 •	Prevent server administrators of remote instances from accessing your content, since there is no end-to-end encryption (content is encrypted in transit but stored in plaintext on the server). If you need strong guarantees of privacy, consider using end-to-end encrypted tools like Signal.
 
@@ -186,7 +198,7 @@ In technical terms, Bonfire uses ActivityPub and related standards to express an
 
 For example, if you create a post with a custom boundary (“Only Friends and Colleagues can reply”), Bonfire encodes that into a standard ActivityPub message. Only the intended recipients get it — much like BCC in email. If someone isn’t in the allowed audience, they won’t receive the post at all — unless it’s also marked as “public.” 
 
-In short, boundaries give you meaningful control over what you share and what you see — but not absolute control over the network.
+In short, boundaries give you meaningful control over what you share and what you see — but not absolute control over the federated network.
 
 ---
 
