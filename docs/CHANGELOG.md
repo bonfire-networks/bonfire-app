@@ -17,9 +17,10 @@ SPDX-License-Identifier: CC0-1.0
 - **Migration & data portability:** Instance migration is now more robust. In addition to follows, blocks, and posts, you can now export and import circles/lists, bookmarks, likes, and boosts.
 - **Import & migration dashboard:** A dedicated dashboard helps you follow the progress of data imports and migrations, so you always know what's happening with your data.
 - **Access your data beyond the fediverse:** Subscribe to RSS/Atom feeds or download posts as markdown.
-- **UI & usability improvements:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive. The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
+- **UI & usability improvements:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive (see the [user guide](https://docs.bonfirenetworks.org/boundaries.html)). The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
 - **Links in posts:** Remote posts now get the same rich URL previews as local ones.
 - **User guides:** [New guides](https://docs.bonfirenetworks.org/user-guides.html) and documentation make it easier for everyone to get started and explore Bonfire's features.
+- **Federation Interoperability Guide:** Published [interop docs](https://docs.bonfirenetworks.org/federation-interoperability.html) to help developers of other ActivityPub software.
 
 For a full list of changes, see the changelog below.
 
