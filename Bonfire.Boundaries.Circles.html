@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.26">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.27">
 
 
-    <title>Bonfire.Boundaries.Circles — Bonfire v1.0.0-social-rc.2.26</title>
+    <title>Bonfire.Boundaries.Circles — Bonfire v1.0.0-social-rc.2.27</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A59659D0.js"></script>
+    <script defer src="dist/sidebar_items-206B1643.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.26
+          v1.0.0-social-rc.2.27
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Boundaries.Circles</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.26)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.27)</small>
 
     </h1>
 
@@ -234,17 +234,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#get/1" data-no-tooltip="" translate="no">get(slug)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Retrieves a circle by its slug or ID.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#get/2" data-no-tooltip="" translate="no">get(id, opts)</a>
+        <a href="#get/2" data-no-tooltip="" translate="no">get(id_or_slug, all_circles \\ circles())</a>
 
       </div>
 
@@ -607,7 +597,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">add_to_circles(subjects, circles)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L982" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1050" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -616,11 +606,11 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Adds subject(s) to circle(s).</p><h2 id="add_to_circles/2-examples" class="section-heading"><a href="#add_to_circles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">add_to_circles</span><span class="p" data-group-id="3980786452-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="3980786452-1">)</span><span class="w">
-</span><span class="p" data-group-id="3980786452-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-3">%</span><span class="nc" data-group-id="3980786452-3">Encircle</span><span class="p" data-group-id="3980786452-3">{</span><span class="p" data-group-id="3980786452-3">}</span><span class="p" data-group-id="3980786452-2">}</span><span class="w">
+<p>Adds subject(s) to circle(s).</p><h2 id="add_to_circles/2-examples" class="section-heading"><a href="#add_to_circles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">add_to_circles</span><span class="p" data-group-id="1079498925-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="1079498925-1">)</span><span class="w">
+</span><span class="p" data-group-id="1079498925-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-3">%</span><span class="nc" data-group-id="1079498925-3">Encircle</span><span class="p" data-group-id="1079498925-3">{</span><span class="p" data-group-id="1079498925-3">}</span><span class="p" data-group-id="1079498925-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">add_to_circles</span><span class="p" data-group-id="3980786452-4">(</span><span class="p" data-group-id="3980786452-5">[</span><span class="n">user1</span><span class="p">,</span><span class="w"> </span><span class="n">user2</span><span class="p" data-group-id="3980786452-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-6">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="3980786452-6">]</span><span class="p" data-group-id="3980786452-4">)</span><span class="w">
-</span><span class="p" data-group-id="3980786452-7">[</span><span class="p" data-group-id="3980786452-8">{</span><span class="p" data-group-id="3980786452-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-10">%</span><span class="nc" data-group-id="3980786452-10">Encircle</span><span class="p" data-group-id="3980786452-10">{</span><span class="p" data-group-id="3980786452-10">}</span><span class="p" data-group-id="3980786452-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-12">%</span><span class="nc" data-group-id="3980786452-12">Encircle</span><span class="p" data-group-id="3980786452-12">{</span><span class="p" data-group-id="3980786452-12">}</span><span class="p" data-group-id="3980786452-11">}</span><span class="p" data-group-id="3980786452-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-13">{</span><span class="p" data-group-id="3980786452-14">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-15">%</span><span class="nc" data-group-id="3980786452-15">Encircle</span><span class="p" data-group-id="3980786452-15">{</span><span class="p" data-group-id="3980786452-15">}</span><span class="p" data-group-id="3980786452-14">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-16">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3980786452-17">%</span><span class="nc" data-group-id="3980786452-17">Encircle</span><span class="p" data-group-id="3980786452-17">{</span><span class="p" data-group-id="3980786452-17">}</span><span class="p" data-group-id="3980786452-16">}</span><span class="p" data-group-id="3980786452-13">}</span><span class="p" data-group-id="3980786452-7">]</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">add_to_circles</span><span class="p" data-group-id="1079498925-4">(</span><span class="p" data-group-id="1079498925-5">[</span><span class="n">user1</span><span class="p">,</span><span class="w"> </span><span class="n">user2</span><span class="p" data-group-id="1079498925-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-6">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="1079498925-6">]</span><span class="p" data-group-id="1079498925-4">)</span><span class="w">
+</span><span class="p" data-group-id="1079498925-7">[</span><span class="p" data-group-id="1079498925-8">{</span><span class="p" data-group-id="1079498925-9">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-10">%</span><span class="nc" data-group-id="1079498925-10">Encircle</span><span class="p" data-group-id="1079498925-10">{</span><span class="p" data-group-id="1079498925-10">}</span><span class="p" data-group-id="1079498925-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-12">%</span><span class="nc" data-group-id="1079498925-12">Encircle</span><span class="p" data-group-id="1079498925-12">{</span><span class="p" data-group-id="1079498925-12">}</span><span class="p" data-group-id="1079498925-11">}</span><span class="p" data-group-id="1079498925-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-13">{</span><span class="p" data-group-id="1079498925-14">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-15">%</span><span class="nc" data-group-id="1079498925-15">Encircle</span><span class="p" data-group-id="1079498925-15">{</span><span class="p" data-group-id="1079498925-15">}</span><span class="p" data-group-id="1079498925-14">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-16">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1079498925-17">%</span><span class="nc" data-group-id="1079498925-17">Encircle</span><span class="p" data-group-id="1079498925-17">{</span><span class="p" data-group-id="1079498925-17">}</span><span class="p" data-group-id="1079498925-16">}</span><span class="p" data-group-id="1079498925-13">}</span><span class="p" data-group-id="1079498925-7">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="built_in_ids/0">
@@ -657,7 +647,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">changeset(circle \\ %Circle{}, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L390" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L393" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -679,7 +669,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">changeset(atom, circle, params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L406" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L409" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -701,7 +691,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">circle_ids(subjects)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L314" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L317" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -710,10 +700,10 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Converts a list of circles to circle IDs.</p><h2 id="circle_ids/1-examples" class="section-heading"><a href="#circle_ids/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">circle_ids</span><span class="p" data-group-id="2128933751-1">(</span><span class="p" data-group-id="2128933751-2">[</span><span class="ss">:guest</span><span class="p">,</span><span class="w"> </span><span class="ss">:local</span><span class="p" data-group-id="2128933751-2">]</span><span class="p" data-group-id="2128933751-1">)</span><span class="w">
-</span><span class="p" data-group-id="2128933751-3">[</span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p" data-group-id="2128933751-3">]</span><span class="w">
+<p>Converts a list of circles to circle IDs.</p><h2 id="circle_ids/1-examples" class="section-heading"><a href="#circle_ids/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">circle_ids</span><span class="p" data-group-id="2829693911-1">(</span><span class="p" data-group-id="2829693911-2">[</span><span class="ss">:guest</span><span class="p">,</span><span class="w"> </span><span class="ss">:local</span><span class="p" data-group-id="2829693911-2">]</span><span class="p" data-group-id="2829693911-1">)</span><span class="w">
+</span><span class="p" data-group-id="2829693911-3">[</span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p" data-group-id="2829693911-3">]</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">circle_ids</span><span class="p" data-group-id="2128933751-4">(</span><span class="p" data-group-id="2128933751-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user_id&quot;</span><span class="p" data-group-id="2128933751-5">}</span><span class="p" data-group-id="2128933751-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">circle_ids</span><span class="p" data-group-id="2829693911-4">(</span><span class="p" data-group-id="2829693911-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user_id&quot;</span><span class="p" data-group-id="2829693911-5">}</span><span class="p" data-group-id="2829693911-4">)</span><span class="w">
 </span><span class="s">&quot;user_id&quot;</span></code></pre>
   </section>
 </section>
@@ -749,7 +739,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">count_members(circle)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L913" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L981" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -771,7 +761,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">create(caretaker, attrs)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L361" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L364" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -780,8 +770,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Creates a new circle for the provided user.</p><h2 id="create/2-examples" class="section-heading"><a href="#create/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="1022185320-1">(</span><span class="n">caretaker</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1022185320-2">%{</span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1022185320-3">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="1022185320-3">}</span><span class="p" data-group-id="1022185320-2">}</span><span class="p" data-group-id="1022185320-1">)</span><span class="w">
-</span><span class="p" data-group-id="1022185320-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1022185320-5">%</span><span class="nc" data-group-id="1022185320-5">Circle</span><span class="p" data-group-id="1022185320-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;new_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="1022185320-5">}</span><span class="p" data-group-id="1022185320-4">}</span></code></pre>
+<p>Creates a new circle for the provided user.</p><h2 id="create/2-examples" class="section-heading"><a href="#create/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="4557840522-1">(</span><span class="n">caretaker</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4557840522-2">%{</span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4557840522-3">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="4557840522-3">}</span><span class="p" data-group-id="4557840522-2">}</span><span class="p" data-group-id="4557840522-1">)</span><span class="w">
+</span><span class="p" data-group-id="4557840522-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4557840522-5">%</span><span class="nc" data-group-id="4557840522-5">Circle</span><span class="p" data-group-id="4557840522-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;new_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="4557840522-5">}</span><span class="p" data-group-id="4557840522-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="create_stereotype_circle/2">
@@ -794,7 +784,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">create_stereotype_circle(caretaker, stereotype)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L642" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L645" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -816,7 +806,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">delete(circle, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1069" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1137" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -825,9 +815,9 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Deletes a circle and its associated data, including membership and boundary information. This will affect all objects previously shared with members of this circle</p><h2 id="delete/2-examples" class="section-heading"><a href="#delete/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="9708834843-1">(</span><span class="n">circle</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9708834843-2">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="9708834843-2">]</span><span class="p" data-group-id="9708834843-1">)</span><span class="w">
+<p>Deletes a circle and its associated data, including membership and boundary information. This will affect all objects previously shared with members of this circle</p><h2 id="delete/2-examples" class="section-heading"><a href="#delete/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="7854826861-1">(</span><span class="n">circle</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7854826861-2">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="7854826861-2">]</span><span class="p" data-group-id="7854826861-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="9708834843-3">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9708834843-4">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="9708834843-4">]</span><span class="p" data-group-id="9708834843-3">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="7854826861-3">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7854826861-4">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="7854826861-4">]</span><span class="p" data-group-id="7854826861-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="edit/3">
@@ -840,7 +830,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">edit(circle, user, params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L952" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1020" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -849,8 +839,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Edits a circle's attributes.</p><h2 id="edit/3-examples" class="section-heading"><a href="#edit/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">edit</span><span class="p" data-group-id="7582950841-1">(</span><span class="n">circle</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7582950841-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated Circle&quot;</span><span class="p" data-group-id="7582950841-2">}</span><span class="p" data-group-id="7582950841-1">)</span><span class="w">
-</span><span class="p" data-group-id="7582950841-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7582950841-4">%</span><span class="nc" data-group-id="7582950841-4">Circle</span><span class="p" data-group-id="7582950841-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated Circle&quot;</span><span class="p" data-group-id="7582950841-4">}</span><span class="p" data-group-id="7582950841-3">}</span></code></pre>
+<p>Edits a circle's attributes.</p><h2 id="edit/3-examples" class="section-heading"><a href="#edit/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">edit</span><span class="p" data-group-id="5869532743-1">(</span><span class="n">circle</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5869532743-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated Circle&quot;</span><span class="p" data-group-id="5869532743-2">}</span><span class="p" data-group-id="5869532743-1">)</span><span class="w">
+</span><span class="p" data-group-id="5869532743-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5869532743-4">%</span><span class="nc" data-group-id="5869532743-4">Circle</span><span class="p" data-group-id="5869532743-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated Circle&quot;</span><span class="p" data-group-id="5869532743-4">}</span><span class="p" data-group-id="5869532743-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="empty_circles/1">
@@ -863,7 +853,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">empty_circles(circles)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1038" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1106" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -872,8 +862,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Empties circles by removing all members.</p><h2 id="empty_circles/1-examples" class="section-heading"><a href="#empty_circles/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">empty_circles</span><span class="p" data-group-id="1819269824-1">(</span><span class="p" data-group-id="1819269824-2">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="1819269824-2">]</span><span class="p" data-group-id="1819269824-1">)</span><span class="w">
-</span><span class="p" data-group-id="1819269824-3">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="1819269824-3">}</span></code></pre>
+<p>Empties circles by removing all members.</p><h2 id="empty_circles/1-examples" class="section-heading"><a href="#empty_circles/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">empty_circles</span><span class="p" data-group-id="1718664297-1">(</span><span class="p" data-group-id="1718664297-2">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="1718664297-2">]</span><span class="p" data-group-id="1718664297-1">)</span><span class="w">
+</span><span class="p" data-group-id="1718664297-3">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="1718664297-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="exists?/2">
@@ -888,7 +878,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">exists?(id, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L862" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L930" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -898,45 +888,21 @@ Returns the original circles list with a boolean field added to each circle.</p>
   <section class="docstring">
 
 
-  </section>
-</section>
-<section class="detail" id="get/1">
-
-  <div class="detail-header">
-    <a href="#get/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">get(slug)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L129" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Retrieves a circle by its slug or ID.</p><h2 id="get/1-examples" class="section-heading"><a href="#get/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="6266086032-1">(</span><span class="ss">:guest</span><span class="p" data-group-id="6266086032-1">)</span><span class="w">
-</span><span class="p" data-group-id="6266086032-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Guest&quot;</span><span class="p" data-group-id="6266086032-2">}</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="6266086032-3">(</span><span class="s">&quot;circle_id&quot;</span><span class="p" data-group-id="6266086032-3">)</span><span class="w">
-</span><span class="p" data-group-id="6266086032-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Custom Circle&quot;</span><span class="p" data-group-id="6266086032-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get/2">
+
+    <span id="get/1"></span>
 
   <div class="detail-header">
     <a href="#get/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">get(id, opts)</h1>
+      <h1 class="signature" translate="no">get(id_or_slug, all_circles \\ circles())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L202" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L129" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -958,7 +924,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get!(slug)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L132" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L135" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -980,7 +946,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_by_name(name, caretaker)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L263" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L266" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -989,8 +955,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves a circle by name for a caretaker.</p><h2 id="get_by_name/2-examples" class="section-heading"><a href="#get_by_name/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_by_name</span><span class="p" data-group-id="5243773680-1">(</span><span class="s">&quot;My Circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5243773680-1">)</span><span class="w">
-</span><span class="p" data-group-id="5243773680-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5243773680-3">%</span><span class="nc" data-group-id="5243773680-3">Circle</span><span class="p" data-group-id="5243773680-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="5243773680-3">}</span><span class="p" data-group-id="5243773680-2">}</span></code></pre>
+<p>Retrieves a circle by name for a caretaker.</p><h2 id="get_by_name/2-examples" class="section-heading"><a href="#get_by_name/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_by_name</span><span class="p" data-group-id="4666309593-1">(</span><span class="s">&quot;My Circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="4666309593-1">)</span><span class="w">
+</span><span class="p" data-group-id="4666309593-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4666309593-3">%</span><span class="nc" data-group-id="4666309593-3">Circle</span><span class="p" data-group-id="4666309593-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="4666309593-3">}</span><span class="p" data-group-id="4666309593-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_for_caretaker/3">
@@ -1005,7 +971,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_for_caretaker(id, caretaker, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L229" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L232" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1014,8 +980,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves a circle for a caretaker by ID.</p><h2 id="get_for_caretaker/3-examples" class="section-heading"><a href="#get_for_caretaker/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_for_caretaker</span><span class="p" data-group-id="9824560229-1">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="9824560229-1">)</span><span class="w">
-</span><span class="p" data-group-id="9824560229-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9824560229-3">%</span><span class="nc" data-group-id="9824560229-3">Circle</span><span class="p" data-group-id="9824560229-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="9824560229-3">}</span><span class="p" data-group-id="9824560229-2">}</span></code></pre>
+<p>Retrieves a circle for a caretaker by ID.</p><h2 id="get_for_caretaker/3-examples" class="section-heading"><a href="#get_for_caretaker/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_for_caretaker</span><span class="p" data-group-id="9983456548-1">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="9983456548-1">)</span><span class="w">
+</span><span class="p" data-group-id="9983456548-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9983456548-3">%</span><span class="nc" data-group-id="9983456548-3">Circle</span><span class="p" data-group-id="9983456548-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="9983456548-3">}</span><span class="p" data-group-id="9983456548-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_for_instance/2">
@@ -1030,7 +996,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_for_instance(id, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L251" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L254" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1052,7 +1018,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_id(slug)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L148" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L151" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1061,10 +1027,10 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves the ID of a circle by its slug.</p><h2 id="get_id/1-examples" class="section-heading"><a href="#get_id/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_id</span><span class="p" data-group-id="1120804259-1">(</span><span class="ss">:guest</span><span class="p" data-group-id="1120804259-1">)</span><span class="w">
+<p>Retrieves the ID of a circle by its slug.</p><h2 id="get_id/1-examples" class="section-heading"><a href="#get_id/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_id</span><span class="p" data-group-id="7009178628-1">(</span><span class="ss">:guest</span><span class="p" data-group-id="7009178628-1">)</span><span class="w">
 </span><span class="s">&quot;guest_circle_id&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_id</span><span class="p" data-group-id="1120804259-2">(</span><span class="ss">:nonexistent</span><span class="p" data-group-id="1120804259-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_id</span><span class="p" data-group-id="7009178628-2">(</span><span class="ss">:nonexistent</span><span class="p" data-group-id="7009178628-2">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
@@ -1078,7 +1044,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_id!(slug)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L150" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L153" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1102,7 +1068,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_or_create(name, caretaker \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L930" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L998" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1111,8 +1077,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves or creates a circle by name for a caretaker.</p><h2 id="get_or_create/2-examples" class="section-heading"><a href="#get_or_create/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_or_create</span><span class="p" data-group-id="1904124636-1">(</span><span class="s">&quot;New Circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="1904124636-1">)</span><span class="w">
-</span><span class="p" data-group-id="1904124636-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1904124636-3">%</span><span class="nc" data-group-id="1904124636-3">Circle</span><span class="p" data-group-id="1904124636-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;new_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Circle&quot;</span><span class="p" data-group-id="1904124636-3">}</span><span class="p" data-group-id="1904124636-2">}</span></code></pre>
+<p>Retrieves or creates a circle by name for a caretaker.</p><h2 id="get_or_create/2-examples" class="section-heading"><a href="#get_or_create/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_or_create</span><span class="p" data-group-id="4327580121-1">(</span><span class="s">&quot;New Circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="4327580121-1">)</span><span class="w">
+</span><span class="p" data-group-id="4327580121-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4327580121-3">%</span><span class="nc" data-group-id="4327580121-3">Circle</span><span class="p" data-group-id="4327580121-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;new_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Circle&quot;</span><span class="p" data-group-id="4327580121-3">}</span><span class="p" data-group-id="4327580121-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_or_create_stereotype_circle/2">
@@ -1125,7 +1091,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_or_create_stereotype_circle(caretaker, stereotype)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L629" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L632" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1149,7 +1115,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_slug(id_or_name, all_circles \\ circles())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L183" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L186" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1158,7 +1124,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves a circle slug by its ID or name.</p><p>  ## Examples</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_slug</span><span class="p" data-group-id="8585541841-1">(</span><span class="s">&quot;guest_circle_id&quot;</span><span class="p" data-group-id="8585541841-1">)</span><span class="w">
+<p>Retrieves a circle slug by its ID or name.</p><p>  ## Examples</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_slug</span><span class="p" data-group-id="6246287726-1">(</span><span class="s">&quot;guest_circle_id&quot;</span><span class="p" data-group-id="6246287726-1">)</span><span class="w">
 </span><span class="ss">:guest</span></code></pre>
   </section>
 </section>
@@ -1174,7 +1140,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_slugs(circles, all_circles \\ circles())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L190" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L193" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1196,7 +1162,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_stereotype_circles(subject, stereotypes)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L594" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L597" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1205,8 +1171,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves stereotype circles for a subject.</p><h2 id="get_stereotype_circles/2-examples" class="section-heading"><a href="#get_stereotype_circles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_stereotype_circles</span><span class="p" data-group-id="2348602651-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2348602651-2">[</span><span class="ss">:follow</span><span class="p">,</span><span class="w"> </span><span class="ss">:block</span><span class="p" data-group-id="2348602651-2">]</span><span class="p" data-group-id="2348602651-1">)</span><span class="w">
-</span><span class="p" data-group-id="2348602651-3">[</span><span class="p" data-group-id="2348602651-4">%</span><span class="nc" data-group-id="2348602651-4">Circle</span><span class="p" data-group-id="2348602651-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;follow_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Follow&quot;</span><span class="p" data-group-id="2348602651-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2348602651-5">%</span><span class="nc" data-group-id="2348602651-5">Circle</span><span class="p" data-group-id="2348602651-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;block_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Block&quot;</span><span class="p" data-group-id="2348602651-5">}</span><span class="p" data-group-id="2348602651-3">]</span></code></pre>
+<p>Retrieves stereotype circles for a subject.</p><h2 id="get_stereotype_circles/2-examples" class="section-heading"><a href="#get_stereotype_circles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_stereotype_circles</span><span class="p" data-group-id="6577223595-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6577223595-2">[</span><span class="ss">:follow</span><span class="p">,</span><span class="w"> </span><span class="ss">:block</span><span class="p" data-group-id="6577223595-2">]</span><span class="p" data-group-id="6577223595-1">)</span><span class="w">
+</span><span class="p" data-group-id="6577223595-3">[</span><span class="p" data-group-id="6577223595-4">%</span><span class="nc" data-group-id="6577223595-4">Circle</span><span class="p" data-group-id="6577223595-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;follow_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Follow&quot;</span><span class="p" data-group-id="6577223595-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6577223595-5">%</span><span class="nc" data-group-id="6577223595-5">Circle</span><span class="p" data-group-id="6577223595-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;block_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Block&quot;</span><span class="p" data-group-id="6577223595-5">}</span><span class="p" data-group-id="6577223595-3">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_tuple/2">
@@ -1221,7 +1187,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">get_tuple(id, all_circles \\ circles())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L163" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L166" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1230,11 +1196,11 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Retrieves a tuple containing the name and ID of a circle by its slug or ID.</p><h2 id="get_tuple/2-examples" class="section-heading"><a href="#get_tuple/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_tuple</span><span class="p" data-group-id="4177381499-1">(</span><span class="ss">:guest</span><span class="p" data-group-id="4177381499-1">)</span><span class="w">
-</span><span class="p" data-group-id="4177381499-2">{</span><span class="s">&quot;Guest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p" data-group-id="4177381499-2">}</span><span class="w">
+<p>Retrieves a tuple containing the name and ID of a circle by its slug or ID.</p><h2 id="get_tuple/2-examples" class="section-heading"><a href="#get_tuple/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_tuple</span><span class="p" data-group-id="3868753895-1">(</span><span class="ss">:guest</span><span class="p" data-group-id="3868753895-1">)</span><span class="w">
+</span><span class="p" data-group-id="3868753895-2">{</span><span class="s">&quot;Guest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p" data-group-id="3868753895-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_tuple</span><span class="p" data-group-id="4177381499-3">(</span><span class="s">&quot;circle_id&quot;</span><span class="p" data-group-id="4177381499-3">)</span><span class="w">
-</span><span class="p" data-group-id="4177381499-4">{</span><span class="ss">:my_circle</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4177381499-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="4177381499-5">}</span><span class="p" data-group-id="4177381499-4">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">get_tuple</span><span class="p" data-group-id="3868753895-3">(</span><span class="s">&quot;circle_id&quot;</span><span class="p" data-group-id="3868753895-3">)</span><span class="w">
+</span><span class="p" data-group-id="3868753895-4">{</span><span class="ss">:my_circle</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3868753895-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="3868753895-5">}</span><span class="p" data-group-id="3868753895-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="is_built_in?/2">
@@ -1271,7 +1237,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">is_encircled_by?(subject, circle)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L425" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L428" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1280,10 +1246,10 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Checks if a subject is encircled by a circle or list of circles.</p><h2 id="is_encircled_by?/2-examples" class="section-heading"><a href="#is_encircled_by?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_encircled_by?</span><span class="p" data-group-id="5264736773-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="5264736773-1">)</span><span class="w">
+<p>Checks if a subject is encircled by a circle or list of circles.</p><h2 id="is_encircled_by?/2-examples" class="section-heading"><a href="#is_encircled_by?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_encircled_by?</span><span class="p" data-group-id="1492420140-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="1492420140-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_encircled_by?</span><span class="p" data-group-id="5264736773-2">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5264736773-3">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="5264736773-3">]</span><span class="p" data-group-id="5264736773-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_encircled_by?</span><span class="p" data-group-id="1492420140-2">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1492420140-3">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="1492420140-3">]</span><span class="p" data-group-id="1492420140-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -1308,10 +1274,10 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Checks if a circle is a stereotype circle.</p><h2 id="is_stereotype?/2-examples" class="section-heading"><a href="#is_stereotype?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_stereotype?</span><span class="p" data-group-id="3430675057-1">(</span><span class="s">&quot;7DAPE0P1E1PERM1TT0F0110WME&quot;</span><span class="p" data-group-id="3430675057-1">)</span><span class="w">
+<p>Checks if a circle is a stereotype circle.</p><h2 id="is_stereotype?/2-examples" class="section-heading"><a href="#is_stereotype?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_stereotype?</span><span class="p" data-group-id="3600586042-1">(</span><span class="s">&quot;7DAPE0P1E1PERM1TT0F0110WME&quot;</span><span class="p" data-group-id="3600586042-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_stereotype?</span><span class="p" data-group-id="3430675057-2">(</span><span class="s">&quot;custom_circle_id&quot;</span><span class="p" data-group-id="3430675057-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">is_stereotype?</span><span class="p" data-group-id="3600586042-2">(</span><span class="s">&quot;custom_circle_id&quot;</span><span class="p" data-group-id="3600586042-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -1325,7 +1291,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">leave_all_circles(users)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1053" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1121" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1334,8 +1300,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Removes user(s) from all circles.</p><h2 id="leave_all_circles/1-examples" class="section-heading"><a href="#leave_all_circles/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">empty_circles</span><span class="p" data-group-id="3766328819-1">(</span><span class="p" data-group-id="3766328819-2">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="3766328819-2">]</span><span class="p" data-group-id="3766328819-1">)</span><span class="w">
-</span><span class="p" data-group-id="3766328819-3">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3766328819-3">}</span></code></pre>
+<p>Removes user(s) from all circles.</p><h2 id="leave_all_circles/1-examples" class="section-heading"><a href="#leave_all_circles/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">empty_circles</span><span class="p" data-group-id="3038175102-1">(</span><span class="p" data-group-id="3038175102-2">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="3038175102-2">]</span><span class="p" data-group-id="3038175102-1">)</span><span class="w">
+</span><span class="p" data-group-id="3038175102-3">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3038175102-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_built_ins/0">
@@ -1357,8 +1323,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Lists all built-in circles. Returns Circle structs.</p><h2 id="list_built_ins/0-examples" class="section-heading"><a href="#list_built_ins/0-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_built_ins</span><span class="p" data-group-id="9090345987-1">(</span><span class="p" data-group-id="9090345987-1">)</span><span class="w">
-</span><span class="p" data-group-id="9090345987-2">[</span><span class="p" data-group-id="9090345987-3">%</span><span class="nc" data-group-id="9090345987-3">Circle</span><span class="p" data-group-id="9090345987-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Guest&quot;</span><span class="p" data-group-id="9090345987-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9090345987-4">%</span><span class="nc" data-group-id="9090345987-4">Circle</span><span class="p" data-group-id="9090345987-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Local&quot;</span><span class="p" data-group-id="9090345987-4">}</span><span class="p" data-group-id="9090345987-2">]</span></code></pre>
+<p>Lists all built-in circles. Returns Circle structs.</p><h2 id="list_built_ins/0-examples" class="section-heading"><a href="#list_built_ins/0-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_built_ins</span><span class="p" data-group-id="5556646857-1">(</span><span class="p" data-group-id="5556646857-1">)</span><span class="w">
+</span><span class="p" data-group-id="5556646857-2">[</span><span class="p" data-group-id="5556646857-3">%</span><span class="nc" data-group-id="5556646857-3">Circle</span><span class="p" data-group-id="5556646857-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Guest&quot;</span><span class="p" data-group-id="5556646857-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5556646857-4">%</span><span class="nc" data-group-id="5556646857-4">Circle</span><span class="p" data-group-id="5556646857-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Local&quot;</span><span class="p" data-group-id="5556646857-4">}</span><span class="p" data-group-id="5556646857-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_by_ids/1">
@@ -1371,7 +1337,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">list_by_ids(ids)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L292" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L295" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1380,8 +1346,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Lists circles by their IDs.</p><h2 id="list_by_ids/1-examples" class="section-heading"><a href="#list_by_ids/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_by_ids</span><span class="p" data-group-id="5831531904-1">(</span><span class="p" data-group-id="5831531904-2">[</span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p" data-group-id="5831531904-2">]</span><span class="p" data-group-id="5831531904-1">)</span><span class="w">
-</span><span class="p" data-group-id="5831531904-3">[</span><span class="p" data-group-id="5831531904-4">%</span><span class="nc" data-group-id="5831531904-4">Circle</span><span class="p" data-group-id="5831531904-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 1&quot;</span><span class="p" data-group-id="5831531904-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5831531904-5">%</span><span class="nc" data-group-id="5831531904-5">Circle</span><span class="p" data-group-id="5831531904-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 2&quot;</span><span class="p" data-group-id="5831531904-5">}</span><span class="p" data-group-id="5831531904-3">]</span></code></pre>
+<p>Lists circles by their IDs.</p><h2 id="list_by_ids/1-examples" class="section-heading"><a href="#list_by_ids/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_by_ids</span><span class="p" data-group-id="2757329209-1">(</span><span class="p" data-group-id="2757329209-2">[</span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p" data-group-id="2757329209-2">]</span><span class="p" data-group-id="2757329209-1">)</span><span class="w">
+</span><span class="p" data-group-id="2757329209-3">[</span><span class="p" data-group-id="2757329209-4">%</span><span class="nc" data-group-id="2757329209-4">Circle</span><span class="p" data-group-id="2757329209-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 1&quot;</span><span class="p" data-group-id="2757329209-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2757329209-5">%</span><span class="nc" data-group-id="2757329209-5">Circle</span><span class="p" data-group-id="2757329209-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 2&quot;</span><span class="p" data-group-id="2757329209-5">}</span><span class="p" data-group-id="2757329209-3">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_members/2">
@@ -1396,7 +1362,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">list_members(circle, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L892" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L960" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1405,8 +1371,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Lists members of a circle with cursor-based pagination using Paginator.</p><h2 id="list_members/2-options" class="section-heading"><a href="#list_members/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:cursor</code> - The cursor for pagination (optional)</li><li><code class="inline">:limit</code> - The maximum number of members to return (default: 12)</li><li><code class="inline">:preload</code> - Associations to preload (optional)</li></ul><h2 id="list_members/2-examples" class="section-heading"><a href="#list_members/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_members</span><span class="p" data-group-id="2359502692-1">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="2359502692-1">)</span><span class="w">
-</span><span class="p" data-group-id="2359502692-2">%</span><span class="nc" data-group-id="2359502692-2">Paginator.Page</span><span class="p" data-group-id="2359502692-2">{</span><span class="ss">entries</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2359502692-3">[</span><span class="p" data-group-id="2359502692-4">%</span><span class="nc" data-group-id="2359502692-4">Encircle</span><span class="p" data-group-id="2359502692-4">{</span><span class="p" data-group-id="2359502692-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2359502692-3">]</span><span class="p">,</span><span class="w"> </span><span class="ss">metadata</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2359502692-5">%{</span><span class="n">...</span><span class="p" data-group-id="2359502692-5">}</span><span class="p" data-group-id="2359502692-2">}</span></code></pre>
+<p>Lists members of a circle with cursor-based pagination using Paginator.</p><h2 id="list_members/2-options" class="section-heading"><a href="#list_members/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:cursor</code> - The cursor for pagination (optional)</li><li><code class="inline">:limit</code> - The maximum number of members to return (default: 12)</li><li><code class="inline">:preload</code> - Associations to preload (optional)</li></ul><h2 id="list_members/2-examples" class="section-heading"><a href="#list_members/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_members</span><span class="p" data-group-id="9130419496-1">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="9130419496-1">)</span><span class="w">
+</span><span class="p" data-group-id="9130419496-2">%</span><span class="nc" data-group-id="9130419496-2">Paginator.Page</span><span class="p" data-group-id="9130419496-2">{</span><span class="ss">entries</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9130419496-3">[</span><span class="p" data-group-id="9130419496-4">%</span><span class="nc" data-group-id="9130419496-4">Encircle</span><span class="p" data-group-id="9130419496-4">{</span><span class="p" data-group-id="9130419496-4">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="9130419496-3">]</span><span class="p">,</span><span class="w"> </span><span class="ss">metadata</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9130419496-5">%{</span><span class="n">...</span><span class="p" data-group-id="9130419496-5">}</span><span class="p" data-group-id="9130419496-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my/2">
@@ -1421,7 +1387,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">list_my(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L671" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L674" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1432,8 +1398,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
 <p>Lists circles owned by a user.</p><p>Includes circles we are the registered caretakers of that we are
 permitted to see. If any circles are created without permitting the
-user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="section-heading"><a href="#list_my/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my</span><span class="p" data-group-id="7259531827-1">(</span><span class="n">user</span><span class="p" data-group-id="7259531827-1">)</span><span class="w">
-</span><span class="p" data-group-id="7259531827-2">[</span><span class="p" data-group-id="7259531827-3">%</span><span class="nc" data-group-id="7259531827-3">Circle</span><span class="p" data-group-id="7259531827-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle 1&quot;</span><span class="p" data-group-id="7259531827-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7259531827-4">%</span><span class="nc" data-group-id="7259531827-4">Circle</span><span class="p" data-group-id="7259531827-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle 2&quot;</span><span class="p" data-group-id="7259531827-4">}</span><span class="p" data-group-id="7259531827-2">]</span></code></pre>
+user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="section-heading"><a href="#list_my/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my</span><span class="p" data-group-id="9982550743-1">(</span><span class="n">user</span><span class="p" data-group-id="9982550743-1">)</span><span class="w">
+</span><span class="p" data-group-id="9982550743-2">[</span><span class="p" data-group-id="9982550743-3">%</span><span class="nc" data-group-id="9982550743-3">Circle</span><span class="p" data-group-id="9982550743-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle 1&quot;</span><span class="p" data-group-id="9982550743-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9982550743-4">%</span><span class="nc" data-group-id="9982550743-4">Circle</span><span class="p" data-group-id="9982550743-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle 2&quot;</span><span class="p" data-group-id="9982550743-4">}</span><span class="p" data-group-id="9982550743-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my_defaults/1">
@@ -1448,7 +1414,7 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
       <h1 class="signature" translate="no">list_my_defaults(user \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L277" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L280" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1457,8 +1423,8 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
 
   <section class="docstring">
 
-<p>Lists default circles for a user.</p><h2 id="list_my_defaults/1-examples" class="section-heading"><a href="#list_my_defaults/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my_defaults</span><span class="p" data-group-id="8866996680-1">(</span><span class="p" data-group-id="8866996680-1">)</span><span class="w">
-</span><span class="p" data-group-id="8866996680-2">[</span><span class="p" data-group-id="8866996680-3">{</span><span class="s">&quot;Guest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p" data-group-id="8866996680-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8866996680-4">{</span><span class="s">&quot;Local&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p" data-group-id="8866996680-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8866996680-5">{</span><span class="s">&quot;ActivityPub&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;activity_pub_circle_id&quot;</span><span class="p" data-group-id="8866996680-5">}</span><span class="p" data-group-id="8866996680-2">]</span></code></pre>
+<p>Lists default circles for a user.</p><h2 id="list_my_defaults/1-examples" class="section-heading"><a href="#list_my_defaults/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my_defaults</span><span class="p" data-group-id="0645656042-1">(</span><span class="p" data-group-id="0645656042-1">)</span><span class="w">
+</span><span class="p" data-group-id="0645656042-2">[</span><span class="p" data-group-id="0645656042-3">{</span><span class="s">&quot;Guest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;guest_circle_id&quot;</span><span class="p" data-group-id="0645656042-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0645656042-4">{</span><span class="s">&quot;Local&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p" data-group-id="0645656042-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0645656042-5">{</span><span class="s">&quot;ActivityPub&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;activity_pub_circle_id&quot;</span><span class="p" data-group-id="0645656042-5">}</span><span class="p" data-group-id="0645656042-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my_with_counts/2">
@@ -1473,7 +1439,7 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
       <h1 class="signature" translate="no">list_my_with_counts(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L701" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L757" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1482,8 +1448,8 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
 
   <section class="docstring">
 
-<p>Lists circles owned by a user with member counts.</p><h2 id="list_my_with_counts/2-examples" class="section-heading"><a href="#list_my_with_counts/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my_with_counts</span><span class="p" data-group-id="6172816179-1">(</span><span class="n">user</span><span class="p" data-group-id="6172816179-1">)</span><span class="w">
-</span><span class="p" data-group-id="6172816179-2">[</span><span class="p" data-group-id="6172816179-3">%</span><span class="nc" data-group-id="6172816179-3">Circle</span><span class="p" data-group-id="6172816179-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">encircles_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="6172816179-3">}</span><span class="p" data-group-id="6172816179-2">]</span></code></pre>
+<p>Lists circles owned by a user with member counts.</p><h2 id="list_my_with_counts/2-examples" class="section-heading"><a href="#list_my_with_counts/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my_with_counts</span><span class="p" data-group-id="6214551100-1">(</span><span class="n">user</span><span class="p" data-group-id="6214551100-1">)</span><span class="w">
+</span><span class="p" data-group-id="6214551100-2">[</span><span class="p" data-group-id="6214551100-3">%</span><span class="nc" data-group-id="6214551100-3">Circle</span><span class="p" data-group-id="6214551100-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">encircles_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="6214551100-3">}</span><span class="p" data-group-id="6214551100-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_my_with_global/2">
@@ -1498,7 +1464,7 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
       <h1 class="signature" translate="no">list_my_with_global(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L682" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L738" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1507,8 +1473,8 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
 
   <section class="docstring">
 
-<p>Lists circles owned by a user and global/built-in circles.</p><h2 id="list_my_with_global/2-examples" class="section-heading"><a href="#list_my_with_global/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my_with_global</span><span class="p" data-group-id="3485960378-1">(</span><span class="n">user</span><span class="p" data-group-id="3485960378-1">)</span><span class="w">
-</span><span class="p" data-group-id="3485960378-2">[</span><span class="p" data-group-id="3485960378-3">%</span><span class="nc" data-group-id="3485960378-3">Circle</span><span class="p" data-group-id="3485960378-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="3485960378-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3485960378-4">%</span><span class="nc" data-group-id="3485960378-4">Circle</span><span class="p" data-group-id="3485960378-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;global_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Global Circle&quot;</span><span class="p" data-group-id="3485960378-4">}</span><span class="p" data-group-id="3485960378-2">]</span></code></pre>
+<p>Lists circles owned by a user and global/built-in circles.</p><h2 id="list_my_with_global/2-examples" class="section-heading"><a href="#list_my_with_global/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_my_with_global</span><span class="p" data-group-id="1867764187-1">(</span><span class="n">user</span><span class="p" data-group-id="1867764187-1">)</span><span class="w">
+</span><span class="p" data-group-id="1867764187-2">[</span><span class="p" data-group-id="1867764187-3">%</span><span class="nc" data-group-id="1867764187-3">Circle</span><span class="p" data-group-id="1867764187-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My Circle&quot;</span><span class="p" data-group-id="1867764187-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1867764187-4">%</span><span class="nc" data-group-id="1867764187-4">Circle</span><span class="p" data-group-id="1867764187-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;global_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Global Circle&quot;</span><span class="p" data-group-id="1867764187-4">}</span><span class="p" data-group-id="1867764187-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_subject_in_circles/3">
@@ -1523,7 +1489,7 @@ user to see them, they will not be shown.</p><h2 id="list_my/2-examples" class="
       <h1 class="signature" translate="no">list_subject_in_circles(subject_id, circles, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L479" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L482" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1548,7 +1514,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">list_user_built_ins(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L555" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L558" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1557,11 +1523,11 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Returns a list of built-in and stereotyped circle structs for the user.</p><h2 id="list_user_built_ins/2-options" class="section-heading"><a href="#list_user_built_ins/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:include_circles</code> - restrict which built-in circles to include (list of atoms, defaults to all)</li></ul><h2 id="list_user_built_ins/2-examples" class="section-heading"><a href="#list_user_built_ins/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_user_built_ins</span><span class="p" data-group-id="8778179191-1">(</span><span class="n">user</span><span class="p" data-group-id="8778179191-1">)</span><span class="w">
-</span><span class="p" data-group-id="8778179191-2">[</span><span class="p" data-group-id="8778179191-3">%</span><span class="nc" data-group-id="8778179191-3">Circle</span><span class="p" data-group-id="8778179191-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0AND0MSTRANGERS0FF1NTERNET&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="n">l</span><span class="p" data-group-id="8778179191-4">(</span><span class="s">&quot;Guests&quot;</span><span class="p" data-group-id="8778179191-4">)</span><span class="p" data-group-id="8778179191-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8778179191-2">]</span><span class="w">
+<p>Returns a list of built-in and stereotyped circle structs for the user.</p><h2 id="list_user_built_ins/2-options" class="section-heading"><a href="#list_user_built_ins/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:include_circles</code> - restrict which built-in circles to include (list of atoms, defaults to all)</li></ul><h2 id="list_user_built_ins/2-examples" class="section-heading"><a href="#list_user_built_ins/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_user_built_ins</span><span class="p" data-group-id="7149864769-1">(</span><span class="n">user</span><span class="p" data-group-id="7149864769-1">)</span><span class="w">
+</span><span class="p" data-group-id="7149864769-2">[</span><span class="p" data-group-id="7149864769-3">%</span><span class="nc" data-group-id="7149864769-3">Circle</span><span class="p" data-group-id="7149864769-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0AND0MSTRANGERS0FF1NTERNET&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="n">l</span><span class="p" data-group-id="7149864769-4">(</span><span class="s">&quot;Guests&quot;</span><span class="p" data-group-id="7149864769-4">)</span><span class="p" data-group-id="7149864769-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7149864769-2">]</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">list_user_built_ins</span><span class="p" data-group-id="8778179191-5">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">include_circles</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8778179191-6">[</span><span class="ss">:followers</span><span class="p">,</span><span class="w"> </span><span class="ss">:public</span><span class="p" data-group-id="8778179191-6">]</span><span class="p" data-group-id="8778179191-5">)</span><span class="w">
-</span><span class="p" data-group-id="8778179191-7">[</span><span class="p" data-group-id="8778179191-8">%</span><span class="nc" data-group-id="8778179191-8">Circle</span><span class="p" data-group-id="8778179191-8">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0AND0MSTRANGERS0FF1NTERNET&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="n">l</span><span class="p" data-group-id="8778179191-9">(</span><span class="s">&quot;Guests&quot;</span><span class="p" data-group-id="8778179191-9">)</span><span class="p" data-group-id="8778179191-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8778179191-10">%</span><span class="nc" data-group-id="8778179191-10">Circle</span><span class="p" data-group-id="8778179191-10">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;XYZ&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="n">l</span><span class="p" data-group-id="8778179191-11">(</span><span class="s">&quot;Followers&quot;</span><span class="p" data-group-id="8778179191-11">)</span><span class="p" data-group-id="8778179191-10">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8778179191-7">]</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">list_user_built_ins</span><span class="p" data-group-id="7149864769-5">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">include_circles</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7149864769-6">[</span><span class="ss">:followers</span><span class="p">,</span><span class="w"> </span><span class="ss">:public</span><span class="p" data-group-id="7149864769-6">]</span><span class="p" data-group-id="7149864769-5">)</span><span class="w">
+</span><span class="p" data-group-id="7149864769-7">[</span><span class="p" data-group-id="7149864769-8">%</span><span class="nc" data-group-id="7149864769-8">Circle</span><span class="p" data-group-id="7149864769-8">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0AND0MSTRANGERS0FF1NTERNET&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="n">l</span><span class="p" data-group-id="7149864769-9">(</span><span class="s">&quot;Guests&quot;</span><span class="p" data-group-id="7149864769-9">)</span><span class="p" data-group-id="7149864769-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7149864769-10">%</span><span class="nc" data-group-id="7149864769-10">Circle</span><span class="p" data-group-id="7149864769-10">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;XYZ&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="n">l</span><span class="p" data-group-id="7149864769-11">(</span><span class="s">&quot;Followers&quot;</span><span class="p" data-group-id="7149864769-11">)</span><span class="p" data-group-id="7149864769-10">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7149864769-7">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_visible/2">
@@ -1576,7 +1542,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">list_visible(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L656" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L659" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1585,8 +1551,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Lists visible circles for a user.</p><h2 id="list_visible/2-examples" class="section-heading"><a href="#list_visible/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_visible</span><span class="p" data-group-id="3778171578-1">(</span><span class="n">user</span><span class="p" data-group-id="3778171578-1">)</span><span class="w">
-</span><span class="p" data-group-id="3778171578-2">[</span><span class="p" data-group-id="3778171578-3">%</span><span class="nc" data-group-id="3778171578-3">Circle</span><span class="p" data-group-id="3778171578-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 1&quot;</span><span class="p" data-group-id="3778171578-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3778171578-4">%</span><span class="nc" data-group-id="3778171578-4">Circle</span><span class="p" data-group-id="3778171578-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 2&quot;</span><span class="p" data-group-id="3778171578-4">}</span><span class="p" data-group-id="3778171578-2">]</span></code></pre>
+<p>Lists visible circles for a user.</p><h2 id="list_visible/2-examples" class="section-heading"><a href="#list_visible/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">list_visible</span><span class="p" data-group-id="2411008950-1">(</span><span class="n">user</span><span class="p" data-group-id="2411008950-1">)</span><span class="w">
+</span><span class="p" data-group-id="2411008950-2">[</span><span class="p" data-group-id="2411008950-3">%</span><span class="nc" data-group-id="2411008950-3">Circle</span><span class="p" data-group-id="2411008950-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 1&quot;</span><span class="p" data-group-id="2411008950-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2411008950-4">%</span><span class="nc" data-group-id="2411008950-4">Circle</span><span class="p" data-group-id="2411008950-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;circle_id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Circle 2&quot;</span><span class="p" data-group-id="2411008950-4">}</span><span class="p" data-group-id="2411008950-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query/1">
@@ -1601,7 +1567,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">query(opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L733" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L789" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1610,7 +1576,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Generates a query for circles </p><h2 id="query/1-examples" class="section-heading"><a href="#query/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="1450305548-1">(</span><span class="ss">exclude_built_ins</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="1450305548-1">)</span></code></pre>
+<p>Generates a query for circles </p><h2 id="query/1-examples" class="section-heading"><a href="#query/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="7631051378-1">(</span><span class="ss">exclude_built_ins</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="7631051378-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_my/2">
@@ -1625,7 +1591,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">query_my(caretaker, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L829" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L897" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1634,7 +1600,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Generates a query for circles owned by a user.</p><h2 id="query_my/2-examples" class="section-heading"><a href="#query_my/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query_my</span><span class="p" data-group-id="4225687830-1">(</span><span class="n">user</span><span class="p" data-group-id="4225687830-1">)</span></code></pre>
+<p>Generates a query for circles owned by a user.</p><h2 id="query_my/2-examples" class="section-heading"><a href="#query_my/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query_my</span><span class="p" data-group-id="2478080746-1">(</span><span class="n">user</span><span class="p" data-group-id="2478080746-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_my_by_id/3">
@@ -1649,7 +1615,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">query_my_by_id(id, caretaker, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L853" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L921" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1658,7 +1624,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Generates a query for a specific circle owned by a user.</p><h2 id="query_my_by_id/3-examples" class="section-heading"><a href="#query_my_by_id/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query_my_by_id</span><span class="p" data-group-id="9650276633-1">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="9650276633-1">)</span></code></pre>
+<p>Generates a query for a specific circle owned by a user.</p><h2 id="query_my_by_id/3-examples" class="section-heading"><a href="#query_my_by_id/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query_my_by_id</span><span class="p" data-group-id="0452600031-1">(</span><span class="s">&quot;circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="0452600031-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_visible/2">
@@ -1673,7 +1639,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">query_visible(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L796" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L864" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1682,8 +1648,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Generates a query for visible circles for a user.</p><h2 id="query_visible/2-examples" class="section-heading"><a href="#query_visible/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query_visible</span><span class="p" data-group-id="1397897664-1">(</span><span class="n">user</span><span class="p" data-group-id="1397897664-1">)</span><span class="w">
-</span><span class="p" data-group-id="1397897664-2">#</span><span class="nc" data-group-id="1397897664-2">Ecto.Query</span><span class="p" data-group-id="1397897664-2">&lt;</span><span class="n">...</span><span class="p" data-group-id="1397897664-2">&gt;</span></code></pre>
+<p>Generates a query for visible circles for a user.</p><h2 id="query_visible/2-examples" class="section-heading"><a href="#query_visible/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">query_visible</span><span class="p" data-group-id="9364195791-1">(</span><span class="n">user</span><span class="p" data-group-id="9364195791-1">)</span><span class="w">
+</span><span class="p" data-group-id="9364195791-2">#</span><span class="nc" data-group-id="9364195791-2">Ecto.Query</span><span class="p" data-group-id="9364195791-2">&lt;</span><span class="n">...</span><span class="p" data-group-id="9364195791-2">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="remove_from_circles/2">
@@ -1696,7 +1662,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">remove_from_circles(subject, circles)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1015" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L1083" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1705,11 +1671,11 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Removes a user from circles.</p><h2 id="remove_from_circles/2-examples" class="section-heading"><a href="#remove_from_circles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">remove_from_circles</span><span class="p" data-group-id="7856310198-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="7856310198-1">)</span><span class="w">
-</span><span class="p" data-group-id="7856310198-2">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="7856310198-2">}</span><span class="w">
+<p>Removes a user from circles.</p><h2 id="remove_from_circles/2-examples" class="section-heading"><a href="#remove_from_circles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">remove_from_circles</span><span class="p" data-group-id="3477584652-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">circle</span><span class="p" data-group-id="3477584652-1">)</span><span class="w">
+</span><span class="p" data-group-id="3477584652-2">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3477584652-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">remove_from_circles</span><span class="p" data-group-id="7856310198-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7856310198-4">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="7856310198-4">]</span><span class="p" data-group-id="7856310198-3">)</span><span class="w">
-</span><span class="p" data-group-id="7856310198-5">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="7856310198-5">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">remove_from_circles</span><span class="p" data-group-id="3477584652-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3477584652-4">[</span><span class="n">circle1</span><span class="p">,</span><span class="w"> </span><span class="n">circle2</span><span class="p" data-group-id="3477584652-4">]</span><span class="p" data-group-id="3477584652-3">)</span><span class="w">
+</span><span class="p" data-group-id="3477584652-5">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3477584652-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="stereotype_ids/0">
@@ -1753,9 +1719,9 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Returns a list of stereotype IDs for a specific category.</p><h2 id="stereotypes/1-examples" class="section-heading"><a href="#stereotypes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">stereotypes</span><span class="p" data-group-id="2436987547-1">(</span><span class="ss">:follow</span><span class="p" data-group-id="2436987547-1">)</span><span class="w">
+<p>Returns a list of stereotype IDs for a specific category.</p><h2 id="stereotypes/1-examples" class="section-heading"><a href="#stereotypes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">stereotypes</span><span class="p" data-group-id="7147513743-1">(</span><span class="ss">:follow</span><span class="p" data-group-id="7147513743-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">stereotypes</span><span class="p" data-group-id="2436987547-2">(</span><span class="ss">:block</span><span class="p" data-group-id="2436987547-2">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">stereotypes</span><span class="p" data-group-id="7147513743-2">(</span><span class="ss">:block</span><span class="p" data-group-id="7147513743-2">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="to_circle_ids/1">
@@ -1768,7 +1734,7 @@ Returns the original circles list with a boolean field added to each circle.</p>
       <h1 class="signature" translate="no">to_circle_ids(subjects)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L333" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/circles.ex#L336" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1777,8 +1743,8 @@ Returns the original circles list with a boolean field added to each circle.</p>
 
   <section class="docstring">
 
-<p>Converts a list of circles to circle IDs, including adding default circles (such as local or activity_pub when relevant)</p><h2 id="to_circle_ids/1-examples" class="section-heading"><a href="#to_circle_ids/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">to_circle_ids</span><span class="p" data-group-id="5817863080-1">(</span><span class="p" data-group-id="5817863080-2">[</span><span class="ss">:guest</span><span class="p">,</span><span class="w"> </span><span class="ss">:custom</span><span class="p" data-group-id="5817863080-2">]</span><span class="p" data-group-id="5817863080-1">)</span><span class="w">
-</span><span class="p" data-group-id="5817863080-3">[</span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;custom_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;activity_pub_circle_id&quot;</span><span class="p" data-group-id="5817863080-3">]</span></code></pre>
+<p>Converts a list of circles to circle IDs, including adding default circles (such as local or activity_pub when relevant)</p><h2 id="to_circle_ids/1-examples" class="section-heading"><a href="#to_circle_ids/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Boundaries.Circles</span><span class="o">.</span><span class="n">to_circle_ids</span><span class="p" data-group-id="3393385302-1">(</span><span class="p" data-group-id="3393385302-2">[</span><span class="ss">:guest</span><span class="p">,</span><span class="w"> </span><span class="ss">:custom</span><span class="p" data-group-id="3393385302-2">]</span><span class="p" data-group-id="3393385302-1">)</span><span class="w">
+</span><span class="p" data-group-id="3393385302-3">[</span><span class="s">&quot;guest_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;custom_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;local_circle_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;activity_pub_circle_id&quot;</span><span class="p" data-group-id="3393385302-3">]</span></code></pre>
   </section>
 </section>
 
