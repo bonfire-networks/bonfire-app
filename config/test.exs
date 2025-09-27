@@ -55,7 +55,7 @@ end
 # Configure Req.Test stubs
 config :bonfire_rss, :req_options, plug: {Req.Test, Bonfire.RSS}
 
-#  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE 
+#  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE
 config :activity_pub, :instance, federating: true
 
 oban_mode = if(federate?, do: :inline, else: :manual)
@@ -105,7 +105,7 @@ config :wallaby,
     # point to your chromedriver path
     path: chromedriver_path,
     # change to false if you want to see the browser in action
-    headless: true
+    headless: false
   ]
 
 config :phoenix_live_view, debug_heex_annotations: true
