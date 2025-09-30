@@ -79,6 +79,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 boltx [`c3d8f9b`](https://github.com/bonfire-networks/bonfire-app/commit/c3d8f9b87ba0cfbbcbb160d5da6caff707b45951) (thanks @mayel)
 - 🚀 update docs [`bc92597`](https://github.com/bonfire-networks/bonfire-app/commit/bc925979392bbc3e56ac94a106ac45799891e6c6) (thanks @mayel)
 - 📝 fix [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
+- 🚧 Improve Boundaries Documentation [#973](https://github.com/bonfire-networks/bonfire-app/issues/973) [`1e723fd`](https://github.com/bonfire-networks/bonfire-app/commit/1e723fdfd46de0cc21ef3c38b9f961598c3f1a66) (thanks @mayel and @chobeat)
 - 📝 oup [`e2c13dc`](https://github.com/bonfire-networks/bonfire-app/commit/e2c13dcfe46e5e2da19b50bbe54e9bf471ddc653) (thanks @mayel)
 - 📝 quote the argument to echo [`5b70d44`](https://github.com/bonfire-networks/bonfire-app/commit/5b70d447fc8dfddd0ae90dc5a71f6c10e8f945b7) (thanks @uhoreg)
 - 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) [`97cde01`](https://github.com/bonfire-networks/bonfire-app/commit/97cde01de6927d8294ae34aaa322775219a0345b) (thanks @mayel)
