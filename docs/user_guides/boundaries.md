@@ -21,9 +21,9 @@ With circles, you have the flexibility to manage your relationships and social a
 
 You can find your circles in settings and create new ones:
 
-![Settings circles](../assets/settings-circles.png)
+![Settings circles](assets/settings-circles.png)
 
-![Circle create](../assets/circle-create.png)
+![Circle create](assets/circle-create.png)
 
 ### Adding Members to a Circle
 
@@ -33,7 +33,7 @@ You can add members to a circle when creating it or by editing an existing circl
 2. Click the members button.
 3. Use the search interface to add people to the circle. Alternatively, you can click the circle button when viewing someone's profile and select what circles you want them in from there.
 
-![Circle members](../assets/circle-members.png)
+![Circle members](assets/circle-members.png)
 
 ### Viewing a Feed of Activities from Circle Members
 
@@ -42,7 +42,7 @@ Each circle has its own feed, showing posts and activities from all its members.
 1. Navigate to the circle's page.
 2. Click the "Feed" tab to see all activities from members of that circle.
 
-![Circle feed](../assets/circle-feed.png)
+![Circle feed](assets/circle-feed.png)
 
 ### Sharing a Circle
 
@@ -52,7 +52,7 @@ Circles are private by default, but you can share a circle with others if you wi
 2. Select a boundary to control who can see the shared circle (e.g., only specific people or circles).
 3. Send them a link to your circle.
 
-![Circle share](../assets/circle-share.png)
+![Circle share](assets/circle-share.png)
 
 When someone receives a shared circle link (and has permission via the boundary you selected), they can:
 
@@ -87,11 +87,11 @@ It's as easy as 1-2-3 :-)
 
 1. Write your post.
 
-   ![Boundary composer](../assets/boundary-composer.png)
+   ![Boundary composer](assets/boundary-composer.png)
 
 2. Click the boundary dropdown (which displays the currently selected or default boundary, for example “Public”).
 
-   ![Boundary full modal](../assets/boundary-full-modal.png)
+   ![Boundary full modal](assets/boundary-full-modal.png)
 
 3. Select a preset boundary from a list. You may pick from some default options, such as:
 * **Public**: Publicly visible to everyone.  
@@ -99,11 +99,11 @@ It's as easy as 1-2-3 :-)
 * **Follows**: People who **I follow** may read, like, boost and reply.  
 * **Mentions**: Anyone mentioned will be able to see, interact, and reply.
 
-   ![Boundary select preset](../assets/boundary-select-preset.png)
+   ![Boundary select preset](assets/boundary-select-preset.png)
 
 4. You can also toggle which circles or users can or cannot perform each action (such as read, reply, like, boost) using the switches or icons next to each.
 
-    ![Boundary set who can or cannot quote](../assets/boundary-set-who-can-or-cannot-quote.png)
+    ![Boundary set who can or cannot quote](assets/boundary-set-who-can-or-cannot-quote.png)
 
 5. Done! You’ve set a boundary and can now publish your post.
 
@@ -113,8 +113,8 @@ To avoid having to toggle a bunch of circles/people every time you post, you can
 
 To do so, visit the Boundary presets page in your settings. There, you can create a new preset by adding a name and an optional description, then selecting one or more circles or users and assigning permissions for each action.
 
-![Settings boundary presets](../assets/settings-boundary-presets.png)
-![Boundary preset](../assets/boundary-preset.png)
+![Settings boundary presets](assets/settings-boundary-presets.png)
+![Boundary preset](assets/boundary-preset.png)
 
 Once created, the Boundary will automatically be added to the composer Boundary list. You can control which Boundaries are shown in the composer list, as well as set your default active Boundary in the Boundary extension settings.
 
@@ -146,7 +146,7 @@ This cautious approach ensures that actions are never accidentally permitted. If
 
 Understanding the final set of permissions applied to a user who belongs to multiple circles can be challenging. That’s why Bonfire provides a feature that allows you to look up a single user and preview the computed permissions associated with them.
 
-![Boundary set who can or cannot quote](../assets/boundary-set-who-can-or-cannot-quote.png)
+![Boundary set who can or cannot quote](assets/boundary-set-who-can-or-cannot-quote.png)
 
 #### How Boundaries federate
 

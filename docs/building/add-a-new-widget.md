@@ -15,7 +15,7 @@ A widget usually consists of a title and data formatted in various ways, such as
 
 This example is simple yet meaningful because it touches upon different parts of the Bonfire framework during the tutorial. The code for this widget is available [here](https://github.com/bonfire-networks/bonfire_geolocate/tree/main/lib/web/components/widgets).
 
-![weather widget](https://i.imgur.com/S6OaPGg.png)
+![weather widget](assets/widget-weather.png)
 
 ## Let’s code!
 

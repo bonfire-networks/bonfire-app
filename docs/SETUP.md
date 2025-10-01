@@ -67,7 +67,7 @@ First you need DNS pointing the domain to the server:
 		- value: `[XXX.XXX.XXX.XXX]` (IP address of your server)
         
 It may looking something like this: 
-![Screenshot 2025-06-27 at 15.14.06](https://hackmd.io/_uploads/B1RVP72Elg.png)
+![Example of DNS setup](assets/setup-dns-example.png)
 
 For email, use the info provided by the email service you set up (make sure you set up **all** of the different things provided, such as CNAME, DMARK, DKIM, and SPF, otherwise emails may not be delivered or end up in spam), here is an example of what it may look like when using mailgun. 
         
