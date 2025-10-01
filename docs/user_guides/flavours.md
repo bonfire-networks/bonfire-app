@@ -2,6 +2,8 @@
 
 Bonfire is modular and comes in several "flavours"—predefined bundles of extensions and settings tailored for different types of communities and use cases.
 
+Choosing the right flavour helps you and your community get the most out of Bonfire from day one!
+
 ## What is a Bonfire Flavour?
 
 Each flavour is essentially a separate app—a curated set of features, extensions, and default settings. Flavours are designed to suit particular styles of community or activity, such as:
@@ -33,6 +35,3 @@ Each flavour is essentially a separate app—a curated set of features, extensio
 
 Absolutely! Flavours are just starting points. You can enable or disable Bonfire extensions (and if you're hosting your own instance, you can install other extensions not included in the flavour), adjust settings, and even develop your own plugins to fit your community’s unique needs.
 
----
-
-Choosing the right flavour helps you and your community get the most out of Bonfire from day one!

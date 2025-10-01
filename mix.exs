@@ -665,7 +665,12 @@ defmodule Bonfire.Umbrella.MixProject do
         "format",
         "format.assets"
       ],
-      sobelow: ["cmd mix sobelow"]
+      sobelow: ["cmd mix sobelow"],
+      "docs": [
+        "cmd mkdir -p docs/exdoc/assets",
+        "cmd cp -r docs/assets/. docs/exdoc/assets/",
+        "docs"
+      ]
     ]
   end
 end

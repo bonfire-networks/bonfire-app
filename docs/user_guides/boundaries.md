@@ -21,9 +21,9 @@ With circles, you have the flexibility to manage your relationships and social a
 
 You can find your circles in settings and create new ones:
 
-![Settings circles](../images/settings-circles.png)
+![Settings circles](../assets/settings-circles.png)
 
-![Circle create](../images/circle-create.png)
+![Circle create](../assets/circle-create.png)
 
 ### Adding Members to a Circle
 
@@ -33,7 +33,7 @@ You can add members to a circle when creating it or by editing an existing circl
 2. Click the members button.
 3. Use the search interface to add people to the circle. Alternatively, you can click the circle button when viewing someone's profile and select what circles you want them in from there.
 
-![Circle members](../images/circle-members.png)
+![Circle members](../assets/circle-members.png)
 
 ### Viewing a Feed of Activities from Circle Members
 
@@ -42,7 +42,7 @@ Each circle has its own feed, showing posts and activities from all its members.
 1. Navigate to the circle's page.
 2. Click the "Feed" tab to see all activities from members of that circle.
 
-![Circle feed](../images/circle-feed.png)
+![Circle feed](../assets/circle-feed.png)
 
 ### Sharing a Circle
 
@@ -52,7 +52,7 @@ Circles are private by default, but you can share a circle with others if you wi
 2. Select a boundary to control who can see the shared circle (e.g., only specific people or circles).
 3. Send them a link to your circle.
 
-![Circle share](../images/circle-share.png)
+![Circle share](../assets/circle-share.png)
 
 When someone receives a shared circle link (and has permission via the boundary you selected), they can:
 
@@ -87,11 +87,11 @@ It's as easy as 1-2-3 :-)
 
 1. Write your post.
 
-   ![Boundary composer](../images/boundary-composer.png)
+   ![Boundary composer](../assets/boundary-composer.png)
 
 2. Click the boundary dropdown (which displays the currently selected or default boundary, for example “Public”).
 
-   ![Boundary full modal](../images/boundary-full-modal.png)
+   ![Boundary full modal](../assets/boundary-full-modal.png)
 
 3. Select a preset boundary from a list. You may pick from some default options, such as:
 * **Public**: Publicly visible to everyone.  
@@ -99,11 +99,11 @@ It's as easy as 1-2-3 :-)
 * **Follows**: People who **I follow** may read, like, boost and reply.  
 * **Mentions**: Anyone mentioned will be able to see, interact, and reply.
 
-   ![Boundary select preset](../images/boundary-select-preset.png)
+   ![Boundary select preset](../assets/boundary-select-preset.png)
 
 4. You can also toggle which circles or users can or cannot perform each action (such as read, reply, like, boost) using the switches or icons next to each.
 
-    ![Boundary set who can or cannot quote](../images/boundary-set-who-can-or-cannot-quote.png)
+    ![Boundary set who can or cannot quote](../assets/boundary-set-who-can-or-cannot-quote.png)
 
 5. Done! You’ve set a boundary and can now publish your post.
 
@@ -113,8 +113,8 @@ To avoid having to toggle a bunch of circles/people every time you post, you can
 
 To do so, visit the Boundary presets page in your settings. There, you can create a new preset by adding a name and an optional description, then selecting one or more circles or users and assigning permissions for each action.
 
-![Settings boundary presets](../images/settings-boundary-presets.png)
-![Boundary preset](../images/boundary-preset.png)
+![Settings boundary presets](../assets/settings-boundary-presets.png)
+![Boundary preset](../assets/boundary-preset.png)
 
 Once created, the Boundary will automatically be added to the composer Boundary list. You can control which Boundaries are shown in the composer list, as well as set your default active Boundary in the Boundary extension settings.
 
@@ -146,59 +146,38 @@ This cautious approach ensures that actions are never accidentally permitted. If
 
 Understanding the final set of permissions applied to a user who belongs to multiple circles can be challenging. That’s why Bonfire provides a feature that allows you to look up a single user and preview the computed permissions associated with them.
 
-![Boundary set who can or cannot quote](../images/boundary-set-who-can-or-cannot-quote.png)
+![Boundary set who can or cannot quote](../assets/boundary-set-who-can-or-cannot-quote.png)
 
 #### How Boundaries federate
 
-Boundaries in Bonfire are a technical tool for a primarily social mechanism for local control — not global enforcement. They give you powerful tools to decide what you see and how your content is shared, but they don't pretend to dictate what others do on their own terms.
+Think of a boundary like a curtain:  
+• You can close it to block out what you don’t want to see.  
+• You can open it to share something with specific people.  
+• But you can’t control what others do behind their own curtains — or what happens in the street outside.
 
-Think of a boundary like a curtain:
+Bonfire enforces your boundaries—who can see, reply, or quote your posts—on your instance and for everyone using it. When your posts are shared to other servers, Bonfire includes your boundaries and preferences in the outgoing message. Most platforms respect basic boundaries (like who can see your post), but only some support advanced controls. If a remote platform doesn't support these, Bonfire will still block unauthorized interactions from reaching you and your instance.
 
-•	You can close it to block out what you don’t want to see.
+For example, if you create a post with a custom boundary (e.g. only allowing your follows to see, and friends and colleagues circles to reply and quote), Bonfire encodes that into a standard ActivityPub message. Only the intended recipients receive it — much like BCC in email. If someone isn’t in the allowed audience, they won’t see the post at all — unless it’s also marked as “public.”
 
-•	You can open it to share something with specific people.
+If someone tries to quote your post from another platform that supports "interaction policies", it will check your boundaries, and if your approval is required, you'll get a request you can accept or reject. If you deny the request, the quote won't be created or federated; if you accept, the quote will go through and be visible to others.
 
-•	But you can’t control what others do behind their own curtains — or what happens in the street outside.
-
-This distinction matters in a federated environment, where content flows across independently operated apps and servers. 
-
-When you set boundaries in Bonfire, such as who can reply or quote your posts, Bonfire will always enforce these rules for everyone on your instance. When your posts are shared with other servers (the wider fediverse), Bonfire includes some of your boundaries and interaction preferences (like if you allow your followers, or everyone, or nobody to quote your post) as part of the message it sends out.
-
-Most platforms in the fediverse will respect basic boundaries like who can see your post, but only some support the more advanced interaction controls (such as who can quote or reply). Bonfire uses a new draft standard called "interaction policy" to communicate some of your preferences, such as only allowing certain people to quote your post, or requiring your approval before someone can do so. 
-
-For example, if you set your post so only your friends can quote it, and someone else tries to quote it from another platform, Bonfire will check your settings and only allow it if it matches your policy. If your approval is required, you'll get a request you can accept or reject. As of this writing this should be compatible with GoToSocial and newer version of Mastodon.
-
-If a remote platform supports these interaction policies, it will hide or disable actions (like quoting) for users who aren't allowed. But if it doesn't and someone replies to your post when they weren't allowed, Bonfire will still enforce your choices and block that action from reaching you, fellow users of your instance, or being forwarded to your followers.
-
-In short, boundaries and interaction policies give you more agency and safety, but absolute control isn't possible in a federated world. Bonfire does everything it can to respect your choices and keep you in control.
+Boundaries and interaction policies give you more control and safety, but absolute control isn't possible in a federated world.
 
 #### ✅ What boundaries can do
 
-•	Give you fine-grained control over who can see, reply to, or interact with content within your Bonfire instance.
-
-•	Deliver a post to specific people (and not to others) on remote servers — e.g. someone in your circle can receive the post, but someone you blocked won’t.
-
-•	Filter or ignore unwanted interactions based on your chosen roles — for example, you won’t see replies from someone you’ve marked as “cannot participate.”
-
-•	Hide or prevent actions like quoting on platforms that support it, with Bonfire still preventing unauthorized interactions from reaching you otherwise.
+- Give you fine-grained control over who can see, reply to, or interact with content within your Bonfire instance and for everyone using it.
+- Deliver posts to specific people or groups, including on remote servers, without revealing the full recipient list (using BCC addressing, like email).
+- Express and enforce interaction policies (such as who can reply, like, boost, or quote) using the "interaction policies", following [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md).
+- Hide or prevent actions like quoting or replying on platforms that support interaction policies, and block unauthorized interactions from reaching your instance even if the remote platform doesn't support or enforce them.
+- Require your approval before someone can quote or interact with your post, and allow you to preview and approve or reject such requests.
+- Filter or ignore unwanted interactions based on your chosen roles (e.g., you won’t see replies from someone you've blocked from replying, and they won't be shown under your original post on your instance).
 
 #### ⚠️ What boundaries can’t do
 
-•	Stop someone from copying, screenshotting, or reposting something you shared with them.
-
-•	Prevent someone outside your instance from *attempting* to interact in a way you disallowed (e.g. replying to a “read-only” post) — their software may still let them do it (and share it with their followers), though your instance will reject and won’t share it with you or your followers. 
-
-•	Hide *public* posts from specific people — “cannot read” doesn’t always work on content already made public.
-
-•	Guarantee that a remote instance will understand or enforce your permissions.
-
-•	Prevent server administrators of remote instances from accessing your content, since there is no end-to-end encryption (content is encrypted in transit but stored in plaintext on the server). If you need strong guarantees of privacy, consider using end-to-end encrypted tools like Signal.
-
-In technical terms, Bonfire uses ActivityPub and related standards to express and transmit boundaries to other fediverse apps.
-
-For example, if you create a post with a custom boundary (“Only Friends and Colleagues can reply”), Bonfire encodes that into a standard ActivityPub message. Only the intended recipients get it — much like BCC in email. If someone isn’t in the allowed audience, they won’t receive the post at all — unless it’s also marked as “public.” 
-
-In short, boundaries give you meaningful control over what you share and what you see — but not absolute control over the federated network.
+- Prevent someone outside your instance from *attempting* to interact in a way you disallowed (e.g. replying to a “read-only” post) — their software or remote platform may still let them do it (and share it with their followers), as it may not support or enforce interaction policies. Bonfire will still block unauthorized actions from reaching you and your instance. 
+- Hide *public* posts from specific people — “cannot read” doesn’t always work on content already made public (since they could anyway read it using an incognito browsing session). 
+- Stop someone from copying, screenshotting, or reposting something you shared with them.
+- Prevent server administrators of remote instances from accessing your content, since there is no end-to-end encryption (content is encrypted in transit but stored in plaintext on the server). In fact, if any of your recipient flags your content for harrassment, it will be shown to moderators. If you need strong guarantees of privacy, consider using end-to-end encrypted tools like Signal. 
 
 ---
 
@@ -230,4 +209,4 @@ There are also negative roles, indicating actions which you specifically do not 
 
 * Cannot Participate: cannot perform any actions related to participation, including replying, mentioning, and sending messages.
 
-Negative roles simply limit or override any permissions defined elsewhere, ensuring that the specified actions are explicitly restricted. 
+Negative roles simply limit or override any permissions defined elsewhere, ensuring that the specified actions are explicitly restricted.

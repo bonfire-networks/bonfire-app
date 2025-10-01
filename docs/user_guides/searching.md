@@ -5,7 +5,7 @@ Bonfire provides powerful search and discovery tools to help you find people, po
 ## Using Search
 
 - Access the search bar from the top of the sidebar or navigation.
-- Enter a keyword or phrase, a hashtag or username, or a full fediverse address or URL (e.g. `@alex@community.bonfire.social`).
+- Enter a keyword or phrase, a hashtag or username, or a full fediverse address or URL (e.g. `@alex@bonfire.community.social`).
 - Filter results by **All types**, **Users**, or **Posts**.
 - Switch between **Public only** and **Private** (e.g. DMs or custom boundaries) tabs to control the scope of your search.
 

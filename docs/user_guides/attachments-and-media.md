@@ -16,7 +16,7 @@ Alt text is essential for accessibility, especially for blind or partially-sight
 A good image description helps everyone understand the context and content of your media.
 
 > *Image descriptions are a gesture of care and an essential part of accessibility. By writing them, you support cross-disability solidarity.*  
-> — Alex Chen, [How to write an image description](https://rootedinrights.org/how-to-write-an-image-description/)
+> — Alex Chen, [How to write an image description](https://uxdesign.cc/how-to-write-an-image-description-2f30d3bf5546)
 
 ## Metadata and Privacy
 
@@ -45,7 +45,8 @@ Photos and videos often contain Exif metadata, which may include camera details,
 ## Tips
 
 - Use media to make your posts more engaging, informative, or fun.
-- Respect copyright and privacy when sharing files.
+- Check licensing and privacy requirements of the orignal author when sharing files.
+- Indicate the license (e.g. Creative Commons BY-SA) of the content.
 - Use content warnings and sensitivity flags thoughtfully.
 - Be mindful of privacy risks when sharing media, especially if you are at risk of surveillance or stalking.
 

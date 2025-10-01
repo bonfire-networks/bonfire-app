@@ -14,7 +14,7 @@ Your Bonfire address is in the format:
 - `yourinstance.tld` is the domain of the Bonfire instance you joined.
 
 **Example:**  
-If you sign up as `alex` on `community.bonfire.social`, your address will be `@alex@community.bonfire.social`.
+If you sign up as `alex` on `bonfire.community.social`, your address will be `@alex@bonfire.community.social`.
 
 ## Multiple Profiles per Account
 
@@ -36,7 +36,7 @@ Each profile can have its own display name, avatar, bio, boundaries, and setting
 ## How do people find me?
 
 - Share your full Bonfire address so people on other instances or platforms can follow or mention you.
-- You can also share a link to a specific profile, such as `https://community.bonfire.social/@alex` (personal) or `https://community.bonfire.social/@alex/project` (project profile).
+- You can also share a link to a specific profile, such as `https://bonfire.community.social/@alex` (personal) or `https://bonfire.community.social/@project_xyz` (project profile).
 
 ## Why does this matter?
 

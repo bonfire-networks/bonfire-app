@@ -6,7 +6,7 @@ Bonfire is part of the fediverse—a network of independent platforms that commu
 
 You can follow, mention, and message people on other Bonfire instances or compatible platforms (like Mastodon, PeerTube, etc.).
 
-- To follow someone from another instance, copy their full address (e.g. `@alex@community.bonfire.social`) and search for it on your own instance.
+- To follow someone from another instance, copy their full address (e.g. `@alex@bonfire.community.social`) and search for it on your own instance.
 - Remote posts and profiles appear in your feeds just like local ones, depending on your privacy and boundary settings.
 
 ## Interacting from Remote Sites

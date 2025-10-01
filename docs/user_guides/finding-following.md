@@ -4,7 +4,7 @@ Bonfire makes it easy to connect with others across your instance and the wider 
 
 ## How to Find People
 
-- **Search:** Use the search bar to find people by username, display name, or full fediverse address (e.g. `@alex@community.bonfire.social`).
+- **Search:** Use the search bar to find people by username, display name, or full fediverse address (e.g. `@alex@bonfire.community.social`).
 - **Shared Circles:** Discover people through shared circles and groups. Learn more in [Circles as Shared Lists](./shared-circles.md).
 - **User Directory:** Most Bonfire instances have a user directory you can browse. Look for the "Users" link in the sidebar or navigation menu.
 - **Instance Directory:** Some instances list other known federated communities. Find the "Instances" link in the sidebar for discovery.

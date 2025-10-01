@@ -21,7 +21,7 @@ Welcome to the Bonfire user documentation! These guides are designed to help you
 - [Custom Feeds & Filters](./custom-feeds.md)
 - [Circles as Shared Lists](./shared-circles.md)
 - [Messaging](./messages.md)
-- [Search](./search.md)
+- [Search](./searching.md)
 - [Notifications](./notifications.md)
 - [Settings & Customizing your Experience](./settings-customisation.md)
 - [Blocking & Moderation Tools](./moderation.md)
