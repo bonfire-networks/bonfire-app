@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
+- ✨ Automatically send a DM to participants when publishing a DOI that include them as co-authors [#1510](https://github.com/bonfire-networks/bonfire-app/issues/1510) (thanks @ivanminutillo and @mayel)
+- ✨ add tests for profile migrations [#1503](https://github.com/bonfire-networks/bonfire-app/issues/1503) (thanks @mayel)
 - ✨ Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel and @ivanminutillo)
 - ✨ fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) (thanks @mayel)
 - ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
@@ -46,9 +49,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ test [`a6210e7`](https://github.com/bonfire-networks/bonfire-app/commit/a6210e74621f80c8684b1ff878dcf0d67f6c44ef) (thanks @ivanminutillo)
 
 ### Changed
-- 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) (thanks @mayel)
-- 🚀 improve UX for customising permissions when posting, editing, or defining a boundary (toggling verbs rather than roles) [#1553](https://github.com/bonfire-networks/bonfire-app/issues/1553) (thanks @mayel)
-- 📝 status page to view outgoing and incoming federated activities [#1548](https://github.com/bonfire-networks/bonfire-app/issues/1548) (thanks @mayel)
+- 📝 AGPL is not a good licence for a library [#6](https://github.com/bonfire-networks/activity_pub/issues/6) (thanks @anhgelus and @mayel)
 - 💅 UX enhancement: Show the full handle w/ domain plus a “Copy” button in profile [#1537](https://github.com/bonfire-networks/bonfire-app/issues/1537) (thanks @ivanminutillo)
 - 🚀 Default Custom feeds enhancement [#1529](https://github.com/bonfire-networks/bonfire-app/issues/1529) (thanks @ivanminutillo and @mayel)
 - 📝 AGPL is not a good licence for a library [#6](https://github.com/bonfire-networks/activity_pub/issues/6) (thanks @anhgelus and @mayel)
@@ -63,14 +64,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 hide instances from the admin's list of instance-wide circles? [#884](https://github.com/bonfire-networks/bonfire-app/issues/884) (thanks @mayel and @ivanminutillo)
 - 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
 - 📝 usage-rules [`22f4f1a`](https://github.com/bonfire-networks/activity_pub/commit/22f4f1aa845f3407ea3cd379e5534765b092f984) (thanks @ivanminutillo)
+- 📝 docs [`de996e7`](https://github.com/bonfire-networks/bonfire-app/commit/de996e7704c9f5de7c33b6b23d7018098a862648), [`2cd1954`](https://github.com/bonfire-networks/bonfire-app/commit/2cd19549e409e263931cb3550173d625210de991), [`3e74b37`](https://github.com/bonfire-networks/bonfire-app/commit/3e74b374226123ffff32ba7f11e4c0f727f6698f) (thanks @mayel)
 - 🚧 Improve Boundaries Documentation [#973](https://github.com/bonfire-networks/bonfire-app/issues/973) [`94d71a9`](https://github.com/bonfire-networks/bonfire-app/commit/94d71a939edd097f1ca82a17025af79499e7629c) (thanks @mayel and @chobeat)
 - 📝 t [`e62d9ff`](https://github.com/bonfire-networks/bonfire-app/commit/e62d9ff3f4245cedc9489160816b6474fb01a160) (thanks @mayel)
 - 📝 mix [`1f5e886`](https://github.com/bonfire-networks/bonfire-app/commit/1f5e88684c9e3ec9fd83e61431cc40ad80aedd91) (thanks @mayel)
-- 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
+- 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`45eee7e`](https://github.com/bonfire-networks/bonfire-app/commit/45eee7eddd4d748adcec1759f53a597e80f293b1), [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
 - 🚧 Exploring a Bonfire Geosocial Extension [#1444](https://github.com/bonfire-networks/bonfire-app/issues/1444) [`86e95e6`](https://github.com/bonfire-networks/activity_pub/commit/86e95e6b2c6ab609a772791e7da1b6ab87cee382) (thanks @mayel and @ivanminutillo)
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
+- 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) [`5ecbdc5`](https://github.com/bonfire-networks/bonfire-app/commit/5ecbdc5e3a324053836734be1a487a91fefe9c14) (thanks @mayel)
 - 🚧 ActivityPub Client to Server API [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) [`1e7ae94`](https://github.com/bonfire-networks/activity_pub/commit/1e7ae94704348a764fa57623cd347fce93a9a317) (thanks @mayel)
 - 📝 optimise text/html processing [`55b8995`](https://github.com/bonfire-networks/bonfire-app/commit/55b89959c4f4f3e577db97ae19a924ce66911ecd), [`0ee1f86`](https://github.com/bonfire-networks/activity_pub/commit/0ee1f8644a03f41ee2dfcd813f9c8334c731874c) (thanks @mayel)
+- 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) [`a3f47c6`](https://github.com/bonfire-networks/bonfire-app/commit/a3f47c631e191590a69573b29146bda4ee1be322) (thanks @mayel)
 - 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
 - 📝 agents/claude worfklow [`47d9826`](https://github.com/bonfire-networks/bonfire-app/commit/47d9826208c73cdf82d51fe0455230f8e29c97f1), [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @mayel and @ivanminutillo)
 - 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
@@ -84,9 +88,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 quote the argument to echo [`5b70d44`](https://github.com/bonfire-networks/bonfire-app/commit/5b70d447fc8dfddd0ae90dc5a71f6c10e8f945b7) (thanks @uhoreg)
 - 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) [`97cde01`](https://github.com/bonfire-networks/bonfire-app/commit/97cde01de6927d8294ae34aaa322775219a0345b) (thanks @mayel)
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
+- 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) [`1ddf799`](https://github.com/bonfire-networks/bonfire-app/commit/1ddf799e6a957be3f1d48cc39af9efc1280ff3c7), [`2eac880`](https://github.com/bonfire-networks/bonfire-app/commit/2eac880fe36d0aac75b4902d8803569d7c2d0564), [`274a07e`](https://github.com/bonfire-networks/bonfire-app/commit/274a07ee16c2b1f85f69a5ef4df6b532e2e51c73) (thanks @mayel)
 
 ### Fixed
-- 🐛 can't upload anymore more than 1 media in posts [#1547](https://github.com/bonfire-networks/bonfire-app/issues/1547) (thanks @ivanminutillo)
 - 🐛 fix instance icon/banner uploaded to s3 [#1536](https://github.com/bonfire-networks/bonfire-app/issues/1536) (thanks @mayel)
 - 🐛 Hashtag search is not working with Meilisearch backend [#1497](https://github.com/bonfire-networks/bonfire-app/issues/1497) (thanks @GreenMan-Network and @mayel)
 - 🐛 Article feed is not loading, looping behavior appears [#1496](https://github.com/bonfire-networks/bonfire-app/issues/1496) (thanks @jeffsikes and @mayel)
@@ -106,5 +110,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🐛 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) (thanks @ivanminutillo and @mayel)
 - 🐛 "Load more" to expand a log post is not working anymore in feeds [#1302](https://github.com/bonfire-networks/bonfire-app/issues/1302) (thanks @ivanminutillo and @mayel)
 - 🐛 Fix markdown on release canidate notice in readme [PR #1494](https://github.com/bonfire-networks/bonfire-app/pull/1494) (thanks @ElectricTea)
+- 🐛 Fix CI build: add AUTO_YES env var and patch install scripts to skip interactive prompts [`7684275`](https://github.com/bonfire-networks/bonfire-app/commit/76842752c75c603a33c8a806e2c906cdfea2c96a) (thanks @ivanminutillo)
 - 🐛 fix for Caddy v2 [`861b1ca`](https://github.com/bonfire-networks/bonfire-app/commit/861b1ca6f5b2db54abfc2d989c25e576a6c9067b) (thanks @mayel)
 
