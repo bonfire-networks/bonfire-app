@@ -249,32 +249,38 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
       -
-        name: Prepare env
+        name: Initialize Bonfire configuration
         run: |
-          just _clone_flavour_apps && just rel-config
+          just config
+      -
+        name: Clone and setup flavour apps
+        run: |
+          just build
+          just _clone_flavour_apps
+          just flavour_make_symlinks ${{ env.FLAVOUR }}
+          just deps-fetch --only prod
+      -
+        name: Verify flavour setup
+        run: |
+          echo "Checking if deps.js.sh exists..."
+          ls -la ./config/current_flavour/deps.js.sh || echo "WARNING: deps.js.sh not found, js dependencies may not be installed correctly"
+          echo "Current flavour contents:"
+          ls -la ./config/current_flavour/ || echo "current_flavour directory not found"
       -
         name: Patch install scripts to respect AUTO_YES
         run: |
           find . -name "install.sh" -type f -exec sed -i 's/^AUTO_YES=false$/AUTO_YES=${AUTO_YES:-false}/' {} \;
       -
-        name: Install Bonfire deps 
+        name: Complete flavour installation
         run: |
-          just mix "deps.get --only prod"
-      - 
+          just _deps-post-get
+          just _flavour_install ${{ env.FLAVOUR }}
+      -
         name: Build app
         uses: gacts/run-and-post-run@v1
         with:
-          # TODO: figure out why Surface compiler is failing to create assets and remove the workaround (of using the ones already in the repo)
           run: |
-            # ls -la data/config/current_flavour/assets/
-            # ls -la data/config/current_flavour/assets/hooks/
-            # cp -r data/config/current_flavour/assets data/config/current_flavour/flavour_assets_bak
-            # just _rel-compile-OTP remote
-            # rm -rf data/config/current_flavour/assets 
-            # mv data/config/current_flavour/flavour_assets_bak data/config/current_flavour/assets 
-            just deps-get
-            just _rel-compile-assets remote
-            just _rel-release-OTP remote
+            just rel-build
             cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
           post: |
             ls .
