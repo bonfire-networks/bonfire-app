@@ -1,11 +1,9 @@
-<!-- <p align="center"> <img src="https://user-images.githubusercontent.com/1852065/220077189-33cd03af-2775-4298-9dcb-83a9932541e9.png" width="200" height="250" alt="bonfire logo" /></p> -->
-
 
 # Bonfire Networks 
 
 [Bonfire](https://bonfirenetworks.org/) is an open-source framework for building federated digital spaces where people can gather, interact, and form communities online.
 
-![Bonfire wallpaper](https://i.imgur.com/dbRT0Z1.png)
+![Bonfire wallpaper](https://bonfirenetworks.org/img/mod.png)
 
 > [!NOTE]
 >

@@ -22,7 +22,7 @@ jobs:
         id: check_changes
         run: |
           # Set file path (use input or default to mix.lock)
-          FILE_PATH="${{ github.event.inputs.trigger_file || 'mix.lock' }}"
+          FILE_PATH="${{ inputs.file || 'mix.lock' }}"
           echo "Checking for changes in $FILE_PATH"
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
