@@ -205,6 +205,7 @@ jobs:
       TERM: linux
       WITH_AI: "0"
       WITH_LV_NATIVE: "0"
+      AUTO_YES: "true"
     steps:
       - name: Cancel any already running releases workflows
         uses: styfle/cancel-workflow-action@0.9.0
@@ -247,11 +248,15 @@ jobs:
         name: Configure Git authentication for GitHub
         run: |
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-      - 
+      -
         name: Prepare env
         run: |
           just _clone_flavour_apps && just rel-config
-      - 
+      -
+        name: Patch install scripts to respect AUTO_YES
+        run: |
+          find . -name "install.sh" -type f -exec sed -i 's/^AUTO_YES=false$/AUTO_YES=${AUTO_YES:-false}/' {} \;
+      -
         name: Install Bonfire deps 
         run: |
           just mix "deps.get --only prod"
