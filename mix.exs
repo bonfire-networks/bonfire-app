@@ -514,7 +514,12 @@ defmodule Bonfire.Umbrella.MixProject do
       extras: Mixer.extra_guide_paths(config()),
       source_beam: Mixer.docs_beam_paths(config()),
       deps: Mixer.doc_dep_urls(config()),
-      assets: %{"docs/assets" => "assets", "docs/building/assets" => "assets", "docs/user_guide/assets" => "assets", "docs/topics/assets" => "assets"},
+      assets: %{
+        "docs/assets" => "assets",
+        "docs/building/assets" => "assets",
+        "docs/user_guide/assets" => "assets",
+        "docs/topics/assets" => "assets"
+      },
       # Note: first match wins
       groups_for_extras: [
         "Getting Started": [
