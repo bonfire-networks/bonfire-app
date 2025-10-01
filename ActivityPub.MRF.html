@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.30">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.31">
 
 
-    <title>ActivityPub.MRF — Bonfire v1.0.0-social-rc.2.30</title>
+    <title>ActivityPub.MRF — Bonfire v1.0.0-social-rc.2.31</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.30
+          v1.0.0-social-rc.2.31
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">ActivityPub.MRF</span> <small>behaviour</small>
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.30)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.31)</small>
 
     </h1>
 
@@ -95,18 +95,18 @@ Bonfire
     <section id="moduledoc">
 <p>Message Rewrite Facility</p><p><strong>WARNING: Due to how this app currently handles its configuration, MRF is only usable if you're building your own docker image.</strong></p><p>The Message Rewrite Facility (MRF) is a subsystem that is implemented as a series of hooks that allows the administrator to rewrite or discard messages.</p><p>Possible uses include:</p><ul><li>marking incoming messages with media from a given account or instance as sensitive</li><li>rejecting messages from a specific instance</li><li>rejecting reports (flags) from a specific instance</li><li>removing/unlisting messages from the public timelines</li><li>removing media from messages</li><li>sending only public messages to a specific instance</li></ul><p>The MRF provides user-configurable policies. The default policy is <code class="inline">NoOpPolicy</code>, which disables the MRF functionality. Bonfire also includes an easy to use policy called <code class="inline">SimplePolicy</code> which maps messages matching certain pre-defined criterion to actions built into the policy module. It is possible to use multiple, active MRF policies at the same time.</p><blockquote><p>See the docs of <a href="./ActivityPub.MRF.SimplePolicy.html"><code class="inline">ActivityPub.MRF.SimplePolicy</code></a> for details about how to use it.</p></blockquote><h3 id="module-use-with-care" class="section-heading"><a href="#module-use-with-care" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Use with Care</span></h3><p>The effects of MRF policies can be very drastic. It is important to use this functionality carefully. Always try to talk to an admin before writing an MRF policy concerning their instance.</p><h2 id="module-writing-your-own-mrf-policy" class="section-heading"><a href="#module-writing-your-own-mrf-policy" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Writing your own MRF Policy</span></h2><p>As discussed above, the MRF system is a modular system that supports pluggable policies. This means that an admin may write a custom MRF policy in Elixir or any other language that runs on the Erlang VM, by specifying the module name in the <code class="inline">rewrite_policy</code> config setting.</p><p>For example, here is a sample policy module which rewrites all messages to &quot;new message content&quot;:</p><pre><code class="makeup elixir" translate="no"><span class="c1"># This is a sample MRF policy which rewrites all Notes to have &quot;new message</span><span class="w">
 </span><span class="c1"># content.&quot;</span><span class="w">
-</span><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Site.RewritePolicy</span><span class="w"> </span><span class="k" data-group-id="2086253085-1">do</span><span class="w">
+</span><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Site.RewritePolicy</span><span class="w"> </span><span class="k" data-group-id="3866352221-1">do</span><span class="w">
   </span><span class="na">@behavior</span><span class="w"> </span><span class="nc">ActivityPub.MRF</span><span class="w">
 
   </span><span class="c1"># Catch messages which contain Note objects with actual data to filter.</span><span class="w">
   </span><span class="c1"># Capture the object as `object`, the message content as `content` and the</span><span class="w">
   </span><span class="c1"># entire activity itself as `activity`.</span><span class="w">
   </span><span class="na">@impl</span><span class="w"> </span><span class="no">true</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">filter</span><span class="p" data-group-id="2086253085-2">(</span><span class="p" data-group-id="2086253085-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2086253085-4">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">content</span><span class="p" data-group-id="2086253085-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2086253085-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p" data-group-id="2086253085-2">)</span><span class="w">
-      </span><span class="ow">when</span><span class="w"> </span><span class="n">is_binary</span><span class="p" data-group-id="2086253085-5">(</span><span class="n">content</span><span class="p" data-group-id="2086253085-5">)</span><span class="w"> </span><span class="k" data-group-id="2086253085-6">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">filter</span><span class="p" data-group-id="3866352221-2">(</span><span class="p" data-group-id="3866352221-3">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="3866352221-4">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Note&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">content</span><span class="p" data-group-id="3866352221-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3866352221-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p" data-group-id="3866352221-2">)</span><span class="w">
+      </span><span class="ow">when</span><span class="w"> </span><span class="n">is_binary</span><span class="p" data-group-id="3866352221-5">(</span><span class="n">content</span><span class="p" data-group-id="3866352221-5">)</span><span class="w"> </span><span class="k" data-group-id="3866352221-6">do</span><span class="w">
     </span><span class="c1"># Subject / CW is stored as summary instead of `name` like other AS2 objects</span><span class="w">
     </span><span class="c1"># because of Mastodon doing it that way.</span><span class="w">
-    </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2086253085-7">[</span><span class="s">&quot;summary&quot;</span><span class="p" data-group-id="2086253085-7">]</span><span class="w">
+    </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3866352221-7">[</span><span class="s">&quot;summary&quot;</span><span class="p" data-group-id="3866352221-7">]</span><span class="w">
 
     </span><span class="c1"># edits go here.</span><span class="w">
     </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;new message content&quot;</span><span class="w">
@@ -114,21 +114,21 @@ Bonfire
     </span><span class="c1"># Assemble the mutated object.</span><span class="w">
     </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w">
       </span><span class="n">object</span><span class="w">
-      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="2086253085-8">(</span><span class="s">&quot;content&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p" data-group-id="2086253085-8">)</span><span class="w">
-      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="2086253085-9">(</span><span class="s">&quot;summary&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p" data-group-id="2086253085-9">)</span><span class="w">
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="3866352221-8">(</span><span class="s">&quot;content&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p" data-group-id="3866352221-8">)</span><span class="w">
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="3866352221-9">(</span><span class="s">&quot;summary&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p" data-group-id="3866352221-9">)</span><span class="w">
 
     </span><span class="c1"># Assemble the mutated activity.</span><span class="w">
-    </span><span class="p" data-group-id="2086253085-10">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="2086253085-11">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2086253085-11">)</span><span class="p" data-group-id="2086253085-10">}</span><span class="w">
-  </span><span class="k" data-group-id="2086253085-6">end</span><span class="w">
+    </span><span class="p" data-group-id="3866352221-10">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="nc">Map</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="3866352221-11">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3866352221-11">)</span><span class="p" data-group-id="3866352221-10">}</span><span class="w">
+  </span><span class="k" data-group-id="3866352221-6">end</span><span class="w">
 
   </span><span class="c1"># Let all other messages through without modifying them.</span><span class="w">
   </span><span class="na">@impl</span><span class="w"> </span><span class="no">true</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">filter</span><span class="p" data-group-id="2086253085-12">(</span><span class="n">message</span><span class="p" data-group-id="2086253085-12">)</span><span class="p">,</span><span class="w"> </span><span class="ss">do</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2086253085-13">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p" data-group-id="2086253085-13">}</span><span class="w">
-</span><span class="k" data-group-id="2086253085-1">end</span></code></pre><p>If you save this file as <code class="inline">lib/site/mrf/rewrite_policy.ex</code>, it will be included when you next rebuild Bonfire. You can enable it in the configuration like so:</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p">,</span><span class="w">
-  </span><span class="ss">rewrite_policy</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0490450664-1">[</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">filter</span><span class="p" data-group-id="3866352221-12">(</span><span class="n">message</span><span class="p" data-group-id="3866352221-12">)</span><span class="p">,</span><span class="w"> </span><span class="ss">do</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3866352221-13">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p" data-group-id="3866352221-13">}</span><span class="w">
+</span><span class="k" data-group-id="3866352221-1">end</span></code></pre><p>If you save this file as <code class="inline">lib/site/mrf/rewrite_policy.ex</code>, it will be included when you next rebuild Bonfire. You can enable it in the configuration like so:</p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:activity_pub</span><span class="p">,</span><span class="w"> </span><span class="ss">:instance</span><span class="p">,</span><span class="w">
+  </span><span class="ss">rewrite_policy</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3372943022-1">[</span><span class="w">
     </span><span class="nc">ActivityPub.MRF.SimplePolicy</span><span class="p">,</span><span class="w">
     </span><span class="nc">Site.RewritePolicy</span><span class="w">
-  </span><span class="p" data-group-id="0490450664-1">]</span></code></pre>
+  </span><span class="p" data-group-id="3372943022-1">]</span></code></pre>
     </section>
 
 </div>
