@@ -31,7 +31,7 @@ jobs:
     uses: ./.github/workflows/check_version_changed.yaml
 
   docs:
-    name: Maybe generate docs and/or changelog
+    name: Generate docs and/or changelog
     needs: [check_lockfile_changed, check_docs_changed, check_version_changed]
     if: ${{ needs.check_lockfile_changed.outputs.changed == 'true' || needs.check_docs_changed.outputs.changed == 'true' || needs.check_version_changed.outputs.version_changed == 'true' }}
     runs-on: ubuntu-latest
@@ -104,9 +104,10 @@ jobs:
       #     token: ${{ secrets.GITHUB_TOKEN }}
       #     pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
       #     merge-method: squash
-      - name: Cancel workflow if the version has not changed
-        if: needs.check_version_changed.outputs.version_changed == 'false' 
-        uses: andymckay/cancel-action@0.2
+      # TODO: if we only want docs for proper releases:
+      # - name: Cancel workflow if the version has not changed
+      #   if: needs.check_version_changed.outputs.version_changed == 'false' 
+      #   uses: andymckay/cancel-action@0.2
       - name: Generate docs
         run: just docs
       # - 

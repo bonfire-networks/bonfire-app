@@ -17,7 +17,7 @@ This example is simple yet meaningful because it touches upon different parts of
 
 ![weather widget](assets/widget-weather.png)
 
-## Let’s code!
+## Let's code!
 
 The first step is to identify the most appropriate extension for this widget. In this case, we can include the widget in the `bonfire_geolocate` extension, which already handles all the necessary logic for dealing with geolocations.
 
