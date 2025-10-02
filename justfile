@@ -806,9 +806,10 @@ test-db-reset: services db-pre-migrations _test-db-dance-reset
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 
 _test-db-dance-reset: services db-pre-migrations
-	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
-	TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
-
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test -e TEST_INSTANCE=yes web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "TEST_INSTANCE=yes MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test -e TEST_INSTANCE=yes web mix ecto.reset" } else { "TEST_INSTANCE=yes MIX_ENV=test just mix ecto.reset" } }}
+# TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
+# TEST_INSTANCE=yes {{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
 
 test_convert_path path:
 	#!/usr/bin/env bash
