@@ -57,12 +57,11 @@
 
 # - Connection Settings -
 
-listen_addresses = '*'
-					# comma-separated list of addresses;
-					# defaults to 'localhost'; use '*' for all
-					# (change requires restart)
+listen_addresses = '*' # comma-separated list of addresses; defaults to 'localhost'; use '*' for all 
+
+max_connections = ${PG_MAX_CONNECTIONS} 
+
 #port = 5432				# (change requires restart)
-#max_connections = 100			# (change requires restart)
 #reserved_connections = 0		# (change requires restart)
 #superuser_reserved_connections = 3	# (change requires restart)
 #unix_socket_directories = '/tmp'	# comma-separated list of directories
@@ -127,18 +126,17 @@ listen_addresses = '*'
 
 # - Memory -
 
-#shared_buffers = 128MB			# min 128kB
-					# (change requires restart)
-#huge_pages = try			# on, off, or try
-					# (change requires restart)
+shared_buffers = ${PG_SHARED_BUFFERS_MB}MB # min 128kB 
+huge_pages = ${PG_HUGE_PAGES} # on, off, or try 
+work_mem = ${PG_WORK_MEM_KB}kB # min 64kB
+maintenance_work_mem = ${PG_MAINTENANCE_WORK_MEM_MB}MB # min 1MB
+
 #huge_page_size = 0			# zero for system default
-					# (change requires restart)
 #temp_buffers = 8MB			# min 800kB
 #max_prepared_transactions = 0		# zero disables the feature
 					# (change requires restart)
 # Caution: it is not advisable to set max_prepared_transactions nonzero unless
 # you actively intend to use prepared transactions.
-#work_mem = 4MB				# min 64kB
 #hash_mem_multiplier = 2.0		# 1-1000.0 multiplier on hash table work_mem
 #maintenance_work_mem = 64MB		# min 1MB
 #autovacuum_work_mem = -1		# min 1MB, or -1 to use maintenance_work_mem
@@ -188,15 +186,14 @@ listen_addresses = '*'
 #bgwriter_flush_after = 0		# measured in pages, 0 disables
 
 # - Asynchronous Behavior -
-
 #backend_flush_after = 0		# measured in pages, 0 disables
-#effective_io_concurrency = 1		# 1-1000; 0 disables prefetching
+effective_io_concurrency = ${PG_EFFECTIVE_IO_CONCURRENCY} # 1-1000; 0 disables prefetching
+max_worker_processes = ${PG_MAX_WORKER_PROCESSES}
+max_parallel_workers_per_gather = ${PG_MAX_PARALLEL_WORKERS_PER_GATHER} # limited by max_parallel_workers
+max_parallel_maintenance_workers = ${PG_MAX_PARALLEL_MAINTENANCE_WORKERS} # limited by max_parallel_workers
+max_parallel_workers = ${PG_MAX_PARALLEL_WORKERS} # number of max_worker_processes that can be used in parallel operations
+
 #maintenance_io_concurrency = 10	# 1-1000; 0 disables prefetching
-#max_worker_processes = 8		# (change requires restart)
-#max_parallel_workers_per_gather = 2	# limited by max_parallel_workers
-#max_parallel_maintenance_workers = 2	# limited by max_parallel_workers
-#max_parallel_workers = 8		# number of max_worker_processes that
-					# can be used in parallel operations
 #parallel_leader_participation = on
 #old_snapshot_threshold = -1		# 1min-60d; -1 disables; 0 is immediate
 					# (change requires restart)
@@ -207,6 +204,8 @@ listen_addresses = '*'
 #------------------------------------------------------------------------------
 
 # - Settings -
+
+wal_buffers = ${PG_WAL_BUFFERS_MB}MB # min 32kB, -1 sets based on shared_buffers
 
 #wal_level = replica			# minimal, replica, or logical
 					# (change requires restart)
@@ -229,8 +228,6 @@ listen_addresses = '*'
 					# off, pglz, lz4, zstd, or on
 #wal_init_zero = on			# zero-fill new WAL files
 #wal_recycle = on			# recycle WAL files
-#wal_buffers = -1			# min 32kB, -1 sets based on shared_buffers
-					# (change requires restart)
 #wal_writer_delay = 200ms		# 1-10000 milliseconds
 #wal_writer_flush_after = 1MB		# measured in pages, 0 disables
 #wal_skip_threshold = 2MB
@@ -241,11 +238,11 @@ listen_addresses = '*'
 # - Checkpoints -
 
 #checkpoint_timeout = 5min		# range 30s-1d
-#checkpoint_completion_target = 0.9	# checkpoint target duration, 0.0 - 1.0
+checkpoint_completion_target = ${PG_CHECKPOINT_COMPLETION_TARGET} # checkpoint target duration, 0.0 - 1.0
 #checkpoint_flush_after = 0		# measured in pages, 0 disables
 #checkpoint_warning = 30s		# 0 disables
-#max_wal_size = 1GB
-#min_wal_size = 80MB
+max_wal_size = ${PG_MAX_WAL_SIZE_MB}MB
+min_wal_size = ${PG_MIN_WAL_SIZE_MB}MB
 
 # - Prefetching during recovery -
 
@@ -398,7 +395,7 @@ listen_addresses = '*'
 # - Planner Cost Constants -
 
 #seq_page_cost = 1.0			# measured on an arbitrary scale
-#random_page_cost = 4.0			# same scale as above
+random_page_cost = ${PG_RANDOM_PAGE_COST} # same scale as above
 #cpu_tuple_cost = 0.01			# same scale as above
 #cpu_index_tuple_cost = 0.005		# same scale as above
 #cpu_operator_cost = 0.0025		# same scale as above
@@ -406,7 +403,7 @@ listen_addresses = '*'
 #parallel_tuple_cost = 0.1		# same scale as above
 #min_parallel_table_scan_size = 8MB
 #min_parallel_index_scan_size = 512kB
-#effective_cache_size = 4GB
+effective_cache_size = ${PG_EFFECTIVE_CACHE_SIZE_MB}MB
 
 #jit_above_cost = 100000		# perform JIT compilation if available
 					# and query more expensive than this;
@@ -429,7 +426,7 @@ listen_addresses = '*'
 
 # - Other Planner Options -
 
-#default_statistics_target = 100	# range 1-10000
+default_statistics_target = ${PG_DEFAULT_STATISTICS_TARGET} # range 1-10000
 #constraint_exclusion = partition	# on, off, or partition
 #cursor_tuple_fraction = 0.1		# range 0.0-1.0
 #from_collapse_limit = 8

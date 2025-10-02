@@ -47,13 +47,23 @@ services:
   db:
     image: ${DB_DOCKER_IMAGE}
     restart: always
+    # Override the entrypoint to run our config generator first
+    entrypoint: ["/bin/bash", "/opt/bonfire/deploy/postgres-entrypoint.sh"]
     volumes:
       - "db-data:/var/lib/postgresql/data"
+      # Mount entire postgres config directory
+      - type: bind
+        source: ./config/deploy
+        target: /opt/bonfire/deploy
+        read_only: true
     # ports:
-    #   - "5432:5432"
+    #   - "5432:5432" # NOTE: Make sure this is commented in production unless you need it temporarily for debugging
     # shm_size: 1000
     env_file:
       - config/prod/.env
+    environment:
+      # System resources
+      - NUM_CPU=${NUM_CPU:-}
   search:
     profiles:
       - search

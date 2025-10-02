@@ -41,14 +41,23 @@ services:
     user: $UID:$GID
   db:
     image: ${DB_DOCKER_IMAGE}
+    # Override the entrypoint to run our config generator first
+    entrypoint: ["/bin/bash", "/opt/bonfire/deploy/postgres-entrypoint.sh"]
     volumes:
       - db-data:/var/lib/postgresql/data
       # - ./data/postgres/dev:/var/lib/postgresql/data:z
       # - /etc/passwd:/etc/passwd:ro 
+      # Mount entire postgres config directory
+      - type: bind
+        source: ./config/deploy
+        target: /opt/bonfire/deploy
+        read_only: true
     ports:
       - "5432:5432"
     env_file:
       - config/dev/.env
+    environment:
+      - NUM_CPU=${NUM_CPU:-}
     # user: $UID:$GID
     # shm_size: 500
     healthcheck:
