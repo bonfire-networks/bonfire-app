@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.2.33">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.2.34">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Number.Transliterate — Bonfire v1.0.0-social-rc.2.33</title>
+    <title>Bonfire.Common.Localise.Cldr.Number.Transliterate — Bonfire v1.0.0-social-rc.2.34</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A385C65B.js"></script>
+    <script defer src="dist/sidebar_items-A2DD2AFB.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.2.33
+          v1.0.0-social-rc.2.34
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.Number.Transliterate</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.33)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.2.34)</small>
 
     </h1>
 
@@ -106,12 +106,12 @@ digits between number systems.  For example from :arabic to :latn.  Since genera
 transliteration map is slow, pairs of transliterations can be configured so that the
 transliteration map is created at compile time and therefore speeding up transliteration at
 run time.</p><p>To configure these transliteration pairs, add the to the <code class="inline">use Cldr</code> configuration
-in a backend module:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Cldr</span><span class="w"> </span><span class="k" data-group-id="4843090759-1">do</span><span class="w">
+in a backend module:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Cldr</span><span class="w"> </span><span class="k" data-group-id="8258329198-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Cldr</span><span class="p">,</span><span class="w">
-  </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4843090759-2">[</span><span class="s">&quot;en&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p" data-group-id="4843090759-2">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8258329198-2">[</span><span class="s">&quot;en&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p" data-group-id="8258329198-2">]</span><span class="p">,</span><span class="w">
   </span><span class="ss">default_locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">precompile_transliterations</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4843090759-3">[</span><span class="p" data-group-id="4843090759-4">{</span><span class="ss">:latn</span><span class="p">,</span><span class="w"> </span><span class="ss">:thai</span><span class="p" data-group-id="4843090759-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4843090759-5">{</span><span class="ss">:arab</span><span class="p">,</span><span class="w"> </span><span class="ss">:thai</span><span class="p" data-group-id="4843090759-5">}</span><span class="p" data-group-id="4843090759-3">]</span><span class="w">
-</span><span class="k" data-group-id="4843090759-1">end</span></code></pre><p>Where each tuple in the list configures one transliteration map.  In this example, two maps are
+  </span><span class="ss">precompile_transliterations</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8258329198-3">[</span><span class="p" data-group-id="8258329198-4">{</span><span class="ss">:latn</span><span class="p">,</span><span class="w"> </span><span class="ss">:thai</span><span class="p" data-group-id="8258329198-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8258329198-5">{</span><span class="ss">:arab</span><span class="p">,</span><span class="w"> </span><span class="ss">:thai</span><span class="p" data-group-id="8258329198-5">}</span><span class="p" data-group-id="8258329198-3">]</span><span class="w">
+</span><span class="k" data-group-id="8258329198-1">end</span></code></pre><p>Where each tuple in the list configures one transliteration map.  In this example, two maps are
 configured: from <code class="inline">:latn</code> to <code class="inline">:thai</code> and from <code class="inline">:arab</code> to <code class="inline">:thai</code>.</p><p>A list of configurable number systems is returned by <a href="https://hexdocs.pm/ex_cldr_numbers/2.35.2/Cldr.Number.System.html#numeric_systems/0"><code class="inline">Cldr.Number.System.numeric_systems/0</code></a>.</p><p>If a transliteration is requested between two number pairs that have not been configured for
 precompilation, a warning is logged.</p>
     </section>
@@ -218,22 +218,22 @@ used as a key to look up a number system for the locale (the usual keys are
 standard). See <a href="./Bonfire.Common.Localise.Cldr.Number.System.html#number_systems_for/1"><code class="inline">Bonfire.Common.Localise.Cldr.Number.System.number_systems_for/1</code></a> for a locale to
 see what number system types are defined. The default is <code class="inline">:default</code>.</p></li></ul><p>For available number systems see <a href="https://hexdocs.pm/ex_cldr_numbers/2.35.2/Cldr.Number.System.html#number_systems/0"><code class="inline">Cldr.Number.System.number_systems/0</code></a>
 and <a href="./Bonfire.Common.Localise.Cldr.Number.System.html#number_systems_for/1"><code class="inline">Bonfire.Common.Localise.Cldr.Number.System.number_systems_for/1</code></a>.  Also see
-<a href="./Bonfire.Common.Localise.Cldr.Number.Symbol.html#number_symbols_for/1"><code class="inline">Bonfire.Common.Localise.Cldr.Number.Symbol.number_symbols_for/1</code></a>.</p><h2 id="transliterate/4-examples" class="section-heading"><a href="#transliterate/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5770015793-1">(</span><span class="s">&quot;123556&quot;</span><span class="p" data-group-id="5770015793-1">)</span><span class="w">
+<a href="./Bonfire.Common.Localise.Cldr.Number.Symbol.html#number_symbols_for/1"><code class="inline">Bonfire.Common.Localise.Cldr.Number.Symbol.number_symbols_for/1</code></a>.</p><h2 id="transliterate/4-examples" class="section-heading"><a href="#transliterate/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5776672096-1">(</span><span class="s">&quot;123556&quot;</span><span class="p" data-group-id="5776672096-1">)</span><span class="w">
 </span><span class="s">&quot;123556&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5770015793-2">(</span><span class="s">&quot;123,556.000&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:default</span><span class="p" data-group-id="5770015793-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5776672096-2">(</span><span class="s">&quot;123,556.000&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:default</span><span class="p" data-group-id="5776672096-2">)</span><span class="w">
 </span><span class="s">&quot;123 556,000&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5770015793-3">(</span><span class="s">&quot;123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:default</span><span class="p" data-group-id="5770015793-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5776672096-3">(</span><span class="s">&quot;123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:default</span><span class="p" data-group-id="5776672096-3">)</span><span class="w">
 </span><span class="s">&quot;123556&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5770015793-4">(</span><span class="s">&quot;123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thai&quot;</span><span class="p" data-group-id="5770015793-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5776672096-4">(</span><span class="s">&quot;123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thai&quot;</span><span class="p" data-group-id="5776672096-4">)</span><span class="w">
 </span><span class="s">&quot;๑๒๓๕๕๖&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5770015793-5">(</span><span class="s">&quot;123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:native</span><span class="p" data-group-id="5770015793-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5776672096-5">(</span><span class="s">&quot;123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:native</span><span class="p" data-group-id="5776672096-5">)</span><span class="w">
 </span><span class="s">&quot;๑๒๓๕๕๖&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5770015793-6">(</span><span class="s">&quot;Some number is: 123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thai&quot;</span><span class="p" data-group-id="5770015793-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number.Transliterate</span><span class="o">.</span><span class="n">transliterate</span><span class="p" data-group-id="5776672096-6">(</span><span class="s">&quot;Some number is: 123556&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thai&quot;</span><span class="p" data-group-id="5776672096-6">)</span><span class="w">
 </span><span class="s">&quot;Some number is: ๑๒๓๕๕๖&quot;</span></code></pre>
   </section>
 </section>
