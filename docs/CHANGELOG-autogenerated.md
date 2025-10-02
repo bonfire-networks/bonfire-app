@@ -44,6 +44,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ add ENABLE_STATIC_CACHING env config [`d6e8235`](https://github.com/bonfire-networks/bonfire-app/commit/d6e82357fdc8ae82ff4f096932e3ab841547288c) (thanks @mayel)
 - ✨ Create usage_rules.md [`66ebe59`](https://github.com/bonfire-networks/activity_pub/commit/66ebe590fd657546814d5915de8c153b348e6466) (thanks @ivanminutillo)
 - ✅ test [`a6210e7`](https://github.com/bonfire-networks/bonfire-app/commit/a6210e74621f80c8684b1ff878dcf0d67f6c44ef) (thanks @ivanminutillo)
+- ✨ add postgres autotune [`137ef37`](https://github.com/bonfire-networks/bonfire-app/commit/137ef37b1900f719cfc5cdf15f5f1a2595b9f4e4) (thanks @mayel)
 
 ### Changed
 - 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) (thanks @mayel)
