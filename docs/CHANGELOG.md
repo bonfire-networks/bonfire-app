@@ -11,16 +11,42 @@ SPDX-License-Identifier: CC0-1.0
 
 ### ✨ What’s new and improved?
 
-- **Consent-based quoting (FEP-044f):** You can now quote posts with user consent, following the new ActivityPub standard extension [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md). Bonfire is among the first platforms (alongside Mastodon) to offer this feature in a way that respects user agency and can work across the fediverse.
-- **Post import & migration:** You can now bring your posts (and their replies) with you when moving to Bonfire from another instance. Imported posts keep their original dates and links, and are added to your timeline in the right order, so your history looks complete. Replies and threads are preserved, and like/boost counts are kept. This works by automatically "boosting" your old posts (but without flooding people's feeds or notifications with old activities).
-- **Federation status dashboard:** Easily track your outgoing and incoming federated activities with a new dashboard, making it simpler to monitor federation health and troubleshoot issues.
-- **Migration & data portability:** Instance migration is now more robust. In addition to follows, blocks, and posts, you can now export and import circles/lists, bookmarks, likes, and boosts.
-- **Import & migration dashboard:** A dedicated dashboard helps you follow the progress of data imports and migrations, so you always know what's happening with your data.
-- **Access your data beyond the fediverse:** Subscribe to RSS/Atom feeds or download posts as markdown.
-- **UI & usability improvements:** Setting or editing boundaries (like who can see or interact with a post) is now more intuitive (see the [user guide](https://docs.bonfirenetworks.org/boundaries.html)). The media gallery supports swipe and keyboard navigation, and uploads show clearer progress indicators.
+- **Consent-based quoting (FEP-044f):** Bonfire now supports consent-based quoting, introduced through the new ActivityPub extension [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md). With this first iteration released alongside Mastodon’s, it marks an important step toward making quoting work smoothly — and respectfully — across the fediverse.
+
+![quote](https://hackmd.io/_uploads/BJrbEX_hll.png)
+
+With Bonfire, you can now:
+- Use boundaries to define who can quote your post, who must request first, or who cannot request at all.
+- Quote — or request consent to quote — someone else’s post.
+- Give or withdraw consent at any time.
+
+![quote2](https://hackmd.io/_uploads/BkVVEQuhgg.jpg)
+
+- **Import your old posts when moving instances:** You can now bring your posts (and optionally their replies) with you when moving to Bonfire from another instance. Imported posts keep their original dates and links, and are added to your timeline in the right order, so your history looks complete. Replies and threads are preserved, as are like/boost counts. This works by automatically "boosting" your old posts (but without flooding people's feeds or notifications with old activities).
+
+- **Other data portability improvements:** Instance migration is now more robust. In addition to follows, blocks, and posts, you can now export and import circles/lists, bookmarks, likes, and boosts. A dedicated dashboard helps you follow the progress of data imports and migrations, so you always know what's happening with your data.
+
+- **Federation status dashboard:** Similarly, you can now easily track your outgoing and incoming federated activities with a new dashboard, making it simpler to monitor federation health and troubleshoot issues.
+
+![fedstatus](https://hackmd.io/_uploads/B17TH7_nel.jpg)
+
+- **RSS/Atom feeds:** Access your data beyond the fediverse: Subscribe to Bonfire feeds via your preferred RSS/Atom client. You can subscribe to specific users or to a feed of your choice, including bookmarks, likes, etc, all available as RSS.
+
+- **Boundary UI & usability improvements:** Boundaries (who can see or interact with your posts) are now easier to use. For example, you can share a post publicly but limit who can reply or quote it. Bonfire’s boundaries now also connect with GoToSocial’s interaction controls and Mastodon's quote authorisations, making them more interoperable across the fediverse. We also drafted a guide about [how you can start using circles and boundaries](https://docs.bonfirenetworks.org/boundaries.html) (feedback welcome!)
+
+![boundary](https://hackmd.io/_uploads/ByzTmMnhel.jpg)
+
+- **Mobile web app improvements**: The progressive web app experience has been refined with UI and UX enhancements that make Bonfire feel more native on mobile devices. Whether you're installing Bonfire to your home screen or using it directly in your mobile browser, the interface now responds more smoothly and adapts better to different screen sizes.
+
+![pwa](https://hackmd.io/_uploads/HyXfo29nll.jpg)
+
 - **Links in posts:** Remote posts now get the same rich URL previews as local ones.
-- **User guides:** [New guides](https://docs.bonfirenetworks.org/user-guides.html) and documentation make it easier for everyone to get started and explore Bonfire's features.
-- **Federation Interoperability Guide:** Published [interop docs](https://docs.bonfirenetworks.org/federation-interoperability.html) to help developers of other ActivityPub software.
+
+- **Single sign-on**: Bonfire supports OpenID Connect and OAuth2 authentication, allowing instance administrators to configure their preferred identity providers for login and signup. We've tested integration with GitHub, ORCID, Zenodo, and more, making it easier for communities to align authentication with their existing workflows and trust networks. Each instance can define which providers to enable and whether to allow new signups through SSO, giving administrators flexibility in how their communities access Bonfire. Bonfire can also act as an SSO provider itself, so other applications can authenticate users through your instance.  
+
+- **Federation interoperability guide:** Published [interoperability docs](https://docs.bonfirenetworks.org/federation-interoperability.html) to ensure compatibility with other ActivityPub software.
+
+- **User guides:** [New guides](https://docs.bonfirenetworks.org/user-guides.html) and documentation help you get started and make the most of Bonfire's features, whether you're new to the fediverse or exploring advanced capabilities like boundaries and circles. This is a work in progress, so feedback on how things would be better explained or what's missing would be very helpful! These guides are designed to help you understand, use, and configure Bonfire. 
 
 For a full list of changes, see the changelog below.
 
