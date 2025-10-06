@@ -65,10 +65,10 @@ defmodule Bonfire.Umbrella.MixProject do
     end
 
   # TODO: move to ember?
-  with_graphql = System.get_env("WITH_API_GRAPHQL")
+  with_graphql? = System.get_env("WITH_API_GRAPHQL") not in no?
 
   maybe_api_deps =
-    if(with_graphql && with_graphql not in no?,
+    if(with_graphql?,
       do: [
         {:absinthe, "~> 1.7"},
         {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
