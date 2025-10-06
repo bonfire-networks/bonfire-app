@@ -65,10 +65,9 @@ defmodule Bonfire.Umbrella.MixProject do
     end
 
   # TODO: move to ember?
-  with_graphql? = System.get_env("WITH_API_GRAPHQL") not in no?
+  with_graphql? = 
 
-  maybe_api_deps =
-    if(with_graphql?,
+  if(System.get_env("WITH_API_GRAPHQL") not in no?,
       do: [
         {:absinthe, "~> 1.7"},
         {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
@@ -338,7 +337,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.0-rc.3.2",
+    version: "1.0.0-rc.3.3",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
