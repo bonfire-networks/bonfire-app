@@ -257,92 +257,358 @@ There is an example nginx configuration provided at `config/deploy/nginx.conf` a
 
 > NOTE: If you've built from source, you should point the web server root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
 
-### Nix
+### Guix
 
-This repo contains an experimental Flake and Nix module. These are not ready for production.
+[Guix](https://guix.gnu.org) is a functional, atomic, transactional package manager and Linux distribution. It was inspired by Nix and is designed to give users more control over their computing environments, and make these easier to reproduce over time and deploy to one or many devices.
 
-Here are the detailed steps to deploy it:
+The [`bonfire-guix`](https://github.com/bonfire-networks/bonfire-guix) channel contains a Guix System service to deploy Bonfire. Assuming you have the Guix System installed on a server the following steps will allow you to have a working Bonfire instance.  You can find a more detailed guide [here](https://fishinthecalculator.me/blog/bonfire--guix-a-love-story.html).
 
-- run a recent version of Nix or NixOS: https://nixos.wiki
-- enable Flakes: https://nixos.wiki/wiki/Flakes#Installing_flakes
-- add `sandbox = false` in your nix.conf
-- fetch and build the app and dependencies: `nix run github:bonfire-networks/bonfire-app start_iex`
-- add it as an input to your system flake.
-- add an overlay to just the package available
-- add the required configuration in your system
+#### 1. Enable the `bonfire-guix` channel
 
-Your `flake.nix` file would look like the following. Remember to replace `myHostName` with your actual hostname or however your deployed system is called.
+You can follow [these instructions](https://github.com/bonfire-networks/bonfire-guix?tab=readme-ov-file#configure) to make Guix aware of the Bonfire channel. You can check you have correctly enabled `bonfire-guix` by running `guix describe`. After `guix pull`, in a new shell, your `guix describe` should look something like this (commit hashes will probably differ):
 
-```nix
-{
-  inputs.bonfire.url = "github:bonfire-networks/bonfire-app/main";
-  outputs = { self, nixpkgs, bonfire }: {
-    overlay = final: prev: with final;{
-      # a package named bonfire already exists on nixpkgs so we put it under a different name
-      elixirBonfire = bonfire.packages.x86_64-linux.default;
-    };
-    nixosConfigurations.myHostName = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        {
-          environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
-          nixpkgs.overlays = [ self.overlay ];
-        }
-        ./myHostName.nix
-        bonfire.nixosModules.bonfire
-      ];
-    };
-  };
-}
+```shell
+Generation 42   Oct 06 2025 18:39:20    (current)
+  guix 7a0c6b4
+    repository URL: https://git.guix.gnu.org/guix.git
+    branch: master
+    commit: 7a0c6b4b0a72a47035486a6b72dc67014b8a64ce
+  bonfire 49617fa
+    repository URL: https://github.com/bonfire-networks/bonfire-guix
+    branch: main
+    commit: 49617fa523bf66de8193ef5b004beea95ef1b133
+  sops-guix eba0aae
+    repository URL: https://github.com/fishinthecalculator/sops-guix
+    branch: main
+    commit: eba0aae6ac9d828c1afe7f8275ac8e1094334286
+  gocix aea12b4
+    repository URL: https://github.com/fishinthecalculator/gocix
+    branch: main
+    commit: aea12b4088799e436e6a1ccc479854ac55cb99c0
 ```
 
-Then your `myHostName.nix` would look like the following:
+#### 2. Setup SSL certificates
 
-```nix
-{ config, lib, pkgs, ... }:
+You want to setup SSL certificates provisioning as soon as possible, since everything from now on presupposes HTTPS. To do so on the Guix System, you have to add the `certbot-service-type` to your `operating-system` record (which after installation is available in `/etc/config.scm`):
 
-{
-  services.bonfire = {
-    # you will additionally need to expose bonfire with a reverse proxy, for example caddy
-    port = 4000;
-    package = pkgs.elixirBonfire;
-    dbName = "bonfire";
-    # the environment should contain a minimum of
-    #   SECRET_KEY_BASE
-    #   SIGNING_SALT
-    #   ENCRYPTION_SALT
-    #   RELEASE_COOKIE
-    # have a look into nix/module.nix for more details
-    # the way to deploy secrets is beyond this readme, but I would recommend agenix
-    environmentFile = "/run/secrets/bonfireEnv";
-    dbSocketDir = "/var/run/postgresql";
-  };
-	
-	# this is specifically for a reverse proxy, which is primarily used for SSL certs
-	services.ngnix = {
-		enable = true;
-		forceSSL = true;
-		enableACME = true;
-		virtualHosts."myHostName".locations.proxyPass = "http://localhost:4000";
-	};
-	
-	# You will need to accept ACME's terms and conditions if you haven't elsewhere in your configuration
-	security.acme.defaults.email = "you@myHostName.com";
-	security.acme.acceptTerms = true;
+```scheme
+(use-modules (gnu services certbot) ...) ;for 'certbot-service-type'
 
-  # this is uniquely for database backup purposes
-  # replace myBackupUserName with the user name that will do the backups
-  # if you want to do backups differently, feel free to remove this part of the config
-  services.postgresql = {
-    ensureDatabases = [ "bonfire" ];
-    ensureUsers = [{
-      name = "myBackupUserName";
-      ensurePermissions = { "DATABASE bonfire" = "ALL PRIVILEGES"; };
-    }];
-  };
-}
+(operating-system
+  ...
+
+  (services
+    (list
+      ...
+      (service certbot-service-type
+               (certbot-configuration
+                (email "your@email.org")
+                (certificates
+                 (list
+                  (certificate-configuration
+                   (domains (list "yourdomain.net"))))))))))
 ```
 
+Reconfigure your system with `sudo guix system reconfigure` and proceed with the next steps.
+
+#### 3. Secrets
+
+The Bonfire service is able to load secrets stored as files, so you are free to choose whichever option you prefer to provision and rotate them. One option to provision secrets as files in a Guix aware way is [sops-guix](https://github.com/fishinthecalculator/sops-guix). You can refer to [`sops-guix`' tutorial for a more in depth explaination](https://github.com/fishinthecalculator/sops-guix?tab=readme-ov-file#creating-secrets-with-sops).
+
+##### `age` keys
+
+First you need a set of cryptographic keys to encrypt your secrets, in this example [`age`](https://age-encryption.org) will be used. If you already have your `age` keys, skip to the **SOPS secrets** section.
+
+Run the following on server to generate keys for the `root` account:
+
+```shell
+~$ sudo -i
+Password: 
+~# mkdir -p ~/.config/sops/age
+~# guix shell age -- age-keygen -o /root/.config/sops/age/keys.txt
+...
+
+Public key: age1m3hcq7d9sl3d0uz6ezxvns4f7mjctksmmf5d8tpptmyz30rk9qnscgzfsa
+```
+
+You'll need one keypair for each user of the secret so, if you intend to be able to update secrets on a different machine than the one you are installing Bonfire on, make sure to generate a keypair there as well. If you are creating secrets on a PC or a laptop and intend to run Bonfire on a server you SSH into, this is your scenario. Create one keypair for your user on your machine at `$HOME.config/sops/age/keys.txt` with the above command.
+
+Next you need to create a SOPS configuration file, named `.sops.yaml`, in the same directory your Guix configuration file is:
+
+```yaml
+keys:
+    # This is the public key of your laptop/PC
+    - &user_yourself_age age1peu96695en0xrlshkd3j3zzd04payh3cx27yjw6r40z8ekemnuesmkrupn
+    # This is the public key of the server you are installing Bonfire upon
+    - &host_yoursystem age1m3hcq7d9sl3d0uz6ezxvns4f7mjctksmmf5d8tpptmyz30rk9qnscgzfsa
+
+creation_rules:
+    - path_regex: .*yoursystem\.yaml$
+      key_groups:
+          - age:
+                - *user_yourself_age
+                - *host_yoursystem
+```
+
+You are now ready to create the [secrets you need](#secret-keys-for-which-you-should-put-random-secrets).
+
+##### SOPS secrets
+
+In this example the PostgreSQL password secret is being created, but other secrets are created the same way. You can generate a random string with:
+
+```shell
+guix shell openssl -- openssl rand -base64 32
+v/hSYQHNCJMYW+U8D3m6ADQ+5382jN9iJ69gfImEISY=
+```
+
+From the same directory where the `.sops.yaml` and your configuration are stored, run the following command to create a `yoursystem.yaml` file that will store your encrypted secrets. Unencrypted secrets are supposed to never hit the disk, check out `sops-guix` README for more information.
+
+```bash
+guix shell sops -- sops yoursystem.yaml
+```
+
+Your default editor will pop up. Replace the SOPS example secrets and add the following content to the file:
+
+```yaml
+postgres:
+    bonfire: v/hSYQHNCJMYW+U8D3m6ADQ+5382jN9iJ69gfImEISY=
+```
+
+Save and close the editor. You can now check inside `yoursystem.yaml` and see that the secrets is effectively encrypted.
+
+When all secrets are in your `yoursystem.yaml` file your can add the following to your operating system configuration:
+
+```scheme
+(use-modules (guix gexp)            ;for 'local-file'
+             (guix utils)           ;for 'current-source-directory'
+             (sops services sops)   ;for 'sops-secrets-service-type'
+             (sops secrets)         ;for 'sops-secret' and 'sops-secret->file-name'
+             ...)
+
+(define %project-root
+ (current-source-directory))
+
+(define sops.yaml
+  (local-file (string-append %project-root "/.sops.yaml")
+              "sops.yaml"))
+
+(define-public yoursystem.yaml
+  (local-file (string-append %project-root "/yoursystem.yaml")
+              "yoursystem.yaml"))
+
+(define %secrets-directory
+  "/run/secrets")
+
+(define (secret->file-name secret)
+  (string-append %secrets-directory "/" (sops-secret->file-name secret)))
+
+;; PostgreSQL
+
+(define-public bonfire-postgres-password-secret
+  (sops-secret
+   ;; Each element of this list represents
+   ;; one key in yoursystem.yaml.  In this case
+   ;; it represents:
+   ;;
+   ;; postgres:
+   ;;      bonfire:
+   ;;
+   (key '("postgres" "bonfire"))
+   (user "oci-container")
+   (group "postgres")
+   (file yoursystem.yaml)
+   (permissions #o440)))
+
+;; Meilisearch
+
+(define-public meilisearch-key-secret
+  (sops-secret ...))
+
+;; Bonfire
+
+(define-public bonfire-mail-key-secret
+  (sops-secret ...))
+   
+(define-public bonfire-mail-private-key-secret
+  (sops-secret ...))
+
+(define-public bonfire-secret-key-base-secret
+  (sops-secret ...))
+
+(define-public bonfire-signing-salt-secret
+  (sops-secret ...))
+
+(define-public bonfire-encryption-salt-secret
+  (sops-secret ...))
+
+(operating-system
+  ...
+
+  (services
+    (list
+      ...
+      (service sops-secrets-service-type
+               (sops-service-configuration
+                (config sops.yaml)
+                (secrets
+                 (list meilisearch-key-secret
+                       bonfire-postgres-password-secret
+                       bonfire-mail-key-secret
+                       bonfire-mail-private-key-secret
+                       bonfire-secret-key-base-secret
+                       bonfire-signing-salt-secret
+                       bonfire-encryption-salt-secret)))))))
+```
+
+#### 4. Postgres
+
+Bonfire supports the PostgreSQL database engine and requires the postgis extension. At the time of this writing Guix will by default will install PostgresSQL 16 but you can use another version by [setting the `postgresql` field of the `postgresql-configuration`](https://guix.gnu.org/manual/devel/en/guix.html#index-postgresql_002dconfiguration). This is what it's required to set them up:
+
+```scheme
+(use-modules (gnu packages geo)        ;for postgis
+             (gnu services databases)  ;for 'postgresql-service-type'
+             ...)
+
+
+(operating-system
+  ...
+
+  (services
+    (list
+      ...
+
+      ;; Postgres
+      (service postgresql-service-type
+               (postgresql-configuration
+                (extension-packages (list postgis)))))))
+```
+
+#### 5. Podman
+
+Add the `rootless-podman-service-type` and it DBus dependencies to your configuration in the `services` field:
+
+```scheme
+(use-modules (gnu services containers) ;for 'rootless-podman-service-type' and 'oci-service-type'
+             (gnu services dbus)       ;for 'dbus-service-type'
+             (gnu services desktop)    ;for 'elogind-service-type'
+             ...)
+
+...
+
+;; The DBus clique
+(service elogind-service-type)
+(service dbus-root-service-type)
+
+;; Podman
+(service rootless-podman-service-type)
+
+;; This service implements OCI provisioned Shepherd services
+(service oci-service-type
+         (oci-configuration
+          (runtime 'podman)))
+```
+
+#### 6. Meilisearch and Bonfire
+
+To provision a functional Bonfire instance you will need two services, meilisearch and the Bonfire flavour. The `(bonfire services bonfire)` module provides a Guix System service able to provision a database and the Bonfire instance. Add the following to your `operating-system` configuration, and make sure to change the values based on your actual setup:
+
+```scheme
+(use-modules (bonfire services bonfire) ;for 'oci-bonfire-service-type'
+             (oci services meilisearch) ;for 'oci-meilisearch-service-type'
+             ...)
+
+...
+
+;; meilisearch
+(service oci-meilisearch-service-type
+         (oci-meilisearch-configuration
+          (network "host")
+          (master-key
+           ;; In case you are not using sops-guix for your secrets
+           ;; just pass the secret file path as a string.
+           ;; The same holds for all other secrets fields.
+           (secret->file-name meilisearch-key-secret))))
+
+;; Bonfire
+(service oci-bonfire-service-type
+         (oci-bonfire-configuration
+          (configuration
+           (bonfire-configuration
+            ;; Networking
+            (hostname "yourdomain.net")  ;replace with your domain
+            (public-port "443")
+            (network "host")
+            ;; Postgres
+            (postgres-user "bonfire")
+            (postgres-db "bonfire")
+            ;; Mail
+            (mail-domain "yourdomain.net")
+            (mail-from "youremail@address.org")))
+          ;; Shepherd dependencies
+          (requirement
+           '(user-processes postgresql postgres-roles podman-meilisearch))
+          (extra-variables
+           `(("MAIL_BACKEND" . "mailjet") ;; change with your email provider
+             ("SERVER_PORT" . "4000")
+             ("SEARCH_MEILI_INSTANCE" . "http://localhost:7700")))
+          ;; Secrets
+          (meili-master-key
+           (secret->file-name meilisearch-key-secret))
+          (postgres-password
+           (secret->file-name bonfire-postgres-password-secret))
+          (mail-key
+           (secret->file-name bonfire-mail-key-secret))
+          (mail-private-key
+           (secret->file-name bonfire-mail-private-key-secret))
+          (secret-key-base
+           (secret->file-name bonfire-secret-key-base-secret))
+          (signing-salt
+           (secret->file-name bonfire-signing-salt-secret))
+          (encryption-salt
+           (secret->file-name bonfire-encryption-salt-secret))))
+```
+
+#### 7. Reverse proxy
+
+The last piece to be able to access your instance from the Internet is a reverse proxy. We'll use NGINX but any one should work. To configure NGINX to forward traffic to Bonfire the following must be added to your configuration:
+
+```scheme
+(use-modules (gnu services web) ;for 'nginx-service-type'
+             ...)
+
+...
+
+(service nginx-service-type
+         (nginx-configuration
+          ;; Wait for Bonfire to start
+          (shepherd-requirement '(podman-bonfire))
+          (server-blocks
+           (list
+            (nginx-server-configuration
+             (server-name (list "yourdomain.net"))
+             (listen '("443 ssl" "[::]:443 ssl"))
+             ;; Replace with your domain
+             (ssl-certificate "/etc/certs/yourdomain.net/fullchain.pem")
+             ;; Replace with your domain
+             (ssl-certificate-key "/etc/certs/yourdomain.net/privkey.pem")
+             (locations
+              (list
+               (nginx-location-configuration
+                (uri "/")
+                (body (list (string-append "proxy_pass http://localhost:4000;")
+                ;; Taken from https://www.nginx.com/resources/wiki/start/topics/examples/full/
+                ;; Those settings are used when proxies are involved
+                "proxy_redirect          off;"
+                "proxy_set_header        Host $host;"
+                "proxy_set_header        X-Real-IP $remote_addr;"
+                "proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;"
+                "proxy_http_version      1.1;"
+                "proxy_cache_bypass      $http_upgrade;"
+                "proxy_set_header        Upgrade $http_upgrade;"
+                "proxy_set_header        Connection \"upgrade\";"
+                "proxy_set_header        X-Forwarded-Proto $scheme;"
+                "proxy_set_header        X-Forwarded-Host  $host;"))))))))))
+```
 
 <!-- tabs-close -->
 
