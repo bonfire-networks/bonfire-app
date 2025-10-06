@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ When including mentions through a reply, need to add a space after last one [#1573](https://github.com/bonfire-networks/bonfire-app/issues/1573) (thanks @ivanminutillo)
 - ✨ Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel and @ivanminutillo)
 - ✨ fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) (thanks @mayel)
 - ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
@@ -47,6 +48,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ add postgres autotune [`137ef37`](https://github.com/bonfire-networks/bonfire-app/commit/137ef37b1900f719cfc5cdf15f5f1a2595b9f4e4) (thanks @mayel)
 
 ### Changed
+- 📝 reply activity in composer overflowed wrongly [#1580](https://github.com/bonfire-networks/bonfire-app/issues/1580) (thanks @ivanminutillo)
 - 📝 ActivityPub interop docs [#1555](https://github.com/bonfire-networks/bonfire-app/issues/1555) (thanks @mayel)
 - 🚀 improve UX for customising permissions when posting, editing, or defining a boundary (toggling verbs rather than roles) [#1553](https://github.com/bonfire-networks/bonfire-app/issues/1553) (thanks @mayel)
 - 📝 status page to view outgoing and incoming federated activities [#1548](https://github.com/bonfire-networks/bonfire-app/issues/1548) (thanks @mayel)
@@ -71,7 +73,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`45eee7e`](https://github.com/bonfire-networks/bonfire-app/commit/45eee7eddd4d748adcec1759f53a597e80f293b1), [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
 - 🚧 Exploring a Bonfire Geosocial Extension [#1444](https://github.com/bonfire-networks/bonfire-app/issues/1444) [`86e95e6`](https://github.com/bonfire-networks/activity_pub/commit/86e95e6b2c6ab609a772791e7da1b6ab87cee382) (thanks @mayel and @ivanminutillo)
 - 📝 added usage-rules and subagents in the .claude folder wip [`89f5e1c`](https://github.com/bonfire-networks/bonfire-app/commit/89f5e1c0b4a29f02881f145dc6d002ec877d6fd3) (thanks @ivanminutillo)
-- 🚧 ActivityPub Client to Server API [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) [`1e7ae94`](https://github.com/bonfire-networks/activity_pub/commit/1e7ae94704348a764fa57623cd347fce93a9a317) (thanks @mayel)
+- 🚧 ActivityPub Client to Server API (AP C2S) [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) [`b604faa`](https://github.com/bonfire-networks/activity_pub/commit/b604faa9aea2197b7e80d1d6f32fc26f459c5655), [`38cca86`](https://github.com/bonfire-networks/activity_pub/commit/38cca86324b7211dcc982dabe9fe7eee9dc47057), [`1e7ae94`](https://github.com/bonfire-networks/activity_pub/commit/1e7ae94704348a764fa57623cd347fce93a9a317) (thanks @mayel and @ivanminutillo)
 - 📝 optimise text/html processing [`55b8995`](https://github.com/bonfire-networks/bonfire-app/commit/55b89959c4f4f3e577db97ae19a924ce66911ecd), [`0ee1f86`](https://github.com/bonfire-networks/activity_pub/commit/0ee1f8644a03f41ee2dfcd813f9c8334c731874c) (thanks @mayel)
 - 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
 - 📝 agents/claude worfklow [`47d9826`](https://github.com/bonfire-networks/bonfire-app/commit/47d9826208c73cdf82d51fe0455230f8e29c97f1), [`454137a`](https://github.com/bonfire-networks/bonfire-app/commit/454137a5878a8ae1f135e8c727797535dfc6b331) (thanks @mayel and @ivanminutillo)
@@ -81,12 +83,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 optimise compilation [`a0f65af`](https://github.com/bonfire-networks/bonfire-app/commit/a0f65af16fb85a5260cf2fdd949bbbcab789f96e) (thanks @mayel)
 - 📝 boltx [`c3d8f9b`](https://github.com/bonfire-networks/bonfire-app/commit/c3d8f9b87ba0cfbbcbb160d5da6caff707b45951) (thanks @mayel)
 - 🚀 update docs [`bc92597`](https://github.com/bonfire-networks/bonfire-app/commit/bc925979392bbc3e56ac94a106ac45799891e6c6) (thanks @mayel)
-- 📝 fix [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
+- 📝 fix [`72cb8ca`](https://github.com/bonfire-networks/activity_pub/commit/72cb8ca2ba71fa11d8bf7b84b560c844b979528e), [`11eca30`](https://github.com/bonfire-networks/activity_pub/commit/11eca307856b9673438fb89eaade9101a9107bc8) (thanks @mayel)
 - 🚧 Improve Boundaries Documentation [#973](https://github.com/bonfire-networks/bonfire-app/issues/973) [`1e723fd`](https://github.com/bonfire-networks/bonfire-app/commit/1e723fdfd46de0cc21ef3c38b9f961598c3f1a66) (thanks @mayel and @chobeat)
 - 📝 oup [`e2c13dc`](https://github.com/bonfire-networks/bonfire-app/commit/e2c13dcfe46e5e2da19b50bbe54e9bf471ddc653) (thanks @mayel)
+- 🚀 prepare c2s refactor [`d4e39e8`](https://github.com/bonfire-networks/activity_pub/commit/d4e39e8aac6891665594118838ef5a031114a56c) (thanks @mayel)
 - 📝 quote the argument to echo [`5b70d44`](https://github.com/bonfire-networks/bonfire-app/commit/5b70d447fc8dfddd0ae90dc5a71f6c10e8f945b7) (thanks @uhoreg)
 - 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) [`97cde01`](https://github.com/bonfire-networks/bonfire-app/commit/97cde01de6927d8294ae34aaa322775219a0345b) (thanks @mayel)
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
+- 🚧 investigate all n+1 warnings throughout the app [#1581](https://github.com/bonfire-networks/bonfire-app/issues/1581) [`4dd2e5e`](https://github.com/bonfire-networks/bonfire-app/commit/4dd2e5e68626d6ca5857005124489f9403d3cce8) (thanks @mayel)
 
 ### Fixed
 - 🐛 can't upload anymore more than 1 media in posts [#1547](https://github.com/bonfire-networks/bonfire-app/issues/1547) (thanks @ivanminutillo)
