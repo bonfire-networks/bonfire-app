@@ -166,14 +166,15 @@ config :bonfire, Oban,
   # time between making scheduled jobs available and notifying relevant queues that jobs are available, affects how frequently the database is checked for jobs to run
   stage_interval: :timer.seconds(2),
   queues: [
-    federator_incoming: 2,
-    federator_outgoing: 2,
+    federator_incoming: 6,
+    federator_outgoing: 6,
     remote_fetcher: 1,
     import: 1,
     deletion: 1,
     database_prune: 1,
     static_generator: 1,
     # video_transcode: 1,
+    # boost_activities: 1,
     fetch_open_science: 1
   ],
   plugins: [
@@ -265,14 +266,16 @@ if (config_env() == :prod or System.get_env("OTEL_ENABLED") in yes?) and
       otlp_endpoint: otel_endpoint
   end
 
+  config :opentelemetry_exporter,
+    # You can configure the compression type for exporting traces.
+    otlp_compression: :gzip,
+    oltp_traces_compression: :gzip
+
   if System.get_env("OTEL_LIGHTSTEP_API_KEY") do
     IO.puts("NOTE: OTLP (open telemetry) data will be sent to lightstep / servicenow.com")
 
     # Example configuration, for more refer to: https://github.com/open-telemetry/opentelemetry-erlang/tree/main/apps/opentelemetry_exporter#application-environment
     config :opentelemetry_exporter,
-      # You can configure the compression type for exporting traces.
-      otlp_compression: :gzip,
-      oltp_traces_compression: :gzip,
       otlp_traces_endpoint: "https://ingest.lightstep.com:443/traces/otlp/v0.9",
       otlp_headers: [
         {"lightstep-access-token", System.get_env("OTEL_LIGHTSTEP_API_KEY")}

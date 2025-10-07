@@ -806,7 +806,6 @@ config :bonfire_data_social, Activity,
             :named,
             :edge,
             :feed_publishes,
-            # :direct_replies,
             :object_media,
             :object_post_content,
             :object_created,
@@ -827,8 +826,6 @@ config :bonfire_data_social, Activity,
        # Virtuals
        field(:path, EctoMaterializedPath.UIDs, virtual: true)
        field(:federate_activity_pub, :any, virtual: true)
-
-      has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id, references: :object_id)
 
        # Edge counts
        has_one(:like_count, unquote(EdgeTotal),

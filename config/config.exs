@@ -338,7 +338,7 @@ config :live_view_native,
 # end
 # IO.puts("Flavours prepared")
 
-if System.get_env("WITH_API_GRAPHQL") not in yes? do
+if System.get_env("WITH_API_GRAPHQL") in no? do
   config :bonfire_api_graphql,
     modularity: :disabled
 else
