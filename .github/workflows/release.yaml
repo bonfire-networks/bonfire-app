@@ -45,6 +45,13 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      - name: Detect version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - name: Cancel any already running releases workflows
         uses: styfle/cancel-workflow-action@0.9.0
         with:
@@ -123,13 +130,6 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
-      - name: Detect version
-        id: version
-        uses: salsify/action-detect-and-tag-new-version@v2
-        with:
-          create-tag: false
-          version-command: |
-            grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - name: Push to docker
         # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
         id: docker_push
