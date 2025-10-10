@@ -91,6 +91,11 @@ if System.get_env("DISABLE_LOG") in yes? do
   config :logger, backends: []
 end
 
+http_config = [
+    port: server_port,
+    compress: System.get_env("PHX_COMPRESS_HTTP") not in no?
+  ]
+
 config :bonfire, Bonfire.Web.Endpoint,
   server:
     phx_server not in no? and
@@ -108,16 +113,13 @@ config :bonfire, Bonfire.Web.Endpoint,
     ),
   http:
     if(use_cowboy?,
-      do: [
-        port: server_port,
+      do: http_config ++ [
         # only bind the app to localhost when serving behind a proxy
         # ip: (if public_port != server_port, do: {127, 0, 0, 1}),
         transport_options: [max_connections: 16_384, socket_opts: [:inet6]]
       ],
       # for bandit
-      else: [
-        port: server_port
-      ]
+      else: http_config
     ),
   thousand_island: [transport_ports: [hibernate_after: 15_000]],
   secret_key_base: secret_key_base,
