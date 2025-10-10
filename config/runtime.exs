@@ -168,16 +168,16 @@ config :bonfire, Oban,
   # time between making scheduled jobs available and notifying relevant queues that jobs are available, affects how frequently the database is checked for jobs to run
   stage_interval: :timer.seconds(2),
   queues: [
-    federator_incoming: 6,
-    federator_outgoing: 6,
-    remote_fetcher: 1,
-    import: 1,
-    deletion: 1,
-    database_prune: 1,
-    static_generator: 1,
+    federator_incoming: String.to_integer(System.get_env("QUEUE_SIZE_AP_IN", "3")),
+    federator_outgoing: String.to_integer(System.get_env("QUEUE_SIZE_AP_OUT", "2")),
+    remote_fetcher: String.to_integer(System.get_env("QUEUE_SIZE_AP_FETCH", "1")),
+    import: String.to_integer(System.get_env("QUEUE_SIZE_IMPORT", "1")),
+    deletion: String.to_integer(System.get_env("QUEUE_SIZE_DELETION", "1")),
+    database_prune: String.to_integer(System.get_env("QUEUE_SIZE_DB_PRUNE", "1")),
+    static_generator: String.to_integer(System.get_env("QUEUE_SIZE_STATIC_GEN", "1")),
     # video_transcode: 1,
     # boost_activities: 1,
-    fetch_open_science: 1
+    fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1"))
   ],
   plugins: [
     #  delete job history after 7 days
