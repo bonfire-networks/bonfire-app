@@ -275,14 +275,7 @@ config :sentry,
   # NOTE: enabling `enable_source_code_context` errors with `Found two source files in different source root paths with the same relative path`
   enable_source_code_context: false,
   root_source_code_paths: [project_root] ++ dep_paths,
-  source_code_exclude_patterns: [
-    ~r/\/flavours\//,
-    ~r/\/extensions\//,
-    ~r/\/deps\//,
-    ~r/\/_build\//,
-    ~r/\/priv\//,
-    ~r/\/test\//
-  ],
+  # NOTE: source_code_exclude_patterns moved to runtime.exs (cannot include regex in release config with Elixir 1.19+)
   context_lines: 15,
   tags: %{app_version: Mix.Project.config()[:version]}
 

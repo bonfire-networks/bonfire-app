@@ -341,6 +341,16 @@ case System.get_env("SENTRY_DSN", "") do
     end
 end
 
+config :sentry,
+  source_code_exclude_patterns: [
+    ~r/\/flavours\//,
+    ~r/\/extensions\//,
+    ~r/\/deps\//,
+    ~r/\/_build\//,
+    ~r/\/priv\//,
+    ~r/\/test\//
+  ]
+
 case System.get_env("APPSIGNAL_PUSH_API_KEY", "") do
   "" ->
     config :appsignal, :config, active: false
