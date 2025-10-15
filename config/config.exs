@@ -141,9 +141,12 @@ config :rauversion_extension, :default_layout_module, Bonfire.UI.Common.LayoutVi
 config :rauversion_extension, :user_table, "pointers_pointer"
 config :rauversion_extension, :user_key_type, :uuid
 
-config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
+config :bonfire, Bonfire.Common.Repo, 
+  migration_lock: :pg_advisory_lock, # use lighter advisory locks for migrations, allowing concurrent indexing
+  types: Bonfire.Geolocate.PostgresTypes
 
 config :bonfire, Bonfire.Common.TestInstanceRepo,
+  migration_lock: :pg_advisory_lock, 
   types: Bonfire.Geolocate.PostgresTypes,
   database: "bonfire_test_dance_instance_#{System.get_env("MIX_TEST_PARTITION") || 0}"
 

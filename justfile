@@ -239,7 +239,7 @@ _clone_extension name:
 	test -d extensions/{{name}} || (mkdir -p extensions && git clone https://github.com/bonfire-networks/{{name}} extensions/{{name}} || echo "Could not clone the {{name}} extension")
 
 _ext-migrations-copy: 
-	just compile
+	MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just compile
 	just db-clean-migrations
 	just mix bonfire.extension.copy_migrations --force
 
