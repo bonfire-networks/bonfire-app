@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.3.13">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.3.14">
 
 
-    <title>Bonfire.Boundaries.Scaffold.Users — Bonfire v1.0.0-social-rc.3.13</title>
+    <title>Bonfire.Boundaries.Scaffold.Users — Bonfire v1.0.0-social-rc.3.14</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-149189D9.js"></script>
+    <script defer src="dist/sidebar_items-B10C33D8.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.3.13
+          v1.0.0-social-rc.3.14
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Boundaries.Scaffold.Users</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.3.13)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.3.14)</small>
 
     </h1>
 
@@ -93,7 +93,7 @@ Bonfire
 
 
     <section id="moduledoc">
-<p>Provides batching functionality to insert/update default boundary fixtures for all users.</p><p>The functions that define and insert user fixtures are defined in <a href="./Bonfire.Boundaries.Users.html"><code class="inline">Bonfire.Boundaries.Users</code></a> and <a href="./Bonfire.Boundaries.Users.PreparedBoundaries.html"><code class="inline">Bonfire.Boundaries.Users.PreparedBoundaries</code></a>.</p>
+<p>Reads fixtures in configuration and creates a default boundaries setup for a user</p>
     </section>
 
 </div>
@@ -112,17 +112,21 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#down/0" data-no-tooltip="" translate="no">down()</a>
+        <a href="#create_default_boundaries/2" data-no-tooltip="" translate="no">create_default_boundaries(user, opts \\ [])</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Creates the default boundaries setup for a newly-created user.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#up/0" data-no-tooltip="" translate="no">up()</a>
+        <a href="#create_missing_boundaries/1" data-no-tooltip="" translate="no">create_missing_boundaries(user)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Creates any missing boundaries for an existing user. Used when the app or config has defined some new types of default boundaries.</p></div>
 
     </div>
 
@@ -140,17 +144,19 @@ Bonfire
     </h1>
 
     <div class="functions-list">
-<section class="detail" id="down/0">
+<section class="detail" id="create_default_boundaries/2">
+
+    <span id="create_default_boundaries/1"></span>
 
   <div class="detail-header">
-    <a href="#down/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#create_default_boundaries/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">down()</h1>
+      <h1 class="signature" translate="no">create_default_boundaries(user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/scaffold/users.ex#L9" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/scaffold/users.ex#L35" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -159,26 +165,20 @@ Bonfire
 
   <section class="docstring">
 
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> down() :: :ok</pre>
-
-      </div>
-
-
+<p>Creates the default boundaries setup for a newly-created user.</p><h2 id="create_default_boundaries/2-parameters" class="section-heading"><a href="#create_default_boundaries/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">user</code>: The user for whom to create the default boundaries.</li><li><code class="inline">opts</code>: Optional parameters for customizing the boundaries (such as whether the user is <code class="inline">undiscoverable</code> or requires <code class="inline">request_before_follow</code>)</li></ul><h2 id="create_default_boundaries/2-examples" class="section-heading"><a href="#create_default_boundaries/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Boundaries.Scaffold.Users</span><span class="o">.</span><span class="n">create_default_boundaries</span><span class="p" data-group-id="1956708902-1">(</span><span class="n">user</span><span class="p" data-group-id="1956708902-1">)</span></code></pre>
   </section>
 </section>
-<section class="detail" id="up/0">
+<section class="detail" id="create_missing_boundaries/1">
 
   <div class="detail-header">
-    <a href="#up/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#create_missing_boundaries/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">up()</h1>
+      <h1 class="signature" translate="no">create_missing_boundaries(user)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/scaffold/users.ex#L9" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/scaffold/users.ex#L102" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -187,13 +187,7 @@ Bonfire
 
   <section class="docstring">
 
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> up() :: :ok | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
-
-      </div>
-
-
+<p>Creates any missing boundaries for an existing user. Used when the app or config has defined some new types of default boundaries.</p><h2 id="create_missing_boundaries/1-parameters" class="section-heading"><a href="#create_missing_boundaries/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">user</code>: The user for whom to create the missing boundaries.</li><li><code class="inline">opts</code>: Optional parameters for customizing the boundaries (not currently used)</li></ul><h2 id="create_missing_boundaries/1-examples" class="section-heading"><a href="#create_missing_boundaries/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Boundaries.Scaffold.Users</span><span class="o">.</span><span class="n">create_missing_boundaries</span><span class="p" data-group-id="9495014956-1">(</span><span class="n">user</span><span class="p" data-group-id="9495014956-1">)</span></code></pre>
   </section>
 </section>
 

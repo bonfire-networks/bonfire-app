@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.0-social-rc.3.13">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.3.14">
 
 
-    <title>Needle.Migration — Bonfire v1.0.0-social-rc.3.13</title>
+    <title>Needle.Migration — Bonfire v1.0.0-social-rc.3.14</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-149189D9.js"></script>
+    <script defer src="dist/sidebar_items-B10C33D8.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.0-social-rc.3.13
+          v1.0.0-social-rc.3.14
         </div>
       </div>
     </div>
@@ -80,11 +80,11 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Needle.Migration</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.3.13)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.3.14)</small>
 
     </h1>
 
-      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -129,6 +129,26 @@ Bonfire
         <a href="#add_is_not_deleted/1" data-no-tooltip="" translate="no">add_is_not_deleted(table)</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#add_pointer/4" data-no-tooltip="" translate="no">add_pointer(field, type, ref_table \\ Pointer, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Adds a pointer field inside a <code class="inline">create table</code> or <code class="inline">create_mixin_table</code> block.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#add_pointer_if_not_exists/4" data-no-tooltip="" translate="no">add_pointer_if_not_exists(field, type, ref_table \\ Pointer, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Adds a pointer field only if it does not exist, for use in <code class="inline">alter table</code> blocks.</p></div>
 
     </div>
 
@@ -322,7 +342,7 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#pointer/2" data-no-tooltip="" translate="no">pointer(table \\ Pointer, type)</a>
+        <a href="#pointer/2" data-no-tooltip="" translate="no">pointer(ref_table \\ Pointer, type)</a>
 
       </div>
 
@@ -332,7 +352,7 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#strong_pointer/1" data-no-tooltip="" translate="no">strong_pointer(table \\ Pointer)</a>
+        <a href="#strong_pointer/1" data-no-tooltip="" translate="no">strong_pointer(ref_table \\ Pointer)</a>
 
       </div>
 
@@ -343,7 +363,7 @@ be deleted when the thing it's pointing to is deleted.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#unbreakable_pointer/1" data-no-tooltip="" translate="no">unbreakable_pointer(table \\ Pointer)</a>
+        <a href="#unbreakable_pointer/1" data-no-tooltip="" translate="no">unbreakable_pointer(ref_table \\ Pointer)</a>
 
       </div>
 
@@ -354,7 +374,7 @@ pointer will prevent the thing it's pointing to from being deleted.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#weak_pointer/1" data-no-tooltip="" translate="no">weak_pointer(table \\ Pointer)</a>
+        <a href="#weak_pointer/1" data-no-tooltip="" translate="no">weak_pointer(ref_table \\ Pointer)</a>
 
       </div>
 
@@ -387,7 +407,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">pointer_type()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L10" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L10" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -428,7 +448,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">add_is_not_deleted(table)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L310" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L325" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -438,6 +458,58 @@ be set null when the thing it's pointing to is deleted.</p></div>
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="add_pointer/4">
+
+    <span id="add_pointer/2"></span>
+
+    <span id="add_pointer/3"></span>
+
+  <div class="detail-header">
+    <a href="#add_pointer/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">add_pointer(field, type, ref_table \\ Pointer, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L56" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Adds a pointer field inside a <code class="inline">create table</code> or <code class="inline">create_mixin_table</code> block.</p><h2 id="add_pointer/4-example" class="section-heading"><a href="#add_pointer/4-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">add_pointer</span><span class="p" data-group-id="9877322834-1">(</span><span class="ss">:thread_id</span><span class="p">,</span><span class="w"> </span><span class="ss">:weak</span><span class="p">,</span><span class="w"> </span><span class="nc">Needle.Pointer</span><span class="p">,</span><span class="w"> </span><span class="ss">unique</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9877322834-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="add_pointer_if_not_exists/4">
+
+    <span id="add_pointer_if_not_exists/2"></span>
+
+    <span id="add_pointer_if_not_exists/3"></span>
+
+  <div class="detail-header">
+    <a href="#add_pointer_if_not_exists/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">add_pointer_if_not_exists(field, type, ref_table \\ Pointer, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L66" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Adds a pointer field only if it does not exist, for use in <code class="inline">alter table</code> blocks.</p><h2 id="add_pointer_if_not_exists/4-example" class="section-heading"><a href="#add_pointer_if_not_exists/4-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">add_pointer_if_not_exists</span><span class="p" data-group-id="3950755397-1">(</span><span class="ss">:thread_id</span><span class="p">,</span><span class="w"> </span><span class="ss">:weak</span><span class="p">,</span><span class="w"> </span><span class="nc">Needle.Pointer</span><span class="p">,</span><span class="w"> </span><span class="ss">unique</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="3950755397-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="create_mixin_table/3">
@@ -454,7 +526,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
         <span class="note">(macro)</span>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L185" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L200" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -485,7 +557,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
         <span class="note">(macro)</span>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L85" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L100" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -515,7 +587,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
         <span class="note">(macro)</span>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L90" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L105" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -552,7 +624,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
         <span class="note">(macro)</span>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L96" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L111" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -589,7 +661,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
         <span class="note">(macro)</span>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L222" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L237" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -611,7 +683,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">create_virtual(schema)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L133" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L148" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -633,7 +705,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">create_virtual(source, id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L137" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L152" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -655,7 +727,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">create_virtual_trigger_function()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L387" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L402" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -677,7 +749,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_mixin_table(name)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L219" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L234" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -705,7 +777,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_pointable_table(schema)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L147" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L162" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -733,7 +805,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_pointable_table(name, id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L154" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L169" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -761,7 +833,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_random_table(name)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L250" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L265" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -789,7 +861,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_table(name)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L571" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L586" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -811,7 +883,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_virtual(schema)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L161" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L176" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -833,7 +905,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">drop_virtual(name, id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L165" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L180" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -855,7 +927,7 @@ be set null when the thing it's pointing to is deleted.</p></div>
       <h1 class="signature" translate="no">init_pointers()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L257" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L272" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -884,7 +956,7 @@ When migrating down: deinitialises the pointers database.</p>
       <h1 class="signature" translate="no">init_pointers(atom)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L264" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L279" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -913,7 +985,7 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
       <h1 class="signature" translate="no">init_pointers_ulid_extra()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L8" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L8" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -935,7 +1007,7 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
       <h1 class="signature" translate="no">migrate_virtual(schema)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L172" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L187" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -957,7 +1029,7 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
       <h1 class="signature" translate="no">migrate_virtual(name, schema)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L173" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L188" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -979,7 +1051,7 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
       <h1 class="signature" translate="no">migrate_virtual(atom, name, id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L179" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L194" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1000,10 +1072,10 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">pointer(table \\ Pointer, type)</h1>
+      <h1 class="signature" translate="no">pointer(ref_table \\ Pointer, type)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L15" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L15" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1030,10 +1102,10 @@ Given <code class="inline">:down</code>: deinitialises the pointers database.</p
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">strong_pointer(table \\ Pointer)</h1>
+      <h1 class="signature" translate="no">strong_pointer(ref_table \\ Pointer)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L24" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L36" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1055,10 +1127,10 @@ be deleted when the thing it's pointing to is deleted.</p>
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">unbreakable_pointer(table \\ Pointer)</h1>
+      <h1 class="signature" translate="no">unbreakable_pointer(ref_table \\ Pointer)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L48" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L48" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1080,10 +1152,10 @@ pointer will prevent the thing it's pointing to from being deleted.</p>
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">weak_pointer(table \\ Pointer)</h1>
+      <h1 class="signature" translate="no">weak_pointer(ref_table \\ Pointer)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration.ex#L36" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/needle/blob/main/lib/migration/migration.ex#L42" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
