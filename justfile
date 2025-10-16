@@ -666,7 +666,8 @@ test path *args='': services
 
 test_run *args='': services
 	@echo "Testing with {{args}}..."
-	@MIX_ENV=test just mix test `just test_minimum_excludes` {{args}} 
+	@MIX_ENV=test TEST_UI_ASYNC=no just mix test `just test_minimum_excludes` {{args}} 
+# DB_MIGRATION_LOCK=standard
 
 test-backend path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
