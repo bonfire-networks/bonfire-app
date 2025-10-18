@@ -54,7 +54,7 @@ defmodule Bonfire.Umbrella.MixProject do
                  override: true},
               else:
                 {flavour_atom,
-                 git: "https://github.com/bonfire-networks/#{flavour}", override: true}
+                 git: "https://github.com/bonfire-networks/#{flavour}", branch: "guix_update_build", override: true}
             )
           ]
         else
