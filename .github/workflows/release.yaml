@@ -120,7 +120,7 @@ jobs:
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: false
+          push: true #false
           build-args: |
             FLAVOUR=${{ env.FLAVOUR }}
             WITH_AI=${{ env.WITH_AI }}
@@ -130,24 +130,24 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
-      - name: Push to docker
-        # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
-        id: docker_push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: Dockerfile.release
-          platforms: ${{ matrix.platforms }}
-          cache-from: type=gha
-          push: true
-          build-args: |
-            FLAVOUR=${{ env.FLAVOUR }}
-            WITH_AI=${{ env.WITH_AI }}
-            WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}
-            WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}
-            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
-            ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
-            RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
+      # - name: Push to docker
+      #   # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
+      #   id: docker_push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     file: Dockerfile.release
+      #     platforms: ${{ matrix.platforms }}
+      #     cache-from: type=gha
+      #     push: true
+      #     build-args: |
+      #       FLAVOUR=${{ env.FLAVOUR }}
+      #       WITH_AI=${{ env.WITH_AI }}
+      #       WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}
+      #       WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}
+      #       ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+      #       ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
+      #       RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
           tags: |
             bonfirenetworks/${{ env.DOCKER_REPO }}:latest-${{ env.FLAVOUR }}-${{ matrix.arch }}
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
