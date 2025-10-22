@@ -220,6 +220,8 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 5 # needed for action-detect-and-tag-new-version
+      - name: Trust my repo
+        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
       - name: Debug git history
         run: |
           echo "Recent commits:"
@@ -233,8 +235,6 @@ jobs:
           create-tag: true
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - name: Trust my repo
-        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
       - name: Add path
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
