@@ -219,7 +219,13 @@ jobs:
         run: apt-get update -q -y && apt-get install -q -y git
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 2 # needed for action-detect-and-tag-new-version
+          fetch-depth: 5 # needed for action-detect-and-tag-new-version
+      - name: Debug git history
+        run: |
+          echo "Recent commits:"
+          git log --oneline -5
+          echo "Tags:"
+          git tag
       - name: Detect version
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
