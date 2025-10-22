@@ -104,29 +104,6 @@ export WITH_DOCKER=total
 
 You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
 
-<!-- 
-### Partial
-The partial way consist in using bare-metal elixir and tooling, and docker-managed database & search index.
-
-> #### Info {: .info}
->
-> Note: you can use a tool like [mise](https://mise.jdx.dev/) or asdf to setup the environment (run `mise install` in the root directory).
-
-
-#### Dependencies:
-
-- Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
-- Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo
-- [yarn](https://yarnpkg.com)
-- Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
-
-- Make sure you've set the environment variable to indicate your choice
-
-```bash
-export WITH_DOCKER=partial
-``` 
--->
-
 ### Bare-metal
 
 > #### Info {: .info}

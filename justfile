@@ -14,8 +14,7 @@ FLAVOUR := env_var_or_default('FLAVOUR', "ember")
 
 # do we want to use Docker? set as env var:
 # - WITH_DOCKER=total : use docker for everything (default)
-# - WITH_DOCKER=partial : use docker for services like the DB
-# - WITH_DOCKER=easy : use docker for services like the DB & compiled utilities  (deprecated, now same as partial)
+# - WITH_DOCKER=easy : use docker for services like the DB & compiled utilities 
 # - WITH_DOCKER=no : please no
 WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 

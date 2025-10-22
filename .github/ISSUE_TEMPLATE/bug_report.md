@@ -23,7 +23,7 @@ If applicable, add screenshots to help explain the problem.
 
 **Bonfire environment (please complete the following information):**
 - Running env: [e.g: dev, prod with mix, prod with OTP release, prod with docker image]
-- Running with Co-op Cloud and/or Docker?: [e.g. see WITH_DOCKER env variable: none, partial, easy, full]
+- Running with Co-op Cloud and/or Docker?: [e.g. see WITH_DOCKER env variable: none, easy, full]
 - Running version (check on your instance's sidebar): [e.g: 0.1.1-beta.42-with-JS]
 - Running flavour: [e.g: ember, social, community]
 - Running any extra/forked extensions: [e.g: https://github.com/my_forks/bonfire_ui_social]
