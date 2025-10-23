@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.0-social-rc.3.22">
+
+
+    <title>Bonfire.Mailer.ConnDebug — Bonfire v1.0.0-social-rc.3.22</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-9A5FD28E.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.0-social-rc.3.22
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Mailer.ConnDebug</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.0-social-rc.3.22)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/conn_debug.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Connectivity and handshake debugging for simple TCP, TLS/SMTPS (implicit TLS like port 465), or SMTP with STARTTLS (like port 587).</p><p>Return values:</p><ul><li><p> | {:open, :tls} | {:open, :tls_verified}</p></li><li> where reason is an atom (e.g., :refused, :timeout, :starttls_not_advertised, etc.)</li></ul><p>Notes:</p><ul><li>Host can be a binary domain (e.g., &quot;smtp.gmail.com&quot;), a charlist ('smtp.gmail.com'), or an IP tuple.</li><li>For TLS verification, system CAs are used if available (OTP 26+: :public_key.cacerts_get/0). You can override with :cacerts or :cacertfile in ssl_opts.</li><li>To force IPv6, include :inet6 in tcp_opts or ssl_opts.</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#send_smtp_message/3" data-no-tooltip="" translate="no">send_smtp_message(recipients, message, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sends an SMTP message directly using Mua.easy_send/1, loading host, sender, port, auth, and ssl from mailer config.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#smtp_starttls_status/3" data-no-tooltip="" translate="no">smtp_starttls_status(host, port \\ 587, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>SMTP with STARTTLS check (e.g., port 587). Performs</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#smtps_port_status/5" data-no-tooltip="" translate="no">smtps_port_status(host, port \\ 465, timeout \\ 5000, ssl_opts \\ [], verify \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>SMTPS (implicit TLS) check, defaults to port 465.
+Thin wrapper over tls_port_status/5.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#tcp_port_status/4" data-no-tooltip="" translate="no">tcp_port_status(host, port, timeout \\ 3000, tcp_opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks plain TCP reachability.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#tls_port_status/5" data-no-tooltip="" translate="no">tls_port_status(host, port, timeout \\ 5000, ssl_opts \\ [], verify \\ false)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Attempts a TLS handshake to the host:port (implicit TLS), e.g., HTTPS 443 or SMTPS 465.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="send_smtp_message/3">
+
+    <span id="send_smtp_message/2"></span>
+
+  <div class="detail-header">
+    <a href="#send_smtp_message/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">send_smtp_message(recipients, message, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/conn_debug.ex#L191" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Sends an SMTP message directly using Mua.easy_send/1, loading host, sender, port, auth, and ssl from mailer config.</p><h2 id="send_smtp_message/3-example" class="section-heading"><a href="#send_smtp_message/3-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">send_smtp_message</span><span class="p" data-group-id="2411912576-1">(</span><span class="p" data-group-id="2411912576-2">[</span><span class="s">&quot;recipient@example.com&quot;</span><span class="p" data-group-id="2411912576-2">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Subject: ...</span><span class="se">\r</span><span class="se">\n</span><span class="s">...&quot;</span><span class="p" data-group-id="2411912576-1">)</span></code></pre><p>Returns {:ok, receipt} or {:error, reason}</p>
+  </section>
+</section>
+<section class="detail" id="smtp_starttls_status/3">
+
+    <span id="smtp_starttls_status/1"></span>
+
+    <span id="smtp_starttls_status/2"></span>
+
+  <div class="detail-header">
+    <a href="#smtp_starttls_status/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">smtp_starttls_status(host, port \\ 587, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/conn_debug.ex#L150" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> smtp_starttls_status(
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">charlist</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:ip_address/0">:inet.ip_address</a>(),
+  <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:port_number/0">:inet.port_number</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
+) :: {:open, :tls} | {:open, :tls_verified} | {:closed, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>SMTP with STARTTLS check (e.g., port 587). Performs:</p><ul><li>TCP connect</li><li>Read 220 greeting</li><li>EHLO</li><li>Detect STARTTLS capability</li><li>Issue STARTTLS</li><li>Upgrade the socket to TLS</li></ul><p>Options (keyword list):</p><ul><li>:timeout    -&gt; overall per-step timeout in ms (default 7000)</li><li>:ehlo_host  -&gt; EHLO client name (charlist or binary), default 'localhost'</li><li>:ssl_opts   -&gt; options appended to TLS handshake</li><li>:verify     -&gt; when true, enables certificate verification (default false)</li><li>:tcp_opts   -&gt; extra gen_tcp options (merged with defaults [:binary, packet: :line, active: false])</li></ul><p>Returns:</p><ul><li><p> | {:open, :tls_verified}</p></li><li><p>{:closed, reason}</p>  reasons include: :timeout, :refused, :unexpected_banner, :starttls_not_advertised,
+  :starttls_rejected, :handshake_failure, other low-level errors.</li></ul><p>Example:
+  smtp_starttls_status(&quot;smtp.gmail.com&quot;, 587, verify: true)</p>
+  </section>
+</section>
+<section class="detail" id="smtps_port_status/5">
+
+    <span id="smtps_port_status/1"></span>
+
+    <span id="smtps_port_status/2"></span>
+
+    <span id="smtps_port_status/3"></span>
+
+    <span id="smtps_port_status/4"></span>
+
+  <div class="detail-header">
+    <a href="#smtps_port_status/5" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">smtps_port_status(host, port \\ 465, timeout \\ 5000, ssl_opts \\ [], verify \\ false)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/conn_debug.ex#L115" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> smtps_port_status(
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">charlist</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:ip_address/0">:inet.ip_address</a>(),
+  <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:port_number/0">:inet.port_number</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
+) :: {:open, :tls} | {:open, :tls_verified} | {:closed, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>SMTPS (implicit TLS) check, defaults to port 465.
+Thin wrapper over tls_port_status/5.</p>
+  </section>
+</section>
+<section class="detail" id="tcp_port_status/4">
+
+    <span id="tcp_port_status/2"></span>
+
+    <span id="tcp_port_status/3"></span>
+
+  <div class="detail-header">
+    <a href="#tcp_port_status/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">tcp_port_status(host, port, timeout \\ 3000, tcp_opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/conn_debug.ex#L35" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> tcp_port_status(
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">charlist</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:ip_address/0">:inet.ip_address</a>(),
+  <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:port_number/0">:inet.port_number</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
+) :: {:open, :tcp} | {:closed, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Checks plain TCP reachability.</p><p>Options:</p><ul><li>tcp_opts: extra gen_tcp options (default [:binary, packet: :raw, active: false, nodelay: true])</li></ul><p>Examples:
+  tcp_port_status(&quot;example.com&quot;, 443)</p>
+  </section>
+</section>
+<section class="detail" id="tls_port_status/5">
+
+    <span id="tls_port_status/2"></span>
+
+    <span id="tls_port_status/3"></span>
+
+    <span id="tls_port_status/4"></span>
+
+  <div class="detail-header">
+    <a href="#tls_port_status/5" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">tls_port_status(host, port, timeout \\ 5000, ssl_opts \\ [], verify \\ false)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_mailer/blob/main/lib/conn_debug.ex#L80" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> tls_port_status(
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">charlist</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:ip_address/0">:inet.ip_address</a>(),
+  <a href="https://www.erlang.org/doc/apps/kernel/inet.html#t:port_number/0">:inet.port_number</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
+) :: {:open, :tls} | {:open, :tls_verified} | {:closed, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Attempts a TLS handshake to the host:port (implicit TLS), e.g., HTTPS 443 or SMTPS 465.</p><p>Parameters:</p><ul><li>host, port, timeout (ms)</li><li>ssl_opts: options passed to :ssl.connect/4</li><li>verify: when true, enables certificate verification using system CAs (unless overridden in ssl_opts)</li></ul><p>Examples:
+  tls_port_status(&quot;smtp.gmail.com&quot;, 465)
+  tls_port_status(&quot;smtp.gmail.com&quot;, 465, 5000, [], true)</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
