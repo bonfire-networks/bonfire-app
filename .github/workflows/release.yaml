@@ -222,12 +222,12 @@ jobs:
           fetch-depth: 5 # needed for action-detect-and-tag-new-version
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
-      - name: Debug git history
-        run: |
-          echo "Recent commits:"
-          git log --oneline -5
-          echo "Tags:"
-          git tag
+      # - name: Debug git history
+      #   run: |
+      #     echo "Recent commits:"
+      #     git log --oneline -5
+      #     echo "Tags:"
+      #     git tag
       - name: Detect version
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
