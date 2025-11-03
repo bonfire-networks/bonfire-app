@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [[ "$SCRIPT_DIR" == "/" ]] && SCRIPT_DIR=""
 
 # Configuration via environment variables
-POSTGRES_CONF_PATH="${POSTGRES_CONF_PATH:-/var/lib/postgresql/data/postgresql.auto.conf}"
+POSTGRES_CONF_PATH="${POSTGRES_CONF_PATH:-/var/lib/postgresql/postgresql.auto.conf}"
 POSTGRES_START_CMD="${POSTGRES_START_CMD:-docker-entrypoint.sh postgres}"
 
 # Check if envsubst is available, if not, load our bash implementation
