@@ -25,7 +25,7 @@ mise plugin-add erlang
 mise plugin-add elixir 
 mise plugin-add just
 
-mise install
+mise install || echo "error during install of tools with mise"
 
 # FYI: uses .tool-versions instead of the below
 # which erl || (mise install erlang latest && asdf global erlang latest)
