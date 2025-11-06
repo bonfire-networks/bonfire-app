@@ -26,7 +26,7 @@ This repo includes configurations to run a few main [flavours of Bonfire](https:
 * [Ember](https://github.com/bonfire-networks/ember) for just the basics
 * [Social](https://github.com/bonfire-networks/social) for classical social networking (beta)
 * [Community](https://github.com/bonfire-networks/community) with groups and topics functionality (alpha)
-* [Open Science](https://github.com/bonfire-networks/open-science) building the next generation of open science platforms (alpha)
+* [Open Science](https://github.com/bonfire-networks/open_science) building the next generation of open science platforms (alpha)
 * [Coordination](https://github.com/bonfire-networks/coordination) for organising work and collaborating around projects and tasks (pre-alpha)
 * [Cooperation](https://github.com/bonfire-networks/cooperation) for cooperative production, distribution, and exchange of economic resources (pre-alpha)
 
