@@ -164,7 +164,7 @@ defmodule Bonfire.Umbrella.MixProject do
         ## dev conveniences
         {
           :tidewave,
-          "~> 0.4",
+          "~> 0.5.1",
           # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
           only: :dev
         },
