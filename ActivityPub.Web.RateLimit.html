@@ -8,11 +8,11 @@
     <meta name="project" content="Bonfire v1.0.0-social">
 
 
-    <title>Bonfire.UI.Common.PlugProtect — Bonfire v1.0.0-social</title>
+    <title>ActivityPub.Web.RateLimit — Bonfire v1.0.0-social</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-3B29ABDC.js"></script>
+    <script defer src="dist/sidebar_items-A269286B.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -79,18 +79,22 @@ Bonfire
 <div id="top-content">
   <div class="heading-with-actions top-heading">
     <h1>
-      <span translate="no">Bonfire.UI.Common.PlugProtect</span> 
+      <span translate="no">ActivityPub.Web.RateLimit</span> 
       <small class="app-vsn" translate="no">(Bonfire v1.0.0-social)</small>
 
     </h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/plugs/plug_protect_plug.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
 
   </div>
 
+
+    <section id="moduledoc">
+<p>Rate limiter for ActivityPub using Hammer 7.x with ETS backend.</p><p>Provides rate limiting for HTTP requests to protect against abuse.</p>
+    </section>
 
 </div>
 
@@ -108,41 +112,57 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#allow_action/3" data-no-tooltip="" translate="no">allow_action(conn, data, opts)</a>
+        <a href="#child_spec/1" data-no-tooltip="" translate="no">child_spec(opts)</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">PlugAttack.allow_action/3</code></a>.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#block_action/3" data-no-tooltip="" translate="no">block_action(conn, data, opts)</a>
+        <a href="#get/2" data-no-tooltip="" translate="no">get(key, scale)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">PlugAttack.block_action/3</code></a>.</p></div>
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Hammer.get/2</code></a>.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#call/2" data-no-tooltip="" translate="no">call(conn, opts)</a>
+        <a href="#hit/4" data-no-tooltip="" translate="no">hit(key, scale, limit, increment \\ 1)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Plug.call/2</code></a>.</p></div>
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Hammer.hit/4</code></a>.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#init/1" data-no-tooltip="" translate="no">init(opts)</a>
+        <a href="#inc/3" data-no-tooltip="" translate="no">inc(key, scale, increment \\ 1)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Plug.init/1</code></a>.</p></div>
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Hammer.inc/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set/3" data-no-tooltip="" translate="no">set(key, scale, count)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Hammer.set/3</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start_link/1" data-no-tooltip="" translate="no">start_link(opts)</a>
+
+      </div>
 
     </div>
 
@@ -160,17 +180,17 @@ Bonfire
     </h1>
 
     <div class="functions-list">
-<section class="detail" id="allow_action/3">
+<section class="detail" id="child_spec/1">
 
   <div class="detail-header">
-    <a href="#allow_action/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#child_spec/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">allow_action(conn, data, opts)</h1>
+      <h1 class="signature" translate="no">child_spec(opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/plugs/plug_protect_plug.ex#L2" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -179,20 +199,20 @@ Bonfire
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="https://hexdocs.pm/plug_attack/0.4.3/PlugAttack.html#c:allow_action/3"><code class="inline">PlugAttack.allow_action/3</code></a>.</p>
+
   </section>
 </section>
-<section class="detail" id="block_action/3">
+<section class="detail" id="get/2">
 
   <div class="detail-header">
-    <a href="#block_action/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#get/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">block_action(conn, data, opts)</h1>
+      <h1 class="signature" translate="no">get(key, scale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/plugs/plug_protect_plug.ex#L24" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -201,20 +221,22 @@ Bonfire
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="https://hexdocs.pm/plug_attack/0.4.3/PlugAttack.html#c:block_action/3"><code class="inline">PlugAttack.block_action/3</code></a>.</p>
+<p>Callback implementation for <a href="https://hexdocs.pm/hammer/7.1.0/Hammer.html#c:get/2"><code class="inline">Hammer.get/2</code></a>.</p>
   </section>
 </section>
-<section class="detail" id="call/2">
+<section class="detail" id="hit/4">
+
+    <span id="hit/3"></span>
 
   <div class="detail-header">
-    <a href="#call/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#hit/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">call(conn, opts)</h1>
+      <h1 class="signature" translate="no">hit(key, scale, limit, increment \\ 1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/plugs/plug_protect_plug.ex#L2" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -223,20 +245,22 @@ Bonfire
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="https://hexdocs.pm/plug/1.18.1/Plug.html#c:call/2"><code class="inline">Plug.call/2</code></a>.</p>
+<p>Callback implementation for <a href="https://hexdocs.pm/hammer/7.1.0/Hammer.html#c:hit/4"><code class="inline">Hammer.hit/4</code></a>.</p>
   </section>
 </section>
-<section class="detail" id="init/1">
+<section class="detail" id="inc/3">
+
+    <span id="inc/2"></span>
 
   <div class="detail-header">
-    <a href="#init/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#inc/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">init(opts)</h1>
+      <h1 class="signature" translate="no">inc(key, scale, increment \\ 1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/plugs/plug_protect_plug.ex#L2" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -245,7 +269,51 @@ Bonfire
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="https://hexdocs.pm/plug/1.18.1/Plug.html#c:init/1"><code class="inline">Plug.init/1</code></a>.</p>
+<p>Callback implementation for <a href="https://hexdocs.pm/hammer/7.1.0/Hammer.html#c:inc/3"><code class="inline">Hammer.inc/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="set/3">
+
+  <div class="detail-header">
+    <a href="#set/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">set(key, scale, count)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/hammer/7.1.0/Hammer.html#c:set/3"><code class="inline">Hammer.set/3</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">start_link(opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/rate_limit.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 

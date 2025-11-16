@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-3B29ABDC.js"></script>
+    <script defer src="dist/sidebar_items-A269286B.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -118,6 +118,16 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#rate_limit/2" data-no-tooltip="" translate="no">rate_limit(conn, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Rate limit plug for controllers.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#validate_actor_auth!/1" data-no-tooltip="" translate="no">validate_actor_auth!(conn)</a>
 
       </div>
@@ -161,6 +171,31 @@ Bonfire
 </span><span class="nc">Content</span><span class="o">-</span><span class="ss">Type</span><span class="p">:</span><span class="w"> </span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span><span class="w">
 
 </span><span class="n">id</span><span class="o">=</span><span class="n">https</span><span class="ss">://</span><span class="n">remote</span><span class="o">.</span><span class="n">server</span><span class="o">/</span><span class="n">object</span><span class="o">/</span><span class="mi">123</span></code></pre><p>Returns the fetched object as JSON, or an error if not found or fetch fails.</p>
+  </section>
+</section>
+<section class="detail" id="rate_limit/2">
+
+  <div class="detail-header">
+    <a href="#rate_limit/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">rate_limit(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/web/controllers/proxy_remote_object_controller.ex#L2" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Rate limit plug for controllers.</p><p>Reads configuration from <code class="inline">Application.get_env(:activity_pub, :rate_limit)[key_prefix]</code> with fallback to default options provided in the plug call.</p><h2 id="rate_limit/2-options" class="section-heading"><a href="#rate_limit/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:key_prefix</code> - Prefix for the rate limit bucket key (required)</li><li><code class="inline">:scale_ms</code> - Default time window in milliseconds (can be overridden by config)</li><li><code class="inline">:limit</code> - Default number of requests (can be overridden by config)</li></ul><h2 id="rate_limit/2-examples" class="section-heading"><a href="#rate_limit/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">plug</span><span class="w"> </span><span class="ss">:rate_limit</span><span class="p">,</span><span class="w"> 
+  </span><span class="ss">key_prefix</span><span class="p">:</span><span class="w"> </span><span class="ss">:webfinger</span><span class="p">,</span><span class="w">
+  </span><span class="ss">scale_ms</span><span class="p">:</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span><span class="w">
+  </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span></code></pre>
   </section>
 </section>
 <section class="detail" id="validate_actor_auth!/1">
