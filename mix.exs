@@ -121,6 +121,9 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
+  maybe_appsignal_deps =
+    if(System.get_env("APPSIGNAL_PUSH_API_KEY"), do: [{:appsignal_phoenix, "~> 2.7"}], else: [])
+
   # NOTE: exqlite not working in CI
   maybe_non_ci_deps =
     if(System.get_env("CI") not in yes?,
@@ -143,6 +146,7 @@ defmodule Bonfire.Umbrella.MixProject do
       maybe_ai_deps ++
       maybe_xmpp_deps ++
       maybe_non_ci_deps ++
+      maybe_appsignal_deps ++
       [
         # TODO: move most of these deps to ember or elsewhere?
         {
