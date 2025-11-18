@@ -399,6 +399,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "bonfire_geolocate",
         "bonfire_quantify",
         "bonfire_valueflows",
+        "bonfire_notify",
         "article_"
       ],
       api: [
