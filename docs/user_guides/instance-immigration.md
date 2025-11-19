@@ -20,10 +20,7 @@ A step-by-step guide for migrating your account from another fediverse instance 
 
 ### Things to consider
 
-- **Posts cannot be migrated** - Your post history will remain on your previous instance
-<!-- 
-- **30-day cooldown** - You can only migrate once every 30 days on most instances 
--->
+- **30-day cooldown** - You can only migrate once every 30 days on some instances 
 - **Process is irreversible** - Profiles moves cannot be undone
 - **New features** - Bonfire has unique features like circles that may not exist on your previous instance
 
