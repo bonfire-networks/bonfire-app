@@ -17,7 +17,7 @@ jobs:
   report_mix_deps:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: erlef/mix-dependency-submission@v1
   check_file_changed:
     uses: ./.github/workflows/check_file_changed.yaml
@@ -75,7 +75,7 @@ jobs:
         sudo apt update
     - name: Install system deps
       run: sudo apt install git tar file make build-essential docker-compose-plugin && sudo snap install --edge just --classic
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: erlef/setup-beam@v1
       with:
         otp-version: ${{matrix.otp}}
