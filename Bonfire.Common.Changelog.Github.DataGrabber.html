@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A5E37C0D.js"></script>
+    <script defer src="dist/sidebar_items-F2312EDC.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -120,6 +120,26 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#filter_items_by_date/3" data-no-tooltip="" translate="no">filter_items_by_date(items, after_date, before_date)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#filter_items_by_date!/3" data-no-tooltip="" translate="no">filter_items_by_date!(items, after_date, before_date)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Filters a list of items (issues, PRs, or commits) to only include those with a relevant date field
+(closedAt, mergedAt, etc) within the given date window. Items without a date field are always included.
+Raises if any out-of-range items are found (for debugging).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#format_issue/1" data-no-tooltip="" translate="no">format_issue(item)</a>
 
       </div>
@@ -131,6 +151,16 @@ Bonfire
         <a href="#get_first_changelog_date/0" data-no-tooltip="" translate="no">get_first_changelog_date()</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#normalize_date/1" data-no-tooltip="" translate="no">normalize_date(date)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Normalize a date string or Date struct to &quot;YYYY-MM-DD&quot;.</p></div>
 
     </div>
 
@@ -160,7 +190,7 @@ Bonfire
       <h1 class="signature" translate="no">fetch_issues(opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L115" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L264" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -170,6 +200,58 @@ Bonfire
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="filter_items_by_date/3">
+
+  <div class="detail-header">
+    <a href="#filter_items_by_date/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">filter_items_by_date(items, after_date, before_date)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L203" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="filter_items_by_date!/3">
+
+  <div class="detail-header">
+    <a href="#filter_items_by_date!/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">filter_items_by_date!(items, after_date, before_date)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L183" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Filters a list of items (issues, PRs, or commits) to only include those with a relevant date field
+(closedAt, mergedAt, etc) within the given date window. Items without a date field are always included.
+Raises if any out-of-range items are found (for debugging).</p><p>The date field checked is, in order:</p><ul><li>&quot;closedAt&quot;, &quot;closed_at&quot;</li><li>&quot;mergedAt&quot;, &quot;merged_at&quot;</li><li>&quot;matched_issue_closed_at&quot;</li><li>&quot;matched_issue.mergedAt&quot;, &quot;matched_issue.merged_at&quot;</li><li>&quot;matched_issue.closedAt&quot;, &quot;matched_issue.closed_at&quot;</li></ul><h2 id="filter_items_by_date!/3-examples" class="section-heading"><a href="#filter_items_by_date!/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9267996454-1">[</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="9267996454-2">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-10T12:00:00Z&quot;</span><span class="p" data-group-id="9267996454-2">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="9267996454-3">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mergedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-15T12:00:00Z&quot;</span><span class="p" data-group-id="9267996454-3">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="9267996454-4">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2024-01-01T12:00:00Z&quot;</span><span class="p" data-group-id="9267996454-4">}</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="9267996454-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">filter_items_by_date!</span><span class="p" data-group-id="9267996454-5">(</span><span class="n">items</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2025-10-01&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2025-10-31&quot;</span><span class="p" data-group-id="9267996454-5">)</span><span class="w">
+</span><span class="p" data-group-id="9267996454-6">[</span><span class="p" data-group-id="9267996454-7">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-10T12:00:00Z&quot;</span><span class="p" data-group-id="9267996454-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9267996454-8">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mergedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-15T12:00:00Z&quot;</span><span class="p" data-group-id="9267996454-8">}</span><span class="p" data-group-id="9267996454-6">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="format_issue/1">
@@ -182,7 +264,7 @@ Bonfire
       <h1 class="signature" translate="no">format_issue(item)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L1983" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L2138" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -214,6 +296,41 @@ Bonfire
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="normalize_date/1">
+
+  <div class="detail-header">
+    <a href="#normalize_date/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">normalize_date(date)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/modularity/changelog_github_datagrabber.ex#L136" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Normalize a date string or Date struct to &quot;YYYY-MM-DD&quot;.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="5009534131-1">(</span><span class="s">&quot;2025-10-2&quot;</span><span class="p" data-group-id="5009534131-1">)</span><span class="w">
+</span><span class="s">&quot;2025-10-02&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="5009534131-2">(</span><span class="s">&quot;2025-1-9&quot;</span><span class="p" data-group-id="5009534131-2">)</span><span class="w">
+</span><span class="s">&quot;2025-01-09&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="5009534131-3">(</span><span class="s">&quot;2025-10-02&quot;</span><span class="p" data-group-id="5009534131-3">)</span><span class="w">
+</span><span class="s">&quot;2025-10-02&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="5009534131-4">(</span><span class="ld">~D[2025-10-2]</span><span class="p" data-group-id="5009534131-4">)</span><span class="w">
+</span><span class="s">&quot;2025-10-02&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="5009534131-5">(</span><span class="no">nil</span><span class="p" data-group-id="5009534131-5">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
   </section>
 </section>
 
