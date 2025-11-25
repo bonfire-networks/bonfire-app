@@ -7,6 +7,53 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0 (2025-11-7)]
+
+### Added
+- ✨ docs/DEPLOY.md: Add Guix hosting guide. [PR #1585](https://github.com/bonfire-networks/bonfire-app/pull/1585) [`4f8d891`](https://github.com/bonfire-networks/bonfire-app/commit/4f8d8919492c1eccdd4c62e8fe32732c199e5a3d) (thanks @fishinthecalculator)
+- ✨ add postgres autotune [`137ef37`](https://github.com/bonfire-networks/bonfire-app/commit/137ef37b1900f719cfc5cdf15f5f1a2595b9f4e4) (thanks @mayel)
+- 💅 Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) [`aada2ae`](https://github.com/bonfire-networks/open_science/commit/aada2ae4c81a5fb9e1ae56ec081f3852f63f82a8) (thanks @mayel)
+
+### Changed
+- 📝 reply activity in composer overflowed wrongly [#1580](https://github.com/bonfire-networks/bonfire-app/issues/1580) (thanks @ivanminutillo)
+- 📝 on closing compose window: confusing button name "cancel" [#1571](https://github.com/bonfire-networks/bonfire-app/issues/1571) (thanks @gillesdutilh and @ivanminutillo)
+- 📝 sometime remote threads and posts are orphans [#1232](https://github.com/bonfire-networks/bonfire-app/issues/1232) (thanks @ivanminutillo and @mayel)
+- 🚀 make sure replies from Masto appear in the correct thread rather than as a detached reply [#1200](https://github.com/bonfire-networks/bonfire-app/issues/1200) (thanks @mayel)
+- 📝 moved auto conf file outside postgres data folder [PR #1619](https://github.com/bonfire-networks/bonfire-app/pull/1619) (thanks @MarekBenjamin)
+- 📝 .envrc: Update default Docker setting. [PR #1602](https://github.com/bonfire-networks/bonfire-app/pull/1602) (thanks @fishinthecalculator)
+- 🚀 Update build scripts to be more broadly compatible [PR #1](https://github.com/bonfire-networks/ember/pull/1) (thanks @fishinthecalculator)
+- 📝 .envrc: Update default Docker setting. [`3f34141`](https://github.com/bonfire-networks/bonfire-app/commit/3f34141127bc9837422e3d17c09a8a2d5cf69355) (thanks @fishinthecalculator)
+- 📝 api [`82811fa`](https://github.com/bonfire-networks/bonfire-app/commit/82811fa4b3a71122b0710a572f5cfd516bea8206), [`cfd4f66`](https://github.com/bonfire-networks/bonfire-app/commit/cfd4f66357938a494b43c4297bf94507ba13d704) (thanks @mayel)
+- 🚧 investigate all n+1 warnings throughout the app [#1581](https://github.com/bonfire-networks/bonfire-app/issues/1581) [`4dd2e5e`](https://github.com/bonfire-networks/bonfire-app/commit/4dd2e5e68626d6ca5857005124489f9403d3cce8) (thanks @mayel)
+- 🚧 Investigate missing ecto indexes [#1588](https://github.com/bonfire-networks/bonfire-app/issues/1588) [`469f854`](https://github.com/bonfire-networks/bonfire-app/commit/469f854a6ab2d90e0d96a132c80d4c4506da1bbb), [`e32c6a8`](https://github.com/bonfire-networks/bonfire-app/commit/e32c6a8511af239ebd30f230c3424d745c545df5), [`df2b4cc`](https://github.com/bonfire-networks/bonfire-app/commit/df2b4ccfc4c942edc168d5ed9da4336445c2fbc2) (thanks @mayel and @ivanminutillo)
+- 📝 mail [`b6fe441`](https://github.com/bonfire-networks/bonfire-app/commit/b6fe441e15cbd6f0a8c1b528f393642091d0b6ff) (thanks @mayel)
+- 📝 moved auto conf file outside postgres data folder [`40aafd9`](https://github.com/bonfire-networks/bonfire-app/commit/40aafd918d05d703822aeb52dd8df316d0099366) (thanks @MarekBenjamin)
+- 📝 post [`90b0827`](https://github.com/bonfire-networks/openscience.network/commit/90b08275aa8382895f935756b9ea1bdeea163dd6) (thanks @ivanminutillo)
+- 📝 workflow [`9612b7f`](https://github.com/bonfire-networks/openscience.network/commit/9612b7f642b7e44e938ab043b42022df4c036696), [`43093e6`](https://github.com/bonfire-networks/openscience.network/commit/43093e60edcf67438ca99484ee49a4cc357b7f0d) (thanks @ivanminutillo)
+- ✅ test deletion flows manually with mastodon [#780](https://github.com/bonfire-networks/bonfire-app/issues/780) (thanks @mayel)
+
+### Fixed
+- 🐛 Duplicate ID "Bonfire-UI-Social-Graph-FollowButtonLive_Bonfire-UI-Me-WidgetUsersLive_for_01K947MF9W3JAVW5NQ0P13C7QE" for component Bonfire.UI.Social.Graph.FollowButtonLive when rendering template [#1618](https://github.com/bonfire-networks/bonfire-app/issues/1618) (thanks @rzylber and @mayel)
+- 🐛 Cannot register first user [#1617](https://github.com/bonfire-networks/bonfire-app/issues/1617) (thanks @timorl and @mayel)
+- 🐛 Notifications are not marked as read [#1613](https://github.com/bonfire-networks/bonfire-app/issues/1613) (thanks @ccamara and @mayel)
+- 🐛 Cannot approve follower requests [#1612](https://github.com/bonfire-networks/bonfire-app/issues/1612) (thanks @ccamara and @mayel)
+- 🐛 Federation with Iceshrimp.NET (and likely all other JSON-LD processing remotes) are broken [#1597](https://github.com/bonfire-networks/bonfire-app/issues/1597) (thanks @wont-work and @mayel)
+- 🐛 Crash: Switching themes leads to crash and stuck/default theme [#1595](https://github.com/bonfire-networks/bonfire-app/issues/1595) (thanks @ltning, @daehee, and @ivanminutillo)
+- 🐛 Infinite loop on article feed [#1587](https://github.com/bonfire-networks/bonfire-app/issues/1587) (thanks @ivanminutillo)
+- 🐛 When including mentions through a reply, need to add a space after last one [#1573](https://github.com/bonfire-networks/bonfire-app/issues/1573) (thanks @ivanminutillo)
+- 🐛 Bug: dependency on elixir 1.17.3 doesn't work [#1352](https://github.com/bonfire-networks/bonfire-app/issues/1352) (thanks @vincib and @mayel)
+- 🐛 group actors (such as from mobilizon) profile sometimes showing current user's activities [#1294](https://github.com/bonfire-networks/bonfire-app/issues/1294) (thanks @mayel)
+- 🐛 seems some remote posts are being duplicated [#1219](https://github.com/bonfire-networks/bonfire-app/issues/1219) (thanks @mayel)
+- 🐛 investigate send_update failed because component Bonfire.UI.Reactions.BoostActionLive [#1192](https://github.com/bonfire-networks/bonfire-app/issues/1192) (thanks @ivanminutillo)
+- 🐛 error: "** (UndefinedFunctionError) function Phoenix.ConnTest.get/3 is undefined or private [#962](https://github.com/bonfire-networks/bonfire-app/issues/962) (thanks @ivanminutillo)
+- 🐛 got ERROR REPORT several times before being able to startup the instance when --force deploying with abra [#953](https://github.com/bonfire-networks/bonfire-app/issues/953) (thanks @ivanminutillo)
+- 🐛 evision_windows_fix:run_once/0 is undefined [#950](https://github.com/bonfire-networks/bonfire-app/issues/950) (thanks @ivanminutillo)
+- 🐛 Fix open science link in readme [PR #1622](https://github.com/bonfire-networks/bonfire-app/pull/1622) (thanks @MegaKeegMan)
+- 🐛 Fix link for Open Science repository in README [`b9d48ec`](https://github.com/bonfire-networks/bonfire-app/commit/b9d48ec32a597cad9f33b515c121bf9a34a604ed) (thanks @ivanminutillo)
+- ✨ Convert break-all containers (in composer and in user hero profile) for better readability [#1574](https://github.com/bonfire-networks/bonfire-app/issues/1574) (thanks @ivanminutillo)
+- ✨ Fix the workflow to add themes to a flavor [#1425](https://github.com/bonfire-networks/bonfire-app/issues/1425) (thanks @ivanminutillo)
+
+
 ## Bonfire Social [1.0-rc.3 (2025-10-2)]
 
 ### ✨ What’s new and improved?
