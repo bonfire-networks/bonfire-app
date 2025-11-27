@@ -125,6 +125,13 @@ jobs:
             TAGS+=(latest latest-rc latest-beta latest-alpha)
           fi
           echo "LATEST_TAG_SUFFIXES=${TAGS[*]}" >> $GITHUB_ENV
+          # Write all tags to a file for Docker build step
+          : > docker_tags.txt
+          for TAG in "${TAGS[@]}"; do
+            echo "bonfirenetworks/${{ env.DOCKER_REPO }}:${TAG}-${{ env.FLAVOUR }}-${{ matrix.arch }}" >> docker_tags.txt
+          done
+          # Always add the versioned tag
+          echo "bonfirenetworks/${{ env.DOCKER_REPO }}:${{ steps.version.outputs.current-version }}-${{ env.FLAVOUR }}-${{ matrix.arch }}" >> docker_tags.txt
       -
         name: Build & push Docker image
         id: docker_build
@@ -147,13 +154,11 @@ jobs:
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
           tags: |
-            ${{ join(fromJson('["' + env.LATEST_TAG_SUFFIXES.replace(' ', '","') + '"]'), '
-            ') }}
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
-          #  ghcr.io/bonfire-networks/bonfire-app:${{ env.LATEST_TAG_SUFFIX }}-${{ env.FLAVOUR }}-${{ matrix.arch }}
-          #  ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
-      -
-        name: Image digest
+            ${{ steps.latest_tags.outputs.tags_file }}
+      - name: Set tags_file output
+        id: tags_file
+        run: echo "tags_file=$(cat docker_tags.txt)" >> $GITHUB_OUTPUT
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   docker_multi_arch_image:
