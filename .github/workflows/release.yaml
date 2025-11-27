@@ -125,13 +125,16 @@ jobs:
             TAGS+=(latest latest-rc latest-beta latest-alpha)
           fi
           echo "LATEST_TAG_SUFFIXES=${TAGS[*]}" >> $GITHUB_ENV
-          # Write all tags to a file for Docker build step
           : > docker_tags.txt
           for TAG in "${TAGS[@]}"; do
             echo "bonfirenetworks/${{ env.DOCKER_REPO }}:${TAG}-${{ env.FLAVOUR }}-${{ matrix.arch }}" >> docker_tags.txt
           done
-          # Always add the versioned tag
           echo "bonfirenetworks/${{ env.DOCKER_REPO }}:${{ steps.version.outputs.current-version }}-${{ env.FLAVOUR }}-${{ matrix.arch }}" >> docker_tags.txt
+      - name: Read docker tags into env
+        id: read_tags
+        run: |
+          TAGS=$(paste -sd, docker_tags.txt)
+          echo "DOCKER_TAGS=$TAGS" >> $GITHUB_ENV
       -
         name: Build & push Docker image
         id: docker_build
@@ -153,8 +156,7 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
-          tags: |
-            ${{ steps.latest_tags.outputs.tags_file }}
+          tags: ${{ env.DOCKER_TAGS }}
       - name: Set tags_file output
         id: tags_file
         run: echo "tags_file=$(cat docker_tags.txt)" >> $GITHUB_OUTPUT
