@@ -110,21 +110,23 @@ jobs:
       - 
         name: Flavour setup 
         run: just _clone_flavour_apps && just _config_flavour ${{ env.FLAVOUR }} && just _flavour_install ${{ env.FLAVOUR }} --yes && just flavour_make_symlinks ${{ env.FLAVOUR }} && just _rel-prepare 
-      - name: Set LATEST_TAG_SUFFIX based on version
-        id: latest_tag
+      - name: Set LATEST_TAG_SUFFIXES based on version
+        id: latest_tags
         run: |
           VERSION="${{ steps.version.outputs.current-version }}"
+          TAGS=()
           if [[ "$VERSION" =~ -rc ]]; then
-            echo "LATEST_TAG_SUFFIX=latest-rc" >> $GITHUB_ENV
+            TAGS+=(latest-rc latest-beta latest-alpha)
           elif [[ "$VERSION" =~ -beta ]]; then
-            echo "LATEST_TAG_SUFFIX=latest-beta" >> $GITHUB_ENV
+            TAGS+=(latest-beta latest-alpha)
           elif [[ "$VERSION" =~ -alpha ]]; then
-            echo "LATEST_TAG_SUFFIX=latest-alpha" >> $GITHUB_ENV
+            TAGS+=(latest-alpha)
           else
-            echo "LATEST_TAG_SUFFIX=latest" >> $GITHUB_ENV
+            TAGS+=(latest latest-rc latest-beta latest-alpha)
           fi
+          echo "LATEST_TAG_SUFFIXES=${TAGS[*]}" >> $GITHUB_ENV
       -
-        name: Build 
+        name: Build & push Docker image
         id: docker_build
         uses: docker/build-push-action@v6
         with:
@@ -144,26 +146,9 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
-      # - name: Push to docker
-      #   # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
-      #   id: docker_push
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: .
-      #     file: Dockerfile.release
-      #     platforms: ${{ matrix.platforms }}
-      #     cache-from: type=gha
-      #     push: true
-      #     build-args: |
-      #       FLAVOUR=${{ env.FLAVOUR }}
-      #       WITH_AI=${{ env.WITH_AI }}
-      #       WITH_LV_NATIVE=${{ env.WITH_LV_NATIVE }}
-      #       WITH_IMAGE_VIX=${{ env.WITH_IMAGE_VIX }}
-      #       ALPINE_VERSION=${{ env.ALPINE_VERSION }}
-      #       ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
-      #       RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
           tags: |
-            bonfirenetworks/${{ env.DOCKER_REPO }}:${{ env.LATEST_TAG_SUFFIX }}-${{ env.FLAVOUR }}-${{ matrix.arch }}
+            ${{ join(fromJson('["' + env.LATEST_TAG_SUFFIXES.replace(' ', '","') + '"]'), '
+            ') }}
             bonfirenetworks/${{ env.DOCKER_REPO }}:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
           #  ghcr.io/bonfire-networks/bonfire-app:${{ env.LATEST_TAG_SUFFIX }}-${{ env.FLAVOUR }}-${{ matrix.arch }}
           #  ghcr.io/bonfire-networks/bonfire-app:${{steps.version.outputs.current-version}}-${{ env.FLAVOUR }}-${{ matrix.arch }}
@@ -187,22 +172,24 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Create and push manifest
-        run: | # NOTE: the list of platforms in the for loop must match the `arch` names corresponding to the `platforms` matrix enabled in the docker job above 
+        run: |
           set -e
-          images=""
-          for platform in amd64 aarch64 arm32v7; do
-            image=bonfirenetworks/bonfire:${{ env.LATEST_TAG_SUFFIX }}-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g')
-            if docker buildx imagetools inspect $image > /dev/null 2>&1; then
-              images="$images $image"
+          for TAG_SUFFIX in ${{ env.LATEST_TAG_SUFFIXES }}; do
+            images=""
+            for platform in amd64 aarch64 arm32v7; do
+              image=bonfirenetworks/bonfire:${TAG_SUFFIX}-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g')
+              if docker buildx imagetools inspect $image > /dev/null 2>&1; then
+                images="$images $image"
+              else
+                echo "Skipping missing image: $image"
+              fi
+            done
+            if [ -n "$images" ]; then
+              docker buildx imagetools create -t bonfirenetworks/bonfire:${TAG_SUFFIX}-${{ matrix.flavour }} $images
             else
-              echo "Skipping missing image: $image"
+              echo "No images found for manifest for tag $TAG_SUFFIX, skipping."
             fi
           done
-          if [ -n "$images" ]; then
-            docker buildx imagetools create -t bonfirenetworks/bonfire:${{ env.LATEST_TAG_SUFFIX }}-${{ matrix.flavour }} $images
-          else
-            echo "No images found for manifest, skipping."
-          fi
 
   elixir_release_amd64: 
     needs: check_version_changed

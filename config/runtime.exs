@@ -168,8 +168,11 @@ config :bonfire, Oban,
   # time between making scheduled jobs available and notifying relevant queues that jobs are available, affects how frequently the database is checked for jobs to run
   stage_interval: :timer.seconds(2),
   queues: [
+    federator_incoming_mentions: String.to_integer(System.get_env("QUEUE_SIZE_AP_IN_MENTIONS", "3")),
+    federator_incoming_follows: String.to_integer(System.get_env("QUEUE_SIZE_AP_IN_FOLLOWS", "2")),
     federator_incoming: String.to_integer(System.get_env("QUEUE_SIZE_AP_IN", "3")),
-    federator_outgoing: String.to_integer(System.get_env("QUEUE_SIZE_AP_OUT", "2")),
+    federator_incoming_unverified: String.to_integer(System.get_env("QUEUE_SIZE_AP_IN_UNVERIFIED", "1")),
+    federator_outgoing: String.to_integer(System.get_env("QUEUE_SIZE_AP_OUT", "3")),
     remote_fetcher: String.to_integer(System.get_env("QUEUE_SIZE_AP_FETCH", "1")),
     import: String.to_integer(System.get_env("QUEUE_SIZE_IMPORT", "1")),
     deletion: String.to_integer(System.get_env("QUEUE_SIZE_DELETION", "1")),
@@ -180,7 +183,7 @@ config :bonfire, Oban,
     fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1"))
   ],
   plugins: [
-    #  delete job history after 7 days
+    # delete job history after 7 days
     {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
     # rescue orphaned jobs
     {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
