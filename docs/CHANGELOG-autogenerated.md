@@ -23,6 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 Upgrade Hammer integration [#1522](https://github.com/bonfire-networks/bonfire-app/issues/1522) (thanks @mayel)
 - ⚡ optimise / short circuit incoming Delete activities for unknown remote objects/actors [#850](https://github.com/bonfire-networks/bonfire-app/issues/850) (thanks @mayel)
 - 📝 fix(app pages): useless closing div tag breaking layout [PR #7](https://github.com/bonfire-networks/website-blog/pull/7) (thanks @Spratch)
+- 📝 1.0.1-alpha.1 [`be54eed`](https://github.com/bonfire-networks/bonfire-app/commit/be54eed379907a4944e78acb6725d1ae6599cdcd) (thanks @mayel)
 - 📝 Bonfire Social 1.0 🔥 [`c5aff09`](https://github.com/bonfire-networks/bonfire-app/commit/c5aff0958dfe51a60ddaec455b71d62977372fbd) (thanks @mayel)
 - 🚧 Implement web push notification [#1292](https://github.com/bonfire-networks/bonfire-app/issues/1292) [`8c41f51`](https://github.com/bonfire-networks/bonfire-app/commit/8c41f5140939aa8da06c506cb20f59199945ff10) (thanks @mayel and @ivanminutillo)
 - 📝 tidewave [`ee40171`](https://github.com/bonfire-networks/bonfire-app/commit/ee40171f6062fb34ee318431b96be6a376a4ce8e) (thanks @ivanminutillo)
