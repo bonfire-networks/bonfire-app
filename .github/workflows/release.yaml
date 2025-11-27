@@ -157,9 +157,6 @@ jobs:
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
           tags: ${{ env.DOCKER_TAGS }}
-      - name: Set tags_file output
-        id: tags_file
-        run: echo "tags_file=$(cat docker_tags.txt)" >> $GITHUB_OUTPUT
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
