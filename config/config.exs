@@ -348,6 +348,9 @@ end
 
 IO.puts("Extensions compile-time configs prepared")
 
+# import config for base flavour
+import_config "ember.exs"
+
 # include configs for the current flavour (augmenting or overriding the previous ones)
 flavour_config = "#{flavour}.exs" |> Path.expand(__DIR__)
 
