@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Support standard webpush [#1636](https://github.com/bonfire-networks/bonfire-app/issues/1636) (thanks @p1gp1g and @mayel)
 - ✨ re-enable auto-mark-as-read for notifications and messages [#1418](https://github.com/bonfire-networks/bonfire-app/issues/1418) (thanks @mayel)
 - ✨ Add a more comprehensive list of circles to pick when creating a boundary preset [#1297](https://github.com/bonfire-networks/bonfire-app/issues/1297) (thanks @ivanminutillo and @mayel)
+- ✨ optimise use/display of remote images [#792](https://github.com/bonfire-networks/bonfire-app/issues/792) (thanks @mayel)
 
 ### Changed
 - ⚡ prioritise the processing (in seperate federation queue) of incoming @ mentions and DMs [#1658](https://github.com/bonfire-networks/bonfire-app/issues/1658) (thanks @mayel)
@@ -26,6 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 fix(app pages): useless closing div tag breaking layout [PR #7](https://github.com/bonfire-networks/website-blog/pull/7) (thanks @Spratch)
 - 📝 1.0.1-alpha.1 [`be54eed`](https://github.com/bonfire-networks/bonfire-app/commit/be54eed379907a4944e78acb6725d1ae6599cdcd) (thanks @mayel)
 - 📝 Bonfire Social 1.0 🔥 [`c5aff09`](https://github.com/bonfire-networks/bonfire-app/commit/c5aff0958dfe51a60ddaec455b71d62977372fbd) (thanks @mayel)
+- 📝 configs [`f1061e7`](https://github.com/bonfire-networks/bonfire-app/commit/f1061e7195d78e641f8488f1cfd0d2b3cbaf63c1) (thanks @mayel)
 - 🚧 Implement web push notification [#1292](https://github.com/bonfire-networks/bonfire-app/issues/1292) [`8c41f51`](https://github.com/bonfire-networks/bonfire-app/commit/8c41f5140939aa8da06c506cb20f59199945ff10) (thanks @mayel and @ivanminutillo)
 - 📝 tidewave [`ee40171`](https://github.com/bonfire-networks/bonfire-app/commit/ee40171f6062fb34ee318431b96be6a376a4ce8e) (thanks @ivanminutillo)
 - 🚀 update docs [`536ccf2`](https://github.com/bonfire-networks/bonfire-app/commit/536ccf2330a3093e7a5c5ff2f0e1a6172bb92612) (thanks @mayel)
@@ -33,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixed
 - 🐛 Feed Image Display of Photos [#1654](https://github.com/bonfire-networks/bonfire-app/issues/1654) (thanks @dogrileycom and @ivanminutillo)
 - 🐛 module Bonfire.RuntimeConfig is not available [#1651](https://github.com/bonfire-networks/bonfire-app/issues/1651) - [PR #1652](https://github.com/bonfire-networks/bonfire-app/pull/1652), [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 UX/UX issues [#1641](https://github.com/bonfire-networks/bonfire-app/issues/1641) (thanks @dogrileycom and @mayel)
 - 🐛 bonfire-app always loads appsignal's closed-source agent [#1637](https://github.com/bonfire-networks/bonfire-app/issues/1637) - [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
 - 🐛 Editing a post shows encoded HTML [#1635](https://github.com/bonfire-networks/bonfire-app/issues/1635) (thanks @jonpincus and @mayel)
 - 🐛 A mention-only reply in mastodon has boost verb enabled on a bonfire instance [#1616](https://github.com/bonfire-networks/bonfire-app/issues/1616) (thanks @ivanminutillo and @mayel)
