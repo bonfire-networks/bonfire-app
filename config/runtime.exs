@@ -90,46 +90,48 @@ use_socket_file? = plug_server == "cowboy_socket"
 socket_file_path = System.get_env("SOCKET_FILE_PATH", "/tmp/bonfire_socket")
 phx_compress? = System.get_env("PHX_COMPRESS_HTTP") not in no?
 
-
 if System.get_env("DISABLE_LOG") in yes? do
   # to suppress non-captured logs in tests (eg. in setup_all)
   config :logger, backends: []
 end
 
-http_options = cond do 
-      use_socket_file? ->
+http_options =
+  cond do
+    use_socket_file? ->
       [
-    ip: {:local, socket_file_path},
-    port: 0,
-    compress: phx_compress?,
-    transport_options: [
-      post_listen_callback: fn _ -> 
-        File.touch!(socket_file_path)
-        File.chmod!(socket_file_path, 0o660) 
-      end,
-      socket_opts: []
-    ]
-  ]
+        ip: {:local, socket_file_path},
+        port: 0,
+        compress: phx_compress?,
+        transport_options: [
+          post_listen_callback: fn _ ->
+            File.touch!(socket_file_path)
+            File.chmod!(socket_file_path, 0o660)
+          end,
+          socket_opts: []
+        ]
+      ]
 
-  use_cowboy? ->
-          [
-            # only bind the app to localhost when serving behind a proxy
-            # ip: (if public_port != server_port, do: {127, 0, 0, 1}),
-            port: server_port,
-            compress: phx_compress?,
-            transport_options: [
-              max_connections: 16_384, socket_opts: [:inet6]
-            ]
-          ]
-          true ->
+    use_cowboy? ->
+      [
+        # only bind the app to localhost when serving behind a proxy
+        # ip: (if public_port != server_port, do: {127, 0, 0, 1}),
+        port: server_port,
+        compress: phx_compress?,
+        transport_options: [
+          max_connections: 16_384,
+          socket_opts: [:inet6]
+        ]
+      ]
+
+    true ->
       # for bandit
-    [
-  port: server_port,
-  http_options: [
-    compress: phx_compress?
-  ]
-]
-end
+      [
+        port: server_port,
+        http_options: [
+          compress: phx_compress?
+        ]
+      ]
+  end
 
 config :bonfire, Bonfire.Web.Endpoint,
   server:
