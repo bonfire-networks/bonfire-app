@@ -44,7 +44,7 @@ defmodule Bonfire.Umbrella.MixProject do
              git: "https://github.com/bonfire-networks/#{base_flavour}", override: true}
         )
       ] ++
-        if flavour != default_flavour do
+        if flavour != base_flavour do
           [
             if(flavour_local? and use_local_forks?,
               do:
