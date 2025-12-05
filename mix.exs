@@ -139,6 +139,14 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
+  ranch_req =
+    case Mix.env() do
+      # must be compatible with Bypass 
+      :test -> "~> 1.8"
+      # TODO: replace Bypass in test with one of https://github.com/danschultzer/test_server or https://github.com/andrewtimberlake/sham or https://github.com/claytongentry/lasso
+      _ -> "~> 2.2"
+    end
+
   extra_deps =
     main_deps ++
       maybe_api_deps ++
@@ -157,6 +165,8 @@ defmodule Bonfire.Umbrella.MixProject do
         {:jungle,
          git: "https://github.com/bonfire-networks/jungle", only: [:dev, :test], override: true},
         # {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
+
+        {:ranch, ranch_req, override: true},
 
         # compilation
         # {:tria, github: "hissssst/tria"},
