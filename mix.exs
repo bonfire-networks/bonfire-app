@@ -365,6 +365,7 @@ defmodule Bonfire.Umbrella.MixProject do
       ] ++
         Path.wildcard("docs/*.md") ++
         Path.wildcard("LICENSES/*.md") ++
+        Path.wildcard("docs/api/*.md") ++
         Path.wildcard("docs/user_guides/*.md") ++
         Path.wildcard("docs/topics/*.md") ++
         Path.wildcard("docs/building/*.md"),
@@ -539,6 +540,7 @@ defmodule Bonfire.Umbrella.MixProject do
           "docs/SETUP.md",
           "docs/DEPLOY.md"
         ],
+        "API Reference": Path.wildcard("docs/api/*.md"),
         "Building on Bonfire": Path.wildcard("docs/building/*.md"),
         "User guides": Path.wildcard("docs/user_guides/*.md"),
         Licenses:
