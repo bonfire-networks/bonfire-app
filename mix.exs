@@ -140,11 +140,13 @@ defmodule Bonfire.Umbrella.MixProject do
     )
 
   ranch_req =
-    case Mix.env() do
+    if System.get_env("TEST_WITH_BYPASS") && Mix.env() == :test do
       # must be compatible with Bypass
-      :test -> "~> 1.8"
+      "~> 1.8"
+
       # TODO: replace Bypass in test with one of https://github.com/danschultzer/test_server or https://github.com/andrewtimberlake/sham or https://github.com/claytongentry/lasso
-      _ -> "~> 2.2"
+    else
+      "~> 2.2"
     end
 
   extra_deps =
