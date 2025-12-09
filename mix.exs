@@ -141,7 +141,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
   ranch_req =
     case Mix.env() do
-      # must be compatible with Bypass 
+      # must be compatible with Bypass
       :test -> "~> 1.8"
       # TODO: replace Bypass in test with one of https://github.com/danschultzer/test_server or https://github.com/andrewtimberlake/sham or https://github.com/claytongentry/lasso
       _ -> "~> 2.2"
@@ -349,7 +349,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.1-alpha.8",
+    version: "1.0.1-alpha.9",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
