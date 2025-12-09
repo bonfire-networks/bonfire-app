@@ -425,11 +425,21 @@ if config_env() != :test do
     connect_timeout: String.to_integer(System.get_env("DB_CONNECT_TIMEOUT", "10000")),
     # The time in milliseconds (as an integer) to wait for the query call to finish (default: 15_000)
     timeout: String.to_integer(System.get_env("DB_QUERY_TIMEOUT", "20000")),
+    # DBConnection pool tuning - CRITICAL for federation workers under load
+    # queue_target: Time a connection checkout request can wait in queue before DBConnection
+    # starts to reject new requests. Default is 50ms which is too aggressive for high-concurrency
+    # workloads. Setting to 5000ms matches test config and allows patient waiting under load.
+    queue_target: String.to_integer(System.get_env("DB_QUEUE_TARGET", "5000")),
+    # queue_interval: How often to check if queue_target is being exceeded. Default is 1000ms.
+    queue_interval: String.to_integer(System.get_env("DB_QUEUE_INTERVAL", "2000")),
+    # pool_timeout: Overall timeout for getting a connection from the pool. Default is 5000ms.
+    # Increasing to 30000ms allows workers to wait patiently during load spikes.
+    pool_timeout: String.to_integer(System.get_env("DB_POOL_TIMEOUT", "30000")),
     parameters: [
       # Abort any statement that takes more than the specified amount of time. The timeout is measured from the time a command arrives at the server until it is completed by the server.
       statement_timeout: System.get_env("DB_STATEMENT_TIMEOUT", "20000"),
-      # idle-in-transaction timeout: terminates any session with an open transaction that has been idle for longer than the specified amount of time. This allows any locks held by that session to be released and the connection slot to be reused. WARNING: this seems to also apply to migrations when running in a release, so needs to be high enough for DB migrations and fixtures to run. 
-      idle_in_transaction_session_timeout: System.get_env("DB_IDLE_TRANSACTION_TIMEOUT", "5000")
+      # idle-in-transaction timeout: terminates any session with an open transaction that has been idle for longer than the specified amount of time. This allows any locks held by that session to be released and the connection slot to be reused. WARNING: this seems to also apply to migrations when running in a release, so needs to be high enough for DB migrations and fixtures to run.
+      idle_in_transaction_session_timeout: System.get_env("DB_IDLE_TRANSACTION_TIMEOUT", "120000")
     ]
 end
 
