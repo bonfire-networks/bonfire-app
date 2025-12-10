@@ -27,7 +27,8 @@ config :bonfire_common, Bonfire.Common.Localise.Cldr,
     Cldr.List,
     Cldr.Calendar,
     Cldr.Territory,
-    Cldr.LocaleDisplay
+    Cldr.LocaleDisplay,
+    Cldr.Trans
   ],
   gettext: Bonfire.Common.Localise.Gettext,
   extra_gettext: [Timex.Gettext],
