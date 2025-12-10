@@ -86,6 +86,7 @@ alias Bonfire.Data.Identity.Self
 alias Bonfire.Data.Identity.Settings
 alias Bonfire.Data.Identity.User
 alias Bonfire.Data.Identity.Alias
+alias Bonfire.Data.Identity.Language
 
 alias Bonfire.Data.Social.Activity
 alias Bonfire.Data.Social.APActivity
@@ -163,6 +164,11 @@ common_assocs = %{
   sensitive: quote(do: has_one(:sensitive, unquote(Sensitive), unquote(mixin_updatable))),
   object_sensitive:
     quote(do: has_one(:sensitive, unquote(Sensitive), foreign_key: :id, references: :object_id)),
+
+  # Language/Locale
+  language: quote(do: has_one(:language, unquote(Language), unquote(mixin_updatable))),
+  object_language:
+    quote(do: has_one(:language, unquote(Language), foreign_key: :id, references: :object_id)),
 
   # Information about the content of posts, e.g. a scrubbed html body
   post_content: quote(do: has_one(:post_content, unquote(PostContent), unquote(mixin_updatable))),
@@ -442,6 +448,7 @@ edge =
     :object_replied,
     :object_tree,
     :object_sensitive,
+    :object_language,
     :object_labelled,
     :object_seen,
     :object_controlled,
@@ -484,6 +491,7 @@ pointer_mixins =
     :edge,
     :named,
     :sensitive,
+    :language,
     :seen,
     :labelled,
     :extra_info,
@@ -813,6 +821,7 @@ config :bonfire_data_social, Activity,
             :object_replied,
             :object_tree,
             :object_sensitive,
+            :object_language,
             :object_labelled,
             :object_seen,
             :object_controlled,
@@ -1008,7 +1017,8 @@ config :bonfire_data_social, Message,
            :replied,
            :like_count,
            #  :boost_count,
-           :sensitive
+           :sensitive,
+           :language
          ])
        )
 
@@ -1039,6 +1049,7 @@ config :bonfire_data_social, Post,
            :boost_count,
            :labelled,
            :sensitive,
+           :language,
            :extra_info
          ])
        )
