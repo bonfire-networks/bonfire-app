@@ -57,7 +57,8 @@ read_tool_versions_write_to_env() {
         IFS=" " read -r -a lineArray <<<"$line"
 
         # get the key and value from the array, set the key to all uppercase
-        key="${lineArray[0],,}"
+        # key="${lineArray[0],,}"
+        key=$(echo "${lineArray[0]}" | tr '[:upper:]' '[:lower:]')
         value="${lineArray[1]}"
 
         # ignore comments, comments always start with #
@@ -65,14 +66,15 @@ read_tool_versions_write_to_env() {
             full_key="${key}_version"
             to_echo "${safe_to_echo}" "Parsed line:   ${full_key}=${value}"
             # echo the variable to the .env file
+            full_key_upper=$(echo "${full_key}" | tr '[:lower:]' '[:upper:]')
             if [ "$how_to_echo" -eq 1 ]; then
-                echo "${full_key^^}=${value}" >>"${env_file}"
+                echo "${full_key_upper}=${value}" >>"${env_file}"
             elif [ "$how_to_echo" -eq 2 ]; then
-                echo "${full_key^^}=$value" >>"$GITHUB_ENV"
+                echo "${full_key_upper}=$value" >>"$GITHUB_ENV"
             elif [ "$how_to_echo" -eq 3 ]; then
                 # echo "$value"
                 # break
-                echo " ${full_key^^}=${value}"
+                echo " ${full_key_upper}=${value}"
             fi
         fi
     done <"$tool_versions_file"
