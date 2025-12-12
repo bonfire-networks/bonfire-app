@@ -79,7 +79,7 @@ end
 
 config :phoenix_test, :endpoint, Bonfire.Web.Endpoint
 
-  # use Ecto Repo sandbox?
+# use Ecto Repo sandbox?
 config :bonfire,
         sql_sandbox:
           System.get_env("PHX_SERVER") not in yes? and

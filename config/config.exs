@@ -84,7 +84,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   url: [host: "localhost"],
   check_origin: :conn,
   http: [
-    # NOTE: this gets overridden in runtime.exs
+    # this gets overridden in runtime.exs
     port: String.to_integer(System.get_env("SERVER_PORT", "4000"))
   ],
   render_errors: endpoint_render_errors,
@@ -141,8 +141,7 @@ config :rauversion_extension, :default_layout_module, Bonfire.UI.Common.LayoutVi
 config :rauversion_extension, :user_table, "pointers_pointer"
 config :rauversion_extension, :user_key_type, :uuid
 
-config :bonfire, Bonfire.Common.Repo, 
-  types: Bonfire.Geolocate.PostgresTypes
+config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
 
 config :bonfire, Bonfire.Common.TestInstanceRepo,
   types: Bonfire.Geolocate.PostgresTypes,
@@ -340,6 +339,9 @@ else
     modularity: true
 end
 
+# federation library
+import_config "activity_pub.exs"
+
 # include Bonfire-specific config files
 for config <- "bonfire_*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   # System.get_env("MIX_QUIET") || IO.inspect(include_config: config)
@@ -365,9 +367,6 @@ else
 end
 
 IO.puts("Flavours compile-time configs prepared")
-
-# federation library
-import_config "activity_pub.exs"
 
 # finally, append/override config based on env, which will override any config set above (including from imported files)
 import_config "#{env}.exs"
