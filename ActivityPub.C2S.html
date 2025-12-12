@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.8">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.9">
 
 
-    <title>ActivityPub.C2S — Bonfire v1.0.1-social-alpha.8</title>
+    <title>ActivityPub.C2S — Bonfire v1.0.1-social-alpha.9</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A6506D3B.js"></script>
+    <script defer src="dist/sidebar_items-85F72551.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.8
+          v1.0.1-social-alpha.9
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">ActivityPub.C2S</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.8)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.9)</small>
 
     </h1>
 
@@ -93,8 +93,9 @@ Bonfire
 
 
     <section id="moduledoc">
-<p>Formats ActivityPub Client-to-Server activities into Bonfire's internal format.</p><p>Handles the translation between ActivityPub JSON-LD activities and the
-format expected by Bonfire's internal modules like Posts, Likes, etc.</p>
+<p>Handles ActivityPub Client-to-Server (C2S) protocol.</p><p>Processes incoming C2S activities by validating the authenticated actor,
+preparing the activity data, and routing through the standard ActivityPub
+processing pipeline via <code class="inline">Transformer.handle_incoming</code>.</p>
     </section>
 
 </div>
@@ -113,32 +114,6 @@ format expected by Bonfire's internal modules like Posts, Likes, etc.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#dispatch_activity/4" data-no-tooltip="" translate="no">dispatch_activity(arg1, attrs, user, params)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#do_handle_c2s_activity/2" data-no-tooltip="" translate="no">do_handle_c2s_activity(current_user, params)</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#format_activity/2" data-no-tooltip="" translate="no">format_activity(params, current_user)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Formats an ActivityPub activity for processing by Bonfire modules.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
         <a href="#handle_c2s_activity/2" data-no-tooltip="" translate="no">handle_c2s_activity(conn, params)</a>
 
       </div>
@@ -149,17 +124,11 @@ format expected by Bonfire's internal modules like Posts, Likes, etc.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#validate_actor_match?/2" data-no-tooltip="" translate="no">validate_actor_match?(arg1, username)</a>
+        <a href="#maybe_wrap_object_in_create/1" data-no-tooltip="" translate="no">maybe_wrap_object_in_create(params)</a>
 
       </div>
 
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#validate_authorized_scopes/2" data-no-tooltip="" translate="no">validate_authorized_scopes(conn, required_scopes)</a>
-
-      </div>
+        <div class="summary-synopsis"><p>Wraps a bare object (like a Note) in a Create activity if needed.</p></div>
 
     </div>
 
@@ -177,72 +146,6 @@ format expected by Bonfire's internal modules like Posts, Likes, etc.</p>
     </h1>
 
     <div class="functions-list">
-<section class="detail" id="dispatch_activity/4">
-
-  <div class="detail-header">
-    <a href="#dispatch_activity/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">dispatch_activity(arg1, attrs, user, params)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L51" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="do_handle_c2s_activity/2">
-
-  <div class="detail-header">
-    <a href="#do_handle_c2s_activity/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">do_handle_c2s_activity(current_user, params)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L24" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="format_activity/2">
-
-  <div class="detail-header">
-    <a href="#format_activity/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">format_activity(params, current_user)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L85" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Formats an ActivityPub activity for processing by Bonfire modules.</p><p>Returns {:ok, activity_type, formatted_attrs} or {:error, reason}.</p>
-  </section>
-</section>
 <section class="detail" id="handle_c2s_activity/2">
 
   <div class="detail-header">
@@ -253,7 +156,7 @@ format expected by Bonfire's internal modules like Posts, Likes, etc.</p>
       <h1 class="signature" translate="no">handle_c2s_activity(conn, params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L17" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L23" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -262,21 +165,21 @@ format expected by Bonfire's internal modules like Posts, Likes, etc.</p>
 
   <section class="docstring">
 
-<p>Handles POST requests to /actors/:username/outbox for C2S API.</p><p>Validates the authenticated user matches the actor, formats the ActivityPub
-activity, and delegates to appropriate Bonfire modules.</p>
+<p>Handles POST requests to /actors/:username/outbox for C2S API.</p><p>Validates the authenticated user matches the actor, prepares the activity,
+and routes through <code class="inline">Transformer.handle_incoming</code> with <code class="inline">local: true</code>.</p>
   </section>
 </section>
-<section class="detail" id="validate_actor_match?/2">
+<section class="detail" id="maybe_wrap_object_in_create/1">
 
   <div class="detail-header">
-    <a href="#validate_actor_match?/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#maybe_wrap_object_in_create/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">validate_actor_match?(arg1, username)</h1>
+      <h1 class="signature" translate="no">maybe_wrap_object_in_create(params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L43" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L97" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -285,29 +188,7 @@ activity, and delegates to appropriate Bonfire modules.</p>
 
   <section class="docstring">
 
-
-  </section>
-</section>
-<section class="detail" id="validate_authorized_scopes/2">
-
-  <div class="detail-header">
-    <a href="#validate_authorized_scopes/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">validate_authorized_scopes(conn, required_scopes)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/c2s.ex#L36" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
+<p>Wraps a bare object (like a Note) in a Create activity if needed.</p>
   </section>
 </section>
 

@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.8">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.9">
 
 
-    <title>Bonfire.Social.Edges — Bonfire v1.0.1-social-alpha.8</title>
+    <title>Bonfire.Social.Edges — Bonfire v1.0.1-social-alpha.9</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A6506D3B.js"></script>
+    <script defer src="dist/sidebar_items-85F72551.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.8
+          v1.0.1-social-alpha.9
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Social.Edges</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.8)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.9)</small>
 
     </h1>
 
@@ -109,6 +109,17 @@ Bonfire
   <h2>
     <a href="#functions">Functions</a>
   </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#batch_exists?/3" data-no-tooltip="" translate="no">batch_exists?(schema_or_type, subject, object_ids)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Batch check which objects have edges from a given subject.
+Returns a MapSet of object_ids that have the edge.</p></div>
+
+    </div>
 
     <div class="summary-row">
       <div class="summary-signature">
@@ -354,6 +365,30 @@ Bonfire
     </h1>
 
     <div class="functions-list">
+<section class="detail" id="batch_exists?/3">
+
+  <div class="detail-header">
+    <a href="#batch_exists?/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">batch_exists?(schema_or_type, subject, object_ids)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L332" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Batch check which objects have edges from a given subject.
+Returns a MapSet of object_ids that have the edge.</p><h2 id="batch_exists?/3-examples" class="section-heading"><a href="#batch_exists?/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">batch_exists?</span><span class="p" data-group-id="3002605492-1">(</span><span class="nc">Like</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3002605492-2">[</span><span class="s">&quot;post1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;post2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;post3&quot;</span><span class="p" data-group-id="3002605492-2">]</span><span class="p" data-group-id="3002605492-1">)</span><span class="w">
+</span><span class="p" data-group-id="3002605492-3">#</span><span class="nc" data-group-id="3002605492-3">MapSet</span><span class="p" data-group-id="3002605492-3">&lt;</span><span class="p" data-group-id="3002605492-4">[</span><span class="s">&quot;post1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;post3&quot;</span><span class="p" data-group-id="3002605492-4">]</span><span class="p" data-group-id="3002605492-3">&gt;</span></code></pre>
+  </section>
+</section>
 <section class="detail" id="changeset/5">
 
   <div class="detail-header">
@@ -373,8 +408,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Prepares a full changeset for the given schema, subject, verb, object, and options.</p><h2 id="changeset/5-examples" class="section-heading"><a href="#changeset/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="1442965133-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442965133-2">%</span><span class="nc" data-group-id="1442965133-2">User</span><span class="p" data-group-id="1442965133-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1442965133-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442965133-3">%</span><span class="nc" data-group-id="1442965133-3">Post</span><span class="p" data-group-id="1442965133-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1442965133-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1442965133-4">[</span><span class="p" data-group-id="1442965133-4">]</span><span class="p" data-group-id="1442965133-1">)</span><span class="w">
-</span><span class="p" data-group-id="1442965133-5">%</span><span class="nc" data-group-id="1442965133-5">Ecto.Changeset</span><span class="p" data-group-id="1442965133-5">{</span><span class="p" data-group-id="1442965133-5">}</span></code></pre>
+<p>Prepares a full changeset for the given schema, subject, verb, object, and options.</p><h2 id="changeset/5-examples" class="section-heading"><a href="#changeset/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="1492287131-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1492287131-2">%</span><span class="nc" data-group-id="1492287131-2">User</span><span class="p" data-group-id="1492287131-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1492287131-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1492287131-3">%</span><span class="nc" data-group-id="1492287131-3">Post</span><span class="p" data-group-id="1492287131-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1492287131-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1492287131-4">[</span><span class="p" data-group-id="1492287131-4">]</span><span class="p" data-group-id="1492287131-1">)</span><span class="w">
+</span><span class="p" data-group-id="1492287131-5">%</span><span class="nc" data-group-id="1492287131-5">Ecto.Changeset</span><span class="p" data-group-id="1492287131-5">{</span><span class="p" data-group-id="1492287131-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset_base/4">
@@ -396,7 +431,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Prepares a basic schema, with the schema type as top-level and an Egde assoc</p><p>iex&gt; changeset_base(Like, %User{id: 1}, %Post{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="7265911229-1">%</span><span class="nc" data-group-id="7265911229-1">Ecto.Changeset</span><span class="p" data-group-id="7265911229-1">{</span><span class="p" data-group-id="7265911229-1">}</span></code></pre><p>iex&gt; changeset_base(Follow, %User{id: 1}, %User{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="7624113270-1">%</span><span class="nc" data-group-id="7624113270-1">Ecto.Changeset</span><span class="p" data-group-id="7624113270-1">{</span><span class="p" data-group-id="7624113270-1">}</span></code></pre><p>iex&gt; changeset_base({Request, Follow}, %User{id: 1}, %User{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="5459298169-1">%</span><span class="nc" data-group-id="5459298169-1">Ecto.Changeset</span><span class="p" data-group-id="5459298169-1">{</span><span class="p" data-group-id="5459298169-1">}</span></code></pre>
+<p>Prepares a basic schema, with the schema type as top-level and an Egde assoc</p><p>iex&gt; changeset_base(Like, %User{id: 1}, %Post{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="0777942399-1">%</span><span class="nc" data-group-id="0777942399-1">Ecto.Changeset</span><span class="p" data-group-id="0777942399-1">{</span><span class="p" data-group-id="0777942399-1">}</span></code></pre><p>iex&gt; changeset_base(Follow, %User{id: 1}, %User{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="2512078242-1">%</span><span class="nc" data-group-id="2512078242-1">Ecto.Changeset</span><span class="p" data-group-id="2512078242-1">{</span><span class="p" data-group-id="2512078242-1">}</span></code></pre><p>iex&gt; changeset_base({Request, Follow}, %User{id: 1}, %User{id: 2}, [])</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="1539500578-1">%</span><span class="nc" data-group-id="1539500578-1">Ecto.Changeset</span><span class="p" data-group-id="1539500578-1">{</span><span class="p" data-group-id="1539500578-1">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset_base_with_creator/4">
@@ -418,8 +453,8 @@ Bonfire
 
   <section class="docstring">
 
-<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p><h2 id="changeset_base_with_creator/4-examples" class="section-heading"><a href="#changeset_base_with_creator/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_base_with_creator</span><span class="p" data-group-id="4994631766-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4994631766-2">%</span><span class="nc" data-group-id="4994631766-2">User</span><span class="p" data-group-id="4994631766-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4994631766-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4994631766-3">%</span><span class="nc" data-group-id="4994631766-3">Post</span><span class="p" data-group-id="4994631766-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4994631766-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4994631766-4">[</span><span class="p" data-group-id="4994631766-4">]</span><span class="p" data-group-id="4994631766-1">)</span><span class="w">
-</span><span class="p" data-group-id="4994631766-5">%</span><span class="nc" data-group-id="4994631766-5">Ecto.Changeset</span><span class="p" data-group-id="4994631766-5">{</span><span class="p" data-group-id="4994631766-5">}</span></code></pre>
+<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted.</p><h2 id="changeset_base_with_creator/4-examples" class="section-heading"><a href="#changeset_base_with_creator/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_base_with_creator</span><span class="p" data-group-id="9811292552-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9811292552-2">%</span><span class="nc" data-group-id="9811292552-2">User</span><span class="p" data-group-id="9811292552-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9811292552-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9811292552-3">%</span><span class="nc" data-group-id="9811292552-3">Post</span><span class="p" data-group-id="9811292552-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9811292552-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9811292552-4">[</span><span class="p" data-group-id="9811292552-4">]</span><span class="p" data-group-id="9811292552-1">)</span><span class="w">
+</span><span class="p" data-group-id="9811292552-5">%</span><span class="nc" data-group-id="9811292552-5">Ecto.Changeset</span><span class="p" data-group-id="9811292552-5">{</span><span class="p" data-group-id="9811292552-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset_extra/5">
@@ -463,8 +498,8 @@ Bonfire
 
   <section class="docstring">
 
-<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted. Also includes Acls, Activities and FeedActivities.</p><h2 id="changeset_without_caretaker/5-examples" class="section-heading"><a href="#changeset_without_caretaker/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="5294903606-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5294903606-2">%</span><span class="nc" data-group-id="5294903606-2">User</span><span class="p" data-group-id="5294903606-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5294903606-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5294903606-3">%</span><span class="nc" data-group-id="5294903606-3">Post</span><span class="p" data-group-id="5294903606-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5294903606-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5294903606-4">[</span><span class="p" data-group-id="5294903606-4">]</span><span class="p" data-group-id="5294903606-1">)</span><span class="w">
-</span><span class="p" data-group-id="5294903606-5">%</span><span class="nc" data-group-id="5294903606-5">Ecto.Changeset</span><span class="p" data-group-id="5294903606-5">{</span><span class="p" data-group-id="5294903606-5">}</span></code></pre>
+<p> Prepares a changeset with creator but no caretaker, which avoids the edge being deleted when subject is deleted. Also includes Acls, Activities and FeedActivities.</p><h2 id="changeset_without_caretaker/5-examples" class="section-heading"><a href="#changeset_without_caretaker/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset_without_caretaker</span><span class="p" data-group-id="4685587379-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4685587379-2">%</span><span class="nc" data-group-id="4685587379-2">User</span><span class="p" data-group-id="4685587379-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4685587379-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4685587379-3">%</span><span class="nc" data-group-id="4685587379-3">Post</span><span class="p" data-group-id="4685587379-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4685587379-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4685587379-4">[</span><span class="p" data-group-id="4685587379-4">]</span><span class="p" data-group-id="4685587379-1">)</span><span class="w">
+</span><span class="p" data-group-id="4685587379-5">%</span><span class="nc" data-group-id="4685587379-5">Ecto.Changeset</span><span class="p" data-group-id="4685587379-5">{</span><span class="p" data-group-id="4685587379-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="count/3">
@@ -479,7 +514,7 @@ Bonfire
       <h1 class="signature" translate="no">count(type, filters_or_object, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L331" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L355" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -488,7 +523,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Counts the edges for the given type, filters or object, and options.</p><h2 id="count/3-examples" class="section-heading"><a href="#count/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count</span><span class="p" data-group-id="1163431289-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1163431289-2">%</span><span class="nc" data-group-id="1163431289-2">Post</span><span class="p" data-group-id="1163431289-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1163431289-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1163431289-3">[</span><span class="p" data-group-id="1163431289-3">]</span><span class="p" data-group-id="1163431289-1">)</span><span class="w">
+<p>Counts the edges for the given type, filters or object, and options.</p><h2 id="count/3-examples" class="section-heading"><a href="#count/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count</span><span class="p" data-group-id="4105378314-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4105378314-2">%</span><span class="nc" data-group-id="4105378314-2">Post</span><span class="p" data-group-id="4105378314-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4105378314-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4105378314-3">[</span><span class="p" data-group-id="4105378314-3">]</span><span class="p" data-group-id="4105378314-1">)</span><span class="w">
 </span><span class="mi">42</span></code></pre>
   </section>
 </section>
@@ -502,7 +537,7 @@ Bonfire
       <h1 class="signature" translate="no">count_for_subject(type, subject, object, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L359" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L383" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -511,7 +546,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Counts the edges for the given type, subject, object, and options.</p><h2 id="count_for_subject/4-examples" class="section-heading"><a href="#count_for_subject/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count_for_subject</span><span class="p" data-group-id="7195587970-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7195587970-2">%</span><span class="nc" data-group-id="7195587970-2">User</span><span class="p" data-group-id="7195587970-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7195587970-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7195587970-3">%</span><span class="nc" data-group-id="7195587970-3">Post</span><span class="p" data-group-id="7195587970-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7195587970-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7195587970-4">[</span><span class="p" data-group-id="7195587970-4">]</span><span class="p" data-group-id="7195587970-1">)</span><span class="w">
+<p>Counts the edges for the given type, subject, object, and options.</p><h2 id="count_for_subject/4-examples" class="section-heading"><a href="#count_for_subject/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">count_for_subject</span><span class="p" data-group-id="0806738205-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0806738205-2">%</span><span class="nc" data-group-id="0806738205-2">User</span><span class="p" data-group-id="0806738205-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="0806738205-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0806738205-3">%</span><span class="nc" data-group-id="0806738205-3">Post</span><span class="p" data-group-id="0806738205-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0806738205-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0806738205-4">[</span><span class="p" data-group-id="0806738205-4">]</span><span class="p" data-group-id="0806738205-1">)</span><span class="w">
 </span><span class="mi">42</span></code></pre>
   </section>
 </section>
@@ -525,7 +560,7 @@ Bonfire
       <h1 class="signature" translate="no">delete_by_both(me, schema, object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L632" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L656" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -534,7 +569,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Deletes edges by subject, type, and object</p><h2 id="delete_by_both/3-examples" class="section-heading"><a href="#delete_by_both/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_both</span><span class="p" data-group-id="7506866716-1">(</span><span class="p" data-group-id="7506866716-2">%</span><span class="nc" data-group-id="7506866716-2">User</span><span class="p" data-group-id="7506866716-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7506866716-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7506866716-3">%</span><span class="nc" data-group-id="7506866716-3">User</span><span class="p" data-group-id="7506866716-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7506866716-3">}</span><span class="p" data-group-id="7506866716-1">)</span></code></pre>
+<p>Deletes edges by subject, type, and object</p><h2 id="delete_by_both/3-examples" class="section-heading"><a href="#delete_by_both/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_both</span><span class="p" data-group-id="3801280368-1">(</span><span class="p" data-group-id="3801280368-2">%</span><span class="nc" data-group-id="3801280368-2">User</span><span class="p" data-group-id="3801280368-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3801280368-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3801280368-3">%</span><span class="nc" data-group-id="3801280368-3">User</span><span class="p" data-group-id="3801280368-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3801280368-3">}</span><span class="p" data-group-id="3801280368-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete_by_object/1">
@@ -547,7 +582,7 @@ Bonfire
       <h1 class="signature" translate="no">delete_by_object(user)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L619" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L643" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -556,7 +591,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Deletes edges where the given user is the object.</p><h2 id="delete_by_object/1-examples" class="section-heading"><a href="#delete_by_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_object</span><span class="p" data-group-id="7934247615-1">(</span><span class="p" data-group-id="7934247615-2">%</span><span class="nc" data-group-id="7934247615-2">User</span><span class="p" data-group-id="7934247615-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7934247615-2">}</span><span class="p" data-group-id="7934247615-1">)</span><span class="w">
+<p>Deletes edges where the given user is the object.</p><h2 id="delete_by_object/1-examples" class="section-heading"><a href="#delete_by_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_object</span><span class="p" data-group-id="1633688507-1">(</span><span class="p" data-group-id="1633688507-2">%</span><span class="nc" data-group-id="1633688507-2">User</span><span class="p" data-group-id="1633688507-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1633688507-2">}</span><span class="p" data-group-id="1633688507-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -570,7 +605,7 @@ Bonfire
       <h1 class="signature" translate="no">delete_by_subject(user)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L608" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L632" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -579,7 +614,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Deletes edges where the given user is the subject.</p><h2 id="delete_by_subject/1-examples" class="section-heading"><a href="#delete_by_subject/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_subject</span><span class="p" data-group-id="9947591872-1">(</span><span class="p" data-group-id="9947591872-2">%</span><span class="nc" data-group-id="9947591872-2">User</span><span class="p" data-group-id="9947591872-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9947591872-2">}</span><span class="p" data-group-id="9947591872-1">)</span><span class="w">
+<p>Deletes edges where the given user is the subject.</p><h2 id="delete_by_subject/1-examples" class="section-heading"><a href="#delete_by_subject/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">delete_by_subject</span><span class="p" data-group-id="3479935839-1">(</span><span class="p" data-group-id="3479935839-2">%</span><span class="nc" data-group-id="3479935839-2">User</span><span class="p" data-group-id="3479935839-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3479935839-2">}</span><span class="p" data-group-id="3479935839-1">)</span><span class="w">
 </span><span class="ss">:ok</span></code></pre>
   </section>
 </section>
@@ -593,7 +628,7 @@ Bonfire
       <h1 class="signature" translate="no">edge_query(schema_or_context, filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L369" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L393" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -615,7 +650,7 @@ Bonfire
       <h1 class="signature" translate="no">edge_query(schema_or_context, subject, object, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L374" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L398" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -646,7 +681,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Checks if an edge exists with the given schema/context, subject, and object.</p><h2 id="exists?/4-examples" class="section-heading"><a href="#exists?/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">exists?</span><span class="p" data-group-id="5572044756-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5572044756-2">%</span><span class="nc" data-group-id="5572044756-2">User</span><span class="p" data-group-id="5572044756-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5572044756-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5572044756-3">%</span><span class="nc" data-group-id="5572044756-3">Post</span><span class="p" data-group-id="5572044756-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5572044756-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5572044756-4">[</span><span class="p" data-group-id="5572044756-4">]</span><span class="p" data-group-id="5572044756-1">)</span><span class="w">
+<p>Checks if an edge exists with the given schema/context, subject, and object.</p><h2 id="exists?/4-examples" class="section-heading"><a href="#exists?/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">exists?</span><span class="p" data-group-id="5790829813-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5790829813-2">%</span><span class="nc" data-group-id="5790829813-2">User</span><span class="p" data-group-id="5790829813-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5790829813-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5790829813-3">%</span><span class="nc" data-group-id="5790829813-3">Post</span><span class="p" data-group-id="5790829813-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5790829813-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5790829813-4">[</span><span class="p" data-group-id="5790829813-4">]</span><span class="p" data-group-id="5790829813-1">)</span><span class="w">
 </span><span class="no">true</span></code></pre>
   </section>
 </section>
@@ -660,7 +695,7 @@ Bonfire
       <h1 class="signature" translate="no">filters_from_opts(assigns)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L509" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L533" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -693,9 +728,9 @@ Bonfire
 
   <section class="docstring">
 
-<p>Retrieves the edge with either:</p><ul><li>a schema/context, subject, and object(s)</li><li>a schema/context, filters, and options</li></ul><h2 id="get/4-examples" class="section-heading"><a href="#get/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="6793456890-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6793456890-2">%</span><span class="nc" data-group-id="6793456890-2">User</span><span class="p" data-group-id="6793456890-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6793456890-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6793456890-3">%</span><span class="nc" data-group-id="6793456890-3">Post</span><span class="p" data-group-id="6793456890-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6793456890-3">}</span><span class="p" data-group-id="6793456890-1">)</span><span class="w">
+<p>Retrieves the edge with either:</p><ul><li>a schema/context, subject, and object(s)</li><li>a schema/context, filters, and options</li></ul><h2 id="get/4-examples" class="section-heading"><a href="#get/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="5380682488-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380682488-2">%</span><span class="nc" data-group-id="5380682488-2">User</span><span class="p" data-group-id="5380682488-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5380682488-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380682488-3">%</span><span class="nc" data-group-id="5380682488-3">Post</span><span class="p" data-group-id="5380682488-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5380682488-3">}</span><span class="p" data-group-id="5380682488-1">)</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="6793456890-4">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6793456890-5">[</span><span class="p" data-group-id="6793456890-6">%{</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6793456890-7">%</span><span class="nc" data-group-id="6793456890-7">User</span><span class="p" data-group-id="6793456890-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6793456890-7">}</span><span class="p" data-group-id="6793456890-6">}</span><span class="p" data-group-id="6793456890-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6793456890-8">[</span><span class="p" data-group-id="6793456890-8">]</span><span class="p" data-group-id="6793456890-4">)</span></code></pre>
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="5380682488-4">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380682488-5">[</span><span class="p" data-group-id="5380682488-6">%{</span><span class="ss">subject</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5380682488-7">%</span><span class="nc" data-group-id="5380682488-7">User</span><span class="p" data-group-id="5380682488-7">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5380682488-7">}</span><span class="p" data-group-id="5380682488-6">}</span><span class="p" data-group-id="5380682488-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380682488-8">[</span><span class="p" data-group-id="5380682488-8">]</span><span class="p" data-group-id="5380682488-4">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get!/4">
@@ -745,8 +780,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Inserts a changeset with optional subject and object.</p><h2 id="insert/3-examples" class="section-heading"><a href="#insert/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert</span><span class="p" data-group-id="0281034881-1">(</span><span class="p" data-group-id="0281034881-2">%</span><span class="nc" data-group-id="0281034881-2">Changeset</span><span class="p" data-group-id="0281034881-2">{</span><span class="p" data-group-id="0281034881-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0281034881-3">%</span><span class="nc" data-group-id="0281034881-3">User</span><span class="p" data-group-id="0281034881-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="0281034881-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0281034881-4">%</span><span class="nc" data-group-id="0281034881-4">Post</span><span class="p" data-group-id="0281034881-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0281034881-4">}</span><span class="p" data-group-id="0281034881-1">)</span><span class="w">
-</span><span class="p" data-group-id="0281034881-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0281034881-6">%</span><span class="nc" data-group-id="0281034881-6">Edge</span><span class="p" data-group-id="0281034881-6">{</span><span class="p" data-group-id="0281034881-6">}</span><span class="p" data-group-id="0281034881-5">}</span></code></pre>
+<p>Inserts a changeset with optional subject and object.</p><h2 id="insert/3-examples" class="section-heading"><a href="#insert/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">insert</span><span class="p" data-group-id="7891902354-1">(</span><span class="p" data-group-id="7891902354-2">%</span><span class="nc" data-group-id="7891902354-2">Changeset</span><span class="p" data-group-id="7891902354-2">{</span><span class="p" data-group-id="7891902354-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7891902354-3">%</span><span class="nc" data-group-id="7891902354-3">User</span><span class="p" data-group-id="7891902354-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7891902354-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7891902354-4">%</span><span class="nc" data-group-id="7891902354-4">Post</span><span class="p" data-group-id="7891902354-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7891902354-4">}</span><span class="p" data-group-id="7891902354-1">)</span><span class="w">
+</span><span class="p" data-group-id="7891902354-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7891902354-6">%</span><span class="nc" data-group-id="7891902354-6">Edge</span><span class="p" data-group-id="7891902354-6">{</span><span class="p" data-group-id="7891902354-6">}</span><span class="p" data-group-id="7891902354-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="insert/5">
@@ -768,8 +803,8 @@ Bonfire
 
   <section class="docstring">
 
-<p>Inserts a new edge with the given schema, subject, verb, and object.</p><h2 id="insert/5-examples" class="section-heading"><a href="#insert/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">insert</span><span class="p" data-group-id="4283526860-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4283526860-2">%</span><span class="nc" data-group-id="4283526860-2">User</span><span class="p" data-group-id="4283526860-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4283526860-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4283526860-3">%</span><span class="nc" data-group-id="4283526860-3">Post</span><span class="p" data-group-id="4283526860-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4283526860-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4283526860-4">[</span><span class="p" data-group-id="4283526860-4">]</span><span class="p" data-group-id="4283526860-1">)</span><span class="w">
-</span><span class="p" data-group-id="4283526860-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4283526860-6">%</span><span class="nc" data-group-id="4283526860-6">Edge</span><span class="p" data-group-id="4283526860-6">{</span><span class="p" data-group-id="4283526860-6">}</span><span class="p" data-group-id="4283526860-5">}</span></code></pre>
+<p>Inserts a new edge with the given schema, subject, verb, and object.</p><h2 id="insert/5-examples" class="section-heading"><a href="#insert/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">insert</span><span class="p" data-group-id="8503947938-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8503947938-2">%</span><span class="nc" data-group-id="8503947938-2">User</span><span class="p" data-group-id="8503947938-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8503947938-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8503947938-3">%</span><span class="nc" data-group-id="8503947938-3">Post</span><span class="p" data-group-id="8503947938-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8503947938-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8503947938-4">[</span><span class="p" data-group-id="8503947938-4">]</span><span class="p" data-group-id="8503947938-1">)</span><span class="w">
+</span><span class="p" data-group-id="8503947938-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8503947938-6">%</span><span class="nc" data-group-id="8503947938-6">Edge</span><span class="p" data-group-id="8503947938-6">{</span><span class="p" data-group-id="8503947938-6">}</span><span class="p" data-group-id="8503947938-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="last/4">
@@ -791,7 +826,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Retrieves the last edge of a given type, subject, and object from the database.</p><h2 id="last/4-examples" class="section-heading"><a href="#last/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">last</span><span class="p" data-group-id="3240414185-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3240414185-2">%</span><span class="nc" data-group-id="3240414185-2">User</span><span class="p" data-group-id="3240414185-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3240414185-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3240414185-3">%</span><span class="nc" data-group-id="3240414185-3">Post</span><span class="p" data-group-id="3240414185-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3240414185-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3240414185-4">[</span><span class="p" data-group-id="3240414185-4">]</span><span class="p" data-group-id="3240414185-1">)</span></code></pre>
+<p>Retrieves the last edge of a given type, subject, and object from the database.</p><h2 id="last/4-examples" class="section-heading"><a href="#last/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">last</span><span class="p" data-group-id="1239434061-1">(</span><span class="nc">MySchema</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1239434061-2">%</span><span class="nc" data-group-id="1239434061-2">User</span><span class="p" data-group-id="1239434061-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="1239434061-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1239434061-3">%</span><span class="nc" data-group-id="1239434061-3">Post</span><span class="p" data-group-id="1239434061-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1239434061-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1239434061-4">[</span><span class="p" data-group-id="1239434061-4">]</span><span class="p" data-group-id="1239434061-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="last_date/4">
@@ -813,7 +848,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Retrieves the date of the last edge of a given type, subject, and object from the database.</p><h2 id="last_date/4-examples" class="section-heading"><a href="#last_date/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">last_date</span><span class="p" data-group-id="8449473521-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8449473521-2">%</span><span class="nc" data-group-id="8449473521-2">User</span><span class="p" data-group-id="8449473521-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8449473521-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8449473521-3">%</span><span class="nc" data-group-id="8449473521-3">Post</span><span class="p" data-group-id="8449473521-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8449473521-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8449473521-4">[</span><span class="p" data-group-id="8449473521-4">]</span><span class="p" data-group-id="8449473521-1">)</span><span class="w">
+<p>Retrieves the date of the last edge of a given type, subject, and object from the database.</p><h2 id="last_date/4-examples" class="section-heading"><a href="#last_date/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">last_date</span><span class="p" data-group-id="6656229690-1">(</span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6656229690-2">%</span><span class="nc" data-group-id="6656229690-2">User</span><span class="p" data-group-id="6656229690-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6656229690-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6656229690-3">%</span><span class="nc" data-group-id="6656229690-3">Post</span><span class="p" data-group-id="6656229690-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6656229690-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6656229690-4">[</span><span class="p" data-group-id="6656229690-4">]</span><span class="p" data-group-id="6656229690-1">)</span><span class="w">
 </span><span class="ld">~N[2023-07-25 12:34:56]</span></code></pre>
   </section>
 </section>
@@ -871,7 +906,7 @@ Bonfire
       <h1 class="signature" translate="no">query(filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L402" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L426" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -893,7 +928,7 @@ Bonfire
       <h1 class="signature" translate="no">query_parent(query_schema, filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L409" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/edges.ex#L433" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 

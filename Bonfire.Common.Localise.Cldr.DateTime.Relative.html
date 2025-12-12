@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.8">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.9">
 
 
-    <title>Bonfire.Common.Localise.Cldr.DateTime.Relative — Bonfire v1.0.1-social-alpha.8</title>
+    <title>Bonfire.Common.Localise.Cldr.DateTime.Relative — Bonfire v1.0.1-social-alpha.9</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A6506D3B.js"></script>
+    <script defer src="dist/sidebar_items-85F72551.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.8
+          v1.0.1-social-alpha.9
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.DateTime.Relative</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.8)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.9)</small>
 
     </h1>
 
@@ -112,9 +112,8 @@ Bonfire
 
       </div>
 
-        <div class="summary-synopsis"><p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
-number, <a><code class="inline">Date.t/0</code></a> or <code class="inline">t:Datetime.t/0</code>.  Returns <code class="inline">{:error, reason}</code> when errors
-are detected.</p></div>
+        <div class="summary-synopsis"><p>Returns a string representing a relative time (ago, in) for a given
+number, date, time or datetime.</p></div>
 
     </div>
 
@@ -124,8 +123,8 @@ are detected.</p></div>
 
       </div>
 
-        <div class="summary-synopsis"><p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
-number, Date or Datetime or raises an exception on error.</p></div>
+        <div class="summary-synopsis"><p>Returns a string representing a relative time (ago, in) for a given
+number, date, time or datetime.</p></div>
 
     </div>
 
@@ -171,71 +170,76 @@ number, Date or Datetime or raises an exception on error.</p></div>
 
       </div>
 
-<p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
-number, <a href="https://hexdocs.pm/elixir/Date.html#t:t/0"><code class="inline">Date.t/0</code></a> or <code class="inline">t:Datetime.t/0</code>.  Returns <code class="inline">{:error, reason}</code> when errors
-are detected.</p><ul><li><p><code class="inline">relative</code> is a number or Date/Datetime representing the time distance from <code class="inline">now</code> or from
-options[:relative_to]</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html"><code class="inline">Keyword</code></a> list of options which are:</p></li></ul><h2 id="to_string/2-options" class="section-heading"><a href="#to_string/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><p><code class="inline">:locale</code> is the locale in which the binary is formatted.
-The default is <a href="https://hexdocs.pm/ex_cldr/2.43.2/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a></p></li><li><p><code class="inline">:format</code> is the format of the binary.  Style may be <code class="inline">:default</code>, <code class="inline">:narrow</code> or <code class="inline">:short</code></p></li><li><p><code class="inline">:unit</code> is the time unit for the formatting.  The allowable units are <code class="inline">:second</code>, <code class="inline">:minute</code>,
-<code class="inline">:hour</code>, <code class="inline">:day</code>, <code class="inline">:week</code>, <code class="inline">:month</code>, <code class="inline">:year</code>, <code class="inline">:mon</code>, <code class="inline">:tue</code>, <code class="inline">:wed</code>, <code class="inline">:thu</code>, <code class="inline">:fri</code>, <code class="inline">:sat</code>,
-<code class="inline">:sun</code>, <code class="inline">:quarter</code></p></li><li><p><code class="inline">:relative_to</code> is the baseline Date or Datetime from which the difference from <code class="inline">relative</code> is
-calculated when <code class="inline">relative</code> is a Date or a DateTime. The default for a Date is <code class="inline">Date.utc_today</code>,
-for a DateTime it is <code class="inline">DateTime.utc_now</code></p></li></ul><h3 id="to_string/2-notes" class="section-heading"><a href="#to_string/2-notes" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Notes</span></h3><p>When <code class="inline">options[:unit]</code> is not specified, <code class="inline">MyApp.Cldr.DateTime.Relative.to_string/2</code>
-attempts to identify the appropriate unit based upon the magnitude of <code class="inline">relative</code>.
-For example, given a parameter of less than <code class="inline">60</code>, then <a href="#to_string/2"><code class="inline">to_string/2</code></a> will
-assume <code class="inline">:seconds</code> as the unit.  See <code class="inline">unit_from_relative_time/1</code>.</p><h2 id="to_string/2-examples" class="section-heading"><a href="#to_string/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-1">(</span><span class="o">-</span><span class="mi">1</span><span class="p" data-group-id="5322952511-1">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1 second ago&quot;</span><span class="p" data-group-id="5322952511-2">}</span><span class="w">
+<p>Returns a string representing a relative time (ago, in) for a given
+number, date, time or datetime.</p><h3 id="to_string/2-arguments" class="section-heading"><a href="#to_string/2-arguments" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Arguments</span></h3><ul><li><p><code class="inline">relative</code> is an integer or <a href="https://hexdocs.pm/elixir/Calendar.html#t:datetime/0"><code class="inline">Calendar.datetime/0</code></a>, <a href="https://hexdocs.pm/elixir/Calendar.html#t:date/0"><code class="inline">Calendar.date/0</code></a>, or
+<a href="https://hexdocs.pm/elixir/Calendar.html#t:time/0"><code class="inline">Calendar.time/0</code></a> representing the time distance from <code class="inline">now</code> or from
+<code class="inline">options[:relative_to]</code>.</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0"><code class="inline">Keyword.t/0</code></a> list of options.</p></li></ul><h3 id="to_string/2-options" class="section-heading"><a href="#to_string/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h3><ul><li><p><code class="inline">:locale</code> is any valid locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#known_locale_names/0"><code class="inline">Cldr.known_locale_names/0</code></a>
+or a <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.LanguageTag.html#t:t/0"><code class="inline">Cldr.LanguageTag.t/0</code></a> struct.  The default is <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a>.</p></li><li><p><code class="inline">:format</code> is the type of the formatted string.  Allowable values are <code class="inline">:standard</code>,
+<code class="inline">:narrow</code> or <code class="inline">:short</code>. The default is <code class="inline">:standard</code>.</p></li><li><p><code class="inline">:style</code> determines whether to return a standard relative string (&quot;tomorrow&quot;) or
+an &quot;at&quot; string (&quot;tomorrow at 3:00 PM&quot;). The supported values are <code class="inline">:standard</code> (the default)
+or <code class="inline">:at</code>.  Note that <code class="inline">style: :at</code> is only applied when:</p><ul><li><code class="inline">:unit</code> is not a time unit (ie not <code class="inline">:hour</code>, <code class="inline">:minute</code> or :second<code class="inline">) * *and* when</code>:relative<code class="inline">is a</code>t:Calendar.datetime/0<code class="inline">or * *or* the</code>:at<code class="inline">option is set to a</code>t:Calendar.time/0<code class="inline">*</code>:unit<code class="inline">is the time unit for the formatting. The allowable units are</code>:second<code class="inline">,</code>:minute<code class="inline">,</code>:hour<code class="inline">,</code>:day<code class="inline">,</code>:week<code class="inline">,</code>:month<code class="inline">,</code>:year<code class="inline">,</code>:mon<code class="inline">,</code>:tue<code class="inline">,</code>:wed<code class="inline">,</code>:thu<code class="inline">,</code>:fri<code class="inline">,</code>:sat<code class="inline">,</code>:sun<code class="inline">,</code>:quarter<code class="inline">. If no</code>:unit<code class="inline">is specified, one will be derived using the</code>:derive_unit_from<code class="inline">option. *</code>:relative_to<code class="inline">is the baseline</code>date<code class="inline">or</code>datetime<code class="inline">from which the difference from</code>relative<code class="inline">is calculated when</code>relative<code class="inline">is a</code>t:Calendar.date/0<code class="inline">or a</code>t:Calendar.datetime/0<code class="inline">. The default for a</code>t:Calendar.date/0<code class="inline">is</code>Date.utc_today/0<code class="inline">; for a</code>t:Calendar.datetime/0<code class="inline">it is</code>DateTime.utc_now/0<code class="inline">and for a t:Calendar.time/0</code> it
+is <a href="https://hexdocs.pm/elixir/Time.html#utc_now/0"><code class="inline">Time.utc_now/0</code></a>.</li></ul></li><li><p><code class="inline">:time</code> is any <a href="https://hexdocs.pm/elixir/Calendar.html#t:time/0"><code class="inline">Calendar.time/0</code></a> that is used when <code class="inline">style: :at</code> is being applied. The
+default is to use the time component of <code class="inline">relative</code>.</p></li><li><p><code class="inline">:time_format</code> is the format option to be passed to <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.1/Cldr.Time.html#to_string/3"><code class="inline">Cldr.Time.to_string/3</code></a> if the <code class="inline">:style</code>
+option is <code class="inline">:at</code> and <code class="inline">relative</code> is a <a href="https://hexdocs.pm/elixir/Calendar.html#t:datetime/0"><code class="inline">Calendar.datetime/0</code></a> or the <code class="inline">:time</code> option is set.
+The default is <code class="inline">:short</code>.</p></li><li><p><code class="inline">:at_format</code> is one of <code class="inline">:short</code>, <code class="inline">:medium</code>, <code class="inline">:long</code> or <code class="inline">:full</code>. It is used to determine the
+format joining together the <code class="inline">relative</code> string and the <code class="inline">:time</code> string when <code class="inline">:style</code> is <code class="inline">:at. The default is</code>:short<code class="inline">if</code>:format<code class="inline">is either</code>:short<code class="inline">or</code>:narrow<code class="inline">. Otherwise the default is</code>:medium<code class="inline">. *</code>:derive_unit_from<code class="inline">is used to derive the most appropriate time unit if none is provided. There are two ways to specify</code>:derive_unit_from<code class="inline">. * The first option is a map. The map is required to have the keys</code>:second<code class="inline">,</code>:minute<code class="inline">,</code>:hour<code class="inline">,</code>:day<code class="inline">,</code>:week<code class="inline">,</code>:month<code class="inline">, and</code>:year<code class="inline">with the values being the number of seconds below which the key defines the time unit difference. This is the default and its value is: %{second: 1, month: 2629743.83, day: 86400, year: 31556926, minute: 60, hour: 3600, week: 604800} * The second option is to specify a function reference. The function must take four arguments as described below. #### The :derive_unit_from *function* * The function must take four arguments: *</code>relative<code class="inline">, being the first argument to</code>to_string/3<code class="inline">. *</code>relative_to<code class="inline">being the value of option</code>:relative_to<code class="inline">or its default value. *</code>time_difference<code class="inline">being the difference in seconds between</code>relative<code class="inline">and</code>relative_to<code class="inline">. *</code>unit<code class="inline">being the requested time unit which may be</code>nil<code class="inline">. If</code>nil<code class="inline">then the time unit must be derived and the</code>time_difference<code class="inline">scaled to that time unit. If specified then the</code>time_difference<code class="inline">must be scaled to the specified time unit. * The function must return a tuple of the form</code>{relative, unit}<code class="inline">where</code>relative<code class="inline">is an integer value and</code>unit<code class="inline">is the appropriate time unit atom. * See the</code>Cldr.DateTime.Relative.derive_unit_from/4<code class="inline">function for an example. ### Returns *</code><code class="inline">or *</code>}`
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-3">(</span><span class="mi">1</span><span class="p" data-group-id="5322952511-3">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 1 second&quot;</span><span class="p" data-group-id="5322952511-4">}</span><span class="w">
+### Examples
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-5">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:day</span><span class="p" data-group-id="5322952511-5">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tomorrow&quot;</span><span class="p" data-group-id="5322952511-6">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(-1)
+  {:ok, &quot;1 second ago&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-7">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:day</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="5322952511-7">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;demain&quot;</span><span class="p" data-group-id="5322952511-8">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1)
+  {:ok, &quot;in 1 second&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-9">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:day</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:narrow</span><span class="p" data-group-id="5322952511-9">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-10">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tomorrow&quot;</span><span class="p" data-group-id="5322952511-10">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1, unit: :day)
+  {:ok, &quot;tomorrow&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-11">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:year</span><span class="p" data-group-id="5322952511-11">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-12">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 1,234 years&quot;</span><span class="p" data-group-id="5322952511-12">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1, unit: :day, locale: &quot;fr&quot;)
+  {:ok, &quot;demain&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-13">(</span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:year</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="5322952511-13">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-14">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dans 1 234 ans&quot;</span><span class="p" data-group-id="5322952511-14">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1, unit: :day, format: :narrow)
+  {:ok, &quot;tomorrow&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-15">(</span><span class="mi">31</span><span class="p" data-group-id="5322952511-15">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-16">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 31 seconds&quot;</span><span class="p" data-group-id="5322952511-16">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1234, unit: :year)
+  {:ok, &quot;in 1,234 years&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-17">(</span><span class="ld">~D[2017-04-29]</span><span class="p">,</span><span class="w"> </span><span class="ss">relative_to</span><span class="p">:</span><span class="w"> </span><span class="ld">~D[2017-04-26]</span><span class="p" data-group-id="5322952511-17">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-18">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 3 days&quot;</span><span class="p" data-group-id="5322952511-18">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1234, unit: :year, locale: &quot;fr&quot;)
+  {:ok, &quot;dans 1 234 ans&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-19">(</span><span class="mi">310</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="5322952511-19">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-20">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dans 5 min&quot;</span><span class="p" data-group-id="5322952511-20">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(31)
+  {:ok, &quot;in 31 seconds&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-21">(</span><span class="mi">310</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:narrow</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="5322952511-21">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-22">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;+5 min&quot;</span><span class="p" data-group-id="5322952511-22">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(~D[2017-04-29], relative_to: ~D[2017-04-26])
+  {:ok, &quot;in 3 days&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
-</span><span class="p" data-group-id="5322952511-23">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;in 2 Wed.&quot;</span><span class="p" data-group-id="5322952511-23">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(310, format: :short, locale: &quot;fr&quot;)
+  {:ok, &quot;dans 5 min&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="w">
-</span><span class="p" data-group-id="5322952511-24">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;next Wed.&quot;</span><span class="p" data-group-id="5322952511-24">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(310, format: :narrow, locale: &quot;fr&quot;)
+  {:ok, &quot;+5 min&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="w">
-</span><span class="p" data-group-id="5322952511-25">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;last Wed.&quot;</span><span class="p" data-group-id="5322952511-25">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(2, unit: :wed, format: :short, locale: &quot;en&quot;)
+  {:ok, &quot;in 2 Wed.&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:wed</span><span class="w">
-</span><span class="p" data-group-id="5322952511-26">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;last Wednesday&quot;</span><span class="p" data-group-id="5322952511-26">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(1, unit: :wed, format: :short)
+  {:ok, &quot;next Wed.&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:quarter</span><span class="w">
-</span><span class="p" data-group-id="5322952511-27">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;last quarter&quot;</span><span class="p" data-group-id="5322952511-27">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(-1, unit: :wed, format: :short)
+  {:ok, &quot;last Wed.&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:mon</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="w">
-</span><span class="p" data-group-id="5322952511-28">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lundi dernier&quot;</span><span class="p" data-group-id="5322952511-28">}</span><span class="w">
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(-1, unit: :wed)
+  {:ok, &quot;last Wednesday&quot;}
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.DateTime.Relative</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="5322952511-29">(</span><span class="ld">~D[2017-04-29]</span><span class="p">,</span><span class="w"> </span><span class="ss">unit</span><span class="p">:</span><span class="w"> </span><span class="ss">:ziggeraut</span><span class="p" data-group-id="5322952511-29">)</span><span class="w">
-</span><span class="p" data-group-id="5322952511-30">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5322952511-31">{</span><span class="nc">Cldr.DateTime.UnknownTimeUnit</span><span class="p">,</span><span class="w">
- </span><span class="s">&quot;Unknown time unit :ziggeraut.  Valid time units are [:day, :fri, :hour, :minute, :mon, :month, :quarter, :sat, :second, :sun, :thu, :tue, :wed, :week, :year]&quot;</span><span class="p" data-group-id="5322952511-31">}</span><span class="p" data-group-id="5322952511-30">}</span></code></pre>
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(-1, unit: :quarter)
+  {:ok, &quot;last quarter&quot;}
+
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(-1, unit: :mon, locale: &quot;fr&quot;)
+  {:ok, &quot;lundi dernier&quot;}
+
+  iex&gt; Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string(~D[2017-04-29], unit: :ziggeraut)
+  {:error, {Cldr.DateTime.UnknownTimeUnit,
+   &quot;Unknown time unit :ziggeraut.  Valid time units are [:day, :fri, :hour, :minute, :mon, :month, :quarter, :sat, :second, :sun, :thu, :tue, :wed, :week, :year]&quot;}}</p></li></ul>
   </section>
 </section>
 <section class="detail" id="to_string!/2">
@@ -265,15 +269,19 @@ assume <code class="inline">:seconds</code> as the unit.  See <code class="inlin
 
       </div>
 
-<p>Returns a <code class="inline">{:ok, string}</code> representing a relative time (ago, in) for a given
-number, Date or Datetime or raises an exception on error.</p><h2 id="to_string!/2-arguments" class="section-heading"><a href="#to_string!/2-arguments" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Arguments</span></h2><ul><li><p><code class="inline">relative</code> is a number or Date/Datetime representing the time distance from <code class="inline">now</code> or from
-options[:relative_to].</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html"><code class="inline">Keyword</code></a> list of options.</p></li></ul><h2 id="to_string!/2-options" class="section-heading"><a href="#to_string!/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><p><code class="inline">:locale</code> is the locale in which the binary is formatted.
-The default is <a href="https://hexdocs.pm/ex_cldr/2.43.2/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a></p></li><li><p><code class="inline">:format</code> is the format of the binary.  Style may be <code class="inline">:default</code>, <code class="inline">:narrow</code> or <code class="inline">:short</code>.
-The default is <code class="inline">:default</code></p></li><li><p><code class="inline">:unit</code> is the time unit for the formatting.  The allowable units are <code class="inline">:second</code>, <code class="inline">:minute</code>,
-<code class="inline">:hour</code>, <code class="inline">:day</code>, <code class="inline">:week</code>, <code class="inline">:month</code>, <code class="inline">:year</code>, <code class="inline">:mon</code>, <code class="inline">:tue</code>, <code class="inline">:wed</code>, <code class="inline">:thu</code>, <code class="inline">:fri</code>, <code class="inline">:sat</code>,
-<code class="inline">:sun</code>, <code class="inline">:quarter</code></p></li><li><p><code class="inline">:relative_to</code> is the baseline Date or Datetime from which the difference from <code class="inline">relative</code> is
-calculated when <code class="inline">relative</code> is a Date or a DateTime. The default for a Date is <code class="inline">Date.utc_today</code>,
-for a DateTime it is <code class="inline">DateTime.utc_now</code></p></li></ul><p>See <a href="#to_string/2"><code class="inline">to_string/2</code></a></p>
+<p>Returns a string representing a relative time (ago, in) for a given
+number, date, time or datetime.</p><h3 id="to_string!/2-arguments" class="section-heading"><a href="#to_string!/2-arguments" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Arguments</span></h3><ul><li><p><code class="inline">relative</code> is an integer or <a href="https://hexdocs.pm/elixir/Calendar.html#t:datetime/0"><code class="inline">Calendar.datetime/0</code></a>, <a href="https://hexdocs.pm/elixir/Calendar.html#t:date/0"><code class="inline">Calendar.date/0</code></a>, or
+<a href="https://hexdocs.pm/elixir/Calendar.html#t:time/0"><code class="inline">Calendar.time/0</code></a> representing the time distance from <code class="inline">now</code> or from
+<code class="inline">options[:relative_to]</code>.</p></li><li><p><code class="inline">options</code> is a <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0"><code class="inline">Keyword.t/0</code></a> list of options.</p></li></ul><h3 id="to_string!/2-options" class="section-heading"><a href="#to_string!/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h3><ul><li><p><code class="inline">:locale</code> is any valid locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#known_locale_names/0"><code class="inline">Cldr.known_locale_names/0</code></a>
+or a <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.LanguageTag.html#t:t/0"><code class="inline">Cldr.LanguageTag.t/0</code></a> struct.  The default is <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#get_locale/0"><code class="inline">Cldr.get_locale/0</code></a>.</p></li><li><p><code class="inline">:format</code> is the type of the formatted string.  Allowable values are <code class="inline">:standard</code>,
+<code class="inline">:narrow</code> or <code class="inline">:short</code>. The default is <code class="inline">:standard</code>.</p></li><li><p><code class="inline">:style</code> determines whether to return a standard relative string (&quot;tomorrow&quot;) or
+an &quot;at&quot; string (&quot;tomorrow at 3:00 PM&quot;). The supported values are <code class="inline">:standard</code> (the default)
+or <code class="inline">:at</code>.  Note that <code class="inline">style: :at</code> is only applied when:</p><ul><li><code class="inline">:unit</code> is not a time unit (ie not <code class="inline">:hour</code>, <code class="inline">:minute</code> or :second<code class="inline">) * *and* when</code>:relative<code class="inline">is a</code>t:Calendar.datetime/0<code class="inline">or * *or* the</code>:at<code class="inline">option is set to a</code>t:Calendar.time/0<code class="inline">*</code>:unit<code class="inline">is the time unit for the formatting. The allowable units are</code>:second<code class="inline">,</code>:minute<code class="inline">,</code>:hour<code class="inline">,</code>:day<code class="inline">,</code>:week<code class="inline">,</code>:month<code class="inline">,</code>:year<code class="inline">,</code>:mon<code class="inline">,</code>:tue<code class="inline">,</code>:wed<code class="inline">,</code>:thu<code class="inline">,</code>:fri<code class="inline">,</code>:sat<code class="inline">,</code>:sun<code class="inline">,</code>:quarter<code class="inline">. If no</code>:unit<code class="inline">is specified, one will be derived using the</code>:derive_unit_from<code class="inline">option. *</code>:relative_to<code class="inline">is the baseline</code>date<code class="inline">or</code>datetime<code class="inline">from which the difference from</code>relative<code class="inline">is calculated when</code>relative<code class="inline">is a</code>t:Calendar.date/0<code class="inline">or a</code>t:Calendar.datetime/0<code class="inline">. The default for a</code>t:Calendar.date/0<code class="inline">is</code>Date.utc_today/0<code class="inline">; for a</code>t:Calendar.datetime/0<code class="inline">it is</code>DateTime.utc_now/0<code class="inline">and for a t:Calendar.time/0</code> it
+is <a href="https://hexdocs.pm/elixir/Time.html#utc_now/0"><code class="inline">Time.utc_now/0</code></a>.</li></ul></li><li><p><code class="inline">:time</code> is any <a href="https://hexdocs.pm/elixir/Calendar.html#t:time/0"><code class="inline">Calendar.time/0</code></a> that is used when <code class="inline">style: :at</code> is being applied. The
+default is to use the time component of <code class="inline">relative</code>.</p></li><li><p><code class="inline">:time_format</code> is the format option to be passed to <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.1/Cldr.Time.html#to_string/3"><code class="inline">Cldr.Time.to_string/3</code></a> if the <code class="inline">:style</code>
+option is <code class="inline">:at</code> and <code class="inline">relative</code> is a <a href="https://hexdocs.pm/elixir/Calendar.html#t:datetime/0"><code class="inline">Calendar.datetime/0</code></a> or the <code class="inline">:time</code> option is set.
+The default is <code class="inline">:short</code>.</p></li><li><p><code class="inline">:at_format</code> is one of <code class="inline">:short</code>, <code class="inline">:medium</code>, <code class="inline">:long</code> or <code class="inline">:full</code>. It is used to determine the
+format joining together the <code class="inline">relative</code> string and the <code class="inline">:time</code> string when <code class="inline">:style</code> is <code class="inline">:at. The default is</code>:short<code class="inline">if</code>:format<code class="inline">is either</code>:short<code class="inline">or</code>:narrow<code class="inline">. Otherwise the default is</code>:medium<code class="inline">. *</code>:derive_unit_from<code class="inline">is used to derive the most appropriate time unit if none is provided. There are two ways to specify</code>:derive_unit_from<code class="inline">. * The first option is a map. The map is required to have the keys</code>:second<code class="inline">,</code>:minute<code class="inline">,</code>:hour<code class="inline">,</code>:day<code class="inline">,</code>:week<code class="inline">,</code>:month<code class="inline">, and</code>:year<code class="inline">with the values being the number of seconds below which the key defines the time unit difference. This is the default and its value is: %{second: 1, month: 2629743.83, day: 86400, year: 31556926, minute: 60, hour: 3600, week: 604800} * The second option is to specify a function reference. The function must take four arguments as described below. #### The :derive_unit_from *function* * The function must take four arguments: *</code>relative<code class="inline">, being the first argument to</code>to_string/3<code class="inline">. *</code>relative_to<code class="inline">being the value of option</code>:relative_to<code class="inline">or its default value. *</code>time_difference<code class="inline">being the difference in seconds between</code>relative<code class="inline">and</code>relative_to<code class="inline">. *</code>unit<code class="inline">being the requested time unit which may be</code>nil<code class="inline">. If</code>nil<code class="inline">then the time unit must be derived and the</code>time_difference<code class="inline">scaled to that time unit. If specified then the</code>time_difference<code class="inline">must be scaled to the specified time unit. * The function must return a tuple of the form</code>{relative, unit}<code class="inline">where</code>relative<code class="inline">is an integer value and</code>unit<code class="inline">is the appropriate time unit atom. * See the</code>Cldr.DateTime.Relative.derive_unit_from/4<code class="inline">function for an example. ### Returns *</code>formatted_string<code class="inline">or *</code>raises an exception.</p></li></ul><h3 id="to_string!/2-examples" class="section-heading"><a href="#to_string!/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><p>See Bonfire.Common.Localise.Cldr.DateTime.Relative.to_string/2</p>
   </section>
 </section>
 
