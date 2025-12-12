@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 ### Added
 - ✨ Feature Proposal: schedule a post [#1669](https://github.com/bonfire-networks/bonfire-app/issues/1669) (thanks @mayel)
+- ✨ Curate a list of suggested profiles for an instance [#1668](https://github.com/bonfire-networks/bonfire-app/issues/1668) (thanks @mayel)
 - ✨ Feature Proposal: Draft status for posts [#1648](https://github.com/bonfire-networks/bonfire-app/issues/1648) (thanks @dogrileycom and @ivanminutillo)
 - ✨ Feature Proposal: Disable showing local timeline to public internet [#1647](https://github.com/bonfire-networks/bonfire-app/issues/1647) (thanks @dogrileycom, @ivanminutillo, and @mayel)
 - ✨ Feature Proposal: Follow Hashtags [#1640](https://github.com/bonfire-networks/bonfire-app/issues/1640) (thanks @dogrileycom, @mayel, and @ivanminutillo)
@@ -19,7 +20,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ optimise use/display of remote images [#792](https://github.com/bonfire-networks/bonfire-app/issues/792) (thanks @mayel)
 
 ### Changed
-- 📝 Curate a list of suggested profiles for an instance [#1668](https://github.com/bonfire-networks/bonfire-app/issues/1668) (thanks @mayel)
 - ⚡ prioritise the processing (in seperate federation queue) of incoming @ mentions and DMs [#1658](https://github.com/bonfire-networks/bonfire-app/issues/1658) (thanks @mayel)
 - 📝 Boost icon does not darken after boost. [#1642](https://github.com/bonfire-networks/bonfire-app/issues/1642) (thanks @mayel and @ivanminutillo)
 - 📝 Replying to a comment within a thread includes all the thread participants by default, instead of just the ones included in the post i'm replying to [#1615](https://github.com/bonfire-networks/bonfire-app/issues/1615) (thanks @ivanminutillo and @mayel)
@@ -31,11 +31,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 fix(app pages): useless closing div tag breaking layout [PR #7](https://github.com/bonfire-networks/website-blog/pull/7) (thanks @Spratch)
 - 📝 1.0.1-alpha.1 [`be54eed`](https://github.com/bonfire-networks/bonfire-app/commit/be54eed379907a4944e78acb6725d1ae6599cdcd) (thanks @mayel)
 - 📝 Bonfire Social 1.0 🔥 [`c5aff09`](https://github.com/bonfire-networks/bonfire-app/commit/c5aff0958dfe51a60ddaec455b71d62977372fbd) (thanks @mayel)
+- 🚧 Mastodon-compatible API [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) [`7cdebd0`](https://github.com/bonfire-networks/bonfire-app/commit/7cdebd0e5fba2aafbe6dd77d2bfafb8785c2221e) (thanks @ivanminutillo and @mayel)
 - 📝 api docs [`d3ddab2`](https://github.com/bonfire-networks/bonfire-app/commit/d3ddab2254f715c4dc3ab88b0712a049e4cf10e1) (thanks @ivanminutillo)
 - 📝 configs [`f1061e7`](https://github.com/bonfire-networks/bonfire-app/commit/f1061e7195d78e641f8488f1cfd0d2b3cbaf63c1) (thanks @mayel)
 - 🚧 Implement web push notification [#1292](https://github.com/bonfire-networks/bonfire-app/issues/1292) [`8c41f51`](https://github.com/bonfire-networks/bonfire-app/commit/8c41f5140939aa8da06c506cb20f59199945ff10) (thanks @mayel and @ivanminutillo)
 - 🚧 Feature Proposals: set post language & multi-language posts [#270](https://github.com/bonfire-networks/bonfire-app/issues/270) [`2da2eee`](https://github.com/bonfire-networks/bonfire-app/commit/2da2eee93690eb1c269f3c9d16716d16e3b875e7), [`1b0a3ba`](https://github.com/bonfire-networks/bonfire-app/commit/1b0a3ba9e30d100a96e2755e49a8a3c48513d66b), [`4d02afb`](https://github.com/bonfire-networks/bonfire-app/commit/4d02afbfa632306af34850717418097113448b66) (thanks @mayel)
 - 🚧 Feature: Ask questions, collect possible choices, gather ranked votes [#914](https://github.com/bonfire-networks/bonfire-app/issues/914) [`83fb32f`](https://github.com/bonfire-networks/bonfire-app/commit/83fb32f94975f099ba344bac4dd897603e532c10) (thanks @mayel)
+- 🚧 Mastodon-compatible API [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) [`c58f628`](https://github.com/bonfire-networks/bonfire-app/commit/c58f628498eb08cb7a0cbfbc015959618f86af1b) (thanks @ivanminutillo and @mayel)
 - 📝 keep tool versions for now [`fa81ad2`](https://github.com/bonfire-networks/bonfire-app/commit/fa81ad28c4f912b9784cb76ea80784900bf258bc) (thanks @mayel)
 - 📝 pools and queue config [`8535eb6`](https://github.com/bonfire-networks/bonfire-app/commit/8535eb6cdf5b39cb46b1bcb6eb50ed94c62e19b7) (thanks @ivanminutillo)
 - 📝 tidewave [`ee40171`](https://github.com/bonfire-networks/bonfire-app/commit/ee40171f6062fb34ee318431b96be6a376a4ce8e) (thanks @ivanminutillo)
