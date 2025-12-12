@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.9">
+
+
+    <title>Bonfire.Poll.Votes — Bonfire v1.0.1-social-alpha.9</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-898FE99C.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.1-social-alpha.9
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Poll.Votes</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.9)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip="" translate="no">ap_receive_activity(creator, activity, map)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#by_voter/2" data-no-tooltip="" translate="no">by_voter(subject, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#calculate_average_base_score/2" data-no-tooltip="" translate="no">calculate_average_base_score(total, num_voters)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the average base score (rounded) for a choice.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#calculate_if_visible/3" data-no-tooltip="" translate="no">calculate_if_visible(choice, poll, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns votes count or weighted total for a choice, only if poll voting is closed or owned by current user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#calculate_total/3" data-no-tooltip="" translate="no">calculate_total(votes, weighting, sum \\ 0)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sums the weights of all votes for a choice.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/2" data-no-tooltip="" translate="no">count(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip="" translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#for_choice/2" data-no-tooltip="" translate="no">for_choice(choice, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/3" data-no-tooltip="" translate="no">get(subject, object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get!/3" data-no-tooltip="" translate="no">get!(subject, object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_average_emoji/4" data-no-tooltip="" translate="no">get_average_emoji(total, num_voters, question, scores \\ scores())</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list/2" data-no-tooltip="" translate="no">list(filters \\ [], opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip="" translate="no">query(filters, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip="" translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#register_vote_choice/4" data-no-tooltip="" translate="no">register_vote_choice(voter, question, choice, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#results_visible?/3" data-no-tooltip="" translate="no">results_visible?(choice, poll, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns true a choice only if poll voting is closed or owned by current user</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip="" translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#scores/0" data-no-tooltip="" translate="no">scores()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#send_vote_activity/4" data-no-tooltip="" translate="no">send_vote_activity(voter, question, registered_votes, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#vote/4" data-no-tooltip="" translate="no">vote(voter, question, choices, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_receive_activity(creator, activity, map)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L430" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="by_voter/2">
+
+    <span id="by_voter/1"></span>
+
+  <div class="detail-header">
+    <a href="#by_voter/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">by_voter(subject, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L62" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="calculate_average_base_score/2">
+
+  <div class="detail-header">
+    <a href="#calculate_average_base_score/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">calculate_average_base_score(total, num_voters)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L394" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the average base score (rounded) for a choice.</p><h2 id="calculate_average_base_score/2-examples" class="section-heading"><a href="#calculate_average_base_score/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Poll.Votes</span><span class="o">.</span><span class="n">calculate_average_base_score</span><span class="p" data-group-id="3916538386-1">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3916538386-1">)</span><span class="w">
+</span><span class="mi">2</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Poll.Votes</span><span class="o">.</span><span class="n">calculate_average_base_score</span><span class="p" data-group-id="3916538386-2">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="3916538386-2">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Poll.Votes</span><span class="o">.</span><span class="n">calculate_average_base_score</span><span class="p" data-group-id="3916538386-3">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="3916538386-3">)</span><span class="w">
+</span><span class="mi">0</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="calculate_if_visible/3">
+
+    <span id="calculate_if_visible/2"></span>
+
+  <div class="detail-header">
+    <a href="#calculate_if_visible/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">calculate_if_visible(choice, poll, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L103" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns votes count or weighted total for a choice, only if poll voting is closed or owned by current user.</p><p>For weighted_multiple polls, returns the sum of weights for all votes on the choice.
+For other formats, returns the count of votes.
+Returns nil if results are not visible.</p>
+  </section>
+</section>
+<section class="detail" id="calculate_total/3">
+
+    <span id="calculate_total/2"></span>
+
+  <div class="detail-header">
+    <a href="#calculate_total/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">calculate_total(votes, weighting, sum \\ 0)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L351" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Sums the weights of all votes for a choice.</p><h2 id="calculate_total/3-examples" class="section-heading"><a href="#calculate_total/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Poll.Votes</span><span class="o">.</span><span class="n">calculate_total</span><span class="p" data-group-id="7872278353-1">(</span><span class="p" data-group-id="7872278353-2">[</span><span class="p" data-group-id="7872278353-3">%{</span><span class="ss">vote_weight</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7872278353-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7872278353-4">%{</span><span class="ss">vote_weight</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7872278353-4">}</span><span class="p" data-group-id="7872278353-2">]</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7872278353-1">)</span><span class="w">
+</span><span class="mi">3</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Poll.Votes</span><span class="o">.</span><span class="n">calculate_total</span><span class="p" data-group-id="7872278353-5">(</span><span class="p" data-group-id="7872278353-6">[</span><span class="p" data-group-id="7872278353-7">%{</span><span class="ss">vote_weight</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p" data-group-id="7872278353-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7872278353-8">%{</span><span class="ss">vote_weight</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7872278353-8">}</span><span class="p" data-group-id="7872278353-6">]</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="7872278353-5">)</span><span class="w">
+</span><span class="mi">3</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count/2">
+
+    <span id="count/0"></span>
+
+    <span id="count/1"></span>
+
+  <div class="detail-header">
+    <a href="#count/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">count(filters \\ [], opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L143" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">federation_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L17" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="for_choice/2">
+
+    <span id="for_choice/1"></span>
+
+  <div class="detail-header">
+    <a href="#for_choice/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">for_choice(choice, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L75" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+    <span id="get/2"></span>
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get(subject, object, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L42" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get!/3">
+
+    <span id="get!/2"></span>
+
+  <div class="detail-header">
+    <a href="#get!/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get!(subject, object, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L52" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_average_emoji/4">
+
+    <span id="get_average_emoji/3"></span>
+
+  <div class="detail-header">
+    <a href="#get_average_emoji/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_average_emoji(total, num_voters, question, scores \\ scores())</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L415" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list/2">
+
+    <span id="list/0"></span>
+
+    <span id="list/1"></span>
+
+  <div class="detail-header">
+    <a href="#list/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list(filters \\ [], opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L87" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">query(filters, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L328" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">query_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L14" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="register_vote_choice/4">
+
+    <span id="register_vote_choice/3"></span>
+
+  <div class="detail-header">
+    <a href="#register_vote_choice/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">register_vote_choice(voter, question, choice, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L238" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="results_visible?/3">
+
+    <span id="results_visible?/2"></span>
+
+  <div class="detail-header">
+    <a href="#results_visible?/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">results_visible?(choice, poll, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L136" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns true a choice only if poll voting is closed or owned by current user</p>
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">schema_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L13" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="scores/0">
+
+  <div class="detail-header">
+    <a href="#scores/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">scores()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L25" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="send_vote_activity/4">
+
+  <div class="detail-header">
+    <a href="#send_vote_activity/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">send_vote_activity(voter, question, registered_votes, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L265" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="vote/4">
+
+    <span id="vote/3"></span>
+
+  <div class="detail-header">
+    <a href="#vote/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">vote(voter, question, choices, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/votes.ex#L154" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

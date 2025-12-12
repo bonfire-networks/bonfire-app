@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.9">
+
+
+    <title>Bonfire.Poll.Questions — Bonfire v1.0.1-social-alpha.9</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-898FE99C.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.1-social-alpha.9
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Poll.Questions</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.9)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_publish_activity/3" data-no-tooltip="" translate="no">ap_publish_activity(subject, verb, question)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Serializes a poll question as an ActivityStreams Question object and wraps in a Create/Update activity for federation.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_receive_activity/3" data-no-tooltip="" translate="no">ap_receive_activity(creator, activity, object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Receives an incoming ActivityPub Question (poll) activity and creates/updates the local poll question.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/2" data-no-tooltip="" translate="no">changeset(question \\ %Bonfire.Poll.Question{}, attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create/1" data-no-tooltip="" translate="no">create(options \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#create_simple/1" data-no-tooltip="" translate="no">create_simple(question)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#default_voting_format/0" data-no-tooltip="" translate="no">default_voting_format()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#end_date/1" data-no-tooltip="" translate="no">end_date(arg1)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#federation_module/0" data-no-tooltip="" translate="no">federation_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_by_uri/2" data-no-tooltip="" translate="no">get_by_uri(uri, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_by/2" data-no-tooltip="" translate="no">list_by(by_user, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>List posts created by the user and which are in their outbox, which are not replies</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_paginated/2" data-no-tooltip="" translate="no">list_paginated(filters, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>List posts with pagination</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#proposal_ended?/1" data-no-tooltip="" translate="no">proposal_ended?(question)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns true if proposal period has ended for the poll.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#proposal_open?/1" data-no-tooltip="" translate="no">proposal_open?(question)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns true if proposal period is currently open for the poll.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query/2" data-no-tooltip="" translate="no">query(filters \\ [], opts \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_module/0" data-no-tooltip="" translate="no">query_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#query_paginated/2" data-no-tooltip="" translate="no">query_paginated(filters, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Query posts with pagination</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#read/2" data-no-tooltip="" translate="no">read(post_id, opts_or_socket_or_current_user \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#schema_module/0" data-no-tooltip="" translate="no">schema_module()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#voting_ended?/1" data-no-tooltip="" translate="no">voting_ended?(question)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns true if voting has ended for the poll.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#voting_open?/1" data-no-tooltip="" translate="no">voting_open?(question)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns true if voting is currently open for the poll.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="ap_publish_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_publish_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_publish_activity(subject, verb, question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L195" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Serializes a poll question as an ActivityStreams Question object and wraps in a Create/Update activity for federation.</p><h2 id="ap_publish_activity/3-parameters" class="section-heading"><a href="#ap_publish_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>subject: who is performing the action</li><li>verb: :create or :update</li><li>question: poll question struct</li></ul>
+  </section>
+</section>
+<section class="detail" id="ap_receive_activity/3">
+
+  <div class="detail-header">
+    <a href="#ap_receive_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_receive_activity(creator, activity, object)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L321" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Receives an incoming ActivityPub Question (poll) activity and creates/updates the local poll question.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>creator: the actor creating/updating the poll</li><li>activity: the AP activity</li><li>object: the AP Question object</li></ul>
+  </section>
+</section>
+<section class="detail" id="changeset/2">
+
+    <span id="changeset/1"></span>
+
+  <div class="detail-header">
+    <a href="#changeset/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">changeset(question \\ %Bonfire.Poll.Question{}, attrs)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L46" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create/1">
+
+    <span id="create/0"></span>
+
+  <div class="detail-header">
+    <a href="#create/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">create(options \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L27" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="create_simple/1">
+
+  <div class="detail-header">
+    <a href="#create_simple/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">create_simple(question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L55" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="default_voting_format/0">
+
+  <div class="detail-header">
+    <a href="#default_voting_format/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">default_voting_format()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L25" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="end_date/1">
+
+  <div class="detail-header">
+    <a href="#end_date/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">end_date(arg1)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L127" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="federation_module/0">
+
+  <div class="detail-header">
+    <a href="#federation_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">federation_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L19" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Federate.ActivityPub.FederationModules.html#c:federation_module/0"><code class="inline">Bonfire.Federate.ActivityPub.FederationModules.federation_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="get_by_uri/2">
+
+    <span id="get_by_uri/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_by_uri/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_by_uri(uri, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L180" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="list_by/2">
+
+    <span id="list_by/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_by/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list_by(by_user, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L131" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>List posts created by the user and which are in their outbox, which are not replies</p>
+  </section>
+</section>
+<section class="detail" id="list_paginated/2">
+
+    <span id="list_paginated/1"></span>
+
+  <div class="detail-header">
+    <a href="#list_paginated/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list_paginated(filters, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L139" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>List posts with pagination</p>
+  </section>
+</section>
+<section class="detail" id="proposal_ended?/1">
+
+  <div class="detail-header">
+    <a href="#proposal_ended?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">proposal_ended?(question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L120" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns true if proposal period has ended for the poll.</p>
+  </section>
+</section>
+<section class="detail" id="proposal_open?/1">
+
+  <div class="detail-header">
+    <a href="#proposal_open?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">proposal_open?(question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L104" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns true if proposal period is currently open for the poll.</p>
+  </section>
+</section>
+<section class="detail" id="query/2">
+
+    <span id="query/0"></span>
+
+    <span id="query/1"></span>
+
+  <div class="detail-header">
+    <a href="#query/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">query(filters \\ [], opts \\ nil)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L165" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="query_module/0">
+
+  <div class="detail-header">
+    <a href="#query_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">query_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L16" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:query_module/0"><code class="inline">Bonfire.Common.ContextModule.query_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="query_paginated/2">
+
+    <span id="query_paginated/1"></span>
+
+  <div class="detail-header">
+    <a href="#query_paginated/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">query_paginated(filters, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L152" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Query posts with pagination</p>
+  </section>
+</section>
+<section class="detail" id="read/2">
+
+    <span id="read/1"></span>
+
+  <div class="detail-header">
+    <a href="#read/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">read(post_id, opts_or_socket_or_current_user \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L72" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="schema_module/0">
+
+  <div class="detail-header">
+    <a href="#schema_module/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">schema_module()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L15" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="./Bonfire.Common.ContextModule.html#c:schema_module/0"><code class="inline">Bonfire.Common.ContextModule.schema_module/0</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="voting_ended?/1">
+
+  <div class="detail-header">
+    <a href="#voting_ended?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">voting_ended?(question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L96" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns true if voting has ended for the poll.</p>
+  </section>
+</section>
+<section class="detail" id="voting_open?/1">
+
+  <div class="detail-header">
+    <a href="#voting_open?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">voting_open?(question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L80" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns true if voting is currently open for the poll.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
