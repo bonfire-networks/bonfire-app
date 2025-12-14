@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.13">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.14">
 
 
-    <title>EctoSparkles.DataMigration — Bonfire v1.0.1-social-alpha.13</title>
+    <title>EctoSparkles.DataMigration — Bonfire v1.0.1-social-alpha.14</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-8872AEC9.js"></script>
+    <script defer src="dist/sidebar_items-F8F92E9F.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.13
+          v1.0.1-social-alpha.14
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">EctoSparkles.DataMigration</span> <small>behaviour</small>
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.13)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.14)</small>
 
     </h1>
 
@@ -93,36 +93,36 @@ Bonfire
 
 
     <section id="moduledoc">
-<p>A behaviour implemented by our data migrations (generally backfills).</p><p>Based on <a href="https://tylerayoung.com/2023/08/13/migrations/">A microframework for backfill migrations in Elixir's Ecto</a>, in turn based on David Bernheisel's <a href="https://fly.io/phoenix-files/backfilling-data/#batching-deterministic-data">template for deterministic backfills</a>.</p><p>A data migration using this behaviour may look like this (which you can put simply put in Ecto migrations, eg. <code class="inline">priv/repo/migrations/priv/repo/migrations/20231019004944_data_onboarding_step.exs</code>):</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo.Migrations.BackfillOnboardingStep</span><span class="w"> </span><span class="k" data-group-id="2481735449-1">do</span><span class="w">
+<p>A behaviour implemented by our data migrations (generally backfills).</p><p>Based on <a href="https://tylerayoung.com/2023/08/13/migrations/">A microframework for backfill migrations in Elixir's Ecto</a>, in turn based on David Bernheisel's <a href="https://fly.io/phoenix-files/backfilling-data/#batching-deterministic-data">template for deterministic backfills</a>.</p><p>A data migration using this behaviour may look like this (which you can put simply put in Ecto migrations, eg. <code class="inline">priv/repo/migrations/priv/repo/migrations/20231019004944_data_onboarding_step.exs</code>):</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo.Migrations.BackfillOnboardingStep</span><span class="w"> </span><span class="k" data-group-id="8681741942-1">do</span><span class="w">
   </span><span class="kn">alias</span><span class="w"> </span><span class="nc">EctoSparkles.DataMigration</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
   
   </span><span class="na">@impl</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">base_query</span><span class="w"> </span><span class="k" data-group-id="2481735449-2">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">base_query</span><span class="w"> </span><span class="k" data-group-id="8681741942-2">do</span><span class="w">
     </span><span class="c1"># NOTE: This works in cases where:</span><span class="w">
     </span><span class="c1"># 1. The data can be queried with a condition that not longer applies after the migration ran, so you can repeatedly query the data and update the data until the query result is empty. For example, if a column is currently null and will be updated to not be null, then you can query for the null records and pick up where you left off.</span><span class="w">
     </span><span class="c1"># 2. The migration is written in such a way that it can be ran several times on the same data without causing data loss or duplication (or crashing).</span><span class="w">
 
-    </span><span class="n">from</span><span class="p" data-group-id="2481735449-3">(</span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="s">&quot;users&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1"># Notice how we do not use Ecto schemas here.</span><span class="w">
-      </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">is_nil</span><span class="p" data-group-id="2481735449-4">(</span><span class="n">u</span><span class="o">.</span><span class="n">onboarding_step</span><span class="p" data-group-id="2481735449-4">)</span><span class="p">,</span><span class="w">
-      </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2481735449-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="2481735449-5">}</span><span class="w">
-    </span><span class="p" data-group-id="2481735449-3">)</span><span class="w">
-  </span><span class="k" data-group-id="2481735449-2">end</span><span class="w">
+    </span><span class="n">from</span><span class="p" data-group-id="8681741942-3">(</span><span class="n">u</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="s">&quot;users&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1"># Notice how we do not use Ecto schemas here.</span><span class="w">
+      </span><span class="ss">where</span><span class="p">:</span><span class="w"> </span><span class="n">is_nil</span><span class="p" data-group-id="8681741942-4">(</span><span class="n">u</span><span class="o">.</span><span class="n">onboarding_step</span><span class="p" data-group-id="8681741942-4">)</span><span class="p">,</span><span class="w">
+      </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8681741942-5">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="8681741942-5">}</span><span class="w">
+    </span><span class="p" data-group-id="8681741942-3">)</span><span class="w">
+  </span><span class="k" data-group-id="8681741942-2">end</span><span class="w">
 
   </span><span class="na">@impl</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">config</span><span class="w"> </span><span class="k" data-group-id="2481735449-6">do</span><span class="w">
-    </span><span class="p" data-group-id="2481735449-7">%</span><span class="nc" data-group-id="2481735449-7">DataMigration.Config</span><span class="p" data-group-id="2481735449-7">{</span><span class="ss">batch_size</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="ss">throttle_ms</span><span class="p">:</span><span class="w"> </span><span class="mi">1_000</span><span class="p">,</span><span class="w"> </span><span class="ss">repo</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="p" data-group-id="2481735449-7">}</span><span class="w">
-  </span><span class="k" data-group-id="2481735449-6">end</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">config</span><span class="w"> </span><span class="k" data-group-id="8681741942-6">do</span><span class="w">
+    </span><span class="p" data-group-id="8681741942-7">%</span><span class="nc" data-group-id="8681741942-7">DataMigration.Config</span><span class="p" data-group-id="8681741942-7">{</span><span class="ss">batch_size</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="ss">throttle_ms</span><span class="p">:</span><span class="w"> </span><span class="mi">1_000</span><span class="p">,</span><span class="w"> </span><span class="ss">repo</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="p" data-group-id="8681741942-7">}</span><span class="w">
+  </span><span class="k" data-group-id="8681741942-6">end</span><span class="w">
 
   </span><span class="na">@impl</span><span class="w"> </span><span class="nc">DataMigration</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p" data-group-id="2481735449-8">(</span><span class="n">results</span><span class="p" data-group-id="2481735449-8">)</span><span class="w"> </span><span class="k" data-group-id="2481735449-9">do</span><span class="w">
-    </span><span class="nc">Enum</span><span class="o">.</span><span class="n">each</span><span class="p" data-group-id="2481735449-10">(</span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2481735449-11">fn</span><span class="w"> </span><span class="p" data-group-id="2481735449-12">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">user_id</span><span class="p" data-group-id="2481735449-12">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p" data-group-id="8681741942-8">(</span><span class="n">results</span><span class="p" data-group-id="8681741942-8">)</span><span class="w"> </span><span class="k" data-group-id="8681741942-9">do</span><span class="w">
+    </span><span class="nc">Enum</span><span class="o">.</span><span class="n">each</span><span class="p" data-group-id="8681741942-10">(</span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="8681741942-11">fn</span><span class="w"> </span><span class="p" data-group-id="8681741942-12">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="n">user_id</span><span class="p" data-group-id="8681741942-12">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
       </span><span class="c1"># hooks into a context module, which is more likely to be kept up to date as the app evolves, to avoid having to update old migrations</span><span class="w">
       </span><span class="n">user_id</span><span class="w">
-      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">MyApp.Users</span><span class="o">.</span><span class="n">set_onboarding_step!</span><span class="p" data-group-id="2481735449-13">(</span><span class="p" data-group-id="2481735449-13">)</span><span class="w">
-    </span><span class="k" data-group-id="2481735449-11">end</span><span class="p" data-group-id="2481735449-10">)</span><span class="w">
-  </span><span class="k" data-group-id="2481735449-9">end</span><span class="w">
-</span><span class="k" data-group-id="2481735449-1">end</span></code></pre>
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">MyApp.Users</span><span class="o">.</span><span class="n">set_onboarding_step!</span><span class="p" data-group-id="8681741942-13">(</span><span class="p" data-group-id="8681741942-13">)</span><span class="w">
+    </span><span class="k" data-group-id="8681741942-11">end</span><span class="p" data-group-id="8681741942-10">)</span><span class="w">
+  </span><span class="k" data-group-id="8681741942-9">end</span><span class="w">
+</span><span class="k" data-group-id="8681741942-1">end</span></code></pre>
     </section>
 
 </div>
