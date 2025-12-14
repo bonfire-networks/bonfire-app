@@ -81,9 +81,9 @@ config :phoenix_test, :endpoint, Bonfire.Web.Endpoint
 
 # use Ecto Repo sandbox?
 config :bonfire,
-        sql_sandbox:
-          System.get_env("PHX_SERVER") not in yes? and
-            System.get_env("TEST_INSTANCE") not in yes?
+  sql_sandbox:
+    System.get_env("PHX_SERVER") not in yes? and
+      System.get_env("TEST_INSTANCE") not in yes?
 
 config :pbkdf2_elixir, :rounds, 1
 

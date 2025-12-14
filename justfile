@@ -1170,7 +1170,7 @@ localise-extract:
 @localise-tx-pull *args='--all':
 	tx pull --minimum-perc=5 --force {{args}}
 	mkdir -p priv/localisation/es_AR/LC_MESSAGES/ && mv priv/localisation/es_AR-C/LC_MESSAGES/* priv/localisation/es_AR/LC_MESSAGES/
-	mkdir -p priv/localisation/es_AR_BuenosAi/LC_MESSAGES/ && mv priv/localisation/es_AR-B/LC_MESSAGES/* priv/localisation/es_AR_BuenosAi/LC_MESSAGES/
+	mkdir -p priv/localisation/es_AR_x_B/LC_MESSAGES/ && mv priv/localisation/es_AR-B/LC_MESSAGES/* priv/localisation/es_AR_x_B/LC_MESSAGES/
 	just mix deps.compile bonfire_common --force
 # NOTE: should only rename es_AR-C to es_AR if we don't also have es_AR ^
 
