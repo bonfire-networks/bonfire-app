@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.10">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.11">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v1.0.1-social-alpha.10</title>
+    <title>Bonfire.Common.Localise.Cldr.Rbnf.Spellout — Bonfire v1.0.1-social-alpha.11</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.10
+          v1.0.1-social-alpha.11
         </div>
       </div>
     </div>
@@ -80,11 +80,11 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.10)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.11)</small>
 
     </h1>
 
-      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -95,9 +95,9 @@ Bonfire
     <section id="moduledoc">
 <p>Functions to implement the spellout rule-based-number-format rules of CLDR.</p><p>As CLDR notes, the data is incomplete or non-existent for many languages.  It
 is considered complete for English however.</p><p>The standard public API for RBNF is via the <a href="https://hexdocs.pm/ex_cldr_numbers/2.36.0/Cldr.Number.html#to_string/2"><code class="inline">Cldr.Number.to_string/2</code></a> function.</p><p>The functions on this module are defined at compile time based upon the RBNF rules
-defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="2625470069-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="2625470069-1">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="2625470069-2">(</span><span class="p" data-group-id="2625470069-2">)</span><span class="w">
-</span><span class="p" data-group-id="2625470069-3">[</span><span class="w">
+defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="1970602610-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1970602610-1">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="1970602610-2">(</span><span class="p" data-group-id="1970602610-2">)</span><span class="w">
+</span><span class="p" data-group-id="1970602610-3">[</span><span class="w">
   </span><span class="ss">:spellout_cardinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_cardinal_verbose</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_numbering</span><span class="p">,</span><span class="w">
@@ -105,9 +105,9 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
   </span><span class="ss">:spellout_numbering_year</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:spellout_ordinal_verbose</span><span class="w">
-</span><span class="p" data-group-id="2625470069-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="7946335133-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="7946335133-1">)</span><span class="w">
-</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="0528653143-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="0528653143-1">)</span><span class="w">
-</span><span class="p" data-group-id="0528653143-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="0528653143-2">}</span></code></pre>
+</span><span class="p" data-group-id="1970602610-3">]</span></code></pre><p>A rule can then be invoked on an available rule_set. For example:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Spellout</span><span class="o">.</span><span class="n">spellout_ordinal</span><span class="p" data-group-id="9631600585-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="9631600585-1">)</span><span class="w">
+</span><span class="s">&quot;one hundred twenty-third&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="8553102678-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:spellout</span><span class="p" data-group-id="8553102678-1">)</span><span class="w">
+</span><span class="p" data-group-id="8553102678-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one hundred twenty-three&quot;</span><span class="p" data-group-id="8553102678-2">}</span></code></pre>
     </section>
 
 </div>
@@ -668,7 +668,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">all_rule_sets()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -690,7 +690,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">number and language_tag</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -712,7 +712,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">and_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -734,7 +734,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">cents_f(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -756,7 +756,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">cents_m(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -778,7 +778,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">cents_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -800,7 +800,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">commas(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -822,7 +822,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">commas_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -844,7 +844,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">et_un(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -866,7 +866,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">et_une(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -888,7 +888,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">et_unieme(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -910,7 +910,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">fem_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -932,7 +932,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">fem_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -954,7 +954,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">fem_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -976,7 +976,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">lenient_parse(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -998,7 +998,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">mille_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1020,7 +1020,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_no_final(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1042,7 +1042,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1064,7 +1064,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_with_a_nofinal(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1086,7 +1086,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1108,7 +1108,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_with_i_nofinal(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1130,7 +1130,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1152,7 +1152,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msc_with_o_nofinal(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1174,7 +1174,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msco_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1196,7 +1196,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msco_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1218,7 +1218,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">msco_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1240,7 +1240,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esima(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1262,7 +1262,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esima_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1284,7 +1284,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esima_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1306,7 +1306,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esima_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1328,7 +1328,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esime(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1350,7 +1350,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esime_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1372,7 +1372,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esime_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1394,7 +1394,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esime_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1416,7 +1416,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimi(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1438,7 +1438,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimi_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1460,7 +1460,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimi_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1482,7 +1482,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimi_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1504,7 +1504,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimo(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1526,7 +1526,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimo_with_a(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1548,7 +1548,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimo_with_i(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1570,7 +1570,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">ordinal_esimo_with_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1592,7 +1592,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">r2d_year(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1614,7 +1614,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">rule_sets()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1636,7 +1636,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">rule_sets(rbnf_locale_name)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1658,7 +1658,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_cardinal(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1680,7 +1680,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_cardinal_feminine(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1702,7 +1702,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_cardinal_masculine(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1724,7 +1724,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_cardinal_verbose(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1746,7 +1746,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_leading(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1768,7 +1768,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_numbering(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1790,7 +1790,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_numbering_verbose(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1812,7 +1812,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_numbering_year(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1834,7 +1834,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1856,7 +1856,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal_feminine(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1878,7 +1878,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal_feminine_plural(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1900,7 +1900,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal_masculine(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1922,7 +1922,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal_masculine_adjective(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1944,7 +1944,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal_masculine_plural(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1966,7 +1966,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">spellout_ordinal_verbose(number, locale)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1988,7 +1988,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">subcents_f(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2010,7 +2010,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">subcents_m(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2032,7 +2032,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">subcents_o(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2054,7 +2054,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">th(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2076,7 +2076,7 @@ defined in the Unicode CLDR data repository.  Available rules are identified by:
       <h1 class="signature" translate="no">tieth(number, language_tag)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cdlr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/localise/cldr.ex#L1" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
