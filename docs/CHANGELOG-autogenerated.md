@@ -33,6 +33,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 Bonfire Social 1.0 🔥 [`c5aff09`](https://github.com/bonfire-networks/bonfire-app/commit/c5aff0958dfe51a60ddaec455b71d62977372fbd) (thanks @mayel)
 - 🚧 Mastodon-compatible API [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) [`7cdebd0`](https://github.com/bonfire-networks/bonfire-app/commit/7cdebd0e5fba2aafbe6dd77d2bfafb8785c2221e) (thanks @ivanminutillo and @mayel)
 - 📝 api docs [`d3ddab2`](https://github.com/bonfire-networks/bonfire-app/commit/d3ddab2254f715c4dc3ab88b0712a049e4cf10e1) (thanks @ivanminutillo)
+- 📝 attempt fix [`bca3497`](https://github.com/bonfire-networks/bonfire-app/commit/bca3497730337a7c00a02d91fc5dec29a31402a0) (thanks @mayel)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [`24b77c6`](https://github.com/bonfire-networks/bonfire-app/commit/24b77c67bafaeeb51329bb96a973de324335f077) (thanks @mayel and @harveypitt)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [`09249ff`](https://github.com/bonfire-networks/bonfire-app/commit/09249ff54fdb25efb4b1a0e2a139147ec5332c3e) (thanks @mayel and @harveypitt)
 - 📝 configs [`f1061e7`](https://github.com/bonfire-networks/bonfire-app/commit/f1061e7195d78e641f8488f1cfd0d2b3cbaf63c1) (thanks @mayel)
 - 🚧 Implement web push notification [#1292](https://github.com/bonfire-networks/bonfire-app/issues/1292) [`8c41f51`](https://github.com/bonfire-networks/bonfire-app/commit/8c41f5140939aa8da06c506cb20f59199945ff10) (thanks @mayel and @ivanminutillo)
 - 🚧 Feature Proposals: set post language & multi-language posts [#270](https://github.com/bonfire-networks/bonfire-app/issues/270) [`2da2eee`](https://github.com/bonfire-networks/bonfire-app/commit/2da2eee93690eb1c269f3c9d16716d16e3b875e7), [`1b0a3ba`](https://github.com/bonfire-networks/bonfire-app/commit/1b0a3ba9e30d100a96e2755e49a8a3c48513d66b), [`4d02afb`](https://github.com/bonfire-networks/bonfire-app/commit/4d02afbfa632306af34850717418097113448b66) (thanks @mayel)
@@ -43,8 +46,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 tidewave [`ee40171`](https://github.com/bonfire-networks/bonfire-app/commit/ee40171f6062fb34ee318431b96be6a376a4ce8e) (thanks @ivanminutillo)
 - 📝 up# Please enter the commit message for your changes. Lines starting [`3fd85ea`](https://github.com/bonfire-networks/bonfire-app/commit/3fd85ea36ea23a01013d00796ff89682bf9421c9) (thanks @mayel)
 - 🚀 update docs [`536ccf2`](https://github.com/bonfire-networks/bonfire-app/commit/536ccf2330a3093e7a5c5ff2f0e1a6172bb92612) (thanks @mayel)
+- 🚀 update translations [`5f861d0`](https://github.com/bonfire-networks/bonfire-app/commit/5f861d055f9ba99f09bbda995b13886b10c7e2e2) (thanks @mayel)
 
 ### Fixed
+- 🐛 typo: cdlr.ex => cldr.ex [#1676](https://github.com/bonfire-networks/bonfire-app/issues/1676) (thanks @ju1m)
 - 🐛 RuntimeError occurs during user signup when the undiscoverable flag is set to true [#1671](https://github.com/bonfire-networks/bonfire-app/issues/1671) (thanks @harveypitt and @mayel)
 - 🐛 security/confidentiality: pinned ranch is too old to support Unix socket permissions [#1667](https://github.com/bonfire-networks/bonfire-app/issues/1667) - [PR #1871](https://github.com/bonfire-networks/bonfire-app/pull/1871) (thanks @ju1m and @mayel)
 - 🐛 Feed Image Display of Photos [#1654](https://github.com/bonfire-networks/bonfire-app/issues/1654) (thanks @dogrileycom and @ivanminutillo)
@@ -60,5 +65,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🐛 when adding someone to a shared user profile, usernames should be recognise with or without including @ [#1296](https://github.com/bonfire-networks/bonfire-app/issues/1296) (thanks @mayel and @ivanminutillo)
 - 🐛 locking a thread still allows replying to replies wihin it [#1084](https://github.com/bonfire-networks/bonfire-app/issues/1084) (thanks @mayel)
 - 🐛 Fixes Issue #1670 [PR #1672](https://github.com/bonfire-networks/bonfire-app/pull/1672) (thanks @harveypitt)
+- 🐛 fix alpine version def [`ac6cf44`](https://github.com/bonfire-networks/bonfire-app/commit/ac6cf444fc21b6c2663b1f24ec019b54a8c5f581) (thanks @mayel)
 - 🐛 fix tool versions MacOS [`7087db9`](https://github.com/bonfire-networks/bonfire-app/commit/7087db9390c9a3ecc2925ddce55c840c4116548d) (thanks @harveypitt)
 
