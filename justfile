@@ -1167,9 +1167,12 @@ localise-extract:
 	tx config mapping-bulk -p bonfire --source-language en --type PO -f '.po' --source-file-dir priv/localisation/ -i fr -i es -i it -i de --expression 'priv/localisation/<lang>/LC_MESSAGES/{filename}{extension}' --execute
 # curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
 
-@localise-tx-pull:
-	tx pull --all --minimum-perc=5 --force
+@localise-tx-pull *args='--all':
+	tx pull --minimum-perc=5 --force {{args}}
+	mkdir -p priv/localisation/es_AR/LC_MESSAGES/ && mv priv/localisation/es_AR-C/LC_MESSAGES/* priv/localisation/es_AR/LC_MESSAGES/
+	mkdir -p priv/localisation/es_AR_BuenosAi/LC_MESSAGES/ && mv priv/localisation/es_AR-B/LC_MESSAGES/* priv/localisation/es_AR_BuenosAi/LC_MESSAGES/
 	just mix deps.compile bonfire_common --force
+# NOTE: should only rename es_AR-C to es_AR if we don't also have es_AR ^
 
 @localise-tx-push:
 	tx push --source
