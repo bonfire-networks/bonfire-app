@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.11">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.12">
 
 
-    <title>Bonfire.Common.Localise.Cldr.LocaleDisplay — Bonfire v1.0.1-social-alpha.11</title>
+    <title>Bonfire.Common.Localise.Cldr.LocaleDisplay — Bonfire v1.0.1-social-alpha.12</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.11
+          v1.0.1-social-alpha.12
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.LocaleDisplay</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.11)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.12)</small>
 
     </h1>
 
@@ -218,25 +218,25 @@ the alternative preferences are <code class="inline">:short</code>,
 <code class="inline">:long</code>, <code class="inline">:menu</code> and <code class="inline">:variant</code>.</p></li><li><p><code class="inline">:locale</code> is a <code class="inline">t:Cldr.LanguageTag</code> or any valid
 locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#known_locale_names/1"><code class="inline">Cldr.known_locale_names/1</code></a>.</p></li></ul><h3 id="display_name/2-returns" class="section-heading"><a href="#display_name/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h3><ul><li><p><code class="inline">{:ok, string}</code> representing a name
 suitable for presentation purposes or</p></li><li><p><code class="inline">{:error, {exception, reason}}</code></p></li></ul><h3 id="display_name/2-examples" class="section-heading"><a href="#display_name/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w">
-</span><span class="p" data-group-id="9394891845-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;English&quot;</span><span class="p" data-group-id="9394891845-1">}</span><span class="w">
+</span><span class="p" data-group-id="0557632205-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;English&quot;</span><span class="p" data-group-id="0557632205-1">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span><span class="w">
-</span><span class="p" data-group-id="9394891845-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;English (United States)&quot;</span><span class="p" data-group-id="9394891845-2">}</span><span class="w">
+</span><span class="p" data-group-id="0557632205-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;English (United States)&quot;</span><span class="p" data-group-id="0557632205-2">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="w">
-</span><span class="p" data-group-id="9394891845-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;American English&quot;</span><span class="p" data-group-id="9394891845-3">}</span><span class="w">
+</span><span class="p" data-group-id="0557632205-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;American English&quot;</span><span class="p" data-group-id="0557632205-3">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="w">
-</span><span class="p" data-group-id="9394891845-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;American English (Gregorian Calendar, Currency: A$)&quot;</span><span class="p" data-group-id="9394891845-4">}</span><span class="w">
+</span><span class="p" data-group-id="0557632205-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;American English (Gregorian Calendar, Currency: A$)&quot;</span><span class="p" data-group-id="0557632205-4">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="w">
-</span><span class="p" data-group-id="9394891845-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;anglais américain (calendrier grégorien, devise : A$)&quot;</span><span class="p" data-group-id="9394891845-5">}</span><span class="w">
+</span><span class="p" data-group-id="0557632205-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;anglais américain (calendrier grégorien, devise : A$)&quot;</span><span class="p" data-group-id="0557632205-5">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;nl-BE&quot;</span><span class="w">
-</span><span class="p" data-group-id="9394891845-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dutch (Belgium)&quot;</span><span class="p" data-group-id="9394891845-6">}</span><span class="w">
+</span><span class="p" data-group-id="0557632205-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dutch (Belgium)&quot;</span><span class="p" data-group-id="0557632205-6">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name</span><span class="w"> </span><span class="s">&quot;nl-BE&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="w">
-</span><span class="p" data-group-id="9394891845-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Flemish&quot;</span><span class="p" data-group-id="9394891845-7">}</span></code></pre>
+</span><span class="p" data-group-id="0557632205-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Flemish&quot;</span><span class="p" data-group-id="0557632205-7">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="display_name!/2">
@@ -287,19 +287,19 @@ the alternative preferences are<code class="inline">:short</code>,
 <code class="inline">:long</code>, <code class="inline">:menu</code> and <code class="inline">:variant</code>.</p></li><li><p><code class="inline">:locale</code> is a <code class="inline">t:Cldr.LanguageTag</code> or any valid
 locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#known_locale_names/1"><code class="inline">Cldr.known_locale_names/1</code></a>.</p></li><li><p><code class="inline">:backend</code> is any module that includes <code class="inline">use Cldr</code> and therefore
 is a <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html"><code class="inline">Cldr</code></a> backend module. The default is <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#default_backend!/0"><code class="inline">Cldr.default_backend!/0</code></a>.</p></li></ul><h3 id="display_name!/2-returns" class="section-heading"><a href="#display_name!/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h3><ul><li><p>a string representation of the language tag
-suitable for presentation purposes or</p></li><li><p>raises an exception.</p></li></ul><h3 id="display_name!/2-examples" class="section-heading"><a href="#display_name!/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="9128826450-1">(</span><span class="ss">:en</span><span class="p" data-group-id="9128826450-1">)</span><span class="w">
+suitable for presentation purposes or</p></li><li><p>raises an exception.</p></li></ul><h3 id="display_name!/2-examples" class="section-heading"><a href="#display_name!/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="2425134641-1">(</span><span class="ss">:en</span><span class="p" data-group-id="2425134641-1">)</span><span class="w">
 </span><span class="s">&quot;English&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="9128826450-2">(</span><span class="ss">:&quot;en-US&quot;</span><span class="p" data-group-id="9128826450-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="2425134641-2">(</span><span class="ss">:&quot;en-US&quot;</span><span class="p" data-group-id="2425134641-2">)</span><span class="w">
 </span><span class="s">&quot;English (United States)&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="9128826450-3">(</span><span class="ss">:&quot;en-US&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="p" data-group-id="9128826450-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="2425134641-3">(</span><span class="ss">:&quot;en-US&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="p" data-group-id="2425134641-3">)</span><span class="w">
 </span><span class="s">&quot;American English&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="9128826450-4">(</span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="p" data-group-id="9128826450-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="2425134641-4">(</span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="p" data-group-id="2425134641-4">)</span><span class="w">
 </span><span class="s">&quot;American English (Gregorian Calendar, Currency: A$)&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="9128826450-5">(</span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="p" data-group-id="9128826450-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_name!</span><span class="p" data-group-id="2425134641-5">(</span><span class="s">&quot;en-US-u-ca-gregory-cu-aud&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">language_display</span><span class="p">:</span><span class="w"> </span><span class="ss">:dialect</span><span class="p" data-group-id="2425134641-5">)</span><span class="w">
 </span><span class="s">&quot;anglais américain (calendrier grégorien, devise : A$)&quot;</span></code></pre>
   </section>
 </section>
@@ -333,7 +333,7 @@ suitable for presentation purposes or</p></li><li><p>raises an exception.</p></l
 
 <p>Returns the localised display names data
 for a locale name.</p><h3 id="display_names/1-arguments" class="section-heading"><a href="#display_names/1-arguments" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Arguments</span></h3><ul><li><code class="inline">language_tag</code> is any <code class="inline">t:Cldr.LanguageTag</code> or
-a binary locale name.</li></ul><h3 id="display_names/1-returns" class="section-heading"><a href="#display_names/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h3><ul><li>A map of locale display names.</li></ul><h3 id="display_names/1-examples" class="section-heading"><a href="#display_names/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="p">=&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_names</span><span class="p" data-group-id="6741627557-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="6741627557-1">)</span></code></pre>
+a binary locale name.</li></ul><h3 id="display_names/1-returns" class="section-heading"><a href="#display_names/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h3><ul><li>A map of locale display names.</li></ul><h3 id="display_names/1-examples" class="section-heading"><a href="#display_names/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="p">=&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">display_names</span><span class="p" data-group-id="5673875366-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="5673875366-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="time_zone_names/1">
@@ -366,7 +366,7 @@ a binary locale name.</li></ul><h3 id="display_names/1-returns" class="section-h
 
 <p>Returns the localised time zone names data
 for a locale name.</p><h3 id="time_zone_names/1-arguments" class="section-heading"><a href="#time_zone_names/1-arguments" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Arguments</span></h3><ul><li><code class="inline">language_tag</code> is any <code class="inline">t:Cldr.LanguageTag</code> or
-a binary locale name.</li></ul><h3 id="time_zone_names/1-returns" class="section-heading"><a href="#time_zone_names/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h3><ul><li>A map of locale time zone names.</li></ul><h3 id="time_zone_names/1-examples" class="section-heading"><a href="#time_zone_names/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="p">=&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">time_zone_names</span><span class="p" data-group-id="9950027338-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="9950027338-1">)</span></code></pre>
+a binary locale name.</li></ul><h3 id="time_zone_names/1-returns" class="section-heading"><a href="#time_zone_names/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h3><ul><li>A map of locale time zone names.</li></ul><h3 id="time_zone_names/1-examples" class="section-heading"><a href="#time_zone_names/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h3><pre><code class="makeup elixir" translate="no"><span class="p">=&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Localise.Cldr.LocaleDisplay</span><span class="o">.</span><span class="n">time_zone_names</span><span class="p" data-group-id="6340818332-1">(</span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="6340818332-1">)</span></code></pre>
   </section>
 </section>
 
