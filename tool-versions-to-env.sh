@@ -53,16 +53,19 @@ read_tool_versions_write_to_env() {
     while read -r line; do
         to_echo "$safe_to_echo" "Original line: $line"
 
-        # split the line into a bash array using the default space delimeter
-        IFS=" " read -r -a lineArray <<<"$line"
+        # If line starts with '####', treat as real entry (strip leading hashes and whitespace)
+        if [[ "$line" =~ ^####[[:space:]]*([a-zA-Z0-9_-]+)[[:space:]]+([^\ ]+) ]]; then
+            key="${BASH_REMATCH[1]}"
+            value="${BASH_REMATCH[2]}"
+        else
+            # split the line into a bash array using the default space delimiter
+            IFS=" " read -r -a lineArray <<<"$line"
+            key=$(echo "${lineArray[0]}" | tr '[:upper:]' '[:lower:]')
+            value="${lineArray[1]}"
+        fi
 
-        # get the key and value from the array, set the key to all uppercase
-        # key="${lineArray[0],,}"
-        key=$(echo "${lineArray[0]}" | tr '[:upper:]' '[:lower:]')
-        value="${lineArray[1]}"
-
-        # ignore comments, comments always start with #
-        if [[ ${key:0:1} != "#" ]]; then
+        # ignore comments, comments always start with # (but not ####)
+        if [[ ${key:0:1} != "#" && -n "$key" && -n "$value" ]]; then
             full_key="${key}_version"
             to_echo "${safe_to_echo}" "Parsed line:   ${full_key}=${value}"
             # echo the variable to the .env file
@@ -72,8 +75,6 @@ read_tool_versions_write_to_env() {
             elif [ "$how_to_echo" -eq 2 ]; then
                 echo "${full_key_upper}=$value" >>"$GITHUB_ENV"
             elif [ "$how_to_echo" -eq 3 ]; then
-                # echo "$value"
-                # break
                 echo " ${full_key_upper}=${value}"
             fi
         fi
@@ -105,5 +106,5 @@ elif [ "$ACTION_OPTION" -eq 3 ]; then
     # print single to variable to stdout
     read_tool_versions_write_to_env 3 "$TOOL_VERSIONS_FILE" "" 0
 else
-    echo "First argument was not of option 1, 2, or 3"
+    echo "First argument was not of option 1 (output to env file), 2 (output to github action), or 3 (print variables to stdout)"
 fi
