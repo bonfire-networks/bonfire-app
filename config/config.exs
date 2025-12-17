@@ -356,7 +356,7 @@ import_config "ember.exs"
 # include configs for the current flavour (augmenting or overriding the previous ones)
 flavour_config = "#{flavour}.exs" |> Path.expand(__DIR__)
 
-if flavour !="ember" and File.exists?(flavour_config) do
+if flavour != "ember" and File.exists?(flavour_config) do
   System.get_env("MIX_QUIET") ||
     IO.puts("Include flavour-specific config from `#{flavour_config}`")
 

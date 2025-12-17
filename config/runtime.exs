@@ -172,7 +172,15 @@ finch_conn_opts =
     end
 
 finch_pools = %{
-  :default => [size: 42, count: 2, conn_opts: finch_conn_opts],
+  :default => [
+    # Number of connections to maintain in each pool (HTTP1)
+    size: String.to_integer(System.get_env("FINCH_POOL_SIZE", "50")),
+    # Number of pools to start (increasing is only useful for HTTP2, which we don't use by default)
+    count: String.to_integer(System.get_env("FINCH_POOL_COUNT", "1")),
+    # 10 min by default
+    pool_max_idle_time: String.to_integer(System.get_env("FINCH_POOL_MAX_IDLE_TIME", "600_000")),
+    conn_opts: finch_conn_opts
+  ],
   "https://icons.duckduckgo.com" => [
     conn_opts: [transport_opts: [size: 8, timeout: 3_000, conn_opts: finch_conn_opts]]
   ],
