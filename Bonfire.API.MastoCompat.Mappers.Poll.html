@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.21">
+
+
+    <title>Bonfire.API.MastoCompat.Mappers.Poll — Bonfire v1.0.1-social-alpha.21</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-DDA65262.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.1-social-alpha.21
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.API.MastoCompat.Mappers.Poll</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.21)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/mappers/poll.ex#L2" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Maps Bonfire Poll.Question objects to Mastodon Poll format.</p><p>Per the Mastodon API spec, a Poll represents a poll attached to a status.
+See: <a href="https://docs.joinmastodon.org/entities/Poll/">https://docs.joinmastodon.org/entities/Poll/</a></p><h2 id="module-required-fields" class="section-heading"><a href="#module-required-fields" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Required Fields</span></h2><ul><li><code class="inline">id</code> (string) - The poll's database ID</li><li><code class="inline">options</code> (array) - Poll options with title and votes_count</li></ul><h2 id="module-optional-fields" class="section-heading"><a href="#module-optional-fields" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Optional Fields</span></h2><ul><li><code class="inline">expires_at</code> (string, datetime) - When the poll ends</li><li><code class="inline">expired</code> (boolean) - Whether the poll has ended</li><li><code class="inline">multiple</code> (boolean) - Whether multiple choices are allowed</li><li><code class="inline">votes_count</code> (integer) - Total votes across all options</li><li><code class="inline">voters_count</code> (integer) - Unique voters count</li><li><code class="inline">voted</code> (boolean) - Whether the current user has voted</li><li><code class="inline">own_votes</code> (array of integers) - Indices of user's choices</li><li><code class="inline">emojis</code> (array) - Custom emojis in options</li></ul>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#from_question/2" data-no-tooltip="" translate="no">from_question(question, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Transform a Bonfire Poll.Question to a Mastodon Poll.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#is_poll?/1" data-no-tooltip="" translate="no">is_poll?(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Check if a given object is a Poll Question type.
+Uses module name check to avoid compile-time struct dependency.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#poll_expired?/1" data-no-tooltip="" translate="no">poll_expired?(question)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="from_question/2">
+
+    <span id="from_question/1"></span>
+
+  <div class="detail-header">
+    <a href="#from_question/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">from_question(question, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/mappers/poll.ex#L41" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Transform a Bonfire Poll.Question to a Mastodon Poll.</p><h2 id="from_question/2-options" class="section-heading"><a href="#from_question/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:current_user</code> - The current user (for voted/own_votes)</li><li><code class="inline">:votes_count</code> - Pre-computed votes count (optional)</li><li><code class="inline">:voters_count</code> - Pre-computed voters count (optional)</li><li><code class="inline">:user_votes</code> - Pre-loaded user votes list (optional)</li></ul>
+  </section>
+</section>
+<section class="detail" id="is_poll?/1">
+
+  <div class="detail-header">
+    <a href="#is_poll?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">is_poll?(object)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/mappers/poll.ex#L78" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Check if a given object is a Poll Question type.
+Uses module name check to avoid compile-time struct dependency.</p>
+  </section>
+</section>
+<section class="detail" id="poll_expired?/1">
+
+  <div class="detail-header">
+    <a href="#poll_expired?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">poll_expired?(question)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/mappers/poll.ex#L174" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

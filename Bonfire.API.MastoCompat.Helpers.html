@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.21">
+
+
+    <title>Bonfire.API.MastoCompat.Helpers — Bonfire v1.0.1-social-alpha.21</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-DDA65262.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.1-social-alpha.21
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.API.MastoCompat.Helpers</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.21)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L2" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Shared helper functions for Mastodon API mappers.</p><p>This module provides common utilities used across mappers to safely
+extract and transform data from Bonfire structures to Mastodon format.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#deep_struct_to_map/2" data-no-tooltip="" translate="no">deep_struct_to_map(value, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Recursively converts structs to JSON-safe values.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_datetime/1" data-no-tooltip="" translate="no">format_datetime(dt)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Formats a datetime to ISO8601 format as expected by Mastodon API.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_field/2" data-no-tooltip="" translate="no">get_field(map, key)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Safely get a field from a map or struct, handling nil and NotLoaded associations.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_fields/2" data-no-tooltip="" translate="no">get_fields(map, keys)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the first non-nil value from a map by trying multiple keys in order.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#normalize_hashtag/1" data-no-tooltip="" translate="no">normalize_hashtag(hashtag)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Normalize a hashtag string for querying.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_string_safe/1" data-no-tooltip="" translate="no">to_string_safe(value)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts a value to string, handling nil gracefully.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#validate_and_return/2" data-no-tooltip="" translate="no">validate_and_return(entity, schema_module)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Validates an entity against a schema module and returns the valid entity or nil.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="deep_struct_to_map/2">
+
+    <span id="deep_struct_to_map/1"></span>
+
+  <div class="detail-header">
+    <a href="#deep_struct_to_map/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">deep_struct_to_map(value, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L122" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Recursively converts structs to JSON-safe values.</p><p>Handles DateTime, NaiveDateTime, Date, and Ecto NotLoaded associations.
+Can optionally filter out nil values and drop unknown struct types.</p><h2 id="deep_struct_to_map/2-options" class="section-heading"><a href="#deep_struct_to_map/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:filter_nils</code> - Remove nil values from maps and lists (default: false)</li><li><code class="inline">:drop_unknown_structs</code> - Return nil for unrecognized structs instead of converting to map (default: false)</li></ul><h2 id="deep_struct_to_map/2-examples" class="section-heading"><a href="#deep_struct_to_map/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="6300465522-1">(</span><span class="p" data-group-id="6300465522-2">%{</span><span class="ss">date</span><span class="p">:</span><span class="w"> </span><span class="ld">~U[2024-01-15 10:30:00Z]</span><span class="p" data-group-id="6300465522-2">}</span><span class="p" data-group-id="6300465522-1">)</span><span class="w">
+</span><span class="p" data-group-id="6300465522-3">%{</span><span class="ss">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-01-15T10:30:00Z&quot;</span><span class="p" data-group-id="6300465522-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="6300465522-4">(</span><span class="p" data-group-id="6300465522-5">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="6300465522-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">filter_nils</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="6300465522-4">)</span><span class="w">
+</span><span class="p" data-group-id="6300465522-6">%{</span><span class="p" data-group-id="6300465522-6">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="6300465522-7">(</span><span class="p" data-group-id="6300465522-8">%</span><span class="nc" data-group-id="6300465522-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="6300465522-8">{</span><span class="p" data-group-id="6300465522-8">}</span><span class="p" data-group-id="6300465522-7">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="format_datetime/1">
+
+  <div class="detail-header">
+    <a href="#format_datetime/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">format_datetime(dt)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L87" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Formats a datetime to ISO8601 format as expected by Mastodon API.</p><p>Handles various datetime types (DateTime, NaiveDateTime, Date) and
+returns nil for invalid inputs.</p><h2 id="format_datetime/1-examples" class="section-heading"><a href="#format_datetime/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">format_datetime</span><span class="p" data-group-id="0281658648-1">(</span><span class="ld">~U[2024-01-15 10:30:00Z]</span><span class="p" data-group-id="0281658648-1">)</span><span class="w">
+</span><span class="s">&quot;2024-01-15T10:30:00.000Z&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">format_datetime</span><span class="p" data-group-id="0281658648-2">(</span><span class="no">nil</span><span class="p" data-group-id="0281658648-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_field/2">
+
+  <div class="detail-header">
+    <a href="#get_field/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_field(map, key)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L35" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Safely get a field from a map or struct, handling nil and NotLoaded associations.</p><p>Returns <code class="inline">nil</code> for:</p><ul><li>nil input</li><li>Empty maps</li><li>NotLoaded Ecto associations</li><li>Non-map inputs</li><li>Missing keys</li></ul><h2 id="get_field/2-examples" class="section-heading"><a href="#get_field/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="0616645200-1">(</span><span class="p" data-group-id="0616645200-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p" data-group-id="0616645200-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0616645200-1">)</span><span class="w">
+</span><span class="s">&quot;test&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="0616645200-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0616645200-3">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="0616645200-4">(</span><span class="p" data-group-id="0616645200-5">%{</span><span class="p" data-group-id="0616645200-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0616645200-4">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="0616645200-6">(</span><span class="p" data-group-id="0616645200-7">%{</span><span class="ss">assoc</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0616645200-8">%</span><span class="nc" data-group-id="0616645200-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="0616645200-8">{</span><span class="p" data-group-id="0616645200-8">}</span><span class="p" data-group-id="0616645200-7">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:assoc</span><span class="p" data-group-id="0616645200-6">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_fields/2">
+
+  <div class="detail-header">
+    <a href="#get_fields/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_fields(map, keys)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L250" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get the first non-nil value from a map by trying multiple keys in order.</p><p>Useful when data can come from either GraphQL (with aliased field names)
+or directly from Ecto (with raw schema field names).</p><h2 id="get_fields/2-examples" class="section-heading"><a href="#get_fields/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0566834346-1">(</span><span class="p" data-group-id="0566834346-2">%{</span><span class="ss">display_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="0566834346-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0566834346-3">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0566834346-3">]</span><span class="p" data-group-id="0566834346-1">)</span><span class="w">
+</span><span class="s">&quot;Alice&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0566834346-4">(</span><span class="p" data-group-id="0566834346-5">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bob&quot;</span><span class="p" data-group-id="0566834346-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0566834346-6">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0566834346-6">]</span><span class="p" data-group-id="0566834346-4">)</span><span class="w">
+</span><span class="s">&quot;Bob&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0566834346-7">(</span><span class="p" data-group-id="0566834346-8">%{</span><span class="ss">other</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="0566834346-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0566834346-9">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0566834346-9">]</span><span class="p" data-group-id="0566834346-7">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0566834346-10">(</span><span class="p" data-group-id="0566834346-11">%{</span><span class="s">&quot;avatar&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;url&quot;</span><span class="p" data-group-id="0566834346-11">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0566834346-12">[</span><span class="ss">:avatar</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;avatar&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:icon</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;icon&quot;</span><span class="p" data-group-id="0566834346-12">]</span><span class="p" data-group-id="0566834346-10">)</span><span class="w">
+</span><span class="s">&quot;url&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="normalize_hashtag/1">
+
+  <div class="detail-header">
+    <a href="#normalize_hashtag/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">normalize_hashtag(hashtag)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L282" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Normalize a hashtag string for querying.</p><p>Removes # prefix if present and handles case normalization.
+Uses Bonfire's hashtag normalization if available, otherwise
+falls back to simple lowercase.</p><h2 id="normalize_hashtag/1-examples" class="section-heading"><a href="#normalize_hashtag/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="5217858724-1">(</span><span class="s">&quot;#Bonfire&quot;</span><span class="p" data-group-id="5217858724-1">)</span><span class="w">
+</span><span class="s">&quot;bonfire&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="5217858724-2">(</span><span class="s">&quot;ELIXIR&quot;</span><span class="p" data-group-id="5217858724-2">)</span><span class="w">
+</span><span class="s">&quot;elixir&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="5217858724-3">(</span><span class="no">nil</span><span class="p" data-group-id="5217858724-3">)</span><span class="w">
+</span><span class="s">&quot;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="to_string_safe/1">
+
+  <div class="detail-header">
+    <a href="#to_string_safe/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">to_string_safe(value)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L69" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Converts a value to string, handling nil gracefully.</p><h2 id="to_string_safe/1-examples" class="section-heading"><a href="#to_string_safe/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="4240145417-1">(</span><span class="mi">123</span><span class="p" data-group-id="4240145417-1">)</span><span class="w">
+</span><span class="s">&quot;123&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="4240145417-2">(</span><span class="no">nil</span><span class="p" data-group-id="4240145417-2">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="4240145417-3">(</span><span class="s">&quot;already_string&quot;</span><span class="p" data-group-id="4240145417-3">)</span><span class="w">
+</span><span class="s">&quot;already_string&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="validate_and_return/2">
+
+  <div class="detail-header">
+    <a href="#validate_and_return/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">validate_and_return(entity, schema_module)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/mastodon_compat/helpers.ex#L209" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Validates an entity against a schema module and returns the valid entity or nil.</p><p>Logs warnings for validation failures to aid debugging without crashing.</p><h2 id="validate_and_return/2-parameters" class="section-heading"><a href="#validate_and_return/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">entity</code> - The map to validate</li><li><code class="inline">schema_module</code> - The schema module with a <code class="inline">validate/1</code> function</li></ul><h2 id="validate_and_return/2-examples" class="section-heading"><a href="#validate_and_return/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">validate_and_return</span><span class="p" data-group-id="7689294213-1">(</span><span class="p" data-group-id="7689294213-2">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="7689294213-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">Schemas.Status</span><span class="p" data-group-id="7689294213-1">)</span><span class="w">
+</span><span class="p" data-group-id="7689294213-3">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="7689294213-3">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_and_return</span><span class="p" data-group-id="7689294213-4">(</span><span class="p" data-group-id="7689294213-5">%{</span><span class="p" data-group-id="7689294213-5">}</span><span class="p">,</span><span class="w"> </span><span class="nc">Schemas.Status</span><span class="p" data-group-id="7689294213-4">)</span><span class="w">
+</span><span class="no">nil</span><span class="w">  </span><span class="c1"># Logs warning about missing required fields</span></code></pre>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
