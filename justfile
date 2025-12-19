@@ -1252,7 +1252,7 @@ tunnel: tunnel-localhost-run
 
 @tunnel-localhost-run:
 	echo "NOTE: you'll need to copy the generated domain name that will be printed below into HOSTNAME in your .env"
-	ssh -R 80:localhost:4000 localhost.run
+	ssh -R 80:localhost:4000 nokey@localhost.run
 
 # this requires `cargo install tunnelto` (the homebrew version of tunnelto doesn't work)
 @tunnel-tunnelto:
