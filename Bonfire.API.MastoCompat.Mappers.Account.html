@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.25">
+    <meta name="project" content="Bonfire v1.0.1-social-alpha.26">
 
 
-    <title>Bonfire.API.MastoCompat.Mappers.Account — Bonfire v1.0.1-social-alpha.25</title>
+    <title>Bonfire.API.MastoCompat.Mappers.Account — Bonfire v1.0.1-social-alpha.26</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.25
+          v1.0.1-social-alpha.26
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.API.MastoCompat.Mappers.Account</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.25)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.26)</small>
 
     </h1>
 
@@ -95,13 +95,13 @@ Bonfire
     <section id="moduledoc">
 <p>Maps Bonfire User objects to Mastodon Account format.</p><p>This module is the single source of truth for transforming Bonfire users
 into Mastodon-compatible account objects. It handles:</p><ul><li>Field extraction from both GraphQL responses (aliased names) and Ecto structs (schema names)</li><li>Stats computation (with options to skip or use preloaded values)</li><li>Building the final flat Mastodon account structure</li></ul><h2 id="module-usage" class="section-heading"><a href="#module-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Basic account transformation</span><span class="w">
-</span><span class="nc">Mappers.Account</span><span class="o">.</span><span class="n">from_user</span><span class="p" data-group-id="2922223930-1">(</span><span class="n">user</span><span class="p" data-group-id="2922223930-1">)</span><span class="w">
+</span><span class="nc">Mappers.Account</span><span class="o">.</span><span class="n">from_user</span><span class="p" data-group-id="7900029514-1">(</span><span class="n">user</span><span class="p" data-group-id="7900029514-1">)</span><span class="w">
 
 </span><span class="c1"># Skip expensive stats for list endpoints</span><span class="w">
-</span><span class="nc">Mappers.Account</span><span class="o">.</span><span class="n">from_user</span><span class="p" data-group-id="2922223930-2">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_expensive_stats</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="2922223930-2">)</span><span class="w">
+</span><span class="nc">Mappers.Account</span><span class="o">.</span><span class="n">from_user</span><span class="p" data-group-id="7900029514-2">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">skip_expensive_stats</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="7900029514-2">)</span><span class="w">
 
 </span><span class="c1"># Use preloaded stats (batch loading optimization)</span><span class="w">
-</span><span class="nc">Mappers.Account</span><span class="o">.</span><span class="n">from_user</span><span class="p" data-group-id="2922223930-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">follow_counts</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2922223930-4">%{</span><span class="ss">followers</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ss">following</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="2922223930-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">status_count</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p" data-group-id="2922223930-3">)</span></code></pre>
+</span><span class="nc">Mappers.Account</span><span class="o">.</span><span class="n">from_user</span><span class="p" data-group-id="7900029514-3">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">follow_counts</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7900029514-4">%{</span><span class="ss">followers</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ss">following</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="7900029514-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">status_count</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p" data-group-id="7900029514-3">)</span></code></pre>
     </section>
 
 </div>
@@ -185,10 +185,10 @@ into Mastodon-compatible account objects. It handles:</p><ul><li>Field extractio
 
 <p>Transform a Bonfire User into a Mastodon Account.</p><p>Returns nil if the user is nil or invalid.</p><h2 id="from_user/2-options" class="section-heading"><a href="#from_user/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:skip_expensive_stats</code> - Skip computing expensive stats (statuses_count,
 followers_count, following_count, follow_requests_count). Use for list endpoints
-where these counts are not displayed. Default: false</li><li><code class="inline">:follow_counts</code> - Pre-loaded follow counts map with :followers and :following keys</li><li><code class="inline">:status_count</code> - Pre-loaded status count integer</li><li><code class="inline">:current_user</code> - Current user context (for settings lookups)</li><li><code class="inline">:fallback_return</code> - Value to return on error (default: nil)</li></ul><h2 id="from_user/2-examples" class="section-heading"><a href="#from_user/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">from_user</span><span class="p" data-group-id="4325421393-1">(</span><span class="p" data-group-id="4325421393-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">character</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4325421393-3">%{</span><span class="ss">username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="4325421393-3">}</span><span class="p" data-group-id="4325421393-2">}</span><span class="p" data-group-id="4325421393-1">)</span><span class="w">
-</span><span class="p" data-group-id="4325421393-4">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;username&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4325421393-4">}</span><span class="w">
+where these counts are not displayed. Default: false</li><li><code class="inline">:follow_counts</code> - Pre-loaded follow counts map with :followers and :following keys</li><li><code class="inline">:status_count</code> - Pre-loaded status count integer</li><li><code class="inline">:current_user</code> - Current user context (for settings lookups)</li><li><code class="inline">:fallback_return</code> - Value to return on error (default: nil)</li></ul><h2 id="from_user/2-examples" class="section-heading"><a href="#from_user/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">from_user</span><span class="p" data-group-id="4475667143-1">(</span><span class="p" data-group-id="4475667143-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">character</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4475667143-3">%{</span><span class="ss">username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p" data-group-id="4475667143-3">}</span><span class="p" data-group-id="4475667143-2">}</span><span class="p" data-group-id="4475667143-1">)</span><span class="w">
+</span><span class="p" data-group-id="4475667143-4">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;username&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4475667143-4">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">from_user</span><span class="p" data-group-id="4325421393-5">(</span><span class="no">nil</span><span class="p" data-group-id="4325421393-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">from_user</span><span class="p" data-group-id="4475667143-5">(</span><span class="no">nil</span><span class="p" data-group-id="4475667143-5">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
