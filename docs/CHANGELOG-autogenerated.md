@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ optimise use/display of remote images [#792](https://github.com/bonfire-networks/bonfire-app/issues/792) (thanks @mayel)
 
 ### Changed
+- 📝 when i minimize the composer that contains a reply, the reply_to disappear [#1686](https://github.com/bonfire-networks/bonfire-app/issues/1686) (thanks @ivanminutillo)
 - ⚡ prioritise the processing (in seperate federation queue) of incoming @ mentions and DMs [#1658](https://github.com/bonfire-networks/bonfire-app/issues/1658) (thanks @mayel)
 - 📝 Boost icon does not darken after boost. [#1642](https://github.com/bonfire-networks/bonfire-app/issues/1642) (thanks @mayel and @ivanminutillo)
 - 📝 Replying to a comment within a thread includes all the thread participants by default, instead of just the ones included in the post i'm replying to [#1615](https://github.com/bonfire-networks/bonfire-app/issues/1615) (thanks @ivanminutillo and @mayel)
