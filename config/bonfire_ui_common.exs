@@ -193,3 +193,34 @@ config :surface, :components, [
 ]
 
 # variants_prefix: "s-"
+
+config :cors_plug,
+  origin: [], # default: "*" # NOTE: we set specific origins per route in Bonfire.UI.Common.RuntimeConfig
+  max_age: 86_400, # default: 1_728_000
+  methods: ["POST", "PUT", "DELETE", "GET", "PATCH", "OPTIONS"], # same as default
+  expose: [ # default: []
+    "Link",
+    "X-RateLimit-Reset",
+    "X-RateLimit-Limit",
+    "X-RateLimit-Remaining",
+    "X-Request-Id",
+    "Idempotency-Key"
+  ],
+  # send_preflight_response?: true # default: true
+  # credentials: true, # default: true
+  headers: ["Authorization", "Content-Type", "Idempotency-Key"]
+  # default headers: [ 
+  #   "Authorization",
+  #   "Content-Type",
+  #   "Accept",
+  #   "Origin",
+  #   "User-Agent",
+  #   "DNT",
+  #   "Cache-Control",
+  #   "X-Mx-ReqToken",
+  #   "Keep-Alive",
+  #   "X-Requested-With",
+  #   "If-Modified-Since",
+  #   "X-CSRF-Token"
+  # ],
+
