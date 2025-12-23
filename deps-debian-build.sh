@@ -10,6 +10,9 @@ chmod +x ./deps-debian.sh
 apt-get install -q -y --no-install-recommends sqlite3 npm 
 # rustc cargo g++ 
 
+npm install -g corepack
+corepack enable
+
 # deps of tools
 apt-get install -q -y --no-install-recommends autoconf dpkg-dev  libncurses-dev unixodbc-dev libssl-dev libsctp-dev libodbc1 libssl1.1 libsctp1 make gcc cmake
 # includes build tools needed for mise to build erlang ^
