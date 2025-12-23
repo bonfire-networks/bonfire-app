@@ -1157,7 +1157,7 @@ audit:
 
 bill-of-materials:
 	just mix sbom.cyclonedx --only prod -f -o docs/bill-of-materials/{{FLAVOUR}}/server-deps.cdx.json
-	(cd extensions/bonfire_ui_common/assets || cd deps/bonfire_ui_common/assets) && yarn exec cyclonedx-yarn --prod -o ../../../docs/bill-of-materials/{{FLAVOUR}}/browser-deps.cdx.json
+	(cd extensions/bonfire_ui_common/assets || cd deps/bonfire_ui_common/assets) && yarn dlx -q @cyclonedx/yarn-plugin-cyclonedx --prod -o ../../../docs/bill-of-materials/{{FLAVOUR}}/browser-deps.cdx.json
 
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract:
