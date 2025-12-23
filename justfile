@@ -1155,6 +1155,10 @@ deps-licenses:
 audit:
 	AS_UMBRELLA=1 just mix sobelow
 
+bill-of-materials:
+	just mix sbom.cyclonedx --only prod -f -o docs/bill-of-materials/{{FLAVOUR}}/server-deps.cdx.json
+	(cd extensions/bonfire_ui_common/assets || cd deps/bonfire_ui_common/assets) && yarn exec cyclonedx-yarn --prod -o ../../../docs/bill-of-materials/{{FLAVOUR}}/browser-deps.cdx.json
+
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract:
 	AS_UMBRELLA=1 MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just mix gettext.extract

@@ -9,6 +9,11 @@ on:
   #     - main
 
 jobs:
+  # report_mix_deps:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v6
+  #     - uses: erlef/mix-dependency-submission@v1
   # check_test_success:
   #   runs-on: ubuntu-latest
   #   if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -79,6 +84,17 @@ jobs:
         run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
       # - name: Install dependencies
       #   run: just mix deps.get
+      - name: Generate SBOM
+        run: just bill-of-materials
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: docs/bill-of-materials/**/*
+      - name: SBOM upload
+        uses: advanced-security/spdx-dependency-submission-action@v0.1.1
+        with:
+          filePath: "docs/bill-of-materials/**/*"
       - name: Generate changelog (if mix.lock changed)
         if: ${{ needs.check_lockfile_changed.outputs.changed == 'true' }}
         env:

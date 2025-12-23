@@ -210,6 +210,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
         {:observer_cli, "~> 1.7", only: [:dev, :test]},
         {:map_diff, "~> 1.3", only: [:dev, :test]},
+        {:sbom, "~> 0.8", only: :dev, runtime: false},
 
         # for extension install + mix tasks that do patching
         {
