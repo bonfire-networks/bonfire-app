@@ -184,74 +184,21 @@ config :paper_trail,
 
 config :nx, default_backend: EXLA.Backend
 
+# NOTE: need to declare any types we want to allow to upload in `Bonfire.Files.MimeTypes` to avoid LiveView uploads failing with `invalid accept filter provided to allow_upload. Expected a file extension with a known MIME type.`
 Code.eval_file(
   "mime_types.ex",
   cond do
     File.exists?("extensions/bonfire_files/lib/mime_types.ex") -> "extensions/bonfire_files/lib/"
     File.exists?("deps/bonfire_files/lib/mime_types.ex") -> "deps/bonfire_files/lib/"
-    true -> Path.dirname(__ENV__.file)
+    true -> 
+      # fallback in case the extension is not present
+      Path.dirname(__ENV__.file)
   end
 )
 
-# NOTE: need to declare any types we want to allow to upload to avoid LiveView uploads failing with `invalid accept filter provided to allow_upload. Expected a file extension with a known MIME type.`
 config :mime,
        :types,
-       Map.merge(
-         %{
-           "application/json" => ["json"],
-           "application/activity+json" => ["activity+json"],
-           "application/ld+json" => ["ld+json"],
-           "application/jrd+json" => ["jrd+json"],
-           "application/x-tar" => ["tar"],
-           "application/x-bzip" => ["bzip"],
-           "application/x-bzip2" => ["bzip2"],
-           "application/gzip" => ["gz", "gzip"],
-           "application/zip" => ["zip"],
-           "application/vnd.rar" => ["rar"],
-           "application/x-7z-compressed" => ["7z"],
-           "text/plain" => ["txt", "text", "log", "asc"],
-           "text/swiftui" => ["swiftui"],
-           "text/jetpack" => ["jetpack"],
-           "video/mpeg" => ["mpeg", "m1v", "m2v", "mpa", "mpe", "mpg"],
-           "audio/wav" => ["wav"],
-           "video/3gpp" => ["3gp"],
-           "application/x-mobipocket-ebook" => ["prc", "mobi"],
-           "text/csv" => ["csv"],
-           "image/svg+xml" => ["svg"],
-           "audio/mpeg" => ["mpa", "mp2"],
-           "application/epub+zip" => ["epub"],
-           "application/x-matroska" => ["mkv"],
-           "image/webp" => ["webp"],
-           "image/gif" => ["gif"],
-           "text/tab-separated-values" => ["tsv"],
-           "image/png" => ["png"],
-           "audio/webm" => ["webm"],
-           "audio/opus" => ["opus"],
-           "application/rtf" => ["rtf"],
-           "video/webm" => ["webm"],
-           "application/ics" => ["vcs", "ics"],
-           "video/mp4" => ["mp4", "mp4v", "mpg4"],
-           "audio/mp4" => ["m4a", "mp4"],
-           "audio/mp3" => ["mp3"],
-           "text/markdown" => ["md", "mkd", "markdown", "livemd"],
-           "audio/flac" => ["flac"],
-           "audio/m4a" => ["m4a"],
-           "image/jpeg" => ["jpg", "jpeg"],
-           "audio/x-m4a" => ["m4a"],
-           "video/3gpp2" => ["3g2"],
-           "video/x-msvideo" => ["avi"],
-           "application/pdf" => ["pdf"],
-           "audio/ogg" => ["ogg", "oga"],
-           "text/styles" => ["styles"],
-           "video/quicktime" => ["mov", "qt"],
-           "audio/aac" => ["aac"],
-           "video/x-matroska" => ["mkv"],
-           "text/x-vcard" => ["vcf"],
-           "video/ogg" => ["ogg", "ogv"],
-           "image/apng" => ["apng"]
-         },
          Bonfire.Files.MimeTypes.supported_media()
-       )
 
 # define which is preferred when more than one
 config :mime, :extensions, Bonfire.Files.MimeTypes.unique_extension_for_mime()
