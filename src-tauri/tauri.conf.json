@@ -4,32 +4,38 @@
   "version": "0.1.0",
   "identifier": "com.tauri.dev",
   "build": {
-    "frontendDist": "../priv/static"
+    "frontendDist": "../assets/static/tauri"
   },
   "app": {
-    "windows": [
-      {
-        "url": "tauri/pick-instance.html", 
-        "title": "Bonfire",
-        "width": 800,
-        "height": 600,
-        "resizable": true,
-        "fullscreen": false
-      }
-    ],
     "security": {
-      "csp": null
+      "csp": {
+        "default-src": "'self' https:",
+        "script-src": "'self' https: local:",
+        "connect-src": "'self' https: local:",
+        "worker-src": "'self' blob: local:",
+        "img-src": "'self' https: local: data:",
+        "style-src": "'self' 'unsafe-inline' https:"
+      },
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "$RESOURCE/**"
+        ]
+      }
     }
   },
   "bundle": {
     "active": true,
     "targets": "all",
+    "resources": [
+      "../assets/static/assets/*"
+    ],
     "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
+      "../assets/static/pwa/32x32.png",
+      "../assets/static/pwa/128x128.png",
+      "../assets/static/pwa/128x128@2x.png",
+      "../assets/static/pwa/icon.icns",
+      "../assets/static/pwa/icon.ico"
     ]
   }
 }
