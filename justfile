@@ -742,7 +742,7 @@ _test-federation_script TEST_CMD="test_run": services
     just _test-dance-positions
     just _test-db-dance-reset
     
-    TEST_INSTANCE=yes HOSTNAME=localhost just $TEST_CMD "--only test_instance" {{ ap_ext }}
+    TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just $TEST_CMD "--only test_instance" {{ ap_ext }}
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     # Output a summary - simple pass/fail
@@ -774,20 +774,20 @@ test-federation-others *args=ap_etc: services _test-dance-positions
 	just test_run {{args}}
 
 test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
+	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
 # note: also includes oauth
 test-federation-dance-unsigned *args='': services _test-dance-positions _test-db-dance-reset
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
 test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost just test_run {{args}} "--only test_instance" 
+	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} "--only test_instance" 
 	just _test-dance-positions
 
 # test-boostomatic-dance *args='extensions/boostomatic/test': _test-dance-positions _test-db-dance-reset
-# 	TEST_INSTANCE=yes HOSTNAME=localhost just test_run --only live_federation {{args}} 
+# 	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only live_federation {{args}} 
 # 	just _test-dance-positions
 
 _test-dance-positions: 
