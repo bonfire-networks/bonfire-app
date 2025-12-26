@@ -2,6 +2,7 @@
   "total": 225,
   "not_found": 150,
   "errors": 17,
+  "implemented": 58,
   "endpoints": [
     {
       "status": "implemented",
@@ -11,9 +12,9 @@
       ],
       "summary": "Returns a compliant hostmeta response to web host metadata queries.",
       "method": "GET",
+      "operation_id": "hostMetaGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "hostMetaGet"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -23,9 +24,9 @@
       ],
       "summary": "Returns a well-known response which redirects callers to `/nodeinfo/2.0`.",
       "method": "GET",
+      "operation_id": "nodeInfoWellKnownGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "nodeInfoWellKnownGet"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -35,9 +36,9 @@
       ],
       "summary": "Handles webfinger account lookup requests.",
       "method": "GET",
+      "operation_id": "webfingerGet",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "webfingerGet"
+      "http_status": 400
     },
     {
       "status": "not_found",
@@ -47,9 +48,9 @@
       ],
       "summary": "Create a new account using an application token.",
       "method": "POST",
+      "operation_id": "accountCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -59,9 +60,9 @@
       ],
       "summary": "Alias your account to another account by setting alsoKnownAs to the given URI.",
       "method": "POST",
+      "operation_id": "accountAlias",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountAlias"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -71,9 +72,9 @@
       ],
       "summary": "Delete your account.",
       "method": "POST",
+      "operation_id": "accountDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountDelete"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -83,9 +84,9 @@
       ],
       "summary": "Quickly lookup a username to see if it is available, skipping WebFinger resolution.",
       "method": "GET",
+      "operation_id": "accountLookupGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountLookupGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -95,9 +96,9 @@
       ],
       "summary": "Move your account to another account.",
       "method": "POST",
+      "operation_id": "accountMove",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountMove"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -107,9 +108,9 @@
       ],
       "summary": "See your account's relationships with the given account IDs.",
       "method": "GET",
+      "operation_id": "accountRelationships",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "accountRelationships"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -119,9 +120,9 @@
       ],
       "summary": "Search for accounts by username and/or display name.",
       "method": "GET",
+      "operation_id": "accountSearchGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "accountSearchGet"
+      "http_status": 200
     },
     {
       "status": "error",
@@ -131,9 +132,9 @@
       ],
       "summary": "See preset CSS themes available to accounts on this instance.",
       "method": "GET",
-      "error_message": "protocol Jason.Encoder not implemented for Phoenix.LiveView.Rendered (a struct), Jason.Encoder protocol must always be explicitly implemented.\n\nIf you own the struct, you can derive the implementation specifying which fields should be encoded to JSON:\n\n    @derive {Jason.Encoder, only: [....]}\n    defstruct ...\n\nIt is also possible to encode all fields, although this should be used carefully to avoid accidentally leaking private information when new fields are added:\n\n    @derive Jason.Encoder\n    defstruct ...\n\nFinally, if you don't own the struct you want to encode to JSON, you may use Protocol.derive/3 placed outside of any module:\n\n    Protocol.derive(Jason.Encoder, NameOfTheStruct, only: [...])\n    Protocol.derive(Jason.Encoder, NameOfTheStruct)\n. This protocol is implemented for: ActivityPub.Actor, Any, Atom, BambooSes.Message, BambooSes.Message.Content, BambooSes.Message.Destination, Benchee.CollectionData, Benchee.Scenario, Benchee.Statistics, BitString, Boltx.Types.DateTimeWithTZOffset, Boltx.Types.Duration, Boltx.Types.Node, Boltx.Types.Path, Boltx.Types.Point, Boltx.Types.Relationship, Boltx.Types.TimeWithTZOffset, Cldr.LanguageTag, Cldr.Unit, Date, DateTime, Decimal, Ecto.Association.NotLoaded, Ecto.Schema.Metadata, Float, Integer, Jason.Fragment, Jason.OrderedObject, List, MDEx.Alert, MDEx.BlockQuote, MDEx.Code, MDEx.CodeBlock, MDEx.DescriptionDetails, MDEx.DescriptionItem, MDEx.DescriptionList, MDEx.DescriptionTerm, MDEx.Document, MDEx.Emph, MDEx.Escaped, MDEx.EscapedTag, MDEx.FootnoteDefinition, MDEx.FootnoteReference, MDEx.FrontMatter, MDEx.Heading, MDEx.HtmlBlock, MDEx.HtmlInline, MDEx.Image, MDEx.LineBreak, MDEx.Link, MDEx.List, MDEx.ListItem, MDEx.Math, MDEx.MultilineBlockQuote, MDEx.Paragraph, MDEx.Raw, MDEx.ShortCode, MDEx.SoftBreak, MDEx.SpoileredText, MDEx.Strikethrough, MDEx.Strong, MDEx.Subscript, MDEx.Superscript, MDEx.Table, MDEx.TableCell, MDEx.TableRow, MDEx.TaskItem, MDEx.Text, MDEx.ThematicBreak, MDEx.Underline, MDEx.WikiLink, Map, NaiveDateTime, Time, Tuple\n\nGot value:\n\n    %Phoenix.LiveView.Rendered{\n      static: [\"<!-- <Bonfire.UI.Common.ErrorView.show_html> lib/error/error_view.ex:196 (bonfire_ui_common) --><h1 class=\\\"text-base-content\\\">\\n  \",\n       \"\\n</h1>\\n\", \"<!-- </Bonfire.UI.Common.ErrorView.show_html> -->\"],\n      dynamic: #Function<1.34809322/1 in Bonfire.UI.Common.ErrorView.show_html/3>,\n      fingerprint: 36305917280538639173341012848109580483,\n      root: false,\n      caller: :not_available\n    }\n",
-      "http_status": null,
-      "operation_id": "accountThemes"
+      "operation_id": "accountThemes",
+      "error_message": "protocol Jason.Encoder not implemented for Phoenix.LiveView.Rendered (a struct), Jason.Encoder protocol must always be explicitly implemented.\n\nIf you own the struct, you can derive the implementation specifying which fields should be encoded to JSON:\n\n    @derive {Jason.Encoder, only: [....]}\n    defstruct ...\n\nIt is also possible to encode all fields, although this should be used carefully to avoid accidentally leaking private information when new fields are added:\n\n    @derive Jason.Encoder\n    defstruct ...\n\nFinally, if you don't own the struct you want to encode to JSON, you may use Protocol.derive/3 placed outside of any module:\n\n    Protocol.derive(Jason.Encoder, NameOfTheStruct, only: [...])\n    Protocol.derive(Jason.Encoder, NameOfTheStruct)\n. This protocol is implemented for: ActivityPub.Actor, Any, Atom, BambooSes.Message, BambooSes.Message.Content, BambooSes.Message.Destination, Benchee.CollectionData, Benchee.Scenario, Benchee.Statistics, BitString, Boltx.Types.DateTimeWithTZOffset, Boltx.Types.Duration, Boltx.Types.Node, Boltx.Types.Path, Boltx.Types.Point, Boltx.Types.Relationship, Boltx.Types.TimeWithTZOffset, Cldr.LanguageTag, Cldr.Unit, Date, DateTime, Decimal, Ecto.Association.NotLoaded, Ecto.Schema.Metadata, Float, Integer, Jason.Fragment, Jason.OrderedObject, List, MDEx.Alert, MDEx.BlockQuote, MDEx.Code, MDEx.CodeBlock, MDEx.DescriptionDetails, MDEx.DescriptionItem, MDEx.DescriptionList, MDEx.DescriptionTerm, MDEx.Document, MDEx.Emph, MDEx.Escaped, MDEx.EscapedTag, MDEx.FootnoteDefinition, MDEx.FootnoteReference, MDEx.FrontMatter, MDEx.Heading, MDEx.HtmlBlock, MDEx.HtmlInline, MDEx.Image, MDEx.LineBreak, MDEx.Link, MDEx.List, MDEx.ListItem, MDEx.Math, MDEx.MultilineBlockQuote, MDEx.Paragraph, MDEx.Raw, MDEx.ShortCode, MDEx.SoftBreak, MDEx.SpoileredText, MDEx.Strikethrough, MDEx.Strong, MDEx.Subscript, MDEx.Superscript, MDEx.Table, MDEx.TableCell, MDEx.TableRow, MDEx.TaskItem, MDEx.Text, MDEx.ThematicBreak, MDEx.Underline, MDEx.WikiLink, Map, NaiveDateTime, Time, Tuple\n\nGot value:\n\n    %Phoenix.LiveView.Rendered{\n      static: [\"<!-- <Bonfire.UI.Common.ErrorView.show_html> lib/error/error_view.ex:196 (bonfire_ui_common) --><h1 class=\\\"text-base-content\\\">\\n  \",\n       \"\\n</h1>\\n\", \"<!-- </Bonfire.UI.Common.ErrorView.show_html> -->\"],\n      dynamic: #Function<1.66885158/1 in Bonfire.UI.Common.ErrorView.show_html/3>,\n      fingerprint: 36305917280538639173341012848109580483,\n      root: false,\n      caller: :not_available\n    }\n",
+      "http_status": null
     },
     {
       "status": "implemented",
@@ -143,9 +144,9 @@
       ],
       "summary": "Update your account.",
       "method": "PATCH",
+      "operation_id": "accountUpdate",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "accountUpdate"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -155,9 +156,9 @@
       ],
       "summary": "Verify a token by returning account details pertaining to it.",
       "method": "GET",
+      "operation_id": "accountVerify",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "accountVerify"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -167,9 +168,9 @@
       ],
       "summary": "Get information about an account with the given ID.",
       "method": "GET",
+      "operation_id": "accountGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountGet"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -179,9 +180,9 @@
       ],
       "summary": "Block account with id.",
       "method": "POST",
+      "operation_id": "accountBlock",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "accountBlock"
+      "http_status": 500
     },
     {
       "status": "not_found",
@@ -191,9 +192,9 @@
       ],
       "summary": "Get an array of target account's featured tags.",
       "method": "GET",
+      "operation_id": "accountsFeaturedTags",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountsFeaturedTags"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -203,9 +204,9 @@
       ],
       "summary": "Follow account with id.",
       "method": "POST",
+      "operation_id": "accountFollow",
       "error_message": "ERROR 25P02 (in_failed_sql_transaction) current transaction is aborted, commands ignored until end of transaction block\n\n    query: INSERT INTO \"bonfire_data_social_request\" (\"id\") VALUES ($1)",
-      "http_status": null,
-      "operation_id": "accountFollow"
+      "http_status": null
     },
     {
       "status": "implemented",
@@ -215,9 +216,9 @@
       ],
       "summary": "See followers of account with given id.",
       "method": "GET",
+      "operation_id": "accountFollowers",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountFollowers"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -227,9 +228,9 @@
       ],
       "summary": "See accounts followed by given account id.",
       "method": "GET",
+      "operation_id": "accountFollowing",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountFollowing"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -239,9 +240,9 @@
       ],
       "summary": "See all lists of yours that contain requested account.",
       "method": "GET",
+      "operation_id": "accountLists",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountLists"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -251,9 +252,9 @@
       ],
       "summary": "Mute account by ID.",
       "method": "POST",
+      "operation_id": "accountMute",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "accountMute"
+      "http_status": 500
     },
     {
       "status": "not_found",
@@ -263,9 +264,9 @@
       ],
       "summary": "Set a private note for an account with the given id.",
       "method": "POST",
+      "operation_id": "accountNote",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountNote"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -275,9 +276,9 @@
       ],
       "summary": "See statuses posted by the requested account.",
       "method": "GET",
+      "operation_id": "accountStatuses",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "accountStatuses"
+      "http_status": 200
     },
     {
       "status": "error",
@@ -287,9 +288,9 @@
       ],
       "summary": "Unblock account with ID.",
       "method": "POST",
+      "operation_id": "accountUnblock",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "accountUnblock"
+      "http_status": 500
     },
     {
       "status": "implemented",
@@ -299,9 +300,9 @@
       ],
       "summary": "Unfollow account with id.",
       "method": "POST",
+      "operation_id": "accountUnfollow",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountUnfollow"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -311,9 +312,9 @@
       ],
       "summary": "Unmute account by ID.",
       "method": "POST",
+      "operation_id": "accountUnmute",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "accountUnmute"
+      "http_status": 500
     },
     {
       "status": "not_found",
@@ -323,9 +324,9 @@
       ],
       "summary": "View + page through known accounts according to given filters.",
       "method": "GET",
+      "operation_id": "adminAccountsGetV1",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminAccountsGetV1"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -335,9 +336,9 @@
       ],
       "summary": "View one account.",
       "method": "GET",
+      "operation_id": "adminAccountGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminAccountGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -347,9 +348,9 @@
       ],
       "summary": "Perform an admin action on an account.",
       "method": "POST",
+      "operation_id": "adminAccountAction",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminAccountAction"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -359,9 +360,9 @@
       ],
       "summary": "Approve pending account.",
       "method": "POST",
+      "operation_id": "adminAccountApprove",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminAccountApprove"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -371,9 +372,9 @@
       ],
       "summary": "Reject pending account.",
       "method": "POST",
+      "operation_id": "adminAccountReject",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminAccountReject"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -383,9 +384,9 @@
       ],
       "summary": "View local and remote emojis available to / known by this instance.",
       "method": "GET",
+      "operation_id": "emojisGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "emojisGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -395,9 +396,9 @@
       ],
       "summary": "Upload and create a new instance emoji.",
       "method": "POST",
+      "operation_id": "emojiCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "emojiCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -407,9 +408,9 @@
       ],
       "summary": "Get a list of existing emoji categories.",
       "method": "GET",
+      "operation_id": "emojiCategoriesGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "emojiCategoriesGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -419,9 +420,9 @@
       ],
       "summary": "Delete a **local** emoji with the given ID from the instance.",
       "method": "DELETE",
+      "operation_id": "emojiDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "emojiDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -431,9 +432,9 @@
       ],
       "summary": "Get the admin view of a single emoji.",
       "method": "GET",
+      "operation_id": "emojiGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "emojiGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -443,9 +444,9 @@
       ],
       "summary": "Perform admin action on a local or remote emoji known to this instance.",
       "method": "PATCH",
+      "operation_id": "emojiUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "emojiUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -455,9 +456,9 @@
       ],
       "summary": "Perform a GET to the specified ActivityPub URL and return detailed debugging information.",
       "method": "GET",
+      "operation_id": "debugAPUrl",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "debugAPUrl"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -467,9 +468,9 @@
       ],
       "summary": "Sweep/clear all in-memory caches.",
       "method": "POST",
+      "operation_id": "debugClearCaches",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "debugClearCaches"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -479,9 +480,9 @@
       ],
       "summary": "View all domain allows currently in place.",
       "method": "GET",
+      "operation_id": "domainAllowsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainAllowsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -491,9 +492,9 @@
       ],
       "summary": "Create one or more domain allows, from a string or a file.",
       "method": "POST",
+      "operation_id": "domainAllowCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainAllowCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -503,9 +504,9 @@
       ],
       "summary": "Delete domain allow with the given ID.",
       "method": "DELETE",
+      "operation_id": "domainAllowDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainAllowDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -515,9 +516,9 @@
       ],
       "summary": "View domain allow with the given ID.",
       "method": "GET",
+      "operation_id": "domainAllowGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainAllowGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -527,9 +528,9 @@
       ],
       "summary": "Update a single domain allow.",
       "method": "PUT",
+      "operation_id": "domainAllowUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainAllowUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -539,9 +540,9 @@
       ],
       "summary": "View all domain blocks currently in place.",
       "method": "GET",
+      "operation_id": "domainBlocksGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainBlocksGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -551,9 +552,9 @@
       ],
       "summary": "Create one or more domain blocks, from a string or a file.",
       "method": "POST",
+      "operation_id": "domainBlockCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainBlockCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -563,9 +564,9 @@
       ],
       "summary": "Delete domain block with the given ID.",
       "method": "DELETE",
+      "operation_id": "domainBlockDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainBlockDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -575,9 +576,9 @@
       ],
       "summary": "View domain block with the given ID.",
       "method": "GET",
+      "operation_id": "domainBlockGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainBlockGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -587,9 +588,9 @@
       ],
       "summary": "Update a single domain block.",
       "method": "PUT",
+      "operation_id": "domainBlockUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainBlockUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -599,9 +600,9 @@
       ],
       "summary": "Force expiry of cached public keys for all accounts on the given domain stored in your database.",
       "method": "POST",
+      "operation_id": "domainKeysExpire",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainKeysExpire"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -611,9 +612,9 @@
       ],
       "summary": "View domain permission drafts.",
       "method": "GET",
+      "operation_id": "domainPermissionDraftsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionDraftsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -623,9 +624,9 @@
       ],
       "summary": "Create a domain permission draft with the given parameters.",
       "method": "POST",
+      "operation_id": "domainPermissionDraftCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionDraftCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -635,9 +636,9 @@
       ],
       "summary": "Get domain permission draft with the given ID.",
       "method": "GET",
+      "operation_id": "domainPermissionDraftGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionDraftGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -647,9 +648,9 @@
       ],
       "summary": "Accept a domain permission draft, turning it into an enforced domain permission.",
       "method": "POST",
+      "operation_id": "domainPermissionDraftAccept",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionDraftAccept"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -659,9 +660,9 @@
       ],
       "summary": "Remove a domain permission draft, optionally ignoring all future drafts targeting the given domain.",
       "method": "POST",
+      "operation_id": "domainPermissionDraftRemove",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionDraftRemove"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -671,9 +672,9 @@
       ],
       "summary": "View domain permission excludes.",
       "method": "GET",
+      "operation_id": "domainPermissionExcludesGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionExcludesGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -683,9 +684,9 @@
       ],
       "summary": "Create a domain permission exclude with the given parameters.",
       "method": "POST",
+      "operation_id": "domainPermissionExcludeCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionExcludeCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -695,9 +696,9 @@
       ],
       "summary": "Remove a domain permission exclude.",
       "method": "DELETE",
+      "operation_id": "domainPermissionExcludeDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionExcludeDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -707,9 +708,9 @@
       ],
       "summary": "Get domain permission exclude with the given ID.",
       "method": "GET",
+      "operation_id": "domainPermissionExcludeGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionExcludeGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -719,9 +720,9 @@
       ],
       "summary": "View domain permission subscriptions.",
       "method": "GET",
+      "operation_id": "domainPermissionSubscriptionsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -731,9 +732,9 @@
       ],
       "summary": "Create a domain permission subscription with the given parameters.",
       "method": "POST",
+      "operation_id": "domainPermissionSubscriptionCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -743,9 +744,9 @@
       ],
       "summary": "Update a domain permission subscription with the given parameters.",
       "method": "PATCH",
+      "operation_id": "domainPermissionSubscriptionUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -755,9 +756,9 @@
       ],
       "summary": "View all domain permission subscriptions of the given permission type, in priority order (highest to lowest).",
       "method": "GET",
+      "operation_id": "domainPermissionSubscriptionsPreviewGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionsPreviewGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -767,9 +768,9 @@
       ],
       "summary": "Get domain permission subscription with the given ID.",
       "method": "GET",
+      "operation_id": "domainPermissionSubscriptionGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -779,9 +780,9 @@
       ],
       "summary": "Remove a domain permission subscription.",
       "method": "POST",
+      "operation_id": "domainPermissionSubscriptionRemove",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionRemove"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -791,9 +792,9 @@
       ],
       "summary": "Test one domain permission subscription by making your instance fetch and parse it *without creating permissions*.",
       "method": "POST",
+      "operation_id": "domainPermissionSubscriptionTest",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "domainPermissionSubscriptionTest"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -803,9 +804,9 @@
       ],
       "summary": "Send a generic test email to a specified email address.",
       "method": "POST",
+      "operation_id": "testEmailSend",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "testEmailSend"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -815,9 +816,9 @@
       ],
       "summary": "Get all \"allow\" header filters currently in place.",
       "method": "GET",
+      "operation_id": "headerFilterAllowsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterAllowsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -827,9 +828,9 @@
       ],
       "summary": "Create new \"allow\" HTTP request header filter.",
       "method": "POST",
+      "operation_id": "headerFilterAllowCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterAllowCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -839,9 +840,9 @@
       ],
       "summary": "Delete the \"allow\" header filter with the given ID.",
       "method": "DELETE",
+      "operation_id": "headerFilterAllowDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterAllowDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -851,9 +852,9 @@
       ],
       "summary": "Get \"allow\" header filter with the given ID.",
       "method": "GET",
+      "operation_id": "headerFilterAllowGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterAllowGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -863,9 +864,9 @@
       ],
       "summary": "Get all \"allow\" header filters currently in place.",
       "method": "GET",
+      "operation_id": "headerFilterBlocksGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterBlocksGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -875,9 +876,9 @@
       ],
       "summary": "Create new \"block\" HTTP request header filter.",
       "method": "POST",
+      "operation_id": "headerFilterBlockCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterBlockCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -887,9 +888,9 @@
       ],
       "summary": "Delete the \"block\" header filter with the given ID.",
       "method": "DELETE",
+      "operation_id": "headerFilterBlockDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterBlockDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -899,9 +900,9 @@
       ],
       "summary": "Get \"block\" header filter with the given ID.",
       "method": "GET",
+      "operation_id": "headerFilterBlockGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "headerFilterBlockGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -911,9 +912,9 @@
       ],
       "summary": "View instance rules, with IDs.",
       "method": "GET",
+      "operation_id": "adminsRuleGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminsRuleGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -923,9 +924,9 @@
       ],
       "summary": "Create a new instance rule.",
       "method": "POST",
+      "operation_id": "ruleCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "ruleCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -935,9 +936,9 @@
       ],
       "summary": "Delete an existing instance rule.",
       "method": "DELETE",
+      "operation_id": "ruleDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "ruleDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -947,9 +948,9 @@
       ],
       "summary": "View instance rule with the given id.",
       "method": "GET",
+      "operation_id": "adminRuleGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminRuleGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -959,9 +960,9 @@
       ],
       "summary": "Update an existing instance rule.",
       "method": "PATCH",
+      "operation_id": "ruleUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "ruleUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -971,9 +972,9 @@
       ],
       "summary": "Clean up remote media older than the specified number of days.",
       "method": "POST",
+      "operation_id": "mediaCleanup",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "mediaCleanup"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -983,9 +984,9 @@
       ],
       "summary": "Refetch media specified in the database but missing from storage.",
       "method": "POST",
+      "operation_id": "mediaRefetch",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "mediaRefetch"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -995,9 +996,9 @@
       ],
       "summary": "View user moderation reports.",
       "method": "GET",
+      "operation_id": "adminReports",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminReports"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1007,9 +1008,9 @@
       ],
       "summary": "View user moderation report with the given id.",
       "method": "GET",
+      "operation_id": "adminReportGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminReportGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1019,9 +1020,9 @@
       ],
       "summary": "Mark a report as resolved.",
       "method": "POST",
+      "operation_id": "adminReportResolve",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminReportResolve"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1031,9 +1032,9 @@
       ],
       "summary": "Get an array of currently active announcements.",
       "method": "GET",
+      "operation_id": "announcementsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "announcementsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1043,9 +1044,9 @@
       ],
       "summary": "Get an array of applications that are managed by the requester.",
       "method": "GET",
+      "operation_id": "appsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "appsGet"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -1055,9 +1056,9 @@
       ],
       "summary": "Register a new application on this instance.",
       "method": "POST",
+      "operation_id": "appCreate",
       "error_message": "no function clause matching in Bonfire.OpenID.Provider.ClientApps.prepare_redirect_uris/1",
-      "http_status": null,
-      "operation_id": "appCreate"
+      "http_status": null
     },
     {
       "status": "not_found",
@@ -1067,9 +1068,9 @@
       ],
       "summary": "Delete a single application managed by the requester.",
       "method": "DELETE",
+      "operation_id": "appDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "appDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1079,9 +1080,9 @@
       ],
       "summary": "Get a single application managed by the requester.",
       "method": "GET",
+      "operation_id": "appGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "appGet"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -1091,9 +1092,9 @@
       ],
       "summary": "Get an array of accounts that requesting account has blocked.",
       "method": "GET",
+      "operation_id": "blocksGet",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "blocksGet"
+      "http_status": 500
     },
     {
       "status": "implemented",
@@ -1103,9 +1104,9 @@
       ],
       "summary": null,
       "method": "GET",
+      "operation_id": "bookmarksGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "bookmarksGet"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1115,9 +1116,9 @@
       ],
       "summary": "Mark a conversation with the given ID as read.",
       "method": "POST",
+      "operation_id": "conversationRead",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "conversationRead"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1127,9 +1128,9 @@
       ],
       "summary": "Get an array of (direct message) conversations that requesting account is involved in.",
       "method": "GET",
+      "operation_id": "conversationsGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "conversationsGet"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1139,9 +1140,9 @@
       ],
       "summary": "Delete a single conversation with the given ID.",
       "method": "DELETE",
+      "operation_id": "conversationDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "conversationDelete"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1151,9 +1152,9 @@
       ],
       "summary": "Get an array of custom emojis available on the instance.",
       "method": "GET",
+      "operation_id": "customEmojisGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "customEmojisGet"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1163,9 +1164,9 @@
       ],
       "summary": "Export a CSV file of accounts that you block.",
       "method": "GET",
+      "operation_id": "exportBlocks",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "exportBlocks"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1175,9 +1176,9 @@
       ],
       "summary": "Export a CSV file of accounts that follow you.",
       "method": "GET",
+      "operation_id": "exportFollowers",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "exportFollowers"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1187,9 +1188,9 @@
       ],
       "summary": "Export a CSV file of accounts that you follow.",
       "method": "GET",
+      "operation_id": "exportFollowing",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "exportFollowing"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1199,9 +1200,9 @@
       ],
       "summary": "Export a CSV file of lists created by you.",
       "method": "GET",
+      "operation_id": "exportLists",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "exportLists"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1211,9 +1212,9 @@
       ],
       "summary": "Export a CSV file of accounts that you mute.",
       "method": "GET",
+      "operation_id": "exportMutes",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "exportMutes"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1223,9 +1224,9 @@
       ],
       "summary": "Returns informational stats on the number of items that can be exported for requesting account.",
       "method": "GET",
+      "operation_id": "exportStats",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "exportStats"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1235,9 +1236,9 @@
       ],
       "summary": "Get an array of statuses that the requesting account has favourited.",
       "method": "GET",
+      "operation_id": "favouritesGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "favouritesGet"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1247,9 +1248,9 @@
       ],
       "summary": "Get an array of all hashtags that you currently have featured on your profile.",
       "method": "GET",
+      "operation_id": "getFeaturedTags",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getFeaturedTags"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1259,9 +1260,9 @@
       ],
       "summary": "Get all filters for the authenticated account.",
       "method": "GET",
+      "operation_id": "filtersV1Get",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filtersV1Get"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1271,9 +1272,9 @@
       ],
       "summary": "Create a single filter.",
       "method": "POST",
+      "operation_id": "filterV1Post",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV1Post"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1283,9 +1284,9 @@
       ],
       "summary": "Delete a single filter with the given ID.",
       "method": "DELETE",
+      "operation_id": "filterV1Delete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV1Delete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1295,9 +1296,9 @@
       ],
       "summary": "Get a single filter with the given ID.",
       "method": "GET",
+      "operation_id": "filterV1Get",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV1Get"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1307,9 +1308,9 @@
       ],
       "summary": "Update a single filter with the given ID.",
       "method": "PUT",
+      "operation_id": "filterV1Put",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV1Put"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1319,9 +1320,9 @@
       ],
       "summary": "Get an array of accounts that have requested to follow you.",
       "method": "GET",
+      "operation_id": "getFollowRequests",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "getFollowRequests"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -1331,9 +1332,9 @@
       ],
       "summary": "Get an array of accounts that you have requested to follow.",
       "method": "GET",
+      "operation_id": "getOutgoingFollowRequests",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "getOutgoingFollowRequests"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -1343,9 +1344,9 @@
       ],
       "summary": "Accept/authorize follow request from the given account ID.",
       "method": "POST",
+      "operation_id": "authorizeFollowRequest",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "authorizeFollowRequest"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1355,9 +1356,9 @@
       ],
       "summary": "Reject/deny follow request from the given account ID.",
       "method": "POST",
+      "operation_id": "rejectFollowRequest",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "rejectFollowRequest"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1367,9 +1368,9 @@
       ],
       "summary": "Get an array of all hashtags that you currently follow.",
       "method": "GET",
+      "operation_id": "getFollowedTags",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "getFollowedTags"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1379,9 +1380,9 @@
       ],
       "summary": "Upload some CSV-formatted data to your account.",
       "method": "POST",
+      "operation_id": "importData",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "importData"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1391,9 +1392,9 @@
       ],
       "summary": "View instance information.",
       "method": "GET",
+      "operation_id": "instanceGetV1",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "instanceGetV1"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1403,9 +1404,9 @@
       ],
       "summary": "Update your instance information and/or upload a new avatar/header for the instance.",
       "method": "PATCH",
+      "operation_id": "instanceUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "instanceUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1415,9 +1416,9 @@
       ],
       "summary": "List explicitly allowed domains.",
       "method": "GET",
+      "operation_id": "instanceDomainAllowsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "instanceDomainAllowsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1427,9 +1428,9 @@
       ],
       "summary": "List blocked domains.",
       "method": "GET",
+      "operation_id": "instanceDomainBlocksGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "instanceDomainBlocksGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1439,9 +1440,9 @@
       ],
       "summary": "List peer domains.",
       "method": "GET",
+      "operation_id": "instancePeersGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "instancePeersGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1451,9 +1452,9 @@
       ],
       "summary": "View instance rules (public).",
       "method": "GET",
+      "operation_id": "rules",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "rules"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1463,9 +1464,9 @@
       ],
       "summary": "Get default interaction policies for new statuses created by you.",
       "method": "GET",
+      "operation_id": "policiesDefaultsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "policiesDefaultsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1475,9 +1476,9 @@
       ],
       "summary": "Update default interaction policies per visibility level for new statuses created by you.",
       "method": "PATCH",
+      "operation_id": "policiesDefaultsUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "policiesDefaultsUpdate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1487,9 +1488,9 @@
       ],
       "summary": "Get an array of interactions requested on your statuses by other accounts, and pending your approval.",
       "method": "GET",
+      "operation_id": "getInteractionRequests",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getInteractionRequests"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1499,9 +1500,9 @@
       ],
       "summary": "Get interaction request with the given ID.",
       "method": "GET",
+      "operation_id": "getInteractionRequest",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getInteractionRequest"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1511,9 +1512,9 @@
       ],
       "summary": "Accept/authorize/approve an interaction request with the given ID.",
       "method": "POST",
+      "operation_id": "authorizeInteractionRequest",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "authorizeInteractionRequest"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1523,9 +1524,9 @@
       ],
       "summary": "Reject an interaction request with the given ID.",
       "method": "POST",
+      "operation_id": "rejectInteractionRequest",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "rejectInteractionRequest"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -1535,9 +1536,9 @@
       ],
       "summary": "Get all lists owned by authorized user.",
       "method": "GET",
+      "operation_id": "lists",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "lists"
+      "http_status": 500
     },
     {
       "status": "implemented",
@@ -1547,9 +1548,9 @@
       ],
       "summary": "Create a new list.",
       "method": "POST",
+      "operation_id": "listCreate",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "listCreate"
+      "http_status": 400
     },
     {
       "status": "error",
@@ -1559,9 +1560,9 @@
       ],
       "summary": "Delete a single list with the given ID.",
       "method": "DELETE",
+      "operation_id": "listDelete",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "listDelete"
+      "http_status": 500
     },
     {
       "status": "error",
@@ -1571,9 +1572,9 @@
       ],
       "summary": "Get a single list with the given ID.",
       "method": "GET",
+      "operation_id": "list",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "list"
+      "http_status": 500
     },
     {
       "status": "implemented",
@@ -1583,9 +1584,9 @@
       ],
       "summary": "Update an existing list.",
       "method": "PUT",
+      "operation_id": "listUpdate",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "listUpdate"
+      "http_status": 400
     },
     {
       "status": "error",
@@ -1595,9 +1596,9 @@
       ],
       "summary": "Remove one or more accounts from the given list.",
       "method": "DELETE",
+      "operation_id": "removeListAccounts",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "removeListAccounts"
+      "http_status": 500
     },
     {
       "status": "error",
@@ -1607,9 +1608,9 @@
       ],
       "summary": "Page through accounts in this list.",
       "method": "GET",
+      "operation_id": "listAccounts",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "listAccounts"
+      "http_status": 500
     },
     {
       "status": "error",
@@ -1619,9 +1620,9 @@
       ],
       "summary": "Add one or more accounts to the given list.",
       "method": "POST",
+      "operation_id": "addListAccounts",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "addListAccounts"
+      "http_status": 500
     },
     {
       "status": "not_found",
@@ -1631,9 +1632,9 @@
       ],
       "summary": null,
       "method": "GET",
+      "operation_id": "markersGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "markersGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1643,9 +1644,9 @@
       ],
       "summary": null,
       "method": "POST",
+      "operation_id": "markersPost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "markersPost"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1655,9 +1656,9 @@
       ],
       "summary": "Get a media attachment that you own.",
       "method": "GET",
+      "operation_id": "mediaGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "mediaGet"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1667,9 +1668,9 @@
       ],
       "summary": "Update a media attachment.",
       "method": "PUT",
+      "operation_id": "mediaUpdate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "mediaUpdate"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -1679,9 +1680,9 @@
       ],
       "summary": "Get an array of accounts that requesting account has muted.",
       "method": "GET",
+      "operation_id": "mutesGet",
       "error_message": null,
-      "http_status": 500,
-      "operation_id": "mutesGet"
+      "http_status": 500
     },
     {
       "status": "implemented",
@@ -1691,9 +1692,9 @@
       ],
       "summary": "Get notifications for currently authorized user.",
       "method": "GET",
+      "operation_id": "notifications",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "notifications"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -1703,9 +1704,9 @@
       ],
       "summary": "Clear/delete all notifications for currently authorized user.",
       "method": "POST",
+      "operation_id": "clearNotifications",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "clearNotifications"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -1715,9 +1716,9 @@
       ],
       "summary": "Get a single notification with the given ID.",
       "method": "GET",
+      "operation_id": "notification",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "notification"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1727,9 +1728,9 @@
       ],
       "summary": "View poll with given ID.",
       "method": "GET",
+      "operation_id": "poll",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "poll"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1739,9 +1740,9 @@
       ],
       "summary": "Vote with choices in the given poll.",
       "method": "POST",
+      "operation_id": "pollVote",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "pollVote"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1751,9 +1752,9 @@
       ],
       "summary": "Return an object of user preferences.",
       "method": "GET",
+      "operation_id": "preferencesGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "preferencesGet"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -1763,9 +1764,9 @@
       ],
       "summary": "Delete the authenticated account's avatar.",
       "method": "DELETE",
+      "operation_id": "accountAvatarDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountAvatarDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1775,9 +1776,9 @@
       ],
       "summary": "Delete the authenticated account's header.",
       "method": "DELETE",
+      "operation_id": "accountHeaderDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "accountHeaderDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1787,9 +1788,9 @@
       ],
       "summary": "Delete the Web Push subscription associated with the current auth token.",
       "method": "DELETE",
+      "operation_id": "pushSubscriptionDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "pushSubscriptionDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1799,9 +1800,9 @@
       ],
       "summary": "Get the push subscription for the current access token.",
       "method": "GET",
+      "operation_id": "pushSubscriptionGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "pushSubscriptionGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1811,9 +1812,9 @@
       ],
       "summary": "Create a new Web Push subscription for the current access token, or replace the existing one.",
       "method": "POST",
+      "operation_id": "pushSubscriptionPost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "pushSubscriptionPost"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1823,9 +1824,9 @@
       ],
       "summary": "Update the Web Push subscription for the current access token.",
       "method": "PUT",
+      "operation_id": "pushSubscriptionPut",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "pushSubscriptionPut"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1835,9 +1836,9 @@
       ],
       "summary": "See reports created by the requesting account.",
       "method": "GET",
+      "operation_id": "reports",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "reports"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -1847,9 +1848,9 @@
       ],
       "summary": "Create a new user report with the given parameters.",
       "method": "POST",
+      "operation_id": "reportCreate",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "reportCreate"
+      "http_status": 400
     },
     {
       "status": "implemented",
@@ -1859,9 +1860,9 @@
       ],
       "summary": "Get one report with the given id.",
       "method": "GET",
+      "operation_id": "reportGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "reportGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1871,9 +1872,9 @@
       ],
       "summary": "Get an array of statuses scheduled by authorized user.",
       "method": "GET",
+      "operation_id": "getScheduledStatuses",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getScheduledStatuses"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1883,9 +1884,9 @@
       ],
       "summary": "Cancel a scheduled status with the given id.",
       "method": "DELETE",
+      "operation_id": "deleteScheduledStatus",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "deleteScheduledStatus"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1895,9 +1896,9 @@
       ],
       "summary": "Get a scheduled status with the given id.",
       "method": "GET",
+      "operation_id": "getScheduledStatus",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getScheduledStatus"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1907,9 +1908,9 @@
       ],
       "summary": "Update a scheduled status's publishing date.",
       "method": "PUT",
+      "operation_id": "updateScheduledStatus",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "updateScheduledStatus"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -1919,9 +1920,9 @@
       ],
       "summary": "Create a new status using the given form field parameters.",
       "method": "POST",
+      "operation_id": "statusCreate",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "statusCreate"
+      "http_status": 400
     },
     {
       "status": "implemented",
@@ -1931,9 +1932,9 @@
       ],
       "summary": "Delete status with the given ID. The status must belong to you.",
       "method": "DELETE",
+      "operation_id": "statusDelete",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "statusDelete"
+      "http_status": 400
     },
     {
       "status": "implemented",
@@ -1943,9 +1944,9 @@
       ],
       "summary": "View status with the given ID.",
       "method": "GET",
+      "operation_id": "statusGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -1955,9 +1956,9 @@
       ],
       "summary": "Edit an existing status using the given form field parameters.",
       "method": "PUT",
+      "operation_id": "statusEdit",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusEdit"
+      "http_status": 404
     },
     {
       "status": "error",
@@ -1967,9 +1968,9 @@
       ],
       "summary": "Bookmark status with the given ID.",
       "method": "POST",
+      "operation_id": "statusBookmark",
       "error_message": "constraint error when attempting to insert struct:\n\n    * \"bonfire_data_social_activity_object_id_fkey\" (foreign_key_constraint)\n\nIf you would like to stop this constraint violation from raising an\nexception and instead add it as an error to your changeset, please\ncall `foreign_key_constraint/3` on your changeset with the constraint\n`:name` as an option.\n\nThe changeset has not defined any constraint.\n",
-      "http_status": null,
-      "operation_id": "statusBookmark"
+      "http_status": null
     },
     {
       "status": "implemented",
@@ -1979,9 +1980,9 @@
       ],
       "summary": "Return ancestors and descendants of the given status.",
       "method": "GET",
+      "operation_id": "threadContext",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "threadContext"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -1991,9 +1992,9 @@
       ],
       "summary": "Star/like/favourite the given status, if permitted.",
       "method": "POST",
+      "operation_id": "statusFave",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "statusFave"
+      "http_status": 400
     },
     {
       "status": "implemented",
@@ -2003,9 +2004,9 @@
       ],
       "summary": "View accounts that have faved/starred/liked the target status.",
       "method": "GET",
+      "operation_id": "statusFavedBy",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "statusFavedBy"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -2015,9 +2016,9 @@
       ],
       "summary": "View edit history of status with the given ID.",
       "method": "GET",
+      "operation_id": "statusHistoryGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusHistoryGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2027,9 +2028,9 @@
       ],
       "summary": "Mute a status's thread. This prevents notifications from being created for future replies, likes, boosts etc in the thread of which the target status is a part.",
       "method": "POST",
+      "operation_id": "statusMute",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusMute"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2039,9 +2040,9 @@
       ],
       "summary": "Pin a status to the top of your profile, and add it to your Featured ActivityPub collection.",
       "method": "POST",
+      "operation_id": "statusPin",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "statusPin"
+      "http_status": 400
     },
     {
       "status": "implemented",
@@ -2051,9 +2052,9 @@
       ],
       "summary": "Reblog/boost status with the given ID.",
       "method": "POST",
+      "operation_id": "statusReblog",
       "error_message": null,
-      "http_status": 400,
-      "operation_id": "statusReblog"
+      "http_status": 400
     },
     {
       "status": "implemented",
@@ -2063,9 +2064,9 @@
       ],
       "summary": "View accounts that have reblogged/boosted the target status.",
       "method": "GET",
+      "operation_id": "statusBoostedBy",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "statusBoostedBy"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -2075,9 +2076,9 @@
       ],
       "summary": "View source text of status with the given ID. Requester must own the status.",
       "method": "GET",
+      "operation_id": "statusSourceGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusSourceGet"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2087,9 +2088,9 @@
       ],
       "summary": "Unbookmark status with the given ID.",
       "method": "POST",
+      "operation_id": "statusUnbookmark",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusUnbookmark"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2099,9 +2100,9 @@
       ],
       "summary": "Unstar/unlike/unfavourite the given status.",
       "method": "POST",
+      "operation_id": "statusUnfave",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusUnfave"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2111,9 +2112,9 @@
       ],
       "summary": "Unmute a status's thread. This reenables notifications for future replies, likes, boosts etc in the thread of which the target status is a part.",
       "method": "POST",
+      "operation_id": "statusUnmute",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusUnmute"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2123,9 +2124,9 @@
       ],
       "summary": "Unpin one of your pinned statuses.",
       "method": "POST",
+      "operation_id": "statusUnpin",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusUnpin"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2135,9 +2136,9 @@
       ],
       "summary": "Unreblog/unboost status with the given ID.",
       "method": "POST",
+      "operation_id": "statusUnreblog",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "statusUnreblog"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2147,9 +2148,9 @@
       ],
       "summary": "Initiate a websocket connection for live streaming of statuses and notifications.",
       "method": "GET",
+      "operation_id": "streamGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "streamGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2159,9 +2160,9 @@
       ],
       "summary": "Accounts that are promoted by staff, or that the user has had past positive interactions with, but is not yet following.",
       "method": "GET",
+      "operation_id": "getSuggestions",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getSuggestions"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2171,9 +2172,9 @@
       ],
       "summary": "Get details for a hashtag, including whether you currently follow it.",
       "method": "GET",
+      "operation_id": "getTag",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getTag"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2183,9 +2184,9 @@
       ],
       "summary": "Follow a hashtag.",
       "method": "POST",
+      "operation_id": "followTag",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "followTag"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -2195,9 +2196,9 @@
       ],
       "summary": "Unfollow a hashtag.",
       "method": "POST",
+      "operation_id": "unfollowTag",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "unfollowTag"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -2207,9 +2208,9 @@
       ],
       "summary": "See statuses/posts by accounts you follow.",
       "method": "GET",
+      "operation_id": "homeTimeline",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "homeTimeline"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -2219,9 +2220,9 @@
       ],
       "summary": "See statuses/posts from the given list timeline.",
       "method": "GET",
+      "operation_id": "listTimeline",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "listTimeline"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -2231,9 +2232,9 @@
       ],
       "summary": "See public statuses/posts that your instance is aware of.",
       "method": "GET",
+      "operation_id": "publicTimeline",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "publicTimeline"
+      "http_status": 200
     },
     {
       "status": "implemented",
@@ -2243,9 +2244,9 @@
       ],
       "summary": "See public statuses that use the given hashtag (case insensitive).",
       "method": "GET",
+      "operation_id": "tagTimeline",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "tagTimeline"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -2255,9 +2256,9 @@
       ],
       "summary": "See info about tokens created for/by your account.",
       "method": "GET",
+      "operation_id": "tokensInfoGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "tokensInfoGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2267,9 +2268,9 @@
       ],
       "summary": "Get information about a single token.",
       "method": "GET",
+      "operation_id": "tokenInfoGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "tokenInfoGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2279,9 +2280,9 @@
       ],
       "summary": "Invalidate the target token, removing it from the database and making it unusable.",
       "method": "POST",
+      "operation_id": "tokenInvalidatePost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "tokenInvalidatePost"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2291,9 +2292,9 @@
       ],
       "summary": "Links that have been shared more than others.",
       "method": "GET",
+      "operation_id": "getTrendingLinks",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getTrendingLinks"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2303,9 +2304,9 @@
       ],
       "summary": "Statuses that have been interacted with more than others.",
       "method": "GET",
+      "operation_id": "getTrendingStatuses",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getTrendingStatuses"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2315,9 +2316,9 @@
       ],
       "summary": "View hashtags that are currently being used more frequently than usual.",
       "method": "GET",
+      "operation_id": "getTrendingTags",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getTrendingTags"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2327,9 +2328,9 @@
       ],
       "summary": "Get your own user model.",
       "method": "GET",
+      "operation_id": "getUser",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "getUser"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2339,9 +2340,9 @@
       ],
       "summary": "Disable 2fa for the authorized user. User's current password must be provided for verification purposes.",
       "method": "POST",
+      "operation_id": "TwoFactorDisablePost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "TwoFactorDisablePost"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2351,9 +2352,9 @@
       ],
       "summary": "Enable 2fa for the authorized user, using the provided code from an authenticator app, and return an array of one-time recovery codes to allow bypassing 2fa.",
       "method": "POST",
+      "operation_id": "TwoFactorEnablePost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "TwoFactorEnablePost"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2363,9 +2364,9 @@
       ],
       "summary": "Return a QR code png to allow the authorized user to enable 2fa for their login.",
       "method": "GET",
+      "operation_id": "TwoFactorQRCodePngGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "TwoFactorQRCodePngGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2375,9 +2376,9 @@
       ],
       "summary": "Return a QR code uri to allow the authorized user to enable 2fa for their login.",
       "method": "GET",
+      "operation_id": "TwoFactorQRCodeURIGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "TwoFactorQRCodeURIGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2387,9 +2388,9 @@
       ],
       "summary": "Request changing the email address of authenticated user.",
       "method": "POST",
+      "operation_id": "userEmailChange",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "userEmailChange"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2399,9 +2400,9 @@
       ],
       "summary": "Change the password of authenticated user.",
       "method": "POST",
+      "operation_id": "userPasswordChange",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "userPasswordChange"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2411,9 +2412,9 @@
       ],
       "summary": "View + page through known accounts according to given filters.",
       "method": "GET",
+      "operation_id": "adminAccountsGetV2",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "adminAccountsGetV2"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2423,9 +2424,9 @@
       ],
       "summary": "Get all filters for the authenticated account.",
       "method": "GET",
+      "operation_id": "filtersV2Get",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filtersV2Get"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2435,9 +2436,9 @@
       ],
       "summary": "Create a single filter.",
       "method": "POST",
+      "operation_id": "filterV2Post",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV2Post"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2447,9 +2448,9 @@
       ],
       "summary": "Delete a single filter keyword with the given ID.",
       "method": "DELETE",
+      "operation_id": "filterKeywordDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterKeywordDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2459,9 +2460,9 @@
       ],
       "summary": "Get a single filter keyword with the given ID.",
       "method": "GET",
+      "operation_id": "filterKeywordGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterKeywordGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2471,9 +2472,9 @@
       ],
       "summary": "Update a single filter keyword with the given ID.",
       "method": "PUT",
+      "operation_id": "filterKeywordPut",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterKeywordPut"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2483,9 +2484,9 @@
       ],
       "summary": "Delete a single filter status with the given ID.",
       "method": "DELETE",
+      "operation_id": "filterStatusDelete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterStatusDelete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2495,9 +2496,9 @@
       ],
       "summary": "Get a single filter status with the given ID.",
       "method": "GET",
+      "operation_id": "filterStatusGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterStatusGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2507,9 +2508,9 @@
       ],
       "summary": "Delete a single filter with the given ID.",
       "method": "DELETE",
+      "operation_id": "filterV2Delete",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV2Delete"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2519,9 +2520,9 @@
       ],
       "summary": "Get a single filter with the given ID.",
       "method": "GET",
+      "operation_id": "filterV2Get",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV2Get"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2531,9 +2532,9 @@
       ],
       "summary": "Update a single filter with the given ID.",
       "method": "PUT",
+      "operation_id": "filterV2Put",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterV2Put"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2543,9 +2544,9 @@
       ],
       "summary": "Get all filter keywords for a given filter.",
       "method": "GET",
+      "operation_id": "filterKeywordsGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterKeywordsGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2555,9 +2556,9 @@
       ],
       "summary": "Add a filter keyword to an existing filter.",
       "method": "POST",
+      "operation_id": "filterKeywordPost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterKeywordPost"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2567,9 +2568,9 @@
       ],
       "summary": "Get all filter statuses for a given filter.",
       "method": "GET",
+      "operation_id": "filterStatusesGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterStatusesGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2579,9 +2580,9 @@
       ],
       "summary": "Add a filter status to an existing filter.",
       "method": "POST",
+      "operation_id": "filterStatusPost",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "filterStatusPost"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2591,9 +2592,9 @@
       ],
       "summary": "View instance information.",
       "method": "GET",
+      "operation_id": "instanceGetV2",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "instanceGetV2"
+      "http_status": 200
     },
     {
       "status": "not_found",
@@ -2603,9 +2604,9 @@
       ],
       "summary": "Upload a new media attachment.",
       "method": "POST",
+      "operation_id": "mediaCreate",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "mediaCreate"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2615,9 +2616,9 @@
       ],
       "summary": "Search for statuses, accounts, or hashtags, on this instance or elsewhere.",
       "method": "GET",
+      "operation_id": "searchGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "searchGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2627,9 +2628,9 @@
       ],
       "summary": "Returns code 200 with no body if GoToSocial is \"live\", ie., able to respond to HTTP requests.",
       "method": "GET",
+      "operation_id": "liveGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "liveGet"
+      "http_status": 404
     },
     {
       "status": "implemented",
@@ -2639,9 +2640,9 @@
       ],
       "summary": "Returns a compliant nodeinfo response to node info queries.",
       "method": "GET",
+      "operation_id": "nodeInfoGet",
       "error_message": null,
-      "http_status": 200,
-      "operation_id": "nodeInfoGet"
+      "http_status": 200
     },
     {
       "status": "error",
@@ -2651,9 +2652,9 @@
       ],
       "summary": "Revoke an access token to make it no longer valid for use.",
       "method": "POST",
-      "error_message": "no expectation defined for Boruta.OauthMock.revoke/2 in process #PID<0.119507.0> (or in its callers [#PID<0.117560.0>]) with args [%Plug.Conn{adapter: {Plug.Adapters.Test.Conn, :...}, assigns: %{phoenix_ecto_sandbox: nil}, body_params: %{}, cookies: %{}, halted: false, host: \"www.example.com\", method: \"POST\", owner: nil, params: %{}, path_info: [\"oauth\", \"revoke\"], path_params: %{}, port: 80, private: %{:phoenix_view => %{_: Bonfire.OpenID.Web.Oauth.RevokeView}, Bonfire.Web.Router => [], :phoenix_action => :revoke, :phoenix_controller => Bonfire.OpenID.Web.Oauth.RevokeController, :phoenix_endpoint => Bonfire.Web.Endpoint, :plug_session_info => :write, :plug_session_fetch => :done, :plug_session => %{\"accept_header\" => \"application/json\", \"current_account_id\" => \"01KDBWKS12GCYR035NBKYEDMY7\", \"current_user_id\" => \"01KDBWKS1FWXQFTXYCXR3VFNRK\"}, :before_send => [#Function<0.76585640/1 in Plug.Session.before_send/2>, #Function<0.24950767/1 in Plug.Telemetry.call/2>], :phoenix_router => Bonfire.Web.Router, :phoenix_layout => %{_: {Bonfire.UI.Common.LayoutView, :app}}, :plug_route => {\"/oauth/*_\", #Function<7.62078854/2 in Bonfire.Web.Router.CORS.do_match/4>}, :phoenix_request_logger => {\"request_logger\", \"request_logger\"}, :plug_skip_csrf_protection => true, :phoenix_recycled => true}, query_params: %{}, query_string: \"\", remote_ip: {127, 0, 0, 1}, req_cookies: %{}, req_headers: [{\"accept\", \"application/json\"}, {\"content-type\", \"application/json\"}], request_path: \"/oauth/revoke\", resp_body: nil, resp_cookies: %{}, resp_headers: [{\"cache-control\", \"max-age=0, private, must-revalidate\"}, {\"x-request-id\", \"GISYTM6MfbuM-T8AAf-h\"}], scheme: :http, script_name: [], secret_key_base: :..., state: :unset, status: nil}, Bonfire.OpenID.Web.Oauth.RevokeController]",
-      "http_status": null,
-      "operation_id": "oauthTokenRevoke"
+      "operation_id": "oauthTokenRevoke",
+      "error_message": "no expectation defined for Boruta.OauthMock.revoke/2 in process #PID<0.94159.0> (or in its callers [#PID<0.92211.0>]) with args [%Plug.Conn{adapter: {Plug.Adapters.Test.Conn, :...}, assigns: %{phoenix_ecto_sandbox: nil}, body_params: %{}, cookies: %{}, halted: false, host: \"www.example.com\", method: \"POST\", owner: nil, params: %{}, path_info: [\"oauth\", \"revoke\"], path_params: %{}, port: 80, private: %{:phoenix_view => %{_: Bonfire.OpenID.Web.Oauth.RevokeView}, Bonfire.Web.Router => [], :phoenix_endpoint => Bonfire.Web.Endpoint, :plug_session_info => :write, :plug_session_fetch => :done, :plug_session => %{\"accept_header\" => \"application/json\", \"current_account_id\" => \"01KDDWQ8PSHRS7G1XTENV84GB1\", \"current_user_id\" => \"01KDDWQ8Q0RA52W3KVFZ4JTYSQ\"}, :before_send => [#Function<0.76585640/1 in Plug.Session.before_send/2>, #Function<0.24950767/1 in Plug.Telemetry.call/2>], :phoenix_router => Bonfire.Web.Router, :phoenix_action => :revoke, :phoenix_layout => %{_: {Bonfire.UI.Common.LayoutView, :app}}, :phoenix_controller => Bonfire.OpenID.Web.Oauth.RevokeController, :plug_skip_csrf_protection => true, :phoenix_recycled => true, :plug_route => {\"/oauth/*_\", #Function<7.62078854/2 in Bonfire.Web.Router.CORS.do_match/4>}, :phoenix_request_logger => {\"request_logger\", \"request_logger\"}}, query_params: %{}, query_string: \"\", remote_ip: {127, 0, 0, 1}, req_cookies: %{}, req_headers: [{\"accept\", \"application/json\"}, {\"content-type\", \"application/json\"}], request_path: \"/oauth/revoke\", resp_body: nil, resp_cookies: %{}, resp_headers: [{\"cache-control\", \"max-age=0, private, must-revalidate\"}, {\"x-request-id\", \"GITVcHKe1maEZtwAAK_j\"}], scheme: :http, script_name: [], secret_key_base: :..., state: :unset, status: nil}, Bonfire.OpenID.Web.Oauth.RevokeController]",
+      "http_status": null
     },
     {
       "status": "not_found",
@@ -2663,9 +2664,9 @@
       ],
       "summary": "Returns code 200 with no body if GoToSocial is \"ready\", ie., able to connect to the database backend and do a simple SELECT.",
       "method": "GET",
+      "operation_id": "readyGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "readyGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2675,9 +2676,9 @@
       ],
       "summary": "Get the featured collection (pinned posts) for a user.",
       "method": "GET",
+      "operation_id": "s2sFeaturedCollectionGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "s2sFeaturedCollectionGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2687,9 +2688,9 @@
       ],
       "summary": "Get the public outbox collection for an actor.",
       "method": "GET",
+      "operation_id": "s2sOutboxGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "s2sOutboxGet"
+      "http_status": 404
     },
     {
       "status": "not_found",
@@ -2699,12 +2700,11 @@
       ],
       "summary": "Get the replies collection for a status.",
       "method": "GET",
+      "operation_id": "s2sRepliesGet",
       "error_message": null,
-      "http_status": 404,
-      "operation_id": "s2sRepliesGet"
+      "http_status": 404
     }
   ],
-  "implemented": 58,
-  "generated_at": "2025-12-25T23:13:29.513719Z",
+  "generated_at": "2025-12-26T17:53:52.794580Z",
   "coverage_percent": 25.8
 }
