@@ -222,8 +222,8 @@ config :bonfire, Oban,
     fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1"))
   ],
   plugins: [
-    # delete job history after 7 days
-    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
+    # delete job history after 6 hours
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 6},
     # rescue orphaned jobs
     {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
     {Oban.Plugins.Cron,

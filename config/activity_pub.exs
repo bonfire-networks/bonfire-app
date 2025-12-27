@@ -39,6 +39,8 @@ config :activity_pub, :http,
   user_agent: "Bonfire ActivityPub federation",
   send_user_agent: true,
   adapter: [
+    recv_timeout: 30_000,
+    connect_timeout: 10_000,
     ssl_options: [
       # Workaround for remote server certificate chain issues
       # partial_chain: &:hackney_connect.partial_chain/1,
