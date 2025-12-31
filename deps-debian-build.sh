@@ -10,8 +10,7 @@ chmod +x ./deps-debian.sh
 apt-get install -q -y --no-install-recommends sqlite3 npm 
 # rustc cargo g++ 
 
-npm install -g corepack
-corepack enable
+npm install -g corepack && corepack enable || npm install -g yarn
 
 # deps of tools
 apt-get install -q -y --no-install-recommends autoconf dpkg-dev  libncurses-dev unixodbc-dev libssl-dev libsctp-dev libodbc1 libssl1.1 libsctp1 make gcc cmake
@@ -34,5 +33,4 @@ mise install || echo "error during install of tools with mise"
 # which erl || (mise install erlang latest && asdf global erlang latest)
 # elixir -v || (asdf install elixir latest && asdf global elixir latest) #|| apt-get install -y elixir
 # just --version || (asdf install just latest && asdf global just latest) || cargo install just #|| apt-get install -y just 
-# npm install --global yarn
 

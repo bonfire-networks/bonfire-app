@@ -307,11 +307,11 @@ jobs:
             # ls -la data/config/current_flavour/assets/
             # ls -la data/config/current_flavour/assets/hooks/
       - name: Release to github
-        if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only push release to docker when tests pass
+        # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }} # comment/uncomment this line to only release when tests pass
         uses: softprops/action-gh-release@v2
         with:
           files: _build/prod/rel/bonfire-*.tar.gz
-          name: Unstable - ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
           tag_name: ${{ steps.version.outputs.tag }}
       # - name: Publish release 
       #   uses: mayel/actions/bin/ghr@master

@@ -10,5 +10,4 @@ chmod +x ./deps-alpine.sh
 apk add --update --no-cache just tar file mailcap make build-base libc-dev sqlite npm cargo gcc cmake
 # rust 
 
-npm install -g corepack
-corepack enable
+npm install -g corepack && corepack enable || npm install -g yarn
