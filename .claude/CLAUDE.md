@@ -1,5 +1,5 @@
 ## Core Principles
-
+- alwyas change code in extensions/
 - Consent-based coding, always think and plan, then check assumptions and present your solution, and only then can you help implementing.
 - Write clean, concise, functional code using small, focused functions.
 - **Explicit Over Implicit**: Prefer clarity over magic.
