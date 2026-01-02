@@ -15,7 +15,7 @@ SPDX-License-Identifier: CC0-1.0
 - ✨ Follow Hashtags [#1640](https://github.com/bonfire-networks/bonfire-app/issues/1640) (thanks @dogrileycom, @mayel, and @ivanminutillo)
 - ✨ trending links widget [#1726](https://github.com/bonfire-networks/bonfire-app/issues/1726) (thanks @mayel and @ivanminutillo)
 - 🚧 Polls: Ask questions with possible choices, gather votes [#914](https://github.com/bonfire-networks/bonfire-app/issues/914) (thanks @ivanminutillo and @mayel)
-- ✨ set post language & multi-language posts [#270](https://github.com/bonfire-networks/bonfire-app/issues/270) 
+- ✨ configure my preferred language + set post language [#270](https://github.com/bonfire-networks/bonfire-app/issues/270) 
 - ✨ translation options for content not in a language I speak [#1033](https://github.com/bonfire-networks/bonfire-app/issues/1033) (thanks @mayel)
 - ✨ Choose which feed to display on homepage for guests [#1647](https://github.com/bonfire-networks/bonfire-app/issues/1647) (thanks @dogrileycom, @ivanminutillo, and @mayel)
 - 🚧 ActivityPub Client-to-Server (C2S) API (work in progress) [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) (thanks @ivanminutillo and @mayel)

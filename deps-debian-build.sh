@@ -7,7 +7,7 @@ chmod +x ./deps-debian.sh
 ./deps-debian.sh
 
 # dev deps
-apt-get install -q -y --no-install-recommends sqlite3 npm 
+apt-get install -q -y --no-install-recommends sqlite3 libatomic1 npm 
 # rustc cargo g++ 
 
 npm install -g corepack && corepack enable || npm install -g yarn
