@@ -84,17 +84,17 @@ jobs:
         run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
       # - name: Install dependencies
       #   run: just mix deps.get
-      - name: Generate SBOM
-        run: just bill-of-materials
-      - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v6
-        with:
-          name: sbom
-          path: docs/bill-of-materials/**/*
-      - name: Submit SBOM to Github dependency graph
-        uses: advanced-security/spdx-dependency-submission-action@v0.1.2
-        with:
-          filePath: "docs/bill-of-materials/**/*"
+      # - name: Generate SBOM
+      #   run: just bill-of-materials
+      # - name: Upload SBOM artifact
+      #   uses: actions/upload-artifact@v6
+      #   with:
+      #     name: sbom
+      #     path: docs/bill-of-materials/**/*
+      # - name: Submit SBOM to Github dependency graph
+      #   uses: advanced-security/spdx-dependency-submission-action@v0.1.2
+      #   with:
+      #     filePath: "docs/bill-of-materials/**/*"
       - name: Generate changelog (if mix.lock changed)
         if: ${{ needs.check_lockfile_changed.outputs.changed == 'true' }}
         env:
