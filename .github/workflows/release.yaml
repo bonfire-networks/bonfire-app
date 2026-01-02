@@ -195,16 +195,16 @@ jobs:
             fi
           done
 
-  elixir_release_amd64: 
+  otp_release_amd64: 
     needs: check_version_changed
     if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
-    name: ${{ matrix.flavour }} - OTP on amd64 bullseye # i.e. what's required by Yunohost
+    name: ${{ matrix.flavour }} - OTP on debian / amd64 # i.e. what's required by Yunohost
     strategy:
       matrix:
         flavour: ["social"] # "open_science", "federated_archives", "ember", "community", "cooperation"
     runs-on: ubuntu-latest
-    container: debian:bullseye
-    # container: debian:bullseye-slim
+    container: debian:bookworm
+    # container: debian:bookworm-slim
     env:
       FLAVOUR: ${{ matrix.flavour }}
       WITH_DOCKER: no
