@@ -82,7 +82,7 @@ MAIL_FROM=[from@yourdomain.net]
 	```
 	> You can also choose what version of Bonfire to use, by default `APP_VERSION=latest` means it will run the latest stable release (eg. 1.0.0), but if you're conformable testing newer features and improvements (and reporting issues and feedback, please!), you can set `APP_VERSION=latest-rc` for the latest release candidate, or `APP_VERSION=latest-beta`, or even `APP_VERSION=latest-alpha` for the most bleeding edge (and probably most buggy) version 
 3. `abra app deploy YOUR_APP_DOMAIN_NAME`
-6. Open the configured domain in your browser and sign up! 
+6. Open the configured domain in your browser and sign up at at https://yourdomain.net/signup (the instance is invite-only by default, but the first person to sign up bypasses that, and is also automatically an instance admin).
 
 #### CoopCloud FAQs
 
