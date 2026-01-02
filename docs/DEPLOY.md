@@ -7,20 +7,16 @@ SPDX-License-Identifier: CC0-1.0
 
 # Hosting guide
 
-
 A short guide to running Bonfire in a production environment and setting up a digital space connected to the fediverse.
 
 > #### Status {: .info}
-> The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages. 
+> The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages and not ready to use. 
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Installation guide](./HACKING.md) instead._
 
 > **Before you begin:**  
 > Make sure you have completed the [Setup Tutorial](./SETUP.md) to prepare your server, domain, mail, and DNS.  
 > This guide assumes your infrastructure is ready and covers installing and configuring Bonfire itself.
-
-> **Warning**
-> By default sign ups are by invite only. You can invite people via instance settings, or open up for public registrations (just make sure you have a code of conduct and moderation team in place first). 
 
 ---
 
@@ -34,28 +30,28 @@ Install using [Co-op Cloud](https://coopcloud.tech) (recommended) which is an al
 
 #### 1. Install Coop-Cloud on your server
 
-Follow this [guide to setup Docker and Coop Cloud](https://docs.coopcloud.tech/operators/tutorial/) on your server.
+Follow this [guide to set up Docker and Coop Cloud](https://docs.coopcloud.tech/operators/tutorial/) *on your server*.
 
-If you have any issues connecting with SSH, here's a [guide for coop-cloud ssh issues](https://docs.coopcloud.tech/abra/trouble/#ssh-connection-issues):
+If you have any issues connecting with SSH, here's a [guide for coop-cloud ssh issues](https://docs.coopcloud.tech/abra/trouble/#ssh-connection-issues), ensuring you have a `.ssh/config` file set up (locally on your computer):
 
-> [!Tip] Protip
-> Ensure .ssh/config file is set up
-> ```
-> Host [yourdomain.net]
->     HostName [yourdomain.net]
->     User [root]
->     IdentityFile ~/.ssh/[your_ssh_key]
-> ```
+```
+Host [yourdomain.net]
+  HostName [yourdomain.net]
+  User [your server username, eg. root]
+  IdentityFile ~/.ssh/[your_ssh_key]
+```
+
+Before proceeding, check that works by running simply `ssh [yourdomain.net]` (without a username) and it should connect using your SSH key (without asking for a password).
 
 #### 2. Install Abra on your computer
 
-[Abra](https://docs.coopcloud.tech/abra/) is installed locally on your machine and acts as the remote control to Coop-Cloud, letting you manage software installations more easily from your local machine. 
+[Abra](https://docs.coopcloud.tech/abra/) should be installed *locally on your computer* and acts as the remote control for your Co-op Cloud server, letting you manage software installations more easily from your local machine. 
 
 [Follow the Abra installation guide](https://docs.coopcloud.tech/abra/install/).
 
 ##### 2.1. Add your server to Abra
 
-Here's a guide for how to [add your server](https://docs.coopcloud.tech/operators/tutorial/#install-abra) to Abra. This tutorial works well until you need to install the app. When you reach the "Nextcloud" part of the guide, switch back to this guide.
+Here's a guide for how to [add your server](https://docs.coopcloud.tech/operators/tutorial/#install-abra) to Abra. Follow that tutorial until you need to install the app: when you reach the part of that guide that mentions Nextcloud, switch back to this guide.
 
 - The command for adding the server is `abra server add [yourdomain.net]` or e.g. `abra server add [social.yourdomain.net]` if using a subdomain
 - To see that it works, check `abra server ls` and you'll get a cute happy message
@@ -64,7 +60,7 @@ Here's a guide for how to [add your server](https://docs.coopcloud.tech/operator
 > Try pinging *traefik.yourdomain.net* to see that it works:
 > `ping traefik.yourdomain.net`
 
-#### 3. Install Traefik
+#### 3. Install the web server
 
 [Traefik](https://doc.traefik.io/traefik/) is a proxy that supports developers with publishing services. This will make it easy to ensure that your bonfire instance is up to date! 
 
@@ -72,33 +68,26 @@ Install by following this [recipie to install Traefik](https://recipes.coopcloud
 
 Remember to add a valid email when configuring Traefik to generate a SSL certificate (abra app config traefik.yourdomain) - that's the only field you need to configure for traefik to work
 
-> [!Tip] Protip 
-> You can try using --chaos to tell abra to use the recipe that you have set up locally rather than pulling it from the repository if the traefik setup is stucked
-
 #### 4. Install Bonfire
 
-Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the instructions there. 
+Install the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) for Co-op Cloud by following these instructions: 
 
-- Editing the config file:
-	-  `abra app config [yourdomain.net]`
-	- See [prepare the config](#preparing-the-config-in-env) for details about what to edit, for example you should add the email sending key:
-```
-	MAIL_BACKEND=mailgun
-	MAIL_DOMAIN=[yourdomain.net]
-	MAIL_KEY=[your-mailgun-sending-key]
-	MAIL_FROM=[from@yourdomain.net]
-```
-
-- Deploying: 
-`abra app deploy [yourdomain.net]`
-
-- If redeploying, you can force deploy:
-`abra app deploy [yourdomain.net] --force`
-
-> **Protip**
-> You can turn the `~/abra/servers/yourdomain.net` directory into a git repo and share it (privately!) with collaborators. It's also useful as a backup if you loose access to your machine or want to manager the server from a different place.
+1. `abra app new bonfire --secrets` (optionally with `--pass` if you'd like to save secrets in `pass`) and select your server from the list and enter the domain name you want Bonfire to be served from
+2. `abra app config YOUR_APP_DOMAIN_NAME` and check/edit the config keys, see [prepare the config](#preparing-the-config-in-env) for details about what to edit, for example you should add the email sending key:
+	```
+MAIL_BACKEND=mailgun
+MAIL_DOMAIN=[yourdomain.net]
+MAIL_KEY=[your-mailgun-sending-key]
+MAIL_FROM=[from@yourdomain.net]
+	```
+	> You can also choose what version of Bonfire to use, by default `APP_VERSION=latest` means it will run the latest stable release (eg. 1.0.0), but if you're conformable testing newer features and improvements (and reporting issues and feedback, please!), you can set `APP_VERSION=latest-rc` for the latest release candidate, or `APP_VERSION=latest-beta`, or even `APP_VERSION=latest-alpha` for the most bleeding edge (and probably most buggy) version 
+3. `abra app deploy YOUR_APP_DOMAIN_NAME`
+6. Open the configured domain in your browser and sign up! 
 
 #### CoopCloud FAQs
+
+* How to re-deploy? for example when changing a config in .env or to upgrade to a newer release
+	you can force deploy: `abra app deploy [yourdomain.net] --force`
 
 * How to connect to the bonfire app via command line?
     `abra app run [yourinstance.net] app bin/bonfire remote`
@@ -114,6 +103,8 @@ Use the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) and follow the 
 * How to set up backups?
     * see this coopcloud recipe: https://recipes.coopcloud.tech/backup-bot-two
 
+* How to sync or share config? to be able to deploy from several computers
+	You can turn the `~/abra/servers/yourdomain.net` directory into a git repo and share it (privately!) with collaborators. It's also useful as a backup if you loose access to your machine or want to manager the server from a different place.
 
 ### Docker containers
 
@@ -653,10 +644,11 @@ By default, the backend listens on port 4000 (TCP), so you can access it on http
 
 You can sign up at https://yourdomain.net/signup even though instances are invite-only by default, if you are the first to sign up you'll be able to do so without email confirmation and will automatically be made an instance admin (where you can then generate invite links or enable open sign ups).
 
-However, for any future sign ups know you will need to having a working [email sending service configured](https://docs.bonfirenetworks.org/Bonfire.Mailer.html) so users can receive confirmation links to verify their email addresses.
-
 > You can also sign up via CLI (accessed via `just rel-shell`) by entering something like this in your app's Elixir console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
 
+For any future sign ups know you will need to having a working [email sending service configured](https://docs.bonfirenetworks.org/Bonfire.Mailer.html) so users can receive confirmation links to verify their email addresses.
+
+> By default sign ups are by invite only. You can invite people via instance settings, or open up for public registrations (just make sure you have a code of conduct and moderation team in place first). 
 
 ## Handy commands
 
