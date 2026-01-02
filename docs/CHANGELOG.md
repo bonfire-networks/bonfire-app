@@ -7,6 +7,77 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0.1 (2026-01-02)]
+
+### Added
+- ✨ schedule a post [#1669](https://github.com/bonfire-networks/bonfire-app/issues/1669) (thanks @mayel)
+- ✨ Curate a list of suggested profiles for an instance [#1668](https://github.com/bonfire-networks/bonfire-app/issues/1668) (thanks @mayel)
+- ✨ Follow Hashtags [#1640](https://github.com/bonfire-networks/bonfire-app/issues/1640) (thanks @dogrileycom, @mayel, and @ivanminutillo)
+- ✨ trending links widget [#1726](https://github.com/bonfire-networks/bonfire-app/issues/1726) (thanks @mayel and @ivanminutillo)
+- 🚧 Polls: Ask questions with possible choices, gather votes [#914](https://github.com/bonfire-networks/bonfire-app/issues/914) (thanks @ivanminutillo and @mayel)
+- ✨ set post language & multi-language posts [#270](https://github.com/bonfire-networks/bonfire-app/issues/270) 
+- ✨ translation options for content not in a language I speak [#1033](https://github.com/bonfire-networks/bonfire-app/issues/1033) (thanks @mayel)
+- ✨ Choose which feed to display on homepage for guests [#1647](https://github.com/bonfire-networks/bonfire-app/issues/1647) (thanks @dogrileycom, @ivanminutillo, and @mayel)
+- 🚧 ActivityPub Client-to-Server (C2S) API (work in progress) [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) (thanks @ivanminutillo and @mayel)
+- 🚧 Mastodon-compatible API (work in progress) [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) (thanks @ivanminutillo and @mayel)
+
+### Changed
+- ⚡ prioritise the processing (in seperate federation queue) of incoming @ mentions and DMs [#1658](https://github.com/bonfire-networks/bonfire-app/issues/1658) (thanks @mayel)
+- ✨ add likes toggle to feed filters [#1722](https://github.com/bonfire-networks/bonfire-app/issues/1722) (thanks @mayel)
+- 📝 improve list of circles/people to pick when creating a boundary preset [#1297](https://github.com/bonfire-networks/bonfire-app/issues/1297) (thanks @ivanminutillo and @mayel)
+- 📝 easier way to see which instances I've blocked (as an admin or a user) [#1630](https://github.com/bonfire-networks/bonfire-app/issues/1630) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- 📝 Show loading indicator during search operations [#1212](https://github.com/bonfire-networks/bonfire-app/issues/1212) (thanks @ivanminutillo and @mayel)
+- 📝 Replying to a comment within a thread should not include all the thread participants by default, instead of just the ones included in the post i'm replying to [#1615](https://github.com/bonfire-networks/bonfire-app/issues/1615) (thanks @ivanminutillo and @mayel)
+- 💅 instance permissions should show all verbs [#1611](https://github.com/bonfire-networks/bonfire-app/issues/1611) (thanks @mayel)
+- 📝 when adding a moderator via instance settings, it should autocomplete only with local users [#1610](https://github.com/bonfire-networks/bonfire-app/issues/1610) (thanks @mayel)
+- 🚀 add missing ecto indexes [#1588](https://github.com/bonfire-networks/bonfire-app/issues/1588) (thanks @ivanminutillo and @mayel)
+- 💅 Article preview in feed shows all the links included in the article with previews, leading to a confusing UX [#1578](https://github.com/bonfire-networks/bonfire-app/issues/1578) (thanks @ivanminutillo and @mayel)
+- 📝 Upgrade Hammer integration [#1522](https://github.com/bonfire-networks/bonfire-app/issues/1522) (thanks @mayel)
+- 🚀 remove phx-update="append" which is not longer supported in LV [#1492](https://github.com/bonfire-networks/bonfire-app/issues/1492) (thanks @mayel and @ivanminutillo)
+- ⚡ optimise / short circuit incoming Delete activities for unknown remote objects/actors [#850](https://github.com/bonfire-networks/bonfire-app/issues/850) (thanks @mayel)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [`24b77c6`](https://github.com/bonfire-networks/bonfire-app/commit/24b77c67bafaeeb51329bb96a973de324335f077) (thanks @mayel and @harveypitt)
+- 🐛 Flags should not be automatically sent to remote instances as reports [#1626](https://github.com/bonfire-networks/bonfire-app/issues/1626) (thanks @jonpincus and @mayel)
+- 🚀 updated [docs](https://docs.bonfirenetworks.org/readme.html)
+
+### Fixed
+- 📝 when i reply to a remote post, the boundary default to local [#1687](https://github.com/bonfire-networks/bonfire-app/issues/1687) (thanks @ivanminutillo)
+- 📝 when i minimize the composer that contains a reply, the reply_to disappear [#1686](https://github.com/bonfire-networks/bonfire-app/issues/1686) (thanks @ivanminutillo)
+- 📝 fix(app pages): useless closing div tag breaking layout [PR #7](https://github.com/bonfire-networks/website-blog/pull/7) (thanks @Spratch)
+- 📝 Boost icon does not darken after boost. [#1642](https://github.com/bonfire-networks/bonfire-app/issues/1642) (thanks @mayel and @ivanminutillo)
+- 📝 Accept Follow activities should not have cc: Public [#1712](https://github.com/bonfire-networks/bonfire-app/issues/1712) (thanks @ivanminutillo)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [PR #1672](https://github.com/bonfire-networks/bonfire-app/pull/1672) (thanks @mayel and @harveypitt)
+- 📝 quote button doesn't open compose modal [#1609](https://github.com/bonfire-networks/bonfire-app/issues/1609) (thanks @mayel and @ivanminutillo)
+- 📝 Remote follow remains stucked in requested even for auto-followable users [#1695](https://github.com/bonfire-networks/bonfire-app/issues/1695) (thanks @ivanminutillo and @mayel)
+- 🐛 Creating a circle from Peertube followers has multiple issues. [#1716](https://github.com/bonfire-networks/bonfire-app/issues/1716) (thanks @ozonedGH)
+- 🐛 When creating a client with openid, bonfire_open_id appears to be concatenating the instance name with the app name. The redirect_uri being passed seems malformed [#1692](https://github.com/bonfire-networks/bonfire-app/issues/1692) (thanks @ivanminutillo and @mayel)
+- 🐛 typo: cdlr.ex => cldr.ex [#1676](https://github.com/bonfire-networks/bonfire-app/issues/1676) - [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m)
+- 🐛 RuntimeError occurs during user signup when the undiscoverable flag is set to true [#1671](https://github.com/bonfire-networks/bonfire-app/issues/1671) (thanks @harveypitt and @mayel)
+- 🐛 pinned ranch is too old to support Unix socket permissions [#1667](https://github.com/bonfire-networks/bonfire-app/issues/1667) - [PR #1871](https://github.com/bonfire-networks/bonfire-app/pull/1871), [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 Feed Image Display of Photos [#1654](https://github.com/bonfire-networks/bonfire-app/issues/1654) (thanks @dogrileycom and @ivanminutillo)
+- 🐛 module Bonfire.RuntimeConfig is not available [#1651](https://github.com/bonfire-networks/bonfire-app/issues/1651) - [PR #1652](https://github.com/bonfire-networks/bonfire-app/pull/1652), [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 After posting sensitive the next post input has sensitive and title still turned on [#1646](https://github.com/bonfire-networks/bonfire-app/issues/1646) (thanks @mayel and @ivanminutillo)
+- 🐛 UX/UX issues [#1641](https://github.com/bonfire-networks/bonfire-app/issues/1641) (thanks @dogrileycom and @mayel)
+- 🐛 bonfire-app always loads appsignal's closed-source agent [#1637](https://github.com/bonfire-networks/bonfire-app/issues/1637) - [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 Editing a post shows encoded HTML [#1635](https://github.com/bonfire-networks/bonfire-app/issues/1635) (thanks @jonpincus and @mayel)
+- 🐛 Updated avatar image doesn't show up in the compose box until I hit refresh [#1634](https://github.com/bonfire-networks/bonfire-app/issues/1634) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- 🐛 Error when setting up first user [#1620](https://github.com/bonfire-networks/bonfire-app/issues/1620) (thanks @timorl and @mayel)
+- 🐛 A mention-only reply in mastodon has boost verb enabled on a bonfire instance [#1616](https://github.com/bonfire-networks/bonfire-app/issues/1616) (thanks @ivanminutillo and @mayel)
+- 🐛 In some cases links in posts are not linkified [#1614](https://github.com/bonfire-networks/bonfire-app/issues/1614) (thanks @mayel and @ivanminutillo)
+- 🐛 load more wont show new items if there are also new activities incoming [#1603](https://github.com/bonfire-networks/bonfire-app/issues/1603) (thanks @ivanminutillo)
+- 🐛 clicking 'refresh' when looking at *user* federation status as an admin shows instance federation status [#1601](https://github.com/bonfire-networks/bonfire-app/issues/1601) (thanks @mayel)
+- 🐛 Slow response after liking an activity [#1589](https://github.com/bonfire-networks/bonfire-app/issues/1589) (thanks @ivanminutillo)
+- 🐛 Wrong subject shown in composer when replying to a boosted post [#1572](https://github.com/bonfire-networks/bonfire-app/issues/1572) (thanks @ivanminutillo and @mayel)
+- 🐛 minor: compose window emoji obstructed [#1570](https://github.com/bonfire-networks/bonfire-app/issues/1570) (thanks @gillesdutilh and @ivanminutillo)
+- 🐛 Inconsistent behaviours when applying more than 1 filter in feed. [#1514](https://github.com/bonfire-networks/bonfire-app/issues/1514) (thanks @ivanminutillo and @mayel)
+- 🐛 when adding someone to a shared user profile, usernames should be recognise with or without including @ [#1296](https://github.com/bonfire-networks/bonfire-app/issues/1296) (thanks @mayel and @ivanminutillo)
+- 🐛 Pagination resets feed instead of loading older activities when removing time limit [#1285](https://github.com/bonfire-networks/bonfire-app/issues/1285) (thanks @ivanminutillo and @mayel)
+- 🐛 locking a thread still allows replying to replies wihin it [#1084](https://github.com/bonfire-networks/bonfire-app/issues/1084) (thanks @mayel)
+- 🐛 module Bonfire.RuntimeConfig is not available [PR #1652](https://github.com/bonfire-networks/bonfire-app/pull/1652) (thanks @ju1m)
+- 🐛 Heroicons v1 deprecated - v2 support needed [#22](https://github.com/bonfire-networks/iconify_ex/issues/22) - [PR #21](https://github.com/bonfire-networks/iconify_ex/pull/21) (thanks @neilberkman and @mayel)
+- 🐛 when i minimize the composer that includes a reply_to, the replied activities disappears [#1576](https://github.com/bonfire-networks/bonfire-app/issues/1576) (thanks @ivanminutillo)
+
+
+
 ## Bonfire Social [1.0 (2025-11-7)]
 
 ### Added
