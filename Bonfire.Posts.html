@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.28">
+    <meta name="project" content="Bonfire v1.0.1-social-beta.2">
 
 
-    <title>Bonfire.Posts — Bonfire v1.0.1-social-alpha.28</title>
+    <title>Bonfire.Posts — Bonfire v1.0.1-social-beta.2</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-9648CFAE.js"></script>
+    <script defer src="dist/sidebar_items-9EEA97B0.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.28
+          v1.0.1-social-beta.2
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Posts</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.28)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.2)</small>
 
     </h1>
 
@@ -144,6 +144,24 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       </div>
 
         <div class="summary-synopsis"><p>Creates a changeset for a post.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count_for_user/1" data-no-tooltip="" translate="no">count_for_user(user)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Count posts created by a single user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count_for_users/1" data-no-tooltip="" translate="no">count_for_users(users)</a>
+
+      </div>
 
     </div>
 
@@ -376,8 +394,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Publishes an ActivityPub activity for a post.</p><h2 id="ap_publish_activity/3-parameters" class="section-heading"><a href="#ap_publish_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">subject</code>: The subject of the activity.</li><li><code class="inline">verb</code>: The verb of the activity.</li><li><code class="inline">post</code>: The post to publish.</li></ul><h2 id="ap_publish_activity/3-returns" class="section-heading"><a href="#ap_publish_activity/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, activity}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="ap_publish_activity/3-examples" class="section-heading"><a href="#ap_publish_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="6487873272-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="6487873272-1">)</span><span class="w">
-</span><span class="p" data-group-id="6487873272-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6487873272-3">%</span><span class="nc" data-group-id="6487873272-3">ActivityPub.Activity</span><span class="p" data-group-id="6487873272-3">{</span><span class="p" data-group-id="6487873272-3">}</span><span class="p" data-group-id="6487873272-2">}</span></code></pre>
+<p>Publishes an ActivityPub activity for a post.</p><h2 id="ap_publish_activity/3-parameters" class="section-heading"><a href="#ap_publish_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">subject</code>: The subject of the activity.</li><li><code class="inline">verb</code>: The verb of the activity.</li><li><code class="inline">post</code>: The post to publish.</li></ul><h2 id="ap_publish_activity/3-returns" class="section-heading"><a href="#ap_publish_activity/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, activity}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="ap_publish_activity/3-examples" class="section-heading"><a href="#ap_publish_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_publish_activity</span><span class="p" data-group-id="4117028656-1">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="4117028656-1">)</span><span class="w">
+</span><span class="p" data-group-id="4117028656-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4117028656-3">%</span><span class="nc" data-group-id="4117028656-3">ActivityPub.Activity</span><span class="p" data-group-id="4117028656-3">{</span><span class="p" data-group-id="4117028656-3">}</span><span class="p" data-group-id="4117028656-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="ap_receive_activity/3">
@@ -390,7 +408,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <h1 class="signature" translate="no">ap_receive_activity(creator, ap_activity, ap_object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L639" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L640" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -399,8 +417,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Receives an incoming ActivityPub post.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">creator</code>: The creator of the post.</li><li><code class="inline">activity</code>: The ActivityPub activity.</li><li><code class="inline">object</code>: The ActivityPub object.</li><li><code class="inline">circles</code>: The circles to publish to (default: <code class="inline">[]</code>).</li></ul><h2 id="ap_receive_activity/3-returns" class="section-heading"><a href="#ap_receive_activity/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="ap_receive_activity/3-examples" class="section-heading"><a href="#ap_receive_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="3879963241-1">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="3879963241-1">)</span><span class="w">
-</span><span class="p" data-group-id="3879963241-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3879963241-3">%</span><span class="nc" data-group-id="3879963241-3">Post</span><span class="p" data-group-id="3879963241-3">{</span><span class="p" data-group-id="3879963241-3">}</span><span class="p" data-group-id="3879963241-2">}</span></code></pre>
+<p>Receives an incoming ActivityPub post.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">creator</code>: The creator of the post.</li><li><code class="inline">activity</code>: The ActivityPub activity.</li><li><code class="inline">object</code>: The ActivityPub object.</li><li><code class="inline">circles</code>: The circles to publish to (default: <code class="inline">[]</code>).</li></ul><h2 id="ap_receive_activity/3-returns" class="section-heading"><a href="#ap_receive_activity/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="ap_receive_activity/3-examples" class="section-heading"><a href="#ap_receive_activity/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">ap_receive_activity</span><span class="p" data-group-id="2564950298-1">(</span><span class="n">creator</span><span class="p">,</span><span class="w"> </span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p" data-group-id="2564950298-1">)</span><span class="w">
+</span><span class="p" data-group-id="2564950298-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2564950298-3">%</span><span class="nc" data-group-id="2564950298-3">Post</span><span class="p" data-group-id="2564950298-3">{</span><span class="p" data-group-id="2564950298-3">}</span><span class="p" data-group-id="2564950298-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset/4">
@@ -426,7 +444,55 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Creates a changeset for a post.</p><h2 id="changeset/4-parameters" class="section-heading"><a href="#changeset/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">action</code>: The action to perform (<code class="inline">:create</code>).</li><li><code class="inline">attrs</code>: Attributes for the post.</li></ul><h2 id="changeset/4-returns" class="section-heading"><a href="#changeset/4-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A <code class="inline">%Changeset{}</code> for the post.</p><h2 id="changeset/4-examples" class="section-heading"><a href="#changeset/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="7539806904-1">(</span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7539806904-2">%{</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Post&quot;</span><span class="p" data-group-id="7539806904-2">}</span><span class="p" data-group-id="7539806904-1">)</span></code></pre>
+<p>Creates a changeset for a post.</p><h2 id="changeset/4-parameters" class="section-heading"><a href="#changeset/4-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">action</code>: The action to perform (<code class="inline">:create</code>).</li><li><code class="inline">attrs</code>: Attributes for the post.</li></ul><h2 id="changeset/4-returns" class="section-heading"><a href="#changeset/4-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A <code class="inline">%Changeset{}</code> for the post.</p><h2 id="changeset/4-examples" class="section-heading"><a href="#changeset/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="9846430181-1">(</span><span class="ss">:create</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9846430181-2">%{</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New Post&quot;</span><span class="p" data-group-id="9846430181-2">}</span><span class="p" data-group-id="9846430181-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count_for_user/1">
+
+  <div class="detail-header">
+    <a href="#count_for_user/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">count_for_user(user)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L886" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Count posts created by a single user.</p><p>Returns the number of posts as an integer, or nil if the user has no posts.</p><h2 id="count_for_user/1-examples" class="section-heading"><a href="#count_for_user/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">count_for_user</span><span class="p" data-group-id="5227045673-1">(</span><span class="n">user_id</span><span class="p" data-group-id="5227045673-1">)</span><span class="w">
+</span><span class="mi">42</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">count_for_user</span><span class="p" data-group-id="5227045673-2">(</span><span class="n">nonexistent_user</span><span class="p" data-group-id="5227045673-2">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="count_for_users/1">
+
+  <div class="detail-header">
+    <a href="#count_for_users/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">count_for_users(users)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L854" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 <section class="detail" id="count_total/0">
@@ -439,7 +505,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <h1 class="signature" translate="no">count_total()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L823" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L843" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -472,8 +538,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Deletes a post.</p><p>Note: You should use <a href="./Bonfire.Social.Objects.html#delete/2"><code class="inline">Bonfire.Social.Objects.delete/2</code></a> instead.</p><h2 id="delete/2-parameters" class="section-heading"><a href="#delete/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">object</code>: The post object to delete.</li><li><code class="inline">opts</code>: Options for deleting the post.</li></ul><h2 id="delete/2-returns" class="section-heading"><a href="#delete/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, deleted_post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="delete/2-examples" class="section-heading"><a href="#delete/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="5368335794-1">(</span><span class="n">post</span><span class="p" data-group-id="5368335794-1">)</span><span class="w">
-</span><span class="p" data-group-id="5368335794-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5368335794-3">%</span><span class="nc" data-group-id="5368335794-3">Post</span><span class="p" data-group-id="5368335794-3">{</span><span class="p" data-group-id="5368335794-3">}</span><span class="p" data-group-id="5368335794-2">}</span></code></pre>
+<p>Deletes a post.</p><p>Note: You should use <a href="./Bonfire.Social.Objects.html#delete/2"><code class="inline">Bonfire.Social.Objects.delete/2</code></a> instead.</p><h2 id="delete/2-parameters" class="section-heading"><a href="#delete/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">object</code>: The post object to delete.</li><li><code class="inline">opts</code>: Options for deleting the post.</li></ul><h2 id="delete/2-returns" class="section-heading"><a href="#delete/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, deleted_post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="delete/2-examples" class="section-heading"><a href="#delete/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="9942453415-1">(</span><span class="n">post</span><span class="p" data-group-id="9942453415-1">)</span><span class="w">
+</span><span class="p" data-group-id="9942453415-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9942453415-3">%</span><span class="nc" data-group-id="9942453415-3">Post</span><span class="p" data-group-id="9942453415-3">{</span><span class="p" data-group-id="9942453415-3">}</span><span class="p" data-group-id="9942453415-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="draft/2">
@@ -530,7 +596,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <h1 class="signature" translate="no">indexing_object_format(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L784" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L804" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -539,8 +605,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Formats a post for search indexing.</p><h2 id="indexing_object_format/1-parameters" class="section-heading"><a href="#indexing_object_format/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">post</code>: The post to format.</li><li><code class="inline">opts</code>: Formatting options.</li></ul><h2 id="indexing_object_format/1-returns" class="section-heading"><a href="#indexing_object_format/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A map with formatted post data for indexing.</p><h2 id="indexing_object_format/1-examples" class="section-heading"><a href="#indexing_object_format/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">indexing_object_format</span><span class="p" data-group-id="6316036031-1">(</span><span class="n">post</span><span class="p" data-group-id="6316036031-1">)</span><span class="w">
-</span><span class="p" data-group-id="6316036031-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">index_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bonfire.Data.Social.Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6316036031-3">%{</span><span class="p" data-group-id="6316036031-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">created</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6316036031-4">%{</span><span class="p" data-group-id="6316036031-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">tags</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6316036031-5">[</span><span class="p" data-group-id="6316036031-5">]</span><span class="p" data-group-id="6316036031-2">}</span></code></pre>
+<p>Formats a post for search indexing.</p><h2 id="indexing_object_format/1-parameters" class="section-heading"><a href="#indexing_object_format/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">post</code>: The post to format.</li><li><code class="inline">opts</code>: Formatting options.</li></ul><h2 id="indexing_object_format/1-returns" class="section-heading"><a href="#indexing_object_format/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A map with formatted post data for indexing.</p><h2 id="indexing_object_format/1-examples" class="section-heading"><a href="#indexing_object_format/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">indexing_object_format</span><span class="p" data-group-id="1283053541-1">(</span><span class="n">post</span><span class="p" data-group-id="1283053541-1">)</span><span class="w">
+</span><span class="p" data-group-id="1283053541-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">index_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bonfire.Data.Social.Post&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1283053541-3">%{</span><span class="p" data-group-id="1283053541-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">created</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1283053541-4">%{</span><span class="p" data-group-id="1283053541-4">}</span><span class="p">,</span><span class="w"> </span><span class="ss">tags</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1283053541-5">[</span><span class="p" data-group-id="1283053541-5">]</span><span class="p" data-group-id="1283053541-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_by/2">
@@ -564,8 +630,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Lists posts created by a user that are in their outbox and are not replies.</p><h2 id="list_by/2-parameters" class="section-heading"><a href="#list_by/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">by_user</code>: The user whose posts to list.</li><li><code class="inline">opts</code>: Options for listing posts.</li></ul><h2 id="list_by/2-returns" class="section-heading"><a href="#list_by/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A list of posts.</p><h2 id="list_by/2-examples" class="section-heading"><a href="#list_by/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="5007282444-1">(</span><span class="n">user</span><span class="p" data-group-id="5007282444-1">)</span><span class="w">
-</span><span class="p" data-group-id="5007282444-2">[</span><span class="p" data-group-id="5007282444-3">%</span><span class="nc" data-group-id="5007282444-3">Post</span><span class="p" data-group-id="5007282444-3">{</span><span class="p" data-group-id="5007282444-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5007282444-4">%</span><span class="nc" data-group-id="5007282444-4">Post</span><span class="p" data-group-id="5007282444-4">{</span><span class="p" data-group-id="5007282444-4">}</span><span class="p" data-group-id="5007282444-2">]</span></code></pre>
+<p>Lists posts created by a user that are in their outbox and are not replies.</p><h2 id="list_by/2-parameters" class="section-heading"><a href="#list_by/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">by_user</code>: The user whose posts to list.</li><li><code class="inline">opts</code>: Options for listing posts.</li></ul><h2 id="list_by/2-returns" class="section-heading"><a href="#list_by/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A list of posts.</p><h2 id="list_by/2-examples" class="section-heading"><a href="#list_by/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_by</span><span class="p" data-group-id="5944209780-1">(</span><span class="n">user</span><span class="p" data-group-id="5944209780-1">)</span><span class="w">
+</span><span class="p" data-group-id="5944209780-2">[</span><span class="p" data-group-id="5944209780-3">%</span><span class="nc" data-group-id="5944209780-3">Post</span><span class="p" data-group-id="5944209780-3">{</span><span class="p" data-group-id="5944209780-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5944209780-4">%</span><span class="nc" data-group-id="5944209780-4">Post</span><span class="p" data-group-id="5944209780-4">{</span><span class="p" data-group-id="5944209780-4">}</span><span class="p" data-group-id="5944209780-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_paginated/2">
@@ -589,8 +655,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Lists posts with pagination.</p><h2 id="list_paginated/2-parameters" class="section-heading"><a href="#list_paginated/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filters to apply to the query.</li><li><code class="inline">opts</code>: Options for pagination.</li></ul><h2 id="list_paginated/2-returns" class="section-heading"><a href="#list_paginated/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A paginated list of posts.</p><h2 id="list_paginated/2-examples" class="section-heading"><a href="#list_paginated/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_paginated</span><span class="p" data-group-id="8725376917-1">(</span><span class="p" data-group-id="8725376917-2">[</span><span class="p" data-group-id="8725376917-2">]</span><span class="p" data-group-id="8725376917-1">)</span><span class="w">
-</span><span class="p" data-group-id="8725376917-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8725376917-4">[</span><span class="p" data-group-id="8725376917-5">%</span><span class="nc" data-group-id="8725376917-5">Post</span><span class="p" data-group-id="8725376917-5">{</span><span class="p" data-group-id="8725376917-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8725376917-6">%</span><span class="nc" data-group-id="8725376917-6">Post</span><span class="p" data-group-id="8725376917-6">{</span><span class="p" data-group-id="8725376917-6">}</span><span class="p" data-group-id="8725376917-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8725376917-7">%{</span><span class="p" data-group-id="8725376917-7">}</span><span class="p" data-group-id="8725376917-3">}</span></code></pre>
+<p>Lists posts with pagination.</p><h2 id="list_paginated/2-parameters" class="section-heading"><a href="#list_paginated/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filters to apply to the query.</li><li><code class="inline">opts</code>: Options for pagination.</li></ul><h2 id="list_paginated/2-returns" class="section-heading"><a href="#list_paginated/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A paginated list of posts.</p><h2 id="list_paginated/2-examples" class="section-heading"><a href="#list_paginated/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">list_paginated</span><span class="p" data-group-id="2571912832-1">(</span><span class="p" data-group-id="2571912832-2">[</span><span class="p" data-group-id="2571912832-2">]</span><span class="p" data-group-id="2571912832-1">)</span><span class="w">
+</span><span class="p" data-group-id="2571912832-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2571912832-4">[</span><span class="p" data-group-id="2571912832-5">%</span><span class="nc" data-group-id="2571912832-5">Post</span><span class="p" data-group-id="2571912832-5">{</span><span class="p" data-group-id="2571912832-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2571912832-6">%</span><span class="nc" data-group-id="2571912832-6">Post</span><span class="p" data-group-id="2571912832-6">{</span><span class="p" data-group-id="2571912832-6">}</span><span class="p" data-group-id="2571912832-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2571912832-7">%{</span><span class="p" data-group-id="2571912832-7">}</span><span class="p" data-group-id="2571912832-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_note_to_article/2">
@@ -656,16 +722,16 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Publishes a post.</p><h2 id="publish/1-parameters" class="section-heading"><a href="#publish/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">opts</code>: Options for publishing the post.</li></ul><h2 id="publish/1-returns" class="section-heading"><a href="#publish/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="publish/1-examples" class="section-heading"><a href="#publish/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">publish</span><span class="p" data-group-id="8062161356-1">(</span><span class="w">
+<p>Publishes a post.</p><h2 id="publish/1-parameters" class="section-heading"><a href="#publish/1-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">opts</code>: Options for publishing the post.</li></ul><h2 id="publish/1-returns" class="section-heading"><a href="#publish/1-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, post}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="publish/1-examples" class="section-heading"><a href="#publish/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">publish</span><span class="p" data-group-id="1687201058-1">(</span><span class="w">
   </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">me</span><span class="p">,</span><span class="w"> 
   </span><span class="ss">boundary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;public&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">post_attrs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8062161356-2">%{</span><span class="w">
-    </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8062161356-3">%{</span><span class="w">
+  </span><span class="ss">post_attrs</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1687201058-2">%{</span><span class="w">
+    </span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1687201058-3">%{</span><span class="w">
       </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test post title&quot;</span><span class="p">,</span><span class="w">
       </span><span class="ss">html_body</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;p&gt;epic html message&lt;/p&gt;&quot;</span><span class="w">
-    </span><span class="p" data-group-id="8062161356-3">}</span><span class="w">
-  </span><span class="p" data-group-id="8062161356-2">}</span><span class="p" data-group-id="8062161356-1">)</span><span class="w">
-</span><span class="p" data-group-id="8062161356-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8062161356-5">%</span><span class="nc" data-group-id="8062161356-5">Post</span><span class="p" data-group-id="8062161356-5">{</span><span class="p" data-group-id="8062161356-5">}</span><span class="p" data-group-id="8062161356-4">}</span></code></pre>
+    </span><span class="p" data-group-id="1687201058-3">}</span><span class="w">
+  </span><span class="p" data-group-id="1687201058-2">}</span><span class="p" data-group-id="1687201058-1">)</span><span class="w">
+</span><span class="p" data-group-id="1687201058-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1687201058-5">%</span><span class="nc" data-group-id="1687201058-5">Post</span><span class="p" data-group-id="1687201058-5">{</span><span class="p" data-group-id="1687201058-5">}</span><span class="p" data-group-id="1687201058-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="publish/2">
@@ -713,8 +779,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Queries posts.</p><h2 id="query/2-parameters" class="section-heading"><a href="#query/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filters to apply to the query.</li><li><code class="inline">opts</code>: Query options.</li></ul><h2 id="query/2-returns" class="section-heading"><a href="#query/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>An Ecto query for posts.</p><h2 id="query/2-examples" class="section-heading"><a href="#query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="3683020021-1">(</span><span class="p" data-group-id="3683020021-2">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="3683020021-2">]</span><span class="p" data-group-id="3683020021-1">)</span><span class="w">
-</span><span class="p" data-group-id="3683020021-3">#</span><span class="nc" data-group-id="3683020021-3">Ecto.Query</span><span class="p" data-group-id="3683020021-3">&lt;</span><span class="p" data-group-id="3683020021-3">&gt;</span></code></pre>
+<p>Queries posts.</p><h2 id="query/2-parameters" class="section-heading"><a href="#query/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filters to apply to the query.</li><li><code class="inline">opts</code>: Query options.</li></ul><h2 id="query/2-returns" class="section-heading"><a href="#query/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>An Ecto query for posts.</p><h2 id="query/2-examples" class="section-heading"><a href="#query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query</span><span class="p" data-group-id="0444646119-1">(</span><span class="p" data-group-id="0444646119-2">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="0444646119-2">]</span><span class="p" data-group-id="0444646119-1">)</span><span class="w">
+</span><span class="p" data-group-id="0444646119-3">#</span><span class="nc" data-group-id="0444646119-3">Ecto.Query</span><span class="p" data-group-id="0444646119-3">&lt;</span><span class="p" data-group-id="0444646119-3">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="query_module/0">
@@ -760,8 +826,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Queries posts with pagination.</p><h2 id="query_paginated/2-parameters" class="section-heading"><a href="#query_paginated/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filters to apply to the query.</li><li><code class="inline">opts</code>: Options for pagination.</li></ul><h2 id="query_paginated/2-returns" class="section-heading"><a href="#query_paginated/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A paginated query for posts.</p><h2 id="query_paginated/2-examples" class="section-heading"><a href="#query_paginated/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query_paginated</span><span class="p" data-group-id="7146032967-1">(</span><span class="p" data-group-id="7146032967-2">[</span><span class="p" data-group-id="7146032967-2">]</span><span class="p" data-group-id="7146032967-1">)</span><span class="w">
-</span><span class="p" data-group-id="7146032967-3">#</span><span class="nc" data-group-id="7146032967-3">Ecto.Query</span><span class="p" data-group-id="7146032967-3">&lt;</span><span class="p" data-group-id="7146032967-3">&gt;</span></code></pre>
+<p>Queries posts with pagination.</p><h2 id="query_paginated/2-parameters" class="section-heading"><a href="#query_paginated/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">filters</code>: Filters to apply to the query.</li><li><code class="inline">opts</code>: Options for pagination.</li></ul><h2 id="query_paginated/2-returns" class="section-heading"><a href="#query_paginated/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A paginated query for posts.</p><h2 id="query_paginated/2-examples" class="section-heading"><a href="#query_paginated/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">query_paginated</span><span class="p" data-group-id="0332623051-1">(</span><span class="p" data-group-id="0332623051-2">[</span><span class="p" data-group-id="0332623051-2">]</span><span class="p" data-group-id="0332623051-1">)</span><span class="w">
+</span><span class="p" data-group-id="0332623051-3">#</span><span class="nc" data-group-id="0332623051-3">Ecto.Query</span><span class="p" data-group-id="0332623051-3">&lt;</span><span class="p" data-group-id="0332623051-3">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="read/2">
@@ -785,8 +851,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Attempts to fetch a post by its ID, if the current user has permission to read it.</p><h2 id="read/2-parameters" class="section-heading"><a href="#read/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">post_id</code>: The ID of the post to read.</li><li><code class="inline">opts</code>: Options, incl. current user.</li></ul><h2 id="read/2-returns" class="section-heading"><a href="#read/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>The post if found, <code class="inline">nil</code> otherwise.</p><h2 id="read/2-examples" class="section-heading"><a href="#read/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">read</span><span class="p" data-group-id="4418270787-1">(</span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="4418270787-1">)</span><span class="w">
-</span><span class="p" data-group-id="4418270787-2">%</span><span class="nc" data-group-id="4418270787-2">Post</span><span class="p" data-group-id="4418270787-2">{</span><span class="p" data-group-id="4418270787-2">}</span></code></pre>
+<p>Attempts to fetch a post by its ID, if the current user has permission to read it.</p><h2 id="read/2-parameters" class="section-heading"><a href="#read/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">post_id</code>: The ID of the post to read.</li><li><code class="inline">opts</code>: Options, incl. current user.</li></ul><h2 id="read/2-returns" class="section-heading"><a href="#read/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>The post if found, <code class="inline">nil</code> otherwise.</p><h2 id="read/2-examples" class="section-heading"><a href="#read/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">read</span><span class="p" data-group-id="5409374146-1">(</span><span class="s">&quot;post_123&quot;</span><span class="p" data-group-id="5409374146-1">)</span><span class="w">
+</span><span class="p" data-group-id="5409374146-2">%</span><span class="nc" data-group-id="5409374146-2">Post</span><span class="p" data-group-id="5409374146-2">{</span><span class="p" data-group-id="5409374146-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="run_epic/3">
@@ -812,8 +878,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Runs a series of post <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> operations based on configured acts for this module.</p><h2 id="run_epic/3-parameters" class="section-heading"><a href="#run_epic/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">type</code>: The type of epic operation to run.</li><li><code class="inline">options</code>: Options for the epic operation.</li><li><code class="inline">on</code>: The key in the epic assigns to return (default: <code class="inline">:post</code>).</li></ul><h2 id="run_epic/3-returns" class="section-heading"><a href="#run_epic/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, result}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="run_epic/3-examples" class="section-heading"><a href="#run_epic/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="5077332861-1">(</span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5077332861-2">[</span><span class="p" data-group-id="5077332861-2">]</span><span class="p" data-group-id="5077332861-1">)</span><span class="w">
-</span><span class="p" data-group-id="5077332861-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5077332861-4">%</span><span class="nc" data-group-id="5077332861-4">Post</span><span class="p" data-group-id="5077332861-4">{</span><span class="p" data-group-id="5077332861-4">}</span><span class="p" data-group-id="5077332861-3">}</span></code></pre>
+<p>Runs a series of post <a href="./Bonfire.Epics.html"><code class="inline">Bonfire.Epics</code></a> operations based on configured acts for this module.</p><h2 id="run_epic/3-parameters" class="section-heading"><a href="#run_epic/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">type</code>: The type of epic operation to run.</li><li><code class="inline">options</code>: Options for the epic operation.</li><li><code class="inline">on</code>: The key in the epic assigns to return (default: <code class="inline">:post</code>).</li></ul><h2 id="run_epic/3-returns" class="section-heading"><a href="#run_epic/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, result}</code> on success, <code class="inline">{:error, reason}</code> on failure.</p><h2 id="run_epic/3-examples" class="section-heading"><a href="#run_epic/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">run_epic</span><span class="p" data-group-id="0587713455-1">(</span><span class="ss">:publish</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0587713455-2">[</span><span class="p" data-group-id="0587713455-2">]</span><span class="p" data-group-id="0587713455-1">)</span><span class="w">
+</span><span class="p" data-group-id="0587713455-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0587713455-4">%</span><span class="nc" data-group-id="0587713455-4">Post</span><span class="p" data-group-id="0587713455-4">{</span><span class="p" data-group-id="0587713455-4">}</span><span class="p" data-group-id="0587713455-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="schema_module/0">
@@ -859,8 +925,8 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
   <section class="docstring">
 
-<p>Searches for posts.</p><h2 id="search/2-parameters" class="section-heading"><a href="#search/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">search</code>: The search term to look for in the title, summary, or body.</li><li><code class="inline">opts</code>: Search options.</li></ul><h2 id="search/2-returns" class="section-heading"><a href="#search/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A list of matching posts.</p><h2 id="search/2-examples" class="section-heading"><a href="#search/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">search</span><span class="p" data-group-id="9346526943-1">(</span><span class="s">&quot;example&quot;</span><span class="p" data-group-id="9346526943-1">)</span><span class="w">
-</span><span class="p" data-group-id="9346526943-2">[</span><span class="p" data-group-id="9346526943-3">%</span><span class="nc" data-group-id="9346526943-3">Post</span><span class="p" data-group-id="9346526943-3">{</span><span class="p" data-group-id="9346526943-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9346526943-4">%</span><span class="nc" data-group-id="9346526943-4">Post</span><span class="p" data-group-id="9346526943-4">{</span><span class="p" data-group-id="9346526943-4">}</span><span class="p" data-group-id="9346526943-2">]</span></code></pre>
+<p>Searches for posts.</p><h2 id="search/2-parameters" class="section-heading"><a href="#search/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">search</code>: The search term to look for in the title, summary, or body.</li><li><code class="inline">opts</code>: Search options.</li></ul><h2 id="search/2-returns" class="section-heading"><a href="#search/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>A list of matching posts.</p><h2 id="search/2-examples" class="section-heading"><a href="#search/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Posts</span><span class="o">.</span><span class="n">search</span><span class="p" data-group-id="9206064279-1">(</span><span class="s">&quot;example&quot;</span><span class="p" data-group-id="9206064279-1">)</span><span class="w">
+</span><span class="p" data-group-id="9206064279-2">[</span><span class="p" data-group-id="9206064279-3">%</span><span class="nc" data-group-id="9206064279-3">Post</span><span class="p" data-group-id="9206064279-3">{</span><span class="p" data-group-id="9206064279-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9206064279-4">%</span><span class="nc" data-group-id="9206064279-4">Post</span><span class="p" data-group-id="9206064279-4">{</span><span class="p" data-group-id="9206064279-4">}</span><span class="p" data-group-id="9206064279-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="search_query/2">
@@ -899,7 +965,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <h1 class="signature" translate="no">update(post, attrs \\ %{})</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L844" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L914" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -923,7 +989,7 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
       <h1 class="signature" translate="no">update_changeset(post, attrs \\ %{})</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L840" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_posts/blob/main/lib/posts.ex#L910" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 

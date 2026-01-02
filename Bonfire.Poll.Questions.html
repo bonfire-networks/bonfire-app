@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-alpha.28">
+    <meta name="project" content="Bonfire v1.0.1-social-beta.2">
 
 
-    <title>Bonfire.Poll.Questions — Bonfire v1.0.1-social-alpha.28</title>
+    <title>Bonfire.Poll.Questions — Bonfire v1.0.1-social-beta.2</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-9648CFAE.js"></script>
+    <script defer src="dist/sidebar_items-9EEA97B0.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-alpha.28
+          v1.0.1-social-beta.2
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Poll.Questions</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-alpha.28)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.2)</small>
 
     </h1>
 
@@ -128,7 +128,15 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#changeset/2" data-no-tooltip="" translate="no">changeset(question \\ %Bonfire.Poll.Question{}, attrs)</a>
+        <a href="#base_changeset/2" data-no-tooltip="" translate="no">base_changeset(question \\ %Bonfire.Poll.Question{}, attrs)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#changeset/3" data-no-tooltip="" translate="no">changeset(question \\ %Bonfire.Poll.Question{}, attrs, opts)</a>
 
       </div>
 
@@ -144,7 +152,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#create_simple/1" data-no-tooltip="" translate="no">create_simple(question)</a>
+        <a href="#create_simple/2" data-no-tooltip="" translate="no">create_simple(question, opts)</a>
 
       </div>
 
@@ -206,6 +214,26 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#options_key_for_voting_format/1" data-no-tooltip="" translate="no">options_key_for_voting_format(voting_format)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the ActivityPub options key (oneOf/anyOf) based on voting format</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#options_key_from_ap_data/1" data-no-tooltip="" translate="no">options_key_from_ap_data(ap_data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Detects which options key (oneOf/anyOf) exists in ActivityPub data</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#proposal_ended?/1" data-no-tooltip="" translate="no">proposal_ended?(question)</a>
 
       </div>
@@ -262,6 +290,14 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#replace_choices/3" data-no-tooltip="" translate="no">replace_choices(creator, question, choices)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#schema_module/0" data-no-tooltip="" translate="no">schema_module()</a>
 
       </div>
@@ -280,7 +316,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#update_question/3" data-no-tooltip="" translate="no">update_question(creator, question, attrs)</a>
+        <a href="#update_question/4" data-no-tooltip="" translate="no">update_question(creator, question, attrs, opts)</a>
 
       </div>
 
@@ -288,7 +324,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#update_question_and_choices/3" data-no-tooltip="" translate="no">update_question_and_choices(creator, question, attrs)</a>
+        <a href="#update_question_and_choices/3" data-no-tooltip="" translate="no">update_question_and_choices(creator, question, opts)</a>
 
       </div>
 
@@ -338,7 +374,7 @@ Bonfire
       <h1 class="signature" translate="no">ap_publish_activity(subject, verb, question)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L195" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L249" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -360,7 +396,7 @@ Bonfire
       <h1 class="signature" translate="no">ap_receive_activity(creator, activity, question_data)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L321" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L370" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -372,16 +408,40 @@ Bonfire
 <p>Receives an incoming ActivityPub Question (poll) activity and creates/updates the local poll question.</p><h2 id="ap_receive_activity/3-parameters" class="section-heading"><a href="#ap_receive_activity/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li>creator: the actor creating/updating the poll</li><li>activity: the AP activity</li><li>object: the AP Question object</li></ul>
   </section>
 </section>
-<section class="detail" id="changeset/2">
+<section class="detail" id="base_changeset/2">
 
-    <span id="changeset/1"></span>
+    <span id="base_changeset/1"></span>
 
   <div class="detail-header">
-    <a href="#changeset/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#base_changeset/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">changeset(question \\ %Bonfire.Poll.Question{}, attrs)</h1>
+      <h1 class="signature" translate="no">base_changeset(question \\ %Bonfire.Poll.Question{}, attrs)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L51" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="changeset/3">
+
+    <span id="changeset/2"></span>
+
+  <div class="detail-header">
+    <a href="#changeset/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">changeset(question \\ %Bonfire.Poll.Question{}, attrs, opts)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L46" class="icon-action" rel="help" aria-label="View Source">
@@ -420,17 +480,17 @@ Bonfire
 
   </section>
 </section>
-<section class="detail" id="create_simple/1">
+<section class="detail" id="create_simple/2">
 
   <div class="detail-header">
-    <a href="#create_simple/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#create_simple/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">create_simple(question)</h1>
+      <h1 class="signature" translate="no">create_simple(question, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L55" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L60" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -474,7 +534,7 @@ Bonfire
       <h1 class="signature" translate="no">end_date(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L127" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L132" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -520,7 +580,7 @@ Bonfire
       <h1 class="signature" translate="no">get_by_uri(uri, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L180" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L234" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -544,7 +604,7 @@ Bonfire
       <h1 class="signature" translate="no">list_by(by_user, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L131" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L157" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -568,7 +628,7 @@ Bonfire
       <h1 class="signature" translate="no">list_paginated(filters, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L139" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L165" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -578,6 +638,50 @@ Bonfire
   <section class="docstring">
 
 <p>List posts with pagination</p>
+  </section>
+</section>
+<section class="detail" id="options_key_for_voting_format/1">
+
+  <div class="detail-header">
+    <a href="#options_key_for_voting_format/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">options_key_for_voting_format(voting_format)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L136" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the ActivityPub options key (oneOf/anyOf) based on voting format</p>
+  </section>
+</section>
+<section class="detail" id="options_key_from_ap_data/1">
+
+  <div class="detail-header">
+    <a href="#options_key_from_ap_data/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">options_key_from_ap_data(ap_data)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L146" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Detects which options key (oneOf/anyOf) exists in ActivityPub data</p>
   </section>
 </section>
 <section class="detail" id="proposal_ended?/1">
@@ -590,7 +694,7 @@ Bonfire
       <h1 class="signature" translate="no">proposal_ended?(question)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L120" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L125" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -612,7 +716,7 @@ Bonfire
       <h1 class="signature" translate="no">proposal_open?(question)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L104" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L109" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -638,7 +742,7 @@ Bonfire
       <h1 class="signature" translate="no">query(filters \\ [], opts \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L165" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L191" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -684,7 +788,7 @@ Bonfire
       <h1 class="signature" translate="no">query_paginated(filters, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L152" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L178" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -708,7 +812,29 @@ Bonfire
       <h1 class="signature" translate="no">read(post_id, opts_or_socket_or_current_user \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L72" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L77" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="replace_choices/3">
+
+  <div class="detail-header">
+    <a href="#replace_choices/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">replace_choices(creator, question, choices)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L206" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -752,7 +878,7 @@ Bonfire
       <h1 class="signature" translate="no">update_choices(creator, question, choices)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L370" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L217" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -764,17 +890,17 @@ Bonfire
 
   </section>
 </section>
-<section class="detail" id="update_question/3">
+<section class="detail" id="update_question/4">
 
   <div class="detail-header">
-    <a href="#update_question/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#update_question/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">update_question(creator, question, attrs)</h1>
+      <h1 class="signature" translate="no">update_question(creator, question, attrs, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L380" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L227" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -793,10 +919,10 @@ Bonfire
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">update_question_and_choices(creator, question, attrs)</h1>
+      <h1 class="signature" translate="no">update_question_and_choices(creator, question, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L363" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L417" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -818,7 +944,7 @@ Bonfire
       <h1 class="signature" translate="no">voting_ended?(question)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L96" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L101" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -840,7 +966,7 @@ Bonfire
       <h1 class="signature" translate="no">voting_open?(question)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L80" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_poll/blob/main/lib/contexts/questions.ex#L85" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
