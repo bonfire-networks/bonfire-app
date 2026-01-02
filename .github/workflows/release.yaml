@@ -249,16 +249,20 @@ jobs:
           chmod +x deps-debian-build.sh && ./deps-debian-build.sh
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
-      - 
-        name: Check tools
+      - name: Debug
         run: |
           echo $PATH
           whoami
-          which erl
-          elixir -v
-          just --version
-          yarn -v
-          mix -v
+      - name: Check just
+        run: just --version
+      - name: Check yarn
+        run: yarn -v
+      - name: Check Erlang
+        run: which erl
+      - name: Check Elixir
+        run: elixir -v
+      - name: Check mix
+        run: mix -v
       - 
         name: Install mix tools
         run: |
