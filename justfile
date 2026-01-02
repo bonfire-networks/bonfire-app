@@ -115,7 +115,7 @@ setup:
 	mkdir -p ./config/dev/
 	test -f .env || just _config_flavour_env_init {{flavour}} config config
 	echo "FLAVOUR=$flavour" >> config/$ENV_ENV/.env
-	-rm .env
+	-rm .env 2> /dev/null
 	ln -sf ./config/$ENV_ENV/.env ./.env 
 # test -f ./flavours/{{flavour}}/config/$ENV_ENV/.env || just _config_flavour_env_init {{flavour}} flavours/{{flavour}}/config flavours/{{flavour}}/config || just _config_flavour_env_init {{flavour}} flavours/classic/config flavours/{{flavour}}/config
 

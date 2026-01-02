@@ -291,10 +291,6 @@ jobs:
           echo "Current flavour contents:"
           ls -la ./config/current_flavour/ || echo "current_flavour directory not found"
       -
-        name: Patch install scripts to respect AUTO_YES
-        run: |
-          find . -name "install.sh" -type f -exec sed -i 's/^AUTO_YES=false$/AUTO_YES=${AUTO_YES:-false}/' {} \;
-      -
         name: Complete flavour installation
         run: |
           just _deps-post-get
@@ -305,7 +301,7 @@ jobs:
         with:
           run: |
             just rel-build
-            cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bullseye.tar.gz bonfire
+            cd _build/prod/rel && tar -czvf bonfire-${{ env.FLAVOUR }}-amd64-debian-bookworm.tar.gz bonfire
           post: |
             ls .
             # ls -la data/config/current_flavour/assets/
