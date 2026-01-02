@@ -7,7 +7,7 @@ chmod +x ./deps-debian.sh
 ./deps-debian.sh
 
 # dev deps
-apt-get install -q -y --no-install-recommends npm sqlite3 libssl3 libatomic1 autoconf dpkg-dev libncurses-dev unixodbc-dev libssl-dev libsctp-dev libodbc1 libsctp1 make gcc cmake
+apt-get install -q -y --no-install-recommends npm sqlite3 libssl3 libatomic1 autoconf dpkg-dev libncurses-dev unixodbc-dev libssl-dev libsctp-dev libodbc1 libsctp1 make gcc g++ cmake
 # includes build tools needed for mise to build erlang ^
 # rustc cargo g++ 
 
