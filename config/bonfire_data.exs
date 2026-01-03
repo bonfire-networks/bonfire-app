@@ -659,7 +659,7 @@ config :bonfire_data_identity, Character,
        @alias_ulid "7NA11ASA1S0KN0WNASFACESWAP"
 
        # mixins
-       unquote_splicing(common.([:actor, :peered, :profile, :tree, :follow_count]))
+       unquote_splicing(common.([:actor, :peered, :profile, :tree, :follow_count, :extra_info]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
 
@@ -724,7 +724,8 @@ config :bonfire_data_identity, User,
            :profile,
            :settings,
            :sensitive,
-           :tags
+           :tags,
+           :extra_info
          ])
        )
 
@@ -1257,7 +1258,7 @@ config :bonfire_classify, Category,
        # mixins
        # TODO :caretaker
        unquote_splicing(
-         common.([:activity, :created, :actor, :peered, :profile, :character, :settings])
+         common.([:activity, :created, :actor, :peered, :profile, :character, :settings, :extra_info])
        )
 
        # multimixins
