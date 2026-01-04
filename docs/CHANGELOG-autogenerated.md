@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
+### Added
+- ✨ Add trending links widget [#1726](https://github.com/bonfire-networks/bonfire-app/issues/1726) [`a8380bb`](https://github.com/bonfire-networks/bonfire-app/commit/a8380bbaa74cc823c757fc6514328712945abee8) (thanks @mayel)
+
 ### Changed
 - 📝 docs [`05d2b4e`](https://github.com/bonfire-networks/bonfire-app/commit/05d2b4e45a4084f7242b61c9972026f9eae88024) (thanks @mayel)
 - 🚧 proof of concept of MLS+ActivityPub key management [#1705](https://github.com/bonfire-networks/bonfire-app/issues/1705) [`7700eb5`](https://github.com/bonfire-networks/bonfire-app/commit/7700eb51aa2744777080eb10c4b06976e5ca928f) (thanks @mayel)
