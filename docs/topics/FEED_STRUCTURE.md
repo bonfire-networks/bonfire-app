@@ -47,7 +47,7 @@
   Key Functions:
   - feed/2: Main entry point for feed queries
   - prepare_feed_filters/3: Validates and processes feed filters
-  - prepare_filters_and_opts/2: Sets up preloading and boundary options
+  - prepare_filters_and_opts/3: Sets up preloading and boundary options
   - activity_preloads/3: Maps high-level preload keys to specific preloads
 
   Critical Concepts:
