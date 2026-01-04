@@ -70,7 +70,7 @@ if Code.ensure_loaded?(Chaperon.Scenario) do
        remote_base_url = TestInstanceRepo.apply( ActivityPub.Federator.Adapter.base_url() )
 
       do: %{
-        # scenario_timeout: 12_000,
+        # scenario_timeout: to_timeout(second: 12),
         merge_scenario_sessions: true,
         base_url: remote_base_url,
         timeout: :infinity,

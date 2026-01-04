@@ -311,11 +311,11 @@ In this case, the seeds were unable to complete because a query took too long to
 
 1. Open `config/dev.exs` in your editor.
 2. Find the database configuration (search for `Bonfire.Common.Repo`).
-3. Add `timeout: 60_000` to the list of options:
+3. Add `timeout: to_timeout(minute: 1)` to the list of options:
 
 ```
 config :bonfire, Bonfire.Common.Repo,
-  timeout: 60_000,
+  timeout: to_timeout(minute: 1),
   [...]
 ```
 

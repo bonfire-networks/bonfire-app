@@ -39,8 +39,8 @@ config :activity_pub, :http,
   user_agent: "Bonfire ActivityPub federation",
   send_user_agent: true,
   adapter: [
-    recv_timeout: 30_000,
-    connect_timeout: 10_000,
+    recv_timeout: to_timeout(second: 30),
+    connect_timeout: to_timeout(second: 10),
     ssl_options: [
       # Workaround for remote server certificate chain issues
       # partial_chain: &:hackney_connect.partial_chain/1,
@@ -110,4 +110,4 @@ config :activity_pub,
   }
 
 config :hammer,
-  backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
+  backend: {Hammer.Backend.ETS, [expiry_ms: to_timeout(hour: 4), cleanup_interval_ms: to_timeout(minute: 10)]}
