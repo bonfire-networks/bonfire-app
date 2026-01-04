@@ -46,7 +46,7 @@ config :bonfire, Bonfire.Web.Endpoint,
   check_origin: false,
   http:
     if(use_cowboy?,
-      do: [protocol_options: [idle_timeout: 120_000]],
+      do: [protocol_options: [idle_timeout: to_timeout(minute: 2)]],
       else: [
         http_1_options: [max_requests: max_requests],
         http_1_options: [max_requests: max_requests]
@@ -165,7 +165,7 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :exsync,
   src_monitor: true,
-  reload_timeout: 75,
+  reload_timeout: to_timeout(millisecond: 75),
   # addition_dirs: ["/forks"],
   extra_extensions: [".leex", ".heex", ".js", ".css", ".sface"]
 

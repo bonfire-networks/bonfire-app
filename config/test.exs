@@ -108,7 +108,7 @@ chromedriver_path =
 config :wallaby,
   otp_app: :bonfire,
   # base_url: Bonfire.Web.Endpoint.url(),
-  max_wait_time: 6_000,
+  max_wait_time: to_timeout(second: 6),
   screenshot_on_failure: true,
   chromedriver: [
     # point to your chromedriver path
