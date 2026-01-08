@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-6D53492D.js"></script>
+    <script defer src="dist/sidebar_items-201B8622.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -383,7 +383,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#join_per_ap_activity/2" data-no-tooltip="" translate="no">join_per_ap_activity(query, inner)</a>
+        <a href="#join_media/2" data-no-tooltip="" translate="no">join_media(query, arg2)</a>
 
       </div>
 
@@ -391,11 +391,9 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#join_per_media/2" data-no-tooltip="" translate="no">join_per_media(query, arg2)</a>
+        <a href="#join_per_ap_activity/2" data-no-tooltip="" translate="no">join_per_ap_activity(query, inner)</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>join media</p></div>
 
     </div>
 
@@ -509,7 +507,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#order_cursor_fields/2" data-no-tooltip="" translate="no">order_cursor_fields(arg1, sort_order)</a>
+        <a href="#order_cursor_fields/3" data-no-tooltip="" translate="no">order_cursor_fields(sort_by, sort_order, fallback_sort_field \\ :id)</a>
 
       </div>
 
@@ -519,7 +517,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#order_pagination_opts/2" data-no-tooltip="" translate="no">order_pagination_opts(sort_by, sort_order)</a>
+        <a href="#order_pagination_opts/3" data-no-tooltip="" translate="no">order_pagination_opts(sort_by, sort_order, opts \\ [])</a>
 
       </div>
 
@@ -585,7 +583,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#query_order/4" data-no-tooltip="" translate="no">query_order(query, sort_by, sort_order, with_pins? \\ false)</a>
+        <a href="#query_order/5" data-no-tooltip="" translate="no">query_order(query, sort_by, sort_order, fallback_sort_field \\ :id, with_pins? \\ false)</a>
 
       </div>
 
@@ -712,7 +710,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
   <section class="docstring">
 
-<p>Applies preloads to a query or or post-loads to object(s) with the specified options. See <a href="#activity_preloads/3"><code class="inline">activity_preloads/3</code></a> for what preload options you can specify.</p><h2 id="activity_preloads/2-examples" class="section-heading"><a href="#activity_preloads/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="8491092803-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8491092803-2">[</span><span class="p" data-group-id="8491092803-2">]</span><span class="p" data-group-id="8491092803-1">)</span><span class="w">
+<p>Applies preloads to a query or or post-loads to object(s) with the specified options. See <a href="#activity_preloads/3"><code class="inline">activity_preloads/3</code></a> for what preload options you can specify.</p><h2 id="activity_preloads/2-examples" class="section-heading"><a href="#activity_preloads/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="4402870641-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4402870641-2">[</span><span class="p" data-group-id="4402870641-2">]</span><span class="p" data-group-id="4402870641-1">)</span><span class="w">
 </span><span class="c1"># Query with applied activity preloads</span></code></pre>
   </section>
 </section>
@@ -735,16 +733,16 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
   <section class="docstring">
 
-<p>Applies preloads to a query or or post-loads to object(s) with the specified preloads and options.</p><h2 id="activity_preloads/3-examples" class="section-heading"><a href="#activity_preloads/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6699310415-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-2">[</span><span class="p" data-group-id="6699310415-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-3">[</span><span class="p" data-group-id="6699310415-3">]</span><span class="p" data-group-id="6699310415-1">)</span><span class="w">
+<p>Applies preloads to a query or or post-loads to object(s) with the specified preloads and options.</p><h2 id="activity_preloads/3-examples" class="section-heading"><a href="#activity_preloads/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="8611087069-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-2">[</span><span class="p" data-group-id="8611087069-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-3">[</span><span class="p" data-group-id="8611087069-3">]</span><span class="p" data-group-id="8611087069-1">)</span><span class="w">
 </span><span class="c1"># Original query, with no extra joins/preloads</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6699310415-4">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-5">[</span><span class="p" data-group-id="6699310415-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-6">[</span><span class="p" data-group-id="6699310415-6">]</span><span class="p" data-group-id="6699310415-4">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="8611087069-4">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-5">[</span><span class="p" data-group-id="8611087069-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-6">[</span><span class="p" data-group-id="8611087069-6">]</span><span class="p" data-group-id="8611087069-4">)</span><span class="w">
 </span><span class="c1"># Original object, with no extra assocs preloads</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6699310415-7">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-8">[</span><span class="ss">:with_creator</span><span class="p" data-group-id="6699310415-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-9">[</span><span class="p" data-group-id="6699310415-9">]</span><span class="p" data-group-id="6699310415-7">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="8611087069-7">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-8">[</span><span class="ss">:with_creator</span><span class="p" data-group-id="8611087069-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-9">[</span><span class="p" data-group-id="8611087069-9">]</span><span class="p" data-group-id="8611087069-7">)</span><span class="w">
 </span><span class="c1"># Object or query with extra assocs preloads</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="6699310415-10">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6699310415-11">[</span><span class="ss">:feed</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:maybe_with_labelled</span><span class="p" data-group-id="6699310415-11">]</span><span class="p" data-group-id="6699310415-10">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">activity_preloads</span><span class="p" data-group-id="8611087069-10">(</span><span class="n">object_or_query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8611087069-11">[</span><span class="ss">:feed</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_reply_to</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_media</span><span class="p">,</span><span class="w"> </span><span class="ss">:with_object_more</span><span class="p">,</span><span class="w"> </span><span class="ss">:maybe_with_labelled</span><span class="p" data-group-id="8611087069-11">]</span><span class="p" data-group-id="8611087069-10">)</span><span class="w">
 </span><span class="c1"># Object or query several extra assoc preloads</span></code></pre>
   </section>
 </section>
@@ -758,7 +756,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">activity_under_media(top_object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1987" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2057" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -767,7 +765,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
   <section class="docstring">
 
-<p>Processes and structures activity data within a media.</p><h2 id="activity_under_media/1-examples" class="section-heading"><a href="#activity_under_media/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6390396637-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6390396637-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6390396637-2">}</span><span class="p" data-group-id="6390396637-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_under_media</span><span class="p" data-group-id="6390396637-3">(</span><span class="p" data-group-id="6390396637-4">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6390396637-5">%</span><span class="nc" data-group-id="6390396637-5">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="6390396637-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">media</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6390396637-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6390396637-6">}</span><span class="p" data-group-id="6390396637-5">}</span><span class="p" data-group-id="6390396637-4">}</span><span class="p" data-group-id="6390396637-3">)</span></code></pre>
+<p>Processes and structures activity data within a media.</p><h2 id="activity_under_media/1-examples" class="section-heading"><a href="#activity_under_media/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="4639383479-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4639383479-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4639383479-2">}</span><span class="p" data-group-id="4639383479-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_under_media</span><span class="p" data-group-id="4639383479-3">(</span><span class="p" data-group-id="4639383479-4">%{</span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4639383479-5">%</span><span class="nc" data-group-id="4639383479-5">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="4639383479-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="ss">media</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4639383479-6">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4639383479-6">}</span><span class="p" data-group-id="4639383479-5">}</span><span class="p" data-group-id="4639383479-4">}</span><span class="p" data-group-id="4639383479-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="activity_under_media/2">
@@ -780,7 +778,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">activity_under_media(activity, media)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2019" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2089" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -802,7 +800,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">activity_under_object(top_object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1946" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2016" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -811,7 +809,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
   <section class="docstring">
 
-<p>Processes and structures activity data within an object.</p><h2 id="activity_under_object/1-examples" class="section-heading"><a href="#activity_under_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9199898183-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9199898183-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9199898183-2">}</span><span class="p" data-group-id="9199898183-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_under_object</span><span class="p" data-group-id="9199898183-3">(</span><span class="p" data-group-id="9199898183-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9199898183-5">%</span><span class="nc" data-group-id="9199898183-5">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="9199898183-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9199898183-5">}</span><span class="p" data-group-id="9199898183-4">}</span><span class="p" data-group-id="9199898183-3">)</span></code></pre>
+<p>Processes and structures activity data within an object.</p><h2 id="activity_under_object/1-examples" class="section-heading"><a href="#activity_under_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="0517431066-1">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0517431066-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0517431066-2">}</span><span class="p" data-group-id="0517431066-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_under_object</span><span class="p" data-group-id="0517431066-3">(</span><span class="p" data-group-id="0517431066-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">activity</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0517431066-5">%</span><span class="nc" data-group-id="0517431066-5">Bonfire.Data.Social.Activity</span><span class="p" data-group-id="0517431066-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="0517431066-5">}</span><span class="p" data-group-id="0517431066-4">}</span><span class="p" data-group-id="0517431066-3">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="activity_under_object/2">
@@ -824,7 +822,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">activity_under_object(activity, object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1973" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2043" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -846,7 +844,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">all_verb_names()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2459" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2529" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -868,7 +866,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">all_verb_names_extra()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2477" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2547" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -890,7 +888,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">article_char_threshold()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1907" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1977" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -925,7 +923,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
   <section class="docstring">
 
-<p>Filters a query to include only permitted objects.</p><h2 id="as_permitted_for/3-examples" class="section-heading"><a href="#as_permitted_for/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">as_permitted_for</span><span class="p" data-group-id="0616827466-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0616827466-2">[</span><span class="p" data-group-id="0616827466-2">]</span><span class="p" data-group-id="0616827466-1">)</span><span class="w">
+<p>Filters a query to include only permitted objects.</p><h2 id="as_permitted_for/3-examples" class="section-heading"><a href="#as_permitted_for/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">as_permitted_for</span><span class="p" data-group-id="0524813867-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0524813867-2">[</span><span class="p" data-group-id="0524813867-2">]</span><span class="p" data-group-id="0524813867-1">)</span><span class="w">
 </span><span class="c1"># Filtered query</span></code></pre>
   </section>
 </section>
@@ -1016,7 +1014,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
 
   <section class="docstring">
 
-<p>Casts a changeset with the provided verb, creator and options.</p><h2 id="cast/4-examples" class="section-heading"><a href="#cast/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">cast</span><span class="p" data-group-id="7738217173-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7738217173-2">%</span><span class="nc" data-group-id="7738217173-2">User</span><span class="p" data-group-id="7738217173-2">{</span><span class="p" data-group-id="7738217173-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">feed_ids</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7738217173-3">[</span><span class="p" data-group-id="7738217173-3">]</span><span class="p" data-group-id="7738217173-1">)</span><span class="w">
+<p>Casts a changeset with the provided verb, creator and options.</p><h2 id="cast/4-examples" class="section-heading"><a href="#cast/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">cast</span><span class="p" data-group-id="2611374553-1">(</span><span class="n">changeset</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2611374553-2">%</span><span class="nc" data-group-id="2611374553-2">User</span><span class="p" data-group-id="2611374553-2">{</span><span class="p" data-group-id="2611374553-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">feed_ids</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2611374553-3">[</span><span class="p" data-group-id="2611374553-3">]</span><span class="p" data-group-id="2611374553-1">)</span><span class="w">
 </span><span class="c1"># Changeset with associations set</span></code></pre>
   </section>
 </section>
@@ -1030,7 +1028,7 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
       <h1 class="signature" translate="no">count_total()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2503" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2573" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1064,8 +1062,8 @@ NOTE: you will usually want to use <a><code class="inline">cast/3</code></a> ins
   <section class="docstring">
 
 <p>Create an Activity.
-NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3</code></a> instead or maybe <code class="inline">Objects.publish/5</code></p><h2 id="create/4-examples" class="section-heading"><a href="#create/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">create</span><span class="p" data-group-id="5905317518-1">(</span><span class="p" data-group-id="5905317518-2">%</span><span class="nc" data-group-id="5905317518-2">User</span><span class="p" data-group-id="5905317518-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="5905317518-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5905317518-3">%</span><span class="nc" data-group-id="5905317518-3">Post</span><span class="p" data-group-id="5905317518-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="5905317518-3">}</span><span class="p" data-group-id="5905317518-1">)</span><span class="w">
-</span><span class="p" data-group-id="5905317518-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5905317518-5">%</span><span class="nc" data-group-id="5905317518-5">Activity</span><span class="p" data-group-id="5905317518-5">{</span><span class="p" data-group-id="5905317518-5">}</span><span class="p" data-group-id="5905317518-4">}</span></code></pre>
+NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3</code></a> instead or maybe <code class="inline">Objects.publish/5</code></p><h2 id="create/4-examples" class="section-heading"><a href="#create/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">create</span><span class="p" data-group-id="4773317411-1">(</span><span class="p" data-group-id="4773317411-2">%</span><span class="nc" data-group-id="4773317411-2">User</span><span class="p" data-group-id="4773317411-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4773317411-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4773317411-3">%</span><span class="nc" data-group-id="4773317411-3">Post</span><span class="p" data-group-id="4773317411-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4773317411-3">}</span><span class="p" data-group-id="4773317411-1">)</span><span class="w">
+</span><span class="p" data-group-id="4773317411-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4773317411-5">%</span><span class="nc" data-group-id="4773317411-5">Activity</span><span class="p" data-group-id="4773317411-5">{</span><span class="p" data-group-id="4773317411-5">}</span><span class="p" data-group-id="4773317411-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="creator/2">
@@ -1078,7 +1076,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">creator(activity, object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2246" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2316" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1100,7 +1098,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">creator_id(activity, object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2252" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2322" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1131,13 +1129,13 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Deletes activities by ID or struct, or using specific filters.</p><h2 id="delete/1-examples" class="section-heading"><a href="#delete/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="1951204001-1">(</span><span class="n">activity</span><span class="p" data-group-id="1951204001-1">)</span><span class="w">
+<p>Deletes activities by ID or struct, or using specific filters.</p><h2 id="delete/1-examples" class="section-heading"><a href="#delete/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="4426852034-1">(</span><span class="n">activity</span><span class="p" data-group-id="4426852034-1">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="1951204001-2">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1951204001-2">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="4426852034-2">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4426852034-2">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="1951204001-3">(</span><span class="p" data-group-id="1951204001-4">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="1951204001-4">]</span><span class="p" data-group-id="1951204001-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">delete</span><span class="p" data-group-id="4426852034-3">(</span><span class="p" data-group-id="4426852034-4">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4426852034-4">]</span><span class="p" data-group-id="4426852034-3">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span></code></pre>
   </section>
 </section>
@@ -1160,7 +1158,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Deletes an activity by object ID.</p><h2 id="delete_by_object/1-examples" class="section-heading"><a href="#delete_by_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_object</span><span class="p" data-group-id="4157862314-1">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="4157862314-1">)</span><span class="w">
+<p>Deletes an activity by object ID.</p><h2 id="delete_by_object/1-examples" class="section-heading"><a href="#delete_by_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_object</span><span class="p" data-group-id="9648774144-1">(</span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="9648774144-1">)</span><span class="w">
 </span><span class="c1"># Number of deleted objects</span></code></pre>
   </section>
 </section>
@@ -1183,7 +1181,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Deletes an activity by subject, verb, and object.</p><h2 id="delete_by_subject_verb_object/3-examples" class="section-heading"><a href="#delete_by_subject_verb_object/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_subject_verb_object</span><span class="p" data-group-id="5892080092-1">(</span><span class="p" data-group-id="5892080092-2">%</span><span class="nc" data-group-id="5892080092-2">User</span><span class="p" data-group-id="5892080092-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="5892080092-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5892080092-3">%</span><span class="nc" data-group-id="5892080092-3">Post</span><span class="p" data-group-id="5892080092-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="5892080092-3">}</span><span class="p" data-group-id="5892080092-1">)</span><span class="w">
+<p>Deletes an activity by subject, verb, and object.</p><h2 id="delete_by_subject_verb_object/3-examples" class="section-heading"><a href="#delete_by_subject_verb_object/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">delete_by_subject_verb_object</span><span class="p" data-group-id="7017351687-1">(</span><span class="p" data-group-id="7017351687-2">%</span><span class="nc" data-group-id="7017351687-2">User</span><span class="p" data-group-id="7017351687-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="7017351687-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7017351687-3">%</span><span class="nc" data-group-id="7017351687-3">Post</span><span class="p" data-group-id="7017351687-3">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="7017351687-3">}</span><span class="p" data-group-id="7017351687-1">)</span><span class="w">
 </span><span class="c1"># Number of deleted activities</span></code></pre>
   </section>
 </section>
@@ -1197,7 +1195,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">fetch_cursor_value_fun(replied, list)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2661" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2880" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1206,7 +1204,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Retrieves the cursor value for pagination based on field or data structure.</p><h2 id="fetch_cursor_value_fun/2-examples" class="section-heading"><a href="#fetch_cursor_value_fun/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">fetch_cursor_value_fun</span><span class="p" data-group-id="9549390536-1">(</span><span class="p" data-group-id="9549390536-2">%{</span><span class="ss">nested_replies_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="9549390536-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:num_replies</span><span class="p" data-group-id="9549390536-1">)</span><span class="w">
+<p>Retrieves the cursor value for pagination based on field or data structure.</p><h2 id="fetch_cursor_value_fun/2-examples" class="section-heading"><a href="#fetch_cursor_value_fun/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">fetch_cursor_value_fun</span><span class="p" data-group-id="0999851955-1">(</span><span class="p" data-group-id="0999851955-2">%{</span><span class="ss">nested_replies_count</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="0999851955-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:reply_count</span><span class="p" data-group-id="0999851955-1">)</span><span class="w">
 </span><span class="c1"># returns the cursor value based on the number of replies</span></code></pre>
   </section>
 </section>
@@ -1220,7 +1218,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_creator(opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2223" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2293" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1242,7 +1240,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_creator(activity, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2227" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2297" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1264,7 +1262,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_creator(activity, object, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2231" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2301" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1286,7 +1284,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_creator(activity, object, creator_id, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2235" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2305" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1308,7 +1306,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_subject(opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2202" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2272" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1330,7 +1328,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_subject(activity, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2206" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2276" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1352,7 +1350,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">find_subject(activity, subject_id, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2210" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2280" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1374,7 +1372,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">get(id, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1385" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1455" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1383,7 +1381,29 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Gets an activity by its ID.</p><h2 id="get/2-examples" class="section-heading"><a href="#get/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="1354262366-1">(</span><span class="s">&quot;activity_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1354262366-2">[</span><span class="p" data-group-id="1354262366-2">]</span><span class="p" data-group-id="1354262366-1">)</span></code></pre>
+<p>Gets an activity by its ID.</p><h2 id="get/2-examples" class="section-heading"><a href="#get/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">get</span><span class="p" data-group-id="8299292691-1">(</span><span class="s">&quot;activity_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8299292691-2">[</span><span class="p" data-group-id="8299292691-2">]</span><span class="p" data-group-id="8299292691-1">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="join_media/2">
+
+  <div class="detail-header">
+    <a href="#join_media/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">join_media(query, arg2)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L823" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 <section class="detail" id="join_per_ap_activity/2">
@@ -1396,7 +1416,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">join_per_ap_activity(query, inner)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L840" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L863" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1406,28 +1426,6 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
   <section class="docstring">
 
 
-  </section>
-</section>
-<section class="detail" id="join_per_media/2">
-
-  <div class="detail-header">
-    <a href="#join_per_media/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">join_per_media(query, arg2)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L800" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>join media</p>
   </section>
 </section>
 <section class="detail" id="load_object/2">
@@ -1442,7 +1440,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">load_object(id_or_pointer, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2096" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2166" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1451,7 +1449,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Loads an object based on its ID or pointer.</p><h2 id="load_object/2-examples" class="section-heading"><a href="#load_object/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">load_object</span><span class="p" data-group-id="9302210701-1">(</span><span class="s">&quot;object_id&quot;</span><span class="p" data-group-id="9302210701-1">)</span></code></pre>
+<p>Loads an object based on its ID or pointer.</p><h2 id="load_object/2-examples" class="section-heading"><a href="#load_object/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">load_object</span><span class="p" data-group-id="8766988205-1">(</span><span class="s">&quot;object_id&quot;</span><span class="p" data-group-id="8766988205-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_filter/3">
@@ -1466,7 +1464,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">maybe_filter(query, filters, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1445" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1515" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1488,7 +1486,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">maybe_join_creator(query, skip_loading_user_ids, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1074" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1144" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1510,7 +1508,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">maybe_join_filter_activity(query, exclude_table_ids)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1892" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1962" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1532,7 +1530,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">maybe_preload_creator(query, skip_loading_user_ids, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1047" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1117" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1541,10 +1539,10 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Optionally joins the creator.</p><p>Performs a query optimization: only includes the creator if different from the subject or current user.</p><p>If <code class="inline">skip_loading_user_ids</code> is empty, the creator is always included. Otherwise, it is included only if it is different from the users in <code class="inline">skip_loading_user_ids</code>.</p><h2 id="maybe_preload_creator/3-examples" class="section-heading"><a href="#maybe_preload_creator/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_creator</span><span class="p" data-group-id="6481592563-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6481592563-2">[</span><span class="p" data-group-id="6481592563-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6481592563-3">[</span><span class="p" data-group-id="6481592563-3">]</span><span class="p" data-group-id="6481592563-1">)</span><span class="w">
+<p>Optionally joins the creator.</p><p>Performs a query optimization: only includes the creator if different from the subject or current user.</p><p>If <code class="inline">skip_loading_user_ids</code> is empty, the creator is always included. Otherwise, it is included only if it is different from the users in <code class="inline">skip_loading_user_ids</code>.</p><h2 id="maybe_preload_creator/3-examples" class="section-heading"><a href="#maybe_preload_creator/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_creator</span><span class="p" data-group-id="1187797425-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1187797425-2">[</span><span class="p" data-group-id="1187797425-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1187797425-3">[</span><span class="p" data-group-id="1187797425-3">]</span><span class="p" data-group-id="1187797425-1">)</span><span class="w">
 </span><span class="c1"># returns query with creator preloaded if different from the subject</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_creator</span><span class="p" data-group-id="6481592563-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6481592563-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="6481592563-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6481592563-6">[</span><span class="p" data-group-id="6481592563-6">]</span><span class="p" data-group-id="6481592563-4">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_creator</span><span class="p" data-group-id="1187797425-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1187797425-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1187797425-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1187797425-6">[</span><span class="p" data-group-id="1187797425-6">]</span><span class="p" data-group-id="1187797425-4">)</span><span class="w">
 </span><span class="c1"># returns query with creator included only if creator.id not in [1, 2, 3]</span></code></pre>
   </section>
 </section>
@@ -1558,7 +1556,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">maybe_preload_subject(query, skip_loading_user_ids, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L972" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1042" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1567,10 +1565,10 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Optimizes the query to optionally include the subject data.</p><p>If <code class="inline">skip_loading_user_ids</code> is empty, the subject is always included. Otherwise, it is included only if it is different from the users in <code class="inline">skip_loading_user_ids</code>.</p><h2 id="maybe_preload_subject/3-examples" class="section-heading"><a href="#maybe_preload_subject/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_subject</span><span class="p" data-group-id="4420801537-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4420801537-2">[</span><span class="p" data-group-id="4420801537-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4420801537-3">[</span><span class="p" data-group-id="4420801537-3">]</span><span class="p" data-group-id="4420801537-1">)</span><span class="w">
+<p>Optimizes the query to optionally include the subject data.</p><p>If <code class="inline">skip_loading_user_ids</code> is empty, the subject is always included. Otherwise, it is included only if it is different from the users in <code class="inline">skip_loading_user_ids</code>.</p><h2 id="maybe_preload_subject/3-examples" class="section-heading"><a href="#maybe_preload_subject/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_subject</span><span class="p" data-group-id="1734080552-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1734080552-2">[</span><span class="p" data-group-id="1734080552-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1734080552-3">[</span><span class="p" data-group-id="1734080552-3">]</span><span class="p" data-group-id="1734080552-1">)</span><span class="w">
 </span><span class="c1"># returns query with subject preloaded</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_subject</span><span class="p" data-group-id="4420801537-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4420801537-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="4420801537-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4420801537-6">[</span><span class="p" data-group-id="4420801537-6">]</span><span class="p" data-group-id="4420801537-4">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe_preload_subject</span><span class="p" data-group-id="1734080552-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1734080552-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1734080552-5">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1734080552-6">[</span><span class="p" data-group-id="1734080552-6">]</span><span class="p" data-group-id="1734080552-4">)</span><span class="w">
 </span><span class="c1"># returns query with subject included only if subject.id not in [1, 2, 3]</span></code></pre>
   </section>
 </section>
@@ -1606,7 +1604,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">maybe_with_labelled()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L886" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L909" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1637,8 +1635,8 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Retrieves or constructs the object from an activity.</p><h2 id="object_from_activity/1-examples" class="section-heading"><a href="#object_from_activity/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object_from_activity</span><span class="p" data-group-id="8538111826-1">(</span><span class="p" data-group-id="8538111826-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8538111826-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8538111826-3">}</span><span class="p" data-group-id="8538111826-2">}</span><span class="p" data-group-id="8538111826-1">)</span><span class="w">
-</span><span class="p" data-group-id="8538111826-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8538111826-4">}</span></code></pre>
+<p>Retrieves or constructs the object from an activity.</p><h2 id="object_from_activity/1-examples" class="section-heading"><a href="#object_from_activity/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">object_from_activity</span><span class="p" data-group-id="4293150923-1">(</span><span class="p" data-group-id="4293150923-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4293150923-3">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4293150923-3">}</span><span class="p" data-group-id="4293150923-2">}</span><span class="p" data-group-id="4293150923-1">)</span><span class="w">
+</span><span class="p" data-group-id="4293150923-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4293150923-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="object_preload_activity/2">
@@ -1662,7 +1660,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Preloads the activity for an object and verb.</p><h2 id="object_preload_activity/2-examples" class="section-heading"><a href="#object_preload_activity/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_activity</span><span class="p" data-group-id="7344350665-1">(</span><span class="p" data-group-id="7344350665-2">%</span><span class="nc" data-group-id="7344350665-2">Post</span><span class="p" data-group-id="7344350665-2">{</span><span class="p" data-group-id="7344350665-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p" data-group-id="7344350665-1">)</span><span class="w">
+<p>Preloads the activity for an object and verb.</p><h2 id="object_preload_activity/2-examples" class="section-heading"><a href="#object_preload_activity/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_activity</span><span class="p" data-group-id="4973521672-1">(</span><span class="p" data-group-id="4973521672-2">%</span><span class="nc" data-group-id="4973521672-2">Post</span><span class="p" data-group-id="4973521672-2">{</span><span class="p" data-group-id="4973521672-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p" data-group-id="4973521672-1">)</span><span class="w">
 </span><span class="c1"># Object with preloaded activity</span></code></pre>
   </section>
 </section>
@@ -1685,7 +1683,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Preloads the creation activity for an object.</p><h2 id="object_preload_create_activity/1-examples" class="section-heading"><a href="#object_preload_create_activity/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_create_activity</span><span class="p" data-group-id="9444984111-1">(</span><span class="p" data-group-id="9444984111-2">%</span><span class="nc" data-group-id="9444984111-2">Post</span><span class="p" data-group-id="9444984111-2">{</span><span class="p" data-group-id="9444984111-2">}</span><span class="p" data-group-id="9444984111-1">)</span><span class="w">
+<p>Preloads the creation activity for an object.</p><h2 id="object_preload_create_activity/1-examples" class="section-heading"><a href="#object_preload_create_activity/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">object_preload_create_activity</span><span class="p" data-group-id="0797837960-1">(</span><span class="p" data-group-id="0797837960-2">%</span><span class="nc" data-group-id="0797837960-2">Post</span><span class="p" data-group-id="0797837960-2">{</span><span class="p" data-group-id="0797837960-2">}</span><span class="p" data-group-id="0797837960-1">)</span><span class="w">
 </span><span class="c1"># Object with preloaded creation activity</span></code></pre>
   </section>
 </section>
@@ -1699,7 +1697,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">object_under_activity(activity, object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2027" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2097" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1711,17 +1709,19 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   </section>
 </section>
-<section class="detail" id="order_cursor_fields/2">
+<section class="detail" id="order_cursor_fields/3">
+
+    <span id="order_cursor_fields/2"></span>
 
   <div class="detail-header">
-    <a href="#order_cursor_fields/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#order_cursor_fields/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">order_cursor_fields(arg1, sort_order)</h1>
+      <h1 class="signature" translate="no">order_cursor_fields(sort_by, sort_order, fallback_sort_field \\ :id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2704" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2938" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1730,21 +1730,23 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Provides cursor fields for ordering based on sort criteria.</p><h2 id="order_cursor_fields/2-examples" class="section-heading"><a href="#order_cursor_fields/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_cursor_fields</span><span class="p" data-group-id="8441956229-1">(</span><span class="ss">:num_likes</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="8441956229-1">)</span><span class="w">
+<p>Provides cursor fields for ordering based on sort criteria.</p><h2 id="order_cursor_fields/3-examples" class="section-heading"><a href="#order_cursor_fields/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_cursor_fields</span><span class="p" data-group-id="0903621748-1">(</span><span class="ss">:like_count</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0903621748-1">)</span><span class="w">
 </span><span class="c1"># returns cursor fields for ordering by number of likes in ascending order</span></code></pre>
   </section>
 </section>
-<section class="detail" id="order_pagination_opts/2">
+<section class="detail" id="order_pagination_opts/3">
+
+    <span id="order_pagination_opts/2"></span>
 
   <div class="detail-header">
-    <a href="#order_pagination_opts/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#order_pagination_opts/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">order_pagination_opts(sort_by, sort_order)</h1>
+      <h1 class="signature" translate="no">order_pagination_opts(sort_by, sort_order, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2645" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2858" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1753,7 +1755,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Provides pagination options for ordering.</p><h2 id="order_pagination_opts/2-examples" class="section-heading"><a href="#order_pagination_opts/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_pagination_opts</span><span class="p" data-group-id="2006708253-1">(</span><span class="ss">:num_likes</span><span class="p">,</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="2006708253-1">)</span><span class="w">
+<p>Provides pagination options for ordering.</p><h2 id="order_pagination_opts/3-examples" class="section-heading"><a href="#order_pagination_opts/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">order_pagination_opts</span><span class="p" data-group-id="5195486716-1">(</span><span class="ss">:like_count</span><span class="p">,</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="5195486716-1">)</span><span class="w">
 </span><span class="c1"># returns pagination options for ordering by number of likes in descending order</span></code></pre>
   </section>
 </section>
@@ -1767,7 +1769,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">prepare_subject_and_creator(edges, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2111" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2181" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1817,7 +1819,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">query(filters \\ [], opts_or_current_user \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1919" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1989" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1826,9 +1828,9 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Constructs a query based on filters and optional user context.</p><h2 id="query/2-examples" class="section-heading"><a href="#query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span><span class="p" data-group-id="5091843884-1">(</span><span class="n">filters</span><span class="p" data-group-id="5091843884-1">)</span><span class="w">
+<p>Constructs a query based on filters and optional user context.</p><h2 id="query/2-examples" class="section-heading"><a href="#query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span><span class="p" data-group-id="3589670268-1">(</span><span class="n">filters</span><span class="p" data-group-id="3589670268-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="5091843884-2">(</span><span class="p" data-group-id="5091843884-3">[</span><span class="ss">my</span><span class="p">:</span><span class="w"> </span><span class="ss">:feed</span><span class="p" data-group-id="5091843884-3">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5091843884-4">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="5091843884-4">]</span><span class="p" data-group-id="5091843884-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">query</span><span class="p" data-group-id="3589670268-2">(</span><span class="p" data-group-id="3589670268-3">[</span><span class="ss">my</span><span class="p">:</span><span class="w"> </span><span class="ss">:feed</span><span class="p" data-group-id="3589670268-3">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3589670268-4">[</span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3589670268-4">]</span><span class="p" data-group-id="3589670268-2">)</span><span class="w">
 </span><span class="gt">** (Bonfire.Fail.Auth) You need to log in first.</span></code></pre>
   </section>
 </section>
@@ -1879,7 +1881,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Preloads activity for objects in a query using the specified verb and object ID field.</p><h2 id="query_object_preload_activity/4-examples" class="section-heading"><a href="#query_object_preload_activity/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_activity</span><span class="p" data-group-id="9526780781-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="ss">:post_id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9526780781-2">[</span><span class="p" data-group-id="9526780781-2">]</span><span class="p" data-group-id="9526780781-1">)</span><span class="w">
+<p>Preloads activity for objects in a query using the specified verb and object ID field.</p><h2 id="query_object_preload_activity/4-examples" class="section-heading"><a href="#query_object_preload_activity/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_activity</span><span class="p" data-group-id="9753380709-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w"> </span><span class="ss">:post_id</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9753380709-2">[</span><span class="p" data-group-id="9753380709-2">]</span><span class="p" data-group-id="9753380709-1">)</span><span class="w">
 </span><span class="c1"># Query with preloaded activities</span></code></pre>
   </section>
 </section>
@@ -1904,23 +1906,25 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Preloads creation activity for objects in a query.</p><h2 id="query_object_preload_create_activity/2-examples" class="section-heading"><a href="#query_object_preload_create_activity/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_create_activity</span><span class="p" data-group-id="4239944915-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4239944915-2">[</span><span class="p" data-group-id="4239944915-2">]</span><span class="p" data-group-id="4239944915-1">)</span><span class="w">
+<p>Preloads creation activity for objects in a query.</p><h2 id="query_object_preload_create_activity/2-examples" class="section-heading"><a href="#query_object_preload_create_activity/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_object_preload_create_activity</span><span class="p" data-group-id="7148670375-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7148670375-2">[</span><span class="p" data-group-id="7148670375-2">]</span><span class="p" data-group-id="7148670375-1">)</span><span class="w">
 </span><span class="c1"># Query with preloaded creation activities</span></code></pre>
   </section>
 </section>
-<section class="detail" id="query_order/4">
+<section class="detail" id="query_order/5">
 
     <span id="query_order/3"></span>
 
+    <span id="query_order/4"></span>
+
   <div class="detail-header">
-    <a href="#query_order/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#query_order/5" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">query_order(query, sort_by, sort_order, with_pins? \\ false)</h1>
+      <h1 class="signature" translate="no">query_order(query, sort_by, sort_order, fallback_sort_field \\ :id, with_pins? \\ false)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2513" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2583" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1929,7 +1933,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Orders query results based on a specified field and sort order.</p><h2 id="query_order/4-examples" class="section-heading"><a href="#query_order/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_order</span><span class="p" data-group-id="4529416926-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:num_replies</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="4529416926-1">)</span><span class="w">
+<p>Orders query results based on a specified field and sort order.</p><h2 id="query_order/5-examples" class="section-heading"><a href="#query_order/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">query_order</span><span class="p" data-group-id="4869957943-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">:reply_count</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="4869957943-1">)</span><span class="w">
 </span><span class="c1"># returns the query ordered by number of replies in ascending order</span></code></pre>
   </section>
 </section>
@@ -1945,7 +1949,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">read(query, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1398" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1468" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1954,10 +1958,10 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Retrieves an activity based on a query and options.</p><h2 id="read/2-examples" class="section-heading"><a href="#read/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p" data-group-id="4404546800-1">(</span><span class="n">query</span><span class="p" data-group-id="4404546800-1">)</span><span class="w">
+<p>Retrieves an activity based on a query and options.</p><h2 id="read/2-examples" class="section-heading"><a href="#read/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p" data-group-id="6937992861-1">(</span><span class="n">query</span><span class="p" data-group-id="6937992861-1">)</span><span class="w">
 </span><span class="c1"># returns an activity based on the provided query</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p" data-group-id="4404546800-2">(</span><span class="n">object_id</span><span class="p" data-group-id="4404546800-2">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p" data-group-id="6937992861-2">(</span><span class="n">object_id</span><span class="p" data-group-id="6937992861-2">)</span><span class="w">
 </span><span class="c1"># returns an activity for the provided object ID (usually a create activity)</span></code></pre>
   </section>
 </section>
@@ -1973,7 +1977,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">read_query(query, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1414" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L1484" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1982,9 +1986,9 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Constructs a query for reading activities based on input.</p><h2 id="read_query/2-examples" class="section-heading"><a href="#read_query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="7065396847-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="7065396847-1">)</span><span class="w">
+<p>Constructs a query for reading activities based on input.</p><h2 id="read_query/2-examples" class="section-heading"><a href="#read_query/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="0858759887-1">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0858759887-1">)</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="7065396847-2">(</span><span class="n">object_id</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="7065396847-2">)</span></code></pre>
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_query</span><span class="p" data-group-id="0858759887-2">(</span><span class="n">object_id</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0858759887-2">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="reply_to_as_permitted_for/3">
@@ -2045,7 +2049,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">verb_congugate(verb)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2435" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2505" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2067,7 +2071,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">verb_display(verb)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2420" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2490" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2076,7 +2080,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Returns a localized and formatted display name for a verb.</p><h2 id="verb_display/1-examples" class="section-heading"><a href="#verb_display/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_display</span><span class="p" data-group-id="7612421831-1">(</span><span class="s">&quot;create&quot;</span><span class="p" data-group-id="7612421831-1">)</span></code></pre>
+<p>Returns a localized and formatted display name for a verb.</p><h2 id="verb_display/1-examples" class="section-heading"><a href="#verb_display/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_display</span><span class="p" data-group-id="2870908931-1">(</span><span class="s">&quot;create&quot;</span><span class="p" data-group-id="2870908931-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="verb_id/1">
@@ -2089,7 +2093,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">verb_id(verb)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2450" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2520" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2098,7 +2102,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Retrieves or constructs an ID for a verb based on its name or identifier.</p><h2 id="verb_id/1-examples" class="section-heading"><a href="#verb_id/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_id</span><span class="p" data-group-id="4867848367-1">(</span><span class="ss">:create</span><span class="p" data-group-id="4867848367-1">)</span></code></pre>
+<p>Retrieves or constructs an ID for a verb based on its name or identifier.</p><h2 id="verb_id/1-examples" class="section-heading"><a href="#verb_id/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_id</span><span class="p" data-group-id="6577851663-1">(</span><span class="ss">:create</span><span class="p" data-group-id="6577851663-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="verb_maybe_modify/2">
@@ -2113,7 +2117,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">verb_maybe_modify(verb, activity \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2335" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2405" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2122,7 +2126,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Optionally modifies the verb based on activity context.</p><h2 id="verb_maybe_modify/2-examples" class="section-heading"><a href="#verb_maybe_modify/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_maybe_modify</span><span class="p" data-group-id="7095580982-1">(</span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7095580982-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7095580982-3">%{</span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7095580982-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7095580982-4">}</span><span class="p" data-group-id="7095580982-3">}</span><span class="p" data-group-id="7095580982-2">}</span><span class="p" data-group-id="7095580982-1">)</span><span class="w">
+<p>Optionally modifies the verb based on activity context.</p><h2 id="verb_maybe_modify/2-examples" class="section-heading"><a href="#verb_maybe_modify/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_maybe_modify</span><span class="p" data-group-id="6211360894-1">(</span><span class="s">&quot;Create&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6211360894-2">%{</span><span class="ss">object</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6211360894-3">%{</span><span class="ss">post_content</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6211360894-4">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6211360894-4">}</span><span class="p" data-group-id="6211360894-3">}</span><span class="p" data-group-id="6211360894-2">}</span><span class="p" data-group-id="6211360894-1">)</span><span class="w">
 </span><span class="s">&quot;Write&quot;</span></code></pre>
   </section>
 </section>
@@ -2136,7 +2140,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
       <h1 class="signature" translate="no">verb_name(slug)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2319" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/activities.ex#L2389" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2145,7 +2149,7 @@ NOTE: you will usually want to use <a href="#cast/3"><code class="inline">cast/3
 
   <section class="docstring">
 
-<p>Returns the name of a verb based on its slug or identifier.</p><h2 id="verb_name/1-examples" class="section-heading"><a href="#verb_name/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_name</span><span class="p" data-group-id="6407107254-1">(</span><span class="ss">:create</span><span class="p" data-group-id="6407107254-1">)</span><span class="w">
+<p>Returns the name of a verb based on its slug or identifier.</p><h2 id="verb_name/1-examples" class="section-heading"><a href="#verb_name/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">verb_name</span><span class="p" data-group-id="0150678794-1">(</span><span class="ss">:create</span><span class="p" data-group-id="0150678794-1">)</span><span class="w">
 </span><span class="s">&quot;Create&quot;</span></code></pre>
   </section>
 </section>
