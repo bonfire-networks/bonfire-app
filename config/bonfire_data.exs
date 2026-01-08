@@ -1239,8 +1239,22 @@ config :bonfire_files, Media,
   code:
     (quote do
        field(:url, :string, virtual: true)
-       # multimixins - shouldn't be here really
-       unquote_splicing(common.([:controlled, :created, :activity, :caretaker, :peered]))
+       
+       # Virtual fields for trending links aggregation
+       field(:object_count, :integer, virtual: true)
+       field(:reply_count, :integer, virtual: true)
+       field(:boost_count, :integer, virtual: true)
+       field(:like_count, :integer, virtual: true)
+       field(:trending_score, :float, virtual: true)
+
+       field(:activity_ids, {:array, :string}, virtual: true)
+       has_many(:activities, Bonfire.Data.Social.Activity, foreign_key: :id)
+
+       field(:newest_activity_id, :string, virtual: true)
+       belongs_to(:newest_activity, Bonfire.Data.Social.Activity, define_field: false, foreign_key: :newest_activity_id)
+       
+       # [multi]mixins 
+       unquote_splicing(common.([:controlled, :created, :activity, :caretaker, :peered])) # , :boost_count, :like_count
      end)
 
 config :bonfire_tag, Tagged,

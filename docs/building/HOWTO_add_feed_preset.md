@@ -79,7 +79,7 @@ The `FeedFilters` struct accepts various filtering options:
 - **`origin`**: Filter by origin (`:local` or `:remote`)
 - **`tags`**: Filter by hashtags
 - **`time_limit`**: Limit to content from last N days
-- **`sort_by`**: Sort order (e.g., `:num_replies`)
+- **`sort_by`**: Sort order (e.g., `:reply_count`)
 - **`sort_order`**: `:asc` or `:desc`
 
 ### Example Configurations
