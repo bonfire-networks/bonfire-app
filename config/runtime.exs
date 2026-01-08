@@ -411,7 +411,7 @@ case System.get_env("APPSIGNAL_PUSH_API_KEY", "") do
 end
 
 config :untangle,
-  env: config_env(),
+  # env set in config.exs at compile time (required by compile_env in untangle)
   # level: :error,
   to_io: System.get_env("UNTANGLE_TO_IO") in yes?
 
