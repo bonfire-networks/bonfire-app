@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-beta.14">
+    <meta name="project" content="Bonfire v1.0.1-social-beta.16">
 
 
-    <title>Bonfire.API.MastoCompat.InteractionHandler — Bonfire v1.0.1-social-beta.14</title>
+    <title>Bonfire.API.MastoCompat.InteractionHandler — Bonfire v1.0.1-social-beta.16</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-beta.14
+          v1.0.1-social-beta.16
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.API.MastoCompat.InteractionHandler</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.14)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.16)</small>
 
     </h1>
 
@@ -95,24 +95,24 @@ Bonfire
     <section id="moduledoc">
 <p>Handles user interactions with statuses (like/unlike/boost/unboost).</p><p>This module consolidates the common pattern for interaction mutations:</p><ol><li>Check authorization</li><li>Perform the interaction via Bonfire context</li><li>Fetch the updated activity with proper preloads</li><li>Transform to Mastodon Status format</li><li>Set the appropriate interaction flag</li></ol><p>Previously, this pattern was duplicated across 4 functions (~178 lines).
 Now it's a single reusable function.</p><h2 id="module-usage" class="section-heading"><a href="#module-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Like a status</span><span class="w">
-</span><span class="nc">InteractionHandler</span><span class="o">.</span><span class="n">handle_interaction</span><span class="p" data-group-id="4026550535-1">(</span><span class="w">
+</span><span class="nc">InteractionHandler</span><span class="o">.</span><span class="n">handle_interaction</span><span class="p" data-group-id="9165051793-1">(</span><span class="w">
   </span><span class="n">conn</span><span class="p">,</span><span class="w">
   </span><span class="n">id</span><span class="p">,</span><span class="w">
   </span><span class="ss">interaction_type</span><span class="p">:</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w">
   </span><span class="ss">context_fn</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">Bonfire.Social.Likes</span><span class="o">.</span><span class="n">like</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;favourited&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">flag_value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
-</span><span class="p" data-group-id="4026550535-1">)</span><span class="w">
+</span><span class="p" data-group-id="9165051793-1">)</span><span class="w">
 
 </span><span class="c1"># Boost a status</span><span class="w">
-</span><span class="nc">InteractionHandler</span><span class="o">.</span><span class="n">handle_interaction</span><span class="p" data-group-id="4026550535-2">(</span><span class="w">
+</span><span class="nc">InteractionHandler</span><span class="o">.</span><span class="n">handle_interaction</span><span class="p" data-group-id="9165051793-2">(</span><span class="w">
   </span><span class="n">conn</span><span class="p">,</span><span class="w">
   </span><span class="n">id</span><span class="p">,</span><span class="w">
   </span><span class="ss">interaction_type</span><span class="p">:</span><span class="w"> </span><span class="ss">:boost</span><span class="p">,</span><span class="w">
   </span><span class="ss">context_fn</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">Bonfire.Social.Boosts</span><span class="o">.</span><span class="n">boost</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reblogged&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">flag_value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
-</span><span class="p" data-group-id="4026550535-2">)</span></code></pre>
+</span><span class="p" data-group-id="9165051793-2">)</span></code></pre>
     </section>
 
 </div>
@@ -206,13 +206,13 @@ Exposed for testing and consistency.</p>
 
   <section class="docstring">
 
-<p>Common handler for all status interactions.</p><h2 id="handle_interaction/3-options" class="section-heading"><a href="#handle_interaction/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:interaction_type</code> - Type of interaction (for logging): :like, :unlike, :boost, :unboost</li><li><code class="inline">:context_fn</code> - The Bonfire context function to call (e.g., &amp;Bonfire.Social.Likes.like/2)</li><li><code class="inline">:flag</code> - The Mastodon status flag to set: &quot;favourited&quot; or &quot;reblogged&quot;</li><li><code class="inline">:flag_value</code> - Value to set for the flag: true or false</li></ul><h2 id="handle_interaction/3-examples" class="section-heading"><a href="#handle_interaction/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">handle_interaction</span><span class="p" data-group-id="3441022942-1">(</span><span class="n">conn</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w">
+<p>Common handler for all status interactions.</p><h2 id="handle_interaction/3-options" class="section-heading"><a href="#handle_interaction/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:interaction_type</code> - Type of interaction (for logging): :like, :unlike, :boost, :unboost</li><li><code class="inline">:context_fn</code> - The Bonfire context function to call (e.g., &amp;Bonfire.Social.Likes.like/2)</li><li><code class="inline">:flag</code> - The Mastodon status flag to set: &quot;favourited&quot; or &quot;reblogged&quot;</li><li><code class="inline">:flag_value</code> - Value to set for the flag: true or false</li></ul><h2 id="handle_interaction/3-examples" class="section-heading"><a href="#handle_interaction/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">handle_interaction</span><span class="p" data-group-id="3865431285-1">(</span><span class="n">conn</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">interaction_type</span><span class="p">:</span><span class="w"> </span><span class="ss">:like</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">context_fn</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">Bonfire.Social.Likes</span><span class="o">.</span><span class="n">like</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;favourited&quot;</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="ss">flag_value</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="3441022942-1">)</span><span class="w">
-</span><span class="p" data-group-id="3441022942-2">%</span><span class="nc" data-group-id="3441022942-2">Plug.Conn</span><span class="p" data-group-id="3441022942-2">{</span><span class="n">...</span><span class="p" data-group-id="3441022942-2">}</span></code></pre>
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="3865431285-1">)</span><span class="w">
+</span><span class="p" data-group-id="3865431285-2">%</span><span class="nc" data-group-id="3865431285-2">Plug.Conn</span><span class="p" data-group-id="3865431285-2">{</span><span class="n">...</span><span class="p" data-group-id="3865431285-2">}</span></code></pre>
   </section>
 </section>
 
