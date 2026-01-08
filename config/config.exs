@@ -166,6 +166,8 @@ config :logger, :console,
 
 config :elixir, :dbg_callback, {Untangle, :custom_dbg, []}
 
+config :untangle, env: config_env()
+
 config :surface, :compiler,
   warn_on_undefined_props: false,
   hooks_output_dir: "config/current_flavour/assets/hooks/",
