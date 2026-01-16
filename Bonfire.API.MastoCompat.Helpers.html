@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-beta.19">
+    <meta name="project" content="Bonfire v1.0.1-social-beta.35">
 
 
-    <title>Bonfire.API.MastoCompat.Helpers — Bonfire v1.0.1-social-beta.19</title>
+    <title>Bonfire.API.MastoCompat.Helpers — Bonfire v1.0.1-social-beta.35</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-201B8622.js"></script>
+    <script defer src="dist/sidebar_items-1612FE25.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-beta.19
+          v1.0.1-social-beta.35
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.API.MastoCompat.Helpers</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.19)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.35)</small>
 
     </h1>
 
@@ -217,13 +217,13 @@ extract and transform data from Bonfire structures to Mastodon format.</p>
   <section class="docstring">
 
 <p>Recursively converts structs to JSON-safe values.</p><p>Handles DateTime, NaiveDateTime, Date, and Ecto NotLoaded associations.
-Can optionally filter out nil values and drop unknown struct types.</p><h2 id="deep_struct_to_map/2-options" class="section-heading"><a href="#deep_struct_to_map/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:filter_nils</code> - Remove nil values from maps and lists (default: false)</li><li><code class="inline">:drop_unknown_structs</code> - Return nil for unrecognized structs instead of converting to map (default: false)</li></ul><h2 id="deep_struct_to_map/2-examples" class="section-heading"><a href="#deep_struct_to_map/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="2775578327-1">(</span><span class="p" data-group-id="2775578327-2">%{</span><span class="ss">date</span><span class="p">:</span><span class="w"> </span><span class="ld">~U[2024-01-15 10:30:00Z]</span><span class="p" data-group-id="2775578327-2">}</span><span class="p" data-group-id="2775578327-1">)</span><span class="w">
-</span><span class="p" data-group-id="2775578327-3">%{</span><span class="ss">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-01-15T10:30:00Z&quot;</span><span class="p" data-group-id="2775578327-3">}</span><span class="w">
+Can optionally filter out nil values and drop unknown struct types.</p><h2 id="deep_struct_to_map/2-options" class="section-heading"><a href="#deep_struct_to_map/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:filter_nils</code> - Remove nil values from maps and lists (default: false)</li><li><code class="inline">:drop_unknown_structs</code> - Return nil for unrecognized structs instead of converting to map (default: false)</li></ul><h2 id="deep_struct_to_map/2-examples" class="section-heading"><a href="#deep_struct_to_map/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="2571509026-1">(</span><span class="p" data-group-id="2571509026-2">%{</span><span class="ss">date</span><span class="p">:</span><span class="w"> </span><span class="ld">~U[2024-01-15 10:30:00Z]</span><span class="p" data-group-id="2571509026-2">}</span><span class="p" data-group-id="2571509026-1">)</span><span class="w">
+</span><span class="p" data-group-id="2571509026-3">%{</span><span class="ss">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-01-15T10:30:00Z&quot;</span><span class="p" data-group-id="2571509026-3">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="2775578327-4">(</span><span class="p" data-group-id="2775578327-5">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="2775578327-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">filter_nils</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="2775578327-4">)</span><span class="w">
-</span><span class="p" data-group-id="2775578327-6">%{</span><span class="p" data-group-id="2775578327-6">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="2571509026-4">(</span><span class="p" data-group-id="2571509026-5">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="2571509026-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">filter_nils</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="2571509026-4">)</span><span class="w">
+</span><span class="p" data-group-id="2571509026-6">%{</span><span class="p" data-group-id="2571509026-6">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="2775578327-7">(</span><span class="p" data-group-id="2775578327-8">%</span><span class="nc" data-group-id="2775578327-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="2775578327-8">{</span><span class="p" data-group-id="2775578327-8">}</span><span class="p" data-group-id="2775578327-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">deep_struct_to_map</span><span class="p" data-group-id="2571509026-7">(</span><span class="p" data-group-id="2571509026-8">%</span><span class="nc" data-group-id="2571509026-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="2571509026-8">{</span><span class="p" data-group-id="2571509026-8">}</span><span class="p" data-group-id="2571509026-7">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
@@ -247,10 +247,10 @@ Can optionally filter out nil values and drop unknown struct types.</p><h2 id="d
   <section class="docstring">
 
 <p>Formats a datetime to ISO8601 format as expected by Mastodon API.</p><p>Handles various datetime types (DateTime, NaiveDateTime, Date) and
-returns nil for invalid inputs.</p><h2 id="format_datetime/1-examples" class="section-heading"><a href="#format_datetime/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">format_datetime</span><span class="p" data-group-id="2258929803-1">(</span><span class="ld">~U[2024-01-15 10:30:00Z]</span><span class="p" data-group-id="2258929803-1">)</span><span class="w">
+returns nil for invalid inputs.</p><h2 id="format_datetime/1-examples" class="section-heading"><a href="#format_datetime/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">format_datetime</span><span class="p" data-group-id="4821660694-1">(</span><span class="ld">~U[2024-01-15 10:30:00Z]</span><span class="p" data-group-id="4821660694-1">)</span><span class="w">
 </span><span class="s">&quot;2024-01-15T10:30:00.000Z&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">format_datetime</span><span class="p" data-group-id="2258929803-2">(</span><span class="no">nil</span><span class="p" data-group-id="2258929803-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">format_datetime</span><span class="p" data-group-id="4821660694-2">(</span><span class="no">nil</span><span class="p" data-group-id="4821660694-2">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
@@ -273,16 +273,16 @@ returns nil for invalid inputs.</p><h2 id="format_datetime/1-examples" class="se
 
   <section class="docstring">
 
-<p>Safely get a field from a map or struct, handling nil and NotLoaded associations.</p><p>Returns <code class="inline">nil</code> for:</p><ul><li>nil input</li><li>Empty maps</li><li>NotLoaded Ecto associations</li><li>Non-map inputs</li><li>Missing keys</li></ul><h2 id="get_field/2-examples" class="section-heading"><a href="#get_field/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="6848999315-1">(</span><span class="p" data-group-id="6848999315-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p" data-group-id="6848999315-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="6848999315-1">)</span><span class="w">
+<p>Safely get a field from a map or struct, handling nil and NotLoaded associations.</p><p>Returns <code class="inline">nil</code> for:</p><ul><li>nil input</li><li>Empty maps</li><li>NotLoaded Ecto associations</li><li>Non-map inputs</li><li>Missing keys</li></ul><h2 id="get_field/2-examples" class="section-heading"><a href="#get_field/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="3195118065-1">(</span><span class="p" data-group-id="3195118065-2">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p" data-group-id="3195118065-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="3195118065-1">)</span><span class="w">
 </span><span class="s">&quot;test&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="6848999315-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="6848999315-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="3195118065-3">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="3195118065-3">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="6848999315-4">(</span><span class="p" data-group-id="6848999315-5">%{</span><span class="p" data-group-id="6848999315-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="6848999315-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="3195118065-4">(</span><span class="p" data-group-id="3195118065-5">%{</span><span class="p" data-group-id="3195118065-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="3195118065-4">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="6848999315-6">(</span><span class="p" data-group-id="6848999315-7">%{</span><span class="ss">assoc</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6848999315-8">%</span><span class="nc" data-group-id="6848999315-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="6848999315-8">{</span><span class="p" data-group-id="6848999315-8">}</span><span class="p" data-group-id="6848999315-7">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:assoc</span><span class="p" data-group-id="6848999315-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_field</span><span class="p" data-group-id="3195118065-6">(</span><span class="p" data-group-id="3195118065-7">%{</span><span class="ss">assoc</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3195118065-8">%</span><span class="nc" data-group-id="3195118065-8">Ecto.Association.NotLoaded</span><span class="p" data-group-id="3195118065-8">{</span><span class="p" data-group-id="3195118065-8">}</span><span class="p" data-group-id="3195118065-7">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:assoc</span><span class="p" data-group-id="3195118065-6">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
@@ -306,16 +306,16 @@ returns nil for invalid inputs.</p><h2 id="format_datetime/1-examples" class="se
   <section class="docstring">
 
 <p>Get the first non-nil value from a map by trying multiple keys in order.</p><p>Useful when data can come from either GraphQL (with aliased field names)
-or directly from Ecto (with raw schema field names).</p><h2 id="get_fields/2-examples" class="section-heading"><a href="#get_fields/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="1351520011-1">(</span><span class="p" data-group-id="1351520011-2">%{</span><span class="ss">display_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="1351520011-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1351520011-3">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="1351520011-3">]</span><span class="p" data-group-id="1351520011-1">)</span><span class="w">
+or directly from Ecto (with raw schema field names).</p><h2 id="get_fields/2-examples" class="section-heading"><a href="#get_fields/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0992320330-1">(</span><span class="p" data-group-id="0992320330-2">%{</span><span class="ss">display_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="0992320330-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0992320330-3">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0992320330-3">]</span><span class="p" data-group-id="0992320330-1">)</span><span class="w">
 </span><span class="s">&quot;Alice&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="1351520011-4">(</span><span class="p" data-group-id="1351520011-5">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bob&quot;</span><span class="p" data-group-id="1351520011-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1351520011-6">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="1351520011-6">]</span><span class="p" data-group-id="1351520011-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0992320330-4">(</span><span class="p" data-group-id="0992320330-5">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bob&quot;</span><span class="p" data-group-id="0992320330-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0992320330-6">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0992320330-6">]</span><span class="p" data-group-id="0992320330-4">)</span><span class="w">
 </span><span class="s">&quot;Bob&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="1351520011-7">(</span><span class="p" data-group-id="1351520011-8">%{</span><span class="ss">other</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="1351520011-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1351520011-9">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="1351520011-9">]</span><span class="p" data-group-id="1351520011-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0992320330-7">(</span><span class="p" data-group-id="0992320330-8">%{</span><span class="ss">other</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="0992320330-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0992320330-9">[</span><span class="ss">:display_name</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="0992320330-9">]</span><span class="p" data-group-id="0992320330-7">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="1351520011-10">(</span><span class="p" data-group-id="1351520011-11">%{</span><span class="s">&quot;avatar&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;url&quot;</span><span class="p" data-group-id="1351520011-11">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1351520011-12">[</span><span class="ss">:avatar</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;avatar&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:icon</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;icon&quot;</span><span class="p" data-group-id="1351520011-12">]</span><span class="p" data-group-id="1351520011-10">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_fields</span><span class="p" data-group-id="0992320330-10">(</span><span class="p" data-group-id="0992320330-11">%{</span><span class="s">&quot;avatar&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;url&quot;</span><span class="p" data-group-id="0992320330-11">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0992320330-12">[</span><span class="ss">:avatar</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;avatar&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:icon</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;icon&quot;</span><span class="p" data-group-id="0992320330-12">]</span><span class="p" data-group-id="0992320330-10">)</span><span class="w">
 </span><span class="s">&quot;url&quot;</span></code></pre>
   </section>
 </section>
@@ -340,13 +340,13 @@ or directly from Ecto (with raw schema field names).</p><h2 id="get_fields/2-exa
 
 <p>Normalize a hashtag string for querying.</p><p>Removes # prefix if present and handles case normalization.
 Uses Bonfire's hashtag normalization if available, otherwise
-falls back to simple lowercase.</p><h2 id="normalize_hashtag/1-examples" class="section-heading"><a href="#normalize_hashtag/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="2847702828-1">(</span><span class="s">&quot;#Bonfire&quot;</span><span class="p" data-group-id="2847702828-1">)</span><span class="w">
+falls back to simple lowercase.</p><h2 id="normalize_hashtag/1-examples" class="section-heading"><a href="#normalize_hashtag/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="4240457321-1">(</span><span class="s">&quot;#Bonfire&quot;</span><span class="p" data-group-id="4240457321-1">)</span><span class="w">
 </span><span class="s">&quot;bonfire&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="2847702828-2">(</span><span class="s">&quot;ELIXIR&quot;</span><span class="p" data-group-id="2847702828-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="4240457321-2">(</span><span class="s">&quot;ELIXIR&quot;</span><span class="p" data-group-id="4240457321-2">)</span><span class="w">
 </span><span class="s">&quot;elixir&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="2847702828-3">(</span><span class="no">nil</span><span class="p" data-group-id="2847702828-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">normalize_hashtag</span><span class="p" data-group-id="4240457321-3">(</span><span class="no">nil</span><span class="p" data-group-id="4240457321-3">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span></code></pre>
   </section>
 </section>
@@ -369,13 +369,13 @@ falls back to simple lowercase.</p><h2 id="normalize_hashtag/1-examples" class="
 
   <section class="docstring">
 
-<p>Converts a value to string, handling nil gracefully.</p><h2 id="to_string_safe/1-examples" class="section-heading"><a href="#to_string_safe/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="6979045609-1">(</span><span class="mi">123</span><span class="p" data-group-id="6979045609-1">)</span><span class="w">
+<p>Converts a value to string, handling nil gracefully.</p><h2 id="to_string_safe/1-examples" class="section-heading"><a href="#to_string_safe/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="9780383611-1">(</span><span class="mi">123</span><span class="p" data-group-id="9780383611-1">)</span><span class="w">
 </span><span class="s">&quot;123&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="6979045609-2">(</span><span class="no">nil</span><span class="p" data-group-id="6979045609-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="9780383611-2">(</span><span class="no">nil</span><span class="p" data-group-id="9780383611-2">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="6979045609-3">(</span><span class="s">&quot;already_string&quot;</span><span class="p" data-group-id="6979045609-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">to_string_safe</span><span class="p" data-group-id="9780383611-3">(</span><span class="s">&quot;already_string&quot;</span><span class="p" data-group-id="9780383611-3">)</span><span class="w">
 </span><span class="s">&quot;already_string&quot;</span></code></pre>
   </section>
 </section>
@@ -398,10 +398,10 @@ falls back to simple lowercase.</p><h2 id="normalize_hashtag/1-examples" class="
 
   <section class="docstring">
 
-<p>Validates an entity against a schema module and returns the valid entity or nil.</p><p>Logs warnings for validation failures to aid debugging without crashing.</p><h2 id="validate_and_return/2-parameters" class="section-heading"><a href="#validate_and_return/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">entity</code> - The map to validate</li><li><code class="inline">schema_module</code> - The schema module with a <code class="inline">validate/1</code> function</li></ul><h2 id="validate_and_return/2-examples" class="section-heading"><a href="#validate_and_return/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">validate_and_return</span><span class="p" data-group-id="8022821813-1">(</span><span class="p" data-group-id="8022821813-2">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="8022821813-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">Schemas.Status</span><span class="p" data-group-id="8022821813-1">)</span><span class="w">
-</span><span class="p" data-group-id="8022821813-3">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="8022821813-3">}</span><span class="w">
+<p>Validates an entity against a schema module and returns the valid entity or nil.</p><p>Logs warnings for validation failures to aid debugging without crashing.</p><h2 id="validate_and_return/2-parameters" class="section-heading"><a href="#validate_and_return/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">entity</code> - The map to validate</li><li><code class="inline">schema_module</code> - The schema module with a <code class="inline">validate/1</code> function</li></ul><h2 id="validate_and_return/2-examples" class="section-heading"><a href="#validate_and_return/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">validate_and_return</span><span class="p" data-group-id="1874762191-1">(</span><span class="p" data-group-id="1874762191-2">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p" data-group-id="1874762191-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">Schemas.Status</span><span class="p" data-group-id="1874762191-1">)</span><span class="w">
+</span><span class="p" data-group-id="1874762191-3">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="1874762191-3">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_and_return</span><span class="p" data-group-id="8022821813-4">(</span><span class="p" data-group-id="8022821813-5">%{</span><span class="p" data-group-id="8022821813-5">}</span><span class="p">,</span><span class="w"> </span><span class="nc">Schemas.Status</span><span class="p" data-group-id="8022821813-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_and_return</span><span class="p" data-group-id="1874762191-4">(</span><span class="p" data-group-id="1874762191-5">%{</span><span class="p" data-group-id="1874762191-5">}</span><span class="p">,</span><span class="w"> </span><span class="nc">Schemas.Status</span><span class="p" data-group-id="1874762191-4">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">  </span><span class="c1"># Logs warning about missing required fields</span></code></pre>
   </section>
 </section>

@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-beta.19">
+    <meta name="project" content="Bonfire v1.0.1-social-beta.35">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Time.Interval — Bonfire v1.0.1-social-beta.19</title>
+    <title>Bonfire.Common.Localise.Cldr.Time.Interval — Bonfire v1.0.1-social-beta.35</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-201B8622.js"></script>
+    <script defer src="dist/sidebar_items-1612FE25.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-beta.19
+          v1.0.1-social-beta.35
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.Time.Interval</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.19)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.35)</small>
 
     </h1>
 
@@ -96,7 +96,7 @@ Bonfire
 <p>Interval formats allow for software to format intervals like &quot;Jan 10-12, 2008&quot; as a
 shorter and more natural format than &quot;Jan 10, 2008 - Jan 12, 2008&quot;. They are designed
 to take a start and end date, time or datetime plus a formatting pattern
-and use that information to produce a localized format.</p><p>See <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.1/Cldr.Interval.html#to_string/3"><code class="inline">Cldr.Interval.to_string/3</code></a> and <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.1/Cldr.Time.Interval.html#to_string/3"><code class="inline">Cldr.Time.Interval.to_string/3</code></a>.</p>
+and use that information to produce a localized format.</p><p>See <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.3/Cldr.Interval.html#to_string/3"><code class="inline">Cldr.Interval.to_string/3</code></a> and <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.3/Cldr.Time.Interval.html#to_string/3"><code class="inline">Cldr.Time.Interval.to_string/3</code></a>.</p>
     </section>
 
 </div>
@@ -252,37 +252,37 @@ alternatives are <code class="inline">:time</code>, <code class="inline">:zone</
 and <code class="inline">:flex</code>. The default is <code class="inline">:time</code>.</p></li><li><p><code class="inline">locale</code> is any valid locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#known_locale_names/0"><code class="inline">Cldr.known_locale_names/0</code></a>
 or a <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.LanguageTag.html#t:t/0"><code class="inline">Cldr.LanguageTag.t/0</code></a> struct.  The default is <a href="./Bonfire.Common.Localise.Cldr.html#get_locale/0"><code class="inline">Elixir.Bonfire.Common.Localise.Cldr.get_locale/0</code></a>.</p></li><li><p><code class="inline">number_system:</code> a number system into which the formatted date digits should
 be transliterated.</p></li></ul><h2 id="to_string/3-returns" class="section-heading"><a href="#to_string/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><p><code class="inline">{:ok, string}</code> or</p></li><li><p><code class="inline">{:error, {exception, reason}}</code></p></li></ul><h2 id="to_string/3-notes" class="section-heading"><a href="#to_string/3-notes" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Notes</span></h2><ul><li><p>For more information on interval format string
-see <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.1/Cldr.Interval.html"><code class="inline">Cldr.Interval</code></a>.</p></li><li><p>The available predefined formats that can be applied are the
+see <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.3/Cldr.Interval.html"><code class="inline">Cldr.Interval</code></a>.</p></li><li><p>The available predefined formats that can be applied are the
 keys of the map returned by <code class="inline">Cldr.DateTime.Format.interval_formats(&quot;en&quot;, :gregorian)</code>
 where <code class="inline">&quot;en&quot;</code> can be replaced by any configured locale name and <code class="inline">:gregorian</code>
 is the underlying CLDR calendar type.</p></li><li><p>In the case where <code class="inline">from</code> and <code class="inline">to</code> are equal, a single
 time is formatted instead of an interval.</p></li></ul><h2 id="to_string/3-examples" class="section-heading"><a href="#to_string/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~T[10:00:00]</span><span class="p">,</span><span class="w"> </span><span class="ld">~T[10:03:00]</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:short</span><span class="w">
-</span><span class="p" data-group-id="7777791645-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10 – 10 AM&quot;</span><span class="p" data-group-id="7777791645-1">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10 – 10 AM&quot;</span><span class="p" data-group-id="6518226934-1">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~T[10:00:00]</span><span class="p">,</span><span class="w"> </span><span class="ld">~T[10:03:00]</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:medium</span><span class="w">
-</span><span class="p" data-group-id="7777791645-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 AM&quot;</span><span class="p" data-group-id="7777791645-2">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 AM&quot;</span><span class="p" data-group-id="6518226934-2">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~T[10:00:00]</span><span class="p">,</span><span class="w"> </span><span class="ld">~T[10:03:00]</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="w">
-</span><span class="p" data-group-id="7777791645-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 AM&quot;</span><span class="p" data-group-id="7777791645-3">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 AM&quot;</span><span class="p" data-group-id="6518226934-3">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~T[10:00:00]</span><span class="p">,</span><span class="w"> </span><span class="ld">~T[10:03:00]</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="ss">:flex</span><span class="w">
-</span><span class="p" data-group-id="7777791645-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 in the morning&quot;</span><span class="p" data-group-id="7777791645-4">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 in the morning&quot;</span><span class="p" data-group-id="6518226934-4">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~U[2020-01-01 00:00:00.0Z]</span><span class="p">,</span><span class="w"> </span><span class="ld">~U[2020-01-01 10:00:00.0Z]</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="ss">:flex</span><span class="w">
-</span><span class="p" data-group-id="7777791645-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;12:00 – 10:00 in the morning&quot;</span><span class="p" data-group-id="7777791645-5">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;12:00 – 10:00 in the morning&quot;</span><span class="p" data-group-id="6518226934-5">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~U[2020-01-01 00:00:00.0Z]</span><span class="p">,</span><span class="w"> </span><span class="ld">~U[2020-01-01 10:00:00.0Z]</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="ss">:zone</span><span class="w">
-</span><span class="p" data-group-id="7777791645-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;12:00 – 10:00 AM UTC&quot;</span><span class="p" data-group-id="7777791645-6">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;12:00 – 10:00 AM UTC&quot;</span><span class="p" data-group-id="6518226934-6">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~T[10:00:00]</span><span class="p">,</span><span class="w"> </span><span class="ld">~T[10:03:00]</span><span class="p">,</span><span class="w">
 </span><span class="gp unselectable">...&gt; </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:long</span><span class="p">,</span><span class="w"> </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="ss">:flex</span><span class="p">,</span><span class="w"> </span><span class="ss">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;th&quot;</span><span class="w">
-</span><span class="p" data-group-id="7777791645-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 ในตอนเช้า&quot;</span><span class="p" data-group-id="7777791645-7">}</span><span class="w">
+</span><span class="p" data-group-id="6518226934-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00 – 10:03 ในตอนเช้า&quot;</span><span class="p" data-group-id="6518226934-7">}</span><span class="w">
 
 </span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Time.Interval</span><span class="o">.</span><span class="n">to_string</span><span class="w"> </span><span class="ld">~T[10:00:00]</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="w">
-</span><span class="p" data-group-id="7777791645-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00:00 AM –&quot;</span><span class="p" data-group-id="7777791645-8">}</span></code></pre>
+</span><span class="p" data-group-id="6518226934-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10:00:00 AM –&quot;</span><span class="p" data-group-id="6518226934-8">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="to_string!/3">
@@ -328,7 +328,7 @@ alternatives are <code class="inline">:time</code>, <code class="inline">:zone</
 and <code class="inline">:flex</code>. The default is <code class="inline">:time</code>.</p></li><li><p><code class="inline">locale</code> is any valid locale name returned by <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.html#known_locale_names/0"><code class="inline">Cldr.known_locale_names/0</code></a>
 or a <a href="https://hexdocs.pm/ex_cldr/2.44.1/Cldr.LanguageTag.html#t:t/0"><code class="inline">Cldr.LanguageTag.t/0</code></a> struct.  The default is <a href="./Bonfire.Common.Localise.Cldr.html#get_locale/0"><code class="inline">Elixir.Bonfire.Common.Localise.Cldr.get_locale/0</code></a>.</p></li><li><p><code class="inline">number_system:</code> a number system into which the formatted date digits should
 be transliterated.</p></li></ul><h2 id="to_string!/3-returns" class="section-heading"><a href="#to_string!/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><p><code class="inline">string</code> or</p></li><li><p>raises an exception</p></li></ul><h2 id="to_string!/3-notes" class="section-heading"><a href="#to_string!/3-notes" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Notes</span></h2><ul><li><p>For more information on interval format string
-see <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.1/Cldr.Interval.html"><code class="inline">Cldr.Interval</code></a>.</p></li><li><p>The available predefined formats that can be applied are the
+see <a href="https://hexdocs.pm/ex_cldr_dates_times/2.25.3/Cldr.Interval.html"><code class="inline">Cldr.Interval</code></a>.</p></li><li><p>The available predefined formats that can be applied are the
 keys of the map returned by <code class="inline">Cldr.DateTime.Format.interval_formats(&quot;en&quot;, :gregorian)</code>
 where <code class="inline">&quot;en&quot;</code> can be replaced by any configured locale name and <code class="inline">:gregorian</code>
 is the underlying CLDR calendar type.</p></li><li><p>In the case where <code class="inline">from</code> and <code class="inline">to</code> are equal, a single

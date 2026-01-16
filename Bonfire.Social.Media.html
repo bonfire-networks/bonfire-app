@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-beta.19">
+    <meta name="project" content="Bonfire v1.0.1-social-beta.35">
 
 
-    <title>Bonfire.Social.Media — Bonfire v1.0.1-social-beta.19</title>
+    <title>Bonfire.Social.Media — Bonfire v1.0.1-social-beta.35</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-201B8622.js"></script>
+    <script defer src="dist/sidebar_items-1612FE25.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-beta.19
+          v1.0.1-social-beta.35
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Social.Media</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.19)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.35)</small>
 
     </h1>
 
@@ -118,6 +118,17 @@ filter issues that occur when media joins break time_limit/activity_type filters
       </div>
 
         <div class="summary-synopsis"><p>Wraps a qualifying activities query with media aggregation.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cached_trending_links/1" data-no-tooltip="" translate="no">cached_trending_links(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if trending links data is available in cache.
+Returns the cached data if available, nil otherwise.</p></div>
 
     </div>
 
@@ -173,6 +184,16 @@ filter issues that occur when media joins break time_limit/activity_type filters
 
     </div>
 
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#warm_cache/1" data-no-tooltip="" translate="no">warm_cache(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Warms the trending links cache by pre-computing results.</p></div>
+
+    </div>
+
 </div>
 
   </section>
@@ -197,7 +218,7 @@ filter issues that occur when media joins break time_limit/activity_type filters
       <h1 class="signature" translate="no">build_media_aggregated_query(qualifying_activities_query, filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L110" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L147" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -209,6 +230,31 @@ filter issues that occur when media joins break time_limit/activity_type filters
 <p>Wraps a qualifying activities query with media aggregation.</p><p>Takes the prepared/filtered/paginated activities subquery and aggregates by media URL.
 Returns proper Media structs with virtual fields populated.
 Only calculates expensive engagement metrics when needed for sorting.</p>
+  </section>
+</section>
+<section class="detail" id="cached_trending_links/1">
+
+    <span id="cached_trending_links/0"></span>
+
+  <div class="detail-header">
+    <a href="#cached_trending_links/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cached_trending_links(opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L89" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if trending links data is available in cache.
+Returns the cached data if available, nil otherwise.</p>
   </section>
 </section>
 <section class="detail" id="list_trending_paginated/1">
@@ -223,7 +269,7 @@ Only calculates expensive engagement metrics when needed for sorting.</p>
       <h1 class="signature" translate="no">list_trending_paginated(opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L78" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L115" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -246,7 +292,7 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
       <h1 class="signature" translate="no">maybe_filter(query, filters, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L303" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L340" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -268,7 +314,7 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
       <h1 class="signature" translate="no">maybe_proload_media(query, per_media_or_join)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L371" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L408" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -290,7 +336,7 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
       <h1 class="signature" translate="no">preload_newest_activity(result)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L407" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L444" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -314,7 +360,7 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
       <h1 class="signature" translate="no">trending_links(opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L44" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L46" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -323,7 +369,7 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
 
   <section class="docstring">
 
-<p>Returns trending links grouped by URL with aggregated metrics.</p><p>Returns a list of maps with:</p><ul><li><code class="inline">media</code> - The first Media object for this URL (contains metadata for preview)</li><li><code class="inline">path</code> - The URL</li><li><code class="inline">boost_count</code> - Sum of boost counts across all activities sharing this link</li><li><code class="inline">object_count</code> - Total number of times the link was shared</li></ul><h1>- <code class="inline">sharers</code> - List of user structs who shared this link (for avatars)</h1><h1>- <code class="inline">share_activity_ids</code> - List of activity IDs that shared this link</h1><h1>- <code class="inline">unique_sharers</code> - Count of unique users who shared this link</h1><h2 id="trending_links/1-options" class="section-heading"><a href="#trending_links/1-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:time_limit</code> - Time window in days to consider activities (default: 7)</li><li><code class="inline">:limit</code> - Maximum number of links to return (default: 5)</li><li><code class="inline">:exclude_activity_types</code> - Activity types to exclude (default: [:reply, :boost])</li></ul><h2 id="trending_links/1-examples" class="section-heading"><a href="#trending_links/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">trending_links</span><span class="p" data-group-id="9724416767-1">(</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="9724416767-1">)</span><span class="w">
+<p>Returns trending links grouped by URL with aggregated metrics.</p><p>Returns a list of maps with:</p><ul><li><code class="inline">media</code> - The first Media object for this URL (contains metadata for preview)</li><li><code class="inline">path</code> - The URL</li><li><code class="inline">boost_count</code> - Sum of boost counts across all activities sharing this link</li><li><code class="inline">object_count</code> - Total number of times the link was shared</li></ul><h1>- <code class="inline">sharers</code> - List of user structs who shared this link (for avatars)</h1><h1>- <code class="inline">share_activity_ids</code> - List of activity IDs that shared this link</h1><h1>- <code class="inline">unique_sharers</code> - Count of unique users who shared this link</h1><h2 id="trending_links/1-options" class="section-heading"><a href="#trending_links/1-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:time_limit</code> - Time window in days to consider activities (default: 2)</li><li><code class="inline">:limit</code> - Maximum number of links to return (default: 5)</li><li><code class="inline">:exclude_activity_types</code> - Activity types to exclude (default: [:reply, :boost])</li></ul><h2 id="trending_links/1-examples" class="section-heading"><a href="#trending_links/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">trending_links</span><span class="p" data-group-id="7855405319-1">(</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="7855405319-1">)</span><span class="w">
 </span><span class="c1">#=&gt; [%{media: %Bonfire.Files.Media{}, path: &quot;https://...&quot;, boost_count: 42, unique_sharers: 5}]</span></code></pre>
   </section>
 </section>
@@ -339,7 +385,7 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
       <h1 class="signature" translate="no">trending_links_reset(opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L60" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L62" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -349,6 +395,31 @@ Each edge wraps a trending link with <code class="inline">:trending_link</code> 
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="warm_cache/1">
+
+    <span id="warm_cache/0"></span>
+
+  <div class="detail-header">
+    <a href="#warm_cache/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">warm_cache(opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/media.ex#L72" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Warms the trending links cache by pre-computing results.</p><p>Call this from an Oban cron job to ensure fresh cached data is available.
+Returns {:ok, count} with number of links cached, or {:error, reason}.</p>
   </section>
 </section>
 
