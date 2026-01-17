@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
-## Bonfire Social [1.0.1 (2026-01-02)]
+## Bonfire Social [1.0.1 (2026-01-17)]
 
 ### Added
 - ✨ schedule a post [#1669](https://github.com/bonfire-networks/bonfire-app/issues/1669) (thanks @mayel)
@@ -38,6 +38,8 @@ SPDX-License-Identifier: CC0-1.0
 - 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [`24b77c6`](https://github.com/bonfire-networks/bonfire-app/commit/24b77c67bafaeeb51329bb96a973de324335f077) (thanks @mayel and @harveypitt)
 - 🐛 Flags should not be automatically sent to remote instances as reports [#1626](https://github.com/bonfire-networks/bonfire-app/issues/1626) (thanks @jonpincus and @mayel)
 - 🚀 updated [docs](https://docs.bonfirenetworks.org/readme.html)
+- 🔧 Settings: order of widgets on dashboard [#935](https://github.com/bonfire-networks/bonfire-app/issues/935) (thanks @mayel and @ivanminutillo)
+- 🚧 replace milisecond numbers or calculations with `to_timeout` [#1729](https://github.com/bonfire-networks/bonfire-app/issues/1729) [`991c7a0`](https://github.com/bonfire-networks/bonfire-app/commit/991c7a0a0fc7e0e6531fa26beb64ecba257ab2ed) (thanks @vishakha1411 and @mayel)
 
 ### Fixed
 - 📝 when i reply to a remote post, the boundary default to local [#1687](https://github.com/bonfire-networks/bonfire-app/issues/1687) (thanks @ivanminutillo)
@@ -75,6 +77,11 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 module Bonfire.RuntimeConfig is not available [PR #1652](https://github.com/bonfire-networks/bonfire-app/pull/1652) (thanks @ju1m)
 - 🐛 Heroicons v1 deprecated - v2 support needed [#22](https://github.com/bonfire-networks/iconify_ex/issues/22) - [PR #21](https://github.com/bonfire-networks/iconify_ex/pull/21) (thanks @neilberkman and @mayel)
 - 🐛 when i minimize the composer that includes a reply_to, the replied activities disappears [#1576](https://github.com/bonfire-networks/bonfire-app/issues/1576) (thanks @ivanminutillo)
+- 💅 Tooltips close unexpectedly during LiveView updates [#1756](https://github.com/bonfire-networks/bonfire-app/issues/1756) (thanks @ivanminutillo)
+- 💅 UX: Tooltip outside-click triggers unintended actions [#1755](https://github.com/bonfire-networks/bonfire-app/issues/1755) (thanks @ivanminutillo)
+- 📝 mention a local user in the composer is not translated in an actual mention once the post is published [#1753](https://github.com/bonfire-networks/bonfire-app/issues/1753) (thanks @ivanminutillo and @mayel)
+- 🐛 Preview Themes goes off Screen [#1746](https://github.com/bonfire-networks/bonfire-app/issues/1746) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Remove erroneous error message when a flash message auto-closes [#1708](https://github.com/bonfire-networks/bonfire-app/issues/1708) (thanks @mayel and @ivanminutillo)
 
 
 
