@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social-beta.36">
+    <meta name="project" content="Bonfire v1.0.1-social">
 
 
-    <title>Bonfire.API.MastoCompat.Mappers.Status — Bonfire v1.0.1-social-beta.36</title>
+    <title>Bonfire.API.MastoCompat.Mappers.Status — Bonfire v1.0.1-social</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social-beta.36
+          v1.0.1-social
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.API.MastoCompat.Mappers.Status</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social-beta.36)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social)</small>
 
     </h1>
 
@@ -95,13 +95,13 @@ Bonfire
     <section id="moduledoc">
 <p>Maps Bonfire Activity/Post objects to Mastodon Status format.</p><p>This module consolidates all status transformation logic that was previously
 scattered across multiple prepare_* functions. It handles:</p><ul><li>Timeline statuses (from Activity objects)</li><li>Reblog/boost statuses (nested Post objects)</li><li>Notification statuses</li><li>Fallback statuses (when object data is incomplete)</li></ul><h2 id="module-usage" class="section-heading"><a href="#module-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Timeline status</span><span class="w">
-</span><span class="nc">Mappers.Status</span><span class="o">.</span><span class="n">from_activity</span><span class="p" data-group-id="5118456500-1">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5118456500-1">)</span><span class="w">
+</span><span class="nc">Mappers.Status</span><span class="o">.</span><span class="n">from_activity</span><span class="p" data-group-id="4681118911-1">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="4681118911-1">)</span><span class="w">
 
 </span><span class="c1"># Reblog (nested in a boost)</span><span class="w">
-</span><span class="nc">Mappers.Status</span><span class="o">.</span><span class="n">from_post</span><span class="p" data-group-id="5118456500-2">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="ss">is_reblog</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="5118456500-2">)</span><span class="w">
+</span><span class="nc">Mappers.Status</span><span class="o">.</span><span class="n">from_post</span><span class="p" data-group-id="4681118911-2">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="ss">is_reblog</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="4681118911-2">)</span><span class="w">
 
 </span><span class="c1"># Notification status</span><span class="w">
-</span><span class="nc">Mappers.Status</span><span class="o">.</span><span class="n">from_post</span><span class="p" data-group-id="5118456500-3">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="ss">for_notification</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5118456500-3">)</span></code></pre>
+</span><span class="nc">Mappers.Status</span><span class="o">.</span><span class="n">from_post</span><span class="p" data-group-id="4681118911-3">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="ss">for_notification</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="4681118911-3">)</span></code></pre>
     </section>
 
 </div>
@@ -173,8 +173,8 @@ scattered across multiple prepare_* functions. It handles:</p><ul><li>Timeline s
 
   <section class="docstring">
 
-<p>Transform a Bonfire Activity into a Mastodon Status.</p><h2 id="from_activity/2-options" class="section-heading"><a href="#from_activity/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:current_user</code> - The current user (for interaction states)</li><li><code class="inline">:for_notification</code> - Set true when building status for notification</li><li><code class="inline">:fallback</code> - Set true when object data may be incomplete</li></ul><h2 id="from_activity/2-examples" class="section-heading"><a href="#from_activity/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">from_activity</span><span class="p" data-group-id="2824795377-1">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="2824795377-1">)</span><span class="w">
-</span><span class="p" data-group-id="2824795377-2">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="2824795377-2">}</span></code></pre>
+<p>Transform a Bonfire Activity into a Mastodon Status.</p><h2 id="from_activity/2-options" class="section-heading"><a href="#from_activity/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:current_user</code> - The current user (for interaction states)</li><li><code class="inline">:for_notification</code> - Set true when building status for notification</li><li><code class="inline">:fallback</code> - Set true when object data may be incomplete</li></ul><h2 id="from_activity/2-examples" class="section-heading"><a href="#from_activity/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">from_activity</span><span class="p" data-group-id="5088456425-1">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="5088456425-1">)</span><span class="w">
+</span><span class="p" data-group-id="5088456425-2">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="5088456425-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="from_post/2">
