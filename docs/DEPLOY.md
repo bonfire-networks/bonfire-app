@@ -372,8 +372,8 @@ When all secrets are in your `yoursystem.yaml` file your can add the following t
 ```scheme
 (use-modules (guix gexp)            ;for 'local-file'
              (guix utils)           ;for 'current-source-directory'
-             (sops services sops)   ;for 'sops-secrets-service-type'
-             (sops secrets)         ;for 'sops-secret' and 'sops-secret->file-name'
+             (sops services sops)   ;for 'sops-secrets-service-type' and 'sops-secret->secret-file'
+             (sops secrets)         ;for 'sops-secret'
              ...)
 
 (define %project-root
@@ -386,12 +386,6 @@ When all secrets are in your `yoursystem.yaml` file your can add the following t
 (define-public yoursystem.yaml
   (local-file (string-append %project-root "/yoursystem.yaml")
               "yoursystem.yaml"))
-
-(define %secrets-directory
-  "/run/secrets")
-
-(define (secret->file-name secret)
-  (string-append %secrets-directory "/" (sops-secret->file-name secret)))
 
 ;; PostgreSQL
 
@@ -457,6 +451,7 @@ Bonfire supports the PostgreSQL database engine and requires the postgis extensi
 
 ```scheme
 (use-modules (gnu packages geo)        ;for postgis
+             (gnu packages databases)  ;for 'postgresql'
              (gnu services databases)  ;for 'postgresql-service-type'
              ...)
 
@@ -471,6 +466,7 @@ Bonfire supports the PostgreSQL database engine and requires the postgis extensi
       ;; Postgres
       (service postgresql-service-type
                (postgresql-configuration
+                (postgresql postgresql)))
                 (extension-packages (list postgis)))))))
 ```
 
@@ -514,11 +510,12 @@ To provision a functional Bonfire instance you will need two services, meilisear
 (service oci-meilisearch-service-type
          (oci-meilisearch-configuration
           (network "host")
+          (shepherd-requirement '(user-processes sops-secrets))
           (master-key
            ;; In case you are not using sops-guix for your secrets
            ;; just pass the secret file path as a string.
            ;; The same holds for all other secrets fields.
-           (secret->file-name meilisearch-key-secret))))
+           (sops-secret->secret-file meilisearch-key-secret))))
 
 ;; Bonfire
 (service oci-bonfire-service-type
@@ -537,26 +534,26 @@ To provision a functional Bonfire instance you will need two services, meilisear
             (mail-from "youremail@address.org")))
           ;; Shepherd dependencies
           (requirement
-           '(user-processes postgresql postgres-roles podman-meilisearch))
+           '(user-processes postgresql postgres-roles podman-meilisearch sops-secrets))
           (extra-variables
            `(("MAIL_BACKEND" . "mailjet") ;; change with your email provider
              ("SERVER_PORT" . "4000")
              ("SEARCH_MEILI_INSTANCE" . "http://localhost:7700")))
           ;; Secrets
           (meili-master-key
-           (secret->file-name meilisearch-key-secret))
+           (sops-secret->secret-file meilisearch-key-secret))
           (postgres-password
-           (secret->file-name bonfire-postgres-password-secret))
+           (sops-secret->secret-file bonfire-postgres-password-secret))
           (mail-key
-           (secret->file-name bonfire-mail-key-secret))
+           (sops-secret->secret-file bonfire-mail-key-secret))
           (mail-private-key
-           (secret->file-name bonfire-mail-private-key-secret))
+           (sops-secret->secret-file bonfire-mail-private-key-secret))
           (secret-key-base
-           (secret->file-name bonfire-secret-key-base-secret))
+           (sops-secret->secret-file bonfire-secret-key-base-secret))
           (signing-salt
-           (secret->file-name bonfire-signing-salt-secret))
+           (sops-secret->secret-file bonfire-signing-salt-secret))
           (encryption-salt
-           (secret->file-name bonfire-encryption-salt-secret))))
+           (sops-secret->secret-file bonfire-encryption-salt-secret))))
 ```
 
 #### 7. Reverse proxy
@@ -598,7 +595,13 @@ The last piece to be able to access your instance from the Internet is a reverse
                 "proxy_set_header        Upgrade $http_upgrade;"
                 "proxy_set_header        Connection \"upgrade\";"
                 "proxy_set_header        X-Forwarded-Proto $scheme;"
-                "proxy_set_header        X-Forwarded-Host  $host;"))))))))))
+                "proxy_set_header        X-Forwarded-Host  $host;")))
+               ;; Statically serve uploaded media.
+               (nginx-location-configuration
+                (uri "/data/uploads/")
+                (body
+                 (list "alias /var/lib/bonfire/uploads/;"
+                       "index  index.html index.htm;"))))))))))
 ```
 
 <!-- tabs-close -->
