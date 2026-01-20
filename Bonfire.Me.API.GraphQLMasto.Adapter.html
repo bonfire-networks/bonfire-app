@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.1-social">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.1">
 
 
-    <title>Bonfire.Me.API.GraphQLMasto.Adapter — Bonfire v1.0.1-social</title>
+    <title>Bonfire.Me.API.GraphQLMasto.Adapter — Bonfire v1.0.2-social-alpha.1</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-40D9FA09.js"></script>
+    <script defer src="dist/sidebar_items-E5822819.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.1-social
+          v1.0.2-social-alpha.1
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Me.API.GraphQLMasto.Adapter</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.1-social)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.1)</small>
 
     </h1>
 
@@ -240,12 +240,32 @@ Mastodon API: GET /api/v1/accounts/relationships?id[]=1&amp;id[]=2</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#resend_confirmation/2" data-no-tooltip="" translate="no">resend_confirmation(params, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Resend confirmation email.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#search_accounts/2" data-no-tooltip="" translate="no">search_accounts(params, conn)</a>
 
       </div>
 
         <div class="summary-synopsis"><p>Search for accounts by username or display name.
 Mastodon API: GET /api/v1/accounts/search?q=query</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#signup/2" data-no-tooltip="" translate="no">signup(params, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Create a new account via Mastodon API signup.</p></div>
 
     </div>
 
@@ -604,6 +624,29 @@ Mastodon API: GET /api/v1/accounts/lookup?acct=username or acct=username@domain<
 Mastodon API: GET /api/v1/accounts/relationships?id[]=1&amp;id[]=2</p>
   </section>
 </section>
+<section class="detail" id="resend_confirmation/2">
+
+  <div class="detail-header">
+    <a href="#resend_confirmation/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">resend_confirmation(params, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L560" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Resend confirmation email.</p><p>Mastodon API: POST /api/v1/emails/confirmations</p><p>Only works for the app that created the account (verified by token).
+Returns empty response on success.</p>
+  </section>
+</section>
 <section class="detail" id="search_accounts/2">
 
   <div class="detail-header">
@@ -625,6 +668,29 @@ Mastodon API: GET /api/v1/accounts/relationships?id[]=1&amp;id[]=2</p>
 
 <p>Search for accounts by username or display name.
 Mastodon API: GET /api/v1/accounts/search?q=query</p>
+  </section>
+</section>
+<section class="detail" id="signup/2">
+
+  <div class="detail-header">
+    <a href="#signup/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">signup(params, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L523" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Create a new account via Mastodon API signup.</p><p>Requires an app token (client credentials) in the Authorization header.
+Returns a user access token on success.</p>
   </section>
 </section>
 <section class="detail" id="suggestions/2">
