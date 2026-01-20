@@ -352,7 +352,11 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
+<<<<<<< HEAD
     version: "1.0.2-alpha.2",
+=======
+    version: "1.0.2-alpha.1",
+>>>>>>> 1da1c511ee (https://github.com/bonfire-networks/bonfire-app/issues/1738)
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
