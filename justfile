@@ -240,7 +240,7 @@ _clone_extension name:
 _ext-migrations-copy: 
 	MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just compile
 	just db-clean-migrations
-	just mix bonfire.extension.copy_migrations --force
+	just cmd mix bonfire.extension.copy_migrations --force
 
 # FIXME: how should we know if user wants to use a prebuilt image or build their own? 
 setup-prod:
