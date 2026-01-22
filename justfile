@@ -680,7 +680,7 @@ test-others path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude backend --exclude ui --exclude federation --exclude ap_lib --exclude browser `just test_default_excludes` {{args}}
 
 test_default_excludes:
-	@echo "--exclude live_federation --exclude test_instance `just test_minimum_excludes`"
+	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage `just test_minimum_excludes`"
 
 test_minimum_excludes:
 	@echo "--exclude todo --exclude skip --exclude benchmark"
@@ -712,6 +712,16 @@ test-watch-full path='' *args='': services
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
 test-interactive path='' *args='': services
 	@MIX_ENV=test just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
+
+# Run all Mastodon API tests (tagged with :masto_api or :masto_api_coverage)
+test-masto-api *args='': services
+	@echo "Running Mastodon API tests..."
+	MIX_ENV=test just mix test `just test_minimum_excludes` --only masto_api --only masto_api_coverage {{args}}
+
+# Run Mastodon API coverage report
+test-masto-api-coverage *args='': services
+	@echo "Running Mastodon API coverage report..."
+	MIX_ENV=test just mix test `just test_minimum_excludes` --only masto_api_coverage {{args}}
 
 ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "forks/activity_pub/test/activity_pub/" } else { "deps/activity_pub/test/activity_pub/" }
 ap_ext := if path_exists("extensions/bonfire_federate_activitypub/test/")=="true" { "extensions/bonfire_federate_activitypub/test/" } else { "deps/bonfire_federate_activitypub/test/" }
