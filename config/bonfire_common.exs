@@ -1,11 +1,13 @@
 import Config
 
+yes? = ~w(true yes 1)
+no? = ~w(false no 0)
+
 default_locale = "en"
 
 ## Localisation & internationalisation
 # Only compile additional locales in prod or when explicitly requested
-compile_all_locales? =
-  config_env() == :prod or System.get_env("COMPILE_ALL_LOCALES") in ["true", "1"]
+compile_all_locales? = (System.get_env("COMPILE_ALL_LOCALES") not in no? and config_env() == :prod) or System.get_env("COMPILE_ALL_LOCALES") in yes?
 
 locales = if compile_all_locales?, do: [default_locale, "fr", "es", "it"], else: [default_locale]
 

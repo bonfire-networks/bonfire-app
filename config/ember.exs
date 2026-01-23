@@ -2,6 +2,9 @@ import Config
 
 #### Flavour-specific compile-time configuration goes here, everything else should be in `Ember.RuntimeConfig`
 
+yes? = ~w(true yes 1)
+no? = ~w(false no 0)
+
 # enable marking comment as answer?
 # config :bonfire_social, Bonfire.Social.Answers, modularity: :disabled
 
@@ -43,8 +46,7 @@ config :bonfire_valueflows_api_schema, modularity: :disabled
 
 config :bonfire_notify, modularity: :disabled
 
-compile_all_locales? =
-  config_env() == :prod or System.get_env("COMPILE_ALL_LOCALES") in ["true", "1"]
+compile_all_locales? = (System.get_env("COMPILE_ALL_LOCALES") not in no? and config_env() == :prod) or System.get_env("COMPILE_ALL_LOCALES") in yes?
 
 locales =
   if compile_all_locales?,
