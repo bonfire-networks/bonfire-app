@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.2">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.3">
 
 
-    <title>Bonfire.Notify.UserSubscription — Bonfire v1.0.2-social-alpha.2</title>
+    <title>Bonfire.Notify.UserSubscription — Bonfire v1.0.2-social-alpha.3</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-E5822819.js"></script>
+    <script defer src="dist/sidebar_items-A26C0F1F.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.2
+          v1.0.2-social-alpha.3
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Notify.UserSubscription</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.2)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.3)</small>
 
     </h1>
 
@@ -122,6 +122,32 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#default_alerts/0" data-no-tooltip="" translate="no">default_alerts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the default alerts configuration.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/1" data-no-tooltip="" translate="no">get(user_id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_subscription_by_endpoint/1" data-no-tooltip="" translate="no">get_subscription_by_endpoint(endpoint)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#mark_error/2" data-no-tooltip="" translate="no">mark_error(subscription, reason)</a>
 
       </div>
@@ -152,7 +178,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#parse_subscription_data/1" data-no-tooltip="" translate="no">parse_subscription_data(invalid_data)</a>
+        <a href="#parse_subscription_data/1" data-no-tooltip="" translate="no">parse_subscription_data(params)</a>
 
       </div>
 
@@ -178,6 +204,14 @@ Returns an error tuple if the data structure is invalid.</p></div>
       </div>
 
         <div class="summary-synopsis"><p>Updates the last_used_at timestamp for a subscription.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_subscription/2" data-no-tooltip="" translate="no">update_subscription(subscription, attrs)</a>
+
+      </div>
 
     </div>
 
@@ -207,7 +241,7 @@ Returns an error tuple if the data structure is invalid.</p></div>
       <h1 class="signature" translate="no">changeset(struct, attrs \\ %{})</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L32" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L52" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -216,7 +250,74 @@ Returns an error tuple if the data structure is invalid.</p></div>
 
   <section class="docstring">
 
-<p>Creates a changeset for a subscription.</p>
+<p>Creates a changeset for a subscription.</p><p>Note: <code class="inline">user_id</code> must be set explicitly on the struct before calling changeset,
+or passed as a separate parameter, as it's not included in cast for security.</p>
+  </section>
+</section>
+<section class="detail" id="default_alerts/0">
+
+  <div class="detail-header">
+    <a href="#default_alerts/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">default_alerts()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L140" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the default alerts configuration.</p>
+  </section>
+</section>
+<section class="detail" id="get/1">
+
+  <div class="detail-header">
+    <a href="#get/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get(user_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L200" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_subscription_by_endpoint/1">
+
+  <div class="detail-header">
+    <a href="#get_subscription_by_endpoint/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_subscription_by_endpoint(endpoint)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L209" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 <section class="detail" id="mark_error/2">
@@ -229,7 +330,7 @@ Returns an error tuple if the data structure is invalid.</p></div>
       <h1 class="signature" translate="no">mark_error(subscription, reason)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L112" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L181" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -251,7 +352,7 @@ Returns an error tuple if the data structure is invalid.</p></div>
       <h1 class="signature" translate="no">mark_expired(subscription)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L123" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L192" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -273,7 +374,7 @@ Returns an error tuple if the data structure is invalid.</p></div>
       <h1 class="signature" translate="no">mark_success(subscription)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L100" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L169" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -292,10 +393,10 @@ Returns an error tuple if the data structure is invalid.</p></div>
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">parse_subscription_data(invalid_data)</h1>
+      <h1 class="signature" translate="no">parse_subscription_data(params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L56" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L99" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -305,7 +406,7 @@ Returns an error tuple if the data structure is invalid.</p></div>
   <section class="docstring">
 
 <p>Parses browser subscription data into the format expected by our schema.
-Returns an error tuple if the data structure is invalid.</p>
+Returns an error tuple if the data structure is invalid.</p><p>Supports both standard browser format and Mastodon API format:</p><ul><li>Browser: <code class="inline">%{&quot;endpoint&quot; =&gt; &quot;...&quot;, &quot;keys&quot; =&gt; %{&quot;p256dh&quot; =&gt; &quot;...&quot;, &quot;auth&quot; =&gt; &quot;...&quot;}}</code></li><li>Mastodon: <code class="inline">%{&quot;subscription&quot; =&gt; %{&quot;endpoint&quot; =&gt; &quot;...&quot;, &quot;keys&quot; =&gt; %{...}}, &quot;data&quot; =&gt; %{&quot;alerts&quot; =&gt; %{...}, &quot;policy&quot; =&gt; &quot;...&quot;}}</code></li></ul>
   </section>
 </section>
 <section class="detail" id="to_ex_nudge_subscription/1">
@@ -318,7 +419,7 @@ Returns an error tuple if the data structure is invalid.</p>
       <h1 class="signature" translate="no">to_ex_nudge_subscription(subscription)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L76" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L145" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -340,7 +441,7 @@ Returns an error tuple if the data structure is invalid.</p>
       <h1 class="signature" translate="no">touch(subscription)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L93" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L162" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -350,6 +451,28 @@ Returns an error tuple if the data structure is invalid.</p>
   <section class="docstring">
 
 <p>Updates the last_used_at timestamp for a subscription.</p>
+  </section>
+</section>
+<section class="detail" id="update_subscription/2">
+
+  <div class="detail-header">
+    <a href="#update_subscription/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">update_subscription(subscription, attrs)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/data/user_subscription.ex#L214" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 

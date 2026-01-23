@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.2">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.3">
 
 
-    <title>ActivityPub.Utils — Bonfire v1.0.2-social-alpha.2</title>
+    <title>ActivityPub.Utils — Bonfire v1.0.2-social-alpha.3</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-E5822819.js"></script>
+    <script defer src="dist/sidebar_items-A26C0F1F.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.2
+          v1.0.2-social-alpha.3
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">ActivityPub.Utils</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.2)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.3)</small>
 
     </h1>
 
@@ -176,6 +176,18 @@ Supports both single values and lists for labels and collections.</p></div>
         <a href="#cache_clear/0" data-no-tooltip="" translate="no">cache_clear()</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cache_ttl_from_published/1" data-no-tooltip="" translate="no">cache_ttl_from_published(published)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Calculates a TTL (in seconds) for caching based on the published date of an object.
+If the published date is in the future, returns the number of seconds until then (plus a small buffer).
+Otherwise, returns the default TTL (nil).</p></div>
 
     </div>
 
@@ -599,7 +611,7 @@ Supports both single values and lists for labels and collections.</p>
 
   <section class="docstring">
 
-<p>Generates a consistent cache key for ActivityPub cache buckets.</p><h2 id="ap_cache_key/2-examples" class="section-heading"><a href="#ap_cache_key/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Utils</span><span class="o">.</span><span class="n">ap_cache_key</span><span class="p" data-group-id="1140532432-1">(</span><span class="ss">:pointer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;01K62V27CP9Z5B0AP231QSY199&quot;</span><span class="p" data-group-id="1140532432-1">)</span><span class="w">
+<p>Generates a consistent cache key for ActivityPub cache buckets.</p><h2 id="ap_cache_key/2-examples" class="section-heading"><a href="#ap_cache_key/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Utils</span><span class="o">.</span><span class="n">ap_cache_key</span><span class="p" data-group-id="9762624007-1">(</span><span class="ss">:pointer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;01K62V27CP9Z5B0AP231QSY199&quot;</span><span class="p" data-group-id="9762624007-1">)</span><span class="w">
 </span><span class="s">&quot;abc123:pointer:01K62V27CP9Z5B0AP231QSY199&quot;</span></code></pre>
   </section>
 </section>
@@ -669,6 +681,34 @@ Supports both single values and lists for labels and collections.</p>
 
   </section>
 </section>
+<section class="detail" id="cache_ttl_from_published/1">
+
+  <div class="detail-header">
+    <a href="#cache_ttl_from_published/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cache_ttl_from_published(published)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L341" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Calculates a TTL (in seconds) for caching based on the published date of an object.
+If the published date is in the future, returns the number of seconds until then (plus a small buffer).
+Otherwise, returns the default TTL (nil).</p><h2 id="cache_ttl_from_published/1-examples" class="section-heading"><a href="#cache_ttl_from_published/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Utils</span><span class="o">.</span><span class="n">cache_ttl_from_published</span><span class="p" data-group-id="8762269537-1">(</span><span class="p" data-group-id="8762269537-2">%{</span><span class="s">&quot;published&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">to_iso8601</span><span class="p" data-group-id="8762269537-3">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="8762269537-4">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="8762269537-5">(</span><span class="p" data-group-id="8762269537-5">)</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="8762269537-4">)</span><span class="p" data-group-id="8762269537-3">)</span><span class="p" data-group-id="8762269537-2">}</span><span class="p" data-group-id="8762269537-1">)</span><span class="w">
+</span><span class="mi">10</span><span class="o">..</span><span class="mi">15</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Utils</span><span class="o">.</span><span class="n">cache_ttl_from_published</span><span class="p" data-group-id="8762269537-6">(</span><span class="p" data-group-id="8762269537-7">%{</span><span class="s">&quot;published&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">to_iso8601</span><span class="p" data-group-id="8762269537-8">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="8762269537-9">(</span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="8762269537-10">(</span><span class="p" data-group-id="8762269537-10">)</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">10</span><span class="p" data-group-id="8762269537-9">)</span><span class="p" data-group-id="8762269537-8">)</span><span class="p" data-group-id="8762269537-7">}</span><span class="p" data-group-id="8762269537-6">)</span><span class="w">
+</span><span class="no">nil</span></code></pre>
+  </section>
+</section>
 <section class="detail" id="cachex_fetch/4">
 
     <span id="cachex_fetch/3"></span>
@@ -727,7 +767,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">error_json(conn, error, status \\ 500)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L497" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L543" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -751,7 +791,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">format_date(date \\ NaiveDateTime.utc_now(Calendar.ISO))</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L673" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L719" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -823,7 +863,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">get_with_cache(get_fun, cache_bucket, key, identifier, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L328" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L366" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -869,7 +909,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">hash(seed, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L683" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L729" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -963,7 +1003,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">json_with_cache(conn \\ nil, get_fun, cache_bucket, id, ret_fn \\ &amp;return_json/4, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L441" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L484" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1055,7 +1095,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">maybe_put(map, key, value)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L504" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L550" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1077,7 +1117,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">maybe_to_atom(str)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L525" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L571" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1099,7 +1139,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">maybe_to_string(atom)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L655" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L701" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1167,7 +1207,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">put_if_present(map, key, value, value_function \\ &amp;{:ok, &amp;1})</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L509" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L555" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1211,7 +1251,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">request_ip(remote_ip)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L596" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L642" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1235,7 +1275,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">return_json(conn, meta, json, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L488" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L534" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1257,7 +1297,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">safe_put_in(data, keys, value)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L519" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L565" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1279,7 +1319,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">service_actor()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L613" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L659" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1301,7 +1341,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">service_actor!()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L620" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L666" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1347,7 +1387,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">short_hash(seed, length, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L696" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L742" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1369,7 +1409,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">single_ap_id(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L551" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L597" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1391,7 +1431,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">single_ap_id_or_object(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L535" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L581" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1437,7 +1477,7 @@ Supports both single values and lists for labels and collections.</p>
       <h1 class="signature" translate="no">stringify_keys(map, recursive \\ false)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L634" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/utils.ex#L680" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 

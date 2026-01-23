@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.2">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.3">
 
 
-    <title>Bonfire.API.MastoCompat.PaginationHelpers — Bonfire v1.0.2-social-alpha.2</title>
+    <title>Bonfire.API.MastoCompat.PaginationHelpers — Bonfire v1.0.2-social-alpha.3</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-E5822819.js"></script>
+    <script defer src="dist/sidebar_items-A26C0F1F.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.2
+          v1.0.2-social-alpha.3
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.API.MastoCompat.PaginationHelpers</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.2)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.3)</small>
 
     </h1>
 
@@ -142,7 +142,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#build_feed_params/3" data-no-tooltip="" translate="no">build_feed_params(params, filter, opts \\ [])</a>
+        <a href="#build_feed_params/3" data-no-tooltip="" translate="no">build_feed_params(params, filters, opts \\ [])</a>
 
       </div>
 
@@ -236,7 +236,7 @@ Bonfire
 
       </div>
 
-        <div class="summary-synopsis"><p>Validate that an already-encoded cursor can be decoded properly.</p></div>
+        <div class="summary-synopsis"><p>Validate and normalize an already-encoded cursor.</p></div>
 
     </div>
 
@@ -286,8 +286,8 @@ Bonfire
   <section class="docstring">
 
 <p>Add Mastodon-compatible Link headers for pagination.</p><p>Generates RFC 5988 Link headers with <code class="inline">next</code> and <code class="inline">prev</code> relations
-using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/5-options" class="section-heading"><a href="#add_link_headers/5-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:cursor_field</code> - Field format for cursor encoding (default: {:activity, :id})</li></ul><h2 id="add_link_headers/5-examples" class="section-heading"><a href="#add_link_headers/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">conn</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">add_link_headers</span><span class="p" data-group-id="6123401668-1">(</span><span class="p" data-group-id="6123401668-2">%{</span><span class="p" data-group-id="6123401668-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">page_info</span><span class="p">,</span><span class="w"> </span><span class="n">items</span><span class="p" data-group-id="6123401668-1">)</span><span class="w">
+using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/5-options" class="section-heading"><a href="#add_link_headers/5-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:cursor_field</code> - Field format for cursor encoding (default: :id)</li></ul><h2 id="add_link_headers/5-examples" class="section-heading"><a href="#add_link_headers/5-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">conn</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">add_link_headers</span><span class="p" data-group-id="6318476680-1">(</span><span class="p" data-group-id="6318476680-2">%{</span><span class="p" data-group-id="6318476680-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">page_info</span><span class="p">,</span><span class="w"> </span><span class="n">items</span><span class="p" data-group-id="6318476680-1">)</span><span class="w">
 </span><span class="c1"># Sets Link header: &lt;url?max_id=xyz&gt;; rel=&quot;next&quot;, &lt;url?min_id=abc&gt;; rel=&quot;prev&quot;</span></code></pre>
   </section>
 </section>
@@ -323,7 +323,7 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
       <h1 class="signature" translate="no">atomize_pagination_keys(params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L469" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L521" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -344,10 +344,10 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">build_feed_params(params, filter, opts \\ [])</h1>
+      <h1 class="signature" translate="no">build_feed_params(params, filters, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L301" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L312" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -356,8 +356,8 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
 
   <section class="docstring">
 
-<p>Build feed parameters from Mastodon-style params.</p><p>Converts Mastodon timeline parameters to Bonfire GraphQL format:</p><ul><li>Extracts and encodes pagination cursors (max_id, since_id, min_id)</li><li>Determines limit with first/last based on cursor direction</li><li>Atomizes pagination keys for GraphQL compatibility</li></ul><h2 id="build_feed_params/3-options" class="section-heading"><a href="#build_feed_params/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:default_limit</code> - Default limit when not specified (default: 20)</li><li><code class="inline">:max_limit</code> - Maximum allowed limit (default: 40)</li></ul><h2 id="build_feed_params/3-examples" class="section-heading"><a href="#build_feed_params/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">build_feed_params</span><span class="p" data-group-id="4234953430-1">(</span><span class="p" data-group-id="4234953430-2">%{</span><span class="s">&quot;limit&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="4234953430-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4234953430-3">%{</span><span class="s">&quot;feed_name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;my&quot;</span><span class="p" data-group-id="4234953430-3">}</span><span class="p" data-group-id="4234953430-1">)</span><span class="w">
-</span><span class="p" data-group-id="4234953430-4">%{</span><span class="ss">filter</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4234953430-5">%{</span><span class="s">&quot;feed_name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;my&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;time_limit&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="4234953430-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;encoded...&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">first</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="4234953430-4">}</span></code></pre>
+<p>Build feed parameters from Mastodon-style params.</p><p>Converts Mastodon timeline parameters to Bonfire GraphQL format:</p><ul><li>Extracts and encodes pagination cursors (max_id, since_id, min_id)</li><li>Determines limit with first/last based on cursor direction</li><li>Atomizes pagination keys for GraphQL compatibility</li></ul><h2 id="build_feed_params/3-options" class="section-heading"><a href="#build_feed_params/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:default_limit</code> - Default limit when not specified (default: 20)</li><li><code class="inline">:max_limit</code> - Maximum allowed limit (default: 40)</li></ul><h2 id="build_feed_params/3-examples" class="section-heading"><a href="#build_feed_params/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">build_feed_params</span><span class="p" data-group-id="0440391934-1">(</span><span class="p" data-group-id="0440391934-2">%{</span><span class="s">&quot;limit&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="0440391934-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0440391934-3">%{</span><span class="s">&quot;feed_name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;my&quot;</span><span class="p" data-group-id="0440391934-3">}</span><span class="p" data-group-id="0440391934-1">)</span><span class="w">
+</span><span class="p" data-group-id="0440391934-4">%{</span><span class="ss">filter</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0440391934-5">%{</span><span class="s">&quot;feed_name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;my&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;time_limit&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="0440391934-5">}</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;encoded...&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">first</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="0440391934-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="build_pagination_opts/2">
@@ -379,11 +379,11 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
 
   <section class="docstring">
 
-<p>Build pagination opts from Mastodon-style params (max_id, since_id, min_id).</p><p>Converts Mastodon cursor params to keyword list format for Bonfire queries.</p><h2 id="build_pagination_opts/2-examples" class="section-heading"><a href="#build_pagination_opts/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">build_pagination_opts</span><span class="p" data-group-id="2963383047-1">(</span><span class="p" data-group-id="2963383047-2">%{</span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p" data-group-id="2963383047-2">}</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="2963383047-1">)</span><span class="w">
-</span><span class="p" data-group-id="2963383047-3">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p" data-group-id="2963383047-3">]</span><span class="w">
+<p>Build pagination opts from Mastodon-style params (max_id, since_id, min_id).</p><p>Converts Mastodon cursor params to keyword list format for Bonfire queries.</p><h2 id="build_pagination_opts/2-examples" class="section-heading"><a href="#build_pagination_opts/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">build_pagination_opts</span><span class="p" data-group-id="3512526599-1">(</span><span class="p" data-group-id="3512526599-2">%{</span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p" data-group-id="3512526599-2">}</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="3512526599-1">)</span><span class="w">
+</span><span class="p" data-group-id="3512526599-3">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p" data-group-id="3512526599-3">]</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">build_pagination_opts</span><span class="p" data-group-id="2963383047-4">(</span><span class="p" data-group-id="2963383047-5">%{</span><span class="p" data-group-id="2963383047-5">}</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p" data-group-id="2963383047-4">)</span><span class="w">
-</span><span class="p" data-group-id="2963383047-6">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p" data-group-id="2963383047-6">]</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">build_pagination_opts</span><span class="p" data-group-id="3512526599-4">(</span><span class="p" data-group-id="3512526599-5">%{</span><span class="p" data-group-id="3512526599-5">}</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p" data-group-id="3512526599-4">)</span><span class="w">
+</span><span class="p" data-group-id="3512526599-6">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p" data-group-id="3512526599-6">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="encode_cursor/2">
@@ -405,8 +405,8 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
 
   <section class="docstring">
 
-<p>Encode a plain ID as a cursor with a given field map.</p><h2 id="encode_cursor/2-examples" class="section-heading"><a href="#encode_cursor/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">encode_cursor</span><span class="p" data-group-id="4516041120-1">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4516041120-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p" data-group-id="4516041120-2">}</span><span class="p" data-group-id="4516041120-1">)</span><span class="w">
-</span><span class="p" data-group-id="4516041120-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;base64_encoded_string&quot;</span><span class="p" data-group-id="4516041120-3">}</span></code></pre>
+<p>Encode a plain ID as a cursor with a given field map.</p><h2 id="encode_cursor/2-examples" class="section-heading"><a href="#encode_cursor/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">encode_cursor</span><span class="p" data-group-id="2723325717-1">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2723325717-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p" data-group-id="2723325717-2">}</span><span class="p" data-group-id="2723325717-1">)</span><span class="w">
+</span><span class="p" data-group-id="2723325717-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;base64_encoded_string&quot;</span><span class="p" data-group-id="2723325717-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="encode_cursor_for_graphql/1">
@@ -419,7 +419,7 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
       <h1 class="signature" translate="no">encode_cursor_for_graphql(id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L379" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L401" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -463,7 +463,7 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
       <h1 class="signature" translate="no">encode_plain_id_cursor(id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L419" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L471" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -473,7 +473,7 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
   <section class="docstring">
 
 <p>Encode a plain ULID as a cursor.</p><p>Creates a cursor map matching Bonfire's cursor_fields format:
-<code class="inline">%{{:activity, :id} =&gt; id}</code></p>
+<code class="inline">%{id: id}</code></p>
   </section>
 </section>
 <section class="detail" id="extract_limit_with_direction/3">
@@ -488,7 +488,7 @@ using the page_info cursors from GraphQL responses.</p><h2 id="add_link_headers/
       <h1 class="signature" translate="no">extract_limit_with_direction(params, cursors, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L443" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L495" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -511,7 +511,7 @@ With descending sort:</p><ul><li>&quot;after&quot; + &quot;first&quot; = older p
       <h1 class="signature" translate="no">extract_pagination_cursors(params)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L334" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L356" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -542,11 +542,11 @@ With descending sort:</p><ul><li>&quot;after&quot; + &quot;first&quot; = older p
 
   <section class="docstring">
 
-<p>Add cursor to opts if present in params.</p><p>Works with both keyword list opts and map opts.</p><h2 id="maybe_add_cursor/4-examples" class="section-heading"><a href="#maybe_add_cursor/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_add_cursor</span><span class="p" data-group-id="6331180441-1">(</span><span class="p" data-group-id="6331180441-2">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="6331180441-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6331180441-3">%{</span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="6331180441-3">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:after</span><span class="p" data-group-id="6331180441-1">)</span><span class="w">
-</span><span class="p" data-group-id="6331180441-4">[</span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="6331180441-4">]</span><span class="w">
+<p>Add cursor to opts if present in params.</p><p>Works with both keyword list opts and map opts.</p><h2 id="maybe_add_cursor/4-examples" class="section-heading"><a href="#maybe_add_cursor/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_add_cursor</span><span class="p" data-group-id="8664898666-1">(</span><span class="p" data-group-id="8664898666-2">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="8664898666-2">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8664898666-3">%{</span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="8664898666-3">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:after</span><span class="p" data-group-id="8664898666-1">)</span><span class="w">
+</span><span class="p" data-group-id="8664898666-4">[</span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="8664898666-4">]</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_add_cursor</span><span class="p" data-group-id="6331180441-5">(</span><span class="p" data-group-id="6331180441-6">%{</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="6331180441-6">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6331180441-7">%{</span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="6331180441-7">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:after</span><span class="p" data-group-id="6331180441-5">)</span><span class="w">
-</span><span class="p" data-group-id="6331180441-8">%{</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="6331180441-8">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">maybe_add_cursor</span><span class="p" data-group-id="8664898666-5">(</span><span class="p" data-group-id="8664898666-6">%{</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p" data-group-id="8664898666-6">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8664898666-7">%{</span><span class="s">&quot;max_id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="8664898666-7">}</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">:after</span><span class="p" data-group-id="8664898666-5">)</span><span class="w">
+</span><span class="p" data-group-id="8664898666-8">%{</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p" data-group-id="8664898666-8">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="validate_encoded_cursor/1">
@@ -559,7 +559,7 @@ With descending sort:</p><ul><li>&quot;after&quot; + &quot;first&quot; = older p
       <h1 class="signature" translate="no">validate_encoded_cursor(cursor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L397" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_api_graphql/blob/main/lib/rest/masto_compat/pagination_helpers.ex#L422" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -568,7 +568,7 @@ With descending sort:</p><ul><li>&quot;after&quot; + &quot;first&quot; = older p
 
   <section class="docstring">
 
-<p>Validate that an already-encoded cursor can be decoded properly.</p>
+<p>Validate and normalize an already-encoded cursor.</p><p>Normalizes cursor field names for backward compatibility:</p><ul><li><code class="inline">{:activity, :id}</code> -&gt; <code class="inline">:id</code> (old format)</li></ul>
   </section>
 </section>
 <section class="detail" id="validate_limit/2">
@@ -592,16 +592,16 @@ With descending sort:</p><ul><li>&quot;after&quot; + &quot;first&quot; = older p
 
   <section class="docstring">
 
-<p>Validate and normalize pagination limit.</p><h2 id="validate_limit/2-options" class="section-heading"><a href="#validate_limit/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:default</code> - Default limit when nil or invalid (default: 40)</li><li><code class="inline">:max</code> - Maximum allowed limit (default: 80)</li></ul><h2 id="validate_limit/2-examples" class="section-heading"><a href="#validate_limit/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="3236001931-1">(</span><span class="no">nil</span><span class="p" data-group-id="3236001931-1">)</span><span class="w">
+<p>Validate and normalize pagination limit.</p><h2 id="validate_limit/2-options" class="section-heading"><a href="#validate_limit/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:default</code> - Default limit when nil or invalid (default: 40)</li><li><code class="inline">:max</code> - Maximum allowed limit (default: 80)</li></ul><h2 id="validate_limit/2-examples" class="section-heading"><a href="#validate_limit/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="8131054313-1">(</span><span class="no">nil</span><span class="p" data-group-id="8131054313-1">)</span><span class="w">
 </span><span class="mi">40</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="3236001931-2">(</span><span class="s">&quot;20&quot;</span><span class="p" data-group-id="3236001931-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="8131054313-2">(</span><span class="s">&quot;20&quot;</span><span class="p" data-group-id="8131054313-2">)</span><span class="w">
 </span><span class="mi">20</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="3236001931-3">(</span><span class="mi">100</span><span class="p" data-group-id="3236001931-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="8131054313-3">(</span><span class="mi">100</span><span class="p" data-group-id="8131054313-3">)</span><span class="w">
 </span><span class="mi">80</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="3236001931-4">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">default</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="ss">max</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p" data-group-id="3236001931-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">validate_limit</span><span class="p" data-group-id="8131054313-4">(</span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">default</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="ss">max</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p" data-group-id="8131054313-4">)</span><span class="w">
 </span><span class="mi">20</span></code></pre>
   </section>
 </section>
