@@ -11,4 +11,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - 💅 in search results mentions adds a quote blank preview to the activity [#1760](https://github.com/bonfire-networks/bonfire-app/issues/1760) (thanks @ivanminutillo)
 - 💅 doc/DEPLOY.md: Guix guide: Adapt for latest release. [PR #1768](https://github.com/bonfire-networks/bonfire-app/pull/1768) (thanks @fishinthecalculator)
+- 🚧 One-to-one e2ee messaging [#1738](https://github.com/bonfire-networks/bonfire-app/issues/1738) [`be6e9af`](https://github.com/bonfire-networks/bonfire-app/commit/be6e9af07f67fbacb0e590868f242b94b5358423) (thanks @mayel)
+- 🚧 Mastodon-compatible API [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) [`f1c4a62`](https://github.com/bonfire-networks/bonfire-app/commit/f1c4a62ebea62316b11b3777ce1c3b8f1fb4e716) (thanks @ivanminutillo and @mayel)
+- 📝 justfile [`2afc9de`](https://github.com/bonfire-networks/bonfire-app/commit/2afc9debd36dceaabcf488591bbe39f8e983744a) (thanks @ivanminutillo)
+
+### Fixed
+- 🐛 fix prep of migrations in bare metal prod [`92c018e`](https://github.com/bonfire-networks/bonfire-app/commit/92c018ea3d13f3ba4410852ce0df6f38471a365b) (thanks @mayel)
 
