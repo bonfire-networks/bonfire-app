@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.3">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.4">
 
 
-    <title>Bonfire.Me.API.GraphQLMasto.Adapter — Bonfire v1.0.2-social-alpha.3</title>
+    <title>Bonfire.Me.API.GraphQLMasto.Adapter — Bonfire v1.0.2-social-alpha.4</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A26C0F1F.js"></script>
+    <script defer src="dist/sidebar_items-7B7A8600.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.3
+          v1.0.2-social-alpha.4
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Me.API.GraphQLMasto.Adapter</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.3)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.4)</small>
 
     </h1>
 
@@ -112,11 +112,53 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#alias_account/2" data-no-tooltip="" translate="no">alias_account(arg1, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Set up an account alias for migration.
+Mastodon API: POST /api/v1/accounts/alias</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#authorize_follow_request/2" data-no-tooltip="" translate="no">authorize_follow_request(account_id, conn)</a>
 
       </div>
 
         <div class="summary-synopsis"><p>Accept/authorize a follow request (POST /api/v1/follow_requests/:account_id/authorize)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_account/2" data-no-tooltip="" translate="no">delete_account(arg1, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Delete the authenticated user's account.
+Mastodon API: POST /api/v1/accounts/delete</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_avatar/2" data-no-tooltip="" translate="no">delete_avatar(params, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Delete the authenticated user's avatar. Mastodon API: DELETE /api/v1/profile/avatar</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_header/2" data-no-tooltip="" translate="no">delete_header(params, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Delete the authenticated user's header/banner. Mastodon API: DELETE /api/v1/profile/header</p></div>
 
     </div>
 
@@ -214,6 +256,17 @@ Mastodon API: GET /api/v1/accounts/lookup?acct=username or acct=username@domain<
       </div>
 
         <div class="summary-synopsis"><p>Get the current user's profile (verify_credentials)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#move_account/2" data-no-tooltip="" translate="no">move_account(arg1, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Move the account to another account on a different instance.
+Mastodon API: POST /api/v1/accounts/move</p></div>
 
     </div>
 
@@ -324,6 +377,31 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
     </h1>
 
     <div class="functions-list">
+<section class="detail" id="alias_account/2">
+
+  <div class="detail-header">
+    <a href="#alias_account/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">alias_account(arg1, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L688" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Set up an account alias for migration.
+Mastodon API: POST /api/v1/accounts/alias</p><p>Adds the specified account(s) to the alsoKnownAs field of the current user's
+ActivityPub actor. This is required before the target account can perform
+a Move activity.</p><p>Params:</p><ul><li><code class="inline">also_known_as_uris</code>: Array of ActivityPub actor URIs</li></ul>
+  </section>
+</section>
 <section class="detail" id="authorize_follow_request/2">
 
   <div class="detail-header">
@@ -334,7 +412,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">authorize_follow_request(account_id, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L232" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L223" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -344,6 +422,73 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
   <section class="docstring">
 
 <p>Accept/authorize a follow request (POST /api/v1/follow_requests/:account_id/authorize)</p>
+  </section>
+</section>
+<section class="detail" id="delete_account/2">
+
+  <div class="detail-header">
+    <a href="#delete_account/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete_account(arg1, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L662" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Delete the authenticated user's account.
+Mastodon API: POST /api/v1/accounts/delete</p><p>Requires password confirmation. Queues the account for async deletion.</p>
+  </section>
+</section>
+<section class="detail" id="delete_avatar/2">
+
+  <div class="detail-header">
+    <a href="#delete_avatar/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete_avatar(params, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L641" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Delete the authenticated user's avatar. Mastodon API: DELETE /api/v1/profile/avatar</p>
+  </section>
+</section>
+<section class="detail" id="delete_header/2">
+
+  <div class="detail-header">
+    <a href="#delete_header/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete_header(params, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L644" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Delete the authenticated user's header/banner. Mastodon API: DELETE /api/v1/profile/header</p>
   </section>
 </section>
 <section class="detail" id="follow_account/2">
@@ -356,7 +501,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">follow_account(map, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L141" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L143" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -378,7 +523,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">follow_requests(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L179" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L174" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -400,7 +545,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">follow_requests_outgoing(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L182" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L177" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -422,7 +567,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">followers(account_id, params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L253" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -444,7 +589,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">following(account_id, params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L274" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L258" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -468,7 +613,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">get_preferences(params \\ %{}, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L55" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L57" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -542,7 +687,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p></div>
       <h1 class="signature" translate="no">lookup_account(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L354" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L335" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -567,7 +712,7 @@ Mastodon API: GET /api/v1/accounts/lookup?acct=username or acct=username@domain<
       <h1 class="signature" translate="no">me(params \\ %{}, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L46" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L48" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -577,6 +722,29 @@ Mastodon API: GET /api/v1/accounts/lookup?acct=username or acct=username@domain<
   <section class="docstring">
 
 <p>Get the current user's profile (verify_credentials)</p>
+  </section>
+</section>
+<section class="detail" id="move_account/2">
+
+  <div class="detail-header">
+    <a href="#move_account/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">move_account(arg1, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L718" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Move the account to another account on a different instance.
+Mastodon API: POST /api/v1/accounts/move</p><p>Params:</p><ul><li><code class="inline">moved_to_account</code>: The ActivityPub URI of the target account</li><li><code class="inline">password</code>: Current password for verification</li></ul><p>Preconditions:</p><ul><li>Target account must have this account in its alsoKnownAs field</li><li>Password verification required</li></ul>
   </section>
 </section>
 <section class="detail" id="reject_follow_request/2">
@@ -589,7 +757,7 @@ Mastodon API: GET /api/v1/accounts/lookup?acct=username or acct=username@domain<
       <h1 class="signature" translate="no">reject_follow_request(account_id, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L236" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L227" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -611,7 +779,7 @@ Mastodon API: GET /api/v1/accounts/lookup?acct=username or acct=username@domain<
       <h1 class="signature" translate="no">relationships(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L330" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L312" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -634,7 +802,7 @@ Mastodon API: GET /api/v1/accounts/relationships?id[]=1&amp;id[]=2</p>
       <h1 class="signature" translate="no">resend_confirmation(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L570" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L532" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -657,7 +825,7 @@ Returns empty response on success.</p>
       <h1 class="signature" translate="no">search_accounts(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L398" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L379" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -680,7 +848,7 @@ Mastodon API: GET /api/v1/accounts/search?q=query</p>
       <h1 class="signature" translate="no">signup(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L523" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L485" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -703,7 +871,7 @@ Returns a user access token on success.</p>
       <h1 class="signature" translate="no">suggestions(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L441" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L422" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -726,7 +894,7 @@ Falls back to discoverable users from the local instance if the circle is empty.
       <h1 class="signature" translate="no">unfollow_account(map, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L144" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L146" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -748,7 +916,7 @@ Falls back to discoverable users from the local instance if the circle is empty.
       <h1 class="signature" translate="no">update_credentials(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L70" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L72" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -771,7 +939,7 @@ Mastodon API: PATCH /api/v1/accounts/update_credentials</p>
       <h1 class="signature" translate="no">user(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L36" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_me/blob/main/lib/api/graphql_masto_adapter.ex#L38" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
