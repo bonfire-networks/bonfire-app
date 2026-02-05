@@ -184,7 +184,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
           only: :dev
         },
-        {:live_debugger, "~> 0.3.2", only: :dev},
+        {:live_debugger, "~> 0.5.0", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
@@ -352,7 +352,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.2-alpha.7",
+    version: "1.0.2-alpha.8",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,

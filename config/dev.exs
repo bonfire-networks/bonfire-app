@@ -26,7 +26,8 @@ config :bonfire, Bonfire.Common.Repo,
   stacktrace: true
 
 # Disable live_debugger to prevent ETS table errors
-config :live_debugger, disabled?: true
+config :live_debugger, disabled?: false
+
 
 # if System.get_env("WITH_FORKS", "1") == "1" , do:
 # Mess.deps(
