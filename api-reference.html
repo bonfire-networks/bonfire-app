@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.14">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.15">
 
 
-    <title>API Reference — Bonfire v1.0.2-social-alpha.14</title>
+    <title>API Reference — Bonfire v1.0.2-social-alpha.15</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-48A1EDA5.js"></script>
+    <script defer src="dist/sidebar_items-8091EDBF.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.14
+          v1.0.2-social-alpha.15
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ Bonfire
 
 <div id="top-content">
   <div class="heading-with-actions top-heading">
-    <h1>API Reference <small class="app-vsn">Bonfire v#1.0.2-social-alpha.14</small></h1>
+    <h1>API Reference <small class="app-vsn">Bonfire v#1.0.2-social-alpha.15</small></h1>
 
       <a href="https://github.com/bonfire-networks/bonfire-app" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
@@ -4998,7 +4998,8 @@ These handle common patterns like Phoenix LiveView attribute conversion.</p></di
 
   </div>
 
-    <div class="summary-synopsis"><p>GenServer with ETS storage for page load timing data.</p></div>
+    <div class="summary-synopsis"><p>ETS-backed circular buffer for page timing data, displayed in the profiler dashboard.
+Configure via <code class="inline">PAGE_PROFILER_ENABLED=true</code> and <code class="inline">PAGE_PROFILER_MAX_ENTRIES=500</code> in <code class="inline">.env</code>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -5007,7 +5008,8 @@ These handle common patterns like Phoenix LiveView attribute conversion.</p></di
 
   </div>
 
-    <div class="summary-synopsis"><p>Telemetry handler for capturing LiveView lifecycle events.</p></div>
+    <div class="summary-synopsis"><p>Telemetry handler for LiveView and router events. Records timing to the
+process dictionary for correlation with the HTTP request in <code class="inline">ServerTimingPlug</code>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -5051,7 +5053,8 @@ Similar to LivePlugs.AllowTestSandbox but for regular HTTP requests.</p></div>
 
   </div>
 
-    <div class="summary-synopsis"><p>LiveDashboard page for profiling page load timing.</p></div>
+    <div class="summary-synopsis"><p>LiveDashboard page showing timing breakdowns for HTTP requests.
+Enable via <code class="inline">PAGE_PROFILER_ENABLED=true</code>, then visit <code class="inline">/admin/system/page_profiler</code>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -5115,7 +5118,7 @@ Similar to LivePlugs.AllowTestSandbox but for regular HTTP requests.</p></div>
 
   </div>
 
-    <div class="summary-synopsis"><p>A Plug that adds Server-Timing headers to HTTP responses.</p></div>
+    <div class="summary-synopsis"><p>Plug that adds Server-Timing headers to HTTP responses and records to the profiler dashboard.</p></div>
 
 </div>
 <div class="summary-row">
