@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.11">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.12">
 
 
-    <title>Bonfire.UI.Common.PageTimingStorage — Bonfire v1.0.2-social-alpha.11</title>
+    <title>Bonfire.UI.Common.PageTimingStorage — Bonfire v1.0.2-social-alpha.12</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.11
+          v1.0.2-social-alpha.12
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.UI.Common.PageTimingStorage</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.11)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.12)</small>
 
     </h1>
 
@@ -95,21 +95,21 @@ Bonfire
     <section id="moduledoc">
 <p>GenServer with ETS storage for page load timing data.</p><p>Stores recent request timing information for display in the LiveDashboard profiler page.
 Uses a circular buffer to limit memory usage.</p><h2 id="module-configuration" class="section-heading"><a href="#module-configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Configuration</span></h2><p>Set in <code class="inline">.env</code>:</p><ul><li><code class="inline">PAGE_PROFILER_ENABLED=true</code> - Enable profiling (disabled by default)</li><li><code class="inline">PAGE_PROFILER_MAX_ENTRIES=500</code> - Max requests to store (default 500)</li></ul><h2 id="module-usage" class="section-heading"><a href="#module-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Check if profiling is enabled</span><span class="w">
-</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">enabled?</span><span class="p" data-group-id="4818678221-1">(</span><span class="p" data-group-id="4818678221-1">)</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">enabled?</span><span class="p" data-group-id="0468016621-1">(</span><span class="p" data-group-id="0468016621-1">)</span><span class="w">
 
 </span><span class="c1"># Record a request (called by ServerTimingPlug)</span><span class="w">
-</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">record_request</span><span class="p" data-group-id="4818678221-2">(</span><span class="p" data-group-id="4818678221-3">%{</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">record_request</span><span class="p" data-group-id="0468016621-2">(</span><span class="p" data-group-id="0468016621-3">%{</span><span class="w">
   </span><span class="ss">request_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/feed&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">status</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-  </span><span class="ss">timestamp</span><span class="p">:</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="4818678221-4">(</span><span class="p" data-group-id="4818678221-4">)</span><span class="p">,</span><span class="w">
-  </span><span class="ss">timings</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4818678221-5">%{</span><span class="ss">total</span><span class="p">:</span><span class="w"> </span><span class="mi">150_000</span><span class="p">,</span><span class="w"> </span><span class="ss">db</span><span class="p">:</span><span class="w"> </span><span class="mi">50_000</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4818678221-5">}</span><span class="w">
-</span><span class="p" data-group-id="4818678221-3">}</span><span class="p" data-group-id="4818678221-2">)</span><span class="w">
+  </span><span class="ss">timestamp</span><span class="p">:</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="0468016621-4">(</span><span class="p" data-group-id="0468016621-4">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">timings</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0468016621-5">%{</span><span class="ss">total</span><span class="p">:</span><span class="w"> </span><span class="mi">150_000</span><span class="p">,</span><span class="w"> </span><span class="ss">db</span><span class="p">:</span><span class="w"> </span><span class="mi">50_000</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="0468016621-5">}</span><span class="w">
+</span><span class="p" data-group-id="0468016621-3">}</span><span class="p" data-group-id="0468016621-2">)</span><span class="w">
 
 </span><span class="c1"># Query stored requests</span><span class="w">
-</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">list_requests</span><span class="p" data-group-id="4818678221-6">(</span><span class="p" data-group-id="4818678221-6">)</span><span class="w">
-</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">get_statistics</span><span class="p" data-group-id="4818678221-7">(</span><span class="p" data-group-id="4818678221-7">)</span></code></pre>
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">list_requests</span><span class="p" data-group-id="0468016621-6">(</span><span class="p" data-group-id="0468016621-6">)</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">get_statistics</span><span class="p" data-group-id="0468016621-7">(</span><span class="p" data-group-id="0468016621-7">)</span></code></pre>
     </section>
 
 </div>
