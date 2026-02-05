@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.9">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.10">
 
 
-    <title>Bonfire.Common.Changelog.Github.DataGrabber — Bonfire v1.0.2-social-alpha.9</title>
+    <title>Bonfire.Common.Changelog.Github.DataGrabber — Bonfire v1.0.2-social-alpha.10</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-D603E0F0.js"></script>
+    <script defer src="dist/sidebar_items-48A1EDA5.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.9
+          v1.0.2-social-alpha.10
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Changelog.Github.DataGrabber</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.9)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.10)</small>
 
     </h1>
 
@@ -245,13 +245,13 @@ Raises if any out-of-range items are found (for debugging).</p></div>
 
 <p>Filters a list of items (issues, PRs, or commits) to only include those with a relevant date field
 (closedAt, mergedAt, etc) within the given date window. Items without a date field are always included.
-Raises if any out-of-range items are found (for debugging).</p><p>The date field checked is, in order:</p><ul><li>&quot;closedAt&quot;, &quot;closed_at&quot;</li><li>&quot;mergedAt&quot;, &quot;merged_at&quot;</li><li>&quot;matched_issue_closed_at&quot;</li><li>&quot;matched_issue.mergedAt&quot;, &quot;matched_issue.merged_at&quot;</li><li>&quot;matched_issue.closedAt&quot;, &quot;matched_issue.closed_at&quot;</li></ul><h2 id="filter_items_by_date!/3-examples" class="section-heading"><a href="#filter_items_by_date!/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2405542227-1">[</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="2405542227-2">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-10T12:00:00Z&quot;</span><span class="p" data-group-id="2405542227-2">}</span><span class="p">,</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="2405542227-3">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mergedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-15T12:00:00Z&quot;</span><span class="p" data-group-id="2405542227-3">}</span><span class="p">,</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="2405542227-4">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2024-01-01T12:00:00Z&quot;</span><span class="p" data-group-id="2405542227-4">}</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="2405542227-1">]</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">filter_items_by_date!</span><span class="p" data-group-id="2405542227-5">(</span><span class="n">items</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2025-10-01&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2025-10-31&quot;</span><span class="p" data-group-id="2405542227-5">)</span><span class="w">
-</span><span class="p" data-group-id="2405542227-6">[</span><span class="p" data-group-id="2405542227-7">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-10T12:00:00Z&quot;</span><span class="p" data-group-id="2405542227-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2405542227-8">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mergedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-15T12:00:00Z&quot;</span><span class="p" data-group-id="2405542227-8">}</span><span class="p" data-group-id="2405542227-6">]</span></code></pre>
+Raises if any out-of-range items are found (for debugging).</p><p>The date field checked is, in order:</p><ul><li>&quot;closedAt&quot;, &quot;closed_at&quot;</li><li>&quot;mergedAt&quot;, &quot;merged_at&quot;</li><li>&quot;matched_issue_closed_at&quot;</li><li>&quot;matched_issue.mergedAt&quot;, &quot;matched_issue.merged_at&quot;</li><li>&quot;matched_issue.closedAt&quot;, &quot;matched_issue.closed_at&quot;</li></ul><h2 id="filter_items_by_date!/3-examples" class="section-heading"><a href="#filter_items_by_date!/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="6139314762-1">[</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="6139314762-2">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-10T12:00:00Z&quot;</span><span class="p" data-group-id="6139314762-2">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="6139314762-3">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mergedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-15T12:00:00Z&quot;</span><span class="p" data-group-id="6139314762-3">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="p" data-group-id="6139314762-4">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2024-01-01T12:00:00Z&quot;</span><span class="p" data-group-id="6139314762-4">}</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="6139314762-1">]</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">filter_items_by_date!</span><span class="p" data-group-id="6139314762-5">(</span><span class="n">items</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2025-10-01&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2025-10-31&quot;</span><span class="p" data-group-id="6139314762-5">)</span><span class="w">
+</span><span class="p" data-group-id="6139314762-6">[</span><span class="p" data-group-id="6139314762-7">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;closedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-10T12:00:00Z&quot;</span><span class="p" data-group-id="6139314762-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6139314762-8">%{</span><span class="s">&quot;number&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mergedAt&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;2025-10-15T12:00:00Z&quot;</span><span class="p" data-group-id="6139314762-8">}</span><span class="p" data-group-id="6139314762-6">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="format_issue/1">
@@ -317,19 +317,19 @@ Raises if any out-of-range items are found (for debugging).</p><p>The date field
 
   <section class="docstring">
 
-<p>Normalize a date string or Date struct to &quot;YYYY-MM-DD&quot;.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="3726796817-1">(</span><span class="s">&quot;2025-10-2&quot;</span><span class="p" data-group-id="3726796817-1">)</span><span class="w">
+<p>Normalize a date string or Date struct to &quot;YYYY-MM-DD&quot;.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="7437622284-1">(</span><span class="s">&quot;2025-10-2&quot;</span><span class="p" data-group-id="7437622284-1">)</span><span class="w">
 </span><span class="s">&quot;2025-10-02&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="3726796817-2">(</span><span class="s">&quot;2025-1-9&quot;</span><span class="p" data-group-id="3726796817-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="7437622284-2">(</span><span class="s">&quot;2025-1-9&quot;</span><span class="p" data-group-id="7437622284-2">)</span><span class="w">
 </span><span class="s">&quot;2025-01-09&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="3726796817-3">(</span><span class="s">&quot;2025-10-02&quot;</span><span class="p" data-group-id="3726796817-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="7437622284-3">(</span><span class="s">&quot;2025-10-02&quot;</span><span class="p" data-group-id="7437622284-3">)</span><span class="w">
 </span><span class="s">&quot;2025-10-02&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="3726796817-4">(</span><span class="ld">~D[2025-10-2]</span><span class="p" data-group-id="3726796817-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="7437622284-4">(</span><span class="ld">~D[2025-10-2]</span><span class="p" data-group-id="7437622284-4">)</span><span class="w">
 </span><span class="s">&quot;2025-10-02&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="3726796817-5">(</span><span class="no">nil</span><span class="p" data-group-id="3726796817-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Changelog.Github.DataGrabber</span><span class="o">.</span><span class="n">normalize_date</span><span class="p" data-group-id="7437622284-5">(</span><span class="no">nil</span><span class="p" data-group-id="7437622284-5">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>

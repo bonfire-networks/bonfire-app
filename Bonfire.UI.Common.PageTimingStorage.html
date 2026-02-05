@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.10">
+
+
+    <title>Bonfire.UI.Common.PageTimingStorage — Bonfire v1.0.2-social-alpha.10</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-48A1EDA5.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.2-social-alpha.10
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.UI.Common.PageTimingStorage</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.10)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>GenServer with ETS storage for page load timing data.</p><p>Stores recent request timing information for display in the LiveDashboard profiler page.
+Uses a circular buffer to limit memory usage.</p><h2 id="module-configuration" class="section-heading"><a href="#module-configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Configuration</span></h2><p>Set in <code class="inline">.env</code>:</p><ul><li><code class="inline">PAGE_PROFILER_ENABLED=true</code> - Enable profiling (disabled by default)</li><li><code class="inline">PAGE_PROFILER_MAX_ENTRIES=500</code> - Max requests to store (default 500)</li></ul><h2 id="module-usage" class="section-heading"><a href="#module-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Check if profiling is enabled</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">enabled?</span><span class="p" data-group-id="6956288655-1">(</span><span class="p" data-group-id="6956288655-1">)</span><span class="w">
+
+</span><span class="c1"># Record a request (called by ServerTimingPlug)</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">record_request</span><span class="p" data-group-id="6956288655-2">(</span><span class="p" data-group-id="6956288655-3">%{</span><span class="w">
+  </span><span class="ss">request_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/feed&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">status</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="ss">timestamp</span><span class="p">:</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="6956288655-4">(</span><span class="p" data-group-id="6956288655-4">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">timings</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6956288655-5">%{</span><span class="ss">total</span><span class="p">:</span><span class="w"> </span><span class="mi">150_000</span><span class="p">,</span><span class="w"> </span><span class="ss">db</span><span class="p">:</span><span class="w"> </span><span class="mi">50_000</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="6956288655-5">}</span><span class="w">
+</span><span class="p" data-group-id="6956288655-3">}</span><span class="p" data-group-id="6956288655-2">)</span><span class="w">
+
+</span><span class="c1"># Query stored requests</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">list_requests</span><span class="p" data-group-id="6956288655-6">(</span><span class="p" data-group-id="6956288655-6">)</span><span class="w">
+</span><span class="nc">PageTimingStorage</span><span class="o">.</span><span class="n">get_statistics</span><span class="p" data-group-id="6956288655-7">(</span><span class="p" data-group-id="6956288655-7">)</span></code></pre>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#child_spec/1" data-no-tooltip="" translate="no">child_spec(init_arg)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a specification to start this module under a supervisor.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#clear/0" data-no-tooltip="" translate="no">clear()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Clear all stored data</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#count/0" data-no-tooltip="" translate="no">count()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get current entry count</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#disable/0" data-no-tooltip="" translate="no">disable()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Disable profiling at runtime</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#enable/0" data-no-tooltip="" translate="no">enable()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Enable profiling at runtime</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#enabled?/0" data-no-tooltip="" translate="no">enabled?()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Check if profiling is enabled</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_request/1" data-no-tooltip="" translate="no">get_request(request_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get a single request by ID</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_statistics/0" data-no-tooltip="" translate="no">get_statistics()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get aggregated statistics</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_requests/1" data-no-tooltip="" translate="no">list_requests(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>List recent requests with optional filters</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#record_request/1" data-no-tooltip="" translate="no">record_request(request_data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Record a request timing profile</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start_link/1" data-no-tooltip="" translate="no">start_link(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Start the storage GenServer</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="child_spec/1">
+
+  <div class="detail-header">
+    <a href="#child_spec/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">child_spec(init_arg)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L34" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a specification to start this module under a supervisor.</p><p>See <a href="https://hexdocs.pm/elixir/Supervisor.html"><code class="inline">Supervisor</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="clear/0">
+
+  <div class="detail-header">
+    <a href="#clear/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">clear()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L139" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Clear all stored data</p>
+  </section>
+</section>
+<section class="detail" id="count/0">
+
+  <div class="detail-header">
+    <a href="#count/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">count()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L146" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get current entry count</p>
+  </section>
+</section>
+<section class="detail" id="disable/0">
+
+  <div class="detail-header">
+    <a href="#disable/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">disable()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L65" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Disable profiling at runtime</p>
+  </section>
+</section>
+<section class="detail" id="enable/0">
+
+  <div class="detail-header">
+    <a href="#enable/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">enable()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L58" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Enable profiling at runtime</p>
+  </section>
+</section>
+<section class="detail" id="enabled?/0">
+
+  <div class="detail-header">
+    <a href="#enabled?/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">enabled?()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L48" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Check if profiling is enabled</p>
+  </section>
+</section>
+<section class="detail" id="get_request/1">
+
+  <div class="detail-header">
+    <a href="#get_request/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_request(request_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L97" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get a single request by ID</p>
+  </section>
+</section>
+<section class="detail" id="get_statistics/0">
+
+  <div class="detail-header">
+    <a href="#get_statistics/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_statistics()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L107" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Get aggregated statistics</p>
+  </section>
+</section>
+<section class="detail" id="list_requests/1">
+
+    <span id="list_requests/0"></span>
+
+  <div class="detail-header">
+    <a href="#list_requests/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list_requests(opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L80" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>List recent requests with optional filters</p>
+  </section>
+</section>
+<section class="detail" id="record_request/1">
+
+  <div class="detail-header">
+    <a href="#record_request/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">record_request(request_data)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L72" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Record a request timing profile</p>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+    <span id="start_link/0"></span>
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">start_link(opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/profiling/page_timing_storage.ex#L43" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Start the storage GenServer</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
