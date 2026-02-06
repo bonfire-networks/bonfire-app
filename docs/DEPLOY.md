@@ -686,7 +686,7 @@ There are some useful database-related release tasks under `EctoSparkles.Migrato
 
 You can also directly call some functions in the code from the command line, for example:
 - to migrate: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Common.Repo.migrate'`
-- to just yourself an admin: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Me.Users.make_admin("my_username")'`
+- to make yourself an admin: `docker exec bonfire_web bin/bonfire rpc 'Bonfire.Me.Users.make_admin("my_username")'`
 
 ## Admin tools
 
