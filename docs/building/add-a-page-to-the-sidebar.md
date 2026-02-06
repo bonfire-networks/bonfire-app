@@ -59,7 +59,7 @@ def mount(params, session, socket) do
   {:ok,
    socket
    |> assign(
-      nav_items: Bonfire.Common.ExtensionModule.default_nav()
+      
     )
   }
 end
