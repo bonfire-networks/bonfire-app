@@ -193,7 +193,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
         # {:ecto_dev_logger, "~> 0.7", only: :dev},
         # flame graphs in live_dashboard
-        # {:flame_on, "~> 0.7"},
+        {:flame_on, git: "https://github.com/DockYard/flame_on", only: :dev},
         {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
         {:periscope, "~> 0.4", only: :dev},
         # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
