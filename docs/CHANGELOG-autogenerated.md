@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ tests [`d9dfde9`](https://github.com/bonfire-networks/bonfire-app/commit/d9dfde95f2b0423d9dfd3ccd95125746527bde83) (thanks @mayel)
 
 ### Changed
+- 🚀 make sure EXIF metadata is always stripped from uploads [#1794](https://github.com/bonfire-networks/bonfire-app/issues/1794) (thanks @mayel)
 - 💅 in search results mentions adds a quote blank preview to the activity [#1760](https://github.com/bonfire-networks/bonfire-app/issues/1760) (thanks @ivanminutillo)
 - 📝 Use MRF for spam detection [#1049](https://github.com/bonfire-networks/bonfire-app/issues/1049) (thanks @mayel)
 - 📝 nitpick: Fix typo in DEPLOY.md for admin command [PR #1792](https://github.com/bonfire-networks/bonfire-app/pull/1792) (thanks @bailey-coding)
