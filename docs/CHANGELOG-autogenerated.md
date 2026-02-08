@@ -16,16 +16,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - 🚀 make sure EXIF metadata is always stripped from uploads [#1794](https://github.com/bonfire-networks/bonfire-app/issues/1794) (thanks @mayel)
 - 💅 in search results mentions adds a quote blank preview to the activity [#1760](https://github.com/bonfire-networks/bonfire-app/issues/1760) (thanks @ivanminutillo)
+- 📝 One-to-one e2ee messaging [#1738](https://github.com/bonfire-networks/bonfire-app/issues/1738) (thanks @mayel)
 - 📝 Use MRF for spam detection [#1049](https://github.com/bonfire-networks/bonfire-app/issues/1049) (thanks @mayel)
 - 📝 nitpick: Fix typo in DEPLOY.md for admin command [PR #1792](https://github.com/bonfire-networks/bonfire-app/pull/1792) (thanks @bailey-coding)
 - 📝 nitpick: Remove duplicate 'application/x-bzip2' from mime types [PR #3](https://github.com/bonfire-networks/bonfire_files/pull/3) (thanks @bailey-coding)
 - 💅 doc/DEPLOY.md: Guix guide: Adapt for latest release. [PR #1768](https://github.com/bonfire-networks/bonfire-app/pull/1768) (thanks @fishinthecalculator)
 - 📝 COMPILE_ALL_LOCALES [`2c1cc66`](https://github.com/bonfire-networks/bonfire-app/commit/2c1cc66bfc66b22ab2c7ffc7937091749096cab9) (thanks @mayel)
-- 🚧 One-to-one e2ee messaging [#1738](https://github.com/bonfire-networks/bonfire-app/issues/1738) [`be6e9af`](https://github.com/bonfire-networks/bonfire-app/commit/be6e9af07f67fbacb0e590868f242b94b5358423) (thanks @mayel)
 - 🚧 Bonfire Load Test Results [#1789](https://github.com/bonfire-networks/bonfire-app/issues/1789) [`e0627b2`](https://github.com/bonfire-networks/bonfire-app/commit/e0627b24d9b52794176bba4c20b7da1b82d06b68) (thanks @mayel and @ivanminutillo)
 - 🚧 Mastodon-compatible API [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) [`f1c4a62`](https://github.com/bonfire-networks/bonfire-app/commit/f1c4a62ebea62316b11b3777ce1c3b8f1fb4e716) (thanks @ivanminutillo and @mayel)
 - 📝 justfile [`2afc9de`](https://github.com/bonfire-networks/bonfire-app/commit/2afc9debd36dceaabcf488591bbe39f8e983744a) (thanks @ivanminutillo)
 - 📝 nitpick: Fix typo in DEPLOY.md for admin command [`6fc13f9`](https://github.com/bonfire-networks/bonfire-app/commit/6fc13f9fd3946b5f78fdf89715b27c6522cb95e3) (thanks @bailey-coding)
+- 📝 tauri [`114d90e`](https://github.com/bonfire-networks/bonfire-app/commit/114d90ec9824050907ccb1588e07778ea8463282) (thanks @mayel)
+- 📝 tauri WIP [`6f3d343`](https://github.com/bonfire-networks/bonfire-app/commit/6f3d343edc6e51010aac9c710069321a89418d54) (thanks @mayel)
 
 ### Fixed
 - 🐛 fix prep of migrations in bare metal prod [`92c018e`](https://github.com/bonfire-networks/bonfire-app/commit/92c018ea3d13f3ba4410852ce0df6f38471a365b) (thanks @mayel)
