@@ -8,7 +8,7 @@ use std::path::PathBuf;
 use tauri::{
     menu::{Menu, MenuItem},
     tray::TrayIconBuilder,
-    Manager, RunEvent, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
+    Listener, Manager, RunEvent, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
 };
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -158,17 +158,16 @@ fn logout(app: &tauri::AppHandle) {
     if let Some(window) = app.get_webview_window("secure-chat") {
         let _ = window.destroy();
     }
-    // Navigate main window back to instance picker with logout action
+    // Save main window state and destroy it, then recreate at pick-instance
+    // (navigate() doesn't resolve App asset paths, so we recreate instead)
     if let Some(window) = app.get_webview_window("main") {
-        let _ = window.navigate("tauri://localhost/pick-instance.html?action=logout".parse().unwrap());
-        let _ = window.show();
-        let _ = window.set_focus();
-    } else {
-        ensure_main_window(
-            app,
-            WebviewUrl::App("pick-instance.html?action=logout".into()),
-        );
+        save_window_state(app, "main", &window);
+        let _ = window.destroy();
     }
+    ensure_main_window(
+        app,
+        WebviewUrl::App("pick-instance.html#logout".into()),
+    );
 }
 
 fn main() {
@@ -200,6 +199,12 @@ fn main() {
                     _ => {}
                 })
                 .build(app)?;
+
+            // Listen for logout event from the frontend (e.g. secure-chat webview)
+            let handle = app.handle().clone();
+            app.listen("app-logout", move |_event| {
+                logout(&handle);
+            });
 
             Ok(())
         })
