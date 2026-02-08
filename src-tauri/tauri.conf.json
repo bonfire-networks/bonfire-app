@@ -7,6 +7,7 @@
     "frontendDist": "../assets/static/tauri"
   },
   "app": {
+    "withGlobalTauri": true,
     "security": {
       "csp": {
         "default-src": "'self' https:",
@@ -15,6 +16,12 @@
         "worker-src": "'self' blob: local:",
         "img-src": "'self' https: local: data:",
         "style-src": "'self' 'unsafe-inline' https:"
+      },
+      "headers": {
+        "Access-Control-Expose-Headers": "Tauri-Custom-Header",
+        "Tauri-Custom-Header": {
+          "serveo-skip-browser-warning": "true"
+        }
       },
       "assetProtocol": {
         "enable": true,
@@ -28,7 +35,6 @@
     "active": true,
     "targets": "all",
     "resources": [
-      "../assets/static/assets/*"
     ],
     "icon": [
       "../assets/static/pwa/32x32.png",
