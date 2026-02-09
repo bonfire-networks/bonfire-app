@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.20">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.21">
 
 
-    <title>Bonfire.Messages.API.GraphQLMasto.Adapter — Bonfire v1.0.2-social-alpha.20</title>
+    <title>Bonfire.Messages.API.GraphQLMasto.Adapter — Bonfire v1.0.2-social-alpha.21</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-8372233C.js"></script>
+    <script defer src="dist/sidebar_items-D8110608.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.20
+          v1.0.2-social-alpha.21
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Messages.API.GraphQLMasto.Adapter</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.20)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.21)</small>
 
     </h1>
 
@@ -122,11 +122,21 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#delete_conversation/2" data-no-tooltip="" translate="no">delete_conversation(map, conn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Hide a conversation from the user's list (removes from inbox, not actual messages).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#mark_conversation_read/2" data-no-tooltip="" translate="no">mark_conversation_read(map, conn)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Mark a conversation as read.</p></div>
+        <div class="summary-synopsis"><p>Mark a conversation as read and return updated conversation.</p></div>
 
     </div>
 
@@ -154,7 +164,7 @@ Bonfire
       <h1 class="signature" translate="no">conversations(params, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_messages/blob/main/lib/api/graphql_masto_adapter.ex#L26" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_messages/blob/main/lib/api/graphql_masto_adapter.ex#L14" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -163,7 +173,29 @@ Bonfire
 
   <section class="docstring">
 
-<p>List conversations (DM threads) for the current user.</p><p>Returns a list of Mastodon-compatible Conversation objects with:</p><ul><li>id: thread ID</li><li>accounts: participants</li><li>unread: whether there are unseen messages</li><li>last_status: the most recent message</li></ul>
+<p>List conversations (DM threads) for the current user.</p>
+  </section>
+</section>
+<section class="detail" id="delete_conversation/2">
+
+  <div class="detail-header">
+    <a href="#delete_conversation/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete_conversation(map, conn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_messages/blob/main/lib/api/graphql_masto_adapter.ex#L72" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Hide a conversation from the user's list (removes from inbox, not actual messages).</p>
   </section>
 </section>
 <section class="detail" id="mark_conversation_read/2">
@@ -176,7 +208,7 @@ Bonfire
       <h1 class="signature" translate="no">mark_conversation_read(map, conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_messages/blob/main/lib/api/graphql_masto_adapter.ex#L73" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_messages/blob/main/lib/api/graphql_masto_adapter.ex#L51" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -185,8 +217,7 @@ Bonfire
 
   <section class="docstring">
 
-<p>Mark a conversation as read.</p><p>Marks all messages in the thread as seen by the current user.
-Returns the updated conversation object.</p>
+<p>Mark a conversation as read and return updated conversation.</p>
   </section>
 </section>
 
