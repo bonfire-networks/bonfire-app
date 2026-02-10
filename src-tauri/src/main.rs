@@ -1,206 +1,318 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-use std::fs;
-use std::path::PathBuf;
+mod layout;
+mod notifications;
+mod state;
+
+use std::sync::Mutex;
+
+use layout::{LayoutManager, LayoutMode};
+use notifications::NotificationListener;
+use state::{load_preferences, save_preferences, Preferences};
 use tauri::{
-    menu::{Menu, MenuItem},
+    menu::{Menu, MenuItem, PredefinedMenuItem},
     tray::TrayIconBuilder,
-    Listener, Manager, RunEvent, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
+    Listener, Manager, RunEvent,
 };
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
-struct WindowGeometry {
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+/// Application state managed by Tauri, protected by a Mutex for thread safety.
+/// Contains the active layout manager and user preferences.
+pub struct AppState {
+    pub layout_manager: LayoutManager,
+    pub preferences: Preferences,
+    pub notification_listener: Option<NotificationListener>,
 }
 
-fn state_path(app: &tauri::AppHandle) -> PathBuf {
-    let dir = app.path().app_data_dir().expect("no app data dir");
-    let _ = fs::create_dir_all(&dir);
-    dir.join("window-state.json")
-}
+// ── Tauri commands ──────────────────────────────────────────────────────────
 
-fn load_state(app: &tauri::AppHandle) -> HashMap<String, WindowGeometry> {
-    fs::read_to_string(state_path(app))
-        .ok()
-        .and_then(|s| serde_json::from_str(&s).ok())
-        .unwrap_or_default()
-}
-
-fn save_window_state(app: &tauri::AppHandle, label: &str, window: &WebviewWindow) {
-    let scale = window.scale_factor().unwrap_or(1.0);
-    let Some(pos) = window.outer_position().ok() else { return };
-    let Some(size) = window.outer_size().ok() else { return };
-
-    let geom = WindowGeometry {
-        x: pos.x as f64 / scale,
-        y: pos.y as f64 / scale,
-        width: size.width as f64 / scale,
-        height: size.height as f64 / scale,
-    };
-
-    let mut state = load_state(app);
-    state.insert(label.to_string(), geom);
-
-    if let Ok(json) = serde_json::to_string_pretty(&state) {
-        let _ = fs::write(state_path(app), json);
-    }
-}
-
-/// Get the primary monitor's logical size (accounts for scale factor on Retina etc).
-fn logical_screen_size(app: &tauri::AppHandle) -> (f64, f64) {
-    app.primary_monitor()
-        .ok()
-        .flatten()
-        .map(|m| {
-            let s = m.size();
-            let scale = m.scale_factor();
-            (s.width as f64 / scale, s.height as f64 / scale)
-        })
-        .unwrap_or((1920.0, 1080.0))
-}
-
-/// Show or create the main window with the given URL.
-fn ensure_main_window(app: &tauri::AppHandle, url: WebviewUrl) {
-    if let Some(window) = app.get_webview_window("main") {
-        let _ = window.show();
-        let _ = window.set_focus();
-        return;
-    }
-
-    let state = load_state(app);
-    let (sw, sh) = logical_screen_size(app);
-    let default_w = (sw * 2.0 / 2.9).round();
-
-    let geom = state.get("main").cloned().unwrap_or(WindowGeometry {
-        x: 0.0,
-        y: 0.0,
-        width: default_w,
-        height: sh,
-    });
-
-    let _ = WebviewWindowBuilder::new(app, "main", url)
-        .title("Bonfire")
-        .position(geom.x, geom.y)
-        .inner_size(geom.width, geom.height)
-        .build();
-}
-
+/// Opens the secure chat window/webview. Delegates to the active layout manager.
+/// Called from pick-instance.html after successful login.
 #[tauri::command]
-async fn open_secure_chat(app: tauri::AppHandle) -> Result<(), String> {
-    // If the window already exists, just focus it
-    if let Some(window) = app.get_webview_window("secure-chat") {
-        window.set_focus().map_err(|e| e.to_string())?;
-        return Ok(());
+async fn open_secure_chat(
+    app: tauri::AppHandle,
+    app_state: tauri::State<'_, Mutex<AppState>>,
+) -> Result<(), String> {
+    let mut state = app_state.lock().map_err(|e| e.to_string())?;
+    state.layout_manager.open_chat(&app)
+}
+
+/// Returns the current layout mode as a string ("multi-window", "split-pane", "tab-based").
+#[tauri::command]
+async fn get_layout_mode(
+    app_state: tauri::State<'_, Mutex<AppState>>,
+) -> Result<String, String> {
+    let state = app_state.lock().map_err(|e| e.to_string())?;
+    Ok(state.layout_manager.mode().as_str().to_string())
+}
+
+/// Switches the layout mode at runtime. Reuses the unified window when
+/// switching between split-pane and tab-based; does a full teardown/setup
+/// for transitions to/from multi-window.
+#[tauri::command]
+async fn set_layout_mode(
+    app: tauri::AppHandle,
+    app_state: tauri::State<'_, Mutex<AppState>>,
+    mode: String,
+) -> Result<(), String> {
+    let new_mode = LayoutMode::from_str(&mode).ok_or("Invalid layout mode")?;
+
+    let mut state = app_state.lock().map_err(|e| e.to_string())?;
+
+    // Update preferences
+    state.preferences.layout_mode = mode;
+    save_preferences(&app, &state.preferences);
+
+    // Clone to satisfy borrow checker (switch_mode borrows layout_manager mutably)
+    let prefs = state.preferences.clone();
+    state.layout_manager.switch_mode(&app, new_mode, &prefs)
+}
+
+/// Switches the active tab (tab-based mode only). No-op in other modes.
+#[tauri::command]
+async fn switch_tab(
+    app: tauri::AppHandle,
+    app_state: tauri::State<'_, Mutex<AppState>>,
+    tab: String,
+) -> Result<(), String> {
+    let mut state = app_state.lock().map_err(|e| e.to_string())?;
+    state.layout_manager.switch_tab(&app, &tab)
+}
+
+/// Returns the currently active tab name ("main" or "chat").
+#[tauri::command]
+async fn get_active_tab(
+    app_state: tauri::State<'_, Mutex<AppState>>,
+) -> Result<String, String> {
+    let state = app_state.lock().map_err(|e| e.to_string())?;
+    Ok(state.layout_manager.active_tab().to_string())
+}
+
+/// Begins a split-pane resize drag. Expands the divider webview to full
+/// window width and returns the window dimensions for ratio calculation.
+#[tauri::command]
+async fn split_resize_start(
+    app: tauri::AppHandle,
+    app_state: tauri::State<'_, Mutex<AppState>>,
+) -> Result<layout::split_pane::SplitDimensions, String> {
+    let state = app_state.lock().map_err(|e| e.to_string())?;
+    match &state.layout_manager {
+        LayoutManager::SplitPane(l) => l.resize_start(&app),
+        _ => Err("Not in split-pane mode".into()),
     }
+}
 
-    let state = load_state(&app);
-    let (sw, sh) = logical_screen_size(&app);
-    let main_w = (sw * 2.0 / 2.9).round();
-    let chat_w = sw - main_w;
-
-    let geom = state
-        .get("secure-chat")
-        .cloned()
-        .unwrap_or(WindowGeometry {
-            x: main_w,
-            y: 0.0,
-            width: chat_w,
-            height: sh,
-        });
-
-    // let js_code = include_str!("../../priv/static/assets/e2ee_tauri_bundle.js");
-    // let wasm_bytes = include_bytes!("../../priv/static/assets/openmls/openmls_wasm_bg.wasm");
-
-    WebviewWindowBuilder::new(
-        &app,
-        "secure-chat",
-        WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
-    )
-    .title("Secure Chat")
-    .inner_size(geom.width, geom.height)
-    .position(geom.x, geom.y)
-    // inject user script in the webview
-    // .initialization_script(&format!(
-    //     "{}\nwindow.__openmls_wasm = new Uint8Array({:?});\nconsole.log('local E2EE JS+WASM initialized');",
-    //     js_code, wasm_bytes
-    // ))
-    .build()
-    .map_err(|e| e.to_string())?;
-
-    // Resize main window to fit beside chat if using default layout
-    if state.get("main").is_none() {
-        if let Some(main_win) = app.get_webview_window("main") {
-            let _ = main_win.set_size(tauri::LogicalSize::new(main_w, sh));
-            let _ = main_win.set_position(tauri::LogicalPosition::new(0.0, 0.0));
+/// Ends a split-pane resize drag. Updates the split ratio, repositions all
+/// panes, and saves the new ratio to preferences.
+#[tauri::command]
+async fn split_resize_end(
+    app: tauri::AppHandle,
+    app_state: tauri::State<'_, Mutex<AppState>>,
+    ratio: f64,
+) -> Result<(), String> {
+    let mut state = app_state.lock().map_err(|e| e.to_string())?;
+    match &mut state.layout_manager {
+        LayoutManager::SplitPane(l) => {
+            l.resize_end(&app, ratio);
+            state.preferences.split_ratio = l.split_ratio;
+            save_preferences(&app, &state.preferences);
+            Ok(())
         }
+        _ => Err("Not in split-pane mode".into()),
+    }
+}
+
+/// Starts the SSE notification listener. Called from JS after login with
+/// the instance URL and OAuth access token.
+#[tauri::command]
+async fn start_notifications(
+    app: tauri::AppHandle,
+    app_state: tauri::State<'_, Mutex<AppState>>,
+    instance_url: String,
+    token: String,
+) -> Result<(), String> {
+    let mut state = app_state.lock().map_err(|e| e.to_string())?;
+
+    // Stop any existing listener before starting a new one
+    if let Some(listener) = state.notification_listener.take() {
+        listener.stop();
     }
 
+    state.notification_listener =
+        Some(NotificationListener::start(app.clone(), instance_url, token));
     Ok(())
 }
 
-fn show_messages_window(app: &tauri::AppHandle) {
-    if let Some(window) = app.get_webview_window("secure-chat") {
-        let _ = window.show();
-        let _ = window.set_focus();
-    } else {
-        let _ = tauri::async_runtime::block_on(open_secure_chat(app.clone()));
+/// Stops the SSE notification listener. Called on logout.
+#[tauri::command]
+async fn stop_notifications(
+    app_state: tauri::State<'_, Mutex<AppState>>,
+) -> Result<(), String> {
+    let mut state = app_state.lock().map_err(|e| e.to_string())?;
+    if let Some(listener) = state.notification_listener.take() {
+        listener.stop();
     }
+    Ok(())
 }
 
-fn logout(app: &tauri::AppHandle) {
-    // Close secure-chat window if open
-    if let Some(window) = app.get_webview_window("secure-chat") {
-        let _ = window.destroy();
-    }
-    // Save main window state and destroy it, then recreate at pick-instance
-    // (navigate() doesn't resolve App asset paths, so we recreate instead)
-    if let Some(window) = app.get_webview_window("main") {
-        save_window_state(app, "main", &window);
-        let _ = window.destroy();
-    }
-    ensure_main_window(
-        app,
-        WebviewUrl::App("pick-instance.html#logout".into()),
+// ── Tray menu ───────────────────────────────────────────────────────────────
+
+/// Builds the system tray menu with layout mode selection.
+fn build_tray_menu(app: &tauri::App, current_mode: LayoutMode) -> Result<Menu<tauri::Wry>, Box<dyn std::error::Error>> {
+    let show_i = MenuItem::with_id(app, "show", "Show Bonfire", true, None::<&str>)?;
+    let messages_i = MenuItem::with_id(app, "messages", "Messages", true, None::<&str>)?;
+    let separator1 = PredefinedMenuItem::separator(app)?;
+
+    // Layout mode radio items (prefix current mode with a bullet)
+    let mw_label = format!(
+        "{} Multi-window",
+        if current_mode == LayoutMode::MultiWindow { "\u{2022}" } else { "  " }
     );
+    let sp_label = format!(
+        "{} Split-pane",
+        if current_mode == LayoutMode::SplitPane { "\u{2022}" } else { "  " }
+    );
+    let tb_label = format!(
+        "{} Tab-based",
+        if current_mode == LayoutMode::TabBased { "\u{2022}" } else { "  " }
+    );
+
+    let mw_i = MenuItem::with_id(app, "layout-multi-window", &mw_label, true, None::<&str>)?;
+    let sp_i = MenuItem::with_id(app, "layout-split-pane", &sp_label, true, None::<&str>)?;
+    let tb_i = MenuItem::with_id(app, "layout-tab-based", &tb_label, true, None::<&str>)?;
+
+    let separator2 = PredefinedMenuItem::separator(app)?;
+    let logout_i = MenuItem::with_id(app, "logout", "Log out", true, None::<&str>)?;
+    let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+
+    Menu::with_items(
+        app,
+        &[
+            &show_i,
+            &messages_i,
+            &separator1,
+            &mw_i,
+            &sp_i,
+            &tb_i,
+            &separator2,
+            &logout_i,
+            &quit_i,
+        ],
+    )
+    .map_err(Into::into)
 }
+
+// ── Logout ──────────────────────────────────────────────────────────────────
+
+/// Handles logout: navigates main-webview to the logout page and cleans up
+/// extra webviews/windows without destroying the main-window.
+fn logout(app: &tauri::AppHandle) {
+    let state_mutex = app.state::<Mutex<AppState>>();
+    let mut state = match state_mutex.lock() {
+        Ok(s) => s,
+        Err(_) => return,
+    };
+
+    // Stop SSE notification listener
+    if let Some(listener) = state.notification_listener.take() {
+        listener.stop();
+    }
+
+    let prefs = state.preferences.clone();
+    state.layout_manager.handle_logout(app, &prefs);
+}
+
+/// Shows the messages/secure-chat window. Creates it if it doesn't exist.
+fn show_messages_window(app: &tauri::AppHandle) {
+    let state_mutex = app.state::<Mutex<AppState>>();
+    let mut state = match state_mutex.lock() {
+        Ok(s) => s,
+        Err(_) => return,
+    };
+
+    let _ = state.layout_manager.open_chat(app);
+}
+
+// ── Entry point ─────────────────────────────────────────────────────────────
 
 fn main() {
+    // Load preferences to determine initial layout mode
+    let prefs_for_setup = std::sync::Arc::new(Mutex::new(None::<Preferences>));
+    let prefs_clone = prefs_for_setup.clone();
+
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_openmls::init())
-        .invoke_handler(tauri::generate_handler![open_secure_chat])
-        .setup(|app| {
-            ensure_main_window(
-                app.handle(),
-                WebviewUrl::App("pick-instance.html".into()),
-            );
+        .plugin(tauri_plugin_notification::init())
+        .invoke_handler(tauri::generate_handler![
+            open_secure_chat,
+            get_layout_mode,
+            set_layout_mode,
+            switch_tab,
+            get_active_tab,
+            split_resize_start,
+            split_resize_end,
+            start_notifications,
+            stop_notifications,
+        ])
+        .setup(move |app| {
+            // Load preferences and determine layout mode
+            let prefs = load_preferences(app.handle());
+            let mode = LayoutMode::from_preferences(&prefs);
 
-            // Tray menu
-            let show_i = MenuItem::with_id(app, "show", "Show Bonfire", true, None::<&str>)?;
-            let messages_i = MenuItem::with_id(app, "messages", "Messages", true, None::<&str>)?;
-            let logout_i = MenuItem::with_id(app, "logout", "Log out", true, None::<&str>)?;
-            let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
-            let menu = Menu::with_items(app, &[&show_i, &messages_i, &logout_i, &quit_i])?;
+            // Create and setup layout manager
+            let mut layout_manager = LayoutManager::new(mode, &prefs);
+            if let Err(e) = layout_manager.setup(
+                app.handle(),
+                Some("pick-instance.html"),
+            ) {
+                eprintln!("Layout setup failed: {}", e);
+            }
+
+            // Register managed state
+            app.manage(Mutex::new(AppState {
+                layout_manager,
+                preferences: prefs.clone(),
+                notification_listener: None,
+            }));
+
+            // Store prefs for tray menu construction
+            if let Ok(mut p) = prefs_clone.lock() {
+                *p = Some(prefs);
+            }
+
+            // Build tray menu
+            let menu = build_tray_menu(app, mode)?;
 
             let _tray = TrayIconBuilder::new()
                 .icon(app.default_window_icon().unwrap().clone())
                 .menu(&menu)
                 .show_menu_on_left_click(true)
                 .on_menu_event(|app, event| match event.id.as_ref() {
-                    "show" => ensure_main_window(app, WebviewUrl::App("pick-instance.html".into())),
+                    "show" => {
+                        let state_mutex = app.state::<Mutex<AppState>>();
+                        let Ok(mut state) = state_mutex.lock() else { return };
+                        state.layout_manager.show_main(app);
+                    }
                     "messages" => show_messages_window(app),
                     "logout" => logout(app),
                     "quit" => app.exit(0),
+                    id if id.starts_with("layout-") => {
+                        let mode_str = id.strip_prefix("layout-").unwrap_or("");
+                        let Some(new_mode) = LayoutMode::from_str(mode_str) else { return };
+                        let state_mutex = app.state::<Mutex<AppState>>();
+                        let Ok(mut state) = state_mutex.lock() else { return };
+                        state.preferences.layout_mode = mode_str.to_string();
+                        save_preferences(app, &state.preferences);
+                        let prefs = state.preferences.clone();
+                        if let Err(e) = state.layout_manager.switch_mode(app, new_mode, &prefs) {
+                            eprintln!("Layout switch failed: {}", e);
+                        }
+                    }
                     _ => {}
                 })
                 .build(app)?;
 
-            // Listen for logout event from the frontend (e.g. secure-chat webview)
+            // Listen for logout event from the frontend
             let handle = app.handle().clone();
             app.listen("app-logout", move |_event| {
                 logout(&handle);
@@ -225,9 +337,19 @@ fn main() {
             event: tauri::WindowEvent::CloseRequested { .. },
             ..
         } => {
-            if let Some(window) = app.get_webview_window(&label) {
-                save_window_state(app, &label, &window);
-            }
+            let state_mutex = app.state::<Mutex<AppState>>();
+            let Ok(state) = state_mutex.lock() else { return };
+            state.layout_manager.save_window_by_label(app, &label);
+        }
+        // Reposition child webviews on resize (single-window modes)
+        RunEvent::WindowEvent {
+            label,
+            event: tauri::WindowEvent::Resized(_),
+            ..
+        } => {
+            let state_mutex = app.state::<Mutex<AppState>>();
+            let Ok(mut state) = state_mutex.lock() else { return };
+            state.layout_manager.handle_resize(app, &label);
         }
         _ => {}
     });

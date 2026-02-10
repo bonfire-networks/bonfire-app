@@ -10,3 +10,8 @@ If you don't yet have tauri cli:
 To try it in dev, run this (at the root of this repo):
 
 `cargo tauri dev`
+
+and to run a second instance of it (useful for testing two-way user flows): 
+
+`TAURI_CONFIG='{"identifier":"cafe.bonfire.dev2"}' cargo tauri dev`
+
