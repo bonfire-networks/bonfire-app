@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.21">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.22">
 
 
-    <title>Bonfire.Search — Bonfire v1.0.2-social-alpha.21</title>
+    <title>Bonfire.Search — Bonfire v1.0.2-social-alpha.22</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-D8110608.js"></script>
+    <script defer src="dist/sidebar_items-B9017398.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.21
+          v1.0.2-social-alpha.22
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Search</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.21)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.22)</small>
 
     </h1>
 
@@ -125,6 +125,17 @@ License along with this program.  If not, see <a href="https://www.gnu.org/licen
 
         <div class="summary-synopsis"><p>Returns the configured search adapter module.
 Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_activities_for_search/2" data-no-tooltip="" translate="no">load_activities_for_search(object_ids, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Load activities by object IDs using the standard feed pipeline.
+Preserves the order of input IDs (Meilisearch relevance order).</p></div>
 
     </div>
 
@@ -198,6 +209,17 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p></
 
     </div>
 
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#search_ids/4" data-no-tooltip="" translate="no">search_ids(string, opts, calculate_facets \\ [], filter_facets \\ %{})</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Search and return just IDs + metadata (no struct transformation).
+Categorizes results into post IDs and user IDs for separate loading.</p></div>
+
+    </div>
+
 </div>
 
   </section>
@@ -235,6 +257,29 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p></
 Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
   </section>
 </section>
+<section class="detail" id="load_activities_for_search/2">
+
+  <div class="detail-header">
+    <a href="#load_activities_for_search/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">load_activities_for_search(object_ids, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L146" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Load activities by object IDs using the standard feed pipeline.
+Preserves the order of input IDs (Meilisearch relevance order).</p>
+  </section>
+</section>
 <section class="detail" id="maybe_boundarise/3">
 
   <div class="detail-header">
@@ -245,7 +290,7 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
       <h1 class="signature" translate="no">maybe_boundarise(hits, arg2, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L172" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L280" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -267,7 +312,7 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
       <h1 class="signature" translate="no">maybe_index(object, boundary, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L211" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L319" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -289,7 +334,7 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
       <h1 class="signature" translate="no">maybe_unindex(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L264" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L372" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -311,7 +356,7 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
       <h1 class="signature" translate="no">normalise_index(index)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L203" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L311" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -333,7 +378,7 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
       <h1 class="signature" translate="no">prepare_hits(hits, index, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L69" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L177" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -417,6 +462,33 @@ Defaults to DB Adapter if no adapter configured or if adapter is disabled.</p>
   <section class="docstring">
 
 <p>Type-specific search with optional facets</p>
+  </section>
+</section>
+<section class="detail" id="search_ids/4">
+
+    <span id="search_ids/2"></span>
+
+    <span id="search_ids/3"></span>
+
+  <div class="detail-header">
+    <a href="#search_ids/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">search_ids(string, opts, calculate_facets \\ [], filter_facets \\ %{})</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_search/blob/main/lib/search.ex#L73" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Search and return just IDs + metadata (no struct transformation).
+Categorizes results into post IDs and user IDs for separate loading.</p>
   </section>
 </section>
 
