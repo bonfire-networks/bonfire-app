@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - ✨ Feature Proposal: link seen/read status (of messages or notifications) to the account rather than the user [#1775](https://github.com/bonfire-networks/bonfire-app/issues/1775) (thanks @mayel)
 - ✨ Feature Proposal: settings to show the first post in thread above replies in feed instead of (or above) the reply being replied to [#1714](https://github.com/bonfire-networks/bonfire-app/issues/1714) (thanks @mayel and @ivanminutillo)
+- ✨ Grouped notifications dont allow to see all the users grouped [#1682](https://github.com/bonfire-networks/bonfire-app/issues/1682) (thanks @ivanminutillo and @mayel)
 - ✨ Add a preview for poll activity [#1363](https://github.com/bonfire-networks/bonfire-app/issues/1363) (thanks @ivanminutillo)
 - ✨ Feature Proposal: setting to toggle whether to show the post being replied to when replies are shown in feeds [#1359](https://github.com/bonfire-networks/bonfire-app/issues/1359) (thanks @mayel)
 - ✨ Add new CORS paths for openid and oauth token [PR #9](https://github.com/bonfire-networks/bonfire_ui_common/pull/9) (thanks @mediaformat)
@@ -30,5 +31,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 tauri WIP [`6f3d343`](https://github.com/bonfire-networks/bonfire-app/commit/6f3d343edc6e51010aac9c710069321a89418d54) (thanks @mayel)
 
 ### Fixed
+- 🐛 Fix search results broken previews using standard feed preload [#1797](https://github.com/bonfire-networks/bonfire-app/issues/1797) (thanks @ivanminutillo)
+- 🐛 Avatar in feed appears slowly, sometimes few seconds after the activity becomes visible on the screen [#1577](https://github.com/bonfire-networks/bonfire-app/issues/1577) (thanks @ivanminutillo)
 - 🐛 fix prep of migrations in bare metal prod [`92c018e`](https://github.com/bonfire-networks/bonfire-app/commit/92c018ea3d13f3ba4410852ce0df6f38471a365b) (thanks @mayel)
 
