@@ -24,6 +24,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 💅 doc/DEPLOY.md: Guix guide: Adapt for latest release. [PR #1768](https://github.com/bonfire-networks/bonfire-app/pull/1768) (thanks @fishinthecalculator)
 - 📝 COMPILE_ALL_LOCALES [`2c1cc66`](https://github.com/bonfire-networks/bonfire-app/commit/2c1cc66bfc66b22ab2c7ffc7937091749096cab9) (thanks @mayel)
 - 🚧 Bonfire Load Test Results [#1789](https://github.com/bonfire-networks/bonfire-app/issues/1789) [`e0627b2`](https://github.com/bonfire-networks/bonfire-app/commit/e0627b24d9b52794176bba4c20b7da1b82d06b68) (thanks @mayel and @ivanminutillo)
+- 🚧 Push notifications in desktop app [#1800](https://github.com/bonfire-networks/bonfire-app/issues/1800) [`f51f101`](https://github.com/bonfire-networks/bonfire-app/commit/f51f10166227c99ff384493d8c0ee59a8a5f88fc), [`172dfd1`](https://github.com/bonfire-networks/bonfire-app/commit/172dfd1fa9e72f568d377e24a08686a4decf0408) (thanks @mayel)
 - 🚧 Mastodon-compatible API [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) [`f1c4a62`](https://github.com/bonfire-networks/bonfire-app/commit/f1c4a62ebea62316b11b3777ce1c3b8f1fb4e716) (thanks @ivanminutillo and @mayel)
 - 📝 justfile [`2afc9de`](https://github.com/bonfire-networks/bonfire-app/commit/2afc9debd36dceaabcf488591bbe39f8e983744a) (thanks @ivanminutillo)
 - 📝 nitpick: Fix typo in DEPLOY.md for admin command [`6fc13f9`](https://github.com/bonfire-networks/bonfire-app/commit/6fc13f9fd3946b5f78fdf89715b27c6522cb95e3) (thanks @bailey-coding)
