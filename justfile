@@ -29,6 +29,7 @@ APP_DOCKER_REPO_ALT := "ghcr.io/bonfire-networks/bonfire-app"
 ARCH_JUST := arch()
 NUM_CPU := num_cpus()
 ARCH := if ARCH_JUST == "x86_64" { "amd64" } else { ARCH_JUST }
+BORE_SERVER := env_var_or_default('BORE_SERVER', "dev.bonfire.cafe")
 APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO + ":latest-" + FLAVOUR + "-" + ARCH)
 DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "17-3.5") 
 # NOTE: we currently only use features available in Postgres 12+, though a more recent version is recommended if possible
@@ -1262,7 +1263,12 @@ nix-db-init: (nix-db "start")
 # to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
 # and run this in seperate terminal to start the above tunnel: `just tunnel`
 
-tunnel: tunnel-serveo
+tunnel port: 
+	just tunnel-bore {{port}}
+# tunnel: tunnel-serveo
+
+@tunnel-bore port:
+	bore local 4000 --to {{BORE_SERVER}} --port {{port}} --secret ${BORE_SECRET}
 
 @tunnel-localhost-run:
 	echo "NOTE: you'll need to copy the generated domain name that will be printed below into HOSTNAME in your .env"

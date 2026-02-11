@@ -1,6 +1,6 @@
 //! SSE-based notification listener for real-time push from the Bonfire server.
 //!
-//! Connects to the server's `/api/v1/streaming` SSE endpoint after login,
+//! Connects to the server's `/api/v1-bonfire/streaming` SSE endpoint after login,
 //! delivers OS-native notifications, and emits Tauri events so webviews
 //! can refresh. Auto-reconnects on connection drops (built into
 //! `reqwest-eventsource`). Stopped on logout via a `tokio::sync::watch` channel.
@@ -62,7 +62,7 @@ async fn sse_loop(
     mut cancel_rx: watch::Receiver<bool>,
 ) {
     let url = format!(
-        "{}/api/v1/streaming?stream=user:notification",
+        "{}/api/v1-bonfire/streaming?stream=user:notification",
         instance_url.trim_end_matches('/')
     );
 
