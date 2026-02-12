@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.24">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.25">
 
 
-    <title>Bonfire.API.MastoCompat.Mappers.List — Bonfire v1.0.2-social-alpha.24</title>
+    <title>Bonfire.API.MastoCompat.Mappers.List — Bonfire v1.0.2-social-alpha.25</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.24
+          v1.0.2-social-alpha.25
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.API.MastoCompat.Mappers.List</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.24)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.25)</small>
 
     </h1>
 
@@ -155,14 +155,14 @@ content organization. This module maps them to the Mastodon List API format.</p>
   <section class="docstring">
 
 <p>Converts a Bonfire Circle to a Mastodon List format.</p><p>Returns <code class="inline">nil</code> if the input is nil, invalid, or fails validation.</p><p>Supports both Ecto struct format and GraphQL response format:</p><h2 id="from_circle/1-examples" class="section-heading"><a href="#from_circle/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Ecto struct format</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">from_circle</span><span class="p" data-group-id="4419854651-1">(</span><span class="p" data-group-id="4419854651-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4419854651-3">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="4419854651-3">}</span><span class="p" data-group-id="4419854651-2">}</span><span class="p" data-group-id="4419854651-1">)</span><span class="w">
-</span><span class="p" data-group-id="4419854651-4">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;title&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="4419854651-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">from_circle</span><span class="p" data-group-id="0155514530-1">(</span><span class="p" data-group-id="0155514530-2">%{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">named</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0155514530-3">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="0155514530-3">}</span><span class="p" data-group-id="0155514530-2">}</span><span class="p" data-group-id="0155514530-1">)</span><span class="w">
+</span><span class="p" data-group-id="0155514530-4">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;title&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="0155514530-4">}</span><span class="w">
 
 </span><span class="c1"># GraphQL response format</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">from_circle</span><span class="p" data-group-id="4419854651-5">(</span><span class="p" data-group-id="4419854651-6">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="4419854651-6">}</span><span class="p" data-group-id="4419854651-5">)</span><span class="w">
-</span><span class="p" data-group-id="4419854651-7">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;title&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="4419854651-7">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">from_circle</span><span class="p" data-group-id="0155514530-5">(</span><span class="p" data-group-id="0155514530-6">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="0155514530-6">}</span><span class="p" data-group-id="0155514530-5">)</span><span class="w">
+</span><span class="p" data-group-id="0155514530-7">%{</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;title&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Friends&quot;</span><span class="p" data-group-id="0155514530-7">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">from_circle</span><span class="p" data-group-id="4419854651-8">(</span><span class="no">nil</span><span class="p" data-group-id="4419854651-8">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">from_circle</span><span class="p" data-group-id="0155514530-8">(</span><span class="no">nil</span><span class="p" data-group-id="0155514530-8">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
