@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.25">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.26">
 
 
-    <title>Bonfire.Boundaries.Controlleds — Bonfire v1.0.2-social-alpha.25</title>
+    <title>Bonfire.Boundaries.Controlleds — Bonfire v1.0.2-social-alpha.26</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-28376ACB.js"></script>
+    <script defer src="dist/sidebar_items-DFBF9C0F.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.25
+          v1.0.2-social-alpha.26
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Boundaries.Controlleds</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.25)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.26)</small>
 
     </h1>
 
@@ -184,6 +184,16 @@ Only call this as an admin or curator of the object.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#list_objects_with_followers_grants/1" data-no-tooltip="" translate="no">list_objects_with_followers_grants(object_ids)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks which objects have grants to the followers stereotype circle.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#list_on_object/2" data-no-tooltip="" translate="no">list_on_object(object, opts \\ [])</a>
 
       </div>
@@ -200,6 +210,26 @@ Only call this as an admin or curator of the object.</p></div>
       </div>
 
         <div class="summary-synopsis"><p>Lists ACLs applied to the given objects by the subject (current_user).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_preset_acl_ids_on_object/1" data-no-tooltip="" translate="no">list_preset_acl_ids_on_object(object)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the set of ACL IDs for a single object, for visibility detection.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#list_preset_acl_ids_on_objects/1" data-no-tooltip="" translate="no">list_preset_acl_ids_on_objects(objects)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Lists all preset ACL IDs applied to each object, for visibility detection.</p></div>
 
     </div>
 
@@ -228,6 +258,16 @@ Only call this as an admin or curator of the object.</p></div>
       </div>
 
         <div class="summary-synopsis"><p>Lists subjects who have been granted a given verb on specified object(s).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#object_has_followers_grant?/1" data-no-tooltip="" translate="no">object_has_followers_grant?(object_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if a single object has a grant to the followers stereotype circle.</p></div>
 
     </div>
 
@@ -273,7 +313,7 @@ Only call this as an admin or curator of the object.</p></div>
       <h1 class="signature" translate="no">add_acls(object, acl)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L379" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L475" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -282,8 +322,8 @@ Only call this as an admin or curator of the object.</p></div>
 
   <section class="docstring">
 
-<p>Adds the given ACL to an object.</p><h2 id="add_acls/2-examples" class="section-heading"><a href="#add_acls/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">add_acls</span><span class="p" data-group-id="6072588202-1">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="ss">:acl</span><span class="p" data-group-id="6072588202-1">)</span><span class="w">
-</span><span class="p" data-group-id="6072588202-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6072588202-3">%</span><span class="nc" data-group-id="6072588202-3">Controlled</span><span class="p" data-group-id="6072588202-3">{</span><span class="p" data-group-id="6072588202-3">}</span><span class="p" data-group-id="6072588202-2">}</span></code></pre>
+<p>Adds the given ACL to an object.</p><h2 id="add_acls/2-examples" class="section-heading"><a href="#add_acls/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">add_acls</span><span class="p" data-group-id="8064184449-1">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="ss">:acl</span><span class="p" data-group-id="8064184449-1">)</span><span class="w">
+</span><span class="p" data-group-id="8064184449-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8064184449-3">%</span><span class="nc" data-group-id="8064184449-3">Controlled</span><span class="p" data-group-id="8064184449-3">{</span><span class="p" data-group-id="8064184449-3">}</span><span class="p" data-group-id="8064184449-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="changeset/2">
@@ -307,8 +347,8 @@ Only call this as an admin or curator of the object.</p></div>
 
   <section class="docstring">
 
-<p>Returns a changeset for a <code class="inline">Controlled</code> with the given attributes.</p><h2 id="changeset/2-examples" class="section-heading"><a href="#changeset/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="1479789000-1">(</span><span class="p" data-group-id="1479789000-2">%</span><span class="nc" data-group-id="1479789000-2">Controlled</span><span class="p" data-group-id="1479789000-2">{</span><span class="p" data-group-id="1479789000-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1479789000-3">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="1479789000-3">}</span><span class="p" data-group-id="1479789000-1">)</span><span class="w">
-</span><span class="p" data-group-id="1479789000-4">%</span><span class="nc" data-group-id="1479789000-4">Ecto.Changeset</span><span class="p" data-group-id="1479789000-4">{</span><span class="p" data-group-id="1479789000-4">}</span></code></pre>
+<p>Returns a changeset for a <code class="inline">Controlled</code> with the given attributes.</p><h2 id="changeset/2-examples" class="section-heading"><a href="#changeset/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">changeset</span><span class="p" data-group-id="8382488776-1">(</span><span class="p" data-group-id="8382488776-2">%</span><span class="nc" data-group-id="8382488776-2">Controlled</span><span class="p" data-group-id="8382488776-2">{</span><span class="p" data-group-id="8382488776-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8382488776-3">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="8382488776-3">}</span><span class="p" data-group-id="8382488776-1">)</span><span class="w">
+</span><span class="p" data-group-id="8382488776-4">%</span><span class="nc" data-group-id="8382488776-4">Ecto.Changeset</span><span class="p" data-group-id="8382488776-4">{</span><span class="p" data-group-id="8382488776-4">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="create/1">
@@ -330,8 +370,8 @@ Only call this as an admin or curator of the object.</p></div>
 
   <section class="docstring">
 
-<p>Creates a <code class="inline">Controlled</code> record with the given attributes.</p><h2 id="create/1-examples" class="section-heading"><a href="#create/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create</span><span class="p" data-group-id="7412311037-1">(</span><span class="p" data-group-id="7412311037-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="7412311037-2">}</span><span class="p" data-group-id="7412311037-1">)</span><span class="w">
-</span><span class="p" data-group-id="7412311037-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7412311037-4">%</span><span class="nc" data-group-id="7412311037-4">Controlled</span><span class="p" data-group-id="7412311037-4">{</span><span class="p" data-group-id="7412311037-4">}</span><span class="p" data-group-id="7412311037-3">}</span></code></pre>
+<p>Creates a <code class="inline">Controlled</code> record with the given attributes.</p><h2 id="create/1-examples" class="section-heading"><a href="#create/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">create</span><span class="p" data-group-id="9473618200-1">(</span><span class="p" data-group-id="9473618200-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="9473618200-2">}</span><span class="p" data-group-id="9473618200-1">)</span><span class="w">
+</span><span class="p" data-group-id="9473618200-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9473618200-4">%</span><span class="nc" data-group-id="9473618200-4">Controlled</span><span class="p" data-group-id="9473618200-4">{</span><span class="p" data-group-id="9473618200-4">}</span><span class="p" data-group-id="9473618200-3">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_preset_on_object/1">
@@ -353,8 +393,8 @@ Only call this as an admin or curator of the object.</p></div>
 
   <section class="docstring">
 
-<p>Gets a preset ACL applied to an object, if any.</p><h2 id="get_preset_on_object/1-examples" class="section-heading"><a href="#get_preset_on_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_preset_on_object</span><span class="p" data-group-id="7773165572-1">(</span><span class="n">object</span><span class="p" data-group-id="7773165572-1">)</span><span class="w">
-</span><span class="p" data-group-id="7773165572-2">%</span><span class="nc" data-group-id="7773165572-2">ACL</span><span class="p" data-group-id="7773165572-2">{</span><span class="p" data-group-id="7773165572-2">}</span></code></pre>
+<p>Gets a preset ACL applied to an object, if any.</p><h2 id="get_preset_on_object/1-examples" class="section-heading"><a href="#get_preset_on_object/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">get_preset_on_object</span><span class="p" data-group-id="1220288003-1">(</span><span class="n">object</span><span class="p" data-group-id="1220288003-1">)</span><span class="w">
+</span><span class="p" data-group-id="1220288003-2">%</span><span class="nc" data-group-id="1220288003-2">ACL</span><span class="p" data-group-id="1220288003-2">{</span><span class="p" data-group-id="1220288003-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="grant_role/4">
@@ -369,7 +409,7 @@ Only call this as an admin or curator of the object.</p></div>
       <h1 class="signature" translate="no">grant_role(subject_id, object, role, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L402" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L498" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -378,8 +418,8 @@ Only call this as an admin or curator of the object.</p></div>
 
   <section class="docstring">
 
-<p>Grants a role to a subject for an object.</p><h2 id="grant_role/4-examples" class="section-heading"><a href="#grant_role/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">grant_role</span><span class="p" data-group-id="5456021882-1">(</span><span class="n">subject_id</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="ss">:editor</span><span class="p" data-group-id="5456021882-1">)</span><span class="w">
-</span><span class="p" data-group-id="5456021882-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5456021882-3">%</span><span class="nc" data-group-id="5456021882-3">Grant</span><span class="p" data-group-id="5456021882-3">{</span><span class="p" data-group-id="5456021882-3">}</span><span class="p" data-group-id="5456021882-2">}</span></code></pre>
+<p>Grants a role to a subject for an object.</p><h2 id="grant_role/4-examples" class="section-heading"><a href="#grant_role/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">grant_role</span><span class="p" data-group-id="5932499456-1">(</span><span class="n">subject_id</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="ss">:editor</span><span class="p" data-group-id="5932499456-1">)</span><span class="w">
+</span><span class="p" data-group-id="5932499456-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5932499456-3">%</span><span class="nc" data-group-id="5932499456-3">Grant</span><span class="p" data-group-id="5932499456-3">{</span><span class="p" data-group-id="5932499456-3">}</span><span class="p" data-group-id="5932499456-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_acls_on_object/2">
@@ -404,8 +444,8 @@ Only call this as an admin or curator of the object.</p></div>
   <section class="docstring">
 
 <p>Lists ACLs applied to an object.
-Only call this as an admin or curator of the object.</p><h2 id="list_acls_on_object/2-examples" class="section-heading"><a href="#list_acls_on_object/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_acls_on_object</span><span class="p" data-group-id="7742933189-1">(</span><span class="n">object</span><span class="p" data-group-id="7742933189-1">)</span><span class="w">
-</span><span class="p" data-group-id="7742933189-2">[</span><span class="p" data-group-id="7742933189-3">%</span><span class="nc" data-group-id="7742933189-3">Acl</span><span class="p" data-group-id="7742933189-3">{</span><span class="p" data-group-id="7742933189-3">}</span><span class="p" data-group-id="7742933189-2">]</span></code></pre>
+Only call this as an admin or curator of the object.</p><h2 id="list_acls_on_object/2-examples" class="section-heading"><a href="#list_acls_on_object/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_acls_on_object</span><span class="p" data-group-id="5767557269-1">(</span><span class="n">object</span><span class="p" data-group-id="5767557269-1">)</span><span class="w">
+</span><span class="p" data-group-id="5767557269-2">[</span><span class="p" data-group-id="5767557269-3">%</span><span class="nc" data-group-id="5767557269-3">Acl</span><span class="p" data-group-id="5767557269-3">{</span><span class="p" data-group-id="5767557269-3">}</span><span class="p" data-group-id="5767557269-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_grants_by_verbs/3">
@@ -429,9 +469,32 @@ Only call this as an admin or curator of the object.</p><h2 id="list_acls_on_obj
 
   <section class="docstring">
 
-<p>Lists grants of a given verb on specified object(s).</p><h2 id="list_grants_by_verbs/3-examples" class="section-heading"><a href="#list_grants_by_verbs/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_grants_by_verbs</span><span class="p" data-group-id="4889632775-1">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p" data-group-id="4889632775-1">)</span><span class="w">
+<p>Lists grants of a given verb on specified object(s).</p><h2 id="list_grants_by_verbs/3-examples" class="section-heading"><a href="#list_grants_by_verbs/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_grants_by_verbs</span><span class="p" data-group-id="6646786223-1">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p" data-group-id="6646786223-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">list_grants_by_verbs</span><span class="p" data-group-id="4889632775-2">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:edit</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="4889632775-2">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">list_grants_by_verbs</span><span class="p" data-group-id="6646786223-2">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:edit</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="6646786223-2">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_objects_with_followers_grants/1">
+
+  <div class="detail-header">
+    <a href="#list_objects_with_followers_grants/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list_objects_with_followers_grants(object_ids)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L394" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Checks which objects have grants to the followers stereotype circle.</p><p>Used to distinguish Mastodon &quot;private&quot; (followers + mentions) from &quot;direct&quot; (mentions only)
+when an object has no preset ACLs.</p><p>Returns a <a href="https://hexdocs.pm/elixir/MapSet.html"><code class="inline">MapSet</code></a> of object IDs that have at least one grant targeting the followers circle.</p>
   </section>
 </section>
 <section class="detail" id="list_on_object/2">
@@ -456,8 +519,8 @@ Only call this as an admin or curator of the object.</p><h2 id="list_acls_on_obj
   <section class="docstring">
 
 <p>Lists ALL boundaries (ACLs and grants) applied to an object.
-Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2-examples" class="section-heading"><a href="#list_on_object/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_on_object</span><span class="p" data-group-id="1071395493-1">(</span><span class="n">object</span><span class="p" data-group-id="1071395493-1">)</span><span class="w">
-</span><span class="p" data-group-id="1071395493-2">[</span><span class="p" data-group-id="1071395493-3">%</span><span class="nc" data-group-id="1071395493-3">Boundary</span><span class="p" data-group-id="1071395493-3">{</span><span class="p" data-group-id="1071395493-3">}</span><span class="p" data-group-id="1071395493-2">]</span></code></pre>
+Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2-examples" class="section-heading"><a href="#list_on_object/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_on_object</span><span class="p" data-group-id="8126575422-1">(</span><span class="n">object</span><span class="p" data-group-id="8126575422-1">)</span><span class="w">
+</span><span class="p" data-group-id="8126575422-2">[</span><span class="p" data-group-id="8126575422-3">%</span><span class="nc" data-group-id="8126575422-3">Boundary</span><span class="p" data-group-id="8126575422-3">{</span><span class="p" data-group-id="8126575422-3">}</span><span class="p" data-group-id="8126575422-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_on_objects_by_subject/2">
@@ -479,8 +542,54 @@ Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2
 
   <section class="docstring">
 
-<p>Lists ACLs applied to the given objects by the subject (current_user).</p><h2 id="list_on_objects_by_subject/2-examples" class="section-heading"><a href="#list_on_objects_by_subject/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_on_objects_by_subject</span><span class="p" data-group-id="3170447910-1">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="n">current_user</span><span class="p" data-group-id="3170447910-1">)</span><span class="w">
-</span><span class="p" data-group-id="3170447910-2">%{</span><span class="n">object1_id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="3170447910-3">[</span><span class="p" data-group-id="3170447910-4">%</span><span class="nc" data-group-id="3170447910-4">Acl</span><span class="p" data-group-id="3170447910-4">{</span><span class="p" data-group-id="3170447910-4">}</span><span class="p" data-group-id="3170447910-3">]</span><span class="p">,</span><span class="w"> </span><span class="n">object2_id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="3170447910-5">[</span><span class="p" data-group-id="3170447910-6">%</span><span class="nc" data-group-id="3170447910-6">Acl</span><span class="p" data-group-id="3170447910-6">{</span><span class="p" data-group-id="3170447910-6">}</span><span class="p" data-group-id="3170447910-5">]</span><span class="p" data-group-id="3170447910-2">}</span></code></pre>
+<p>Lists ACLs applied to the given objects by the subject (current_user).</p><h2 id="list_on_objects_by_subject/2-examples" class="section-heading"><a href="#list_on_objects_by_subject/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_on_objects_by_subject</span><span class="p" data-group-id="4998436528-1">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="n">current_user</span><span class="p" data-group-id="4998436528-1">)</span><span class="w">
+</span><span class="p" data-group-id="4998436528-2">%{</span><span class="n">object1_id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="4998436528-3">[</span><span class="p" data-group-id="4998436528-4">%</span><span class="nc" data-group-id="4998436528-4">Acl</span><span class="p" data-group-id="4998436528-4">{</span><span class="p" data-group-id="4998436528-4">}</span><span class="p" data-group-id="4998436528-3">]</span><span class="p">,</span><span class="w"> </span><span class="n">object2_id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="4998436528-5">[</span><span class="p" data-group-id="4998436528-6">%</span><span class="nc" data-group-id="4998436528-6">Acl</span><span class="p" data-group-id="4998436528-6">{</span><span class="p" data-group-id="4998436528-6">}</span><span class="p" data-group-id="4998436528-5">]</span><span class="p" data-group-id="4998436528-2">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list_preset_acl_ids_on_object/1">
+
+  <div class="detail-header">
+    <a href="#list_preset_acl_ids_on_object/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list_preset_acl_ids_on_object(object)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L366" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns the set of ACL IDs for a single object, for visibility detection.</p>
+  </section>
+</section>
+<section class="detail" id="list_preset_acl_ids_on_objects/1">
+
+  <div class="detail-header">
+    <a href="#list_preset_acl_ids_on_objects/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">list_preset_acl_ids_on_objects(objects)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L349" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Lists all preset ACL IDs applied to each object, for visibility detection.</p><p>Unlike <a href="#list_presets_on_objects/1"><code class="inline">list_presets_on_objects/1</code></a> which returns one &quot;best&quot; ACL per object,
+this returns the full set of ACL IDs, enabling set-based visibility matching
+(e.g., distinguishing &quot;public&quot; from &quot;unlisted&quot; by checking for remote interaction ACLs).</p><p>Returns <code class="inline">%{object_id =&gt; MapSet.t(acl_id)}</code>.</p>
   </section>
 </section>
 <section class="detail" id="list_presets_on_objects/1">
@@ -502,8 +611,8 @@ Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2
 
   <section class="docstring">
 
-<p>Lists presets ACLs applied to the given objects.</p><h2 id="list_presets_on_objects/1-examples" class="section-heading"><a href="#list_presets_on_objects/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_presets_on_objects</span><span class="p" data-group-id="1073014479-1">(</span><span class="n">objects</span><span class="p" data-group-id="1073014479-1">)</span><span class="w">
-</span><span class="p" data-group-id="1073014479-2">%{</span><span class="n">object_id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="1073014479-3">%</span><span class="nc" data-group-id="1073014479-3">Preset</span><span class="p" data-group-id="1073014479-3">{</span><span class="p" data-group-id="1073014479-3">}</span><span class="p" data-group-id="1073014479-2">}</span></code></pre>
+<p>Lists presets ACLs applied to the given objects.</p><h2 id="list_presets_on_objects/1-examples" class="section-heading"><a href="#list_presets_on_objects/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_presets_on_objects</span><span class="p" data-group-id="3367862694-1">(</span><span class="n">objects</span><span class="p" data-group-id="3367862694-1">)</span><span class="w">
+</span><span class="p" data-group-id="3367862694-2">%{</span><span class="n">object_id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="3367862694-3">%</span><span class="nc" data-group-id="3367862694-3">Preset</span><span class="p" data-group-id="3367862694-3">{</span><span class="p" data-group-id="3367862694-3">}</span><span class="p" data-group-id="3367862694-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_q/1">
@@ -551,9 +660,31 @@ Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2
 
   <section class="docstring">
 
-<p>Lists subjects who have been granted a given verb on specified object(s).</p><h2 id="list_subjects_by_verb/3-examples" class="section-heading"><a href="#list_subjects_by_verb/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_subjects_by_verb</span><span class="p" data-group-id="3015542587-1">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p" data-group-id="3015542587-1">)</span><span class="w">
+<p>Lists subjects who have been granted a given verb on specified object(s).</p><h2 id="list_subjects_by_verb/3-examples" class="section-heading"><a href="#list_subjects_by_verb/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">list_subjects_by_verb</span><span class="p" data-group-id="3590326648-1">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:read</span><span class="p" data-group-id="3590326648-1">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">list_subjects_by_verb</span><span class="p" data-group-id="3015542587-2">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:edit</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="3015542587-2">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">list_subjects_by_verb</span><span class="p" data-group-id="3590326648-2">(</span><span class="n">objects</span><span class="p">,</span><span class="w"> </span><span class="ss">:edit</span><span class="p">,</span><span class="w"> </span><span class="no">false</span><span class="p" data-group-id="3590326648-2">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="object_has_followers_grant?/1">
+
+  <div class="detail-header">
+    <a href="#object_has_followers_grant?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">object_has_followers_grant?(object_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L418" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if a single object has a grant to the followers stereotype circle.</p>
   </section>
 </section>
 <section class="detail" id="remove_acls/2">
@@ -566,7 +697,7 @@ Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2
       <h1 class="signature" translate="no">remove_acls(object, acls)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L347" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L443" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -575,7 +706,7 @@ Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2
 
   <section class="docstring">
 
-<p>Removes the given ACLs from an object.</p><h2 id="remove_acls/2-examples" class="section-heading"><a href="#remove_acls/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">remove_acls</span><span class="p" data-group-id="3150911030-1">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">acls</span><span class="p" data-group-id="3150911030-1">)</span></code></pre>
+<p>Removes the given ACLs from an object.</p><h2 id="remove_acls/2-examples" class="section-heading"><a href="#remove_acls/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">remove_acls</span><span class="p" data-group-id="3675685911-1">(</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">acls</span><span class="p" data-group-id="3675685911-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="remove_all_acls/1">
@@ -588,7 +719,7 @@ Only call this as an admin or curator of the object.</p><h2 id="list_on_object/2
       <h1 class="signature" translate="no">remove_all_acls(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L360" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_boundaries/blob/main/lib/controlleds.ex#L456" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
