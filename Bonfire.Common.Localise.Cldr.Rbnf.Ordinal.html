@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.28">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.29">
 
 
-    <title>Bonfire.Common.Localise.Cldr.Rbnf.Ordinal — Bonfire v1.0.2-social-alpha.28</title>
+    <title>Bonfire.Common.Localise.Cldr.Rbnf.Ordinal — Bonfire v1.0.2-social-alpha.29</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.28
+          v1.0.2-social-alpha.29
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.28)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.29)</small>
 
     </h1>
 
@@ -95,20 +95,20 @@ Bonfire
     <section id="moduledoc">
 <p>Functions to implement the ordinal rule-based-number-format rules of CLDR.</p><p>As CLDR notes, the data is incomplete or non-existent for many languages.  It
 is considered complete for English however.</p><p>The standard public API for RBNF is via the <a href="https://hexdocs.pm/ex_cldr_numbers/2.37.0/Cldr.Number.html#to_string/2"><code class="inline">Cldr.Number.to_string/2</code></a> function.</p><p>The functions on this module are defined at compile time based upon the RBNF rules
-defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="3072280019-1">(</span><span class="ss">:en</span><span class="p" data-group-id="3072280019-1">)</span><span class="w">
-</span><span class="p" data-group-id="3072280019-2">[</span><span class="ss">:digits_ordinal</span><span class="p" data-group-id="3072280019-2">]</span><span class="w">
+defined in the Unicode CLDR data repository.  Available rules are identified by:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="8137293664-1">(</span><span class="ss">:en</span><span class="p" data-group-id="8137293664-1">)</span><span class="w">
+</span><span class="p" data-group-id="8137293664-2">[</span><span class="ss">:digits_ordinal</span><span class="p" data-group-id="8137293664-2">]</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="3072280019-3">(</span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="3072280019-3">)</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="3072280019-4">(</span><span class="p" data-group-id="3072280019-4">)</span><span class="w">
-</span><span class="p" data-group-id="3072280019-5">[</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span><span class="o">.</span><span class="n">rule_sets</span><span class="p" data-group-id="8137293664-3">(</span><span class="s">&quot;fr&quot;</span><span class="p" data-group-id="8137293664-3">)</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p" data-group-id="8137293664-4">(</span><span class="p" data-group-id="8137293664-4">)</span><span class="w">
+</span><span class="p" data-group-id="8137293664-5">[</span><span class="w">
   </span><span class="ss">:digits_ordinal</span><span class="p">,</span><span class="w">
   </span><span class="ss">:digits_ordinal_feminine</span><span class="p">,</span><span class="w">
   </span><span class="ss">:digits_ordinal_feminine_plural</span><span class="p">,</span><span class="w">
   </span><span class="ss">:digits_ordinal_masculine</span><span class="p">,</span><span class="w">
   </span><span class="ss">:digits_ordinal_masculine_plural</span><span class="w">
-</span><span class="p" data-group-id="3072280019-5">]</span></code></pre><p>A rule can then be invoked on an available rule_set.  For example</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span><span class="o">.</span><span class="n">digits_ordinal</span><span class="p" data-group-id="9977401884-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="9977401884-1">)</span><span class="w">
-</span><span class="s">&quot;123rd&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="4597389691-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:ordinal</span><span class="p" data-group-id="4597389691-1">)</span><span class="w">
-</span><span class="p" data-group-id="4597389691-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123rd&quot;</span><span class="p" data-group-id="4597389691-2">}</span></code></pre>
+</span><span class="p" data-group-id="8137293664-5">]</span></code></pre><p>A rule can then be invoked on an available rule_set.  For example</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Rbnf.Ordinal</span><span class="o">.</span><span class="n">digits_ordinal</span><span class="p" data-group-id="4724220539-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">:en</span><span class="p" data-group-id="4724220539-1">)</span><span class="w">
+</span><span class="s">&quot;123rd&quot;</span></code></pre><p>This call is equivalent to the call through the public API of:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Localise.Cldr.Number</span><span class="o">.</span><span class="n">to_string</span><span class="p" data-group-id="8435451217-1">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="ss">format</span><span class="p">:</span><span class="w"> </span><span class="ss">:ordinal</span><span class="p" data-group-id="8435451217-1">)</span><span class="w">
+</span><span class="p" data-group-id="8435451217-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123rd&quot;</span><span class="p" data-group-id="8435451217-2">}</span></code></pre>
     </section>
 
 </div>
