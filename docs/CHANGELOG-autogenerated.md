@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Grouped notifications dont allow to see all the users grouped [#1682](https://github.com/bonfire-networks/bonfire-app/issues/1682) (thanks @ivanminutillo and @mayel)
 - ✨ Add a preview for poll activity [#1363](https://github.com/bonfire-networks/bonfire-app/issues/1363) (thanks @ivanminutillo)
 - ✨ Feature Proposal: setting to toggle whether to show the post being replied to when replies are shown in feeds [#1359](https://github.com/bonfire-networks/bonfire-app/issues/1359) (thanks @mayel)
+- ✨ Browse feeds by media [#830](https://github.com/bonfire-networks/bonfire-app/issues/830) (thanks @mayel)
+- ✨ Use Cmd + enter to publish a post [#397](https://github.com/bonfire-networks/bonfire-app/issues/397) (thanks @ivanminutillo and @sefsh)
 - ✨ Add new CORS paths for openid and oauth token [PR #9](https://github.com/bonfire-networks/bonfire_ui_common/pull/9) (thanks @mediaformat)
 - ✅ tests [`d9dfde9`](https://github.com/bonfire-networks/bonfire-app/commit/d9dfde95f2b0423d9dfd3ccd95125746527bde83) (thanks @mayel)
 
@@ -33,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 - 🐛 Fix search results broken previews using standard feed preload [#1797](https://github.com/bonfire-networks/bonfire-app/issues/1797) (thanks @ivanminutillo)
+- 🐛 Sorting replies in flat mode (as opposed to threaded) shows wrong avatar [#1608](https://github.com/bonfire-networks/bonfire-app/issues/1608) (thanks @ccamara, @mayel, and @ivanminutillo)
 - 🐛 Avatar in feed appears slowly, sometimes few seconds after the activity becomes visible on the screen [#1577](https://github.com/bonfire-networks/bonfire-app/issues/1577) (thanks @ivanminutillo)
 - 🐛 fix prep of migrations in bare metal prod [`92c018e`](https://github.com/bonfire-networks/bonfire-app/commit/92c018ea3d13f3ba4410852ce0df6f38471a365b) (thanks @mayel)
 
