@@ -187,7 +187,7 @@ You can run this at the prompt `bin/bonfire remote` to enter Elixir's iex enviro
 
 4. If that worked, start the app as a daemon to it stays running in the background: `just rel-run-bg`
 
-> Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index.
+> Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index as well.
 
 
 ### Bare-metal
