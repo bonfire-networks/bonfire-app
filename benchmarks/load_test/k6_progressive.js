@@ -7,6 +7,7 @@
 //
 // Options:
 //   HOST     - Target host (default: localhost:4000)
+//   PAGE     - Target page (default: /feed)
 //   COOKIE   - Session cookie value (required)
 //   HTTPS    - Set to "1" for https (default: http)
 //   VUS      - Number of concurrent users (default: 50)
@@ -28,6 +29,7 @@ const feedErrors = new Counter("bonfire_feed_errors");
 
 // Config from environment
 const host = __ENV.HOST || "localhost:4000";
+const page = __ENV.PAGE || "/feed";
 const cookie = __ENV.COOKIE;
 const https = __ENV.HTTPS === "1";
 const protocol = https ? "https" : "http";
@@ -50,14 +52,14 @@ export const options = {
 
 export function setup() {
   if (!cookie) {
-    console.error(
-      "COOKIE env var required. Get it from browser DevTools (copy _bonfire_key value)."
+    console.warn(
+      "Will connect as guest because no COOKIE env var found. Get it from browser DevTools (copy _bonfire_key value) if you want to connect as a user."
     );
-    return { error: "no_cookie" };
-  }
+    // return { error: "no_cookie" };
+  } 
 
   // Test connection
-  const testRes = http.get(`${protocol}://${host}/feed/explore`, {
+  const testRes = http.get(`${protocol}://${host}/${page}`, {
     cookies: { _bonfire_key: cookie },
   });
 
@@ -84,7 +86,7 @@ export default function (data) {
 
   // Load feed/explore page
   const startFeed = Date.now();
-  const feedRes = http.get(`${protocol}://${host}/feed/explore`, {
+  const feedRes = http.get(`${protocol}://${host}/feed`, {
     cookies: { _bonfire_key: cookie },
     tags: { name: "feed_explore" },
   });
@@ -93,6 +95,7 @@ export default function (data) {
 
   const feedOk = check(feedRes, {
     "feed status 200": (r) => r.status === 200,
+    "feed includes an activity": (r) => r.body && r.body.includes(`data-id="activity"`),
     "feed is liveview": (r) => r.body && r.body.includes("phx-"),
   });
 
