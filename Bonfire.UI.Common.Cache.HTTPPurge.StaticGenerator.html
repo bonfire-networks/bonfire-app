@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.30">
+
+
+    <title>Bonfire.UI.Common.Cache.HTTPPurge.StaticGenerator — Bonfire v1.0.2-social-alpha.30</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-089BA984.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.2-social-alpha.30
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.UI.Common.Cache.HTTPPurge.StaticGenerator</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.30)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/static_generator/http_purge_static_generator.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>HTTP cache purge adapter for <a href="./Bonfire.UI.Common.StaticGenerator.html"><code class="inline">Bonfire.UI.Common.StaticGenerator</code></a>.</p><p>Deletes pre-generated static HTML files from disk so they are re-generated
+on the next request. Pairs with <a href="./Bonfire.UI.Common.MaybeStaticGeneratorPlug.html"><code class="inline">Bonfire.UI.Common.MaybeStaticGeneratorPlug</code></a>,
+which writes the static file when this adapter is active and the response
+carries a <code class="inline">surrogate-key</code> header (i.e. <code class="inline">purgeable: true</code>).</p><h2 id="module-how-it-maps-purge-calls-to-files" class="section-heading"><a href="#module-how-it-maps-purge-calls-to-files" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">How it maps purge calls to files</span></h2><ul><li><a href="#bust_urls/1"><code class="inline">bust_urls/1</code></a> — deletes <code class="inline">&lt;dest&gt;/&lt;url&gt;/index.html</code> for each URL path.</li><li><a href="#bust_tags/1"><code class="inline">bust_tags/1</code></a> — treats each tag as a path prefix and deletes all
+<code class="inline">index.html</code> files under <code class="inline">&lt;dest&gt;/&lt;tag&gt;/**</code>.</li></ul><p>The destination path is read from <a href="./Bonfire.UI.Common.StaticGenerator.html#dest_path/0"><code class="inline">Bonfire.UI.Common.StaticGenerator.dest_path/0</code></a>
+so both modules always agree on where files are stored.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bust_tags/1" data-no-tooltip="" translate="no">bust_tags(tags)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes all cached static files whose path starts with the given tag,
+and evicts matching memory cache entries.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bust_urls/1" data-no-tooltip="" translate="no">bust_urls(urls)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes the cached static file and any memory cache entry for each URL path.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="bust_tags/1">
+
+  <div class="detail-header">
+    <a href="#bust_tags/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">bust_tags(tags)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/static_generator/http_purge_static_generator.ex#L60" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes all cached static files whose path starts with the given tag,
+and evicts matching memory cache entries.</p><p>Tags are treated as URL path prefixes, so <code class="inline">&quot;gen_avatar&quot;</code> purges all cached
+avatar files, and <code class="inline">&quot;gen_avatar/alice&quot;</code> purges just Alice's cached avatar.</p>
+  </section>
+</section>
+<section class="detail" id="bust_urls/1">
+
+  <div class="detail-header">
+    <a href="#bust_urls/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">bust_urls(urls)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_ui_common/blob/main/lib/static_generator/http_purge_static_generator.ex#L31" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes the cached static file and any memory cache entry for each URL path.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
