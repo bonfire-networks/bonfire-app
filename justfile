@@ -1102,12 +1102,13 @@ shell:
 @docker-cmd cmd="docker" *args='':
 	#!/usr/bin/env bash
 	export $(./tool-versions-to-env.sh 3 | xargs)
+	ELIXIR_VERSION_CLEAN="${ELIXIR_VERSION%%-otp-*}"
 	if [ "$ARCH" = "arm32v7" ]; then
 		ERLANG_VERSION_MAJOR="${ERLANG_VERSION%%.*}"
-		export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION}-otp-${ERLANG_VERSION_MAJOR}-alpine"
+		export ELIXIR_DOCKER_IMAGE="arm32v7/elixir:${ELIXIR_VERSION_CLEAN}-otp-${ERLANG_VERSION_MAJOR}-alpine"
 		export RUSTLER_BUILD_ALL="true"
 	else
-		export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
+		export ELIXIR_DOCKER_IMAGE="hexpm/elixir:${ELIXIR_VERSION_CLEAN}-erlang-${ERLANG_VERSION}-alpine-${ALPINE_VERSION}"
 	fi
 	echo $ELIXIR_DOCKER_IMAGE
 	{{cmd}} {{args}}
