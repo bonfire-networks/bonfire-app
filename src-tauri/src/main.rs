@@ -5,6 +5,7 @@ mod layout;
 mod notifications;
 mod state;
 
+use std::collections::HashMap;
 use std::sync::Mutex;
 
 use layout::{LayoutManager, LayoutMode};
@@ -155,6 +156,58 @@ async fn stop_notifications(
     Ok(())
 }
 
+/// Show an OS notification from the webview (WebKit doesn't support Web Notifications).
+#[tauri::command]
+async fn show_notification(app: tauri::AppHandle, title: String, body: String) -> Result<(), String> {
+    use tauri_plugin_notification::NotificationExt;
+    app.notification()
+        .builder()
+        .title(&title)
+        .body(&body)
+        .show()
+        .map_err(|e: tauri_plugin_notification::Error| e.to_string())
+}
+
+/// HTTP fetch via Rust (bypasses WebKit network restrictions).
+/// Returns a JSON object with status, headers, and body.
+#[tauri::command]
+async fn fetch_url(
+    url: String,
+    method: Option<String>,
+    headers: HashMap<String, String>,
+    body: Option<String>,
+) -> Result<serde_json::Value, String> {
+    let client = reqwest::Client::new();
+    let m = method.as_deref().unwrap_or("GET");
+    let mut req = match m {
+        "POST" => client.post(&url),
+        "PUT" => client.put(&url),
+        "PATCH" => client.patch(&url),
+        "DELETE" => client.delete(&url),
+        "HEAD" => client.head(&url),
+        _ => client.get(&url),
+    };
+    for (k, v) in &headers {
+        req = req.header(k.as_str(), v.as_str());
+    }
+    if let Some(b) = body {
+        req = req.body(b);
+    }
+    let res = req.send().await.map_err(|e| e.to_string())?;
+    let status = res.status().as_u16();
+    let resp_headers: HashMap<String, String> = res
+        .headers()
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.to_str().unwrap_or("").to_string()))
+        .collect();
+    let body = res.text().await.map_err(|e| e.to_string())?;
+    Ok(serde_json::json!({
+        "status": status,
+        "headers": resp_headers,
+        "body": body
+    }))
+}
+
 // ── Tray menu ───────────────────────────────────────────────────────────────
 
 /// Builds the system tray menu with layout mode selection.
@@ -243,16 +296,19 @@ fn main() {
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_openmls::init())
         .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_http::init())
         .invoke_handler(tauri::generate_handler![
             open_secure_chat,
             get_layout_mode,
             set_layout_mode,
             switch_tab,
             get_active_tab,
+            show_notification,
             split_resize_start,
             split_resize_end,
             start_notifications,
             stop_notifications,
+            fetch_url,
         ])
         .setup(move |app| {
             // Load preferences and determine layout mode

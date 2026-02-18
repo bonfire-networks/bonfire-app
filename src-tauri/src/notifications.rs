@@ -41,8 +41,10 @@ impl NotificationListener {
     pub fn start(app: tauri::AppHandle, instance_url: String, token: String) -> Self {
         let (cancel_tx, cancel_rx) = watch::channel(false);
 
+        eprintln!("[SSE] Starting notification listener for {}", instance_url);
         tauri::async_runtime::spawn(async move {
             sse_loop(app, instance_url, token, cancel_rx).await;
+            eprintln!("[SSE] Notification listener task exited");
         });
 
         Self { cancel_tx }
@@ -50,6 +52,7 @@ impl NotificationListener {
 
     /// Signals the background task to stop.
     pub fn stop(&self) {
+        eprintln!("[SSE] Stopping notification listener");
         let _ = self.cancel_tx.send(true);
     }
 }
@@ -66,6 +69,7 @@ async fn sse_loop(
         instance_url.trim_end_matches('/')
     );
 
+    eprintln!("[SSE] Connecting to {}", url);
     let client = reqwest::Client::new();
     let mut es = client
         .get(&url)
@@ -77,6 +81,7 @@ async fn sse_loop(
         tokio::select! {
             _ = cancel_rx.changed() => {
                 if *cancel_rx.borrow() {
+                    eprintln!("[SSE] Cancel signal received, closing connection");
                     es.close();
                     break;
                 }
@@ -84,25 +89,35 @@ async fn sse_loop(
             event = es.next() => {
                 match event {
                     Some(Ok(Event::Open)) => {
-                        log::info!("SSE connection opened to {}", url);
+                        eprintln!("[SSE] Connection opened to {}", url);
                     }
                     Some(Ok(Event::Message(msg))) => {
+                        eprintln!("[SSE] Received event: type={}, data_len={}", msg.event, msg.data.len());
                         handle_sse_message(&app, &msg.event, &msg.data);
                     }
                     Some(Err(err)) => {
-                        log::warn!("SSE error: {}", err);
+                        eprintln!("[SSE] Error: {:?}", err);
                         // reqwest-eventsource will auto-reconnect for
                         // retryable errors; close on fatal ones
-                        if let reqwest_eventsource::Error::InvalidStatusCode(status, _) = &err {
-                            if status.as_u16() == 401 || status.as_u16() == 403 {
-                                log::error!("SSE auth failed ({}), stopping", status);
+                        match &err {
+                            reqwest_eventsource::Error::InvalidStatusCode(status, resp) => {
+                                eprintln!("[SSE] Status: {}, headers: {:?}", status, resp.headers());
+                                if status.as_u16() == 401 || status.as_u16() == 403 {
+                                    eprintln!("[SSE] Auth failed ({}), stopping", status);
+                                    es.close();
+                                    break;
+                                }
+                            }
+                            reqwest_eventsource::Error::InvalidContentType(_, resp) => {
+                                eprintln!("[SSE] Wrong content-type, headers: {:?}", resp.headers());
                                 es.close();
                                 break;
                             }
+                            _ => {}
                         }
                     }
                     None => {
-                        // Stream ended
+                        eprintln!("[SSE] Stream ended (None)");
                         break;
                     }
                 }
@@ -115,26 +130,38 @@ async fn sse_loop(
 fn handle_sse_message(app: &tauri::AppHandle, event_type: &str, data: &str) {
     match event_type {
         "notification" => {
-            if let Ok(payload) = serde_json::from_str::<NotificationPayload>(data) {
-                let title = payload.title.as_deref().unwrap_or("Bonfire");
-                let body = payload.body.as_deref().unwrap_or("");
+            match serde_json::from_str::<NotificationPayload>(data) {
+                Ok(payload) => {
+                    let title = payload.title.as_deref().unwrap_or("Bonfire");
+                    let body = payload.body.as_deref().unwrap_or("");
+                    eprintln!("[SSE] Notification: title={:?}, body={:?}", title, body);
 
-                // OS notification
-                let _ = app
-                    .notification()
-                    .builder()
-                    .title(title)
-                    .body(body)
-                    .show();
+                    // OS notification
+                    if let Err(e) = app
+                        .notification()
+                        .builder()
+                        .title(title)
+                        .body(body)
+                        .show()
+                    {
+                        eprintln!("[SSE] Failed to show OS notification: {}", e);
+                    }
 
-                // Tauri event for webview refresh
-                let _ = app.emit("new-notification", data);
+                    // Tauri event for webview refresh
+                    let _ = app.emit("new-notification", data);
+                }
+                Err(e) => {
+                    eprintln!("[SSE] Failed to parse notification payload: {} — data: {}", e, data);
+                }
             }
         }
         "message" => {
+            eprintln!("[SSE] Message event: {}", data);
             // Tauri event for chat webview refresh
             let _ = app.emit("new-message", data);
         }
-        _ => {}
+        other => {
+            eprintln!("[SSE] Unknown event type: {} — data: {}", other, data);
+        }
     }
 }
