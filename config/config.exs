@@ -109,16 +109,9 @@ end
 # Optionally run a 2nd endpoint for testing federation (only used in dev/prod)
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   server: true,
-  url: [
-    host: "localhost",
-    port: 4002
-  ],
-  http: [
-    port: 4002
-  ],
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
   live_view: endpoint_live_view,
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
+  pubsub_server: Bonfire.Common.PubSub
 
 config :bonfire, :markdown_library, MDEx
 
@@ -145,7 +138,7 @@ config :bonfire, Bonfire.Common.Repo, types: Bonfire.Geolocate.PostgresTypes
 
 config :bonfire, Bonfire.Common.TestInstanceRepo,
   types: Bonfire.Geolocate.PostgresTypes,
-  database: "bonfire_test_dance_instance_#{System.get_env("MIX_TEST_PARTITION") || 0}"
+  database: "bonfire_#{env}_dance_instance_#{System.get_env("MIX_TEST_PARTITION") || 0}"
 
 # priv: flavour_path <> "/repo"
 
@@ -190,9 +183,13 @@ config :nx, default_backend: EXLA.Backend
 Code.eval_file(
   "mime_types.ex",
   cond do
-    File.exists?("extensions/bonfire_files/lib/mime_types.ex") -> "extensions/bonfire_files/lib/"
-    File.exists?("deps/bonfire_files/lib/mime_types.ex") -> "deps/bonfire_files/lib/"
-    true -> 
+    File.exists?("extensions/bonfire_files/lib/mime_types.ex") ->
+      "extensions/bonfire_files/lib/"
+
+    File.exists?("deps/bonfire_files/lib/mime_types.ex") ->
+      "deps/bonfire_files/lib/"
+
+    true ->
       # fallback in case the extension is not present
       Path.dirname(__ENV__.file)
   end
@@ -200,7 +197,7 @@ Code.eval_file(
 
 config :mime,
        :types,
-         Bonfire.Files.MimeTypes.supported_media()
+       Bonfire.Files.MimeTypes.supported_media()
 
 # define which is preferred when more than one
 config :mime, :extensions, Bonfire.Files.MimeTypes.unique_extension_for_mime()

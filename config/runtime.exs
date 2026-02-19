@@ -85,7 +85,7 @@ end
 
 phx_server = System.get_env("PHX_SERVER")
 plug_server = System.get_env("PLUG_SERVER")
-use_cowboy? = plug_server != "bandit"
+use_cowboy? = plug_server == "cowboy"
 use_socket_file? = plug_server == "cowboy_socket"
 socket_file_path = System.get_env("SOCKET_FILE_PATH", "/tmp/bonfire_socket")
 phx_compress? = System.get_env("PHX_COMPRESS_HTTP") not in no?
@@ -152,6 +152,27 @@ config :bonfire, Bonfire.Web.Endpoint,
   thousand_island: [transport_ports: [hibernate_after: to_timeout(second: 15)]],
   secret_key_base: secret_key_base,
   live_view: [signing_salt: signing_salt]
+
+if test_instance? do
+  test_instance_hostname = System.get_env("TEST_INSTANCE_HOSTNAME", "localhost")
+
+  test_instance_server_port =
+    String.to_integer(System.get_env("TEST_INSTANCE_SERVER_PORT", "4002"))
+
+  config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
+    url: [
+      host: test_instance_hostname,
+      port:
+        if(test_instance_hostname != "localhost",
+          do: public_port,
+          else: test_instance_server_port
+        )
+    ],
+    http: [
+      port: test_instance_server_port
+    ],
+    secret_key_base: secret_key_base
+end
 
 # HTTP client(s) configuration
 

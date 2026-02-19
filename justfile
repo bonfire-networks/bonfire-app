@@ -300,6 +300,34 @@ dev-profile-iex profile:
 dev-federate:
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
 
+# Run two federated dev instances (for testing federation locally without tunnels)
+dev-federate-dance: services
+	TEST_INSTANCE=yes FEDERATE=yes HOT_CODE_RELOAD=0 just dev
+
+# Run a federated dev instance with a bore tunnel
+dev-federate-tunnel bore_port="1": (_dev-federate-tunneled bore_port)
+
+# Run two federated dev instances with bore tunnels
+dev-federate-tunnel-dance bore_port1="1" bore_port2="2": (_dev-federate-tunneled bore_port1 bore_port2 "dance")
+
+dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-dance bore_port1 bore_port2)
+
+# Drop the dance instance DB (so it gets re-created and re-migrated on next startup)
+dev-dance-db-down:
+	TEST_INSTANCE=yes just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo
+
+_dev-federate-tunneled bore_port1="1" bore_port2="2" mode='': services
+	#!/usr/bin/env bash
+	trap 'kill 0' EXIT
+	just tunnel-bore {{bore_port1}} &
+	if [ "{{mode}}" = "dance" ]; then
+		just tunnel-bore {{bore_port2}} ${TEST_INSTANCE_SERVER_PORT:-4002} &
+		export TEST_INSTANCE=yes
+		export TEST_INSTANCE_HOSTNAME="{{bore_port2}}.{{BORE_SERVER}}"
+	fi
+	HOSTNAME="{{bore_port1}}.{{BORE_SERVER}}" PUBLIC_PORT=443 \
+		FEDERATE=yes HOT_CODE_RELOAD=0 just dev
+
 dev-docker *args='': docker-stop-web
 	just docker-compose {{args}} run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
 
@@ -1264,12 +1292,13 @@ nix-db-init: (nix-db "start")
 # to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
 # and run this in seperate terminal to start the above tunnel: `just tunnel`
 
-tunnel port: 
-	just tunnel-bore {{port}}
+tunnel port local_port='4000':
+	just tunnel-bore {{port}} {{local_port}}
 # tunnel: tunnel-serveo
 
-@tunnel-bore port:
-	bore local 4000 --to {{BORE_SERVER}} --port {{port}} --secret ${BORE_SECRET}
+# port will match the resulting subdomain, eg. port 1 will result in https://1.dev.bonfire.cafe
+@tunnel-bore port local_port='4000':
+	bore local {{local_port}} --to {{BORE_SERVER}} --port {{port}} --secret ${BORE_SECRET}
 
 @tunnel-localhost-run:
 	echo "NOTE: you'll need to copy the generated domain name that will be printed below into HOSTNAME in your .env"
