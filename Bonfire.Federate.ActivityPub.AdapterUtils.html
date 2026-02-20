@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-128A7658.js"></script>
+    <script defer src="dist/sidebar_items-9810955D.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -337,6 +337,14 @@ Bonfire
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#get_followers/3" data-no-tooltip="" translate="no">get_followers(actor_or_character, purpose_or_current_actor \\ nil, preload \\ nil)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_followers/4" data-no-tooltip="" translate="no">get_followers(actor, purpose_or_current_actor, preload, extra_opts)</a>
 
       </div>
 
@@ -710,7 +718,7 @@ Bonfire
       <h1 class="signature" translate="no">actor_collection(actor_id, collection)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1053" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1061" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -736,7 +744,7 @@ Bonfire
       <h1 class="signature" translate="no">all_activity_recipients(activity_data, object_data \\ nil, fields \\ [:to, :bto, :cc, :bcc, :audience])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L458" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L466" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -806,7 +814,7 @@ Bonfire
       <h1 class="signature" translate="no">all_object_recipients(activity_or_object, fields \\ [:to, :bto, :cc, :bcc, :audience])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L468" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L476" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -850,7 +858,7 @@ Bonfire
       <h1 class="signature" translate="no">ap_incoming_interaction_policy_to_circle_roles(activity, interaction_policy)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1696" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1704" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -860,13 +868,13 @@ Bonfire
   <section class="docstring">
 
 <p>Converts an interaction_policy map to a list of {circle_name, role} tuples.</p><p>Only known verbs and circles are included. Supports multiple circles per verb.
-Looks up followers/following URLs from the actor object if present.</p><p>Handles the special case: if automaticApproval contains only the author's identifier, this means &quot;nobody can&quot; and emits a negative role for all local users.</p><h2 id="ap_incoming_interaction_policy_to_circle_roles/2-examples" class="section-heading"><a href="#ap_incoming_interaction_policy_to_circle_roles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">interaction_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5082693615-1">%{</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="s">&quot;canLike&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5082693615-2">%{</span><span class="s">&quot;automaticApproval&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5082693615-3">[</span><span class="s">&quot;https://www.w3.org/ns/activitystreams#Public&quot;</span><span class="p" data-group-id="5082693615-3">]</span><span class="p" data-group-id="5082693615-2">}</span><span class="p">,</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="s">&quot;canReply&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5082693615-4">%{</span><span class="s">&quot;automaticApproval&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;https://example.org/users/someone/followers&quot;</span><span class="p" data-group-id="5082693615-4">}</span><span class="p">,</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="s">&quot;canQuote&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="5082693615-5">%{</span><span class="s">&quot;automaticApproval&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;https://example.org/users/someone&quot;</span><span class="p" data-group-id="5082693615-5">}</span><span class="w">
-</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="5082693615-1">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_incoming_interaction_policy_to_circle_roles</span><span class="p" data-group-id="5082693615-6">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">interaction_policy</span><span class="p" data-group-id="5082693615-6">)</span><span class="w">
-</span><span class="p" data-group-id="5082693615-7">[</span><span class="w"> </span><span class="p" data-group-id="5082693615-8">{</span><span class="ss">:guest</span><span class="p">,</span><span class="w"> </span><span class="ss">:react</span><span class="p" data-group-id="5082693615-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5082693615-9">{</span><span class="ss">:followers</span><span class="p">,</span><span class="w"> </span><span class="ss">:participate</span><span class="p" data-group-id="5082693615-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5082693615-10">{</span><span class="ss">:local</span><span class="p">,</span><span class="w"> </span><span class="ss">:cannot_critique</span><span class="p" data-group-id="5082693615-10">}</span><span class="w"> </span><span class="p" data-group-id="5082693615-7">]</span></code></pre>
+Looks up followers/following URLs from the actor object if present.</p><p>Handles the special case: if automaticApproval contains only the author's identifier, this means &quot;nobody can&quot; and emits a negative role for all local users.</p><h2 id="ap_incoming_interaction_policy_to_circle_roles/2-examples" class="section-heading"><a href="#ap_incoming_interaction_policy_to_circle_roles/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">interaction_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7177454691-1">%{</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="s">&quot;canLike&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="7177454691-2">%{</span><span class="s">&quot;automaticApproval&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="7177454691-3">[</span><span class="s">&quot;https://www.w3.org/ns/activitystreams#Public&quot;</span><span class="p" data-group-id="7177454691-3">]</span><span class="p" data-group-id="7177454691-2">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="s">&quot;canReply&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="7177454691-4">%{</span><span class="s">&quot;automaticApproval&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;https://example.org/users/someone/followers&quot;</span><span class="p" data-group-id="7177454691-4">}</span><span class="p">,</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="w">  </span><span class="s">&quot;canQuote&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="7177454691-5">%{</span><span class="s">&quot;automaticApproval&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;https://example.org/users/someone&quot;</span><span class="p" data-group-id="7177454691-5">}</span><span class="w">
+</span><span class="gp unselectable">...&gt; </span><span class="p" data-group-id="7177454691-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">ap_incoming_interaction_policy_to_circle_roles</span><span class="p" data-group-id="7177454691-6">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">interaction_policy</span><span class="p" data-group-id="7177454691-6">)</span><span class="w">
+</span><span class="p" data-group-id="7177454691-7">[</span><span class="w"> </span><span class="p" data-group-id="7177454691-8">{</span><span class="ss">:guest</span><span class="p">,</span><span class="w"> </span><span class="ss">:react</span><span class="p" data-group-id="7177454691-8">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7177454691-9">{</span><span class="ss">:followers</span><span class="p">,</span><span class="w"> </span><span class="ss">:participate</span><span class="p" data-group-id="7177454691-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7177454691-10">{</span><span class="ss">:local</span><span class="p">,</span><span class="w"> </span><span class="ss">:cannot_critique</span><span class="p" data-group-id="7177454691-10">}</span><span class="w"> </span><span class="p" data-group-id="7177454691-7">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="ap_prepare_outgoing_interaction_policy/3">
@@ -881,7 +889,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">ap_prepare_outgoing_interaction_policy(subject, object, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1769" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1777" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -905,7 +913,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">apply_fun_style(fallback_module \\ __MODULE__, fun, args)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1044" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1052" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -927,7 +935,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">character_id_from_actor(actor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1864" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1878" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -949,7 +957,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">character_module(struct)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1402" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1410" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -971,7 +979,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">character_to_actor(character)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1002" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1010" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -993,7 +1001,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">create_author_object(map)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1529" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1537" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1015,7 +1023,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">create_remote_actor(actor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1246" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1254" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1037,7 +1045,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">fetch_pointer_for_ap_id(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L595" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L603" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1061,7 +1069,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">format_actor(user_etc, type \\ &quot;Person&quot;)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1062" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1070" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1085,7 +1093,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_actor_by_ap_id(ap_id, local_instance \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L712" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L720" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1129,7 +1137,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_author(author)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1543" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1551" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1153,7 +1161,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_by_url_ap_id_or_username(q, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L733" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L741" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1289,7 +1297,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_context_ap_id(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L988" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L996" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1311,7 +1319,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_creator_ap_id(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L967" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L975" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1333,7 +1341,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_different_creator_ap_id(character)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L981" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L989" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1359,7 +1367,29 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_followers(actor_or_character, purpose_or_current_actor \\ nil, preload \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1843" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1851" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_followers/4">
+
+  <div class="detail-header">
+    <a href="#get_followers/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_followers(actor, purpose_or_current_actor, preload, extra_opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1864" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1381,7 +1411,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_in_reply_to(comment)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1471" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1479" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1403,7 +1433,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_local_actor_by_ap_id(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L727" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L735" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1449,7 +1479,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_object_ap_id(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1487" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1495" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1471,7 +1501,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_object_ap_id!(object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1507" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1515" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1493,7 +1523,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_object_or_actor_by_ap_id!(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L956" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L964" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1519,7 +1549,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_or_create_service_character(service_character_id \\ service_character_id(), service_character_username \\ service_character_username())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1632" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1640" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1543,7 +1573,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_or_fetch_and_create_by_uri(q, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L765" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L773" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1567,7 +1597,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_or_fetch_and_create_by_username(q, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L753" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L761" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1589,7 +1619,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_or_fetch_character_by_ap_id(actor_or_ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L692" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L700" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1613,7 +1643,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_or_fetch_pointable_by_ap_id(actor_or_ap_id, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L617" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L625" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1657,7 +1687,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">get_pointer_id_by_ap_id(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1514" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1522" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1679,7 +1709,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">id_or_object_id(id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L497" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L505" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1701,7 +1731,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">ids_or_object_ids(list)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L491" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L499" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1725,7 +1755,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">incoming_boundary_circles(activity, object, is_public? \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1642" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1650" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1747,7 +1777,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">is_follow?(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L567" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L575" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1881,7 +1911,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">local_actor_ids(actors)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L579" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L587" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1925,7 +1955,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_add_aliases(user_etc, aliases)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1382" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1390" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1947,7 +1977,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_attach_property_value(key, url)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1592" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1600" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1969,7 +1999,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_create_banner_object(url, actor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1564" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1572" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1991,7 +2021,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_create_icon_object(url, actor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1612" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1620" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2013,7 +2043,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_create_image_object(url, actor)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1570" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1578" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2035,7 +2065,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_fix_image_object(url)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1551" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1559" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2057,7 +2087,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_format_image_object_from_path(url)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1576" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1584" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2079,7 +2109,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">maybe_pointer_for_ap_id(ap_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L599" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L607" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2105,7 +2135,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">pointer_id_from_url(ap_id, local_instance \\ Adapter.base_url(), local_ap_url \\ ap_base_url())</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L663" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L671" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2195,7 +2225,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">recipients_boundary_circles(recipients, activity, is_public?, interaction_policy \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1656" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1664" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2219,7 +2249,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">return_pointable(f, opts \\ [skip_boundary_check: true])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L828" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L836" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2241,7 +2271,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">return_pointer(id, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L944" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L952" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -2309,7 +2339,7 @@ Looks up followers/following URLs from the actor object if present.</p><p>Handle
       <h1 class="signature" translate="no">set_list_follow_opts(purpose_or_current_actor, preload \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1867" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_federate_activitypub/blob/main/lib/adapter/adapter_utils.ex#L1881" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 

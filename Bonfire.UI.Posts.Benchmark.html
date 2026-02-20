@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-128A7658.js"></script>
+    <script defer src="dist/sidebar_items-9810955D.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -93,7 +93,7 @@ Bonfire
 
 
     <section id="moduledoc">
-<p>Benchmarks for the different ways a post page and its comments can be served.</p><p>Run from iex (make sure you have seed data or call <a href="#setup_posts/0"><code class="inline">setup_posts/0</code></a> first):</p><pre><code class="makeup elixir" translate="no"><span class="nc">Bonfire.UI.Posts.Benchmark</span><span class="o">.</span><span class="n">post_page</span><span class="p" data-group-id="9991252888-1">(</span><span class="p" data-group-id="9991252888-1">)</span></code></pre><p>The scenarios compared:</p><ul><li><code class="inline">:browser</code> pipeline — full render for an authenticated user (no cache)</li><li><code class="inline">:browser_or_cacheable</code>, dead render uncached — unauthenticated with ?cache=skip</li><li><code class="inline">:browser_or_cacheable</code>, cache miss — first unauthenticated request,
+<p>Benchmarks for the different ways a post page and its comments can be served.</p><p>Run from iex (make sure you have seed data or call <a href="#setup_posts/0"><code class="inline">setup_posts/0</code></a> first):</p><pre><code class="makeup elixir" translate="no"><span class="nc">Bonfire.UI.Posts.Benchmark</span><span class="o">.</span><span class="n">post_page</span><span class="p" data-group-id="9247556794-1">(</span><span class="p" data-group-id="9247556794-1">)</span></code></pre><p>The scenarios compared:</p><ul><li><code class="inline">:browser</code> pipeline — full render for an authenticated user (no cache)</li><li><code class="inline">:browser_or_cacheable</code>, dead render uncached — unauthenticated with ?cache=skip</li><li><code class="inline">:browser_or_cacheable</code>, cache miss — first unauthenticated request,
 LiveView dead render, writes to the StaticGenerator disk cache</li><li><code class="inline">:browser_or_cacheable</code>, disk cache hit — subsequent unauthenticated
 request served by Plug.Static from <code class="inline">priv/static/public</code></li><li><code class="inline">:browser_or_cacheable</code>, memory cache hit — same URL after being promoted
 to Cachex by MaybeStaticGeneratorPlug (threshold must be set)</li></ul><p>Each scenario is run for every input (post with N comments).</p><h1>TODO with CDN:</h1><ul><li><code class="inline">/post_comments/:id</code> (CDN-cacheable), cache miss — first unauthenticated

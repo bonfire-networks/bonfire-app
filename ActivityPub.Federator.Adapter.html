@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-128A7658.js"></script>
+    <script defer src="dist/sidebar_items-9810955D.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -126,7 +126,16 @@ Bonfire
 
       </div>
 
-        <div class="summary-synopsis"><p>Compute and return a subset of followers that should receive a specific activity (optional)</p></div>
+        <div class="summary-synopsis"><p>Compute and return a subset of followers that should receive a specific activity (optional).
+Accepts an optional <code class="inline">addressed_pointer_ids</code> list to exclude already-addressed recipients from lookups.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:external_followers_for_activity/3" data-no-tooltip="" translate="no">external_followers_for_activity(t, t, list)</a>
+
+      </div>
 
     </div>
 
@@ -192,6 +201,17 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#c:get_multi_tenant_context/0" data-no-tooltip="" translate="no">get_multi_tenant_context()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Captures multi-tenancy context from the current process for propagation into other processes (e.g. Cachex workers, Oban jobs).
+Returns an opaque map that can be passed to <a><code class="inline">set_multi_tenant_context/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#c:get_or_create_service_actor/0" data-no-tooltip="" translate="no">get_or_create_service_actor()</a>
 
       </div>
@@ -233,6 +253,16 @@ Bonfire
         <a href="#c:maybe_publish_object/2" data-no-tooltip="" translate="no">maybe_publish_object(t, t)</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#c:set_multi_tenant_context/1" data-no-tooltip="" translate="no">set_multi_tenant_context(term)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Restores multi-tenancy context (captured by <a><code class="inline">get_multi_tenant_context/0</code></a>) into the current process.</p></div>
 
     </div>
 
@@ -288,7 +318,7 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#external_followers_for_activity/2" data-no-tooltip="" translate="no">external_followers_for_activity(actor, activity)</a>
+        <a href="#external_followers_for_activity/3" data-no-tooltip="" translate="no">external_followers_for_activity(actor, activity, addressed_pointer_ids \\ [])</a>
 
       </div>
 
@@ -354,6 +384,14 @@ Bonfire
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#get_multi_tenant_context/0" data-no-tooltip="" translate="no">get_multi_tenant_context()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#get_or_create_service_actor/0" data-no-tooltip="" translate="no">get_or_create_service_actor()</a>
 
       </div>
@@ -395,6 +433,14 @@ Bonfire
     <div class="summary-row">
       <div class="summary-signature">
         <a href="#maybe_publish_object/2" data-no-tooltip="" translate="no">maybe_publish_object(object, opts \\ [])</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_multi_tenant_context/1" data-no-tooltip="" translate="no">set_multi_tenant_context(context)</a>
 
       </div>
 
@@ -486,7 +532,7 @@ Bonfire
         <span class="note">(optional)</span>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L169" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L170" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -501,7 +547,38 @@ Bonfire
 
       </div>
 
-<p>Compute and return a subset of followers that should receive a specific activity (optional)</p>
+<p>Compute and return a subset of followers that should receive a specific activity (optional).
+Accepts an optional <code class="inline">addressed_pointer_ids</code> list to exclude already-addressed recipients from lookups.</p>
+  </section>
+</section>
+<section class="detail" id="c:external_followers_for_activity/3">
+
+  <div class="detail-header">
+    <a href="#c:external_followers_for_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">external_followers_for_activity(t, t, list)</h1>
+
+        <span class="note">(optional)</span>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L171" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> external_followers_for_activity(List.t(), Map.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">list</a>()) :: List.t()</pre>
+
+      </div>
+
+
   </section>
 </section>
 <section class="detail" id="c:get_actor_by_ap_id/1">
@@ -660,7 +737,7 @@ Bonfire
       <h1 class="signature" translate="no">get_locale()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L181" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L190" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -676,6 +753,37 @@ Bonfire
       </div>
 
 <p>Get the default locale of the host application.</p>
+  </section>
+</section>
+<section class="detail" id="c:get_multi_tenant_context/0">
+
+  <div class="detail-header">
+    <a href="#c:get_multi_tenant_context/0" class="detail-link" data-no-tooltip="" aria-label="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_multi_tenant_context()</h1>
+
+        <span class="note">(optional)</span>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L224" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> get_multi_tenant_context() :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+
+      </div>
+
+<p>Captures multi-tenancy context from the current process for propagation into other processes (e.g. Cachex workers, Oban jobs).
+Returns an opaque map that can be passed to <a href="#set_multi_tenant_context/1"><code class="inline">set_multi_tenant_context/1</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="c:get_or_create_service_actor/0">
@@ -818,6 +926,36 @@ Bonfire
 
   </section>
 </section>
+<section class="detail" id="c:set_multi_tenant_context/1">
+
+  <div class="detail-header">
+    <a href="#c:set_multi_tenant_context/1" class="detail-link" data-no-tooltip="" aria-label="Link to this callback">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">set_multi_tenant_context(term)</h1>
+
+        <span class="note">(optional)</span>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L238" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@callback</span> set_multi_tenant_context(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()</pre>
+
+      </div>
+
+<p>Restores multi-tenancy context (captured by <a href="#get_multi_tenant_context/0"><code class="inline">get_multi_tenant_context/0</code></a>) into the current process.</p>
+  </section>
+</section>
 <section class="detail" id="c:update_local_actor/2">
 
   <div class="detail-header">
@@ -958,17 +1096,17 @@ Bonfire
 <p>Run function from adapter if defined, otherwise return fallback value</p>
   </section>
 </section>
-<section class="detail" id="external_followers_for_activity/2">
+<section class="detail" id="external_followers_for_activity/3">
 
   <div class="detail-header">
-    <a href="#external_followers_for_activity/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#external_followers_for_activity/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">external_followers_for_activity(actor, activity)</h1>
+      <h1 class="signature" translate="no">external_followers_for_activity(actor, activity, addressed_pointer_ids \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L170" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L172" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -994,7 +1132,7 @@ Bonfire
       <h1 class="signature" translate="no">federate_actor?(actor, direction \\ nil, by_actor \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L195" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L204" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1132,7 +1270,29 @@ by_actor: optionally another actor (eg. if Alice is sending something to Bob, th
       <h1 class="signature" translate="no">get_locale()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L182" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L191" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="get_multi_tenant_context/0">
+
+  <div class="detail-header">
+    <a href="#get_multi_tenant_context/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_multi_tenant_context()</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L225" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1280,6 +1440,28 @@ by_actor: optionally another actor (eg. if Alice is sending something to Bob, th
 
   </section>
 </section>
+<section class="detail" id="set_multi_tenant_context/1">
+
+  <div class="detail-header">
+    <a href="#set_multi_tenant_context/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">set_multi_tenant_context(context)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L239" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
 <section class="detail" id="transform_outgoing/3">
 
     <span id="transform_outgoing/1"></span>
@@ -1294,7 +1476,7 @@ by_actor: optionally another actor (eg. if Alice is sending something to Bob, th
       <h1 class="signature" translate="no">transform_outgoing(data, target_host \\ nil, target_actor_ids \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L203" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/federator/adapter.ex#L212" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
