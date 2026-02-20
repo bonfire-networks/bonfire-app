@@ -1343,3 +1343,4 @@ cloudron-secrets-generate location:
 	cloudron env set --app {{location}} SECRET_KEY_BASE="$(just rand)"
 	cloudron env set --app {{location}} SIGNING_SALT="$(just rand)"
 	cloudron env set --app {{location}} ENCRYPTION_SALT="$(just rand)"
+
