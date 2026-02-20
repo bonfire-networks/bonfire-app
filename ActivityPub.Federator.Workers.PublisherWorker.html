@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.31">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.32">
 
 
-    <title>ActivityPub.Federator.Workers.PublisherWorker — Bonfire v1.0.2-social-alpha.31</title>
+    <title>ActivityPub.Federator.Workers.PublisherWorker — Bonfire v1.0.2-social-alpha.32</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-8158129A.js"></script>
+    <script defer src="dist/sidebar_items-128A7658.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.31
+          v1.0.2-social-alpha.32
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">ActivityPub.Federator.Workers.PublisherWorker</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.31)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.32)</small>
 
     </h1>
 
@@ -223,15 +223,15 @@ Bonfire
 
   <section class="docstring">
 
-<p>Returns worker args with Oban's <code class="inline">scheduled_at</code> set if the activity's published date is in the future.</p><h2 id="maybe_schedule_worker_args/2-examples" class="section-heading"><a href="#maybe_schedule_worker_args/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="2421581505-1">(</span><span class="p" data-group-id="2421581505-1">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">future</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="2421581505-2">(</span><span class="n">now</span><span class="p">,</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span><span class="w"> </span><span class="ss">:second</span><span class="p" data-group-id="2421581505-2">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">to_iso8601</span><span class="p" data-group-id="2421581505-3">(</span><span class="p" data-group-id="2421581505-3">)</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2421581505-4">%{</span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="2421581505-5">%{</span><span class="s">&quot;published&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">future</span><span class="p" data-group-id="2421581505-5">}</span><span class="p" data-group-id="2421581505-4">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Federator.Workers.PublisherWorker</span><span class="o">.</span><span class="n">maybe_schedule_worker_args</span><span class="p" data-group-id="2421581505-6">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2421581505-7">[</span><span class="p" data-group-id="2421581505-7">]</span><span class="p" data-group-id="2421581505-6">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">has_key?</span><span class="p" data-group-id="2421581505-8">(</span><span class="ss">:scheduled_at</span><span class="p" data-group-id="2421581505-8">)</span><span class="w">
+<p>Returns worker args with Oban's <code class="inline">scheduled_at</code> set if the activity's published date is in the future.</p><h2 id="maybe_schedule_worker_args/2-examples" class="section-heading"><a href="#maybe_schedule_worker_args/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="0399666381-1">(</span><span class="p" data-group-id="0399666381-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">future</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">add</span><span class="p" data-group-id="0399666381-2">(</span><span class="n">now</span><span class="p">,</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span><span class="w"> </span><span class="ss">:second</span><span class="p" data-group-id="0399666381-2">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">to_iso8601</span><span class="p" data-group-id="0399666381-3">(</span><span class="p" data-group-id="0399666381-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0399666381-4">%{</span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="0399666381-5">%{</span><span class="s">&quot;published&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">future</span><span class="p" data-group-id="0399666381-5">}</span><span class="p" data-group-id="0399666381-4">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Federator.Workers.PublisherWorker</span><span class="o">.</span><span class="n">maybe_schedule_worker_args</span><span class="p" data-group-id="0399666381-6">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0399666381-7">[</span><span class="p" data-group-id="0399666381-7">]</span><span class="p" data-group-id="0399666381-6">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">has_key?</span><span class="p" data-group-id="0399666381-8">(</span><span class="ss">:scheduled_at</span><span class="p" data-group-id="0399666381-8">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2421581505-9">%{</span><span class="s">&quot;published&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="2421581505-10">(</span><span class="p" data-group-id="2421581505-10">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">to_iso8601</span><span class="p" data-group-id="2421581505-11">(</span><span class="p" data-group-id="2421581505-11">)</span><span class="p" data-group-id="2421581505-9">}</span><span class="w">
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Federator.Workers.PublisherWorker</span><span class="o">.</span><span class="n">maybe_schedule_worker_args</span><span class="p" data-group-id="2421581505-12">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2421581505-13">[</span><span class="p" data-group-id="2421581505-13">]</span><span class="p" data-group-id="2421581505-12">)</span><span class="w">
-</span><span class="p" data-group-id="2421581505-14">[</span><span class="p" data-group-id="2421581505-14">]</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0399666381-9">%{</span><span class="s">&quot;published&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">utc_now</span><span class="p" data-group-id="0399666381-10">(</span><span class="p" data-group-id="0399666381-10">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">.</span><span class="n">to_iso8601</span><span class="p" data-group-id="0399666381-11">(</span><span class="p" data-group-id="0399666381-11">)</span><span class="p" data-group-id="0399666381-9">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">ActivityPub.Federator.Workers.PublisherWorker</span><span class="o">.</span><span class="n">maybe_schedule_worker_args</span><span class="p" data-group-id="0399666381-12">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0399666381-13">[</span><span class="p" data-group-id="0399666381-13">]</span><span class="p" data-group-id="0399666381-12">)</span><span class="w">
+</span><span class="p" data-group-id="0399666381-14">[</span><span class="p" data-group-id="0399666381-14">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="perform/1">
