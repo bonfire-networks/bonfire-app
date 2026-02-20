@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 COMPILE_ALL_LOCALES [`2c1cc66`](https://github.com/bonfire-networks/bonfire-app/commit/2c1cc66bfc66b22ab2c7ffc7937091749096cab9) (thanks @mayel)
 - 📝 bench cookie and page url [`e02fb51`](https://github.com/bonfire-networks/bonfire-app/commit/e02fb512ed06b1d05a2fc69d53abe55cd5951a64) (thanks @mayel)
 - 📝 header and images [`74d7b11`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/74d7b11fad2675fe93e81ba83566c6adfef7ec7b) (thanks @ivanminutillo)
+- 🚧 proof of concept of MLS+ActivityPub key management [#1705](https://github.com/bonfire-networks/bonfire-app/issues/1705) [`bba0fd5`](https://github.com/bonfire-networks/bonfire-app/commit/bba0fd54dfeed973e549f3c812e1a7920612ebe8) (thanks @mayel)
 - 🚧 Add APIs for events [#1772](https://github.com/bonfire-networks/bonfire-app/issues/1772) [`8ce46a4`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/8ce46a4228d937483151cae9c12dda48e52a66f3), [`0bf2e80`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/0bf2e80d6b0fce73aea756e8ade5c8b0b1352233), [`5103ee2`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/5103ee2611192b458b6de70ff76889adddcdc244) (thanks @mayel)
 - 🚧 Bonfire Load Test Results [#1789](https://github.com/bonfire-networks/bonfire-app/issues/1789) [`5f63093`](https://github.com/bonfire-networks/bonfire-app/commit/5f63093620a200c0f125d1ab106020bf2d434294), [`e0627b2`](https://github.com/bonfire-networks/bonfire-app/commit/e0627b24d9b52794176bba4c20b7da1b82d06b68) (thanks @ivanminutillo and @mayel)
 - 🚧 Push notifications in desktop app [#1800](https://github.com/bonfire-networks/bonfire-app/issues/1800) [`17569f5`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/17569f52cd2e6a7bb086aa3c7d45af90c1b8115a), [`f51f101`](https://github.com/bonfire-networks/bonfire-app/commit/f51f10166227c99ff384493d8c0ee59a8a5f88fc), [`172dfd1`](https://github.com/bonfire-networks/bonfire-app/commit/172dfd1fa9e72f568d377e24a08686a4decf0408) (thanks @mayel)
@@ -45,6 +46,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 - 🐛 html tags visable in CW when federated to Mastodon [#1804](https://github.com/bonfire-networks/bonfire-app/issues/1804) (thanks @wakest and @ivanminutillo)
+- 🐛 On Mobile Dashboard Arrows Blocking Article Titles [#1798](https://github.com/bonfire-networks/bonfire-app/issues/1798) (thanks @btfreeorg and @ivanminutillo)
 - 🐛 Fix search results broken previews using standard feed preload [#1797](https://github.com/bonfire-networks/bonfire-app/issues/1797) (thanks @ivanminutillo)
 - 🐛 Sorting replies in flat mode (as opposed to threaded) shows wrong avatar [#1608](https://github.com/bonfire-networks/bonfire-app/issues/1608) (thanks @ccamara, @mayel, and @ivanminutillo)
 - 🐛 Avatar in feed appears slowly, sometimes few seconds after the activity becomes visible on the screen [#1577](https://github.com/bonfire-networks/bonfire-app/issues/1577) (thanks @ivanminutillo)
