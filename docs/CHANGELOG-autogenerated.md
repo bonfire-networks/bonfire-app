@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ when i follow a user, i receive a follow request notification that says that im following myself [#1814](https://github.com/bonfire-networks/bonfire-app/issues/1814) (thanks @ivanminutillo)
 - ✨ hook translate button under activities [#1809](https://github.com/bonfire-networks/bonfire-app/issues/1809) (thanks @ivanminutillo)
 - ✨ Feature Proposal: link seen/read status (of messages or notifications) to the account rather than the user [#1775](https://github.com/bonfire-networks/bonfire-app/issues/1775) (thanks @mayel)
 - ✨ Feature Proposal: settings to show the first post in thread above replies in feed instead of (or above) the reply being replied to [#1714](https://github.com/bonfire-networks/bonfire-app/issues/1714) (thanks @mayel and @ivanminutillo)
@@ -24,15 +25,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🚀 make sure EXIF metadata is always stripped from uploads [#1794](https://github.com/bonfire-networks/bonfire-app/issues/1794) (thanks @mayel)
 - 💅 in search results mentions adds a quote blank preview to the activity [#1760](https://github.com/bonfire-networks/bonfire-app/issues/1760) (thanks @ivanminutillo)
 - 📝 One-to-one e2ee messaging [#1738](https://github.com/bonfire-networks/bonfire-app/issues/1738) (thanks @mayel)
+- 📝 proof of concept of MLS+ActivityPub key management [#1705](https://github.com/bonfire-networks/bonfire-app/issues/1705) (thanks @mayel)
 - 📝 Use MRF for spam detection [#1049](https://github.com/bonfire-networks/bonfire-app/issues/1049) (thanks @mayel)
 - 🚀 maint/update(assets): fix yarn.lock [PR #10](https://github.com/bonfire-networks/bonfire_ui_common/pull/10) (thanks @ju1m)
 - 📝 nitpick: Fix typo in DEPLOY.md for admin command [PR #1792](https://github.com/bonfire-networks/bonfire-app/pull/1792) (thanks @bailey-coding)
 - 📝 nitpick: Remove duplicate 'application/x-bzip2' from mime types [PR #3](https://github.com/bonfire-networks/bonfire_files/pull/3) (thanks @bailey-coding)
 - 💅 doc/DEPLOY.md: Guix guide: Adapt for latest release. [PR #1768](https://github.com/bonfire-networks/bonfire-app/pull/1768) (thanks @fishinthecalculator)
+- 📝 . [`0d951a6`](https://github.com/bonfire-networks/bonfire-app/commit/0d951a64b48b78760359dc6fd0e810a4b14094a8) (thanks @mayel)
 - 📝 COMPILE_ALL_LOCALES [`2c1cc66`](https://github.com/bonfire-networks/bonfire-app/commit/2c1cc66bfc66b22ab2c7ffc7937091749096cab9) (thanks @mayel)
 - 📝 bench cookie and page url [`e02fb51`](https://github.com/bonfire-networks/bonfire-app/commit/e02fb512ed06b1d05a2fc69d53abe55cd5951a64) (thanks @mayel)
 - 📝 header and images [`74d7b11`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/74d7b11fad2675fe93e81ba83566c6adfef7ec7b) (thanks @ivanminutillo)
-- 🚧 proof of concept of MLS+ActivityPub key management [#1705](https://github.com/bonfire-networks/bonfire-app/issues/1705) [`bba0fd5`](https://github.com/bonfire-networks/bonfire-app/commit/bba0fd54dfeed973e549f3c812e1a7920612ebe8) (thanks @mayel)
+- 🚧 Prototype end-to-end encrypted messages [#1701](https://github.com/bonfire-networks/bonfire-app/issues/1701) [`fc0b6d4`](https://github.com/bonfire-networks/bonfire-app/commit/fc0b6d4f1a25e3943764be36b9189dfb15b30004) (thanks @mayel)
 - 🚧 Add APIs for events [#1772](https://github.com/bonfire-networks/bonfire-app/issues/1772) [`8ce46a4`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/8ce46a4228d937483151cae9c12dda48e52a66f3), [`0bf2e80`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/0bf2e80d6b0fce73aea756e8ade5c8b0b1352233), [`5103ee2`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/5103ee2611192b458b6de70ff76889adddcdc244) (thanks @mayel)
 - 🚧 Bonfire Load Test Results [#1789](https://github.com/bonfire-networks/bonfire-app/issues/1789) [`5f63093`](https://github.com/bonfire-networks/bonfire-app/commit/5f63093620a200c0f125d1ab106020bf2d434294), [`e0627b2`](https://github.com/bonfire-networks/bonfire-app/commit/e0627b24d9b52794176bba4c20b7da1b82d06b68) (thanks @ivanminutillo and @mayel)
 - 🚧 Push notifications in desktop app [#1800](https://github.com/bonfire-networks/bonfire-app/issues/1800) [`17569f5`](https://github.com/bonfire-networks/bonfire_api_graphql/commit/17569f52cd2e6a7bb086aa3c7d45af90c1b8115a), [`f51f101`](https://github.com/bonfire-networks/bonfire-app/commit/f51f10166227c99ff384493d8c0ee59a8a5f88fc), [`172dfd1`](https://github.com/bonfire-networks/bonfire-app/commit/172dfd1fa9e72f568d377e24a08686a4decf0408) (thanks @mayel)
@@ -45,10 +48,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 tauri WIP [`6f3d343`](https://github.com/bonfire-networks/bonfire-app/commit/6f3d343edc6e51010aac9c710069321a89418d54) (thanks @mayel)
 
 ### Fixed
+- 🐛 Replying to a CW Post should default to CW [#1805](https://github.com/bonfire-networks/bonfire-app/issues/1805) (thanks @btfreeorg and @ivanminutillo)
 - 🐛 html tags visable in CW when federated to Mastodon [#1804](https://github.com/bonfire-networks/bonfire-app/issues/1804) (thanks @wakest and @ivanminutillo)
 - 🐛 On Mobile Dashboard Arrows Blocking Article Titles [#1798](https://github.com/bonfire-networks/bonfire-app/issues/1798) (thanks @btfreeorg and @ivanminutillo)
 - 🐛 Fix search results broken previews using standard feed preload [#1797](https://github.com/bonfire-networks/bonfire-app/issues/1797) (thanks @ivanminutillo)
 - 🐛 Sorting replies in flat mode (as opposed to threaded) shows wrong avatar [#1608](https://github.com/bonfire-networks/bonfire-app/issues/1608) (thanks @ccamara, @mayel, and @ivanminutillo)
+- 🐛 default/flavour config is being overriden by instance settings instead of merged [#1604](https://github.com/bonfire-networks/bonfire-app/issues/1604) (thanks @mayel and @ivanminutillo)
 - 🐛 Avatar in feed appears slowly, sometimes few seconds after the activity becomes visible on the screen [#1577](https://github.com/bonfire-networks/bonfire-app/issues/1577) (thanks @ivanminutillo)
 - 🐛 Federated polls cause original post to be duplicated in the timeline [#1440](https://github.com/bonfire-networks/bonfire-app/issues/1440) (thanks @GreenMan-Network, @mayel, and @ivanminutillo)
 - 🐛 Some Mobilizon actors in search results appear with subject [#1337](https://github.com/bonfire-networks/bonfire-app/issues/1337) (thanks @ivanminutillo and @mayel)
