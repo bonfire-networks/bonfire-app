@@ -208,7 +208,7 @@ impl MultiWindowLayout {
 
         window
             .add_child(
-                WebviewBuilder::new("main-webview", WebviewUrl::App(url.into())),
+                super::main_webview_builder(url, app),
                 LogicalPosition::new(0.0, TITLE_BAR_HEIGHT),
                 LogicalSize::new(geom.width, geom.height - TITLE_BAR_HEIGHT),
             )

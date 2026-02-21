@@ -16,11 +16,35 @@ pub mod multi_window;
 pub mod split_pane;
 pub mod tab_based;
 
+use std::sync::Mutex;
+
 use serde::{Deserialize, Serialize};
 use tauri::webview::WebviewBuilder;
 use tauri::{LogicalPosition, LogicalSize, Manager, WebviewUrl};
 
 use crate::state::Preferences;
+
+/// Creates a main-webview builder with `on_navigation` that intercepts
+/// custom scheme links (mls://, ap-mls://, bonfire://) and routes them through
+/// the deep link handler instead of trying to load them as URLs.
+pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder<tauri::Wry> {
+    let app_handle = app.clone();
+    WebviewBuilder::new("main-webview", WebviewUrl::App(url.into())).on_navigation(move |url| {
+        let scheme = url.scheme();
+        if scheme == "mls" || scheme == "ap-mls" || scheme == "bonfire" {
+            let known = app_handle.state::<Mutex<crate::deep_link::KnownDomains>>();
+            let domains = known.lock().ok();
+            if let Some(payload) =
+                crate::deep_link::parse_url(&url.to_string(), domains.as_deref())
+            {
+                crate::deep_link::handle(&app_handle, &payload);
+            }
+            false
+        } else {
+            true
+        }
+    })
+}
 
 /// Height of the macOS overlay title bar drag region in logical pixels.
 /// In multi-window mode (no chrome bar), webviews start below this offset
@@ -342,10 +366,7 @@ impl LayoutManager {
             let w = size.width as f64 / scale;
             let h = size.height as f64 / scale;
             let _ = window.add_child(
-                WebviewBuilder::new(
-                    "main-webview",
-                    WebviewUrl::App("pick-instance.html#logout".into()),
-                ),
+                main_webview_builder("pick-instance.html#logout", app),
                 LogicalPosition::new(0.0, TITLE_BAR_HEIGHT),
                 LogicalSize::new(w, h - TITLE_BAR_HEIGHT),
             );

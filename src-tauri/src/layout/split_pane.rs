@@ -93,7 +93,7 @@ impl SplitPaneLayout {
 
         window
             .add_child(
-                WebviewBuilder::new("main-webview", WebviewUrl::App(main_url.into())),
+                super::main_webview_builder(main_url, app),
                 LogicalPosition::new(0.0, top),
                 LogicalSize::new(main_w, content_h),
             )
