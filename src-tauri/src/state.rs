@@ -5,12 +5,14 @@
 //! Falls back to legacy unprefixed keys for migration.
 
 use serde::{Deserialize, Serialize};
+#[cfg(desktop)]
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 use tauri::Manager;
 
 /// Logical position and size of a window, stored in device-independent pixels.
+#[cfg(desktop)]
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct WindowGeometry {
     pub x: f64,
@@ -48,6 +50,7 @@ impl Default for Preferences {
 }
 
 /// Returns the path to `window-state.json`, creating the directory if needed.
+#[cfg(desktop)]
 pub fn state_path(app: &tauri::AppHandle) -> PathBuf {
     let dir = app.path().app_data_dir().expect("no app data dir");
     let _ = fs::create_dir_all(&dir);
@@ -62,6 +65,7 @@ pub fn preferences_path(app: &tauri::AppHandle) -> PathBuf {
 }
 
 /// Loads all window geometries from disk. Returns empty map on any error.
+#[cfg(desktop)]
 pub fn load_state(app: &tauri::AppHandle) -> HashMap<String, WindowGeometry> {
     fs::read_to_string(state_path(app))
         .ok()
@@ -70,6 +74,7 @@ pub fn load_state(app: &tauri::AppHandle) -> HashMap<String, WindowGeometry> {
 }
 
 /// Writes the full window geometry map to disk.
+#[cfg(desktop)]
 pub fn save_state_map(app: &tauri::AppHandle, state: &HashMap<String, WindowGeometry>) {
     if let Ok(json) = serde_json::to_string_pretty(state) {
         let _ = fs::write(state_path(app), json);
@@ -78,6 +83,7 @@ pub fn save_state_map(app: &tauri::AppHandle, state: &HashMap<String, WindowGeom
 
 /// Captures a WebviewWindow's current position and size, then persists it
 /// under the given key (e.g. "multi-window:main"). Accounts for display scaling.
+#[cfg(desktop)]
 pub fn save_window_geometry(app: &tauri::AppHandle, key: &str, window: &tauri::WebviewWindow) {
     let scale = window.scale_factor().unwrap_or(1.0);
     let Some(pos) = window.outer_position().ok() else {
@@ -101,6 +107,7 @@ pub fn save_window_geometry(app: &tauri::AppHandle, key: &str, window: &tauri::W
 
 /// Captures a bare Window's (multi-webview mode) position and size, then persists it.
 /// Similar to `save_window_geometry` but for `Window` instead of `WebviewWindow`.
+#[cfg(desktop)]
 pub fn save_bare_window_geometry(app: &tauri::AppHandle, key: &str, window: &tauri::Window) {
     let scale = window.scale_factor().unwrap_or(1.0);
     let Some(pos) = window.outer_position().ok() else {
@@ -139,6 +146,7 @@ pub fn save_preferences(app: &tauri::AppHandle, prefs: &Preferences) {
 
 /// Returns the primary monitor's logical size (accounts for Retina/HiDPI scaling).
 /// Falls back to 1920x1080 if the monitor cannot be detected.
+#[cfg(desktop)]
 pub fn logical_screen_size(app: &tauri::AppHandle) -> (f64, f64) {
     app.primary_monitor()
         .ok()
@@ -154,6 +162,7 @@ pub fn logical_screen_size(app: &tauri::AppHandle) -> (f64, f64) {
 /// Looks up saved geometry for a window, first trying the mode-prefixed key
 /// (e.g. "multi-window:main"), then falling back to the bare label ("main")
 /// for backward compatibility with pre-layout-mode state files.
+#[cfg(desktop)]
 pub fn get_geometry(
     app: &tauri::AppHandle,
     mode_prefix: &str,

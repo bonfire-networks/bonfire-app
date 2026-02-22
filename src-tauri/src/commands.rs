@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::sync::Mutex;
 
-use crate::layout::{LayoutManager, LayoutMode};
+use crate::layout::LayoutMode;
 use crate::state::save_preferences;
 use crate::AppState;
 
@@ -62,33 +62,45 @@ pub async fn get_active_tab(
 /// Begins a split-pane resize drag.
 #[tauri::command]
 pub async fn split_resize_start(
-    app: tauri::AppHandle,
-    app_state: tauri::State<'_, Mutex<AppState>>,
-) -> Result<crate::layout::split_pane::SplitDimensions, String> {
-    let state = app_state.lock().map_err(|e| e.to_string())?;
-    match &state.layout_manager {
-        LayoutManager::SplitPane(l) => l.resize_start(&app),
-        _ => Err("Not in split-pane mode".into()),
+    #[allow(unused_variables)] app: tauri::AppHandle,
+    #[allow(unused_variables)] app_state: tauri::State<'_, Mutex<AppState>>,
+) -> Result<crate::layout::SplitDimensions, String> {
+    #[cfg(desktop)]
+    {
+        use crate::layout::LayoutManager;
+        let state = app_state.lock().map_err(|e| e.to_string())?;
+        match &state.layout_manager {
+            LayoutManager::SplitPane(l) => l.resize_start(&app),
+            _ => Err("Not in split-pane mode".into()),
+        }
     }
+    #[cfg(mobile)]
+    Err("Not available on mobile".into())
 }
 
 /// Ends a split-pane resize drag.
 #[tauri::command]
 pub async fn split_resize_end(
-    app: tauri::AppHandle,
-    app_state: tauri::State<'_, Mutex<AppState>>,
-    ratio: f64,
+    #[allow(unused_variables)] app: tauri::AppHandle,
+    #[allow(unused_variables)] app_state: tauri::State<'_, Mutex<AppState>>,
+    #[allow(unused_variables)] ratio: f64,
 ) -> Result<(), String> {
-    let mut state = app_state.lock().map_err(|e| e.to_string())?;
-    match &mut state.layout_manager {
-        LayoutManager::SplitPane(l) => {
-            l.resize_end(&app, ratio);
-            state.preferences.split_ratio = l.split_ratio;
-            save_preferences(&app, &state.preferences);
-            Ok(())
+    #[cfg(desktop)]
+    {
+        use crate::layout::LayoutManager;
+        let mut state = app_state.lock().map_err(|e| e.to_string())?;
+        match &mut state.layout_manager {
+            LayoutManager::SplitPane(l) => {
+                l.resize_end(&app, ratio);
+                state.preferences.split_ratio = l.split_ratio;
+                save_preferences(&app, &state.preferences);
+                Ok(())
+            }
+            _ => Err("Not in split-pane mode".into()),
         }
-        _ => Err("Not in split-pane mode".into()),
     }
+    #[cfg(mobile)]
+    Err("Not available on mobile".into())
 }
 
 /// Starts the SSE notification listener.

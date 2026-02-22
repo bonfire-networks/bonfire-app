@@ -1,32 +1,51 @@
-//! Layout management for the Bonfire desktop app.
+//! Layout management for the Bonfire app.
 //!
-//! Supports three configurable modes switchable at runtime via the tray menu:
+//! On desktop, supports three configurable modes switchable at runtime via the tray menu:
 //! - **MultiWindow** (default): separate OS windows for main app and secure chat
 //! - **SplitPane**: single window with two webviews side by side
 //! - **TabBased**: single window with a chrome bar for tab switching
 //!
-//! All modes use bare `Window` + `add_child` for consistency. A single
-//! "main-window" persists across all mode switches — only child webviews are
-//! added/removed/repositioned. Multi-window mode adds a second "chat-window"
-//! for the standalone chat; unified modes (split/tab) keep chat as a child
-//! of main-window.
+//! On mobile, only a single WebviewWindow is used (no multi-window/split/tab APIs).
 
+#[cfg(desktop)]
 pub mod chrome_bar;
+#[cfg(mobile)]
+pub mod mobile;
+#[cfg(desktop)]
 pub mod multi_window;
+#[cfg(desktop)]
 pub mod split_pane;
+#[cfg(desktop)]
 pub mod tab_based;
 
-use std::sync::Mutex;
-
 use serde::{Deserialize, Serialize};
-use tauri::webview::WebviewBuilder;
-use tauri::{LogicalPosition, LogicalSize, Manager, WebviewUrl};
 
 use crate::state::Preferences;
+
+// ── Desktop-only imports and helpers ────────────────────────────────
+
+#[cfg(desktop)]
+use std::sync::Mutex;
+#[cfg(desktop)]
+use tauri::webview::WebviewBuilder;
+#[cfg(desktop)]
+use tauri::{LogicalPosition, LogicalSize, Manager, WebviewUrl};
+
+#[cfg(desktop)]
+use multi_window::MultiWindowLayout;
+#[cfg(desktop)]
+use split_pane::SplitPaneLayout;
+#[cfg(desktop)]
+use tab_based::TabBasedLayout;
+
+/// Height of the macOS overlay title bar drag region in logical pixels.
+#[cfg(desktop)]
+pub const TITLE_BAR_HEIGHT: f64 = 8.0;
 
 /// Creates a main-webview builder with `on_navigation` that intercepts
 /// custom scheme links (mls://, ap-mls://, bonfire://) and routes them through
 /// the deep link handler instead of trying to load them as URLs.
+#[cfg(desktop)]
 pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder<tauri::Wry> {
     let app_handle = app.clone();
     WebviewBuilder::new("main-webview", WebviewUrl::App(url.into())).on_navigation(move |url| {
@@ -46,16 +65,8 @@ pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder
     })
 }
 
-/// Height of the macOS overlay title bar drag region in logical pixels.
-/// In multi-window mode (no chrome bar), webviews start below this offset
-/// so the native title bar drag region remains exposed and clickable.
-pub const TITLE_BAR_HEIGHT: f64 = 8.0;
-use multi_window::MultiWindowLayout;
-use split_pane::SplitPaneLayout;
-use tab_based::TabBasedLayout;
-
 /// Destroys all known windows from any layout mode.
-/// Safety net called during `setup()` for fresh starts (app launch, logout).
+#[cfg(desktop)]
 pub fn cleanup_all(app: &tauri::AppHandle) {
     if let Some(w) = app.get_window("main-window") {
         let _ = w.destroy();
@@ -63,7 +74,6 @@ pub fn cleanup_all(app: &tauri::AppHandle) {
     if let Some(w) = app.get_window("chat-window") {
         let _ = w.destroy();
     }
-    // Legacy labels from before the unified paradigm
     if let Some(w) = app.get_window("unified") {
         let _ = w.destroy();
     }
@@ -75,17 +85,14 @@ pub fn cleanup_all(app: &tauri::AppHandle) {
     }
 }
 
-/// Closes a child webview by label, removing it from its parent window.
-/// `Webview::close()` frees the label synchronously from Tauri's internal
-/// registry, so a new webview with the same label can be created immediately.
+#[cfg(desktop)]
 fn close_webview(app: &tauri::AppHandle, label: &str) {
     if let Some(wv) = app.get_webview(label) {
         let _ = wv.close();
     }
 }
 
-/// Expands main-webview to fill the main-window below the title bar
-/// (used when transitioning to multi-window mode where there are no other children).
+#[cfg(desktop)]
 fn expand_main_webview(app: &tauri::AppHandle) {
     let Some(window) = app.get_window("main-window") else {
         return;
@@ -103,6 +110,8 @@ fn expand_main_webview(app: &tauri::AppHandle) {
     }
 }
 
+// ── LayoutMode (all platforms) ──────────────────────────────────────
+
 /// The three supported window layout modes.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum LayoutMode {
@@ -112,7 +121,6 @@ pub enum LayoutMode {
 }
 
 impl LayoutMode {
-    /// Returns the string identifier used in preferences and tray menu IDs.
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::MultiWindow => "multi-window",
@@ -121,7 +129,6 @@ impl LayoutMode {
         }
     }
 
-    /// Parses a mode string back into a LayoutMode variant.
     pub fn from_str(s: &str) -> Option<Self> {
         match s {
             "multi-window" => Some(Self::MultiWindow),
@@ -131,27 +138,45 @@ impl LayoutMode {
         }
     }
 
-    /// Reads the layout mode from saved preferences, defaulting to MultiWindow.
+    /// Reads the layout mode from saved preferences.
+    /// On mobile, always returns TabBased (multi-window and split-pane are desktop-only).
     pub fn from_preferences(prefs: &Preferences) -> Self {
+        #[cfg(mobile)]
+        {
+            let _ = prefs;
+            return Self::TabBased;
+        }
+
+        #[cfg(desktop)]
         Self::from_str(&prefs.layout_mode).unwrap_or(Self::MultiWindow)
     }
 
-    /// Whether this mode uses the shared single-window layout (split or tab).
     pub fn uses_unified(&self) -> bool {
         matches!(self, Self::SplitPane | Self::TabBased)
     }
 }
 
-/// Dispatch enum that delegates layout operations to the active mode's implementation.
-/// Stored in managed Tauri state behind a `Mutex`.
+// ── SplitDimensions (all platforms, needed for command return type) ──
+
+/// Return type for split-pane resize commands. Defined here so it's available on all platforms.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SplitDimensions {
+    pub window_width: f64,
+    pub content_top: f64,
+    pub content_height: f64,
+}
+
+// ── LayoutManager (desktop) ─────────────────────────────────────────
+
+#[cfg(desktop)]
 pub enum LayoutManager {
     MultiWindow(MultiWindowLayout),
     SplitPane(SplitPaneLayout),
     TabBased(TabBasedLayout),
 }
 
+#[cfg(desktop)]
 impl LayoutManager {
-    /// Creates a new layout manager for the given mode and preferences.
     pub fn new(mode: LayoutMode, prefs: &Preferences) -> Self {
         match mode {
             LayoutMode::MultiWindow => Self::MultiWindow(MultiWindowLayout::new()),
@@ -160,7 +185,6 @@ impl LayoutManager {
         }
     }
 
-    /// Returns the current layout mode.
     pub fn mode(&self) -> LayoutMode {
         match self {
             Self::MultiWindow(_) => LayoutMode::MultiWindow,
@@ -169,14 +193,10 @@ impl LayoutManager {
         }
     }
 
-    /// Whether this layout uses the shared single-window layout.
     pub fn uses_unified(&self) -> bool {
         self.mode().uses_unified()
     }
 
-    /// Creates the initial windows/webviews for this layout from scratch.
-    /// Only used for fresh starts (app launch, logout). For runtime mode
-    /// switches, use `switch_mode()` instead.
     pub fn setup(
         &mut self,
         app: &tauri::AppHandle,
@@ -189,8 +209,6 @@ impl LayoutManager {
         }
     }
 
-    /// Saves window state and destroys all windows/webviews.
-    /// Used for logout (clean slate). For mode switching use `switch_mode()`.
     pub fn teardown(&mut self, app: &tauri::AppHandle) {
         match self {
             Self::MultiWindow(l) => l.teardown(app),
@@ -199,9 +217,6 @@ impl LayoutManager {
         }
     }
 
-    /// Applies the current mode's layout to the existing main-window.
-    /// Lazy-creates any mode-specific webviews, repositions/shows/hides children.
-    /// No-op for multi-window mode.
     pub fn apply_layout(&mut self, app: &tauri::AppHandle) {
         match self {
             Self::SplitPane(l) => l.apply_layout(app),
@@ -210,15 +225,6 @@ impl LayoutManager {
         }
     }
 
-    /// Switches to a new layout mode at runtime.
-    ///
-    /// The main-window is never destroyed — only child webviews are
-    /// added/removed/repositioned:
-    /// - **Unified ↔ Unified** (split ↔ tab): reposition/show/hide children.
-    /// - **Unified → Multi-window**: close chat/chrome/divider children,
-    ///   expand main-webview. Chat window created on demand.
-    /// - **Multi-window → Unified**: destroy chat-window, add chat-webview
-    ///   back to main-window, apply layout.
     pub fn switch_mode(
         &mut self,
         app: &tauri::AppHandle,
@@ -231,7 +237,6 @@ impl LayoutManager {
 
         self.save_all_state(app);
 
-        // If no main-window exists, fall back to a fresh setup
         if app.get_window("main-window").is_none() {
             self.teardown(app);
             *self = LayoutManager::new(new_mode, prefs);
@@ -243,25 +248,18 @@ impl LayoutManager {
 
         match (from_unified, to_unified) {
             (true, true) => {
-                // Unified ↔ Unified: apply_layout handles show/hide/create
                 *self = LayoutManager::new(new_mode, prefs);
                 self.apply_layout(app);
             }
             (true, false) => {
-                // Unified → Multi-window: close unified children (frees labels),
-                // then open chat in a separate window with the same label.
                 close_webview(app, "chat-webview");
                 close_webview(app, "chrome-bar");
                 close_webview(app, "split-divider");
                 expand_main_webview(app);
                 *self = LayoutManager::new(new_mode, prefs);
-                // Open chat immediately in a separate window
                 let _ = self.open_chat(app);
             }
             (false, true) => {
-                // Multi-window → Unified: close standalone chat-webview
-                // (frees label), destroy chat-window, then add chat-webview
-                // to main-window via apply_layout's lazy creation.
                 close_webview(app, "chat-webview");
                 if let Some(w) = app.get_window("chat-window") {
                     let _ = w.destroy();
@@ -269,15 +267,12 @@ impl LayoutManager {
                 *self = LayoutManager::new(new_mode, prefs);
                 self.apply_layout(app);
             }
-            (false, false) => {
-                // Multi-window → Multi-window: no-op (same topology)
-            }
+            (false, false) => {}
         }
 
         Ok(())
     }
 
-    /// Opens or focuses the secure chat.
     pub fn open_chat(&mut self, app: &tauri::AppHandle) -> Result<(), String> {
         match self {
             Self::MultiWindow(l) => l.open_chat(app),
@@ -286,7 +281,6 @@ impl LayoutManager {
         }
     }
 
-    /// Shows or focuses the main window/webview.
     pub fn show_main(&mut self, app: &tauri::AppHandle) {
         match self {
             Self::MultiWindow(l) => l.show_main(app),
@@ -295,7 +289,6 @@ impl LayoutManager {
         }
     }
 
-    /// Switches focus to the given view ("main" or "chat").
     pub fn switch_tab(&mut self, app: &tauri::AppHandle, tab: &str) -> Result<(), String> {
         match self {
             Self::MultiWindow(l) => l.switch_tab(app, tab),
@@ -304,7 +297,6 @@ impl LayoutManager {
         }
     }
 
-    /// Returns the name of the currently focused view ("main" or "chat").
     pub fn active_tab(&self) -> &str {
         match self {
             Self::MultiWindow(l) => l.active_tab(),
@@ -313,7 +305,6 @@ impl LayoutManager {
         }
     }
 
-    /// Persists geometry for all windows managed by this layout.
     pub fn save_all_state(&self, app: &tauri::AppHandle) {
         match self {
             Self::MultiWindow(l) => l.save_state(app),
@@ -322,7 +313,6 @@ impl LayoutManager {
         }
     }
 
-    /// Persists geometry for a specific window by its label.
     pub fn save_window_by_label(&self, app: &tauri::AppHandle, label: &str) {
         match self {
             Self::MultiWindow(l) => l.save_window_by_label(app, label),
@@ -331,7 +321,6 @@ impl LayoutManager {
         }
     }
 
-    /// Handles window resize events.
     pub fn handle_resize(&mut self, app: &tauri::AppHandle, label: &str) {
         match self {
             Self::MultiWindow(l) => l.handle_resize(app, label),
@@ -340,25 +329,17 @@ impl LayoutManager {
         }
     }
 
-    /// Handles logout by navigating the existing main-webview to the logout
-    /// page instead of destroying/recreating windows (which races with async
-    /// window destruction). Cleans up extra webviews/windows and resets to
-    /// a single main-window with main-webview.
     pub fn handle_logout(&mut self, app: &tauri::AppHandle, prefs: &Preferences) {
         self.save_all_state(app);
 
-        // Close extra child webviews (synchronous label freeing)
         close_webview(app, "chat-webview");
         close_webview(app, "chrome-bar");
         close_webview(app, "split-divider");
 
-        // Destroy standalone chat window if in multi-window mode
         if let Some(w) = app.get_window("chat-window") {
             let _ = w.destroy();
         }
 
-        // Close main-webview (frees label synchronously) and recreate it
-        // pointed at the logout page. More reliable than eval/navigate.
         close_webview(app, "main-webview");
         if let Some(window) = app.get_window("main-window") {
             let Ok(size) = window.inner_size() else { return };
@@ -372,8 +353,76 @@ impl LayoutManager {
             );
         }
 
-        // Reset layout manager to current preferred mode (clean state)
         let mode = LayoutMode::from_preferences(prefs);
         *self = LayoutManager::new(mode, prefs);
+    }
+}
+
+// ── LayoutManager (mobile) ──────────────────────────────────────────
+
+/// On mobile, LayoutManager wraps `MobileLayout` which navigates
+/// the single WebviewWindow between the Phoenix instance and the
+/// local E2EE chat app. Same API surface as the desktop enum.
+#[cfg(mobile)]
+pub struct LayoutManager(mobile::MobileLayout);
+
+#[cfg(mobile)]
+impl LayoutManager {
+    pub fn new(_mode: LayoutMode, _prefs: &Preferences) -> Self {
+        Self(mobile::MobileLayout::new())
+    }
+
+    pub fn set_local_origin(&mut self, origin: String) {
+        self.0.set_local_origin(origin);
+    }
+
+    pub fn mode(&self) -> LayoutMode {
+        self.0.mode()
+    }
+
+    pub fn setup(
+        &mut self,
+        app: &tauri::AppHandle,
+        url_override: Option<&str>,
+    ) -> Result<(), String> {
+        self.0.setup(app, url_override)
+    }
+
+    pub fn open_chat(&mut self, app: &tauri::AppHandle) -> Result<(), String> {
+        self.0.open_chat(app)
+    }
+
+    pub fn show_main(&mut self, app: &tauri::AppHandle) {
+        self.0.show_main(app)
+    }
+
+    pub fn switch_tab(&mut self, app: &tauri::AppHandle, tab: &str) -> Result<(), String> {
+        self.0.switch_tab(app, tab)
+    }
+
+    pub fn active_tab(&self) -> &str {
+        self.0.active_tab()
+    }
+
+    pub fn switch_mode(
+        &mut self,
+        app: &tauri::AppHandle,
+        new_mode: LayoutMode,
+        prefs: &Preferences,
+    ) -> Result<(), String> {
+        self.0.switch_mode(app, new_mode, prefs)
+    }
+
+    pub fn save_all_state(&self, app: &tauri::AppHandle) {
+        self.0.save_all_state(app)
+    }
+    pub fn save_window_by_label(&self, app: &tauri::AppHandle, label: &str) {
+        self.0.save_window_by_label(app, label)
+    }
+    pub fn handle_resize(&mut self, app: &tauri::AppHandle, label: &str) {
+        self.0.handle_resize(app, label)
+    }
+    pub fn handle_logout(&mut self, app: &tauri::AppHandle, prefs: &Preferences) {
+        self.0.handle_logout(app, prefs)
     }
 }

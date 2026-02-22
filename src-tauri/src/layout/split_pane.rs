@@ -4,26 +4,17 @@
 //! A draggable divider between panes allows resizing. An optional chrome bar
 //! provides a drag region above the split.
 
-use serde::Serialize;
 use tauri::webview::WebviewBuilder;
 use tauri::{LogicalPosition, LogicalSize, Manager, WebviewUrl, WindowBuilder};
 
 use crate::layout::chrome_bar::{create_chrome_bar, CHROME_BAR_HEIGHT};
-use crate::layout::{cleanup_all, TITLE_BAR_HEIGHT};
+use crate::layout::{cleanup_all, SplitDimensions, TITLE_BAR_HEIGHT};
 use crate::state::{
     get_geometry, logical_screen_size, save_bare_window_geometry, Preferences, WindowGeometry,
 };
 
 /// Width of the draggable divider between panes in logical pixels.
 const DIVIDER_WIDTH: f64 = 6.0;
-
-/// Dimensions returned to the divider JS when a resize drag starts.
-#[derive(Serialize)]
-pub struct SplitDimensions {
-    pub window_width: f64,
-    pub content_top: f64,
-    pub content_height: f64,
-}
 
 /// Split-pane layout state. Tracks the split ratio and chrome bar preference.
 pub struct SplitPaneLayout {

@@ -3,6 +3,7 @@ use std::sync::Mutex;
 use tauri::Manager;
 use tauri_plugin_deep_link::DeepLinkExt;
 
+#[cfg(desktop)]
 use crate::AppState;
 
 /// Known domains for deep-link handling, stored as managed state.
@@ -83,6 +84,7 @@ pub fn parse_url(raw: &str, known_domains: Option<&KnownDomains>) -> Option<Deep
 /// Navigate the app to a deep-link target -- all from Rust.
 /// Switches to the correct tab, then navigates the webview, and brings
 /// the window to the foreground.
+#[cfg(desktop)]
 pub fn handle(app: &tauri::AppHandle, payload: &DeepLinkPayload) {
     log::info!(
         "[deep-link] Handling: scheme={}, tab={}, path={}, group_id={:?}",
@@ -170,6 +172,46 @@ pub fn handle(app: &tauri::AppHandle, payload: &DeepLinkPayload) {
         } else {
             log::warn!("[deep-link] main-webview not found");
         }
+    }
+}
+
+/// On mobile, navigate via the single WebviewWindow (no bare Window/Webview APIs).
+#[cfg(mobile)]
+pub fn handle(app: &tauri::AppHandle, payload: &DeepLinkPayload) {
+    log::info!(
+        "[deep-link] Handling on mobile: scheme={}, tab={}, path={}, group_id={:?}",
+        payload.scheme,
+        payload.target_tab,
+        payload.path,
+        payload.group_id,
+    );
+
+    if let Some(ww) = app.get_webview_window("main") {
+        if payload.target_tab == "chat" {
+            if let Some(ref group_id) = payload.group_id {
+                let js = format!(
+                    "if (window.navigateToGroup) window.navigateToGroup({}, {})",
+                    serde_json::to_string(group_id).unwrap_or_default(),
+                    serde_json::to_string(&payload.raw_url).unwrap_or_default(),
+                );
+                let _ = ww.eval(&js);
+            }
+        } else {
+            let path = &payload.path;
+            let target_path = format!("/{path}");
+            let path_json = serde_json::to_string(&target_path).unwrap_or_default();
+            let js = format!(
+                "{{ var main = document.querySelector('[data-phx-main]'); \
+                if (main && window.liveSocket) {{ \
+                    window.liveSocket.redirect({path_json}); \
+                }} else {{ \
+                    window.location.href = {path_json}; \
+                }} }}"
+            );
+            let _ = ww.eval(&js);
+        }
+    } else {
+        log::warn!("[deep-link] WebviewWindow 'main' not found on mobile");
     }
 }
 
