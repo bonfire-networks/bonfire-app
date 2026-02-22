@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "identifier": "cafe.bonfire.desktop",
   "build": {
-    "frontendDist": "../assets/static/tauri"
+    "frontendDist": "../assets/static/tauri",
+    "beforeDevCommand": "cd assets/static/tauri && yarn install --immutable-cache && yarn build",
+    "beforeBuildCommand": "cd assets/static/tauri && yarn install --immutable-cache && yarn build && rm -rf node_modules assets/ap_c2s_client/js/node_modules"
   },
   "app": {
     "withGlobalTauri": true,
