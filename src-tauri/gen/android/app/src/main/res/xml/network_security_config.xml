@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow cleartext for Tauri's local asset server (http://tauri.localhost).
+         Without this, OAuth redirects to http://tauri.localhost/... are blocked
+         on Android 9+ with ERR_CLEARTEXT_NOT_PERMITTED. -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">tauri.localhost</domain>
+        <domain includeSubdomains="false">localhost</domain>
+        <!-- Android emulator host alias -->
+        <domain includeSubdomains="false">10.0.2.2</domain>
+    </domain-config>
+</network-security-config>

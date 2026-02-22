@@ -1,0 +1,33 @@
+# Android NDK cross-compilation: modern NDKs use llvm-* tools instead of
+# target-prefixed names (e.g. llvm-ranlib instead of aarch64-linux-android-ranlib).
+# These env vars tell the cc/openssl-src crates where to find the right tools.
+
+[env]
+# aarch64
+RANLIB_aarch64_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib"
+AR_aarch64_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar"
+CC_aarch64_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang"
+# armv7
+RANLIB_armv7_linux_androideabi = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib"
+AR_armv7_linux_androideabi = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar"
+CC_armv7_linux_androideabi = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/armv7a-linux-androideabi24-clang"
+# i686
+RANLIB_i686_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib"
+AR_i686_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar"
+CC_i686_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/i686-linux-android24-clang"
+# x86_64
+RANLIB_x86_64_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib"
+AR_x86_64_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar"
+CC_x86_64_linux_android = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/x86_64-linux-android24-clang"
+
+[target.aarch64-linux-android]
+linker = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang"
+
+[target.armv7-linux-androideabi]
+linker = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/armv7a-linux-androideabi24-clang"
+
+[target.i686-linux-android]
+linker = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/i686-linux-android24-clang"
+
+[target.x86_64-linux-android]
+linker = "/Users/me/Library/Android/sdk/ndk/29.0.13846066/toolchains/llvm/prebuilt/darwin-x86_64/bin/x86_64-linux-android24-clang"
