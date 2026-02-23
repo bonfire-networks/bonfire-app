@@ -147,6 +147,9 @@ COPY --parents --link priv/extras ./
 # compile app (needs to be before building assets so it includes Surface hooks & component CSS)
 RUN MIX_ENV=prod mix compile
 
+# Download timezone geodata for sunrise/sunset local time display (optional, only if tz_world is included)
+RUN MIX_ENV=prod mix tz_world.update || echo "tz_world not available, skipping"
+
 # Include any migrations provided by flavour (maybe not needed?)
 # COPY --link data/current_flavour/repo priv/repo
 RUN mkdir -p priv/repo/migrations
