@@ -5,7 +5,12 @@ config :activity_pub,
   reject_unsigned: true,
   env: config_env(),
   adapter: Bonfire.Federate.ActivityPub.Adapter,
-  repo: Bonfire.Common.Repo
+  repo: Bonfire.Common.Repo,
+  # FEP-844e: capabilities advertised via actor generator.implements
+  implements: [
+    "https://www.w3.org/TR/activitypub/",
+    "https://datatracker.ietf.org/doc/html/rfc9421"
+  ]
 
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
@@ -89,7 +94,13 @@ config :activity_pub,
       },
       "sensitive" => "as:sensitive",
       # TODO
-      "manuallyApprovesFollowers" => "as:manuallyApprovesFollowers"
+      "manuallyApprovesFollowers" => "as:manuallyApprovesFollowers",
+      # FEP-844e: capability discovery
+      "implements" => %{
+        "@id" => "https://w3id.org/fep/844e#implements",
+        "@type" => "@id",
+        "@container" => "@set"
+      }
     },
     object: %{
       "Hashtag" => "as:Hashtag",
