@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-9810955D.js"></script>
+    <script defer src="dist/sidebar_items-22B88C75.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -93,7 +93,9 @@ Bonfire
 
 
     <section id="moduledoc">
-<p>Implementation for behaviour from <a href="https://hexdocs.pm/http_signatures/0.1.1/HTTPSignatures.html"><code class="inline">HTTPSignatures</code></a> library</p>
+<p>Implementation for behaviour from <a href="https://hexdocs.pm/http_signatures/0.1.1/HTTPSignatures.html"><code class="inline">HTTPSignatures</code></a> library.</p><p>Also provides signature format discovery helpers for adaptive signing
+(RFC 9421 vs draft-cavage), using Cachex for per-host format caching
+and FEP-844e for capability detection.</p>
     </section>
 
 </div>
@@ -109,6 +111,16 @@ Bonfire
   <h2>
     <a href="#functions">Functions</a>
   </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#determine_signature_format/2" data-no-tooltip="" translate="no">determine_signature_format(host, recipient_actor_data \\ nil)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Determines the signature format to use for a given host.</p></div>
+
+    </div>
 
     <div class="summary-row">
       <div class="summary-signature">
@@ -140,6 +152,56 @@ Bonfire
 
     </div>
 
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_signature_format/1" data-no-tooltip="" translate="no">get_signature_format(host)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the cached signature format for a host.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_cache_accept_signature/2" data-no-tooltip="" translate="no">maybe_cache_accept_signature(host_or_uri, headers)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks response headers for <code class="inline">Accept-Signature</code> (RFC 9421 §5.1) and caches the format if present. Works with both GET and POST responses.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#maybe_extract_generator_info/2" data-no-tooltip="" translate="no">maybe_extract_generator_info(host, data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Extracts service_actor_uri and RFC 9421 support from actor data.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_signature_format/2" data-no-tooltip="" translate="no">put_signature_format(host, format)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Caches the signature format for a host.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#supports_rfc9421?/1" data-no-tooltip="" translate="no">supports_rfc9421?(data)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Checks if actor data advertises RFC 9421 support via FEP-844e.</p></div>
+
+    </div>
+
 </div>
 
   </section>
@@ -154,6 +216,30 @@ Bonfire
     </h1>
 
     <div class="functions-list">
+<section class="detail" id="determine_signature_format/2">
+
+    <span id="determine_signature_format/1"></span>
+
+  <div class="detail-header">
+    <a href="#determine_signature_format/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">determine_signature_format(host, recipient_actor_data \\ nil)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L196" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Determines the signature format to use for a given host.</p><p>Checks (in order):</p><ol><li>Cachex cache</li><li>FEP-844e on recipient actor data (if provided)</li><li>Stored service actor in DB</li><li>Default to <code class="inline">:cavage</code></li></ol>
+  </section>
+</section>
 <section class="detail" id="fetch_fresh_public_key/1">
 
   <div class="detail-header">
@@ -164,7 +250,7 @@ Bonfire
       <h1 class="signature" translate="no">fetch_fresh_public_key(conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L61" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L65" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -186,7 +272,7 @@ Bonfire
       <h1 class="signature" translate="no">fetch_public_key(conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L39" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L43" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -208,7 +294,7 @@ Bonfire
       <h1 class="signature" translate="no">get_public_key(conn)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L17" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L21" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -218,6 +304,118 @@ Bonfire
   <section class="docstring">
 
 <p>Get public key from local cache/DB</p>
+  </section>
+</section>
+<section class="detail" id="get_signature_format/1">
+
+  <div class="detail-header">
+    <a href="#get_signature_format/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_signature_format(host)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L92" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Gets the cached signature format for a host.</p><p>Returns <code class="inline">:rfc9421</code>, <code class="inline">:cavage</code>, or <code class="inline">nil</code> if unknown.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_cache_accept_signature/2">
+
+  <div class="detail-header">
+    <a href="#maybe_cache_accept_signature/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">maybe_cache_accept_signature(host_or_uri, headers)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L237" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Checks response headers for <code class="inline">Accept-Signature</code> (RFC 9421 §5.1) and caches the format if present. Works with both GET and POST responses.</p><p>Accepts either a <code class="inline">%{headers: list}</code> response struct or a plain headers list, plus a host string or URI/URL to extract the host from.</p>
+  </section>
+</section>
+<section class="detail" id="maybe_extract_generator_info/2">
+
+  <div class="detail-header">
+    <a href="#maybe_extract_generator_info/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">maybe_extract_generator_info(host, data)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L162" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Extracts service_actor_uri and RFC 9421 support from actor data.</p><p>Handles two cases:</p><ul><li>User actors with a <code class="inline">generator</code> field (FEP-844e) pointing to the Application</li><li>Application/service actors with <code class="inline">implements</code> directly on themselves</li></ul>
+  </section>
+</section>
+<section class="detail" id="put_signature_format/2">
+
+  <div class="detail-header">
+    <a href="#put_signature_format/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">put_signature_format(host, format)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L104" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Caches the signature format for a host.</p>
+  </section>
+</section>
+<section class="detail" id="supports_rfc9421?/1">
+
+  <div class="detail-header">
+    <a href="#supports_rfc9421?/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">supports_rfc9421?(data)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/activity_pub/blob/main/lib/safety/http_signatures_adapter.ex#L117" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Checks if actor data advertises RFC 9421 support via FEP-844e.</p><p>Looks for <code class="inline">@rfc9421_uri</code> in <code class="inline">actor.generator.implements</code> (user actors),
+or directly in <code class="inline">actor.implements</code> (Application/service actors which are
+themselves the generator).</p>
   </section>
 </section>
 
