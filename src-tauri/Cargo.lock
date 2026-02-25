@@ -17,6 +17,7 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-deep-link",
+ "tauri-plugin-dialog",
  "tauri-plugin-global-shortcut",
  "tauri-plugin-http",
  "tauri-plugin-log",
@@ -1102,6 +1103,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89a09f22a6c6069a18470eb92d2298acf25463f14256d24778e1230d789a2aec"
 dependencies = [
  "bitflags 2.10.0",
+ "block2",
+ "libc",
  "objc2",
 ]
 
@@ -4549,6 +4552,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "rfd"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a15ad77d9e70a92437d8f74c35d99b4e4691128df018833e99f90bcd36152672"
+dependencies = [
+ "block2",
+ "dispatch2",
+ "glib-sys",
+ "gobject-sys",
+ "gtk-sys",
+ "js-sys",
+ "log",
+ "objc2",
+ "objc2-app-kit",
+ "objc2-core-foundation",
+ "objc2-foundation",
+ "raw-window-handle",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "windows-sys 0.60.2",
+]
+
+[[package]]
 name = "ring"
 version = "0.17.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5520,6 +5547,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-dialog"
+version = "2.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9204b425d9be8d12aa60c2a83a289cf7d1caae40f57f336ed1155b3a5c0e359b"
+dependencies = [
+ "log",
+ "raw-window-handle",
+ "rfd",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-plugin",
+ "tauri-plugin-fs",
+ "thiserror 2.0.17",
+ "url",
+]
+
+[[package]]
 name = "tauri-plugin-fs"
 version = "2.4.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5624,7 +5669,6 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-openmls"
 version = "0.1.0"
-source = "git+https://github.com/bonfire-networks/tauri-plugin-openmls.git#0d78f7211fb339bb5f4c758e75625e8431cb81ed"
 dependencies = [
  "base64 0.22.1",
  "log",
@@ -5639,6 +5683,7 @@ dependencies = [
  "sha2",
  "tauri",
  "tauri-plugin",
+ "tauri-plugin-dialog",
  "tokio",
 ]
 
