@@ -76,6 +76,7 @@ Bonfire implements and/or experiments with several [Fediverse Enhancement Propos
 
 - [FEP-044f][7] (Quote Posts)
 - [TBD][15] (Interaction Policy)
+- [FEP-844e][fep-844e] (Capability discovery)
 
 Partial support or conformity to-be-confirmed (help needed!):
 - [FEP-f1d5][16], [FEP-eb22][17], and/or [FEP-0151][18] (NodeInfo)
@@ -428,36 +429,206 @@ Accept: application/jrd+json
 
 ## 7. HTTP Signatures & Secure Fetch
 
-All ActivityPub server-to-server (S2S) requests to Bonfire endpoints should be signed with [HTTP Signatures](#http-signature), including both `GET` and `POST` requests. Bonfire also signs all outgoing federation requests, following the [Cavage HTTP Signatures RFC][10], for compatibility with Mastodon, GoToSocial, Pixelfed, and others.
+Bonfire implements comprehensive HTTP signature support for authenticating ActivityPub server-to-server (S2S) requests, supporting both the widely-deployed [draft-cavage HTTP Signatures][10] and the newer [RFC 9421 HTTP Message Signatures][rfc9421]. This section documents the implementation in detail, including design choices, interop considerations, and upgrade guidance.
 
-### Requirements
+### Supported signature formats
 
-- **Signature required:** By default, all S2S requests (including fetches of public resources) must include a valid HTTP signature. 
-- **Supported algorithms:** Bonfire supports `rsa-sha256` and `ed25519` (and others as per the RFC).
-- **Key discovery:** The public key for a Bonfire actor is published in the actor's ActivityPub JSON under the `publicKey` property.
-- **Signature headers:** Outgoing requests include the required headers (`(request-target)`, `host`, `date`, and `digest` for `POST`).
+Bonfire supports two HTTP signature formats:
 
-### Quirks and Compatibility
+| Format | Spec | Headers | Status |
+|--------|------|---------|--------|
+| **Draft-cavage** | [draft-cavage-http-signatures][10] | `Signature`, `Digest` | Default outbound + verified inbound |
+| **RFC 9421** | [RFC 9421][rfc9421] | `Signature` + `Signature-Input`, `Content-Digest` | Adaptive outbound + verified inbound |
 
-- **Query parameters:** Bonfire signs requests including query parameters in the signature string, but will attempt validation both with and without query parameters for compatibility with other implementations (such as Mastodon and GoToSocial). This ensures that signed requests for paginated collections or other endpoints with query parameters are accepted regardless of the remote implementation's signature handling.
-- **keyId format:** Bonfire uses the fragment format for `keyId` (e.g., `https://your.bonfire.instance/pub/actors/alice#main-key`), matching Mastodon and most other platforms.
-- **Public key endpoint:** The `keyId` in the signature header should match the `id` of the `publicKey` object in the actor's JSON.
+Both formats are verified on inbound requests. The format used for outbound requests is determined adaptively per remote host (see [Format Discovery](#format-discovery) below).
 
-### Secure Fetch
+### Outbound signing
 
-By default, Bonfire requires signed `GET` requests for fetching actor and object JSON at ActivityPub endpoints (e.g., `/pub/actors/{username}`, `/pub/objects/{id}`), even for public resources. Unsigned requests to these endpoints may be rejected with HTTP 401. This is equivalent to Mastodon's "secure mode" and helps prevent abuse and scraping by blocked or defederated instances.
+#### POST requests (Activity delivery)
 
-**Configurability:**  
+All outgoing POST requests to remote inboxes are signed. The signed headers depend on the detected format for the target host:
+
+**Draft-cavage POST** (default):
+- Signed headers: `(request-target)`, `host`, `content-length`, `content-type`, `digest`, `date`
+- Algorithm: `rsa-sha256`
+- `Digest` header: `SHA-256=<base64>`
+
+**RFC 9421 POST** (when remote is known to support it, see below):
+- Signed components: `@method`, `@target-uri`, `content-digest`
+- `Content-Digest` header: `sha-256=:<base64>:`
+- Both `Signature` and `Signature-Input` headers are included
+
+Both formats also include `date`, `digest`/`content-digest`, and `content-type` headers on the actual request for maximum compatibility.
+
+#### GET requests (object fetches)
+
+Bonfire signs outgoing GET requests for fetching remote actors and objects (enabled by default via the `sign_object_fetches` config). 
+
+**Draft-cavage GET**: Signs `(request-target)`, `host`, `date`
+**RFC 9421 GET**: Signs `@method`, `@target-uri`
+
+### Inbound verification
+
+When Bonfire receives a signed request, the signature plug automatically detects the format:
+
+1. If `signature-input` header is present → **RFC 9421** verification
+2. If `signature` header is present → **draft-cavage** verification
+3. If neither is present → treated as unsigned (for POST requests this optionally means Bonfire will attempt re-fetching the activity/object from the origin, see below)
+
+Verification uses the sender's public key, fetched from the `keyId` URI in the signature.
+
+#### Date header staleness check
+
+After cryptographic verification succeeds, Bonfire checks the `Date` header freshness. Signatures with a `Date` header older than ~1 hour are treated as invalid and sent through the verification cascade. This mitigates replay attacks. If the `Date` header is missing or unparseable, verification is not rejected on date alone (to avoid breaking implementations that don't send `Date`).
+
+#### Derived components (eg. behind reverse proxies)
+
+For RFC 9421, the `@scheme` and `@authority` derived components are taken from the instance's configured `base_url`, not from `conn.scheme`/`conn.host`. This avoids mismatches when Bonfire runs behind a reverse proxy (eg. where internal connections use HTTP but the public URL is HTTPS) or where multiple domains are aliased to one instance.
+
+### Verification cascade
+
+When an HTTP signature is missing, invalid, or stale, the activity is not rejected outright (meaning the server will get a 200 response and not a 401). Instead, it enters a background processing queue which later runs verification cascade:
+
+1. **HTTP signature re-fetch**: Re-fetch the sender's public key and retry verification
+2. **Linked Data Signature**: Check for an embedded [RsaSignature2017][ld-sig] LD signature in the activity body
+3. **Source re-fetch**: Fetch the activity/object from its canonical `id` URL and verify containment
+4. **Reject** or**accept unsigned**: If `ACCEPT_UNSIGNED_ACTIVITIES=1` is set by instance admins we still accept, otherwise the activity is rejected
+
+This cascade ensures maximum interop — activities can be accepted via any valid authentication method, not just HTTP signatures.
+
+### Key management
+
+#### Public key format
+
+Bonfire publishes each actor's RSA public key in the standard `publicKey` property:
+
+```json
+{
+  "publicKey": {
+    "id": "https://instance/pub/actors/alice#main-key",
+    "owner": "https://instance/pub/actors/alice",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----\n"
+  }
+}
+```
+
+The `keyId` used in signatures matches the `publicKey.id` field, using the `#main-key` fragment convention (compatible with Mastodon, Akkoma, GoToSocial, and others).
+
+#### Multiple keys (publicKey as list)
+
+Bonfire supports `publicKey` as either a single object or a list of key objects (as permitted by the ActivityPub spec). When multiple keys are present, Bonfire matches by `keyId` to select the correct key, falling back to attempting verification with the first key if no match is found.
+
+### Signature format discovery
+
+Bonfire uses adaptive signing, it discovers which signature format a remote host supports and then uses that format for outbound requests. Discovery methods (in priority order):
+
+1. **Inbound signature caching**: When a remote server sends us a signed request, we cache which format they used (cavage or RFC 9421)
+2. **Accept-Signature header**: When we receive an `Accept-Signature` response header from a remote server (on any response — WebFinger, object fetch, inbox POST), we cache RFC 9421 support for that host
+3. **FEP-844e generator detection**: Check remote actors' `generator.implements` or the instance service actor's `implements` property for RFC 9421 support URIs (see below)
+4. **NodeInfo software version**: Look up the remote's software name and version against a known-support map (e.g., Mastodon ≥ 4.5.0, Fedify ≥ 1.6.0, Hollo, Mitra)
+5. **Default**: Fall back to draft-cavage
+
+Format preferences are cached per-host and persist for up to 2 weeks by default.
+
+### Accept-Signature advertisement
+
+Bonfire advertises our support for RFC 9421 by including the `Accept-Signature: sig1=()` response header on:
+
+- WebFinger responses
+- All ActivityPub GET responses (actors, objects, etc)
+- ActivityPub inbox POST responses
+- 401/403 error responses (to hint that signing is expected)
+
+This header is **omitted** when the client already sent an RFC 9421 signature (detected via the `signature-input` request header), since they clearly already know.
+
+### FEP-844e Support
+
+Bonfire advertises its signature capabilities via [FEP-844e][fep-844e]:
+
+- **User actors** include a `generator` property referencing the service actor:
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/844e"
+  ],
+  "id": "https://social.example/actors/1",
+  "type": "Person",
+  "generator": {
+    "type": "Application",
+    "id": "https://social.example/actors/service_actor",
+    "implements": [
+      {"href": "https://www.w3.org/TR/activitypub/"},
+      {"href": "https://datatracker.ietf.org/doc/html/rfc9421"}
+    ]
+  }
+}
+```
+- **Service actors** include an `implements` property listing supported specs (including RFC 9421):
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/844e"
+  ],
+  "type": "Application",
+  "id": "https://social.example/actors/service_actor",
+  "implements": [
+    {"href": "https://www.w3.org/TR/activitypub/"},
+    {"href": "https://datatracker.ietf.org/doc/html/rfc9421"}
+  ]
+}
+```
+
+When discovering remote instances, Bonfire checks these same properties to infer RFC 9421 support.
+
+### Secure fetch
+
+By default, Bonfire requires signed `GET` requests for fetching actor and object JSON from ActivityPub endpoints, even for public resources. Unsigned requests to these endpoints may be rejected with HTTP 401. This is equivalent to Mastodon's "secure mode" and helps prevent abuse and scraping by blocked or defederated instances.
+
 This behavior can be changed by admins in an instance's configuration, if they want unsigned GETs (to public resources) to be allowed.
 
-### Common Pitfalls
+### Design choices impacting signature interop
 
-- Missing or invalid signature header.
-- Using an incorrect `keyId` or public key.
-- Not including required headers in the signature.
-- Not handling both with/without query parameters for signature validation.
+#### No double-knock
 
-> For more details, see [HTTP Signatures RFC][10] and [Bonfire ActivityPub Implementation Docs][9].
+Bonfire does not use the "double-knock" technique (send a request, get a 401, retry with a different format). Instead, we discover the format proactively via Accept-Signature headers, [FEP-844e][fep-844e], and NodeInfo. This avoids:
+- Extra round-trips on first contact
+- Wasted bandwidth and latency
+- Complexity in retry logic
+
+The tradeoff is that we may use cavage for a host that supports RFC 9421 until we discover their preference, but this works since it seems all ActivityPub implementations that support RFC 9421 also accept cavage.
+
+#### No dual signing
+
+Bonfire sends a single signature format per request (not both cavage and RFC 9421 simultaneously). Since we discover the preferred format adaptively, dual signing would add overhead (and possibly reduce compatibility) without improving delivery success.
+
+#### No hs2019 algorithm identifier
+
+Bonfire always uses `algorithm="rsa-sha256"` for draft-cavage signatures, not the `hs2019` placeholder from later cavage drafts, because:
+- `rsa-sha256` is universally accepted across fediverse implementations
+- `hs2019` was a transitional identifier that the ecosystem largely skipped
+- The real upgrade path seems to be cavage → RFC 9421, not `rsa-sha256` → `hs2019`
+- Our verification does accept both algorithm identifiers on inbound (the algorithm field is not used for verification, we always verify with the key's algorithm)
+
+#### Query parameters
+
+Bonfire signs requests including query parameters in the signature string, but will attempt validation both with and without query parameters for compatibility with other implementations (such as Mastodon and GoToSocial).
+
+#### keyId format
+
+Bonfire uses the fragment format for `keyId` (e.g., `https://your.bonfire.instance/pub/actors/alice#main-key`), matching Mastodon and most other platforms.
+
+#### Public key endpoint
+
+The `keyId` in the signature header should match the `id` of the `publicKey` object in the actor's JSON.
+
+### Refernces
+
+For more details, see [RFC 9421][rfc9421], [draft-cavage HTTP Signatures][10], and [SWICG ActivityPub HTTP Signature spec][swicg-sig].
+
 
 ## 8. Rate Limiting
 
@@ -796,3 +967,7 @@ An ActivityStreams object type representing a long-form post. [12]
 [47]: https://w3id.org/fep/6fcd "FEP-6fcd: Account export container format"
 [48]: https://w3id.org/fep/3264 "FEP-3264: Federated work coordination"
 [49]: https://w3id.org/fep/c5a1 "FEP-c5a1: Todos"
+[rfc9421]: https://www.rfc-editor.org/rfc/rfc9421 "RFC 9421: HTTP Message Signatures"
+[ld-sig]: https://web-payments.org/vocabs/security#linkedDataSignature2015 "Linked Data Signatures"
+[fep-844e]: https://w3id.org/fep/844e "FEP-844e: Generator-based format discovery"
+[swicg-sig]: https://swicg.github.io/activitypub-http-signature/ "SWICG ActivityPub HTTP Signature"

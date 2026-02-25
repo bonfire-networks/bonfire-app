@@ -8,8 +8,8 @@ config :activity_pub,
   repo: Bonfire.Common.Repo,
   # FEP-844e: capabilities advertised via actor generator.implements
   implements: [
-    "https://www.w3.org/TR/activitypub/",
-    "https://datatracker.ietf.org/doc/html/rfc9421"
+    %{"href" => "https://www.w3.org/TR/activitypub/"},
+    %{"href" => "https://datatracker.ietf.org/doc/html/rfc9421"}
   ],
   # Known software that validates RFC 9421 signatures, with minimum version (:any = all versions).
   # Used by nodeinfo-based format inference in Instances.maybe_infer_format_from_nodeinfo/2.
@@ -19,7 +19,7 @@ config :activity_pub,
     "mitra" => :any,
     "fedify" => "1.6.0"
   }
-  
+
 config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
 config :activity_pub, :instance,
@@ -52,8 +52,8 @@ config :activity_pub, :http,
   user_agent: "Bonfire ActivityPub federation",
   send_user_agent: true,
   adapter: [
-    recv_timeout: to_timeout(second: 30),
-    connect_timeout: to_timeout(second: 10),
+    recv_timeout: 30_000,
+    connect_timeout: 10_000,
     ssl_options: [
       # Workaround for remote server certificate chain issues
       # partial_chain: &:hackney_connect.partial_chain/1,
@@ -103,7 +103,7 @@ config :activity_pub,
       "sensitive" => "as:sensitive",
       # TODO
       "manuallyApprovesFollowers" => "as:manuallyApprovesFollowers",
-      # FEP-844e: capability discovery
+      # FEP-844e: capability discovery:
       "implements" => %{
         "@id" => "https://w3id.org/fep/844e#implements",
         "@type" => "@id",
@@ -129,4 +129,4 @@ config :activity_pub,
   }
 
 config :hammer,
-  backend: {Hammer.Backend.ETS, [expiry_ms: to_timeout(hour: 4), cleanup_interval_ms: to_timeout(minute: 10)]}
+  backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
