@@ -48,21 +48,37 @@ pub const TITLE_BAR_HEIGHT: f64 = 8.0;
 #[cfg(desktop)]
 pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder<tauri::Wry> {
     let app_handle = app.clone();
-    WebviewBuilder::new("main-webview", WebviewUrl::App(url.into())).on_navigation(move |url| {
-        let scheme = url.scheme();
-        if scheme == "mls" || scheme == "ap-mls" || scheme == "bonfire" {
-            let known = app_handle.state::<Mutex<crate::deep_link::KnownDomains>>();
-            let domains = known.lock().ok();
-            if let Some(payload) =
-                crate::deep_link::parse_url(&url.to_string(), domains.as_deref())
-            {
-                crate::deep_link::handle(&app_handle, &payload);
+    WebviewBuilder::new("main-webview", WebviewUrl::App(url.into()))
+        // Clear E2EE client state when the Bonfire web app navigates to /logout.
+        // The app-logout event triggers handle_logout in Rust which destroys
+        // webviews and recreates the main webview at pick-instance.html.
+        .initialization_script(
+            r#"
+            if (window.location.pathname === '/logout' || window.location.pathname.startsWith('/logout')) {
+                console.log('Clearing client state for logout');
+                localStorage.clear();
+                sessionStorage.clear();
+                if (window.__TAURI__) {
+                    window.__TAURI__.event.emit('app-logout');
+                }
             }
-            false
-        } else {
-            true
-        }
-    })
+            "#,
+        )
+        .on_navigation(move |url| {
+            let scheme = url.scheme();
+            if scheme == "mls" || scheme == "ap-mls" || scheme == "bonfire" {
+                let known = app_handle.state::<Mutex<crate::deep_link::KnownDomains>>();
+                let domains = known.lock().ok();
+                if let Some(payload) =
+                    crate::deep_link::parse_url(&url.to_string(), domains.as_deref())
+                {
+                    crate::deep_link::handle(&app_handle, &payload);
+                }
+                false
+            } else {
+                true
+            }
+        })
 }
 
 /// Destroys all known windows from any layout mode.

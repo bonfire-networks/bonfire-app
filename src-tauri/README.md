@@ -15,3 +15,10 @@ and to run a second instance of it (useful for testing two-way user flows):
 
 `TAURI_CONFIG='{"identifier":"cafe.bonfire.dev2"}' cargo tauri dev`
 
+For testing on Android:
+
+`cargo tauri android build --apk true`
+
+Or to compile for a single architecture (eg. if using the simulator):
+
+`cargo tauri android build --apk true --target aarch64`
