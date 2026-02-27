@@ -57,7 +57,7 @@ impl NotificationListener {
     }
 }
 
-/// The main SSE event loop. Reconnects automatically via reqwest-eventsource.
+/// The main SSE event loop. Reconnects with exponential backoff on failures.
 async fn sse_loop(
     app: tauri::AppHandle,
     instance_url: String,
@@ -69,60 +69,97 @@ async fn sse_loop(
         instance_url.trim_end_matches('/')
     );
 
-    eprintln!("[SSE] Connecting to {}", url);
     let client = reqwest::Client::new();
-    let mut es = client
-        .get(&url)
-        .header("Authorization", format!("Bearer {}", token))
-        .eventsource()
-        .unwrap();
+    let mut backoff_secs: u64 = 1;
+    const MAX_BACKOFF_SECS: u64 = 60;
 
     loop {
-        tokio::select! {
-            _ = cancel_rx.changed() => {
-                if *cancel_rx.borrow() {
-                    eprintln!("[SSE] Cancel signal received, closing connection");
-                    es.close();
-                    break;
+        // Check cancellation before (re)connecting
+        if *cancel_rx.borrow() {
+            break;
+        }
+
+        eprintln!("[SSE] Connecting to {}", url);
+        let mut es = client
+            .get(&url)
+            .header("Authorization", format!("Bearer {}", token))
+            .eventsource()
+            .unwrap();
+
+        let mut fatal = false;
+
+        loop {
+            tokio::select! {
+                _ = cancel_rx.changed() => {
+                    if *cancel_rx.borrow() {
+                        eprintln!("[SSE] Cancel signal received, closing connection");
+                        es.close();
+                        fatal = true;
+                        break;
+                    }
                 }
-            }
-            event = es.next() => {
-                match event {
-                    Some(Ok(Event::Open)) => {
-                        eprintln!("[SSE] Connection opened to {}", url);
-                    }
-                    Some(Ok(Event::Message(msg))) => {
-                        eprintln!("[SSE] Received event: type={}, data_len={}", msg.event, msg.data.len());
-                        handle_sse_message(&app, &msg.event, &msg.data);
-                    }
-                    Some(Err(err)) => {
-                        eprintln!("[SSE] Error: {:?}", err);
-                        // reqwest-eventsource will auto-reconnect for
-                        // retryable errors; close on fatal ones
-                        match &err {
-                            reqwest_eventsource::Error::InvalidStatusCode(status, resp) => {
-                                eprintln!("[SSE] Status: {}, headers: {:?}", status, resp.headers());
-                                if status.as_u16() == 401 || status.as_u16() == 403 {
-                                    eprintln!("[SSE] Auth failed ({}), stopping", status);
+                event = es.next() => {
+                    match event {
+                        Some(Ok(Event::Open)) => {
+                            eprintln!("[SSE] Connection opened to {}", url);
+                            // Reset backoff on successful connection
+                            backoff_secs = 1;
+                        }
+                        Some(Ok(Event::Message(msg))) => {
+                            eprintln!("[SSE] Received event: type={}, data_len={}", msg.event, msg.data.len());
+                            handle_sse_message(&app, &msg.event, &msg.data);
+                        }
+                        Some(Err(err)) => {
+                            eprintln!("[SSE] Error: {:?}", err);
+                            match &err {
+                                reqwest_eventsource::Error::InvalidStatusCode(status, resp) => {
+                                    eprintln!("[SSE] Status: {}, headers: {:?}", status, resp.headers());
+                                    if status.as_u16() == 401 || status.as_u16() == 403 {
+                                        eprintln!("[SSE] Auth failed ({}), stopping permanently", status);
+                                        es.close();
+                                        fatal = true;
+                                        break;
+                                    }
+                                    // Other HTTP errors (502, 503, etc.) — break inner loop to reconnect
                                     es.close();
                                     break;
                                 }
+                                reqwest_eventsource::Error::InvalidContentType(_, resp) => {
+                                    eprintln!("[SSE] Wrong content-type, headers: {:?}", resp.headers());
+                                    es.close();
+                                    fatal = true;
+                                    break;
+                                }
+                                _ => {
+                                    // Transport errors — reqwest-eventsource may auto-reconnect,
+                                    // but if the stream ends after this we'll reconnect ourselves
+                                }
                             }
-                            reqwest_eventsource::Error::InvalidContentType(_, resp) => {
-                                eprintln!("[SSE] Wrong content-type, headers: {:?}", resp.headers());
-                                es.close();
-                                break;
-                            }
-                            _ => {}
                         }
-                    }
-                    None => {
-                        eprintln!("[SSE] Stream ended (None)");
-                        break;
+                        None => {
+                            eprintln!("[SSE] Stream ended");
+                            break;
+                        }
                     }
                 }
             }
         }
+
+        if fatal {
+            break;
+        }
+
+        // Exponential backoff before reconnecting
+        eprintln!("[SSE] Reconnecting in {} seconds...", backoff_secs);
+        tokio::select! {
+            _ = tokio::time::sleep(std::time::Duration::from_secs(backoff_secs)) => {}
+            _ = cancel_rx.changed() => {
+                if *cancel_rx.borrow() {
+                    break;
+                }
+            }
+        }
+        backoff_secs = (backoff_secs * 2).min(MAX_BACKOFF_SECS);
     }
 }
 

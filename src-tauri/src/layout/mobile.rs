@@ -45,14 +45,9 @@ impl MobileLayout {
         Ok(())
     }
 
-    /// Open chat tab — same as desktop `TabBasedLayout::open_chat`.
-    /// No-op when called during login flow (pick-instance.html calls open_secure_chat
-    /// then immediately navigates to the dashboard itself).
-    pub fn open_chat(&mut self, _app: &tauri::AppHandle) -> Result<(), String> {
-        // During login, pick-instance.html calls open_secure_chat then navigates
-        // to /dashboard. We don't navigate here — the user can reach chat via
-        // the bottom nav bar.
-        Ok(())
+    /// Open chat tab by switching to it.
+    pub fn open_chat(&mut self, app: &tauri::AppHandle) -> Result<(), String> {
+        self.switch_tab(app, "chat")
     }
 
     /// Show the main (home) tab.
