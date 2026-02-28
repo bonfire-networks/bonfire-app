@@ -1201,6 +1201,7 @@ bill-of-materials:
 
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract:
+	AS_UMBRELLA=1 just mix deps.get
 	AS_UMBRELLA=1 MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just mix gettext.extract
 	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
 	rm -rf extensions/bonfire_*/config/current_flavour/assets

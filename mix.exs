@@ -94,7 +94,7 @@ defmodule Bonfire.Umbrella.MixProject do
     if(with_ai && with_ai not in no?,
       do: [
         {:bumblebee, "~> 0.6.3"},
-        {:axon, "~> 0.7.0", override: true},
+        {:axon, "~> 0.8.0", override: true},
         {:table_rex, "~> 4.0.0", override: true},
         # {:nx, "~> 0.9.0"},
         # {:exla, "~> 0.9.1"},
