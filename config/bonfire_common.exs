@@ -9,7 +9,7 @@ default_locale = "en"
 # Only compile additional locales in prod or when explicitly requested
 compile_all_locales? = (System.get_env("COMPILE_ALL_LOCALES") not in no? and config_env() == :prod) or System.get_env("COMPILE_ALL_LOCALES") in yes?
 
-locales = if compile_all_locales?, do: [default_locale, "fr", "es", "it"], else: [default_locale]
+locales = if compile_all_locales?, do: [default_locale, "fr", "fr-FR", "fr_CA", "es", "it"], else: [default_locale, "fr_CA"] # fr_CA is a good test case for regional locale with underscore
 
 config :bonfire_common,
   otp_app: :bonfire,
