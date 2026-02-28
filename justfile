@@ -1210,10 +1210,13 @@ localise-extract:
 @localise-tx-init:
 	pip install transifex-client
 	tx config mapping-bulk -p bonfire --source-language en --type PO -f '.po' --source-file-dir priv/localisation/ -i fr -i es -i it -i de --expression 'priv/localisation/<lang>/LC_MESSAGES/{filename}{extension}' --execute
-# curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+# TODO: switch from deprecated python transifex-client to new Go CLI (`brew install transifex-cli`), which changes syntax:
+#   push source: `tx push -s` (instead of `tx push --source`)
+#   push translations for a lang: `tx push -t -l zh_TW -f` (instead of `tx push --translation -l zh_TW --force`)
+#   pull: `tx pull --minimum-perc 5 -f -a` (instead of `tx pull --minimum-perc=5 --force --all`)
 
-@localise-tx-pull *args='--all':
-	tx pull --minimum-perc=5 --force {{args}}
+@localise-tx-pull lang='--all':
+	tx pull --minimum-perc=5 --force {{lang}}
 	mkdir -p priv/localisation/es_AR/LC_MESSAGES/ && mv priv/localisation/es_AR-C/LC_MESSAGES/* priv/localisation/es_AR/LC_MESSAGES/
 	mkdir -p priv/localisation/es_AR_x_B/LC_MESSAGES/ && mv priv/localisation/es_AR-B/LC_MESSAGES/* priv/localisation/es_AR_x_B/LC_MESSAGES/
 	just mix deps.compile bonfire_common --force
@@ -1221,6 +1224,10 @@ localise-extract:
 
 @localise-tx-push:
 	tx push --source
+
+# Push translations for a specific language to Transifex, to be used only if editing the .po files locally or using a different tool (pass --replace-edited-strings to override reviewed strings)
+@localise-tx-push-lang-files lang *args='':
+	tx push --translation --languages {{lang}} --force {{args}}
 
 @localise-extract-push: localise-extract localise-tx-push
 
