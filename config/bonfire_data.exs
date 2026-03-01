@@ -356,7 +356,8 @@ common_assocs = %{
         join_through: Tagged,
         unique: true,
         join_keys: [id: :id, tag_id: :id],
-        on_replace: :delete
+        on_replace: :delete,
+        preload_order: {Tagged, :preload_order, []}
       )
     end,
   object_tags:
@@ -370,7 +371,8 @@ common_assocs = %{
         join_through: Tagged,
         unique: true,
         join_keys: [id: :object_id, tag_id: :id],
-        on_replace: :delete
+        on_replace: :delete,
+        preload_order: {Tagged, :preload_order, []}
       )
     end,
 
@@ -1239,7 +1241,7 @@ config :bonfire_files, Media,
   code:
     (quote do
        field(:url, :string, virtual: true)
-       
+
        # Virtual fields for trending links aggregation
        field(:object_count, :integer, virtual: true)
        field(:reply_count, :integer, virtual: true)
@@ -1251,10 +1253,15 @@ config :bonfire_files, Media,
        has_many(:activities, Bonfire.Data.Social.Activity, foreign_key: :id)
 
        field(:newest_activity_id, :string, virtual: true)
-       belongs_to(:newest_activity, Bonfire.Data.Social.Activity, define_field: false, foreign_key: :newest_activity_id)
-       
+
+       belongs_to(:newest_activity, Bonfire.Data.Social.Activity,
+         define_field: false,
+         foreign_key: :newest_activity_id
+       )
+
        # [multi]mixins 
-       unquote_splicing(common.([:controlled, :created, :activity, :caretaker, :peered])) # , :boost_count, :like_count
+       # , :boost_count, :like_count
+       unquote_splicing(common.([:controlled, :created, :activity, :caretaker, :peered]))
      end)
 
 config :bonfire_tag, Tagged,
@@ -1272,7 +1279,16 @@ config :bonfire_classify, Category,
        # mixins
        # TODO :caretaker
        unquote_splicing(
-         common.([:activity, :created, :actor, :peered, :profile, :character, :settings, :extra_info])
+         common.([
+           :activity,
+           :created,
+           :actor,
+           :peered,
+           :profile,
+           :character,
+           :settings,
+           :extra_info
+         ])
        )
 
        # multimixins
@@ -1285,7 +1301,8 @@ config :bonfire_classify, Category,
          join_through: Tagged,
          unique: true,
          join_keys: [tag_id: :id, id: :id],
-         on_replace: :delete
+         on_replace: :delete,
+         preload_order: {Tagged, :preload_order, []}
        )
      end)
 

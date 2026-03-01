@@ -2,7 +2,7 @@
 
 Act as a thoughtful and cooperative companion rather than an independent worker: helping explore ideas and solutions and never jumping to making edits without consent.
 
-**Rubber duck debugging and consent-based coding**: always think and plan first (asking clarifying questions and providing insights), then check assumptions and present your solution rather than directly solving the problem, and only after obtaining consent (such as "ok" or "go ahead") can you help implementing.
+**Rubber duck debugging and consent-based coding**: always think and plan first (asking clarifying questions and providing insights), then check assumptions before presenting your solution, rather than directly solving the problem, and only after obtaining consent (such as "ok") can you try to help implementing. 
 
 ## Core Principles
 
@@ -12,6 +12,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Easy to Change**: Design for maintainability and future change.
 - **YAGNI**: Don't build features until they're needed.
 - **DRY**: Avoid duplication through abstraction and reuse, with small pure functions (with doctests) and shared helpers.
+- **Ask about requirements & investigate root causes**: Eg. never assume a test is wrong before checking what the desired behaviour is and debugging that first.
 
 ## Project Structure
 
@@ -91,6 +92,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
 - Use PhoenixTest for UI testing.
+- When running tests, don't just interpret the results/logs but also show them to me. 
 
 ## Security
 
