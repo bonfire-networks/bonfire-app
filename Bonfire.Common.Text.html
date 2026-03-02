@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.34">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.35">
 
 
-    <title>Bonfire.Common.Text — Bonfire v1.0.2-social-alpha.34</title>
+    <title>Bonfire.Common.Text — Bonfire v1.0.2-social-alpha.35</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-CF56D492.js"></script>
+    <script defer src="dist/sidebar_items-C4EA8007.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.34
+          v1.0.2-social-alpha.35
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Common.Text</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.34)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.35)</small>
 
     </h1>
 
@@ -126,8 +126,6 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p></div>
         <a href="#as_html_tree/1" data-no-tooltip="" translate="no">as_html_tree(tree)</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>Converts input to a LazyHTML tree.</p></div>
 
     </div>
 
@@ -261,6 +259,17 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#mark_trailing_element/4" data-no-tooltip="" translate="no">mark_trailing_element(tree, tag, class, match_fn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Adds <code class="inline">class</code> to the last element matching <code class="inline">tag</code> in an HTML tree if all its
+non-whitespace children satisfy <code class="inline">match_fn</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#markdown_checkboxes/1" data-no-tooltip="" translate="no">markdown_checkboxes(text)</a>
 
       </div>
@@ -346,7 +355,7 @@ If the content starts with an HTML tag or if the markdown library is not enabled
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#replace_links/2" data-no-tooltip="" translate="no">replace_links(input, replacements_map)</a>
+        <a href="#replace_links/3" data-no-tooltip="" translate="no">replace_links(input, replacements_map, fallback_match_fn \\ nil)</a>
 
       </div>
 
@@ -382,6 +391,17 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
       </div>
 
         <div class="summary-synopsis"><p>Splits a string into lines.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#strip_trailing_element/3" data-no-tooltip="" translate="no">strip_trailing_element(tree, tag, match_fn)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Strips the last element matching <code class="inline">tag</code> from an HTML tree if all its non-whitespace
+children satisfy <code class="inline">match_fn</code>.</p></div>
 
     </div>
 
@@ -490,7 +510,7 @@ If the input string is shorter than or equal to the given length, it returns the
       <h1 class="signature" translate="no">as_html(input)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1214" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1309" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -500,79 +520,79 @@ If the input string is shorter than or equal to the given length, it returns the
   <section class="docstring">
 
 <p>Normalizes HTML content and returns a string.
-Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all leading and trailing <code class="inline">&lt;p&gt;&lt;br/&gt;&lt;/p&gt;</code>, <code class="inline">&lt;br/&gt;</code>, and empty <code class="inline">&lt;p&gt;&lt;/p&gt;</code> tags.</p><h2 id="as_html/1-examples" class="section-heading"><a href="#as_html/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-1">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-1">)</span><span class="w">
+Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all leading and trailing <code class="inline">&lt;p&gt;&lt;br/&gt;&lt;/p&gt;</code>, <code class="inline">&lt;br/&gt;</code>, and empty <code class="inline">&lt;p&gt;&lt;/p&gt;</code> tags.</p><h2 id="as_html/1-examples" class="section-heading"><a href="#as_html/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-1">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-1">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-2">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-2">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-2">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-3">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-3">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-3">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-4">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-4">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-4">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-5">(</span><span class="s">&quot;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-5">(</span><span class="s">&quot;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-5">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-6">(</span><span class="s">&quot;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-6">(</span><span class="s">&quot;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-6">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-7">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;Hello&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-7">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;Hello&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-7">)</span><span class="w">
 </span><span class="s">&quot;Hello&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-8">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-8">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-8">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-8">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-9">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-9">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-9">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-9">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-10">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-10">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-10">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-10">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-11">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-11">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-11">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-11">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-12">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-12">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-12">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-12">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-13">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-13">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-13">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-13">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-14">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-14">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-14">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-14">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-15">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-15">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-15">(</span><span class="s">&quot;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-15">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-16">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-16">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-16">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-16">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-17">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-17">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-17">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-17">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-18">(</span><span class="s">&quot;Test&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-18">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-18">(</span><span class="s">&quot;Test&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-18">)</span><span class="w">
 </span><span class="s">&quot;Test&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-19">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;More&lt;br/&gt;&quot;</span><span class="p" data-group-id="6580053637-19">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-19">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;More&lt;br/&gt;&quot;</span><span class="p" data-group-id="8144860886-19">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;More&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-20">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-20">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-20">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-20">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-21">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-21">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-21">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-21">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-22">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-22">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-22">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-22">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-23">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-23">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-23">(</span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-23">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Test&lt;/p&gt;&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-24">(</span><span class="s">&quot;Test&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="6580053637-24">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-24">(</span><span class="s">&quot;Test&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&quot;</span><span class="p" data-group-id="8144860886-24">)</span><span class="w">
 </span><span class="s">&quot;Test&lt;p&gt;More&lt;/p&gt;&lt;p&gt;Even&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="6580053637-25">(</span><span class="s">&quot;&quot;</span><span class="p" data-group-id="6580053637-25">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html</span><span class="p" data-group-id="8144860886-25">(</span><span class="s">&quot;&quot;</span><span class="p" data-group-id="8144860886-25">)</span><span class="w">
 </span><span class="s">&quot;&quot;</span></code></pre>
   </section>
 </section>
@@ -586,7 +606,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
       <h1 class="signature" translate="no">as_html_tree(tree)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1127" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1222" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -595,21 +615,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Converts input to a LazyHTML tree.</p><p>Accepts string, LazyHTML struct, or tree.</p><h2 id="as_html_tree/1-examples" class="section-heading"><a href="#as_html_tree/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">as_html_tree</span><span class="p" data-group-id="5389954038-1">(</span><span class="s">&quot;&lt;b&gt;hi&lt;/b&gt;&quot;</span><span class="p" data-group-id="5389954038-1">)</span><span class="w">
-</span><span class="p" data-group-id="5389954038-2">[</span><span class="p" data-group-id="5389954038-3">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-4">[</span><span class="p" data-group-id="5389954038-4">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-5">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="5389954038-5">]</span><span class="p" data-group-id="5389954038-3">}</span><span class="p" data-group-id="5389954038-2">]</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html_tree</span><span class="p" data-group-id="5389954038-6">(</span><span class="p" data-group-id="5389954038-7">[</span><span class="p" data-group-id="5389954038-8">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-9">[</span><span class="p" data-group-id="5389954038-9">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-10">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="5389954038-10">]</span><span class="p" data-group-id="5389954038-8">}</span><span class="p" data-group-id="5389954038-7">]</span><span class="p" data-group-id="5389954038-6">)</span><span class="w">
-</span><span class="p" data-group-id="5389954038-11">[</span><span class="p" data-group-id="5389954038-12">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-13">[</span><span class="p" data-group-id="5389954038-13">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-14">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="5389954038-14">]</span><span class="p" data-group-id="5389954038-12">}</span><span class="p" data-group-id="5389954038-11">]</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html_tree</span><span class="p" data-group-id="5389954038-15">(</span><span class="nc">LazyHTML</span><span class="o">.</span><span class="n">from_fragment</span><span class="p" data-group-id="5389954038-16">(</span><span class="s">&quot;&lt;b&gt;hi&lt;/b&gt;&quot;</span><span class="p" data-group-id="5389954038-16">)</span><span class="p" data-group-id="5389954038-15">)</span><span class="w">
-</span><span class="p" data-group-id="5389954038-17">[</span><span class="p" data-group-id="5389954038-18">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-19">[</span><span class="p" data-group-id="5389954038-19">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5389954038-20">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="5389954038-20">]</span><span class="p" data-group-id="5389954038-18">}</span><span class="p" data-group-id="5389954038-17">]</span></code></pre><p>Accepts string, LazyHTML struct, or tree.</p><h2 id="as_html_tree/1-examples-1" class="section-heading"><a href="#as_html_tree/1-examples-1" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">as_html_tree</span><span class="p" data-group-id="7464562949-1">(</span><span class="s">&quot;&lt;b&gt;hi&lt;/b&gt;&quot;</span><span class="p" data-group-id="7464562949-1">)</span><span class="w">
-</span><span class="p" data-group-id="7464562949-2">[</span><span class="p" data-group-id="7464562949-3">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-4">[</span><span class="p" data-group-id="7464562949-4">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-5">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="7464562949-5">]</span><span class="p" data-group-id="7464562949-3">}</span><span class="p" data-group-id="7464562949-2">]</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html_tree</span><span class="p" data-group-id="7464562949-6">(</span><span class="p" data-group-id="7464562949-7">[</span><span class="p" data-group-id="7464562949-8">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-9">[</span><span class="p" data-group-id="7464562949-9">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-10">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="7464562949-10">]</span><span class="p" data-group-id="7464562949-8">}</span><span class="p" data-group-id="7464562949-7">]</span><span class="p" data-group-id="7464562949-6">)</span><span class="w">
-</span><span class="p" data-group-id="7464562949-11">[</span><span class="p" data-group-id="7464562949-12">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-13">[</span><span class="p" data-group-id="7464562949-13">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-14">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="7464562949-14">]</span><span class="p" data-group-id="7464562949-12">}</span><span class="p" data-group-id="7464562949-11">]</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="n">as_html_tree</span><span class="p" data-group-id="7464562949-15">(</span><span class="nc">LazyHTML</span><span class="o">.</span><span class="n">from_fragment</span><span class="p" data-group-id="7464562949-16">(</span><span class="s">&quot;&lt;b&gt;hi&lt;/b&gt;&quot;</span><span class="p" data-group-id="7464562949-16">)</span><span class="p" data-group-id="7464562949-15">)</span><span class="w">
-</span><span class="p" data-group-id="7464562949-17">[</span><span class="p" data-group-id="7464562949-18">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-19">[</span><span class="p" data-group-id="7464562949-19">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7464562949-20">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="7464562949-20">]</span><span class="p" data-group-id="7464562949-18">}</span><span class="p" data-group-id="7464562949-17">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="as_lazy_html/1">
@@ -622,7 +628,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
       <h1 class="signature" translate="no">as_lazy_html(html)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1093" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1107" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -631,11 +637,11 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Converts input to a LazyHTML struct.</p><p>Accepts string, tree, or LazyHTML struct.</p><h2 id="as_lazy_html/1-examples" class="section-heading"><a href="#as_lazy_html/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3125530571-1">%</span><span class="nc" data-group-id="3125530571-1">LazyHTML</span><span class="p" data-group-id="3125530571-1">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="3125530571-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as_lazy_html</span><span class="p" data-group-id="3125530571-2">(</span><span class="s">&quot;&lt;b&gt;hi&lt;/b&gt;&quot;</span><span class="p" data-group-id="3125530571-2">)</span><span class="w">
+<p>Converts input to a LazyHTML struct.</p><p>Accepts string, tree, or LazyHTML struct.</p><h2 id="as_lazy_html/1-examples" class="section-heading"><a href="#as_lazy_html/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7645549308-1">%</span><span class="nc" data-group-id="7645549308-1">LazyHTML</span><span class="p" data-group-id="7645549308-1">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="7645549308-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as_lazy_html</span><span class="p" data-group-id="7645549308-2">(</span><span class="s">&quot;&lt;b&gt;hi&lt;/b&gt;&quot;</span><span class="p" data-group-id="7645549308-2">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3125530571-3">%</span><span class="nc" data-group-id="3125530571-3">LazyHTML</span><span class="p" data-group-id="3125530571-3">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="3125530571-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as_lazy_html</span><span class="p" data-group-id="3125530571-4">(</span><span class="p" data-group-id="3125530571-5">[</span><span class="p" data-group-id="3125530571-6">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3125530571-7">[</span><span class="p" data-group-id="3125530571-7">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3125530571-8">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="3125530571-8">]</span><span class="p" data-group-id="3125530571-6">}</span><span class="p" data-group-id="3125530571-5">]</span><span class="p" data-group-id="3125530571-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7645549308-3">%</span><span class="nc" data-group-id="7645549308-3">LazyHTML</span><span class="p" data-group-id="7645549308-3">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="7645549308-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as_lazy_html</span><span class="p" data-group-id="7645549308-4">(</span><span class="p" data-group-id="7645549308-5">[</span><span class="p" data-group-id="7645549308-6">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7645549308-7">[</span><span class="p" data-group-id="7645549308-7">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7645549308-8">[</span><span class="s">&quot;hi&quot;</span><span class="p" data-group-id="7645549308-8">]</span><span class="p" data-group-id="7645549308-6">}</span><span class="p" data-group-id="7645549308-5">]</span><span class="p" data-group-id="7645549308-4">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3125530571-9">%</span><span class="nc" data-group-id="3125530571-9">LazyHTML</span><span class="p" data-group-id="3125530571-9">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="3125530571-9">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as_lazy_html</span><span class="p" data-group-id="3125530571-10">(</span><span class="p" data-group-id="3125530571-11">%</span><span class="nc" data-group-id="3125530571-11">LazyHTML</span><span class="p" data-group-id="3125530571-11">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="3125530571-11">}</span><span class="p" data-group-id="3125530571-10">)</span><span class="w"> </span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7645549308-9">%</span><span class="nc" data-group-id="7645549308-9">LazyHTML</span><span class="p" data-group-id="7645549308-9">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="7645549308-9">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as_lazy_html</span><span class="p" data-group-id="7645549308-10">(</span><span class="p" data-group-id="7645549308-11">%</span><span class="nc" data-group-id="7645549308-11">LazyHTML</span><span class="p" data-group-id="7645549308-11">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="7645549308-11">}</span><span class="p" data-group-id="7645549308-10">)</span><span class="w"> </span></code></pre>
   </section>
 </section>
 <section class="detail" id="blank?/1">
@@ -657,13 +663,13 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Checks if a string is blank.</p><h2 id="blank?/1-examples" class="section-heading"><a href="#blank?/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="1907232441-1">(</span><span class="no">nil</span><span class="p" data-group-id="1907232441-1">)</span><span class="w">
+<p>Checks if a string is blank.</p><h2 id="blank?/1-examples" class="section-heading"><a href="#blank?/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="0745118760-1">(</span><span class="no">nil</span><span class="p" data-group-id="0745118760-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="1907232441-2">(</span><span class="s">&quot;   &quot;</span><span class="p" data-group-id="1907232441-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="0745118760-2">(</span><span class="s">&quot;   &quot;</span><span class="p" data-group-id="0745118760-2">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="1907232441-3">(</span><span class="s">&quot;not blank&quot;</span><span class="p" data-group-id="1907232441-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">blank?</span><span class="p" data-group-id="0745118760-3">(</span><span class="s">&quot;not blank&quot;</span><span class="p" data-group-id="0745118760-3">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -677,7 +683,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
       <h1 class="signature" translate="no">camelise(str)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1013" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1027" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -686,7 +692,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Converts a string to CamelCase.</p><h2 id="camelise/1-examples" class="section-heading"><a href="#camelise/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">camelise</span><span class="p" data-group-id="3480111096-1">(</span><span class="s">&quot;hello world&quot;</span><span class="p" data-group-id="3480111096-1">)</span><span class="w">
+<p>Converts a string to CamelCase.</p><h2 id="camelise/1-examples" class="section-heading"><a href="#camelise/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">camelise</span><span class="p" data-group-id="3433498794-1">(</span><span class="s">&quot;hello world&quot;</span><span class="p" data-group-id="3433498794-1">)</span><span class="w">
 </span><span class="s">&quot;HelloWorld&quot;</span></code></pre>
   </section>
 </section>
@@ -709,7 +715,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Highlights code using Makeup or falls back to Phoenix.HTML if unsupported.</p><h2 id="code_syntax/2-examples" class="section-heading"><a href="#code_syntax/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">code_syntax</span><span class="p" data-group-id="0455143046-1">(</span><span class="s">&quot;defmodule Test {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test.ex&quot;</span><span class="p" data-group-id="0455143046-1">)</span><span class="w">
+<p>Highlights code using Makeup or falls back to Phoenix.HTML if unsupported.</p><h2 id="code_syntax/2-examples" class="section-heading"><a href="#code_syntax/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">code_syntax</span><span class="p" data-group-id="8150869528-1">(</span><span class="s">&quot;defmodule Test {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test.ex&quot;</span><span class="p" data-group-id="8150869528-1">)</span><span class="w">
 </span><span class="c1">#=&gt; &quot;&lt;pre&gt;&lt;code class=&quot;highlight&quot;&gt;defmodule Test {}&lt;/code&gt;&lt;/pre&gt;&quot;</span></code></pre>
   </section>
 </section>
@@ -732,10 +738,10 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Checks if a string contains a substring.</p><h2 id="contains?/2-examples" class="section-heading"><a href="#contains?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">contains?</span><span class="p" data-group-id="3182318140-1">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p" data-group-id="3182318140-1">)</span><span class="w">
+<p>Checks if a string contains a substring.</p><h2 id="contains?/2-examples" class="section-heading"><a href="#contains?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">contains?</span><span class="p" data-group-id="0503584642-1">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p" data-group-id="0503584642-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">contains?</span><span class="p" data-group-id="3182318140-2">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="3182318140-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">contains?</span><span class="p" data-group-id="0503584642-2">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="0503584642-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -758,10 +764,10 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
 
   <section class="docstring">
 
-<p>Checks if a string contains HTML tags.</p><h2 id="contains_html?/1-examples" class="section-heading"><a href="#contains_html?/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">contains_html?</span><span class="p" data-group-id="0463943420-1">(</span><span class="s">&quot;&lt;div&gt;Test&lt;/div&gt;&quot;</span><span class="p" data-group-id="0463943420-1">)</span><span class="w">
+<p>Checks if a string contains HTML tags.</p><h2 id="contains_html?/1-examples" class="section-heading"><a href="#contains_html?/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">contains_html?</span><span class="p" data-group-id="5697492420-1">(</span><span class="s">&quot;&lt;div&gt;Test&lt;/div&gt;&quot;</span><span class="p" data-group-id="5697492420-1">)</span><span class="w">
 </span><span class="no">true</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">contains_html?</span><span class="p" data-group-id="0463943420-2">(</span><span class="s">&quot;Just text&quot;</span><span class="p" data-group-id="0463943420-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">contains_html?</span><span class="p" data-group-id="5697492420-2">(</span><span class="s">&quot;Just text&quot;</span><span class="p" data-group-id="5697492420-2">)</span><span class="w">
 </span><span class="no">false</span></code></pre>
   </section>
 </section>
@@ -777,7 +783,7 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
       <h1 class="signature" translate="no">extract_urls_from_html(html_content, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L893" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L907" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -787,20 +793,20 @@ Accepts string, LazyHTML struct, or HTML syntax tree as input.</p><p>Trims all l
   <section class="docstring">
 
 <p>Extracts URLs from HTML content using LazyHTML.</p><p>Accepts string, LazyHTML struct, or tree as input.
-Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input.</p><p>Filters out mention and hashtag URLs.</p><h2 id="extract_urls_from_html/2-examples" class="section-heading"><a href="#extract_urls_from_html/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6269148071-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6269148071-2">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-3">%</span><span class="nc" data-group-id="6269148071-3">LazyHTML</span><span class="p" data-group-id="6269148071-3">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="6269148071-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-4">[</span><span class="s">&quot;http://foo.com&quot;</span><span class="p" data-group-id="6269148071-4">]</span><span class="p" data-group-id="6269148071-2">}</span><span class="p" data-group-id="6269148071-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-5">(</span><span class="s">&quot;&lt;a href=&#39;http://foo.com&#39;&gt;foo&lt;/a&gt;&quot;</span><span class="p" data-group-id="6269148071-5">)</span><span class="w">
+Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input.</p><p>Filters out mention and hashtag URLs.</p><h2 id="extract_urls_from_html/2-examples" class="section-heading"><a href="#extract_urls_from_html/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9524324768-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9524324768-2">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-3">%</span><span class="nc" data-group-id="9524324768-3">LazyHTML</span><span class="p" data-group-id="9524324768-3">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="9524324768-3">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-4">[</span><span class="s">&quot;http://foo.com&quot;</span><span class="p" data-group-id="9524324768-4">]</span><span class="p" data-group-id="9524324768-2">}</span><span class="p" data-group-id="9524324768-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-5">(</span><span class="s">&quot;&lt;a href=&#39;http://foo.com&#39;&gt;foo&lt;/a&gt;&quot;</span><span class="p" data-group-id="9524324768-5">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6269148071-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6269148071-7">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-8">%</span><span class="nc" data-group-id="6269148071-8">LazyHTML</span><span class="p" data-group-id="6269148071-8">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="6269148071-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-9">[</span><span class="p" data-group-id="6269148071-9">]</span><span class="p" data-group-id="6269148071-7">}</span><span class="p" data-group-id="6269148071-6">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-10">(</span><span class="s">&quot;&lt;div&gt;no valid links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&lt;a href=&#39;mailto:test@example.com&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p" data-group-id="6269148071-10">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9524324768-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9524324768-7">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-8">%</span><span class="nc" data-group-id="9524324768-8">LazyHTML</span><span class="p" data-group-id="9524324768-8">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="9524324768-8">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-9">[</span><span class="p" data-group-id="9524324768-9">]</span><span class="p" data-group-id="9524324768-7">}</span><span class="p" data-group-id="9524324768-6">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-10">(</span><span class="s">&quot;&lt;div&gt;no valid links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&lt;a href=&#39;mailto:test@example.com&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p" data-group-id="9524324768-10">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6269148071-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6269148071-12">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-13">%</span><span class="nc" data-group-id="6269148071-13">LazyHTML</span><span class="p" data-group-id="6269148071-13">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="6269148071-13">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-14">[</span><span class="s">&quot;/&quot;</span><span class="p" data-group-id="6269148071-14">]</span><span class="p" data-group-id="6269148071-12">}</span><span class="p" data-group-id="6269148071-11">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-15">(</span><span class="s">&quot;&lt;div&gt;including relative links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">allow_relative</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="6269148071-15">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9524324768-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9524324768-12">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-13">%</span><span class="nc" data-group-id="9524324768-13">LazyHTML</span><span class="p" data-group-id="9524324768-13">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="9524324768-13">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-14">[</span><span class="s">&quot;/&quot;</span><span class="p" data-group-id="9524324768-14">]</span><span class="p" data-group-id="9524324768-12">}</span><span class="p" data-group-id="9524324768-11">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-15">(</span><span class="s">&quot;&lt;div&gt;including relative links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">allow_relative</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9524324768-15">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6269148071-16">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6269148071-17">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-18">%</span><span class="nc" data-group-id="6269148071-18">LazyHTML</span><span class="p" data-group-id="6269148071-18">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="6269148071-18">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-19">[</span><span class="s">&quot;mailto:test@example.com&quot;</span><span class="p" data-group-id="6269148071-19">]</span><span class="p" data-group-id="6269148071-17">}</span><span class="p" data-group-id="6269148071-16">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-20">(</span><span class="s">&quot;&lt;div&gt;no non-HTTP links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&lt;a href=&#39;mailto:test@example.com&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">allow_non_http</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="6269148071-20">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9524324768-16">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9524324768-17">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-18">%</span><span class="nc" data-group-id="9524324768-18">LazyHTML</span><span class="p" data-group-id="9524324768-18">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="9524324768-18">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-19">[</span><span class="s">&quot;mailto:test@example.com&quot;</span><span class="p" data-group-id="9524324768-19">]</span><span class="p" data-group-id="9524324768-17">}</span><span class="p" data-group-id="9524324768-16">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-20">(</span><span class="s">&quot;&lt;div&gt;no non-HTTP links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&lt;a href=&#39;mailto:test@example.com&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">allow_non_http</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9524324768-20">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="6269148071-21">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6269148071-22">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-23">%</span><span class="nc" data-group-id="6269148071-23">LazyHTML</span><span class="p" data-group-id="6269148071-23">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="6269148071-23">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6269148071-24">[</span><span class="s">&quot;ftp://test@example.com&quot;</span><span class="p" data-group-id="6269148071-24">]</span><span class="p" data-group-id="6269148071-22">}</span><span class="p" data-group-id="6269148071-21">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-25">(</span><span class="s">&quot;&lt;div&gt;no non-HTTP links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&lt;a href=&#39;ftp://test@example.com&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">allow_non_http</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="6269148071-25">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="9524324768-21">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9524324768-22">%{</span><span class="ss">html</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-23">%</span><span class="nc" data-group-id="9524324768-23">LazyHTML</span><span class="p" data-group-id="9524324768-23">{</span><span class="ss">resource</span><span class="p">:</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="9524324768-23">}</span><span class="p">,</span><span class="w"> </span><span class="ss">urls</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9524324768-24">[</span><span class="s">&quot;ftp://test@example.com&quot;</span><span class="p" data-group-id="9524324768-24">]</span><span class="p" data-group-id="9524324768-22">}</span><span class="p" data-group-id="9524324768-21">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-25">(</span><span class="s">&quot;&lt;div&gt;no non-HTTP links&lt;/div&gt;&lt;a href=&#39;/&#39;&gt;test&lt;/a&gt;&lt;a href=&#39;ftp://test@example.com&#39;&gt;test&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">allow_non_http</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="9524324768-25">)</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-26">(</span><span class="no">nil</span><span class="p" data-group-id="6269148071-26">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-26">(</span><span class="no">nil</span><span class="p" data-group-id="9524324768-26">)</span><span class="w">
 </span><span class="no">nil</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="6269148071-27">(</span><span class="s">&quot;&quot;</span><span class="p" data-group-id="6269148071-27">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">extract_urls_from_html</span><span class="p" data-group-id="9524324768-27">(</span><span class="s">&quot;&quot;</span><span class="p" data-group-id="9524324768-27">)</span><span class="w">
 </span><span class="no">nil</span></code></pre>
   </section>
 </section>
@@ -825,10 +831,10 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Hashes the input using a specified algorithm (md5 by default, which is fast but not secure).</p><h2 id="hash/2-examples" class="section-heading"><a href="#hash/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">hash</span><span class="p" data-group-id="3733938078-1">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">algorithm</span><span class="p">:</span><span class="w"> </span><span class="ss">:sha256</span><span class="p" data-group-id="3733938078-1">)</span><span class="w">
+<p>Hashes the input using a specified algorithm (md5 by default, which is fast but not secure).</p><h2 id="hash/2-examples" class="section-heading"><a href="#hash/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">hash</span><span class="p" data-group-id="6816621482-1">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">algorithm</span><span class="p">:</span><span class="w"> </span><span class="ss">:sha256</span><span class="p" data-group-id="6816621482-1">)</span><span class="w">
 </span><span class="s">&quot;Om6weQ85rIfJTzhWst0sXREOaBFgImGpqSPTuyOtyLc&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">hash</span><span class="p" data-group-id="3733938078-2">(</span><span class="s">&quot;data&quot;</span><span class="p" data-group-id="3733938078-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">hash</span><span class="p" data-group-id="6816621482-2">(</span><span class="s">&quot;data&quot;</span><span class="p" data-group-id="6816621482-2">)</span><span class="w">
 </span><span class="s">&quot;jXd_OF09_siBXSD3SWAm3A&quot;</span></code></pre>
   </section>
 </section>
@@ -842,7 +848,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">list_checkboxes(text)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L982" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L996" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -851,7 +857,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Lists all checkboxes from the text.</p><h2 id="list_checkboxes/1-examples" class="section-heading"><a href="#list_checkboxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_checkboxes</span><span class="p" data-group-id="8243262857-1">(</span><span class="err">&quot;</span><span class="o">*</span><span class="w"> </span><span class="p" data-group-id="8243262857-2">[</span><span class="w"> </span><span class="p" data-group-id="8243262857-2">]</span><span class="w"> </span><span class="n">task</span></code></pre><ul><li>[x] done&quot;)
+<p>Lists all checkboxes from the text.</p><h2 id="list_checkboxes/1-examples" class="section-heading"><a href="#list_checkboxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_checkboxes</span><span class="p" data-group-id="5572448862-1">(</span><span class="err">&quot;</span><span class="o">*</span><span class="w"> </span><span class="p" data-group-id="5572448862-2">[</span><span class="w"> </span><span class="p" data-group-id="5572448862-2">]</span><span class="w"> </span><span class="n">task</span></code></pre><ul><li>[x] done&quot;)
   [[&quot; &quot;, &quot;task&quot;], [&quot; &quot;, &quot;done&quot;]]</li></ul>
   </section>
 </section>
@@ -865,7 +871,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">list_checked_boxes(text)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L958" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L972" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -874,8 +880,8 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Lists checked boxes from the text.</p><h2 id="list_checked_boxes/1-examples" class="section-heading"><a href="#list_checked_boxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_checked_boxes</span><span class="p" data-group-id="6026376935-1">(</span><span class="s">&quot;* [x] done&quot;</span><span class="p" data-group-id="6026376935-1">)</span><span class="w">
-</span><span class="p" data-group-id="6026376935-2">[</span><span class="p" data-group-id="6026376935-3">[</span><span class="s">&quot;done&quot;</span><span class="p" data-group-id="6026376935-3">]</span><span class="p" data-group-id="6026376935-2">]</span></code></pre>
+<p>Lists checked boxes from the text.</p><h2 id="list_checked_boxes/1-examples" class="section-heading"><a href="#list_checked_boxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_checked_boxes</span><span class="p" data-group-id="1417255028-1">(</span><span class="s">&quot;* [x] done&quot;</span><span class="p" data-group-id="1417255028-1">)</span><span class="w">
+</span><span class="p" data-group-id="1417255028-2">[</span><span class="p" data-group-id="1417255028-3">[</span><span class="s">&quot;done&quot;</span><span class="p" data-group-id="1417255028-3">]</span><span class="p" data-group-id="1417255028-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_unchecked_boxes/1">
@@ -888,7 +894,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">list_unchecked_boxes(text)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L970" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L984" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -897,8 +903,8 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Lists unchecked boxes from the text.</p><h2 id="list_unchecked_boxes/1-examples" class="section-heading"><a href="#list_unchecked_boxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_unchecked_boxes</span><span class="p" data-group-id="3184634163-1">(</span><span class="s">&quot;* [ ] task&quot;</span><span class="p" data-group-id="3184634163-1">)</span><span class="w">
-</span><span class="p" data-group-id="3184634163-2">[</span><span class="p" data-group-id="3184634163-3">[</span><span class="s">&quot;task&quot;</span><span class="p" data-group-id="3184634163-3">]</span><span class="p" data-group-id="3184634163-2">]</span></code></pre>
+<p>Lists unchecked boxes from the text.</p><h2 id="list_unchecked_boxes/1-examples" class="section-heading"><a href="#list_unchecked_boxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">list_unchecked_boxes</span><span class="p" data-group-id="6493478264-1">(</span><span class="s">&quot;* [ ] task&quot;</span><span class="p" data-group-id="6493478264-1">)</span><span class="w">
+</span><span class="p" data-group-id="6493478264-2">[</span><span class="p" data-group-id="6493478264-3">[</span><span class="s">&quot;task&quot;</span><span class="p" data-group-id="6493478264-3">]</span><span class="p" data-group-id="6493478264-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="make_links_absolute/3">
@@ -913,7 +919,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">make_links_absolute(content, format, base_url \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L853" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L867" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -935,7 +941,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">make_local_links_live(content)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L834" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L848" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -944,8 +950,38 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Makes local links within content live.</p><h2 id="make_local_links_live/1-examples" class="section-heading"><a href="#make_local_links_live/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">make_local_links_live</span><span class="p" data-group-id="2798290569-1">(</span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">path</span><span class="s">&quot;&gt;Link&lt;/a&gt;&quot;</span><span class="p" data-group-id="2798290569-1">)</span><span class="w">
+<p>Makes local links within content live.</p><h2 id="make_local_links_live/1-examples" class="section-heading"><a href="#make_local_links_live/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">make_local_links_live</span><span class="p" data-group-id="8571074995-1">(</span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">path</span><span class="s">&quot;&gt;Link&lt;/a&gt;&quot;</span><span class="p" data-group-id="8571074995-1">)</span><span class="w">
 </span><span class="s">&quot;&lt;a href=&quot;</span><span class="o">/</span><span class="n">path</span><span class="s">&quot; data-phx-link=&quot;</span><span class="n">redirect</span><span class="s">&quot; data-phx-link-state=&quot;</span><span class="n">push</span><span class="s">&quot;&gt;Link&lt;/a&gt;&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="mark_trailing_element/4">
+
+  <div class="detail-header">
+    <a href="#mark_trailing_element/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">mark_trailing_element(tree, tag, class, match_fn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1198" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Adds <code class="inline">class</code> to the last element matching <code class="inline">tag</code> in an HTML tree if all its
+non-whitespace children satisfy <code class="inline">match_fn</code>.</p><p>Operates on a LazyHTML tree (list of tuples) to avoid extra string/tree conversions.
+Returns the tree unchanged if the last element doesn't match.</p><h2 id="mark_trailing_element/4-examples" class="section-heading"><a href="#mark_trailing_element/4-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">match_fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k" data-group-id="8267667880-1">fn</span><span class="w"> </span><span class="p" data-group-id="8267667880-2">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-3">[</span><span class="p" data-group-id="8267667880-4">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/&quot;</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8267667880-4">}</span><span class="p" data-group-id="8267667880-3">]</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8267667880-2">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">true</span><span class="p">;</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">false</span><span class="w"> </span><span class="k" data-group-id="8267667880-1">end</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">mark_trailing_element</span><span class="p" data-group-id="8267667880-5">(</span><span class="p" data-group-id="8267667880-6">[</span><span class="p" data-group-id="8267667880-7">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-8">[</span><span class="p" data-group-id="8267667880-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-9">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8267667880-9">]</span><span class="p" data-group-id="8267667880-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-10">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-11">[</span><span class="p" data-group-id="8267667880-11">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-12">[</span><span class="p" data-group-id="8267667880-13">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-14">[</span><span class="p" data-group-id="8267667880-15">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/ABC&quot;</span><span class="p" data-group-id="8267667880-15">}</span><span class="p" data-group-id="8267667880-14">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-16">[</span><span class="s">&quot;#test&quot;</span><span class="p" data-group-id="8267667880-16">]</span><span class="p" data-group-id="8267667880-13">}</span><span class="p" data-group-id="8267667880-12">]</span><span class="p" data-group-id="8267667880-10">}</span><span class="p" data-group-id="8267667880-6">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;invisible&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">match_fn</span><span class="p" data-group-id="8267667880-5">)</span><span class="w">
+</span><span class="p" data-group-id="8267667880-17">[</span><span class="p" data-group-id="8267667880-18">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-19">[</span><span class="p" data-group-id="8267667880-19">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-20">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8267667880-20">]</span><span class="p" data-group-id="8267667880-18">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-21">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-22">[</span><span class="p" data-group-id="8267667880-23">{</span><span class="s">&quot;class&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;invisible&quot;</span><span class="p" data-group-id="8267667880-23">}</span><span class="p" data-group-id="8267667880-22">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-24">[</span><span class="p" data-group-id="8267667880-25">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-26">[</span><span class="p" data-group-id="8267667880-27">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/ABC&quot;</span><span class="p" data-group-id="8267667880-27">}</span><span class="p" data-group-id="8267667880-26">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-28">[</span><span class="s">&quot;#test&quot;</span><span class="p" data-group-id="8267667880-28">]</span><span class="p" data-group-id="8267667880-25">}</span><span class="p" data-group-id="8267667880-24">]</span><span class="p" data-group-id="8267667880-21">}</span><span class="p" data-group-id="8267667880-17">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">match_fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k" data-group-id="8267667880-29">fn</span><span class="w"> </span><span class="p" data-group-id="8267667880-30">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-31">[</span><span class="p" data-group-id="8267667880-32">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/&quot;</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8267667880-32">}</span><span class="p" data-group-id="8267667880-31">]</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8267667880-30">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">true</span><span class="p">;</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">false</span><span class="w"> </span><span class="k" data-group-id="8267667880-29">end</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">mark_trailing_element</span><span class="p" data-group-id="8267667880-33">(</span><span class="p" data-group-id="8267667880-34">[</span><span class="p" data-group-id="8267667880-35">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-36">[</span><span class="p" data-group-id="8267667880-36">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-37">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8267667880-37">]</span><span class="p" data-group-id="8267667880-35">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-38">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-39">[</span><span class="p" data-group-id="8267667880-39">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-40">[</span><span class="s">&quot;not a hashtag&quot;</span><span class="p" data-group-id="8267667880-40">]</span><span class="p" data-group-id="8267667880-38">}</span><span class="p" data-group-id="8267667880-34">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;invisible&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">match_fn</span><span class="p" data-group-id="8267667880-33">)</span><span class="w">
+</span><span class="p" data-group-id="8267667880-41">[</span><span class="p" data-group-id="8267667880-42">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-43">[</span><span class="p" data-group-id="8267667880-43">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-44">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8267667880-44">]</span><span class="p" data-group-id="8267667880-42">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-45">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-46">[</span><span class="p" data-group-id="8267667880-46">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8267667880-47">[</span><span class="s">&quot;not a hashtag&quot;</span><span class="p" data-group-id="8267667880-47">]</span><span class="p" data-group-id="8267667880-45">}</span><span class="p" data-group-id="8267667880-41">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="markdown_checkboxes/1">
@@ -958,7 +994,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">markdown_checkboxes(text)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L928" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L942" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -967,7 +1003,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Converts markdown checkboxes to HTML checkboxes.</p><h2 id="markdown_checkboxes/1-examples" class="section-heading"><a href="#markdown_checkboxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">markdown_checkboxes</span><span class="p" data-group-id="3564638043-1">(</span><span class="err">&quot;</span><span class="o">*</span><span class="w"> </span><span class="p" data-group-id="3564638043-2">[</span><span class="w"> </span><span class="p" data-group-id="3564638043-2">]</span><span class="w"> </span><span class="n">task</span></code></pre><ul><li>[x] done&quot;)
+<p>Converts markdown checkboxes to HTML checkboxes.</p><h2 id="markdown_checkboxes/1-examples" class="section-heading"><a href="#markdown_checkboxes/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">markdown_checkboxes</span><span class="p" data-group-id="6106717766-1">(</span><span class="err">&quot;</span><span class="o">*</span><span class="w"> </span><span class="p" data-group-id="6106717766-2">[</span><span class="w"> </span><span class="p" data-group-id="6106717766-2">]</span><span class="w"> </span><span class="n">task</span></code></pre><ul><li>[x] done&quot;)
   &quot;&lt;ul&gt;&lt;li&gt;&lt;input type='checkbox'&gt; task&lt;/li&gt;&lt;li&gt;&lt;input type='checkbox' checked='checked'&gt; done&lt;/li&gt;&lt;/ul&gt;&quot;</li></ul>
   </section>
 </section>
@@ -1007,7 +1043,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
       <h1 class="signature" translate="no">maybe_emote(content, user \\ nil, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L726" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L732" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1016,7 +1052,7 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
 
   <section class="docstring">
 
-<p>Converts text to emotes if the Emote module is enabled.</p><h2 id="maybe_emote/3-examples" class="section-heading"><a href="#maybe_emote/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_emote</span><span class="p" data-group-id="4952328816-1">(</span><span class="s">&quot;:smile:&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4952328816-2">[</span><span class="p" data-group-id="4952328816-2">]</span><span class="p" data-group-id="4952328816-1">)</span><span class="w">
+<p>Converts text to emotes if the Emote module is enabled.</p><h2 id="maybe_emote/3-examples" class="section-heading"><a href="#maybe_emote/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_emote</span><span class="p" data-group-id="5764305661-1">(</span><span class="s">&quot;:smile:&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5764305661-2">[</span><span class="p" data-group-id="5764305661-2">]</span><span class="p" data-group-id="5764305661-1">)</span><span class="w">
 </span><span class="s">&quot;😄&quot;</span></code></pre>
   </section>
 </section>
@@ -1042,13 +1078,13 @@ Returns {:ok, %{html: LazyHTML struct, urls: [url, ...]}} or nil for blank input
   <section class="docstring">
 
 <p>Converts the input content from markdown to HTML if the markdown library is enabled.
-If the content starts with an HTML tag or if the markdown library is not enabled, it skips conversion.</p><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="2055428361-1">(</span><span class="s">&quot;*Hello World*&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2055428361-2">[</span><span class="p" data-group-id="2055428361-2">]</span><span class="p" data-group-id="2055428361-1">)</span><span class="w">
+If the content starts with an HTML tag or if the markdown library is not enabled, it skips conversion.</p><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="8238257343-1">(</span><span class="s">&quot;*Hello World*&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8238257343-2">[</span><span class="p" data-group-id="8238257343-2">]</span><span class="p" data-group-id="8238257343-1">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;&lt;em&gt;Hello World&lt;/em&gt;&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="2055428361-3">(</span><span class="s">&quot;&lt;p&gt;Hello&lt;/p&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2055428361-4">[</span><span class="p" data-group-id="2055428361-4">]</span><span class="p" data-group-id="2055428361-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="8238257343-3">(</span><span class="s">&quot;&lt;p&gt;Hello&lt;/p&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8238257343-4">[</span><span class="p" data-group-id="8238257343-4">]</span><span class="p" data-group-id="8238257343-3">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Hello&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="2055428361-5">(</span><span class="s">&quot;Not markdown&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2055428361-6">[</span><span class="p" data-group-id="2055428361-6">]</span><span class="p" data-group-id="2055428361-5">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_markdown_to_html</span><span class="p" data-group-id="8238257343-5">(</span><span class="s">&quot;Not markdown&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8238257343-6">[</span><span class="p" data-group-id="8238257343-6">]</span><span class="p" data-group-id="8238257343-5">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Not markdown&lt;/p&gt;&quot;</span></code></pre>
   </section>
 </section>
@@ -1062,7 +1098,7 @@ If the content starts with an HTML tag or if the markdown library is not enabled
       <h1 class="signature" translate="no">maybe_render_templated(templated_content, data)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1030" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1044" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1084,7 +1120,7 @@ If the content starts with an HTML tag or if the markdown library is not enabled
       <h1 class="signature" translate="no">maybe_sane_html(content)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L680" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L686" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1093,14 +1129,20 @@ If the content starts with an HTML tag or if the markdown library is not enabled
 
   <section class="docstring">
 
-<p>Sanitizes HTML content to ensure it is safe.</p><p>It is recommended to call this before storing any that data is coming in from the user or from a remote instance</p><p>Uses HtmlSanitizeEx if enabled, otherwise returns input.</p><h2 id="maybe_sane_html/1-examples" class="section-heading"><a href="#maybe_sane_html/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="6699717470-1">(</span><span class="s">&quot;&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;&quot;</span><span class="p" data-group-id="6699717470-1">)</span><span class="w">
+<p>Sanitizes HTML content to ensure it is safe.</p><p>It is recommended to call this before storing any that data is coming in from the user or from a remote instance</p><p>Uses HtmlSanitizeEx if enabled, otherwise returns input.</p><h2 id="maybe_sane_html/1-examples" class="section-heading"><a href="#maybe_sane_html/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="2336357698-1">(</span><span class="s">&quot;&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;&quot;</span><span class="p" data-group-id="2336357698-1">)</span><span class="w">
 </span><span class="s">&quot;alert(&#39;XSS&#39;)&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="6699717470-2">(</span><span class="s">&quot;&lt;p&gt;Safe&lt;/p&gt;&quot;</span><span class="p" data-group-id="6699717470-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="2336357698-2">(</span><span class="s">&quot;&lt;p&gt;Safe&lt;/p&gt;&quot;</span><span class="p" data-group-id="2336357698-2">)</span><span class="w">
 </span><span class="s">&quot;&lt;p&gt;Safe&lt;/p&gt;&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="6699717470-3">(</span><span class="s">&quot;&lt;div class=&#39;test&#39;&gt;Safe&lt;/div&gt;&quot;</span><span class="p" data-group-id="6699717470-3">)</span><span class="w">
-</span><span class="s">&quot;Safe&quot;</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="2336357698-3">(</span><span class="s">&quot;&lt;div class=&#39;test&#39;&gt;Safe&lt;/div&gt;&quot;</span><span class="p" data-group-id="2336357698-3">)</span><span class="w">
+</span><span class="s">&quot;Safe&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="2336357698-4">(</span><span class="s">&quot;&lt;div class=&#39;invisible&#39;&gt;Safe&lt;/div&gt;&quot;</span><span class="p" data-group-id="2336357698-4">)</span><span class="w">
+</span><span class="s">&quot;&lt;div class=</span><span class="se">\&quot;</span><span class="s">invisible</span><span class="se">\&quot;</span><span class="s">&gt;Safe&lt;/div&gt;&quot;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">maybe_sane_html</span><span class="p" data-group-id="2336357698-5">(</span><span class="s">&quot;&lt;span class=&#39;invisible&#39;&gt;Safe&lt;/span&gt;&quot;</span><span class="p" data-group-id="2336357698-5">)</span><span class="w">
+</span><span class="s">&quot;&lt;span class=</span><span class="se">\&quot;</span><span class="s">invisible</span><span class="se">\&quot;</span><span class="s">&gt;Safe&lt;/span&gt;&quot;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="maybe_to_snake/1">
@@ -1122,7 +1164,7 @@ If the content starts with an HTML tag or if the markdown library is not enabled
 
   <section class="docstring">
 
-<p>Converts input to snake_case.</p><h2 id="maybe_to_snake/1-examples" class="section-heading"><a href="#maybe_to_snake/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_to_snake</span><span class="p" data-group-id="7133620023-1">(</span><span class="s">&quot;CamelCase&quot;</span><span class="p" data-group-id="7133620023-1">)</span><span class="w">
+<p>Converts input to snake_case.</p><h2 id="maybe_to_snake/1-examples" class="section-heading"><a href="#maybe_to_snake/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">maybe_to_snake</span><span class="p" data-group-id="8341809683-1">(</span><span class="s">&quot;CamelCase&quot;</span><span class="p" data-group-id="8341809683-1">)</span><span class="w">
 </span><span class="s">&quot;camel_case&quot;</span></code></pre>
   </section>
 </section>
@@ -1147,10 +1189,10 @@ If the content starts with an HTML tag or if the markdown library is not enabled
 
   <section class="docstring">
 
-<p>Generates a <em>random</em> string of a given length. </p><p>See also <code class="inline">unique_string/1</code> and <code class="inline">unique_integer/1</code></p><h2 id="random_string/1-examples" class="section-heading"><a href="#random_string/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">random_string</span><span class="p" data-group-id="3563331824-1">(</span><span class="mi">5</span><span class="p" data-group-id="3563331824-1">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">String</span><span class="o">.</span><span class="n">length</span><span class="p" data-group-id="3563331824-2">(</span><span class="p" data-group-id="3563331824-2">)</span><span class="w">
+<p>Generates a <em>random</em> string of a given length. </p><p>See also <code class="inline">unique_string/1</code> and <code class="inline">unique_integer/1</code></p><h2 id="random_string/1-examples" class="section-heading"><a href="#random_string/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">random_string</span><span class="p" data-group-id="9595887163-1">(</span><span class="mi">5</span><span class="p" data-group-id="9595887163-1">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">String</span><span class="o">.</span><span class="n">length</span><span class="p" data-group-id="9595887163-2">(</span><span class="p" data-group-id="9595887163-2">)</span><span class="w">
 </span><span class="mi">5</span><span class="w">
 
-</span><span class="o">&gt;</span><span class="w"> </span><span class="n">random_string</span><span class="p" data-group-id="3563331824-3">(</span><span class="p" data-group-id="3563331824-3">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">random_string</span><span class="p" data-group-id="9595887163-3">(</span><span class="p" data-group-id="9595887163-3">)</span><span class="w">
 </span><span class="c1">#=&gt; a string of length 10</span></code></pre>
   </section>
 </section>
@@ -1164,7 +1206,7 @@ If the content starts with an HTML tag or if the markdown library is not enabled
       <h1 class="signature" translate="no">regex_list(regex, text)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L986" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1000" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1176,17 +1218,19 @@ If the content starts with an HTML tag or if the markdown library is not enabled
 
   </section>
 </section>
-<section class="detail" id="replace_links/2">
+<section class="detail" id="replace_links/3">
+
+    <span id="replace_links/2"></span>
 
   <div class="detail-header">
-    <a href="#replace_links/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#replace_links/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">replace_links(input, replacements_map)</h1>
+      <h1 class="signature" translate="no">replace_links(input, replacements_map, fallback_match_fn \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L792" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L798" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1196,7 +1240,7 @@ If the content starts with an HTML tag or if the markdown library is not enabled
   <section class="docstring">
 
 <p>Replaces the href attribute of &lt;a&gt; tags in HTML input using a replacements map.</p><p>Accepts a string, tree, or LazyHTML struct as input.
-Returns the updated tree.</p><h2 id="replace_links/2-examples" class="section-heading"><a href="#replace_links/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><p>  iex&gt; Bonfire.Common.Text.replace_links(&quot;&lt;a href='/foo'&gt;test&lt;/a&gt;&quot;, %{&quot;/foo&quot; =&gt; &quot;/bar&quot;})
+Returns the updated tree.</p><h2 id="replace_links/3-examples" class="section-heading"><a href="#replace_links/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><p>  iex&gt; Bonfire.Common.Text.replace_links(&quot;&lt;a href='/foo'&gt;test&lt;/a&gt;&quot;, %{&quot;/foo&quot; =&gt; &quot;/bar&quot;})
   [{&quot;a&quot;, [{&quot;href&quot;, &quot;/bar&quot;}], [&quot;test&quot;]}]</p><p>  iex&gt; Bonfire.Common.Text.replace_links([{&quot;a&quot;, [{&quot;href&quot;, &quot;/foo&quot;}], [&quot;test&quot;]}], %{&quot;/foo&quot; =&gt; &quot;/bar&quot;})
   [{&quot;a&quot;, [{&quot;href&quot;, &quot;/bar&quot;}], [&quot;test&quot;]}]</p><p>  iex&gt; Bonfire.Common.Text.replace_links(&quot;&lt;a href='/foo'&gt;test&lt;/a&gt;&quot;, %{&quot;/baz&quot; =&gt; &quot;/qux&quot;})
   [{&quot;a&quot;, [{&quot;href&quot;, &quot;/foo&quot;}], [&quot;test&quot;]}]</p>
@@ -1225,10 +1269,10 @@ Returns the updated tree.</p><h2 id="replace_links/2-examples" class="section-he
 
   <section class="docstring">
 
-<p>Truncates a string to a maximum length, ensuring it ends on a sentence boundary.</p><h2 id="sentence_truncate/3-examples" class="section-heading"><a href="#sentence_truncate/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">sentence_truncate</span><span class="p" data-group-id="8600799697-1">(</span><span class="s">&quot;Hello world. This is a test.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p" data-group-id="8600799697-1">)</span><span class="w">
+<p>Truncates a string to a maximum length, ensuring it ends on a sentence boundary.</p><h2 id="sentence_truncate/3-examples" class="section-heading"><a href="#sentence_truncate/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">sentence_truncate</span><span class="p" data-group-id="2980779247-1">(</span><span class="s">&quot;Hello world. This is a test.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p" data-group-id="2980779247-1">)</span><span class="w">
 </span><span class="s">&quot;Hello world.&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">sentence_truncate</span><span class="p" data-group-id="8600799697-2">(</span><span class="s">&quot;Hello world. This is a test.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="8600799697-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">sentence_truncate</span><span class="p" data-group-id="2980779247-2">(</span><span class="s">&quot;Hello world. This is a test.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="2980779247-2">)</span><span class="w">
 </span><span class="s">&quot;Hello world....&quot;</span></code></pre>
   </section>
 </section>
@@ -1254,16 +1298,16 @@ Returns the updated tree.</p><h2 id="replace_links/2-examples" class="section-he
   <section class="docstring">
 
 <p>Generates a URL-friendly slug from the given text.
-The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-encoded.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="7665365367-1">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p" data-group-id="7665365367-1">)</span><span class="w">
+The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-encoded.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="6968916241-1">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p" data-group-id="6968916241-1">)</span><span class="w">
 </span><span class="s">&quot;hello-world&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="7665365367-2">(</span><span class="s">&quot;Elixir Programming&quot;</span><span class="p" data-group-id="7665365367-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="6968916241-2">(</span><span class="s">&quot;Elixir Programming&quot;</span><span class="p" data-group-id="6968916241-2">)</span><span class="w">
 </span><span class="s">&quot;elixir-programming&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="7665365367-3">(</span><span class="s">&quot;Special &amp; Characters&quot;</span><span class="p" data-group-id="7665365367-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="6968916241-3">(</span><span class="s">&quot;Special &amp; Characters&quot;</span><span class="p" data-group-id="6968916241-3">)</span><span class="w">
 </span><span class="s">&quot;special-characters&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="7665365367-4">(</span><span class="p" data-group-id="7665365367-5">[</span><span class="s">&quot;Many&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7665365367-6">[</span><span class="s">&quot;Words&quot;</span><span class="p" data-group-id="7665365367-6">]</span><span class="p" data-group-id="7665365367-5">]</span><span class="p" data-group-id="7665365367-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">slug</span><span class="p" data-group-id="6968916241-4">(</span><span class="p" data-group-id="6968916241-5">[</span><span class="s">&quot;Many&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6968916241-6">[</span><span class="s">&quot;Words&quot;</span><span class="p" data-group-id="6968916241-6">]</span><span class="p" data-group-id="6968916241-5">]</span><span class="p" data-group-id="6968916241-4">)</span><span class="w">
 </span><span class="s">&quot;many-words&quot;</span></code></pre>
   </section>
 </section>
@@ -1286,8 +1330,38 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
 
   <section class="docstring">
 
-<p>Splits a string into lines.</p><h2 id="split_lines/1-examples" class="section-heading"><a href="#split_lines/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">split_lines</span><span class="p" data-group-id="5899151992-1">(</span><span class="s">&quot;line1</span><span class="se">\n</span><span class="s">line2</span><span class="se">\r</span><span class="se">\n</span><span class="s">line3</span><span class="se">\r</span><span class="s">line4&quot;</span><span class="p" data-group-id="5899151992-1">)</span><span class="w">
-</span><span class="p" data-group-id="5899151992-2">[</span><span class="s">&quot;line1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;line2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;line3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;line4&quot;</span><span class="p" data-group-id="5899151992-2">]</span></code></pre>
+<p>Splits a string into lines.</p><h2 id="split_lines/1-examples" class="section-heading"><a href="#split_lines/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">split_lines</span><span class="p" data-group-id="4197842396-1">(</span><span class="s">&quot;line1</span><span class="se">\n</span><span class="s">line2</span><span class="se">\r</span><span class="se">\n</span><span class="s">line3</span><span class="se">\r</span><span class="s">line4&quot;</span><span class="p" data-group-id="4197842396-1">)</span><span class="w">
+</span><span class="p" data-group-id="4197842396-2">[</span><span class="s">&quot;line1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;line2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;line3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;line4&quot;</span><span class="p" data-group-id="4197842396-2">]</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="strip_trailing_element/3">
+
+  <div class="detail-header">
+    <a href="#strip_trailing_element/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">strip_trailing_element(tree, tag, match_fn)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1158" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Strips the last element matching <code class="inline">tag</code> from an HTML tree if all its non-whitespace
+children satisfy <code class="inline">match_fn</code>.</p><p>Operates on a LazyHTML tree (list of tuples) to avoid extra string/tree conversions.
+Returns the tree unchanged if the last element doesn't match.</p><h2 id="strip_trailing_element/3-examples" class="section-heading"><a href="#strip_trailing_element/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">match_fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k" data-group-id="8501484036-1">fn</span><span class="w"> </span><span class="p" data-group-id="8501484036-2">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-3">[</span><span class="p" data-group-id="8501484036-4">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/&quot;</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8501484036-4">}</span><span class="p" data-group-id="8501484036-3">]</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8501484036-2">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">true</span><span class="p">;</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">false</span><span class="w"> </span><span class="k" data-group-id="8501484036-1">end</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strip_trailing_element</span><span class="p" data-group-id="8501484036-5">(</span><span class="p" data-group-id="8501484036-6">[</span><span class="p" data-group-id="8501484036-7">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-8">[</span><span class="p" data-group-id="8501484036-8">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-9">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8501484036-9">]</span><span class="p" data-group-id="8501484036-7">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-10">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-11">[</span><span class="p" data-group-id="8501484036-11">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-12">[</span><span class="p" data-group-id="8501484036-13">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-14">[</span><span class="p" data-group-id="8501484036-15">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/ABC&quot;</span><span class="p" data-group-id="8501484036-15">}</span><span class="p" data-group-id="8501484036-14">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-16">[</span><span class="s">&quot;#test&quot;</span><span class="p" data-group-id="8501484036-16">]</span><span class="p" data-group-id="8501484036-13">}</span><span class="p" data-group-id="8501484036-12">]</span><span class="p" data-group-id="8501484036-10">}</span><span class="p" data-group-id="8501484036-6">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">match_fn</span><span class="p" data-group-id="8501484036-5">)</span><span class="w">
+</span><span class="p" data-group-id="8501484036-17">[</span><span class="p" data-group-id="8501484036-18">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-19">[</span><span class="p" data-group-id="8501484036-19">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-20">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8501484036-20">]</span><span class="p" data-group-id="8501484036-18">}</span><span class="p" data-group-id="8501484036-17">]</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="n">match_fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k" data-group-id="8501484036-21">fn</span><span class="w"> </span><span class="p" data-group-id="8501484036-22">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-23">[</span><span class="p" data-group-id="8501484036-24">{</span><span class="s">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/hashtag/&quot;</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8501484036-24">}</span><span class="p" data-group-id="8501484036-23">]</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8501484036-22">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">true</span><span class="p">;</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">false</span><span class="w"> </span><span class="k" data-group-id="8501484036-21">end</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strip_trailing_element</span><span class="p" data-group-id="8501484036-25">(</span><span class="p" data-group-id="8501484036-26">[</span><span class="p" data-group-id="8501484036-27">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-28">[</span><span class="p" data-group-id="8501484036-28">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-29">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8501484036-29">]</span><span class="p" data-group-id="8501484036-27">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-30">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-31">[</span><span class="p" data-group-id="8501484036-31">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-32">[</span><span class="s">&quot;not a hashtag&quot;</span><span class="p" data-group-id="8501484036-32">]</span><span class="p" data-group-id="8501484036-30">}</span><span class="p" data-group-id="8501484036-26">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">match_fn</span><span class="p" data-group-id="8501484036-25">)</span><span class="w">
+</span><span class="p" data-group-id="8501484036-33">[</span><span class="p" data-group-id="8501484036-34">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-35">[</span><span class="p" data-group-id="8501484036-35">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-36">[</span><span class="s">&quot;Hello&quot;</span><span class="p" data-group-id="8501484036-36">]</span><span class="p" data-group-id="8501484036-34">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-37">{</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-38">[</span><span class="p" data-group-id="8501484036-38">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8501484036-39">[</span><span class="s">&quot;not a hashtag&quot;</span><span class="p" data-group-id="8501484036-39">]</span><span class="p" data-group-id="8501484036-37">}</span><span class="p" data-group-id="8501484036-33">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="strlen/1">
@@ -1309,22 +1383,22 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
 
   <section class="docstring">
 
-<p>Returns the length of the input based on its type.</p><h2 id="strlen/1-examples" class="section-heading"><a href="#strlen/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1759614280-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="1759614280-1">)</span><span class="w">
+<p>Returns the length of the input based on its type.</p><h2 id="strlen/1-examples" class="section-heading"><a href="#strlen/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="3820838168-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="3820838168-1">)</span><span class="w">
 </span><span class="mi">5</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1759614280-2">(</span><span class="p" data-group-id="1759614280-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1759614280-3">]</span><span class="p" data-group-id="1759614280-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="3820838168-2">(</span><span class="p" data-group-id="3820838168-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="3820838168-3">]</span><span class="p" data-group-id="3820838168-2">)</span><span class="w">
 </span><span class="mi">3</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1759614280-4">(</span><span class="p" data-group-id="1759614280-5">%{</span><span class="p" data-group-id="1759614280-5">}</span><span class="p" data-group-id="1759614280-4">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="3820838168-4">(</span><span class="p" data-group-id="3820838168-5">%{</span><span class="p" data-group-id="3820838168-5">}</span><span class="p" data-group-id="3820838168-4">)</span><span class="w">
 </span><span class="mi">0</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1759614280-6">(</span><span class="no">nil</span><span class="p" data-group-id="1759614280-6">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="3820838168-6">(</span><span class="no">nil</span><span class="p" data-group-id="3820838168-6">)</span><span class="w">
 </span><span class="mi">0</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1759614280-7">(</span><span class="mi">0</span><span class="p" data-group-id="1759614280-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="3820838168-7">(</span><span class="mi">0</span><span class="p" data-group-id="3820838168-7">)</span><span class="w">
 </span><span class="mi">0</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="1759614280-8">(</span><span class="mi">123</span><span class="p" data-group-id="1759614280-8">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">strlen</span><span class="p" data-group-id="3820838168-8">(</span><span class="mi">123</span><span class="p" data-group-id="3820838168-8">)</span><span class="w">
 </span><span class="mi">1</span></code></pre>
   </section>
 </section>
@@ -1338,7 +1412,7 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
       <h1 class="signature" translate="no">text_only(content)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L700" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L706" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1347,10 +1421,10 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
 
   <section class="docstring">
 
-<p>Extracts plain text from HTML content.</p><h2 id="text_only/1-examples" class="section-heading"><a href="#text_only/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">text_only</span><span class="p" data-group-id="6340746344-1">(</span><span class="s">&quot;&lt;div&gt;Text&lt;/div&gt;&quot;</span><span class="p" data-group-id="6340746344-1">)</span><span class="w">
+<p>Extracts plain text from HTML content.</p><h2 id="text_only/1-examples" class="section-heading"><a href="#text_only/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">text_only</span><span class="p" data-group-id="4087700153-1">(</span><span class="s">&quot;&lt;div&gt;Text&lt;/div&gt;&quot;</span><span class="p" data-group-id="4087700153-1">)</span><span class="w">
 </span><span class="s">&quot;Text&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">text_only</span><span class="p" data-group-id="6340746344-2">(</span><span class="p" data-group-id="6340746344-3">{</span><span class="ss">:safe</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;div&gt;Safe Text&lt;/div&gt;&quot;</span><span class="p" data-group-id="6340746344-3">}</span><span class="p" data-group-id="6340746344-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">text_only</span><span class="p" data-group-id="4087700153-2">(</span><span class="p" data-group-id="4087700153-3">{</span><span class="ss">:safe</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;div&gt;Safe Text&lt;/div&gt;&quot;</span><span class="p" data-group-id="4087700153-3">}</span><span class="p" data-group-id="4087700153-2">)</span><span class="w">
 </span><span class="s">&quot;Safe Text&quot;</span></code></pre>
   </section>
 </section>
@@ -1377,13 +1451,13 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
 
   <section class="docstring">
 
-<p>Truncates a string to a maximum length, optionally adding a suffix.</p><h2 id="truncate/3-examples" class="section-heading"><a href="#truncate/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="4464065820-1">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="4464065820-1">)</span><span class="w">
+<p>Truncates a string to a maximum length, optionally adding a suffix.</p><h2 id="truncate/3-examples" class="section-heading"><a href="#truncate/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="6589871883-1">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="6589871883-1">)</span><span class="w">
 </span><span class="s">&quot;Hello&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="4464065820-2">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="4464065820-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="6589871883-2">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="6589871883-2">)</span><span class="w">
 </span><span class="s">&quot;He...&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="4464065820-3">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="4464065820-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">truncate</span><span class="p" data-group-id="6589871883-3">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p" data-group-id="6589871883-3">)</span><span class="w">
 </span><span class="s">&quot;Hell...&quot;</span></code></pre>
   </section>
 </section>
@@ -1409,16 +1483,16 @@ The text is downcased, trimmed, spaces are replaced with dashes, and it is URI-e
   <section class="docstring">
 
 <p>Truncates the input string at the last underscore (<code class="inline">_</code>) if its length exceeds the given length.
-If the input string is shorter than or equal to the given length, it returns the string as is.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="0708722792-1">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="0708722792-1">)</span><span class="w">
+If the input string is shorter than or equal to the given length, it returns the string as is.</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="6884142267-1">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="6884142267-1">)</span><span class="w">
 </span><span class="s">&quot;abc&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="0708722792-2">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="0708722792-2">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="6884142267-2">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="6884142267-2">)</span><span class="w">
 </span><span class="s">&quot;abc_def&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="0708722792-3">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="0708722792-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="6884142267-3">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p" data-group-id="6884142267-3">)</span><span class="w">
 </span><span class="s">&quot;abc&quot;</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="0708722792-4">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="0708722792-4">)</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Common.Text</span><span class="o">.</span><span class="n">underscore_truncate</span><span class="p" data-group-id="6884142267-4">(</span><span class="s">&quot;abc_def_ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="6884142267-4">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="unique_integer/0">
@@ -1440,7 +1514,7 @@ If the input string is shorter than or equal to the given length, it returns the
 
   <section class="docstring">
 
-<p>Generates a <em>unique</em> random integer.</p><p>&quot;Unique&quot; means that this function will not return the same integer more than once on the current BEAM runtime, meaning until the application is next restarted.</p><h2 id="unique_integer/0-examples" class="section-heading"><a href="#unique_integer/0-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unique_integer</span><span class="p" data-group-id="1109159949-1">(</span><span class="p" data-group-id="1109159949-1">)</span></code></pre>
+<p>Generates a <em>unique</em> random integer.</p><p>&quot;Unique&quot; means that this function will not return the same integer more than once on the current BEAM runtime, meaning until the application is next restarted.</p><h2 id="unique_integer/0-examples" class="section-heading"><a href="#unique_integer/0-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unique_integer</span><span class="p" data-group-id="0636213940-1">(</span><span class="p" data-group-id="0636213940-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="unique_string/0">
@@ -1462,7 +1536,7 @@ If the input string is shorter than or equal to the given length, it returns the
 
   <section class="docstring">
 
-<p>Generates a <em>unique</em> random string.</p><p>&quot;Unique&quot; means that this function will not return the same string more than once on the current BEAM runtime, meaning until the application is next restarted.</p><h2 id="unique_string/0-examples" class="section-heading"><a href="#unique_string/0-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unique_string</span><span class="p" data-group-id="7545246686-1">(</span><span class="p" data-group-id="7545246686-1">)</span></code></pre>
+<p>Generates a <em>unique</em> random string.</p><p>&quot;Unique&quot; means that this function will not return the same string more than once on the current BEAM runtime, meaning until the application is next restarted.</p><h2 id="unique_string/0-examples" class="section-heading"><a href="#unique_string/0-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">unique_string</span><span class="p" data-group-id="5493740852-1">(</span><span class="p" data-group-id="5493740852-1">)</span></code></pre>
   </section>
 </section>
 <section class="detail" id="upcase_first/1">
@@ -1475,7 +1549,7 @@ If the input string is shorter than or equal to the given length, it returns the
       <h1 class="signature" translate="no">upcase_first(arg1)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1000" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1014" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1484,7 +1558,7 @@ If the input string is shorter than or equal to the given length, it returns the
 
   <section class="docstring">
 
-<p>Converts the first character of a binary to uppercase.</p><h2 id="upcase_first/1-examples" class="section-heading"><a href="#upcase_first/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">upcase_first</span><span class="p" data-group-id="0429069588-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="0429069588-1">)</span><span class="w">
+<p>Converts the first character of a binary to uppercase.</p><h2 id="upcase_first/1-examples" class="section-heading"><a href="#upcase_first/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">upcase_first</span><span class="p" data-group-id="9201221364-1">(</span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="9201221364-1">)</span><span class="w">
 </span><span class="s">&quot;Hello&quot;</span></code></pre>
   </section>
 </section>
@@ -1498,7 +1572,7 @@ If the input string is shorter than or equal to the given length, it returns the
       <h1 class="signature" translate="no">verb_infinitive(verb_conjugated)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1067" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_common/blob/main/lib/text.ex#L1081" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -1507,7 +1581,7 @@ If the input string is shorter than or equal to the given length, it returns the
 
   <section class="docstring">
 
-<p>Converts an English conjugated verb to its infinitive form using the <a href="https://hexdocs.pm/verbs/0.6.1/Verbs.html"><code class="inline">Verbs</code></a> library. Currently only supports irregular verbs.</p><h2 id="verb_infinitive/1-examples" class="section-heading"><a href="#verb_infinitive/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">verb_infinitive</span><span class="p" data-group-id="9846276486-1">(</span><span class="s">&quot;running&quot;</span><span class="p" data-group-id="9846276486-1">)</span><span class="w">
+<p>Converts an English conjugated verb to its infinitive form using the <a href="https://hexdocs.pm/verbs/0.6.1/Verbs.html"><code class="inline">Verbs</code></a> library. Currently only supports irregular verbs.</p><h2 id="verb_infinitive/1-examples" class="section-heading"><a href="#verb_infinitive/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="o">&gt;</span><span class="w"> </span><span class="n">verb_infinitive</span><span class="p" data-group-id="6849562317-1">(</span><span class="s">&quot;running&quot;</span><span class="p" data-group-id="6849562317-1">)</span><span class="w">
 </span><span class="s">&quot;run&quot;</span></code></pre>
   </section>
 </section>

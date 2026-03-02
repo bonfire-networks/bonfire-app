@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.34">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.35">
 
 
-    <title>Bonfire.Notify.WebPush — Bonfire v1.0.2-social-alpha.34</title>
+    <title>Bonfire.Notify.WebPush — Bonfire v1.0.2-social-alpha.35</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-CF56D492.js"></script>
+    <script defer src="dist/sidebar_items-C4EA8007.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.34
+          v1.0.2-social-alpha.35
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>
       <span translate="no">Bonfire.Notify.WebPush</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.34)</small>
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.35)</small>
 
     </h1>
 
@@ -118,6 +118,17 @@ Bonfire
 
         <div class="summary-synopsis"><p>Broadcasts a message to ALL active subscriptions (admin/testing use).
 Use with caution - this sends to every subscribed user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_all_for_user/1" data-no-tooltip="" translate="no">delete_all_for_user(user_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes all UserPushSubscription links for a given user.
+Does not delete the underlying PushSubscription records.</p></div>
 
     </div>
 
@@ -161,6 +172,16 @@ Only returns active subscriptions.</p></div>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#get_user_subscription/1" data-no-tooltip="" translate="no">get_user_subscription(user_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the most recent active push subscription for a user.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#list_all_subscriptions/1" data-no-tooltip="" translate="no">list_all_subscriptions(active? \\ true)</a>
 
       </div>
@@ -173,13 +194,19 @@ Only returns active subscriptions.</p></div>
 
       </div>
 
+        <div class="summary-synopsis"><p>Lists active UserPushSubscription records for the given user IDs,
+preloaded with their PushSubscription.</p></div>
+
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#remove_device/1" data-no-tooltip="" translate="no">remove_device(device_id)</a>
+        <a href="#remove_device/2" data-no-tooltip="" translate="no">remove_device(user_id, push_subscription_id)</a>
 
       </div>
+
+        <div class="summary-synopsis"><p>Removes a user's link to a push subscription by its push_subscription_id,
+scoped to the given user.</p></div>
 
     </div>
 
@@ -189,7 +216,7 @@ Only returns active subscriptions.</p></div>
 
       </div>
 
-        <div class="summary-synopsis"><p>Removes a subscription by its database ID.</p></div>
+        <div class="summary-synopsis"><p>Removes a PushSubscription by its database ID.</p></div>
 
     </div>
 
@@ -199,7 +226,18 @@ Only returns active subscriptions.</p></div>
 
       </div>
 
-        <div class="summary-synopsis"><p>Removes a subscription by endpoint.</p></div>
+        <div class="summary-synopsis"><p>Removes a subscription by endpoint.
+Deletes the PushSubscription (cascades to UserPushSubscription links).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#remove_user_subscription/2" data-no-tooltip="" translate="no">remove_user_subscription(user_id, push_subscription_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Removes a user's link to a push subscription, without deleting the push subscription itself.</p></div>
 
     </div>
 
@@ -220,7 +258,7 @@ This handles the case where notify_feed_ids from live_push are passed instead of
 
       </div>
 
-        <div class="summary-synopsis"><p>Sends a push notification to a single subscription by database ID.
+        <div class="summary-synopsis"><p>Sends a push notification to a single subscription by PushSubscription ID.
 Useful for testing individual subscriptions.</p></div>
 
     </div>
@@ -272,7 +310,7 @@ Uses ExNudge to handle the actual sending.</p></div>
       <h1 class="signature" translate="no">broadcast(message, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L245" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L352" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -285,6 +323,29 @@ Uses ExNudge to handle the actual sending.</p></div>
 Use with caution - this sends to every subscribed user.</p>
   </section>
 </section>
+<section class="detail" id="delete_all_for_user/1">
+
+  <div class="detail-header">
+    <a href="#delete_all_for_user/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete_all_for_user(user_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L315" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Deletes all UserPushSubscription links for a given user.
+Does not delete the underlying PushSubscription records.</p>
+  </section>
+</section>
 <section class="detail" id="ex_nudge_module/0">
 
   <div class="detail-header">
@@ -295,7 +356,7 @@ Use with caution - this sends to every subscribed user.</p>
       <h1 class="signature" translate="no">ex_nudge_module()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L281" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L385" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -319,7 +380,7 @@ Use with caution - this sends to every subscribed user.</p>
       <h1 class="signature" translate="no">format_push_message(title, body, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L231" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L338" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -341,7 +402,7 @@ Use with caution - this sends to every subscribed user.</p>
       <h1 class="signature" translate="no">generate_keys_env()</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L289" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L393" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -363,7 +424,7 @@ Use with caution - this sends to every subscribed user.</p>
       <h1 class="signature" translate="no">get_subscriptions(user_ids)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L62" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L95" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -385,6 +446,28 @@ Returns a map of user_id =&gt; list of ExNudge.Subscription structs.
 Only returns active subscriptions.</p>
   </section>
 </section>
+<section class="detail" id="get_user_subscription/1">
+
+  <div class="detail-header">
+    <a href="#get_user_subscription/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_user_subscription(user_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L323" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Gets the most recent active push subscription for a user.</p>
+  </section>
+</section>
 <section class="detail" id="list_all_subscriptions/1">
 
     <span id="list_all_subscriptions/0"></span>
@@ -397,7 +480,7 @@ Only returns active subscriptions.</p>
       <h1 class="signature" translate="no">list_all_subscriptions(active? \\ true)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L85" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L137" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -419,7 +502,7 @@ Only returns active subscriptions.</p>
       <h1 class="signature" translate="no">list_subscriptions(user_ids)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L74" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L113" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -428,20 +511,21 @@ Only returns active subscriptions.</p>
 
   <section class="docstring">
 
-
+<p>Lists active UserPushSubscription records for the given user IDs,
+preloaded with their PushSubscription.</p>
   </section>
 </section>
-<section class="detail" id="remove_device/1">
+<section class="detail" id="remove_device/2">
 
   <div class="detail-header">
-    <a href="#remove_device/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#remove_device/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">remove_device(device_id)</h1>
+      <h1 class="signature" translate="no">remove_device(user_id, push_subscription_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L215" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L271" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -450,7 +534,8 @@ Only returns active subscriptions.</p>
 
   <section class="docstring">
 
-
+<p>Removes a user's link to a push subscription by its push_subscription_id,
+scoped to the given user.</p>
   </section>
 </section>
 <section class="detail" id="remove_subscription/1">
@@ -463,7 +548,7 @@ Only returns active subscriptions.</p>
       <h1 class="signature" translate="no">remove_subscription(subscription_id)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L274" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L294" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -472,7 +557,7 @@ Only returns active subscriptions.</p>
 
   <section class="docstring">
 
-<p>Removes a subscription by its database ID.</p>
+<p>Removes a PushSubscription by its database ID.</p>
   </section>
 </section>
 <section class="detail" id="remove_subscription_by_endpoint/1">
@@ -485,7 +570,7 @@ Only returns active subscriptions.</p>
       <h1 class="signature" translate="no">remove_subscription_by_endpoint(endpoint)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L223" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L286" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -494,7 +579,30 @@ Only returns active subscriptions.</p>
 
   <section class="docstring">
 
-<p>Removes a subscription by endpoint.</p>
+<p>Removes a subscription by endpoint.
+Deletes the PushSubscription (cascades to UserPushSubscription links).</p>
+  </section>
+</section>
+<section class="detail" id="remove_user_subscription/2">
+
+  <div class="detail-header">
+    <a href="#remove_user_subscription/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">remove_user_subscription(user_id, push_subscription_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L304" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Removes a user's link to a push subscription, without deleting the push subscription itself.</p>
   </section>
 </section>
 <section class="detail" id="resolve_feed_ids_to_user_ids/1">
@@ -507,7 +615,7 @@ Only returns active subscriptions.</p>
       <h1 class="signature" translate="no">resolve_feed_ids_to_user_ids(feed_ids)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L140" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L197" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -532,7 +640,7 @@ This handles the case where notify_feed_ids from live_push are passed instead of
       <h1 class="signature" translate="no">send_push_notification(subscription_id, message, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L256" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L370" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -541,7 +649,7 @@ This handles the case where notify_feed_ids from live_push are passed instead of
 
   <section class="docstring">
 
-<p>Sends a push notification to a single subscription by database ID.
+<p>Sends a push notification to a single subscription by PushSubscription ID.
 Useful for testing individual subscriptions.</p>
   </section>
 </section>
@@ -557,7 +665,7 @@ Useful for testing individual subscriptions.</p>
       <h1 class="signature" translate="no">send_web_push(user_ids, message, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L97" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L154" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -581,7 +689,7 @@ to find matching push subscriptions.</p>
       <h1 class="signature" translate="no">subscribe(user_id, data)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L17" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web_push.ex#L21" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -593,12 +701,13 @@ to find matching push subscriptions.</p>
       <div class="specs">
 
           <pre translate="no"><span class="attribute">@spec</span> subscribe(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>() | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) ::
-  {:ok, Bonfire.Notify.UserSubscription.t()}
+  {:ok, <a href="./Bonfire.Notify.UserPushSubscription.html#t:t/0">Bonfire.Notify.UserPushSubscription.t</a>()}
   | {:error, <a href="https://hexdocs.pm/ecto/3.13.5/Ecto.Changeset.html#t:t/0">Ecto.Changeset.t</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()}</pre>
 
       </div>
 
-<p>Registers a push subscription for a user.</p>
+<p>Registers a push subscription for a user.</p><p>Finds or creates a PushSubscription by endpoint, then links the user
+via UserPushSubscription (with optional alerts/policy preferences).</p>
   </section>
 </section>
 

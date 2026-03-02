@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.38.4">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.35">
+
+
+    <title>Bonfire.Notify.MastoStreaming.EventFormatter — Bonfire v1.0.2-social-alpha.35</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+
+    <script defer src="dist/sidebar_items-C4EA8007.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y223O6DN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.2-social-alpha.35
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.Notify.MastoStreaming.EventFormatter</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.35)</small>
+
+    </h1>
+
+      <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web/masto_streaming/event_formatter.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Formats PubSub activity data into Mastodon WebSocket streaming JSON frames.</p><p>Delegates to <a href="./Bonfire.API.MastoCompat.Mappers.Status.html"><code class="inline">Bonfire.API.MastoCompat.Mappers.Status</code></a> and
+<a href="./Bonfire.API.MastoCompat.Mappers.Account.html"><code class="inline">Bonfire.API.MastoCompat.Mappers.Account</code></a> for consistent serialization,
+using <code class="inline">lightweight: true</code> to skip DB queries unsuitable for the WebSocket process.</p><h2 id="module-wire-format-per-mastodon-websocket-spec" class="section-heading"><a href="#module-wire-format-per-mastodon-websocket-spec" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Wire format (per Mastodon WebSocket spec)</span></h2><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="6353135215-1">{</span><span class="s">&quot;stream&quot;</span><span class="p">:</span><span class="p" data-group-id="6353135215-2">[</span><span class="s">&quot;user&quot;</span><span class="p" data-group-id="6353135215-2">]</span><span class="p">,</span><span class="s">&quot;event&quot;</span><span class="ss">:&quot;update&quot;</span><span class="p">,</span><span class="s">&quot;payload&quot;</span><span class="ss">:&quot;{&quot;</span><span class="n">id</span><span class="s">&quot;:...}&quot;</span><span class="p" data-group-id="6353135215-1">}</span></code></pre><p>The <code class="inline">payload</code> field is double-encoded JSON (a JSON string containing JSON).</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_conversation/2" data-no-tooltip="" translate="no">format_conversation(thread_id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Format a conversation event using the Mastodon Conversation entity shape.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_delete/1" data-no-tooltip="" translate="no">format_delete(activity_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Format a delete event. Returns <code class="inline">{:ok, id_string}</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_notification/2" data-no-tooltip="" translate="no">format_notification(activity, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Format an activity as a Mastodon <code class="inline">notification</code> event.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#format_update/2" data-no-tooltip="" translate="no">format_update(activity, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Format an activity as a Mastodon <code class="inline">update</code> event (status JSON).</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#to_ws_frame/3" data-no-tooltip="" translate="no">to_ws_frame(stream_names, event_type, payload)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Build a complete Mastodon WebSocket JSON frame.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+
+    <div class="functions-list">
+<section class="detail" id="format_conversation/2">
+
+    <span id="format_conversation/1"></span>
+
+  <div class="detail-header">
+    <a href="#format_conversation/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">format_conversation(thread_id, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web/masto_streaming/event_formatter.ex#L109" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Format a conversation event using the Mastodon Conversation entity shape.</p><p>Returns <code class="inline">{:ok, json_string}</code>.</p>
+  </section>
+</section>
+<section class="detail" id="format_delete/1">
+
+  <div class="detail-header">
+    <a href="#format_delete/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">format_delete(activity_id)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web/masto_streaming/event_formatter.ex#L123" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Format a delete event. Returns <code class="inline">{:ok, id_string}</code>.</p>
+  </section>
+</section>
+<section class="detail" id="format_notification/2">
+
+    <span id="format_notification/1"></span>
+
+  <div class="detail-header">
+    <a href="#format_notification/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">format_notification(activity, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web/masto_streaming/event_formatter.ex#L54" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Format an activity as a Mastodon <code class="inline">notification</code> event.</p><p>Returns <code class="inline">{:ok, json_string}</code> or <code class="inline">:skip</code> if the activity can't be mapped.</p>
+  </section>
+</section>
+<section class="detail" id="format_update/2">
+
+    <span id="format_update/1"></span>
+
+  <div class="detail-header">
+    <a href="#format_update/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">format_update(activity, opts \\ [])</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web/masto_streaming/event_formatter.ex#L30" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Format an activity as a Mastodon <code class="inline">update</code> event (status JSON).</p><p>Delegates to <code class="inline">Mappers.Status.from_activity/2</code> with <code class="inline">lightweight: true</code>
+to avoid DB queries in the WebSocket process.</p><p>Returns <code class="inline">{:ok, json_string}</code> or <code class="inline">:skip</code> if the activity can't be mapped.</p>
+  </section>
+</section>
+<section class="detail" id="to_ws_frame/3">
+
+  <div class="detail-header">
+    <a href="#to_ws_frame/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">to_ws_frame(stream_names, event_type, payload)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/web/masto_streaming/event_formatter.ex#L130" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Build a complete Mastodon WebSocket JSON frame.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="Bonfire.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
