@@ -29,7 +29,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 
 ## Coding Style
 
-- **Follow standard Elixir practices** and let `just mix format` take care of formatting (run before committing Elixir code).
+- **Follow standard Elixir practices** and let `just mix format` take care of formatting (user will run it, you don't have to).
 - **Always assume the server is running on port 4000**
 - **Use Tidewave MCP to: run SQL queries, run elixir code, introspect the logs and runtime, fetch doccumentation from hex docs, see all the ecto schemas, and much more**
 - **Use one module per file** unless the module is only used internally by another module.
