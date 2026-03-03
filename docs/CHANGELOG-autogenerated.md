@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ Add tests for when uploading blocklists [#1832](https://github.com/bonfire-networks/bonfire-app/issues/1832) (thanks @ivanminutillo)
 - ✨ ActivityPub inbox: support RFC 9421 HTTP Message Signatures verification [#1823](https://github.com/bonfire-networks/bonfire-app/issues/1823) (thanks @dahlia)
 - ✨ when i follow a user, i receive a follow request notification that says that im following myself [#1814](https://github.com/bonfire-networks/bonfire-app/issues/1814) (thanks @ivanminutillo)
 - ✨ hook translate button under activities [#1809](https://github.com/bonfire-networks/bonfire-app/issues/1809) (thanks @ivanminutillo)
@@ -71,6 +72,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 User inbox / Notifications feed (BON-18) [#7](https://github.com/bonfire-networks/bonfire-app/issues/7) [`a9d49cd`](https://github.com/bonfire-networks/bonfire-app/commit/a9d49cd8213a1a772fdb1c26d63632114bfaf06a), [`3fdab74`](https://github.com/bonfire-networks/bonfire-app/commit/3fdab7449d11fcd0c46e3fcbd755aecd0e8236a3), [`a3b0e24`](https://github.com/bonfire-networks/activity_pub/commit/a3b0e2413e34cc5bc8489e1221bde4e0eb59efd6), [`cb2928f`](https://github.com/bonfire-networks/activity_pub/commit/cb2928f5afba861e5ca94bf7e662968de0eb5572), [`9b86acf`](https://github.com/bonfire-networks/activity_pub/commit/9b86acf029ddd41dbf9cb489b4a6c8e0522dbbce) (thanks @mayel)
 
 ### Fixed
+- 🐛 Fix infinite recursion in TagFeedLive.mount for non-existent ULID hashtags [#1843](https://github.com/bonfire-networks/bonfire-app/issues/1843) (thanks @ivanminutillo and @mayel)
 - 🐛 Content warnings do not hide content in link previews or quotes [#1840](https://github.com/bonfire-networks/bonfire-app/issues/1840) (thanks @LiquidParasyte and @mayel)
 - 🐛 bug: put_locale does not map CLDR locale to Gettext locale (breaks zh-Hant, pt-BR, etc.) [#1838](https://github.com/bonfire-networks/bonfire-app/issues/1838) - [PR #14](https://github.com/bonfire-networks/bonfire-app/pull/14) (thanks @peticipate888 and @mayel)
 - 🐛 Sunrise & Sunset in Weather Extension showing wrong time [#1819](https://github.com/bonfire-networks/bonfire-app/issues/1819) (thanks @btfreeorg and @ivanminutillo)
