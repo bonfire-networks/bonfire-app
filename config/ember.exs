@@ -44,9 +44,11 @@ config :bonfire, :ui,
 
 config :bonfire_valueflows_api_schema, modularity: :disabled
 
-config :bonfire_notify, modularity: :disabled
+# config :bonfire_notify, modularity: :disabled
 
-compile_all_locales? = (System.get_env("COMPILE_ALL_LOCALES") not in no? and config_env() == :prod) or System.get_env("COMPILE_ALL_LOCALES") in yes?
+compile_all_locales? =
+  (System.get_env("COMPILE_ALL_LOCALES") not in no? and config_env() == :prod) or
+    System.get_env("COMPILE_ALL_LOCALES") in yes?
 
 locales =
   if compile_all_locales?,

@@ -41,4 +41,4 @@ config :bonfire, :ui,
 
 config :bonfire_valueflows_api_schema, modularity: :disabled
 
-config :bonfire_notify, modularity: :disabled
+# config :bonfire_notify, modularity: :disabled

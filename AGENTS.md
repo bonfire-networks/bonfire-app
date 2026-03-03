@@ -12,7 +12,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Easy to Change**: Design for maintainability and future change.
 - **YAGNI**: Don't build features until they're needed.
 - **DRY**: Avoid duplication through abstraction and reuse, with small pure functions (with doctests) and shared helpers.
-- **Ask about requirements & investigate root causes**: Eg. never assume a test is wrong before checking what the desired behaviour is and debugging that first.
+- **Investigate root causes** before changing code: When something doesn't match expectations, trace the issue to its source and ask for clarification. Never assume you know what is expected, ask first.
 
 ## Project Structure
 
@@ -26,6 +26,11 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Separation of Core and UI**: Keep business logic in core extensions separate from UI components in UI extensions (in `bonfire_ui_*` extensions).
 - **Cross-Cutting Infrastructure**: Place shared functionality or components in common extensions such as `bonfire_common` or `bonfire_ui_common`.
 - **Feature-Based Organization**: Group related functionality by feature domain within non-UI extensions, while UI extensions use web framework conventions (components, views, controllers, etc.).
+- **Layered Architecture**: Each layer has a clear responsibility:
+  - **`bonfire_data_*`** — Ecto schemas, changesets, and migrations only. No business logic or queries.
+  - **Domain contexts** (e.g. `bonfire_social_graph`, `bonfire_me`) — Own the business rules and query logic for their domain (though sometimes there's a seperate query module). Expose reusable helpers that other modules can compose.
+  - **`bonfire_ui_*`** — UI components and widgets. Call into contexts/integrations for data, never implement non-UI-logic or build queries directly.
+- **Query ownership**: A query about a domain concept (follows, blocks, posts) belongs in that domain's context module, even if it's consumed by another extension. The consuming extension should call the helper, not rewrite the query. For example, a follow-related query belongs in `Follows` even if `Instances` needs the result — `Instances` calls `Follows` and wraps with its own aggregation.
 
 ## Coding Style
 
@@ -89,6 +94,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 
 - **Add tests for all new functionality**.
 - Include doctests for pure functions (even if that means making private functions public) and test suites focused on public context APIs or UI flows.
+- **Failing tests define desired behaviour**: When a test fails, NEVER change the test assertion to match the current implementation without double checking and asking first. Instead: (1) read the test to understand the intended behaviour, (2) investigate the implementation to find why it doesn't match, (3) ask whether the test or the implementation needs to change. Only modify a test after confirming whether the desired behaviour has changed.
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
 - Use PhoenixTest for UI testing.

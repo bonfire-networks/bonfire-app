@@ -24,7 +24,6 @@ defmodule Bonfire.Files.MimeTypes do
       "image/svg+xml" => ["svg"],
       "image/webp" => ["webp"]
       # "image/tiff"=> "tiff"
-
     }
 
   def video_media,
@@ -39,7 +38,6 @@ defmodule Bonfire.Files.MimeTypes do
       "video/3gpp2" => ["3g2"],
       "video/x-msvideo" => ["avi"],
       "video/quicktime" => ["mov", "qt"]
-
     }
 
   def extra_media,
@@ -72,7 +70,6 @@ defmodule Bonfire.Files.MimeTypes do
       "audio/opus" => ["opus"],
       "audio/flac" => ["flac"],
 
-         
       # feeds
       "application/atom+xml" => ["atom+xml"],
       "application/rss+xml" => ["rss+xml"],
@@ -84,38 +81,34 @@ defmodule Bonfire.Files.MimeTypes do
       "application/jrd+json" => ["jrd+json"]
     }
 
-
   # types we want the server to know about but not necessarily allow uploads for
-  def extra_known_types, 
+  def extra_known_types,
     do: %{
-      "image/tiff"=> ["tiff"],
+      "image/tiff" => ["tiff"],
 
       # archives
-           "application/x-tar" => ["tar"],
-           "application/x-bzip" => ["bzip"],
-           "application/x-bzip2" => ["bzip2"],
-           "application/gzip" => ["gz", "gzip"],
-           "application/zip" => ["zip"],
-           "application/vnd.rar" =>  ["rar"],
-           "application/x-7z-compressed" => ["7z"],
-       "application/x-bzip2" => ["bzip2"],
+      "application/x-tar" => ["tar"],
+      "application/x-bzip" => ["bzip"],
+      "application/x-bzip2" => ["bzip2"],
+      "application/gzip" => ["gz", "gzip"],
+      "application/zip" => ["zip"],
+      "application/vnd.rar" => ["rar"],
+      "application/x-7z-compressed" => ["7z"],
 
-# code
-           "text/swiftui" => ["swiftui"],
-           "text/jetpack" => ["jetpack"],
-           "text/styles" => ["styles"],
+      # code
+      "text/swiftui" => ["swiftui"],
+      "text/jetpack" => ["jetpack"],
+      "text/styles" => ["styles"],
 
-           # docs
-           "application/rtf" => ["rtf"],
-                 "application/msword"=> ["doc", "dot"],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"=> ["docx"],
-      "application/vnd.ms-excel"=> ["xls"],
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"=> ["xlsx"],
-      "application/vnd.oasis.opendocument.presentation"=> ["odp"],
-      "application/vnd.oasis.opendocument.spreadsheet"=> ["ods"],
-      "application/vnd.oasis.opendocument.text"=> ["odt"],
-
-
+      # docs
+      "application/rtf" => ["rtf"],
+      "application/msword" => ["doc", "dot"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => ["docx"],
+      "application/vnd.ms-excel" => ["xls"],
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => ["xlsx"],
+      "application/vnd.oasis.opendocument.presentation" => ["odp"],
+      "application/vnd.oasis.opendocument.spreadsheet" => ["ods"],
+      "application/vnd.oasis.opendocument.text" => ["odt"]
     }
 
   # define which is preferred when more than one

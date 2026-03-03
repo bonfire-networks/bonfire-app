@@ -110,8 +110,7 @@ end
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   server: true,
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
-  live_view: endpoint_live_view,
-  pubsub_server: Bonfire.Common.PubSub
+  live_view: endpoint_live_view
 
 config :bonfire, :markdown_library, MDEx
 
@@ -119,7 +118,6 @@ config :phoenix, :json_library, Jason
 config :phoenix_gon, :json_library, Jason
 
 repos = [repo]
-config :bonfire, ecto_repos: repos
 config :bonfire, ecto_repos: repos
 config :paginator, ecto_repos: repos
 config :activity_pub, ecto_repos: repos

@@ -176,7 +176,7 @@ config :iconify_ex,
   env: config_env(),
   generated_icon_app: :bonfire_ui_common,
   mode: :css,
-  using_svg_inject: true,
+  using_svg_inject: false,
   generated_icon_modules_path: "#{dep_path}/lib/components/icons",
   generated_icon_static_url: "/images/icons",
   generated_icon_static_path: "#{dep_path}/assets/static/images/icons"
@@ -196,9 +196,9 @@ config :surface, :components, [
 
 config :cors_plug,
   origin: [], # default: "*" # NOTE: we set specific origins per route in Bonfire.UI.Common.RuntimeConfig
-  max_age: 86_400, # default: 1_728_000
+  max_age: 86_400, # default: 1_728_000
   methods: ["POST", "PUT", "DELETE", "GET", "PATCH", "OPTIONS"], # same as default
-  expose: [ # default: []
+  expose: [ # default: []
     "Link",
     "X-RateLimit-Reset",
     "X-RateLimit-Limit",
@@ -223,4 +223,3 @@ config :cors_plug,
   #   "If-Modified-Since",
   #   "X-CSRF-Token"
   # ],
-

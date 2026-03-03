@@ -25,9 +25,7 @@ config :bonfire, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-# Disable live_debugger to prevent ETS table errors
 config :live_debugger, disabled?: false
-
 
 # if System.get_env("WITH_FORKS", "1") == "1" , do:
 # Mess.deps(
@@ -49,7 +47,6 @@ config :bonfire, Bonfire.Web.Endpoint,
     if(use_cowboy?,
       do: [protocol_options: [idle_timeout: to_timeout(minute: 2)]],
       else: [
-        http_1_options: [max_requests: max_requests],
         http_1_options: [max_requests: max_requests]
       ]
     )
