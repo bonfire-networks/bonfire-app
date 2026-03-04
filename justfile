@@ -709,7 +709,7 @@ test-others path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude backend --exclude ui --exclude federation --exclude ap_lib --exclude browser `just test_default_excludes` {{args}}
 
 test_default_excludes:
-	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage `just test_minimum_excludes`"
+	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude rate_limit `just test_minimum_excludes`"
 
 test_minimum_excludes:
 	@echo "--exclude todo --exclude skip --exclude benchmark"
@@ -781,7 +781,7 @@ _test-federation_script TEST_CMD="test_run": services
     just _test-dance-positions
     just _test-db-dance-reset
     
-    TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just $TEST_CMD "--only test_instance" {{ ap_ext }}
+    TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just $TEST_CMD "--exclude rate_limit --only test_instance" {{ ap_ext }}
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     # Output a summary - simple pass/fail
@@ -813,24 +813,28 @@ test-federation-others *args=ap_etc: services _test-dance-positions
 	just test_run {{args}}
 
 test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} "--only test_instance" 
+	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance 
 	just _test-dance-positions
 
 # note: also includes oauth
 test-federation-dance-unsigned *args='': services _test-dance-positions _test-db-dance-reset
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} "--only test_instance" 
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance 
 	just _test-dance-positions
 
 test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} "--only test_instance" 
+	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
 	just _test-dance-positions
 
 # test-boostomatic-dance *args='extensions/boostomatic/test': _test-dance-positions _test-db-dance-reset
 # 	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only live_federation {{args}} 
 # 	just _test-dance-positions
 
-_test-dance-positions: 
+_test-dance-positions:
 	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
+
+# Run rate limit tests (requires a running server on port 4000)
+test-rate-limit *args='': services 
+	ENABLE_RATE_LIMIT=yes TEST_INSTANCE=yes PHX_SERVER=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only rate_limit {{args}} 
 
 test-federation-live-DRAGONS *args='': services
 	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test_run --only live_federation {{args}}

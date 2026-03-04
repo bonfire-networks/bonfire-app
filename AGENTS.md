@@ -34,7 +34,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 
 ## Coding Style
 
-- **Follow standard Elixir practices** and let `just mix format` take care of formatting (user will run it, you don't have to).
+- **Follow standard Elixir practices** 
 - **Always assume the server is running on port 4000**
 - **Use Tidewave MCP to: run SQL queries, run elixir code, introspect the logs and runtime, fetch doccumentation from hex docs, see all the ecto schemas, and much more**
 - **Use one module per file** unless the module is only used internally by another module.
@@ -42,6 +42,8 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Prefer using full module names or aliases** rather than imports.
 - **Use descriptive variable and function names**: e.g., `user_signed_in?`, `calculate_total`.
 - **Prefer higher-order functions and recursion** over imperative loops.
+- Don't run `just mix format` separately — formatting happens when before git commit
+- Don't run `just mix compile` separately — compilation happens when tests or app runs
 
 ## Naming Conventions
 
@@ -98,7 +100,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
 - Use PhoenixTest for UI testing.
-- When running tests, don't just interpret the results/logs but also show them to me. 
+- Run tests in the background and save the log rather than only keeping the tail, so you can show me results/logs to debug together, rather than only interpreting them.
 
 ## Security
 
