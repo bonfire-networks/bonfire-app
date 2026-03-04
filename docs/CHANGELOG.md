@@ -7,6 +7,63 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0.2 (2026-03-04)]
+
+### Added
+- ✨ setting to toggle whether to show the post being replied to when replies are shown in feed, or to show the first post in thread above replies in feed instead of (or above) the reply being replied to [#1714](https://github.com/bonfire-networks/bonfire-app/issues/1714) [#1359](https://github.com/bonfire-networks/bonfire-app/issues/1359) (thanks @mayel and @ivanminutillo)
+- ✨ translate button under activities [#1809](https://github.com/bonfire-networks/bonfire-app/issues/1809) (thanks @ivanminutillo)
+- 📝 Save timeline position between navigation [#1835](https://github.com/bonfire-networks/bonfire-app/issues/1835) (thanks @ivanminutillo)
+- 🚧 Add per-user and per-instance keyword filtering [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001)  (thanks @mayel and @ivanminutillo)
+- 🚀 make sure EXIF metadata is stripped from image uploads [#1794](https://github.com/bonfire-networks/bonfire-app/issues/1794) (thanks @mayel)
+- ✨ Use Cmd + enter to publish a post [#397](https://github.com/bonfire-networks/bonfire-app/issues/397) (thanks @ivanminutillo and @sefsh)
+- ✨ Add a preview for polls [#1363](https://github.com/bonfire-networks/bonfire-app/issues/1363) (thanks @ivanminutillo)
+- ✨ ActivityPub: support RFC 9421 HTTP Message Signatures [#1823](https://github.com/bonfire-networks/bonfire-app/issues/1823) [#1826](https://github.com/bonfire-networks/bonfire-app/issues/1826) [PR #9](https://github.com/bonfire-networks/activity_pub/pull/9) (thanks @dahlia and @mayel)
+- ✨ REST APIs for events [#1772](https://github.com/bonfire-networks/bonfire-app/issues/1772) (thanks @mayel and @ivanminutillo)
+- 🚧 Push notifications on web and in apps [#1800](https://github.com/bonfire-networks/bonfire-app/issues/1800) (thanks @mayel)
+
+### Changed
+- 🚧 Improvements to ActivityPub Client to Server API (work in progress) [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) (thanks @mayel)
+- 🚧 Improvements to Mastodon-compatible API (work in progress)  [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) (thanks @ivanminutillo and @mayel)
+- 🐛 Replying to a CW Post should default to CW [#1805](https://github.com/bonfire-networks/bonfire-app/issues/1805) (thanks @btfreeorg and @ivanminutillo)
+- ✨ link seen/read status (of messages or notifications) to the account rather than the user [#1775](https://github.com/bonfire-networks/bonfire-app/issues/1775) (thanks @mayel)
+- 🚀 Improve hashtag handling [#1833](https://github.com/bonfire-networks/bonfire-app/issues/1833) (thanks @mayel and @LiquidParasyte)
+- 📝 Traditional Chinese (Taiwan) translation [PR #1837](https://github.com/bonfire-networks/bonfire-app/pull/1837) (thanks @peticipate888)
+- 💅 doc/DEPLOY.md: Guix guide: Adapt for latest release. [PR #1768](https://github.com/bonfire-networks/bonfire-app/pull/1768) (thanks @fishinthecalculator)
+- ✨ Add tests for when uploading blocklists [#1832](https://github.com/bonfire-networks/bonfire-app/issues/1832) (thanks @ivanminutillo)
+- 🚀 Update Website [#206](https://github.com/bonfire-networks/bonfire-app/issues/206) (thanks @ju1m and @ivanminutillo)
+- ✨ Add new CORS paths for openid and oauth token [PR #9](https://github.com/bonfire-networks/bonfire_ui_common/pull/9) (thanks @mediaformat)
+
+### Fixed
+- ✨ "Get all activities" from a remote user is not workign anymre [#1785](https://github.com/bonfire-networks/bonfire-app/issues/1785) (thanks @ivanminutillo and @mayel)
+- ✨ when i follow a user, i receive a follow request notification that says that im following myself [#1814](https://github.com/bonfire-networks/bonfire-app/issues/1814) (thanks @ivanminutillo)
+- ✨ Grouped notifications dont allow to see all the users grouped [#1682](https://github.com/bonfire-networks/bonfire-app/issues/1682) (thanks @ivanminutillo and @mayel)
+- 🚧 Accepted Quote Post showing as Pending in Mastodon [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) (thanks @mayel and @btfreeorg)
+- 🐛 Searching direct links for toots and clicking the toot doesn't show the full toot [#1779](https://github.com/bonfire-networks/bonfire-app/issues/1779) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Remote Follow results in a "Not Found" (404) error page [#1434](https://github.com/bonfire-networks/bonfire-app/issues/1434) (thanks @GreenMan-Network and @mayel)
+- 📝 nitpick: Fix typo in DEPLOY.md for admin command [PR #1792](https://github.com/bonfire-networks/bonfire-app/pull/1792) (thanks @bailey-coding)
+- 📝 nitpick: Remove duplicate 'application/x-bzip2' from mime types [PR #3](https://github.com/bonfire-networks/bonfire_files/pull/3) (thanks @bailey-coding)
+- 💅 build/fix(vix): update vix-0.35.0 -> vix-0.38.0 [PR #1821](https://github.com/bonfire-networks/bonfire-app/pull/1821) (thanks @ju1m)
+- 🚀 maint/update(assets): fix yarn.lock [PR #10](https://github.com/bonfire-networks/bonfire_ui_common/pull/10) (thanks @ju1m)
+- 💅 image alt is not shown anymore on preview [#1813](https://github.com/bonfire-networks/bonfire-app/issues/1813) (thanks @ivanminutillo)
+- 💅 in search results mentions adds a quote blank preview to the activity [#1760](https://github.com/bonfire-networks/bonfire-app/issues/1760) (thanks @ivanminutillo)
+- 📝 fix: use CLDR gettext_locale_name for correct Gettext locale mapping [PR #14](https://github.com/bonfire-networks/bonfire_common/pull/14) (thanks @peticipate888)
+- 🐛 Fix infinite recursion in TagFeedLive.mount for non-existent ULID hashtags [#1843](https://github.com/bonfire-networks/bonfire-app/issues/1843) (thanks @ivanminutillo and @mayel)
+- 🐛 Content warnings do not hide content in link previews or quotes [#1840](https://github.com/bonfire-networks/bonfire-app/issues/1840) (thanks @LiquidParasyte and @mayel)
+- 🐛 bug: put_locale does not map CLDR locale to Gettext locale (breaks zh-Hant, pt-BR, etc.) [#1838](https://github.com/bonfire-networks/bonfire-app/issues/1838) - [PR #14](https://github.com/bonfire-networks/bonfire-app/pull/14) (thanks @peticipate888 and @mayel)
+- 🐛 Sunrise & Sunset in Weather Extension showing wrong time [#1819](https://github.com/bonfire-networks/bonfire-app/issues/1819) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 html tags visable in CW when federated to Mastodon [#1804](https://github.com/bonfire-networks/bonfire-app/issues/1804) (thanks @wakest and @ivanminutillo)
+- 🐛 On Mobile Dashboard Arrows Blocking Article Titles [#1798](https://github.com/bonfire-networks/bonfire-app/issues/1798) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Context menu sometimes not coming to the foreground [#1778](https://github.com/bonfire-networks/bonfire-app/issues/1778) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Fix search results broken previews using standard feed preload [#1797](https://github.com/bonfire-networks/bonfire-app/issues/1797) (thanks @ivanminutillo)
+- 🐛 reading a post causes an endless refresh / socket reconnect loop [#1781](https://github.com/bonfire-networks/bonfire-app/issues/1781) (thanks @mayel and @ivanminutillo)
+- 🐛 Sorting replies in flat mode (as opposed to threaded) shows wrong avatar [#1608](https://github.com/bonfire-networks/bonfire-app/issues/1608) (thanks @ccamara, @mayel, and @ivanminutillo)
+- 🐛 default/flavour config is being overriden by instance settings instead of merged [#1604](https://github.com/bonfire-networks/bonfire-app/issues/1604) (thanks @mayel and @ivanminutillo)
+- 🐛 Avatar in feed appears slowly, sometimes few seconds after the activity becomes visible on the screen [#1577](https://github.com/bonfire-networks/bonfire-app/issues/1577) (thanks @ivanminutillo)
+- 🐛 Federated polls cause original post to be duplicated in the timeline [#1440](https://github.com/bonfire-networks/bonfire-app/issues/1440) (thanks @GreenMan-Network, @mayel, and @ivanminutillo)
+- 🐛 Some Mobilizon actors in search results appear with subject [#1337](https://github.com/bonfire-networks/bonfire-app/issues/1337) (thanks @ivanminutillo and @mayel)
+- 📝 Forced dependency on OpenID [#2](https://github.com/bonfire-networks/bonfire_api_graphql/issues/2) - [PR #2155](https://github.com/bonfire-networks/bonfire_api_graphql/pull/2155) (thanks @ju1m and @mayel)
+
+
 ## Bonfire Social [1.0.1 (2026-01-17)]
 
 ### Added
@@ -35,11 +92,11 @@ SPDX-License-Identifier: CC0-1.0
 - 📝 Upgrade Hammer integration [#1522](https://github.com/bonfire-networks/bonfire-app/issues/1522) (thanks @mayel)
 - 🚀 remove phx-update="append" which is not longer supported in LV [#1492](https://github.com/bonfire-networks/bonfire-app/issues/1492) (thanks @mayel and @ivanminutillo)
 - ⚡ optimise / short circuit incoming Delete activities for unknown remote objects/actors [#850](https://github.com/bonfire-networks/bonfire-app/issues/850) (thanks @mayel)
-- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [`24b77c6`](https://github.com/bonfire-networks/bonfire-app/commit/24b77c67bafaeeb51329bb96a973de324335f077) (thanks @mayel and @harveypitt)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) (thanks @mayel and @harveypitt)
 - 🐛 Flags should not be automatically sent to remote instances as reports [#1626](https://github.com/bonfire-networks/bonfire-app/issues/1626) (thanks @jonpincus and @mayel)
 - 🚀 updated [docs](https://docs.bonfirenetworks.org/readme.html)
 - 🔧 Settings: order of widgets on dashboard [#935](https://github.com/bonfire-networks/bonfire-app/issues/935) (thanks @mayel and @ivanminutillo)
-- 🚧 replace milisecond numbers or calculations with `to_timeout` [#1729](https://github.com/bonfire-networks/bonfire-app/issues/1729) [`991c7a0`](https://github.com/bonfire-networks/bonfire-app/commit/991c7a0a0fc7e0e6531fa26beb64ecba257ab2ed) (thanks @vishakha1411 and @mayel)
+- 🚧 replace milisecond numbers or calculations with `to_timeout` [#1729](https://github.com/bonfire-networks/bonfire-app/issues/1729) (thanks @vishakha1411 and @mayel)
 
 ### Fixed
 - 📝 when i reply to a remote post, the boundary default to local [#1687](https://github.com/bonfire-networks/bonfire-app/issues/1687) (thanks @ivanminutillo)
@@ -88,9 +145,9 @@ SPDX-License-Identifier: CC0-1.0
 ## Bonfire Social [1.0 (2025-11-7)]
 
 ### Added
-- ✨ docs/DEPLOY.md: Add Guix hosting guide. [PR #1585](https://github.com/bonfire-networks/bonfire-app/pull/1585) [`4f8d891`](https://github.com/bonfire-networks/bonfire-app/commit/4f8d8919492c1eccdd4c62e8fe32732c199e5a3d) (thanks @fishinthecalculator)
+- ✨ docs/DEPLOY.md: Add Guix hosting guide. [PR #1585](https://github.com/bonfire-networks/bonfire-app/pull/1585) (thanks @fishinthecalculator)
 - ✨ add postgres autotune [`137ef37`](https://github.com/bonfire-networks/bonfire-app/commit/137ef37b1900f719cfc5cdf15f5f1a2595b9f4e4) (thanks @mayel)
-- 💅 Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) [`aada2ae`](https://github.com/bonfire-networks/open_science/commit/aada2ae4c81a5fb9e1ae56ec081f3852f63f82a8) (thanks @mayel)
+- 💅 Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel)
 
 ### Changed
 - 📝 reply activity in composer overflowed wrongly [#1580](https://github.com/bonfire-networks/bonfire-app/issues/1580) (thanks @ivanminutillo)
@@ -101,13 +158,9 @@ SPDX-License-Identifier: CC0-1.0
 - 📝 .envrc: Update default Docker setting. [PR #1602](https://github.com/bonfire-networks/bonfire-app/pull/1602) (thanks @fishinthecalculator)
 - 🚀 Update build scripts to be more broadly compatible [PR #1](https://github.com/bonfire-networks/ember/pull/1) (thanks @fishinthecalculator)
 - 📝 .envrc: Update default Docker setting. [`3f34141`](https://github.com/bonfire-networks/bonfire-app/commit/3f34141127bc9837422e3d17c09a8a2d5cf69355) (thanks @fishinthecalculator)
-- 📝 api [`82811fa`](https://github.com/bonfire-networks/bonfire-app/commit/82811fa4b3a71122b0710a572f5cfd516bea8206), [`cfd4f66`](https://github.com/bonfire-networks/bonfire-app/commit/cfd4f66357938a494b43c4297bf94507ba13d704) (thanks @mayel)
 - 🚧 investigate all n+1 warnings throughout the app [#1581](https://github.com/bonfire-networks/bonfire-app/issues/1581) [`4dd2e5e`](https://github.com/bonfire-networks/bonfire-app/commit/4dd2e5e68626d6ca5857005124489f9403d3cce8) (thanks @mayel)
-- 🚧 Investigate missing ecto indexes [#1588](https://github.com/bonfire-networks/bonfire-app/issues/1588) [`469f854`](https://github.com/bonfire-networks/bonfire-app/commit/469f854a6ab2d90e0d96a132c80d4c4506da1bbb), [`e32c6a8`](https://github.com/bonfire-networks/bonfire-app/commit/e32c6a8511af239ebd30f230c3424d745c545df5), [`df2b4cc`](https://github.com/bonfire-networks/bonfire-app/commit/df2b4ccfc4c942edc168d5ed9da4336445c2fbc2) (thanks @mayel and @ivanminutillo)
-- 📝 mail [`b6fe441`](https://github.com/bonfire-networks/bonfire-app/commit/b6fe441e15cbd6f0a8c1b528f393642091d0b6ff) (thanks @mayel)
+- 🚧 Investigate missing ecto indexes [#1588](https://github.com/bonfire-networks/bonfire-app/issues/1588)  (thanks @mayel and @ivanminutillo)
 - 📝 moved auto conf file outside postgres data folder [`40aafd9`](https://github.com/bonfire-networks/bonfire-app/commit/40aafd918d05d703822aeb52dd8df316d0099366) (thanks @MarekBenjamin)
-- 📝 post [`90b0827`](https://github.com/bonfire-networks/openscience.network/commit/90b08275aa8382895f935756b9ea1bdeea163dd6) (thanks @ivanminutillo)
-- 📝 workflow [`9612b7f`](https://github.com/bonfire-networks/openscience.network/commit/9612b7f642b7e44e938ab043b42022df4c036696), [`43093e6`](https://github.com/bonfire-networks/openscience.network/commit/43093e60edcf67438ca99484ee49a4cc357b7f0d) (thanks @ivanminutillo)
 - ✅ test deletion flows manually with mastodon [#780](https://github.com/bonfire-networks/bonfire-app/issues/780) (thanks @mayel)
 
 ### Fixed
@@ -192,7 +245,7 @@ For a full list of changes, see the changelog below.
 - ✨ generate URL previews for remote (federated) posts, like we do for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) (thanks @ivanminutillo and @mayel)
 - ✨ Add a view to see the status of profile migrations [#1366](https://github.com/bonfire-networks/bonfire-app/issues/1366) (thanks @mayel and @ivanminutillo)
 - ✨ Add a visual indicator during large uploads [#1433](https://github.com/bonfire-networks/bonfire-app/issues/1433) (thanks @GreenMan-Network and @mayel)
-- 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) [`31b01b3`](https://github.com/bonfire-networks/bonfire-app/commit/31b01b3baa4b10c718d66a9bb323c32b4bcf873f) (thanks @mayel)
+- 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) (thanks @mayel)
 - ✨ It would be nice if the media gallery had swipe-between on photos and right-left keypad on desktop [#1424](https://github.com/bonfire-networks/bonfire-app/issues/1424) (thanks @ivanminutillo and @mayel)
 - ✨ add a setting to change units (eg for wheather) [#1518](https://github.com/bonfire-networks/bonfire-app/issues/1518) (thanks @mayel)
 
@@ -210,12 +263,12 @@ For a full list of changes, see the changelog below.
 - 🚀 add tests for data import and export [#1322](https://github.com/bonfire-networks/bonfire-app/issues/1322) (thanks @mayel)
 - 📝 hide instances from the admin's list of instance-wide circles? [#884](https://github.com/bonfire-networks/bonfire-app/issues/884) (thanks @mayel and @ivanminutillo)
 - 📝 optimise text/html processing [`55b8995`](https://github.com/bonfire-networks/bonfire-app/commit/55b89959c4f4f3e577db97ae19a924ce66911ecd), [`0ee1f86`](https://github.com/bonfire-networks/activity_pub/commit/0ee1f8644a03f41ee2dfcd813f9c8334c731874c) (thanks @mayel)
-- 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) [`d3b4db1`](https://github.com/bonfire-networks/activity_pub/commit/d3b4db1f33e899e40efbfe196e6a4c4615c2d14e) (thanks @mayel)
+- 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) (thanks @mayel)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
 - ✨ Allow reading meilisearch master key secret from file. [PR #1](https://github.com/bonfire-networks/bonfire_search/pull/1) (thanks @fishinthecalculator)
-- 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) [`97cde01`](https://github.com/bonfire-networks/bonfire-app/commit/97cde01de6927d8294ae34aaa322775219a0345b) (thanks @mayel)
-- 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [`1bbc44d`](https://github.com/bonfire-networks/bonfire-app/commit/1bbc44d498bf463da8f7e77c2be314250b04a06e) (thanks @mayel)
+- 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) (thanks @mayel)
+- 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) (thanks @mayel)
 - 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
 
 ### Fixed
@@ -308,9 +361,9 @@ For a comprehensive list of changes, here's the full changelog:
 - 📝 version number needs to be compatible with docker tag formatting [`02ee766`](https://github.com/bonfire-networks/bonfire-app/commit/02ee766804a6602035fb793d539caa69ca474614) (thanks @mayel)
 - 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
 - 🚀 update files extension [`4378cde`](https://github.com/bonfire-networks/bonfire-app/commit/4378cde33e5345e58adcb4cc2bc82aba55c52dbd) (thanks @mayel)
-- 🚧 improve oauth/openid login + implement dance tests for them [#1201](https://github.com/bonfire-networks/bonfire-app/issues/1201) [`8c580e6`](https://github.com/bonfire-networks/bonfire-app/commit/8c580e6f411b620b2ee2cc7026af7956911fae0d), [`9ac4782`](https://github.com/bonfire-networks/bonfire-app/commit/9ac4782fd36825ed8497f98aaaf7d1b3c167d638) (thanks @mayel)
+- 🚧 improve oauth/openid login + implement dance tests for them [#1201](https://github.com/bonfire-networks/bonfire-app/issues/1201) (thanks @mayel)
 - 📝 attempt fix s3 uploads [`5280ec2`](https://github.com/bonfire-networks/bonfire-app/commit/5280ec22ae1e677f95f4728a0f0feb08c1c37434) (thanks @mayel)
-- 🚧 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) [`55c5d72`](https://github.com/bonfire-networks/bonfire-app/commit/55c5d720a19b7b11731bbbbffcd7d6481aaf0da7) (thanks @mayel and @ivanminutillo)
+- 🚧 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) (thanks @mayel and @ivanminutillo)
 
 ### Fixed
 - 🐛 incoming CW on remote posts not being recognised [#1411](https://github.com/bonfire-networks/bonfire-app/issues/1411) (thanks @mayel)
