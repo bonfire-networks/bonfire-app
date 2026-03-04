@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ ActivityPub inbox: support RFC 9421 HTTP Message Signatures verification [#1823](https://github.com/bonfire-networks/bonfire-app/issues/1823) (thanks @dahlia)
 - ✨ when i follow a user, i receive a follow request notification that says that im following myself [#1814](https://github.com/bonfire-networks/bonfire-app/issues/1814) (thanks @ivanminutillo)
 - ✨ hook translate button under activities [#1809](https://github.com/bonfire-networks/bonfire-app/issues/1809) (thanks @ivanminutillo)
+- ✨ "Get all activities" from a remote user is not workign anymre [#1785](https://github.com/bonfire-networks/bonfire-app/issues/1785) (thanks @ivanminutillo and @mayel)
 - ✨ Feature Proposal: link seen/read status (of messages or notifications) to the account rather than the user [#1775](https://github.com/bonfire-networks/bonfire-app/issues/1775) (thanks @mayel)
 - ✨ Add APIs for events [#1772](https://github.com/bonfire-networks/bonfire-app/issues/1772) (thanks @mayel and @ivanminutillo)
 - ✨ Feature Proposal: settings to show the first post in thread above replies in feed instead of (or above) the reply being replied to [#1714](https://github.com/bonfire-networks/bonfire-app/issues/1714) (thanks @mayel and @ivanminutillo)
