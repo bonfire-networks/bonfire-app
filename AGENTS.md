@@ -22,6 +22,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - Dependencies are usually defined in files such as `deps.hex`, `deps.git`, and `deps.local` instead of all being listed in `mix.exs`
 - **Extensions are cloned in `extensions/`**: Modular components of the system.
 - **Libraries that are being modified are cloned in `forks/`**
+- **NEVER modify files in `deps/`** — the `deps/` directory is managed by mix and changes there will be lost. If a dependency has a corresponding clone in `forks/` or `extensions/`, always make changes there instead. Check `config/deps.path` and `config/current_flavour/deps.path` to find path dep mappings.
 - **Data schemas in `bonfire_data_*` extensions**: For data persistence and schemas.
 - **Separation of Core and UI**: Keep business logic in core extensions separate from UI components in UI extensions (in `bonfire_ui_*` extensions).
 - **Cross-Cutting Infrastructure**: Place shared functionality or components in common extensions such as `bonfire_common` or `bonfire_ui_common`.
