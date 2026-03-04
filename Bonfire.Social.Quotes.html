@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
 
-    <script defer src="dist/sidebar_items-A9F63353.js"></script>
+    <script defer src="dist/sidebar_items-8DFB5E95.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y223O6DN.js"></script>
 
@@ -113,7 +113,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#accept/4" data-no-tooltip="" translate="no">accept(request, quote_creator \\ nil, quoted_creator \\ nil, opts)</a>
+        <a href="#accept/4" data-no-tooltip="" translate="no">accept(request, quote_post_author \\ nil, quoted_object_creator \\ nil, opts)</a>
 
       </div>
 
@@ -137,9 +137,32 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#ap_extract_quote_tags/1" data-no-tooltip="" translate="no">ap_extract_quote_tags(tags)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Separates quote Link tags from regular links in incoming AP tags.
+Fetches the quoted objects and returns them alongside remaining non-quote links.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#ap_publish_activity/3" data-no-tooltip="" translate="no">ap_publish_activity(subject, verb, request)</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#ap_quote_fields/2" data-no-tooltip="" translate="no">ap_quote_fields(actor, post)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns quote-related AP fields (<code class="inline">quote</code>, <code class="inline">quoteAuthorization</code>, and Link tags) for an outgoing Note.
+Per FEP-044f, only the quoted author's server creates the QuoteAuthorization;
+the quote author's server uses the URL received from the Accept's <code class="inline">result</code>.</p></div>
 
     </div>
 
@@ -318,7 +341,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">accept(request, quote_creator \\ nil, quoted_creator \\ nil, opts)</h1>
+      <h1 class="signature" translate="no">accept(request, quote_post_author \\ nil, quoted_object_creator \\ nil, opts)</h1>
 
 
         <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L178" class="icon-action" rel="help" aria-label="View Source">
@@ -381,6 +404,29 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
   </section>
 </section>
+<section class="detail" id="ap_extract_quote_tags/1">
+
+  <div class="detail-header">
+    <a href="#ap_extract_quote_tags/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_extract_quote_tags(tags)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L411" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Separates quote Link tags from regular links in incoming AP tags.
+Fetches the quoted objects and returns them alongside remaining non-quote links.</p>
+  </section>
+</section>
 <section class="detail" id="ap_publish_activity/3">
 
   <div class="detail-header">
@@ -391,7 +437,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">ap_publish_activity(subject, verb, request)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L568" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L781" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -401,6 +447,30 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
   <section class="docstring">
 
 
+  </section>
+</section>
+<section class="detail" id="ap_quote_fields/2">
+
+  <div class="detail-header">
+    <a href="#ap_quote_fields/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">ap_quote_fields(actor, post)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L344" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns quote-related AP fields (<code class="inline">quote</code>, <code class="inline">quoteAuthorization</code>, and Link tags) for an outgoing Note.
+Per FEP-044f, only the quoted author's server creates the QuoteAuthorization;
+the quote author's server uses the URL received from the Accept's <code class="inline">result</code>.</p>
   </section>
 </section>
 <section class="detail" id="ap_receive_activity/3">
@@ -413,7 +483,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">ap_receive_activity(subject, quote_request_activity, quoted_object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L625" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L838" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -507,7 +577,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">fetch_fresh_quote_authorization(quote_post, quoted_object \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L406" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L619" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -516,11 +586,11 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
   <section class="docstring">
 
-<p>Fetches the QuoteAuthorization for a quote post using fresh data.</p><h2 id="fetch_fresh_quote_authorization/2-parameters" class="section-heading"><a href="#fetch_fresh_quote_authorization/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">quote_post</code>: The quote post to get authorization for</li><li><code class="inline">quoted_object</code>: The quoted object (optional - if not provided, gets first quoted object)</li></ul><h2 id="fetch_fresh_quote_authorization/2-returns" class="section-heading"><a href="#fetch_fresh_quote_authorization/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, authorization}</code> if found, <code class="inline">{:error, :not_found}</code> otherwise.</p><h2 id="fetch_fresh_quote_authorization/2-examples" class="section-heading"><a href="#fetch_fresh_quote_authorization/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">fetch_fresh_quote_authorization</span><span class="p" data-group-id="2790909403-1">(</span><span class="n">quote_post</span><span class="p" data-group-id="2790909403-1">)</span><span class="w">
-</span><span class="p" data-group-id="2790909403-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2790909403-3">%</span><span class="nc" data-group-id="2790909403-3">ActivityPub.Object</span><span class="p" data-group-id="2790909403-3">{</span><span class="p" data-group-id="2790909403-3">}</span><span class="p" data-group-id="2790909403-2">}</span><span class="w">
+<p>Fetches the QuoteAuthorization for a quote post using fresh data.</p><h2 id="fetch_fresh_quote_authorization/2-parameters" class="section-heading"><a href="#fetch_fresh_quote_authorization/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">quote_post</code>: The quote post to get authorization for</li><li><code class="inline">quoted_object</code>: The quoted object (optional - if not provided, gets first quoted object)</li></ul><h2 id="fetch_fresh_quote_authorization/2-returns" class="section-heading"><a href="#fetch_fresh_quote_authorization/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p><code class="inline">{:ok, authorization}</code> if found, <code class="inline">{:error, :not_found}</code> otherwise.</p><h2 id="fetch_fresh_quote_authorization/2-examples" class="section-heading"><a href="#fetch_fresh_quote_authorization/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">fetch_fresh_quote_authorization</span><span class="p" data-group-id="3946921414-1">(</span><span class="n">quote_post</span><span class="p" data-group-id="3946921414-1">)</span><span class="w">
+</span><span class="p" data-group-id="3946921414-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3946921414-3">%</span><span class="nc" data-group-id="3946921414-3">ActivityPub.Object</span><span class="p" data-group-id="3946921414-3">{</span><span class="p" data-group-id="3946921414-3">}</span><span class="p" data-group-id="3946921414-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">fetch_fresh_quote_authorization</span><span class="p" data-group-id="2790909403-4">(</span><span class="n">quote_post</span><span class="p">,</span><span class="w"> </span><span class="n">quoted_object</span><span class="p" data-group-id="2790909403-4">)</span><span class="w">
-</span><span class="p" data-group-id="2790909403-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2790909403-6">%</span><span class="nc" data-group-id="2790909403-6">ActivityPub.Object</span><span class="p" data-group-id="2790909403-6">{</span><span class="p" data-group-id="2790909403-6">}</span><span class="p" data-group-id="2790909403-5">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">fetch_fresh_quote_authorization</span><span class="p" data-group-id="3946921414-4">(</span><span class="n">quote_post</span><span class="p">,</span><span class="w"> </span><span class="n">quoted_object</span><span class="p" data-group-id="3946921414-4">)</span><span class="w">
+</span><span class="p" data-group-id="3946921414-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3946921414-6">%</span><span class="nc" data-group-id="3946921414-6">ActivityPub.Object</span><span class="p" data-group-id="3946921414-6">{</span><span class="p" data-group-id="3946921414-6">}</span><span class="p" data-group-id="3946921414-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="process_quote/3">
@@ -623,7 +693,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">reject(request, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L253" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L461" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -632,8 +702,8 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
   <section class="docstring">
 
-<p>Rejects a quote request.</p><h2 id="reject/2-parameters" class="section-heading"><a href="#reject/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">request</code>: The request to ignore</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="reject/2-returns" class="section-heading"><a href="#reject/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>Result of the ignore operation.</p><h2 id="reject/2-examples" class="section-heading"><a href="#reject/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">reject</span><span class="p" data-group-id="2760102075-1">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="2760102075-1">)</span><span class="w">
-</span><span class="p" data-group-id="2760102075-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">ignored_request</span><span class="p" data-group-id="2760102075-2">}</span></code></pre>
+<p>Rejects a quote request.</p><h2 id="reject/2-parameters" class="section-heading"><a href="#reject/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">request</code>: The request to ignore</li><li><code class="inline">opts</code>: Additional options</li></ul><h2 id="reject/2-returns" class="section-heading"><a href="#reject/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>Result of the ignore operation.</p><h2 id="reject/2-examples" class="section-heading"><a href="#reject/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="n">reject</span><span class="p" data-group-id="8324764521-1">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="ss">current_user</span><span class="p">:</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="8324764521-1">)</span><span class="w">
+</span><span class="p" data-group-id="8324764521-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">ignored_request</span><span class="p" data-group-id="8324764521-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="reject/4">
@@ -646,7 +716,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">reject(request, quote_object, quoted_object, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L259" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L467" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -670,7 +740,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">reject_quote(quote_object, quoted_object, opts \\ [])</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L227" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L435" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -725,7 +795,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
   <section class="docstring">
 
-<p>Checks if a quote request has been made.</p><h2 id="requested?/2-parameters" class="section-heading"><a href="#requested?/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">subject</code>: The subject (requester)</li><li><code class="inline">quote_post</code>: The quote post (instrument)</li><li><code class="inline">quoted_object</code>: The quoted object</li></ul><h2 id="requested?/2-returns" class="section-heading"><a href="#requested?/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>Boolean indicating if a quote request exists.</p><h2 id="requested?/2-examples" class="section-heading"><a href="#requested?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Quotes</span><span class="o">.</span><span class="n">requested?</span><span class="p" data-group-id="2044703524-1">(</span><span class="n">quote_post</span><span class="p">,</span><span class="w"> </span><span class="n">quoted_object</span><span class="p" data-group-id="2044703524-1">)</span><span class="w">
+<p>Checks if a quote request has been made.</p><h2 id="requested?/2-parameters" class="section-heading"><a href="#requested?/2-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">subject</code>: The subject (requester)</li><li><code class="inline">quote_post</code>: The quote post (instrument)</li><li><code class="inline">quoted_object</code>: The quoted object</li></ul><h2 id="requested?/2-returns" class="section-heading"><a href="#requested?/2-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><p>Boolean indicating if a quote request exists.</p><h2 id="requested?/2-examples" class="section-heading"><a href="#requested?/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Quotes</span><span class="o">.</span><span class="n">requested?</span><span class="p" data-group-id="0250137449-1">(</span><span class="n">quote_post</span><span class="p">,</span><span class="w"> </span><span class="n">quoted_object</span><span class="p" data-group-id="0250137449-1">)</span><span class="w">
 </span><span class="no">true</span></code></pre>
   </section>
 </section>
@@ -739,7 +809,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">update_quote_add(subject, quote_post, quoted_object, opts)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L362" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L575" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -761,7 +831,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">update_quote_remove(quote_post, quoted_object)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L375" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L588" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -787,7 +857,7 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
       <h1 class="signature" translate="no">verify_quote_authorization(quote_post, quoted_object \\ nil, authorization \\ nil)</h1>
 
 
-        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L468" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/bonfire-networks/bonfire_social/blob/main/lib/quotes.ex#L681" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -796,11 +866,11 @@ accepting/rejecting requests, and verifying quote authorizations.</p>
 
   <section class="docstring">
 
-<p>Verifies that a quote authorization is valid.</p><h2 id="verify_quote_authorization/3-parameters" class="section-heading"><a href="#verify_quote_authorization/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">quote_post</code>: The quote post to verify authorization for</li><li><code class="inline">quoted_object</code>: The quoted object (optional - will call get_quote_authorization to get it)</li></ul><h2 id="verify_quote_authorization/3-returns" class="section-heading"><a href="#verify_quote_authorization/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, :valid}</code> if authorization exists and is valid</li><li><code class="inline">{:error, :invalid}</code> if authorization exists but is invalid (wrong signatures, etc)</li><li><code class="inline">{:error, :revoked}</code> if authorization was deleted/revoked or network errors</li></ul><h2 id="verify_quote_authorization/3-examples" class="section-heading"><a href="#verify_quote_authorization/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Quotes</span><span class="o">.</span><span class="n">verify_quote_authorization</span><span class="p" data-group-id="0501987361-1">(</span><span class="n">quote_post</span><span class="p" data-group-id="0501987361-1">)</span><span class="w">
-</span><span class="p" data-group-id="0501987361-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:valid</span><span class="p" data-group-id="0501987361-2">}</span><span class="w">
+<p>Verifies that a quote authorization is valid.</p><h2 id="verify_quote_authorization/3-parameters" class="section-heading"><a href="#verify_quote_authorization/3-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Parameters</span></h2><ul><li><code class="inline">quote_post</code>: The quote post to verify authorization for</li><li><code class="inline">quoted_object</code>: The quoted object (optional - will call get_quote_authorization to get it)</li></ul><h2 id="verify_quote_authorization/3-returns" class="section-heading"><a href="#verify_quote_authorization/3-returns" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Returns</span></h2><ul><li><code class="inline">{:ok, :valid}</code> if authorization exists and is valid</li><li><code class="inline">{:error, :invalid}</code> if authorization exists but is invalid (wrong signatures, etc)</li><li><code class="inline">{:error, :revoked}</code> if authorization was deleted/revoked or network errors</li></ul><h2 id="verify_quote_authorization/3-examples" class="section-heading"><a href="#verify_quote_authorization/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Quotes</span><span class="o">.</span><span class="n">verify_quote_authorization</span><span class="p" data-group-id="8124839113-1">(</span><span class="n">quote_post</span><span class="p" data-group-id="8124839113-1">)</span><span class="w">
+</span><span class="p" data-group-id="8124839113-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:valid</span><span class="p" data-group-id="8124839113-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Quotes</span><span class="o">.</span><span class="n">verify_quote_authorization</span><span class="p" data-group-id="0501987361-3">(</span><span class="n">quote_post</span><span class="p">,</span><span class="w"> </span><span class="n">quoted_object</span><span class="p" data-group-id="0501987361-3">)</span><span class="w">
-</span><span class="p" data-group-id="0501987361-4">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:invalid</span><span class="p" data-group-id="0501987361-4">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Social.Quotes</span><span class="o">.</span><span class="n">verify_quote_authorization</span><span class="p" data-group-id="8124839113-3">(</span><span class="n">quote_post</span><span class="p">,</span><span class="w"> </span><span class="n">quoted_object</span><span class="p" data-group-id="8124839113-3">)</span><span class="w">
+</span><span class="p" data-group-id="8124839113-4">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:invalid</span><span class="p" data-group-id="8124839113-4">}</span></code></pre>
   </section>
 </section>
 
