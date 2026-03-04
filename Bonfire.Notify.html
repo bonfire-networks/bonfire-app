@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.38">
+    <meta name="generator" content="ExDoc v0.40.1">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.39">
 
 
-    <title>Bonfire.Notify — Bonfire v1.0.2-social-alpha.38</title>
+    <title>Bonfire.Notify — Bonfire v1.0.2-social-alpha.39</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+    <link rel="stylesheet" href="dist/html-elixir-YJO4MOOW.css" />
 
-    <script defer src="dist/sidebar_items-8DFB5E95.js"></script>
+    <script defer src="dist/sidebar_items-BDB31B70.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-Y223O6DN.js"></script>
+    <script defer src="dist/html-YU4BZFVS.js"></script>
 
   </head>
   <body>
@@ -41,33 +41,51 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.38
+          v1.0.2-social-alpha.39
         </div>
       </div>
     </div>
-    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
   </div>
 </nav>
 
 <output role="status" id="toast"></output>
 
-<main class="content page-module" id="main" data-type="modules">
+<main class="content page-extra" id="main" data-type="extras">
   <div id="content" class="content-inner">
     <div class="top-search">
       <div class="search-settings">
         <form class="search-bar" action="search.html">
           <label class="search-label">
             <span class="sr-only">Search documentation of Bonfire</span>
-            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
           </label>
-          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
-            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
-          </button>
-          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
-            <i class="ri-close-line ri-lg" title="Cancel search"></i>
-          </button>
         </form>
         <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
         </div>
         <button class="icon-settings display-settings">
           <i class="ri-settings-3-line"></i>
@@ -78,13 +96,15 @@ Bonfire
 
 <div id="top-content">
   <div class="heading-with-actions top-heading">
-    <h1>
-      <span translate="no">Bonfire.Notify</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.38)</small>
+    <h1>Bonfire.Notify</h1>
 
-    </h1>
+<a href="Bonfire.Notify.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
 
-      <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L1" title="View Source" class="icon-action" rel="help">
+
+      <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -92,292 +112,76 @@ Bonfire
   </div>
 
 
-    <section id="moduledoc">
-<p>Public API for sending notifications.</p><p>This module provides a simple entrypoint that delegates to the underlying
-notification system (WebPush for push notifications, LivePush for in-app notifications).</p>
-    </section>
+<p>An extension for <a href="https://bonfire.cafe/">Bonfire</a> that handles:</p><ul><li>Records user notifications</li><li>Sends web push notifications</li></ul><h2 id="configuration" class="section-heading"><a href="#configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Configuration</span></h2><p>For Web Push, you need to generate keys: 
+<code class="inline">Bonfire.Notify.WebPush.generate_keys_env()</code></p><p>Then set these env variables:
+WEB_PUSH_PUBLIC_KEY     VAPID public key.
+WEB_PUSH_PRIVATE_KEY    VAPID private key.</p><h2 id="sample-usage" class="section-heading"><a href="#sample-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Sample usage</span></h2><p>See the tests.</p><h2 id="handy-commands" class="section-heading"><a href="#handy-commands" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Handy commands</span></h2><h2 id="copyright-and-license" class="section-heading"><a href="#copyright-and-license" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Copyright and License</span></h2><p>Copyright (c) 2020 Bonfire Contributors</p><p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Affero General Public License for more details.</p><p>You should have received a copy of the GNU Affero General Public
+License along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p><hr class="thin"/><p>A portion of this code (specifically the WebPush related modules) have been forked from <a href="https://github.com/unstacked/level">https://github.com/unstacked/level</a> which comes with “Commons Clause” License Condition v1.0:</p><p>License: Apache 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0.txt">http://www.apache.org/licenses/LICENSE-2.0.txt</a>)
+Licensor: Level Technologies, LLC</p><p>The Software is provided to you by the Licensor under the License subject to the following condition.</p><p>Without limiting other conditions in the License, the grant of rights under the License will not include, and the License does not grant to you, the right to Sell the Software.</p><p>For purposes of the foregoing, “Sell” means practicing any or all of the rights granted to you under the License to provide to third parties, for a fee or other consideration (including without limitation fees for hosting or consulting/ support services related to the Software), a product or service whose value derives, entirely or substantially, from the functionality of the Software. Any license notice or attribution required by the License must also include this Commons Cause License Condition notice.</p>
 
 </div>
 
-  <section id="summary" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#summary">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Summary</span>
-    </h1>
-<div class="summary-functions summary">
-  <h2>
-    <a href="#functions">Functions</a>
-  </h2>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#declared_extension/0" data-no-tooltip="" translate="no">declared_extension()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#enabled/0" data-no-tooltip="" translate="no">enabled()</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#enabled?/0" data-no-tooltip="" translate="no">enabled?()</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#format_push_message/3" data-no-tooltip="" translate="no">format_push_message(object, creator, opts \\ [])</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Formats a notification message for web push.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#notify/2" data-no-tooltip="" translate="no">notify(object, user)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Sends a notification about an object to a user or list of users.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#push_to_users/3" data-no-tooltip="" translate="no">push_to_users(user_ids, message, opts \\ [])</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Sends push notifications to specific user IDs.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#vapid_config/0" data-no-tooltip="" translate="no">vapid_config()</a>
-
-      </div>
-
-    </div>
-
-</div>
-
-  </section>
-
-
-  <section id="functions" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#functions">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Functions</span>
-    </h1>
-
-    <div class="functions-list">
-<section class="detail" id="declared_extension/0">
-
-  <div class="detail-header">
-    <a href="#declared_extension/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">declared_extension()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L15" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Callback implementation for <a href="./Bonfire.Common.ExtensionModule.html#c:declared_extension/0"><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p>
-  </section>
-</section>
-<section class="detail" id="enabled/0">
-
-  <div class="detail-header">
-    <a href="#enabled/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">enabled()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L41" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="enabled?/0">
-
-  <div class="detail-header">
-    <a href="#enabled?/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">enabled?()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L26" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="format_push_message/3">
-
-    <span id="format_push_message/2"></span>
-
-  <div class="detail-header">
-    <a href="#format_push_message/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">format_push_message(object, creator, opts \\ [])</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L109" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Formats a notification message for web push.</p><p>This creates a JSON payload compatible with the Web Push API and
-browser notification display.</p>
-  </section>
-</section>
-<section class="detail" id="notify/2">
-
-  <div class="detail-header">
-    <a href="#notify/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">notify(object, user)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L59" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Sends a notification about an object to a user or list of users.</p><p>This is a convenience function that:</p><ul><li>Records the notification in the database</li><li>Sends web push notifications to subscribed devices</li><li>Formats the notification message appropriately</li></ul><h2 id="notify/2-examples" class="section-heading"><a href="#notify/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Notify a single user</span><span class="w">
-</span><span class="n">notify</span><span class="p" data-group-id="4557550533-1">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p" data-group-id="4557550533-1">)</span><span class="w">
-
-</span><span class="c1"># Notify multiple users</span><span class="w">
-</span><span class="n">notify</span><span class="p" data-group-id="4557550533-2">(</span><span class="n">reply</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4557550533-3">[</span><span class="n">user1</span><span class="p">,</span><span class="w"> </span><span class="n">user2</span><span class="p">,</span><span class="w"> </span><span class="n">user3</span><span class="p" data-group-id="4557550533-3">]</span><span class="p" data-group-id="4557550533-2">)</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="push_to_users/3">
-
-    <span id="push_to_users/2"></span>
-
-  <div class="detail-header">
-    <a href="#push_to_users/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">push_to_users(user_ids, message, opts \\ [])</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L140" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Sends push notifications to specific user IDs.</p><p>This is a convenience wrapper around <code class="inline">WebPush.send_web_push/3</code>.</p>
-  </section>
-</section>
-<section class="detail" id="vapid_config/0">
-
-  <div class="detail-header">
-    <a href="#vapid_config/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">vapid_config()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_notify/blob/main/lib/notify.ex#L21" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-
-    </div>
-  </section>
-
-    <footer class="footer">
-      <p>
-
-        <span class="line">
-          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
-            Search HexDocs
-          </button>
-
-            <a href="Bonfire.epub" title="ePub version">
-              Download ePub version
-            </a>
-
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="Bonfire.Tag.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
         </span>
-      </p>
+        <span class="title">
+Bonfire.Tag
+        </span>
+      </a>
 
-      <p class="built-using">
-        Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+  </div>
+  <div class="bottom-actions-item">
 
-          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+      <a href="ActivityPub.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+ActivityPub
+        </span>
+      </a>
 
-      </p>
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.1) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
 
     </footer>
   </div>

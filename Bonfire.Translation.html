@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.38">
+    <meta name="generator" content="ExDoc v0.40.1">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.39">
 
 
-    <title>Bonfire.Translation — Bonfire v1.0.2-social-alpha.38</title>
+    <title>Bonfire.Translation — Bonfire v1.0.2-social-alpha.39</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+    <link rel="stylesheet" href="dist/html-elixir-YJO4MOOW.css" />
 
-    <script defer src="dist/sidebar_items-8DFB5E95.js"></script>
+    <script defer src="dist/sidebar_items-BDB31B70.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-Y223O6DN.js"></script>
+    <script defer src="dist/html-YU4BZFVS.js"></script>
 
   </head>
   <body>
@@ -41,33 +41,51 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.38
+          v1.0.2-social-alpha.39
         </div>
       </div>
     </div>
-    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
   </div>
 </nav>
 
 <output role="status" id="toast"></output>
 
-<main class="content page-module" id="main" data-type="modules">
+<main class="content page-extra" id="main" data-type="extras">
   <div id="content" class="content-inner">
     <div class="top-search">
       <div class="search-settings">
         <form class="search-bar" action="search.html">
           <label class="search-label">
             <span class="sr-only">Search documentation of Bonfire</span>
-            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
           </label>
-          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
-            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
-          </button>
-          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
-            <i class="ri-close-line ri-lg" title="Cancel search"></i>
-          </button>
         </form>
         <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
         </div>
         <button class="icon-settings display-settings">
           <i class="ri-settings-3-line"></i>
@@ -78,13 +96,15 @@ Bonfire
 
 <div id="top-content">
   <div class="heading-with-actions top-heading">
-    <h1>
-      <span translate="no">Bonfire.Translation</span> 
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.38)</small>
+    <h1>Bonfire.Translation</h1>
 
-    </h1>
+<a href="Bonfire.Translation.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
 
-      <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L1" title="View Source" class="icon-action" rel="help">
+
+      <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -92,370 +112,72 @@ Bonfire
   </div>
 
 
-    <section id="moduledoc">
-<p>Translation context module that routes to appropriate adapters with caching.</p><p>This module:</p><ul><li>Routes translation requests to the appropriate adapter based on language pair support</li><li>Caches language detection and translation results</li><li>Falls back to next adapter on failure (max 2 attempts)</li><li>Normalizes language codes to lowercase ISO 639-1</li></ul><h2 id="module-configuration" class="section-heading"><a href="#module-configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Configuration</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire_translation</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Translation</span><span class="p">,</span><span class="w">
-  </span><span class="ss">default_target_language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">cache_ttl_days</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-
-</span><span class="c1"># Per-adapter priority (lower = higher priority, default 0)</span><span class="w">
-</span><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire_translation</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Translation.LibreTranslate</span><span class="p">,</span><span class="w">
-  </span><span class="ss">base_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://libretranslate.example.com&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">priority</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-
-</span><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire_translation</span><span class="p">,</span><span class="w"> </span><span class="nc">Bonfire.Translation.DeepL</span><span class="p">,</span><span class="w">
-  </span><span class="ss">api_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">priority</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span></code></pre>
-    </section>
+<p>A new bonfire extension created using <a href="https://docs.bonfirenetworks.org/create-a-new-extension.html">the generator</a> </p><p>NOTE: update this readme when you create a new extension.</p><h2 id="copyright-and-license" class="section-heading"><a href="#copyright-and-license" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Copyright and License</span></h2><p>Copyright (c) 2025 Bonfire Contributors</p><p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Affero General Public License for more details.</p><p>You should have received a copy of the GNU Affero General Public
+License along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
 
 </div>
 
-  <section id="summary" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#summary">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Summary</span>
-    </h1>
-<div class="summary-functions summary">
-  <h2>
-    <a href="#functions">Functions</a>
-  </h2>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#adapters/0" data-no-tooltip="" translate="no">adapters()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Returns list of configured and available adapters, ordered by priority.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#any_adapter_configured?/0" data-no-tooltip="" translate="no">any_adapter_configured?()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Checks if any translation adapter has config (API key or base URL) set at instance level. Lightweight, no HTTP calls.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#declared_extension/0" data-no-tooltip="" translate="no">declared_extension()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Callback implementation for <a><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#detect_language/1" data-no-tooltip="" translate="no">detect_language(text)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Detects the language of the given text with caching.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#supported_languages/0" data-no-tooltip="" translate="no">supported_languages()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Returns supported languages from all available adapters, merged and cached.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#supports_pair?/2" data-no-tooltip="" translate="no">supports_pair?(source_lang, target_lang)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Checks if any adapter supports the given language pair.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#translate/3" data-no-tooltip="" translate="no">translate(text, target_lang, opts \\ [])</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Translates text to the target language, auto-detecting the source language.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#translate/4" data-no-tooltip="" translate="no">translate(text, source_lang, target_lang, opts)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Translates text from source language to target language.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#translate_batch/4" data-no-tooltip="" translate="no">translate_batch(texts, source_lang, target_lang, opts \\ [])</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Translates multiple texts at once.</p></div>
-
-    </div>
-
-</div>
-
-  </section>
-
-
-  <section id="functions" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#functions">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Functions</span>
-    </h1>
-
-    <div class="functions-list">
-<section class="detail" id="adapters/0">
-
-  <div class="detail-header">
-    <a href="#adapters/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">adapters()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L227" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Returns list of configured and available adapters, ordered by priority.</p><p>Adapters are sorted by their <code class="inline">:priority</code> config value (lower = higher priority).
-Default priority is 0.</p>
-  </section>
-</section>
-<section class="detail" id="any_adapter_configured?/0">
-
-  <div class="detail-header">
-    <a href="#any_adapter_configured?/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">any_adapter_configured?()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L213" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Checks if any translation adapter has config (API key or base URL) set at instance level. Lightweight, no HTTP calls.</p>
-  </section>
-</section>
-<section class="detail" id="declared_extension/0">
-
-  <div class="detail-header">
-    <a href="#declared_extension/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">declared_extension()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L9" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Callback implementation for <a href="./Bonfire.Common.ExtensionModule.html#c:declared_extension/0"><code class="inline">Bonfire.Common.ExtensionModule.declared_extension/0</code></a>.</p>
-  </section>
-</section>
-<section class="detail" id="detect_language/1">
-
-  <div class="detail-header">
-    <a href="#detect_language/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">detect_language(text)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L155" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Detects the language of the given text with caching.</p>
-  </section>
-</section>
-<section class="detail" id="supported_languages/0">
-
-  <div class="detail-header">
-    <a href="#supported_languages/0" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">supported_languages()</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L181" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Returns supported languages from all available adapters, merged and cached.</p>
-  </section>
-</section>
-<section class="detail" id="supports_pair?/2">
-
-  <div class="detail-header">
-    <a href="#supports_pair?/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">supports_pair?(source_lang, target_lang)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L203" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Checks if any adapter supports the given language pair.</p>
-  </section>
-</section>
-<section class="detail" id="translate/3">
-
-    <span id="translate/2"></span>
-
-  <div class="detail-header">
-    <a href="#translate/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">translate(text, target_lang, opts \\ [])</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L65" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Translates text to the target language, auto-detecting the source language.</p><h2 id="translate/3-options" class="section-heading"><a href="#translate/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:format</code> - <code class="inline">:text</code> or <code class="inline">:html</code> (default: <code class="inline">:text</code>)</li><li><code class="inline">:adapter</code> - Force a specific adapter module</li><li>Other options are passed through to the adapter</li></ul><h2 id="translate/3-examples" class="section-heading"><a href="#translate/3-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Bonfire.Translation</span><span class="o">.</span><span class="n">translate</span><span class="p" data-group-id="1902484266-1">(</span><span class="s">&quot;Bonjour!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p" data-group-id="1902484266-1">)</span><span class="w">
-</span><span class="p" data-group-id="1902484266-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello!&quot;</span><span class="p" data-group-id="1902484266-2">}</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="translate/4">
-
-  <div class="detail-header">
-    <a href="#translate/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">translate(text, source_lang, target_lang, opts)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L74" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Translates text from source language to target language.</p><p>Pass <code class="inline">nil</code> as source_lang to auto-detect.</p>
-  </section>
-</section>
-<section class="detail" id="translate_batch/4">
-
-    <span id="translate_batch/3"></span>
-
-  <div class="detail-header">
-    <a href="#translate_batch/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">translate_batch(texts, source_lang, target_lang, opts \\ [])</h1>
-
-
-        <a href="https://github.com/bonfire-networks/bonfire_translation/blob/main/lib/translation.ex#L102" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-<p>Translates multiple texts at once.</p><p>Checks cache for each text, only sends uncached texts to the API,
-then returns all results in order.</p>
-  </section>
-</section>
-
-    </div>
-  </section>
-
-    <footer class="footer">
-      <p>
-
-        <span class="line">
-          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
-            Search HexDocs
-          </button>
-
-            <a href="Bonfire.epub" title="ePub version">
-              Download ePub version
-            </a>
-
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="Bonfire.Geolocate.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
         </span>
-      </p>
+        <span class="title">
+Bonfire.Geolocate
+        </span>
+      </a>
 
-      <p class="built-using">
-        Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+  </div>
+  <div class="bottom-actions-item">
 
-          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+      <a href="Bonfire.FederateActivitypub.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Bonfire.Federate.ActivityPub
+        </span>
+      </a>
 
-      </p>
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.1) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
 
     </footer>
   </div>

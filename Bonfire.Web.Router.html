@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.1">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.39">
+
+
+    <title>Bonfire.Web.Router — Bonfire v1.0.2-social-alpha.39</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-YJO4MOOW.css" />
+
+    <script defer src="dist/sidebar_items-BDB31B70.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-YU4BZFVS.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.2-social-alpha.39
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">Bonfire.<wbr>Web.<wbr>Router</span> 
+      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.39)</small>
+
+    </h1>
+
+<a href="Bonfire.Web.Router.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L224" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h2 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h2>
+<div class="summary-functions summary">
+  <h3>
+    <a href="#functions">Functions</a>
+  </h3>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#absinthe_before_send/2" data-no-tooltip="" translate="no">absinthe_before_send(conn, blueprint)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#account_required/2" data-no-tooltip="" translate="no">account_required(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#activity_json/2" data-no-tooltip="" translate="no">activity_json(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#activity_json_or_html/2" data-no-tooltip="" translate="no">activity_json_or_html(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#admin_required/2" data-no-tooltip="" translate="no">admin_required(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#api_browser/2" data-no-tooltip="" translate="no">api_browser(conn, _)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Used to serve the GraphiQL API browser</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#authorize/2" data-no-tooltip="" translate="no">authorize(conn, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#basic/2" data-no-tooltip="" translate="no">basic(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#basic_html/2" data-no-tooltip="" translate="no">basic_html(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#basic_json/2" data-no-tooltip="" translate="no">basic_json(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser/2" data-no-tooltip="" translate="no">browser(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser_accepts/2" data-no-tooltip="" translate="no">browser_accepts(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser_or_cacheable/2" data-no-tooltip="" translate="no">browser_or_cacheable(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser_render/2" data-no-tooltip="" translate="no">browser_render(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser_security/2" data-no-tooltip="" translate="no">browser_security(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser_ui/2" data-no-tooltip="" translate="no">browser_ui(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#browser_unsafe/2" data-no-tooltip="" translate="no">browser_unsafe(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cacheable/2" data-no-tooltip="" translate="no">cacheable(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cacheable_page/2" data-no-tooltip="" translate="no">cacheable_page(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#cacheable_post_public/2" data-no-tooltip="" translate="no">cacheable_post_public(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#call/2" data-no-tooltip="" translate="no">call(conn, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback invoked by Plug on every request.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#check_provider_enabled/2" data-no-tooltip="" translate="no">check_provider_enabled(conn, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#early_hints_authed/2" data-no-tooltip="" translate="no">early_hints_authed(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#formatted_routes/1" data-no-tooltip="" translate="no">formatted_routes(_)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/phoenix/1.8.4/Phoenix.VerifiedRoutes.html#c:formatted_routes/1"><code class="inline">Phoenix.VerifiedRoutes.formatted_routes/1</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#generate_reverse_router!/1" data-no-tooltip="" translate="no">generate_reverse_router!(app \\ :bonfire)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>(re)generates the reverse router (useful so it can be re-generated when extensions are enabled/disabled)</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#graphql/2" data-no-tooltip="" translate="no">graphql(conn, _)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Used to serve GraphQL API queries</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#guest_only/2" data-no-tooltip="" translate="no">guest_only(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#host_meta/2" data-no-tooltip="" translate="no">host_meta(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#html_only/2" data-no-tooltip="" translate="no">html_only(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#init/1" data-no-tooltip="" translate="no">init(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback required by Plug that initializes the router
+for serving web requests.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_authorization/2" data-no-tooltip="" translate="no">load_authorization(conn, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#load_current_auth/2" data-no-tooltip="" translate="no">load_current_auth(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#masto_api/2" data-no-tooltip="" translate="no">masto_api(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#rate_limit/2" data-no-tooltip="" translate="no">rate_limit(conn, opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Rate limit plug for controllers.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#require_authenticated_user/2" data-no-tooltip="" translate="no">require_authenticated_user(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#require_confirmed/2" data-no-tooltip="" translate="no">require_confirmed(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#set_locale/2" data-no-tooltip="" translate="no">set_locale(conn, opts)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#signed_activity_pub_fetch/2" data-no-tooltip="" translate="no">signed_activity_pub_fetch(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#signed_activity_pub_incoming/2" data-no-tooltip="" translate="no">signed_activity_pub_incoming(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#static_generator/2" data-no-tooltip="" translate="no">static_generator(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#throttle_forms/2" data-no-tooltip="" translate="no">throttle_forms(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#user_required/2" data-no-tooltip="" translate="no">user_required(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#verified_route?/2" data-no-tooltip="" translate="no">verified_route?(_, split_path)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/phoenix/1.8.4/Phoenix.VerifiedRoutes.html#c:verified_route?/2"><code class="inline">Phoenix.VerifiedRoutes.verified_route?/2</code></a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#webfinger/2" data-no-tooltip="" translate="no">webfinger(conn, _)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#well_known_nodeinfo/2" data-no-tooltip="" translate="no">well_known_nodeinfo(conn, _)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h2 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h2>
+
+    <div class="functions-list">
+<section class="detail" id="absinthe_before_send/2">
+
+  <div class="detail-header">
+    <a href="#absinthe_before_send/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">absinthe_before_send(conn, blueprint)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="account_required/2">
+
+  <div class="detail-header">
+    <a href="#account_required/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">account_required(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="activity_json/2">
+
+  <div class="detail-header">
+    <a href="#activity_json/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">activity_json(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="activity_json_or_html/2">
+
+  <div class="detail-header">
+    <a href="#activity_json_or_html/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">activity_json_or_html(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="admin_required/2">
+
+  <div class="detail-header">
+    <a href="#admin_required/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">admin_required(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="api_browser/2">
+
+  <div class="detail-header">
+    <a href="#api_browser/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">api_browser(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Used to serve the GraphiQL API browser</p>
+  </section>
+</section>
+<section class="detail" id="authorize/2">
+
+  <div class="detail-header">
+    <a href="#authorize/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">authorize(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="basic/2">
+
+  <div class="detail-header">
+    <a href="#basic/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">basic(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="basic_html/2">
+
+  <div class="detail-header">
+    <a href="#basic_html/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">basic_html(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="basic_json/2">
+
+  <div class="detail-header">
+    <a href="#basic_json/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">basic_json(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser/2">
+
+  <div class="detail-header">
+    <a href="#browser/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser_accepts/2">
+
+  <div class="detail-header">
+    <a href="#browser_accepts/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser_accepts(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser_or_cacheable/2">
+
+  <div class="detail-header">
+    <a href="#browser_or_cacheable/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser_or_cacheable(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser_render/2">
+
+  <div class="detail-header">
+    <a href="#browser_render/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser_render(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser_security/2">
+
+  <div class="detail-header">
+    <a href="#browser_security/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser_security(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser_ui/2">
+
+  <div class="detail-header">
+    <a href="#browser_ui/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser_ui(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="browser_unsafe/2">
+
+  <div class="detail-header">
+    <a href="#browser_unsafe/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">browser_unsafe(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cacheable/2">
+
+  <div class="detail-header">
+    <a href="#cacheable/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cacheable(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cacheable_page/2">
+
+  <div class="detail-header">
+    <a href="#cacheable_page/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cacheable_page(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="cacheable_post_public/2">
+
+  <div class="detail-header">
+    <a href="#cacheable_post_public/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">cacheable_post_public(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="call/2">
+
+  <div class="detail-header">
+    <a href="#call/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">call(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback invoked by Plug on every request.</p>
+  </section>
+</section>
+<section class="detail" id="check_provider_enabled/2">
+
+  <div class="detail-header">
+    <a href="#check_provider_enabled/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">check_provider_enabled(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="early_hints_authed/2">
+
+  <div class="detail-header">
+    <a href="#early_hints_authed/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">early_hints_authed(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="formatted_routes/1">
+
+  <div class="detail-header">
+    <a href="#formatted_routes/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">formatted_routes(_)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/phoenix/1.8.4/Phoenix.VerifiedRoutes.html#c:formatted_routes/1"><code class="inline">Phoenix.VerifiedRoutes.formatted_routes/1</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="generate_reverse_router!/1">
+
+    <span id="generate_reverse_router!/0"></span>
+
+  <div class="detail-header">
+    <a href="#generate_reverse_router!/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">generate_reverse_router!(app \\ :bonfire)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L272" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>(re)generates the reverse router (useful so it can be re-generated when extensions are enabled/disabled)</p>
+  </section>
+</section>
+<section class="detail" id="graphql/2">
+
+  <div class="detail-header">
+    <a href="#graphql/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">graphql(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Used to serve GraphQL API queries</p>
+  </section>
+</section>
+<section class="detail" id="guest_only/2">
+
+  <div class="detail-header">
+    <a href="#guest_only/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">guest_only(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="host_meta/2">
+
+  <div class="detail-header">
+    <a href="#host_meta/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">host_meta(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="html_only/2">
+
+  <div class="detail-header">
+    <a href="#html_only/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">html_only(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="init/1">
+
+  <div class="detail-header">
+    <a href="#init/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">init(opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback required by Plug that initializes the router
+for serving web requests.</p>
+  </section>
+</section>
+<section class="detail" id="load_authorization/2">
+
+  <div class="detail-header">
+    <a href="#load_authorization/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">load_authorization(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="load_current_auth/2">
+
+  <div class="detail-header">
+    <a href="#load_current_auth/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">load_current_auth(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="masto_api/2">
+
+  <div class="detail-header">
+    <a href="#masto_api/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">masto_api(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="rate_limit/2">
+
+  <div class="detail-header">
+    <a href="#rate_limit/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">rate_limit(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Rate limit plug for controllers.</p><p>Reads configuration from <code class="inline">Application.get_env(:bonfire, :rate_limit)[key_prefix]</code> 
+with fallback to default options provided in the plug call.</p><h2 id="rate_limit/2-options" class="section-heading"><a href="#rate_limit/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:key_prefix</code> - Atom prefix for the rate limit bucket key (required)</li><li><code class="inline">:scale_ms</code> - Default time window in milliseconds (can be overridden by config)</li><li><code class="inline">:limit</code> - Default number of requests (can be overridden by config)</li><li><code class="inline">:method</code> - Optional HTTP method to rate limit (e.g., &quot;POST&quot;). If provided, only requests<pre><code class="makeup elixir" translate="no"><span class="w">        </span><span class="k">with</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="n">limited</span><span class="o">.</span><span class="w"> </span><span class="nc">All</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">methods</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="n">through</span><span class="o">.</span></code></pre></li></ul><h2 id="rate_limit/2-examples" class="section-heading"><a href="#rate_limit/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><pre><code class="makeup elixir" translate="no"><span class="c1"># Rate limit all requests</span><span class="w">
+</span><span class="n">plug</span><span class="w"> </span><span class="ss">:rate_limit</span><span class="p">,</span><span class="w"> 
+  </span><span class="ss">key_prefix</span><span class="p">:</span><span class="w"> </span><span class="ss">:api</span><span class="p">,</span><span class="w">
+  </span><span class="ss">scale_ms</span><span class="p">:</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span><span class="w">
+  </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+
+</span><span class="c1"># Rate limit only POST requests (form submissions)</span><span class="w">
+</span><span class="n">plug</span><span class="w"> </span><span class="ss">:rate_limit</span><span class="p">,</span><span class="w"> 
+  </span><span class="ss">key_prefix</span><span class="p">:</span><span class="w"> </span><span class="ss">:forms</span><span class="p">,</span><span class="w">
+  </span><span class="ss">scale_ms</span><span class="p">:</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span><span class="w">
+  </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="ss">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;POST&quot;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="require_authenticated_user/2">
+
+  <div class="detail-header">
+    <a href="#require_authenticated_user/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">require_authenticated_user(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="require_confirmed/2">
+
+  <div class="detail-header">
+    <a href="#require_confirmed/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">require_confirmed(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="set_locale/2">
+
+  <div class="detail-header">
+    <a href="#set_locale/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">set_locale(conn, opts)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="signed_activity_pub_fetch/2">
+
+  <div class="detail-header">
+    <a href="#signed_activity_pub_fetch/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">signed_activity_pub_fetch(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="signed_activity_pub_incoming/2">
+
+  <div class="detail-header">
+    <a href="#signed_activity_pub_incoming/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">signed_activity_pub_incoming(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="static_generator/2">
+
+  <div class="detail-header">
+    <a href="#static_generator/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">static_generator(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="throttle_forms/2">
+
+  <div class="detail-header">
+    <a href="#throttle_forms/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">throttle_forms(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="user_required/2">
+
+  <div class="detail-header">
+    <a href="#user_required/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">user_required(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="verified_route?/2">
+
+  <div class="detail-header">
+    <a href="#verified_route?/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">verified_route?(_, split_path)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Callback implementation for <a href="https://hexdocs.pm/phoenix/1.8.4/Phoenix.VerifiedRoutes.html#c:verified_route?/2"><code class="inline">Phoenix.VerifiedRoutes.verified_route?/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="webfinger/2">
+
+  <div class="detail-header">
+    <a href="#webfinger/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">webfinger(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="well_known_nodeinfo/2">
+
+  <div class="detail-header">
+    <a href="#well_known_nodeinfo/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">well_known_nodeinfo(conn, _)</h1>
+
+
+        <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L269" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.1) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

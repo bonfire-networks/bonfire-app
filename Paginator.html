@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.38">
+    <meta name="generator" content="ExDoc v0.40.1">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.39">
 
 
-    <title>Paginator — Bonfire v1.0.2-social-alpha.38</title>
+    <title>Paginator — Bonfire v1.0.2-social-alpha.39</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+    <link rel="stylesheet" href="dist/html-elixir-YJO4MOOW.css" />
 
-    <script defer src="dist/sidebar_items-8DFB5E95.js"></script>
+    <script defer src="dist/sidebar_items-BDB31B70.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-Y223O6DN.js"></script>
+    <script defer src="dist/html-YU4BZFVS.js"></script>
 
   </head>
   <body>
@@ -41,33 +41,51 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.38
+          v1.0.2-social-alpha.39
         </div>
       </div>
     </div>
-    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
   </div>
 </nav>
 
 <output role="status" id="toast"></output>
 
-<main class="content page-behaviour" id="main" data-type="modules">
+<main class="content page-extra" id="main" data-type="extras">
   <div id="content" class="content-inner">
     <div class="top-search">
       <div class="search-settings">
         <form class="search-bar" action="search.html">
           <label class="search-label">
             <span class="sr-only">Search documentation of Bonfire</span>
-            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
           </label>
-          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
-            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
-          </button>
-          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
-            <i class="ri-close-line ri-lg" title="Cancel search"></i>
-          </button>
         </form>
         <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
         </div>
         <button class="icon-settings display-settings">
           <i class="ri-settings-3-line"></i>
@@ -78,13 +96,15 @@ Bonfire
 
 <div id="top-content">
   <div class="heading-with-actions top-heading">
-    <h1>
-      <span translate="no">Paginator</span> <small>behaviour</small>
-      <small class="app-vsn" translate="no">(Bonfire v1.0.2-social-alpha.38)</small>
+    <h1>Paginator</h1>
 
-    </h1>
+<a href="Paginator.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
 
-      <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L1" title="View Source" class="icon-action" rel="help">
+
+      <a href="https://github.com/bonfire-networks/paginator/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -92,332 +112,127 @@ Bonfire
   </div>
 
 
-    <section id="moduledoc">
-<p>Defines a paginator.</p><p>This module adds a <code class="inline">paginate/3</code> function to your <a href="https://hexdocs.pm/ecto/3.13.5/Ecto.Repo.html"><code class="inline">Ecto.Repo</code></a> so that you can
-paginate through results using opaque cursors.</p><h2 id="module-usage" class="section-heading"><a href="#module-usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="7967153037-1">do</span><span class="w">
-  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w"> </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="w">
+<p><a href="https://github.com/duffelhq/paginator/actions?query=branch%3Amain"><img src="https://github.com/duffelhq/paginator/actions/workflows/test.yml/badge.svg?branch=main" alt="Build status"/></a>
+<a href="http://inch-ci.org/github/duffelhq/paginator"><img src="http://inch-ci.org/github/duffelhq/paginator.svg" alt="Inline docs"/></a></p><p><a href="./Paginator.html"><code class="inline">Paginator</code></a> implements <a href="http://use-the-index-luke.com/no-offset">cursor-based pagination</a> for Elixir <a href="https://github.com/elixir-ecto/ecto">Ecto</a>.</p><p><a href="https://hexdocs.pm/paginator">Documentation</a></p><h2 id="why" class="section-heading"><a href="#why" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Why?</span></h2><p>There are several ways to implement pagination in a project and they all have pros and cons depending on your situation.</p><h3 id="limit-offset" class="section-heading"><a href="#limit-offset" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Limit-offset</span></h3><p>This is the easiest method to use and implement: you just have to set <code class="inline">LIMIT</code> and <code class="inline">OFFSET</code> on your queries and the
+database will return records based on this two parameters. Unfortunately, it has two major drawbacks:</p><ul><li><p>Inconsistent results: if the dataset changes while you are querying, the results in the page will shift and your user
+might end seeing records they have already seen and missing new ones.</p></li><li><p>Inefficiency: <code class="inline">OFFSET N</code> instructs the database to skip the first N results of a query. However, the database must still
+fetch these rows from disk and order them before it can returns the ones requested. If the dataset you are querying is
+large this will result in significant slowdowns.</p></li></ul><h3 id="cursor-based-a-k-a-keyset-pagination" class="section-heading"><a href="#cursor-based-a-k-a-keyset-pagination" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Cursor-based (a.k.a keyset pagination)</span></h3><p>This method relies on opaque cursor to figure out where to start selecting records. It is more performant than
+<code class="inline">LIMIT-OFFSET</code> because it can filter records without traversing all of them.</p><p>It's also consistent, any insertions/deletions before the current page will leave results unaffected.</p><p>It has some limitations though: for instance you can't jump directly to a specific page. This may
+not be an issue for an API or if you use infinite scrolling on your website.</p><h3 id="learn-more" class="section-heading"><a href="#learn-more" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Learn more</span></h3><ul><li><a href="http://use-the-index-luke.com/no-offset">http://use-the-index-luke.com/no-offset</a></li><li><a href="http://use-the-index-luke.com/sql/partial-results/fetch-next-page">http://use-the-index-luke.com/sql/partial-results/fetch-next-page</a></li><li><a href="https://www.citusdata.com/blog/2016/03/30/five-ways-to-paginate/">https://www.citusdata.com/blog/2016/03/30/five-ways-to-paginate/</a></li><li><a href="https://developer.twitter.com/en/docs/tweets/timelines/guides/working-with-timelines">https://developer.twitter.com/en/docs/tweets/timelines/guides/working-with-timelines</a></li></ul><h2 id="getting-started" class="section-heading"><a href="#getting-started" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Getting started</span></h2><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="0544710622-1">do</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w">
+    </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="p">,</span><span class="w">
+    </span><span class="ss">adapter</span><span class="p">:</span><span class="w"> </span><span class="nc">Ecto.Adapters.Postgres</span><span class="w">
+
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Paginator</span><span class="w">
-</span><span class="k" data-group-id="7967153037-1">end</span></code></pre><h2 id="module-options" class="section-heading"><a href="#module-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><p><a href="./Paginator.html"><code class="inline">Paginator</code></a> can take any options accepted by <code class="inline">paginate/3</code>. This is useful when
-you want to enforce some options globally across your project.</p><h3 id="module-example" class="section-heading"><a href="#module-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h3><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="6504242918-1">do</span><span class="w">
-  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w"> </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="w">
-  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Paginator</span><span class="p">,</span><span class="w">
-    </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">                           </span><span class="c1"># sets the default limit to 10</span><span class="w">
-    </span><span class="ss">maximum_limit</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">                  </span><span class="c1"># sets the maximum limit to 100</span><span class="w">
-    </span><span class="ss">include_total_count</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">           </span><span class="c1"># include total count by default</span><span class="w">
-    </span><span class="ss">total_count_primary_key_field</span><span class="p">:</span><span class="w"> </span><span class="ss">:uuid</span><span class="w"> </span><span class="c1"># sets the total_count_primary_key_field to uuid for calculate total_count</span><span class="w">
-</span><span class="k" data-group-id="6504242918-1">end</span></code></pre><p>Note that these values can be still be overriden when <code class="inline">paginate/3</code> is called.</p><h3 id="module-use-without-macros" class="section-heading"><a href="#module-use-without-macros" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Use without macros</span></h3><p>If you wish to avoid use of macros or you wish to use a different name for
-the pagination function you can define your own function like so:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="8283626519-1">do</span><span class="w">
-  </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w"> </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="w">
+</span><span class="k" data-group-id="0544710622-1">end</span><span class="w">
 
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">my_paginate_function</span><span class="p" data-group-id="8283626519-2">(</span><span class="n">queryable</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="p" data-group-id="8283626519-3">[</span><span class="p" data-group-id="8283626519-3">]</span><span class="p">,</span><span class="w"> </span><span class="n">repo_opts</span><span class="w"> </span><span class="err">\</span><span class="w"> </span><span class="p" data-group-id="8283626519-4">[</span><span class="p" data-group-id="8283626519-4">]</span><span class="p" data-group-id="8283626519-2">)</span><span class="w"> </span><span class="k" data-group-id="8283626519-5">do</span><span class="w">
-    </span><span class="n">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8283626519-6">[</span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p" data-group-id="8283626519-6">]</span><span class="w"> </span><span class="c1"># Default options of your choice here</span><span class="w">
-    </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Keyword</span><span class="o">.</span><span class="n">merge</span><span class="p" data-group-id="8283626519-7">(</span><span class="n">defaults</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="8283626519-7">)</span><span class="w">
-    </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="8283626519-8">(</span><span class="n">queryable</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span><span class="w"> </span><span class="bp">__MODULE__</span><span class="p">,</span><span class="w"> </span><span class="n">repo_opts</span><span class="p" data-group-id="8283626519-8">)</span><span class="w">
-  </span><span class="k" data-group-id="8283626519-5">end</span><span class="w">
-</span><span class="k" data-group-id="8283626519-1">end</span></code></pre>
-    </section>
+</span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="0544710622-2">(</span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w"> </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0544710622-3">[</span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="0544710622-3">]</span><span class="p" data-group-id="0544710622-2">)</span><span class="w">
 
-</div>
+</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0544710622-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0544710622-5">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="0544710622-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0544710622-4">)</span><span class="w">
 
-  <section id="summary" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#summary">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Summary</span>
-    </h1>
-<div class="summary-callbacks summary">
-  <h2>
-    <a href="#callbacks">Callbacks</a>
-  </h2>
+</span><span class="c1"># `page.edges` contains all the entries for this page.</span><span class="w">
+</span><span class="c1"># `page.page_info` contains the meta-data associated with this page (cursors, limit, total count)</span></code></pre><h2 id="install" class="section-heading"><a href="#install" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Install</span></h2><p>Add <code class="inline">paginator</code> to your list of dependencies in <code class="inline">mix.exs</code>:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="4139603464-1">do</span><span class="w">
+  </span><span class="p" data-group-id="4139603464-2">[</span><span class="p" data-group-id="4139603464-3">{</span><span class="ss">:paginator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 1.0.4&quot;</span><span class="p" data-group-id="4139603464-3">}</span><span class="p" data-group-id="4139603464-2">]</span><span class="w">
+</span><span class="k" data-group-id="4139603464-1">end</span></code></pre><h2 id="usage" class="section-heading"><a href="#usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><ol><li><p>Add <a href="./Paginator.html"><code class="inline">Paginator</code></a> to your repo.</p><pre><code class="makeup elixir" translate="no"><span class="w"> </span><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Repo</span><span class="w"> </span><span class="k" data-group-id="0475082887-1">do</span><span class="w">
+   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Ecto.Repo</span><span class="p">,</span><span class="w">
+     </span><span class="ss">otp_app</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_app</span><span class="p">,</span><span class="w">
+     </span><span class="ss">adapter</span><span class="p">:</span><span class="w"> </span><span class="nc">Ecto.Adapters.Postgres</span><span class="w">
 
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#c:paginate/3" data-no-tooltip="" translate="no">paginate(queryable, opts, repo_opts)</a>
+   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Paginator</span><span class="w">
+ </span><span class="k" data-group-id="0475082887-1">end</span></code></pre></li><li><p>Use the <code class="inline">paginate</code> function to paginate your queries.</p><pre><code class="makeup elixir" translate="no"><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="0415445775-1">(</span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w"> </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0415445775-2">[</span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="0415445775-2">]</span><span class="p" data-group-id="0415445775-1">)</span><span class="w">
 
-      </div>
+ </span><span class="c1"># return the first 50 posts</span><span class="w">
+ </span><span class="p" data-group-id="0415445775-3">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="n">edges</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">page_info</span><span class="p" data-group-id="0415445775-3">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0415445775-4">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0415445775-5">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="0415445775-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0415445775-4">)</span><span class="w">
 
-        <div class="summary-synopsis"><p>Fetches all the results matching the query within the cursors.</p></div>
+ </span><span class="c1"># assign the `after` cursor to a variable</span><span class="w">
+ </span><span class="n">cursor_after</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_info</span><span class="o">.</span><span class="n">end_cursor</span><span class="w">
 
-    </div>
+ </span><span class="c1"># return the next 50 posts</span><span class="w">
+ </span><span class="p" data-group-id="0415445775-6">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="n">edges</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">page_info</span><span class="p" data-group-id="0415445775-6">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0415445775-7">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">after</span><span class="p">:</span><span class="w"> </span><span class="n">cursor_after</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0415445775-8">[</span><span class="p" data-group-id="0415445775-9">{</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0415445775-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0415445775-10">{</span><span class="ss">:id</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="0415445775-10">}</span><span class="p" data-group-id="0415445775-8">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0415445775-7">)</span><span class="w">
 
-</div>
-<div class="summary-functions summary">
-  <h2>
-    <a href="#functions">Functions</a>
-  </h2>
+ </span><span class="c1"># assign the `before` cursor to a variable</span><span class="w">
+ </span><span class="n">cursor_before</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_info</span><span class="o">.</span><span class="n">start_cursor</span><span class="w">
 
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#cursor_for_record/3" data-no-tooltip="" translate="no">cursor_for_record(record, cursor_fields, fetch_cursor_value_fun \\ &amp;Paginator.default_fetch_cursor_value/2)</a>
+ </span><span class="c1"># return the previous 50 posts (if no post was created in between it should be the same list as in our first call to `paginate`)</span><span class="w">
+ </span><span class="p" data-group-id="0415445775-11">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="n">edges</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">page_info</span><span class="p" data-group-id="0415445775-11">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0415445775-12">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">before</span><span class="p">:</span><span class="w"> </span><span class="n">cursor_before</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0415445775-13">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="0415445775-13">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0415445775-12">)</span><span class="w">
 
-      </div>
+ </span><span class="c1"># return total count</span><span class="w">
+ </span><span class="c1"># NOTE: this will issue a separate `SELECT COUNT(*) FROM table` query to the database.</span><span class="w">
+ </span><span class="p" data-group-id="0415445775-14">%{</span><span class="ss">edges</span><span class="p">:</span><span class="w"> </span><span class="n">edges</span><span class="p">,</span><span class="w"> </span><span class="ss">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">page_info</span><span class="p" data-group-id="0415445775-14">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0415445775-15">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">include_total_count</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0415445775-16">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="0415445775-16">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0415445775-15">)</span><span class="w">
 
-        <div class="summary-synopsis"><p>Generate a cursor for the supplied record, in the same manner as the
-<code class="inline">before</code> and <code class="inline">after</code> cursors generated by <code class="inline">paginate/3</code>.</p></div>
+ </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="w"> </span><span class="s">&quot;total count: </span><span class="si" data-group-id="0415445775-17">#{</span><span class="n">page_info</span><span class="o">.</span><span class="n">total_count</span><span class="si" data-group-id="0415445775-17">}</span><span class="s">&quot;</span></code></pre></li></ol><h2 id="security-considerations" class="section-heading"><a href="#security-considerations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Security Considerations</span></h2><p><code class="inline">Repo.paginate/4</code> will throw an ArgumentError should it detect an executable term in the cursor parameters passed to it (<code class="inline">before</code>, <code class="inline">after</code>).
+This is done to protect you from potential side-effects of malicious user input, see <a href="https://github.com/duffelhq/paginator/blob/master/test/paginator_test.exs#L820">paginator_test.exs</a>.</p><h2 id="indexes" class="section-heading"><a href="#indexes" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Indexes</span></h2><p>If you want to reap all the benefits of this method it is better that you create indexes on the columns you are using as
+cursor fields.</p><h3 id="example" class="section-heading"><a href="#example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h3><pre><code class="makeup elixir" translate="no"><span class="c1"># If your cursor fields are: [:inserted_at, :id]</span><span class="w">
+</span><span class="c1"># Add the following in a migration</span><span class="w">
 
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#default_fetch_cursor_value/2" data-no-tooltip="" translate="no">default_fetch_cursor_value(schema, field)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Default function used to get the value of a cursor field from the supplied map. This function can be overriden in the <code class="inline">Paginator.Config</code> using the <code class="inline">fetch_cursor_value_fun</code> key.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#paginated_query/2" data-no-tooltip="" translate="no">paginated_query(queryable, opts)</a>
-
-      </div>
-
-    </div>
+</span><span class="n">create</span><span class="w"> </span><span class="n">index</span><span class="p" data-group-id="5438255444-1">(</span><span class="s">&quot;posts&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5438255444-2">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="5438255444-2">]</span><span class="p" data-group-id="5438255444-1">)</span></code></pre><h2 id="caveats" class="section-heading"><a href="#caveats" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Caveats</span></h2><ul><li>This method requires a deterministic sort order. If the columns you are currently using for sorting don't match that
+definition, just add any unique column and extend your index accordingly.</li><li>You need to add order_by clauses yourself before passing your query to <code class="inline">paginate/2</code>. In the future we might do that
+for you automatically based on the fields specified in <code class="inline">:cursor_fields</code>.</li><li>There is an outstanding issue where Postgrex fails to properly builds the query if it includes custom PostgreSQL types.</li><li>This library has only be tested with PostgreSQL.</li></ul><h2 id="documentation" class="section-heading"><a href="#documentation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Documentation</span></h2><p>Documentation is written into the library, you will find it in the source code, accessible from <code class="inline">iex</code> and of course, it
+all gets published to <a href="http://hexdocs.pm/paginator">hexdocs</a>.</p><h2 id="contributing" class="section-heading"><a href="#contributing" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Contributing</span></h2><h3 id="running-tests" class="section-heading"><a href="#running-tests" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Running tests</span></h3><p>Clone the repo and fetch its dependencies:</p><pre><code class="makeup shell" translate="no"><span class="gp unselectable">$ </span><span class="">git clone https://github.com/duffelhq/paginator.git
+</span><span class="gp unselectable">$ </span><span class="">cd paginator
+</span><span class="gp unselectable">$ </span><span class="">mix deps.get
+</span><span class="gp unselectable">$ </span><span class="">mix test
+</span></code></pre><h3 id="building-docs" class="section-heading"><a href="#building-docs" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Building docs</span></h3><pre><code class="makeup shell" translate="no"><span class="gp unselectable">$ </span><span class="">mix docs
+</span></code></pre><h2 id="license" class="section-heading"><a href="#license" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">LICENSE</span></h2><p>See <a href="https://github.com/duffelhq/paginator/blob/master/LICENSE.txt">LICENSE</a></p>
 
 </div>
 
-  </section>
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
 
-
-  <section id="callbacks" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#callbacks">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Callbacks</span>
-    </h1>
-
-    <div class="callbacks-list">
-<section class="detail" id="c:paginate/3">
-
-  <div class="detail-header">
-    <a href="#c:paginate/3" class="detail-link" data-no-tooltip="" aria-label="Link to this callback">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">paginate(queryable, opts, repo_opts)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L168" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@callback</span> paginate(
-  queryable :: <a href="https://hexdocs.pm/ecto/3.13.5/Ecto.Query.html#t:t/0">Ecto.Query.t</a>(),
-  opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>(),
-  repo_opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()
-) ::
-  <a href="./Paginator.Page.html#t:t/0">Paginator.Page.t</a>()</pre>
-
-      </div>
-
-<p>Fetches all the results matching the query within the cursors.</p><h2 id="c:paginate/3-options" class="section-heading"><a href="#c:paginate/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><ul><li><code class="inline">:after</code> - Fetch the records after this cursor.</li><li><code class="inline">:before</code> - Fetch the records before this cursor.</li><li><code class="inline">:cursor_fields</code> - The fields with sorting direction used to determine the
-cursor. In most cases, this should be the same fields as the ones used for sorting in the query.
-When you use named bindings in your query they can also be provided.</li><li><code class="inline">:fetch_cursor_value_fun</code> function of arity 2 to lookup cursor values on returned records.
-Defaults to <a href="#default_fetch_cursor_value/2"><code class="inline">Paginator.default_fetch_cursor_value/2</code></a></li><li><code class="inline">:include_total_count</code> - Set this to true to return the total number of
-records matching the query. Note that this number will be capped by
-<code class="inline">:total_count_limit</code>. Defaults to <code class="inline">false</code>.</li><li><code class="inline">:total_count_primary_key_field</code> - Running count queries on specified column of the table</li><li><code class="inline">:limit</code> - Limits the number of records returned per page. Note that this
-number will be capped by <code class="inline">:maximum_limit</code>. Defaults to <code class="inline">50</code>.</li><li><code class="inline">:maximum_limit</code> - Sets a maximum cap for <code class="inline">:limit</code>. This option can be useful when <code class="inline">:limit</code>
-is set dynamically (e.g from a URL param set by a user) but you still want to
-enforce a maximum. Defaults to <code class="inline">500</code>.</li><li><code class="inline">:total_count_limit</code> - Running count queries on tables with a large number
-of records is expensive so it is capped by default. Can be set to <code class="inline">:infinity</code>
-in order to count all the records. Defaults to <code class="inline">10,000</code>.</li></ul><h2 id="c:paginate/3-repo-options" class="section-heading"><a href="#c:paginate/3-repo-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Repo options</span></h2><p>This will be passed directly to <code class="inline">Ecto.Repo.all/2</code>, as such any option supported
-by this function can be used here.</p><h2 id="c:paginate/3-simple-example" class="section-heading"><a href="#c:paginate/3-simple-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Simple example</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="3320905134-1">(</span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w"> </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3320905134-2">[</span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="3320905134-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p" data-group-id="3320905134-1">)</span><span class="w">
-
-</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="3320905134-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3320905134-4">[</span><span class="ss">:inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="3320905134-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="3320905134-3">)</span></code></pre><h2 id="c:paginate/3-example-with-using-custom-sort-directions-per-field" class="section-heading"><a href="#c:paginate/3-example-with-using-custom-sort-directions-per-field" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example with using custom sort directions per field</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p" data-group-id="0891518845-1">(</span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w"> </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0891518845-2">[</span><span class="ss">asc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span><span class="w"> </span><span class="ss">desc</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="0891518845-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p" data-group-id="0891518845-1">)</span><span class="w">
-
-</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="0891518845-3">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0891518845-4">[</span><span class="ss">inserted_at</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="0891518845-4">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="0891518845-3">)</span></code></pre><h2 id="c:paginate/3-example-with-sorting-on-columns-in-joined-tables" class="section-heading"><a href="#c:paginate/3-example-with-sorting-on-columns-in-joined-tables" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example with sorting on columns in joined tables</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">from</span><span class="p" data-group-id="3526767172-1">(</span><span class="w">
-  </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w">
-  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:posts</span><span class="p">,</span><span class="w">
-  </span><span class="ss">join</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="3526767172-2">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="ss">:author</span><span class="p" data-group-id="3526767172-2">)</span><span class="p">,</span><span class="w">
-  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:author</span><span class="p">,</span><span class="w">
-  </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3526767172-3">[</span><span class="ss">author</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p" data-group-id="3526767172-3">]</span><span class="p">,</span><span class="w">
-  </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w">
-  </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3526767172-4">[</span><span class="w">
-    </span><span class="p" data-group-id="3526767172-5">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p" data-group-id="3526767172-5">}</span><span class="p">,</span><span class="w">
-    </span><span class="p" data-group-id="3526767172-6">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="3526767172-6">}</span><span class="w">
-  </span><span class="p" data-group-id="3526767172-4">]</span><span class="w">
-</span><span class="p" data-group-id="3526767172-1">)</span><span class="w">
-
-</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="3526767172-7">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3526767172-8">[</span><span class="p" data-group-id="3526767172-9">{</span><span class="p" data-group-id="3526767172-10">{</span><span class="ss">:author</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="3526767172-10">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="3526767172-9">}</span><span class="p">,</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="3526767172-8">]</span><span class="p">,</span><span class="w"> </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p" data-group-id="3526767172-7">)</span></code></pre><p>When sorting on columns in joined tables it is necessary to use named bindings. In
-this case we name it <code class="inline">author</code>. In the <code class="inline">cursor_fields</code> we refer to this named binding
-and its column name.</p><p>To build the cursor Paginator uses the returned Ecto.Schema. When using a joined
-column the returned Ecto.Schema won't have the value of the joined column
-unless we preload it. E.g. in this case the cursor will be build up from
-<code class="inline">post.id</code> and <code class="inline">post.author.name</code>. This presupposes that the named of the
-binding is the same as the name of the relationship on the original struct.</p><p>One level deep joins are supported out of the box but if we join on a second
-level, e.g. <code class="inline">post.author.company.name</code> a custom function can be supplied to
-handle the cursor value retrieval. This also applies when the named binding
-does not map to the name of the relationship.</p><h2 id="c:paginate/3-example" class="section-heading"><a href="#c:paginate/3-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h2><pre><code class="makeup elixir" translate="no"><span class="n">from</span><span class="p" data-group-id="1013137829-1">(</span><span class="w">
-  </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nc">Post</span><span class="p">,</span><span class="w">
-  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:posts</span><span class="p">,</span><span class="w">
-  </span><span class="ss">join</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="1013137829-2">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="ss">:author</span><span class="p" data-group-id="1013137829-2">)</span><span class="p">,</span><span class="w">
-  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:author</span><span class="p">,</span><span class="w">
-  </span><span class="ss">join</span><span class="p">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">assoc</span><span class="p" data-group-id="1013137829-3">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="ss">:company</span><span class="p" data-group-id="1013137829-3">)</span><span class="p">,</span><span class="w">
-  </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="ss">:company</span><span class="p">,</span><span class="w">
-  </span><span class="ss">preload</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1013137829-4">[</span><span class="ss">author</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p" data-group-id="1013137829-4">]</span><span class="p">,</span><span class="w">
-  </span><span class="ss">select</span><span class="p">:</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w">
-  </span><span class="ss">order_by</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1013137829-5">[</span><span class="w">
-    </span><span class="p" data-group-id="1013137829-6">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p" data-group-id="1013137829-6">}</span><span class="p">,</span><span class="w">
-    </span><span class="p" data-group-id="1013137829-7">{</span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p" data-group-id="1013137829-7">}</span><span class="w">
-  </span><span class="p" data-group-id="1013137829-5">]</span><span class="w">
-</span><span class="p" data-group-id="1013137829-1">)</span><span class="w">
-
-</span><span class="nc">Repo</span><span class="o">.</span><span class="n">paginate</span><span class="p" data-group-id="1013137829-8">(</span><span class="n">query</span><span class="p">,</span><span class="w">
-  </span><span class="ss">cursor_fields</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1013137829-9">[</span><span class="p" data-group-id="1013137829-10">{</span><span class="p" data-group-id="1013137829-11">{</span><span class="ss">:company</span><span class="p">,</span><span class="w"> </span><span class="ss">:name</span><span class="p" data-group-id="1013137829-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="1013137829-10">}</span><span class="p">,</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p" data-group-id="1013137829-9">]</span><span class="p">,</span><span class="w">
-  </span><span class="ss">fetch_cursor_value_fun</span><span class="p">:</span><span class="w"> </span><span class="k" data-group-id="1013137829-12">fn</span><span class="w">
-    </span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1013137829-13">{</span><span class="p" data-group-id="1013137829-14">{</span><span class="ss">:company</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p" data-group-id="1013137829-14">}</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="1013137829-13">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="n">post</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="w">
-
-    </span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">default_fetch_cursor_value</span><span class="p" data-group-id="1013137829-15">(</span><span class="n">post</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="p" data-group-id="1013137829-15">)</span><span class="w">
-  </span><span class="k" data-group-id="1013137829-12">end</span><span class="p">,</span><span class="w">
-  </span><span class="ss">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w">
-</span><span class="p" data-group-id="1013137829-8">)</span></code></pre>
-  </section>
-</section>
-
-    </div>
-  </section>
-
-  <section id="functions" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#functions">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Functions</span>
-    </h1>
-
-    <div class="functions-list">
-<section class="detail" id="cursor_for_record/3">
-
-    <span id="cursor_for_record/2"></span>
-
-  <div class="detail-header">
-    <a href="#cursor_for_record/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">cursor_for_record(record, cursor_fields, fetch_cursor_value_fun \\ &amp;Paginator.default_fetch_cursor_value/2)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L240" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> cursor_for_record(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()}], (<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(),
-                                                       <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()
-                                                       | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()} -&gt;
-                                                         <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>())) ::
-  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()</pre>
-
-      </div>
-
-<p>Generate a cursor for the supplied record, in the same manner as the
-<code class="inline">before</code> and <code class="inline">after</code> cursors generated by <code class="inline">paginate/3</code>.</p><p>For the cursor to be compatible with <code class="inline">paginate/3</code>, <code class="inline">cursor_fields</code>
-must have the same value as the <code class="inline">cursor_fields</code> option passed to it.</p><h3 id="cursor_for_record/3-example" class="section-heading"><a href="#cursor_for_record/3-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h3><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">cursor_for_record</span><span class="p" data-group-id="4152158332-1">(</span><span class="p" data-group-id="4152158332-2">%</span><span class="nc" data-group-id="4152158332-2">Paginator.Customer</span><span class="p" data-group-id="4152158332-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4152158332-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4152158332-3">[</span><span class="ss">:id</span><span class="p" data-group-id="4152158332-3">]</span><span class="p" data-group-id="4152158332-1">)</span><span class="w">
-</span><span class="s">&quot;g3QAAAABZAACaWRhAQ==&quot;</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">cursor_for_record</span><span class="p" data-group-id="4152158332-4">(</span><span class="p" data-group-id="4152158332-5">%</span><span class="nc" data-group-id="4152158332-5">Paginator.Customer</span><span class="p" data-group-id="4152158332-5">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p" data-group-id="4152158332-5">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4152158332-6">[</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:asc</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:desc</span><span class="p" data-group-id="4152158332-6">]</span><span class="p" data-group-id="4152158332-4">)</span><span class="w">
-</span><span class="s">&quot;g3QAAAACZAACaWRhAWQABG5hbWVtAAAABUFsaWNl&quot;</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="default_fetch_cursor_value/2">
-
-  <div class="detail-header">
-    <a href="#default_fetch_cursor_value/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">default_fetch_cursor_value(schema, field)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L266" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> default_fetch_cursor_value(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()}) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()</pre>
-
-      </div>
-
-<p>Default function used to get the value of a cursor field from the supplied map. This function can be overriden in the <code class="inline">Paginator.Config</code> using the <code class="inline">fetch_cursor_value_fun</code> key.</p><p>When using named bindings to sort on joined columns it will attempt to get the value of joined column by using the named binding as the name of the relationship on the original Ecto.Schema.</p><h3 id="default_fetch_cursor_value/2-example" class="section-heading"><a href="#default_fetch_cursor_value/2-example" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example</span></h3><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">default_fetch_cursor_value</span><span class="p" data-group-id="6808016284-1">(</span><span class="p" data-group-id="6808016284-2">%</span><span class="nc" data-group-id="6808016284-2">Paginator.Customer</span><span class="p" data-group-id="6808016284-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6808016284-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">:id</span><span class="p" data-group-id="6808016284-1">)</span><span class="w">
-</span><span class="mi">1</span><span class="w">
-
-</span><span class="gp unselectable">iex&gt; </span><span class="nc">Paginator</span><span class="o">.</span><span class="n">default_fetch_cursor_value</span><span class="p" data-group-id="6808016284-3">(</span><span class="p" data-group-id="6808016284-4">%</span><span class="nc" data-group-id="6808016284-4">Paginator.Customer</span><span class="p" data-group-id="6808016284-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">address</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6808016284-5">%</span><span class="nc" data-group-id="6808016284-5">Paginator.Address</span><span class="p" data-group-id="6808016284-5">{</span><span class="ss">city</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;London&quot;</span><span class="p" data-group-id="6808016284-5">}</span><span class="p" data-group-id="6808016284-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6808016284-6">{</span><span class="ss">:address</span><span class="p">,</span><span class="w"> </span><span class="ss">:city</span><span class="p" data-group-id="6808016284-6">}</span><span class="p" data-group-id="6808016284-3">)</span><span class="w">
-</span><span class="s">&quot;London&quot;</span></code></pre>
-  </section>
-</section>
-<section class="detail" id="paginated_query/2">
-
-  <div class="detail-header">
-    <a href="#paginated_query/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">paginated_query(queryable, opts)</h1>
-
-
-        <a href="https://github.com/bonfire-networks/paginator/blob/main/lib/paginator.ex#L206" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-
-    </div>
-  </section>
-
-    <footer class="footer">
-      <p>
-
-        <span class="line">
-          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
-            Search HexDocs
-          </button>
-
-            <a href="Bonfire.epub" title="ePub version">
-              Download ePub version
-            </a>
-
+      <a href="EntrepotEcto.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
         </span>
-      </p>
+        <span class="title">
+EntrepôtEcto
+        </span>
+      </a>
 
-      <p class="built-using">
-        Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
+  </div>
+  <div class="bottom-actions-item">
 
-          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+      <a href="Voodoo.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Voodoo
+        </span>
+      </a>
 
-      </p>
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.1) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
 
     </footer>
   </div>

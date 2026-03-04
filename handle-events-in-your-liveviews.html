@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.38.4">
-    <meta name="project" content="Bonfire v1.0.2-social-alpha.38">
+    <meta name="generator" content="ExDoc v0.40.1">
+    <meta name="project" content="Bonfire v1.0.2-social-alpha.39">
 
 
-    <title>Handle events in your Live Views with LiveHandlers — Bonfire v1.0.2-social-alpha.38</title>
+    <title>Handle events in your Live Views with LiveHandlers — Bonfire v1.0.2-social-alpha.39</title>
 
-    <link rel="stylesheet" href="dist/html-elixir-RLZO5U2C.css" />
+    <link rel="stylesheet" href="dist/html-elixir-YJO4MOOW.css" />
 
-    <script defer src="dist/sidebar_items-8DFB5E95.js"></script>
+    <script defer src="dist/sidebar_items-BDB31B70.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-Y223O6DN.js"></script>
+    <script defer src="dist/html-YU4BZFVS.js"></script>
 
   </head>
   <body>
@@ -41,11 +41,11 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.2-social-alpha.38
+          v1.0.2-social-alpha.39
         </div>
       </div>
     </div>
-    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
   </div>
 </nav>
 
@@ -58,16 +58,34 @@ Bonfire
         <form class="search-bar" action="search.html">
           <label class="search-label">
             <span class="sr-only">Search documentation of Bonfire</span>
-            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
           </label>
-          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
-            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
-          </button>
-          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
-            <i class="ri-close-line ri-lg" title="Cancel search"></i>
-          </button>
         </form>
         <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
         </div>
         <button class="icon-settings display-settings">
           <i class="ri-settings-3-line"></i>
@@ -80,6 +98,11 @@ Bonfire
   <div class="heading-with-actions top-heading">
     <h1>Handle events in your Live Views with LiveHandlers</h1>
 
+<a href="handle-events-in-your-liveviews.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
 
       <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/building/handle-events-in-your-liveviews.md#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
@@ -89,44 +112,44 @@ Bonfire
   </div>
 
 
-<p><a href="./Bonfire.UI.Common.LiveHandlers.html"><code class="inline">Bonfire.UI.Common.LiveHandlers</code></a> is a core module that simplifies event delegation for Phoenix LiveView applications within the Bonfire ecosystem. It provides a standardized way to handle various LiveView events (params, events, info) and route them to appropriate handler modules, enabling you to easily handle the same event in multiple live views or components using the same code.</p><h2 id="overview" class="section-heading"><a href="#overview" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Overview</span></h2><p>The LiveHandlers system allows you to:</p><ol><li>Define event handling logic in dedicated modules </li><li>Route events from multiple views or components based on naming conventions</li><li>Handle complex event delegation scenarios</li><li>Standardize error handling across your application</li></ol><h2 id="usage" class="section-heading"><a href="#usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><h3 id="creating-a-livehandler-module" class="section-heading"><a href="#creating-a-livehandler-module" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Creating a LiveHandler module</span></h3><p>To create a LiveHandler for your Bonfire extension:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Bonfire.MyExtension.LiveHandler</span><span class="w"> </span><span class="k" data-group-id="8595460613-1">do</span><span class="w">
+<p><a href="./Bonfire.UI.Common.LiveHandlers.html"><code class="inline">Bonfire.UI.Common.LiveHandlers</code></a> is a core module that simplifies event delegation for Phoenix LiveView applications within the Bonfire ecosystem. It provides a standardized way to handle various LiveView events (params, events, info) and route them to appropriate handler modules, enabling you to easily handle the same event in multiple live views or components using the same code.</p><h2 id="overview" class="section-heading"><a href="#overview" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Overview</span></h2><p>The LiveHandlers system allows you to:</p><ol><li>Define event handling logic in dedicated modules </li><li>Route events from multiple views or components based on naming conventions</li><li>Handle complex event delegation scenarios</li><li>Standardize error handling across your application</li></ol><h2 id="usage" class="section-heading"><a href="#usage" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Usage</span></h2><h3 id="creating-a-livehandler-module" class="section-heading"><a href="#creating-a-livehandler-module" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Creating a LiveHandler module</span></h3><p>To create a LiveHandler for your Bonfire extension:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Bonfire.MyExtension.LiveHandler</span><span class="w"> </span><span class="k" data-group-id="3517602439-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Bonfire.UI.Common.Web</span><span class="p">,</span><span class="w"> </span><span class="ss">:live_handler</span><span class="w">
 
   </span><span class="c1"># Implement handler callbacks</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p" data-group-id="8595460613-2">(</span><span class="s">&quot;my_action&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8595460613-2">)</span><span class="w"> </span><span class="k" data-group-id="8595460613-3">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p" data-group-id="3517602439-2">(</span><span class="s">&quot;my_action&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3517602439-2">)</span><span class="w"> </span><span class="k" data-group-id="3517602439-3">do</span><span class="w">
     </span><span class="c1"># Your handling logic</span><span class="w">
-    </span><span class="p" data-group-id="8595460613-4">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8595460613-4">}</span><span class="w">
-  </span><span class="k" data-group-id="8595460613-3">end</span><span class="w">
+    </span><span class="p" data-group-id="3517602439-4">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3517602439-4">}</span><span class="w">
+  </span><span class="k" data-group-id="3517602439-3">end</span><span class="w">
   
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">handle_info</span><span class="p" data-group-id="8595460613-5">(</span><span class="p" data-group-id="8595460613-6">{</span><span class="ss">:my_message</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p" data-group-id="8595460613-6">}</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8595460613-5">)</span><span class="w"> </span><span class="k" data-group-id="8595460613-7">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">handle_info</span><span class="p" data-group-id="3517602439-5">(</span><span class="p" data-group-id="3517602439-6">{</span><span class="ss">:my_message</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p" data-group-id="3517602439-6">}</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3517602439-5">)</span><span class="w"> </span><span class="k" data-group-id="3517602439-7">do</span><span class="w">
     </span><span class="c1"># Process the message</span><span class="w">
-    </span><span class="p" data-group-id="8595460613-8">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8595460613-8">}</span><span class="w">
-  </span><span class="k" data-group-id="8595460613-7">end</span><span class="w">
+    </span><span class="p" data-group-id="3517602439-8">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3517602439-8">}</span><span class="w">
+  </span><span class="k" data-group-id="3517602439-7">end</span><span class="w">
   
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">handle_params</span><span class="p" data-group-id="8595460613-9">(</span><span class="p" data-group-id="8595460613-10">%{</span><span class="s">&quot;my_param&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="8595460613-10">}</span><span class="p">,</span><span class="w"> </span><span class="n">uri</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8595460613-9">)</span><span class="w"> </span><span class="k" data-group-id="8595460613-11">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">handle_params</span><span class="p" data-group-id="3517602439-9">(</span><span class="p" data-group-id="3517602439-10">%{</span><span class="s">&quot;my_param&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="3517602439-10">}</span><span class="p">,</span><span class="w"> </span><span class="n">uri</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3517602439-9">)</span><span class="w"> </span><span class="k" data-group-id="3517602439-11">do</span><span class="w">
     </span><span class="c1"># Handle URL parameters</span><span class="w">
-    </span><span class="p" data-group-id="8595460613-12">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8595460613-12">}</span><span class="w">
-  </span><span class="k" data-group-id="8595460613-11">end</span><span class="w">
+    </span><span class="p" data-group-id="3517602439-12">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3517602439-12">}</span><span class="w">
+  </span><span class="k" data-group-id="3517602439-11">end</span><span class="w">
 
-</span><span class="k" data-group-id="8595460613-1">end</span></code></pre><h3 id="triggering-livehandlers" class="section-heading"><a href="#triggering-livehandlers" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Triggering LiveHandlers</span></h3><h4>From Templates</h4><p>You can trigger the <code class="inline">handle_event</code> in your LiveHandler from any view or component:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="0695132692-1">&lt;</span><span class="nt">button</span><span class="w"> </span><span class="na">phx-click</span><span class="o">=</span><span class="s">&quot;Bonfire.MyExtension:perform_action&quot;</span><span class="p" data-group-id="0695132692-1">&gt;</span><span class="s">Click me</span><span class="p" data-group-id="0695132692-2">&lt;/</span><span class="nt">button</span><span class="p" data-group-id="0695132692-2">&gt;</span><span class="s">
+</span><span class="k" data-group-id="3517602439-1">end</span></code></pre><h3 id="triggering-livehandlers" class="section-heading"><a href="#triggering-livehandlers" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Triggering LiveHandlers</span></h3><h4>From Templates</h4><p>You can trigger the <code class="inline">handle_event</code> in your LiveHandler from any view or component:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="3924298419-1">&lt;</span><span class="nt">button</span><span class="w"> </span><span class="na">phx-click</span><span class="o">=</span><span class="s">&quot;Bonfire.MyExtension:perform_action&quot;</span><span class="p" data-group-id="3924298419-1">&gt;</span><span class="s">Click me</span><span class="p" data-group-id="3924298419-2">&lt;/</span><span class="nt">button</span><span class="p" data-group-id="3924298419-2">&gt;</span><span class="s">
 
-</span><span class="p" data-group-id="0695132692-3">&lt;</span><span class="nt">form</span><span class="w"> </span><span class="na">phx-submit</span><span class="o">=</span><span class="s">&quot;Bonfire.MyExtension:save_form&quot;</span><span class="p" data-group-id="0695132692-3">&gt;</span><span class="s">
+</span><span class="p" data-group-id="3924298419-3">&lt;</span><span class="nt">form</span><span class="w"> </span><span class="na">phx-submit</span><span class="o">=</span><span class="s">&quot;Bonfire.MyExtension:save_form&quot;</span><span class="p" data-group-id="3924298419-3">&gt;</span><span class="s">
   </span><span class="c">&lt;!-- form content --&gt;</span><span class="s">
-</span><span class="p" data-group-id="0695132692-4">&lt;/</span><span class="nt">form</span><span class="p" data-group-id="0695132692-4">&gt;</span></code></pre><h4>From URIs</h4><p>You can trigger <code class="inline">handle_params</code> in your LiveHandler based on on URIs:</p><pre><code class="makeup heex" translate="no"><span class="p" data-group-id="2225342990-out-1">&lt;</span><span class="nt">a</span><span class="w"> </span><span class="na">href</span><span class="o">=</span><span class="s">&quot;?Bonfire.MyExtension[after]</span><span class="o">=</span><span class="p" data-group-id="2225342990-1">&lt;%=</span><span class="w"> </span><span class="n">e</span><span class="p" data-group-id="2225342990-ex-1">(</span><span class="na">@page_info</span><span class="p">,</span><span class="w"> </span><span class="ss">:end_cursor</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="2225342990-ex-1">)</span><span class="w"> </span><span class="p" data-group-id="2225342990-1">%&gt;</span><span class="s">&quot;</span><span class="p" data-group-id="2225342990-out-1">&gt;</span><span class="s">Load more</span><span class="p" data-group-id="2225342990-out-2">&lt;/</span><span class="nt">a</span><span class="p" data-group-id="2225342990-out-2">&gt;</span></code></pre><h4>From PubSub</h4><p>You can trigger <code class="inline">handle_info</code> in your LiveHandler from any live view or component:</p><pre><code class="makeup elixir" translate="no"><span class="nc">PubSub</span><span class="o">.</span><span class="n">broadcast</span><span class="p" data-group-id="2345198047-1">(</span><span class="n">topic</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2345198047-2">{</span><span class="p" data-group-id="2345198047-3">{</span><span class="nc">Bonfire.MyExtension</span><span class="p">,</span><span class="w"> </span><span class="ss">:new_item</span><span class="p" data-group-id="2345198047-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p" data-group-id="2345198047-2">}</span><span class="p" data-group-id="2345198047-1">)</span></code></pre><h2 id="examples" class="section-heading"><a href="#examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><h3 id="handle-form-submission" class="section-heading"><a href="#handle-form-submission" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Handle Form Submission</span></h3><p>In your view or component:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="7499624985-1">&lt;</span><span class="nt">form</span><span class="w"> </span><span class="na">phx-submit</span><span class="o">=</span><span class="s">&quot;Bonfire.MyExtension:save_form&quot;</span><span class="p" data-group-id="7499624985-1">&gt;</span><span class="s">
+</span><span class="p" data-group-id="3924298419-4">&lt;/</span><span class="nt">form</span><span class="p" data-group-id="3924298419-4">&gt;</span></code></pre><h4>From URIs</h4><p>You can trigger <code class="inline">handle_params</code> in your LiveHandler based on on URIs:</p><pre><code class="makeup heex" translate="no"><span class="p" data-group-id="0223640358-out-1">&lt;</span><span class="nt">a</span><span class="w"> </span><span class="na">href</span><span class="o">=</span><span class="s">&quot;?Bonfire.MyExtension[after]</span><span class="o">=</span><span class="p" data-group-id="0223640358-1">&lt;%=</span><span class="w"> </span><span class="n">e</span><span class="p" data-group-id="0223640358-ex-1">(</span><span class="na">@page_info</span><span class="p">,</span><span class="w"> </span><span class="ss">:end_cursor</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="0223640358-ex-1">)</span><span class="w"> </span><span class="p" data-group-id="0223640358-1">%&gt;</span><span class="s">&quot;</span><span class="p" data-group-id="0223640358-out-1">&gt;</span><span class="s">Load more</span><span class="p" data-group-id="0223640358-out-2">&lt;/</span><span class="nt">a</span><span class="p" data-group-id="0223640358-out-2">&gt;</span></code></pre><h4>From PubSub</h4><p>You can trigger <code class="inline">handle_info</code> in your LiveHandler from any live view or component:</p><pre><code class="makeup elixir" translate="no"><span class="nc">PubSub</span><span class="o">.</span><span class="n">broadcast</span><span class="p" data-group-id="0726080900-1">(</span><span class="n">topic</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="0726080900-2">{</span><span class="p" data-group-id="0726080900-3">{</span><span class="nc">Bonfire.MyExtension</span><span class="p">,</span><span class="w"> </span><span class="ss">:new_item</span><span class="p" data-group-id="0726080900-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p" data-group-id="0726080900-2">}</span><span class="p" data-group-id="0726080900-1">)</span></code></pre><h2 id="examples" class="section-heading"><a href="#examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Examples</span></h2><h3 id="handle-form-submission" class="section-heading"><a href="#handle-form-submission" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Handle Form Submission</span></h3><p>In your view or component:</p><pre><code class="makeup html" translate="no"><span class="p" data-group-id="2226005707-1">&lt;</span><span class="nt">form</span><span class="w"> </span><span class="na">phx-submit</span><span class="o">=</span><span class="s">&quot;Bonfire.MyExtension:save_form&quot;</span><span class="p" data-group-id="2226005707-1">&gt;</span><span class="s">
   </span><span class="c">&lt;!-- form content --&gt;</span><span class="s">
-</span><span class="p" data-group-id="7499624985-2">&lt;/</span><span class="nt">form</span><span class="p" data-group-id="7499624985-2">&gt;</span></code></pre><p>In your LiveHandler module:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p" data-group-id="7898249705-1">(</span><span class="s">&quot;save_form&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7898249705-2">%{</span><span class="s">&quot;post&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">post_attrs</span><span class="p" data-group-id="7898249705-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="7898249705-1">)</span><span class="w"> </span><span class="k" data-group-id="7898249705-3">do</span><span class="w">
-  </span><span class="k">case</span><span class="w"> </span><span class="nc">Posts</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="7898249705-4">(</span><span class="n">current_user</span><span class="p" data-group-id="7898249705-5">(</span><span class="n">socket</span><span class="p" data-group-id="7898249705-5">)</span><span class="p">,</span><span class="w"> </span><span class="n">post_attrs</span><span class="p" data-group-id="7898249705-4">)</span><span class="w"> </span><span class="k" data-group-id="7898249705-6">do</span><span class="w">
-    </span><span class="p" data-group-id="7898249705-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="7898249705-7">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="p" data-group-id="7898249705-8">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign_flash</span><span class="p" data-group-id="7898249705-9">(</span><span class="ss">:info</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Post created successfully!&quot;</span><span class="p" data-group-id="7898249705-9">)</span><span class="p" data-group-id="7898249705-8">}</span><span class="w">
-    </span><span class="p" data-group-id="7898249705-10">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="7898249705-10">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="p" data-group-id="7898249705-11">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign</span><span class="p" data-group-id="7898249705-12">(</span><span class="ss">:changeset</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="7898249705-12">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign_error</span><span class="p" data-group-id="7898249705-13">(</span><span class="s">&quot;Failed to create post&quot;</span><span class="p" data-group-id="7898249705-13">)</span><span class="p" data-group-id="7898249705-11">}</span><span class="w">
-  </span><span class="k" data-group-id="7898249705-6">end</span><span class="w">
-</span><span class="k" data-group-id="7898249705-3">end</span></code></pre><h3 id="handle-url-parameters" class="section-heading"><a href="#handle-url-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Handle URL Parameters</span></h3><p>In your view or component:</p><pre><code class="makeup heex" translate="no"><span class="p" data-group-id="8092436353-out-1">&lt;</span><span class="nt">a</span><span class="w"> </span><span class="na">href</span><span class="o">=</span><span class="s">&quot;?Bonfire.MyExtension[after]</span><span class="o">=</span><span class="p" data-group-id="8092436353-1">&lt;%=</span><span class="w"> </span><span class="n">e</span><span class="p" data-group-id="8092436353-ex-1">(</span><span class="na">@page_info</span><span class="p">,</span><span class="w"> </span><span class="ss">:end_cursor</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="8092436353-ex-1">)</span><span class="w"> </span><span class="p" data-group-id="8092436353-1">%&gt;</span><span class="s">&quot;</span><span class="p" data-group-id="8092436353-out-1">&gt;</span><span class="s">
+</span><span class="p" data-group-id="2226005707-2">&lt;/</span><span class="nt">form</span><span class="p" data-group-id="2226005707-2">&gt;</span></code></pre><p>In your LiveHandler module:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p" data-group-id="4602785116-1">(</span><span class="s">&quot;save_form&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="4602785116-2">%{</span><span class="s">&quot;post&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">post_attrs</span><span class="p" data-group-id="4602785116-2">}</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="4602785116-1">)</span><span class="w"> </span><span class="k" data-group-id="4602785116-3">do</span><span class="w">
+  </span><span class="k">case</span><span class="w"> </span><span class="nc">Posts</span><span class="o">.</span><span class="n">create</span><span class="p" data-group-id="4602785116-4">(</span><span class="n">current_user</span><span class="p" data-group-id="4602785116-5">(</span><span class="n">socket</span><span class="p" data-group-id="4602785116-5">)</span><span class="p">,</span><span class="w"> </span><span class="n">post_attrs</span><span class="p" data-group-id="4602785116-4">)</span><span class="w"> </span><span class="k" data-group-id="4602785116-6">do</span><span class="w">
+    </span><span class="p" data-group-id="4602785116-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">post</span><span class="p" data-group-id="4602785116-7">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="p" data-group-id="4602785116-8">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign_flash</span><span class="p" data-group-id="4602785116-9">(</span><span class="ss">:info</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Post created successfully!&quot;</span><span class="p" data-group-id="4602785116-9">)</span><span class="p" data-group-id="4602785116-8">}</span><span class="w">
+    </span><span class="p" data-group-id="4602785116-10">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="4602785116-10">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="p" data-group-id="4602785116-11">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign</span><span class="p" data-group-id="4602785116-12">(</span><span class="ss">:changeset</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="4602785116-12">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign_error</span><span class="p" data-group-id="4602785116-13">(</span><span class="s">&quot;Failed to create post&quot;</span><span class="p" data-group-id="4602785116-13">)</span><span class="p" data-group-id="4602785116-11">}</span><span class="w">
+  </span><span class="k" data-group-id="4602785116-6">end</span><span class="w">
+</span><span class="k" data-group-id="4602785116-3">end</span></code></pre><h3 id="handle-url-parameters" class="section-heading"><a href="#handle-url-parameters" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Handle URL Parameters</span></h3><p>In your view or component:</p><pre><code class="makeup heex" translate="no"><span class="p" data-group-id="9846341790-out-1">&lt;</span><span class="nt">a</span><span class="w"> </span><span class="na">href</span><span class="o">=</span><span class="s">&quot;?Bonfire.MyExtension[after]</span><span class="o">=</span><span class="p" data-group-id="9846341790-1">&lt;%=</span><span class="w"> </span><span class="n">e</span><span class="p" data-group-id="9846341790-ex-1">(</span><span class="na">@page_info</span><span class="p">,</span><span class="w"> </span><span class="ss">:end_cursor</span><span class="p">,</span><span class="w"> </span><span class="no">nil</span><span class="p" data-group-id="9846341790-ex-1">)</span><span class="w"> </span><span class="p" data-group-id="9846341790-1">%&gt;</span><span class="s">&quot;</span><span class="p" data-group-id="9846341790-out-1">&gt;</span><span class="s">
   Load more
-</span><span class="p" data-group-id="8092436353-out-2">&lt;/</span><span class="nt">a</span><span class="p" data-group-id="8092436353-out-2">&gt;</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">handle_params</span><span class="p" data-group-id="4842589527-1">(</span><span class="p" data-group-id="4842589527-2">%{</span><span class="s">&quot;after&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">cursor</span><span class="p" data-group-id="4842589527-2">}</span><span class="p">,</span><span class="w"> </span><span class="c">_uri</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="4842589527-1">)</span><span class="w"> </span><span class="k" data-group-id="4842589527-3">do</span><span class="w">
-  </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetch_items_after_cursor</span><span class="p" data-group-id="4842589527-4">(</span><span class="n">cursor</span><span class="p" data-group-id="4842589527-4">)</span><span class="w">
-  </span><span class="p" data-group-id="4842589527-5">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign</span><span class="p" data-group-id="4842589527-6">(</span><span class="ss">:items</span><span class="p">,</span><span class="w"> </span><span class="n">items</span><span class="p" data-group-id="4842589527-6">)</span><span class="p" data-group-id="4842589527-5">}</span><span class="w">
-</span><span class="k" data-group-id="4842589527-3">end</span></code></pre><h2 id="key-concepts" class="section-heading"><a href="#key-concepts" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Key Concepts</span></h2><h3 id="event-routing" class="section-heading"><a href="#event-routing" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Event Routing</span></h3><p>LiveHandlers uses naming conventions to route events:</p><ul><li><code class="inline">phx-click=&quot;Bonfire.Posts:delete&quot;</code> and <code class="inline">phx-submit=&quot;Bonfire.Posts.LiveHandler:delete&quot;</code> both route to <code class="inline">Bonfire.Posts.LiveHandler.handle_event(&quot;delete&quot;, ...)</code></li><li><code class="inline">PubSub.broadcast(topic, {{Bonfire.Social.Feeds, :new_activity}, activity})</code> and <code class="inline">PubSub.broadcast(topic, {&quot;Bonfire.Social.Feeds.LiveHandler:new_activity&quot;, item})</code> both route to <code class="inline">Bonfire.Social.Feeds.LiveHandler.handle_info({:new_activity, activity}, ...)</code></li><li><code class="inline">?Bonfire.Social.Feeds[after]=&lt;cursor&gt;</code> and <code class="inline">/?Bonfire.Social.Feeds[after]=&lt;cursor&gt;</code>  and <code class="inline">/any_view?Bonfire.Social.Feeds.LiveHandler[after]=&lt;cursor&gt;</code> all route to <code class="inline">Bonfire.Social.Feeds.LiveHandler.handle_params(%{&quot;after&quot; =&gt; cursor}, ...)</code></li></ul><h3 id="error-handling" class="section-heading"><a href="#error-handling" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Error Handling</span></h3><p>All LiveHandler callbacks are wrapped in error protection using <code class="inline">ErrorHandling.undead/2</code> to prevent crashes.</p><h2 id="api-documentation" class="section-heading"><a href="#api-documentation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">API Documentation</span></h2><p>For more detailed documentation, see the <a href="./Bonfire.UI.Common.LiveHandlers.html"><code class="inline">Bonfire.UI.Common.LiveHandlers</code></a> module documentation.</p>
+</span><span class="p" data-group-id="9846341790-out-2">&lt;/</span><span class="nt">a</span><span class="p" data-group-id="9846341790-out-2">&gt;</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">handle_params</span><span class="p" data-group-id="4859613011-1">(</span><span class="p" data-group-id="4859613011-2">%{</span><span class="s">&quot;after&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">cursor</span><span class="p" data-group-id="4859613011-2">}</span><span class="p">,</span><span class="w"> </span><span class="c">_uri</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="4859613011-1">)</span><span class="w"> </span><span class="k" data-group-id="4859613011-3">do</span><span class="w">
+  </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetch_items_after_cursor</span><span class="p" data-group-id="4859613011-4">(</span><span class="n">cursor</span><span class="p" data-group-id="4859613011-4">)</span><span class="w">
+  </span><span class="p" data-group-id="4859613011-5">{</span><span class="ss">:noreply</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">assign</span><span class="p" data-group-id="4859613011-6">(</span><span class="ss">:items</span><span class="p">,</span><span class="w"> </span><span class="n">items</span><span class="p" data-group-id="4859613011-6">)</span><span class="p" data-group-id="4859613011-5">}</span><span class="w">
+</span><span class="k" data-group-id="4859613011-3">end</span></code></pre><h2 id="key-concepts" class="section-heading"><a href="#key-concepts" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Key Concepts</span></h2><h3 id="event-routing" class="section-heading"><a href="#event-routing" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Event Routing</span></h3><p>LiveHandlers uses naming conventions to route events:</p><ul><li><code class="inline">phx-click=&quot;Bonfire.Posts:delete&quot;</code> and <code class="inline">phx-submit=&quot;Bonfire.Posts.LiveHandler:delete&quot;</code> both route to <code class="inline">Bonfire.Posts.LiveHandler.handle_event(&quot;delete&quot;, ...)</code></li><li><code class="inline">PubSub.broadcast(topic, {{Bonfire.Social.Feeds, :new_activity}, activity})</code> and <code class="inline">PubSub.broadcast(topic, {&quot;Bonfire.Social.Feeds.LiveHandler:new_activity&quot;, item})</code> both route to <code class="inline">Bonfire.Social.Feeds.LiveHandler.handle_info({:new_activity, activity}, ...)</code></li><li><code class="inline">?Bonfire.Social.Feeds[after]=&lt;cursor&gt;</code> and <code class="inline">/?Bonfire.Social.Feeds[after]=&lt;cursor&gt;</code>  and <code class="inline">/any_view?Bonfire.Social.Feeds.LiveHandler[after]=&lt;cursor&gt;</code> all route to <code class="inline">Bonfire.Social.Feeds.LiveHandler.handle_params(%{&quot;after&quot; =&gt; cursor}, ...)</code></li></ul><h3 id="error-handling" class="section-heading"><a href="#error-handling" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Error Handling</span></h3><p>All LiveHandler callbacks are wrapped in error protection using <code class="inline">ErrorHandling.undead/2</code> to prevent crashes.</p><h2 id="api-documentation" class="section-heading"><a href="#api-documentation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">API Documentation</span></h2><p>For more detailed documentation, see the <a href="./Bonfire.UI.Common.LiveHandlers.html"><code class="inline">Bonfire.UI.Common.LiveHandlers</code></a> module documentation.</p>
 
 </div>
 
@@ -157,27 +180,34 @@ How to Create Effective Usage Rules for LLM-Assisted Development
   </div>
 </div>
     <footer class="footer">
-      <p>
 
-        <span class="line">
-          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
-            Search HexDocs
-          </button>
+        <p>
 
-            <a href="Bonfire.epub" title="ePub version">
-              Download ePub version
-            </a>
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
 
-        </span>
-      </p>
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
 
-      <p class="built-using">
-        Built using
-        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.38.4) for the
 
-          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
 
-      </p>
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.1) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
 
     </footer>
   </div>

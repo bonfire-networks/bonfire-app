@@ -1,0 +1,973 @@
+# Bonfire Federation Interoperability Guide
+
+## 1. Introduction
+
+Bonfire is a modular, extensible, privacy-focused federated platform built on top of [ActivityPub](#activitypub) and [ActivityStreams](#activitystreams). It aims to provide a flexible foundation for building social, collaborative, and community-oriented applications that can interoperate with the wider Fediverse.
+
+Unlike monolithic platforms, Bonfire is designed built as a framework that powers multiple apps (flavours) with features provided by optional extensions, allowing instances to enable only the features they need. This modularity also makes it easier to experiment with new protocols, object types, and interaction patterns.
+
+Bonfire strives for maximum interoperability with other ActivityPub-based software such as [Mastodon][3], Pixelfed, Mobilizon, GoToSocial [8], Peertube, and others, while also supporting advanced privacy controls, custom boundaries, and experimental [FEPs](#fep).
+
+This guide documents how Bonfire federates, how it handles ActivityPub objects and activities, and what to expect when integrating with or building on top of Bonfire. 
+
+- **Protocols:** [ActivityPub](#activitypub), [WebFinger](#webfinger)
+- **Syntax:** [ActivityStreams Core][11]
+- **Vocabulary:** [ActivityStreams Vocabulary][12], ValueFlows[13]
+- **Extensions:** ActivityPub [FEPs](#fep), Bonfire extensions
+
+> See the [Glossary](#glossary) for definitions of key terms.
+
+## 2. Protocol Support & Endpoints
+
+Bonfire supports the core [ActivityPub](#activitypub) server-to-server (S2S) protocol for federation, as well as [WebFinger](#webfinger) for user and resource discovery. This enables Bonfire instances to interoperate with a wide range of other Fediverse software, including [Mastodon][3], Akkoma [5], Pixelfed, Mobilizon, Wordpress, GoToSocial [8], and many more.
+
+### ActivityPub Endpoints
+
+Bonfire exposes the standard ActivityPub endpoints for each actor:
+
+- **Inbox**: Receives incoming activities from remote servers.  
+  Example: `https://your.bonfire.instance/pub/actors/{username}/inbox`
+- **Outbox**: Lists activities published by the actor.  
+  Example: `https://your.bonfire.instance/pub/actors/{username}/outbox`
+- **Followers / Following**: Collections of followers and followed actors.
+- **Shared Inbox**: (Optional) For batching deliveries to multiple actors on the same instance.
+
+HTTP requests should use the correct `Accept` header (`application/activity+json` or `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`).
+
+See [ActivityPub Spec][1] and [ActivityStreams Core][11] for details on endpoint structure and payloads.
+
+### WebFinger Endpoint
+
+Bonfire implements the [WebFinger][2] protocol for resource discovery:
+
+- Endpoint: `https://your.bonfire.instance/.well-known/webfinger`
+- Query parameter: `resource=acct:username@domain`
+
+WebFinger is essential for interoperability with most ActivityPub implementations, as it allows translating `@user@domain` identifiers into canonical ActivityPub actor URIs. Bonfire ensures that the `rel=self` link and `subject` fields are correct, and supports both `application/activity+json` and `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` content types for maximum compatibility.
+
+WebFinger responses include links to the actor's ActivityPub profile and HTML profile page. See [WebFinger RFC][2] for details.
+
+### Supported Verbs and Objects
+
+Bonfire supports all major ActivityPub activity types (verbs), including:
+
+- `Create`, `Update`, `Delete`, `Follow`, `Accept`, `Reject`, `Undo`, `Like`, `Announce`, `Flag`, `Block`, `Move`, and more.
+
+Supported object types include `Note`, `Article`, and others as defined in [ActivityStreams Vocabulary][12]. Any object types not specifically implemented (in a Bonfire extension) are still stored as JSON objects, with a fallback preview UI component attempting to display them in feeds (tip: use the `preview` property to attach another object such as a `Note` to be used as a preview for unimplemented objects). 
+
+### Compatibility
+
+Bonfire aims for broad compatibility with major ActivityPub implementations. It supports and regularly tests against:
+
+- Mastodon [3], Akomma, GoToSocial [8]
+- Misskey and derivatives
+- Pixelfed
+- Peertube
+- Mobilizon
+- WriteFreely, Wordpress, and Ghost
+- Lemmy, kbin, and PieFed
+- Castopod, and Funkwhale
+- BookWyrm
+- [And more](https://github.com/bonfire-networks/bonfire-app/wiki/Manual-federation-testing)
+
+### FEPs and Extensions
+
+Bonfire implements and/or experiments with several [Fediverse Enhancement Proposals (FEPs)][4], including:
+
+- [FEP-044f][7] (Quote Posts)
+- [TBD][15] (Interaction Policy)
+- [FEP-844e][fep-844e] (Capability discovery)
+
+Partial support or conformity to-be-confirmed (help needed!):
+- [FEP-f1d5][16], [FEP-eb22][17], and/or [FEP-0151][18] (NodeInfo)
+- [FEP-2277][19] (ActivityPub core types)
+- [FEP-4adb][20] (Derefencing identifiers through webfinger)
+- [FEP-521a][21] (Representing actor's public keys)
+- [FEP-5feb][22] (Search indexing consent for actors)
+- [FEP-268d][23] (Search consent signals for objects)
+- [FEP-d8c2][24] (OAuth 2.0 profile for the ActivityPub API)
+- [FEP-7628][25], [FEP-73cd][26], and/or [FEP-e965][27] (Move actor)
+- [FEP-8967][28] (Generating link previews for attached links)
+- [FEP-c0e0][29] (Emoji reactions)
+- [FEP-9098][30] (Custom emojis)
+- [FEP-f228][31] (Backfilling conversations)
+- [FEP-a974][32] (All Actor types should be followable)
+- [FEP-1311][33] (Media attachments)
+- [FEP-b2b8][34] (Long-form text)
+- [FEP-76ea][35] (Conversation threads)
+- [FEP-7458][36] (Using the replies collection)
+- [FEP-c16b][37] (Formatting MFM functions)
+- [FEP-eb48][38] (Hashtags)
+
+Work-in-progres, planned, or exploring (suggestions/feedback welcome!):
+- [FEP-1b12][15] (Group federation)
+- [FEP-67ff][39] (FEDERATION.md)
+- [FEP-2677][40] (Identifying the Application Actor)
+- [FEP-d556][41] (Server-level Actor Discovery using WebFinger)
+- [FEP-8a8e][42] (A common approach to using the Event object type)
+- [FEP-efda][43] (Followable objects)
+- [FEP-9967][44] (Polls)
+- [FEP-fe34][45] (Origin-based security model)
+- [FEP-0499][46] (Delivering to multiple inboxes with a multibox endpoints)
+- [FEP-6fcd][47] (Account export container format)
+- [FEP-3264][48] (Federated work coordination)
+- [FEP-c5a1][49] (Todos)
+
+Support for additional FEPs and experimental features not listed here may be implemented and enabled by extensions.
+
+> For more on Bonfire's federation rules and extension points, see [Bonfire ActivityPub Implementation Docs][9].
+
+## 3. Actor & Object Model
+
+Bonfire uses the [ActivityStreams](#activitystreams) data model for representing actors and objects, along with the [ActivityPub](#activitypub) specification and [ActivityStreams Vocabulary][12]. This section describes how Bonfire maps its internal data to ActivityPub actors and objects, and how it interprets incoming data from remote instances.
+
+### Actor Types
+
+Bonfire supports the following ActivityStreams actor types:
+
+- **Person**: Represents a user account or individual.
+- **Group**: Represents a group, category, or collective identity.
+- **Service**: Used for bots or automated accounts.
+- (Other types may be supported by extensions.)
+
+Bonfire maps its internal "character" abstraction (users, groups, categories, etc.) to the appropriate ActivityStreams actor type. See [Canonical URI](#canonical-uri) for how actor IDs are constructed.
+
+### Object Types
+
+Bonfire supports a wide range of ActivityStreams object types, including:
+
+- **Note**: Short-form post or status update.
+- **Article**: Long-form post or article.
+- **Question**: Poll or question (if enabled by extension).
+- **Image**, **Video**, **Audio**, **Event**, etc. (as defined in [ActivityStreams Vocabulary][12] and supported by extensions).
+
+Objects not explicitly supported by Bonfire are still stored and can be previewed in the UI, with a fallback display.
+
+### Addressing and Audience
+
+Bonfire uses the standard ActivityPub addressing fields to determine the audience for activities and objects:
+
+- `to`: Primary recipients (can include actors, collections, or the [Public URI](#public-uri)).
+- `cc`: Secondary recipients (e.g., followers).
+- `bto`, `bcc`: Blind recipients (not visible to all, used for addressing activities with custom circles or boundaries).
+- `audience`: Additional audience specification (rarely used).
+
+#### Addressing and Visibility Mapping
+
+| Addressing Fields Example                                 | Visibility Level      | Notes                                                                 |
+|----------------------------------------------------------|----------------------|-----------------------------------------------------------------------|
+| `to: Public`                                             | Public               | Visible to everyone, delivered to all followers and public timelines. |
+| `to: followers`                                          | Followers-only       | Only followers can see/interact.                                      |
+| `to: [actor1, actor2]`                                   | Direct (DM)          | Only addressed actors can see/interact.                               |
+| `bto`/`bcc`                                              | Blind recipients     | Recipients not visible to others (used to apply circles/boundaries in outgoing activities).                                     |
+
+Bonfire interprets these fields according to the ActivityPub spec and enforces boundaries and privacy accordingly.
+
+### Canonical URIs and ID Formats
+
+All Bonfire actors and objects have globally unique, canonical URIs (typically HTTPS URLs) that serve as their ActivityPub `id`. These URIs are stable and dereferenceable, allowing remote instances to fetch the ActivityStreams representation of the resource.
+
+- Example actor URI: `https://a.bonfire.instance/pub/actors/alice`
+- Example object URI: `https://a.bonfire.instance/pub/objects/01H8ZK2YXP9QCT5BE1JWQSAM3B6`
+
+Bonfire uses [ULIDs](https://github.com/ulid/spec) for object IDs, ensuring uniqueness and sortability.
+
+> For more details on actor and object mapping, see [Bonfire ActivityPub Implementation Docs][9] and [ActivityStreams Vocabulary][12].
+
+## 4. Content Types & Extensions
+
+Bonfire supports a broad range of [ActivityStreams](#activitystreams) object types, as defined in the [ActivityStreams Vocabulary][12]. The most common types are:
+
+- **Note**: Short-form post or status update.
+- **Article**: Long-form post or article.
+- **Image**, **Video**, **Audio**, **Link**: Media attachments.
+- **Event**, **Question**, etc: Supported if a relevant Bonfire extension is enabled.
+- **Any other types**: Any object (whether defined in ActivityStreams or not) type will be stored and displayed, even if not natively supported by any enabled Bonfire extension. For unknown types, Bonfire attempts to render a preview using the `preview` property if present, otherwise using fallbacks to generate a preview using some common object properties such as `name`, `summary`, or `image`.
+
+### Extensions and Custom Types or Properties
+
+Bonfire supports [AP extensions](#ap-extensions) such as:
+
+- **Hashtag**: For topic tags, using the `Hashtag` object type.
+- **Emoji**: For custom emoji, using the `Emoji` object type.
+- **PropertyValue**: For profile metadata fields, using the [schema.org PropertyValue][propertyvalue] extension.
+
+As of this writing there is no Bonfire extension currently defining new object types or properties, but extensions can add support for new types or properties. Some extensions are using types and properties defined by specs or FEPs outside of ActivityStreams though, for example enabling the ValueFlows extension adds support for economic objects and activities as defined by the [ValueFlows vocabulary][13]. This should be documented in each extension's docs or right here:
+ 
+#### FEPs, Experimental Features, and Handling of Unknown and Custom Types
+
+Bonfire stores and attempts to render any ActivityStreams object type, even if not natively supported. For unknown types, Bonfire uses the `preview` property if present, or falls back to common properties like `name`, `summary`, or `image`. Mastodon, GoToSocial, and Akkoma-specific extensions and properties are generally ignored unless mapped by a Bonfire extension.
+
+##### Extensions from Other Platforms
+
+Bonfire will always store, and depending on what extensions are implemented and enabled, may ignore or use/render Mastodon/GoToSocial/Akkoma-specific extensions such as `toot:Emoji`, `toot:blurhash`, and others. See [AP Extensions](#ap-extensions) for more.
+
+##### Profile Metadata and Attachments
+
+Bonfire represents profile fields using `PropertyValue` objects in the `attachment` array, following the schema.org extension used by Mastodon and GoToSocial. Note that Mastodon uses the context `http://schema.org#` (incorrect), while Bonfire uses the correct `https://schema.org/`. Bonfire will parse both for compatibility.
+
+##### Hashtags, Mentions, and Emojis
+
+Bonfire encodes hashtags, mentions, and custom emojis in the `tag` array, using the `Hashtag`, `Mention`, and `Emoji` types as defined in ActivityStreams and Mastodon extensions. These are rendered in the UI and federated as appropriate.
+
+##### Blurhash
+
+Bonfire creates and displays blurhashes (`blurhash`) for image attachments, as defined by Mastodon and GoToSocial. These properties are used to improve media display and previews in the UI.
+
+##### Providing Source Markdown
+
+Bonfire includes the original source (markdown) of posts in the `source` property of ActivityPub objects, in addition to the rendered HTML in `content`. This allows remote servers and clients to display or edit the original markdown if desired, improving fidelity and interoperability.
+
+###### Example: Outgoing Note with Markdown Source
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "@language": "en",
+      "Hashtag": "as:Hashtag",
+      "ValueFlows": "https://w3id.org/valueflows#",
+      "_misskey_quote": "https://misskey-hub.net/ns/#_misskey_quote",
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "quote": {"@id": "https://w3id.org/fep/044f#quote", "@type": "@id"},
+      "quoteAuthorization": {"@id": "https://w3id.org/fep/044f#quoteAuthorization", "@type": "@id"},
+      "sensitive": "as:sensitive"
+    }
+  ],
+  "attachment": [],
+  "attributedTo": "https://bonfire.cafe/pub/actors/example",
+  "cc": [],
+  "content": "<p>“To oppose something is to maintain it... You must go somewhere else; you must have another goal; then you walk a different road.” <br/> ― Ursula K. Le Guin</p>",
+  "id": "https://bonfire.cafe/pub/objects/01K5EX3HRWJEY51JYK40JFT0MD",
+  "indexable": true,
+  "interactionPolicy": {
+    "canAnnounce": {"automaticApproval": ["https://www.w3.org/ns/activitystreams#Public"]},
+    "canLike": {"automaticApproval": ["https://www.w3.org/ns/activitystreams#Public"]},
+    "canQuote": {
+      "automaticApproval": ["https://bonfire.cafe/pub/actors/example"],
+      "manualApproval": ["https://www.w3.org/ns/activitystreams#Public"]
+    },
+    "canReply": {"automaticApproval": ["https://www.w3.org/ns/activitystreams#Public"]}
+  },
+  "published": "2025-09-18T17:14:13.148Z",
+  "sensitive": false,
+  "source": {
+    "content": "“To oppose something is to maintain it... You must go somewhere else; you must have another goal; then you walk a different road.” \n ― Ursula K. Le Guin",
+    "mediaType": "text/markdown"
+  },
+  "tag": [],
+  "to": ["https://www.w3.org/ns/activitystreams#Public"],
+  "type": "Note"
+}
+```
+
+###### Example: Outgoing Actor with Profile Fields
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "@language": "en",
+      "alsoKnownAs": {"@id": "as:alsoKnownAs", "@type": "@id"},
+      "manuallyApprovesFollowers": "as:manuallyApprovesFollowers",
+      "movedTo": "as:movedTo",
+      "sensitive": "as:sensitive"
+    }
+  ],
+  "alsoKnownAs": ["https://sunbeam.city/users/example"],
+  "attachment": [
+    {
+      "name": "website",
+      "type": "PropertyValue",
+      "value": "<a rel=\"me\" href=\"https://bonfirenetworks.org\">https://bonfirenetworks.org</a>"
+    },
+    {
+      "name": "liberapay",
+      "type": "PropertyValue",
+      "value": "<a rel=\"me\" href=\"https://bonfire.cafe/pub/objects/01K1D97DXFJJ91BYP1WBR71V1A\">https://bonfire.cafe/pub/objects/01K1D97DXFJJ91BYP1WBR71V1A</a>"
+    },
+    {
+      "name": "link",
+      "type": "PropertyValue",
+      "value": "<a rel=\"me\" href=\"https://bonfire.cafe/pub/objects/01K1D967YP3G7FACGAPF61Z80Q\">https://bonfire.cafe/pub/objects/01K1D967YP3G7FACGAPF61Z80Q</a>"
+    }
+  ],
+  "discoverable": true,
+  "endpoints": {
+    "oauthAuthorizationEndpoint": "https://bonfire.cafe/oauth/authorize",
+    "oauthRegistrationEndpoint": "https://bonfire.cafe/api/v1/apps",
+    "oauthTokenEndpoint": "https://bonfire.cafe/oauth/token",
+    "sharedInbox": "https://bonfire.cafe/pub/shared_inbox"
+  },
+  "followers": "https://bonfire.cafe/pub/actors/example/followers",
+  "following": "https://bonfire.cafe/pub/actors/example/following",
+  "icon": {
+    "type": "Image",
+    "url": "https://bonfire.cafe/files/redir/local/data/uploads/01JSC2WAV3P752DW3W0H3847DP/icons/01JSHVHQ5ZNHM95QEKXRW6BN46.png"
+  },
+  "id": "https://bonfire.cafe/pub/actors/example",
+  "image": {
+    "type": "Image",
+    "url": "https://bonfire.cafe/images/bonfires.png"
+  },
+  "inbox": "https://bonfire.cafe/pub/actors/example/inbox",
+  "indexable": true,
+  "name": "Example User",
+  "outbox": "https://bonfire.cafe/pub/actors/example/outbox",
+  "preferredUsername": "example",
+  "publicKey": {
+    "id": "https://bonfire.cafe/pub/actors/example#main-key",
+    "owner": "https://bonfire.cafe/pub/actors/example",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\n...snip...\n-----END PUBLIC KEY-----\n"
+  },
+  "summary": "<p>Tending to @bonfire@bonfire.cafe 🔥</p>",
+  "type": "Person",
+  "updated": "2025-09-25T10:09:52.379596",
+  "url": "https://bonfire.cafe/pub/actors/example"
+}
+```
+
+## 5. Federation Flows
+
+Bonfire federates content and activities using the [ActivityPub](#activitypub) protocol, following the same general flows as other major Fediverse platforms.
+
+### Outgoing Federation
+
+When a user or app extension triggers an action (such as creating, updating, or deleting content), Bonfire:
+
+- Checks boundaries and federation settings to determine if the content should be federated (see [Access Control](#9-access-control)).
+- Serializes the object/activity into ActivityStreams JSON, including all required addressing fields (`to`, `bto`, etc. taking circles, follow status, boundaries and blocks into account).
+- Queues the activity for delivery to remote recipients' inboxes, batching deliveries to the same instance when possible (sending them to the [shared inbox](#shared-inbox) if one declared is declared in recipients' `Actor` object, in which case the addressing fields should be used by recipient instances to determine who to deliver it to).
+- Signs all outgoing requests with HTTP signatures ([HTTP Signature](#http-signature)).
+
+Common outgoing activities include:
+- `Create` (new posts, replies, etc.)
+- `Update` (edits to posts or profiles)
+- `Delete` (removal of posts or profiles)
+- `Follow`, `Accept`, `Reject`, `Undo`, `Like`, `Announce`, `Flag`, `Block`, `Move`, and others as supported by extensions.
+
+### Incoming Federation
+
+When Bonfire receives an activity from a remote instance:
+
+- Validates the HTTP signature and checks the sender's domain and actor (see [Access Control](#9-access-control)). If no valid signature is verified, it attempts to re-fetch the canonical object and processes that instead.
+- Parses, validates and transforms the activity data against a standardized version of the ActivityStreams vocabulary and any supported extensions, and saves the activity/object JSON in the database.
+- Passed the activity to active Bonfire extensions for processing: e.g., creates or updates a local objects, adds to feeds, triggers notifications, applies moderation or boundaries.
+- Handles errors gracefully, logging and rejecting invalid or unauthorized activities.
+
+Bonfire supports all standard ActivityPub flows, including:
+- Receiving posts, replies, likes, boosts, follows, blocks, reports, and more.
+- Handling incoming `Flag` activities as moderation reports.
+- Processing `Move` activities for account migration.
+
+### Profile Discovery and Following
+
+To follow a remote user or resource, Bonfire:
+
+- Performs a [WebFinger](#webfinger) lookup to resolve `@username@domain` to an ActivityPub actor URI (see [WebFinger Integration](#webfinger-integrating) section for details).
+- Fetches and validates the actor's profile using a signed GET request.
+- Sends a `Follow` activity to the remote actor's inbox.
+- Handles `Accept` or `Reject` responses to update the local following state.
+
+### Example Flows
+
+- **Status federation:** A user creates a post, which is serialized as a `Create` activity with a `Note` object and delivered to the appropriate remote inboxes.
+- **Profile federation:** Profile updates, follows, and blocks are federated as `Update`, `Follow`, `Block`, etc., activities.
+
+> For more details on the federation pipeline and extension points, see [Bonfire ActivityPub Implementation Docs][9].
+
+## 6. WebFinger Integration
+
+Bonfire implements the [WebFinger](#webfinger) protocol for user and resource discovery, enabling remote servers to resolve `@username@domain` identifiers to canonical ActivityPub actor URIs. This is a key part of [profile discovery and following](#profile-discovery-and-following).
+
+- **Endpoint:** `https://your.bonfire.instance/.well-known/webfinger`
+- **Query parameter:** `resource=acct:username@domain`
+
+A typical WebFinger response includes:
+- The `subject` field set to the queried account (e.g., `acct:alice@your.bonfire.instance`)
+- A `self` link pointing to the actor's ActivityPub URI
+- Optionally, a link to the user's HTML profile
+
+**Example request:**
+```
+GET /.well-known/webfinger?resource=acct:alice@your.bonfire.instance
+Accept: application/jrd+json
+```
+
+**Example response:**
+```json
+{
+  "subject": "acct:alice@your.bonfire.instance",
+  "links": [
+    {
+      "rel": "self",
+      "type": "application/activity+json",
+      "href": "https://your.bonfire.instance/pub/actors/alice"
+    },
+    {
+      "rel": "http://webfinger.net/rel/profile-page",
+      "type": "text/html",
+      "href": "https://your.bonfire.instance/@alice"
+    }
+  ]
+}
+```
+
+**Interop requirements:**
+- The `rel=self` link must point to the canonical ActivityPub actor URI.
+- The `subject` must match the queried account.
+- The endpoint must respond with the correct content type (`application/jrd+json`).
+
+**Common pitfalls:**
+- Incorrect or missing `rel=self` link.
+- Mismatched `subject` field.
+- Not supporting both `application/jrd+json` and `application/json` Accept headers.
+
+> For more on how Bonfire uses WebFinger for profile discovery and following, see [Federation Flows](#5-federation-flows).
+
+## 7. HTTP Signatures & Secure Fetch
+
+Bonfire implements comprehensive HTTP signature support for authenticating ActivityPub server-to-server (S2S) requests, supporting both the widely-deployed [draft-cavage HTTP Signatures][10] and the newer [RFC 9421 HTTP Message Signatures][rfc9421]. This section documents the implementation in detail, including design choices, interop considerations, and upgrade guidance.
+
+### Supported signature formats
+
+Bonfire supports two HTTP signature formats:
+
+| Format | Spec | Headers | Status |
+|--------|------|---------|--------|
+| **Draft-cavage** | [draft-cavage-http-signatures][10] | `Signature`, `Digest` | Default outbound + verified inbound |
+| **RFC 9421** | [RFC 9421][rfc9421] | `Signature` + `Signature-Input`, `Content-Digest` | Adaptive outbound + verified inbound |
+
+Both formats are verified on inbound requests. The format used for outbound requests is determined adaptively per remote host (see [Format Discovery](#format-discovery) below).
+
+### Outbound signing
+
+#### POST requests (Activity delivery)
+
+All outgoing POST requests to remote inboxes are signed. The signed headers depend on the detected format for the target host:
+
+**Draft-cavage POST** (default):
+- Signed headers: `(request-target)`, `host`, `content-length`, `content-type`, `digest`, `date`
+- Algorithm: `rsa-sha256`
+- `Digest` header: `SHA-256=<base64>`
+
+**RFC 9421 POST** (when remote is known to support it, see below):
+- Signed components: `@method`, `@target-uri`, `content-digest`
+- `Content-Digest` header: `sha-256=:<base64>:`
+- Both `Signature` and `Signature-Input` headers are included
+
+Both formats also include `date`, `digest`/`content-digest`, and `content-type` headers on the actual request for maximum compatibility.
+
+#### GET requests (object fetches)
+
+Bonfire signs outgoing GET requests for fetching remote actors and objects (enabled by default via the `sign_object_fetches` config). 
+
+**Draft-cavage GET**: Signs `(request-target)`, `host`, `date`
+**RFC 9421 GET**: Signs `@method`, `@target-uri`
+
+### Inbound verification
+
+When Bonfire receives a signed request, the signature plug automatically detects the format:
+
+1. If `signature-input` header is present → **RFC 9421** verification
+2. If `signature` header is present → **draft-cavage** verification
+3. If neither is present → treated as unsigned (for POST requests this optionally means Bonfire will attempt re-fetching the activity/object from the origin, see below)
+
+Verification uses the sender's public key, fetched from the `keyId` URI in the signature.
+
+#### Date header staleness check
+
+After cryptographic verification succeeds, Bonfire checks the `Date` header freshness. Signatures with a `Date` header older than ~1 hour are treated as invalid and sent through the verification cascade. This mitigates replay attacks. If the `Date` header is missing or unparseable, verification is not rejected on date alone (to avoid breaking implementations that don't send `Date`).
+
+#### Derived components (eg. behind reverse proxies)
+
+For RFC 9421, the `@scheme` and `@authority` derived components are taken from the instance's configured `base_url`, not from `conn.scheme`/`conn.host`. This avoids mismatches when Bonfire runs behind a reverse proxy (eg. where internal connections use HTTP but the public URL is HTTPS) or where multiple domains are aliased to one instance.
+
+### Verification cascade
+
+When an HTTP signature is missing, invalid, or stale, the activity is not rejected outright (meaning the server will get a 200 response and not a 401). Instead, it enters a background processing queue which later runs verification cascade:
+
+1. **HTTP signature re-fetch**: Re-fetch the sender's public key and retry verification
+2. **Linked Data Signature**: Check for an embedded [RsaSignature2017][ld-sig] LD signature in the activity body
+3. **Source re-fetch**: Fetch the activity/object from its canonical `id` URL and verify containment
+4. **Reject** or**accept unsigned**: If `ACCEPT_UNSIGNED_ACTIVITIES=1` is set by instance admins we still accept, otherwise the activity is rejected
+
+This cascade ensures maximum interop — activities can be accepted via any valid authentication method, not just HTTP signatures.
+
+### Key management
+
+#### Public key format
+
+Bonfire publishes each actor's RSA public key in the standard `publicKey` property:
+
+```json
+{
+  "publicKey": {
+    "id": "https://instance/pub/actors/alice#main-key",
+    "owner": "https://instance/pub/actors/alice",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----\n"
+  }
+}
+```
+
+The `keyId` used in signatures matches the `publicKey.id` field, using the `#main-key` fragment convention (compatible with Mastodon, Akkoma, GoToSocial, and others).
+
+#### Multiple keys (publicKey as list)
+
+Bonfire supports `publicKey` as either a single object or a list of key objects (as permitted by the ActivityPub spec). When multiple keys are present, Bonfire matches by `keyId` to select the correct key, falling back to attempting verification with the first key if no match is found.
+
+### Signature format discovery
+
+Bonfire uses adaptive signing, it discovers which signature format a remote host supports and then uses that format for outbound requests. Discovery methods (in priority order):
+
+1. **Inbound signature caching**: When a remote server sends us a signed request, we cache which format they used (cavage or RFC 9421)
+2. **Accept-Signature header**: When we receive an `Accept-Signature` response header from a remote server (on any response — WebFinger, object fetch, inbox POST), we cache RFC 9421 support for that host
+3. **FEP-844e generator detection**: Check remote actors' `generator.implements` or the instance service actor's `implements` property for RFC 9421 support URIs (see below)
+4. **NodeInfo software version**: Look up the remote's software name and version against a known-support map (e.g., Mastodon ≥ 4.5.0, Fedify ≥ 1.6.0, Hollo, Mitra)
+5. **Default**: Fall back to draft-cavage
+
+Format preferences are cached per-host and persist for up to 2 weeks by default.
+
+### Accept-Signature advertisement
+
+Bonfire advertises our support for RFC 9421 by including the `Accept-Signature: sig1=()` response header on:
+
+- WebFinger responses
+- All ActivityPub GET responses (actors, objects, etc)
+- ActivityPub inbox POST responses
+- 401/403 error responses (to hint that signing is expected)
+
+This header is **omitted** when the client already sent an RFC 9421 signature (detected via the `signature-input` request header), since they clearly already know.
+
+### FEP-844e Support
+
+Bonfire advertises its signature capabilities via [FEP-844e][fep-844e]:
+
+- **User actors** include a `generator` property referencing the service actor:
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/844e"
+  ],
+  "id": "https://social.example/actors/1",
+  "type": "Person",
+  "generator": {
+    "type": "Application",
+    "id": "https://social.example/actors/service_actor",
+    "implements": [
+      {"href": "https://www.w3.org/TR/activitypub/"},
+      {"href": "https://datatracker.ietf.org/doc/html/rfc9421"}
+    ]
+  }
+}
+```
+- **Service actors** include an `implements` property listing supported specs (including RFC 9421):
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/844e"
+  ],
+  "type": "Application",
+  "id": "https://social.example/actors/service_actor",
+  "implements": [
+    {"href": "https://www.w3.org/TR/activitypub/"},
+    {"href": "https://datatracker.ietf.org/doc/html/rfc9421"}
+  ]
+}
+```
+
+When discovering remote instances, Bonfire checks these same properties to infer RFC 9421 support.
+
+### Secure fetch
+
+By default, Bonfire requires signed `GET` requests for fetching actor and object JSON from ActivityPub endpoints, even for public resources. Unsigned requests to these endpoints may be rejected with HTTP 401. This is equivalent to Mastodon's "secure mode" and helps prevent abuse and scraping by blocked or defederated instances.
+
+This behavior can be changed by admins in an instance's configuration, if they want unsigned GETs (to public resources) to be allowed.
+
+### Design choices impacting signature interop
+
+#### No double-knock
+
+Bonfire does not use the "double-knock" technique (send a request, get a 401, retry with a different format). Instead, we discover the format proactively via Accept-Signature headers, [FEP-844e][fep-844e], and NodeInfo. This avoids:
+- Extra round-trips on first contact
+- Wasted bandwidth and latency
+- Complexity in retry logic
+
+The tradeoff is that we may use cavage for a host that supports RFC 9421 until we discover their preference, but this works since it seems all ActivityPub implementations that support RFC 9421 also accept cavage.
+
+#### No dual signing
+
+Bonfire sends a single signature format per request (not both cavage and RFC 9421 simultaneously). Since we discover the preferred format adaptively, dual signing would add overhead (and possibly reduce compatibility) without improving delivery success.
+
+#### No hs2019 algorithm identifier
+
+Bonfire always uses `algorithm="rsa-sha256"` for draft-cavage signatures, not the `hs2019` placeholder from later cavage drafts, because:
+- `rsa-sha256` is universally accepted across fediverse implementations
+- `hs2019` was a transitional identifier that the ecosystem largely skipped
+- The real upgrade path seems to be cavage → RFC 9421, not `rsa-sha256` → `hs2019`
+- Our verification does accept both algorithm identifiers on inbound (the algorithm field is not used for verification, we always verify with the key's algorithm)
+
+#### Query parameters
+
+Bonfire signs requests including query parameters in the signature string, but will attempt validation both with and without query parameters for compatibility with other implementations (such as Mastodon and GoToSocial).
+
+#### keyId format
+
+Bonfire uses the fragment format for `keyId` (e.g., `https://your.bonfire.instance/pub/actors/alice#main-key`), matching Mastodon and most other platforms.
+
+#### Public key endpoint
+
+The `keyId` in the signature header should match the `id` of the `publicKey` object in the actor's JSON.
+
+### Refernces
+
+For more details, see [RFC 9421][rfc9421], [draft-cavage HTTP Signatures][10], and [SWICG ActivityPub HTTP Signature spec][swicg-sig].
+
+
+## 8. Rate Limiting
+
+Bonfire applies rate limiting to all federation endpoints, including both incoming and outgoing ActivityPub and WebFinger requests.
+
+### Incoming Federation Endpoints
+
+Federation endpoints are rate limited per IP address. If the rate limit is exceeded, Bonfire responds with HTTP status `429 Too Many Requests` and a `Retry-After` header indicating when to retry. The default rate limits can be configured by the instance admin. Rate limited endpoints include:
+
+- **Inbox / Shared Inbox:**  Incoming POST requests to inbox endpoints
+- **GET requests for Actor and Object** endpoints (e.g. `/pub/actors/{username}` and `/pub/objects/{id}`)
+- **WebFinger:**  Incoming GET requests to the WebFinger endpoint
+
+### Outgoing Federation Requests
+
+- **Outgoing HTTP requests** (to remote servers) also support rate limiting and include retry logic. If a remote server responds with `429 Too Many Requests` or `503 Service Unavailable`, Bonfire will respect the `Retry-After` header and automatically retry after the indicated delay.
+
+### HTTP Status Codes and Headers
+
+- `429 Too Many Requests`: Returned when the rate limit is exceeded.
+- `503 Service Unavailable`: May be returned by remote servers; Bonfire will retry as appropriate.
+- `Retry-After`: Indicates how many seconds to wait before retrying.
+
+### Interop Notes
+
+- Remote servers should respect `Retry-After` headers and avoid retrying requests too quickly.
+- If you receive a `429` from Bonfire, wait the indicated time before retrying.
+- Rate limits are applied per IP and per endpoint.
+
+> For more details, see the [Bonfire ActivityPub Implementation Docs][9].
+
+## 9. Moderation, Flagging, and Blocking
+
+Bonfire provides robust moderation tools and supports federated moderation activities to help maintain healthy communities and enforce local policies.
+
+### Blocking
+
+Bonfire supports several types of blocks, each with distinct effects:
+
+- **Ghost block**: The blocked user is prevented from seeing or interacting with you or your content on your instance:
+  - Private posts and activities are never delivered to ghosted users.
+  - Public posts may still be visible to ghosted users on remote instance or via public instance web views.
+  - Ghosted users cannot follow, mention, or message you, and you cannot mention or message them.
+  - Undoing a ghost block is possible, but missed activities are not retroactively delivered.
+  - Instance admins can enforce ghost blocks globally, preventing a user from seeing or interacting with any local users.
+
+- **Silence**: You stop seeing content from the silenced user:
+  - Their posts and activities are filtered from your feeds and notifications.
+  - You can still view their profile or posts via direct links.
+  - You won't see mentions or messages from them, and you cannot follow them.
+  - Undoing a silence is possible, but missed activities are not retroactively restored.
+  - Instance admins can silence a user for all local users, hiding their content from all local feeds.
+
+- **Full block**: All of the above.
+
+- **Instance-level blocks (defederation)**: Admins can block entire domains, preventing all federation with those instances.
+
+All block types are enforced at the boundaries level and affect both incoming and outgoing federation as appropriate.
+
+### Flagging (Reporting)
+
+- **Flag activities:**  
+  - Bonfire supports the ActivityStreams `Flag` activity for reporting users, posts, or other objects for moderation.
+  - Incoming `Flag` activities from remote instances are processed as moderation reports and routed to moderators.
+  - Outgoing `Flag` activities are federated to remote instances' [shared inbox](#shared-inbox) when a user reports content originating elsewhere.
+- **Moderation workflow:**  
+  - Reports can be reviewed, actioned, or dismissed by moderators. Actions may include warning, silencing, blocking, labeling, editing, or deleting content or accounts.
+
+### Moderation Activities
+
+Bonfire does not send `Block` activities for S2S federation, but does apply incoming blocks as appropriate. Moderation is mostly handled through Bonfire's boundaries functionality, and the `Flag` activity for reporting, which are processed as moderation reports and placed in instance moderators' queue.
+
+#### Account Migration
+
+Bonfire supports account migration using the `Move` activity, and the `alsoKnownAs` and `movedTo` properties on actors. Migration is only considered valid if both accounts reference each other via `alsoKnownAs`. On receiving a valid `Move`, Bonfire will redirect followers to the new account and update local state accordingly.
+
+### Interop Notes
+
+- Remote instances can expect Bonfire to process incoming `Flag` activities according to local moderation policy.
+- Bonfire federates moderation actions as appropriate, including `Flag`, `Update`, and `Delete` activities.
+- Bonfire follows the ActivityPub and ActivityStreams conventions for moderation activities, ensuring compatibility with major implementations.
+
+> For more details, see [Bonfire ActivityPub Implementation Docs][9] and the [ActivityStreams Spec][1] for `Flag` activities.
+
+## 10. Circles, Boundaries & Interaction Policies
+
+Bonfire provides advanced privacy and interaction controls, supporting both standard ActivityPub audience fields and newer proposals like [FEP-044f][7] for interaction policies.
+
+### Circles and Boundaries
+
+- **Circles** in Bonfire are flexible audience groups (similar to "circles" or "lists" in other platforms), used to define custom sharing boundaries for posts and activities.
+- **Boundaries** are Bonfire's mechanism for enforcing privacy, collaboration permission, and blocks. They determine who can see, interact with, or receive a given activity.
+- When federating, Bonfire always maps circles and boundaries to ActivityPub addressing fields (in `bto` or `bcc`) as appropriate. Circles are not federated as named groups; only the resolved list of recipients is included in the addressing fields.
+- Remote instances will only see the addressing fields, not the internal circle names or membership. Circle membership is not exposed to other users or to remote servers by default.
+
+### Interaction Policies 
+
+- Bonfire supports [FEP-044f][7] and related proposals for fine-grained interaction control.
+- Posts and objects can include an `interactionPolicy` property, specifying who can like, reply, announce, or quote.
+- Sub-policies include `canLike`, `canReply`, `canAnnounce`, and `canQuote`, each with `automaticApproval` and optionally `manualApproval` fields.
+- Bonfire includes `interactionPolicy` [15] on outgoing posts when appropriate. This property is intended as an FYI for remote instances, so they can disable or hide actions in their UI (and avoid users enacting interactions that will not be properly federated to their intended recipients but could still seen by users of their own instance). 
+- Bonfire will always enforce these policies, e.g. if a remote instance does not support or respect `interactionPolicy`, Bonfire will still reject any incoming interaction (reply, like, announce, etc) that violates the policy.
+
+### Approval Flows
+
+- Both automatic and manual approval flows are supported for local and remote users.
+- When a remote user attempts an interaction that requires manual approval, Bonfire federates a pending request and responds with `Accept` or `Reject` activities as appropriate, following [FEP-044f][7].
+- The `approvedBy` property is used to indicate explicit approval by the post author, and Bonfire supports both auto-accept and manual approval flows.
+
+### Interop Notes
+
+- Remote servers that do not support `interactionPolicy` will fall back to default ActivityPub behavior (anyone who can see a post can interact with it), but Bonfire will still enforce its policies and reject unauthorized interactions.
+- Bonfire will respect incoming `interactionPolicy` properties from remote posts, enforcing restrictions locally.
+- Audience enforcement is always based on both addressing fields and interaction policies.
+
+> For more details, see [Bonfire ActivityPub Implementation Docs][9] and [15].
+
+## 11. Testing & Debugging
+
+Testing and debugging federation with Bonfire requires understanding ActivityPub S2S flows, HTTP signatures, and proper request formatting.
+
+### Required Headers
+
+- `Accept`: Use `application/activity+json` or `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` for ActivityPub endpoints.
+- `Signature`: All S2S requests should be signed (see [HTTP Signatures](#7-http-signatures--secure-fetch)), unless the instance accepts non-signed requests for public objects.
+- `Date`: Required for signature validation.
+- `Digest`: Required for signed POST requests.
+
+**Note:** All example curl commands below assume you will include the required headers if needed, including a valid `Signature` header.
+
+### Example curl commands
+
+**Fetch a remote actor (signed GET):**
+```sh
+curl -H "Accept: application/activity+json" \
+     -H "Date: $(date -u +'%a, %d %b %Y %H:%M:%S GMT')" \
+     https://a.bonfire.instance/pub/actors/alice
+```
+
+**Fetch a remote object (signed GET):**
+```sh
+curl -H "Accept: application/activity+json" \
+     -H "Date: $(date -u +'%a, %d %b %Y %H:%M:%S GMT')" \
+     https://a.bonfire.instance/pub/objects/01H8ZK2YXP9QCT5BE1JWQSAM3B6
+```
+
+**Send an activity to an inbox (signed POST):**
+```sh
+curl -X POST \
+     -H "Accept: application/activity+json" \
+     -H "Content-Type: application/activity+json" \
+     -H "Date: $(date -u +'%a, %d %b %Y %H:%M:%S GMT')" \
+     -H "Digest: SHA-256=..." \
+     --data-binary @activity.json \
+     https://a.bonfire.instance/pub/actors/alice/inbox
+```
+
+**WebFinger lookup (no signature required):**
+```sh
+curl -H "Accept: application/jrd+json" \
+     "https://a.bonfire.instance/.well-known/webfinger?resource=acct:alice@your.bonfire.instance"
+```
+
+### Debugging Tips
+
+- Check for required headers (eg `Signature`) and correct content types.
+- Use verbose curl output (`-v`) to inspect HTTP status codes and headers.
+- Check logs for signature validation errors, rate limiting (`429`), or access control (`403`).
+- Inspect the job queues for stuck or failed federation jobs. Bonfire users can view their federation queue at `/settings/user/federation_status`.
+
+### Troubleshooting Common Issues
+
+- **401 Unauthorized**: Missing or invalid HTTP signature.
+- **403 Forbidden**: Blocked by boundaries, blocks, or instance defederation.
+- **429 Too Many Requests**: Rate limit exceeded; check `Retry-After` header.
+- **406 Not Acceptable**: Incorrect `Accept` or `Content-Type` header.
+- **422 Unprocessable Entity**: Malformed activity or object.
+- **503 Service Unavailable**: Remote server is down or overloaded.
+
+> For more details, see [Bonfire ActivityPub Implementation Docs][9] and the [ActivityPub Spec][1].
+
+<!--
+## 12. Compatibility Notes
+- Known quirks with Mastodon [3], Pixelfed, GoToSocial [8], etc.
+- Supported/not-currently-supported ActivityStreams extensions [1], [3]
+- JSON-LD context handling
+- HTML sanitization [3]
+
+## 13. Quirks & Gotchas
+- Known interop issues and edge cases
+- Differences from Mastodon [3], GtS [8], etc.
+- Common pitfalls for implementers
+
+## 14. FAQ / Troubleshooting
+- Common issues and solutions
+- Contact/support links
+-->
+
+## 15. Glossary
+
+### ActivityPub
+A decentralized social networking protocol based on the ActivityStreams data format. [1]
+
+### ActivityStreams
+A model/data format for representing potential and completed activities using JSON. [11]
+
+### Actor
+An ActivityStreams object capable of performing activities (e.g., Person, Group, Service). [12]
+
+### Dereference
+To fetch the ActivityStreams representation of a resource (e.g., actor or object) by making an HTTP request to its canonical URI.
+
+### WebFinger
+A protocol for resolving user identifiers (e.g., `@user@domain`) to canonical profile URIs. [2]
+
+### FEP 
+Fediverse Enhancement Proposal, a community process for proposing and documenting protocol extensions. [4]
+
+### HTTP Signature 
+A cryptographic signature for HTTP requests, used to authenticate and authorize ActivityPub S2S messages. [10]
+
+### Inbox 
+Endpoint on an actor for receiving activities.
+
+### Outbox
+Endpoint on an actor for publishing activities.
+
+### Public URI
+The special URI `https://www.w3.org/ns/activitystreams#Public` used to indicate public addressing.
+
+### MRF
+Message Rewrite Facility, a policy system for filtering or modifying federated activities.
+
+### Boundary 
+Bonfire’s mechanism for enforcing privacy, blocks, and audience restrictions.
+
+### Peered 
+A mapping between a local object and its canonical URI.
+
+### Canonical URI 
+An activty, object or actor's `id`: an authoritative, globally unique URI.
+
+### Flag 
+The ActivityStreams activity type for reporting moderation issues.
+
+### Interaction Policy 
+A set of rules (e.g., canLike, canReply) governing who can interact with a post. [15]
+
+### Instance
+A single deployment of a federated server (e.g., a Bonfire, Mastodon, or GtS server).
+
+### Shared Inbox 
+An endpoint for batching delivery of activities to multiple actors on the same instance. [14]
+
+### Tombstone
+An object indicating that a resource (e.g., a post or actor) has been deleted.
+
+### Hashtag
+An ActivityStreams extension representing a topic tag.
+
+### Emoji 
+An ActivityStreams extension representing a custom emoji.
+
+### PropertyValue 
+A [schema.org](https://schema.org/PropertyValue) extension for profile metadata fields.
+
+### Create 
+The ActivityStreams activity type for creating an object. [12]
+
+### Update 
+The ActivityStreams activity type for updating an object. [12]
+
+### Delete 
+The ActivityStreams activity type for deleting an object. [12]
+
+### Accept 
+The ActivityStreams activity type for accepting an activity. [12]
+
+### Reject 
+The ActivityStreams activity type for rejecting an activity. [12]
+
+### Note 
+An ActivityStreams object type representing a short-form post. [12]
+
+### Article
+An ActivityStreams object type representing a long-form post. [12]
+
+
+<!-- ## 17. References -->
+
+[1]: https://www.w3.org/TR/activitypub/ "ActivityPub Specification"  
+[2]: https://datatracker.ietf.org/doc/html/rfc7033 "WebFinger RFC"  
+[3]: https://docs.joinmastodon.org/spec/activitypub/ "Mastodon ActivityPub Docs"  
+[4]: https://codeberg.org/fediverse/fep "Fediverse Enhancement Proposals (FEPs)"  
+[5]: https://docs.akkoma.dev/stable/development/ap_extensions/ "Akkoma ActivityPub Docs"
+[7]: https://w3id.org/fep/044f "FEP-044f: Consent-respecting Quote Posts"  
+[8]: https://docs.gotosocial.org/en/latest/federation/ "GoToSocial Federation Docs"  
+[9]: https://docs.bonfirenetworks.org/TODO "Bonfire ActivityPub Implementation Docs"  
+[10]: https://datatracker.ietf.org/doc/html/draft-cavage-http-signatures "HTTP Signatures RFC"  
+[11]: https://www.w3.org/TR/activitystreams-core/ "ActivityStreams 2.0 Core Syntax"  
+[12]: https://www.w3.org/TR/activitystreams-vocabulary/ "ActivityStreams 2.0 Vocabulary"
+[13]: https://www.valueflo.ws "ValueFlows: a vocabulary for the distributed economic networks of the next economy, to coordinate the creation, distribution, and exchange of economic resources"
+[14]: https://www.w3.org/TR/activitypub/#shared-inbox-delivery "Shared Inbox Delivery in ActivityPub"
+[15]: https://docs.gotosocial.org/en/latest/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"
+[16]: https://w3id.org/fep/f1d5 "FEP-f1d5: NodeInfo in Fediverse Software"
+[17]: https://w3id.org/fep/eb22 "FEP-eb22: Supported ActivityStreams types with NodeInfo"
+[18]: https://w3id.org/fep/0151 "FEP-0151: NodeInfo in Fediverse Software (2025 edition)"
+[19]: https://w3id.org/fep/2277 "FEP-2277: ActivityPub core types"
+[20]: https://w3id.org/fep/4adb "FEP-4adb: Dereferencing identifiers through webfinger"
+[21]: https://w3id.org/fep/521a "FEP-521a: Representing actor's public keys"
+[22]: https://w3id.org/fep/5feb "FEP-5feb: Search indexing consent for actors"
+[23]: https://w3id.org/fep/268d "FEP-268d: Search consent signals for objects"
+[24]: https://w3id.org/fep/d8c2 "FEP-d8c2: OAuth 2.0 profile for the ActivityPub API"
+[25]: https://w3id.org/fep/7628 "FEP-7628: Move actor"
+[26]: https://w3id.org/fep/73cd "FEP-73cd: Migration User Stories"
+[27]: https://w3id.org/fep/e965 "FEP-e965: Move Activity for Migrations and Announce Activity for Tombstone Events"
+[28]: https://w3id.org/fep/8967 "FEP-8967: Generating link previews for attached links"
+[29]: https://w3id.org/fep/c0e0 "FEP-c0e0: Emoji reactions"
+[30]: https://w3id.org/fep/9098 "FEP-9098: Custom emojis"
+[31]: https://w3id.org/fep/f228 "FEP-f228: Backfilling conversations"
+[32]: https://w3id.org/fep/a974 "FEP-a974: All Actor types should be followable"
+[33]: https://w3id.org/fep/1311 "FEP-1311: Media attachments"
+[34]: https://w3id.org/fep/b2b8 "FEP-b2b8: Long-form text"
+[35]: https://w3id.org/fep/76ea "FEP-76ea: Conversation threads"
+[36]: https://w3id.org/fep/7458 "FEP-7458: Using the replies collection"
+[37]: https://w3id.org/fep/c16b "FEP-c16b: Formatting MFM functions"
+[38]: https://w3id.org/fep/eb48 "FEP-eb48: Hashtags"
+[39]: https://w3id.org/fep/67ff "FEP-67ff: FEDERATION.md"
+[40]: https://w3id.org/fep/2677 "FEP-2677: Identifying the Application Actor"
+[41]: https://w3id.org/fep/d556 "FEP-d556: Server-level Actor Discovery using WebFinger"
+[42]: https://w3id.org/fep/8a8e "FEP-8a8e: A common approach to using the Event object type"
+[43]: https://w3id.org/fep/efda "FEP-efda: Followable objects"
+[44]: https://w3id.org/fep/9967 "FEP-9967: Polls"
+[45]: https://w3id.org/fep/fe34 "FEP-fe34: Origin-based security model"
+[46]: https://w3id.org/fep/0499 "FEP-0499: Delivering to multiple inboxes with a multibox endpoints"
+[47]: https://w3id.org/fep/6fcd "FEP-6fcd: Account export container format"
+[48]: https://w3id.org/fep/3264 "FEP-3264: Federated work coordination"
+[49]: https://w3id.org/fep/c5a1 "FEP-c5a1: Todos"
+[rfc9421]: https://www.rfc-editor.org/rfc/rfc9421 "RFC 9421: HTTP Message Signatures"
+[ld-sig]: https://web-payments.org/vocabs/security#linkedDataSignature2015 "Linked Data Signatures"
+[fep-844e]: https://w3id.org/fep/844e "FEP-844e: Generator-based format discovery"
+[swicg-sig]: https://swicg.github.io/activitypub-http-signature/ "SWICG ActivityPub HTTP Signature"
