@@ -17,8 +17,6 @@ SPDX-License-Identifier: CC0-1.0
 
 **Feed markers**: Your place in the feed is now saved when you navigate away, so you can pick up where you left off
 
-**Translate posts**: Translate button on posts, so you can read content in other languages with one click (configure API keys for LibreTranslate or DeepL)
-
 **New Dashboard widgets**: Weather, instance stats, and user summary now available for your customizable dashboard.
 
 
