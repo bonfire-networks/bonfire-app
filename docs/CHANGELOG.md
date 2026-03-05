@@ -15,16 +15,30 @@ SPDX-License-Identifier: CC0-1.0
 
 **Translate posts** with one click: A translate button now appears under posts, making it easy to read content written in other languages. Translation works locally in Chrome out of the box; instance admins or individual users can also set up LibreTranslate or DeepL APIs for broader support (in translation extension settings).
 
+**Feed markers**: Your place in the feed is now saved when you navigate away, so you can pick up where you left off
+
+**Translate posts**: Translate button on posts, so you can read content in other languages with one click (configure API keys for LibreTranslate or DeepL)
+
+**New Dashboard widgets**: Weather, instance stats, and user summary now available for your customizable dashboard.
+
+
 ### Added
 - ✨ New setting to control what appears above a reply in your feed: choose between showing the post being replied to, the original post that started the thread, or none [#1714](https://github.com/bonfire-networks/bonfire-app/issues/1714) [#1359](https://github.com/bonfire-networks/bonfire-app/issues/1359) (thanks @mayel and @ivanminutillo)
 - 📝 Your place in the feed is now saved when you navigate away, so you can pick up where you left off [#1835](https://github.com/bonfire-networks/bonfire-app/issues/1835) (thanks @ivanminutillo)
 - ✨ Press Cmd+Enter (or Ctrl+Enter on Windows/Linux) to publish a post without reaching for the button [#397](https://github.com/bonfire-networks/bonfire-app/issues/397) (thanks @ivanminutillo and @sefsh)
+- ✨ keyboard shortcuts (n for opening the composer, - for minimizing, cmd/ctrl + enter for publishing a post) (thanks @ivanminutillo)
+- ✨ New Dashboard Weather widget
+- 🚀 New Safety settings section
+You can now toggle widgets directly in dashboard page
 - 🚀 Location data and other hidden metadata are now automatically removed from photos you upload [#1794](https://github.com/bonfire-networks/bonfire-app/issues/1794) (thanks @mayel)
 - 🚧 Filter out posts containing specific keywords, configurable by instance admins and soon by individual users [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @mayel and @ivanminutillo)
 - ✨ Translate button on posts, so you can read content in other languages with one click (configure API keys for LibreTranslate or DeepL) [#1809](https://github.com/bonfire-networks/bonfire-app/issues/1809) (thanks @ivanminutillo)
 - ✨ Polls now show a preview before you vote, so you can see the options clearly [#1363](https://github.com/bonfire-networks/bonfire-app/issues/1363) (thanks @ivanminutillo)
 - ✨ ActivityPub: support for a newer, more robust standard for verifying messages between instances (RFC 9421 HTTP Message Signatures) [#1823](https://github.com/bonfire-networks/bonfire-app/issues/1823) [#1826](https://github.com/bonfire-networks/bonfire-app/issues/1826) [PR #9](https://github.com/bonfire-networks/activity_pub/pull/9) (thanks @dahlia and @mayel)
 - ✨ Federated events are now accessible via REST API, making them visible in supported mobile apps [#1772](https://github.com/bonfire-networks/bonfire-app/issues/1772) (thanks @mayel and @ivanminutillo)
+- ✨ Account Data & Defaults: surfaces relevant account info and highlights your safety defaults at a glance, including discoverability and search indexing settings (thanks @ivanminutillo and @mayel)
+- ✨ Instance Widget: overview of your instance's key defaults: federation behaviour, open vs invite-only registration, and known servers (thanks @ivanminutillo and @mayel)
+- ✨ Beyond preferred language, users can now specify other languages they understand, these appear in the Composer language dropdown (thanks @mayel and @ivanminutillo)
 - 🚧 Push notifications are now supported in the browser and in mobile apps [#1800](https://github.com/bonfire-networks/bonfire-app/issues/1800) (thanks @mayel)
 
 ### Changed
@@ -40,6 +54,8 @@ SPDX-License-Identifier: CC0-1.0
 
 ### Fixed
 - ✨ Loading all posts from a remote user's profile was broken [#1785](https://github.com/bonfire-networks/bonfire-app/issues/1785) (thanks @ivanminutillo and @mayel)
+- ✨ fix toggling between linear and nested thread (thanks @ivanminutillo and @mayel)
+- ✨ fix deeply nested thread UI (thanks @ivanminutillo and @mayel)
 - ✨ Following someone incorrectly showed a notification saying you followed yourself [#1814](https://github.com/bonfire-networks/bonfire-app/issues/1814) (thanks @ivanminutillo)
 - ✨ Grouped notifications dont allow to see all the users grouped [#1682](https://github.com/bonfire-networks/bonfire-app/issues/1682) (thanks @ivanminutillo and @mayel)
 - 🚧 Quote posts accepted on Bonfire should now correctly appear as accepted in Mastodon [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) (thanks @mayel and @btfreeorg)
