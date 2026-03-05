@@ -53,6 +53,10 @@ You can now toggle widgets directly in dashboard page
 - ✨ Add new CORS paths for openid and oauth token [PR #9](https://github.com/bonfire-networks/bonfire_ui_common/pull/9) (thanks @mediaformat)
 
 ### Fixed
+- ✨ Improved Direct Messages UX/UI
+- ✨ Improved Extension settings UX/UI
+- ✨ Improved Composer UI on mobile
+- ✨ Improved ghosted/blocked/silenced UX/UI
 - ✨ Loading all posts from a remote user's profile was broken [#1785](https://github.com/bonfire-networks/bonfire-app/issues/1785) (thanks @ivanminutillo and @mayel)
 - ✨ fix toggling between linear and nested thread (thanks @ivanminutillo and @mayel)
 - ✨ fix deeply nested thread UI (thanks @ivanminutillo and @mayel)
