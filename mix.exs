@@ -107,7 +107,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:table_rex, "~> 4.1.0", override: true}
       ]
 
-      # because used by other deps 
+      # because used by other deps
     )
 
   with_xmpp = System.get_env("WITH_XMPP")
@@ -357,7 +357,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.2-rc.1",
+    version: "1.0.2-rc.2",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
