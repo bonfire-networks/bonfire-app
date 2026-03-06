@@ -88,21 +88,26 @@ defmodule Bonfire.Umbrella.MixProject do
     )
 
   # TODO: move to ember?
-  with_ai = System.get_env("WITH_AI")
+  with_ai? = System.get_env("WITH_AI") not in no?
 
   maybe_ai_deps =
-    if(with_ai && with_ai not in no?,
+    if(with_ai?,
       do: [
         {:bumblebee, "~> 0.6.3"},
         {:axon, "~> 0.8.0", override: true},
-        {:table_rex, "~> 4.0.0", override: true},
+        {:table_rex, "~> 4.1.0", override: true},
         # {:nx, "~> 0.9.0"},
         # {:exla, "~> 0.9.1"},
         # temp workaround: https://github.com/elixir-nx/nx/issues/1599
         {:exla, github: "elixir-nx/nx", sparse: "exla", override: true},
         {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
       ],
-      else: []
+      else: [
+        # {:nx, "~> 0.9.0", override: true},
+        {:table_rex, "~> 4.1.0", override: true}
+      ]
+
+      # because used by other deps 
     )
 
   with_xmpp = System.get_env("WITH_XMPP")
