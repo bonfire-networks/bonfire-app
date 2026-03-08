@@ -4,3 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [Unreleased]
+### Changed
+- 📝 alpha 42 [`53e946b`](https://github.com/bonfire-networks/bonfire-app/commit/53e946b308b042309094eaf1f64d10d7af94bf32) (thanks @mayel)
+- 🚧 Accepted Quote Post showing as Pending in Mastodon [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) [`b2249e7`](https://github.com/bonfire-networks/bonfire-app/commit/b2249e79fccbf3dd60b9855c1a8d2ceb8e3758c8) (thanks @mayel and @btfreeorg)
+- 📝 localisation [`32a1000`](https://github.com/bonfire-networks/bonfire-app/commit/32a10007c0ea95b92dec9d2fe606d6c87e939619) (thanks @mayel)
+- 📝 translate [`677aba0`](https://github.com/bonfire-networks/bonfire-app/commit/677aba0cfed967709855d8c5766ef037936e0191) (thanks @mayel)
+- 🚀 update erlang [`e951aee`](https://github.com/bonfire-networks/bonfire-app/commit/e951aee2b7974688898a4824f0f7c512b8b7cdfe) (thanks @mayel)
+
+### Fixed
+- 🐛 On mobile when composer is open the rest of the page should not scroll anymore [#1575](https://github.com/bonfire-networks/bonfire-app/issues/1575) (thanks @ivanminutillo)
+- 🐛 Fix duplicate entry in CHANGELOG [`c829563`](https://github.com/bonfire-networks/bonfire-app/commit/c82956348c0b0ebd70d771ae2ed4978f9348f7cc) (thanks @ivanminutillo)
+
