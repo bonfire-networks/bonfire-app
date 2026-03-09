@@ -16,7 +16,7 @@ jobs:
       - name: Prepare excerpt
         id: excerpt
         env:
-          BODY: ${{ github.event.issue.body || github.event.pull_request.body || github.event.comment.body || github.event.release.body || '' }}
+          BODY: ${{ github.event.comment.body || github.event.pull_request.body || github.event.issue.body || github.event.release.body || '' }}
         run: |
           EXCERPT=$(echo "$BODY" | head -c 300)
           if [ ${#BODY} -gt 300 ]; then
@@ -34,8 +34,7 @@ jobs:
           token: ${{ secrets.MATRIX_TOKEN }}
           channel: ${{ secrets.MATRIX_ROOMID }}
           message: |
-            **Issue ${{ github.event.action }}** by [${{ github.event.issue.user.login }}](${{ github.event.issue.user.html_url }})
-            [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})
+            **Issue ${{ github.event.action }}:** [${{ github.event.issue.title }}](${{ github.event.issue.html_url }}) by [${{ github.event.issue.user.login }}](${{ github.event.issue.user.html_url }})
             > ${{ steps.excerpt.outputs.text }}
 
       - name: Notify on PRs
@@ -46,8 +45,7 @@ jobs:
           token: ${{ secrets.MATRIX_TOKEN }}
           channel: ${{ secrets.MATRIX_ROOMID }}
           message: |
-            **PR ${{ github.event.action }}** by [${{ github.event.pull_request.user.login }}](${{ github.event.pull_request.user.html_url }})
-            [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }})
+            **PR ${{ github.event.action }}:** [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }}) by [${{ github.event.pull_request.user.login }}](${{ github.event.pull_request.user.html_url }})
             > ${{ steps.excerpt.outputs.text }}
 
       - name: Notify on comments
@@ -58,7 +56,7 @@ jobs:
           token: ${{ secrets.MATRIX_TOKEN }}
           channel: ${{ secrets.MATRIX_ROOMID }}
           message: |
-            **New comment** by [${{ github.event.comment.user.login }}](${{ github.event.comment.user.html_url }}) on [${{ github.event.issue.title }}](${{ github.event.comment.html_url }})
+            **New comment** on [${{ github.event.issue.title }}](${{ github.event.comment.html_url }}) by [${{ github.event.comment.user.login }}](${{ github.event.comment.user.html_url }})
             > ${{ steps.excerpt.outputs.text }}
 
       - name: Wait for CI on release
