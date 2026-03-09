@@ -1,0 +1,45 @@
+name: Matrix Notifications
+
+on:
+  issues:
+    types: [opened, edited, closed]
+  pull_request:
+    types: [opened, closed, reopened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Matrix notification for issues
+        if: github.event_name == 'issues'
+        uses: fadenb/matrix-chat-message@v0.0.6
+        with:
+          homeserver: ${{ secrets.MATRIX_HOMESERVER }}
+          token: ${{ secrets.MATRIX_TOKEN }}
+          channel: ${{ secrets.MATRIX_ROOMID }}
+          message: |
+            **New issue ${{ github.event.action }}** by [${{ github.event.issue.user.login }}](${{ github.event.issue.user.html_url }})
+            [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})
+
+      - name: Send Matrix notification for PRs
+        if: github.event_name == 'pull_request'
+        uses: fadenb/matrix-chat-message@v0.0.6
+        with:
+          homeserver: ${{ secrets.MATRIX_HOMESERVER }}
+          token: ${{ secrets.MATRIX_TOKEN }}
+          channel: ${{ secrets.MATRIX_ROOMID }}
+          message: |
+            **New PR ${{ github.event.action }}** by [${{ github.event.pull_request.user.login }}](${{ github.event.pull_request.user.html_url }})
+            [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }})
+
+      - name: Send Matrix notification for comments
+        if: github.event_name == 'issue_comment'
+        uses: fadenb/matrix-chat-message@v0.0.6
+        with:
+          homeserver: ${{ secrets.MATRIX_HOMESERVER }}
+          token: ${{ secrets.MATRIX_TOKEN }}
+          channel: ${{ secrets.MATRIX_ROOMID }}
+          message: |
+            **New comment** by [${{ github.event.comment.user.login }}](${{ github.event.comment.user.html_url }}) on [${{ github.event.issue.title }}](${{ github.event.comment.html_url }})
