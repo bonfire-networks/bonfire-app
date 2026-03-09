@@ -1,5 +1,4 @@
 name: Matrix Notifications
-
 on:
   issues:
     types: [opened, edited, closed]
@@ -7,12 +6,27 @@ on:
     types: [opened, closed, reopened]
   issue_comment:
     types: [created]
+  release:
+    types: [published]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Matrix notification for issues
+      - name: Prepare excerpt
+        id: excerpt
+        env:
+          BODY: ${{ github.event.issue.body || github.event.pull_request.body || github.event.comment.body || github.event.release.body || '' }}
+        run: |
+          EXCERPT=$(echo "$BODY" | head -c 300)
+          if [ ${#BODY} -gt 300 ]; then
+            EXCERPT="${EXCERPT}…"
+          fi
+          echo "text<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$EXCERPT" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Notify on issues
         if: github.event_name == 'issues'
         uses: fadenb/matrix-chat-message@v0.0.6
         with:
@@ -20,10 +34,11 @@ jobs:
           token: ${{ secrets.MATRIX_TOKEN }}
           channel: ${{ secrets.MATRIX_ROOMID }}
           message: |
-            **New issue ${{ github.event.action }}** by [${{ github.event.issue.user.login }}](${{ github.event.issue.user.html_url }})
+            **Issue ${{ github.event.action }}** by [${{ github.event.issue.user.login }}](${{ github.event.issue.user.html_url }})
             [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})
+            > ${{ steps.excerpt.outputs.text }}
 
-      - name: Send Matrix notification for PRs
+      - name: Notify on PRs
         if: github.event_name == 'pull_request'
         uses: fadenb/matrix-chat-message@v0.0.6
         with:
@@ -31,10 +46,11 @@ jobs:
           token: ${{ secrets.MATRIX_TOKEN }}
           channel: ${{ secrets.MATRIX_ROOMID }}
           message: |
-            **New PR ${{ github.event.action }}** by [${{ github.event.pull_request.user.login }}](${{ github.event.pull_request.user.html_url }})
+            **PR ${{ github.event.action }}** by [${{ github.event.pull_request.user.login }}](${{ github.event.pull_request.user.html_url }})
             [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }})
+            > ${{ steps.excerpt.outputs.text }}
 
-      - name: Send Matrix notification for comments
+      - name: Notify on comments
         if: github.event_name == 'issue_comment'
         uses: fadenb/matrix-chat-message@v0.0.6
         with:
@@ -43,3 +59,19 @@ jobs:
           channel: ${{ secrets.MATRIX_ROOMID }}
           message: |
             **New comment** by [${{ github.event.comment.user.login }}](${{ github.event.comment.user.html_url }}) on [${{ github.event.issue.title }}](${{ github.event.comment.html_url }})
+            > ${{ steps.excerpt.outputs.text }}
+
+      - name: Wait for CI on release
+        if: github.event_name == 'release'
+        run: sleep 1800
+
+      - name: Notify on release
+        if: github.event_name == 'release'
+        uses: fadenb/matrix-chat-message@v0.0.6
+        with:
+          homeserver: ${{ secrets.MATRIX_HOMESERVER }}
+          token: ${{ secrets.MATRIX_TOKEN }}
+          channel: ${{ secrets.MATRIX_ROOMID }}
+          message: |
+            **Release published:** [${{ github.event.release.name || github.event.release.tag_name }}](${{ github.event.release.html_url }})
+            > ${{ steps.excerpt.outputs.text }}
