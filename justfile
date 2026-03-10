@@ -262,7 +262,7 @@ prepare:
 
 # Run the app in development
 @dev *args='':
-	HOSTNAME=localhost PUBLIC_PORT=$SERVER_PORT just _dev
+	HOSTNAME=localhost PUBLIC_PORT=$SERVER_PORT just _dev {{args}}
 
 _dev *args='':
 	MIX_ENV=dev just dev-run "db search" {{args}}
@@ -305,7 +305,7 @@ dev-federate:
 
 # Run two federated dev instances (for testing federation locally without tunnels)
 dev-federate-dance: services
-	TEST_INSTANCE=yes FEDERATE=yes HOT_CODE_RELOAD=0 just _dev
+	TEST_INSTANCE=yes just dev-federate
 
 # Run a federated dev instance with a bore tunnel
 dev-federate-tunnel bore_port="1": (_dev-federate-tunneled bore_port)
