@@ -112,6 +112,10 @@ with fallback to default options provided in the plug call.
 
 # `require_confirmed`
 
+# `safe_protect_from_forgery`
+
+Wraps `protect_from_forgery` to gracefully handle stale CSRF tokens by renewing the session and redirecting back.
+
 # `set_locale`
 
 # `signed_activity_pub_fetch`
