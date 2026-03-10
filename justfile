@@ -262,6 +262,9 @@ prepare:
 
 # Run the app in development
 @dev *args='':
+	HOSTNAME=localhost PUBLIC_PORT=$SERVER_PORT just _dev
+
+_dev *args='':
 	MIX_ENV=dev just dev-run "db search" {{args}}
 
 @dev-extra:
@@ -298,11 +301,11 @@ dev-profile-iex profile:
 	just docker-compose --profile $profile exec web iex --sname extra --remsh localenv@127.0.0.1
 
 dev-federate:
-	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just dev
+	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just _dev
 
 # Run two federated dev instances (for testing federation locally without tunnels)
 dev-federate-dance: services
-	TEST_INSTANCE=yes FEDERATE=yes HOT_CODE_RELOAD=0 just dev
+	TEST_INSTANCE=yes FEDERATE=yes HOT_CODE_RELOAD=0 just _dev
 
 # Run a federated dev instance with a bore tunnel
 dev-federate-tunnel bore_port="1": (_dev-federate-tunneled bore_port)
@@ -326,7 +329,7 @@ _dev-federate-tunneled bore_port1="1" bore_port2="2" mode='': services
 		export TEST_INSTANCE_HOSTNAME="{{bore_port2}}.{{BORE_SERVER}}"
 	fi
 	HOSTNAME="{{bore_port1}}.{{BORE_SERVER}}" PUBLIC_PORT=443 \
-		FEDERATE=yes HOT_CODE_RELOAD=0 just dev
+		FEDERATE=yes HOT_CODE_RELOAD=0 just _dev
 
 dev-docker *args='': docker-stop-web
 	just docker-compose {{args}} run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
