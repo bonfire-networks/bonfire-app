@@ -192,7 +192,7 @@ if not Code.ensure_loaded?(Mess) do
       env = System.get_env("MIX_ENV", "dev") |> String.to_existing_atom()
 
       if name == opts[:flavour] or name == (opts[:base_flavour] || :ember) do
-        {name, Keyword.merge(dep_opts || [], in_umbrella: true, env: env)}
+        {name, Keyword.merge(dep_opts || [], in_umbrella: true, override: true, env: env)}
       else
         case umbrella_deps[name] || dep_opts do
           dep_opts when is_list(dep_opts) ->
@@ -311,7 +311,7 @@ if not Code.ensure_loaded?(Mess) do
             # if we're in an umbrella child dep and including another umbrella dep
             env = System.get_env("MIX_ENV", "dev") |> String.to_existing_atom()
 
-            pkg(p, in_umbrella: true, runtime: !params[:disabled], env: env)
+            pkg(p, in_umbrella: true, override: true, runtime: !params[:disabled], env: env)
           end
         else
           # When running from umbrella root, don't add these deps at all
