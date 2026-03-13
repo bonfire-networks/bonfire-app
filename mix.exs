@@ -23,7 +23,7 @@ defmodule Bonfire.Umbrella.MixProject do
   flavour_local? = File.exists?("#{ext_forks_path}/#{flavour}")
 
   use_umbrella? =
-    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") in yes?
+    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") == "1"
 
   @umbrella_path if use_umbrella?, do: ext_forks_path, else: nil
 
@@ -36,7 +36,7 @@ defmodule Bonfire.Umbrella.MixProject do
         if(base_flavour_local? and use_local_forks?,
           do:
             {base_flavour_atom,
-             path: "#{ext_forks_path}/#{base_flavour}",
+             path: Path.join(ext_forks_path, base_flavour),
              from_umbrella: use_umbrella?,
              override: true},
           else:
@@ -49,7 +49,7 @@ defmodule Bonfire.Umbrella.MixProject do
             if(flavour_local? and use_local_forks?,
               do:
                 {flavour_atom,
-                 path: "#{ext_forks_path}/#{flavour}",
+                 path: Path.join(ext_forks_path, flavour),
                  from_umbrella: use_umbrella?,
                  override: true},
               else:
@@ -63,6 +63,7 @@ defmodule Bonfire.Umbrella.MixProject do
     else
       []
     end
+    |> Mixer.log(label: "main_deps")
 
   maybe_api_deps =
     if(System.get_env("WITH_API_GRAPHQL") not in no?,
