@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - 📝 Feed markers: Your place in the feed is now saved when you navigate away, so you can pick up where you left off [#1864](https://github.com/bonfire-networks/bonfire-app/issues/1864) (thanks @mayel and @ivanminutillo)
 - 💅 When logged-out the group page shows a wrong timeline [#603](https://github.com/bonfire-networks/bonfire-app/issues/603) (thanks @ivanminutillo)
+- 📝 DesignSystem [`5a2c586`](https://github.com/bonfire-networks/bonfire-app/commit/5a2c5866e301e9cb81ae1764ee4bd7750a033581) (thanks @mayel)
 - 📝 alpha 42 [`53e946b`](https://github.com/bonfire-networks/bonfire-app/commit/53e946b308b042309094eaf1f64d10d7af94bf32) (thanks @mayel)
 - 🚀 better just commands [`e6537fe`](https://github.com/bonfire-networks/bonfire-app/commit/e6537fe2b47fa8b4c0dbef0759404463e95dee9b) (thanks @mayel)
 - 🚧 Accepted Quote Post showing as Pending in Mastodon [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) [`b2249e7`](https://github.com/bonfire-networks/bonfire-app/commit/b2249e79fccbf3dd60b9855c1a8d2ceb8e3758c8) (thanks @mayel and @btfreeorg)
