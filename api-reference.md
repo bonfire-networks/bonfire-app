@@ -1,4 +1,4 @@
-# Bonfire v1.0.2-social-rc.14 - API Reference
+# Bonfire v1.0.2-social-rc.15 - API Reference
 
 ## Modules
 
