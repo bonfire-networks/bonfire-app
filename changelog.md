@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
-## Bonfire Social [1.0.2 (2026-03-04)]
+## Bonfire Social [1.0.2 (2026-03-17)]
 
 ### What's new
 
