@@ -12,7 +12,7 @@ defmodule Bonfire.Umbrella.MixProject do
   flavour_atom = String.to_atom(flavour)
 
   yes? = ~w(true yes 1)
-  no? = ~w(false no 0)
+  no? = ~w(false no none 0)
 
   # we only optionally behave as an umbrella im dev/test env
   use_local_forks? = System.get_env("WITH_FORKS", "1") in yes?
