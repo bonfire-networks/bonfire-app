@@ -30,7 +30,7 @@ You can access RSS feeds
 
 ## Tips
 
-- Each public post also has its own RSS feed for comments and replies, so readers can follow discussions on individual threads.
+<!-- - Each public post also has its own RSS feed for comments and replies, so readers can follow discussions on individual threads. -->
 - Use RSS to share your public updates with people outside the Fediverse, or to follow your feeds from you favourite feed reader app.
 - Great for blog-style posts or for reaching readers who prefer RSS.
 
