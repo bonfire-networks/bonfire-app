@@ -15,4 +15,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 code of conduct 0.5 draft [PR #8](https://github.com/bonfire-networks/website-blog/pull/8) (thanks @mayel)
 - 📝 DesignSystem [`5a2c586`](https://github.com/bonfire-networks/bonfire-app/commit/5a2c5866e301e9cb81ae1764ee4bd7750a033581) (thanks @mayel)
 - 📝 circles [`a3f3dcd`](https://github.com/bonfire-networks/bonfire-app/commit/a3f3dcd70b0d334ac2dd1f19d806d3ceac4dde4c) (thanks @mayel)
+- 🚧 Prototype end-to-end encrypted messages [#1701](https://github.com/bonfire-networks/bonfire-app/issues/1701) [`b538549`](https://github.com/bonfire-networks/bonfire-app/commit/b53854944d0a4cfe5583c59b346d774eb508a744) (thanks @mayel)
 
