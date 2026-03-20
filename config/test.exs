@@ -3,8 +3,8 @@ import Config
 yes? = ~w(true yes 1)
 no? = ~w(false no 0)
 
-test_instance? = System.get_env("TEST_INSTANCE") == "yes"
-federate? = test_instance? or System.get_env("FEDERATE") == "yes"
+test_instance? = System.get_env("TEST_INSTANCE") in yes?
+federate? = test_instance? or System.get_env("FEDERATE") in yes?
 
 ## Import or set test configs for extensions
 
@@ -44,8 +44,8 @@ config :surface,
 
 config :logger, :console, truncate: truncate
 
-if !test_instance? and System.get_env("CAPTURE_LOG") != "no" and
-     System.get_env("UNTANGLE_TO_IO") != "yes" do
+if !test_instance? and System.get_env("CAPTURE_LOG") not in no? and
+     System.get_env("UNTANGLE_TO_IO") not in yes? do
   # to suppress non-captured logs in tests (eg. in setup_all)
   config :logger, backends: []
 end
