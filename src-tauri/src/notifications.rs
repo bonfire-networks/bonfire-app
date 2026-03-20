@@ -87,6 +87,7 @@ async fn sse_loop(
             .unwrap();
 
         let mut fatal = false;
+        let mut had_error = false;
 
         loop {
             tokio::select! {
@@ -102,8 +103,13 @@ async fn sse_loop(
                     match event {
                         Some(Ok(Event::Open)) => {
                             eprintln!("[SSE] Connection opened to {}", url);
-                            // Reset backoff on successful connection
                             backoff_secs = 1;
+                            // After a prior error/disconnect, tell the webview to poll inbox
+                            // in case messages arrived while the SSE connection was down
+                            if had_error {
+                                had_error = false;
+                                let _ = app.emit("sse-reconnected", ());
+                            }
                         }
                         Some(Ok(Event::Message(msg))) => {
                             eprintln!("[SSE] Received event: type={}, data_len={}", msg.event, msg.data.len());
@@ -111,6 +117,7 @@ async fn sse_loop(
                         }
                         Some(Err(err)) => {
                             eprintln!("[SSE] Error: {:?}", err);
+                            had_error = true;
                             match &err {
                                 reqwest_eventsource::Error::InvalidStatusCode(status, resp) => {
                                     eprintln!("[SSE] Status: {}, headers: {:?}", status, resp.headers());
@@ -131,13 +138,15 @@ async fn sse_loop(
                                     break;
                                 }
                                 _ => {
-                                    // Transport errors — reqwest-eventsource may auto-reconnect,
-                                    // but if the stream ends after this we'll reconnect ourselves
+                                    // Transport errors (unexpected EOF, etc.) — close and reconnect immediately
+                                    es.close();
+                                    break;
                                 }
                             }
                         }
                         None => {
                             eprintln!("[SSE] Stream ended");
+                            had_error = true;
                             break;
                         }
                     }
