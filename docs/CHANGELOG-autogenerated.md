@@ -9,10 +9,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ Fetch the latest version using coopcloud/abra [#1875](https://github.com/bonfire-networks/bonfire-app/issues/1875) (thanks @jeppebundsgaard and @mayel)
 - ✨ Feature Proposal: Translation extensions [#1649](https://github.com/bonfire-networks/bonfire-app/issues/1649) (thanks @dogrileycom, @mayel, and @ivanminutillo)
 - ✨ enable marker only on certain feeds [`cbca6c5`](https://github.com/bonfire-networks/bonfire-app/commit/cbca6c53a8b209643363089129676a784e7a0c12) (thanks @mayel)
+- ✅ test [`68bb86b`](https://github.com/bonfire-networks/bonfire-app/commit/68bb86b695075db87d74b539a2466c5258905768) (thanks @mayel)
 
 ### Changed
 - 📝 Dashboard Widgets Proposal [#1734](https://github.com/bonfire-networks/bonfire-app/issues/1734) (thanks @ivanminutillo and @mayel)
 - 📝 code of conduct 0.5 draft [PR #8](https://github.com/bonfire-networks/website-blog/pull/8) (thanks @mayel)
 - 📝 DesignSystem [`5a2c586`](https://github.com/bonfire-networks/bonfire-app/commit/5a2c5866e301e9cb81ae1764ee4bd7750a033581) (thanks @mayel)
 - 📝 circles [`a3f3dcd`](https://github.com/bonfire-networks/bonfire-app/commit/a3f3dcd70b0d334ac2dd1f19d806d3ceac4dde4c) (thanks @mayel)
+- 🚧 Prototype end-to-end encrypted messages [#1701](https://github.com/bonfire-networks/bonfire-app/issues/1701) [`454b64b`](https://github.com/bonfire-networks/bonfire-app/commit/454b64b57142a096be1e1e2f72d43488b88caba5), [`b538549`](https://github.com/bonfire-networks/bonfire-app/commit/b53854944d0a4cfe5583c59b346d774eb508a744) (thanks @mayel)
 
