@@ -109,6 +109,7 @@ end
 # Optionally run a 2nd endpoint for testing federation (only used in dev/prod)
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
   server: true,
+  pubsub_server: Bonfire.Common.PubSub,
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],
   live_view: endpoint_live_view
 

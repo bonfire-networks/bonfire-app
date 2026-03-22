@@ -72,10 +72,7 @@ impl TabBasedLayout {
 
         let chat_wv = window
             .add_child(
-                WebviewBuilder::new(
-                    "chat-webview",
-                    WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
-                ),
+                super::chat_webview_builder(),
                 LogicalPosition::new(0.0, CHROME_BAR_HEIGHT),
                 LogicalSize::new(geom.width, content_h),
             )
@@ -131,10 +128,7 @@ impl TabBasedLayout {
         // Ensure chat-webview exists (may not if app started in multi-window mode)
         if app.get_webview("chat-webview").is_none() {
             let _ = window.add_child(
-                WebviewBuilder::new(
-                    "chat-webview",
-                    WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
-                ),
+                super::chat_webview_builder(),
                 LogicalPosition::new(0.0, CHROME_BAR_HEIGHT),
                 LogicalSize::new(w, content_h),
             );

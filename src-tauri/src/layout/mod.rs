@@ -48,22 +48,25 @@ pub const TITLE_BAR_HEIGHT: f64 = 8.0;
 #[cfg(desktop)]
 pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder<tauri::Wry> {
     let app_handle = app.clone();
+    let js_debug = crate::JS_DEBUG_MODE.load(std::sync::atomic::Ordering::SeqCst);
     WebviewBuilder::new("main-webview", WebviewUrl::App(url.into()))
         // Clear E2EE client state when the Bonfire web app navigates to /logout.
         // The app-logout event triggers handle_logout in Rust which destroys
         // webviews and recreates the main webview at pick-instance.html.
-        .initialization_script(
+        // Also sets __BONFIRE_JS_DEBUG__ when an unclean shutdown was detected.
+        .initialization_script(&format!(
             r#"
-            if (window.location.pathname === '/logout' || window.location.pathname.startsWith('/logout')) {
+            window.__BONFIRE_JS_DEBUG__ = {js_debug};
+            if (window.location.pathname === '/logout' || window.location.pathname.startsWith('/logout')) {{
                 console.log('Clearing client state for logout');
                 localStorage.clear();
                 sessionStorage.clear();
-                if (window.__TAURI__) {
+                if (window.__TAURI__) {{
                     window.__TAURI__.event.emit('app-logout');
-                }
-            }
+                }}
+            }}
             "#,
-        )
+        ))
         .on_navigation(move |url| {
             let scheme = url.scheme();
             if scheme == "mls" || scheme == "ap-mls" || scheme == "bonfire" {
@@ -79,6 +82,17 @@ pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder
                 true
             }
         })
+}
+
+/// Creates a chat-webview builder with the JS debug flag injected.
+#[cfg(desktop)]
+pub fn chat_webview_builder() -> WebviewBuilder<tauri::Wry> {
+    let js_debug = crate::JS_DEBUG_MODE.load(std::sync::atomic::Ordering::SeqCst);
+    WebviewBuilder::new(
+        "chat-webview",
+        WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
+    )
+    .initialization_script(&format!("window.__BONFIRE_JS_DEBUG__ = {js_debug};"))
 }
 
 /// Destroys all known windows from any layout mode.
@@ -295,6 +309,12 @@ impl LayoutManager {
             Self::SplitPane(l) => l.open_chat(app),
             Self::TabBased(l) => l.open_chat(app),
         }
+    }
+
+    /// Returns true if the chat webview is embedded at startup (tab/split modes).
+    /// In multi-window mode the chat window is created on demand.
+    pub fn has_chat_webview(&self) -> bool {
+        matches!(self, Self::SplitPane(_) | Self::TabBased(_))
     }
 
     pub fn show_main(&mut self, app: &tauri::AppHandle) {

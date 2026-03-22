@@ -80,10 +80,7 @@ impl MultiWindowLayout {
 
         window
             .add_child(
-                WebviewBuilder::new(
-                    "chat-webview",
-                    WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
-                ),
+                super::chat_webview_builder(),
                 LogicalPosition::new(0.0, TITLE_BAR_HEIGHT),
                 LogicalSize::new(geom.width, geom.height - TITLE_BAR_HEIGHT),
             )

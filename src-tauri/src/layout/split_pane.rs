@@ -103,10 +103,7 @@ impl SplitPaneLayout {
 
         window
             .add_child(
-                WebviewBuilder::new(
-                    "chat-webview",
-                    WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
-                ),
+                super::chat_webview_builder(),
                 LogicalPosition::new(main_w + DIVIDER_WIDTH, top),
                 LogicalSize::new(chat_w, content_h),
             )
@@ -177,10 +174,7 @@ impl SplitPaneLayout {
         // Ensure chat-webview exists (may not if app started in multi-window mode)
         if app.get_webview("chat-webview").is_none() {
             let _ = window.add_child(
-                WebviewBuilder::new(
-                    "chat-webview",
-                    WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
-                ),
+                super::chat_webview_builder(),
                 LogicalPosition::new(main_w + DIVIDER_WIDTH, top),
                 LogicalSize::new(chat_w, content_h),
             );

@@ -16,7 +16,9 @@
         "script-src": "'self' 'unsafe-inline' https: local:",
         "connect-src": "'self' ipc: http://ipc.localhost https: local:",
         "worker-src": "'self' blob: local:",
-        "img-src": "'self' https: local: data:",
+        "img-src": "'self' https: local: data: asset:",
+        "media-src": "'self' asset: blob:",
+        "frame-src": "asset:",
         "style-src": "'self' 'unsafe-inline' https:"
       },
       "dangerousDisableAssetCspModification": true,
@@ -29,7 +31,8 @@
       "assetProtocol": {
         "enable": true,
         "scope": [
-          "$RESOURCE/**"
+          "$RESOURCE/**",
+          "$APPDATA/attachments/tmp/**"
         ]
       }
     }
