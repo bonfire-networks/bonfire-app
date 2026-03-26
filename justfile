@@ -321,13 +321,17 @@ dev-dance-db-down:
 
 _dev-federate-tunneled bore_port1="1" bore_port2="2" mode='': services
 	#!/usr/bin/env bash
-	trap 'kill 0' EXIT
-	just tunnel-bore {{bore_port1}} &
+	# Run tunnels in their own process groups so a single Ctrl+C (SIGINT to terminal pgrp) does not reach them
+	setsid just tunnel-bore {{bore_port1}} &
+	tunnel_pids=$!
 	if [ "{{mode}}" = "dance" ]; then
-		just tunnel-bore {{bore_port2}} ${TEST_INSTANCE_SERVER_PORT:-4002} &
+		setsid just tunnel-bore {{bore_port2}} ${TEST_INSTANCE_SERVER_PORT:-4002} &
+		tunnel_pids="$tunnel_pids $!"
 		export TEST_INSTANCE=yes
 		export TEST_INSTANCE_HOSTNAME="{{bore_port2}}.{{BORE_SERVER}}"
 	fi
+	# Kill tunnel processes when this script exits (second Ctrl+C, or terminal closed)
+	trap "kill $tunnel_pids 2>/dev/null" EXIT
 	HOSTNAME="{{bore_port1}}.{{BORE_SERVER}}" PUBLIC_PORT=443 \
 		FEDERATE=yes HOT_CODE_RELOAD=0 just _dev
 
