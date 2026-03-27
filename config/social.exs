@@ -21,8 +21,8 @@ config :bonfire_ui_boundaries, Bonfire.Boundaries.Locking.LiveHandler, modularit
 # config :bonfire_ui_reactions, Bonfire.UI.Reactions.BookmarkActionLive, modularity: :disabled
 
 # enable pinning?
-config :bonfire_social, Bonfire.Social.Pins, modularity: :disabled
-config :bonfire_ui_reactions, Bonfire.UI.Reactions.PinActionLive, modularity: :disabled
+config :bonfire_social, Bonfire.Social.Pins, modularity: :enabled
+config :bonfire_ui_reactions, Bonfire.UI.Reactions.PinActionLive, modularity: :enabled
 
 # disable emoji reactions
 config :bonfire_ui_reactions, Bonfire.UI.Reactions.EmojiReactionsLive, modularity: :disabled

@@ -11,3 +11,6 @@ config :bonfire, :ui,
     category: "Create a topic",
     label: "New label"
   ]
+
+config :bonfire_social, Bonfire.Social.Pins, modularity: true
+config :bonfire_ui_reactions, Bonfire.UI.Reactions.PinActionLive, modularity: true

@@ -3,7 +3,7 @@ import Config
 IO.puts("Preparing compile-time config...")
 
 yes? = ~w(true yes 1)
-no? = ~w(false no 0)
+no? = ~w(false no none 0)
 
 default_flavour = "classic"
 flavour = System.get_env("FLAVOUR", default_flavour)
