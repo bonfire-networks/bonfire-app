@@ -3,7 +3,7 @@ import Config
 #### Flavour-specific compile-time configuration goes here, everything else should be in `Ember.RuntimeConfig`
 
 yes? = ~w(true yes 1)
-no? = ~w(false no 0)
+no? = ~w(false no none 0)
 
 # enable marking comment as answer?
 # config :bonfire_social, Bonfire.Social.Answers, modularity: :disabled

@@ -9,7 +9,7 @@ IO.puts("Preparing runtime config...")
 System.get_env("MIX_QUIET") || IO.puts("🔥 Welcome to Bonfire!")
 
 yes? = ~w(true yes 1)
-no? = ~w(false no 0)
+no? = ~w(false no none 0)
 
 # flavour = System.get_env("FLAVOUR", "classic")
 host = System.get_env("HOSTNAME", "localhost")

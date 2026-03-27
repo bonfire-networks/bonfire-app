@@ -1,7 +1,7 @@
 import Config
 
 yes? = ~w(true yes 1)
-no? = ~w(false no 0)
+no? = ~w(false no none 0)
 
 default_locale = "en"
 
