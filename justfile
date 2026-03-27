@@ -76,6 +76,8 @@ help:
 	@echo "Just commands for Bonfire:"
 	@just --list
 
+commands:
+	@echo "TODO"
 
 # Initialise env files, and create some required folders, files and softlinks
 config:

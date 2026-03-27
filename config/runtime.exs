@@ -18,11 +18,11 @@ public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 test_instance? = System.get_env("TEST_INSTANCE") in yes?
 federate? = test_instance? or System.get_env("FEDERATE") in yes?
 
-# hosts =
-#   "#{host}#{System.get_env("EXTRA_DOMAINS")}"
-#   |> String.replace(["`", " "], "")
-#   |> String.split(",")
-#   |> Enum.map(&"//#{&1}")
+hosts =
+  "#{host},#{System.get_env("EXTRA_DOMAINS")}"
+  |> String.replace(["`", " "], "")
+  |> String.split(",")
+  |> Enum.map(&"//#{&1}")
 
 System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") ||
   System.get_env("POSTGRES_PASSWORD") || System.get_env("CLOUDRON_POSTGRESQL_PASSWORD") ||
@@ -138,10 +138,11 @@ config :bonfire, Bonfire.Web.Endpoint,
       (config_env() != :test or test_instance? or phx_server in yes?),
   url: [
     host: host,
-    port: public_port
+    port: public_port,
+    scheme: if(public_port == 443, do: "https", else: "http")
   ],
-  # check_origin: hosts, # FIXME?
-  check_origin: false,
+  check_origin: hosts, 
+  # check_origin: false,
   adapter:
     if(use_cowboy?,
       do: Phoenix.Endpoint.Cowboy2Adapter,
