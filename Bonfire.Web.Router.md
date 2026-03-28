@@ -39,6 +39,8 @@ Used to serve the GraphiQL API browser
 
 # `cacheable`
 
+# `cacheable_comments_public`
+
 # `cacheable_page`
 
 # `cacheable_post_public`
@@ -66,6 +68,8 @@ Used to serve GraphQL API queries
 # `host_meta`
 
 # `html_only`
+
+# `iframe_embeddable`
 
 # `init`
 
