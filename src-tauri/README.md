@@ -13,7 +13,7 @@ To try it in dev, run this (at the root of this repo):
 
 and to run a second instance of it (useful for testing two-way user flows): 
 
-`TAURI_CONFIG='{"identifier":"cafe.bonfire.dev2"}' cargo tauri dev`
+`cargo tauri dev --config '{"identifier":"cafe.bonfire.dev2"}'`
 
 For testing on Android:
 

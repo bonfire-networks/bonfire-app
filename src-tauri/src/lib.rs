@@ -90,7 +90,7 @@ pub struct AppState {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let app = tauri::Builder::default()
+    let mut builder = tauri::Builder::default()
         .plugin(
             tauri_plugin_log::Builder::default()
                 .level(log::LevelFilter::Info)
@@ -119,8 +119,14 @@ pub fn run() {
             commands::signal_app_ready,
             commands::check_skip_storage,
             commands::js_log,
-        ])
-        .setup(move |app| {
+        ]);
+
+        #[cfg(feature = "e2e-testing")]
+        {
+            builder = builder.plugin(tauri_plugin_playwright::init());
+        }
+
+        let app = builder.setup(move |app| {
             let prefs = load_preferences(app.handle());
             #[allow(unused_variables)]
             let mode = LayoutMode::from_preferences(&prefs);
