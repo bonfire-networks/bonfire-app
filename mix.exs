@@ -455,6 +455,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "ember",
         "social",
         "community",
+        "jacobin",
         "coordination",
         "cooperation",
         "upcycle",
