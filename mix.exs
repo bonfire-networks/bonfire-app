@@ -176,6 +176,9 @@ defmodule Bonfire.Umbrella.MixProject do
 
         {:ranch, ranch_req, override: true},
 
+        {:nebulex, "~> 3.0.3", override: true}, # to override boruta
+        {:nebulex_distributed, "~> 3.0", override: true}, # Nebulex.Adapters.Replicated for boruta
+
         # compilation
         # {:tria, github: "hissssst/tria"},
 
