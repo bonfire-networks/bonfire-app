@@ -24,6 +24,7 @@ config :nodeinfo, :adapter, Bonfire.Federate.ActivityPub.NodeinfoAdapter
 
 config :activity_pub, :instance,
   hostname: "localhost",
+  local_login_redirect_uri: "/login?go=",
   federation_publisher_modules: [ActivityPub.Federator.APPublisher],
   federation_reachability_timeout_days: 7,
   # Max. depth of reply-to and reply activities fetching on incoming federation, to prevent out-of-memory situations while fetching very long threads.

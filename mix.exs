@@ -175,9 +175,10 @@ defmodule Bonfire.Umbrella.MixProject do
         # {:ex_aws, git: "https://github.com/bonfire-networks/ex_aws", override: true},
 
         {:ranch, ranch_req, override: true},
-
-        {:nebulex, "~> 3.0.3", override: true}, # to override boruta
-        {:nebulex_distributed, "~> 3.0", override: true}, # Nebulex.Adapters.Replicated for boruta
+        #  to override boruta
+        {:nebulex, "~> 3.0.3", override: true},
+        # Nebulex.Adapters.Replicated for boruta
+        {:nebulex_distributed, "~> 3.0", override: true},
 
         # compilation
         # {:tria, github: "hissssst/tria"},
