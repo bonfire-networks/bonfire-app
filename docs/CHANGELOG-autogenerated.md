@@ -41,7 +41,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 lock [`95f374a`](https://github.com/bonfire-networks/bonfire-app/commit/95f374a43720a53d191a58290f4483a562573e10), [`74d94d6`](https://github.com/bonfire-networks/bonfire-app/commit/74d94d644e40e46b8b2a2a4686bcc2787bbc4a36), [`6f31036`](https://github.com/bonfire-networks/bonfire-app/commit/6f31036ad758245affc3b12e168fe5d2e9e77d01), [`072e82e`](https://github.com/bonfire-networks/bonfire-app/commit/072e82eb494b9cbe178bcdb24fc0cc60ba105c7e) (thanks @ivanminutillo)
 - 💅 feat: Pandora video preview, LazyImage fix, config cleanup [`23d4703`](https://github.com/bonfire-networks/federated_archives/commit/23d470384470c9990c37a94eaa8f40be51256089)
 - 📝 group membership [`11fcfcd`](https://github.com/bonfire-networks/bonfire-app/commit/11fcfcdd0087c18561e6eabf37c637c4d66b4f51) (thanks @mayel)
-- 📝 comments [`6dd7bb1`](https://github.com/bonfire-networks/bonfire-app/commit/6dd7bb1393f78426b7df84f012a83b82607ae607) (thanks @mayel)
+- 📝 comments [`9779415`](https://github.com/bonfire-networks/bonfire-app/commit/9779415e252471581305d9735f254dbb1fb8c9f3), [`38726ac`](https://github.com/bonfire-networks/bonfire-app/commit/38726ac7d04002aaa0325ee4d4f3e10a421dc5c3), [`6dd7bb1`](https://github.com/bonfire-networks/bonfire-app/commit/6dd7bb1393f78426b7df84f012a83b82607ae607) (thanks @mayel)
 - 📝 embed media [`6fc7788`](https://github.com/bonfire-networks/bonfire-app/commit/6fc7788f1f74044c97c215b7d4c08c7b2fb04f13) (thanks @mayel)
 - 📝 thread optim [`a32b04a`](https://github.com/bonfire-networks/bonfire-app/commit/a32b04adf32de5a8b0effa11be181465869dc2b8) (thanks @mayel)
 - 🚧 Adding a new client [#1817](https://github.com/bonfire-networks/bonfire-app/issues/1817) [`d92515e`](https://github.com/bonfire-networks/bonfire-app/commit/d92515e5def169cd812c891e2611700c93357325) (thanks @mayel)
@@ -62,4 +62,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixed
 - 🐛 Annotation Problem [#54](https://github.com/bonfire-networks/federated_archives/issues/54) (thanks @cranioisthinking)
 - 🐛 [Bug]: after a keyword search, additional filters return an error [#36](https://github.com/bonfire-networks/federated_archives/issues/36) (thanks @ivanminutillo)
+
+### Security
+- 🚨 embed_auth [`847e3f8`](https://github.com/bonfire-networks/bonfire-app/commit/847e3f878fe1dc1aa6a1fdc75b3bd7f8529bc481), [`4b8fe8b`](https://github.com/bonfire-networks/activity_pub/commit/4b8fe8bc1f73d55834637801af7c1dfbf2bfd792) (thanks @mayel)
 
