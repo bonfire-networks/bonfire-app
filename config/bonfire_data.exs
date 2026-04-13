@@ -9,6 +9,7 @@ verbs = [
   "Edit",
   "Flag",
   "Follow",
+  "Join",
   "Like",
   "Mention",
   "Message",
