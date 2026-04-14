@@ -317,6 +317,57 @@ dev-federate-tunnel-dance bore_port1="1" bore_port2="2": (_dev-federate-tunneled
 
 dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-dance bore_port1 bore_port2)
 
+# Obtain an OAuth token for E2E tests and print shell export lines.
+# Usage: eval $(just oauth-token) — requires E2E_LOGIN, E2E_PASSWORD in env.
+oauth-token:
+	#!/usr/bin/env bash
+	set -e
+	E2E_APP_URL="${E2E_APP_URL:-${HOSTNAME:-localhost}:${PUBLIC_PORT:-4000}}"
+	BASE_URL="http://$E2E_APP_URL"
+	if ! curl -sf -o /dev/null "$BASE_URL"; then
+	  echo "Error: dev server not reachable at $BASE_URL — run 'just dev' first" >&2
+	  exit 1
+	fi
+	CLIENT_JSONLD="extensions/bonfire_ui_common/assets/static/tauri/client.jsonld"
+	REG=$(jq '{redirect_uris:[.redirectURI],client_name:.name,grant_types:["password"],scope:"openid profile email"}' "$CLIENT_JSONLD" \
+	  | curl -sf -X POST "$BASE_URL/openid/register" -H "Content-Type: application/json" -d @-)
+	CLIENT_ID=$(echo "$REG"     | jq -r .client_id)
+	CLIENT_SECRET=$(echo "$REG" | jq -r .client_secret)
+	TOK=$(curl -sf -X POST "$BASE_URL/oauth/token" \
+	  -d "grant_type=password&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&username=${E2E_LOGIN}&password=${E2E_PASSWORD}&scope=openid")
+	ACCESS_TOKEN=$(echo "$TOK" | jq -r .access_token)
+	ACTOR_ID=$(curl -sf "$BASE_URL/openid/userinfo" \
+	  -H "Authorization: Bearer $ACCESS_TOKEN" | jq -r .sub)
+	echo "export E2E_APP_URL='$E2E_APP_URL'"
+	echo "export E2E_ACCESS_TOKEN='$ACCESS_TOKEN'"
+	echo "export E2E_ACTOR_ID='$ACTOR_ID'"
+
+# Run Tauri e2e tests: starts dev server, obtains OAuth token, launches Tauri, then runs Playwright.
+# Set E2E_LOGIN and E2E_PASSWORD in your .env (or export them). E2E_APP_URL defaults to localhost:4000.
+test-tauri-e2e:
+	#!/usr/bin/env bash
+	set -e
+	server_pid=""
+	tauri_pid=""
+	cleanup() { kill $server_pid $tauri_pid 2>/dev/null; }
+	trap cleanup EXIT INT TERM
+	rm -f /tmp/tauri-playwright.sock
+	just mix phx.server &
+	echo "Waiting for dev server on port 4000..."
+	while ! curl -s -o /dev/null http://localhost:4000; do sleep 1; done
+	eval $(just oauth-token)
+	echo "Token obtained for $E2E_ACTOR_ID"
+	echo "Starting Tauri app in e2e mode..."
+	E2E_APP_URL="$E2E_APP_URL" E2E_ACCESS_TOKEN="$E2E_ACCESS_TOKEN" E2E_ACTOR_ID="$E2E_ACTOR_ID" \
+	cargo tauri dev --features e2e-testing --no-watch &
+	tauri_pid=$!
+	server_pid=$(pgrep -f "mix phx.server" | head -1)
+	cleanup() { kill $server_pid $tauri_pid 2>/dev/null; }
+	trap cleanup EXIT INT TERM
+	echo "Waiting for Tauri playwright socket..."
+	while [ ! -S /tmp/tauri-playwright.sock ]; do sleep 0.5; done
+	cd extensions/bonfire_ui_common/assets/static/tauri && yarn test
+
 # Drop the dance instance DB (so it gets re-created and re-migrated on next startup)
 dev-dance-db-down:
 	TEST_INSTANCE=yes just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo
@@ -373,7 +424,7 @@ dev-test:
 
 # Run the app in dev mode, as a background service
 dev-bg: init
-	{{ if WITH_DOCKER == "total" { "just docker-stop-web && just docker-compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server" && echo "Running in background..." && (ps au | grep beam)' } }}
+	{{ if WITH_DOCKER == "total" { "just docker-stop-web && just docker-compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server && echo "Running in background..." && (ps au | grep beam)' } }}
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
 db-migrate: services

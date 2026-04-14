@@ -131,7 +131,55 @@ pub fn run() {
             #[allow(unused_variables)]
             let mode = LayoutMode::from_preferences(&prefs);
 
-            #[cfg(desktop)]
+            #[cfg(all(feature = "e2e-testing", desktop))]
+            {
+                // E2E mode: skip pick-instance.html, open chat webview directly.
+                // Credentials injected via env vars so localStorage is pre-populated
+                // before the chat controller initialises.
+                let access_token = std::env::var("E2E_ACCESS_TOKEN").unwrap_or_default();
+                let app_url = std::env::var("E2E_APP_URL").unwrap_or_else(|_| "localhost:4000".to_string());
+                let actor_id = std::env::var("E2E_ACTOR_ID").unwrap_or_default();
+                // app_url is stored without protocol (e.g. "localhost:4000") matching normal app behaviour.
+                // actor_id must be a full URL; fall back to http://app_url if not provided.
+                let actor_id_url = if actor_id.starts_with("http") {
+                    actor_id.clone()
+                } else {
+                    format!("http://{}", app_url)
+                };
+                let base_url = format!("http://{}", app_url);
+                let init_script = format!(
+                    "localStorage.setItem('access_token',{at});\
+                     localStorage.setItem('appUrl',{au});\
+                     localStorage.setItem('actor_id',{ai});\
+                     localStorage.setItem('token_endpoint',{te});\
+                     localStorage.setItem('authorization_endpoint',{ae});\
+                     localStorage.setItem('wasmBasePath','false');",
+                    at = serde_json::to_string(&access_token).unwrap(),
+                    au = serde_json::to_string(&app_url).unwrap(),
+                    ai = serde_json::to_string(&actor_id_url).unwrap(),
+                    te = serde_json::to_string(&format!("{}/oauth/token", base_url)).unwrap(),
+                    ae = serde_json::to_string(&format!("{}/oauth/authorize", base_url)).unwrap(),
+                );
+                tauri::WebviewWindowBuilder::new(
+                    app,
+                    "chat-webview",
+                    tauri::WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
+                )
+                .initialization_script(&init_script)
+                .inner_size(1280.0, 800.0)
+                .build()
+                .map_err(|e| format!("E2E chat window failed: {e}"))?;
+
+                let layout_manager = LayoutManager::new(mode, &prefs);
+                app.manage(Mutex::new(AppState {
+                    layout_manager,
+                    preferences: prefs,
+                    notification_listener: None,
+                }));
+                return Ok(());
+            }
+
+            #[cfg(all(not(feature = "e2e-testing"), desktop))]
             {
                 // Detect unclean shutdown — enable JS debug logging and offer recovery options
                 let had_dirty_quit = dirty_flag_exists(app.handle());
@@ -208,7 +256,7 @@ pub fn run() {
                     notification_listener: None,
                 }));
                 tray::setup(app, mode)?;
-            }
+            } // end #[cfg(all(not(feature = "e2e-testing"), desktop))]
 
             #[cfg(mobile)]
             {
