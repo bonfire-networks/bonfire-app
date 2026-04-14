@@ -25,7 +25,7 @@ config :bonfire, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-config :live_debugger, disabled?: false
+config :live_debugger, disabled?: System.get_env("DISABLE_LIVE_DEBUGGER") in ~w(true 1 yes)
 
 # if System.get_env("WITH_FORKS", "1") == "1" , do:
 # Mess.deps(
