@@ -319,32 +319,41 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 
 # Obtain an OAuth token for E2E tests and print shell export lines.
 # Usage: eval $(just oauth-token) — requires E2E_LOGIN, E2E_PASSWORD in env.
-oauth-token:
+@oauth-token client_jsonld_file="extensions/bonfire_ui_common/assets/static/tauri/client.jsonld":
 	#!/usr/bin/env bash
 	set -e
-	E2E_APP_URL="${E2E_APP_URL:-${HOSTNAME:-localhost}:${PUBLIC_PORT:-4000}}"
-	BASE_URL="http://$E2E_APP_URL"
+	E2E_APP_URL="${E2E_APP_URL:-http://${HOSTNAME:-localhost}:${PUBLIC_PORT:-4000}}"
+	BASE_URL="$E2E_APP_URL"
 	if ! curl -sf -o /dev/null "$BASE_URL"; then
 	  echo "Error: dev server not reachable at $BASE_URL — run 'just dev' first" >&2
 	  exit 1
 	fi
-	CLIENT_JSONLD="extensions/bonfire_ui_common/assets/static/tauri/client.jsonld"
-	REG=$(jq '{redirect_uris:[.redirectURI],client_name:.name,grant_types:["password"],scope:"openid profile email"}' "$CLIENT_JSONLD" \
+	REG=$(jq '{redirect_uris:[.redirectURI],client_name:.name,grant_types:["password"],scope:"openid profile email"}' "{{client_jsonld_file}}" \
 	  | curl -sf -X POST "$BASE_URL/openid/register" -H "Content-Type: application/json" -d @-)
 	CLIENT_ID=$(echo "$REG"     | jq -r .client_id)
 	CLIENT_SECRET=$(echo "$REG" | jq -r .client_secret)
 	TOK=$(curl -sf -X POST "$BASE_URL/oauth/token" \
 	  -d "grant_type=password&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&username=${E2E_LOGIN}&password=${E2E_PASSWORD}&scope=openid")
 	ACCESS_TOKEN=$(echo "$TOK" | jq -r .access_token)
-	ACTOR_ID=$(curl -sf "$BASE_URL/openid/userinfo" \
-	  -H "Authorization: Bearer $ACCESS_TOKEN" | jq -r .sub)
+	# Resolve actor URL via webfinger (canonical AP actor href)
+	ACTOR_ID=$(curl -sf "$BASE_URL/.well-known/webfinger?resource=acct:${E2E_LOGIN}" \
+	  | jq -r '.links[] | select(.rel=="self" and .type=="application/activity+json") | .href' \
+	  | head -1)
+	# Fetch OAuth endpoints from discovery document
+	DISCOVERY=$(curl -sf "$BASE_URL/.well-known/openid-configuration" || echo '{}')
+	TOKEN_ENDPOINT=$(echo "$DISCOVERY" | jq -r '.token_endpoint // empty')
+	AUTH_ENDPOINT=$(echo "$DISCOVERY"  | jq -r '.authorization_endpoint // empty')
+	[ -z "$TOKEN_ENDPOINT" ] && TOKEN_ENDPOINT="$BASE_URL/oauth/token"
+	[ -z "$AUTH_ENDPOINT"  ] && AUTH_ENDPOINT="$BASE_URL/oauth/authorize"
 	echo "export E2E_APP_URL='$E2E_APP_URL'"
 	echo "export E2E_ACCESS_TOKEN='$ACCESS_TOKEN'"
 	echo "export E2E_ACTOR_ID='$ACTOR_ID'"
+	echo "export E2E_TOKEN_ENDPOINT='$TOKEN_ENDPOINT'"
+	echo "export E2E_AUTH_ENDPOINT='$AUTH_ENDPOINT'"
 
 # Run Tauri e2e tests: starts dev server, obtains OAuth token, launches Tauri, then runs Playwright.
 # Set E2E_LOGIN and E2E_PASSWORD in your .env (or export them). E2E_APP_URL defaults to localhost:4000.
-test-tauri-e2e:
+@test-tauri-e2e: services
 	#!/usr/bin/env bash
 	set -e
 	server_pid=""
@@ -352,17 +361,26 @@ test-tauri-e2e:
 	cleanup() { kill $server_pid $tauri_pid 2>/dev/null; }
 	trap cleanup EXIT INT TERM
 	rm -f /tmp/tauri-playwright.sock
+	lsof -ti:6275 | xargs kill -9 2>/dev/null || true
 	just mix phx.server &
 	echo "Waiting for dev server on port 4000..."
 	while ! curl -s -o /dev/null http://localhost:4000; do sleep 1; done
 	eval $(just oauth-token)
 	echo "Token obtained for $E2E_ACTOR_ID"
+	echo "Rebuilding JS bundle before launch..."
+	(cd extensions/bonfire_ui_common/assets/static/tauri/assets/ap_c2s_client/js && yarn build)
 	echo "Starting Tauri app in e2e mode..."
 	E2E_APP_URL="$E2E_APP_URL" E2E_ACCESS_TOKEN="$E2E_ACCESS_TOKEN" E2E_ACTOR_ID="$E2E_ACTOR_ID" \
+	E2E_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT" \
 	cargo tauri dev --features e2e-testing --no-watch &
 	tauri_pid=$!
 	server_pid=$(pgrep -f "mix phx.server" | head -1)
-	cleanup() { kill $server_pid $tauri_pid 2>/dev/null; }
+	# Kill the whole process group of cargo tauri dev (which spawns the actual Tauri binary)
+	cleanup() {
+	  kill $server_pid 2>/dev/null
+	  kill -- -$tauri_pid 2>/dev/null || kill $tauri_pid 2>/dev/null
+	  pkill -f "target/debug/Bonfire" 2>/dev/null || true
+	}
 	trap cleanup EXIT INT TERM
 	echo "Waiting for Tauri playwright socket..."
 	while [ ! -S /tmp/tauri-playwright.sock ]; do sleep 0.5; done

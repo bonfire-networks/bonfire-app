@@ -137,18 +137,15 @@ pub fn run() {
                 // Credentials injected via env vars so localStorage is pre-populated
                 // before the chat controller initialises.
                 let access_token = std::env::var("E2E_ACCESS_TOKEN").unwrap_or_default();
-                let app_url = std::env::var("E2E_APP_URL").unwrap_or_else(|_| "localhost:4000".to_string());
-                let actor_id = std::env::var("E2E_ACTOR_ID").unwrap_or_default();
-                // app_url is stored without protocol (e.g. "localhost:4000") matching normal app behaviour.
-                // actor_id must be a full URL; fall back to http://app_url if not provided.
-                let actor_id_url = if actor_id.starts_with("http") {
-                    actor_id.clone()
-                } else {
-                    format!("http://{}", app_url)
-                };
-                let base_url = format!("http://{}", app_url);
+                let app_url_full = std::env::var("E2E_APP_URL").unwrap_or_else(|_| "http://localhost:4000".to_string());
+                // appUrl is stored without scheme in localStorage (app prepends https:// itself)
+                let app_url = app_url_full.trim_start_matches("https://").trim_start_matches("http://").to_string();
+                let actor_id    = std::env::var("E2E_ACTOR_ID").unwrap_or_default();
+                let token_ep    = std::env::var("E2E_TOKEN_ENDPOINT").unwrap_or_default();
+                let auth_ep     = std::env::var("E2E_AUTH_ENDPOINT").unwrap_or_default();
                 let init_script = format!(
-                    "localStorage.setItem('access_token',{at});\
+                    "localStorage.clear();\
+                     localStorage.setItem('access_token',{at});\
                      localStorage.setItem('appUrl',{au});\
                      localStorage.setItem('actor_id',{ai});\
                      localStorage.setItem('token_endpoint',{te});\
@@ -156,9 +153,9 @@ pub fn run() {
                      localStorage.setItem('wasmBasePath','false');",
                     at = serde_json::to_string(&access_token).unwrap(),
                     au = serde_json::to_string(&app_url).unwrap(),
-                    ai = serde_json::to_string(&actor_id_url).unwrap(),
-                    te = serde_json::to_string(&format!("{}/oauth/token", base_url)).unwrap(),
-                    ae = serde_json::to_string(&format!("{}/oauth/authorize", base_url)).unwrap(),
+                    ai = serde_json::to_string(&actor_id).unwrap(),
+                    te = serde_json::to_string(&token_ep).unwrap(),
+                    ae = serde_json::to_string(&auth_ep).unwrap(),
                 );
                 tauri::WebviewWindowBuilder::new(
                     app,
