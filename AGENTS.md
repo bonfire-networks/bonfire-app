@@ -204,3 +204,4 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Never** use `<% Enum.each %>` or non-for comprehensions for generating template content, instead **always** use `<%= for item <- @collection do %>`
 - HEEx HTML comments use `<%!-- comment --%>`. **Always** use this syntax for HEEx template comments. Surface HTML comments use `{!-- comment --}`. **Always** use this syntax for Surface template comments.
 - HEEx and Surface allow interpolation via `{...}` instead of the outdated `<%= ... %>`. **Always** use the `{...}` syntax.
+- **Never** use variable binding inside Surface templates (e.g. `{var = expr}`). This renders the value as a visible text node in the HTML. Instead, inline expressions at each use site or pre-compute values in `render/1` and pass them as assigns.
