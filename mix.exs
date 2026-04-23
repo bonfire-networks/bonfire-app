@@ -95,7 +95,7 @@ defmodule Bonfire.Umbrella.MixProject do
     if(with_ai?,
       do: [
         {:bumblebee, "~> 0.6.3"},
-        {:axon, "~> 0.8.0", override: true},
+        {:axon, "~> 0.7.0", override: true},
         {:table_rex, "~> 4.1.0", override: true},
         # {:nx, "~> 0.9.0"},
         # {:exla, "~> 0.9.1"},
@@ -104,11 +104,11 @@ defmodule Bonfire.Umbrella.MixProject do
         {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
       ],
       else: [
-        # {:nx, "~> 0.9.0", override: true},
+        {:axon, "~> 0.7.0", override: true},
+        {:nx, "~> 0.10.0", override: true},
         {:table_rex, "~> 4.1.0", override: true}
       ]
-
-      # because used by other deps
+      # because used by other deps ^
     )
 
   with_xmpp = System.get_env("WITH_XMPP")
