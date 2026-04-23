@@ -6,10 +6,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✅ test minimal [#1937](https://github.com/bonfire-networks/bonfire-app/issues/1937) (thanks @Argocyte)
 - ✅ Fetch the latest version using coopcloud/abra [#1875](https://github.com/bonfire-networks/bonfire-app/issues/1875) (thanks @jeppebundsgaard and @mayel)
 - ✨ Support RFC 9421 HTTP Message Signatures for incoming inbox POSTs [#7](https://github.com/bonfire-networks/activity_pub/issues/7) - [PR #626](https://github.com/bonfire-networks/activity_pub/pull/626) (thanks @dahlia, @mayel, and @2chanhaeng)
 - ✨ Feature Proposal: Translation extensions [#1649](https://github.com/bonfire-networks/bonfire-app/issues/1649) (thanks @dogrileycom, @mayel, and @ivanminutillo)
 - ✨ [Bonfire Pandora] :: As a user i want to add metadata to a movie if I have proper rights [#8](https://github.com/bonfire-networks/federated_archives/issues/8) (thanks @ivanminutillo)
+- ✨ Add per-user and per-instance keyword filtering [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @ivanminutillo and @mayel)
+- ✅ WIP e2ee testing [`5992875`](https://github.com/bonfire-networks/bonfire-app/commit/5992875c01d9cd7ac8223cdf9ffec734d8fdfaef), [`0776cb9`](https://github.com/bonfire-networks/bonfire-app/commit/0776cb94c4ffd6e47d5e0542f67472d741f1a61a) (thanks @mayel)
 - ✨ feat(css): add federated_archives_plyr re-export for bonfire_pandora Plyr styles [`6729852`](https://github.com/bonfire-networks/federated_archives/commit/6729852329e58a05298e001fc15d41fcf9800489)
 - ✨ enable marker only on certain feeds [`cbca6c5`](https://github.com/bonfire-networks/bonfire-app/commit/cbca6c53a8b209643363089129676a784e7a0c12) (thanks @mayel)
 - ✅ test [`68bb86b`](https://github.com/bonfire-networks/bonfire-app/commit/68bb86b695075db87d74b539a2466c5258905768) (thanks @mayel)
@@ -37,15 +40,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 fix(flavour): drop DashboardLive templates; use upstream default /dashboard [`806a8e6`](https://github.com/bonfire-networks/federated_archives/commit/806a8e630dcbd25f362d5febac4a75c48448353b)
 - 📝 localisation [`f3c3d7d`](https://github.com/bonfire-networks/bonfire-app/commit/f3c3d7dd2fbea25449d3286bfd3bb26abbc946ef) (thanks @mayel)
 - 📝 working on filters widget [`871a845`](https://github.com/bonfire-networks/federated_archives/commit/871a845d25a20a5546377c09192f640e6f68dc21)
+- 📝 WIP [`60d8b0f`](https://github.com/bonfire-networks/bonfire-app/commit/60d8b0f24b3fec9c5dea7410694b8d7fc04b0251) (thanks @mayel)
 - 📝 fix(dashboard): use ArchiveSearchLive with ConnectPandora; assign csrf_token in ArchiveSearchLive mount [`6b3d649`](https://github.com/bonfire-networks/federated_archives/commit/6b3d6495922be4e0fbe1d30e7a653c013620b7c9)
 - 📝 lock [`95f374a`](https://github.com/bonfire-networks/bonfire-app/commit/95f374a43720a53d191a58290f4483a562573e10), [`74d94d6`](https://github.com/bonfire-networks/bonfire-app/commit/74d94d644e40e46b8b2a2a4686bcc2787bbc4a36), [`6f31036`](https://github.com/bonfire-networks/bonfire-app/commit/6f31036ad758245affc3b12e168fe5d2e9e77d01), [`072e82e`](https://github.com/bonfire-networks/bonfire-app/commit/072e82eb494b9cbe178bcdb24fc0cc60ba105c7e) (thanks @ivanminutillo)
+- 📝 ghost [`2db8d53`](https://github.com/bonfire-networks/bonfire-app/commit/2db8d5305a005f8be25d559b51c674605005e78f) (thanks @mayel)
 - 💅 feat: Pandora video preview, LazyImage fix, config cleanup [`23d4703`](https://github.com/bonfire-networks/federated_archives/commit/23d470384470c9990c37a94eaa8f40be51256089)
 - 📝 group membership [`11fcfcd`](https://github.com/bonfire-networks/bonfire-app/commit/11fcfcdd0087c18561e6eabf37c637c4d66b4f51) (thanks @mayel)
-- 📝 comments [`6dd7bb1`](https://github.com/bonfire-networks/bonfire-app/commit/6dd7bb1393f78426b7df84f012a83b82607ae607) (thanks @mayel)
+- 📝 comments [`9779415`](https://github.com/bonfire-networks/bonfire-app/commit/9779415e252471581305d9735f254dbb1fb8c9f3), [`38726ac`](https://github.com/bonfire-networks/bonfire-app/commit/38726ac7d04002aaa0325ee4d4f3e10a421dc5c3), [`6dd7bb1`](https://github.com/bonfire-networks/bonfire-app/commit/6dd7bb1393f78426b7df84f012a83b82607ae607) (thanks @mayel)
+- 📝 topics [`ddc0ef1`](https://github.com/bonfire-networks/bonfire-app/commit/ddc0ef13535d3c55dd05148ec461fdc495a22b01) (thanks @mayel)
 - 📝 embed media [`6fc7788`](https://github.com/bonfire-networks/bonfire-app/commit/6fc7788f1f74044c97c215b7d4c08c7b2fb04f13) (thanks @mayel)
 - 📝 thread optim [`a32b04a`](https://github.com/bonfire-networks/bonfire-app/commit/a32b04adf32de5a8b0effa11be181465869dc2b8) (thanks @mayel)
 - 🚧 Adding a new client [#1817](https://github.com/bonfire-networks/bonfire-app/issues/1817) [`d92515e`](https://github.com/bonfire-networks/bonfire-app/commit/d92515e5def169cd812c891e2611700c93357325) (thanks @mayel)
-- 📝 groups [`d066dfb`](https://github.com/bonfire-networks/bonfire-app/commit/d066dfb689e553d9bbb682d47a73ca8d67166932), [`1e4c04e`](https://github.com/bonfire-networks/bonfire-app/commit/1e4c04e87847bfa1968fbdcf43d95854ffe6b23b), [`a01ca6f`](https://github.com/bonfire-networks/bonfire-app/commit/a01ca6f94b57c34f6d69703118aadc4fd12ade1a), [`95e0dd4`](https://github.com/bonfire-networks/bonfire-app/commit/95e0dd4f1e1a67e0f830f98a992d60e174739d64) (thanks @mayel)
+- 📝 groups [`152be62`](https://github.com/bonfire-networks/bonfire-app/commit/152be621152d467e5aba48508120a70b8b3d8e25), [`b7b8466`](https://github.com/bonfire-networks/bonfire-app/commit/b7b84660b0f2a52ab3881273fcc0a195a733bda8), [`86e3ebf`](https://github.com/bonfire-networks/bonfire-app/commit/86e3ebf1e9cf9869e3a36caef89ea58b9dfccd1c), [`d066dfb`](https://github.com/bonfire-networks/bonfire-app/commit/d066dfb689e553d9bbb682d47a73ca8d67166932), [`1e4c04e`](https://github.com/bonfire-networks/bonfire-app/commit/1e4c04e87847bfa1968fbdcf43d95854ffe6b23b), [`a01ca6f`](https://github.com/bonfire-networks/bonfire-app/commit/a01ca6f94b57c34f6d69703118aadc4fd12ade1a), [`95e0dd4`](https://github.com/bonfire-networks/bonfire-app/commit/95e0dd4f1e1a67e0f830f98a992d60e174739d64) (thanks @mayel)
 - 📝 optimisations [`94f696c`](https://github.com/bonfire-networks/bonfire-app/commit/94f696c8d3d7116e24ac45df500346604e4103d3) (thanks @mayel)
 - 📝 plyr css and function [`0d09d68`](https://github.com/bonfire-networks/federated_archives/commit/0d09d6871ba5d7ce43a8d8d63f0b4c009622deea)
 - 📝 notifications [`4f66aaa`](https://github.com/bonfire-networks/bonfire-app/commit/4f66aaae6b3145297ec26847b69eaba2238991d1) (thanks @mayel)
@@ -55,11 +61,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 css on extension [`78ee2d7`](https://github.com/bonfire-networks/federated_archives/commit/78ee2d7a503f425f27a912d74b785624c6d99598)
 - 📝 circles [`a3f3dcd`](https://github.com/bonfire-networks/bonfire-app/commit/a3f3dcd70b0d334ac2dd1f19d806d3ceac4dde4c) (thanks @mayel)
 - 📝 iframe [`ba01d55`](https://github.com/bonfire-networks/bonfire-app/commit/ba01d556f9476a33a0f5a5389277340804799ede) (thanks @mayel)
+- 📝 post in topic [`946bd96`](https://github.com/bonfire-networks/bonfire-app/commit/946bd96a0da8c78308d827b143186d3c81edcd98) (thanks @mayel)
 - 📝 DesignSystem [`5a2c586`](https://github.com/bonfire-networks/bonfire-app/commit/5a2c5866e301e9cb81ae1764ee4bd7750a033581) (thanks @mayel)
 - 📝 flavour [`3ffce84`](https://github.com/bonfire-networks/bonfire-app/commit/3ffce844810e99df8020324f5dbf2193809b532d) (thanks @ivanminutillo)
+- 📝 groups WIP [`1e91320`](https://github.com/bonfire-networks/bonfire-app/commit/1e913204fa4f9e1e86330ac1626605b7e3f777db) (thanks @mayel)
 - 💅 align PreviewContentLive hook with Pandora video preview clicks [`dffb273`](https://github.com/bonfire-networks/federated_archives/commit/dffb2735a6da50304b51040c9513c4338ee9feff)
 
 ### Fixed
+- 🐛 confim button in delete user modal doesn't work [#1931](https://github.com/bonfire-networks/bonfire-app/issues/1931) (thanks @mayel and @ivanminutillo)
 - 🐛 Annotation Problem [#54](https://github.com/bonfire-networks/federated_archives/issues/54) (thanks @cranioisthinking)
 - 🐛 [Bug]: after a keyword search, additional filters return an error [#36](https://github.com/bonfire-networks/federated_archives/issues/36) (thanks @ivanminutillo)
+
+### Security
+- 🚨 embed_auth [`847e3f8`](https://github.com/bonfire-networks/bonfire-app/commit/847e3f878fe1dc1aa6a1fdc75b3bd7f8529bc481), [`4b8fe8b`](https://github.com/bonfire-networks/activity_pub/commit/4b8fe8bc1f73d55834637801af7c1dfbf2bfd792) (thanks @mayel)
 
