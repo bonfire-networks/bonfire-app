@@ -101,7 +101,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
 - Use PhoenixTest for UI testing.
-- Run tests in the background and save the log rather than only keeping the tail, so you can show me results/logs to debug together, rather than only interpreting them.
+- Run tests in the background and save the output to a temporary log file rather than only keeping the tail, so we can grep and refer back to the log anytime.
 
 ## Security
 
