@@ -101,7 +101,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
 - Use PhoenixTest for UI testing.
-- Run tests in the background and save the output to a temporary log file rather than only keeping the tail, so we can grep and refer back to the log anytime.
+- **Run tests in the background** using `run_in_background: true` and tee output to a temp log file (e.g. `just test my_test.exs 2>&1 | tee /tmp/test_run.log; sed -n '/^  1) test/,$p' /tmp/test_run.log`) so the full output is preserved and greppable at any point — never rely solely on the tail of a live command. After the run completes, always report the log file path to the user as a markdown link (e.g. "Full output saved to [/tmp/test_run.log](/tmp/test_run.log)") so they can open or grep it themselves.
 
 ## Security
 
