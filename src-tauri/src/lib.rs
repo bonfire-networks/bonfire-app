@@ -123,7 +123,15 @@ pub fn run() {
 
         #[cfg(feature = "e2e-testing")]
         {
-            builder = builder.plugin(tauri_plugin_playwright::init());
+            let sock = std::env::var("TAURI_PLAYWRIGHT_SOCK")
+                .unwrap_or_else(|_| "/tmp/tauri-playwright.sock".into());
+            builder = builder.plugin(
+                tauri_plugin_playwright::init_with_config(
+                    tauri_plugin_playwright::PluginConfig::new()
+                        .socket_path(sock)
+                        .window_label("chat-webview")
+                )
+            );
         }
 
         let app = builder.setup(move |app| {
@@ -143,19 +151,27 @@ pub fn run() {
                 let actor_id    = std::env::var("E2E_ACTOR_ID").unwrap_or_default();
                 let token_ep    = std::env::var("E2E_TOKEN_ENDPOINT").unwrap_or_default();
                 let auth_ep     = std::env::var("E2E_AUTH_ENDPOINT").unwrap_or_default();
+                // Device ID isolates IndexedDB per-instance when multiple devices share the same origin.
+                let device_id   = std::env::var("E2E_DEVICE_ID").unwrap_or_default();
+                let device_id_stmt = if device_id.is_empty() {
+                    "localStorage.removeItem('device_id');".to_string()
+                } else {
+                    format!("localStorage.setItem('device_id',{});", serde_json::to_string(&device_id).unwrap())
+                };
                 let init_script = format!(
-                    "localStorage.clear();\
-                     localStorage.setItem('access_token',{at});\
+                    "localStorage.setItem('access_token',{at});\
                      localStorage.setItem('appUrl',{au});\
                      localStorage.setItem('actor_id',{ai});\
                      localStorage.setItem('token_endpoint',{te});\
                      localStorage.setItem('authorization_endpoint',{ae});\
-                     localStorage.setItem('wasmBasePath','false');",
+                     localStorage.setItem('wasmBasePath','false');\
+                     {di}",
                     at = serde_json::to_string(&access_token).unwrap(),
                     au = serde_json::to_string(&app_url).unwrap(),
                     ai = serde_json::to_string(&actor_id).unwrap(),
                     te = serde_json::to_string(&token_ep).unwrap(),
                     ae = serde_json::to_string(&auth_ep).unwrap(),
+                    di = device_id_stmt,
                 );
                 tauri::WebviewWindowBuilder::new(
                     app,
