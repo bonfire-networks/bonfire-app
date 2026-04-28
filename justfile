@@ -351,29 +351,53 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 	echo "export E2E_TOKEN_ENDPOINT='$TOKEN_ENDPOINT'"
 	echo "export E2E_AUTH_ENDPOINT='$AUTH_ENDPOINT'"
 
-# Run all Tauri e2e tests at once (2 servers, 3 clients). Set E2E_LOGIN/PASSWORD and E2E_LOGIN_B/PASSWORD_B in your .env (NOTE: doesn't work atm)
-# test-tauri-e2e-all: services
-# 	just _test-tauri-e2e "" "true" "true"
+# ── Tauri E2E env vars (set in your .env) ──────────────────────────────────────────────────────
+#
+# All commands require OAuth credentials for the relevant actors.
+# Naming: E2E_{server}_{actor}_{field} where server = S1/S2, actor = ALICE/BOB/CHARLIE.
+#
+# Always required:
+#   E2E_S1_ALICE_LOGIN      username for actor alice on server 1 (fallback: E2E_LOGIN)
+#   E2E_S1_ALICE_PASSWORD   password for actor alice on server 1 (fallback: E2E_PASSWORD)
+#
+# For test-tauri-e2e-federated (needs s1_alice + s1_bob + s2_charlie):
+#   E2E_S1_BOB_LOGIN        username for actor bob on server 1 (no fallback — must be set)
+#   E2E_S1_BOB_PASSWORD     password for actor bob on server 1
+#   E2E_S2_CHARLIE_LOGIN    username for actor charlie on server 2 (fallback: E2E_LOGIN_B, then E2E_LOGIN)
+#   E2E_S2_CHARLIE_PASSWORD password for actor charlie on server 2 (fallback: E2E_PASSWORD_B, then E2E_PASSWORD)
+#
+# For test-tauri-e2e-federated-co-device (needs s1_alice + s1_alice_d2 + s2_charlie):
+#   E2E_S1_ALICE_LOGIN / PASSWORD  (same alice account — d1 and d2 share credentials)
+#   E2E_S2_CHARLIE_LOGIN / PASSWORD
+#
+# Server 2 (port 4002) is started automatically when with_s2_charlie=true via TEST_INSTANCE=yes.
+# ────────────────────────────────────────────────────────────────────────────────────────────────
 
-# Run single-device Tauri e2e tests (tests 3–6). Set E2E_LOGIN and E2E_PASSWORD in your .env.
+# Run single-device Tauri e2e tests. Requires: E2E_S1_ALICE_LOGIN/PASSWORD (or E2E_LOGIN/PASSWORD).
 test-tauri-e2e-single: services
 	just _test-tauri-e2e single-device
 
-# Run co-device Tauri e2e tests: 1 server, 2 clients, same actor (tests 1–2). Set E2E_LOGIN and E2E_PASSWORD in your .env.
+# Run co-device Tauri e2e tests: 1 server, 2 clients, same actor (s1_alice_d1 + s1_alice_d2).
+# Set E2E_S1_ALICE_LOGIN and E2E_S1_ALICE_PASSWORD in your .env.
 test-tauri-e2e-co-device: services
-	just _test-tauri-e2e co-device "true"
+	just _test-tauri-e2e co-device "true" "false" "false"
 
-# Run federated Tauri e2e tests: 2 servers, 2 clients. Set E2E_LOGIN/PASSWORD and E2E_LOGIN_B/PASSWORD_B in your .env.
+# Run federated Tauri e2e tests: 2 servers, 3 clients (s1_alice_d1 + s1_bob_d1 + s2_charlie_d1).
+# Set E2E_S1_ALICE_LOGIN/PASSWORD, E2E_S1_BOB_LOGIN/PASSWORD, E2E_S2_CHARLIE_LOGIN/PASSWORD in your .env.
 test-tauri-e2e-federated: services
-	just _test-tauri-e2e federated "false" "true"
+	just _test-tauri-e2e federated "false" "true" "true"
 
-# Run federated co-device Tauri e2e tests: 2 servers, 3 clients. Set E2E_LOGIN/PASSWORD and E2E_LOGIN_B/PASSWORD_B in your .env.
+# Run federated co-device Tauri e2e tests: 2 servers, 3 clients (s1_alice_d1 + s1_alice_d2 + s2_charlie_d1).
+# Set E2E_S1_ALICE_LOGIN/PASSWORD and E2E_S2_CHARLIE_LOGIN/PASSWORD in your .env.
 test-tauri-e2e-federated-co-device: services
-	just _test-tauri-e2e federated-co-device "true" "true"
+	just _test-tauri-e2e federated-co-device "true" "true" "false"
 
 # Internal: start servers, obtain tokens, launch Tauri instances, run Playwright with the given tag.
-# with_a2=true adds Device A2 (same actor, socket 2). with_b=true adds server B + Device B1 (socket 3).
-_test-tauri-e2e tag="single-device" with_a2="false" with_b="false":
+# Naming: server{N}_{actor}_{deviceN} — socket 1=s1_alice_d1, 2=s1_alice_d2, 3=s2_charlie_d1, 4=s1_bob_d1
+# with_s1_alice2=true  → s1_alice_d2 (same actor as alice, socket 2)
+# with_s2_charlie=true → s2_charlie_d1 (server 2, socket 3)
+# with_s1_bob=true     → s1_bob_d1 (2nd actor on server 1, socket 4)
+_test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false":
 	#!/usr/bin/env bash
 	set -e
 	cleanup() {
@@ -383,48 +407,65 @@ _test-tauri-e2e tag="single-device" with_a2="false" with_b="false":
 	  pkill -f "tauri dev" 2>/dev/null || true
 	}
 	trap cleanup EXIT INT TERM
-	rm -f /tmp/tauri-playwright.sock /tmp/tauri-playwright-2.sock /tmp/tauri-playwright-3.sock
-	lsof -ti:6275 -ti:6276 -ti:6277 | xargs kill -9 2>/dev/null || true
+	rm -f /tmp/tauri-playwright.sock /tmp/tauri-playwright-2.sock /tmp/tauri-playwright-3.sock /tmp/tauri-playwright-4.sock
+	lsof -ti:6275 -ti:6276 -ti:6277 -ti:6278 | xargs kill -9 2>/dev/null || true
 
-	echo "Starting server A on port 4000..."
+	echo "Starting server 1 on port 4000..."
 	just mix phx.server &
-	if [ "{{with_b}}" = "true" ]; then
-	  echo "Starting server B on port 4002..."
+	if [ "{{with_s2_charlie}}" = "true" ]; then
+	  echo "Starting server 2 on port 4002..."
 	  TEST_INSTANCE=yes just mix phx.server &
 	fi
 
-	echo "Waiting for server A..."
+	echo "Waiting for server 1..."
 	while ! curl -s -o /dev/null http://localhost:4000; do sleep 1; done
-	if [ "{{with_b}}" = "true" ]; then
-	  echo "Waiting for server B..."
+	if [ "{{with_s2_charlie}}" = "true" ]; then
+	  echo "Waiting for server 2..."
 	  while ! curl -s -o /dev/null http://localhost:4002; do sleep 1; done
 	fi
 
-	eval $(just oauth-token)
-	echo "Token A obtained for $E2E_ACTOR_ID"
-	A_ACCESS_TOKEN="$E2E_ACCESS_TOKEN"; A_ACTOR_ID="$E2E_ACTOR_ID"
-	A_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; A_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
+	# s1_alice_d1 token (server 1)
+	eval $(E2E_LOGIN="${E2E_S1_ALICE_LOGIN:-$E2E_LOGIN}" E2E_PASSWORD="${E2E_S1_ALICE_PASSWORD:-$E2E_PASSWORD}" just oauth-token)
+	echo "s1_alice token obtained for $E2E_ACTOR_ID"
+	S1_ALICE_TOKEN="$E2E_ACCESS_TOKEN"; S1_ALICE_ACTOR_ID="$E2E_ACTOR_ID"
+	S1_ALICE_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; S1_ALICE_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
 
-	# Clear stale keyPackages from previous runs so A1 doesn't detect itself as a co-device
-	echo "Clearing stale keyPackages for actor A..."
-	curl -sf -X POST "$A_ACTOR_ID/outbox" \
-	  -H "Authorization: Bearer $A_ACCESS_TOKEN" \
+	# Clear stale keyPackages so s1_alice_d1 doesn't detect itself as a co-device on startup
+	echo "Clearing stale keyPackages for s1_alice..."
+	curl -sf -X POST "$S1_ALICE_ACTOR_ID/outbox" \
+	  -H "Authorization: Bearer $S1_ALICE_TOKEN" \
 	  -H "Content-Type: application/activity+json" \
-	  -d "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"type\":\"Update\",\"actor\":\"$A_ACTOR_ID\",\"to\":[\"https://www.w3.org/ns/activitystreams#Public\"],\"object\":{\"id\":\"$A_ACTOR_ID\",\"type\":\"Person\",\"keyPackages\":[]}}" \
-	  > /dev/null || echo "Warning: could not clear keyPackages for actor A (may not exist yet)"
+	  -d "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"type\":\"Update\",\"actor\":\"$S1_ALICE_ACTOR_ID\",\"to\":[\"https://www.w3.org/ns/activitystreams#Public\"],\"object\":{\"id\":\"$S1_ALICE_ACTOR_ID\",\"type\":\"Person\",\"keyPackages\":[]}}" \
+	  > /dev/null || echo "Warning: could not clear keyPackages for s1_alice (may not exist yet)"
 
-	if [ "{{with_b}}" = "true" ]; then
-	  eval $(E2E_APP_URL=http://localhost:4002 E2E_LOGIN="${E2E_LOGIN_B:-$E2E_LOGIN}" E2E_PASSWORD="${E2E_PASSWORD_B:-$E2E_PASSWORD}" just oauth-token)
-	  echo "Token B obtained for $E2E_ACTOR_ID"
-	  B_ACCESS_TOKEN="$E2E_ACCESS_TOKEN"; B_ACTOR_ID="$E2E_ACTOR_ID"
-	  B_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; B_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
+	if [ "{{with_s2_charlie}}" = "true" ]; then
+	  # s2_charlie_d1 token (server 2)
+	  eval $(E2E_APP_URL=http://localhost:4002 E2E_LOGIN="${E2E_S2_CHARLIE_LOGIN:-$E2E_LOGIN_B:-$E2E_LOGIN}" E2E_PASSWORD="${E2E_S2_CHARLIE_PASSWORD:-$E2E_PASSWORD_B:-$E2E_PASSWORD}" just oauth-token)
+	  echo "s2_charlie token obtained for $E2E_ACTOR_ID"
+	  S2_CHARLIE_TOKEN="$E2E_ACCESS_TOKEN"; S2_CHARLIE_ACTOR_ID="$E2E_ACTOR_ID"
+	  S2_CHARLIE_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; S2_CHARLIE_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
 
-	  echo "Clearing stale keyPackages for actor B..."
-	  curl -sf -X POST "$B_ACTOR_ID/outbox" \
-	    -H "Authorization: Bearer $B_ACCESS_TOKEN" \
+	  echo "Clearing stale keyPackages for s2_charlie..."
+	  curl -sf -X POST "$S2_CHARLIE_ACTOR_ID/outbox" \
+	    -H "Authorization: Bearer $S2_CHARLIE_TOKEN" \
 	    -H "Content-Type: application/activity+json" \
-	    -d "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"type\":\"Update\",\"actor\":\"$B_ACTOR_ID\",\"to\":[\"https://www.w3.org/ns/activitystreams#Public\"],\"object\":{\"id\":\"$B_ACTOR_ID\",\"type\":\"Person\",\"keyPackages\":[]}}" \
-	    > /dev/null || echo "Warning: could not clear keyPackages for actor B (may not exist yet)"
+	    -d "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"type\":\"Update\",\"actor\":\"$S2_CHARLIE_ACTOR_ID\",\"to\":[\"https://www.w3.org/ns/activitystreams#Public\"],\"object\":{\"id\":\"$S2_CHARLIE_ACTOR_ID\",\"type\":\"Person\",\"keyPackages\":[]}}" \
+	    > /dev/null || echo "Warning: could not clear keyPackages for s2_charlie (may not exist yet)"
+	fi
+
+	if [ "{{with_s1_bob}}" = "true" ]; then
+	  # s1_bob_d1 token (server 1, different actor)
+	  eval $(E2E_LOGIN="${E2E_S1_BOB_LOGIN}" E2E_PASSWORD="${E2E_S1_BOB_PASSWORD}" just oauth-token)
+	  echo "s1_bob token obtained for $E2E_ACTOR_ID"
+	  S1_BOB_TOKEN="$E2E_ACCESS_TOKEN"; S1_BOB_ACTOR_ID="$E2E_ACTOR_ID"
+	  S1_BOB_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; S1_BOB_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
+
+	  echo "Clearing stale keyPackages for s1_bob..."
+	  curl -sf -X POST "$S1_BOB_ACTOR_ID/outbox" \
+	    -H "Authorization: Bearer $S1_BOB_TOKEN" \
+	    -H "Content-Type: application/activity+json" \
+	    -d "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"type\":\"Update\",\"actor\":\"$S1_BOB_ACTOR_ID\",\"to\":[\"https://www.w3.org/ns/activitystreams#Public\"],\"object\":{\"id\":\"$S1_BOB_ACTOR_ID\",\"type\":\"Person\",\"keyPackages\":[]}}" \
+	    > /dev/null || echo "Warning: could not clear keyPackages for s1_bob (may not exist yet)"
 	fi
 
 	echo "Rebuilding JS bundle..."
@@ -438,55 +479,68 @@ _test-tauri-e2e tag="single-device" with_a2="false" with_b="false":
 
 	# Each instance needs its own CARGO_TARGET_DIR — cargo tauri dev holds the lock on its
 	# target directory for the lifetime of the process, not just during compilation.
-	echo "Starting Device A1 (socket 1, port 6275)..."
+	echo "Starting s1_alice_d1 (socket 1, port 6275)..."
 	rm -rf "$HOME/Library/Application Support/cafe.bonfire.test1"
 	CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-1 \
 	TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright.sock TAURI_PLAYWRIGHT_PORT=6275 \
-	E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$A_ACCESS_TOKEN" E2E_ACTOR_ID="$A_ACTOR_ID" \
-	E2E_TOKEN_ENDPOINT="$A_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$A_AUTH_ENDPOINT" \
+	E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$S1_ALICE_TOKEN" E2E_ACTOR_ID="$S1_ALICE_ACTOR_ID" \
+	E2E_TOKEN_ENDPOINT="$S1_ALICE_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$S1_ALICE_AUTH_ENDPOINT" \
 	E2E_DEVICE_ID="device-1" \
 	cargo tauri dev --config '{"identifier":"cafe.bonfire.test1","build":{"beforeDevCommand":""}}' --features e2e-testing --no-watch &
 	while [ ! -S /tmp/tauri-playwright.sock ]; do sleep 0.5; done
-	echo "Device A1 ready."
+	echo "s1_alice_d1 ready."
 
-	if [ "{{with_a2}}" = "true" ]; then
-	  echo "Waiting for A1 to publish its KeyPackage..."
+	if [ "{{with_s1_alice2}}" = "true" ]; then
+	  echo "Waiting for s1_alice_d1 to publish its KeyPackage..."
 	  kp_retries=0
-	  until curl -sf -H "Accept: application/activity+json" "$A_ACTOR_ID" \
+	  until curl -sf -H "Accept: application/activity+json" "$S1_ALICE_ACTOR_ID" \
 	    | python3 -c "import sys,json; d=json.load(sys.stdin); sys.exit(0 if d.get('keyPackages') else 1)" 2>/dev/null; do
 	    kp_retries=$((kp_retries + 1))
-	    if [ "$kp_retries" -ge 30 ]; then echo "Timed out waiting for A1 KeyPackage after ${kp_retries}s"; exit 1; fi
+	    if [ "$kp_retries" -ge 30 ]; then echo "Timed out waiting for s1_alice_d1 KeyPackage after ${kp_retries}s"; exit 1; fi
 	    sleep 2
 	  done
-	  echo "A1's KeyPackage published."
-	  echo "Starting Device A2 (socket 2, port 6276, same actor)..."
+	  echo "s1_alice_d1 KeyPackage published."
+	  echo "Starting s1_alice_d2 (socket 2, port 6276, same actor)..."
 	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test2"
 	  CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-2 \
 	  TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright-2.sock TAURI_PLAYWRIGHT_PORT=6276 \
-	  E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$A_ACCESS_TOKEN" E2E_ACTOR_ID="$A_ACTOR_ID" \
-	  E2E_TOKEN_ENDPOINT="$A_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$A_AUTH_ENDPOINT" \
+	  E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$S1_ALICE_TOKEN" E2E_ACTOR_ID="$S1_ALICE_ACTOR_ID" \
+	  E2E_TOKEN_ENDPOINT="$S1_ALICE_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$S1_ALICE_AUTH_ENDPOINT" \
 	  E2E_DEVICE_ID="device-2" \
 	  cargo tauri dev --config '{"identifier":"cafe.bonfire.test2","build":{"beforeDevCommand":""}}' --features e2e-testing --no-watch &
 	  while [ ! -S /tmp/tauri-playwright-2.sock ]; do sleep 0.5; done
-	  echo "Device A2 ready."
+	  echo "s1_alice_d2 ready."
 	fi
 
-	if [ "{{with_b}}" = "true" ]; then
-	  echo "Starting Device B1 (socket 3, port 6277, server B)..."
+	if [ "{{with_s2_charlie}}" = "true" ]; then
+	  echo "Starting s2_charlie_d1 (socket 3, port 6277, server 2)..."
 	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test3"
 	  CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-3 \
 	  TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright-3.sock TAURI_PLAYWRIGHT_PORT=6277 \
-	  E2E_APP_URL=http://localhost:4002 E2E_ACCESS_TOKEN="$B_ACCESS_TOKEN" E2E_ACTOR_ID="$B_ACTOR_ID" \
-	  E2E_TOKEN_ENDPOINT="$B_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$B_AUTH_ENDPOINT" \
+	  E2E_APP_URL=http://localhost:4002 E2E_ACCESS_TOKEN="$S2_CHARLIE_TOKEN" E2E_ACTOR_ID="$S2_CHARLIE_ACTOR_ID" \
+	  E2E_TOKEN_ENDPOINT="$S2_CHARLIE_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$S2_CHARLIE_AUTH_ENDPOINT" \
 	  E2E_DEVICE_ID="device-3" \
 	  cargo tauri dev --config '{"identifier":"cafe.bonfire.test3","build":{"beforeDevCommand":""}}' --features e2e-testing --no-watch &
 	  while [ ! -S /tmp/tauri-playwright-3.sock ]; do sleep 0.5; done
-	  echo "Device B1 ready."
+	  echo "s2_charlie_d1 ready."
 	fi
 
-	export E2E_DEVICE_A2={{ if with_a2 == "true" { "1" } else { "" } }}
-	export E2E_DEVICE_B={{ if with_b == "true" { "1" } else { "" } }}
-	export E2E_APP_URL_B={{ if with_b == "true" { "http://localhost:4002" } else { "" } }}
+	if [ "{{with_s1_bob}}" = "true" ]; then
+	  echo "Starting s1_bob_d1 (socket 4, port 6278, server 1)..."
+	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test4"
+	  CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-4 \
+	  TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright-4.sock TAURI_PLAYWRIGHT_PORT=6278 \
+	  E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$S1_BOB_TOKEN" E2E_ACTOR_ID="$S1_BOB_ACTOR_ID" \
+	  E2E_TOKEN_ENDPOINT="$S1_BOB_TOKEN_ENDPOINT" E2E_AUTH_ENDPOINT="$S1_BOB_AUTH_ENDPOINT" \
+	  E2E_DEVICE_ID="device-4" \
+	  cargo tauri dev --config '{"identifier":"cafe.bonfire.test4","build":{"beforeDevCommand":""}}' --features e2e-testing --no-watch &
+	  while [ ! -S /tmp/tauri-playwright-4.sock ]; do sleep 0.5; done
+	  echo "s1_bob_d1 ready."
+	fi
+
+	export E2E_DEVICE_S1_ALICE2={{ if with_s1_alice2 == "true" { "1" } else { "" } }}
+	export E2E_DEVICE_S2_CHARLIE={{ if with_s2_charlie == "true" { "1" } else { "" } }}
+	export E2E_DEVICE_S1_BOB={{ if with_s1_bob == "true" { "1" } else { "" } }}
 	cd extensions/bonfire_ui_common/assets/static/tauri && yarn test {{ if tag != "" { "'--grep' '@" + tag + "(?!-)'" } else { "" } }}
 
 # Drop the dance instance DB (so it gets re-created and re-migrated on next startup)
