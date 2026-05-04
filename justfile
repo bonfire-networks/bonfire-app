@@ -374,30 +374,34 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 
 # Run single-device Tauri e2e tests. Requires: E2E_S1_ALICE_LOGIN/PASSWORD (or E2E_LOGIN/PASSWORD).
-test-tauri-e2e-single: services
-	just _test-tauri-e2e single-device
+# Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-single --last-failed
+test-tauri-e2e-single *pw_flags="": services
+	just _test-tauri-e2e single-device "false" "false" "false" "{{pw_flags}}"
 
 # Run co-device Tauri e2e tests: 1 server, 2 clients, same actor (s1_alice_d1 + s1_alice_d2).
 # Set E2E_S1_ALICE_LOGIN and E2E_S1_ALICE_PASSWORD in your .env.
-test-tauri-e2e-co-device: services
-	just _test-tauri-e2e co-device "true" "false" "false"
+# Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-co-device --last-failed
+test-tauri-e2e-co-device *pw_flags="": services
+	just _test-tauri-e2e co-device "true" "false" "false" "{{pw_flags}}"
 
 # Run federated Tauri e2e tests: 2 servers, 3 clients (s1_alice_d1 + s1_bob_d1 + s2_charlie_d1).
 # Set E2E_S1_ALICE_LOGIN/PASSWORD, E2E_S1_BOB_LOGIN/PASSWORD, E2E_S2_CHARLIE_LOGIN/PASSWORD in your .env.
-test-tauri-e2e-federated: services
-	just _test-tauri-e2e federated "false" "true" "true"
+# Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-federated --last-failed
+test-tauri-e2e-federated *pw_flags="": services
+	just _test-tauri-e2e federated "false" "true" "true" "{{pw_flags}}"
 
 # Run federated co-device Tauri e2e tests: 2 servers, 3 clients (s1_alice_d1 + s1_alice_d2 + s2_charlie_d1).
 # Set E2E_S1_ALICE_LOGIN/PASSWORD and E2E_S2_CHARLIE_LOGIN/PASSWORD in your .env.
-test-tauri-e2e-federated-co-device: services
-	just _test-tauri-e2e federated-co-device "true" "true" "false"
+# Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-federated-co-device --last-failed
+test-tauri-e2e-federated-co-device *pw_flags="": services
+	just _test-tauri-e2e federated-co-device "true" "true" "false" "{{pw_flags}}"
 
 # Internal: start servers, obtain tokens, launch Tauri instances, run Playwright with the given tag.
 # Naming: server{N}_{actor}_{deviceN} — socket 1=s1_alice_d1, 2=s1_alice_d2, 3=s2_charlie_d1, 4=s1_bob_d1
 # with_s1_alice2=true  → s1_alice_d2 (same actor as alice, socket 2)
 # with_s2_charlie=true → s2_charlie_d1 (server 2, socket 3)
 # with_s1_bob=true     → s1_bob_d1 (2nd actor on server 1, socket 4)
-_test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false":
+_test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false" pw_flags="":
 	#!/usr/bin/env bash
 	set -e
 	cleanup() {
@@ -541,7 +545,7 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	export E2E_DEVICE_S1_ALICE2={{ if with_s1_alice2 == "true" { "1" } else { "" } }}
 	export E2E_DEVICE_S2_CHARLIE={{ if with_s2_charlie == "true" { "1" } else { "" } }}
 	export E2E_DEVICE_S1_BOB={{ if with_s1_bob == "true" { "1" } else { "" } }}
-	cd extensions/bonfire_ui_common/assets/static/tauri && yarn test {{ if tag != "" { "'--grep' '@" + tag + "(?!-)'" } else { "" } }}
+	cd extensions/bonfire_ui_common/assets/static/tauri && yarn test {{ if tag != "" { "'--grep' '@" + tag + "(?!-)'" } else { "" } }} {{pw_flags}}
 
 # Drop the dance instance DB (so it gets re-created and re-migrated on next startup)
 dev-dance-db-down:

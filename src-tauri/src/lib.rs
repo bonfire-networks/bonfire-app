@@ -93,7 +93,11 @@ pub fn run() {
     let mut builder = tauri::Builder::default()
         .plugin(
             tauri_plugin_log::Builder::default()
-                .level(log::LevelFilter::Info)
+                .level(if cfg!(feature = "e2e-testing") {
+                    log::LevelFilter::Trace
+                } else {
+                    log::LevelFilter::Info
+                })
                 .build(),
         )
         .plugin(tauri_plugin_openmls::init())
@@ -165,6 +169,7 @@ pub fn run() {
                      localStorage.setItem('token_endpoint',{te});\
                      localStorage.setItem('authorization_endpoint',{ae});\
                      localStorage.setItem('wasmBasePath','false');\
+                     window.__BONFIRE_JS_DEBUG__=true;\
                      {di}",
                     at = serde_json::to_string(&access_token).unwrap(),
                     au = serde_json::to_string(&app_url).unwrap(),
