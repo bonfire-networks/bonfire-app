@@ -10,6 +10,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ Fetch the latest version using coopcloud/abra [#1875](https://github.com/bonfire-networks/bonfire-app/issues/1875) (thanks @jeppebundsgaard and @mayel)
 - ✨ Support RFC 9421 HTTP Message Signatures for incoming inbox POSTs [#7](https://github.com/bonfire-networks/activity_pub/issues/7) - [PR #626](https://github.com/bonfire-networks/activity_pub/pull/626) (thanks @dahlia, @mayel, and @2chanhaeng)
 - ✨ Feature Proposal: Translation extensions [#1649](https://github.com/bonfire-networks/bonfire-app/issues/1649) (thanks @dogrileycom, @mayel, and @ivanminutillo)
+- ✨ Specify the layout (both the FeedLive and the ActivityLive one) in config for each feed to further customize how they're rendered in the page [#1376](https://github.com/bonfire-networks/bonfire-app/issues/1376) (thanks @ivanminutillo)
+- ✨ Implement web push notification [#1292](https://github.com/bonfire-networks/bonfire-app/issues/1292) (thanks @ivanminutillo, @mayel, and @p1gp1g)
 - ✨ [Bonfire Pandora] :: As a user i want to add metadata to a movie if I have proper rights [#8](https://github.com/bonfire-networks/federated_archives/issues/8) (thanks @ivanminutillo)
 - ✨ Add per-user and per-instance keyword filtering [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @ivanminutillo and @mayel)
 - ✨ chore: remove vim swap file and add *.swp to .gitignore [`99fce0b`](https://github.com/bonfire-networks/federated_archives/commit/99fce0bbe29c75827b2cb32a091d6df847faf755)
@@ -26,6 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 Removing a person from a group chat [#1861](https://github.com/bonfire-networks/bonfire-app/issues/1861) (thanks @mayel)
 - 📝 Leaving a group chat [#1860](https://github.com/bonfire-networks/bonfire-app/issues/1860) (thanks @mayel)
 - 📝 Adding a person to an existing group chat [#1859](https://github.com/bonfire-networks/bonfire-app/issues/1859) (thanks @mayel)
+- 📝 Direct Messages UX [#1850](https://github.com/bonfire-networks/bonfire-app/issues/1850) (thanks @ivanminutillo)
 - 📝 Reactions for e2ee content, including Like, Read, Listen, View [#1742](https://github.com/bonfire-networks/bonfire-app/issues/1742) (thanks @mayel)
 - 📝 Updating and deleting e2ee messages [#1741](https://github.com/bonfire-networks/bonfire-app/issues/1741) (thanks @mayel)
 - 📝 File attachments (images, video, audio) on e2ee messages [#1740](https://github.com/bonfire-networks/bonfire-app/issues/1740) (thanks @mayel)
@@ -77,7 +80,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 💅 align PreviewContentLive hook with Pandora video preview clicks [`dffb273`](https://github.com/bonfire-networks/federated_archives/commit/dffb2735a6da50304b51040c9513c4338ee9feff)
 
 ### Fixed
+- 🐛 Clicking on “copy post link” just reloads the page and does not copy the link [#1951](https://github.com/bonfire-networks/bonfire-app/issues/1951) (thanks @xplosionmind and @ivanminutillo)
+- 🐛 Applying content warnings on mobile web is broken [#1936](https://github.com/bonfire-networks/bonfire-app/issues/1936) (thanks @LiquidParasyte and @ivanminutillo)
 - 🐛 confim button in delete user modal doesn't work [#1931](https://github.com/bonfire-networks/bonfire-app/issues/1931) (thanks @mayel and @ivanminutillo)
+- 🐛 Having a feed open shouldn't trigger browser notifications when new activities are sent over the websocket [#1709](https://github.com/bonfire-networks/bonfire-app/issues/1709) (thanks @mayel and @ivanminutillo)
 - 🐛 Annotation Problem [#54](https://github.com/bonfire-networks/federated_archives/issues/54) (thanks @cranioisthinking)
 - 🐛 [Bug]: after a keyword search, additional filters return an error [#36](https://github.com/bonfire-networks/federated_archives/issues/36) (thanks @ivanminutillo)
 
