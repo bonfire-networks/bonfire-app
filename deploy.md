@@ -10,7 +10,7 @@ SPDX-License-Identifier: CC0-1.0
 A short guide to running Bonfire in a production environment and setting up a digital space connected to the fediverse.
 
 > #### Status {: .info}
-> The release candidate of Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages and not ready to use. 
+>  Bonfire Social 1.0 is ready! Other flavours of Bonfire are currently at alpha or beta stages and not ready to use. 
 
 _These instructions are for setting up Bonfire in production. If you want to run the backend in development, please refer to our [Installation guide](./HACKING.md) instead._
 
