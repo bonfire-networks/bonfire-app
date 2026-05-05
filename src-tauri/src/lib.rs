@@ -155,15 +155,32 @@ pub fn run() {
                 let actor_id    = std::env::var("E2E_ACTOR_ID").unwrap_or_default();
                 let token_ep    = std::env::var("E2E_TOKEN_ENDPOINT").unwrap_or_default();
                 let auth_ep     = std::env::var("E2E_AUTH_ENDPOINT").unwrap_or_default();
-                // Device ID isolates IndexedDB per-instance when multiple devices share the same origin.
+                // Device ID isolates WebKit storage and IndexedDB per-instance.
                 let device_id   = std::env::var("E2E_DEVICE_ID").unwrap_or_default();
                 let device_id_stmt = if device_id.is_empty() {
                     "localStorage.removeItem('device_id');".to_string()
                 } else {
                     format!("localStorage.setItem('device_id',{});", serde_json::to_string(&device_id).unwrap())
                 };
+                // Derive a 16-byte data store identifier so each instance gets its own isolated
+                // WKWebView data store (separate localStorage, cookies, etc.).
+                // Formula: instance_id * 10 + device_num — unique across parallel test runs.
+                let device_num: u8 = device_id
+                    .trim_start_matches("device-")
+                    .parse()
+                    .unwrap_or(0);
+                let instance_id: u8 = std::env::var("E2E_INSTANCE_ID")
+                    .ok()
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(0);
+                let store_id: [u8; 16] = {
+                    let mut id = [0u8; 16];
+                    id[0] = instance_id * 10 + device_num;
+                    id
+                };
                 let init_script = format!(
-                    "localStorage.setItem('access_token',{at});\
+                    "localStorage.clear();\
+                     localStorage.setItem('access_token',{at});\
                      localStorage.setItem('appUrl',{au});\
                      localStorage.setItem('actor_id',{ai});\
                      localStorage.setItem('token_endpoint',{te});\
@@ -178,15 +195,25 @@ pub fn run() {
                     ae = serde_json::to_string(&auth_ep).unwrap(),
                     di = device_id_stmt,
                 );
-                tauri::WebviewWindowBuilder::new(
+                let mut wb = tauri::WebviewWindowBuilder::new(
                     app,
                     "chat-webview",
                     tauri::WebviewUrl::App("assets/ap_c2s_client/index.html".into()),
                 )
                 .initialization_script(&init_script)
-                .inner_size(1280.0, 800.0)
-                .build()
-                .map_err(|e| format!("E2E chat window failed: {e}"))?;
+                .inner_size(1280.0, 800.0);
+                if !device_id.is_empty() {
+                    #[cfg(target_os = "macos")]
+                    { wb = wb.data_store_identifier(store_id); }
+                    #[cfg(not(target_os = "macos"))]
+                    {
+                        let webkit_data = app.path().app_data_dir()
+                            .map_err(|e| format!("app data dir: {e}"))?
+                            .join("webkit");
+                        wb = wb.data_directory(webkit_data);
+                    }
+                }
+                wb.build().map_err(|e| format!("E2E chat window failed: {e}"))?;
 
                 let layout_manager = LayoutManager::new(mode, &prefs);
                 app.manage(Mutex::new(AppState {

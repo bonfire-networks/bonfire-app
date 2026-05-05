@@ -319,6 +319,7 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 
 # Obtain an OAuth token for E2E tests and print shell export lines.
 # Usage: eval $(just oauth-token) — requires E2E_LOGIN, E2E_PASSWORD in env.
+# If E2E_CLIENT_ID and E2E_CLIENT_SECRET are already set, registration is skipped (client reuse).
 @oauth-token client_jsonld_file="extensions/bonfire_ui_common/assets/static/tauri/client.jsonld":
 	#!/usr/bin/env bash
 	set -e
@@ -328,10 +329,15 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 	  echo "Error: dev server not reachable at $BASE_URL — run 'just dev' first" >&2
 	  exit 1
 	fi
-	REG=$(jq '{redirect_uris:[.redirectURI],client_name:.name,grant_types:["password"],scope:"openid profile email"}' "{{client_jsonld_file}}" \
-	  | curl -sf -X POST "$BASE_URL/openid/register" -H "Content-Type: application/json" -d @-)
-	CLIENT_ID=$(echo "$REG"     | jq -r .client_id)
-	CLIENT_SECRET=$(echo "$REG" | jq -r .client_secret)
+	if [ -n "$E2E_CLIENT_ID" ] && [ -n "$E2E_CLIENT_SECRET" ]; then
+	  CLIENT_ID="$E2E_CLIENT_ID"
+	  CLIENT_SECRET="$E2E_CLIENT_SECRET"
+	else
+	  REG=$(jq '{redirect_uris:[.redirectURI],client_name:.name,grant_types:["password"],scope:"openid profile email"}' "{{client_jsonld_file}}" \
+	    | curl -sf -X POST "$BASE_URL/openid/register" -H "Content-Type: application/json" -d @-)
+	  CLIENT_ID=$(echo "$REG"     | jq -r .client_id)
+	  CLIENT_SECRET=$(echo "$REG" | jq -r .client_secret)
+	fi
 	TOK=$(curl -sf -X POST "$BASE_URL/oauth/token" \
 	  -d "grant_type=password&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&username=${E2E_LOGIN}&password=${E2E_PASSWORD}&scope=openid")
 	ACCESS_TOKEN=$(echo "$TOK" | jq -r .access_token)
@@ -346,6 +352,8 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 	[ -z "$TOKEN_ENDPOINT" ] && TOKEN_ENDPOINT="$BASE_URL/oauth/token"
 	[ -z "$AUTH_ENDPOINT"  ] && AUTH_ENDPOINT="$BASE_URL/oauth/authorize"
 	echo "export E2E_APP_URL='$E2E_APP_URL'"
+	echo "export E2E_CLIENT_ID='$CLIENT_ID'"
+	echo "export E2E_CLIENT_SECRET='$CLIENT_SECRET'"
 	echo "export E2E_ACCESS_TOKEN='$ACCESS_TOKEN'"
 	echo "export E2E_ACTOR_ID='$ACTOR_ID'"
 	echo "export E2E_TOKEN_ENDPOINT='$TOKEN_ENDPOINT'"
@@ -362,7 +370,7 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 #
 # For test-tauri-e2e-federated (needs s1_alice + s1_bob + s2_charlie):
 #   E2E_S1_BOB_LOGIN        username for actor bob on server 1 (no fallback — must be set)
-#   E2E_S1_BOB_PASSWORD     password for actor bob on server 1
+#   (bob shares the same account/password as alice on server 1)
 #   E2E_S2_CHARLIE_LOGIN    username for actor charlie on server 2 (fallback: E2E_LOGIN_B, then E2E_LOGIN)
 #   E2E_S2_CHARLIE_PASSWORD password for actor charlie on server 2 (fallback: E2E_PASSWORD_B, then E2E_PASSWORD)
 #
@@ -401,7 +409,7 @@ test-tauri-e2e-federated-co-device *pw_flags="": services
 # with_s1_alice2=true  → s1_alice_d2 (same actor as alice, socket 2)
 # with_s2_charlie=true → s2_charlie_d1 (server 2, socket 3)
 # with_s1_bob=true     → s1_bob_d1 (2nd actor on server 1, socket 4)
-_test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false" pw_flags="":
+@_test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false" pw_flags="":
 	#!/usr/bin/env bash
 	set -e
 	cleanup() {
@@ -414,11 +422,12 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	rm -f /tmp/tauri-playwright.sock /tmp/tauri-playwright-2.sock /tmp/tauri-playwright-3.sock /tmp/tauri-playwright-4.sock
 	lsof -ti:6275 -ti:6276 -ti:6277 -ti:6278 | xargs kill -9 2>/dev/null || true
 
-	echo "Starting server 1 on port 4000..."
-	just mix phx.server &
 	if [ "{{with_s2_charlie}}" = "true" ]; then
-	  echo "Starting server 2 on port 4002..."
-	  TEST_INSTANCE=yes just mix phx.server &
+	  echo "Starting server 1 (port 4000) + server 2 (port 4002) in one process..."
+	  HOT_CODE_RELOAD=0 TEST_INSTANCE=yes just mix phx.server &
+	else
+	  echo "Starting server 1 on port 4000..."
+	  HOT_CODE_RELOAD=0 just mix phx.server &
 	fi
 
 	echo "Waiting for server 1..."
@@ -428,11 +437,41 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	  while ! curl -s -o /dev/null http://localhost:4002; do sleep 1; done
 	fi
 
-	# s1_alice_d1 token (server 1)
-	eval $(E2E_LOGIN="${E2E_S1_ALICE_LOGIN:-$E2E_LOGIN}" E2E_PASSWORD="${E2E_S1_ALICE_PASSWORD:-$E2E_PASSWORD}" just oauth-token)
+	# Retry oauth-token until the user is seeded (seeder Task runs async after server start).
+	# Sets E2E_ACCESS_TOKEN, E2E_ACTOR_ID, E2E_CLIENT_ID, E2E_CLIENT_SECRET in the caller's env.
+	# Usage: e2e_token APP_URL LOGIN PASSWORD [CLIENT_ID CLIENT_SECRET]
+	e2e_token() {
+	  local _url="$1" _login="$2" _pass="$3" _cid="${4:-}" _csec="${5:-}" _n=0 _out _rc
+	  while true; do
+	    unset E2E_ACTOR_ID E2E_ACCESS_TOKEN
+	    _out=$(E2E_APP_URL="$_url" E2E_LOGIN="$_login" E2E_PASSWORD="$_pass" \
+	      E2E_CLIENT_ID="$_cid" E2E_CLIENT_SECRET="$_csec" just oauth-token 2>&1) && _rc=0 || _rc=$?
+	    if [ "$_rc" -eq 0 ]; then
+	      eval "$(printf '%s\n' "$_out" | grep '^export ')"
+	    else
+	      printf 'oauth-token failed (rc=%s) for %s at %s:\n%s\n' "$_rc" "$_login" "$_url" "$_out" >&2
+	    fi
+	    if [ -n "${E2E_ACTOR_ID:-}" ] && [ "${E2E_ACCESS_TOKEN:-}" != "null" ]; then
+	      return 0
+	    fi
+	    _n=$((_n + 1))
+	    if [ "$_n" -ge 30 ]; then
+	      echo "ERROR: timed out waiting for oauth token for $_login at $_url" >&2
+	      exit 1
+	    fi
+	    echo "Waiting for $_login at $_url to be ready... ($_n/30)"
+	    sleep 3
+	  done
+	}
+
+	# s1_alice_d1 token (server 1) — also registers the OAuth client for server 1
+	unset E2E_CLIENT_ID E2E_CLIENT_SECRET
+	e2e_token "http://localhost:4000" "${E2E_S1_ALICE_LOGIN:-$E2E_LOGIN}" "${E2E_S1_ALICE_PASSWORD:-$E2E_PASSWORD}"
 	echo "s1_alice token obtained for $E2E_ACTOR_ID"
 	S1_ALICE_TOKEN="$E2E_ACCESS_TOKEN"; S1_ALICE_ACTOR_ID="$E2E_ACTOR_ID"
 	S1_ALICE_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; S1_ALICE_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
+	# Save server-1 client credentials so bob can reuse them (avoids UUID/ULID mismatch on second registration)
+	S1_CLIENT_ID="$E2E_CLIENT_ID"; S1_CLIENT_SECRET="$E2E_CLIENT_SECRET"
 
 	# Clear stale keyPackages so s1_alice_d1 doesn't detect itself as a co-device on startup
 	echo "Clearing stale keyPackages for s1_alice..."
@@ -443,8 +482,9 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	  > /dev/null || echo "Warning: could not clear keyPackages for s1_alice (may not exist yet)"
 
 	if [ "{{with_s2_charlie}}" = "true" ]; then
-	  # s2_charlie_d1 token (server 2)
-	  eval $(E2E_APP_URL=http://localhost:4002 E2E_LOGIN="${E2E_S2_CHARLIE_LOGIN:-$E2E_LOGIN_B:-$E2E_LOGIN}" E2E_PASSWORD="${E2E_S2_CHARLIE_PASSWORD:-$E2E_PASSWORD_B:-$E2E_PASSWORD}" just oauth-token)
+	  # s2_charlie_d1 token (server 2) — fresh client registration on server 2
+	  unset E2E_CLIENT_ID E2E_CLIENT_SECRET
+	  e2e_token "http://localhost:4002" "${E2E_S2_CHARLIE_LOGIN:-$E2E_LOGIN_B:-$E2E_LOGIN}" "${E2E_S2_CHARLIE_PASSWORD:-$E2E_PASSWORD_B:-$E2E_PASSWORD}"
 	  echo "s2_charlie token obtained for $E2E_ACTOR_ID"
 	  S2_CHARLIE_TOKEN="$E2E_ACCESS_TOKEN"; S2_CHARLIE_ACTOR_ID="$E2E_ACTOR_ID"
 	  S2_CHARLIE_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; S2_CHARLIE_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
@@ -458,8 +498,8 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	fi
 
 	if [ "{{with_s1_bob}}" = "true" ]; then
-	  # s1_bob_d1 token (server 1, different actor)
-	  eval $(E2E_LOGIN="${E2E_S1_BOB_LOGIN}" E2E_PASSWORD="${E2E_S1_BOB_PASSWORD}" just oauth-token)
+	  # s1_bob_d1 token (server 1) — reuse alice's client to avoid UUID/ULID mismatch on second registration
+	  e2e_token "http://localhost:4000" "${E2E_S1_BOB_LOGIN}" "${E2E_S1_ALICE_PASSWORD:-$E2E_PASSWORD}" "$S1_CLIENT_ID" "$S1_CLIENT_SECRET"
 	  echo "s1_bob token obtained for $E2E_ACTOR_ID"
 	  S1_BOB_TOKEN="$E2E_ACCESS_TOKEN"; S1_BOB_ACTOR_ID="$E2E_ACTOR_ID"
 	  S1_BOB_TOKEN_ENDPOINT="$E2E_TOKEN_ENDPOINT"; S1_BOB_AUTH_ENDPOINT="$E2E_AUTH_ENDPOINT"
@@ -475,16 +515,14 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	echo "Rebuilding JS bundle..."
 	(cd extensions/bonfire_ui_common/assets/static/tauri/assets/ap_c2s_client/js && yarn build)
 
-	# Tauri dev builds all share ~/Library/WebKit/Bonfire/ (keyed by process name, not bundle ID).
-	# Wipe it once before starting any instance so all get fresh IndexedDB state.
-	# Per-instance MLS SQLite is still isolated by Application Support/<bundle-id>/.
-	echo "Clearing shared Tauri dev WebKit data..."
-	rm -rf "$HOME/Library/WebKit/Bonfire"
-
 	# Each instance needs its own CARGO_TARGET_DIR — cargo tauri dev holds the lock on its
 	# target directory for the lifetime of the process, not just during compilation.
+	# Clean isolated WebKit data stores for all test devices (numeric and legacy ASCII-UUID formats)
+	rm -rf \
+	  "$HOME/Library/WebKit/Bonfire/WebsiteDataStore"/0[0-9]* 2>/dev/null || true
+
 	echo "Starting s1_alice_d1 (socket 1, port 6275)..."
-	rm -rf "$HOME/Library/Application Support/cafe.bonfire.test1"
+	rm -rf "$HOME/Library/Application Support/cafe.bonfire.test1" "$HOME/Library/WebKit/cafe.bonfire.test1"
 	CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-1 \
 	TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright.sock TAURI_PLAYWRIGHT_PORT=6275 \
 	E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$S1_ALICE_TOKEN" E2E_ACTOR_ID="$S1_ALICE_ACTOR_ID" \
@@ -505,7 +543,7 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 	  done
 	  echo "s1_alice_d1 KeyPackage published."
 	  echo "Starting s1_alice_d2 (socket 2, port 6276, same actor)..."
-	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test2"
+	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test2" "$HOME/Library/WebKit/cafe.bonfire.test2"
 	  CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-2 \
 	  TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright-2.sock TAURI_PLAYWRIGHT_PORT=6276 \
 	  E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$S1_ALICE_TOKEN" E2E_ACTOR_ID="$S1_ALICE_ACTOR_ID" \
@@ -518,7 +556,7 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 
 	if [ "{{with_s2_charlie}}" = "true" ]; then
 	  echo "Starting s2_charlie_d1 (socket 3, port 6277, server 2)..."
-	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test3"
+	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test3" "$HOME/Library/WebKit/cafe.bonfire.test3"
 	  CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-3 \
 	  TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright-3.sock TAURI_PLAYWRIGHT_PORT=6277 \
 	  E2E_APP_URL=http://localhost:4002 E2E_ACCESS_TOKEN="$S2_CHARLIE_TOKEN" E2E_ACTOR_ID="$S2_CHARLIE_ACTOR_ID" \
@@ -531,7 +569,7 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 
 	if [ "{{with_s1_bob}}" = "true" ]; then
 	  echo "Starting s1_bob_d1 (socket 4, port 6278, server 1)..."
-	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test4"
+	  rm -rf "$HOME/Library/Application Support/cafe.bonfire.test4" "$HOME/Library/WebKit/cafe.bonfire.test4"
 	  CARGO_TARGET_DIR=/tmp/bonfire-e2e-target-4 \
 	  TAURI_PLAYWRIGHT_SOCK=/tmp/tauri-playwright-4.sock TAURI_PLAYWRIGHT_PORT=6278 \
 	  E2E_APP_URL=http://localhost:4000 E2E_ACCESS_TOKEN="$S1_BOB_TOKEN" E2E_ACTOR_ID="$S1_BOB_ACTOR_ID" \
@@ -551,7 +589,7 @@ _test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="fals
 dev-dance-db-down:
 	TEST_INSTANCE=yes just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo
 
-_dev-federate-tunneled bore_port1="1" bore_port2="2" mode='': services
+@_dev-federate-tunneled bore_port1="1" bore_port2="2" mode='': services
 	#!/usr/bin/env bash
 	# Spawn tunnels in a new process group (bash -i gives them their own pgrp) so Ctrl+C doesn't reach them
 	( trap '' INT; just tunnel-bore {{bore_port1}} ) &
