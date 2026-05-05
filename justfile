@@ -381,35 +381,42 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 # Server 2 (port 4002) is started automatically when with_s2_charlie=true via TEST_INSTANCE=yes.
 # ────────────────────────────────────────────────────────────────────────────────────────────────
 
+test-tauri-e2e-all grep="" *pw_flags="": services
+	just _test-tauri-e2e "{{grep}}" "true" "true" "true" "{{pw_flags}}"
+
 # Run single-device Tauri e2e tests. Requires: E2E_S1_ALICE_LOGIN/PASSWORD (or E2E_LOGIN/PASSWORD).
 # Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-single --last-failed
-test-tauri-e2e-single *pw_flags="": services
-	just _test-tauri-e2e single-device "false" "false" "false" "{{pw_flags}}"
+# grep= overrides the Playwright filter: just test-tauri-e2e-single grep="my test name"
+test-tauri-e2e-single grep="@single-device(?!-)" *pw_flags="": services
+	just _test-tauri-e2e "{{grep}}" "false" "false" "false" "{{pw_flags}}"
 
 # Run co-device Tauri e2e tests: 1 server, 2 clients, same actor (s1_alice_d1 + s1_alice_d2).
 # Set E2E_S1_ALICE_LOGIN and E2E_S1_ALICE_PASSWORD in your .env.
 # Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-co-device --last-failed
-test-tauri-e2e-co-device *pw_flags="": services
-	just _test-tauri-e2e co-device "true" "false" "false" "{{pw_flags}}"
+# grep= overrides the Playwright filter: just test-tauri-e2e-co-device grep="my test name"
+test-tauri-e2e-co-device grep="@co-device(?!-)" *pw_flags="": services
+	just _test-tauri-e2e "{{grep}}" "true" "false" "false" "{{pw_flags}}"
 
 # Run federated Tauri e2e tests: 2 servers, 3 clients (s1_alice_d1 + s1_bob_d1 + s2_charlie_d1).
 # Set E2E_S1_ALICE_LOGIN/PASSWORD, E2E_S1_BOB_LOGIN/PASSWORD, E2E_S2_CHARLIE_LOGIN/PASSWORD in your .env.
 # Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-federated --last-failed
-test-tauri-e2e-federated *pw_flags="": services
-	just _test-tauri-e2e federated "false" "true" "true" "{{pw_flags}}"
+# grep= overrides the Playwright filter: just test-tauri-e2e-federated grep="staggered commit"
+test-tauri-e2e-federated grep="@federated(?!-)" *pw_flags="": services
+	just _test-tauri-e2e "{{grep}}" "false" "true" "true" "{{pw_flags}}"
 
 # Run federated co-device Tauri e2e tests: 2 servers, 3 clients (s1_alice_d1 + s1_alice_d2 + s2_charlie_d1).
 # Set E2E_S1_ALICE_LOGIN/PASSWORD and E2E_S2_CHARLIE_LOGIN/PASSWORD in your .env.
 # Pass extra Playwright flags via pw_flags, e.g.: just test-tauri-e2e-federated-co-device --last-failed
-test-tauri-e2e-federated-co-device *pw_flags="": services
-	just _test-tauri-e2e federated-co-device "true" "true" "false" "{{pw_flags}}"
+# grep= overrides the Playwright filter: just test-tauri-e2e-federated-co-device grep="my test name"
+test-tauri-e2e-federated-co-device grep="@federated-co-device(?!-)" *pw_flags="": services
+	just _test-tauri-e2e "{{grep}}" "true" "true" "false" "{{pw_flags}}"
 
-# Internal: start servers, obtain tokens, launch Tauri instances, run Playwright with the given tag.
+# Internal: start servers, obtain tokens, launch Tauri instances, run Playwright.
 # Naming: server{N}_{actor}_{deviceN} — socket 1=s1_alice_d1, 2=s1_alice_d2, 3=s2_charlie_d1, 4=s1_bob_d1
 # with_s1_alice2=true  → s1_alice_d2 (same actor as alice, socket 2)
 # with_s2_charlie=true → s2_charlie_d1 (server 2, socket 3)
 # with_s1_bob=true     → s1_bob_d1 (2nd actor on server 1, socket 4)
-@_test-tauri-e2e tag="single-device" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false" pw_flags="":
+@_test-tauri-e2e grep="@single-device(?!-)" with_s1_alice2="false" with_s2_charlie="false" with_s1_bob="false" pw_flags="":
 	#!/usr/bin/env bash
 	set -e
 	cleanup() {
@@ -417,6 +424,7 @@ test-tauri-e2e-federated-co-device *pw_flags="": services
 	  pkill -f "target/debug/Bonfire" 2>/dev/null || true
 	  pkill -f "bonfire-e2e-target" 2>/dev/null || true
 	  pkill -f "tauri dev" 2>/dev/null || true
+	  lsof -ti:1430 | xargs kill -9 2>/dev/null || true
 	}
 	trap cleanup EXIT INT TERM
 	rm -f /tmp/tauri-playwright.sock /tmp/tauri-playwright-2.sock /tmp/tauri-playwright-3.sock /tmp/tauri-playwright-4.sock
@@ -515,11 +523,22 @@ test-tauri-e2e-federated-co-device *pw_flags="": services
 	echo "Rebuilding JS bundle..."
 	(cd extensions/bonfire_ui_common/assets/static/tauri/assets/ap_c2s_client/js && yarn build)
 
+	echo "Starting shared Vite dev server on port 1430..."
+	(cd extensions/bonfire_ui_common/assets/static/tauri && yarn vite) &
+	while ! curl -s -o /dev/null http://localhost:1430; do sleep 0.5; done
+	echo "Vite ready."
+
 	# Each instance needs its own CARGO_TARGET_DIR — cargo tauri dev holds the lock on its
 	# target directory for the lifetime of the process, not just during compilation.
 	# Clean isolated WebKit data stores for all test devices (numeric and legacy ASCII-UUID formats)
 	rm -rf \
 	  "$HOME/Library/WebKit/Bonfire/WebsiteDataStore"/0[0-9]* 2>/dev/null || true
+	# Clear macOS saved application state — otherwise macOS restores old windows alongside new ones
+	rm -rf \
+	  "$HOME/Library/Saved Application State/cafe.bonfire.test1.savedState" \
+	  "$HOME/Library/Saved Application State/cafe.bonfire.test2.savedState" \
+	  "$HOME/Library/Saved Application State/cafe.bonfire.test3.savedState" \
+	  "$HOME/Library/Saved Application State/cafe.bonfire.test4.savedState" 2>/dev/null || true
 
 	echo "Starting s1_alice_d1 (socket 1, port 6275)..."
 	rm -rf "$HOME/Library/Application Support/cafe.bonfire.test1" "$HOME/Library/WebKit/cafe.bonfire.test1"
@@ -583,7 +602,7 @@ test-tauri-e2e-federated-co-device *pw_flags="": services
 	export E2E_DEVICE_S1_ALICE2={{ if with_s1_alice2 == "true" { "1" } else { "" } }}
 	export E2E_DEVICE_S2_CHARLIE={{ if with_s2_charlie == "true" { "1" } else { "" } }}
 	export E2E_DEVICE_S1_BOB={{ if with_s1_bob == "true" { "1" } else { "" } }}
-	cd extensions/bonfire_ui_common/assets/static/tauri && yarn test {{ if tag != "" { "'--grep' '@" + tag + "(?!-)'" } else { "" } }} {{pw_flags}}
+	cd extensions/bonfire_ui_common/assets/static/tauri && yarn test {{ if grep != "" { "'--grep' '" + grep + "'" } else { "" } }} {{pw_flags}}
 
 # Drop the dance instance DB (so it gets re-created and re-migrated on next startup)
 dev-dance-db-down:
