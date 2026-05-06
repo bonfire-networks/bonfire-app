@@ -185,7 +185,10 @@ pub async fn fetch_url(
     if let Some(b) = body {
         req = req.body(b);
     }
-    let res = req.send().await.map_err(|e| e.to_string())?;
+    let res = req.send().await.map_err(|e| {
+        log::error!("fetch_url error for {url}: {e:#?}");
+        e.to_string()
+    })?;
     let status = res.status().as_u16();
     let resp_headers: HashMap<String, String> = res
         .headers()
