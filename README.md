@@ -24,8 +24,8 @@ Bonfire empowers developers and communities to create engaging, customizable, an
 This repo includes configurations to run a few main [flavours of Bonfire](https://bonfirenetworks.org/apps/) you can choose from. Each flavour (see above) includes different extensions and default settings. 
 
 * [Ember](https://github.com/bonfire-networks/ember) for just the basics
-* [Social](https://github.com/bonfire-networks/social) for classical social networking (beta)
-* [Community](https://github.com/bonfire-networks/community) with groups and topics functionality (alpha)
+* [Social](https://github.com/bonfire-networks/social) for classical social networking (1.0)
+* [Community](https://github.com/bonfire-networks/community) with groups and topics functionality (beta)
 * [Open Science](https://github.com/bonfire-networks/open_science) building the next generation of open science platforms (alpha)
 * [Coordination](https://github.com/bonfire-networks/coordination) for organising work and collaborating around projects and tasks (pre-alpha)
 * [Cooperation](https://github.com/bonfire-networks/cooperation) for cooperative production, distribution, and exchange of economic resources (pre-alpha)
