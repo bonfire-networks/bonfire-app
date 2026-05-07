@@ -48,7 +48,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🚧 1 of my users is no longer Federating [#1914](https://github.com/bonfire-networks/bonfire-app/issues/1914) [`8db35c7`](https://github.com/bonfire-networks/bonfire-app/commit/8db35c7d5ab6c3b96273074b7e1f84bc3c808266) (thanks @mayel and @btfreeorg)
 - 📝 working on plyr [`bfa26a0`](https://github.com/bonfire-networks/federated_archives/commit/bfa26a0780f0926a90e2b6a76bafeea13afb7f80)
 - 📝 fix(flavour): drop DashboardLive templates; use upstream default /dashboard [`806a8e6`](https://github.com/bonfire-networks/federated_archives/commit/806a8e630dcbd25f362d5febac4a75c48448353b)
-- 📝 localisation [`f3c3d7d`](https://github.com/bonfire-networks/bonfire-app/commit/f3c3d7dd2fbea25449d3286bfd3bb26abbc946ef) (thanks @mayel)
+- 📝 localisation [`5f3d456`](https://github.com/bonfire-networks/bonfire-app/commit/5f3d456b54abc62c12e661076a75a0e2e9095fe9), [`f3c3d7d`](https://github.com/bonfire-networks/bonfire-app/commit/f3c3d7dd2fbea25449d3286bfd3bb26abbc946ef) (thanks @mayel)
 - 📝 working on filters widget [`871a845`](https://github.com/bonfire-networks/federated_archives/commit/871a845d25a20a5546377c09192f640e6f68dc21)
 - 📝 rel 1.0.3-beta [`43c8f9d`](https://github.com/bonfire-networks/bonfire-app/commit/43c8f9d6944f3cace246258e8762ea277609b876) (thanks @mayel)
 - 📝 WIP [`60d8b0f`](https://github.com/bonfire-networks/bonfire-app/commit/60d8b0f24b3fec9c5dea7410694b8d7fc04b0251) (thanks @mayel)
@@ -83,6 +83,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 💅 align PreviewContentLive hook with Pandora video preview clicks [`dffb273`](https://github.com/bonfire-networks/federated_archives/commit/dffb2735a6da50304b51040c9513c4338ee9feff)
 
 ### Fixed
+- 🐛 theme preview/enable buttons overflow [#1956](https://github.com/bonfire-networks/bonfire-app/issues/1956) (thanks @ruzko and @ivanminutillo)
 - 🐛 Clicking on “copy post link” just reloads the page and does not copy the link [#1951](https://github.com/bonfire-networks/bonfire-app/issues/1951) (thanks @xplosionmind and @ivanminutillo)
 - 🐛 Applying content warnings on mobile web is broken [#1936](https://github.com/bonfire-networks/bonfire-app/issues/1936) (thanks @LiquidParasyte and @ivanminutillo)
 - 🐛 confim button in delete user modal doesn't work [#1931](https://github.com/bonfire-networks/bonfire-app/issues/1931) (thanks @mayel and @ivanminutillo)
