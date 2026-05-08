@@ -68,7 +68,7 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_api_deps =
     if(System.get_env("WITH_API_GRAPHQL") not in no?,
       do: [
-        {:absinthe, "~> 1.7"},
+        {:absinthe, "~> 1.10.1"},
         {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
         {:absinthe_client, git: "https://github.com/bonfire-networks/absinthe_client"}
         # {:apical, git: "https://github.com/bonfire-networks/apical"}

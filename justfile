@@ -752,7 +752,7 @@ update-deps-all: _pre-update-deps
 # Update every single dependency (use with caution)
 update-deps-js: 
 	just js-ext-deps
-	just js-ext-deps upgrade
+	just js-ext-deps up
 	rm -rf deps/*/*/yarn.lock
 
 # Update a specify dep (eg. `just update.dep needle`)
@@ -1255,7 +1255,7 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 #git checkout HEAD -- "config/current_flavour/assets/hooks/*"
 _rel-compile-assets USE_EXT="local" ARGS="": 
 	-rm -rf priv/static
-	yarn -v || npm install --global yarn
+	yarn -v || npm install -g corepack
 	just js-ext-deps
 	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
