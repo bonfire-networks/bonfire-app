@@ -835,6 +835,7 @@ js-deps-fetch: js-ext-deps _assets-ln
 	{{ if path_exists("extensions/bonfire_ui_common")=="true" { "ln -sf extensions/bonfire_ui_common/assets && echo Assets served from the local UI.Common extension will be used" } else {"ln -sf deps/bonfire_ui_common/assets "} }}
 
 deps-outdated: deps-unlock-unused
+	@just mix-remote deps.get
 	@just mix-remote "hex.outdated --all"
 
 deps-clean-unused:

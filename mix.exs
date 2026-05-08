@@ -194,7 +194,7 @@ defmodule Bonfire.Umbrella.MixProject do
           # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
           only: :dev
         },
-        {:live_debugger, "~> 0.5.0", only: :dev},
+        {:live_debugger, "~> 1.0", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
@@ -225,7 +225,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # for extension install + mix tasks that do patching
         {
           :igniter,
-          "~> 0.6.7",
+          "~> 0.7.9",
           # path: "forks/igniter",
           # git: "https://github.com/ash-project/igniter",
           # only: [:dev, :test],
@@ -242,7 +242,7 @@ defmodule Bonfire.Umbrella.MixProject do
           only: :test, runtime: false
         },
         # {:lazy_html, ">= 0.1.0", only: :test},
-        {:patch, "~> 0.15.0"},
+        {:patch, "~> 0.16.0"},
         {:mock, "~> 0.3", only: :test},
         {:mox, "~> 1.0", only: [:dev, :test]},
         {:bypass, "~> 2.1", only: :test},
@@ -251,7 +251,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:grumble, "~> 0.1.3", only: [:test], override: true},
         {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
         {:mix_test_interactive, "~> 5.0", only: :test, runtime: false},
-        {:ex_unit_summary, "~> 0.1.0", only: :test},
+        {:ex_unit_summary, "~> 0.2.0", only: :test},
         {:wallaby, "~> 0.30", runtime: false, only: :test},
         #  for phoenix_live_reload/credo compat with archeometer
         {:file_system, "~> 1.0", override: true},
@@ -274,7 +274,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # logging
         {
           :sentry,
-          "~> 11.0",
+          "~> 13.0",
           # git: "https://github.com/getsentry/sentry-elixir",
           only: [:dev, :prod], override: true
         },
