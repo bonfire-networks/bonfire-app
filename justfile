@@ -211,6 +211,7 @@ cp_symlinks dir:
 	mkdir -p data
 	mkdir -p ./priv/repo/
 	mkdir -p priv/static/public
+	@just mix bonfire.gen_tailwind_sources || echo "WARNING: Could not regenerate Tailwind @source list. Run 'just mix bonfire.gen_tailwind_sources' manually."
 # rm -rf ./data/config
 # cd data && ln -sf ../config
 # -cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
@@ -1539,6 +1540,7 @@ localise-extract:
 	-mkdir -p priv/static/data/uploads
 	-mkdir -p rel/overlays/
 	-cp lib/*/*/overlay/* rel/overlays/
+	-just mix bonfire.gen_tailwind_sources
 
 # Workarounds for some issues running migrations
 @db-pre-migrations:
