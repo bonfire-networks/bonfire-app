@@ -211,7 +211,7 @@ cp_symlinks dir:
 	mkdir -p data
 	mkdir -p ./priv/repo/
 	mkdir -p priv/static/public
-	@just mix bonfire.gen_tailwind_sources || echo "WARNING: Could not regenerate Tailwind @source list. Run 'just mix bonfire.gen_tailwind_sources' manually."
+# @just mix bonfire.gen_tailwind_sources || echo "WARNING: Could not regenerate Tailwind @source list. Run 'just mix bonfire.gen_tailwind_sources' manually."
 # rm -rf ./data/config
 # cd data && ln -sf ../config
 # -cp -rf $FLAVOUR_PATH/repo/* ./priv/repo/
@@ -1255,10 +1255,11 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 
 #git checkout HEAD -- "config/current_flavour/assets/hooks/*"
-_rel-compile-assets USE_EXT="local" ARGS="": 
+_rel-compile-assets USE_EXT="local" ARGS="":
 	-rm -rf priv/static
 	yarn -v || npm install -g corepack
 	just js-ext-deps
+	just rel-mix {{ USE_EXT }} bonfire.gen_tailwind_sources
 	cd ./assets && yarn && yarn build && cd ..
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
 
@@ -1540,7 +1541,7 @@ localise-extract:
 	-mkdir -p priv/static/data/uploads
 	-mkdir -p rel/overlays/
 	-cp lib/*/*/overlay/* rel/overlays/
-	-just mix bonfire.gen_tailwind_sources
+# -just mix bonfire.gen_tailwind_sources
 
 # Workarounds for some issues running migrations
 @db-pre-migrations:

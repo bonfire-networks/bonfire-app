@@ -1,5 +1,14 @@
 import Config
 
+yes? = ~w(true yes 1)
+
+# Skip Image's Bumblebee/EXLA servers in dev by default (Nx/EXLA IR mismatch crashes boot).
+# Set DISABLE_IMAGE_CLASSIFIER=no to opt in.
+if System.get_env("DISABLE_IMAGE_CLASSIFIER", "yes") in yes? do
+  config :image, :classifier, autostart: false
+  config :image, :generator, autostart: false
+end
+
 config :bonfire,
   # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
   experimental_features_enabled: true,
@@ -25,7 +34,7 @@ config :bonfire, Bonfire.Common.Repo,
   log: false,
   stacktrace: true
 
-config :live_debugger, disabled?: System.get_env("DISABLE_LIVE_DEBUGGER") in ~w(true 1 yes)
+config :live_debugger, disabled?: System.get_env("DISABLE_LIVE_DEBUGGER") in yes?
 
 # if System.get_env("WITH_FORKS", "1") == "1" , do:
 # Mess.deps(
@@ -118,6 +127,7 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
       web_console_logger: false
     ],
     watchers: [
+      tailwind_sources: {Bonfire.UI.Common.TailwindSources, :generate, []},
       yarn: [
         "watch.js",
         cd: Path.expand("assets", File.cwd!())
