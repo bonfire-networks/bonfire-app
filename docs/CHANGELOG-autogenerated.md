@@ -47,6 +47,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 translations [`3b12a40`](https://github.com/bonfire-networks/bonfire-app/commit/3b12a4097ffa08ff15eec45bf03588220e46dabc) (thanks @mayel)
 - 🚧 1 of my users is no longer Federating [#1914](https://github.com/bonfire-networks/bonfire-app/issues/1914) [`8db35c7`](https://github.com/bonfire-networks/bonfire-app/commit/8db35c7d5ab6c3b96273074b7e1f84bc3c808266) (thanks @mayel and @btfreeorg)
 - 📝 working on plyr [`bfa26a0`](https://github.com/bonfire-networks/federated_archives/commit/bfa26a0780f0926a90e2b6a76bafeea13afb7f80)
+- 📝 tailwind [`65dd697`](https://github.com/bonfire-networks/bonfire-app/commit/65dd6974b653767d507d60bc59ecc2b9c5d3413a) (thanks @mayel)
 - 📝 fix(flavour): drop DashboardLive templates; use upstream default /dashboard [`806a8e6`](https://github.com/bonfire-networks/federated_archives/commit/806a8e630dcbd25f362d5febac4a75c48448353b)
 - 📝 localisation [`5f3d456`](https://github.com/bonfire-networks/bonfire-app/commit/5f3d456b54abc62c12e661076a75a0e2e9095fe9), [`f3c3d7d`](https://github.com/bonfire-networks/bonfire-app/commit/f3c3d7dd2fbea25449d3286bfd3bb26abbc946ef) (thanks @mayel)
 - 📝 js [`b08d685`](https://github.com/bonfire-networks/bonfire-app/commit/b08d685b4d750bd560867bd3a43edcda0c538da2) (thanks @mayel)
@@ -85,6 +86,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 💅 align PreviewContentLive hook with Pandora video preview clicks [`dffb273`](https://github.com/bonfire-networks/federated_archives/commit/dffb2735a6da50304b51040c9513c4338ee9feff)
 
 ### Fixed
+- 🐛 Bug [#1965](https://github.com/bonfire-networks/bonfire-app/issues/1965) (thanks @ivanminutillo)
 - 🐛 theme preview/enable buttons overflow [#1956](https://github.com/bonfire-networks/bonfire-app/issues/1956) (thanks @ruzko and @ivanminutillo)
 - 🐛 Clicking on “copy post link” just reloads the page and does not copy the link [#1951](https://github.com/bonfire-networks/bonfire-app/issues/1951) (thanks @xplosionmind and @ivanminutillo)
 - 🐛 Applying content warnings on mobile web is broken [#1936](https://github.com/bonfire-networks/bonfire-app/issues/1936) (thanks @LiquidParasyte and @ivanminutillo)
