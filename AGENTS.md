@@ -126,6 +126,8 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 
 ## Elixir guidelines
 
+- **`unless` is deprecated** — use `if !` or `if not` instead. Never write `unless condition, do: ...` or `unless condition do ... end`.
+
 - Elixir lists **do not support index based access via the access syntax**
 
   **Never do this (invalid)**:
