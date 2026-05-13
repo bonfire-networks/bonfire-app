@@ -16,14 +16,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ [Bonfire Pandora] :: As a user i want to add metadata to a movie if I have proper rights [#8](https://github.com/bonfire-networks/federated_archives/issues/8) (thanks @ivanminutillo)
 - ✨ Add per-user and per-instance keyword filtering [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @ivanminutillo and @mayel)
 - ✨ chore: remove vim swap file and add *.swp to .gitignore [`99fce0b`](https://github.com/bonfire-networks/federated_archives/commit/99fce0bbe29c75827b2cb32a091d6df847faf755)
-- ✅ tests [`7b26df9`](https://github.com/bonfire-networks/bonfire-app/commit/7b26df97a0e4f023470cfca8080fc823bd812e4d), [`7a2626c`](https://github.com/bonfire-networks/bonfire-app/commit/7a2626cf4b943efa6ddfdde67a0ae5a9fce67188), [`50a4e61`](https://github.com/bonfire-networks/bonfire-app/commit/50a4e61e060d13837a459b317afc31ff910e53d3), [`ed067ab`](https://github.com/bonfire-networks/bonfire-app/commit/ed067ab63681f7d5ac69754460eabe21e8bbc016) (thanks @mayel)
+- ✅ tests [`95fc117`](https://github.com/bonfire-networks/bonfire-app/commit/95fc11763198928dd16bc1f1c6e2113511468af8), [`7b26df9`](https://github.com/bonfire-networks/bonfire-app/commit/7b26df97a0e4f023470cfca8080fc823bd812e4d), [`7a2626c`](https://github.com/bonfire-networks/bonfire-app/commit/7a2626cf4b943efa6ddfdde67a0ae5a9fce67188), [`50a4e61`](https://github.com/bonfire-networks/bonfire-app/commit/50a4e61e060d13837a459b317afc31ff910e53d3), [`ed067ab`](https://github.com/bonfire-networks/bonfire-app/commit/ed067ab63681f7d5ac69754460eabe21e8bbc016) (thanks @mayel)
 - ✅ WIP e2ee testing [`5992875`](https://github.com/bonfire-networks/bonfire-app/commit/5992875c01d9cd7ac8223cdf9ffec734d8fdfaef), [`0776cb9`](https://github.com/bonfire-networks/bonfire-app/commit/0776cb94c4ffd6e47d5e0542f67472d741f1a61a) (thanks @mayel)
 - ✨ feat(css): add federated_archives_plyr re-export for bonfire_pandora Plyr styles [`6729852`](https://github.com/bonfire-networks/federated_archives/commit/6729852329e58a05298e001fc15d41fcf9800489)
+- ✨ new users auto-join this group toggle in group settings [`c2775da`](https://github.com/bonfire-networks/bonfire-app/commit/c2775da76642cd25a5de0f9ab06b388246c67b60) (thanks @mayel)
 - ✨ feat(css): add movie player and timeline strip styles; update README [`25b9084`](https://github.com/bonfire-networks/federated_archives/commit/25b9084d9baa6909736aa08521196c9a207dad3b)
 - ✨ enable marker only on certain feeds [`cbca6c5`](https://github.com/bonfire-networks/bonfire-app/commit/cbca6c53a8b209643363089129676a784e7a0c12) (thanks @mayel)
 - ✅ test [`68bb86b`](https://github.com/bonfire-networks/bonfire-app/commit/68bb86b695075db87d74b539a2466c5258905768) (thanks @mayel)
 
 ### Changed
+- 🚀 detect when a remote user's avatar or banner image 404s and trigger an actor refetch/update [#1982](https://github.com/bonfire-networks/bonfire-app/issues/1982) (thanks @mayel)
 - 💅 Long title of a media break the UI in movie page [#57](https://github.com/bonfire-networks/federated_archives/issues/57) (thanks @cranioisthinking)
 - 📝 Values as search terms in movieinfo [#56](https://github.com/bonfire-networks/federated_archives/issues/56) (thanks @cranioisthinking)
 - 📝 Removing a person from a group chat [#1861](https://github.com/bonfire-networks/bonfire-app/issues/1861) (thanks @mayel)
