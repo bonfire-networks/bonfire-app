@@ -243,8 +243,10 @@ jobs:
       - name: Add path
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-      - 
+      -
         name: Install system deps & tools
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           chmod +x deps-debian-build.sh && ./deps-debian-build.sh
           echo "$HOME/.local/bin" >> $GITHUB_PATH

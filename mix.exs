@@ -456,6 +456,7 @@ defmodule Bonfire.Umbrella.MixProject do
       ],
       update: [
         "bonfire_",
+        "bonfire_files",
         "ember",
         "social",
         "community",
