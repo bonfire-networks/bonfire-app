@@ -122,6 +122,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - Prepend every mix action with `just`, eg. `just mix format` instead of `mix format`. You can read the `justfile` for a list of just commands.
 - Read the docs and options before using tasks (by using `just mix help task_name`)
 - To debug test failures, run tests in a specific file with `just test test/my_test.exs` or run all previously failed tests with `just test --failed`
+- **Always read the actual log output** after a test run — never assume success from exit code alone. Tail the log file and report failures to the user.
 - `just mix deps.clean --all` is **almost never needed**. **Avoid** using it unless you have good reason
 
 ## Elixir guidelines
