@@ -22,6 +22,7 @@ SPDX-License-Identifier: CC0-1.0
 - 📝 community rules, thanks to research and co-design with Princeton HCI students and researchers [`d2bad70`](https://github.com/bonfire-networks/bonfire-app/commit/d2bad7038250758080fa037ddb52f7fcc38990a8), [`9beb3e0`](https://github.com/bonfire-networks/bonfire-app/commit/9beb3e0059f860625d41076be31da429a6a5e7f1) (thanks @mayel)  
 - ✨ Marker display configurable per feed (enable/disable/disable on nav click), disabled by default in flavour (thanks @ivanminutillo)  
 - ✨ Link to user settings in language dropdown in composer (thanks @ivanminutillo)  
+- 🚀 detect when a remote user's avatar or banner image 404s and trigger an actor refetch/update [#1982](https://github.com/bonfire-networks/bonfire-app/issues/1982) (thanks @mayel)
 - ✨ Specify the layout (both the FeedLive and the ActivityLive one) in config for each feed to further customize how they're rendered in the page [\#1376](https://github.com/bonfire-networks/bonfire-app/issues/1376) (thanks @ivanminutillo)  
 - ✨ per-user and per-instance keyword filtering [\#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @ivanminutillo and @mayel)  
 - ✨ Ghost integration: article import via API, creating as Note/article in Bonfire (thanks @mayel,@ivanminutillo)  
