@@ -1248,7 +1248,7 @@ config :bonfire_files, Media,
        field(:reply_count, :integer, virtual: true)
        field(:boost_count, :integer, virtual: true)
        field(:like_count, :integer, virtual: true)
-       field(:trending_score, :float, virtual: true)
+       field(:popularity_score, :float, virtual: true)
 
        field(:activity_ids, {:array, :string}, virtual: true)
        has_many(:activities, Bonfire.Data.Social.Activity, foreign_key: :id)
