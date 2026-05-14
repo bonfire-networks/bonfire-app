@@ -7,6 +7,89 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0.3 (2026-05-14)]
+
+### Added
+
+- ✨ View Bonfire comments under any web page (via embed) (thanks @mayel,@ivanminutillo)  
+- ✨ Text-based polls (thanks @ivanminutillo, @mayel)  
+- 📝 A way to sort comments by most popular (upvotes \+ likes \+ comments); with popularity of nested comment aggregated when viewing nested threads (thanks @mayel)  
+- 📝 Dashboard Widgets [\#1734](https://github.com/bonfire-networks/bonfire-app/issues/1734) (thanks @ivanminutillo and @mayel)  
+  - Getting started dashboard widget (thanks @ivanminutillo  
+  - Closing soon polls widget on dashboard (thanks @ivanminutillo)  
+  - Spotlight / pinned posts widget on dashboard (thanks @ivanminutillo)  
+  - ✨ 3 most-replied local posts widget on dashboard (thanks @ivanminutillo)  
+- 📝 community rules [`d2bad70`](https://github.com/bonfire-networks/bonfire-app/commit/d2bad7038250758080fa037ddb52f7fcc38990a8), [`9beb3e0`](https://github.com/bonfire-networks/bonfire-app/commit/9beb3e0059f860625d41076be31da429a6a5e7f1) (thanks @mayel)  
+- ✨ Marker display configurable per feed (enable/disable/disable on nav click), disabled by default in flavour (thanks @ivanminutillo)  
+- ✨ Link to user settings in language dropdown in composer (thanks @ivanminutillo)  
+- ✨ Specify the layout (both the FeedLive and the ActivityLive one) in config for each feed to further customize how they're rendered in the page [\#1376](https://github.com/bonfire-networks/bonfire-app/issues/1376) (thanks @ivanminutillo)  
+- ✨ per-user and per-instance keyword filtering [\#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @ivanminutillo and @mayel)  
+- ✨ Ghost integration: article import via API, creating as Note/article in Bonfire (thanks @mayel,@ivanminutillo)  
+- ✨ Ghost integration: Setting to restrict sign-up to a certain membership tier (thanks @mayel)  
+- ✨ Ghost integration: Per-instance circles created for each membership tier, with instance-level preset boundary matching tier visibility (public / members / paid) (thanks @ivanminutillo, @mayel)  
+- 📝 Ghost integration: Article image, description/credits, and summary shown when imported into Bonfire (thanks @mayel)  
+- 📝 Ghost integration: imported articles appear under a Bonfire profile linked to the ghost author (thanks @mayel)  
+- ✨ Gated login: Sign-up button optionally pointing to external registration (thanks @ivanminutillo)  
+- ✨ Gated login: Registration link sent by email when email not found in Ghost (thanks @ivanminutillo)
+
+### Changed
+
+- 📝 Post scheduling disabled when commenting (vs new post) (thanks @ivanminutillo)  
+- 💅 "Copy link" on comments widget now includes domain name (thanks @ivanminutillo)  
+- 📝 Direct Messages UX [\#1850](https://github.com/bonfire-networks/bonfire-app/issues/1850) (thanks @ivanminutillo)  
+- 🚧 the first mention or hashtag in a post created on bonfire generates a preview on mastodon [\#1754](https://github.com/bonfire-networks/bonfire-app/issues/1754) [`dd2cd07`](https://github.com/bonfire-networks/bonfire-app/commit/dd2cd076829196508d2a353be46be1779d4a4084) (thanks @mayel and @ivanminutillo)  
+- ✨ enable marker only on certain feeds [`cbca6c5`](https://github.com/bonfire-networks/bonfire-app/commit/cbca6c53a8b209643363089129676a784e7a0c12) (thanks @mayel)
+
+
+### Fixed
+
+- 🚧 1 of my users is no longer Federating [\#1914](https://github.com/bonfire-networks/bonfire-app/issues/1914) (thanks @mayel and @btfreeorg)  
+- 🐛 Pin not working on comments (thanks @ivanminutillo)  
+- 🐛 Posts truncated correctly in spotlight (thanks @ivanminutillo)  
+- 🐛 Dashboard: own posts not appearing in main feed (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: clicking reply icon did not show previous comments (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: clicking "x" on composer did not return to timeline (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: quote function not working (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: quoted post not shown inline, only as a link (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: non-existent user shown as thread member (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: standard view always showing old post instead of newest; "jump to newest" required manually (thanks @jacobin and @ivanminutillo)  
+- 🐛 Feed: translations not shown on posts (thanks @jacobin and @ivanminutillo)  
+- 🐛 Notifications: unread count not clearing after viewing (thanks @jacobin and @ivanminutillo)  
+- 🐛 Notifications: quote notification not dismissing after accepting (thanks @jacobin and @ivanminutillo)  
+- 🐛 Notifications: message notification not dismissing after reading (thanks @jacobin and @ivanminutillo)  
+- 🐛 Notifications: page reloading/flickering every \~3 seconds (thanks @jacobin and @ivanminutillo)  
+- 🐛 Notifications: filter section labelled "Feed Filters" instead of something contextual (thanks @jacobin and @ivanminutillo)  
+- 🐛 Notifications: same notification shown twice (thanks @jacobin and @ivanminutillo)  
+- 🐛 Messages: own account appearing in message list (thanks @jacobin and @ivanminutillo)  
+- 🐛 Messages: emoji picker not working when composing (thanks @jacobin and @ivanminutillo)  
+- 🐛 Messages: "insert emoji" label partially hidden (thanks @jacobin and @ivanminutillo)  
+- 🐛 Messages: search function not working (thanks @jacobin and @ivanminutillo)  
+- 🐛 Messages: scheduling, title, and summary options shown inappropriately in DMs (thanks @jacobin and @ivanminutillo)  
+- 🐛 Profile: "Follow" button showing "Follows you" after following someone (thanks @jacobin and @ivanminutillo)  
+- 🐛 Profile: not possible to change @handle (thanks @jacobin and @ivanminutillo)  
+- 🐛 Profile: not possible to delete profile picture or banner without replacing it (thanks @jacobin and @ivanminutillo)  
+- 🐛 Preferences: dark theme requiring two-step activation vs light theme activating immediately (thanks @jacobin and @ivanminutillo)  
+- 🐛 Preferences: changing discussion layout (flat/threads) had no visible effect (thanks @jacobin and @ivanminutillo)  
+- 🐛 Replies: "Erweitert" button not functional (thanks @jacobin and @ivanminutillo)  
+- 🐛 Replies: not possible to delete own posts (thanks @jacobin and @ivanminutillo)  
+- 🐛 Replies: error when marking someone else's reply as answer (thanks @jacobin and @ivanminutillo)  
+- 🐛 Replies: focus not auto-placed in reply box after clicking reply (thanks @jacobin and @ivanminutillo)  
+- 🐛 New profile: @handle auto-filled from pseudonym when deleting, making full deletion impossible (thanks @jacobin and @ivanminutillo)  
+- 🐛 New profile: two error messages on invalid handle, transient one disappearing immediately (thanks @jacobin and @ivanminutillo)  
+- 🐛 Tutorial: "follow 5 people" step not auto-resolving after completion (thanks @jacobin and @ivanminutillo)  
+- 🐛 Flags: filter in "My Flags" section not functional (thanks @jacobin and @ivanminutillo)  
+- 🐛 Dashboard Widgets: "Haupt" and "Seite" displayed as two separate words due to i18n layout issue (thanks @jacobin and @ivanminutillo)  
+- 🐛 Boost icon missing tooltip on hover (thanks @jacobin and @ivanminutillo)  
+- 🐛 Local feed shown even when federation is disabled (thanks @jacobin and @ivanminutillo)  
+- 🐛 Bug [\#1965](https://github.com/bonfire-networks/bonfire-app/issues/1965) (thanks @ivanminutillo)  
+- 🐛 theme preview/enable buttons overflow [\#1956](https://github.com/bonfire-networks/bonfire-app/issues/1956) (thanks @ruzko and @ivanminutillo)  
+- 🐛 Clicking on "copy post link" just reloads the page and does not copy the link [\#1951](https://github.com/bonfire-networks/bonfire-app/issues/1951) (thanks @xplosionmind and @ivanminutillo)  
+- 🐛 Applying content warnings on mobile web is broken [\#1936](https://github.com/bonfire-networks/bonfire-app/issues/1936) (thanks @LiquidParasyte and @ivanminutillo)  
+- 🐛 confim button in delete user modal doesn't work [\#1931](https://github.com/bonfire-networks/bonfire-app/issues/1931) (thanks @mayel and @ivanminutillo)  
+- 🐛 Having a feed open shouldn't trigger browser notifications when new activities are sent over the websocket [\#1709](https://github.com/bonfire-networks/bonfire-app/issues/1709) (thanks @mayel and @ivanminutillo)  
+- 🐛 \[Bug\]: after a keyword search, additional filters return an error [\#36](https://github.com/bonfire-networks/federated_archives/issues/36) (thanks @ivanminutillo)
+
+
 ## Bonfire Social [1.0.2 (2026-03-17)]
 
 ### What's new
