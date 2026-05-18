@@ -244,7 +244,10 @@ config :bonfire, Oban,
     static_generator: String.to_integer(System.get_env("QUEUE_SIZE_STATIC_GEN", "1")),
     # video_transcode: 1,
     # boost_activities: 1,
-    fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1"))
+    fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1")),
+    # batched Meilisearch indexing flush — concurrency 1 is intentional: it
+    # serialises flushes so each Meili task is one large batch, not many small ones
+    search_index: String.to_integer(System.get_env("QUEUE_SIZE_SEARCH_INDEX", "1"))
   ],
   plugins: [
     # delete job history after 6 hours
