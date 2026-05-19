@@ -4,7 +4,7 @@ dnf update -q -y
 
 # deps available in default UBI9 repos
 dnf install -q -y --setopt=install_weak_deps=False \
-  git tar unzip curl wget file bash \
+  git tar unzip wget file bash \
   ca-certificates gnupg openssl \
   tzdata gettext \
   poppler-utils
