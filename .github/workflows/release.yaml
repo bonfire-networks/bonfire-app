@@ -20,7 +20,7 @@ jobs:
     container: debian:bookworm
     permissions: write-all
     outputs:
-      tag: ${{ steps.version.outputs.tag }}
+      tag: ${{ steps.version.outputs.tag || format('v{0}', steps.version.outputs.current-version) }}
     steps:
       - name: Install git
         run: apt-get update -q -y && apt-get install -q -y git
