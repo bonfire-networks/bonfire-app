@@ -6,14 +6,16 @@ dnf update -q -y
 chmod +x ./deps-rhel.sh
 ./deps-rhel.sh
 
-# Enable EPEL for extra packages
-dnf install -q -y epel-release || true
+# core build tools (all available in default UBI9 AppStream repo)
+dnf install -q -y \
+  gcc gcc-c++ make autoconf \
+  openssl-devel ncurses-devel \
+  unixODBC-devel unixODBC \
+  nodejs npm \
+  sqlite cmake
 
-# dev deps (build tools needed for mise to build erlang)
-dnf install -q -y --setopt=install_weak_deps=False \
-  npm sqlite gcc gcc-c++ make cmake autoconf \
-  openssl-devel ncurses-devel unixODBC-devel \
-  lksctp-tools-devel unixODBC
+# optional: SCTP support for Erlang (not critical)
+dnf install -q -y lksctp-tools-devel || true
 
 npm install -g corepack && corepack enable || npm install -g yarn
 
