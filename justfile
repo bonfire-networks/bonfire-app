@@ -137,7 +137,7 @@ flavour_make_symlinks flavour=FLAVOUR:
 	just _ln-from-dep {{flavour}} config/ "*" config/
 	just _ln-from-dep ember config/ "*" config/
 	mkdir -p config/current_flavour
-	cd config/current_flavour && ln -sf ../../extensions/{{flavour}}/assets || ln -sf ../../deps/{{flavour}}/assets || (mkdir -p assets/hooks && echo "No assets dir found for {{flavour}}, created empty placeholder")
+	cd config/current_flavour && (test -d ../../extensions/{{flavour}}/assets && ln -sf ../../extensions/{{flavour}}/assets) || (test -d ../../deps/{{flavour}}/assets && ln -sf ../../deps/{{flavour}}/assets) || (mkdir -p assets/hooks && echo "No assets dir found for {{flavour}}, created empty placeholder")
 	just _ln-dep-defs {{flavour}}
 
 # _configs-cp flavour=FLAVOUR:
