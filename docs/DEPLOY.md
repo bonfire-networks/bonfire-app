@@ -236,7 +236,41 @@ You may also want to put this in the appropriate place in your system so your ch
 
 - The migrations should automatically run on first boot, but if you run into troubles the migration command is: `Bonfire.Common.Repo.migrate()` in the iex console. 
 
-- To run the instance as a daemon, use `bin/bonfire start daemon`. [Yay, you're up and running!](#notes-on-running-the-app)
+- To run the instance as a background daemon (via Erlang's `run_erl`), use `bin/bonfire daemon`. Logs will be written to `tmp/log/` inside the release directory. Note: if you are using systemd (see below), use `bin/bonfire start` instead — systemd manages the process directly and captures stdout to journald. [Yay, you're up and running!](#notes-on-running-the-app)
+
+- To keep Bonfire running in production you'll want a process supervisor. On systemd-based Linux systems (Debian, RHEL, etc.) you can use the provided unit file — but other options like OpenRC, runit, or your platform's init system work equally well, as long as they run `bin/bonfire start` in the foreground and restart on failure. For systemd:
+
+```sh
+# If you built from source, copy the release to its permanent location:
+cp -r _build/prod/rel/bonfire /opt/bonfire
+
+# Or download a pre-built release from GitHub (replace flavour/architecture/distro/version as appropriate).
+# Pre-built releases are compiled on a matching host (debian:bookworm or redhat/ubi9) so binaries are guaranteed to be compatible with the target system:
+# curl -L https://github.com/bonfire-networks/bonfire-app/releases/latest/download/bonfire-social-amd64-debian-bookworm.tar.gz | tar -xz -C /opt/bonfire --strip-components=1
+# curl -L https://github.com/bonfire-networks/bonfire-app/releases/latest/download/bonfire-social-amd64-rhel-9.tar.gz | tar -xz -C /opt/bonfire --strip-components=1
+
+# Create a dedicated system user
+useradd --system --home /opt/bonfire --shell /sbin/nologin bonfire
+chown -R bonfire:bonfire /opt/bonfire
+
+# Create the environment file based on the provided templates, then fill in secrets
+mkdir -p /etc/bonfire
+cat config/templates/public.env config/templates/not_secret.env > /etc/bonfire/.env
+# Edit /etc/bonfire/.env to set SECRET_KEY_BASE, DATABASE_URL, and other required values
+chown bonfire:bonfire /etc/bonfire/.env
+chmod 600 /etc/bonfire/.env
+
+# Install and enable the service
+cp config/deploy/bonfire.service /etc/systemd/system/bonfire.service
+systemctl daemon-reload
+systemctl enable --now bonfire
+
+# Check status and logs
+systemctl status bonfire
+journalctl -u bonfire -f
+```
+
+The environment file at `/etc/bonfire/.env` is based on `config/templates/public.env` and `config/templates/not_secret.env`. At minimum you must set `SECRET_KEY_BASE` (a long random string) and `DATABASE_URL` in it.
 
 8. Adding HTTPS
 

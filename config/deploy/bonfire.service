@@ -1,0 +1,34 @@
+# Example systemd service for bonfire
+#
+# Install:
+#   cp bonfire.service /etc/systemd/system/bonfire.service
+#   systemctl daemon-reload
+#   systemctl enable --now bonfire
+#
+# Logs:
+#   journalctl -u bonfire -f
+
+[Unit]
+Description=Bonfire
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=exec
+User=bonfire
+Group=bonfire
+WorkingDirectory=/opt/bonfire
+
+EnvironmentFile=/etc/bonfire/.env
+
+ExecStart=/opt/bonfire/bin/bonfire start
+ExecStop=/opt/bonfire/bin/bonfire stop
+
+Restart=on-failure
+RestartSec=5
+
+# Allow enough open file descriptors for high-concurrency Phoenix connections
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
