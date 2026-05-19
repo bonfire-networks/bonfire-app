@@ -694,7 +694,11 @@ dev-search-reset: dev-search-reset-docker
 	rm -rf data/search/dev
 
 dev-search-reset-docker:
-	{{ if WITH_DOCKER != "no" { "just docker-compose rm -s -v search" } else {""} }}
+	#!/usr/bin/env bash
+	set -euo pipefail
+	adapter="${SEARCH_ADAPTER:-meili}"
+	svc=$([ "$adapter" = "sonic" ] && echo "sonic" || echo "search")
+	[ "{{ WITH_DOCKER }}" != "no" ] && just docker-compose rm -s -v "$svc" || true
 
 # Rollback previous DB migration (caution: this means DATA LOSS)
 db-rollback: services
@@ -1390,7 +1394,29 @@ rel-docker-compose *args:
 	{{ if MIX_ENV == "prod" { "just rel-services \"$services\"" } else { "just dev-services \"$services\"" } }}
 
 @dev-services services="db search":
-	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just docker-compose up -d \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just _start-services \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+
+# Start docker services, using SEARCH_ADAPTER env to choose between meili and sonic when "search" is in the list
+@_start-services services:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	other=""
+	search_profile=""
+	for svc in {{services}}; do
+	  if [ "$svc" = "search" ]; then
+	    search_profile="${SEARCH_ADAPTER:-meili}"
+	  else
+	    other="$other $svc"
+	  fi
+	done
+	if [ -n "$search_profile" ]; then
+	  # Use --profile to enable the right search service, but name it explicitly so
+	  # docker-compose doesn't start unrelated services (e.g. web) that share the profile
+	  search_svc=$([ "$search_profile" = "sonic" ] && echo "sonic" || echo "search")
+	  just docker-compose --profile "$search_profile" up -d $other $search_svc
+	else
+	  just docker-compose up -d $other
+	fi
 
 # Build the docker image
 @build: 
@@ -1550,9 +1576,14 @@ localise-extract:
 	-touch forks/*/lib/migrations.ex
 	-touch priv/repo/*
 
-# Generate secrets
-@secrets:
-	just rands
+# Generate secrets and append them to .env; copy sonic.cfg template to config/deploy/ if missing
+secrets:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	env_file=$(readlink .env 2>/dev/null || echo .env)
+	just rands >> "$env_file"
+	test -f config/deploy/sonic.cfg || cp config/templates/sonic.cfg config/deploy/sonic.cfg
+	echo "Secrets appended to .env"
 #{{ if MIX_ENV == "prod" { "just rands" } else if WITH_DOCKER=="total" { "just rands" } else { "just mix-secrets" } }}
 
 @rands:
@@ -1562,6 +1593,7 @@ localise-extract:
 	echo "ERLANG_COOKIE=$(just rand 42)"
 	echo "POSTGRES_PASSWORD=$(just rand 42)"
 	echo "MEILI_MASTER_KEY=$(just rand 42)"
+	echo "SONIC_PASSWORD=$(just rand 42)"
 
 @mix-secrets: 
 	just escript_common secrets --file .env

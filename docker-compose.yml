@@ -20,6 +20,9 @@ services:
     environment:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
+      - SONIC_HOST=search
+      - SONIC_HOST=${SONIC_HOST:-search}
+      - SONIC_PORT=${SONIC_PORT:-1491}
       # - GRAPH_DB_URL=bolt://graph:7687 # commented temporarily 
     depends_on:
       - db
@@ -67,17 +70,31 @@ services:
       retries: 5
   search:
     profiles:
+      - meili
       - search
     image: getmeili/meilisearch:v1.11 # TODO: upgrade to v1.14+
     ports:
       - "127.0.0.1:7700:7700"
-    volumes:  
+    volumes:
       - "search-data:/meili_data"
       # - "./data/search/dev:/meili_data"
-      # - /etc/passwd:/etc/passwd:ro 
+      # - /etc/passwd:/etc/passwd:ro
     env_file:
       - config/dev/.env
     # user: $UID:$GID
+  sonic:
+    profiles:
+      - sonic
+      - search
+    hostname: search # using same as meili as a sanity to avoid running bo
+    image: valeriansaliou/sonic:latest
+    environment:
+      - SONIC_CHANNEL__AUTH_PASSWORD=${SONIC_PASSWORD}
+    ports:
+      - "127.0.0.1:1491:1491"
+    volumes:
+      - "sonic-data:/var/lib/sonic/store"
+      - "./config/deploy/sonic.cfg:/etc/sonic.cfg:ro"
   proxy:
     profiles:
       - proxy
@@ -127,6 +144,7 @@ services:
 volumes:
   db-data:
   search-data:
+  sonic-data:
   caddy_data:
     # external: true
   caddy_config:
