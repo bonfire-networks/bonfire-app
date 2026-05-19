@@ -12,6 +12,32 @@ jobs:
   check_version_changed:
     uses: ./.github/workflows/check_version_changed.yaml
 
+
+  otp_tag:
+    needs: check_version_changed
+    # if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
+    runs-on: ubuntu-latest
+    container: debian:bookworm
+    permissions: write-all
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Install git
+        run: apt-get update -q -y && apt-get install -q -y git
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 5
+      - name: Trust my repo
+        run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .)
+      - name: Detect and tag version
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: true
+          version-command: |
+            grep -m 1 'version:' mix.exs | cut -d '"' -f2
+
+
   docker:
     needs: check_version_changed
     if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
@@ -195,9 +221,10 @@ jobs:
             fi
           done
 
+
   otp_release_amd64:
-    needs: check_version_changed
-    #if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
+    needs: [check_version_changed, otp_tag]
+    # if: ${{ needs.check_version_changed.outputs.version_changed == 'true' }}
     name: ${{ matrix.flavour }} - OTP on ${{ matrix.distro }}-${{ matrix.distro_version }} / amd64
     strategy:
       matrix:
@@ -246,7 +273,7 @@ jobs:
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
-          create-tag: true
+          create-tag: false
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
       - name: Add path
@@ -322,8 +349,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: _build/prod/rel/bonfire-*.tar.gz
-          name: ${{ steps.version.outputs.tag }}
-          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ needs.otp_tag.outputs.tag }}
+          tag_name: ${{ needs.otp_tag.outputs.tag }}
       # - name: Publish release 
       #   uses: mayel/actions/bin/ghr@master
       #   env:
