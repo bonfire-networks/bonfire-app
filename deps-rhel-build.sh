@@ -8,7 +8,7 @@ chmod +x ./deps-rhel.sh
 
 # core build tools (all available in default UBI9 AppStream repo)
 dnf install -q -y \
-  gcc gcc-c++ make autoconf \
+  gcc gcc-c++ make autoconf diffutils \
   openssl-devel ncurses-devel \
   unixODBC-devel unixODBC \
   libatomic \

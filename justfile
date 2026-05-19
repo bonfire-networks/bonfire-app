@@ -722,6 +722,7 @@ update-app: update-repo update-deps
 
 @db-clean-migrations:
 	rm -rf ./priv/repo/*
+	mkdir -p ./priv/repo/migrations
 # rm -rf ./flavours/*/priv/repo/migrations/*
 # rm -rf deps/bonfire/priv/repo/*
 # rm -rf extensions/bonfire/priv/repo/*
