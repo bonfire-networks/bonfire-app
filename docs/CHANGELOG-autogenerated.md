@@ -11,9 +11,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ tests [`edc0a75`](https://github.com/bonfire-networks/bonfire-app/commit/edc0a75f5bf81539834a476387c3913338c1fbbc), [`8449b02`](https://github.com/bonfire-networks/bonfire-app/commit/8449b028a5b01251f5672a8dbfee4e5b71625e40) (thanks @mayel)
 
 ### Changed
+- ⚡ Optimize guest local feed origin filter [PR #6](https://github.com/bonfire-networks/bonfire_social/pull/6) (thanks @sftwrstef)
 - 📝 1.0.3 [`e500e79`](https://github.com/bonfire-networks/bonfire-app/commit/e500e795c6559b6be2a83630cb0b5fa14ab676b5) (thanks @ivanminutillo)
 - 📝 api [`fdd7c64`](https://github.com/bonfire-networks/bonfire-app/commit/fdd7c6444675de1cc5398c2b2af485bd46290d89) (thanks @mayel)
 - 📝 fix [`fc9f4b1`](https://github.com/bonfire-networks/bonfire-app/commit/fc9f4b1d24d2114815238b94d56966bde679e567), [`e5696d0`](https://github.com/bonfire-networks/bonfire-app/commit/e5696d03b9b940656691bd3fe77346bb95564c17) (thanks @mayel)
+- 📝 seo [`4d82ed4`](https://github.com/bonfire-networks/bonfire-app/commit/4d82ed47ef23fe8df865f22fa7701d138d55ee99) (thanks @mayel)
 
 ### Fixed
 - 🐛 Meaningful OpenGraph/Twitter meta tags when sharing profiles and posts [#1992](https://github.com/bonfire-networks/bonfire-app/issues/1992) (thanks @ivanminutillo)
