@@ -282,6 +282,147 @@ There is an example nginx configuration provided at `config/deploy/nginx.conf` a
 
 > NOTE: If you've built from source, you should point the web server root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
 
+### Bare-metal (no root)
+
+These instructions apply for servers with hardened security measures where root access is not an option. 
+
+#### Overview
+1. Download and untar a binary with a bonfire flavour and dependencies to your home folder.
+2. Setting up `.env`
+3. Run bonfire 
+
+#### Download binaries
+
+Starting from [v.1.0.4-alpha.3](https://github.com/bonfire-networks/bonfire-app/releases/tag/v1.0.4-alpha.3), bonfire includes a binaries with dependencies (e.g., just and erlang/elixir) bundled with it. 
+
+> [!IMPORTANT]
+> Note that there are different binaries for different bonfire flavours (currently only `social` and `openscience`) as well as for different distros (currently RHEL and debian). In this example, we are assuming openscience flavour for RHEL, but make sure to download the right file for your use case.
+
+Download and unzip the bundle in a folder where you have write permissions, such as `/home/bonfire`:
+
+```bash
+wget  https://github.com/bonfire-networks/bonfire-app/releases/download/v1.0.4-alpha.3/bonfire-open_science-amd64-debian-bookworm.tar.gz | tar -xzf - -C /home/<your_username>/bonfire --strip-components=1
+```
+
+#### Setting up `.env`
+
+1. Scaffold `.env`. Unlike with the bare-metal with root access, the required templates are not included in the binaries and will need to be downloaded from the repository:
+
+```bash
+mkdir bonfire-templates
+
+# Download files
+wget https://raw.githubusercontent.com/bonfire-networks/bonfire-app/refs/heads/main/config/templates/public.env -P bonfire-templates
+wget https://raw.githubusercontent.com/bonfire-networks/bonfire-app/refs/heads/main/config/templates/not_secret.env -P bonfire-templates
+
+# Create env file from templates.
+cat bonfire-templates/public.env bonfire-templates/not_secret.env > bonfire/.env
+
+# Cleanup
+rm -rf bonfire-templates/
+
+```
+2. Generate required keys. Edit `bonfire/.env` to set `SECRET_KEY_BASE`, `DATABASE_URL`, and other required values. To generate the keys with random values and paste their values on `.env`, create and run this `.sh` script in the `bonfire/` folder:
+
+1. Create the script: `touch keys-generator.sh`:
+2. Edit `keys-generator.sh`and paste this content:
+
+```shell
+#!/usr/bin/env bash
+
+rand() {
+  openssl rand -base64 "$1" | tr -d '\n/+=' | head -c "$1"
+  echo
+}
+
+env_file=$(readlink .env 2>/dev/null || echo .env)
+
+set_var() {
+  key="$1"
+  value="$2"
+
+  if grep -q "^${key}=" "$env_file" 2>/dev/null; then
+    # Replace existing key
+    sed -i "s|^${key}=.*|${key}=${value}|" "$env_file"
+  else
+    # Append if not found
+    echo "${key}=${value}" >> "$env_file"
+  fi
+}
+
+set_var "SECRET_KEY_BASE" "$(rand 128)"
+set_var "SIGNING_SALT" "$(rand 128)"
+set_var "ENCRYPTION_SALT" "$(rand 128)"
+set_var "ERLANG_COOKIE" "$(rand 42)"
+set_var "POSTGRES_PASSWORD" "$(rand 42)"
+set_var "MEILI_MASTER_KEY" "$(rand 42)"
+set_var "SONIC_PASSWORD" "$(rand 42)"
+
+echo "Updated $env_file"
+```
+
+3. Make it executable: `chmod +x keys-generator.sh` and run it to generate the keys: `./keys-generator.sh`.
+4. Edit `.env`  (`nano bonfire/.env`) to introduce the remaining variables and credentials:
+	1. `HOSTNAME`
+ 	2. `POSTGRES_HOST`
+  	3. `POSTGRES_USER`
+   	4. `POSTGRES_DB`
+
+#### Run bonfire
+
+To run bonfire we need to run `bin/bonfire start`. However, due to the setup, `.env` will be ignored. To address that, we will need to run within a wrapper script that ensures that `.env` is also loaded.
+
+1. Create a `start.sh` script (`touch start.sh`and `chmod +x start.sh`) and paste the following:
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+set -a
+source .env
+set +a
+exec bin/bonfire "${@:-start}"
+```
+
+2. then you can run for example:
+	1. `start.sh`: defaults to "start"
+	2. `start.sh daemon`: to run in background
+	3. `start.sh remote`: to connect to bg app
+
+#### Reverse proxy and process supervisor
+
+
+1. Configuring Apache as a reverse proxy: edit .htaccess with the following content:
+
+```
+ AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript \
+        application/javascript application/json application/xml image/svg+xml
+
+    # User uploads served directly by Apache
+    Alias /data/uploads/ /home/youruser/bonfire/uploads/
+    <Directory /home/youruser/bonfire/uploads>
+        Require all granted
+        Options -Indexes
+    </Directory>
+    ProxyPassMatch ^/data/uploads/ !
+
+    # WebSocket upgrade
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} !^/data/uploads/
+    RewriteCond %{HTTP:Upgrade} websocket [NC]
+    RewriteCond %{HTTP:Connection} upgrade [NC]
+    RewriteRule ^/?(.*) "ws://127.0.0.1:4000/$1" [P,L]
+
+    # Everything else (including priv/static assets) proxied to Phoenix
+    ProxyPreserveHost On
+    ProxyPass        / http://127.0.0.1:4000/
+    ProxyPassReverse / http://127.0.0.1:4000/
+
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Port  "443"
+```
+2. A process supervisor is needed to ensure that bonfire is restarted if the server restarts or the app crashes for any reason.
+
+Instructions to be added.
+
 ### Guix
 
 [Guix](https://guix.gnu.org) is a functional, atomic, transactional package manager and Linux distribution. It was inspired by Nix and is designed to give users more control over their computing environments, and make these easier to reproduce over time and deploy to one or many devices.
