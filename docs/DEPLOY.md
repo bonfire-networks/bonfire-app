@@ -295,7 +295,7 @@ These instructions apply for servers with hardened security measures where root 
 
 Starting from [v.1.0.4-alpha.3](https://github.com/bonfire-networks/bonfire-app/releases/tag/v1.0.4-alpha.3), bonfire includes a binaries with dependencies (e.g., just and erlang/elixir) bundled with it. 
 
-> [!NOTE] Bonfire flavours
+> [!IMPORTANT]
 > Note that there are different binaries for different bonfire flavours (currently only `social` and `openscience`) as well as for different distros (currently RHEL and debian). In this example, we are assuming openscience flavour for RHEL, but make sure to download the right file for your use case.
 
 Download and unzip the bundle in a folder where you have write permissions, such as `/home/bonfire`:
@@ -387,6 +387,41 @@ exec bin/bonfire "${@:-start}"
 	2. `start.sh daemon`: to run in background
 	3. `start.sh remote`: to connect to bg app
 
+#### Reverse proxy and process supervisor
+
+
+1. Configuring Apache as a reverse proxy: edit .htaccess with the following content:
+
+```
+ AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript \
+        application/javascript application/json application/xml image/svg+xml
+
+    # User uploads served directly by Apache
+    Alias /data/uploads/ /home/youruser/bonfire/uploads/
+    <Directory /home/youruser/bonfire/uploads>
+        Require all granted
+        Options -Indexes
+    </Directory>
+    ProxyPassMatch ^/data/uploads/ !
+
+    # WebSocket upgrade
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} !^/data/uploads/
+    RewriteCond %{HTTP:Upgrade} websocket [NC]
+    RewriteCond %{HTTP:Connection} upgrade [NC]
+    RewriteRule ^/?(.*) "ws://127.0.0.1:4000/$1" [P,L]
+
+    # Everything else (including priv/static assets) proxied to Phoenix
+    ProxyPreserveHost On
+    ProxyPass        / http://127.0.0.1:4000/
+    ProxyPassReverse / http://127.0.0.1:4000/
+
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Port  "443"
+```
+2. A process supervisor is needed to ensure that bonfire is restarted if the server restarts or the app crashes for any reason.
+
+Instructions to be added.
 
 ### Guix
 
