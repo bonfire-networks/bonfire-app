@@ -643,7 +643,11 @@ defmodule Bonfire.Umbrella.MixProject do
   def application do
     # Bonfire.MixProject.application()
     [
-      mod: {Bonfire.Application, []},
+      mod:
+        if(Mix.env() == :test and System.get_env("BONFIRE_LIGHTWEIGHT_TEST_SETUP") == "1",
+          do: {Bonfire.LightweightTestApplication, []},
+          else: {Bonfire.Application, []}
+        ),
       extra_applications: [:logger, :runtime_tools]
     ]
   end

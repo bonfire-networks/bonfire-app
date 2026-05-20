@@ -395,18 +395,23 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         |> String.replace("%{path}", "#{path}")
         |> String.replace("%{line}", "#{line}")
 
+    def lightweight_test_setup?,
+      do: System.get_env("BONFIRE_LIGHTWEIGHT_TEST_SETUP") == "1"
+
     # Specifies which paths to include when running tests
     def test_paths(config) do
-      testable_paths =
-        test_deps(config)
-        |> Enum.flat_map(&dep_paths(&1, "test"))
+      if lightweight_test_setup?() do
+        ["test"]
+      else
+        testable_paths =
+          test_deps(config)
+          |> Enum.flat_map(&dep_paths(&1, "test"))
 
-      # |> IO.inspect(label: "testable_paths")
-
-      [
-        "test"
-        | testable_paths
-      ]
+        [
+          "test"
+          | testable_paths
+        ]
+      end
     end
 
     def test_deps(config) do
@@ -445,16 +450,27 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       # |> log("all_testable_deps")
 
       testable_paths =
-        case find_matching_paths(paths_to_test, all_testable_deps) do
-          [] -> all_testable_deps
-          testable_paths -> testable_paths
+        if lightweight_test_setup?() do
+          all_testable_deps
+        else
+          case find_matching_paths(paths_to_test, all_testable_deps) do
+            [] -> all_testable_deps
+            testable_paths -> testable_paths
+          end
         end
+
+      dep_support_paths =
+        testable_paths
+        |> dep_paths("test/support")
+        |> Enum.map(fn
+          "../" <> _ = path -> Path.expand(path)
+          path -> path
+        end)
 
       [
         "lib",
         "test/support"
-        | dep_paths(testable_paths, "test/support")
-        # |> log("elixirc_paths")
+        | dep_support_paths
       ]
     end
 

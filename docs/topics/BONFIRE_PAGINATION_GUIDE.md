@@ -259,6 +259,94 @@ When implementing pagination, ensure you handle:
 - Missing context for multiple lists
 - Not validating user permissions for pagination
 
+### Deferred Join Regression Checks
+
+Run these focused checks from the Bonfire app umbrella when changing feed deferred-join pagination or load-more behavior:
+
+When submitting this change across separate repositories, keep the dependency order explicit: `bonfire_common` must include the lightweight test repo guards used by this harness, `bonfire_data_social` must provide `Bonfire.Data.Social.FeedPublish.Migration.add_feed_publish_feed_id_id_index/1` and `Bonfire.Data.Social.Activity.Migration.add_activity_feed_lookup_index/1` before the `bonfire_social` migrations that call them are deployed, and the app umbrella harness assumes sibling checkouts for `bonfire_common`, `bonfire_data_social`, `bonfire_social`, and `bonfire_ui_social`.
+
+```bash
+./test-pagination-regression.sh backend
+```
+
+```bash
+./test-pagination-regression.sh ui
+```
+
+```bash
+./test-pagination-regression.sh ui-presets
+```
+
+```bash
+./test-pagination-regression.sh ui-context
+```
+
+```bash
+./test-pagination-regression.sh ui-auto-short-feed
+```
+
+```bash
+./test-pagination-regression.sh ui-actual-cases
+```
+
+```bash
+./test-pagination-regression.sh ui-time-limit
+```
+
+```bash
+./test-pagination-regression.sh ui-benchmark-target
+```
+
+```bash
+./test-pagination-regression.sh ui-full-preload-render-stress
+```
+
+```bash
+./test-pagination-regression.sh classic-benchmark
+```
+
+Use `./test-pagination-regression.sh all` to run formatting plus the backend, focused UI, real feed preset load-more, group context leakage, short-feed auto-pagination, deferred-join actual-case, show-older time-limit persistence, and feed benchmark target checks serially. The `ui-time-limit` check targets the tagged show-older date-sorted, non-date sorted, cached-feed, and guest fallback cases. Use `./test-pagination-regression.sh ui-full-preload-render-stress` for the heavier UI path that seeds two 20-item visible local pages separated by a hidden local window, runs the no-time-limit full-preload backend path, renders that same full-preloaded feed component, then renders `/feed/local` and `load_more` through PhoenixTest. That stress also fails if the deferred-join code falls back to the non-deferred query path while recovering the page; it scopes a longer DB ownership timeout to this target because strict fixture setup can outlive the ordinary sandbox default. Use `./test-pagination-regression.sh ui-browser-js` for the real Chromium guest fallback check; it starts the test endpoint with `PHX_SERVER=yes`, uses a non-sandbox test DB checkout, opens both cache-bypassed and cache-enabled `/feed/?time_limit=1` guest flows, clicks the disconnected `load_all_time` anchor and `next_page` link, and fails on browser `pageerror` or `console.error`. Use `./test-pagination-regression.sh all-with-strict-benchmark` as the local pre-release gate when you also need the full preload/render stress, real browser JS check, the 1,000,000-row sparse/hidden Classic-like benchmark, the 1,000,000-row all-local benchmark, and the guest-visible custom ACL stress profile. The script sets a focused lightweight local test environment and forces the social flavour with AI disabled. Only the strict Classic benchmark branch relaxes local test DB query/pool/ownership timeouts and disables server-side statement timeout so large fixture setup or adversarial page walks are not confused with the separate 222ms benchmark gates. It accepts normal database overrides such as `POSTGRES_DB=...` or `DATABASE_URL=...`; when `DATABASE_URL` is provided, its database/user/password/host/port seed the corresponding `POSTGRES_*` defaults, and conflicting `POSTGRES_DB` values are rejected before migrations run. It creates and strictly migrates the configured test database, rejects any non-success extension migration result, refuses database names that do not look like test databases unless `BONFIRE_ALLOW_NON_TEST_DATABASE=1` is set for an intentional throwaway database, and uses a checkout-local lock with a bounded wait to avoid concurrent runs sharing this checkout's `_build/test` state or default test database. This harness is focused regression coverage, not a substitute for a full non-lightweight application run on maintainer hardware; browser paint and logged-in websocket flows still need review if a later change touches those surfaces.
+
+Full preload/render stress knobs:
+
+```bash
+BONFIRE_FULL_RENDER_PAGE_LIMIT=20 \
+BONFIRE_FULL_RENDER_HIDDEN_MULTIPLIER=32 \
+BONFIRE_FULL_RENDER_HIDDEN_EXTRA_ROWS=5 \
+BONFIRE_FULL_PRELOAD_MAX_MS=1000 \
+BONFIRE_FULL_COMPONENT_RENDER_MAX_MS=3000 \
+BONFIRE_FULL_INITIAL_RENDER_MAX_MS=5000 \
+BONFIRE_FULL_LOAD_MORE_RENDER_MAX_MS=3000 \
+./test-pagination-regression.sh ui-full-preload-render-stress
+```
+
+The full preload/render timing gates are integration-regression guards, not the 222ms query target. The 222ms target belongs to the Classic-like query benchmark, while the PhoenixTest timings include full preloads, LiveView rendering, event handling, and test harness overhead.
+
+### Feed Backend Benchmark
+
+Use `Bonfire.UI.Social.Benchmark.feed_backend/0` to compare local feed query timings. The review target is the `query 20 with no time limit` case: guest local feed, page size 20, no time filter, normal boundary checks, and the default feed query path. Diagnostic cases such as `without deferred join` and `ignoring boundaries` are useful for comparison, but they should not be treated as the user-facing target.
+
+### Classic-like Feed Benchmark
+
+Use `./test-pagination-regression.sh classic-benchmark` when the maintainer's Classic database or hardware is not available. The benchmark seeds a test database with synthetic local-feed activity, remote/noise feed rows, fetcher-subject rows, and public ACL rows, then runs the real `FeedActivities.feed(:local, limit: 20, preload: false)` query path with normal boundary checks. This is a query microbenchmark, not a full UI/rendering benchmark. It prints counts, edge counts, first-run and warm-cache timings, relevant feed-publish indexes, whether the `(feed_id, id)` index appears in the plan, and `EXPLAIN (ANALYZE, BUFFERS)` output.
+
+Useful knobs:
+
+```bash
+BONFIRE_CLASSIC_FEED_ROWS=200000 \
+BONFIRE_CLASSIC_BENCH_ITERATIONS=3 \
+BONFIRE_CLASSIC_BENCH_WORK_MEM=4MB \
+BONFIRE_CLASSIC_BENCH_EFFECTIVE_CACHE_SIZE=128MB \
+BONFIRE_CLASSIC_BENCH_RANDOM_PAGE_COST=4 \
+./test-pagination-regression.sh classic-benchmark
+```
+
+Set `BONFIRE_CLASSIC_LOCAL_EVERY=493` to make only every 493rd synthetic activity become a public local-feed item. Set `BONFIRE_CLASSIC_HIDDEN_LOCAL_EVERY=23` to add many local-feed rows that fail ACL visibility checks. Set `BONFIRE_CLASSIC_HIDDEN_LOCAL_BURST_ROWS=5000` to make the newest local-feed slice hidden rather than evenly distributed. That sparse, hidden, and bursty mode is useful for checking whether the query still avoids scanning through many recent non-local rows, hidden local rows, and fetcher-subject rows while still returning visible local results.
+
+Use `./test-pagination-regression.sh classic-benchmark-stress` when validating against a stricter Classic-like case before submission. It runs against a throwaway test database, defaulting to `bonfire_test_classic_stress`, and drops that database before and after the run instead of doing large in-place cleanup. The stress command also installs an `EXIT` cleanup trap and wraps the benchmark with `BONFIRE_CLASSIC_STRESS_TIMEOUT_SECONDS`, defaulting to 1800 seconds, so hung seed/query/EXPLAIN runs fail instead of waiting forever. It defaults to 1,000,000 synthetic feed rows, only every 493rd row as a public local-feed item, hidden local-feed rows every 23rd item, a 5,000-row hidden local burst at the newest end of the synthetic range, a fetcher-noise cadence that does not align with the local-feed cadence, 250,000 inserted-then-deleted newer local-feed rows to exercise hot target-index churn, `VACUUM (ANALYZE)` after churn and after the main seed to represent a maintained database with usable visibility-map coverage, one cold-path diagnostic feed run, low `work_mem`, low `effective_cache_size`, and `random_page_cost=4`. The stress target uses `BONFIRE_CLASSIC_FAST_SEED=1` by default so the expensive synthetic setup can bypass trigger overhead, then verifies exact seed row count and table integrity before timing the real query path. It requires 90 full 20-edge cursor pages with no overlap, at least 2,000 visible local rows, at least 40,000 hidden local rows, use of `bonfire_data_social_feed_publish_feed_id_id_idx` on the deep-page plan, no feed-publish sequential scan, no whole-plan temp-block spill, bounded feed-publish plan row volume, tightly bounded heap fetches and rows removed by filter, first measured query time under 222ms after the diagnostic warmup, warm p95 under 222ms, every walked page under 222ms, and walked-page p95 under 222ms.
+
+Use `./test-pagination-regression.sh classic-benchmark-local-heavy` to validate the separate 1,000,000-local-candidate profile. That profile makes every synthetic row a visible local-feed candidate, keeps the same 20-edge and 90-page timing gates, and disables the target-index requirement because `feed_id` is intentionally non-selective in an all-local dataset; the sparse stress profile remains the target-index proof. Use `./test-pagination-regression.sh classic-benchmark-guest-visible-acl-stress` to validate anonymous local-feed rows protected by the `guests_may_see_read` ACL path under a stricter sparse profile: 1,000,000 feed rows, 100,000 hidden newest local rows, 250,000 churn rows, 120 cursor pages, low `work_mem`, low `effective_cache_size`, and `random_page_cost=4`. Use `./test-pagination-regression.sh all-with-strict-benchmark` to run the full preload/render stress and all three strict benchmark profiles after the formatting, backend, and UI checks. Set `BONFIRE_CLASSIC_VACUUM_AFTER_CHURN=0` or `BONFIRE_CLASSIC_VACUUM_AFTER_SEED=0` only when intentionally measuring unmaintained-table risk; that case can fail the cold-path or first-run wall-clock gate even when the query shape is correct. Override other limits with the matching `BONFIRE_CLASSIC_*` environment variables only when documenting why local hardware needs a different gate.
+
 ## Debug Helpers
 
 ### Common Issues:
