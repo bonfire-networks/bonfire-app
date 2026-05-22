@@ -1405,7 +1405,10 @@ rel-docker-compose *args:
 	search_profile=""
 	for svc in {{services}}; do
 	  if [ "$svc" = "search" ]; then
-	    search_profile="${SEARCH_ADAPTER:-meili}"
+	    adapter="${SEARCH_ADAPTER:-meili}"
+	    if [ "$adapter" = "meili" ] || [ "$adapter" = "sonic" ]; then
+	      search_profile="$adapter"
+	    fi
 	  else
 	    other="$other $svc"
 	  fi
