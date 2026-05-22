@@ -12,7 +12,7 @@ SPDX-License-Identifier: CC0-1.0
 ### Added
 - ✨ Add bare metal instructions without root access [PR #2000](https://github.com/bonfire-networks/bonfire-app/pull/2000) (thanks @ccamara)
 - ✨ Add CIMD support for OAuth authentication (thanks @evanp)
-- 📝 Optional new search backend: Sonic (thanks @mayel) 
+- 📝 Optional new search backend: [Sonic](https://github.com/valeriansaliou/sonic#sonic) (thanks @mayel) 
 
 ### Changed
 - ✨ re-enable auto-mark-as-read for notifications and messages [#1418](https://github.com/bonfire-networks/bonfire-app/issues/1418) (thanks @mayel and @ivanminutillo)
@@ -28,7 +28,8 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Instance Settings periodically reloads while editing [#1593](https://github.com/bonfire-networks/bonfire-app/issues/1593) (thanks @ltning, @mayel, and @ivanminutillo)
 - ✨ Move tool bar on mobile [#1867](https://github.com/bonfire-networks/bonfire-app/issues/1867) (thanks @btfreeorg, @ivanminutillo, @ruzko, and @mayel)
 - ✨ pagination of users and instances lists when logged out [#1655](https://github.com/bonfire-networks/bonfire-app/issues/1655) (thanks @mayel and @ivanminutillo)
-- 📝 visiting members page as a guest crashes on load more [#1752](https://github.com/bonfire-networks/bonfire-app/issues/1752) (thanks @ivanminutillo and @mayel)
+- 🐛 visiting members page as a guest crashes on load more [#1752](https://github.com/bonfire-networks/bonfire-app/issues/1752) (thanks @ivanminutillo and @mayel)
+- 📝 various other fixes and improvements
 
 ### Security
 - ✍️ Patched a [vulnerability with Linked Data Signatures](https://w.on-t.work/activitypub/may-2026-vulnerability) (thanks @wont-work and ozone)
