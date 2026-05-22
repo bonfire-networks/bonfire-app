@@ -1551,8 +1551,10 @@ localise-extract:
 	tx pull --minimum-perc 5 -f {{lang}}
 	mkdir -p priv/localisation/es_AR/LC_MESSAGES/ && mv priv/localisation/es_AR-C/LC_MESSAGES/* priv/localisation/es_AR/LC_MESSAGES/
 	mkdir -p priv/localisation/es_AR_x_B/LC_MESSAGES/ && mv priv/localisation/es_AR-B/LC_MESSAGES/* priv/localisation/es_AR_x_B/LC_MESSAGES/
+	for lang in co kha kmr la mi nv oc qu sm tg; do rm -rf "priv/localisation/$lang"; done
 	just mix deps.compile bonfire_common --force
 # NOTE: should only rename es_AR-C to es_AR if we don't also have es_AR ^
+# TODO: re-enable those languages once this is fixed in ex_cldr: (KeyError) Key :tg not found
 
 @localise-tx-push:
 	tx push
