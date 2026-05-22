@@ -7,6 +7,33 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0.4 (2026-05-22)]
+
+### Added
+- ✨ Add bare metal instructions without root access [PR #2000](https://github.com/bonfire-networks/bonfire-app/pull/2000) (thanks @ccamara)
+- ✨ Add CIMD support for OAuth authentication (thanks @evanp)
+- 📝 Optional new search backend: Sonic (thanks @mayel) 
+
+### Changed
+- ✨ re-enable auto-mark-as-read for notifications and messages [#1418](https://github.com/bonfire-networks/bonfire-app/issues/1418) (thanks @mayel and @ivanminutillo)
+- ⚡ Optimize guest local feed origin filter [PR #6](https://github.com/bonfire-networks/bonfire_social/pull/6) (thanks @sftwrstef)
+- 📝 Add rate limits to more API surfaces (thanks @mayel)
+- 🐛 Meaningful OpenGraph/Twitter meta tags when sharing profiles and posts [#1992](https://github.com/bonfire-networks/bonfire-app/issues/1992) (thanks @ivanminutillo)
+
+### Fixed
+- 🐛 DM loses user id intermittent? [#1780](https://github.com/bonfire-networks/bonfire-app/issues/1780) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Applying search rises an error [#1662](https://github.com/bonfire-networks/bonfire-app/issues/1662) (thanks @1m2lab and @ivanminutillo)
+- 🐛 User preferences error messages only display the leftmost 25% of the red error box [#1644](https://github.com/bonfire-networks/bonfire-app/issues/1644) (thanks @mayel and @ivanminutillo)
+- 🐛 Video playback in a post has no controls and no volume.  It says gif in upper right hand corner [#1643](https://github.com/bonfire-networks/bonfire-app/issues/1643) (thanks @mayel, @ivanminutillo, and @johannab33)
+- 🐛 Instance Settings periodically reloads while editing [#1593](https://github.com/bonfire-networks/bonfire-app/issues/1593) (thanks @ltning, @mayel, and @ivanminutillo)
+- ✨ Move tool bar on mobile [#1867](https://github.com/bonfire-networks/bonfire-app/issues/1867) (thanks @btfreeorg, @ivanminutillo, @ruzko, and @mayel)
+- ✨ pagination of users and instances lists when logged out [#1655](https://github.com/bonfire-networks/bonfire-app/issues/1655) (thanks @mayel and @ivanminutillo)
+- 📝 visiting members page as a guest crashes on load more [#1752](https://github.com/bonfire-networks/bonfire-app/issues/1752) (thanks @ivanminutillo and @mayel)
+
+### Security
+- ✍️ Patched a [vulnerability with Linked Data Signatures](https://w.on-t.work/activitypub/may-2026-vulnerability) (thanks @wont-work and ozone)
+
+
 ## Bonfire Social [1.0.3 (2026-05-14)]
 
 ### Added
