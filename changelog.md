@@ -33,6 +33,7 @@ SPDX-License-Identifier: CC0-1.0
 
 ### Security
 - ✍️ Patched a [vulnerability with Linked Data Signatures](https://w.on-t.work/activitypub/may-2026-vulnerability) (thanks @wont-work and ozone)
+- 🗝️ Hardening in MFM parsing (thanks Oneric of Akkoma)
 
 
 ## Bonfire Social [1.0.3 (2026-05-14)]
