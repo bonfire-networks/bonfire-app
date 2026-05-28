@@ -1,8 +1,8 @@
 // Bonfire Load Test with LiveView WebSocket Support
 //
-// Measures the FULL page lifecycle: HTTP response + WebSocket LiveView mount.
-// This captures what users actually experience, since LiveView loads feed data
-// asynchronously after the WebSocket connects.
+// Measures server/protocol timing: HTTP response + LiveView WebSocket mount
+// + observed LiveView diff messages. This does not run a browser, execute
+// client hooks, load assets, or measure visual render readiness.
 //
 // Usage:
 //   k6 run -e COOKIE="your_cookie" benchmarks/load_test/k6_liveview.js
@@ -33,14 +33,14 @@ import ws from "k6/ws";
 const httpDuration = new Trend("bonfire_http_duration", true);
 // WebSocket phase: time from WS connect to LiveView mount complete
 const wsMountDuration = new Trend("bonfire_ws_mount_duration", true);
-// Full lifecycle: HTTP + WS until all diffs settle
-const fullPageDuration = new Trend("bonfire_full_page_duration", true);
-// Time to receive first async diff (feed data arriving)
-const firstDiffDuration = new Trend("bonfire_first_diff_duration", true);
-// Time to receive last async diff (page fully rendered)
-const lastDiffDuration = new Trend("bonfire_last_diff_duration", true);
+// Protocol duration: HTTP + WS until the last observed diff or mount reply.
+const protocolDuration = new Trend("bonfire_lv_protocol_duration", true);
+// Time to receive first observed LiveView diff after websocket connect.
+const firstDiffDuration = new Trend("bonfire_lv_first_diff_duration", true);
+// Time to receive last observed LiveView diff before the quiet-period close.
+const lastDiffDuration = new Trend("bonfire_lv_last_diff_duration", true);
 // Number of diffs received per page load
-const diffCount = new Trend("bonfire_diff_count");
+const diffCount = new Trend("bonfire_lv_diff_count");
 
 const pageSuccessRate = new Rate("bonfire_page_success_rate");
 const wsConnectRate = new Rate("bonfire_ws_connect_rate");
@@ -68,7 +68,7 @@ export const options = {
     },
   },
   thresholds: {
-    bonfire_full_page_duration: ["p(95)<10000"],
+    bonfire_lv_protocol_duration: ["p(95)<10000"],
     bonfire_page_success_rate: ["rate>0.90"],
   },
 };
@@ -359,17 +359,15 @@ export default function (data) {
   // Record metrics
   if (lastDiffTime !== null) {
     lastDiffDuration.add(lastDiffTime);
-    // Full page = HTTP time + time to last diff (real user-perceived load)
-    fullPageDuration.add(httpTime + lastDiffTime);
+    // Protocol duration = HTTP time + time to last observed LiveView diff.
+    protocolDuration.add(httpTime + lastDiffTime);
   } else if (mountTime !== null) {
-    // No diffs — page loaded fully during mount
-    fullPageDuration.add(httpTime + mountTime);
+    // No diffs observed: the only LiveView protocol milestone is mount.
+    protocolDuration.add(httpTime + mountTime);
   } else {
-    fullPageDuration.add(Date.now() - fullStart);
+    protocolDuration.add(Date.now() - fullStart);
   }
-  if (totalDiffs > 0) {
-    diffCount.add(totalDiffs);
-  }
+  diffCount.add(totalDiffs);
 
   wsOk = check(wsRes, {
     "ws connected": (r) => r && r.status === 101,
@@ -419,13 +417,13 @@ export function handleSummary(data) {
       http_p95_ms: m("bonfire_http_duration", "p(95)"),
       ws_mount_p50_ms: m("bonfire_ws_mount_duration", "med"),
       ws_mount_p95_ms: m("bonfire_ws_mount_duration", "p(95)"),
-      first_diff_p50_ms: m("bonfire_first_diff_duration", "med"),
-      first_diff_p95_ms: m("bonfire_first_diff_duration", "p(95)"),
-      last_diff_p50_ms: m("bonfire_last_diff_duration", "med"),
-      last_diff_p95_ms: m("bonfire_last_diff_duration", "p(95)"),
-      diff_count_avg: m("bonfire_diff_count", "avg"),
-      full_page_p50_ms: m("bonfire_full_page_duration", "med"),
-      full_page_p95_ms: m("bonfire_full_page_duration", "p(95)"),
+      first_diff_p50_ms: m("bonfire_lv_first_diff_duration", "med"),
+      first_diff_p95_ms: m("bonfire_lv_first_diff_duration", "p(95)"),
+      last_diff_p50_ms: m("bonfire_lv_last_diff_duration", "med"),
+      last_diff_p95_ms: m("bonfire_lv_last_diff_duration", "p(95)"),
+      diff_count_avg: m("bonfire_lv_diff_count", "avg"),
+      protocol_p50_ms: m("bonfire_lv_protocol_duration", "med"),
+      protocol_p95_ms: m("bonfire_lv_protocol_duration", "p(95)"),
       success_rate: m("bonfire_page_success_rate", "rate"),
       ws_connect_rate: m("bonfire_ws_connect_rate", "rate"),
       errors: m("bonfire_page_errors", "count") || 0,
@@ -435,7 +433,7 @@ export function handleSummary(data) {
   return {
     stdout: `
 ================================================================================
-                    Bonfire LiveView Load Test Results
+                    Bonfire LiveView Protocol Load Test Results
 ================================================================================
   Host:             ${protocol}://${host}
   Page:             ${page}
@@ -450,16 +448,16 @@ export function handleSummary(data) {
     Mount p50:      ${fmt(stats.liveview_metrics.ws_mount_p50_ms)}
     Mount p95:      ${fmt(stats.liveview_metrics.ws_mount_p95_ms)}
 
-  Phase 3 - Async diffs (feed data):
+  Phase 3 - Observed LiveView diffs:
     First p50:      ${fmt(stats.liveview_metrics.first_diff_p50_ms)}
     First p95:      ${fmt(stats.liveview_metrics.first_diff_p95_ms)}
     Last p50:       ${fmt(stats.liveview_metrics.last_diff_p50_ms)}
     Last p95:       ${fmt(stats.liveview_metrics.last_diff_p95_ms)}
     Avg diffs:      ${stats.liveview_metrics.diff_count_avg !== null ? stats.liveview_metrics.diff_count_avg.toFixed(0) : "N/A"}
 
-  Full Page Lifecycle (HTTP + last diff settled):
-    p50:            ${fmt(stats.liveview_metrics.full_page_p50_ms)}
-    p95:            ${fmt(stats.liveview_metrics.full_page_p95_ms)}
+  Protocol Duration (HTTP + mount/last observed diff):
+    p50:            ${fmt(stats.liveview_metrics.protocol_p50_ms)}
+    p95:            ${fmt(stats.liveview_metrics.protocol_p95_ms)}
 
   Reliability:
     Page Success:   ${pct(stats.liveview_metrics.success_rate)}
@@ -467,10 +465,8 @@ export function handleSummary(data) {
     Errors:         ${stats.liveview_metrics.errors}
 
   Interpretation:
-    Full Page p95 < 2s   = Excellent
-    Full Page p95 2-5s   = Good
-    Full Page p95 5-10s  = Degraded
-    Full Page p95 > 10s  = System stressed
+    These are server/protocol timings, not browser visual rendering metrics.
+    Use Protocol p95 and diff counts as regression signals for LiveView load.
 ================================================================================
 `,
     "benchmarks/output/k6_liveview_results.json": JSON.stringify(

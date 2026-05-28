@@ -59,7 +59,7 @@ export function setup() {
   } 
 
   // Test connection
-  const testRes = http.get(`${protocol}://${host}/${page}`, {
+  const testRes = http.get(`${protocol}://${host}${page}`, {
     cookies: { _bonfire_key: cookie },
   });
 
@@ -84,9 +84,9 @@ export default function (data) {
     return;
   }
 
-  // Load feed/explore page
+  // Load configured page
   const startFeed = Date.now();
-  const feedRes = http.get(`${protocol}://${host}/feed`, {
+  const feedRes = http.get(`${protocol}://${host}${page}`, {
     cookies: { _bonfire_key: cookie },
     tags: { name: "feed_explore" },
   });
