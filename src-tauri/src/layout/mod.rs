@@ -78,6 +78,21 @@ pub fn main_webview_builder(url: &str, app: &tauri::AppHandle) -> WebviewBuilder
                     crate::deep_link::handle(&app_handle, &payload);
                 }
                 false
+            } else if scheme == "tauri"
+                && url.host_str() == Some("localhost")
+                && (url.path() == "/" || url.path().is_empty())
+                && url.query().map(|q| q.contains("code=")).unwrap_or(false)
+            {
+                // OAuth callback lands at tauri://localhost/?code=...&state=...
+                // Redirect to pick-instance.html with the same query string so the
+                // token exchange can proceed there.
+                let query = url.query().unwrap_or("");
+                if let Some(wv) = app_handle.get_webview("main-webview") {
+                    let _ = wv.eval(&format!(
+                        "window.location.replace('pick-instance.html?{query}');"
+                    ));
+                }
+                false
             } else {
                 true
             }
