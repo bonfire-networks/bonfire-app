@@ -196,6 +196,8 @@ defmodule Bonfire.Umbrella.MixProject do
         },
         {:live_debugger, "~> 1.0", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
+        # needed for building forked NIFs locally (e.g. decent with keychain support)
+        {:rustler, ">= 0.0.0", only: [:dev, :test]},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
         {:ex_doc, "~> 0.40.1", runtime: false},

@@ -1,10 +1,15 @@
 import Config
 
+# Our fork of decent with keychain support — precompiled binaries at bonfire-networks/decent
+config :decent, github_url: "https://github.com/bonfire-networks/decent"
+
+# Force local Rust build when DECENT_BUILD=1
+# (set this when using forks/decent locally or in Docker builds)
+if System.get_env("DECENT_BUILD") in ["1", "true"] do
+  config :rustler_precompiled, :force_build, decent: true
+end
+
 config :bonfire_mailer,
   check_mx: true,
   check_format: true
 
-config :bonfire_mailer, Bonfire.Mailer.Bamboo,
-  # what service you want to use to send emails, from these: https://github.com/thoughtbot/bamboo#available-adapters
-  # we recommend leaving LocalAdapter (which is just a fallback which won't actually send emails) and setting the actual adapter in runtime.exs
-  adapter: Bamboo.LocalAdapter

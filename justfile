@@ -1142,6 +1142,10 @@ test-rate-limit *args='': services
 test-federation-live-DRAGONS *args='': services
 	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test_run --only live_federation {{args}}
 
+# Run live email sending tests. Set LIVE_TEST_SEND_EMAILS=true LIVE_TEST_EMAIL_ENCRYPTED=enc@proton.me LIVE_TEST_EMAIL_PLAIN=plain@gmail.com
+test-live-DRAGONS *args='extensions/bonfire_mailer/test/pgp/pgp_live_test.exs':
+	LIVE_TEST_SEND_EMAILS=true just test_run --only live_federation {{args}}
+
 load_testing: services
 	TEST_INSTANCE=yes just mix bonfire.load_testing
 
