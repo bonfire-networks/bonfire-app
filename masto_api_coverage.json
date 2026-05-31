@@ -1,7 +1,7 @@
 {
   "total": 225,
   "not_found": 126,
-  "errors": 9,
+  "errors": 6,
   "endpoints": [
     {
       "status": "implemented",
@@ -205,7 +205,7 @@
       "method": "POST",
       "operation_id": "accountFollow",
       "http_status": null,
-      "error_message": "ERROR 25P02 (in_failed_sql_transaction) current transaction is aborted, commands ignored until end of transaction block\n\n    query: INSERT INTO \"bonfire_data_social_request\" (\"id\") VALUES ($1)"
+      "error_message": "ERROR 25P02 (in_failed_sql_transaction) current transaction is aborted, commands ignored until end of transaction block"
     },
     {
       "status": "implemented",
@@ -1312,7 +1312,7 @@
       "error_message": null
     },
     {
-      "status": "error",
+      "status": "implemented",
       "path": "/api/v1/follow_requests",
       "tags": [
         "follow_requests"
@@ -1320,11 +1320,11 @@
       "summary": "Get an array of accounts that have requested to follow you.",
       "method": "GET",
       "operation_id": "getFollowRequests",
-      "http_status": null,
-      "error_message": "unsupported option :preload for Repo.all. Instead, use Ecto.Query to build a query, and pass that query into this function."
+      "http_status": 200,
+      "error_message": null
     },
     {
-      "status": "error",
+      "status": "implemented",
       "path": "/api/v1/follow_requests/outgoing",
       "tags": [
         "follow_requests"
@@ -1332,8 +1332,8 @@
       "summary": "Get an array of accounts that you have requested to follow.",
       "method": "GET",
       "operation_id": "getOutgoingFollowRequests",
-      "http_status": null,
-      "error_message": "unsupported option :preload for Repo.all. Instead, use Ecto.Query to build a query, and pass that query into this function."
+      "http_status": 200,
+      "error_message": null
     },
     {
       "status": "implemented",
@@ -1828,7 +1828,7 @@
       "error_message": null
     },
     {
-      "status": "error",
+      "status": "implemented",
       "path": "/api/v1/reports",
       "tags": [
         "reports"
@@ -1836,8 +1836,8 @@
       "summary": "See reports created by the requesting account.",
       "method": "GET",
       "operation_id": "reports",
-      "http_status": null,
-      "error_message": "unsupported option :preload for Repo.all. Instead, use Ecto.Query to build a query, and pass that query into this function."
+      "http_status": 200,
+      "error_message": null
     },
     {
       "status": "implemented",
@@ -1920,7 +1920,7 @@
       "summary": "Create a new status using the given form field parameters.",
       "method": "POST",
       "operation_id": "statusCreate",
-      "http_status": 400,
+      "http_status": 422,
       "error_message": null
     },
     {
@@ -1980,7 +1980,7 @@
       "summary": "Return ancestors and descendants of the given status.",
       "method": "GET",
       "operation_id": "threadContext",
-      "http_status": 200,
+      "http_status": 404,
       "error_message": null
     },
     {
@@ -2040,7 +2040,7 @@
       "summary": "Pin a status to the top of your profile, and add it to your Featured ActivityPub collection.",
       "method": "POST",
       "operation_id": "statusPin",
-      "http_status": 400,
+      "http_status": 404,
       "error_message": null
     },
     {
@@ -2653,7 +2653,7 @@
       "method": "POST",
       "operation_id": "oauthTokenRevoke",
       "http_status": null,
-      "error_message": "no expectation defined for Boruta.OauthMock.revoke/2 in process #PID<0.45504.0> (or in its callers [#PID<0.43001.0>]) with args [%Plug.Conn{adapter: {Plug.Adapters.Test.Conn, :...}, assigns: %{phoenix_ecto_sandbox: nil}, body_params: %{}, cookies: %{}, halted: false, host: \"www.example.com\", method: \"POST\", owner: nil, params: %{}, path_info: [\"oauth\", \"revoke\"], path_params: %{}, port: 80, private: %{:phoenix_view => %{_: Bonfire.OpenID.Web.Oauth.RevokeView}, Bonfire.Web.Router => [], :phoenix_controller => Bonfire.OpenID.Web.Oauth.RevokeController, :phoenix_action => :revoke, :plug_session_info => :write, :plug_session_fetch => :done, :plug_session => %{\"accept_header\" => \"application/json\", \"current_account_id\" => \"01KSFFKNTVFA033RVAD63XZ3S9\", \"current_user_id\" => \"01KSFFKNV2EC32Y0TWPTN85XH0\"}, :before_send => [#Function<0.76585640/1 in Plug.Session.before_send/2>, #Function<0.24950767/1 in Plug.Telemetry.call/2>], :phoenix_endpoint => Bonfire.Web.Endpoint, :phoenix_router => Bonfire.Web.Router, :plug_skip_csrf_protection => true, :phoenix_recycled => true, :phoenix_layout => %{_: {Bonfire.UI.Common.LayoutView, :app}}}, query_params: %{}, query_string: \"\", remote_ip: {127, 0, 0, 1}, req_cookies: %{}, req_headers: [{\"accept\", \"application/json\"}, {\"content-type\", \"application/json\"}], request_path: \"/oauth/revoke\", resp_body: nil, resp_cookies: %{}, resp_headers: [{\"cache-control\", \"max-age=0, private, must-revalidate\"}, {\"x-request-id\", \"GLLMu7bP_liXafMAAxBB\"}], scheme: :http, script_name: [], secret_key_base: :..., state: :unset, status: nil}, Bonfire.OpenID.Web.Oauth.RevokeController]"
+      "error_message": "no expectation defined for Boruta.OauthMock.revoke/2 in process #PID<0.16870.0> (or in its callers [#PID<0.14409.0>]) with args [%Plug.Conn{adapter: {Plug.Adapters.Test.Conn, :...}, assigns: %{current_url: \"http://www.example.com/oauth/revoke\", current_params: %{}, phoenix_ecto_sandbox: nil}, body_params: %{}, cookies: %{}, halted: false, host: \"www.example.com\", method: \"POST\", owner: nil, params: %{}, path_info: [\"oauth\", \"revoke\"], path_params: %{}, port: 80, private: %{:phoenix_view => %{_: Bonfire.OpenID.Web.Oauth.RevokeView}, Bonfire.Web.Router => [], :phoenix_endpoint => Bonfire.Web.Endpoint, :plug_session_info => :write, :plug_session_fetch => :done, :plug_session => %{\"accept_header\" => \"application/json\", \"current_account_id\" => \"01KSZ5NM5QGWX594ED45EZV27Z\", \"current_user_id\" => \"01KSZ5NM601TM8ZHXGQ3G207Y4\"}, :before_send => [#Function<0.76585640/1 in Plug.Session.before_send/2>, #Function<0.24950767/1 in Plug.Telemetry.call/2>], :phoenix_router => Bonfire.Web.Router, :phoenix_action => :revoke, :phoenix_layout => %{_: {Bonfire.UI.Common.LayoutView, :app}}, :phoenix_controller => Bonfire.OpenID.Web.Oauth.RevokeController, :plug_skip_csrf_protection => true, :phoenix_recycled => true}, query_params: %{}, query_string: \"\", remote_ip: {127, 0, 0, 1}, req_cookies: %{}, req_headers: [{\"accept\", \"application/json\"}, {\"content-type\", \"application/json\"}], request_path: \"/oauth/revoke\", resp_body: nil, resp_cookies: %{}, resp_headers: [{\"cache-control\", \"max-age=0, private, must-revalidate\"}, {\"x-request-id\", \"GLSriTI9mva0mOkAA2_B\"}], scheme: :http, script_name: [], secret_key_base: :..., state: :unset, status: nil}, Bonfire.OpenID.Web.Oauth.RevokeController]"
     },
     {
       "status": "implemented",
@@ -2704,7 +2704,7 @@
       "error_message": null
     }
   ],
-  "implemented": 90,
-  "generated_at": "2026-05-25T11:51:49.390715Z",
-  "coverage_percent": 40.0
+  "implemented": 93,
+  "generated_at": "2026-05-31T14:05:58.477903Z",
+  "coverage_percent": 41.3
 }
