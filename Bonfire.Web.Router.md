@@ -43,6 +43,8 @@ Used to serve the GraphiQL API browser
 
 # `cacheable_page`
 
+# `cacheable_pins_public`
+
 # `cacheable_post_public`
 
 # `call`

@@ -34,6 +34,18 @@ This repo includes configurations to run a few main [flavours of Bonfire](https:
 * [Upcycle](https://github.com/bonfire-networks/upcycle) by MSOE 
 -->
 
+### Release versions
+
+Each flavour is released in different versions (though some flavours are still only available in alpha or beta). Here's how to choose:
+
+| Channel | Stability | Federation safe? | Best for |
+|---------|-----------|-----------------|----------|
+| **Stable** (e.g: 1.0) | Thoroughly tested | Yes | Running a server; please report any bugs you find |
+| **RC** (release candidate) | Ready for broad testing | Yes | Early adopters who want to help catch issues before stable; please report bug and confusing features |
+| **Beta** | New features in progress; existing functionality should hold | With caution | Participating in co-design and giving input on new features and UX; please focus bug reports on pre-existing functionality |
+| **Alpha** | Work in progress, may be broken | **No, turn off federation** | Developers and contributors comfortable with breakage |
+
+
 ### 🧩 Extensions
 
 All of the features and user interface elements in Bonfire are implemented in [extensions](https://bonfirenetworks.org/extensions/), with the code for each being in a separate repository.
