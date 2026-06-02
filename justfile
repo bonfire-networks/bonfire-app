@@ -1118,18 +1118,22 @@ test-federation-boundaries *args=ap_boundaries: services _test-dance-positions
 test-federation-others *args=federation_others_excludes: services _test-dance-positions
 	just test_run {{args}}
 
-test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
-	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance 
+# dance DB reset is now periodic, not per-run (per-test `clean_slate` + `reset_caches` handle intra-run isolation); run `just test-federation-dance-reset` (or `just _test-db-dance-reset`) periodically / after an interrupted run
+test-federation-dance *args=ap_ext: services _test-dance-positions
+	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
 	just _test-dance-positions
 
 # note: also includes oauth
-test-federation-dance-unsigned *args='': services _test-dance-positions _test-db-dance-reset
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance 
+test-federation-dance-unsigned *args='': services _test-dance-positions
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
 	just _test-dance-positions
 
-test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions _test-db-dance-reset
+test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions
 	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
 	just _test-dance-positions
+
+# reset the dance DBs for the federation dance suite (use periodically / after interrupted runs)
+test-federation-dance-db-reset: _test-db-dance-reset
 
 # test-boostomatic-dance *args='extensions/boostomatic/test': _test-dance-positions _test-db-dance-reset
 # 	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only live_federation {{args}} 
