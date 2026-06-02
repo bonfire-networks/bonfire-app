@@ -5,6 +5,7 @@ no? = ~w(false no 0)
 
 test_instance? = System.get_env("TEST_INSTANCE") in yes?
 federate? = test_instance? or System.get_env("FEDERATE") in yes?
+lightweight_test? = System.get_env("BONFIRE_LIGHTWEIGHT_TEST_SETUP") == "1"
 
 ## Import or set test configs for extensions
 
@@ -16,6 +17,29 @@ config :bonfire,
   pagination_hard_max_limit: 20,
   skip_all_boundary_checks: false,
   ui: [infinite_scroll: false]
+
+if lightweight_test? do
+  repo_config = [
+    database: System.get_env("POSTGRES_DB", "bonfire_test"),
+    username: System.get_env("POSTGRES_USER", "postgres"),
+    password: System.get_env("POSTGRES_PASSWORD", "postgres"),
+    hostname: System.get_env("POSTGRES_HOST", "localhost"),
+    port: System.get_env("POSTGRES_PORT", "5432") |> String.to_integer(),
+    types: Postgrex.DefaultTypes,
+    timeout: System.get_env("DB_QUERY_TIMEOUT", "20000") |> String.to_integer(),
+    pool_timeout: System.get_env("DB_POOL_TIMEOUT", "30000") |> String.to_integer(),
+    ownership_timeout: System.get_env("DB_OWNERSHIP_TIMEOUT", "100000") |> String.to_integer(),
+    queue_target: System.get_env("DB_QUEUE_TARGET", "5000") |> String.to_integer(),
+    queue_interval: System.get_env("DB_QUEUE_INTERVAL", "2000") |> String.to_integer(),
+    parameters: [
+      statement_timeout: System.get_env("DB_STATEMENT_TIMEOUT", "20000"),
+      idle_in_transaction_session_timeout: System.get_env("DB_IDLE_TRANSACTION_TIMEOUT", "120000")
+    ]
+  ]
+
+  config :bonfire, Bonfire.Common.Repo, repo_config
+  config :bonfire, Bonfire.Common.TestInstanceRepo, repo_config
+end
 
 config :bonfire_mailer, Bonfire.Mailer.Bamboo, adapter: Bamboo.TestAdapter
 config :bonfire_mailer, Bonfire.Mailer.Swoosh, adapter: Swoosh.Adapters.Test
@@ -47,7 +71,7 @@ config :logger, :console, truncate: truncate
 if !test_instance? and System.get_env("CAPTURE_LOG") not in no? and
      System.get_env("UNTANGLE_TO_IO") not in yes? do
   # to suppress non-captured logs in tests (eg. in setup_all)
-  config :logger, backends: []
+  config :logger, :default_handler, false
 end
 
 if !federate? do
@@ -58,8 +82,8 @@ end
 # Configure Req.Test stubs
 config :bonfire_rss, :req_options, plug: {Req.Test, Bonfire.RSS}
 
-#  enable federation in tests, since we're either using mocks or integration testing with TEST_INSTANCE 
-config :activity_pub, :instance, federating: true
+# enable federation in full tests; lightweight local setup only enables it when explicitly requested
+config :activity_pub, :instance, federating: if(lightweight_test?, do: federate?, else: true)
 
 oban_mode = if(federate?, do: :inline, else: :manual)
 config :bonfire, Oban, testing: oban_mode

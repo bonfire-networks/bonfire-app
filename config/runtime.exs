@@ -35,6 +35,11 @@ System.get_env("DATABASE_URL") || System.get_env("CLOUDRON_POSTGRESQL_URL") ||
   """
 
 ## load extensions' runtime configs (and behaviours) directly via extension-provided modules
+if System.get_env("BONFIRE_LIGHTWEIGHT_TEST_SETUP") == "1" and
+     not Code.ensure_loaded?(Bonfire.RuntimeConfig) do
+  Code.compile_file(Path.expand("../lib/bonfire/runtime_config.ex", __DIR__))
+end
+
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs([Bonfire.RuntimeConfig])
 ##
 
@@ -91,7 +96,7 @@ phx_compress? = System.get_env("PHX_COMPRESS_HTTP") not in no?
 
 if System.get_env("DISABLE_LOG") in yes? do
   # to suppress non-captured logs in tests (eg. in setup_all)
-  config :logger, backends: []
+  config :logger, :default_handler, false
 end
 
 http_options =
@@ -141,7 +146,7 @@ config :bonfire, Bonfire.Web.Endpoint,
     port: public_port,
     scheme: if(public_port == 443, do: "https", else: "http")
   ],
-  check_origin: hosts, 
+  check_origin: hosts,
   # check_origin: false,
   adapter:
     if(use_cowboy?,
