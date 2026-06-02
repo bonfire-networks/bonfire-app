@@ -379,6 +379,11 @@ common_assocs = %{
 
   ### Regular has_many associations
 
+  # The circles this user/object has been added to (i.e. its circle memberships).
+  # `references: :id` is set explicitly so this also works on mixin schemas (e.g. Peered) that have no primary key.
+  encircles:
+    quote(do: has_many(:encircles, unquote(Encircle), foreign_key: :subject_id, references: :id)),
+
   # The objects which reply to this object.
   direct_replies:
     quote(do: has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id)),
@@ -516,7 +521,8 @@ pointer_mixins =
     :direct_replies,
     :feed_publishes,
     :ranked,
-    :choices
+    :choices,
+    :encircles
   ])
 
 config :needle, Pointer,
@@ -614,8 +620,19 @@ config :bonfire_data_activity_pub, Actor,
        unquote_splicing(common.([:controlled]))
      end)
 
-config :bonfire_data_activity_pub, Peer, []
-config :bonfire_data_activity_pub, Peered, []
+config :bonfire_data_activity_pub, Peer,
+  code:
+    (quote do
+       # circle memberships (e.g. a remote instance Peer silenced/ghosted into a circle)
+       unquote_splicing(common.([:encircles]))
+     end)
+
+config :bonfire_data_activity_pub, Peered,
+  code:
+    (quote do
+       # circle memberships (e.g. silenced/ghosted into a circle)
+       unquote_splicing(common.([:encircles]))
+     end)
 
 # bonfire_data_identity
 
@@ -665,6 +682,9 @@ config :bonfire_data_identity, Character,
        unquote_splicing(common.([:actor, :peered, :profile, :tree, :follow_count, :extra_info]))
        has_one(:user, unquote(User), unquote(mixin))
        has_one(:feed, unquote(Feed), unquote(mixin))
+
+       # circle memberships (e.g. an instance Character silenced/ghosted into a circle)
+       unquote_splicing(common.([:encircles]))
 
        # TODO? link the Edge assocs directly to the subject or object instead of the Edge
 
@@ -753,7 +773,7 @@ config :bonfire_data_identity, User,
        # multimixins
        unquote_splicing(common.([:controlled]))
        # manies
-       has_many(:encircles, unquote(Encircle), foreign_key: :subject_id)
+       unquote_splicing(common.([:encircles]))
        # todo: stop through
        has_many(:creations, through: [:created, :pointer])
        # todo: stop through

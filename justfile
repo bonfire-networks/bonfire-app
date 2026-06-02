@@ -1009,7 +1009,7 @@ test-ui-browser path='' *args='': services
 	PHX_SERVER=yes MIX_TEST_ONLY=ui just test_run `just test_convert_path {{path}}` --exclude backend --exclude federation --exclude ap_lib `just test_default_excludes` --only browser {{args}}
 
 test-others path='' *args='': services
-	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude backend --exclude ui --exclude federation --exclude ap_lib --exclude browser `just test_default_excludes` {{args}}
+	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` {{others_excludes}} --exclude federation `just test_default_excludes` {{args}}
 
 test_default_excludes:
 	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude rate_limit --exclude integration `just test_minimum_excludes`"
@@ -1059,7 +1059,10 @@ ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "for
 ap_ext := if path_exists("extensions/bonfire_federate_activitypub/test/")=="true" { "extensions/bonfire_federate_activitypub/test/" } else { "deps/bonfire_federate_activitypub/test/" }
 ap_integration := ap_ext+"activity_pub_integration/"
 ap_boundaries := ap_ext+"boundaries/"
-ap_etc := "--exclude ui --exclude browser --exclude backend --exclude ap_lib"
+# common excludes shared by the various "others"/fallback runners
+others_excludes := "--exclude ui --exclude browser --exclude backend --exclude ap_lib"
+# federation "others"/fallback: shares the common base but keeps federation tests, and drops the buckets with their own cmds (masto-api/openid)
+federation_others_excludes := others_excludes + " --exclude masto_api --exclude openid"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation TEST_CMD="test_run": _test-dance-positions
@@ -1078,7 +1081,7 @@ _test-federation_script TEST_CMD="test_run": services
     just $TEST_CMD {{ ap_lib }}
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
-    just $TEST_CMD {{ ap_etc }}
+    just $TEST_CMD {{ federation_others_excludes }}
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     just _test-dance-positions
@@ -1112,7 +1115,7 @@ test-federation-integration *args=ap_integration: services _test-dance-positions
 test-federation-boundaries *args=ap_boundaries: services _test-dance-positions
 	just test_run {{args}}
 
-test-federation-others *args=ap_etc: services _test-dance-positions
+test-federation-others *args=federation_others_excludes: services _test-dance-positions
 	just test_run {{args}}
 
 test-federation-dance *args=ap_ext: services _test-dance-positions _test-db-dance-reset
@@ -1145,6 +1148,7 @@ test-federation-live-DRAGONS *args='': services
 # Run live email sending tests. Set LIVE_TEST_SEND_EMAILS=true LIVE_TEST_EMAIL_ENCRYPTED=enc@proton.me LIVE_TEST_EMAIL_PLAIN=plain@gmail.com
 test-live-DRAGONS *args='extensions/bonfire_mailer/test/pgp/pgp_live_test.exs':
 	LIVE_TEST_SEND_EMAILS=true just test_run --only live_federation {{args}}
+
 
 load_testing: services
 	TEST_INSTANCE=yes just mix bonfire.load_testing

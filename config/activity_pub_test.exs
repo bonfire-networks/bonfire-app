@@ -6,6 +6,11 @@ config :activity_pub, :instance,
 
 # rewrite_policy: [ActivityPub.MRF.SimplePolicy]
 
+# in tests, *also* apply the lib's own config-based `SimplePolicy` (`:mrf_simple`) reject on top of
+# the boundary-based gating in `Bonfire.Federate.ActivityPub.Adapter`, so AP-lib tests that rely on
+# `:mrf_simple` (which the host adapter doesn't consult) behave as the lib expects
+config :activity_pub, :also_apply_simple_policy, true
+
 config :activity_pub, :repo, Bonfire.Common.Repo
 config :activity_pub, ecto_repos: [Bonfire.Common.Repo]
 config :activity_pub, :endpoint_module, Bonfire.Web.Endpoint
