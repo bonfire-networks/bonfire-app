@@ -3,7 +3,7 @@ import Config
 #### Flavour-specific compile-time configuration goes here, everything else should be in `Social.RuntimeConfig`
 
 # enable marking comment as answer?
-# config :bonfire_social, Bonfire.Social.Answers, modularity: :disabled
+config :bonfire_social, Bonfire.Social.Answers, modularity: :disabled
 
 # enable content labelling?
 # config :bonfire_label, modularity: :disabled

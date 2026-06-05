@@ -138,10 +138,9 @@ config :bonfire, Bonfire.Web.Endpoint,
       (config_env() != :test or test_instance? or phx_server in yes?),
   url: [
     host: host,
-    port: public_port,
-    scheme: if(public_port == 443, do: "https", else: "http")
+    port: public_port
   ],
-  check_origin: hosts, 
+  check_origin: hosts,
   # check_origin: false,
   adapter:
     if(use_cowboy?,
@@ -245,8 +244,8 @@ config :bonfire, Oban,
     # video_transcode: 1,
     # boost_activities: 1,
     fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1")),
-    # batched Meilisearch indexing flush — concurrency 1 is intentional: it
-    # serialises flushes so each Meili task is one large batch, not many small ones
+    ghost_webhooks: String.to_integer(System.get_env("QUEUE_SIZE_GHOST_WEBHOOKS", "2")),
+    # batched Meilisearch indexing flush (Bonfire.Search.Workers.IndexWorker);
     search_index: String.to_integer(System.get_env("QUEUE_SIZE_SEARCH_INDEX", "1"))
   ],
   plugins: [
@@ -277,6 +276,12 @@ config :bonfire, Oban,
            IO.puts("Open science extension is not enabled")
            []
          end}
+    # ++
+    # if Bonfire.Common.Extend.module_enabled?(Bonfire.Social.TrendingLinksCacheWorker) do
+    #   [{"@hourly", Bonfire.Social.TrendingLinksCacheWorker, max_attempts: 1}]
+    # else
+    #   []
+    # end
   ]
 
 config :activity_pub, :oban_queues,

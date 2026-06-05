@@ -17,8 +17,12 @@ config :bonfire,
   skip_all_boundary_checks: false,
   ui: [infinite_scroll: false]
 
-config :bonfire_mailer, Bonfire.Mailer.Bamboo, adapter: Bamboo.TestAdapter
 config :bonfire_mailer, Bonfire.Mailer.Swoosh, adapter: Swoosh.Adapters.Test
+
+if System.get_env("DISABLE_IMAGE_CLASSIFIER") in yes? do
+  config :image, :classifier, autostart: false
+  config :image, :generator, autostart: false
+end
 
 config :bonfire_common, Bonfire.Common.AntiSpam, service: Bonfire.Common.AntiSpam.Mock
 

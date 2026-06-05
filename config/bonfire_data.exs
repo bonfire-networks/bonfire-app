@@ -624,14 +624,14 @@ config :bonfire_data_activity_pub, Peer,
   code:
     (quote do
        # circle memberships (e.g. a remote instance Peer silenced/ghosted into a circle)
-       unquote_splicing(common.([:encircles]))
+       (unquote_splicing(common.([:encircles])))
      end)
 
 config :bonfire_data_activity_pub, Peered,
   code:
     (quote do
        # circle memberships (e.g. silenced/ghosted into a circle)
-       unquote_splicing(common.([:encircles]))
+       (unquote_splicing(common.([:encircles])))
      end)
 
 # bonfire_data_identity
