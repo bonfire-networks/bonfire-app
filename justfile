@@ -609,21 +609,24 @@ test-tauri-e2e-federated-co-device grep="@federated-co-device(?!-)" *pw_flags=""
 dev-dance-db-down:
 	TEST_INSTANCE=yes just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo
 
-@_dev-federate-tunneled bore_port1="1" bore_port2="2" mode='': services
+# Internal: spawn a bore tunnel on bore_port, set HOSTNAME, then run TUNNELED_CMD
+@_with-bore-tunnel bore_port="1": services
 	#!/usr/bin/env bash
-	# Spawn tunnels in a new process group (bash -i gives them their own pgrp) so Ctrl+C doesn't reach them
-	( trap '' INT; just tunnel-bore {{bore_port1}} ) &
-	tunnel_pids=$!
+	( trap '' INT; just tunnel-bore {{bore_port}} ) &
+	tunnel_pid=$!
+	trap "kill $tunnel_pid 2>/dev/null" EXIT
+	HOSTNAME="{{bore_port}}.{{BORE_SERVER}}" PUBLIC_PORT=443 FEDERATE=yes HOT_CODE_RELOAD=0 PHX_SERVER=yes eval "$TUNNELED_CMD"
+
+@_dev-federate-tunneled bore_port1="1" bore_port2="2" mode='':
+	#!/usr/bin/env bash
 	if [ "{{mode}}" = "dance" ]; then
 		( trap '' INT; just tunnel-bore {{bore_port2}} ${TEST_INSTANCE_SERVER_PORT:-4002} ) &
-		tunnel_pids="$tunnel_pids $!"
+		extra_pid=$!
+		trap "kill $extra_pid 2>/dev/null" EXIT
 		export TEST_INSTANCE=yes
 		export TEST_INSTANCE_HOSTNAME="{{bore_port2}}.{{BORE_SERVER}}"
 	fi
-	# Kill tunnel processes when this script fully exits (second Ctrl+C, or terminal closed)
-	trap "kill $tunnel_pids 2>/dev/null" EXIT
-	HOSTNAME="{{bore_port1}}.{{BORE_SERVER}}" PUBLIC_PORT=443 \
-		FEDERATE=yes HOT_CODE_RELOAD=0 just _dev
+	TUNNELED_CMD="just _dev" just _with-bore-tunnel {{bore_port1}}
 
 dev-docker *args='': docker-stop-web
 	just docker-compose {{args}} run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
@@ -1146,8 +1149,10 @@ _test-dance-positions:
 test-rate-limit *args='': services 
 	ENABLE_RATE_LIMIT=yes TEST_INSTANCE=yes PHX_SERVER=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only rate_limit {{args}} 
 
-test-federation-live-DRAGONS *args='': services
-	FEDERATE=yes PHX_SERVER=yes HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just test_run --only live_federation {{args}}
+test-federation-live-DRAGONS *args='':
+	just mix deps.clean bonfire --build
+	TUNNELED_CMD="just test_run --only live_federation {{args}}" just _with-bore-tunnel "1"
+	just mix deps.clean bonfire --build
 
 # Run live email sending tests. Set LIVE_TEST_SEND_EMAILS=true LIVE_TEST_EMAIL_ENCRYPTED=enc@proton.me LIVE_TEST_EMAIL_PLAIN=plain@gmail.com
 test-live-DRAGONS *args='extensions/bonfire_mailer/test/pgp/pgp_live_test.exs':
