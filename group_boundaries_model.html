@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.3">
+    <meta name="project" content="Bonfire v1.0.5-social-beta.2">
+
+
+    <title>Group Boundary Model — 4 Dimensions — Bonfire v1.0.5-social-beta.2</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-NHQLCD6Y.css" />
+
+    <script defer src="dist/sidebar_items-8C2C1C4A.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y2MUTVIN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.5-social-beta.2
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Group Boundary Model — 4 Dimensions</h1>
+
+<a href="group_boundaries_model.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire_classify/blob/main/docs/GROUP_BOUNDARIES_MODEL.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<blockquote><p><strong>Note:</strong> The authoritative source for current dimension slugs, labels, and icons is <code class="inline">extensions/bonfire_boundaries/lib/runtime_config.ex</code> (<code class="inline">preset_dimensions</code>) and <code class="inline">extensions/bonfire_classify/lib/runtime_config.ex</code> (<code class="inline">group_presets</code>, <code class="inline">layer2_toggles</code>). The <code class="inline">GET /api/v1-bonfire/boundaries?context=group</code> endpoint exposes this config at runtime. This document is background reference only.</p></blockquote><p>Groups have four independent boundary dimensions. Each has a small set of meaningful options. Picking a named preset (Layer 1) sets all four at once; Layer 2 toggles and Layer 3 raw dimension values override individual axes.</p><hr class="thin"/><h2 id="1-membership-who-can-join" class="section-heading"><a href="#1-membership-who-can-join" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">1. Membership — who can join</span></h2><table><thead><tr><th style="text-align: left;">Slug</th><th style="text-align: left;">Meaning</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">open</code></td><td style="text-align: left;">Anyone can join freely</td></tr><tr><td style="text-align: left;"><code class="inline">local:members</code></td><td style="text-align: left;">Anyone on this instance can join</td></tr><tr><td style="text-align: left;"><code class="inline">archipelago:members</code></td><td style="text-align: left;">Anyone on a trusted/linked instance can join <em>(not yet implemented)</em></td></tr><tr><td style="text-align: left;"><code class="inline">on_request</code></td><td style="text-align: left;">Anyone can request to join; moderator approves</td></tr><tr><td style="text-align: left;"><code class="inline">invite_only</code></td><td style="text-align: left;">Only moderators can add members (no join/request button shown)</td></tr></tbody></table><h2 id="2-group-visibility-who-can-see-the-group-and-its-content-see-read-verbs" class="section-heading"><a href="#2-group-visibility-who-can-see-the-group-and-its-content-see-read-verbs" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">2. Group visibility — who can see the group and its content (<code class="inline">:see</code> / <code class="inline">:read</code> verbs)</span></h2><table><thead><tr><th style="text-align: left;">Slug</th><th style="text-align: left;">Scope</th><th style="text-align: left;">Full access</th><th style="text-align: left;">Discoverable only</th><th style="text-align: left;">Unlisted</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">nonfederated</code> / <code class="inline">nonfederated:discoverable</code></td><td style="text-align: left;">Public (local only)</td><td style="text-align: left;"><code class="inline">nonfederated</code></td><td style="text-align: left;"><code class="inline">nonfederated:discoverable</code></td><td style="text-align: left;">—</td></tr><tr><td style="text-align: left;"><code class="inline">local</code> / <code class="inline">local:discoverable</code></td><td style="text-align: left;">Local instance</td><td style="text-align: left;"><code class="inline">local</code></td><td style="text-align: left;"><code class="inline">local:discoverable</code></td><td style="text-align: left;">—</td></tr><tr><td style="text-align: left;"><code class="inline">members:private</code></td><td style="text-align: left;">Members only</td><td style="text-align: left;"><code class="inline">members:private</code></td><td style="text-align: left;">—</td><td style="text-align: left;">—</td></tr></tbody></table><p><em>Archipelago-scoped variants are planned but not yet implemented.</em></p><h2 id="3-participation-who-can-post-interact-create-reply-boost-like-verbs" class="section-heading"><a href="#3-participation-who-can-post-interact-create-reply-boost-like-verbs" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">3. Participation — who can post/interact (<code class="inline">:create</code>, <code class="inline">:reply</code>, <code class="inline">:boost</code>, <code class="inline">:like</code> verbs)</span></h2><table><thead><tr><th style="text-align: left;">Slug</th><th style="text-align: left;">Meaning</th><th style="text-align: left;">Constraint</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">anyone</code></td><td style="text-align: left;">Any user</td><td style="text-align: left;">Disabled when visibility is <code class="inline">members:private</code></td></tr><tr><td style="text-align: left;"><code class="inline">local:contributors</code></td><td style="text-align: left;">Local users</td><td style="text-align: left;">Disabled when visibility is <code class="inline">members:private</code></td></tr><tr><td style="text-align: left;"><code class="inline">group_members</code></td><td style="text-align: left;">Members only</td><td style="text-align: left;">Default</td></tr><tr><td style="text-align: left;"><code class="inline">moderators</code></td><td style="text-align: left;">Moderators only</td><td style="text-align: left;">Members can read and react but not post</td></tr></tbody></table><h2 id="4-default-content-visibility-how-posts-in-this-group-are-shared-by-default" class="section-heading"><a href="#4-default-content-visibility-how-posts-in-this-group-are-shared-by-default" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">4. Default content visibility — how posts in this group are shared by default</span></h2><table><thead><tr><th style="text-align: left;">Slug</th><th style="text-align: left;">Scope</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">nonfederated</code></td><td style="text-align: left;">Visible to anyone on this instance including guests</td></tr><tr><td style="text-align: left;"><code class="inline">local</code></td><td style="text-align: left;">Visible to logged-in local users</td></tr><tr><td style="text-align: left;"><code class="inline">members:private</code></td><td style="text-align: left;">Visible to group members only</td></tr></tbody></table><p><em>Preview (<code class="inline">:preview</code>) and quiet (<code class="inline">:quiet</code>) variants are defined in config for future use.</em></p><h3 id="cascade-constraints" class="section-heading"><a href="#cascade-constraints" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Cascade constraints</span></h3><p>Post visibility options are automatically disabled based on group visibility:</p><ul><li><code class="inline">nonfederated</code> — disabled when group is <code class="inline">local:*</code> or <code class="inline">members:private</code></li><li><code class="inline">local</code> — disabled when group is <code class="inline">members:private</code></li><li><code class="inline">members:private</code> — always available</li></ul><hr class="thin"/><h2 id="named-presets-layer-1" class="section-heading"><a href="#named-presets-layer-1" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Named Presets (Layer 1)</span></h2><table><thead><tr><th style="text-align: left;">Preset ID</th><th style="text-align: left;">Membership</th><th style="text-align: left;">Visibility</th><th style="text-align: left;">Participation</th><th style="text-align: left;">Default post vis</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">public_local_community</code></td><td style="text-align: left;"><code class="inline">local:members</code></td><td style="text-align: left;"><code class="inline">nonfederated:discoverable</code></td><td style="text-align: left;"><code class="inline">local:contributors</code></td><td style="text-align: left;"><code class="inline">nonfederated</code></td></tr><tr><td style="text-align: left;"><code class="inline">announcement_channel</code></td><td style="text-align: left;"><code class="inline">invite_only</code></td><td style="text-align: left;"><code class="inline">nonfederated:discoverable</code></td><td style="text-align: left;"><code class="inline">moderators</code></td><td style="text-align: left;"><code class="inline">nonfederated</code></td></tr><tr><td style="text-align: left;"><code class="inline">private_club</code></td><td style="text-align: left;"><code class="inline">on_request</code></td><td style="text-align: left;"><code class="inline">local:discoverable</code></td><td style="text-align: left;"><code class="inline">group_members</code></td><td style="text-align: left;"><code class="inline">members:private</code></td></tr></tbody></table><h2 id="layer-2-overrides" class="section-heading"><a href="#layer-2-overrides" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Layer 2 Overrides</span></h2><table><thead><tr><th style="text-align: left;">Key</th><th style="text-align: left;">Toggles</th><th style="text-align: left;">Locked by</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">discoverable</code></td><td style="text-align: left;">Group discoverable in listings/search</td><td style="text-align: left;">—</td></tr><tr><td style="text-align: left;"><code class="inline">federate</code></td><td style="text-align: left;">Group reachable from other instances</td><td style="text-align: left;">all presets (until federation ships)</td></tr><tr><td style="text-align: left;"><code class="inline">approval_required</code></td><td style="text-align: left;">Moderator must approve join requests</td><td style="text-align: left;"><code class="inline">announcement_channel</code>, <code class="inline">private_club</code></td></tr><tr><td style="text-align: left;"><code class="inline">anyone_posts</code></td><td style="text-align: left;">Any eligible user can post (not just members)</td><td style="text-align: left;"><code class="inline">announcement_channel</code>, <code class="inline">private_club</code></td></tr></tbody></table>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="graphql_groups_api.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Bonfire Groups & Topics — GraphQL API
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="masto_groups_api.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Mastodon-Compatible Groups & Topics API
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.3) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

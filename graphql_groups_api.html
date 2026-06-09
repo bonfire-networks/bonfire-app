@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.3">
+    <meta name="project" content="Bonfire v1.0.5-social-beta.2">
+
+
+    <title>Bonfire Groups & Topics — GraphQL API — Bonfire v1.0.5-social-beta.2</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-NHQLCD6Y.css" />
+
+    <script defer src="dist/sidebar_items-8C2C1C4A.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y2MUTVIN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.5-social-beta.2
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Bonfire Groups &amp; Topics — GraphQL API</h1>
+
+<a href="graphql_groups_api.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire_classify/blob/main/docs/GRAPHQL_GROUPS_API.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>Groups and topics are <code class="inline">Category</code> objects in the GraphQL schema, extended with group-specific fields and mutations. The schema is defined in <code class="inline">extensions/bonfire_classify/lib/graphql/schema.ex</code> and the resolvers in <code class="inline">extensions/bonfire_classify/lib/graphql/resolver.ex</code>.</p><p>All examples use the internal AbsintheClient mode (<code class="inline">use AbsintheClient, schema: Bonfire.API.GraphQL.Schema, action: [mode: :internal]</code>) as used by the REST adapter. The same queries work against the public <code class="inline">/api/graphql</code> endpoint.</p><hr class="thin"/><h2 id="queries" class="section-heading"><a href="#queries" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Queries</span></h2><h3 id="categories-list-groups-topics" class="section-heading"><a href="#categories-list-groups-topics" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">categories</code> — list groups/topics</span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">categories</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">edges</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">      </span><span class="n">id</span><span class="w">
+</span><span class="w">      </span><span class="n">name</span><span class="w">
+</span><span class="w">      </span><span class="kr">type</span><span class="w">
+</span><span class="w">      </span><span class="n">members_count</span><span class="w">
+</span><span class="w">      </span><span class="n">is_disabled</span><span class="w">
+</span><span class="w">      </span><span class="n">parent_category_id</span><span class="w">
+</span><span class="w">      </span><span class="n">boundaries</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">slug</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="n">icon</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">      </span><span class="n">character</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">page_info</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">has_next_page</span><span class="w"> </span><span class="n">has_previous_page</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">total_count</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Arguments: <code class="inline">limit: Int</code>, <code class="inline">before: [Cursor!]</code>, <code class="inline">after: [Cursor!]</code> (standard page cursors).</p><blockquote><p>Client-side <code class="inline">type</code> filtering: the <code class="inline">categories</code> query returns all types. Filter by <code class="inline">type == &quot;group&quot;</code> / <code class="inline">&quot;topic&quot;</code> / <code class="inline">&quot;label&quot;</code> in the adapter — no server-side type arg exists yet.</p></blockquote><h3 id="category-single-group-topic-by-id" class="section-heading"><a href="#category-single-group-topic-by-id" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">category</code> — single group/topic by ID</span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">query</span><span class="p">(</span><span class="p">$</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">category</span><span class="p">(</span><span class="n">category_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">id</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w">
+</span><span class="w">    </span><span class="kr">type</span><span class="w">
+</span><span class="w">    </span><span class="n">members_count</span><span class="w">
+</span><span class="w">    </span><span class="n">is_disabled</span><span class="w">
+</span><span class="w">    </span><span class="n">parent_category_id</span><span class="w">
+</span><span class="w">    </span><span class="n">boundaries</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">slug</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="n">icon</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">character</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">members</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">      </span><span class="n">entries</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">account</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">character</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">        </span><span class="n">relationship</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">member</span><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">requested</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">      </span><span class="p">}</span><span class="w">
+</span><span class="w">      </span><span class="n">page_info</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">has_next_page</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Returns <code class="inline">null</code> when the ID doesn't exist or the current user can't read the group.</p><h3 id="category-members-paginated-member-list-with-roles" class="section-heading"><a href="#category-members-paginated-member-list-with-roles" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">category.members</code> — paginated member list with roles</span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">query</span><span class="p">(</span><span class="p">$</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">category</span><span class="p">(</span><span class="n">category_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">members</span><span class="p">(</span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">role</span><span class="p">,</span><span class="w"> </span><span class="n">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cursor&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">      </span><span class="n">entries</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">account</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">character</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">        </span><span class="n">relationship</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">member</span><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">requested</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">      </span><span class="p">}</span><span class="w">
+</span><span class="w">      </span><span class="n">page_info</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">has_next_page</span><span class="w"> </span><span class="n">end_cursor</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p><code class="inline">role</code> filter: <code class="inline">&quot;member&quot;</code>, <code class="inline">&quot;moderator&quot;</code>, or <code class="inline">&quot;admin&quot;</code>. Omit to return all members. Role is derived from the group's <code class="inline">tree.custodian_id</code> — the creator/custodian gets <code class="inline">&quot;admin&quot;</code>, everyone else <code class="inline">&quot;member&quot;</code>.</p><hr class="thin"/><h2 id="mutations" class="section-heading"><a href="#mutations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Mutations</span></h2><h3 id="join_group" class="section-heading"><a href="#join_group" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">join_group</code></span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">join_group</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">member</span><span class="w">
+</span><span class="w">    </span><span class="n">role</span><span class="w">
+</span><span class="w">    </span><span class="n">following</span><span class="w">
+</span><span class="w">    </span><span class="n">requested</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><ul><li>Open group (<code class="inline">membership: &quot;open&quot;</code> or <code class="inline">&quot;local:members&quot;</code>): returns <code class="inline">member: true, following: true, requested: false</code>.</li><li>Request-mode group (<code class="inline">membership: &quot;on_request&quot;</code>): returns <code class="inline">member: false, following: false, requested: true</code>.</li><li>Invite-only group (<code class="inline">membership: &quot;invite_only&quot;</code>): returns an error.</li></ul><h3 id="leave_group" class="section-heading"><a href="#leave_group" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">leave_group</code></span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">leave_group</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">member</span><span class="w">
+</span><span class="w">    </span><span class="n">role</span><span class="w">
+</span><span class="w">    </span><span class="n">following</span><span class="w">
+</span><span class="w">    </span><span class="n">requested</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Removes membership and unfollows in one call. Returns <code class="inline">member: false, following: false, requested: false</code>.</p><h3 id="add_member-admin-only" class="section-heading"><a href="#add_member-admin-only" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">add_member</code> (admin only)</span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">gid</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="n">uid</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">add_member</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">gid</span><span class="p">,</span><span class="w"> </span><span class="n">account_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">uid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">member</span><span class="w">
+</span><span class="w">    </span><span class="n">role</span><span class="w">
+</span><span class="w">    </span><span class="n">following</span><span class="w">
+</span><span class="w">    </span><span class="n">requested</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Adds <code class="inline">account_id</code> directly as a member regardless of <code class="inline">join_mode</code>. Also used to add someone who has already sent a follow/join request. Returns 403 if the current user is not an admin of the group.</p><h3 id="accept_join_request-admin-only" class="section-heading"><a href="#accept_join_request-admin-only" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">accept_join_request</code> (admin only)</span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">accept_join_request</span><span class="p">(</span><span class="n">request_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">req</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">member</span><span class="w">
+</span><span class="w">    </span><span class="n">role</span><span class="w">
+</span><span class="w">    </span><span class="n">following</span><span class="w">
+</span><span class="w">    </span><span class="n">requested</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Accepts a pending join request by its ID. Returns <code class="inline">member: true</code> on success. Returns 403 if the current user is not an admin.</p><h3 id="remove_member-admin-only" class="section-heading"><a href="#remove_member-admin-only" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">remove_member</code> (admin only)</span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">gid</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="n">uid</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">remove_member</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">gid</span><span class="p">,</span><span class="w"> </span><span class="n">account_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">uid</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Returns <code class="inline">true</code> on success (Boolean scalar). Returns 403 if the current user is not an admin.</p><h3 id="create_category" class="section-heading"><a href="#create_category" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">create_category</code></span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="kr">type</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="n">preset</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">create_category</span><span class="p">(</span><span class="n">category</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">name</span><span class="w">
+</span><span class="w">    </span><span class="kr">type</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="kr">type</span><span class="w">
+</span><span class="w">    </span><span class="n">boundary</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">preset</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">preset</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">id</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w">
+</span><span class="w">    </span><span class="kr">type</span><span class="w">
+</span><span class="w">    </span><span class="n">boundaries</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">slug</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">character</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p><code class="inline">type</code> defaults to <code class="inline">&quot;group&quot;</code>. <code class="inline">boundary.preset</code> is a named preset slug (e.g. <code class="inline">&quot;open&quot;</code>, <code class="inline">&quot;private_club&quot;</code>, <code class="inline">&quot;on_request&quot;</code>, <code class="inline">&quot;invite_only&quot;</code>). Omit <code class="inline">preset</code> to use the instance default. Available presets are discoverable via <code class="inline">boundaries(context: &quot;group&quot;)</code>.</p><h3 id="update_category" class="section-heading"><a href="#update_category" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">update_category</code></span></h3><pre><code class="makeup graphql" translate="no"><span class="kr">mutation</span><span class="p">(</span><span class="p">$</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="p">$</span><span class="n">preset</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">update_category</span><span class="p">(</span><span class="n">category_id</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">category</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">name</span><span class="w">
+</span><span class="w">    </span><span class="n">boundary</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">preset</span><span class="p">:</span><span class="w"> </span><span class="p">$</span><span class="n">preset</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">id</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w">
+</span><span class="w">    </span><span class="kr">type</span><span class="w">
+</span><span class="w">    </span><span class="n">boundaries</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">slug</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">character</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Only the group admin may call this. Returns 403 otherwise.</p><hr class="thin"/><h2 id="types" class="section-heading"><a href="#types" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Types</span></h2><h3 id="extended-category-type" class="section-heading"><a href="#extended-category-type" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Extended <code class="inline">category</code> type</span></h3><p>New fields on the existing <code class="inline">:category</code> object:</p><pre><code class="makeup graphql" translate="no"><span class="kr">type</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="c1"># existing fields ...</span><span class="w">
+</span><span class="w">  </span><span class="kr">type</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">        </span><span class="c1"># &quot;group&quot; (default) | &quot;topic&quot; | &quot;label&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">members_count</span><span class="p">:</span><span class="w"> </span><span class="n">Int</span><span class="w">
+</span><span class="w">  </span><span class="n">is_disabled</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">
+</span><span class="w">  </span><span class="n">parent_category_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Resolved boundary dimensions — source of truth for group access rules.</span><span class="w">
+</span><span class="w">  </span><span class="c1"># `preset` is absent: it&#39;s write-only sugar; dimensions are the authority.</span><span class="w">
+</span><span class="w">  </span><span class="c1"># REST `join_mode` is derived from the &quot;membership&quot; entry here.</span><span class="w">
+</span><span class="w">  </span><span class="n">boundaries</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">BoundaryDimensionValue</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Defined in bonfire_boundaries (extensions/bonfire_boundaries/lib/api/boundaries_api_graphql.ex)</span><span class="w">
+</span><span class="c1"># and imported into the classify schema.</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryDimensionValue</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">         </span><span class="c1"># &quot;membership&quot; | &quot;visibility&quot; | &quot;participation&quot; | &quot;default_content_visibility&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">slug</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">        </span><span class="c1"># raw slug, e.g. &quot;on_request&quot;, &quot;local:discoverable&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">        </span><span class="c1"># display label from config, e.g. &quot;Request to join&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">         </span><span class="c1"># icon key, e.g. &quot;ph:lock-duotone&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">  </span><span class="c1"># short description shown in UI</span><span class="w">
+</span><span class="p">}</span></code></pre><p><code class="inline">BoundaryDimensionValue</code> resolvers read from <code class="inline">Config.get([:preset_dimensions, key, :options, slug], ...)</code> in <code class="inline">:bonfire_boundaries</code> — no DB query needed.</p><h3 id="category_input-3-layer-boundary-model" class="section-heading"><a href="#category_input-3-layer-boundary-model" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">category_input</code> — 3-layer boundary model</span></h3><p>Dimension keys and preset IDs are discovered via <code class="inline">GET /api/v1-bonfire/boundaries?context=group</code> — clients should not hardcode them.</p><pre><code class="makeup graphql" translate="no"><span class="kr">input</span><span class="w"> </span><span class="n">CategoryInput</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="c1"># existing fields ...</span><span class="w">
+</span><span class="w">  </span><span class="kr">type</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">            </span><span class="c1"># &quot;group&quot; (default) | &quot;topic&quot; | &quot;label&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">boundary</span><span class="p">:</span><span class="w"> </span><span class="n">BoundaryDimensionsInput</span><span class="w"> </span><span class="c1"># all access-rule changes grouped here</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Defined in bonfire_boundaries and imported into the classify schema.</span><span class="w">
+</span><span class="kr">input</span><span class="w"> </span><span class="n">BoundaryDimensionsInput</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Layer 1 — pick a named preset (sets all 4 dimensions)</span><span class="w">
+</span><span class="w">  </span><span class="n">preset</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">          </span><span class="c1"># slug from boundaries(context:&quot;group&quot;).presets[].id</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Layer 2 — binary overrides on top of the preset</span><span class="w">
+</span><span class="w">  </span><span class="n">overrides</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">KeyBooleanInput</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Layer 3 — raw per-dimension slugs (advanced; overrides preset + layer 2)</span><span class="w">
+</span><span class="w">  </span><span class="n">dimensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">KeyValueInput</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre><h3 id="membership-mutations" class="section-heading"><a href="#membership-mutations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Membership mutations</span></h3><pre><code class="makeup graphql" translate="no"><span class="n">join_group</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">GroupRelationship</span><span class="w">
+</span><span class="n">leave_group</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">GroupRelationship</span><span class="w">
+</span><span class="c1"># Admin actions:</span><span class="w">
+</span><span class="n">add_member</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="n">account_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">GroupRelationship</span><span class="w">   </span><span class="c1"># direct add or existing follow request</span><span class="w">
+</span><span class="n">accept_join_request</span><span class="p">(</span><span class="n">request_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">GroupRelationship</span><span class="w">          </span><span class="c1"># accept a pending join request by request ID</span><span class="w">
+</span><span class="n">remove_member</span><span class="p">(</span><span class="n">group_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">,</span><span class="w"> </span><span class="n">account_id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="p">!</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span></code></pre><h3 id="relationship-and-grouprelationship-types" class="section-heading"><a href="#relationship-and-grouprelationship-types" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">Relationship</code> and <code class="inline">GroupRelationship</code> types</span></h3><p><code class="inline">Relationship</code> is defined in <code class="inline">extensions/bonfire_social_graph/lib/social_api_graphql.ex</code> for user-to-user relationships. <code class="inline">GroupRelationship</code> is defined in <code class="inline">extensions/bonfire_classify/lib/graphql/schema.ex</code> and returned by group membership mutations.</p><pre><code class="makeup graphql" translate="no"><span class="c1"># Define in bonfire_social_graph — covers user-to-user and user-to-group.</span><span class="w">
+</span><span class="c1"># No id field — Relationship is a computed state, not an entity; account_id is on the parent.</span><span class="w">
+</span><span class="c1"># Uses Bonfire&#39;s internal terminology; REST layer maps to Mastodon field names.</span><span class="w">
+</span><span class="c1"># Defined in bonfire_social or bonfire_me. subject = the account this is about.</span><span class="w">
+</span><span class="c1"># Privacy: ghosting/silencing null unless subject is the current user.</span><span class="w">
+</span><span class="c1"># REST: following→following, followed→followed_by, ghosting→blocking, silencing→muting</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">Relationship</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">following</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">
+</span><span class="w">  </span><span class="n">followed</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">
+</span><span class="w">  </span><span class="n">ghosting</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">
+</span><span class="w">  </span><span class="n">silencing</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">
+</span><span class="w">  </span><span class="n">requested</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Defined in bonfire_classify. Returned by join_group/leave_group/add_member.</span><span class="w">
+</span><span class="c1"># REST: standard Relationship + group extension field when target is a group.</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">GroupRelationship</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">following</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">    </span><span class="c1"># subscribed to group feed</span><span class="w">
+</span><span class="w">  </span><span class="n">requested</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">    </span><span class="c1"># pending join request</span><span class="w">
+</span><span class="w">  </span><span class="n">member</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">          </span><span class="c1"># &quot;member&quot; | &quot;moderator&quot; | &quot;admin&quot; | null</span><span class="w">
+</span><span class="p">}</span></code></pre><h3 id="group-membership-field-resolvers-on-existing-types" class="section-heading"><a href="#group-membership-field-resolvers-on-existing-types" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Group membership — field resolvers on existing types</span></h3><p>Rather than standalone queries, membership is resolved as fields on the relevant types:</p><pre><code class="makeup graphql" translate="no"><span class="c1"># On Category (group/topic):</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="c1"># ... existing fields ...</span><span class="w">
+</span><span class="w">  </span><span class="n">members</span><span class="p">(</span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">limit</span><span class="p">:</span><span class="w"> </span><span class="n">Int</span><span class="p">,</span><span class="w"> </span><span class="n">after</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">GroupMembersPage</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">GroupMembersPage</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">entries</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">GroupMemberEntry</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="n">page_info</span><span class="p">:</span><span class="w"> </span><span class="n">PageInfo</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">GroupMemberEntry</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">account</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w">
+</span><span class="w">  </span><span class="n">relationship</span><span class="p">:</span><span class="w"> </span><span class="n">GroupRelationship</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># On User (their group memberships — resolver: CategoryResolver.user_groups/3):</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="c1"># ... existing fields ...</span><span class="w">
+</span><span class="w">  </span><span class="n">groups</span><span class="p">(</span><span class="kr">type</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">CategoriesPage</span><span class="w">   </span><span class="c1"># type: &quot;group&quot; | &quot;topic&quot; | &quot;label&quot;</span><span class="w">
+</span><span class="p">}</span></code></pre><p><code class="inline">GroupMembersPage.entries</code> is <code class="inline">[{ account: User, relationship: GroupRelationship }]</code>. The <code class="inline">user.groups</code> field is resolved by <a href="./Bonfire.Classify.html#my_followed_tree/2"><code class="inline">Bonfire.Classify.my_followed_tree/2</code></a> and returns a flat list of top-level followed groups.</p><h3 id="boundaries-query" class="section-heading"><a href="#boundaries-query" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">boundaries</code> query</span></h3><pre><code class="makeup graphql" translate="no"><span class="n">boundaries</span><span class="p">(</span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="n">Boundaries</span></code></pre><p><code class="inline">context</code> accepts <code class="inline">&quot;post&quot;</code> (default), <code class="inline">&quot;user&quot;</code>, <code class="inline">&quot;group&quot;</code>, <code class="inline">&quot;instance&quot;</code> (TODO), or any ULID.</p><pre><code class="makeup graphql" translate="no"><span class="kr">type</span><span class="w"> </span><span class="n">Boundaries</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">visibility</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">String</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="n">visibility_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">BoundaryLabelledOption</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Available interaction verbs — clients use these to build PolicyEntryInput lists.</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Includes &quot;request&quot; as a first-class verb (granting &quot;request&quot; = can send an approval request).</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Subject values are the same keywords as visibility (discovered via visibility_labels).</span><span class="w">
+</span><span class="w">  </span><span class="n">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">String</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="c1"># Group boundary model — present when context=group or a group ULID</span><span class="w">
+</span><span class="w">  </span><span class="n">presets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">BoundaryPreset</span><span class="p">]</span><span class="w">       </span><span class="c1"># Layer 1</span><span class="w">
+</span><span class="w">  </span><span class="n">overrides</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">BoundaryOverrideOption</span><span class="p">]</span><span class="w">  </span><span class="c1"># Layer 2</span><span class="w">
+</span><span class="w">  </span><span class="n">dimensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">BoundaryDimensionGroup</span><span class="p">]</span><span class="w"> </span><span class="c1"># Layer 3</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># A named value with display metadata (shared by visibility_labels, policy_labels in REST)</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryLabelledOption</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="w">  </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Layer 1 — a named group preset bundling all 4 dimension slugs</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryPreset</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="w">  </span><span class="n">dimensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">KeyValueEntry</span><span class="p">]</span><span class="w">  </span><span class="c1"># dim name -&gt; slug</span><span class="w">
+</span><span class="w">  </span><span class="n">overrides_locked</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">String</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Layer 2 — a binary override switch</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryOverrideOption</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">help</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Layer 3 — a single dimension with its available options</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryDimensionGroup</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">           </span><span class="c1"># e.g. &quot;membership&quot;, &quot;visibility&quot;</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">BoundaryDimensionOption</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryDimensionOption</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="w">  </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">
+</span><span class="w">  </span><span class="n">disabled</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">       </span><span class="c1"># null if available; reason string if disabled</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Implementation reads <code class="inline">Config.get([:bonfire_boundaries, :preset_dimensions])</code>, <code class="inline">Config.get([:bonfire_classify, :group_presets])</code>, and <code class="inline">Config.get([:bonfire_classify, :layer2_toggles])</code> directly — no DB query needed.</p><h3 id="create_post-update_post-mutation-extensions" class="section-heading"><a href="#create_post-update_post-mutation-extensions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">create_post</code> / <code class="inline">update_post</code> mutation extensions</span></h3><p>Mirrors the UI's layered boundary model: select a named preset, then optionally add per-verb grants on top.</p><pre><code class="makeup graphql" translate="no"><span class="c1"># Mirrors the internal %{verb =&gt; %{circle_id =&gt; :can/:cannot}} model.</span><span class="w">
+</span><span class="c1"># permission accepts any verb slug OR role name — both discoverable via boundaries.</span><span class="w">
+</span><span class="kr">input</span><span class="w"> </span><span class="n">BoundaryPermissionInput</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">permission</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">  </span><span class="c1"># verb (&quot;reply&quot;, &quot;boost&quot;, &quot;request&quot;, …) or role (&quot;moderator&quot;, &quot;member&quot;, …)</span><span class="w">
+</span><span class="w">  </span><span class="n">can</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">String</span><span class="p">]</span><span class="w">       </span><span class="c1"># subject slugs (from boundaries.visibility_labels) or pointer IDs granted :can / assigned role</span><span class="w">
+</span><span class="w">  </span><span class="n">cannot</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">String</span><span class="p">]</span><span class="w">    </span><span class="c1"># subjects explicitly denied (verb grants only)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># New top-level args on create_post / update_post:</span><span class="w">
+</span><span class="c1">#   context_id: ID          — post into a group, topic, or thread</span><span class="w">
+</span><span class="c1">#   boundary: String        — named preset (&quot;public&quot;, &quot;followers&quot;, etc.) → to_boundaries internally</span><span class="w">
+</span><span class="c1">#   permissions: [BoundaryPermissionInput]  — optional overrides on top of the preset → verb/role grant tuples internally</span><span class="w">
+</span><span class="c1">#</span><span class="w">
+</span><span class="c1"># REST translation: visibility → boundary, *_approval_policy params → permissions[].can, *_denied_policy → permissions[].cannot</span></code></pre><p>Available verbs are discovered via <code class="inline">boundaries.verbs</code>. Includes <code class="inline">&quot;see&quot;</code>, <code class="inline">&quot;read&quot;</code>, <code class="inline">&quot;reply&quot;</code>, <code class="inline">&quot;boost&quot;</code>, <code class="inline">&quot;like&quot;</code>, <code class="inline">&quot;quote&quot;</code>, <code class="inline">&quot;request&quot;</code> (and others as configured).</p><p>REST → GraphQL mapping: <code class="inline">reply_approval_policy=followers</code> → <code class="inline">{permission: &quot;reply&quot;, can: [&quot;followers&quot;]}</code>. <code class="inline">reply_denied_policy=nobody</code> → <code class="inline">{permission: &quot;reply&quot;, cannot: [&quot;nobody&quot;]}</code>. <code class="inline">quote_manual_approval_policy=public</code> → <code class="inline">{permission: &quot;request&quot;, can: [&quot;public&quot;]}</code>.</p><h3 id="boundarypermission-type-on-post-responses" class="section-heading"><a href="#boundarypermission-type-on-post-responses" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text"><code class="inline">BoundaryPermission</code> type (on post responses)</span></h3><p>GraphQL response mirrors the internal model. REST translates to Mastodon's <code class="inline">QuoteApproval</code> shape.</p><pre><code class="makeup graphql" translate="no"><span class="c1"># Mirrors BoundaryPermissionInput — one BoundaryPermission per permission (verb or role) on the post&#39;s ACL</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">Subject</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">
+</span><span class="w">  </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w">   </span><span class="c1"># resolved from boundaries config when this field is selected</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="n">BoundaryPermission</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">  </span><span class="n">permission</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">!</span><span class="w">  </span><span class="c1"># mirrors BoundaryPermissionInput.permission — verb slug or role name</span><span class="w">
+</span><span class="w">  </span><span class="n">can</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Subject</span><span class="p">]</span><span class="w">       </span><span class="c1"># mirrors BoundaryPermissionInput.can; Subject.label populated by resolver on demand</span><span class="w">
+</span><span class="w">  </span><span class="n">cannot</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Subject</span><span class="p">]</span><span class="w">    </span><span class="c1"># mirrors BoundaryPermissionInput.cannot</span><span class="w">
+</span><span class="w">  </span><span class="n">current_user_grant</span><span class="p">:</span><span class="w"> </span><span class="n">Boolean</span><span class="w">   </span><span class="c1"># effective grant for the requesting user (true/false/null)</span><span class="w">
+</span><span class="w">  </span><span class="c1"># &quot;manual&quot; approval is expressed as a separate BoundaryPermission where permission = &quot;request&quot;</span><span class="w">
+</span><span class="p">}</span></code></pre><p>Added to post/activity response as <code class="inline">context: AnyContext</code> (union — query specific fields with inline fragments, e.g. <code class="inline">context { ... on Category { id } ... on Other { id } }</code>; resolver returns preloaded struct or a <code class="inline">%{id: context_id}</code> stub resolved as <code class="inline">:other</code> — no DB load when only the id is needed) and <code class="inline">permission_grants: [BoundaryPermission]</code>.</p><p>Resolver (<code class="inline">extensions/bonfire_social/lib/api/social_api_graphql.ex</code>) calls <a href="./Bonfire.Boundaries.VerbGrants.html#transform_to_verb_grants_format/1"><code class="inline">Bonfire.Boundaries.VerbGrants.transform_to_verb_grants_format/1</code></a> on the post's ACL — the same logic as the UI boundary editor, moved to a shared context module. <code class="inline">Subject.label</code> is resolved from <code class="inline">boundaries.visibility_labels</code> config when the field is selected (no extra DB query).</p><p>REST serialises <code class="inline">permission_grants</code> into Mastodon <code class="inline">QuoteApproval</code>-shaped fields (<code class="inline">reply_approval</code>, <code class="inline">announce_approval</code>, <code class="inline">like_approval</code>, <code class="inline">quote_approval</code>): <code class="inline">can</code> → <code class="inline">automatic</code>, <code class="inline">cannot</code> → <code class="inline">denied</code>. The <code class="inline">manual</code> field in each approval object is derived from the <code class="inline">BoundaryPermission</code> where <code class="inline">permission = &quot;request&quot;</code>'s <code class="inline">can</code> list for the same interaction.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="federated_groups_features.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Federated Groups - Feature Specifications & Issues
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="group_boundaries_model.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Group Boundary Model — 4 Dimensions
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.3) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

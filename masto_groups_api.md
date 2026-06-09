@@ -4,6 +4,8 @@ Draft extension of the standard Mastodon REST API for Bonfire groups and topics.
 
 All new endpoints live under `/api/v1-bonfire/` to distinguish them from the standard Mastodon v1/v2 API.
 
+The REST layer is a thin serialisation layer on top of GraphQL. [GraphQL API](./GRAPHQL_GROUPS_API.md) documents the schema, and these REST endpoints map directly to those operations.
+
 ---
 
 ## Design Principles
@@ -37,7 +39,7 @@ Fields already present on `Account` are not duplicated here (`name` → `display
 
 | Field | Type | Always present | Description |
 |---|---|---|---|
-| `type` | `"group" \| "topic" \| "label"` | yes | Maps to `Bonfire.Classify.Category.type` |
+| `type` | `"group" (default) \| "topic" \| "label"` | yes | Maps to `Bonfire.Classify.Category.type` |
 | `join_mode` | `"free" \| "request" \| "invite"` | yes | How new members join. Also reflected on `Account.locked` (`locked: true` when not `"free"`) |
 | `members_count` | integer | yes | Number of members. Distinct from `Account.followers_count` when follow/membership are decoupled |
 | `is_disabled` | boolean | yes | Whether the group has been soft-disabled. Maps to `Category.is_disabled` |
@@ -99,9 +101,8 @@ Fields already present on `Account` are not duplicated here (`name` → `display
 }
 ```
 
----
 
-## Endpoints
+## REST Endpoints
 
 ### `GET /api/v1-bonfire/groups`
 
@@ -184,6 +185,83 @@ List members of a group.
 ```
 
 Includes `Link` header for pagination.
+
+---
+
+### `POST /api/v1-bonfire/groups`
+
+Create a new group or topic.
+
+**Authentication:** required
+
+**Request body (JSON):**
+
+| Param | Type | Description |
+|---|---|---|
+| `name` | string | Display name of the group |
+| `type` | `"group" \| "topic"` | Defaults to `"group"` |
+| `boundary.preset` | string | Named boundary preset slug (e.g. `"open"`, `"private_club"`, `"on_request"`). Discovered via `GET /api/v1-bonfire/boundaries?context=group`. Omit to use the instance default. |
+
+**Response:**
+- `200 OK` — `Account` with `group` field
+- `401 Unauthorized` — not authenticated
+- `422 Unprocessable Entity` — validation failed (e.g. missing `name`)
+
+---
+
+### `PATCH /api/v1-bonfire/groups/:id`
+
+Update a group's name or boundary preset. Only the group admin may call this.
+
+**Authentication:** required (admin of the group)
+
+**Request body (JSON):**
+
+| Param | Type | Description |
+|---|---|---|
+| `name` | string | New display name |
+| `boundary.preset` | string | New boundary preset slug. Changes `join_mode` and related access rules. |
+
+**Response:**
+- `200 OK` — updated `Account` with `group` field
+- `401 Unauthorized` — not authenticated
+- `403 Forbidden` — authenticated but not an admin of this group
+- `404 Not Found` — group not found
+
+---
+
+### `POST /api/v1-bonfire/groups/:id/members`
+
+Add a member directly, or accept a pending join request.
+
+**Authentication:** required (admin of the group)
+
+**Request body (JSON) — one of:**
+
+| Param | Type | Description |
+|---|---|---|
+| `account_id` | string | ULID of the account to add directly as a member |
+| `request_id` | string | ULID of a pending join request to accept |
+
+**Response:**
+- `200 OK` — updated `Relationship` for the affected account (same shape as `POST /join`)
+- `401 Unauthorized` — not authenticated
+- `403 Forbidden` — not an admin of this group
+- `404 Not Found` — group, account, or request not found
+
+---
+
+### `DELETE /api/v1-bonfire/groups/:id/members/:account_id`
+
+Remove a member from the group.
+
+**Authentication:** required (admin of the group)
+
+**Response:**
+- `200 OK` — `{"success": true}`
+- `401 Unauthorized` — not authenticated
+- `403 Forbidden` — not an admin of this group
+- `404 Not Found` — group or account not found
 
 ---
 
@@ -387,10 +465,10 @@ Extension fields present on Status responses when applicable. The `*_approval` o
 | `context_type` | `"group" \| "topic" \| "thread"` \| null | Type of the context object, so clients don't need to resolve `context_id` to know what kind of thing it is |
 | `quote_approval` | QuoteApproval \| null | Standard Mastodon `QuoteApproval` entity — who may quote and how it applies to the requesting user |
 | `reply_approval` | QuoteApproval \| null | Same shape as `QuoteApproval` — who may reply and the requesting user's effective permission |
-| `announce_approval` | QuoteApproval \| null | Same shape — who may boost. No `manual` field as request-based approval is not supported for boosts |
-| `like_approval` | QuoteApproval \| null | Same shape — who may react. No `manual` field |
+| `announce_approval` | QuoteApproval \| null | Same shape — who may boost |
+| `like_approval` | QuoteApproval \| null | Same shape — who may react |
 
-`current_user` on each approval object is one of `"automatic"`, `"manual"`, `"denied"`, or `"unknown"`.
+`current_user` on each approval object is one of `"automatic"`, `"manual"`, `"denied"`, or `"unknown"`. `"manual"` means the current user is in the `"request"` VerbGrant's `can` list (can send a request) but not in the direct `can` list.
 
 ---
 
@@ -398,7 +476,7 @@ Extension fields present on Status responses when applicable. The `*_approval` o
 
 ### `GET /api/v1-bonfire/boundaries`
 
-Returns the visibility presets and available interaction policy options for the given context. Clients use this to build a compose UI with the correct visibility picker and policy selectors.
+Returns the permitted visibility options and interaction policy options for the given context. The response shape is always the same — `visibility` + `policies` — filtered to what is valid in that context. Group creation/editing uses the GraphQL `boundaries(context: ...)` query for the full 3-layer model.
 
 **Authentication:** required
 
@@ -406,53 +484,57 @@ Returns the visibility presets and available interaction policy options for the 
 
 | Param | Type | Default | Description |
 |---|---|---|---|
-| `context` | `"instance" \| "user"` or a ULID | `"user"` | The context to return valid options for. Pass `"user"` for a regular post, `"instance"` for server-wide policies, or a group/topic ULID to get the options permitted within that specific group. |
+| `context` | keyword or ULID | `"post"` | `"post"` (default) — options for composing a post. `"user"` — user account-level visibility options. A group/topic/post ULID — options scoped to posting within that specific object. `"instance"` — TODO. |
 
 Examples:
-- `GET /api/v1-bonfire/boundaries` — options for a regular post
-- `GET /api/v1-bonfire/boundaries?context=instance` — instance-level policies (TODO in a later version)
-- `GET /api/v1-bonfire/boundaries?context=01JPXYZ...` — options permitted when posting into that group or topic (TODO in a later version)
+- `GET /api/v1-bonfire/boundaries` — options for the compose UI
+- `GET /api/v1-bonfire/boundaries?context=user` — user account-level boundary options
+- `GET /api/v1-bonfire/boundaries?context=01JPXYZ...` — options when posting into a specific group, topic, or thread
 
 **Response:** `200 OK`
 
 ```json
 {
-  "context": "01JPXYZ...",
-  "visibility": ["public", "unlisted", "private"],
-  "visibility_labels": {
-    "public":   {"label": "Public",      "icon": "globe",    "description": "Visible to everyone"},
-    "unlisted": {"label": "Local only",  "icon": "home",     "description": "Visible to users on this instance"},
-    "private":  {"label": "Followers",   "icon": "lock",     "description": "Visible to your followers only"},
-    "direct":   {"label": "Direct",      "icon": "envelope", "description": "Visible to mentioned users only"}
-  },
-  "policies": {
-    "reply_approval_policy":        ["public", "followers", "members", "mentioned", "nobody"],
-    "reply_denied_policy":          ["public", "followers", "members", "mentioned", "nobody"],
-    "announce_approval_policy":     ["public", "followers", "members", "nobody"],
-    "announce_denied_policy":       ["public", "followers", "members", "nobody"],
-    "like_approval_policy":         ["public", "followers", "members", "nobody"],
-    "like_denied_policy":           ["public", "followers", "members", "nobody"],
-    "quote_approval_policy":        ["public", "followers", "nobody"],
-    "quote_manual_approval_policy": ["public", "followers", "members", "nobody"],
-    "quote_denied_policy":          ["public", "followers", "members", "nobody"]
-  },
-  "policy_labels": {
-    "public":    {"label": "Anyone",         "icon": "globe",    "description": "Anyone can interact"},
-    "followers": {"label": "Followers",      "icon": "lock",     "description": "Only your followers"},
-    "members":   {"label": "Group members",  "icon": "people",   "description": "Only members of this group"},
-    "mentioned": {"label": "Mentioned only", "icon": "at",       "description": "Only accounts you mention"},
-    "nobody":    {"label": "Nobody",         "icon": "block",    "description": "Disabled"}
-  }
+  "context": "post",
+  "visibility": ["public", "local", "mentions", "follows", "private"],
+  "visibility_labels": [
+    {"value": "public",   "label": "Public",   "icon": "ph:globe-duotone",        "description": "Visible to everyone."},
+    {"value": "local",    "label": "Local",    "icon": "ph:campfire-duotone",     "description": "Everyone on this instance."},
+    {"value": "mentions", "label": "Mentions", "icon": "ph:at-duotone",           "description": "Only people you @mention."},
+    {"value": "follows",  "label": "Follows",  "icon": "ph:eye-duotone",          "description": "Only people you follow."},
+    {"value": "private",  "label": "Private",  "icon": "heroicons-solid:eye-off", "description": "Only you."}
+  ],
+  "policies": [
+    {"key": "reply_approval_policy",        "values": ["public", "followers", "mentioned", "nobody"]},
+    {"key": "reply_denied_policy",          "values": ["public", "followers", "mentioned", "nobody"]},
+    {"key": "announce_approval_policy",     "values": ["public", "followers", "nobody"]},
+    {"key": "announce_denied_policy",       "values": ["public", "followers", "nobody"]},
+    {"key": "like_approval_policy",         "values": ["public", "followers", "nobody"]},
+    {"key": "like_denied_policy",           "values": ["public", "followers", "nobody"]},
+    {"key": "quote_approval_policy",        "values": ["public", "followers", "nobody"]},
+    {"key": "quote_manual_approval_policy", "values": ["public", "followers", "nobody"]},
+    {"key": "quote_denied_policy",          "values": ["public", "followers", "nobody"]}
+  ],
+  "policy_labels": [
+    {"value": "public",    "label": "Anyone",         "icon": "ph:globe-duotone",    "description": "Anyone can interact"},
+    {"value": "followers", "label": "Followers",      "icon": "ph:lock-duotone",     "description": "Only your followers"},
+    {"value": "mentioned", "label": "Mentioned only", "icon": "ph:at-duotone",       "description": "Only accounts you mention"},
+    {"value": "nobody",    "label": "Nobody",         "icon": "ph:prohibit-duotone", "description": "Disabled"}
+  ]
 }
 ```
 
+When `context` is a group or topic ULID, `visibility` and `policies[].values` are filtered to only what the group permits. `policy_labels` always contains the full label set for all possible values.
+
 | Field | Type | Description |
 |---|---|---|
-| `context` | string | Echoes back the resolved context |
-| `visibility` | array of strings | Visibility values permitted in this context. Pass the chosen value as the standard `visibility` param on `POST /api/v1/statuses`. |
-| `visibility_labels` | object | Display metadata for each visibility value — `label`, `icon` (semantic name, map to your own icon set), and `description`, all localised by the server. |
-| `policies` | object | Keyed by the param name to use on `POST /api/v1/statuses`. Each value is an array of permitted option keys. Only policies applicable to the context are included — treat this as the authoritative list. `"members"` only appears when `context` is a group or topic ULID. |
-| `policy_labels` | object | Display metadata for policy keyword values — `label`, `icon` (semantic name), and `description`, all localised by the server. Clients should look up display strings here rather than hardcoding them. |
+| `context` | string | Echoed back |
+| `visibility` | array of strings | Permitted visibility slugs. Pass as `visibility` on `POST /api/v1/statuses`. |
+| `visibility_labels` | array of `BoundaryLabelledOption` | Display metadata per slug, localised by the server. |
+| `policies` | array of `{key, values[]}` | Authoritative list of permitted values per policy param. `key` is the REST param name for `POST /api/v1/statuses`. |
+| `policy_labels` | array of `BoundaryLabelledOption` | Display metadata per policy keyword value. |
+
+All labels and icons are localised by the server. Icon values are Iconify slugs.
 
 ---
 
@@ -478,3 +560,6 @@ Examples:
 
 List endpoints (`GET /groups`) default both to `0` to keep responses lean.
 Single-item endpoints (`GET /groups/:id`) default both to `1`.
+
+
+See [BOUNDARIES_MODEL.md](BOUNDARIES_MODEL.md) for the full 4-dimension model, named presets, and Layer 2 override reference. The authoritative runtime values are in `extensions/bonfire_boundaries/lib/runtime_config.ex` and `extensions/bonfire_classify/lib/runtime_config.ex`, and are also served live by `GET /api/v1-bonfire/boundaries?context=group`.
