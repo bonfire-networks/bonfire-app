@@ -114,6 +114,11 @@ config :activity_pub,
       "keyPackages" => %{
         "@id" => "https://purl.archive.org/socialweb/mls#keyPackages",
         "@type" => "@id"
+      },
+      # Mastodon-compatible featured collection (pinned posts)
+      "featured" => %{
+        "@id" => "http://joinmastodon.org/ns#featured",
+        "@type" => "@id"
       }
     },
     object: %{
