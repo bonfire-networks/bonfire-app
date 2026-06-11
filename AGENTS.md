@@ -2,7 +2,15 @@
 
 Act as a thoughtful and cooperative companion rather than an independent worker: helping explore ideas and solutions and never jumping to making edits without consent.
 
-**Rubber duck debugging and consent-based coding**: always think and plan first (asking clarifying questions and providing insights), then check assumptions before presenting your solution, rather than directly solving the problem, and only after obtaining consent (such as "ok") can you try to help implementing. 
+**Rubber duck debugging and consent-based coding**: always think and plan first (asking clarifying questions and providing insights), then check assumptions before presenting your solution, rather than directly solving the problem, and only after obtaining consent (such as "ok") can you try to help implementing.
+
+- **Show code before asking multiple-choice questions.** When a decision hinges on specific code or tests, read and show the actual code first — let the user decide from the real thing, not from paraphrased options.
+- **"Why?" is a request for reasoning, not a rejection.** Answer with the rationale and let the user decide; do not switch approach or undo work unless they then say to.
+- **Lead with the finding.** Keep answers succinct — avoid long recaps, multi-paragraph explanations, and restating reasoning the user already has.
+- **Document and discuss failures before fixing.** After a test run with multiple failures, write down each failure with error, stacktrace, and cause/fix theories before starting any edits.
+- **Never characterise a failure as "pre-existing" or "unrelated"** unless you have a clean test run before the change proving it, or the user said so.
+- **Never revert user-edited code.** When a file is modified by the user, read the file before applying the specific change, do not restore previous state.
+- **Verify library behavior from source.** When a fix hinges on how a library behaves, read its docs or source to confirm before asserting. Re-verify when pushed back — do not double down on a repeated theory. Repetition and plausible prose are not verification.
 
 ## Core Principles
 
@@ -32,6 +40,8 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
   - **Domain contexts** (e.g. `bonfire_social_graph`, `bonfire_me`) — Own the business rules and query logic for their domain (though sometimes there's a seperate query module). Expose reusable helpers that other modules can compose.
   - **`bonfire_ui_*`** — UI components and widgets. Call into contexts/integrations for data, never implement non-UI-logic or build queries directly.
 - **Query ownership**: A query about a domain concept (follows, blocks, posts) belongs in that domain's context module, even if it's consumed by another extension. The consuming extension should call the helper, not rewrite the query. For example, a follow-related query belongs in `Follows` even if `Instances` needs the result — `Instances` calls `Follows` and wraps with its own aggregation.
+- **Enabling/disabling modules**: Use the standard modularity config key `[:otp_app, MyModule, :modularity]` set to `:disabled` — not a custom `:enabled` flag.
+- **API layering**: GraphQL stays close to the shape of the DB/config/contexts. The Mastodon REST API is a thin translation layer on top of GraphQL, mapping to Mastodon vocabulary as closely as possible and extending only for Bonfire-specific features.
 
 ## Coding Style
 
@@ -39,7 +49,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Always assume the server is running on port 4000**
 - **Use Tidewave MCP to: run SQL queries, run elixir code, introspect the logs and runtime, fetch doccumentation from hex docs, see all the ecto schemas, and much more**
 - **Use one module per file** unless the module is only used internally by another module.
-- **Use appropriate pipe operators**: Use standard `|>` for function chaining and `~>` from `Arrows` for handling error tuples.
+- **Use appropriate pipe operators**: Use standard `|>` for function chaining and `~>` from `Arrows` for handling error tuples. Prefer `|>` pipe chains over nested or inline function calls, even short ones.
 - **Prefer using full module names or aliases** rather than imports.
 - **Use descriptive variable and function names**: e.g., `user_signed_in?`, `calculate_total`.
 - **Prefer higher-order functions and recursion** over imperative loops.
@@ -101,21 +111,27 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Use Faker** for test data creation and extensions' helper modules such as `Bonfire.Me.Fake.fake_user!`.
 - **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases.
 - Use PhoenixTest for UI testing.
-- **Run tests in the background** using `run_in_background: true` and tee output to a temp log file (e.g. `just test my_test.exs 2>&1 | tee /tmp/test_run.log; sed -n '/^  1) test/,$p' /tmp/test_run.log`) so the full output is preserved and greppable at any point — never rely solely on the tail of a live command. After the run completes, always report the log file path to the user as a markdown link (e.g. "Full output saved to [/tmp/test_run.log](/tmp/test_run.log)") so they can open or grep it themselves.
+- **Run one background test at a time.** Use `run_in_background: true` and tee output to a unique `/tmp/test-<descriptor>.log` file. Never reuse the same log filename across runs. Report the log path as a markdown link after the run completes.
+- **Always read the actual log output** — exit code 0 is not reliable. Tests can fail with non-zero exit codes that get masked; the log contains real pass/fail counts and error details.
+- **Migrations run on startup**: pending DB migrations run automatically on test boot (`just test ...` migrates the test DB itself) — no need to manually run `ecto.migrate` before tests.
+- **Use `Process.put` (not `Application.put_env`) to set config in tests** involving `Config.get`. `ProcessTree` traverses parent process dictionaries, so values set with `Process.put` are visible in spawned `Task` processes. `Application.put_env` is global and races with other async tests.
+- **When debugging, add logging first.** Add `info`-level logging at the relevant spot and run, to observe actual values and branch taken — rather than asserting a guessed root cause from reading code.
 
 ## Security
 
 - **Security First**: Always consider security implications (CSRF, XSS, etc.).
 - **Use strong parameters** in controllers (params validation).
 - **Protect against common web vulnerabilities** (XSS, CSRF, SQL injection).
+- **Never use `skip_boundary_check: true`** without explicitly being instructed, as it bypasses Bonfire's permission system.
 
 ## Documentation and Quality
 
-- Describe why, not what it does.
+- Describe why, not what it does. Keep comments and docs concise. Focus on the reason (including what options where considered and not chosen), not a description of what the code does.
 - **Document Public Functions**: Add `@doc` to all public functions.
 - **Examples in Docs**: Include examples in documentation (as doctests when possible).
 - **Cautious Refactoring**: Propose bug fixes or optimizations without changing behavior or unrelated code.
-- **Comments**: Write comments only when information cannot be included in docs.
+- **Comments**: Write comments only when information cannot be included in docs. Place them inline next to the relevant line, not as a multi-line block above the whole expression.
+- **Don't manually wrap text** in `@moduledoc`/`@doc` strings, markdown, or comments. Write each paragraph as one continuous line and let the editor soft-wrap.
 
 ## Mix guidelines
 
@@ -124,6 +140,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - To debug test failures, run tests in a specific file with `just test test/my_test.exs` or run all previously failed tests with `just test --failed`
 - **Always read the actual log output** after a test run — never assume success from exit code alone. Tail the log file and report failures to the user.
 - `just mix deps.clean --all` is **almost never needed**. **Avoid** using it unless you have good reason
+- **Never run git operations** (especially `git stash`, `git reset --hard`, `git checkout` that discards changes, `git clean`, etc.) without explicit user consent.
 
 ## Elixir guidelines
 
