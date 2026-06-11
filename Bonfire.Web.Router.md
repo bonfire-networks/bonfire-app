@@ -1,5 +1,5 @@
 # `Bonfire.Web.Router`
-[🔗](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L224)
+[🔗](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/router/routes.ex#L225)
 
 # `absinthe_before_send`
 
