@@ -242,6 +242,9 @@ impl LayoutManager {
         self.mode().uses_unified()
     }
 
+    /// Desktop layouts navigate real windows, not URL-based tabs — nothing to store.
+    pub fn set_instance_url(&mut self, _url: String) {}
+
     pub fn setup(
         &mut self,
         app: &tauri::AppHandle,
@@ -425,6 +428,10 @@ impl LayoutManager {
 
     pub fn set_local_origin(&mut self, origin: String) {
         self.0.set_local_origin(origin);
+    }
+
+    pub fn set_instance_url(&mut self, url: String) {
+        self.0.set_instance_url(url);
     }
 
     pub fn mode(&self) -> LayoutMode {

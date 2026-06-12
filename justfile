@@ -360,6 +360,50 @@ dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-da
 	echo "export E2E_TOKEN_ENDPOINT='$TOKEN_ENDPOINT'"
 	echo "export E2E_AUTH_ENDPOINT='$AUTH_ENDPOINT'"
 
+# ── Tauri iOS ──────────────────────────────────────────────────────────────────────────────────
+# Prerequisites: Xcode + `rustup target add aarch64-apple-ios aarch64-apple-ios-sim`
+# + `cargo install tauri-cli --version "^2.11" --locked`.
+# Running on a physical iPhone additionally needs a development team: sign into
+# Xcode (Settings → Accounts) with your Apple ID, then export
+# TAURI_APPLE_DEVELOPMENT_TEAM=<team id> (find it with: just tauri-ios-teams)
+
+# Build the shell assets and start its Vite dev server if not already up.
+# Replaces tauri.conf.json's beforeDevCommand for mobile: the chat-client build can
+# exceed the tauri CLI's 180s dev-server wait, so we build + serve before launching.
+_tauri-shell-server:
+	#!/usr/bin/env bash
+	set -e
+	up() { curl -sf -o /dev/null http://localhost:1430/pick-instance.html; }
+	if ! up; then
+	  cd extensions/bonfire_ui_common/assets/static/tauri
+	  yarn install && yarn build:css
+	  # The chat client build is slow; its dist (incl. auth.js, which the login
+	  # shell imports) persists on disk, so only build when missing.
+	  [ -f assets/ap_c2s_client/js/dist/activitypub/auth.js ] || yarn build:js
+	  (yarn vite >/tmp/tauri-vite.log 2>&1 &)
+	  until up; do sleep 0.5; done
+	fi
+	echo "tauri shell dev server up on :1430"
+
+# Run the iOS app in a simulator (pass a name from `xcrun simctl list devices available`)
+tauri-ios-sim sim="iPhone 16 Pro": _tauri-shell-server
+	cargo tauri ios dev "{{sim}}" --config '{"build":{"beforeDevCommand":""}}'
+
+# Run the iOS app on a plugged-in iPhone. --host exposes the Vite dev shell on the LAN.
+# Note: OAuth login against a real instance only works with the registered tauri://localhost
+# origin, i.e. in built apps — in dev mode the shell origin is the LAN IP, so test login
+# against a local dev server or use `just tauri-ios-build` + install via Xcode.
+tauri-ios-dev:
+	cargo tauri ios dev --host --force-ip-prompt
+
+# Build the iOS app (IPA, requires signing set up)
+tauri-ios-build *args="":
+	cargo tauri ios build {{args}}
+
+# List Apple development team IDs available in your local signing identities
+tauri-ios-teams:
+	security find-identity -v -p codesigning
+
 # ── Tauri E2E env vars (set in your .env) ──────────────────────────────────────────────────────
 #
 # All commands require OAuth credentials for the relevant actors.

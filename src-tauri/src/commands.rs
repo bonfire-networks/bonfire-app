@@ -124,10 +124,15 @@ pub async fn start_notifications(
     token: String,
 ) -> Result<(), String> {
     use crate::notifications::NotificationListener;
+    let instance_url = instance_url.trim_end_matches('/').to_string();
     let mut state = app_state.lock().map_err(|e| e.to_string())?;
     if let Some(listener) = state.notification_listener.take() {
         listener.stop();
     }
+    // The mobile layout uses this as the Home tab destination (see MobileLayout).
+    // Deliberately set here rather than via a dedicated command: this is the one
+    // call both the login shell and the chat app make once a session is known.
+    state.layout_manager.set_instance_url(instance_url.clone());
     state.notification_listener =
         Some(NotificationListener::start(app.clone(), instance_url, token));
     Ok(())

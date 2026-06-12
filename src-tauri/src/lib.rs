@@ -100,7 +100,6 @@ pub fn run() {
                 })
                 .build(),
         )
-        .plugin(tauri_plugin_openmls::init())
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_deep_link::init())
@@ -124,6 +123,23 @@ pub fn run() {
             commands::check_skip_storage,
             commands::js_log,
         ]);
+
+        // The E2EE chat client (and its MLS plugin) is not part of the iOS build:
+        // iOS ships as a pure instance client for now (docs/tauri-mobile.md Q6).
+        #[cfg(not(target_os = "ios"))]
+        {
+            builder = builder.plugin(tauri_plugin_openmls::init());
+        }
+
+        // WKWebView's content process can be killed under memory pressure (e.g. long
+        // media-heavy feeds on iOS), which otherwise leaves a permanently blank screen.
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
+        {
+            builder = builder.on_web_content_process_terminate(|webview| {
+                log::warn!("web content process terminated, reloading webview");
+                let _ = webview.reload();
+            });
+        }
 
         #[cfg(feature = "e2e-testing")]
         {
@@ -305,18 +321,32 @@ pub fn run() {
 
             #[cfg(mobile)]
             {
-                // Mobile: single WebviewWindow with bottom nav bar injected on every page
+                // Mobile: single WebviewWindow. The shell reads __BONFIRE_PLATFORM__ to
+                // pick its code path — UA sniffing can't detect iPads (WKWebView reports
+                // macOS). On Android a bottom nav bar is additionally injected on chat
+                // pages (Home/Messages tabs); iOS has no chat tab (pure instance client
+                // for now) so nothing is injected there.
                 use tauri::WebviewUrl;
-                let ww = tauri::WebviewWindowBuilder::new(
+                let mut wb = tauri::WebviewWindowBuilder::new(
                     app,
                     "main",
                     WebviewUrl::App("pick-instance.html".into()),
-                )
-                .initialization_script(include_str!(
-                    "../../extensions/bonfire_ui_common/assets/static/tauri/mobile-nav.js"
-                ))
-                .build()
-                .map_err(|e| format!("Mobile window setup failed: {e}"))?;
+                );
+                #[cfg(target_os = "android")]
+                {
+                    wb = wb
+                        .initialization_script("window.__BONFIRE_PLATFORM__ = 'android';")
+                        .initialization_script(include_str!(
+                            "../../extensions/bonfire_ui_common/assets/static/tauri/mobile-nav.js"
+                        ));
+                }
+                #[cfg(target_os = "ios")]
+                {
+                    wb = wb.initialization_script("window.__BONFIRE_PLATFORM__ = 'ios';");
+                }
+                let ww = wb
+                    .build()
+                    .map_err(|e| format!("Mobile window setup failed: {e}"))?;
 
                 let mut layout_manager = LayoutManager::new(LayoutMode::TabBased, &prefs);
 
