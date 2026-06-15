@@ -376,10 +376,11 @@ _tauri-shell-server:
 	up() { curl -sf -o /dev/null http://localhost:1430/pick-instance.html; }
 	if ! up; then
 	  cd extensions/bonfire_ui_common/assets/static/tauri
+	  # Login + instance shell only need CSS + the vendored OAuth module
+	  # (assets/auth/, committed). The chat client (build:js) is NOT needed here —
+	  # iOS has no chat tab and login no longer imports its dist; run `yarn build:js`
+	  # separately if doing chat-tab dev on desktop/Android.
 	  yarn install && yarn build:css
-	  # The chat client build is slow; its dist (incl. auth.js, which the login
-	  # shell imports) persists on disk, so only build when missing.
-	  [ -f assets/ap_c2s_client/js/dist/activitypub/auth.js ] || yarn build:js
 	  (yarn vite >/tmp/tauri-vite.log 2>&1 &)
 	  until up; do sleep 0.5; done
 	fi

@@ -44,6 +44,13 @@ tauri-plugin-playwright = { git = "https://github.com/bonfire-networks/tauri-pla
 [target.'cfg(not(target_os = "ios"))'.dependencies]
 tauri-plugin-openmls = { git = "https://github.com/bonfire-networks/tauri-plugin-openmls.git" }
 
+[target.'cfg(target_os = "ios")'.dependencies]
+# Used to enable the WKWebView edge-swipe back/forward gesture (Tauri exposes no
+# toggle). We message the handle via objc2 because objc2-web-kit's typed WKWebView
+# binding is macOS/AppKit-only — there is no iOS/UIKit WKWebView binding (wry itself
+# hand-rolls iOS WKWebView bindings), so a raw selector is the right call on iOS.
+objc2 = "0.6"
+
 [target.'cfg(target_os = "android")'.dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
 

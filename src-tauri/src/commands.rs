@@ -141,12 +141,16 @@ pub async fn start_notifications(
 /// Stops the SSE notification listener.
 #[tauri::command]
 pub async fn stop_notifications(
+    app: tauri::AppHandle,
     app_state: tauri::State<'_, Mutex<AppState>>,
 ) -> Result<(), String> {
     let mut state = app_state.lock().map_err(|e| e.to_string())?;
     if let Some(listener) = state.notification_listener.take() {
         listener.stop();
     }
+    // Clear the app-icon badge on logout — no further unseen_count events will
+    // arrive once the stream is gone, so the badge would otherwise go stale.
+    crate::notifications::set_app_badge(&app, 0);
     Ok(())
 }
 

@@ -1,4 +1,15 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "identifier": "cafe.bonfire.app"
+  "identifier": "cafe.bonfire.app",
+  "build": {
+    "frontendDist": "../assets/static/tauri-ios",
+    "beforeBuildCommand": "cd assets/static/tauri && yarn install --immutable-cache && yarn build:css && rm -rf ../tauri-ios && rsync -a --exclude='/assets/ap_c2s_client' --exclude='/node_modules' --exclude='/.yarn' --exclude='/tests' --exclude='/test-results' --exclude='/install-state.gz' ./ ../tauri-ios/"
+  },
+  "plugins": {
+    "deep-link": {
+      "mobile": [
+        { "scheme": ["bonfire", "ap-mls"] }
+      ]
+    }
+  }
 }

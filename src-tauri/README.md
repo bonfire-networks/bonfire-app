@@ -13,8 +13,10 @@ git clone https://github.com/bonfire-networks/tauri-plugin-openmls forks/tauri-p
 git clone -b wip https://github.com/bonfire-networks/tauri-playwright forks/tauri-plugin-playwright
 ```
 
-The login shell also needs the chat client cloned (bare gitlink, no .gitmodules —
-`pick-instance.html` imports its `dist/activitypub/auth.js` for the OAuth flow):
+The login shell is self-contained — the OAuth flow is vendored at
+`extensions/bonfire_ui_common/assets/static/tauri/assets/auth/` (no chat-repo dependency).
+The chat client (`ap_c2s_client`) is only needed for the **E2EE chat tab** (desktop/Android;
+excluded from iOS). Clone it there if you want chat:
 
 ```
 git clone https://github.com/bonfire-networks/ap_c2s_client \

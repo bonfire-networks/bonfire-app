@@ -35,6 +35,12 @@ struct MessagePayload {
     thread_id: Option<String>,
 }
 
+/// Deserialized unseen-count SSE event payload (drives the app-icon badge).
+#[derive(Debug, Deserialize)]
+struct UnseenCountPayload {
+    count: i64,
+}
+
 impl NotificationListener {
     /// Spawns a background task that connects to the SSE streaming endpoint
     /// and delivers OS notifications + Tauri events until cancelled.
@@ -206,8 +212,58 @@ fn handle_sse_message(app: &tauri::AppHandle, event_type: &str, data: &str) {
             // Tauri event for chat webview refresh
             let _ = app.emit("new-message", data);
         }
+        "unseen_count" => match serde_json::from_str::<UnseenCountPayload>(data) {
+            Ok(payload) => {
+                eprintln!("[SSE] Unseen count: {}", payload.count);
+                set_app_badge(app, payload.count);
+                // Also relay to the webview in case any in-page UI wants it.
+                let _ = app.emit("unseen-count", payload.count);
+            }
+            Err(e) => {
+                eprintln!("[SSE] Failed to parse unseen_count payload: {} — data: {}", e, data);
+            }
+        },
         other => {
             eprintln!("[SSE] Unknown event type: {} — data: {}", other, data);
         }
+    }
+}
+
+/// Sets (or clears) the app-icon badge to `count` unread notifications.
+/// Platform-split because Tauri's `set_badge_count` is desktop-only in 2.11;
+/// iOS gets the UIKit selector directly. A non-positive count clears the badge.
+pub fn set_app_badge(app: &tauri::AppHandle, count: i64) {
+    #[cfg(desktop)]
+    {
+        use tauri::Manager;
+        if let Some(window) = app.get_webview_window("main") {
+            let badge = if count > 0 { Some(count) } else { None };
+            if let Err(e) = window.set_badge_count(badge) {
+                eprintln!("[SSE] Failed to set badge count: {}", e);
+            }
+        }
+    }
+
+    // Tauri's `WebviewWindow::set_badge_count` lives in a `#[cfg(desktop)]` impl,
+    // so on iOS set the app-icon badge via UIKit. `applicationIconBadgeNumber` is
+    // what tauri-plugin-notification itself uses, and the badge authorization is
+    // already requested alongside notifications. UIKit must be touched on the main
+    // thread, and the SSE handler runs on a background task — hence run_on_main_thread.
+    #[cfg(target_os = "ios")]
+    {
+        let n = count.clamp(0, i32::MAX as i64) as isize;
+        let _ = app.run_on_main_thread(move || unsafe {
+            let cls = objc2::class!(UIApplication);
+            let shared: *mut objc2::runtime::AnyObject = objc2::msg_send![cls, sharedApplication];
+            if !shared.is_null() {
+                let _: () = objc2::msg_send![shared, setApplicationIconBadgeNumber: n];
+            }
+        });
+    }
+
+    #[cfg(target_os = "android")]
+    {
+        // App-icon badges on Android are launcher-specific; not supported here yet.
+        let _ = (app, count);
     }
 }

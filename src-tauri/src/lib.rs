@@ -348,6 +348,31 @@ pub fn run() {
                     .build()
                     .map_err(|e| format!("Mobile window setup failed: {e}"))?;
 
+                // Enable the iOS edge-swipe back/forward gesture. It navigates the
+                // webview's own history — which includes LiveView live_patch/live_redirect
+                // (pushState) entries — so users can swipe to go back through router history.
+                // Tauri exposes no toggle, so set allowsBackForwardNavigationGestures
+                // directly on the WKWebView handle via with_webview.
+                #[cfg(target_os = "ios")]
+                {
+                    if let Err(e) = ww.with_webview(|webview| {
+                        // objc2-web-kit's WKWebView binding is macOS-only, so message the
+                        // iOS WKWebView handle directly. SAFETY: on iOS `inner()` is the
+                        // WKWebView; the gesture setter has no preconditions.
+                        let view = webview.inner() as *const objc2::runtime::AnyObject;
+                        if !view.is_null() {
+                            unsafe {
+                                let _: () = objc2::msg_send![
+                                    &*view,
+                                    setAllowsBackForwardNavigationGestures: true
+                                ];
+                            }
+                        }
+                    }) {
+                        log::warn!("could not enable swipe-back gesture: {e}");
+                    }
+                }
+
                 let mut layout_manager = LayoutManager::new(LayoutMode::TabBased, &prefs);
 
                 // Capture local asset origin for tab navigation URLs
