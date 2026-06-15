@@ -739,11 +739,12 @@ db-dump-dev:
 
 dev-search-reset: dev-search-reset-docker
 	rm -rf data/search/dev
+# TODO: how to reset sonic index?
 
 dev-search-reset-docker:
 	#!/usr/bin/env bash
 	set -euo pipefail
-	adapter="${SEARCH_ADAPTER:-meili}"
+	adapter="${SEARCH_ADAPTER:-sonic}"
 	svc=$([ "$adapter" = "sonic" ] && echo "sonic" || echo "search")
 	[ "{{ WITH_DOCKER }}" != "no" ] && just docker-compose rm -s -v "$svc" || true
 
@@ -1395,13 +1396,13 @@ rel-push-only-alt build label='latest':
 	@docker push $APP_DOCKER_REPO_ALT:release-$FLAVOUR-$APP_VSN-{{build}}-{{ARCH}} && docker push $APP_DOCKER_REPO_ALT:{{label}}-$FLAVOUR-{{ARCH}}
 
 # Run the app in Docker & starts a new `iex` console
-rel-run services="db proxy": _rel_init docker-stop-web  
+rel-run services="proxy db search": _rel_init docker-stop-web  
 	just rel-services "{{services}}"
 	echo Run with Docker based on image $APP_DOCKER_IMAGE
 	@just rel-docker-compose run --name $WEB_CONTAINER --service-ports --rm web bin/bonfire start_iex
 
 # Run the app in Docker, and keep running in the background
-rel-run-bg services="db proxy": _rel_init docker-stop-web
+rel-run-bg services="proxy db search": _rel_init docker-stop-web
 	just rel-services "{{services}}"
 	@just rel-docker-compose up -d
 
@@ -1421,12 +1422,12 @@ rel-down: rel-stop
 	@just rel-docker-compose down
 
 # Runs a the app container and opens a simple shell inside of the container, useful to explore the image
-rel-shell services="db proxy": _rel_init docker-stop-web
+rel-shell services="proxy db search": _rel_init docker-stop-web
 	just rel-services "{{services}}"
 	@just rel-docker-compose run --name $WEB_CONTAINER --service-ports --rm web /bin/bash
 
 # Runs a simple shell inside of the running app container, useful to explore the image
-rel-shell-bg services="db proxy": _rel_init 
+rel-shell-bg services="proxy db search": _rel_init 
 	just rel-services "{{services}}"
 	@just rel-docker-compose exec web /bin/bash
 
@@ -1444,7 +1445,7 @@ rel-db-restore: _rel_init
 	cat $file | docker exec -i bonfire_release_db_1 /bin/bash -c "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER $POSTGRES_DB"
 
 rel-services services="db search":
-	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just rel-docker-compose up -d $services" } else {""} }}
+	{{ if WITH_DOCKER != "no" { "echo Starting docker services to run in the background: $services && just _start-services rel-docker-compose \"$services\"" } else {""} }}
 
 rel-docker-compose *args:
 	just docker-compose -p $APP_REL_CONTAINER -f $APP_REL_DOCKERCOMPOSE {{args}}
@@ -1456,17 +1457,17 @@ rel-docker-compose *args:
 	{{ if MIX_ENV == "prod" { "just rel-services \"$services\"" } else { "just dev-services \"$services\"" } }}
 
 @dev-services services="db search":
-	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just _start-services \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just _start-services docker-compose \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
 
-# Start docker services, using SEARCH_ADAPTER env to choose between meili and sonic when "search" is in the list
-@_start-services services:
+# Start docker services via the given compose recipe (docker-compose or rel-docker-compose), using SEARCH_ADAPTER env to choose between meili and sonic when "search" is in the list
+@_start-services compose="docker-compose" services="db search":
 	#!/usr/bin/env bash
 	set -euo pipefail
 	other=""
 	search_profile=""
 	for svc in {{services}}; do
 	  if [ "$svc" = "search" ]; then
-	    adapter="${SEARCH_ADAPTER:-meili}"
+	    adapter="${SEARCH_ADAPTER:-sonic}"
 	    if [ "$adapter" = "meili" ] || [ "$adapter" = "sonic" ]; then
 	      search_profile="$adapter"
 	    fi
@@ -1475,12 +1476,18 @@ rel-docker-compose *args:
 	  fi
 	done
 	if [ -n "$search_profile" ]; then
+	  # sonic bind-mounts config/deploy/sonic.cfg; ensure it exists (from template) so Docker
+	  # doesn't create an empty directory at the mount path. The password comes from the
+	  # SONIC_CHANNEL__AUTH_PASSWORD env var, so the template intentionally omits auth_password.
+	  if [ "$search_profile" = "sonic" ]; then
+	    test -f config/deploy/sonic.cfg || cp config/templates/sonic.cfg config/deploy/sonic.cfg
+	  fi
 	  # Use --profile to enable the right search service, but name it explicitly so
 	  # docker-compose doesn't start unrelated services (e.g. web) that share the profile
 	  search_svc=$([ "$search_profile" = "sonic" ] && echo "sonic" || echo "search")
-	  just docker-compose --profile "$search_profile" up -d $other $search_svc
+	  just {{compose}} --profile "$search_profile" up -d $other $search_svc
 	else
-	  just docker-compose up -d $other
+	  just {{compose}} up -d $other
 	fi
 
 # Build the docker image

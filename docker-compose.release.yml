@@ -10,13 +10,16 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    # ports:
-      # - "4000:4000" # make sure this is commented in production
+    ports:
+      - "4000:4000" # make sure this is commented in production
     env_file:
       - config/prod/.env
     environment:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
+      - SONIC_HOST=search
+      - SONIC_HOST=${SONIC_HOST:-search}
+      - SONIC_PORT=${SONIC_PORT:-1491}
     depends_on:
       - db
     volumes:
@@ -66,6 +69,7 @@ services:
       - NUM_CPU=${NUM_CPU:-}
   search:
     profiles:
+      - meili
       - search
     image: getmeili/meilisearch:v1.11 # TODO: upgrade to v1.14+
     # ports:
@@ -74,10 +78,24 @@ services:
       - "search-data:/meili_data"
     env_file:
       - config/prod/.env
+  sonic:
+    profiles:
+      - sonic
+      - search
+    hostname: search # using same as meili as a sanity to avoid ever running both
+    image: valeriansaliou/sonic:latest
+    environment:
+      - SONIC_CHANNEL__AUTH_PASSWORD=${SONIC_PASSWORD}
+    # ports:
+    #   - "127.0.0.1:1491:1491"
+    volumes:
+      - "sonic-data:/var/lib/sonic/store"
+      - "./config/deploy/sonic.cfg:/etc/sonic.cfg:ro"
 
 volumes:
   db-data:
   search-data:
+  sonic-data:
   caddy_data:
     # external: true
   caddy_config:

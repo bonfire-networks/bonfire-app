@@ -145,6 +145,13 @@ defmodule Bonfire.Umbrella.MixProject do
       else: []
     )
 
+  # :rustler is needed at compile time to build Rust NIFs from source (rather than using precompiled binaries).
+  # It's always available in dev/test, plus in prod when a local NIF build is forced — either all NIFs (RUSTLER_BUILD_ALL, e.g. arm builds) or a subset like `decent` (DECENT_BUILD, the forked PGP NIF).
+  rustler_force_build? =
+    System.get_env("RUSTLER_BUILD_ALL") in yes? or System.get_env("DECENT_BUILD") in yes?
+
+  rustler_envs = if(rustler_force_build?, do: [:prod, :dev, :test], else: [:dev, :test])
+
   ranch_req =
     if System.get_env("TEST_WITH_BYPASS") && Mix.env() == :test do
       # must be compatible with Bypass
@@ -197,7 +204,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:live_debugger, "~> 1.0", only: :dev},
         {:phoenix_live_reload, "~> 1.3", only: :dev, targets: [:host], override: true},
         # needed for building forked NIFs locally (e.g. decent with keychain support)
-        {:rustler, ">= 0.0.0", only: [:dev, :test]},
+        {:rustler, ">= 0.0.0", only: rustler_envs},
         # {:exsync, git: "https://github.com/falood/exsync", only: :dev},
         # {:mix_unused, "~> 0.4", only: :dev}, # find unused public functions
         {:ex_doc, "~> 0.40.1", runtime: false},
