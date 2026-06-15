@@ -177,7 +177,9 @@ Finally, try [running the app](#running-with-docker)!
 
 #### Running with Docker
 
-1. Before running the app for the first time, but after having [prepared the config](#preparing-the-config-in-env), you should run `just setup-prod` which will get the instance ready.
+1. Before running the app for the first time, but after having [prepared the config](#preparing-the-config-in-env), you should get the instance ready:
+   - If you're using **pre-built images** (easy mode), run `just setup-prod` which will pull the Docker images.
+   - If you're **building your own image** (custom build, see above), run `just setup-prod-build` instead.
 
 2. The you can start the docker containers with docker-compose: `just rel-run`
 
