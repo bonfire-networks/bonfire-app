@@ -109,6 +109,16 @@ config :activity_pub,
         "@id" => "https://w3id.org/fep/844e#implements",
         "@type" => "@id",
         "@container" => "@set"
+      },
+      # MLS-over-ActivityPub (https://swicg.github.io/activitypub-e2ee/): the actor's keyPackages collection
+      "keyPackages" => %{
+        "@id" => "https://purl.archive.org/socialweb/mls#keyPackages",
+        "@type" => "@id"
+      },
+      # Mastodon-compatible featured collection (pinned posts)
+      "featured" => %{
+        "@id" => "http://joinmastodon.org/ns#featured",
+        "@type" => "@id"
       }
     },
     object: %{
@@ -125,7 +135,9 @@ config :activity_pub,
       "quoteAuthorization" => %{
         "@id" => "https://w3id.org/fep/044f#quoteAuthorization",
         "@type" => "@id"
-      }
+      },
+      # MLS-over-ActivityPub: KeyPackage object type
+      "KeyPackage" => "https://purl.archive.org/socialweb/mls#KeyPackage"
     }
   }
 
