@@ -201,3 +201,5 @@ config :phoenix_live_view,
 config :live_view_native_stylesheet,
   annotations: true,
   pretty: true
+
+config :bonfire_ui_common, static_cache_dev: System.get_env("STATIC_CACHE_DEV") in yes?
