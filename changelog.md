@@ -7,6 +7,26 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
+## Bonfire Social [1.0.5 (2026-06-19)]
+
+### Added
+- ✨ Archipelago mode: a way to specifically allow-list remote domains/users for federation [#1038](https://github.com/bonfire-networks/bonfire-app/issues/1038) [#2015](https://github.com/bonfire-networks/bonfire-app/issues/2015) (thanks @mayel)
+- ✨ an easy way of blocking a remote intances (for admins and individual users) [#1631](https://github.com/bonfire-networks/bonfire-app/issues/1631) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- 📝 broadcast announcements: instance admins/mods can broadcast a message or activity to all local users, which will be pushed to them and appear in their notifications feed (thanks @mayel)
+- 📝 embedable widget for certain pages: added a for instance-wide pinned posts [#2017](https://github.com/bonfire-networks/bonfire-app/issues/2017) (thanks @mayel)
+- 🚧 send PGP encrypted emails (signup confirmation, password reset, etc) to recipients that support it [#2019](https://github.com/bonfire-networks/bonfire-app/issues/2019) (thanks @mayel)
+- ✨ Reset default values for custom theme [#2024](https://github.com/bonfire-networks/bonfire-app/issues/2024) (thanks @ccamara and @ivanminutillo)
+- 📝 search index backfill, to be run after switching switching search index backend by running `Bonfire.Search.Indexer.reindex_from_db` in elixir's iex console (thanks @mayel and @ivanminutillo)
+
+### Changed
+- 🚀 Switched to Sonic as search index backend (TODO: document how to switch)
+
+### Fixed
+- 🐛 Sensitive content blocks can be scrolled away without confirming intent to view the content [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
+- ✨ No visible indicator of a post being local or public in timeline feeds [#1645](https://github.com/bonfire-networks/bonfire-app/issues/1645) (thanks @mayel and @ivanminutillo)
+- 🚧 Can't federate with some instances [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
+
+
 ## Bonfire Social [1.0.4 (2026-05-22)]
 
 ### Added

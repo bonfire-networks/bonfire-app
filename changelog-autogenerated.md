@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ groups test coverage [#577](https://github.com/bonfire-networks/bonfire-app/issues/577) (thanks @ivanminutillo)
 - ✨ add info about versions [`fd0383e`](https://github.com/bonfire-networks/bonfire-app/commit/fd0383ed4c20e7adad2893242a246bd0aca00362) (thanks @mayel)
 - ✨ new translations [`06a4a2d`](https://github.com/bonfire-networks/bonfire-app/commit/06a4a2d7531649e2fb50f1ad55562e8c6db708ad) (thanks @mayel)
-- ✅ tests [`476282f`](https://github.com/bonfire-networks/bonfire-app/commit/476282f090d098dfd81bf8bd215006dcfb9d0548), [`4d3ae52`](https://github.com/bonfire-networks/bonfire-app/commit/4d3ae520fb82f39d72a4c9418b72a0ba24b39a01), [`83fa87e`](https://github.com/bonfire-networks/bonfire-app/commit/83fa87ec22885764e7e7d299a7d3d5bb6c87bdbc), [`5d326c5`](https://github.com/bonfire-networks/bonfire-app/commit/5d326c53c6a92c6ec88742fc3394b553742cd3d2) (thanks @mayel)
+- ✅ tests [`893f483`](https://github.com/bonfire-networks/bonfire-app/commit/893f483fc80d2fd232a86bcd2cb30ba015484f17), [`476282f`](https://github.com/bonfire-networks/bonfire-app/commit/476282f090d098dfd81bf8bd215006dcfb9d0548), [`4d3ae52`](https://github.com/bonfire-networks/bonfire-app/commit/4d3ae520fb82f39d72a4c9418b72a0ba24b39a01), [`83fa87e`](https://github.com/bonfire-networks/bonfire-app/commit/83fa87ec22885764e7e7d299a7d3d5bb6c87bdbc), [`5d326c5`](https://github.com/bonfire-networks/bonfire-app/commit/5d326c53c6a92c6ec88742fc3394b553742cd3d2) (thanks @mayel)
 
 ### Changed
 - 📝 embedable widget for certain pages [#2017](https://github.com/bonfire-networks/bonfire-app/issues/2017) (thanks @mayel)
