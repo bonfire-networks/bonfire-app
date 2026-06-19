@@ -31,7 +31,7 @@ To try it in dev, run this (at the root of this repo):
 
 and to run a second instance of it (useful for testing two-way user flows): 
 
-`cargo tauri dev --config '{"identifier":"cafe.bonfire.dev2"}'`
+`cargo tauri dev --config '{"identifier":"cafe.bonfire.dev2","build":{"devUrl":"http://127.0.0.1:1430","beforeDevCommand":""}}'`
 
 For testing on Android:
 
