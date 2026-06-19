@@ -1451,6 +1451,8 @@ config :bonfire_poll, Bonfire.Poll.Question,
            :created,
            :peered,
            :post_content,
+           :replied,
+           :tree,
            :like_count,
            :boost_count
          ])
@@ -1458,6 +1460,8 @@ config :bonfire_poll, Bonfire.Poll.Question,
 
        # multimixins
        unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes, :ranked, :choices]))
+       # has
+       unquote_splicing(common.([:direct_replies]))
 
        # special
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
