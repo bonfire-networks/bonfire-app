@@ -17,6 +17,8 @@ SPDX-License-Identifier: CC0-1.0
 - 🚧 send PGP encrypted emails (signup confirmation, password reset, etc) to recipients that support it [#2019](https://github.com/bonfire-networks/bonfire-app/issues/2019) (thanks @mayel)
 - ✨ Reset default values for custom theme [#2024](https://github.com/bonfire-networks/bonfire-app/issues/2024) (thanks @ccamara and @ivanminutillo)
 - 📝 search index backfill, to be run after switching switching search index backend by running `Bonfire.Search.Indexer.reindex_from_db` in elixir's iex console (thanks @mayel and @ivanminutillo)
+- ✨ Added a new impressum page (thanks @ivanminutillo)
+- ✨ Added splash screen on PWA (thanks @ivanminutillo)
 
 ### Changed
 - 🚀 Switched to Sonic as search index backend (TODO: document how to switch)
@@ -24,8 +26,17 @@ SPDX-License-Identifier: CC0-1.0
 ### Fixed
 - 🐛 Sensitive content blocks can be scrolled away without confirming intent to view the content [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
 - ✨ No visible indicator of a post being local or public in timeline feeds [#1645](https://github.com/bonfire-networks/bonfire-app/issues/1645) (thanks @mayel and @ivanminutillo)
+- Improved instance permissions UX (thanks @ivanminutillo)
 - 🚧 Can't federate with some instances [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
-
+- 🐛 Profile banner image quality now renders correctly (previously appeared low quality on some displays) (thanks @ivanminutillo)
+- 🐛 Poll results now show who voted for each option (thanks @ivanminutillo)
+- 🐛 Mobile Spotlight dashboard is now fully horizontally scrollable (swiping anywhere on the panel works, not just the top edge) (thanks @ivanminutillo)
+- 🌐 Improved translation strings (thanks @ivanminutillo)
+- 🐛 Link previews no longer break words across lines without a hyphen (thanks @ivanminutillo)
+- 🐛 Sidebar no longer jumps to the top after clicking lower items, making it easier to navigate the full list (thanks @ivanminutillo)
+- ✨ Improved PWA (thanks @ivanminutillo)
+- 🐛 Fixed pagination on long threads (thanks @ivanminutillo)
+- 🐛 Fixed saved reading position (thanks @ivanminutillo)
 
 ## Bonfire Social [1.0.4 (2026-05-22)]
 
