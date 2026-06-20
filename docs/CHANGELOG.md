@@ -10,33 +10,32 @@ SPDX-License-Identifier: CC0-1.0
 ## Bonfire Social [1.0.5 (2026-06-19)]
 
 ### Added
-- ✨ Archipelago mode: a way to specifically allow-list remote domains/users for federation [#1038](https://github.com/bonfire-networks/bonfire-app/issues/1038) [#2015](https://github.com/bonfire-networks/bonfire-app/issues/2015) (thanks @mayel)
-- ✨ an easy way of blocking a remote intances (for admins and individual users) [#1631](https://github.com/bonfire-networks/bonfire-app/issues/1631) (thanks @jonpincus, @mayel, and @ivanminutillo)
-- 📝 broadcast announcements: instance admins/mods can broadcast a message or activity to all local users, which will be pushed to them and appear in their notifications feed (thanks @mayel)
-- 📝 embedable widget for certain pages: added a for instance-wide pinned posts [#2017](https://github.com/bonfire-networks/bonfire-app/issues/2017) (thanks @mayel)
-- 🚧 send PGP encrypted emails (signup confirmation, password reset, etc) to recipients that support it [#2019](https://github.com/bonfire-networks/bonfire-app/issues/2019) (thanks @mayel)
-- ✨ Reset default values for custom theme [#2024](https://github.com/bonfire-networks/bonfire-app/issues/2024) (thanks @ccamara and @ivanminutillo)
-- 📝 search index backfill, to be run after switching switching search index backend by running `Bonfire.Search.Indexer.reindex_from_db` in elixir's iex console (thanks @mayel and @ivanminutillo)
-- ✨ Added a new impressum page (thanks @ivanminutillo)
-- ✨ Added splash screen on PWA (thanks @ivanminutillo)
+- ✨ Archipelago mode: the usual way to federate is "open" where you connect with the entire fediverse by default and block bad actors as they show up (a never-ending game of whack-a-mole, since anyone can spin up a new server or account). Archipelago mode flips this around: moderators can choose to federate *only* with a hand-picked allow-list of trusted people, groups and servers, and keep everything else out by default. Trusted communities can in turn agree to federate with each other, forming a shared, opt-in network (an "archipelago" of like-minded "islands") with common rules and safety expectations. This is great for tightly-knit communities who only want to connect with their friends and allies, and for groups who federate together by choice (neighbourhoods, towns, assemblies, cooperatives, movements, or not-for-profit organisations) and want to stay connected to one another but not necessarily be open to the wider internet. (Credit for the concept goes to [Nora Tindall](https://nora.codes/post/the-fediverse-is-already-dead/) and [Oliphant](https://writer.oliphant.social/oliphant/islands-an-opt-in-federated-network)) [#1038](https://github.com/bonfire-networks/bonfire-app/issues/1038) [#2015](https://github.com/bonfire-networks/bonfire-app/issues/2015) (thanks @mayel)
+- ✨ Easier blocking of other servers: blocking a remote server is now simpler to do, both for moderators (blocking it for the whole instance) and for individual users (just for themselves) [#1631](https://github.com/bonfire-networks/bonfire-app/issues/1631) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- 📝 Broadcast announcements: instance admins and moderators can send a message to everyone on their instance at once, which is delivered as a push notification and shows up in everyone's notifications feed. Handy for downtime warnings, community updates, or important news (thanks @mayel)
+- 📝 Embeddable widgets (drop a small piece of Bonfire content into any other website): after comment threads, the second widget available shows your instance's pinned posts, so visitors to your regular website can preview highlights from the fediverse [#2017](https://github.com/bonfire-networks/bonfire-app/issues/2017) (thanks @mayel)
+- 🚧 PGP-encrypted emails: for people who have published a PGP key (a way to encrypt email so only the intended recipient can read it) or use a PGP-encrypted service like ProtonMail, Bonfire now sends system emails (like signup confirmations and password resets) in encrypted form [#2019](https://github.com/bonfire-networks/bonfire-app/issues/2019) (thanks @mayel)
+- ✨ Reset theme to defaults: if you've customised your instance's colours and styling and want to start over, there's now a one-click button to restore the original look [#2024](https://github.com/bonfire-networks/bonfire-app/issues/2024) (thanks @ccamara and @ivanminutillo)
+- 📝 Search re-indexing tool: when an admin switches to a different search engine (see Changes below), they can now rebuild the search index from existing content so older posts remain findable. Run `Bonfire.Search.Indexer.reindex_from_db` in the Elixir (iex) console (thanks @mayel and @ivanminutillo)
+- ✨ Added an Impressum page (a legally-required about page common in some countries, identifying who runs the site) (thanks @ivanminutillo)
 
 ### Changed
-- 🚀 Switched to Sonic as search index backend (TODO: document how to switch)
+- 🚀 Switched the search engine to [Sonic](https://github.com/valeriansaliou/sonic#sonic), which is lighter and faster, making searches quicker and easier for instances to run (TODO: document how to switch)
+- ✨ Various speed and usability improvements throughout the app
+- ✨ Improved the mobile app experience (when Bonfire is installed to your phone's home screen as a PWA, you may need to delete it from your home screen and re-add it) (thanks @ivanminutillo)
 
 ### Fixed
-- 🐛 Sensitive content blocks can be scrolled away without confirming intent to view the content [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
-- ✨ No visible indicator of a post being local or public in timeline feeds [#1645](https://github.com/bonfire-networks/bonfire-app/issues/1645) (thanks @mayel and @ivanminutillo)
-- Improved instance permissions UX (thanks @ivanminutillo)
-- 🚧 Can't federate with some instances [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
-- 🐛 Profile banner image quality now renders correctly (previously appeared low quality on some displays) (thanks @ivanminutillo)
+- 🐛 Sensitive-content warnings can no longer be accidentally bypassed: previously a post hidden behind a "sensitive content" cover could sometimes be scrolled past in a way that revealed it without you choosing to view it [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
+- ✨ Made the instance permission settings clearer and easier to use for admins (thanks @ivanminutillo)
+- 🚧 Fixed problems that prevented federating with certain other servers [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
+- 🐛 Profile banner images now display in full quality (they previously looked blurry on some screens) (thanks @ivanminutillo)
 - 🐛 Poll results now show who voted for each option (thanks @ivanminutillo)
-- 🐛 Mobile Spotlight dashboard is now fully horizontally scrollable (swiping anywhere on the panel works, not just the top edge) (thanks @ivanminutillo)
-- 🌐 Improved translation strings (thanks @ivanminutillo)
-- 🐛 Link previews no longer break words across lines without a hyphen (thanks @ivanminutillo)
-- 🐛 Sidebar no longer jumps to the top after clicking lower items, making it easier to navigate the full list (thanks @ivanminutillo)
-- ✨ Improved PWA (thanks @ivanminutillo)
-- 🐛 Fixed pagination on long threads (thanks @ivanminutillo)
-- 🐛 Fixed saved reading position (thanks @ivanminutillo)
+- 🐛 The mobile Spotlight dashboard can now be swiped sideways from anywhere on the panel, not just along the top edge (thanks @ivanminutillo)
+- 🌐 Improved translations (thanks @ivanminutillo)
+- 🐛 Link previews no longer split words across two lines without a hyphen, making them easier to read (thanks @ivanminutillo)
+- 🐛 The sidebar no longer jumps back to the top after you click an item lower down, making longer menus easier to navigate (thanks @ivanminutillo)
+- 🐛 Fixed loading more posts ("pagination") on long comment threads (thanks @ivanminutillo)
+- 🐛 Improved remembering your reading position, so you return to where you left off (thanks @ivanminutillo)
 
 ## Bonfire Social [1.0.4 (2026-05-22)]
 
