@@ -10,14 +10,21 @@ SPDX-License-Identifier: CC0-1.0
 ## Bonfire Social [1.0.5-rc (2026-06-20)]
 
 ### Added
+
 - ✨ Archipelago mode: the usual way to federate is "open" where you connect with the entire fediverse by default and block bad actors as they show up (a never-ending game of whack-a-mole, since anyone can spin up a new server or account). Archipelago mode flips this around: instance moderators can choose to federate *only* with a hand-picked allow-list of trusted people, groups and servers, and keep everything else out by default. Trusted communities can in turn agree to federate with each other, forming a shared, opt-in network (an "archipelago" of like-minded "islands") with common rules and safety expectations. This is great for tightly-knit communities who only want to connect with their friends and allies, and for groups who federate together by choice (neighbourhoods, towns, assemblies, cooperatives, movements, or not-for-profit organisations) and want to stay connected to one another but not necessarily be open to the wider internet. (Credit for the concept goes to [Oliphant](https://writer.oliphant.social/oliphant/islands-an-opt-in-federated-network) and [Nora Tindall](https://nora.codes/post/the-fediverse-is-already-dead/)) [#1038](https://github.com/bonfire-networks/bonfire-app/issues/1038) [#2015](https://github.com/bonfire-networks/bonfire-app/issues/2015) (thanks @mayel)
-<img width="641" height="439" alt="Image" src="https://github.com/user-attachments/assets/e593f718-c3aa-43a9-831d-b6cc68b216ad" />
-<img width="677" height="517" alt="Image" src="https://github.com/user-attachments/assets/871d8e3f-9928-48fc-b0f2-e48c6757c968" />
+![Screenshot of instance federation settings](https://github.com/user-attachments/assets/b62fac6e-9618-4a7a-ae43-bebf321fd65e)
+![Screenshot of allow-list configuration](https://github.com/user-attachments/assets/871d8e3f-9928-48fc-b0f2-e48c6757c968)
+
 - 📝 Broadcast announcements: instance admins and moderators can send a message to everyone on their instance at once, which is delivered as a push notification and shows up in everyone's notifications feed. Handy for downtime warnings, community updates, or important news (thanks @mayel)
+
 - 📝 Embeddable widgets (drop a small piece of Bonfire content into any other website): after comment threads, the second widget available shows your instance's pinned posts, so visitors to your regular website can preview highlights from the fediverse [#2017](https://github.com/bonfire-networks/bonfire-app/issues/2017) (thanks @mayel)
+
 - 🚧 PGP-encrypted emails: for people who have published a PGP key (a way to encrypt email so only the intended recipient can read it) or use a PGP-encrypted service like ProtonMail, Bonfire now sends system emails (like signup confirmations and password resets) in encrypted form [#2019](https://github.com/bonfire-networks/bonfire-app/issues/2019) (thanks @mayel)
+
 - ✨ Reset theme to defaults: if you've customised your instance's colours and styling and want to start over, there's now a one-click button to restore the original look [#2024](https://github.com/bonfire-networks/bonfire-app/issues/2024) (thanks @ccamara and @ivanminutillo)
+
 - ✨ Added an Impressum page (a legally-required about page common in some countries, identifying who runs the site) (thanks @ivanminutillo)
+
 - 📝 Search re-indexing tool: when an admin switches to a different search engine (see Changes below), they can now rebuild the search index from existing content so older posts remain findable. Run `Bonfire.Search.Indexer.reindex_from_db` in the Elixir (iex) console (thanks @mayel and @ivanminutillo)
 
 ### Changed
