@@ -1,8 +1,11 @@
-# Bonfire v1.0.5-social-rc.2 - API Reference
+# Bonfire v1.0.5-social-rc.3 - API Reference
 
 ## Modules
 
 - Bonfire utilities
+  - [Bonfire.API.GraphQL.GraphqlWSSocket](Bonfire.API.GraphQL.GraphqlWSSocket.md): `graphql-transport-ws` websocket transport for GraphQL subscriptions
+(the protocol Ferry / graphql-ws clients speak), separate from the
+Phoenix-channels `Absinthe.Phoenix.Socket` at `/api/socket`.
   - [Bonfire.API.GraphQL.Schema](Bonfire.API.GraphQL.Schema.md): Root GraphQL Schema.
 Only active if the `Bonfire.API.GraphQL` extension is present.
 
