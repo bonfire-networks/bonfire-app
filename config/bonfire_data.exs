@@ -104,6 +104,7 @@ alias Bonfire.Data.Social.Mention
 alias Bonfire.Data.Social.Message
 alias Bonfire.Data.Social.Post
 alias Bonfire.Data.Social.PostContent
+alias Bonfire.Articles.Article
 alias Bonfire.Data.Social.Profile
 alias Bonfire.Data.Social.Replied
 alias Bonfire.Data.Social.Request
@@ -540,6 +541,7 @@ config :needle, Pointer,
        #  has_one(:permitted, unquote(Permitted), foreign_key: :object_id)
        has_one(:user, unquote(User), foreign_key: :id)
        has_one(:post, unquote(Post), foreign_key: :id)
+       has_one(:article, unquote(Article), foreign_key: :id)
        has_one(:message, unquote(Message), foreign_key: :id)
        has_one(:category, unquote(Category), foreign_key: :id)
        has_one(:geolocation, unquote(Geolocation), foreign_key: :id)
@@ -1095,6 +1097,37 @@ config :bonfire_data_social, Post,
        # has_one:  [reply_to_creator_profile: {[through: [:replied, :reply_to_creator_profile]]}],
        # has_one:  [thread_post: {[through: [:replied, :thread_post]]}],
        # has_one:  [thread_post_content: {[through: [:replied, :thread_post_content]]}],
+     end)
+
+config :bonfire_articles, Article,
+  code:
+    (quote do
+       # mixins (mirrors Bonfire.Data.Social.Post — Articles reuse the same mixins,
+       # incl. the shared PostContent for title/summary/html_body)
+       unquote_splicing(
+         common.([
+           :named,
+           :activities,
+           :activity,
+           :caretaker,
+           :created,
+           :peered,
+           :post_content,
+           :replied,
+           :tree,
+           :like_count,
+           :boost_count,
+           :labelled,
+           :sensitive,
+           :language,
+           :extra_info
+         ])
+       )
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
+       # has
+       unquote_splicing(common.([:direct_replies]))
      end)
 
 config :bonfire_data_social, PostContent,
