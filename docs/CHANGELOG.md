@@ -7,13 +7,17 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: releases
 
-## Bonfire Social [1.0.5-rc (2026-06-20)]
+## Bonfire Social [1.0.5-rc (2026-06-24)]
 
 ### Added
 
 - ✨ Archipelago mode: the usual way to federate is "open" where you connect with the entire fediverse by default and block bad actors as they show up (a never-ending game of whack-a-mole, since anyone can spin up a new server or account). Archipelago mode flips this around: instance moderators can choose to federate *only* with a hand-picked allow-list of trusted people, groups and servers, and keep everything else out by default. Trusted communities can in turn agree to federate with each other, forming a shared, opt-in network (an "archipelago" of like-minded "islands") with common rules and safety expectations. This is great for tightly-knit communities who only want to connect with their friends and allies, and for groups who federate together by choice (neighbourhoods, towns, assemblies, cooperatives, movements, or not-for-profit organisations) and want to stay connected to one another but not necessarily be open to the wider internet. (Credit for the concept goes to [Oliphant](https://writer.oliphant.social/oliphant/islands-an-opt-in-federated-network) and [Nora Tindall](https://nora.codes/post/the-fediverse-is-already-dead/)) [#1038](https://github.com/bonfire-networks/bonfire-app/issues/1038) [#2015](https://github.com/bonfire-networks/bonfire-app/issues/2015) (thanks @mayel)
 ![Screenshot of instance federation settings](https://github.com/user-attachments/assets/b62fac6e-9618-4a7a-ae43-bebf321fd65e)
 ![Screenshot of allow-list configuration](https://github.com/user-attachments/assets/871d8e3f-9928-48fc-b0f2-e48c6757c968)
+
+- ✨ Admins can now control how much background work the server does at once (such as sending and receiving federated activity), so a busy instance on a small server doesn't get overloaded. There are three levels of control, from simple to advanced: pick an overall speed preset (Eco / Default / Turbo); prioritise particular kinds of activity (mentions & follows, incoming, or outgoing); or fine-tune each individual task queue. Changes take effect instantly, with no restart needed [#1638](https://github.com/bonfire-networks/bonfire-app/issues/1638) (thanks @mayel)
+
+![Screenshot of background task settings](https://private-user-images.githubusercontent.com/115318/612573650-421bdcec-0a1e-4aec-9754-b3e77f224bd9.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODIzMTc3MjIsIm5iZiI6MTc4MjMxNzQyMiwicGF0aCI6Ii8xMTUzMTgvNjEyNTczNjUwLTQyMWJkY2VjLTBhMWUtNGFlYy05NzU0LWIzZTc3ZjIyNGJkOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNjI0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDYyNFQxNjEwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hNjNlZmQyZjZiNzU4ZDcwZmU5ZTg3YWU5NjU3Mzc2MzQ3OGUxZmE1MjI2ZjY0YTAyMTFkMDgzODFhMGFmNjQ1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.4_iNJB1jFrx89vbSLu09rEOZtPJFhtZgesczVj-MJGI)
 
 - 📝 Broadcast announcements: instance admins and moderators can send a message to everyone on their instance at once, which is delivered as a push notification and shows up in everyone's notifications feed. Handy for downtime warnings, community updates, or important news (thanks @mayel)
 
@@ -27,24 +31,50 @@ SPDX-License-Identifier: CC0-1.0
 
 - 📝 Search re-indexing tool: when an admin switches to a different search engine (see Changes below), they can now rebuild the search index from existing content so older posts remain findable. Run `Bonfire.Search.Indexer.reindex_from_db` in the Elixir (iex) console (thanks @mayel and @ivanminutillo)
 
+- ✨ Sign-in consent screen: when you log into a third-party app using your Bonfire account, you now see a clear screen showing which app is asking for access and what it will be able to do, so you can approve or deny it (thanks @mayel)
+
+- 🐛 All widgets on dashboard, such as "recommended profiles", can now be refreshed by mods after they make changes [#2069](https://github.com/bonfire-networks/bonfire-app/issues/2069) (thanks @ccamara and @mayel)
+
 ### Changed
+
 - 🚀 Switched the search engine to [Sonic](https://github.com/valeriansaliou/sonic#sonic), which is lighter and faster, making searches quicker and easier for instances to run. If you're running Bonfire using [co-op cloud](https://coopcloud.tech/), see the [recipe upgrade docs](https://git.coopcloud.tech/coop-cloud/bonfire.git#upgrades) for information about how to switch, and once you've switched, you can run `Bonfire.Search.Indexer.reindex_from_db` in the Elixir (iex) console to re-index existing posts and users (only local ones by default).
 - ✨ Various speed and usability improvements throughout the app
 - ✨ Improved the mobile app experience (when Bonfire is installed to your phone's home screen as a PWA, you may need to delete it from your home screen and re-add it) (thanks @ivanminutillo)
 - ✨ Easier blocking of other servers: blocking a remote server is now simpler to do, both for moderators (blocking it for the whole instance) and for individual users (just for themselves) [#1631](https://github.com/bonfire-networks/bonfire-app/issues/1631) (thanks @jonpincus, @mayel, and @ivanminutillo)
-
-### Fixed
-- 🐛 Sensitive-content warnings can no longer be accidentally bypassed: previously a post hidden behind a "sensitive content" cover could sometimes be scrolled past in a way that revealed it without you choosing to view it [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
-- ✨ Made the instance permission settings clearer and easier to use for admins (thanks @ivanminutillo)
-- 🚧 Fixed problems that prevented federating with certain other servers [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
+- ✨ When federation is turned off or set to manual, the app now makes it clear when something can't be done, such as following or mentioning someone on another server, or looking up a remote user or link in search (previously these would silently fail or show an error) [#647](https://github.com/bonfire-networks/bonfire-app/issues/647) [#2058](https://github.com/bonfire-networks/bonfire-app/issues/2058) (thanks @ccamara and @mayel)
+- ✨ Mobile and native apps now stay signed in for longer before asking you to log in again [#1806](https://github.com/bonfire-networks/bonfire-app/issues/1806) (thanks @ivanminutillo and @mayel)
+- 💅 The thread sidebar now shows just the top few participants, with an option to reveal the rest, instead of a long list [#1988](https://github.com/bonfire-networks/bonfire-app/issues/1988) (thanks @ivanminutillo and @mayel)
+- 📝 Self-hosters can now provide sensitive credentials (API keys, passwords, etc.) in files, rather than putting them in environment variables [#1886](https://github.com/bonfire-networks/bonfire-app/issues/1886) (thanks @mayel)
+- 🚀 Clearer help text when linking your accounts on other fediverse servers [#1607](https://github.com/bonfire-networks/bonfire-app/issues/1607) (thanks @ccamara and @mayel)
+- 🐛 Hashtags are now case-insensitive, so #Bonfire and #bonfire count as the same tag [#2023](https://github.com/bonfire-networks/bonfire-app/issues/2023) [PR #5](https://github.com/bonfire-networks/bonfire-app/pull/5) (thanks @ccamara, @mvanhorn, and @mayel)
+- 📝 Moved long-form articles into their own dedicated extension, making them easier to maintain and build on [`197a8e9`](https://github.com/bonfire-networks/bonfire-app/commit/197a8e9528504fba134990d73e08923f806401c3) (thanks @mayel)
+- 🐛 Receiving a deletion from another server for something we don't have locally no longer logs a federation error or gets retried needlessly [#1784](https://github.com/bonfire-networks/bonfire-app/issues/1784) (thanks @ivanminutillo and @mayel)
 - 🐛 Profile banner images now display in full quality (they previously looked blurry on some screens) (thanks @ivanminutillo)
 - 🐛 Poll results now show who voted for each option (thanks @ivanminutillo)
-- 🐛 The mobile Spotlight dashboard can now be swiped sideways from anywhere on the panel, not just along the top edge (thanks @ivanminutillo)
+- ✨ Made the instance permission settings clearer and easier to use for admins (thanks @ivanminutillo)
+- 🐛 Improved remembering your reading position, so you return to where you left off (thanks @ivanminutillo)
 - 🌐 Improved translations (thanks @ivanminutillo)
+- 🐛 After revealing sensitive media, you're no longer asked to reveal it again when opening it fullscreen [#2006](https://github.com/bonfire-networks/bonfire-app/issues/2006) (thanks @LiquidParasyte and @mayel)
+- 🐛 Image descriptions (alt text) are no longer shown twice in the fullscreen image viewer [#2005](https://github.com/bonfire-networks/bonfire-app/issues/2005) (thanks @LiquidParasyte and @mayel)
+- 🐛 Editing a post from another app (over the API) updates but no longer fully replaces previous info [#1930](https://github.com/bonfire-networks/bonfire-app/issues/1930) (thanks @mayel)
+
+### Fixed
+
+- 🐛 Sensitive-content warnings can no longer be accidentally bypassed: previously a post hidden behind a "sensitive content" cover could sometimes be scrolled past in a way that revealed it without you choosing to view it [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
+- 🚧 Fixed problems that prevented federating with certain other servers [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
+- 🐛 The mobile Spotlight dashboard can now be swiped sideways from anywhere on the panel, not just along the top edge (thanks @ivanminutillo)
 - 🐛 Link previews no longer split words across two lines without a hyphen, making them easier to read (thanks @ivanminutillo)
 - 🐛 The sidebar no longer jumps back to the top after you click an item lower down, making longer menus easier to navigate (thanks @ivanminutillo)
 - 🐛 Fixed loading more posts ("pagination") on long comment threads (thanks @ivanminutillo)
-- 🐛 Improved remembering your reading position, so you return to where you left off (thanks @ivanminutillo)
+- 🐛 Federation (Archipelago) settings now show their saved values correctly after you change them [#2056](https://github.com/bonfire-networks/bonfire-app/issues/2056) (thanks @ccamara and @mayel)
+- 🐛 Clearer "verified" indicator on profile links: the checkmark again reflects whether a linked website actually links back to your profile [#2042](https://github.com/bonfire-networks/bonfire-app/issues/2042) (thanks @ccamara and @mayel)
+- 🐛 Removed a broken scope switcher on the blocked/ghosted/silenced settings pages that led to a "no settings available" message [#2018](https://github.com/bonfire-networks/bonfire-app/issues/2018) (thanks @gillesdutilh and @mayel)
+- 🐛 After you accept a follow request, the notification now shows the correct person (it previously showed the wrong one), and no longer briefly appears broken until you refresh [#1907](https://github.com/bonfire-networks/bonfire-app/issues/1907) [#1659](https://github.com/bonfire-networks/bonfire-app/issues/1659) (thanks @mayel)
+- 🐛 Fixed incorrect accessibility labels on the landing page, improving screen-reader navigation [#1449](https://github.com/bonfire-networks/bonfire-app/issues/1449) (thanks @jonpincus and @mayel)
+- 🐛 Quote posts from Bluesky (atproto) no longer show a broken, duplicated link preview [#1759](https://github.com/bonfire-networks/bonfire-app/issues/1759) (thanks @mayel)
+- 🐛 Incoming PeerTube "view" pings no longer cause repeated errors in federation logs [#1802](https://github.com/bonfire-networks/bonfire-app/issues/1802) (thanks @mayel)
+- 🐛 Videos from PeerTube that are still being processed no longer fail to federate (previously a missing media type would cause an error) [#1728](https://github.com/bonfire-networks/bonfire-app/issues/1728) (thanks @mayel)
+
 
 ## Bonfire Social [1.0.4 (2026-05-22)]
 
