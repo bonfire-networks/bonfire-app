@@ -17,7 +17,7 @@ SPDX-License-Identifier: CC0-1.0
 
 - ✨ Admins can now control how much background work the server does at once (such as sending and receiving federated activity), so a busy instance on a small server doesn't get overloaded. There are three levels of control, from simple to advanced: pick an overall speed preset (Eco / Default / Turbo); prioritise particular kinds of activity (mentions & follows, incoming, or outgoing); or fine-tune each individual task queue. Changes take effect instantly, with no restart needed [#1638](https://github.com/bonfire-networks/bonfire-app/issues/1638) (thanks @mayel)
 
-![Screenshot of background task settings](https://private-user-images.githubusercontent.com/115318/612573650-421bdcec-0a1e-4aec-9754-b3e77f224bd9.png)
+![Screenshot of background task settings](https://github.com/user-attachments/assets/421bdcec-0a1e-4aec-9754-b3e77f224bd9)
 
 - 📝 Broadcast announcements: instance admins and moderators can send a message to everyone on their instance at once, which is delivered as a push notification and shows up in everyone's notifications feed. Handy for downtime warnings, community updates, or important news (thanks @mayel)
 
