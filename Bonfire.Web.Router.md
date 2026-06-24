@@ -134,6 +134,8 @@ Wraps `protect_from_forgery` to gracefully handle stale CSRF tokens by renewing 
 
 # `user_required`
 
+# `user_session_required`
+
 # `verified_route?`
 
 # `webfinger`
