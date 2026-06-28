@@ -255,7 +255,7 @@ MAIL_BACKEND=smtp
 MAIL_SERVER=your_smtp_server
 MAIL_PORT=587
 MAIL_USER=your_smtp_username
-MAIL_PASSWORD=your_smtp_password
+MAIL_KEY=your_smtp_password
 MAIL_FROM=email@instance.domain
 MAIL_SSL=true
 ```
