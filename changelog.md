@@ -57,6 +57,7 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 After revealing sensitive media, you're no longer asked to reveal it again when opening it fullscreen [#2006](https://github.com/bonfire-networks/bonfire-app/issues/2006) (thanks @LiquidParasyte and @mayel)
 - 🐛 Image descriptions (alt text) are no longer shown twice in the fullscreen image viewer [#2005](https://github.com/bonfire-networks/bonfire-app/issues/2005) (thanks @LiquidParasyte and @mayel)
 - 🐛 Editing a post from another app (over the API) updates but no longer fully replaces previous info [#1930](https://github.com/bonfire-networks/bonfire-app/issues/1930) (thanks @mayel)
+- Changed background tasks configuration (Oban job queues) to trigger execution whenever a new task is inserted instead of just checking every 2 seconds, which means federated activities can be processed quicker
 
 ### Fixed
 
