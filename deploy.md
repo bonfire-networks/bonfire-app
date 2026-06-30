@@ -355,7 +355,7 @@ set_var() {
 set_var "SECRET_KEY_BASE" "$(rand 128)"
 set_var "SIGNING_SALT" "$(rand 128)"
 set_var "ENCRYPTION_SALT" "$(rand 128)"
-set_var "ERLANG_COOKIE" "$(rand 42)"
+set_var "RELEASE_COOKIE" "$(rand 42)"
 set_var "POSTGRES_PASSWORD" "$(rand 42)"
 set_var "MEILI_MASTER_KEY" "$(rand 42)"
 set_var "SONIC_PASSWORD" "$(rand 42)"
