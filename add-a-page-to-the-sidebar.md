@@ -26,7 +26,7 @@ To create a new menu for your extension:
 2. Configure your extension with options like name, icon, description, and navigation menu.
 
 ```elixir
-declare_extension("Your Extension Name",
+declare_extension(l("Your Extension Name"),
   icon: "🎆",
   description: "A short description to display in the extension settings",
   default_nav: [
