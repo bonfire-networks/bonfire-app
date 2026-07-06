@@ -42,6 +42,8 @@ Returns the host for the given endpoint.
 
 # `log_ip`
 
+# `mark_process_context`
+
 # `node_name`
 
 # `path`
