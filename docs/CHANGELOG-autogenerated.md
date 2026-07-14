@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Feature Proposal: automatically mirror every post on twitter [#465](https://github.com/bonfire-networks/bonfire-app/issues/465) (thanks @ahsf)
 - ✨ Backlinks showing what posts quoted a post [#142](https://github.com/bonfire-networks/bonfire-app/issues/142) (thanks @ivanminutillo)
 - ✨ Allow stream_data 1.x [PR #2](https://github.com/bonfire-networks/formula2/pull/2) (thanks @howlettga)
+- ✅ tests [`30674ef`](https://github.com/bonfire-networks/bonfire-app/commit/30674ef3fab21c41709e4234af746750aa49f06a) (thanks @mayel)
 
 ### Changed
 - 📝 Prototype end-to-end encrypted messages [#1701](https://github.com/bonfire-networks/bonfire-app/issues/1701) (thanks @mayel)
@@ -34,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 alpha.23 [`af6432c`](https://github.com/bonfire-networks/bonfire-app/commit/af6432c9afecf260c12eac1182c549bb9d461c6d) (thanks @ivanminutillo)
 - 📝 alpha.24 [`cb28c35`](https://github.com/bonfire-networks/bonfire-app/commit/cb28c35c19d70700e1d116d1118f9200f823e9db) (thanks @ivanminutillo)
 - 📝 alpha.25 [`bcc4189`](https://github.com/bonfire-networks/bonfire-app/commit/bcc4189b5d9c52d16f5ba1117cacbd86623be32e) (thanks @ivanminutillo)
+- 📝 alpha.29 [`e2e6dc4`](https://github.com/bonfire-networks/bonfire-app/commit/e2e6dc4942ece43f9157cadc150b6d7540a27d13) (thanks @ivanminutillo)
 - 📝 alpha.4 [`b6f955c`](https://github.com/bonfire-networks/bonfire-app/commit/b6f955caa0bd638445469ec37da86d0ea8816959) (thanks @ivanminutillo)
 - 📝 alpha.5 [`b5626c5`](https://github.com/bonfire-networks/bonfire-app/commit/b5626c56ae9c9ef3501edd5ff34c12240e9f5524) (thanks @ivanminutillo)
 - 📝 alpha.6 [`b197a08`](https://github.com/bonfire-networks/bonfire-app/commit/b197a08ca6ac5b801cfb1142bbdda4da2b4f4683) (thanks @ivanminutillo)
