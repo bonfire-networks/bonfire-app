@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Feature Proposal: automatically mirror every post on twitter [#465](https://github.com/bonfire-networks/bonfire-app/issues/465) (thanks @ahsf)
 - ✨ Backlinks showing what posts quoted a post [#142](https://github.com/bonfire-networks/bonfire-app/issues/142) (thanks @ivanminutillo)
 - ✨ Allow stream_data 1.x [PR #2](https://github.com/bonfire-networks/formula2/pull/2) (thanks @howlettga)
+- ✅ tests [`30674ef`](https://github.com/bonfire-networks/bonfire-app/commit/30674ef3fab21c41709e4234af746750aa49f06a) (thanks @mayel)
 
 ### Changed
 - 📝 Prototype end-to-end encrypted messages [#1701](https://github.com/bonfire-networks/bonfire-app/issues/1701) (thanks @mayel)
@@ -29,11 +30,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 .26 [`64ae618`](https://github.com/bonfire-networks/bonfire-app/commit/64ae6189d4bd92a0ffbf203bbfad268a0151a76f) (thanks @ivanminutillo)
 - 📝 .27 [`6cab34b`](https://github.com/bonfire-networks/bonfire-app/commit/6cab34b5a7208237e3396bf955fb10f39c998f72) (thanks @ivanminutillo)
 - 📝 .28 [`d4dc8f4`](https://github.com/bonfire-networks/bonfire-app/commit/d4dc8f4a81265e890d9e3363b04daaecee07d08e) (thanks @ivanminutillo)
+- 📝 .30 [`f0f2cd9`](https://github.com/bonfire-networks/bonfire-app/commit/f0f2cd957a082760dff8cf9486ae5a55bb68e9d4) (thanks @ivanminutillo)
 - 📝 alpha.19 [`0e4efe2`](https://github.com/bonfire-networks/bonfire-app/commit/0e4efe26d4879e870a24c8a059ec5ba54c67b6f3) (thanks @ivanminutillo)
 - 📝 alpha.22 [`50c3647`](https://github.com/bonfire-networks/bonfire-app/commit/50c3647534301b893439319a086ec44227e48aeb) (thanks @ivanminutillo)
 - 📝 alpha.23 [`af6432c`](https://github.com/bonfire-networks/bonfire-app/commit/af6432c9afecf260c12eac1182c549bb9d461c6d) (thanks @ivanminutillo)
 - 📝 alpha.24 [`cb28c35`](https://github.com/bonfire-networks/bonfire-app/commit/cb28c35c19d70700e1d116d1118f9200f823e9db) (thanks @ivanminutillo)
 - 📝 alpha.25 [`bcc4189`](https://github.com/bonfire-networks/bonfire-app/commit/bcc4189b5d9c52d16f5ba1117cacbd86623be32e) (thanks @ivanminutillo)
+- 📝 alpha.29 [`e2e6dc4`](https://github.com/bonfire-networks/bonfire-app/commit/e2e6dc4942ece43f9157cadc150b6d7540a27d13) (thanks @ivanminutillo)
 - 📝 alpha.4 [`b6f955c`](https://github.com/bonfire-networks/bonfire-app/commit/b6f955caa0bd638445469ec37da86d0ea8816959) (thanks @ivanminutillo)
 - 📝 alpha.5 [`b5626c5`](https://github.com/bonfire-networks/bonfire-app/commit/b5626c56ae9c9ef3501edd5ff34c12240e9f5524) (thanks @ivanminutillo)
 - 📝 alpha.6 [`b197a08`](https://github.com/bonfire-networks/bonfire-app/commit/b197a08ca6ac5b801cfb1142bbdda4da2b4f4683) (thanks @ivanminutillo)
@@ -50,6 +53,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 rel alpha [`af6bde1`](https://github.com/bonfire-networks/bonfire-app/commit/af6bde1e595726c3453b5b0a80212c6100c19086), [`1748e31`](https://github.com/bonfire-networks/bonfire-app/commit/1748e31cba3e3b455c6fa418b9380a4e9ba89c9b) (thanks @mayel)
 - 📝 rel.20 [`ad8a38c`](https://github.com/bonfire-networks/bonfire-app/commit/ad8a38c6ca8a702e547a39618fb0c0acb0943322) (thanks @ivanminutillo)
 - 📝 tx [`4ccb3cc`](https://github.com/bonfire-networks/bonfire-app/commit/4ccb3cc4a485e5c40bb91710051b5077ee4321f3), [`a5942ce`](https://github.com/bonfire-networks/bonfire-app/commit/a5942cec2069820e92fdfd37beab477ea1e37581) (thanks @ivanminutillo)
+- 📝 votes [`5f2d3bf`](https://github.com/bonfire-networks/bonfire-app/commit/5f2d3bfcbaaa26b5f508e11bc355d00fcdd9095d) (thanks @mayel)
 
 ### Fixed
 - 🐛 Broken `text` dependency with Erlang/OTP 28 [#2110](https://github.com/bonfire-networks/bonfire-app/issues/2110) (thanks @ju1m and @mayel)
