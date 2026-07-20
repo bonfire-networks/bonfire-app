@@ -374,6 +374,80 @@ echo "Updated $env_file"
 
 To run bonfire we need to run `bin/bonfire start`. However, due to the setup, `.env` will be ignored. To address that, we will need to run within a wrapper script that ensures that `.env` is also loaded.
 
+##### Using `systemctl`
+
+1. On `/home/<your_user>/.config/systemd/user/` create two files: `bonfire.service` and `sonic.service`, with the following contents:
+	1. `bonfire.service`:
+
+```
+**[Unit]**
+
+Description=Bonfire
+
+After=network.target sonic.service
+
+Wants=sonic.service
+
+  
+
+**[Service]**
+
+WorkingDirectory=/home/<your_user>/bonfire
+
+EnvironmentFile=/home/<your_user>/bonfire/.env
+
+ExecStart=/home/<your_user>/bonfire/bin/bonfire start
+
+Restart=on-failure
+
+RestartSec=5
+
+  
+
+**[Install]**
+
+WantedBy=default.target
+```
+
+	2. sonic.service
+```                                                                         
+**[Unit]**
+
+Description=Sonic search backend
+
+After=network.target
+
+  
+
+**[Service]**
+
+ExecStart=/home/<your_user>/sonic/sonic -c /home/<your_user>/sonic/config.cfg
+
+Restart=on-failure
+
+  
+
+**[Install]**
+
+WantedBy=default.target
+```
+1. Run the following command`
+
+```bash
+systemctl --user start bonfire
+```
+
+
+> [!tip] Frequent `systemctl` commands
+> 1. Check status: `systemctl --user status bonfire`
+> 2. Check sonic status: `systemctl --user status sonic`
+> 3. Start bonfire: `systemctl --user start bonfire`
+> 4. Stop bonfire: `systemctl --user stop bonfire`
+
+
+
+##### (Deprecated) Using a custom script
+
 1. Create a `start.sh` script (`touch start.sh`and `chmod +x start.sh`) and paste the following:
 ```bash
 #!/usr/bin/env bash
