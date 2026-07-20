@@ -168,6 +168,11 @@ config :surface, :compiler,
   variants_output_file: "config/current_flavour/assets/variants.js",
   enable_variants: true
 
+# context threading for plain-LV templates (see forks/surf_context + web.ex live_view_helpers)
+config :surf_context,
+  # third-party components that declare attrs and can't read context
+  skip_modules: [LiveSelect, SEO, Bonfire.UI.Common.CoreComponents]
+
 config :needle_uid, pride_enabled: false
 config :pride, use_rust: true
 
