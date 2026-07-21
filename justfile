@@ -241,10 +241,14 @@ _clone_flavour_apps:
 _clone_extension name:
 	test -d extensions/{{name}} || (mkdir -p extensions && git clone https://github.com/bonfire-networks/{{name}} extensions/{{name}} || echo "Could not clone the {{name}} extension")
 
-_ext-migrations-copy: 
+_ext-migrations-copy:
 	MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just compile
 	just db-clean-migrations
 	just cmd mix bonfire.extension.copy_migrations --force
+
+# Copy each top-level extension's config file into config/. Self-bootstraps: the task needs the app compiled to run, but an extension missing its config raises at compile time, BONFIRE_SKIP_REQUIRE_CONFIG=1 defers that guard (it crosses into the per-dep compile subprocesses, which a process flag can't)
+copy-configs *args="--force":
+	BONFIRE_SKIP_REQUIRE_CONFIG=1 just mix bonfire.install.copy_configs {{args}}
 
 # FIXME: how should we know if user wants to use a prebuilt image or build their own? 
 setup-prod:
