@@ -315,7 +315,7 @@ defmodule Bonfire.Umbrella.MixProject do
     base_flavour: base_flavour_atom,
     use_local_forks?: use_local_forks?,
     use_umbrella?: use_umbrella?,
-    umbrella_root?: use_local_forks?,
+    umbrella_root?: use_umbrella?,
     umbrella_path: @umbrella_path
   ]
 
