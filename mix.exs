@@ -99,7 +99,7 @@ defmodule Bonfire.Umbrella.MixProject do
         {:axon, "~> 0.8", override: true},
         {:table_rex, "~> 4.1", override: true},
         {:nx, "~> 0.13"},
-        {:exla, "~> 0.13"},
+        {:exla, "~> 0.13"}
         # temp workaround: https://github.com/elixir-nx/nx/issues/1599
         # {:exla, github: "elixir-nx/nx", sparse: "exla", override: true},
         # {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
