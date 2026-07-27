@@ -5,7 +5,64 @@ SPDX-License-Identifier: AGPL-3.0-only
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Changelog: releases
+# Changelog: past releases
+
+
+## Bonfire Community [1.0 beta (2026-07-27)]
+
+A new flavour of Bonfire for groups that need to organise together, not just post at each other: groups and topics, community rules, decision-making, events, shared organisation profiles and announcements, all in one space you can reshape block by block.
+
+**Read the full announcement: [Bonfire for communities](https://bonfirenetworks.org/posts/bonfire-for-communities/)**
+
+This is a 1.0 beta: everything here is ready to use and already running in real communities, but groups don't yet federate between instances. We're designing that in the open with the [W3C groups task force](https://github.com/swicg/groups/issues) so that groups work across the whole fediverse rather than only between Bonfire servers. Try it on [the campground](https://campground.bonfire.cafe), our open test instance.
+
+### Added
+
+- ✨ **Groups and topics**: spaces with their own membership, permissions and rules. Built on Bonfire's boundaries system, so a group can be a public forum, an announcement-only channel, a private invite-only room, or visible only to a particular circle, and you can change your mind later. Topics live inside groups and keep conversations from collapsing into one stream, and you can follow a whole group or just a single topic. Local-only for now (see above).
+
+- ✨ **Community rules**: both an instance and each group within it can set out their own shared expectations, so newcomers know what kind of space they're entering and moderators have something concrete to point to. Design draws on governance research with [Princeton HCI](https://hci.princeton.edu/) and [design workshops with fediverse organisers](https://doi.org/10.1145/3772318.3790855) published at CHI 2026.
+
+- ✨ **Decision-making**: tools ranging from quick polls to structured consensus, so a group can use the lightest process that fits the decision. Single or multiple choice polls; proposal and consensus, drawing on sociocratic practice (collect proposals, discuss and amend, integrate objections, then move forward); and weighted score voting, where voters rate each option rather than picking one, and objections can optionally count for more than approvals, up to outright blocking. Polls federate as ActivityPub `Question` polls, so people on Mastodon and elsewhere can take part. [`5f2d3bf`](https://github.com/bonfire-networks/bonfire-app/commit/5f2d3bfcbaaa26b5f508e11bc355d00fcdd9095d) 
+
+- ✨ **Events**: gatherings with calendar and list views for browsing what's coming up, built in cooperation with [Lauti](https://lauti.org/blog/lauti-updates-2026/#cooperation-with-bonfire), an open source community calendar, so events can be published and discovered across apps instead of locked inside one.
+
+- ✨ **Organisation profiles**: create a shared profile for a publication, collective, working group or moderation team, co-managed by several accounts. From the outside it behaves like any other profile (it posts, it can be followed, it federates as an ActivityPub `Organization`), but the people behind it can come and go without anyone handing over a password. [#2112](https://github.com/bonfire-networks/bonfire-app/issues/2112) 
+
+- ✨ **Ghost integration**: an API-level integration (webhooks and magic-link login) that syncs a publisher's members and membership tiers into their Bonfire space, with automatic article import, so articles arrive in the community as an invitation to discuss. See [the Ghost integration](https://bonfirenetworks.org/ghost/) 
+
+- ✨ **Archipelago mode**: allow-list federation, so moderators can choose which servers and people they federate with.
+
+
+## Bonfire Social [1.0.6 (2026-07-27)]
+
+A maintenance release for Bonfire Social, with one substantial improvement: we optimised the SQL queries behind [boundaries](https://bonfirenetworks.org/posts/introducing_boundaries/). Since boundaries decide who can see and do what, those queries run underneath nearly every page in the app, so feeds, threads, profiles and search are all considerably faster. Plus a round of design changes throughout.
+
+The bigger news is alongside it: see [Bonfire for communities](https://bonfirenetworks.org/posts/bonfire-for-communities/) for the new community flavour, and note that from now on community features are prioritised over social ones, though we'll keep maintaining Bonfire Social for instances that want to stay as they are.
+
+### Added
+
+- ✨ Follow your instance's theme: a new setting so your app follows the look your instance admin has chosen, instead of setting it yourself [#2120](https://github.com/bonfire-networks/bonfire-app/issues/2120) (thanks @ccamara and @ivanminutillo)
+- ✨ Custom previews for each media type in feeds, so audio, video and other files each get a preview that suits them [#1757](https://github.com/bonfire-networks/bonfire-app/issues/1757) (thanks @ivanminutillo)
+- 📝 Added systemd instructions for running Bonfire [`d846f49`](https://github.com/bonfire-networks/bonfire-app/commit/d846f493011aa693d62fbcf7e7c0857724d286dc) (thanks @ccamara)
+
+### Changed
+
+- 🚀 **Faster, nearly everywhere**: we optimised the database queries behind [boundaries](https://bonfirenetworks.org/posts/introducing_boundaries/). Every feed, thread and profile has to work out what you're allowed to see, so these queries run underneath almost everything, and speeding them up speeds up the whole app. [#2100](https://github.com/bonfire-networks/bonfire-app/issues/2100) (thanks @mayel)
+- 💅 **A refreshed, more flexible visual system**: Introduced a cohesive design system powered by reusable design tokens. This improves consistency across the interface and makes it easier to create and evolve distinct visual themes without rewriting component markup or utility classes. (thanks Andy King and @ivanminutillo)
+- 💅 Simplified the instance boundaries page, so who-can-do-what is easier to read at a glance [#587](https://github.com/bonfire-networks/bonfire-app/issues/587) (thanks @ivanminutillo and @mayel)
+- 💅 Improved the "most recent discussion" dashboard widget [#1164](https://github.com/bonfire-networks/bonfire-app/issues/1164) (thanks @ivanminutillo)
+- 💅 Opening a link to a comment now keeps your scroll position centred on that comment, instead of jumping [#652](https://github.com/bonfire-networks/bonfire-app/issues/652) (thanks @ivanminutillo)
+- 🌐 Improved translations and localisation (thanks @mayel and @ivanminutillo and Magdalena Berger and all the other translators!)
+- 📝 Updated the bare-metal (no root) install instructions [PR #2138](https://github.com/bonfire-networks/bonfire-app/pull/2138) (thanks @ccamara)
+
+### Fixed
+
+- 🐛 Fixed a broken `text` dependency on Erlang/OTP 28 [#2110](https://github.com/bonfire-networks/bonfire-app/issues/2110) (thanks @ju1m and @mayel)
+- 🐛 Instance metrics now display again [#2057](https://github.com/bonfire-networks/bonfire-app/issues/2057) (thanks @ccamara and @simonlpaige)
+- 🐛 Block and disable buttons now work in the instance members list in instance settings [#1873](https://github.com/bonfire-networks/bonfire-app/issues/1873) (thanks @mayel)
+- 🐛 After following an account that approves followers manually, the button now says "requested" rather than "following" [#1633](https://github.com/bonfire-networks/bonfire-app/issues/1633) (thanks @jonpincus and @mayel)
+
+
 
 ## Bonfire Social [1.0.5 (2026-06-30)]
 
