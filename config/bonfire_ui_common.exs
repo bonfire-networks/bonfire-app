@@ -179,7 +179,10 @@ config :iconify_ex,
   using_svg_inject: false,
   generated_icon_modules_path: "#{dep_path}/lib/components/icons",
   generated_icon_static_url: "/images/icons",
-  generated_icon_static_path: "#{dep_path}/assets/static/images/icons"
+  generated_icon_static_path: "#{dep_path}/assets/static/images/icons",
+  # alternative phosphor weights the icon style setting can switch to
+  # (each generates an icons-<weight>.css alongside icons.css)
+  weight_variants: %{"ph" => ["fill", "duotone", "light"]}
 
 config :surface, :components, [
   {Bonfire.UI.Common.Modular.StatelessComponent, propagate_context_to_slots: true},
