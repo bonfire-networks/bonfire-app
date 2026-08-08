@@ -240,7 +240,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # for extension install + mix tasks that do patching
         {
           :igniter,
-          "~> 0.7.9",
+          "~> 0.8",
           # path: "forks/igniter",
           # git: "https://github.com/ash-project/igniter",
           # only: [:dev, :test],
@@ -306,7 +306,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
         # security auditing
         # {:mix_audit, "~> 0.1", only: [:dev], runtime: false}
-        {:sobelow, "~> 0.14.0", only: :dev}
+        {:sobelow, "~> 0.15", only: :dev}
       ]
 
   @mess_opts [

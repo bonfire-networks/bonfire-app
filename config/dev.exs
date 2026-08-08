@@ -60,8 +60,10 @@ config :bonfire, Bonfire.Web.Endpoint,
       ]
     )
 
-if System.get_env("HOT_CODE_RELOAD") != "-1" do
-  enable_reloader? = System.get_env("HOT_CODE_RELOAD") != "0" and Mix.target() != :app
+hot_code_reload = System.get_env("HOT_CODE_RELOAD")
+
+if hot_code_reload not in ["-1", "-2"] do
+  enable_reloader? = hot_code_reload != "0" and Mix.target() != :app
 
   config :bonfire, :hot_code_reload, enable_reloader?
 
@@ -125,7 +127,11 @@ if System.get_env("HOT_CODE_RELOAD") != "-1" do
         live_view: hot_patterns
       ],
       web_console_logger: false
-    ],
+    ]
+end
+
+if hot_code_reload != "-2" do
+  config :bonfire, Bonfire.Web.Endpoint,
     watchers: [
       tailwind_sources: {Bonfire.UI.Common.TailwindSources, :generate, []},
       yarn: [
