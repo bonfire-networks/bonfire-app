@@ -1177,8 +1177,8 @@ ap_integration := ap_ext+"activity_pub_integration/"
 ap_boundaries := ap_ext+"boundaries/"
 # common excludes shared by the various "others"/fallback runners
 others_excludes := "--exclude ui --exclude browser --exclude backend --exclude ap_lib"
-# federation "others"/fallback: shares the common base but keeps federation tests, and drops the buckets with their own cmds (masto-api/openid)
-federation_others_excludes := others_excludes + " --exclude masto_api --exclude openid"
+# federation "others"/fallback: shares the common base but keeps federation tests, and drops the buckets with their own cmds (masto-api/openid); also keeps external-service :integration tests opt-in (like test_default_excludes does for the other suites)
+federation_others_excludes := others_excludes + " --exclude masto_api --exclude openid --exclude integration"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation TEST_CMD="test_run": _test-dance-positions

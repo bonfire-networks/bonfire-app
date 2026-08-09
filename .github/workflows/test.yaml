@@ -29,10 +29,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        flavour: ['social'] # 'community', 'cooperation'
-        test_only: ['backend', 'ui', 'federation-all'] 
-        otp: ['27.3.4.1'] # '26.2.5', '25.2.3'
-        elixir: ['1.18.3'] # '1.14.5' 
+        flavour: ['community'] # 'social', 'cooperation'
+        test_only: ['backend', 'ui', 'federation-all']
+        otp: ['29.0.5'] # keep in sync with .tool-versions
+        elixir: ['1.20.3'] # keep in sync with .tool-versions
         with_docker: ['easy']
         # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
     env:
@@ -96,8 +96,20 @@ jobs:
         git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
     - name: Prepare environment
       run: just config 
-    - name: Set things up 
+    - name: Set things up
       run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
+    - name: Prepare static assets
+      # copy-only (no JS build): committed statics for Plug.Static + NextGenImage tests, plus
+      # content-less stubs for the built JS/CSS (the cache-header tests assert headers, not content).
+      # NextGen.variants/1 scans priv/static/images at COMPILE time, so force bonfire_ui_common to
+      # recompile in case setup already compiled it before the images were in place.
+      run: |
+        UI_COMMON=$(test -d extensions/bonfire_ui_common && echo extensions/bonfire_ui_common || echo deps/bonfire_ui_common)
+        (cd "$UI_COMMON/assets" && yarn prepare.static)
+        mkdir -p priv/static/assets
+        echo '/* CI stub */' > priv/static/assets/bonfire_basic.js
+        echo '/* CI stub */' > priv/static/assets/bonfire_basic.css
+        rm -rf _build/*/lib/bonfire_ui_common
     - name: Run tests
       run: just test-${{matrix.test_only}}
     - name: Check database down migrations 
