@@ -336,8 +336,16 @@ if not Code.ensure_loaded?(Mess) do
     defp git(%{"branch" => "", "repo" => r}, p, runtime),
       do: pkg(p, git: r, override: true, runtime: runtime)
 
-    defp git(%{"branch" => b, "repo" => r}, p, runtime),
-      do: pkg(p, git: r, branch: b, override: true, runtime: runtime)
+    defp git(%{"branch" => b, "repo" => r}, p, runtime) do
+      # A `#<ref>` that is a full commit SHA must be passed to Mix as `ref:` (checked out directly). Passing
+      # it as `branch:` makes Mix run `git checkout origin/<sha>`, which never resolves (a SHA isn't a branch).
+      opts =
+        if Regex.match?(~r/^[0-9a-f]{40}$/, b),
+          do: [git: r, ref: b, override: true, runtime: runtime],
+          else: [git: r, branch: b, override: true, runtime: runtime]
+
+      pkg(p, opts)
+    end
 
     @doc """
     Constructs a dependency tuple.
