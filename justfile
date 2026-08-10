@@ -1041,11 +1041,11 @@ icons-uniq:
 
 # Push all changes to the app and extensions in ./forks
 contrib message='': _pre-push-hooks 
-	just contrib-forks-publish "{{message}}"
+	just contrib-forks "{{message}}"
 	just git-publish "." "pull" "commit" "{{message}}"
 
 # Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
-contrib-release: _pre-push-hooks contrib-forks-publish update contrib-app-release
+contrib-release: _pre-push-hooks contrib-forks update contrib-app-release
 
 # Rebase app's repo and push all changes to the app
 contrib-app-only: _pre-push-hooks update-repo git-publish
@@ -1057,7 +1057,7 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 @contrib-app-release-increment:
 	just escript_common release "./ $APP_VSN_EXTRA"
 
-contrib-forks-publish message='': 
+contrib-forks message='': 
 	(just git-fetch-all && just update-forks-all rebase "" "{{message}}") || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull "" "{{message}}")
 
 
