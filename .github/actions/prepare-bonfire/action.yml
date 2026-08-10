@@ -48,6 +48,8 @@ runs:
           _build
           extensions
           forks
+          config
+          !config/*/.env
         # include the toolchain in the key: a _build compiled under another OTP/Elixir is useless
         # (it all recompiles) and an exact hit would stop the fresh build being saved
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock') }}

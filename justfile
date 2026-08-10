@@ -125,11 +125,14 @@ setup:
 @_config_flavour_env_init flavour from to:
 	-cat {{from}}/templates/public.env {{from}}/templates/not_secret.env > {{to}}/$ENV_ENV/.env && echo "MIX_ENV=$MIX_ENV" >> {{to}}/$ENV_ENV/.env 
 
-# TODO: use as escript so entire app doesn't need to be compiled?
 @_flavour_install select_flavour *args='':
 	{{ if path_exists("extensions/"+select_flavour)=="true" { "chmod +x extensions/"+select_flavour+"/install.sh && ./extensions/"+select_flavour+"/install.sh "+args } else {"chmod +x deps/"+select_flavour+"/install.sh && ./deps/"+select_flavour+"/install.sh "+args } }}
 	@echo "Synchronizing themes..."
-	@just mix bonfire.sync_themes || echo "WARNING: Theme sync failed. You can run 'just mix bonfire.sync_themes' manually later."
+	@just sync-themes || echo "WARNING: Theme sync failed. You can run 'just sync-themes' manually later."
+
+# Sync DaisyUI themes from config into CSS. Runs as an escript so it needs no compiled app (it only reads config files and rewrites CSS), so the flavour installer can call it before anything is built.
+@sync-themes *args='':
+	{{ if path_exists("extensions/bonfire_ui_common")=="true" { "just escript extensions/bonfire_ui_common/lib/mix/tasks sync_themes "+args } else {"just escript deps/bonfire_ui_common/lib/mix/tasks sync_themes "+args } }}
 #{{ if CI == "true" { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install --yes" } else { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install" } }}
 # NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 
@@ -1128,7 +1131,7 @@ test-others path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` {{others_excludes}} --exclude federation `just test_default_excludes` {{args}}
 
 test_default_excludes:
-	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude rate_limit --exclude integration `just test_minimum_excludes`"
+	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude integration `just test_minimum_excludes`"
 
 test_minimum_excludes:
 	@echo "--exclude todo --exclude skip --exclude fixme --exclude benchmark"
@@ -1236,16 +1239,16 @@ test-federation-general *args=federation_others_excludes: services _test-dance-p
 
 # dance DB reset is now periodic, not per-run (per-test `clean_slate` + `reset_caches` handle intra-run isolation); run `just test-federation-dance-reset` (or `just _test-db-dance-reset`) periodically / after an interrupted run
 test-federation-dance *args=ap_ext: services _test-dance-positions
-	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
+	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 # note: also includes oauth
 test-federation-dance-unsigned *args='': services _test-dance-positions
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
+	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions
-	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --exclude rate_limit --only test_instance
+	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 # reset the dance DBs for the federation dance suite (use periodically / after interrupted runs)
