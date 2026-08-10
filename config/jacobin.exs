@@ -15,6 +15,7 @@ config :bonfire, :ui,
   ],
   hide_app_switcher: true,
   auth: [
+    email_signature: "Deine Jacobin-Redaktion",
     email_theme: [
       primary: "#e63027",
       primary_content: "#ffffff",
@@ -44,6 +45,34 @@ config :bonfire, :ui,
   ],
   themes_dark: [
     "dark"
+  ]
+
+# Transactional email copy. Any line left out here keeps `bonfire_me`'s own default, which is translated per recipient; anything set here is used as written, since `mix gettext.extract` can't see strings that live in config. Jacobin sends German, so the whole visible message is spelled out.
+config :bonfire, Bonfire.Me.Mails,
+  # Registration: signups come from subscriptions, so the generic
+  # "confirm your email" wording is replaced by a subscription welcome.
+  confirm_email: [
+    subject: "Dein Abo ist hiermit bestätigt",
+    intro:
+      "danke für dein Abonnement bei Jacobin. Damit unterstützt du unabhängigen kritischen Journalismus.",
+    intro_2:
+      "Unser System funktioniert passwortlos. Klicke einfach auf den folgenden Link, um Zugang zu Jacobin.social zu erhalten:",
+    cta: "Zugang erhalten",
+    disclaimer: "Wenn du dich nicht registriert hast, kannst du diese E-Mail einfach ignorieren.",
+    signoff: "Bis bald!",
+    signature: "Deine Jacobin-Redaktion",
+    paste_hint: "Du kannst diese URL auch kopieren und in deinem Browser einfügen:"
+  ],
+  # Passwordless sign-in link
+  login_link_email: [
+    subject: "Dein Login-Link für Jacobin.social",
+    intro: "klicke auf den folgenden Link, um dich bei Jacobin.social anzumelden:",
+    cta: "Anmelden",
+    disclaimer:
+      "Aus Sicherheitsgründen läuft dieser Link nach 24 Stunden ab. Wenn du diese Anmeldung nicht angefordert hast, kannst du diese E-Mail einfach ignorieren.",
+    signoff: "Bis bald!",
+    signature: "Deine Jacobin-Redaktion",
+    paste_hint: "Du kannst diese URL auch kopieren und in deinem Browser einfügen:"
   ]
 
 config :bonfire_ui_common, Bonfire.UI.Common.AvatarLive,
@@ -93,8 +122,7 @@ config :bonfire_ui_social, Bonfire.UI.Social.RestrictedContentLive,
 config :bonfire_ui_social, Bonfire.UI.Social.WidgetGettingStartedLive,
   actions: [:profile, :first_post, :first_follow, :read_coc, :wishes],
   code_of_conduct_path: "/conduct",
-  # TODO: replace placeholder with the real form URL once decided
-  wishes_url: "https://example.com/wishes"
+  wishes_url: "https://heyform-mglx.srv1627781.hstgr.cloud/form/7JpSZJ6H"
 
 # Ghost webhook verification needs the raw JSON body for HMAC. BodyReader
 # wraps `ActivityPub.Web.Plugs.DigestPlug.read_body/2` (so AP digests keep

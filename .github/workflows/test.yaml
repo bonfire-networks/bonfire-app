@@ -19,8 +19,48 @@ jobs:
     with:
       file: mix.lock
 
-  test:
+  # Compile + install the flavour ONCE, populating the cache the test matrix restores, so the three
+  # suites don't each pay for (and log) the same full build. Uses the same composite action they do.
+  prepare:
     needs: check_file_changed
+    if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    name: prepare flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
+    strategy:
+      fail-fast: false
+      matrix:
+        flavour: ['community'] # 'social', 'cooperation'
+        otp: ['29.0.5'] # keep in sync with .tool-versions
+        elixir: ['1.20.3'] # keep in sync with .tool-versions
+        with_docker: ['easy']
+    env:
+      FLAVOUR: ${{matrix.flavour}}
+      WITH_DOCKER: ${{matrix.with_docker}}
+      CI: true
+      MIX_ENV: test
+      WITH_AI: "0"
+      WITH_LV_NATIVE: "0"
+      TEST_LOG_TRUNCATE: 340
+      POOL_SIZE: 30
+      TEST_LOG_LEVEL: warning
+      SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
+      SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
+      ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
+    steps:
+    - name: Cancel any already running test workflows
+      uses: styfle/cancel-workflow-action@0.13.1
+      with:
+        access_token: ${{ github.token }}
+    - uses: actions/checkout@v7
+    - uses: ./.github/actions/prepare-bonfire
+      with:
+        otp: ${{matrix.otp}}
+        elixir: ${{matrix.elixir}}
+        flavour: ${{matrix.flavour}}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    needs: [check_file_changed, prepare]
     if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
@@ -50,66 +90,14 @@ jobs:
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
     steps:
-    - name: Cancel any already running test workflows
-      uses: styfle/cancel-workflow-action@0.13.1
-      with:
-        access_token: ${{ github.token }}
-    - name: Add system repositories
-      run: |
-        sudo apt update
-        sudo apt install ca-certificates curl
-        sudo install -m 0755 -d /etc/apt/keyrings
-        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-        sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-        echo \
-          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-        sudo apt update
-    - name: Install system deps
-      run: sudo apt install git tar file make build-essential docker-compose-plugin && sudo snap install --edge just --classic
     - uses: actions/checkout@v7
-    - uses: erlef/setup-beam@v1
+    # same composite action the prepare job ran, so all three suites set up identically, here it restores prepare's cache, making setup a fast no-op instead of a full rebuild
+    - uses: ./.github/actions/prepare-bonfire
       with:
-        otp-version: ${{matrix.otp}}
-        elixir-version: ${{matrix.elixir}}
-    - name: Restore dependencies cache
-      uses: actions/cache@v6
-      id: cache
-      with:
-        path: |
-            deps
-            _build
-        key: ${{ runner.os }}-mix-${{ hashFiles('/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install hex
-      run: mix local.hex --force
-    - name: Install rebar
-      run: mix local.rebar --force
-    # - name: Fetch initial deps
-    #   run: just deps-get
-    - 
-      name: Configure Git authentication for GitHub
-      run: |
-        git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-    - name: Prepare environment
-      run: just config 
-    - name: Set things up
-      run: just pre-setup-dev && just _flavour_install ${{ env.FLAVOUR }} --yes && just _deps-post-get
-    - name: Prepare static assets
-      # copy-only (no JS build): committed statics for Plug.Static + NextGenImage tests, plus
-      # content-less stubs for the built JS/CSS (the cache-header tests assert headers, not content).
-      # NextGen.variants/1 scans priv/static/images at COMPILE time, so force bonfire_ui_common to
-      # recompile in case setup already compiled it before the images were in place.
-      run: |
-        UI_COMMON=$(test -d extensions/bonfire_ui_common && echo extensions/bonfire_ui_common || echo deps/bonfire_ui_common)
-        (cd "$UI_COMMON/assets" && yarn prepare.static)
-        mkdir -p priv/static/assets
-        echo '/* CI stub */' > priv/static/assets/bonfire_basic.js
-        echo '/* CI stub */' > priv/static/assets/bonfire_basic.css
-        rm -rf _build/*/lib/bonfire_ui_common
+        otp: ${{matrix.otp}}
+        elixir: ${{matrix.elixir}}
+        flavour: ${{matrix.flavour}}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
       run: just test-${{matrix.test_only}}
     - name: Check database down migrations 

@@ -1,0 +1,82 @@
+name: Prepare Bonfire
+description: Install system + BEAM toolchain, restore/populate the deps & build cache, install the flavour, and stage static assets. Shared by the prepare job and every test matrix job so they all use identical setup.
+
+inputs:
+  otp:
+    description: OTP version
+    required: true
+  elixir:
+    description: Elixir version
+    required: true
+  flavour:
+    description: Bonfire flavour to install
+    required: true
+  github-token:
+    description: Token used to authenticate git fetches of GitHub deps
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Add system repositories
+      shell: bash
+      run: |
+        sudo apt update
+        sudo apt install ca-certificates curl
+        sudo install -m 0755 -d /etc/apt/keyrings
+        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        sudo apt update
+    - name: Install system deps
+      shell: bash
+      run: sudo apt install git tar file make build-essential docker-compose-plugin && sudo snap install --edge just --classic
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: ${{ inputs.otp }}
+        elixir-version: ${{ inputs.elixir }}
+    - name: Restore dependencies cache
+      uses: actions/cache@v6
+      with:
+        path: |
+          deps
+          _build
+          extensions
+          forks
+        # include the toolchain in the key: a _build compiled under another OTP/Elixir is useless
+        # (it all recompiles) and an exact hit would stop the fresh build being saved
+        key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock') }}
+        restore-keys: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-
+    - name: Install hex
+      shell: bash
+      run: mix local.hex --force
+    - name: Install rebar
+      shell: bash
+      run: mix local.rebar --force
+    - name: Configure Git authentication for GitHub
+      shell: bash
+      run: git config --global url."https://${{ inputs.github-token }}@github.com/".insteadOf "https://github.com/"
+    - name: Prepare environment
+      shell: bash
+      run: just config
+    - name: Set things up
+      shell: bash
+      run: just pre-setup-dev && just _flavour_install ${{ inputs.flavour }} --yes && just _deps-post-get
+    - name: Prepare static assets
+      shell: bash
+      # copy-only (no JS build): committed statics for Plug.Static + NextGenImage tests, plus
+      # content-less stubs for the built JS/CSS (the cache-header tests assert headers, not content).
+      # NextGen.variants/1 scans priv/static/images at COMPILE time, so force bonfire_ui_common to
+      # recompile in case setup already compiled it before the images were in place.
+      run: |
+        UI_COMMON=$(test -d extensions/bonfire_ui_common && echo extensions/bonfire_ui_common || echo deps/bonfire_ui_common)
+        (cd "$UI_COMMON/assets" && yarn prepare.static)
+        mkdir -p priv/static/assets
+        echo '/* CI stub */' > priv/static/assets/bonfire_basic.js
+        echo '/* CI stub */' > priv/static/assets/bonfire_basic.css
+        rm -rf _build/*/lib/bonfire_ui_common

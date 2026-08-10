@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Add any extensions/deps with a package.json in their /assets directory here
 # NOTE: any LV Hooks should also be added to ./deps.hooks.js
