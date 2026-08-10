@@ -41,8 +41,8 @@ DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if ARCH == "aarch64" { 
 # GRAPH_DB_URL := if WITH_DOCKER != "total" { env_var_or_default('GRAPH_DB_URL', "bolt://localhost:7687") } else { env_var_or_default('GRAPH_DB_URL', "bolt://graph:7687") } 
 
 ## Other configs - edit these here if necessary
-EXT_PATH := "extensions/"
-EXTRA_FORKS_PATH := "forks/"
+CLONES_EXTENSIONS_PATH := "extensions/"
+CLONES_EXTRA_PATH := "forks/"
 APP_VSN_EXTRA := "beta"
 APP_REL_DOCKERFILE :="Dockerfile.release"
 APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
@@ -283,7 +283,7 @@ dev-run services="db search" *args='':
 # TODO: pass args to docker as well
 
 @dev-remote: init
-	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_FORKS=0" } else { "WITH_FORKS=0 iex -S mix phx.server" } }}
+	{{ if WITH_DOCKER == "total" { "just dev-docker -e WITH_CLONES=0" } else { "WITH_CLONES=0 iex -S mix phx.server" } }}
 
 @dev-app: init
 	cd rel/app/macos && ./run.sh
@@ -827,7 +827,7 @@ db-rollback-all: services
 #### UPDATE COMMANDS ####
 
 # Update the dev app and all dependencies/extensions/forks, and run migrations
-update: _pre_init update-repo prepare update-forks update-deps js-deps-fetch
+update: _pre_init update-repo prepare update-clones update-deps js-deps-fetch
 	just deps-get
 	just _deps-post-get
 #   just mix compile
@@ -865,7 +865,7 @@ update-deps-bonfire:
 update-deps-all: _pre-update-deps
 	just update-deps-js
 	just _assets-ln
-	just update-forks
+	just update-clones
 	COMPILE_DISABLED_EXTENSIONS=all just mix-remote "deps.update --all"
 	just _deps-post-get
 	just js-ext-deps outdated
@@ -887,18 +887,18 @@ update-dep-simple dep:
 	just update-fork $dep pull
 	COMPILE_DISABLED_EXTENSIONS=all just mix-remote "deps.update $dep"
 
-# Pull the latest commits from all forks
-@update-forks:
-	(just git-fetch-all && just update-forks-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull)
+# Pull the latest commits from all clones
+@update-clones:
+	(just git-fetch-all && just update-clones-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-clones-all pull)
 
-update-forks-all cmd='pull' extra='' message='':
-	just update-fork-path $EXT_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
-	just update-fork-path $EXTRA_FORKS_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
+update-clones-all cmd='pull' extra='' message='':
+	just update-fork-path $CLONES_EXTENSIONS_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
+	just update-fork-path $CLONES_EXTRA_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
 
-# Pull the latest commits from all forks
+# Pull the latest commits from all clones
 update-fork dep cmd='pull' extra='' mindepth='0' maxdepth='0':
-	-just update-fork-path $EXT_PATH/{{dep}} {{cmd}} {{mindepth}} {{maxdepth}} {{extra}}
-	-just update-fork-path $EXTRA_FORKS_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
+	-just update-fork-path $CLONES_EXTENSIONS_PATH/{{dep}} {{cmd}} {{mindepth}} {{maxdepth}} {{extra}}
+	-just update-fork-path $CLONES_EXTRA_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
 
 update-fork-path path cmd='pull' mindepth='0' maxdepth='1' extra='' message='':
 	@chmod +x git-publish.sh
@@ -972,8 +972,8 @@ dep-clean dep:
 
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 dep-clone-local dep repo:
-	git clone {{repo}} {{EXT_PATH}}{{dep}} 2> /dev/null || (cd {{EXT_PATH}}{{dep}} ; git pull)
-	echo "Remember to add this to ./config/current_flavour/deps.path: {{dep}} = \"{{EXT_PATH}}{{dep}}\""
+	git clone {{repo}} {{CLONES_EXTENSIONS_PATH}}{{dep}} 2> /dev/null || (cd {{CLONES_EXTENSIONS_PATH}}{{dep}} ; git pull)
+	echo "Remember to add this to ./config/current_flavour/deps.path: {{dep}} = \"{{CLONES_EXTENSIONS_PATH}}{{dep}}\""
 # just dep-go-local dep=$dep
 
 # Clone all bonfire deps / extensions
@@ -982,7 +982,7 @@ deps-clone-local-all:
 
 # Switch to using a local path, eg: just dep.go.local needle
 # dep-go-local dep:
-# 	just dep-go-local-path $dep $EXT_PATH$dep
+# 	just dep-go-local-path $dep $CLONES_EXTENSIONS_PATH$dep
 
 # Switch to using a local path, specifying the path, eg: just dep.go.local dep=needle path=./libs/needle
 # dep-go-local-path dep path:
@@ -1039,13 +1039,13 @@ _pre-contrib-hooks: config_follow_symlinks
 icons-uniq:
 	sort -u -o assets/static/images/icons/icons.css assets/static/images/icons/icons.css
 
-# Push all changes to the app and extensions in ./forks
+# Push all changes to the app and clones
 contrib message='': _pre-push-hooks 
-	just contrib-forks "{{message}}"
+	just contrib-clones "{{message}}"
 	just git-publish "." "pull" "commit" "{{message}}"
 
-# Push all changes to the app and extensions in forks, increment the app version number, and push a new version/release
-contrib-release: _pre-push-hooks contrib-forks update contrib-app-release
+# Push all changes to the app and extensions in clones, increment the app version number, and push a new version/release
+contrib-release: _pre-push-hooks contrib-clones update contrib-app-release
 
 # Rebase app's repo and push all changes to the app
 contrib-app-only: _pre-push-hooks update-repo git-publish
@@ -1057,8 +1057,8 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 @contrib-app-release-increment:
 	just escript_common release "./ $APP_VSN_EXTRA"
 
-contrib-forks message='': 
-	(just git-fetch-all && just update-forks-all rebase "" "{{message}}") || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-forks-all pull "" "{{message}}")
+contrib-clones message='': 
+	(just git-fetch-all && just update-clones-all rebase "" "{{message}}") || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-clones-all pull "" "{{message}}")
 
 
 contrib-rel-push: contrib-release rel-build rel-push
@@ -1067,26 +1067,26 @@ contrib-rel-push: contrib-release rel-build rel-push
 cloc:
 	cloc lib config extensions/*/lib extensions/*/test test
 
-# Fetch latest remote commits from all extensions/forks git repos (does not checkout or rebase though)
+# Fetch latest remote commits from all clones / git repos (does not checkout or rebase though)
 git-fetch-all:
   just escript_dep jungle
 # jungle git fetch || just escript_dep jungle # ^ experimental: replaced racket script with escript
 
 # Run the git add command on each fork
-git-forks-add: deps-git-fix
-	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
+git-clones-add: deps-git-fix
+	find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
 # Run a git status on each fork
-git-forks-status:
-	@jungle git status || find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
+git-clones-status:
+	@jungle git status || find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
 
-# Run a git command on each fork (eg. `just git-forks pull` pulls the latest version of all local deps from its git remote
-git-forks command:
-	@find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
+# Run a git command on each fork (eg. `just git-clones pull` pulls the latest version of all local deps from its git remote
+git-clones command:
+	@find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
 
-# List all diffs in forks
+# List all diffs in clones
 git-diff:
-	@find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
+	@find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
 
 # Run a git command on each dep, to ignore chmod changes
 deps-git-fix:
@@ -1097,9 +1097,9 @@ deps-git-fix:
 @git-merge branch:
 	git merge --no-ff --no-commit $branch
 
-# Find any git conflicts in forks
+# Find any git conflicts in clones
 @git-conflicts:
-	find $EXT_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
+	find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
 @git-publish dir='.' cmd='pull' extra='' message='':
 	chmod +x git-publish.sh
@@ -1138,7 +1138,7 @@ test-stale path='' *args='': services
 	@echo "Testing with {{args}}..."
 	MIX_ENV=test just mix test  `just test_convert_path {{path}}`  --stale {{args}}
 
-# Run tests (ignoring changes in local forks)
+# Run tests (ignoring changes in local clones)
 test-remote path='' *args='': services
 	@echo "Testing with {{args}}..."
 	MIX_ENV=test just mix-remote test  `just test_convert_path {{path}}`  {{args}}
@@ -1362,15 +1362,15 @@ rel-config: config _rel_init _rel-prepare
 
 # Build the Docker image (with no caching)
 rel-rebuild:
-	just rel-build {{EXT_PATH}} --no-cache
+	just rel-build {{CLONES_EXTENSIONS_PATH}} --no-cache
 
-# Build the Docker image (NOT including changes to local forks)
+# Build the Docker image (NOT including changes to local clones)
 rel-build ARGS="":
-	@echo "Please note that the build will not include any changes in forks that haven't been committed and pushed, you may want to run just contrib-release first."
+	@echo "Please note that the build will not include any changes in clones that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build-with-opts remote {{ ARGS }}
 
 rel-build-with-clones ARGS="":
-	@echo "Please note that the build will include changes in forks that haven't been committed and pushed."
+	@echo "Please note that the build will include changes in clones that haven't been committed and pushed."
 	@just rel-build-with-opts local {{ ARGS }}
 
 # Build the release
@@ -1408,9 +1408,9 @@ rel-mix USE_EXT="local" ARGS="":
 
 # Build the Docker image
 @rel-build-docker USE_EXT="local" ARGS="": _rel_init _rel-prepare assets-prepare
-	just docker-cmd just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {EXT_PATH} }} {{ ARGS }} 
+	just docker-cmd just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {CLONES_EXTENSIONS_PATH} }} {{ ARGS }} 
 
-rel-build-path FORKS_TO_COPY_PATH ARGS="":
+rel-build-path CLONES_PATH_TO_COPY ARGS="":
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{ARCH}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR=$FLAVOUR \
@@ -1420,7 +1420,7 @@ rel-build-path FORKS_TO_COPY_PATH ARGS="":
 		--build-arg ALPINE_VERSION=$ALPINE_VERSION \
 		--build-arg ELIXIR_DOCKER_IMAGE=$ELIXIR_DOCKER_IMAGE \
 		--build-arg RUSTLER_BUILD_ALL=$RUSTLER_BUILD_ALL \
-		--build-arg FORKS_TO_COPY_PATH={{ FORKS_TO_COPY_PATH }} \
+		--build-arg CLONES_PATH_TO_COPY={{ CLONES_PATH_TO_COPY }} \
 		-t $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{ARCH}}  \
 		-f $APP_REL_DOCKERFILE .
 	@echo Build complete, tagged as: $APP_DOCKER_REPO:release-$FLAVOUR-$APP_VSN-$APP_BUILD-{{ARCH}}
@@ -1638,10 +1638,10 @@ shell:
 @mix-maybe-prod-pre-release *args='':
 	{{ if path_exists("./_build/prod/rel/bonfire/bin/bonfire")=="true" { "echo 'Ignoring mix commands since we already have a prod release (delete _build/prod/rel/bonfire/bin/bonfire if you want to build a new release)'" } else { "just cmd mix $args" } }}
 
-# Run a specific mix command, while ignoring any deps cloned into forks, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
+# Run a specific mix command, while ignoring any deps cloned into clones, eg: `just mix-remote deps.get` or `just mix-remote deps.update needle`
 mix-remote *args='': 
-	echo % WITH_FORKS=0 mix {{args}}
-	{{ if WITH_DOCKER == "total" { "just docker-compose run -e WITH_FORKS=0 web mix $args" } else {"WITH_FORKS=0 mix $args"} }}
+	echo % WITH_CLONES=0 mix {{args}}
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e WITH_CLONES=0 web mix $args" } else {"WITH_CLONES=0 mix $args"} }}
 
 xref-dot:
 	just mix xref graph --format dot --include-siblings

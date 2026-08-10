@@ -15,7 +15,7 @@ defmodule Bonfire.Umbrella.MixProject do
   no? = ~w(false no none 0)
 
   # we only optionally behave as an umbrella im dev/test env
-  use_local_forks? = System.get_env("WITH_FORKS", "1") in yes?
+  use_local_clones? = System.get_env("WITH_CLONES", "1") in yes?
   include_git_deps? = System.get_env("WITH_GIT_DEPS", "1") in yes?
   ext_forks_path = Mixer.forks_path()
 
@@ -23,7 +23,7 @@ defmodule Bonfire.Umbrella.MixProject do
   flavour_local? = File.exists?("#{ext_forks_path}/#{flavour}")
 
   use_umbrella? =
-    Mix.env() == :dev and use_local_forks? and System.get_env("AS_UMBRELLA") == "1"
+    Mix.env() == :dev and use_local_clones? and System.get_env("AS_UMBRELLA") == "1"
 
   @umbrella_path if use_umbrella?, do: ext_forks_path, else: nil
 
@@ -33,7 +33,7 @@ defmodule Bonfire.Umbrella.MixProject do
   main_deps =
     if include_git_deps? do
       [
-        if(base_flavour_local? and use_local_forks?,
+        if(base_flavour_local? and use_local_clones?,
           do:
             {base_flavour_atom,
              path: Path.join(ext_forks_path, base_flavour),
@@ -46,7 +46,7 @@ defmodule Bonfire.Umbrella.MixProject do
       ] ++
         if flavour != base_flavour do
           [
-            if(flavour_local? and use_local_forks?,
+            if(flavour_local? and use_local_clones?,
               do:
                 {flavour_atom,
                  path: Path.join(ext_forks_path, flavour),
@@ -313,7 +313,7 @@ defmodule Bonfire.Umbrella.MixProject do
     flavour: flavour_atom,
     config_dir: "config/",
     base_flavour: base_flavour_atom,
-    use_local_forks?: use_local_forks?,
+    use_local_clones?: use_local_clones?,
     use_umbrella?: use_umbrella?,
     umbrella_root?: use_umbrella?,
     umbrella_path: @umbrella_path

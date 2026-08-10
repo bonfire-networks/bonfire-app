@@ -36,7 +36,7 @@ config :bonfire, Bonfire.Common.Repo,
 
 config :live_debugger, disabled?: System.get_env("DISABLE_LIVE_DEBUGGER") in yes?
 
-# if System.get_env("WITH_FORKS", "1") == "1" , do:
+# if System.get_env("WITH_CLONES", "1") == "1" , do:
 # Mess.deps(
 #   [path: Path.relative_to_cwd("config/deps.path")],
 #   []
@@ -72,7 +72,7 @@ if hot_code_reload not in ["-1", "-2"] do
       do:
         Mess.read_umbrella(
           config_dir: if(File.exists?("config/deps.git"), do: "config/", else: "./"),
-          use_local_forks?: System.get_env("WITH_FORKS", "1") == "1"
+          use_local_forks?: System.get_env("WITH_CLONES", "1") == "1"
         ),
       else: []
 

@@ -49,7 +49,7 @@ if not Code.ensure_loaded?(Mess) do
       opts =
         opts
         |> Keyword.put_new_lazy(:use_local_forks?, fn ->
-          System.get_env("WITH_FORKS", "1") == "1"
+          System.get_env("WITH_CLONES", "1") == "1"
         end)
 
       opts =

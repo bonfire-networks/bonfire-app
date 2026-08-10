@@ -9,7 +9,7 @@ FROM ${ELIXIR_DOCKER_IMAGE} as builder
 
 ARG FLAVOUR
 ARG FLAVOUR_PATH
-ARG FORKS_TO_COPY_PATH
+ARG CLONES_PATH_TO_COPY
 ARG WITH_AI
 ARG WITH_IMAGE_VIX
 ARG WITH_API_GRAPHQL
@@ -46,8 +46,8 @@ COPY --link mix.lock ./
 
 # Optionally include local forks
 # COPY --link data/deps*path ./config/ 
-# RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./flavours/*/config/deps*path ; else echo "Include locally forked extensions." ; fi 
-# COPY --link ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
+# RUN if [ "$CLONES_PATH_TO_COPY" = "data/null" ] ; then rm ./config/deps*path && rm ./flavours/*/config/deps*path ; else echo "Include locally forked extensions." ; fi 
+# COPY --link ${CLONES_PATH_TO_COPY} ./${CLONES_PATH_TO_COPY}
 
 # to skip / speed up re-downloading of deps
 COPY --link deps ./deps
@@ -57,7 +57,7 @@ COPY --link deps ./deps
 
 # RUN ls -la config/*
 # # Compile initial hex deps, only if we're not using forks (warning: this makes the assumption that no Bonfire extensions are coming from Hex. otherwise this should be done only after copying config)
-# RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then MIX_ENV=prod mix deps.compile ; else echo "Skip" ; fi 
+# RUN if [ "$CLONES_PATH_TO_COPY" = "data/null" ] ; then MIX_ENV=prod mix deps.compile ; else echo "Skip" ; fi 
 
 # # add flavour's git deps (typically Bonfire extensions)
 # COPY --link data/current_flavour/deps*git ./config/
@@ -92,8 +92,8 @@ RUN ls -la ./config/current_flavour/
 
 
 # Optionally include local forks
-RUN if [ "$FORKS_TO_COPY_PATH" = "data/null" ] ; then rm ./config/deps*path && rm ./config/current_flavour/deps*path ; else echo "Include locally forked extensions." ; fi || echo "No forks defined"
-COPY --link ${FORKS_TO_COPY_PATH} ./${FORKS_TO_COPY_PATH}
+RUN if [ "$CLONES_PATH_TO_COPY" = "data/null" ] ; then rm ./config/deps*path && rm ./config/current_flavour/deps*path ; else echo "Include locally forked extensions." ; fi || echo "No forks defined"
+COPY --link ${CLONES_PATH_TO_COPY} ./${CLONES_PATH_TO_COPY}
 
 # Update Bonfire extensions to latest git version (mostly useful in CI, and temporary: eventually we want to rely on version numbers and lockfile)
 # RUN mix bonfire.deps.update

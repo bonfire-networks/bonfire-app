@@ -143,7 +143,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     end
 
     def mess_sources(flavour) do
-      mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
+      mess_source_files(System.get_env("WITH_CLONES", "1"), System.get_env("WITH_GIT_DEPS", "1"))
       |> maybe_all_flavour_sources(flavour, System.get_env("WITH_ALL_FLAVOUR_DEPS", "1"))
 
       # |> log(label: "messy")
@@ -151,7 +151,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     # def mess_other_flavour_deps(current_flavour \\ System.get_env("FLAVOUR", "ember")) do
     #   current_flavour_sources =
-    #     mess_source_files(System.get_env("WITH_FORKS", "1"), System.get_env("WITH_GIT_DEPS", "1"))
+    #     mess_source_files(System.get_env("WITH_CLONES", "1"), System.get_env("WITH_GIT_DEPS", "1"))
 
     #   current_flavour_deps =
     #     enum_mess_sources(current_flavour_sources)
@@ -195,7 +195,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     # def other_flavour_sources(
     #       existing_sources \\ mess_source_files(
-    #         System.get_env("WITH_FORKS", "1"),
+    #         System.get_env("WITH_CLONES", "1"),
     #         System.get_env("WITH_GIT_DEPS", "1")
     #       ),
     #       current_flavour \\ System.get_env("FLAVOUR", "ember")
