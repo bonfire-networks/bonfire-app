@@ -782,6 +782,10 @@ dev-bg: init
 	{{ if WITH_DOCKER == "total" { "just docker-stop-web && just docker-compose run --detach --name $WEB_CONTAINER --service-ports web elixir -S mix phx.server" } else { 'elixir --erl "-detached" -S mix phx.server && echo "Running in background..." && (ps au | grep beam)' } }}
 
 # Run latest database migrations (eg. after adding/upgrading an app/extension)
+# Create the database if it doesn't exist yet. Normally unnecessary (the app creates it at boot, which is how the test DB comes into being during `just test`), but needed by anything that talks to the DB WITHOUT booting the app — e.g. the CI down-migrations check.
+db-create: services
+	just mix "ecto.create --quiet"
+
 db-migrate: services
 	just mix "ecto.migrate"
 #	just mix "excellent_migrations.migrate"
@@ -1181,7 +1185,7 @@ ap_boundaries := ap_ext+"boundaries/"
 # common excludes shared by the various "others"/fallback runners
 others_excludes := "--exclude ui --exclude browser --exclude backend --exclude ap_lib"
 # federation "others"/fallback: shares the common base but keeps federation tests, and drops the buckets with their own cmds (masto-api/openid); also keeps external-service :integration tests opt-in (like test_default_excludes does for the other suites)
-federation_others_excludes := others_excludes + " --exclude masto_api --exclude openid --exclude integration"
+federation_others_excludes := others_excludes + " --exclude masto_api --exclude masto_api_coverage --exclude openid --exclude integration"
 # ap_two := "forks/bonfire_federate_activitypub/test/dance"
 
 test-federation TEST_CMD="test_run": _test-dance-positions

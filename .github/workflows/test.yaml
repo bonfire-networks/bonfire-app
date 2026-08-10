@@ -103,7 +103,7 @@ jobs:
     - name: Check database down migrations
       if: matrix.test_only == 'db-down-migrations'
       # create + migrate first: the test DB is normally brought into being by the app booting during `mix test`, but this job runs no tests, so without ecto.create `ecto.rollback` finds no database
-      run: just mix "ecto.create --quiet" && just db-migrate && just db-rollback-all
+      run: just db-create && just db-migrate && just db-rollback-all
 
   # This job summarizes the test results and sets an output for downstream workflows
   test_success:
