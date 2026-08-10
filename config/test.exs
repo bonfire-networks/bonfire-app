@@ -33,6 +33,9 @@ config :bonfire_common, Bonfire.Common.Settings.IdCutoffs,
 # use DB based search in tests by default
 config :bonfire_search, adapter: nil
 
+# Tests run as a rolled-out instance: write feed-addressing ON, matching the read side 
+config :bonfire_social, Bonfire.Social.Feeds, feed_addressing: true
+
 ## Other general test config
 
 log_level = String.to_existing_atom(System.get_env("TEST_LOG_LEVEL", "info"))

@@ -42,7 +42,7 @@ jobs:
       WITH_LV_NATIVE: "0"
       TEST_LOG_TRUNCATE: 340
       POOL_SIZE: 30
-      TEST_LOG_LEVEL: warning
+      TEST_LOG_LEVEL: notice
       SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
@@ -64,13 +64,12 @@ jobs:
     if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
-    outputs:
-      tests_passed: ${{ steps.set_test_success.outputs.tests_passed }}
     strategy:
       fail-fast: false
       matrix:
         flavour: ['community'] # 'social', 'cooperation'
-        test_only: ['backend', 'ui', 'federation-all']
+        # `db-down-migrations` is not a test suite: it's the rollback check, run as its own matrix job so a failing down-migration doesn't show a passing test suite as red (and vice versa)
+        test_only: ['backend', 'ui', 'federation-all', 'db-down-migrations']
         otp: ['29.0.5'] # keep in sync with .tool-versions
         elixir: ['1.20.3'] # keep in sync with .tool-versions
         with_docker: ['easy']
@@ -85,7 +84,7 @@ jobs:
       WITH_LV_NATIVE: "0"
       TEST_LOG_TRUNCATE: 340
       POOL_SIZE: 30
-      TEST_LOG_LEVEL: warning
+      TEST_LOG_LEVEL: notice
       SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
@@ -99,12 +98,12 @@ jobs:
         flavour: ${{matrix.flavour}}
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
+      if: matrix.test_only != 'db-down-migrations'
       run: just test-${{matrix.test_only}}
-    - name: Check database down migrations 
-      run: just db-rollback-all
-    - name: Set test success output
-      id: set_test_success
-      run: echo "tests_passed=true" >> $GITHUB_OUTPUT
+    - name: Check database down migrations
+      if: matrix.test_only == 'db-down-migrations'
+      # migrate first: this job runs no tests, so nothing else has brought the DB up to date
+      run: just db-migrate && just db-rollback-all
 
   # This job summarizes the test results and sets an output for downstream workflows
   test_success:
