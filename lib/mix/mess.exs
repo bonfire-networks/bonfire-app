@@ -31,7 +31,7 @@ if not Code.ensure_loaded?(Mess) do
     def deps(sources \\ nil, extra_deps, opts \\ []) do
       opts = opts(opts)
 
-      (sources || sources(opts[:use_local_forks?]))
+      (sources || sources(opts[:use_local_clones?]))
       |> enum_deps()
       |> deps_packages(extra_deps, opts)
     end
@@ -43,19 +43,19 @@ if not Code.ensure_loaded?(Mess) do
     def sources(_), do: [git: "deps.git", hex: "deps.hex"]
 
     @doc """
-    Prepares the options by adding default values for `use_local_forks?`, `use_umbrella?`, and `umbrella_path`.
+    Prepares the options by adding default values for `use_local_clones?`, `use_umbrella?`, and `umbrella_path`.
     """
     def opts(opts) do
       opts =
         opts
-        |> Keyword.put_new_lazy(:use_local_forks?, fn ->
+        |> Keyword.put_new_lazy(:use_local_clones?, fn ->
           System.get_env("WITH_CLONES", "1") == "1"
         end)
 
       opts =
         opts
         |> Keyword.put_new_lazy(:use_umbrella?, fn ->
-          System.get_env("MIX_ENV", "dev") == "dev" and opts[:use_local_forks?] and
+          System.get_env("MIX_ENV", "dev") == "dev" and opts[:use_local_clones?] and
             System.get_env("AS_UMBRELLA") == "1"
         end)
 
@@ -235,7 +235,7 @@ if not Code.ensure_loaded?(Mess) do
         opts
         |> Keyword.put(:umbrella_only, true)
 
-      if opts[:use_local_forks?] and File.exists?(path) do
+      if opts[:use_local_clones?] and File.exists?(path) do
         [path, "#{config_dir}current_flavour/deps.path"]
         |> Enum.flat_map(&maybe_read(&1, :path))
         |> Enum.flat_map(fn dep ->
@@ -253,7 +253,7 @@ if not Code.ensure_loaded?(Mess) do
 
         # |> Enum.reject(&is_nil/1)
       else
-        if opts[:use_local_forks?], do: IO.warn("could not load #{path}")
+        if opts[:use_local_clones?], do: IO.warn("could not load #{path}")
         []
       end
     end

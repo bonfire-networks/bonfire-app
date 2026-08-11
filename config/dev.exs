@@ -72,7 +72,7 @@ if hot_code_reload not in ["-1", "-2"] do
       do:
         Mess.read_umbrella(
           config_dir: if(File.exists?("config/deps.git"), do: "config/", else: "./"),
-          use_local_forks?: System.get_env("WITH_CLONES", "1") == "1"
+          use_local_clones?: System.get_env("WITH_CLONES", "1") == "1"
         ),
       else: []
 

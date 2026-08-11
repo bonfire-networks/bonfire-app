@@ -1635,7 +1635,15 @@ shell:
 	echo % mix {{args}}
 	{{ if MIX_ENV == "prod" { "just mix-maybe-prod $args" } else { "just cmd mix $args" } }}
 
-@mix-eval *args='': 
+# Run a one-off .exs script against the app, with it started so runtime registries (Needle.Tables, ExtensionBehaviour, config) are populated: `just script /tmp/probe.exs`
+@script path *args='':
+	just mix run {{path}} {{args}}
+
+# Same but without starting the app, for probing compile-time state: `just script-no-start /tmp/probe.exs`
+@script-no-start path *args='':
+	just mix run --no-start {{path}} {{args}}
+
+@mix-eval *args='':
 	echo % mix eval "{{args}}"
 	{{ if MIX_ENV == "prod" {"echo Skip"} else { 'mix eval "$args"' } }}
 
@@ -1678,10 +1686,29 @@ bill-of-materials:
 
 # Extract strings to-be-localised from the app and installed extensions
 localise-extract:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	shopt -s nullglob
 	AS_UMBRELLA=1 just mix deps.get
-	cd priv/localisation/ && for f in *.po; do mv -- "$f" "${f%.po}.pot" || echo "skip"; done
+	dir="priv/localisation"
+	build="_build/${MIX_ENV:-dev}/lib"
+	backup=$(mktemp -d)
+	msgs() { grep -c '^msgid ' "$1" || true; }
+	# gettext empties any .pot it finds no messages for, so only hand over domains in this build, and restore anything emptied regardless (`_build` can hold stale dirs from a previously built flavour)
+	cp "$dir"/*.po "$backup/"
+	for f in "$dir"/*.po; do
+		if [ -d "$build/$(basename "$f" .po)" ]; then mv -- "$f" "${f%.po}.pot"; fi
+	done
 	AS_UMBRELLA=1 MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just mix gettext.extract
-	cd priv/localisation/ && for f in *.pot; do mv -- "$f" "${f%.pot}.po"; done
+	for f in "$dir"/*.pot; do mv -- "$f" "${f%.pot}.po"; done
+	for f in "$dir"/*.po; do
+		b="$backup/$(basename "$f")"
+		if [ -f "$b" ] && [ "$(msgs "$f")" -le 1 ] && [ "$(msgs "$b")" -gt 1 ]; then
+			echo "Restoring $(basename "$f") (emptied: not in this flavour)"
+			cp "$b" "$f"
+		fi
+	done
+	rm -rf "$backup"
 	rm -rf extensions/bonfire_*/config/current_flavour/assets
 # just mix "bonfire.localise.extract"
 
