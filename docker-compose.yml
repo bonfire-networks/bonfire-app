@@ -62,7 +62,8 @@ services:
     environment:
       - NUM_CPU=${NUM_CPU:-}
     # user: $UID:$GID
-    # shm_size: 500
+    # see the note in docker-compose.release.yml: Docker's 64MB default for /dev/shm is too small for Postgres parallel queries
+    shm_size: 512mb
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

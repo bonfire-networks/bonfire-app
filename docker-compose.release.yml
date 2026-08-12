@@ -61,7 +61,8 @@ services:
         read_only: true
     # ports:
     #   - "5432:5432" # NOTE: Make sure this is commented in production unless you need it temporarily for debugging
-    # shm_size: 1000
+    # Postgres allocates a dynamic shared memory segment per parallel query (in /dev/shm), and Docker defaults that to a mere 64MB
+    shm_size: 1gb
     env_file:
       - config/prod/.env
     environment:
