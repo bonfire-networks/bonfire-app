@@ -14,6 +14,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✨ Added an empty state that helps people create their first circle when none exist. (thanks @ivan)
 
 ### Changed
+- 💅 Redesigned the "Customize this feed" widget (thanks @ivan)
+- 💅 Stream layout: accent colour is reserved for the compose button and active navigation (thanks @ivan)
+- 💅 Stream layout: dividers and hairlines now derive from the text colour instead of the theme's secondary colour (thanks @ivan)
+- 💅 Stream layout: at in-between window sizes the side columns now shrink before the feed does, keeping the reading column the widest element on the page (thanks @ivan)
+- 💅 Dashboard section titles (Circles, Spotlight, Top discussions) now share the same typography and left edge in both interface presets (thanks @ivan)
 - 🎨 Reworked the dark theme palette: neutral dark surfaces with clearer contrast steps, and a blue accent replacing amber as the primary colour, still WIP (thanks @ivan)
 - 💅 Redesigned the "Top discussions" dashboard widget as a compact ranked list, with reply totals and participant previews that make active conversations easier to scan (thanks @ivan)
 - 📱 Redesigned the logged-out mobile navigation dock with instance branding (thanks @ivan)
@@ -29,6 +34,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 versions [`b6b2604`](https://github.com/bonfire-networks/bonfire-app/commit/b6b2604f024ae3abb76df1f3b7b324b54f11ec92) (thanks @mayel)
 
 ### Fixed
+🐛 Quote-request notifications now show the requester’s comment, so you can review what they want to say before accepting the quote (thanks @ivan)
 - 🐛 Fixed full-width buttons (like the audience selector) appearing to shift sideways on hover (thanks @ivan)
 - 🐛 Replies to a deleted or restricted comment no longer silently disappear from discussions: they stay in place under an "unavailable comment" placeholder (thanks @ivan)
 - 🐛 Fixed thread connector lines not aligning with avatars in the Stream layout, and the missing connector to a folded branch's summary row (thanks @ivan)
