@@ -1,21 +1,43 @@
 #!/bin/bash 
 DIR="${1:-$PWD}" 
 
+function show_diff {
+    echo "Here are the changes you made in $DIR:"
+    git --no-pager diff --color --stat HEAD
+    git --no-pager diff --color HEAD
+}
+
+function show_diff_incoming {
+    local before="$1"
+    local after
+    after=$(git rev-parse HEAD)
+
+    if [[ "$before" != "$after" ]]; then
+        echo "Here are the changes that came in for $DIR:"
+        git --no-pager log --color --oneline "$before..$after"
+        git --no-pager diff --color --stat "$before" "$after"
+        git --no-pager diff --color "$before" "$after"
+    fi
+}
+
 function maybe_rebase {
+    local before
+    before=$(git rev-parse HEAD)
+
     if [[ $1 == 'pull' ]]; then
-        git pull --rebase || fail "Please resolve conflicts before continuing." 
+        git pull --rebase || fail "Please resolve conflicts before continuing."
     fi
 
     if [[ $1 == 'rebase' ]]; then
         # if rebasing we assume that jungle already fetched, so we try to directly rebase
-        git rebase || fail "Please resolve conflicts before continuing." 
+        git rebase || fail "Please resolve conflicts before continuing."
     fi
+
+    show_diff_incoming "$before"
 }
 
 function commit {
     if [[ $1 == 'pr' ]]; then
-        echo "Here are the changes you made:"
-        git diff HEAD
         branch_and_commit "$2"
     else
         if [[ -n "$2" ]]; then
@@ -82,8 +104,10 @@ else
     # there are changes
     set -e
 
-    # add all changes (including untracked files)
+    # add all changes (including untracked files), so new files also show up in the diff
     git add --all .
+
+    show_diff
 
     # if there are changes, commit them (needed before being able to rebase)
     (commit "$3" "$4" && post_commit "$2" "$3") || echo "Skipped..."
