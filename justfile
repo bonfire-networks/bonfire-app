@@ -956,6 +956,14 @@ deps-clean *args='':
 
 js-deps-fetch: js-ext-deps _assets-ln
 
+# Build each extension's own JS bundles. Extensions that ship a `build` script in their
+# assets/package.json own their bundle entirely (deps, loaders, output path), rather than
+# bonfire_ui_common's build chain needing an entry per extension.
+js-ext-build: (js-ext-deps "build.ext")
+
+# Watch each extension's own JS bundles (runs them in parallel and blocks, for `watchers:` in dev)
+js-ext-watch: (js-ext-deps "watch.ext")
+
 @js-ext-deps yrn_args='':
 	chmod +x ./config/current_flavour/deps.js.sh
 	just cmd ./config/current_flavour/deps.js.sh $yrn_args
@@ -1403,6 +1411,7 @@ _rel-compile-assets USE_EXT="local" ARGS="":
 	just js-ext-deps
 	just rel-mix {{ USE_EXT }} bonfire.gen_tailwind_sources
 	cd ./assets && yarn && yarn build && cd ..
+	just js-ext-build
 	@if [ -d "extensions/$FLAVOUR/priv/static" ]; then cp -R "extensions/$FLAVOUR/priv/static/." priv/static/; elif [ -d "deps/$FLAVOUR/priv/static" ]; then cp -R "deps/$FLAVOUR/priv/static/." priv/static/; else echo "No flavour static assets found for $FLAVOUR"; fi
 	just rel-mix {{ USE_EXT }} phx.digest {{ ARGS }}
 

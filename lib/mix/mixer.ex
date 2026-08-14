@@ -105,6 +105,14 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       end
     end
 
+    def deps_prefixes(type \\ nil, config \\ mix_config())
+
+    def deps_prefixes(nil, config),
+      do: multirepo_prefixes(config)
+
+    def deps_prefixes(type, config),
+      do: (config[:deps_prefixes] || mix_config()[:deps_prefixes])[type] || []
+
     def multirepo_prefixes(config \\ mix_config()),
       do:
         List.wrap(config[:deps_prefixes] || mix_config()[:deps_prefixes])
@@ -235,20 +243,21 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
         [git: "deps.git", hex: "deps.hex"]
       ]
 
+    # ordering IS the precedence, so all `path:` before any `git:`/`hex:` to let a local fork win
     defp mess_source_files("1" = _WITH_FORKS, "0" = _not_WITH_GIT_DEPS),
       do: [
-        [path: "current_flavour/deps.path", hex: "current_flavour/deps.hex"],
-        [path: "deps.path", hex: "deps.hex"]
+        [path: "current_flavour/deps.path"],
+        [path: "deps.path"],
+        [hex: "current_flavour/deps.hex"],
+        [hex: "deps.hex"]
       ]
 
     defp mess_source_files("1" = _WITH_FORKS, "1" = _WITH_GIT_DEPS),
       do: [
-        [
-          path: "current_flavour/deps.path",
-          git: "current_flavour/deps.git",
-          hex: "current_flavour/deps.hex"
-        ],
-        [path: "deps.path", git: "deps.git", hex: "deps.hex"]
+        [path: "current_flavour/deps.path"],
+        [path: "deps.path"],
+        [git: "current_flavour/deps.git", hex: "current_flavour/deps.hex"],
+        [git: "deps.git", hex: "deps.hex"]
       ]
 
     def deps_to_clean(config, type) do

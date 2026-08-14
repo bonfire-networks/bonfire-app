@@ -287,7 +287,9 @@ config :bonfire, Oban,
     fetch_open_science: String.to_integer(System.get_env("QUEUE_SIZE_OPEN_SCIENCE_FETCH", "1")),
     ghost_webhooks: String.to_integer(System.get_env("QUEUE_SIZE_GHOST_WEBHOOKS", "2")),
     # batched Meilisearch indexing flush (Bonfire.Search.Workers.IndexWorker);
-    search_index: String.to_integer(System.get_env("QUEUE_SIZE_SEARCH_INDEX", "1"))
+    search_index: String.to_integer(System.get_env("QUEUE_SIZE_SEARCH_INDEX", "1")),
+    # generic one-off future tasks any extension can schedule
+    scheduled: String.to_integer(System.get_env("QUEUE_SIZE_SCHEDULED", "1"))
   ],
   plugins: [
     # delete job history after 6 hours

@@ -138,6 +138,11 @@ if hot_code_reload != "-2" do
         "watch.js",
         cd: Path.expand("assets", File.cwd!())
       ],
+      # each extension rebuilds its own lazily-loaded bundles (see `js-ext-build`)
+      just: [
+        "js-ext-watch",
+        cd: File.cwd!()
+      ],
       yarn: [
         "watch.css",
         cd: Path.expand("assets", File.cwd!())
