@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 fixes [`dff48ad`](https://github.com/bonfire-networks/bonfire-app/commit/dff48ad75582d5bdb63dc1297904edfa0e5b4960), [`749b238`](https://github.com/bonfire-networks/bonfire-app/commit/749b23839cc4562d7e7642a6a9ed03d4e4cf1b06), [`2ecd598`](https://github.com/bonfire-networks/bonfire-app/commit/2ecd5981fa868b9826f0e73e6c4444b80f687a6a) (thanks @mayel)
 - 📝 locale [`3c345ed`](https://github.com/bonfire-networks/bonfire-app/commit/3c345ed48b22fc36fed27bab5a16c6cbabbe2733) (thanks @mayel)
 - 📝 rel 12 [`84095c0`](https://github.com/bonfire-networks/bonfire-app/commit/84095c053b249b68a9d011aeedb16c48e74fb6ee) (thanks @ivanminutillo)
+- 📝 rel alpha [`2d6f46f`](https://github.com/bonfire-networks/bonfire-app/commit/2d6f46ff4043c5b23b25f8729906d8317c5c7da6) (thanks @ivanminutillo)
 - 💅 show diff on pull [`35940bb`](https://github.com/bonfire-networks/bonfire-app/commit/35940bb9989225dfb164e1c51527fc4c45dfa831) (thanks @mayel)
 - 📝 transfer profile to another account capabality for admins [`6b7f50f`](https://github.com/bonfire-networks/bonfire-app/commit/6b7f50fe4fa489a26cee3a917e52eeada40793cf) (thanks @mayel)
 - 📝 versions [`b6b2604`](https://github.com/bonfire-networks/bonfire-app/commit/b6b2604f024ae3abb76df1f3b7b324b54f11ec92) (thanks @mayel)
