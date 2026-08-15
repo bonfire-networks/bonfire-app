@@ -28,30 +28,26 @@ run_tool() {
 	fi
 }
 
+# extensions that failed, reported together at the end rather than aborting on the first, so one run tells you everything that is broken. Without this a failed bundle only shows up as a 404 in production
+FAILED=""
+
 for dep in $DEPS ; do
 
+	# first match wins, mirroring how the Elixir side resolves: a local clone takes precedence over the fetched dep. Running both would build the same bundle twice and reported the second, unbuilt copy as a failure
 	if cd "extensions/$dep/assets" 2>/dev/null ; then
 		echo "Install JS deps from extension 'extensions/$dep' with args '$2'"
-		run_tool $TOOL "$2"
+		run_tool $TOOL "$2" || FAILED="$FAILED $dep"
 		cd ../../../
-	else
-		if cd "forks/$dep/assets" 2>/dev/null ; then
-			echo "Install JS deps from extension 'forks/$dep' with args '$2'"
-			run_tool $TOOL "$2"
-			cd ../../../
-		else
-			# TODO: we should only attempt to install from `deps/*` if the extension is not cloned in `extensions/*` or `forks/*`, but this risks the JS deps not being available if we later switch to using the upstream dep, so maybe we should read WITH_FORKS env for this
-			echo "Extension '$dep' is not cloned, trying to install from 'deps/$dep'"
-		fi
-	fi
-
-	
-	if cd "deps/$dep/assets" 2>/dev/null ; then
+	elif cd "forks/$dep/assets" 2>/dev/null ; then
+		echo "Install JS deps from extension 'forks/$dep' with args '$2'"
+		run_tool $TOOL "$2" || FAILED="$FAILED $dep"
+		cd ../../../
+	elif cd "deps/$dep/assets" 2>/dev/null ; then
 		echo "Install JS deps from extension 'deps/$dep' with args '$2'"
-		run_tool $TOOL "$2"
+		run_tool $TOOL "$2" || FAILED="$FAILED $dep"
 		cd ../../../
 	else
-		echo "The extension '$dep' is not available\n"
+		echo "The extension '$dep' is not available"
 	fi
 done
 
@@ -59,4 +55,9 @@ done
 # entry) see one long-running process rather than an immediate exit
 if [ -n "$PARALLEL" ]; then
 	wait
+fi
+
+if [ -n "$FAILED" ]; then
+	echo "FAILED to run '$2' for:$FAILED"
+	exit 1
 fi

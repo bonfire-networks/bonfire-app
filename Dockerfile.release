@@ -185,7 +185,10 @@ RUN cd /opt/build/deps/bonfire_ui_common/assets && yarn && yarn build
 # Without this, anything with its own `build.ext` (the console terminal, milkdown, the emoji picker)
 # is simply never built here and 404s at runtime.
 # bash because each flavour's deps.js.sh declares `#!/usr/bin/env bash` and alpine ships only busybox. Their bodies happen to be POSIX today, but they live in several separate repos, so relying on that could break 
-RUN apk add --no-cache bash
+# corepack because an extension may declare `packageManager: yarn@4.x` without vendoring a yarn
+# release (bonfire_editor_milkdown does), and the image's global yarn 1 refuses to run there at all
+RUN apk add --no-cache bash && corepack enable
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 COPY --from=builder /opt/app/js-deps-get.sh /opt/build/js-deps-get.sh
 RUN cd /opt/build && chmod +x js-deps-get.sh config/current_flavour/deps.js.sh && \
     ./config/current_flavour/deps.js.sh && \
