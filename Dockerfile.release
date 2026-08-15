@@ -179,7 +179,15 @@ RUN mkdir -p /opt/build/deps/bonfire_ui_common/assets/node_modules && \
     ln -s /opt/build/deps/node_modules/* /opt/build/deps/bonfire_ui_common/assets/node_modules/ || echo "Symlinks may already exist"
 
 # Install dependencies and build JS and CSS with external modules
-RUN cd /opt/build/deps/bonfire_ui_common/assets && yarn && yarn build 
+RUN cd /opt/build/deps/bonfire_ui_common/assets && yarn && yarn build
+
+# Then each extension builds its own bundles, the way `just _rel-compile-assets` does outside Docker.
+# Without this, anything with its own `build.ext` (the console terminal, milkdown, the emoji picker)
+# is simply never built here and 404s at runtime.
+COPY --from=builder /opt/app/js-deps-get.sh /opt/build/js-deps-get.sh
+RUN cd /opt/build && chmod +x js-deps-get.sh config/current_flavour/deps.js.sh && \
+    ./config/current_flavour/deps.js.sh && \
+    ./config/current_flavour/deps.js.sh build.ext
 
 # Verify the built assets exists
 RUN ls -la /opt/build/priv/static/assets/
