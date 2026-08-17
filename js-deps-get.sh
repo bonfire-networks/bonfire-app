@@ -8,6 +8,10 @@ TOOL=yarn
 
 command -v $TOOL || (command -v npm && npm -g install $TOOL) || echo "$TOOL is required to install JS deps!"
 
+# Extensions declare which yarn they need via `packageManager`, and a global yarn 1 rightly refuses to run in a yarn 4 project rather than rewriting its lockfile into another format. Corepack is what honours that pin, fetching the declared version on demand. 
+command -v corepack >/dev/null 2>&1 && corepack enable 2>/dev/null || true
+export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+
 # With no args we install. With a script name, only run it where package.json defines it — so a
 # shared loop (eg. `just js-ext-build`) can ask every extension to build its own bundles without
 # erroring on the ones that have none.
