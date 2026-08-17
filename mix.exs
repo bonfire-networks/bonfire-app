@@ -283,8 +283,9 @@ defmodule Bonfire.Umbrella.MixProject do
         # Benchmarking utilities
         {:benchee, "~> 1.1", override: true},
         {:benchee_html, "~> 1.0", only: [:dev, :test]},
-        # for Telemetry store
-        {:circular_buffer, "~> 0.4", only: :dev},
+        # for Telemetry store — in all envs so metrics history can be switched on in prod too,
+        # though it stays off there by default (see Bonfire.Common.Telemetry.Storage)
+        {:circular_buffer, "~> 0.4"},
         # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
         # logging
