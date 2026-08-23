@@ -866,6 +866,7 @@ The app needs these environment variables to be configured in order to work.
 - `FLAVOUR` should reflect your chosen flavour
 - `HOSTNAME` (your domain name, eg: `bonfire.example.com`)
 - `MAIL_BACKEND`, `MAIL_DOMAIN` and `MAIL_KEY` and related keys to configure transactional email, for example set `MAIL_BACKEND=mailgun` and sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key (you may also need to set `MAIL_BASE_URI` if your domain is not setup in EU, as the default `MAIL_BASE_URI` is set as `https://api.eu.mailgun.net/v3`). Many other services and approaches (including SMTP) are available, see [the configuration docs](Bonfire.Mailer.html).
+  - If you use `MAIL_BACKEND=smtp`, set `MAIL_SERVER`, `MAIL_USER` and `MAIL_PASSWORD` (plus optionally `MAIL_PORT` and `MAIL_SSL`) instead of `MAIL_KEY`. Do **not** set both `MAIL_KEY` and `MAIL_PASSWORD`: `MAIL_KEY` takes precedence, so a leftover `MAIL_KEY` from a previous API-based backend will be sent as your SMTP password and authentication will fail (eg. `535 5.7.8`). Remove `MAIL_KEY` from the environment and redeploy so the runtime config is reloaded.
 - `UPLOADS_S3_BUCKET` and the related API key and secret for uploads. See `config/runtime.exs` for extra variables available to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
 
 ### Secret keys for which you should put random secrets. 
