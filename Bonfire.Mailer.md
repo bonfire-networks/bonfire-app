@@ -255,7 +255,7 @@ MAIL_BACKEND=smtp
 MAIL_SERVER=your_smtp_server
 MAIL_PORT=587
 MAIL_USER=your_smtp_username
-MAIL_KEY=your_smtp_password
+MAIL_PASSWORD=your_smtp_password
 MAIL_FROM=email@instance.domain
 MAIL_SSL=true
 ```
@@ -263,6 +263,7 @@ MAIL_SSL=true
 Notes: 
 - `MAIL_PORT` defaults to `587` if not specified.
 - `MAIL_SSL` defaults to `true`, set to `false` if server does not support SSL.
+- Use `MAIL_PASSWORD` for the SMTP password. `MAIL_KEY` is also accepted for backwards compatibility, but **do not set both**: `MAIL_KEY` takes precedence over `MAIL_PASSWORD`, so a leftover `MAIL_KEY` (eg. from a previously configured API-based backend) will be sent as the SMTP password and authentication will fail with something like `535 5.7.8`. Remove `MAIL_KEY` from the environment and redeploy so the runtime config is reloaded.
 
 #### Sendmail
 - Built into many Unix-like operating systems

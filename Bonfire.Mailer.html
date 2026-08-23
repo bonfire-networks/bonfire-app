@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.40.3">
-    <meta name="project" content="Bonfire v1.0.7-social-alpha.25">
+    <meta name="project" content="Bonfire v1.0.7-social-alpha.26">
 
 
-    <title>Email Delivery in Bonfire — Bonfire v1.0.7-social-alpha.25</title>
+    <title>Email Delivery in Bonfire — Bonfire v1.0.7-social-alpha.26</title>
 
     <link rel="stylesheet" href="dist/html-elixir-NHQLCD6Y.css" />
 
-    <script defer src="dist/sidebar_items-CC9B3C45.js"></script>
+    <script defer src="dist/sidebar_items-83FB8EC5.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y2MUTVIN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.7-social-alpha.25
+          v1.0.7-social-alpha.26
         </div>
       </div>
     </div>
@@ -162,9 +162,9 @@ Bonfire
 </span><span class="nc">MAIL_SERVER</span><span class="o">=</span><span class="n">your_smtp_server</span><span class="w">
 </span><span class="nc">MAIL_PORT</span><span class="o">=</span><span class="mi">587</span><span class="w">
 </span><span class="nc">MAIL_USER</span><span class="o">=</span><span class="n">your_smtp_username</span><span class="w">
-</span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_smtp_password</span><span class="w">
+</span><span class="nc">MAIL_PASSWORD</span><span class="o">=</span><span class="n">your_smtp_password</span><span class="w">
 </span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span><span class="w">
-</span><span class="nc">MAIL_SSL</span><span class="o">=</span><span class="no">true</span></code></pre><p>Notes: </p><ul><li><code class="inline">MAIL_PORT</code> defaults to <code class="inline">587</code> if not specified.</li><li><code class="inline">MAIL_SSL</code> defaults to <code class="inline">true</code>, set to <code class="inline">false</code> if server does not support SSL.</li></ul><h4>Sendmail</h4><ul><li>Built into many Unix-like operating systems<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">sendmail</span><span class="w">
+</span><span class="nc">MAIL_SSL</span><span class="o">=</span><span class="no">true</span></code></pre><p>Notes: </p><ul><li><code class="inline">MAIL_PORT</code> defaults to <code class="inline">587</code> if not specified.</li><li><code class="inline">MAIL_SSL</code> defaults to <code class="inline">true</code>, set to <code class="inline">false</code> if server does not support SSL.</li><li>Use <code class="inline">MAIL_PASSWORD</code> for the SMTP password. <code class="inline">MAIL_KEY</code> is also accepted for backwards compatibility, but <strong>do not set both</strong>: <code class="inline">MAIL_KEY</code> takes precedence over <code class="inline">MAIL_PASSWORD</code>, so a leftover <code class="inline">MAIL_KEY</code> (eg. from a previously configured API-based backend) will be sent as the SMTP password and authentication will fail with something like <code class="inline">535 5.7.8</code>. Remove <code class="inline">MAIL_KEY</code> from the environment and redeploy so the runtime config is reloaded.</li></ul><h4>Sendmail</h4><ul><li>Built into many Unix-like operating systems<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">sendmail</span><span class="w">
 </span><span class="nc">MAIL_SERVER</span><span class="o">=</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sendmail</span><span class="w">
 </span><span class="c1"># MAIL_ARGS=</span><span class="w">
 </span><span class="nc">MAIL_QMAIL</span><span class="o">=</span><span class="n">true_or_false</span><span class="w">
