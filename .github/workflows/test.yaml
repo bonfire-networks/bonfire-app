@@ -19,8 +19,7 @@ jobs:
     with:
       file: mix.lock
 
-  # Compile + install the flavour ONCE, populating the cache the test matrix restores, so the three
-  # suites don't each pay for (and log) the same full build. Uses the same composite action they do.
+  # Compile + install the flavour ONCE, populating the cache the test matrix restores, so the three suites don't each pay for (and log) the same full build. Uses the same composite action they do.
   prepare:
     needs: check_file_changed
     if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
@@ -90,13 +89,14 @@ jobs:
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
     steps:
     - uses: actions/checkout@v7
-    # same composite action the prepare job ran, so all three suites set up identically, here it restores prepare's cache, making setup a fast no-op instead of a full rebuild
+    # same composite action the prepare job ran, but in `restore` mode: the flavour install and build already happened there and are cached, so repeating them here only invalidates the restored build and costs ~6min per job (it still falls back to the full setup if the cache missed)
     - uses: ./.github/actions/prepare-bonfire
       with:
         otp: ${{matrix.otp}}
         elixir: ${{matrix.elixir}}
         flavour: ${{matrix.flavour}}
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        setup: restore
     - name: Run tests
       if: matrix.test_only != 'db-down-migrations'
       run: just test-${{matrix.test_only}}

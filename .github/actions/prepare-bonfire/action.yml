@@ -1,5 +1,5 @@
 name: Prepare Bonfire
-description: Install system + BEAM toolchain, restore/populate the deps & build cache, install the flavour, and stage static assets. Shared by the prepare job and every test matrix job so they all use identical setup.
+description: Install system + BEAM toolchain, install the flavour and build (or restore that build from the prepare job), and stage static assets.
 
 inputs:
   otp:
@@ -14,6 +14,13 @@ inputs:
   github-token:
     description: Token used to authenticate git fetches of GitHub deps
     required: true
+  setup:
+    description: >
+      `full` installs the flavour and builds, then hands the result to the matrix jobs (the `prepare`
+      job). `restore` picks that up instead of redoing it, as re-running the setup would invalidate the
+      restored build and cost ~6min per job. Falls back to `full` if the handoff isn't there.
+    required: false
+    default: full
 
 runs:
   using: composite
@@ -40,7 +47,17 @@ runs:
       with:
         otp-version: ${{ inputs.otp }}
         elixir-version: ${{ inputs.elixir }}
-    - name: Restore dependencies cache
+
+    # ── Two DIFFERENT jobs, deliberately not sharing one cache ────────────────────────────────────
+    # 1. BETWEEN runs: reuse the expensive fetch+compile. A hit here can come from an older commit
+    #    (the key is mix.lock-based, and source changes without touching the lock), so it holds ONLY
+    #    lock-derived content — never tracked source. Caching e.g. `config/` or `lib/` here would let
+    #    a stale hit silently overwrite a checked-out change and test the wrong code.
+    # 2. WITHIN this run: hand prepare's finished workspace to the matrix jobs. Keyed to the run (and
+    #    attempt), so it's the same commit by construction and can safely contain everything.
+    - name: Restore deps + build cache (between runs)
+      id: deps-cache
+      if: inputs.setup == 'full'
       uses: actions/cache@v6
       with:
         path: |
@@ -48,12 +65,27 @@ runs:
           _build
           extensions
           forks
-          config
-          !config/*/.env
-        # include the toolchain in the key: a _build compiled under another OTP/Elixir is useless
-        # (it all recompiles) and an exact hit would stop the fresh build being saved
+        # the toolchain belongs in the key: a `_build` compiled under another OTP/Elixir is useless
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock') }}
         restore-keys: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-
+
+    - name: Restore prepared workspace (this run)
+      id: run-cache
+      if: inputs.setup == 'restore'
+      uses: actions/cache/restore@v6
+      with:
+        path: |
+          deps
+          _build
+          extensions
+          forks
+          config
+          lib
+          priv/repo
+          priv/static
+        # exact key only: a partial (restore-keys) hit would be another run's workspace
+        key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-workspace-${{ github.run_id }}-${{ github.run_attempt }}
+
     - name: Install hex
       shell: bash
       run: mix local.hex --force
@@ -63,13 +95,22 @@ runs:
     - name: Configure Git authentication for GitHub
       shell: bash
       run: git config --global url."https://${{ inputs.github-token }}@github.com/".insteadOf "https://github.com/"
+    # regenerates config/*/.env, which is deliberately NOT carried over (`_config_flavour` appends a
+    # FLAVOUR= line each time, so a restored copy would accumulate them). Couple of seconds.
     - name: Prepare environment
       shell: bash
       run: just config
+
+    # Skipped once prepare has done it: `deps-clean-*` plus the installer rewriting config invalidates
+    # the restored `_build`, and the next mix invocation (`ext-migrations-copy`) then recompiles ~420
+    # deps — ~6min per job, for work already paid for. Still runs if the handoff is missing, so a
+    # failed prepare degrades to a self-sufficient job rather than a confusing failure.
     - name: Set things up
+      if: inputs.setup == 'full' || steps.run-cache.outputs.cache-hit != 'true'
       shell: bash
       run: just pre-setup-dev && just _flavour_install ${{ inputs.flavour }} --yes && just _deps-post-get
     - name: Prepare static assets
+      if: inputs.setup == 'full' || steps.run-cache.outputs.cache-hit != 'true'
       shell: bash
       # copy-only (no JS build): committed statics for Plug.Static + NextGenImage tests, plus
       # content-less stubs for the built JS/CSS (the cache-header tests assert headers, not content).
@@ -82,3 +123,18 @@ runs:
         echo '/* CI stub */' > priv/static/assets/bonfire_basic.js
         echo '/* CI stub */' > priv/static/assets/bonfire_basic.css
         rm -rf _build/*/lib/bonfire_ui_common
+
+    - name: Hand the prepared workspace to the matrix jobs
+      if: inputs.setup == 'full'
+      uses: actions/cache/save@v6
+      with:
+        path: |
+          deps
+          _build
+          extensions
+          forks
+          config
+          lib
+          priv/repo
+          priv/static
+        key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-workspace-${{ github.run_id }}-${{ github.run_attempt }}
