@@ -83,6 +83,8 @@ runs:
           lib
           priv/repo
           priv/static
+          # tracked, but setup REWRITES it: `mix deps.get` resolves hex upgrades, so prepare's deps/ match prepare's lock, not the one from checkout, without this the matrix jobs die with "Unchecked dependencies … lock mismatch". Safe here (same run, same commit), and deliberately absent from the between-runs cache, where the lock is the key input.
+          mix.lock
         # exact key only: a partial (restore-keys) hit would be another run's workspace
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-workspace-${{ github.run_id }}-${{ github.run_attempt }}
 
@@ -137,4 +139,6 @@ runs:
           lib
           priv/repo
           priv/static
+          # see comment on the restore step about mix.lock
+          mix.lock
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-workspace-${{ github.run_id }}-${{ github.run_attempt }}
