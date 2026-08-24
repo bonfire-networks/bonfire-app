@@ -1,4 +1,4 @@
-# Bonfire v1.0.7-social-alpha.27 - API Reference
+# Bonfire v1.0.7-social-beta.28 - API Reference
 
 ## Modules
 
