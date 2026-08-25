@@ -37,7 +37,7 @@ Act as a thoughtful and cooperative companion rather than an independent worker:
 - **Feature-Based Organization**: Group related functionality by feature domain within non-UI extensions, while UI extensions use web framework conventions (components, views, controllers, etc.).
 - **Layered Architecture**: Each layer has a clear responsibility:
   - **`bonfire_data_*`** — Ecto schemas, changesets, and migrations only. No business logic or queries.
-  - **Domain contexts** (e.g. `bonfire_social_graph`, `bonfire_me`) — Own the business rules and query logic for their domain (though sometimes there's a seperate query module). Expose reusable helpers that other modules can compose.
+  - **Domain contexts** (e.g. `bonfire_social_graph`, `bonfire_me`) — Own the business rules and query logic for their domain (though sometimes there's a separate query module). Expose reusable helpers that other modules can compose.
   - **`bonfire_ui_*`** — UI components and widgets. Call into contexts/integrations for data, never implement non-UI-logic or build queries directly.
 - **Query ownership**: A query about a domain concept (follows, blocks, posts) belongs in that domain's context module, even if it's consumed by another extension. The consuming extension should call the helper, not rewrite the query. For example, a follow-related query belongs in `Follows` even if `Instances` needs the result — `Instances` calls `Follows` and wraps with its own aggregation.
 - **Enabling/disabling modules**: Use the standard modularity config key `[:otp_app, MyModule, :modularity]` set to `:disabled` — not a custom `:enabled` flag.

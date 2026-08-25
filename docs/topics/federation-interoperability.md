@@ -99,7 +99,7 @@ Partial support or conformity to-be-confirmed (help needed!):
 - [FEP-c16b][37] (Formatting MFM functions)
 - [FEP-eb48][38] (Hashtags)
 
-Work-in-progres, planned, or exploring (suggestions/feedback welcome!):
+Work-in-progress, planned, or exploring (suggestions/feedback welcome!):
 - [FEP-1b12][15] (Group federation)
 - [FEP-67ff][39] (FEDERATION.md)
 - [FEP-2677][40] (Identifying the Application Actor)
