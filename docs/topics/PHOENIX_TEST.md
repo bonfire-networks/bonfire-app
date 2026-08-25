@@ -38,7 +38,7 @@ defmodule MyAppWeb.AdminCanCreateUserTest do
 end
 copy
 Filling out forms
-We can fill out forms by targetting their inputs, selects, etc. by label:
+We can fill out forms by targeting their inputs, selects, etc. by label:
 
 test "admin can create user", %{conn: conn} do
   conn
@@ -105,7 +105,7 @@ Clicks a link with given text (using a substring match) and performs the action.
 click_link(session, selector, text)
 Clicks a link with given CSS selector and text and performs the action. selector to target the link.
 fill_in(session, label, opts)
-Fills text inputs and textareas, targetting the elements by their labels.
+Fills text inputs and textareas, targeting the elements by their labels.
 fill_in(session, input_selector, label, opts)
 Like fill_in/3 but you can specify an input's selector (in addition to the label).
 open_browser(session)
