@@ -1297,7 +1297,12 @@ load_testing: services
 test-db-reset: services db-pre-migrations 
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test web mix ecto.drop --force" } else { "MIX_ENV=test just mix ecto.drop --force" } }}
 
-test-db-reset-all: services db-pre-migrations test-db-reset _test-db-dance-reset
+test-db-reset-all: services db-pre-migrations test-db-reset _test-db-server-reset _test-db-dance-reset
+
+# Reset the DB used by UNSANDBOXED test runs (browser/UI tests, live-federation, a test-env dev server, anything with PHX_SERVER=yes). 
+# Note: needs PHX_SERVER=yes to resolve the same DB name, which flips :sql_sandbox, so it can hit the compile-env mismatch if the build is currently in plain-test mode (run `just mix deps.clean bonfire --build` first if so).
+_test-db-server-reset: services db-pre-migrations
+	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test -e PHX_SERVER=yes web mix ecto.drop --force" } else { "PHX_SERVER=yes MIX_ENV=test just mix ecto.drop --force" } }}
 
 _test-db-dance-reset: services db-pre-migrations
 	{{ if WITH_DOCKER == "total" { "just docker-compose run -e MIX_ENV=test -e TEST_INSTANCE=yes web mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } else { "TEST_INSTANCE=yes MIX_ENV=test just mix ecto.drop --force -r Bonfire.Common.TestInstanceRepo" } }}
