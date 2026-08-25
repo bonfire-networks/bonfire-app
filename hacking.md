@@ -108,7 +108,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 > #### Info {: .info}
 >
-> Note: you can use a tool like [mise](https://mise.jdx.dev/) or asdf to setup the environment (run `mise install` in the root directory). You will still need to install Postgres and Meili seperately though.
+> Note: you can use a tool like [mise](https://mise.jdx.dev/) or asdf to setup the environment (run `mise install` in the root directory). You will still need to install Postgres and Meili separately though.
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
