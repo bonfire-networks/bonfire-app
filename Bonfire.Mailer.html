@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.40.3">
-    <meta name="project" content="Bonfire v1.0.7-social-beta.35">
+    <meta name="project" content="Bonfire v1.0.7-social-beta.36">
 
 
-    <title>Email Delivery in Bonfire — Bonfire v1.0.7-social-beta.35</title>
+    <title>Email Delivery in Bonfire — Bonfire v1.0.7-social-beta.36</title>
 
     <link rel="stylesheet" href="dist/html-elixir-NHQLCD6Y.css" />
 
-    <script defer src="dist/sidebar_items-83FB8EC5.js"></script>
+    <script defer src="dist/sidebar_items-D8929C11.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-Y2MUTVIN.js"></script>
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.0.7-social-beta.35
+          v1.0.7-social-beta.36
         </div>
       </div>
     </div>
@@ -154,7 +154,7 @@ Bonfire
 </span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre></li></ul><h4>Campaign Monitor</h4><ul><li>Website: <a rel="nofollow" href="https://www.campaignmonitor.com/">campaignmonitor.com</a></li><li>No free tier, pay-as-you-go pricing<pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">campaign_monitor</span><span class="w">
 </span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_campaign_monitor_api_key</span><span class="w">
 </span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre></li></ul><h4>Amazon AWS SES</h4><ul><li>Website: <a rel="nofollow" href="https://aws.amazon.com/ses/">aws.amazon.com</a></li><li>Free Tier: 3,000 message / month (only for the first 12 months, and extra AWS charges may still apply)</li></ul><p>Amazon SES can be configured in two ways:</p><ol><li><p>Using existing AWS credentials (if already configured for S3 file storage, you can simplify configuration and use the same AWS credentials for both file storage and email delivery):</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
-</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre><p>Note: This method will automatically use the credentials set by <code class="inline">UPLOADS_S3_ACCESS_KEY_ID</code> and <code class="inline">UPLOADS_S3_SECRET_ACCESS_KEY</code>. No additional configuration is needed if these are already set up for a Bonfire extension (such as <a href="https://hexdocs.pm/bonfire_files/0.1.0/Bonfire.Files.html"><code class="inline">Bonfire.Files</code></a>) which uses S3 file storage.</p></li><li><p>Using dedicated credentials, if you don't use AWS for S3 file storage or you want to use different AWS accounts for file storage and email delivery:</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
+</span><span class="nc">MAIL_FROM</span><span class="o">=</span><span class="n">email</span><span class="na">@instance</span><span class="o">.</span><span class="n">domain</span></code></pre><p>Note: This method will automatically use the credentials set by <code class="inline">UPLOADS_S3_ACCESS_KEY_ID</code> and <code class="inline">UPLOADS_S3_SECRET_ACCESS_KEY</code>. No additional configuration is needed if these are already set up for a Bonfire extension (such as <a href="./Bonfire.Files.html"><code class="inline">Bonfire.Files</code></a>) which uses S3 file storage.</p></li><li><p>Using dedicated credentials, if you don't use AWS for S3 file storage or you want to use different AWS accounts for file storage and email delivery:</p><pre><code class="makeup elixir" translate="no"><span class="nc">MAIL_BACKEND</span><span class="o">=</span><span class="n">aws</span><span class="w">
 </span><span class="nc">MAIL_KEY</span><span class="o">=</span><span class="n">your_aws_access_key_id</span><span class="w">
 </span><span class="nc">MAIL_PRIVATE_KEY</span><span class="o">=</span><span class="n">your_aws_secret_access_key</span><span class="w">
 </span><span class="nc">MAIL_REGION</span><span class="o">=</span><span class="n">your_aws_region</span><span class="w">
