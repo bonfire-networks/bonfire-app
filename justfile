@@ -868,6 +868,10 @@ update-repo-pull:
 update-deps-bonfire:
 	just mix-remote bonfire.deps.update
 
+# Same, but also covering extensions that only exist in OTHER flavours, whose pins are invisible from here and so go stale forever (see `WITH_ALL_FLAVOUR_DEPS` in lib/mix/mixer.ex)
+update-deps-bonfire-all-flavours:
+	WITH_ALL_FLAVOUR_DEPS=1 just update-deps-bonfire
+
 # Update every single dependency (use with caution)
 update-deps-all: _pre-update-deps
 	just update-deps-js
@@ -890,9 +894,10 @@ update-dep dep: _pre-update-deps
 	just _deps-post-get
 	./js-deps-get.sh $dep
 
-update-dep-simple dep: 
+# always with WITH_ALL_FLAVOUR_DEPS: naming a dep explicitly means you want it found, and without it Mix answers "Unknown dependency" for anything outside the current flavour
+update-dep-simple dep:
 	just update-fork $dep pull
-	COMPILE_DISABLED_EXTENSIONS=all just mix-remote "deps.update $dep"
+	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update $dep"
 
 # Pull the latest commits from all clones
 @update-clones:

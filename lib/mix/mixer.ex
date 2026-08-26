@@ -152,7 +152,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def mess_sources(flavour) do
       mess_source_files(System.get_env("WITH_CLONES", "1"), System.get_env("WITH_GIT_DEPS", "1"))
-      |> maybe_all_flavour_sources(flavour, System.get_env("WITH_ALL_FLAVOUR_DEPS", "1"))
+      |> maybe_all_flavour_sources(flavour, System.get_env("WITH_ALL_FLAVOUR_DEPS", "0"))
 
       # |> log(label: "messy")
     end
@@ -186,19 +186,50 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     #   |> deps_names_list()
     # end
 
-    defp maybe_all_flavour_sources(
-           existing_sources,
-           current_flavour,
-           "1" = _WITH_ALL_FLAVOUR_DEPS
-         ) do
-      # ++ [disabled: other_flavour_sources(existing_sources, current_flavour)]
-      enum_mess_sources(existing_sources)
+    # OPT-IN (`WITH_ALL_FLAVOUR_DEPS=1`), because it changes what Mix resolves: it declares every OTHER flavour's deps too, so that a dep which only exists in another flavour can be resolved at all. Without it, `mix deps.update some_other_flavours_ext` answers "Unknown dependency" and that extension's `mix.lock` pin can never be refreshed from here.
+    # TODO: they could instead come in under `disabled:`, which `Mess.enum_deps/1` marks `runtime: false` and only honours when `compile_disabled?/0` is true as well. That would let them be declared without being built, at the cost of a second gate to line up.
+    defp maybe_all_flavour_sources(existing_sources, current_flavour, with_all)
+         when with_all in ["1", "yes", "all"] do
+      enum_mess_sources(existing_sources) ++
+        other_flavour_sources(existing_sources, current_flavour)
 
       # |> log("all_flavour_sources")
     end
 
     defp maybe_all_flavour_sources(existing_sources, _flavour, _not_WITH_ALL_FLAVOUR_DEPS) do
       enum_mess_sources(existing_sources)
+    end
+
+    @doc """
+    The dep files of every flavour EXCEPT the current one.
+
+    A flavour is a dir under `forks_path/0` with its own `deps.*` at the root, beside an `install.sh` rather than in a `config/` subdir. The `install.sh` is what distinguishes one: plenty of ordinary extensions ship a `deps.git` too, and those are NOT flavours.
+
+    TODO: sniffing the filesystem for `install.sh` is a guess about intent. Flavours should declare themselves instead, e.g. a field in the flavour's own `mix.exs` or a single manifest listing them, which `.github/workflows/flavours.yaml` could also then read rather than hardcoding its own `build`/`otp` lists.
+
+    """
+    def other_flavour_sources(
+          existing_sources \\ mess_source_files(
+            System.get_env("WITH_CLONES", "1"),
+            System.get_env("WITH_GIT_DEPS", "1")
+          ),
+          current_flavour \\ System.get_env("FLAVOUR", "ember")
+        ) do
+      # Each flavour keeps its deps files at its own root, so the groups to re-root are the plainly-named ones (`deps.path`, `deps.git`, `deps.hex`); the `current_flavour/`-prefixed groups describe the CURRENT flavour and have no counterpart in another one.
+      # Their `deps.path` has to come along, not just git/hex: that is where a flavour maps its extensions to local clones, so leaving it out means those extensions resolve from git and any local fix to them is invisible. Order within a flavour is preserved for the same reason it matters in `mess_source_files/2`, path before git/hex, so a clone wins.
+      sublists =
+        Enum.reject(
+          existing_sources,
+          &Enum.any?(&1, fn {_kind, file} -> String.starts_with?(file, "current_flavour/") end)
+        )
+
+      for path <- Path.wildcard("#{forks_path()}*/deps.git"),
+          dir = Path.dirname(path),
+          File.exists?("#{dir}/install.sh"),
+          Path.basename(dir) != current_flavour,
+          sublist <- sublists do
+        enum_mess_sources(sublist, "#{dir}/")
+      end
     end
 
     # def other_flavour_sources(
