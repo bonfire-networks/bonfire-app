@@ -704,7 +704,7 @@ defmodule Bonfire.Umbrella.MixProject do
       updates: ["deps.get", "bonfire.deps.update"],
       upgrade: ["updates", "ecto.migrate"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
-      "ecto.migrate": ["bonfire.seeds"],
+      # "ecto.migrate": ["bonfire.seeds"],
       "ecto.reset": ["ecto.drop --force", "ecto.setup"],
       "test.with-db": ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "format.assets": [
